@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_CONTACT_NAME;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_PHONE_NUM;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_REL_TYPE;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact;
 import org.kuali.kfs.module.tem.document.TravelDocumentBase;
@@ -31,8 +29,10 @@ import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_CONTACT_NAME;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_PHONE_NUM;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_AUTH_EM_CONTACT_REL_TYPE;
 
 public class TravelAuthEmergencyContactRequiredInfoValidation extends GenericValidation {
     protected TravelService travelService;
@@ -50,11 +50,10 @@ public class TravelAuthEmergencyContactRequiredInfoValidation extends GenericVal
         if (StringUtils.isBlank(emergencyContact.getPhoneNumber())) {
             GlobalVariables.getMessageMap().putError(TRVL_AUTH_EM_CONTACT_PHONE_NUM, KFSKeyConstants.ERROR_REQUIRED, "Contact Phone Number");
             valid &= false;
-        }
-        else {
+        } else {
             String errorMessage = getTravelService().validatePhoneNumber(emergencyContact.getPhoneNumber(), TemKeyConstants.ERROR_EMERGENCY_PHONE_NUMBER);
             if (!StringUtils.isBlank(errorMessage)) {
-                GlobalVariables.getMessageMap().putError(TRVL_AUTH_EM_CONTACT_PHONE_NUM, errorMessage, new String[] { "Contact Phone Number"});
+                GlobalVariables.getMessageMap().putError(TRVL_AUTH_EM_CONTACT_PHONE_NUM, errorMessage, new String[]{"Contact Phone Number"});
                 valid &= false;
             }
         }
@@ -68,6 +67,7 @@ public class TravelAuthEmergencyContactRequiredInfoValidation extends GenericVal
 
     /**
      * Gets the travelService attribute.
+     *
      * @return Returns the travelService.
      */
     public TravelService getTravelService() {
@@ -76,6 +76,7 @@ public class TravelAuthEmergencyContactRequiredInfoValidation extends GenericVal
 
     /**
      * Sets the travelService attribute value.
+     *
      * @param travelService The travelService to set.
      */
     public void setTravelService(TravelService travelService) {

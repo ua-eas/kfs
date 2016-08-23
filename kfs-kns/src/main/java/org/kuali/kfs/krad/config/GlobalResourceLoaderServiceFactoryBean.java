@@ -29,55 +29,52 @@ import javax.xml.namespace.QName;
 
 /**
  * Exports services in the {@link org.kuali.rice.core.api.resourceloader.GlobalResourceLoader} as beans available to Spring.
- *
- *
- *
  */
 public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Object>, InitializingBean {
 
     private String serviceNamespace;
-	private String serviceName;
-	private boolean singleton;
-	private boolean mustExist;
+    private String serviceName;
+    private boolean singleton;
+    private boolean mustExist;
 
-	// used to prevent a stack overflow when trying to get the service
-	private ThreadLocal<Boolean> isFetchingService = new ApplicationThreadLocal<Boolean>() {
+    // used to prevent a stack overflow when trying to get the service
+    private ThreadLocal<Boolean> isFetchingService = new ApplicationThreadLocal<Boolean>() {
         @Override
         protected Boolean initialValue() {
             return false;
         }
-	};
+    };
 
-	public GlobalResourceLoaderServiceFactoryBean() {
-		this.mustExist = true;
-	}
+    public GlobalResourceLoaderServiceFactoryBean() {
+        this.mustExist = true;
+    }
 
-	public Object getObject() throws Exception {
-		if (isFetchingService.get()) return null; // we already have been invoked, don't recurse, just return null.
-		isFetchingService.set(true);
-		try {
+    public Object getObject() throws Exception {
+        if (isFetchingService.get()) return null; // we already have been invoked, don't recurse, just return null.
+        isFetchingService.set(true);
+        try {
             Object service = null;
             if (StringUtils.isBlank(getServiceNamespace())) {
-			    service = GlobalResourceLoader.getService(this.getServiceName());
+                service = GlobalResourceLoader.getService(this.getServiceName());
             } else {
                 service = GlobalResourceLoader.getService(new QName(getServiceNamespace(), getServiceName()));
             }
-			if (mustExist && service == null) {
-				throw new IllegalStateException("Service must exist and no service could be located with serviceNamespace='" + getServiceNamespace() + "' and name='" + this.getServiceName() + "'");
-			}
-			return service;
-		} finally {
-			isFetchingService.remove();
-		}
-	}
+            if (mustExist && service == null) {
+                throw new IllegalStateException("Service must exist and no service could be located with serviceNamespace='" + getServiceNamespace() + "' and name='" + this.getServiceName() + "'");
+            }
+            return service;
+        } finally {
+            isFetchingService.remove();
+        }
+    }
 
-	public Class<?> getObjectType() {
-		return Object.class;
-	}
+    public Class<?> getObjectType() {
+        return Object.class;
+    }
 
-	public boolean isSingleton() {
-		return singleton;
-	}
+    public boolean isSingleton() {
+        return singleton;
+    }
 
     public String getServiceNamespace() {
         return serviceNamespace;
@@ -88,30 +85,30 @@ public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Objec
     }
 
     public String getServiceName() {
-		return serviceName;
-	}
+        return serviceName;
+    }
 
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
-	public void setSingleton(boolean singleton) {
-		this.singleton = singleton;
-	}
+    public void setSingleton(boolean singleton) {
+        this.singleton = singleton;
+    }
 
-	public boolean isMustExist() {
-		return mustExist;
-	}
+    public boolean isMustExist() {
+        return mustExist;
+    }
 
-	public void setMustExist(boolean mustExist) {
-		this.mustExist = mustExist;
-	}
+    public void setMustExist(boolean mustExist) {
+        this.mustExist = mustExist;
+    }
 
 
-	public void afterPropertiesSet() throws Exception {
-		if (StringUtils.isBlank(this.getServiceName())) {
-			throw new ConfigurationException("No serviceName given.");
-		}
-	}
+    public void afterPropertiesSet() throws Exception {
+        if (StringUtils.isBlank(this.getServiceName())) {
+            throw new ConfigurationException("No serviceName given.");
+        }
+    }
 
 }

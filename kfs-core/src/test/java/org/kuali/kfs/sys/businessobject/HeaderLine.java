@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.batch.FlatFileData;
+import org.kuali.kfs.sys.batch.FlatFileTransactionInformation;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.batch.FlatFileData;
-import org.kuali.kfs.sys.batch.FlatFileTransactionInformation;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
-
 
 
 public class HeaderLine extends TransientBusinessObjectBase implements FlatFileData {
@@ -37,17 +35,14 @@ public class HeaderLine extends TransientBusinessObjectBase implements FlatFileD
     private FlatFileTransactionInformation fileTransactionInformation;
 
 
-
     public List<DetailLine> getDetailLine() {
         return detailLine;
     }
 
 
-
     public void setDetailLine(List<DetailLine> detailLine) {
         this.detailLine = detailLine;
     }
-
 
 
     public HeaderLine() {
@@ -72,12 +67,9 @@ public class HeaderLine extends TransientBusinessObjectBase implements FlatFileD
     }
 
 
-
-
-
     public FlatFileTransactionInformation getFlatFileTransactionInformation() {
-        if (fileTransactionInformation == null ) {
-          this.fileTransactionInformation = new FlatFileTransactionInformation(getLockboxNumber());
+        if (fileTransactionInformation == null) {
+            this.fileTransactionInformation = new FlatFileTransactionInformation(getLockboxNumber());
         }
         return fileTransactionInformation;
     }
@@ -89,11 +81,6 @@ public class HeaderLine extends TransientBusinessObjectBase implements FlatFileD
         pkMap.put("lockboxNumber", this.lockboxNumber);
         return pkMap;
     }
-
-
-
-
-
 
 
 }

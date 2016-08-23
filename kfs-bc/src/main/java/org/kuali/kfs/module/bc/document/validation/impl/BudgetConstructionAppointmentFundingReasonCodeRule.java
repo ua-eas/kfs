@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.impl;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode;
 import org.kuali.kfs.module.bc.document.service.SalarySettingService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /**
  * Business rules for BudgetConstructionAppointmentFundingReasonCode maintenance document.
@@ -58,7 +58,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
         return success;
     }
 
-    protected boolean checkInactivateReason(MaintenanceDocument document){
+    protected boolean checkInactivateReason(MaintenanceDocument document) {
         LOG.info("checkInactivateReason called");
 
         boolean success = true;
@@ -69,7 +69,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
         }
 
         // disallow inactivation if appointment funding reasons exist using this editable code
-        if (salarySettingService.hasExistingFundingReason(newBudgetConstructionAppointmentFundingReasonCode)){
+        if (salarySettingService.hasExistingFundingReason(newBudgetConstructionAppointmentFundingReasonCode)) {
             putGlobalError(BCKeyConstants.ERROR_BUDGET_REASONMAINT_INACTIVATE_REASONEXIST);
             success &= false;
         }
@@ -89,6 +89,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
 
     /**
      * Sets the salarySettingService attribute value.
+     *
      * @param salarySettingService The salarySettingService to set.
      */
     public void setSalarySettingService(SalarySettingService salarySettingService) {

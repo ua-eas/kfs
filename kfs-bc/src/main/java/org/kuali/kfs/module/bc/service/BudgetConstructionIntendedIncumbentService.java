@@ -33,7 +33,7 @@ public interface BudgetConstructionIntendedIncumbentService {
      * record in the budget intended incumbent table.
      *
      * @param emplid university id for the incumbent to pull
-     * @exception BudgetPositionAlreadyExistsException thrown when position is already in the budget table
+     * @throws BudgetPositionAlreadyExistsException thrown when position is already in the budget table
      */
     public void pullNewIncumbentFromExternal(String emplid) throws BudgetIncumbentAlreadyExistsException;
 

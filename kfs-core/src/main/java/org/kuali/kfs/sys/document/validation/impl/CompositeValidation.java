@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+
+import java.util.List;
 
 
 /**
@@ -35,6 +35,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Validates each sub-validation in turn, returning the cumulative effect of each
+     *
      * @see org.kuali.kfs.rules.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -45,12 +46,12 @@ public class CompositeValidation implements Validation {
         boolean result = true;
         boolean currResult;
 
-        for (Validation validation: subValidations) {
+        for (Validation validation : subValidations) {
             currResult = validation.stageValidation(event);
             result &= currResult;
 
-            if(!currResult) {
-                if ( LOG.isDebugEnabled() ) {
+            if (!currResult) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug(validation.getClass() + " failed");
                 }
             }
@@ -65,6 +66,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Just call validate!
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#stageValidation(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean stageValidation(AttributedDocumentEvent event) {
@@ -73,6 +75,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Returns the List of validations to test
+     *
      * @return a List of validations to test
      */
     public List<Validation> getValidations() {
@@ -81,6 +84,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Sets the List of validations to test
+     *
      * @param validations a List of validations to test against
      */
     public void setValidations(List<Validation> validations) {
@@ -89,6 +93,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Gets the shouldQuitOnFail attribute.
+     *
      * @return Returns the shouldQuitOnFail.
      */
     public boolean shouldQuitOnFail() {
@@ -97,6 +102,7 @@ public class CompositeValidation implements Validation {
 
     /**
      * Sets the shouldQuitOnFail attribute value.
+     *
      * @param shouldQuitOnFail The shouldQuitOnFail to set.
      */
     public void setQuitOnFail(boolean shouldQuitOnFail) {

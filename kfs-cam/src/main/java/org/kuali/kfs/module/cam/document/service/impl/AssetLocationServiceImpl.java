@@ -18,11 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntryBase;
+import org.kuali.kfs.krad.document.DocumentBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -32,15 +34,13 @@ import org.kuali.kfs.module.cam.document.service.AssetLocationService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryEntryBase;
-import org.kuali.kfs.krad.document.DocumentBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssetLocationServiceImpl implements AssetLocationService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetLocationService.class);
@@ -85,8 +85,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
             if (CamsConstants.AssetLocationTypeCode.OFF_CAMPUS.equalsIgnoreCase(location.getAssetLocationTypeCode())) {
                 if (isOffCampusEmpty) {
                     removableOffCampusLocation = location;
-                }
-                else {
+                } else {
                     location.setAssetLocationCityName(offLocation.getAssetLocationCityName());
                     location.setAssetLocationContactIdentifier(offLocation.getAssetLocationContactIdentifier());
                     location.setAssetLocationContactName(offLocation.getAssetLocationContactName());
@@ -103,8 +102,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
 
         if (removableOffCampusLocation != null) {
             asset.getAssetLocations().remove(removableOffCampusLocation);
-        }
-        else if (!isOffCampusEmpty) { // add the check for off-campus empty
+        } else if (!isOffCampusEmpty) { // add the check for off-campus empty
             // new offCampusLocation, add it into assetLocation List
             asset.getAssetLocations().add(offLocation);
         }
@@ -137,7 +135,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetLocationService#validateLocation(java.lang.Object,
-     *      org.kuali.kfs.module.cam.businessobject.Asset, java.util.Map)
+     * org.kuali.kfs.module.cam.businessobject.Asset, java.util.Map)
      */
     public boolean validateLocation(Map<LocationField, String> fieldMap, BusinessObject businessObject, boolean isCapital, AssetType assetType) {
         String campusCode = readPropertyValue(businessObject, fieldMap, LocationField.CAMPUS_CODE);
@@ -157,8 +155,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
         if (DocumentBase.class.isAssignableFrom(businessObject.getClass())) {
             String docTypeName = ddService.getDocumentTypeNameByClass(businessObject.getClass());
             ddEntry = ddService.getDataDictionary().getDocumentEntry(docTypeName);
-        }
-        else {
+        } else {
             ddEntry = this.getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(businessObject.getClass().getName());
         }
 
@@ -169,12 +166,10 @@ public class AssetLocationServiceImpl implements AssetLocationService {
         if (onCampus && offCampus) {
             putError(fieldMap, LocationField.BUILDING_CODE, CamsKeyConstants.AssetLocation.ERROR_CHOOSE_LOCATION_INFO);
             valid &= false;
-        }
-        else {
+        } else {
             if (isCapital) {
                 valid &= validateCapitalAssetLocation(assetType, fieldMap, campusCode, buildingCode, roomNumber, subRoomNumber, contactName, streetAddress, cityName, stateCode, zipCode, countryCode, onCampus, offCampus, ddEntry);
-            }
-            else {
+            } else {
                 valid &= validateNonCapitalAssetLocation(fieldMap, contactName, streetAddress, cityName, stateCode, zipCode, countryCode, onCampus, offCampus);
             }
         }
@@ -187,73 +182,68 @@ public class AssetLocationServiceImpl implements AssetLocationService {
         if (ObjectUtils.isNull(assetType)) {
             GlobalVariables.getMessageMap().putErrorForSectionId(CamsConstants.LOCATION_INFORMATION_SECTION_ID, CamsKeyConstants.AssetLocation.ERROR_CHOOSE_ASSET_TYPE);
             valid &= false;
-        }
-        else {
+        } else {
             String label;
             if (assetType.isRequiredBuildingIndicator() && offCampus) {
                 // off campus information not allowed
                 if (StringUtils.isNotBlank(contactName)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.CONTACT_NAME)).getLabel();
-                    putError(fieldMap, LocationField.CONTACT_NAME, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.CONTACT_NAME, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
                 if (StringUtils.isNotBlank(streetAddress)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.STREET_ADDRESS)).getLabel();
-                    putError(fieldMap, LocationField.STREET_ADDRESS, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.STREET_ADDRESS, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(cityName)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.CITY_NAME)).getLabel();
-                    putError(fieldMap, LocationField.CITY_NAME, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.CITY_NAME, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(stateCode)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.STATE_CODE)).getLabel();
-                    putError(fieldMap, LocationField.STATE_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.STATE_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(zipCode)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.ZIP_CODE)).getLabel();
-                    putError(fieldMap, LocationField.ZIP_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.ZIP_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(countryCode)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.COUNTRY_CODE)).getLabel();
-                    putError(fieldMap, LocationField.COUNTRY_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.COUNTRY_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
-            }
-            else if (!assetType.isMovingIndicator() && !assetType.isRequiredBuildingIndicator() && onCampus) {
+            } else if (!assetType.isMovingIndicator() && !assetType.isRequiredBuildingIndicator() && onCampus) {
                 // land information cannot have on-campus
                 if (StringUtils.isNotBlank(buildingCode)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.BUILDING_CODE)).getLabel();
-                    putError(fieldMap, LocationField.BUILDING_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.BUILDING_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(roomNumber)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.ROOM_NUMBER)).getLabel();
-                    putError(fieldMap, LocationField.ROOM_NUMBER, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.ROOM_NUMBER, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
 
                 if (StringUtils.isNotBlank(subRoomNumber)) {
                     label = businessObjectEntry.getAttributeDefinition(fieldMap.get(LocationField.SUB_ROOM_NUMBER)).getLabel();
-                    putError(fieldMap, LocationField.SUB_ROOM_NUMBER, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[] { label, assetType.getCapitalAssetTypeDescription() });
+                    putError(fieldMap, LocationField.SUB_ROOM_NUMBER, CamsKeyConstants.AssetLocation.ERROR_LOCATION_NOT_PERMITTED_ASSET_TYPE, new String[]{label, assetType.getCapitalAssetTypeDescription()});
                     valid &= false;
                 }
-            }
-            else if (onCampus) {
+            } else if (onCampus) {
                 valid = validateOnCampusLocation(fieldMap, assetType, campusCode, buildingCode, roomNumber, subRoomNumber);
-            }
-            else if (offCampus) {
+            } else if (offCampus) {
                 valid = validateOffCampusLocation(fieldMap, contactName, streetAddress, cityName, stateCode, zipCode, countryCode);
-            }
-            else if (assetType.isMovingIndicator() || assetType.isRequiredBuildingIndicator()) {
+            } else if (assetType.isMovingIndicator() || assetType.isRequiredBuildingIndicator()) {
                 putError(fieldMap, LocationField.BUILDING_CODE, CamsKeyConstants.AssetLocation.ERROR_LOCATION_INFO_REQUIRED);
                 valid &= false;
             }
@@ -312,8 +302,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
         if (isBlank(fieldMap, LocationField.COUNTRY_CODE, countryCode)) {
             putError(fieldMap, LocationField.COUNTRY_CODE, CamsKeyConstants.AssetLocation.ERROR_OFFCAMPUS_COUNTRY_REQUIRED);
             valid &= false;
-        }
-        else {
+        } else {
             isCountryUS = countryCode.equals(KFSConstants.COUNTRY_CODE_UNITED_STATES);
         }
 
@@ -366,8 +355,7 @@ public class AssetLocationServiceImpl implements AssetLocationService {
             if (propertyName != null) {
                 stringValue = (String) ObjectUtils.getNestedValue(currObject, propertyName);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return stringValue;

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.businessobject.lookup;
 
+import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * This class overrides the getBackLocation, getReturnUrl, setFieldConversions and getActionUrls for
@@ -60,7 +60,7 @@ public class OrganizationRoutingModelNameLookupableHelperServiceImpl extends Kua
      * {@link KFSConstants.DISPATCH_REQUEST_PARAMETER}
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject, java.util.Map,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -70,7 +70,7 @@ public class OrganizationRoutingModelNameLookupableHelperServiceImpl extends Kua
         parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, AccountDelegateGlobal.class.getName());
         parameters.put(KFSConstants.OVERRIDE_KEYS, "modelName" + KFSConstants.FIELD_CONVERSIONS_SEPERATOR + "modelChartOfAccountsCode" + KFSConstants.FIELD_CONVERSIONS_SEPERATOR + "modelOrganizationCode");
         setBackLocation(KFSConstants.MAINTENANCE_ACTION);
-        AnchorHtmlData htmlData = (AnchorHtmlData)getReturnAnchorHtmlData(businessObject, parameters, lookupForm, returnKeys, businessObjectRestrictions);
+        AnchorHtmlData htmlData = (AnchorHtmlData) getReturnAnchorHtmlData(businessObject, parameters, lookupForm, returnKeys, businessObjectRestrictions);
         setBackLocation(originalBackLocation); //set this to prevent breaking Account Delegate Model returnLocation
         return htmlData;
     }
@@ -102,8 +102,7 @@ public class OrganizationRoutingModelNameLookupableHelperServiceImpl extends Kua
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         if (!initializingDelegate) {
             return super.getCustomActionUrls(businessObject, pkNames);
-        }
-        else {
+        } else {
             return super.getEmptyActionUrls();
         }
     }

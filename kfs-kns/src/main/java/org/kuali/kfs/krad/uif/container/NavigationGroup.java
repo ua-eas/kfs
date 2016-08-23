@@ -27,54 +27,52 @@ import java.util.Set;
 
 /**
  * Special <code>Group</code> that renders a navigation section
- *
+ * <p>
  * <p>
  * Only supports <code>ActionField</code> instances within the container. These
  * are used to provide the items (or individual links) within the navigation.
  * The navigationType determines how the navigation will be rendered (menu,
  * tabs, dropdown, ...)
  * </p>
- *
- *
  */
 public class NavigationGroup extends Group {
-	private static final long serialVersionUID = -7263923392768546340L;
+    private static final long serialVersionUID = -7263923392768546340L;
 
-	private String navigationType;
+    private String navigationType;
 
-	public NavigationGroup() {
-		super();
-	}
+    public NavigationGroup() {
+        super();
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.web.view.container.ContainerBase#getSupportedComponents()
-	 */
-	@Override
-	public Set<Class<? extends Component>> getSupportedComponents() {
-		Set<Class<? extends Component>> supportedComponents = new HashSet<Class<? extends Component>>();
-		supportedComponents.add(ActionField.class);
+    /**
+     * @see org.kuali.rice.krad.web.view.container.ContainerBase#getSupportedComponents()
+     */
+    @Override
+    public Set<Class<? extends Component>> getSupportedComponents() {
+        Set<Class<? extends Component>> supportedComponents = new HashSet<Class<? extends Component>>();
+        supportedComponents.add(ActionField.class);
 
-		return supportedComponents;
-	}
+        return supportedComponents;
+    }
 
-	/**
-	 * Type of navigation that should be rendered. For example a menu or tab
-	 * navigation. Used by the rendering script to choose an appropriate plug-in
-	 *
-	 * @return String navigation type
-	 * @see UifConstants.NavigationType
-	 */
-	public String getNavigationType() {
-		return this.navigationType;
-	}
+    /**
+     * Type of navigation that should be rendered. For example a menu or tab
+     * navigation. Used by the rendering script to choose an appropriate plug-in
+     *
+     * @return String navigation type
+     * @see UifConstants.NavigationType
+     */
+    public String getNavigationType() {
+        return this.navigationType;
+    }
 
-	/**
-	 * Setter for the navigation type
-	 *
-	 * @param navigationType
-	 */
-	public void setNavigationType(String navigationType) {
-		this.navigationType = navigationType;
-	}
+    /**
+     * Setter for the navigation type
+     *
+     * @param navigationType
+     */
+    public void setNavigationType(String navigationType) {
+        this.navigationType = navigationType;
+    }
 
 }

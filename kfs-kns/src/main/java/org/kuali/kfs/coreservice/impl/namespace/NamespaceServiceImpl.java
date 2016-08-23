@@ -21,8 +21,8 @@ package org.kuali.kfs.coreservice.impl.namespace;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.api.namespace.Namespace;
 import org.kuali.kfs.coreservice.api.namespace.NamespaceService;
-import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,13 +35,13 @@ public class NamespaceServiceImpl implements NamespaceService {
     private BusinessObjectService boService;
 
     @Override
-	public Namespace getNamespace(String code) {
+    public Namespace getNamespace(String code) {
         if (StringUtils.isBlank(code)) {
             throw new RiceIllegalArgumentException("the code is blank");
         }
 
         return NamespaceBo.to(boService.findByPrimaryKey(NamespaceBo.class, singletonMap("code", code)));
-	}
+    }
 
     @Override
     public List<Namespace> findAllNamespaces() {

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Iterator;
-
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.iterators.FilterIterator;
 import org.kuali.kfs.gl.batch.service.BalancePredicate;
 import org.kuali.kfs.gl.batch.service.FilteringBalanceIterator;
 import org.kuali.kfs.gl.businessobject.Balance;
+
+import java.util.Iterator;
 
 /**
  * An implementation of FilteringBalanceIterator that only selects balances that should be selected, according to the predicate that

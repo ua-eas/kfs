@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class PurchasingReceivingValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
 
-        PurchasingDocument purDoc = (PurchasingDocument)event.getDocument();
+        PurchasingDocument purDoc = (PurchasingDocument) event.getDocument();
 
-        if (!purDoc.isReceivingDocumentRequiredIndicator()){
+        if (!purDoc.isReceivingDocumentRequiredIndicator()) {
             return true;
         }
 
@@ -46,13 +46,13 @@ public class PurchasingReceivingValidation extends GenericValidation {
 
         boolean containsQtyTypeItem = false;
         for (PurApItem item : items) {
-            if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()){
+            if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
                 containsQtyTypeItem = true;
                 break;
             }
         }
 
-        if (!containsQtyTypeItem){
+        if (!containsQtyTypeItem) {
             GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_RECEIVING_REQUIRED);
             valid &= false;
         }

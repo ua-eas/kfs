@@ -18,58 +18,53 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="employeeDerivedRoleTypeService"
-		p:localServiceName="employeeDerivedRoleTypeService" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="employeeDerivedRoleTypeService"
+          p:localServiceName="employeeDerivedRoleTypeService"/>
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="batchJobModifierRoleTypeService"
-		p:localServiceName="batchJobModifierRoleTypeService" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="batchJobModifierRoleTypeService"
+          p:localServiceName="batchJobModifierRoleTypeService"/>
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="defaultRoleTypeService"
-		p:localServiceName="defaultRoleTypeService"  />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="defaultRoleTypeService"
+          p:localServiceName="defaultRoleTypeService"/>
 
-	<bean parent="permissionTypeServiceCallback"
-		p:callbackService-ref="financialSystemDocumentTypePermissionTypeService"
-		p:localServiceName="financialSystemDocumentTypePermissionTypeService" />
+    <bean parent="permissionTypeServiceCallback"
+          p:callbackService-ref="financialSystemDocumentTypePermissionTypeService"
+          p:localServiceName="financialSystemDocumentTypePermissionTypeService"/>
 
-	<bean parent="reportPermissionTypeServiceCallback"
-		  p:callbackService-ref="reportPermissionTypeService"
-		  p:localServiceName="reportPermissionTypeService" />
+    <bean parent="reportPermissionTypeServiceCallback"
+          p:callbackService-ref="reportPermissionTypeService"
+          p:localServiceName="reportPermissionTypeService"/>
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="financialSystemUserRoleTypeService"
-		p:localServiceName="financialSystemUserRoleTypeService" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="financialSystemUserRoleTypeService"
+          p:localServiceName="financialSystemUserRoleTypeService"/>
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="excludeSingleActorSeparationOfDutiesRoleTypeService"
-		p:localServiceName="excludeSingleActorSeparationOfDutiesRoleTypeService" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="excludeSingleActorSeparationOfDutiesRoleTypeService"
+          p:localServiceName="excludeSingleActorSeparationOfDutiesRoleTypeService"/>
 
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="paymentMethodRoleTypeService"
-		p:localServiceName="paymentMethodRoleTypeService" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="paymentMethodRoleTypeService"
+          p:localServiceName="paymentMethodRoleTypeService"/>
 
-	<bean parent="permissionTypeServiceCallback"
-		p:callbackService-ref="namespaceOrFilePathPermissionTypeService"
-		p:localServiceName="namespaceOrFilePathPermissionTypeService" />
+    <bean parent="permissionTypeServiceCallback"
+          p:callbackService-ref="namespaceOrFilePathPermissionTypeService"
+          p:localServiceName="namespaceOrFilePathPermissionTypeService"/>
 
-	<bean parent="documentSearchCustomizerCallback"
-		p:callbackService-ref="KFSDocumentSearchCustomizer" p:localServiceName="KFSDocumentSearchCustomizer" />
+    <bean parent="documentSearchCustomizerCallback"
+          p:callbackService-ref="KFSDocumentSearchCustomizer" p:localServiceName="KFSDocumentSearchCustomizer"/>
 
-	<bean parent="searchableAttributeCallback"
-		p:callbackService-ref="FinancialSystemSearchableAttribute" p:localServiceName="FinancialSystemSearchableAttribute" />
+    <bean parent="searchableAttributeCallback"
+          p:callbackService-ref="FinancialSystemSearchableAttribute" p:localServiceName="FinancialSystemSearchableAttribute"/>
 
-	<bean parent="sensitiveDataSecurityAttributeCallback"
-		p:callbackService-ref="SensitiveDataSecurityAttribute" p:localServiceName="SensitiveDataSecurityAttribute" />
+    <bean parent="sensitiveDataSecurityAttributeCallback"
+          p:callbackService-ref="SensitiveDataSecurityAttribute" p:localServiceName="SensitiveDataSecurityAttribute"/>
 
 </beans>

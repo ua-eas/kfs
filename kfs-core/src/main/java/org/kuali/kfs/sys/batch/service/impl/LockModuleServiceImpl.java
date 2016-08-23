@@ -18,24 +18,23 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import org.kuali.kfs.sys.batch.service.LockModuleService;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.sys.batch.service.LockModuleService;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 
 public class LockModuleServiceImpl implements LockModuleService {
     private BusinessObjectService businessObjectService;
     private ParameterService parameterService;
 
-    public void lockModule(String namespaceCode , boolean lockModule) {
-        Parameter parameter  = parameterService.getParameter(namespaceCode, KfsParameterConstants.PARAMETER_ALL_DETAIL_TYPE, KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_ACTIVE_IND);
+    public void lockModule(String namespaceCode, boolean lockModule) {
+        Parameter parameter = parameterService.getParameter(namespaceCode, KfsParameterConstants.PARAMETER_ALL_DETAIL_TYPE, KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_ACTIVE_IND);
         Parameter.Builder updatedParameter = Parameter.Builder.create(parameter);
         if (lockModule) {
             updatedParameter.setValue("Y");
-        }
-        else {
+        } else {
             updatedParameter.setValue("N");
         }
         parameterService.updateParameter(updatedParameter.build());

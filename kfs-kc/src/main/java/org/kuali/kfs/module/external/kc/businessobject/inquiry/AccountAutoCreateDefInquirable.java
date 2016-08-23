@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.external.kc.businessobject.inquiry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Inquirable class for {@link Account}
@@ -41,7 +41,7 @@ public class AccountAutoCreateDefInquirable extends KualiInquirableImpl {
 
     /**
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.lang.String, boolean)
+     * java.lang.String, boolean)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {
@@ -54,7 +54,7 @@ public class AccountAutoCreateDefInquirable extends KualiInquirableImpl {
             parameters.put(KFSConstants.DOC_FORM_KEY, "88888888");
 
             Map<String, String> inquiryFields = new HashMap<String, String>();
-            String acctIdentifier =  ObjectUtils.getPropertyValue(businessObject, attributeName).toString();
+            String acctIdentifier = ObjectUtils.getPropertyValue(businessObject, attributeName).toString();
             if (StringUtils.isBlank(acctIdentifier)) {
                 return new AnchorHtmlData();
             }

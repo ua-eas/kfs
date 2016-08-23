@@ -23,7 +23,7 @@ import java.sql.Date;
 /**
  * Integration interface for AwardAccount
  */
-public interface ContractsAndGrantsBillingAwardAccount extends ContractsAndGrantsAccountAwardInformation{
+public interface ContractsAndGrantsBillingAwardAccount extends ContractsAndGrantsAccountAwardInformation {
     /**
      * Gets the currentLastBilledDate attribute.
      *

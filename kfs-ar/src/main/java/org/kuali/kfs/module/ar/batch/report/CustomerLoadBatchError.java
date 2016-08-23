@@ -29,7 +29,6 @@ public class CustomerLoadBatchError {
     private String description;
 
     /**
-     *
      * Default constructor with all internal fields defaulting to empty-string or null.
      */
     public CustomerLoadBatchError() {
@@ -41,8 +40,8 @@ public class CustomerLoadBatchError {
     }
 
     /**
-     *
      * Constructor to initialize with just the customerName.
+     *
      * @param customerName The customer name of the document being imported.
      */
     public CustomerLoadBatchError(String customerName) {
@@ -50,13 +49,13 @@ public class CustomerLoadBatchError {
     }
 
     /**
-     *
      * Constructs a CustomerLoadBatchError.java.
-     * @param customerName The customer name of the document being imported.
-     * @param propertyName The name of the property on the Customer BO.
+     *
+     * @param customerName  The customer name of the document being imported.
+     * @param propertyName  The name of the property on the Customer BO.
      * @param propertyClass The class of the property named by propertyName.
-     * @param value The original value of the field from the batch import document.
-     * @param description The description of the error that occurred.
+     * @param value         The original value of the field from the batch import document.
+     * @param description   The description of the error that occurred.
      */
     public CustomerLoadBatchError(String customerName, String propertyName, Class<?> propertyClass, String value, String description) {
         this.customerName = customerName;
@@ -68,10 +67,10 @@ public class CustomerLoadBatchError {
 
     public String toString() {
         return "[" + customerName + "] " +
-                ("class java.lang.Object".equals(propertyClass.toString()) || propertyClass == null ? "" : "(" + propertyClass.toString() + ") ") +
-                (StringUtils.isBlank(propertyName) ? "" : getPropertyNameLastElement() + ": ") +
-                (StringUtils.isBlank(value) || "N/A".equalsIgnoreCase(value) ? "" : "'" + value + "' - ") +
-                description;
+            ("class java.lang.Object".equals(propertyClass.toString()) || propertyClass == null ? "" : "(" + propertyClass.toString() + ") ") +
+            (StringUtils.isBlank(propertyName) ? "" : getPropertyNameLastElement() + ": ") +
+            (StringUtils.isBlank(value) || "N/A".equalsIgnoreCase(value) ? "" : "'" + value + "' - ") +
+            description;
     }
 
     public String getPropertyNameLastElement() {
@@ -80,8 +79,7 @@ public class CustomerLoadBatchError {
         String[] propertyNameElements = propertyName.split("\\.");
         if (propertyNameElements.length <= 0) {
             return propertyName;
-        }
-        else {
+        } else {
             return propertyNameElements[propertyNameElements.length - 1];
         }
 

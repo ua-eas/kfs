@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.vnd.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 public class W8TypeOwnershipType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
@@ -45,6 +45,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public String getVendorOwnershipCode() {
         return vendorOwnershipCode;
     }
+
     /**
      * Sets the vendorOwnershipCode attribute.
      *
@@ -53,6 +54,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public void setVendorOwnershipCode(String vendorOwnershipCode) {
         this.vendorOwnershipCode = vendorOwnershipCode;
     }
+
     /**
      * Gets the ownershipType attribute.
      *
@@ -62,6 +64,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public OwnershipType getOwnershipType() {
         return ownershipType;
     }
+
     /**
      * Sets the ownershipType attribute.
      *
@@ -71,6 +74,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public void setOwnershipType(OwnershipType ownershipType) {
         this.ownershipType = ownershipType;
     }
+
     /**
      * Gets the w8TypeCode attribute.
      *
@@ -80,6 +84,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public String getW8TypeCode() {
         return w8TypeCode;
     }
+
     /**
      * Sets the w8TypeCode attribute.
      *
@@ -88,6 +93,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public void setW8TypeCode(String w8TypeCode) {
         this.w8TypeCode = w8TypeCode;
     }
+
     /**
      * Gets the active attribute.
      *
@@ -98,6 +104,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public boolean isActive() {
         return active;
     }
+
     /**
      * Sets the active attribute.
      *
@@ -107,6 +114,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public void setActive(boolean active) {
         this.active = active;
     }
+
     /**
      * Gets the w8Type attribute.
      *
@@ -116,6 +124,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public W8Type getW8Type() {
         return w8Type;
     }
+
     /**
      * Sets the w8Type attribute.
      *
@@ -125,6 +134,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public void setW8Type(W8Type w8Type) {
         this.w8Type = w8Type;
     }
+
     /**
      * Gets the id attribute.
      *
@@ -134,6 +144,7 @@ public class W8TypeOwnershipType extends PersistableBusinessObjectBase implement
     public Integer getId() {
         return id;
     }
+
     /**
      * Sets the id attribute.
      *

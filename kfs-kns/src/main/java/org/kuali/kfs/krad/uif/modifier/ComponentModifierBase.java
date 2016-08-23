@@ -18,39 +18,37 @@
  */
 package org.kuali.kfs.krad.uif.modifier;
 
-import org.kuali.kfs.krad.uif.component.Ordered;
 import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ConfigurableBase;
+import org.kuali.kfs.krad.uif.component.Ordered;
+import org.kuali.kfs.krad.uif.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Base class for <code>ComponentModifier</code> implementations
- *
+ * <p>
  * <p>
  * Holds run phase property and defaults to the INITIALIZE phase, and the order
  * property for setting the order in which the component modifier will be
  * invoked
  * </p>
- *
- *
  */
 public abstract class ComponentModifierBase extends ConfigurableBase implements ComponentModifier {
-	private static final long serialVersionUID = -8284332412469942130L;
+    private static final long serialVersionUID = -8284332412469942130L;
 
-	private String runPhase;
-	private String runCondition;
-	private int order;
+    private String runPhase;
+    private String runCondition;
+    private int order;
 
-	public ComponentModifierBase() {
+    public ComponentModifierBase() {
         super();
 
-		runPhase = UifConstants.ViewPhases.INITIALIZE;
-		order = 0;
-	}
+        runPhase = UifConstants.ViewPhases.INITIALIZE;
+        order = 0;
+    }
 
     /**
      * Default performInitialization impl (does nothing)
@@ -72,49 +70,49 @@ public abstract class ComponentModifierBase extends ConfigurableBase implements 
     }
 
     /**
-	 * @see ComponentModifier#getRunPhase()
-	 */
-	public String getRunPhase() {
-		return this.runPhase;
-	}
+     * @see ComponentModifier#getRunPhase()
+     */
+    public String getRunPhase() {
+        return this.runPhase;
+    }
 
-	/**
-	 * Setter for the component initializer run phase
-	 *
-	 * @param runPhase
-	 */
-	public void setRunPhase(String runPhase) {
-		this.runPhase = runPhase;
-	}
+    /**
+     * Setter for the component initializer run phase
+     *
+     * @param runPhase
+     */
+    public void setRunPhase(String runPhase) {
+        this.runPhase = runPhase;
+    }
 
-	/**
-	 * @see ComponentModifier#getRunCondition()
-	 */
-	public String getRunCondition() {
-		return this.runCondition;
-	}
+    /**
+     * @see ComponentModifier#getRunCondition()
+     */
+    public String getRunCondition() {
+        return this.runCondition;
+    }
 
-	/**
-	 * Setter for the component modifiers run condition
-	 *
-	 * @param runCondition
-	 */
-	public void setRunCondition(String runCondition) {
-		this.runCondition = runCondition;
-	}
+    /**
+     * Setter for the component modifiers run condition
+     *
+     * @param runCondition
+     */
+    public void setRunCondition(String runCondition) {
+        this.runCondition = runCondition;
+    }
 
-	/**
-	 * @see org.springframework.core.Ordered#getOrder()
-	 */
-	public int getOrder() {
-		return this.order;
-	}
+    /**
+     * @see org.springframework.core.Ordered#getOrder()
+     */
+    public int getOrder() {
+        return this.order;
+    }
 
-	/**
-	 * @see Ordered#setOrder(int)
-	 */
-	public void setOrder(int order) {
-		this.order = order;
-	}
+    /**
+     * @see Ordered#setOrder(int)
+     */
+    public void setOrder(int order) {
+        this.order = order;
+    }
 
 }

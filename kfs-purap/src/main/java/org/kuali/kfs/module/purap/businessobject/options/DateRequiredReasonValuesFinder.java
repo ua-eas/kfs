@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Value Finder for Date Required Reasons.
@@ -44,7 +44,7 @@ public class DateRequiredReasonValuesFinder extends KeyValuesBase {
         Collection codes = boService.findAll(DeliveryRequiredDateReason.class);
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator iter = codes.iterator(); iter.hasNext(); ) {
             DeliveryRequiredDateReason reason = (DeliveryRequiredDateReason) iter.next();
             labels.add(new ConcreteKeyValue(reason.getDeliveryRequiredDateReasonCode(), reason.getDeliveryRequiredDateReasonDescription()));
         }

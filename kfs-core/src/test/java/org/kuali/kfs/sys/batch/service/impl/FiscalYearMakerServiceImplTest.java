@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao;
@@ -29,8 +27,10 @@ import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.FiscalYearMakerFixture;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @ConfigureContext
 public class FiscalYearMakerServiceImplTest extends KualiTestBase {
@@ -113,8 +113,7 @@ public class FiscalYearMakerServiceImplTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             fiscalYearMakerService.validateFiscalYearMakerConfiguration();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             failedAsExpected = true;
         }
 
@@ -132,8 +131,7 @@ public class FiscalYearMakerServiceImplTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             fiscalYearMakerService.validateFiscalYearMakerConfiguration();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             failedAsExpected = true;
         }
 
@@ -151,8 +149,7 @@ public class FiscalYearMakerServiceImplTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             fiscalYearMakerService.validateFiscalYearMakerConfiguration();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             failedAsExpected = true;
         }
 
@@ -192,8 +189,7 @@ public class FiscalYearMakerServiceImplTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             List<FiscalYearMaker> fiscalYearMakersCopyOrder = fiscalYearMakerService.getFiscalYearMakerHelpersInCopyOrder();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             failedAsExpected = true;
         }
 

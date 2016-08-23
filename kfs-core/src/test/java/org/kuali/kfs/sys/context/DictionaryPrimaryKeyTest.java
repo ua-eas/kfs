@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @ConfigureContext
 public class DictionaryPrimaryKeyTest extends KualiTestBase {
@@ -43,14 +43,14 @@ public class DictionaryPrimaryKeyTest extends KualiTestBase {
 
         for (BusinessObjectEntry boEntry : ddService.getDataDictionary().getBusinessObjectEntries().values()) {
             final Class<?> boClazz = boEntry.getBusinessObjectClass();
-            if (boClazz.getName().contains(appName) && ((org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
+            if (boClazz.getName().contains(appName) && ((org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
                 List pkFieldNames = persistenceStructureService.getPrimaryKeys(boClazz);
                 for (Object pkFieldNameAsObject : pkFieldNames) {
-                    final String pkFieldName = (String)pkFieldNameAsObject;
+                    final String pkFieldName = (String) pkFieldNameAsObject;
 
                     final AttributeDefinition attrDefn = boEntry.getAttributeDefinition(pkFieldName);
                     if (attrDefn == null) {
-                        missingPkFields.add(boClazz.getName()+" "+pkFieldName);
+                        missingPkFields.add(boClazz.getName() + " " + pkFieldName);
                     }
                 }
             }

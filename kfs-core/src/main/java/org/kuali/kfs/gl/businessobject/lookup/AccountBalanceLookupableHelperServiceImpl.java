@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -35,14 +29,20 @@ import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.gl.businessobject.inquiry.AccountBalanceInquirableImpl;
 import org.kuali.kfs.gl.service.AccountBalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class to support Account Balance lookups
@@ -55,7 +55,8 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Returns the url for the account balance inquiry
-     * @param bo the business object with a property that an inquiry drill down url is being asked for
+     *
+     * @param bo           the business object with a property that an inquiry drill down url is being asked for
      * @param propertyName the property of that bo that the inquiry drill down url is being asked for
      * @return the URL for the inquiry
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
@@ -67,10 +68,11 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Given a map of fieldValues, actually searches for the appropriate account balance records to return
+     *
      * @param fieldValues a map of keys for the search
      * @return a List of AccountBalance records that match the search criteria
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable modifies the search results based on the fields consolidated.
      * But all field definitions are in data dictionary.
      */
@@ -91,7 +93,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
         // get the search result collection
         // KFSMI-410: added one more node for consolidationOption
-        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
+        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)) {
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
         }
@@ -99,8 +101,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
         if (isConsolidated) {
             Iterator availableBalanceIterator = accountBalanceService.findConsolidatedAvailableAccountBalance(fieldValues);
             searchResultsCollection = buildConsolidedAvailableBalanceCollection(availableBalanceIterator);
-        }
-        else {
+        } else {
             Iterator availableBalanceIterator = accountBalanceService.findAvailableAccountBalance(fieldValues);
             searchResultsCollection = buildDetailedAvailableBalanceCollection(availableBalanceIterator);
         }
@@ -109,7 +110,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
         updateByPendingLedgerEntry(searchResultsCollection, fieldValues, pendingEntryOption, isConsolidated, false);
 
         // Put the search related stuff in the objects
-        for (Iterator iter = searchResultsCollection.iterator(); iter.hasNext();) {
+        for (Iterator iter = searchResultsCollection.iterator(); iter.hasNext(); ) {
             AccountBalance ab = (AccountBalance) iter.next();
             TransientBalanceInquiryAttributes dbo = ab.getDummyBusinessObject();
             dbo.setConsolidationOption(consolidationOption);
@@ -230,8 +231,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
         if (isObjectTypeCodeInList) {
             variance = budgetAmount.subtract(actualsAmount);
             variance = variance.subtract(encumbranceAmount);
-        }
-        else {
+        } else {
             variance = actualsAmount.subtract(budgetAmount);
         }
         return variance;
@@ -240,13 +240,13 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
     /**
      * Updates the collection of entries that will be applied to the results of the inquiry
      *
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     @Override
     protected void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareExcluded) {
@@ -316,6 +316,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Gets the optionsService attribute.
+     *
      * @return Returns the optionsService.
      */
     public OptionsService getOptionsService() {

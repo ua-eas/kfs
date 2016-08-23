@@ -18,27 +18,27 @@
  */
 package org.kuali.kfs.module.external.kc.document;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AccountAutoCreateDefaultsMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getSections(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      org.kuali.rice.kns.maintenance.Maintainable)
-     *
+     * org.kuali.rice.kns.maintenance.Maintainable)
+     * <p>
      * KRAD Conversion: Performs customization of the adding fields to the section.
-     *
+     * <p>
      * No use of data dictionary for field definitions.
      */
     @Override
@@ -78,7 +78,7 @@ public class AccountAutoCreateDefaultsMaintainableImpl extends FinancialSystemMa
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterCopy(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {

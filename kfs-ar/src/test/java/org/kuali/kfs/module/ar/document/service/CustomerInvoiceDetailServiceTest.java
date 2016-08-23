@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
 import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
@@ -29,7 +28,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailServiceTest extends KualiTestBase {
@@ -46,9 +46,9 @@ public class CustomerInvoiceDetailServiceTest extends KualiTestBase {
         //check if CustomerInvoiceDetailService returns the correct customerInvoiceDetail based on the invoice item code.
         CustomerInvoiceDetailService service = SpringContext.getBean(CustomerInvoiceDetailService.class);
         CustomerInvoiceDetail customerInvoiceDetail = service.getCustomerInvoiceDetailFromCustomerInvoiceItemCode(CustomerInvoiceItemCodeFixture.BASE_CIIC.invoiceItemCode, CustomerInvoiceItemCodeFixture.BASE_CIIC.chartOfAccountsCode, CustomerInvoiceItemCodeFixture.BASE_CIIC.organizationCode);
-        assertEquals( CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceChartOfAccountsCode, customerInvoiceDetail.getChartOfAccountsCode());
-        assertEquals( CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceAccountNumber, customerInvoiceDetail.getAccountNumber());
-        assertEquals( CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceFinancialObjectCode, customerInvoiceDetail.getFinancialObjectCode());
+        assertEquals(CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceChartOfAccountsCode, customerInvoiceDetail.getChartOfAccountsCode());
+        assertEquals(CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceAccountNumber, customerInvoiceDetail.getAccountNumber());
+        assertEquals(CustomerInvoiceItemCodeFixture.BASE_CIIC.defaultInvoiceFinancialObjectCode, customerInvoiceDetail.getFinancialObjectCode());
     }
 
     /**

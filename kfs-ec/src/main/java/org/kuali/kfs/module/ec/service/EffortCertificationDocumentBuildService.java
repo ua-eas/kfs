@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ec.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provide the facility used to generate documents (build) from the labor ledger balances
@@ -40,9 +40,9 @@ public interface EffortCertificationDocumentBuildService {
     /**
      * generate documents(build) for effort certification from the given collection of labor ledger balance
      *
-     * @param postingYear the fiscal year when the document is generated
+     * @param postingYear      the fiscal year when the document is generated
      * @param reportDefinition the given report definition of effort certification
-     * @param ledgerBalances the given labor ledger balances
+     * @param ledgerBalances   the given labor ledger balances
      * @return documents(build) for effort certification from the given collection of labor ledger balance
      */
     public List<EffortCertificationDocumentBuild> generateDocumentBuildList(Integer postingYear, EffortCertificationReportDefinition reportDefinition, List<LaborLedgerBalance> ledgerBalances);
@@ -50,9 +50,9 @@ public interface EffortCertificationDocumentBuildService {
     /**
      * generate a document(build) for effort certification from the given collection of labor ledger balance
      *
-     * @param postingYear the fiscal year when the document is generated
+     * @param postingYear      the fiscal year when the document is generated
      * @param reportDefinition the given report definition of effort certification
-     * @param ledgerBalances the given labor ledger balances
+     * @param ledgerBalances   the given labor ledger balances
      * @return a document(build) for effort certification from the given collection of labor ledger balance
      */
     public EffortCertificationDocumentBuild generateDocumentBuild(Integer postingYear, EffortCertificationReportDefinition reportDefinition, List<LaborLedgerBalance> ledgerBalances);

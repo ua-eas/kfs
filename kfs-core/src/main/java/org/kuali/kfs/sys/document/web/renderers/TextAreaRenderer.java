@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.kuali.kfs.kns.web.taglib.html.KNSTextareaTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.kns.web.taglib.html.KNSTextareaTag;
-import org.springframework.web.util.HtmlUtils;
 
 /**
  * Renders a field as a text area
@@ -33,6 +32,7 @@ public class TextAreaRenderer extends FieldRendererBase {
 
     /**
      * Resets the text area tag
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRendererBase#clear()
      */
     public void clear() {
@@ -51,6 +51,7 @@ public class TextAreaRenderer extends FieldRendererBase {
 
     /**
      * Uses the struts html:textarea tag to render a text area
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -76,6 +77,7 @@ public class TextAreaRenderer extends FieldRendererBase {
 
     /**
      * I'll take a quick finder if needed
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

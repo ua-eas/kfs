@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class ContractsGrantsInvoiceDocumentAuthorizer extends CustomerInvoiceDocumentAuthorizer {
 
@@ -62,7 +62,7 @@ public class ContractsGrantsInvoiceDocumentAuthorizer extends CustomerInvoiceDoc
         qualificationDetails.put(KimConstants.AttributeConstants.PRINCIPAL_ID, user.getPrincipalId());
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, documentTypeName);
         return getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), nameSpaceCode,
-                KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails, qualificationDetails);
+            KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails, qualificationDetails);
     }
 
     /**

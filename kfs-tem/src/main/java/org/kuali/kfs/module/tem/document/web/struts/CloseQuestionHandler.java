@@ -18,6 +18,18 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
+import org.kuali.kfs.module.tem.document.TravelAuthorizationCloseDocument;
+import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
+import org.kuali.kfs.module.tem.document.TravelDocument;
+import org.kuali.kfs.module.tem.document.service.TravelAuthorizationService;
+import org.kuali.kfs.module.tem.util.MessageUtils;
+
 import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.kuali.kfs.module.tem.TemConstants.CLOSE_TA_QUESTION;
 import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_CLOSE_QUESTION;
@@ -26,34 +38,21 @@ import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
 import static org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC;
 import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
 
-import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
-import org.kuali.kfs.module.tem.document.TravelAuthorizationCloseDocument;
-import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
-import org.kuali.kfs.module.tem.document.TravelDocument;
-import org.kuali.kfs.module.tem.document.service.TravelAuthorizationService;
-import org.kuali.kfs.module.tem.util.MessageUtils;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 
 public class CloseQuestionHandler implements QuestionHandler<TravelDocument> {
     private DataDictionaryService dataDictionaryService;
     private TravelAuthorizationService travelAuthorizationService;
 
     @Override
-    public <T> T handleResponse(final Inquisitive<TravelDocument,?> asker) throws Exception {
+    public <T> T handleResponse(final Inquisitive<TravelDocument, ?> asker) throws Exception {
         if (asker.denied(CLOSE_TA_QUESTION)) {
             return (T) asker.back();
-        }
-        else if (asker.confirmed(CONFIRM_CLOSE_QUESTION)) {
+        } else if (asker.confirmed(CONFIRM_CLOSE_QUESTION)) {
             return (T) asker.end();
             // This is the case when the user clicks on "OK" in the end.
             // After we inform the user that the close has been rerouted, we'll redirect to the portal page.
         }
-        TravelAuthorizationDocument document = (TravelAuthorizationDocument)asker.getDocument();
+        TravelAuthorizationDocument document = (TravelAuthorizationDocument) asker.getDocument();
 
         try {
             // Below used as a place holder to allow code to specify actionForward to return if not a 'success question'
@@ -67,12 +66,10 @@ public class CloseQuestionHandler implements QuestionHandler<TravelDocument> {
 
             if (ObjectUtils.isNotNull(returnActionForward)) {
                 return returnActionForward;
+            } else {
+                return (T) asker.confirm(CLOSE_TA_QUESTION, MessageUtils.getMessage(CONFIRM_CLOSE_QUESTION_TEXT), true, "Could not get reimbursement total for travel id ", tacDocument.getTravelDocumentIdentifier().toString(), "", "");
             }
-            else   {
-                return (T) asker.confirm(CLOSE_TA_QUESTION, MessageUtils.getMessage(CONFIRM_CLOSE_QUESTION_TEXT), true, "Could not get reimbursement total for travel id ", tacDocument.getTravelDocumentIdentifier().toString(),"","");
-            }
-        }
-        catch (ValidationException ve) {
+        } catch (ValidationException ve) {
             throw ve;
         }
     }
@@ -81,13 +78,12 @@ public class CloseQuestionHandler implements QuestionHandler<TravelDocument> {
      * @see org.kuali.kfs.module.tem.document.web.struts.QuestionHandler#askQuestion(org.kuali.kfs.module.tem.document.web.struts.Inquisitive)
      */
     @Override
-    public <T> T askQuestion(final Inquisitive<TravelDocument,?> asker) throws Exception {
+    public <T> T askQuestion(final Inquisitive<TravelDocument, ?> asker) throws Exception {
         T retval = (T) asker.confirm(CLOSE_TA_QUESTION, CONFIRM_CLOSE_QUESTION_TEXT, false);
         return retval;
     }
 
     /**
-     *
      * @param notePrefix
      * @param reason
      * @return

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cab.document.service.GlAndPurApHelperService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.kfs.krad.util.KRADConstants;
 
 public class GlAndPurApHelperServiceImpl implements GlAndPurApHelperService {
 
@@ -34,8 +34,7 @@ public class GlAndPurApHelperServiceImpl implements GlAndPurApHelperService {
         String docHandlerUrl = docType.getResolvedDocumentHandlerUrl();
         if (docHandlerUrl.indexOf("?") == -1) {
             docHandlerUrl += "?";
-        }
-        else {
+        } else {
             docHandlerUrl += "&";
         }
 

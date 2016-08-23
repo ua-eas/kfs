@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -29,9 +29,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SalaryExpenseTransferAccountingLineAuthorizer extends LaborExpenseTransferAccountingLineAuthorizer {
     @Override
@@ -41,7 +41,7 @@ public class SalaryExpenseTransferAccountingLineAuthorizer extends LaborExpenseT
             WorkflowDocument workflowDocument = expenseTransferDocument.getDocumentHeader().getWorkflowDocument();
 
             // decide if the object code field should be read-only or not based on the user's permissions to edit the field.
-            if(KFSPropertyConstants.FINANCIAL_OBJECT_CODE.equals(fieldName)) {
+            if (KFSPropertyConstants.FINANCIAL_OBJECT_CODE.equals(fieldName)) {
                 return this.hasEditPermissionOnObjectCode(expenseTransferDocument, workflowDocument);
             }
         }

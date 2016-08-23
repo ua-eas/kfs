@@ -28,7 +28,8 @@ public class AwardProjectDirector implements ContractsAndGrantsProjectDirector {
     private Person projectDirector;
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getPrincipalId() {

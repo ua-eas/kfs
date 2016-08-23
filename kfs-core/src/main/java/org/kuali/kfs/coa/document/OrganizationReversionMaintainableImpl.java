@@ -18,20 +18,11 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionDetail;
 import org.kuali.kfs.coa.service.OrganizationReversionDetailTrickleDownInactivationService;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
@@ -39,6 +30,15 @@ import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides some specific functionality for the {@link OrganizationReversion} maintenance document inner class for doing
@@ -115,6 +115,7 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
 
     /**
      * Determines if this maint doc is inactivating an organization reversion
+     *
      * @return true if the document is inactivating an active organization reversion, false otherwise
      */
     protected boolean isInactivatingOrganizationReversion() {
@@ -133,6 +134,7 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
 
     /**
      * Determines if this maint doc is activating an organization reversion
+     *
      * @return true if the document is activating an inactive organization reversion, false otherwise
      */
     protected boolean isActivatingOrganizationReversion() {
@@ -151,16 +153,18 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
 
     /**
      * Grabs the old version of this org reversion from the database
+     *
      * @return the old version of this organization reversion
      */
     protected OrganizationReversion retrieveExistingOrganizationReversion() {
-        OrganizationReversion orgRev = (OrganizationReversion)getBusinessObject();
+        OrganizationReversion orgRev = (OrganizationReversion) getBusinessObject();
         OrganizationReversion oldOrgRev = getOrganizationReversionService().getByPrimaryId(orgRev.getUniversityFiscalYear(), orgRev.getChartOfAccountsCode(), orgRev.getOrganizationCode());
         return oldOrgRev;
     }
 
     /**
      * Overridden to trickle down inactivation or activation to details
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
      */
     @Override
@@ -168,15 +172,15 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
         super.saveBusinessObject();
 
         if (isActivatingOrganizationReversion()) {
-            getTrickleDownInactivationService().trickleDownActiveOrganizationReversionDetails((OrganizationReversion)getBusinessObject(), getDocumentNumber());
+            getTrickleDownInactivationService().trickleDownActiveOrganizationReversionDetails((OrganizationReversion) getBusinessObject(), getDocumentNumber());
         } else if (isInactivatingOrganizationReversion()) {
-            getTrickleDownInactivationService().trickleDownInactiveOrganizationReversionDetails((OrganizationReversion)getBusinessObject(), getDocumentNumber());
+            getTrickleDownInactivationService().trickleDownInactiveOrganizationReversionDetails((OrganizationReversion) getBusinessObject(), getDocumentNumber());
         }
     }
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getSections(org.kuali.rice.kns.document.MaintenanceDocument, org.kuali.rice.kns.maintenance.Maintainable)
-     *
+     * <p>
      * KRAD Conversion: Inquirable performs conditional display/hiding of the fields/sections on the inquiry
      * But all field/section definitions are in data dictionary for bo Organization.
      */
@@ -199,9 +203,10 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
 
     /**
      * Determines if the given field should be included in the updated row, once we take out inactive categories
+     *
      * @param field the field to check
      * @return true if the field should be included (ie, it doesn't describe an organization reversion with an inactive category); false otherwise
-     *
+     * <p>
      * KRAD Conversion: Determines if fields should be included in the section.
      * But all field/section definitions are in data dictionary.
      */
@@ -221,14 +226,14 @@ public class OrganizationReversionMaintainableImpl extends FinancialSystemMainta
     }
 
     protected OrganizationReversionService getOrganizationReversionService() {
-        if ( organizationReversionService == null ) {
+        if (organizationReversionService == null) {
             organizationReversionService = SpringContext.getBean(OrganizationReversionService.class);
         }
         return organizationReversionService;
     }
 
     protected static OrganizationReversionDetailTrickleDownInactivationService getTrickleDownInactivationService() {
-        if ( trickleDownInactivationService == null ) {
+        if (trickleDownInactivationService == null) {
             trickleDownInactivationService = SpringContext.getBean(OrganizationReversionDetailTrickleDownInactivationService.class);
         }
         return trickleDownInactivationService;

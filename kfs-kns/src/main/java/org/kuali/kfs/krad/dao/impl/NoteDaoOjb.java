@@ -18,25 +18,23 @@
  */
 package org.kuali.kfs.krad.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.bo.Attachment;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.dao.NoteDao;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the NoteDao interface.
- *
- *
  */
 public class NoteDaoOjb extends PlatformAwareDaoBaseOjb implements NoteDao {
     private static Logger LOG = Logger.getLogger(NoteDaoOjb.class);
@@ -110,6 +108,7 @@ public class NoteDaoOjb extends PlatformAwareDaoBaseOjb implements NoteDao {
 
     /**
      * This method defines the default sort for notes
+     *
      * @param query
      */
     private void defaultOrderBy(QueryByCriteria query) {

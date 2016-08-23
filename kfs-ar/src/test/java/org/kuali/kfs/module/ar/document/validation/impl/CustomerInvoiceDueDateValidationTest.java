@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Calendar;
-import java.util.Date;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -31,7 +27,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.ConfigurableDateService;
 import org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {
@@ -53,7 +53,7 @@ public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {
         super.tearDown();
     }
 
-    public void testValidBillingDateNotBeforeDueDate_True(){
+    public void testValidBillingDateNotBeforeDueDate_True() {
 
         ConfigurableDateService dateTimeService = new ConfigurableDateTimeServiceImpl();
 
@@ -76,7 +76,7 @@ public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {
         assertTrue(validation.validate(null));
     }
 
-    public void testValidBillingDateNotBeforeDueDate_False(){
+    public void testValidBillingDateNotBeforeDueDate_False() {
 
         ConfigurableDateService dateTimeService = new ConfigurableDateTimeServiceImpl();
 
@@ -107,7 +107,7 @@ public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {
         assertFalse(validation.validate(null));
     }
 
-    public void testValidBillingDateNotAfterMaximumNumberOfDays_True(){
+    public void testValidBillingDateNotAfterMaximumNumberOfDays_True() {
 
         ConfigurableDateService dateTimeService = new ConfigurableDateTimeServiceImpl();
 
@@ -134,7 +134,7 @@ public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {
         assertTrue(validation.validate(null));
     }
 
-    public void testValidBillingDateNotAfterMaximumNumberOfDays_False(){
+    public void testValidBillingDateNotAfterMaximumNumberOfDays_False() {
 
         //set parameter to 10 days
         TestUtils.setSystemParameter(CustomerInvoiceDocument.class, ArConstants.MAXIMUM_NUMBER_OF_DAYS_AFTER_CURRENT_DATE_FOR_INVOICE_DUE_DATE, MAXIMUM_NUMBER_OF_DAYS);

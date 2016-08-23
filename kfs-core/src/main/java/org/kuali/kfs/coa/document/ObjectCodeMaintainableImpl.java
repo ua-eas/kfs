@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubObjectTrickleDownInactivationService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.List;
+import java.util.Map;
 
 public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
 
@@ -79,6 +79,7 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * Refreshes the Reports to Chart of Accounts code if needed
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -89,10 +90,11 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * Insures that the reports to chart of accounts code on the document is populated by the chosen chart of account's reports to chart code
+     *
      * @param document the MaintenanceDocument to get the ObjectCode to update from
      */
     protected void refreshReportsToChartOfAccountsCodeIfNecessary(MaintenanceDocument document) {
-        final ObjectCode newObjectCode = (ObjectCode)document.getNewMaintainableObject().getBusinessObject();
+        final ObjectCode newObjectCode = (ObjectCode) document.getNewMaintainableObject().getBusinessObject();
         if (!StringUtils.isBlank(newObjectCode.getChartOfAccountsCode())) {
             newObjectCode.refreshReferenceObject("chartOfAccounts");
             final Chart newChart = newObjectCode.getChartOfAccounts();

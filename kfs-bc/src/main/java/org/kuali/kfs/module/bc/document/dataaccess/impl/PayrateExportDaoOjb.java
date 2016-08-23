@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -33,11 +30,13 @@ import org.kuali.kfs.module.bc.document.dataaccess.PayrateExportDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.math.BigDecimal;
+import java.util.Iterator;
+
 public class PayrateExportDaoOjb extends PlatformAwareDaoBaseOjb implements PayrateExportDao {
 
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.document.dataaccess.PayrateExportDao#isValidPositionUnionCode(java.lang.String)
      */
     public boolean isValidPositionUnionCode(String positionUnionCode) {
@@ -51,15 +50,13 @@ public class PayrateExportDaoOjb extends PlatformAwareDaoBaseOjb implements Payr
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.document.dataaccess.PayrateExportDao#buildPayRateHoldingRows(java.lang.Integer, java.lang.String, java.lang.String)
      */
     public Integer buildPayRateHoldingRows(Integer budgetYear, String positionUnionCode, String principalId) {
         Integer rowsSaved = 0;
 
-        Iterator<Object[]> payRateRows =  getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(queryForPayrateHoldingRecords(budgetYear, positionUnionCode));
-        while (payRateRows.hasNext())
-        {
+        Iterator<Object[]> payRateRows = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(queryForPayrateHoldingRecords(budgetYear, positionUnionCode));
+        while (payRateRows.hasNext()) {
             Object[] payRateRow = payRateRows.next();
             BudgetConstructionPayRateHolding payRateHolder = new BudgetConstructionPayRateHolding();
             payRateHolder.setAppointmentRequestedPayRate(new BigDecimal(0));
@@ -73,7 +70,7 @@ public class PayrateExportDaoOjb extends PlatformAwareDaoBaseOjb implements Payr
             payRateHolder.setPrincipalId(principalId);
 
             getPersistenceBrokerTemplate().store(payRateHolder);
-            rowsSaved = rowsSaved+1;
+            rowsSaved = rowsSaved + 1;
         }
         return rowsSaved;
     }
@@ -81,6 +78,7 @@ public class PayrateExportDaoOjb extends PlatformAwareDaoBaseOjb implements Payr
     /**
      * Selects the unique list of PendingBudgetConstructionAppointmentFunding to populate the payrate holding table for export
      * This method...
+     *
      * @param budgetYear
      * @param positionUnionCode
      * @return

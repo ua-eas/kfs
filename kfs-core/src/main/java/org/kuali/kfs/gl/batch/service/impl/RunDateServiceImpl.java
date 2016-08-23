@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.ScrubberStep;
 import org.kuali.kfs.gl.batch.service.RunDateService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * The default implementation of RunDateService
@@ -37,7 +37,6 @@ public class RunDateServiceImpl implements RunDateService {
     private ParameterService parameterService;
 
     /**
-     *
      * @see org.kuali.kfs.gl.batch.service.RunDateService#calculateRunDate(java.util.Date)
      */
     public Date calculateRunDate(Date executionDate) {
@@ -109,7 +108,8 @@ public class RunDateServiceImpl implements RunDateService {
 
         /**
          * Constructs a RunDateServiceImpl instance
-         * @param hour the cutoff hour
+         *
+         * @param hour   the cutoff hour
          * @param minute the cutoff minute
          * @param second the cutoff second
          */
@@ -129,8 +129,7 @@ public class RunDateServiceImpl implements RunDateService {
     protected CutoffTime parseCutoffTime(String cutoffTime) {
         if (StringUtils.isBlank(cutoffTime)) {
             return new CutoffTime(0, 0, 0);
-        }
-        else {
+        } else {
             cutoffTime = cutoffTime.trim();
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Cutoff time value found: " + cutoffTime);
@@ -150,8 +149,7 @@ public class RunDateServiceImpl implements RunDateService {
                     throw new IllegalArgumentException("Cutoff time must be in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.  In particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59");
                 }
                 return new CutoffTime(hourInt, minuteInt, secondInt);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new IllegalArgumentException("Cutoff time should either be null, or in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.");
             }
         }
@@ -161,7 +159,7 @@ public class RunDateServiceImpl implements RunDateService {
      * Retrieves the cutoff time from a repository.
      *
      * @return a time of day in the format "HH:mm:ss", where HH, mm, ss are defined in the java.text.SimpleDateFormat class. In
-     *         particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
+     * particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
      */
     protected String retrieveCutoffTimeValue() {
         String value = parameterService.getParameterValueAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.SCRUBBER_CUTOFF_TIME);

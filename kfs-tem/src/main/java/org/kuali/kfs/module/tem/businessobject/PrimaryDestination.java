@@ -18,7 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,35 +30,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
-@Table(name="TEM_PRI_DEST_T")
+@Table(name = "TEM_PRI_DEST_T")
 public class PrimaryDestination extends PersistableBusinessObjectBase implements MutableInactivatable, Comparable<PrimaryDestination> {
 
     @Id
-    @GeneratedValue(generator="TEM_PRI_DEST_ID_SEQ")
-    @SequenceGenerator(name="TEM_PRI_DEST_ID_SEQ",sequenceName="TEM_PRI_DEST_ID_SEQ", allocationSize=5)
-    @Column(name="id",nullable=false)
+    @GeneratedValue(generator = "TEM_PRI_DEST_ID_SEQ")
+    @SequenceGenerator(name = "TEM_PRI_DEST_ID_SEQ", sequenceName = "TEM_PRI_DEST_ID_SEQ", allocationSize = 5)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="REGION_CD")
+    @JoinColumn(name = "REGION_CD")
     private TemRegion region;
 
-    @Column(name="REGION_CD",length=100, nullable=false)
+    @Column(name = "REGION_CD", length = 100, nullable = false)
     private String regionCode;
 
-    @Column(name="COUNTY",length=100, nullable=false)
+    @Column(name = "COUNTY", length = 100, nullable = false)
     private String county;
 
-    @Column(name="PRI_DEST",length=100, nullable=false)
+    @Column(name = "PRI_DEST", length = 100, nullable = false)
     private String primaryDestinationName;
 
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     private Boolean active = Boolean.TRUE;
 
     public Integer getId() {
@@ -177,10 +176,9 @@ public class PrimaryDestination extends PersistableBusinessObjectBase implements
     public int compareTo(PrimaryDestination o) {
 
         PrimaryDestination pd = o;
-        if (this.getRegionCode() != null && pd.getRegionCode() != null){
+        if (this.getRegionCode() != null && pd.getRegionCode() != null) {
             return this.getRegionCode().compareTo(pd.getRegionCode());
-        }
-        else{
+        } else {
             return 0;
         }
 

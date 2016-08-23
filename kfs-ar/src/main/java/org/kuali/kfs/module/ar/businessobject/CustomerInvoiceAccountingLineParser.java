@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
+
 import static org.kuali.kfs.module.ar.ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_CODE;
 import static org.kuali.kfs.module.ar.ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_DESCRIPTION;
 import static org.kuali.kfs.module.ar.ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_QUANTITY;
@@ -33,16 +35,14 @@ import static org.kuali.kfs.sys.KFSPropertyConstants.ORGANIZATION_REFERENCE_ID;
 import static org.kuali.kfs.sys.KFSPropertyConstants.PROJECT_CODE;
 import static org.kuali.kfs.sys.KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
 
-import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
-
 /**
  * This class...
  */
 public class CustomerInvoiceAccountingLineParser extends AccountingLineParserBase {
 
-    protected static final String[] CUSTOMER_INVOICE_FORMAT = { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, INVOICE_ITEM_CODE, INVOICE_ITEM_QUANTITY, INVOICE_ITEM_DESCRIPTION, INVOICE_ITEM_SERVICE_DATE, UNIT_OF_MEASURE_CODE, INVOICE_ITEM_UNIT_PRICE, INVOICE_ITEM_TAXABLE_INDICATOR };
+    protected static final String[] CUSTOMER_INVOICE_FORMAT = {CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, INVOICE_ITEM_CODE, INVOICE_ITEM_QUANTITY, INVOICE_ITEM_DESCRIPTION, INVOICE_ITEM_SERVICE_DATE, UNIT_OF_MEASURE_CODE, INVOICE_ITEM_UNIT_PRICE, INVOICE_ITEM_TAXABLE_INDICATOR};
 
-	/**
+    /**
      * @see org.kuali.rice.krad.bo.AccountingLineParserBase#getSourceAccountingLineFormat()
      */
     @Override

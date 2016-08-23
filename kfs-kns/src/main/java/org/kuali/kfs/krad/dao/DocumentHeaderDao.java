@@ -22,7 +22,6 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 
 /**
  * This is the data access interface for DocumentHeader objects.
- *
  */
 public interface DocumentHeaderDao {
 

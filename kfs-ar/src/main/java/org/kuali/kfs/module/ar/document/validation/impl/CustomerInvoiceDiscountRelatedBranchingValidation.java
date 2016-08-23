@@ -34,7 +34,7 @@ public class CustomerInvoiceDiscountRelatedBranchingValidation extends Branching
         if (customerInvoiceDetail.isDiscountLine()) {
             return IS_DISCOUNT_VALIDATION;
         } else if (customerInvoiceDetail.isDiscountLineParent()) {
-           return IS_PARENT_VALIDATION;
+            return IS_PARENT_VALIDATION;
         }
         return null;
     }

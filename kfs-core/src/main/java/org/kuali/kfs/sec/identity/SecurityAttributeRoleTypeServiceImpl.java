@@ -18,17 +18,14 @@
  */
 package org.kuali.kfs.sec.identity;
 
-import java.util.Map;
-
 import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.Map;
 
 /**
  * Type service for roles created for security definitions. Each definition has a corresponding role which is granted the definition permissions
  */
 public class SecurityAttributeRoleTypeServiceImpl extends RoleTypeServiceBase {
-
-
-
 
 
     /**
@@ -37,7 +34,7 @@ public class SecurityAttributeRoleTypeServiceImpl extends RoleTypeServiceBase {
      * @see org.kuali.rice.kim.service.support.impl.KimTypeInfoServiceBase#performMatch(org.kuali.rice.kim.bo.types.dto.AttributeSet, org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    protected boolean performMatch(Map<String,String> inputAttributeSet, Map<String,String> storedAttributeSet) {
+    protected boolean performMatch(Map<String, String> inputAttributeSet, Map<String, String> storedAttributeSet) {
         return true;
     }
 

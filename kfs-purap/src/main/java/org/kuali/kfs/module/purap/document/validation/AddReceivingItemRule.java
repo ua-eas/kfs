@@ -30,5 +30,5 @@ public interface AddReceivingItemRule {
      * @param item
      * @return
      */
-    public boolean processAddReceivingItemRules (ReceivingDocument document, LineItemReceivingItem item,String errorPathPrefix);
+    public boolean processAddReceivingItemRules(ReceivingDocument document, LineItemReceivingItem item, String errorPathPrefix);
 }

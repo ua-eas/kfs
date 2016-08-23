@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
@@ -35,8 +35,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.List;
 
 public class AssetRetirementServiceTest extends KualiTestBase {
     private AssetRetirementService assetRetirementService;

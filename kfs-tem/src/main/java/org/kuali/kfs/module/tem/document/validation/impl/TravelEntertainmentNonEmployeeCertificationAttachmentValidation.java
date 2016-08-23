@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -28,13 +30,11 @@ import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class TravelEntertainmentNonEmployeeCertificationAttachmentValidation extends GenericValidation  {
-protected ParameterService parameterService;
+import java.util.List;
+
+public class TravelEntertainmentNonEmployeeCertificationAttachmentValidation extends GenericValidation {
+    protected ParameterService parameterService;
 
     @Override
     public boolean validate(AttributedDocumentEvent event) {

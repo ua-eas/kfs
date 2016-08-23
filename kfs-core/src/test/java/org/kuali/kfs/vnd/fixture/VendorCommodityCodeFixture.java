@@ -23,7 +23,7 @@ import org.kuali.kfs.vnd.businessobject.VendorCommodityCode;
 
 public enum VendorCommodityCodeFixture {
 
-    DEFAULT_VENDOR_COMMODITY_CODE_ACTIVE (1000, 0, true, true, CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE_2),;
+    DEFAULT_VENDOR_COMMODITY_CODE_ACTIVE(1000, 0, true, true, CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE_2),;
 
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
@@ -31,6 +31,7 @@ public enum VendorCommodityCodeFixture {
     private boolean active;
 
     private CommodityCodeFixture commodityCodeFixture;
+
     private VendorCommodityCodeFixture(Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, boolean commodityDefaultIndicator, boolean active, CommodityCodeFixture commodityCodeFixture) {
         this.vendorHeaderGeneratedIdentifier = vendorHeaderGeneratedIdentifier;
         this.vendorDetailAssignedIdentifier = vendorDetailAssignedIdentifier;

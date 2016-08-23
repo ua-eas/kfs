@@ -23,15 +23,13 @@ import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 
 /**
  * Data field security adds attribute security to the standard component security
- *
+ * <p>
  * <p>
  * The {@link AttributeSecurity} can be configured for the field to indicate there is security at the data layer
  * (configured by component (class) and property). If the field is backed by a data dictionary
  * {@link AttributeDefinition} the attribute security can be configured there and
  * will be picked up and inserted into the field security
  * </p>
- *
- *
  */
 public class DataFieldSecurity extends FieldSecurity {
     private static final long serialVersionUID = 585138507596582667L;

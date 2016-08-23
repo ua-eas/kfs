@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class CANNOT be used by 2 processes simultaneously. It is for very specific batch processes that should not run at the same
@@ -36,12 +36,12 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractBatchTransactionalCachingService implements WrappingBatchService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractBatchTransactionalCachingService.class);
 
-    protected Map<String,BusinessObject> referenceValueCache;
-    protected Map<Class,PreviousValueReference> previousValueCache;
+    protected Map<String, BusinessObject> referenceValueCache;
+    protected Map<Class, PreviousValueReference> previousValueCache;
 
     public void initialize() {
-        referenceValueCache = new HashMap<String,BusinessObject>();
-        previousValueCache = new HashMap<Class,PreviousValueReference>();
+        referenceValueCache = new HashMap<String, BusinessObject>();
+        previousValueCache = new HashMap<Class, PreviousValueReference>();
     }
 
     public void destroy() {
@@ -55,53 +55,59 @@ public abstract class AbstractBatchTransactionalCachingService implements Wrappi
             throw new UnsupportedOperationException();
         }
     }
+
     protected static final BusinessObject NON_EXISTENT_REFERENCE_CACHE_VALUE = new NonExistentReferenceBusinessObject();
-    protected String getCacheKey(Class clazz, Object...objects) {
+
+    protected String getCacheKey(Class clazz, Object... objects) {
         StringBuffer cacheKey = new StringBuffer(clazz.getName());
         for (int i = 0; i < objects.length; i++) {
             cacheKey.append("-").append(objects[i]);
         }
         return cacheKey.toString();
     }
+
     protected abstract class ReferenceValueRetriever<T extends BusinessObject> {
-        public T get(Class<T> type, Object...keys) {
+        public T get(Class<T> type, Object... keys) {
             String cacheKey = getCacheKey(type, keys);
             BusinessObject businessObject = referenceValueCache.get(cacheKey);
             if (businessObject == null) {
                 try {
                     businessObject = useDao();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Unable to getBusinessObject in AccountingCycleCachingServiceImpl: " + cacheKey, e);
                 }
                 if (businessObject == null) {
                     referenceValueCache.put(cacheKey, NON_EXISTENT_REFERENCE_CACHE_VALUE);
-                }
-                else {
+                } else {
                     referenceValueCache.put(cacheKey, businessObject);
-                    retrieveReferences((T)businessObject);
+                    retrieveReferences((T) businessObject);
                 }
-            }
-            else if (businessObject instanceof NonExistentReferenceBusinessObject) {
+            } else if (businessObject instanceof NonExistentReferenceBusinessObject) {
                 businessObject = null;
             }
-            return (T)businessObject;
+            return (T) businessObject;
         }
+
         protected abstract T useDao();
+
         protected abstract void retrieveReferences(T object);
     }
+
     public class PreviousValueReference<T extends BusinessObject> {
         protected String key = "";
         protected T value;
+
         public T getValue() {
             return value;
         }
+
         public void update(T value, String key) {
             this.key = key;
             this.value = value;
         }
-        public void update(T value, Object...keys) {
-            update (value, getCacheKey(value.getClass(), keys));
+
+        public void update(T value, Object... keys) {
+            update(value, getCacheKey(value.getClass(), keys));
         }
     }
 //    protected abstract class PreviousValueRetriever<T extends BusinessObject> {
@@ -116,11 +122,11 @@ public abstract class AbstractBatchTransactionalCachingService implements Wrappi
 //    }
 
     protected abstract class PreviousValueRetriever<T extends BusinessObject> {
-        public T get(Class<T> type, Object...keys) {
+        public T get(Class<T> type, Object... keys) {
             // this should never happen, but in did, so just in case
             if (ObjectUtils.isNull(previousValueCache)) {
                 LOG.error("previousValueCache is null. This shouldn't have happened.");
-                previousValueCache = new HashMap<Class,PreviousValueReference>();
+                previousValueCache = new HashMap<Class, PreviousValueReference>();
             }
             PreviousValueReference<T> pvr = previousValueCache.get(type);
             if (ObjectUtils.isNull(pvr)) {
@@ -134,6 +140,7 @@ public abstract class AbstractBatchTransactionalCachingService implements Wrappi
             }
             return pvr.getValue();
         }
+
         protected abstract T useDao();
     }
 }

@@ -21,13 +21,13 @@ package org.kuali.kfs.krad.workflow.attribute;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.rice.kew.rule.xmlrouting.StandardGenericXMLRuleAttribute;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.xml.XmlJotter;
-import org.kuali.rice.kew.rule.xmlrouting.XPathHelper;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.xml.XmlJotter;
+import org.kuali.rice.kew.rule.xmlrouting.StandardGenericXMLRuleAttribute;
+import org.kuali.rice.kew.rule.xmlrouting.XPathHelper;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -172,7 +172,7 @@ public class KualiXmlAttributeHelper {
                                     KeyValuesFinder finder = (KeyValuesFinder) finderClass.newInstance();
                                     NamedNodeMap valuesNodeAttributes = displayTagChildNode.getAttributes();
                                     Node potentialSelectedAttribute = (valuesNodeAttributes != null) ? valuesNodeAttributes.getNamedItem("selected") : null;
-                                    for (Iterator iter = finder.getKeyValues().iterator(); iter.hasNext();) {
+                                    for (Iterator iter = finder.getKeyValues().iterator(); iter.hasNext(); ) {
                                         KeyValue keyValue = (KeyValue) iter.next();
                                         Element newValuesElement = root.getOwnerDocument().createElement("values");
                                         newValuesElement.appendChild(root.getOwnerDocument().createTextNode(keyValue.getKey()));
@@ -203,7 +203,7 @@ public class KualiXmlAttributeHelper {
                         }
                     }
                 }
-                for (Iterator iter = valuesElementsToAdd.iterator(); iter.hasNext();) {
+                for (Iterator iter = valuesElementsToAdd.iterator(); iter.hasNext(); ) {
                     Element valuesElementToAdd = (Element) iter.next();
                     displayTag.appendChild(valuesElementToAdd);
                 }
@@ -223,7 +223,7 @@ public class KualiXmlAttributeHelper {
                             fieldEvaluationTag.removeChild(fieldEvaluationChildNode);
                         }
                     }
-                    for (Iterator iter = tagsToAdd.iterator(); iter.hasNext();) {
+                    for (Iterator iter = tagsToAdd.iterator(); iter.hasNext(); ) {
                         Element elementToAdd = (Element) iter.next();
                         fieldEvaluationTag.appendChild(elementToAdd);
                     }

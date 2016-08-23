@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.core;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class InvoiceDetailExpecteds {
 

@@ -23,15 +23,15 @@ import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 public interface AccountsReceivableCustomerAddressType extends ExternalizableBusinessObject {
 
-	public String getCustomerAddressTypeCode();
+    public String getCustomerAddressTypeCode();
 
-	public void setCustomerAddressTypeCode(String customerAddressTypeCode);
+    public void setCustomerAddressTypeCode(String customerAddressTypeCode);
 
-	public String getCustomerAddressTypeDescription();
+    public String getCustomerAddressTypeDescription();
 
-	public void setCustomerAddressTypeDescription(String customerAddressTypeDescription);
+    public void setCustomerAddressTypeDescription(String customerAddressTypeDescription);
 
-	public boolean isActive();
+    public boolean isActive();
 
-	public void setActive(boolean active);
+    public void setActive(boolean active);
 }

@@ -27,6 +27,7 @@ public interface MaintenanceDocumentNotesMigrationService {
      * Moves notes on agency maintenance documents to corresponding agency business objects
      */
     public void moveAgencyMaintenanceDocumentNotesToBusinessObjects();
+
     /**
      * Moves notes on award maintenance documents to corresponding award business objects
      */

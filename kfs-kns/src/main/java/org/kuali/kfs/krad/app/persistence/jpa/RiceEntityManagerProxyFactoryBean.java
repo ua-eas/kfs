@@ -27,40 +27,40 @@ import javax.sql.DataSource;
 
 public class RiceEntityManagerProxyFactoryBean implements FactoryBean, InitializingBean {
 
-	private RiceLocalContainerEntityManagerFactoryBean factoryBean;
-	private String prefix;
-	private DataSource datasource;
-	private String moduleJpaEnabledPropertyPrefix;
+    private RiceLocalContainerEntityManagerFactoryBean factoryBean;
+    private String prefix;
+    private DataSource datasource;
+    private String moduleJpaEnabledPropertyPrefix;
 
-	public RiceEntityManagerProxyFactoryBean(String prefix, DataSource datasource) {
-		this.prefix = prefix;
-		this.datasource = datasource;
-		this.moduleJpaEnabledPropertyPrefix = prefix;
-	}
+    public RiceEntityManagerProxyFactoryBean(String prefix, DataSource datasource) {
+        this.prefix = prefix;
+        this.datasource = datasource;
+        this.moduleJpaEnabledPropertyPrefix = prefix;
+    }
 
-	public RiceEntityManagerProxyFactoryBean(String prefix, DataSource datasource, String moduleJpaEnabledPropertyPrefix) {
-		this.prefix = prefix;
-		this.datasource = datasource;
-		this.moduleJpaEnabledPropertyPrefix = moduleJpaEnabledPropertyPrefix;
-	}
+    public RiceEntityManagerProxyFactoryBean(String prefix, DataSource datasource, String moduleJpaEnabledPropertyPrefix) {
+        this.prefix = prefix;
+        this.datasource = datasource;
+        this.moduleJpaEnabledPropertyPrefix = moduleJpaEnabledPropertyPrefix;
+    }
 
-	public void afterPropertiesSet() throws Exception {
-		/*if (OrmUtils.isJpaEnabled(moduleJpaEnabledPropertyPrefix)) {
+    public void afterPropertiesSet() throws Exception {
+        /*if (OrmUtils.isJpaEnabled(moduleJpaEnabledPropertyPrefix)) {
 			factoryBean = new RiceLocalContainerEntityManagerFactoryBean(prefix, datasource);
 			factoryBean.afterPropertiesSet();
 		}*/
-	}
+    }
 
-	public Class getObjectType() {
-		return (factoryBean != null ? factoryBean.getObjectType() : EntityManagerFactory.class);
-	}
+    public Class getObjectType() {
+        return (factoryBean != null ? factoryBean.getObjectType() : EntityManagerFactory.class);
+    }
 
-	public Object getObject() throws Exception {
-		return (factoryBean != null ? factoryBean.getObject() : null);
-	}
+    public Object getObject() throws Exception {
+        return (factoryBean != null ? factoryBean.getObject() : null);
+    }
 
-	public boolean isSingleton() {
-		return true;
-	}
+    public boolean isSingleton() {
+        return true;
+    }
 
 }

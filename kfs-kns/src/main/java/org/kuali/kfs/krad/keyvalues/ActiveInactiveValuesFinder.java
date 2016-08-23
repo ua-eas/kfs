@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * This class returns list containg A = Active, I = Inactive and B = Show All
- *
+ * <p>
  * The labels (values) in the List returned correspond to what is displayed next
  * to the radio buttons for the Active Indicator form field
  */
@@ -36,7 +36,7 @@ public class ActiveInactiveValuesFinder extends org.kuali.kfs.krad.keyvalues.Key
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue("A", "Active"));
         keyValues.add(new ConcreteKeyValue("I", "Inactive"));

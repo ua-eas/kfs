@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.FileUtil;
+
+import java.util.List;
 
 /**
  * Base class for InitiateDirectory implementations
  */
-public abstract class InitiateDirectoryBase implements InitiateDirectory{
+public abstract class InitiateDirectoryBase implements InitiateDirectory {
     private boolean skipDirectoryInitiation;
 
     /**
@@ -34,7 +34,7 @@ public abstract class InitiateDirectoryBase implements InitiateDirectory{
      * @see org.kuali.kfs.sys.batch.service.InitiateDirectory#prepareDirectories(java.util.List)
      */
     public void prepareDirectories(List<String> directoryPaths) {
-        if(skipDirectoryInitiation) {
+        if (skipDirectoryInitiation) {
             FileUtil.createDirectories(directoryPaths);
         }
     }

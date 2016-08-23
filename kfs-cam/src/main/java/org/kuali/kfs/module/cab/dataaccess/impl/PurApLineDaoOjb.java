@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cab.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -30,6 +27,9 @@ import org.kuali.kfs.module.cab.dataaccess.PurApLineDao;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.math.BigDecimal;
+import java.util.Iterator;
+
 public class PurApLineDaoOjb extends PlatformAwareDaoBaseOjb implements PurApLineDao {
 
     public Integer getMaxCabLineNumber(String documentNumber, Integer purApLineItemIdentifier) {
@@ -38,7 +38,7 @@ public class PurApLineDaoOjb extends PlatformAwareDaoBaseOjb implements PurApLin
         criteria.addEqualTo(CabPropertyConstants.PurchasingAccountsPayableItemAsset.DOCUMENT_NUMBER, documentNumber);
         criteria.addEqualTo(CabPropertyConstants.PurchasingAccountsPayableItemAsset.ACCOUNTS_PAYABLE_LINE_ITEM_IDENTIFIER, purApLineItemIdentifier);
         ReportQueryByCriteria query = QueryFactory.newReportQuery(PurchasingAccountsPayableItemAsset.class, criteria);
-        query.setAttributes(new String[] { "max(" + CabPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER+")" });
+        query.setAttributes(new String[]{"max(" + CabPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER + ")"});
 
         Iterator<?> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxCabLineNumber = Integer.valueOf(0);
@@ -46,7 +46,7 @@ public class PurApLineDaoOjb extends PlatformAwareDaoBaseOjb implements PurApLin
         if (iterator.hasNext()) {
             Object[] data = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);
             if (data[0] != null) {
-                maxCabLineNumber = ((BigDecimal)data[0]).intValue();
+                maxCabLineNumber = ((BigDecimal) data[0]).intValue();
             }
         }
         return maxCabLineNumber;

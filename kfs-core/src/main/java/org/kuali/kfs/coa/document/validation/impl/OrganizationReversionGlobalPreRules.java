@@ -27,7 +27,6 @@ import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- *
  * PreRules checks for the {@link OrganizationReversionGlobal} that needs to occur while still in the Struts processing. This includes defaults
  */
 public class OrganizationReversionGlobalPreRules extends MaintenancePreRulesBase {
@@ -39,6 +38,7 @@ public class OrganizationReversionGlobalPreRules extends MaintenancePreRulesBase
      * <li>{@link OrganizationReversionGlobalPreRules#checkForContinuationAccounts(OrganizationReversionGlobal)}</li>
      * <li>{@link OrganizationReversionGlobalPreRules#copyKeyAttributesToCollections(OrganizationReversionGlobal)}</li>
      * </ul>
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override

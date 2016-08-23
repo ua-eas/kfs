@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="widget" classname="org.kuali.kfs.krad.uif.widget.Tree"/>
 <tiles:useAttribute name="componentId"/>
@@ -31,7 +31,7 @@
 
 <%-- KRAD doesn't support hidden input fields at present.  This is a workaround for it. --%>
 <c:if test="${KualiForm.viewTypeName != 'MAINTENANCE'}">
-  <input type="hidden" name="dataObject.selectedAgendaItemId" value="${KualiForm.dataObject.selectedAgendaItemId}" class="selectedAgendaItemId" />
+    <input type="hidden" name="dataObject.selectedAgendaItemId" value="${KualiForm.dataObject.selectedAgendaItemId}" class="selectedAgendaItemId"/>
 </c:if>
 
 <%--

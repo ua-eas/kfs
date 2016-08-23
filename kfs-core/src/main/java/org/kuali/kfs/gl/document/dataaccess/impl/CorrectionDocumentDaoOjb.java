@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.document.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
@@ -28,6 +25,9 @@ import org.kuali.kfs.gl.document.dataaccess.CorrectionDocumentDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.util.Collection;
 
 /**
  * The OJB implementation of CorrectionDocumentDao

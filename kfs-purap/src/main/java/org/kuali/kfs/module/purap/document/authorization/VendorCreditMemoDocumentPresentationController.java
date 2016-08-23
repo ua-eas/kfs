@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.CreditMemoEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -32,11 +34,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Set;
 
 
 public class VendorCreditMemoDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
@@ -84,7 +84,6 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canEdit(org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -97,14 +96,13 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.document.authorization.TransactionalDocumentPresentationControllerBase#getEditModes(org.kuali.rice.krad.document.Document)
      */
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
 
-        VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument)document;
+        VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument) document;
         WorkflowDocument workflowDocument = vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
 
         if (canCancel(vendorCreditMemoDocument)) {
@@ -121,11 +119,10 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
 
         if (SpringContext.getBean(PurapService.class).isFullDocumentEntryCompleted(vendorCreditMemoDocument)) {
             editModes.add(CreditMemoEditMode.FULL_DOCUMENT_ENTRY_COMPLETED);
-        }
-        else {
+        } else {
             if (ObjectUtils.isNotNull(vendorCreditMemoDocument.getPurchaseOrderDocument()) &&
-                    !vendorCreditMemoDocument.isSourceVendor() &&
-                    PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(vendorCreditMemoDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
+                !vendorCreditMemoDocument.isSourceVendor() &&
+                PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(vendorCreditMemoDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
                 // TODO hjs-is this right? check to see if the checkbox is showing up for non-AP folks
                 editModes.add(CreditMemoEditMode.ALLOW_REOPEN_PURCHASE_ORDER);
             }
@@ -151,8 +148,7 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
             if (vendorCreditMemoDocument.isUseTaxIndicator()) {
                 // only allow tax editing if doc is not using use tax
                 editModes.add(CreditMemoEditMode.LOCK_TAX_AMOUNT_ENTRY);
-            }
-            else {
+            } else {
                 // display the "clear all taxes" button if doc is not using use tax
                 editModes.add(CreditMemoEditMode.CLEAR_ALL_TAXES);
             }
@@ -200,8 +196,8 @@ public class VendorCreditMemoDocumentPresentationController extends PurchasingAc
 
     protected boolean canEditPreExtraction(VendorCreditMemoDocument vendorCreditMemoDocument) {
         return (!vendorCreditMemoDocument.isExtracted() &&
-                !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId()) &&
-                !PurapConstants.CreditMemoStatuses.CANCELLED_STATUSES.contains(vendorCreditMemoDocument.getApplicationDocumentStatus()));
+            !SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(vendorCreditMemoDocument.getFinancialSystemDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId()) &&
+            !PurapConstants.CreditMemoStatuses.CANCELLED_STATUSES.contains(vendorCreditMemoDocument.getApplicationDocumentStatus()));
     }
 
 }

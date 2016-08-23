@@ -18,21 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.PARAM_NAMESPACE;
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.TRAVEL_COVERSHEET_INSTRUCTIONS;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
-import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_HELP_URL_KEY;
-import static org.kuali.kfs.sys.context.SpringContext.getBean;
-
-import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -48,17 +38,27 @@ import org.kuali.kfs.module.tem.pdf.Coversheet;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.PARAM_NAMESPACE;
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.TRAVEL_COVERSHEET_INSTRUCTIONS;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
+import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_HELP_URL_KEY;
+import static org.kuali.kfs.sys.context.SpringContext.getBean;
 
 
-public class TravelEntertainmentDocumentServiceImpl implements TravelEntertainmentDocumentService{
+public class TravelEntertainmentDocumentServiceImpl implements TravelEntertainmentDocumentService {
     private ParameterService parameterService;
     private BusinessObjectService businessObjectService;
     private DocumentService documentService;
@@ -87,6 +87,7 @@ public class TravelEntertainmentDocumentServiceImpl implements TravelEntertainme
             entertainment.setPropertyChangeListeners(getPropertyChangeListeners());
         }
     }
+
     public List<PropertyChangeListener> getPropertyChangeListeners() {
         return this.propertyChangeListeners;
     }
@@ -115,7 +116,7 @@ public class TravelEntertainmentDocumentServiceImpl implements TravelEntertainme
         cover.setInitiatorPrincipalName(initiator.getPrincipalName());
         cover.setInitiatorPhone(initiator.getPhoneNumber());
         cover.setInitiatorEmail(initiator.getEmailAddress());
-        if(traveler.getCustomer()!=null) {
+        if (traveler.getCustomer() != null) {
             cover.setTravelerName(traveler.getCustomer().getCustomerName());
         }
         Person person = getPersonService().getPerson(traveler.getPrincipalId());
@@ -158,8 +159,8 @@ public class TravelEntertainmentDocumentServiceImpl implements TravelEntertainme
 
     protected String getReceiptRequired(ExpenseTypeObjectCode expenseTypeCode) {
         String receipt = "-";
-        if(ObjectUtils.isNotNull(expenseTypeCode) && ObjectUtils.isNotNull(expenseTypeCode.isReceiptRequired())) {
-            if(expenseTypeCode.isReceiptRequired()) {
+        if (ObjectUtils.isNotNull(expenseTypeCode) && ObjectUtils.isNotNull(expenseTypeCode.isReceiptRequired())) {
+            if (expenseTypeCode.isReceiptRequired()) {
                 receipt = "Yes";
             } else {
                 receipt = "No";

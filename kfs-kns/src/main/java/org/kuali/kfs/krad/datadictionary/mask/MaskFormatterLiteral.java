@@ -22,8 +22,6 @@ package org.kuali.kfs.krad.datadictionary.mask;
  * The maskLiteral element is used to completely hide the field value for
  * unauthorized users. The specified literal will be shown instead of the field
  * value.
- *
- *
  */
 public class MaskFormatterLiteral implements MaskFormatter {
     private static final long serialVersionUID = 3368293409242411693L;

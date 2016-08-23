@@ -23,8 +23,6 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * Defines a rule which gets invoked immediately before a document has an adHocRouteWorkgroup added to it.
- *
- *
  */
 public interface AddAdHocRouteWorkgroupRule extends BusinessRule {
     /**

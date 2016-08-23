@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business Object that represents selected/unselected sub fund group code for a user.

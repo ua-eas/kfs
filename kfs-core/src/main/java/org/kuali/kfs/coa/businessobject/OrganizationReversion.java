@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class OrganizationReversion extends PersistableBusinessObjectBase implements MutableInactivatable, CarryForwardReversionProcessOrganizationInfo, FiscalYearBasedBusinessObject {
@@ -403,6 +403,7 @@ public class OrganizationReversion extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -411,6 +412,7 @@ public class OrganizationReversion extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

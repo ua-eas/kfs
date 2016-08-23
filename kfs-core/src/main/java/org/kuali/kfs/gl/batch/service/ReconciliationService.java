@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.gl.batch.service.impl.ReconciliationBlock;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.Message;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * An object to reconcile origin entries. Since the {@link #reconcile(Iterator, ReconciliationBlock, List)} method below takes in an
@@ -35,8 +35,8 @@ public interface ReconciliationService {
     /**
      * Performs the reconciliation on origin entries using the data from the {@link ReconciliationBlock} parameter
      *
-     * @param entries origin entries
-     * @param reconBlock reconciliation data
+     * @param entries       origin entries
+     * @param reconBlock    reconciliation data
      * @param errorMessages a non-null list onto which error messages will be appended. This list will be modified by reference.
      */
     public void reconcile(Iterator<OriginEntryFull> entries, ReconciliationBlock reconBlock, List<Message> errorMessages);

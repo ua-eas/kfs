@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
@@ -27,6 +25,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.util.Map;
 
 /**
  * A test to make sure that canonical object codes are put into the correct Organization Reversion categories
@@ -41,13 +41,14 @@ public class OrganizationReversionCategoryTest extends KualiTestBase {
 
     /**
      * Sets up services and initializes the categories for this test.
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
-        organizationReversionService = SpringContext.getBean(OrganizationReversionService.class,"organizationReversionService");
+        organizationReversionService = SpringContext.getBean(OrganizationReversionService.class, "organizationReversionService");
         categories = organizationReversionService.getCategories();
         objectCodeService = SpringContext.getBean(ObjectCodeService.class);
     }

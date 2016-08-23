@@ -19,14 +19,15 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 public class Chapter4Status extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String vendorChapter4StatusCode;
     private String vendorChapter4StatusDescription;
     private boolean active;
+
     /**
      * Gets the vendorChapter4StatusCode attribute.
      *
@@ -36,6 +37,7 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public String getVendorChapter4StatusCode() {
         return vendorChapter4StatusCode;
     }
+
     /**
      * Sets the vendorChapter4StatusCode attribute.
      *
@@ -44,6 +46,7 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public void setVendorChapter4StatusCode(String vendorChapter4StatusCode) {
         this.vendorChapter4StatusCode = vendorChapter4StatusCode;
     }
+
     /**
      * Gets the vendorChapter4StatusDescription attribute.
      *
@@ -53,6 +56,7 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public String getVendorChapter4StatusDescription() {
         return vendorChapter4StatusDescription;
     }
+
     /**
      * Sets the vendorChapter4StatusDescription attribute.
      *
@@ -61,6 +65,7 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public void setVendorChapter4StatusDescription(String vendorChapter4StatusDescription) {
         this.vendorChapter4StatusDescription = vendorChapter4StatusDescription;
     }
+
     /**
      * Gets the active attribute.
      *
@@ -71,6 +76,7 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public boolean isActive() {
         return active;
     }
+
     /**
      * Sets the active attribute.
      *
@@ -80,7 +86,6 @@ public class Chapter4Status extends PersistableBusinessObjectBase implements Mut
     public void setActive(boolean active) {
         this.active = active;
     }
-
 
 
 }

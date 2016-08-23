@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.module.ld.businessobject.options;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.module.ld.LaborPropertyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,14 +33,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ld.LaborPropertyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * Field Finder for Labor Origin Entry.
@@ -100,7 +100,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
      * @return Returns the label
      */
     public String getFieldDisplayName(String fieldName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getKey().equals(fieldName)) {
                 return klp.getValue();
@@ -117,7 +117,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
      * @return Returns the key
      */
     public String getFieldName(String fieldDisplayName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getValue().equals(fieldDisplayName)) {
                 return (String) klp.getKey();
@@ -154,8 +154,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
             try {
                 BigDecimal d = new BigDecimal(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
         }
@@ -163,27 +162,22 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
             try {
                 KualiDecimal d = new KualiDecimal(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Integer".equals(fieldType)) {
+        } else if ("Integer".equals(fieldType)) {
             try {
                 Integer d = new Integer(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Date".equals(fieldType)) {
+        } else if ("Date".equals(fieldType)) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date d = df.parse(value);
                 return true;
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 return false;
             }
         }
@@ -259,137 +253,93 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
     public int getFieldLength(String fieldName) {
         if (fieldName.equals("universityFiscalYear")) {
             return 4;
-        }
-        else if (fieldName.equals("transactionLedgerEntrySequenceNumber")) {
+        } else if (fieldName.equals("transactionLedgerEntrySequenceNumber")) {
             return 5;
-        }
-        else if (fieldName.equals("transactionLedgerEntryAmount")) {
+        } else if (fieldName.equals("transactionLedgerEntryAmount")) {
             return 20;
-        }
-        else if (fieldName.equals("transactionDate")) {
+        } else if (fieldName.equals("transactionDate")) {
             return 10;
-        }
-        else if (fieldName.equals("financialDocumentReversalDate")) {
+        } else if (fieldName.equals("financialDocumentReversalDate")) {
             return 10;
-        }
-        else if (fieldName.equals("chartOfAccountsCode")) {
+        } else if (fieldName.equals("chartOfAccountsCode")) {
             return 2;
-        }
-        else if (fieldName.equals("accountNumber")) {
+        } else if (fieldName.equals("accountNumber")) {
             return 7;
-        }
-        else if (fieldName.equals("subAccountNumber")) {
+        } else if (fieldName.equals("subAccountNumber")) {
             return 5;
-        }
-        else if (fieldName.equals("financialObjectCode")) {
+        } else if (fieldName.equals("financialObjectCode")) {
             return 4;
-        }
-        else if (fieldName.equals("financialSubObjectCode")) {
+        } else if (fieldName.equals("financialSubObjectCode")) {
             return 3;
-        }
-        else if (fieldName.equals("financialBalanceTypeCode")) {
+        } else if (fieldName.equals("financialBalanceTypeCode")) {
             return 2;
-        }
-        else if (fieldName.equals("financialObjectTypeCode")) {
+        } else if (fieldName.equals("financialObjectTypeCode")) {
             return 2;
-        }
-        else if (fieldName.equals("universityFiscalPeriodCode")) {
+        } else if (fieldName.equals("universityFiscalPeriodCode")) {
             return 2;
-        }
-        else if (fieldName.equals("financialDocumentTypeCode")) {
+        } else if (fieldName.equals("financialDocumentTypeCode")) {
             return 4;
-        }
-        else if (fieldName.equals("financialSystemOriginationCode")) {
+        } else if (fieldName.equals("financialSystemOriginationCode")) {
             return 2;
-        }
-        else if (fieldName.equals(KFSPropertyConstants.DOCUMENT_NUMBER)) {
+        } else if (fieldName.equals(KFSPropertyConstants.DOCUMENT_NUMBER)) {
             return 14;
-        }
-        else if (fieldName.equals("transactionLedgerEntryDescription")) {
+        } else if (fieldName.equals("transactionLedgerEntryDescription")) {
             return 40;
-        }
-        else if (fieldName.equals("transactionDebitCreditCode")) {
+        } else if (fieldName.equals("transactionDebitCreditCode")) {
             return 1;
-        }
-        else if (fieldName.equals("organizationDocumentNumber")) {
+        } else if (fieldName.equals("organizationDocumentNumber")) {
             return 10;
-        }
-        else if (fieldName.equals("projectCode")) {
+        } else if (fieldName.equals("projectCode")) {
             return 10;
-        }
-        else if (fieldName.equals("organizationReferenceId")) {
+        } else if (fieldName.equals("organizationReferenceId")) {
             return 8;
-        }
-        else if (fieldName.equals("referenceFinancialDocumentTypeCode")) {
+        } else if (fieldName.equals("referenceFinancialDocumentTypeCode")) {
             return 4;
-        }
-        else if (fieldName.equals("referenceFinancialSystemOriginationCode")) {
+        } else if (fieldName.equals("referenceFinancialSystemOriginationCode")) {
             return 2;
-        }
-        else if (fieldName.equals("referenceFinancialDocumentNumber")) {
+        } else if (fieldName.equals("referenceFinancialDocumentNumber")) {
             return 14;
-        }
-        else if (fieldName.equals("transactionEncumbranceUpdateCode")) {
+        } else if (fieldName.equals("transactionEncumbranceUpdateCode")) {
             return 1;
-        }
-        else if (fieldName.equals("positionNumber")) {
+        } else if (fieldName.equals("positionNumber")) {
             return 8;
-        }
-        else if (fieldName.equals("transactionPostingDate")) {
+        } else if (fieldName.equals("transactionPostingDate")) {
             return 10;
-        }
-        else if (fieldName.equals("payPeriodEndDate")) {
+        } else if (fieldName.equals("payPeriodEndDate")) {
             return 10;
-        }
-        else if (fieldName.equals("transactionTotalHours")) {
+        } else if (fieldName.equals("transactionTotalHours")) {
             return 22;
-        }
-        else if (fieldName.equals("payrollEndDateFiscalYear")) {
+        } else if (fieldName.equals("payrollEndDateFiscalYear")) {
             return 4;
-        }
-        else if (fieldName.equals("payrollEndDateFiscalPeriodCode")) {
+        } else if (fieldName.equals("payrollEndDateFiscalPeriodCode")) {
             return 2;
-        }
-        else if (fieldName.equals("emplid")) {
+        } else if (fieldName.equals("emplid")) {
             return 11;
-        }
-        else if (fieldName.equals("employeeRecord")) {
+        } else if (fieldName.equals("employeeRecord")) {
             return 3;
-        }
-        else if (fieldName.equals("earnCode")) {
+        } else if (fieldName.equals("earnCode")) {
             return 3;
-        }
-        else if (fieldName.equals("payGroup")) {
+        } else if (fieldName.equals("payGroup")) {
             return 3;
-        }
-        else if (fieldName.equals("salaryAdministrationPlan")) {
+        } else if (fieldName.equals("salaryAdministrationPlan")) {
             return 4;
-        }
-        else if (fieldName.equals("grade")) {
+        } else if (fieldName.equals("grade")) {
             return 3;
-        }
-        else if (fieldName.equals("runIdentifier")) {
+        } else if (fieldName.equals("runIdentifier")) {
             return 10;
-        }
-        else if (fieldName.equals("laborLedgerOriginalChartOfAccountsCode")) {
+        } else if (fieldName.equals("laborLedgerOriginalChartOfAccountsCode")) {
             return 2;
-        }
-        else if (fieldName.equals("laborLedgerOriginalAccountNumber")) {
+        } else if (fieldName.equals("laborLedgerOriginalAccountNumber")) {
             return 7;
-        }
-        else if (fieldName.equals("laborLedgerOriginalSubAccountNumber")) {
+        } else if (fieldName.equals("laborLedgerOriginalSubAccountNumber")) {
             return 5;
-        }
-        else if (fieldName.equals("laborLedgerOriginalFinancialObjectCode")) {
+        } else if (fieldName.equals("laborLedgerOriginalFinancialObjectCode")) {
             return 4;
-        }
-        else if (fieldName.equals("laborLedgerOriginalFinancialSubObjectCode")) {
+        } else if (fieldName.equals("laborLedgerOriginalFinancialSubObjectCode")) {
             return 3;
-        }
-        else if (fieldName.equals("hrmsCompany")) {
+        } else if (fieldName.equals("hrmsCompany")) {
             return 3;
-        }
-        else if (fieldName.equals("setid")) {
+        } else if (fieldName.equals("setid")) {
             return 5;
         }
 

@@ -19,15 +19,15 @@
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.container.ContainerBase;
 import org.kuali.kfs.krad.uif.container.PageGroup;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.util.AutoPopulatingList;
 
 import java.text.MessageFormat;
@@ -41,13 +41,11 @@ import java.util.List;
  * matched. By default, an ErrorsField will match on id and bindingPath (if this
  * ErrorsField is for an InputField), but can be set to match on
  * additionalKeys and nested components keys (of the its parentComponent).
- *
+ * <p>
  * In addition, there are a variety of options which can be toggled to effect
  * the display of these messages during both client and server side validation
  * display. See documentation on each get method for more details on the effect
  * of each option.
- *
- *
  */
 public class ErrorsField extends FieldBase {
     private static final long serialVersionUID = 780940788435330077L;
@@ -111,7 +109,7 @@ public class ErrorsField extends FieldBase {
      * ErrorsField.
      *
      * @see FieldBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -315,7 +313,7 @@ public class ErrorsField extends FieldBase {
         }
         if (parent instanceof InputField) {
             if (((InputField) parent).getBindingInfo() != null && StringUtils.isNotEmpty(
-                    ((InputField) parent).getBindingInfo().getBindingPath())) {
+                ((InputField) parent).getBindingInfo().getBindingPath())) {
                 keyList.add(((InputField) parent).getBindingInfo().getBindingPath());
             }
         }
@@ -400,7 +398,7 @@ public class ErrorsField extends FieldBase {
      * not turn off errorMessage display for client side validation, as it may
      * prevent a user from completing a form. To turn off client side validation
      * AND its messaging use the applyClientSide flag on the Constraint itself.
-     *
+     * <p>
      * TODO this may be changed to: if this is set on a field it will attempt
      * show client side validation errors in the closest parent container error
      * container
@@ -720,7 +718,7 @@ public class ErrorsField extends FieldBase {
      * but it will be placed in different location within the page than the
      * default to accommodate an alternate layout. This flag is used by
      * BoxLayoutManager.
-     *
+     * <p>
      * This flag only applies to ErrorsFields whose parentComponents are
      * AttributeFields.
      *
@@ -742,7 +740,7 @@ public class ErrorsField extends FieldBase {
      * KNS look). Otherwise, this icon will not be displayed. Note that any icon
      * set through css for the message containers will still appear and this
      * only relates to the icon directly to the right of an input field.
-     *
+     * <p>
      * This flag should only be set on InputField ErrorsFields.
      *
      * @return the displayFieldErrorIcon
@@ -788,8 +786,8 @@ public class ErrorsField extends FieldBase {
                 String message = configService.getPropertyValueAsString("growl.hasErrors");
                 if (StringUtils.isNotBlank(message)) {
                     growlScript =
-                            growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
-                                    "general.error") + "', 'errorGrowl');";
+                        growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
+                            "general.error") + "', 'errorGrowl');";
                 }
             }
 
@@ -797,8 +795,8 @@ public class ErrorsField extends FieldBase {
                 String message = configService.getPropertyValueAsString("growl.hasWarnings");
                 if (StringUtils.isNotBlank(message)) {
                     growlScript =
-                            growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
-                                    "general.warning") + "', 'warningGrowl');";
+                        growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
+                            "general.warning") + "', 'warningGrowl');";
                 }
             }
 
@@ -807,7 +805,7 @@ public class ErrorsField extends FieldBase {
                 String message = "";
                 for (String property : properties) {
                     List<AutoPopulatingList<ErrorMessage>> lists = messageMap.getInfoMessagesForProperty(property,
-                            true);
+                        true);
                     for (List<ErrorMessage> errorList : lists) {
                         if (errorList != null) {
                             for (ErrorMessage e : errorList) {
@@ -815,7 +813,7 @@ public class ErrorsField extends FieldBase {
                                     message = configService.getPropertyValueAsString(e.getErrorKey());
                                 } else {
                                     message = message + "<br/>" + configService.getPropertyValueAsString(
-                                            e.getErrorKey());
+                                        e.getErrorKey());
                                 }
                                 if (e.getMessageParameters() != null) {
                                     message = message.replace("'", "''");
@@ -828,8 +826,8 @@ public class ErrorsField extends FieldBase {
 
                 if (StringUtils.isNotBlank(message)) {
                     growlScript =
-                            growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
-                                    "general.info") + "', 'infoGrowl');";
+                        growlScript + "showGrowl('" + message + "', '" + configService.getPropertyValueAsString(
+                            "general.info") + "', 'infoGrowl');";
                 }
             }
         }

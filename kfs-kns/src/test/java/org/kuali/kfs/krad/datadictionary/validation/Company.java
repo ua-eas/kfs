@@ -26,109 +26,111 @@ import java.util.List;
  */
 public class Company {
 
-	private String id;
-	private String name;
-	private List<Address> locations;
+    private String id;
+    private String name;
+    private List<Address> locations;
 
-	private Employee mainContact;
-	private Address mainAddress;
-	private List<Employee> employees;
-	private List<String> slogans;
-
-
-    public Company(){
-	}
+    private Employee mainContact;
+    private Address mainAddress;
+    private List<Employee> employees;
+    private List<String> slogans;
 
 
-	/**
-	 * @return the id
-	 */
-
-	public String getId() {
-		return this.id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+    public Company() {
+    }
 
 
+    /**
+     * @return the id
+     */
 
-	public Company(String name) {
-		this.name = name;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return this.name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the addresses
-	 */
-	public List<Address> getLocations() {
-		return this.locations;
-	}
-	/**
-	 * @param addresses the addresses to set
-	 */
-	public void setLocations(List<Address> addresses) {
-		this.locations = addresses;
-	}
-
-	/**
-	 * @return the address
-	 */
-	public Address getMainAddress() {
-		return this.mainAddress;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setMainAddress(Address address) {
-		this.mainAddress = address;
-	}
-
-	/**
-	 * @return the employee
-	 */
-	public List<Employee> getEmployees() {
-		return this.employees;
-	}
-
-	/**
-	 * @param employee the employee to set
-	 */
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
-	/**
-	 * @return the mainContact
-	 */
-	public Employee getMainContact() {
-		return this.mainContact;
-	}
+    public Company(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the addresses
+     */
+    public List<Address> getLocations() {
+        return this.locations;
+    }
+
+    /**
+     * @param addresses the addresses to set
+     */
+    public void setLocations(List<Address> addresses) {
+        this.locations = addresses;
+    }
+
+    /**
+     * @return the address
+     */
+    public Address getMainAddress() {
+        return this.mainAddress;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setMainAddress(Address address) {
+        this.mainAddress = address;
+    }
+
+    /**
+     * @return the employee
+     */
+    public List<Employee> getEmployees() {
+        return this.employees;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
 
-	/**
-	 * @param mainContact the mainContact to set
-	 */
-	public void setMainContact(Employee mainContact) {
-		this.mainContact = mainContact;
-	}
+    /**
+     * @return the mainContact
+     */
+    public Employee getMainContact() {
+        return this.mainContact;
+    }
+
+
+    /**
+     * @param mainContact the mainContact to set
+     */
+    public void setMainContact(Employee mainContact) {
+        this.mainContact = mainContact;
+    }
 
 
     /**

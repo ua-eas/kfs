@@ -64,12 +64,12 @@ public class BudgetPushPullServiceImpl implements BudgetPushPullService {
 
     /**
      * Sets the budgetOrganizationPushPullDao attribute value.
+     *
      * @param budgetOrganizationPushPullDao The budgetOrganizationPushPullDao to set.
      */
     public void setBudgetOrganizationPushPullDao(BudgetOrganizationPushPullDao budgetOrganizationPushPullDao) {
         this.budgetOrganizationPushPullDao = budgetOrganizationPushPullDao;
     }
-
 
 
 }

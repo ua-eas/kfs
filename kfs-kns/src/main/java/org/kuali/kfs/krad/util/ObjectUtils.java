@@ -23,6 +23,13 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.core.proxy.ProxyHelper;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtension;
+import org.kuali.kfs.krad.exception.ClassNotPersistableException;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.encryption.EncryptionService;
 import org.kuali.rice.core.api.search.SearchOperator;
@@ -32,13 +39,6 @@ import org.kuali.rice.core.web.format.FormatException;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtension;
-import org.kuali.kfs.krad.exception.ClassNotPersistableException;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
 
 import javax.persistence.EntityNotFoundException;
 import java.beans.PropertyDescriptor;
@@ -47,7 +47,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -256,7 +255,7 @@ public final class ObjectUtils {
             // persistence structure service
             if (propertyType != null && propertyType.equals(PersistableBusinessObjectExtension.class)) {
                 propertyType = persistenceStructureService.getBusinessObjectAttributeClass(
-                        ProxyHelper.getRealClass(object), propertyName);
+                    ProxyHelper.getRealClass(object), propertyName);
             }
 
             // If the easy way didn't work ...
@@ -400,7 +399,7 @@ public final class ObjectUtils {
      * @throws IllegalAccessException
      */
     public static void setObjectProperty(Object bo, String propertyName, Class propertyType, Object propertyValue)
-            throws FormatException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        throws FormatException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         // reformat propertyValue, if necessary
         boolean reformat = false;
         if (propertyType != null) {
@@ -497,11 +496,11 @@ public final class ObjectUtils {
         }
 
         Class<? extends Formatter> formatterClass = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeFormatter(
-                boClass, boPropertyName);
+            boClass, boPropertyName);
         if (formatterClass == null) {
             try {
                 formatterClass = Formatter.findFormatter(getPropertyType(boClass.newInstance(), boPropertyName,
-                        KRADServiceLocator.getPersistenceStructureService()));
+                    KRADServiceLocator.getPersistenceStructureService()));
             } catch (InstantiationException e) {
                 LOG.warn("Unable to find a formater for bo class " + boClass + " and property " + boPropertyName);
                 // just swallow the exception and let formatter be null
@@ -516,7 +515,7 @@ public final class ObjectUtils {
                 formatter = formatterClass.newInstance();
             } catch (Exception e) {
                 throw new RuntimeException(
-                        "cannot create new instance of formatter class " + formatterClass.toString(), e);
+                    "cannot create new instance of formatter class " + formatterClass.toString(), e);
             }
         }
 
@@ -586,12 +585,12 @@ public final class ObjectUtils {
         // need to materialize the updateable collections before resetting the property, because it may be used in the retrieval
         try {
             materializeUpdateableCollections(bo);
-        } catch(ClassNotPersistableException ex){
+        } catch (ClassNotPersistableException ex) {
             //Not all classes will be persistable in a collection. For e.g. externalizable business objects.
-            LOG.info("Not persistable dataObjectClass: "+bo.getClass().getName()+", field: "+propertyName);
+            LOG.info("Not persistable dataObjectClass: " + bo.getClass().getName() + ", field: " + propertyName);
         }
 
-    // Set the property in the BO
+        // Set the property in the BO
         setObjectProperty(bo, propertyName, type, propertyValue);
 
         // Now drill down and check nested BOs and BO lists
@@ -635,7 +634,7 @@ public final class ObjectUtils {
             PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(bo.getClass());
             for (int i = 0; i < propertyDescriptors.length; i++) {
                 if (KRADServiceLocator.getPersistenceStructureService().hasCollection(bo.getClass(), propertyDescriptors[i].getName()) && KRADServiceLocator
-                        .getPersistenceStructureService().isCollectionUpdatable(bo.getClass(), propertyDescriptors[i].getName())) {
+                    .getPersistenceStructureService().isCollectionUpdatable(bo.getClass(), propertyDescriptors[i].getName())) {
                     Collection updateableCollection = (Collection) getPropertyValue(bo, propertyDescriptors[i].getName());
                     if ((updateableCollection != null) && ProxyHelper.isCollectionProxy(updateableCollection)) {
                         materializeObjects(updateableCollection);
@@ -679,7 +678,7 @@ public final class ObjectUtils {
         } else {
             Map bo1Keys = KRADServiceLocator.getPersistenceService().getPrimaryKeyFieldValues(bo1);
             Map bo2Keys = KRADServiceLocator.getPersistenceService().getPrimaryKeyFieldValues(bo2);
-            for (Iterator iter = bo1Keys.keySet().iterator(); iter.hasNext();) {
+            for (Iterator iter = bo1Keys.keySet().iterator(); iter.hasNext(); ) {
                 String keyName = (String) iter.next();
                 if (bo1Keys.get(keyName) != null && bo2Keys.get(keyName) != null) {
                     if (!bo1Keys.get(keyName).toString().equals(bo2Keys.get(keyName).toString())) {
@@ -705,7 +704,7 @@ public final class ObjectUtils {
     public static boolean collectionContainsObjectWithIdentitcalKey(Collection<? extends PersistableBusinessObject> controlList, PersistableBusinessObject bo) {
         boolean objectExistsInList = false;
 
-        for (Iterator i = controlList.iterator(); i.hasNext();) {
+        for (Iterator i = controlList.iterator(); i.hasNext(); ) {
             if (equalByKeys((PersistableBusinessObject) i.next(), bo)) {
                 return true;
             }
@@ -741,7 +740,7 @@ public final class ObjectUtils {
      */
 
     public static void removeObjectWithIdentitcalKey(Collection<? extends PersistableBusinessObject> controlList, PersistableBusinessObject bo) {
-        for (Iterator<? extends PersistableBusinessObject> i = controlList.iterator(); i.hasNext();) {
+        for (Iterator<? extends PersistableBusinessObject> i = controlList.iterator(); i.hasNext(); ) {
             PersistableBusinessObject listBo = i.next();
             if (equalByKeys(listBo, bo)) {
                 i.remove();
@@ -760,7 +759,7 @@ public final class ObjectUtils {
     public static BusinessObject retrieveObjectWithIdentitcalKey(Collection<? extends PersistableBusinessObject> controlList, PersistableBusinessObject bo) {
         BusinessObject returnBo = null;
 
-        for (Iterator<? extends PersistableBusinessObject> i = controlList.iterator(); i.hasNext();) {
+        for (Iterator<? extends PersistableBusinessObject> i = controlList.iterator(); i.hasNext(); ) {
             PersistableBusinessObject listBo = i.next();
             if (equalByKeys(listBo, bo)) {
                 returnBo = listBo;
@@ -890,7 +889,7 @@ public final class ObjectUtils {
      * @param possiblyProxiedObjects - a Collection of objects that may be proxies
      */
     public static void materializeObjects(Collection possiblyProxiedObjects) {
-        for (Iterator i = possiblyProxiedObjects.iterator(); i.hasNext();) {
+        for (Iterator i = possiblyProxiedObjects.iterator(); i.hasNext(); ) {
             ObjectUtils.isNotNull(i.next());
         }
     }
@@ -937,7 +936,7 @@ public final class ObjectUtils {
             Object realReferenceValue = null;
 
             // for each reference object on the parent bo
-            for (Iterator iter = references.keySet().iterator(); iter.hasNext();) {
+            for (Iterator iter = references.keySet().iterator(); iter.hasNext(); ) {
                 referenceName = (String) iter.next();
                 referenceClass = references.get(referenceName);
 
@@ -1079,38 +1078,39 @@ public final class ObjectUtils {
      * @throws IllegalArgumentException
      */
     public static boolean isWriteable(Object object, String property, PersistenceStructureService persistenceStructureService)
-    		throws IllegalArgumentException {
-    	if (null == object || null == property) {
-    		throw new IllegalArgumentException("Cannot check writeable status with null arguments.");
-    	}
+        throws IllegalArgumentException {
+        if (null == object || null == property) {
+            throw new IllegalArgumentException("Cannot check writeable status with null arguments.");
+        }
 
-    	// Try the easy way.
-    	try {
-    		if (!(PropertyUtils.isWriteable(object, property))) {
-    			// If that fails lets try to be a bit smarter, understanding that Collections may be involved.
-    			return isWriteableHelper(object, property, persistenceStructureService);
-    		} else {
-    			return true;
-    		}
-    	} catch (NestedNullException nestedNullException) {
-    		// If a NestedNullException is thrown then the property has a null
-    		// value.  Call the helper to find the class of the property and
-    		// get a newInstance of it.
-    		return isWriteableHelper(object, property, persistenceStructureService);
-    	}
+        // Try the easy way.
+        try {
+            if (!(PropertyUtils.isWriteable(object, property))) {
+                // If that fails lets try to be a bit smarter, understanding that Collections may be involved.
+                return isWriteableHelper(object, property, persistenceStructureService);
+            } else {
+                return true;
+            }
+        } catch (NestedNullException nestedNullException) {
+            // If a NestedNullException is thrown then the property has a null
+            // value.  Call the helper to find the class of the property and
+            // get a newInstance of it.
+            return isWriteableHelper(object, property, persistenceStructureService);
+        }
     }
 
     /**
      * This method handles the cases where PropertyUtils.isWriteable is not
      * sufficient.  It handles cases where the parameter in question is a
      * collection or if the parameter value is null.
+     *
      * @param object
      * @param property
      * @param persistenceStructureService
      * @return
      */
     private static boolean isWriteableHelper(Object object, String property, PersistenceStructureService persistenceStructureService) {
-    	if (property.contains(".")) {
+        if (property.contains(".")) {
             String propertyName = StringUtils.substringBefore(property, ".");
 
             // Get the type of the attribute.
@@ -1134,29 +1134,26 @@ public final class ObjectUtils {
                 }
             } else {
                 LOG.error("Skipping Criteria: " + property + " - Unable to determine class for object: "
-                        + object.getClass().getName() + " - " + propertyName);
+                    + object.getClass().getName() + " - " + propertyName);
             }
         }
-    	return false;
+        return false;
     }
 
     /**
      * Helper method for creating a new instance of the given class
      *
-     * @param clazz
-     *            - class of object to create
+     * @param clazz - class of object to create
      * @return T object of type given by the clazz parameter
      */
     public static <T> T newInstance(Class<T> clazz) {
         T object = null;
         try {
             object = clazz.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             LOG.error("Unable to create new instance of class: " + clazz.getName());
             throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             LOG.error("Unable to create new instance of class: " + clazz.getName());
             throw new RuntimeException(e);
         }

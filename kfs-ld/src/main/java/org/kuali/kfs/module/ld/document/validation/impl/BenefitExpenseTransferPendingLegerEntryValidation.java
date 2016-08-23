@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
@@ -36,8 +34,10 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Validates that an accounting document does not have any pending
@@ -49,6 +49,7 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
     /**
      * Validates that the accounting lines in the accounting document does not have
      * any pending labor ledger entries with the same account, sub-account, object, sub-object, fiscal year, fiscal period
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -58,7 +59,7 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
         AccountingDocument accountingDocument = (AccountingDocument) documentForValidation;
 
         result = !hasPendingLedgerEntry(accountingDocument);
-        return result ;
+        return result;
     }
 
     /**
@@ -68,7 +69,7 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
      * @return True if the given accounting documents Pending Entries do not conflict with current PEs, false otherwise.
      */
     protected boolean hasPendingLedgerEntry(AccountingDocument accountingDocument) {
-        boolean entriesExist = false ;
+        boolean entriesExist = false;
 
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) accountingDocument;
         List<ExpenseTransferAccountingLine> sourceAccountingLines = expenseTransferDocument.getSourceAccountingLines();
@@ -86,7 +87,7 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
             String documentNumber = accountingDocument.getDocumentNumber();
 
             fieldValues.put(LaborPropertyConstants.PAYROLL_END_DATE_FISCAL_PERIOD_CODE, periodCode);
-            fieldValues.put(LaborPropertyConstants.PAYROLL_END_DATE_FISCAL_YEAR, fiscalYear+"");
+            fieldValues.put(LaborPropertyConstants.PAYROLL_END_DATE_FISCAL_YEAR, fiscalYear + "");
             fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
             subAccountNumber = StringUtils.isBlank(subAccountNumber) ? KFSConstants.getDashSubAccountNumber() : subAccountNumber;
 
@@ -94,18 +95,19 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
             fieldValues.put(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, subAccountNumber);
             fieldValues.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, objectCode);
             fieldValues.put(KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE, subObjectCode);
-            fieldValues.put(KFSPropertyConstants.DOCUMENT_NUMBER, SearchOperator.NOT.op()  + documentNumber);
+            fieldValues.put(KFSPropertyConstants.DOCUMENT_NUMBER, SearchOperator.NOT.op() + documentNumber);
 
             if (SpringContext.getBean(LaborLedgerPendingEntryService.class).hasPendingLaborLedgerEntry(fieldValues)) {
-                GlobalVariables.getMessageMap().putError(LaborConstants.EMPLOYEE_LOOKUP_ERRORS, LaborKeyConstants.PENDING_BENEFIT_TRANSFER_ERROR, accountNumber, objectCode, periodCode, fiscalYear+"");
+                GlobalVariables.getMessageMap().putError(LaborConstants.EMPLOYEE_LOOKUP_ERRORS, LaborKeyConstants.PENDING_BENEFIT_TRANSFER_ERROR, accountNumber, objectCode, periodCode, fiscalYear + "");
                 return true;
             }
         }
-        return entriesExist ;
+        return entriesExist;
     }
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -114,6 +116,7 @@ public class BenefitExpenseTransferPendingLegerEntryValidation extends GenericVa
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

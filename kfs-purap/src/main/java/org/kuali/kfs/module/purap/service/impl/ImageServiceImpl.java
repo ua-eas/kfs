@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
 import org.kuali.kfs.module.purap.exception.PurapConfigurationException;
@@ -31,7 +29,9 @@ import org.kuali.kfs.module.purap.service.ImageService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Implementation of ImageService.
@@ -91,9 +91,9 @@ public class ImageServiceImpl implements ImageService {
     /**
      * Copy a file from a web location to the local system.
      *
-     * @param prefix - Prefix for the file name
-     * @param fileKey - File key for file
-     * @param key - Unique key for the file
+     * @param prefix   - Prefix for the file name
+     * @param fileKey  - File key for file
+     * @param key      - Unique key for the file
      * @param location - location of file
      * @return - location to copied file
      */

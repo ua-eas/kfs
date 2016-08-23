@@ -16,20 +16,20 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="group" classname="org.kuali.kfs.krad.uif.container.TreeGroup"/>
 
 <krad:group group="${group}">
-  <div id="${group.id}_tree">
-	<ul>
-      <c:forEach items="${group.treeGroups.rootElement.children}" var="node" varStatus="itemVarStatus">
-         <krad:treeNode node="${node}" />
-      </c:forEach>
-	</ul>
-  </div>
+    <div id="${group.id}_tree">
+        <ul>
+            <c:forEach items="${group.treeGroups.rootElement.children}" var="node" varStatus="itemVarStatus">
+                <krad:treeNode node="${node}"/>
+            </c:forEach>
+        </ul>
+    </div>
 
-  <%-- invoke tree widget --%>
-  <krad:template component="${group.tree}" componentId="${group.id}_tree"/>
+    <%-- invoke tree widget --%>
+    <krad:template component="${group.tree}" componentId="${group.id}_tree"/>
 
 </krad:group>

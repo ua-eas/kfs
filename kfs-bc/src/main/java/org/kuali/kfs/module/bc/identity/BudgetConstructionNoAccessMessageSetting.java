@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.identity;
 
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * Interface for role types services that can set no access messages for budget construction.
@@ -31,8 +31,8 @@ public interface BudgetConstructionNoAccessMessageSetting {
      * Assumes the given user does not have view access for the given document and adds a message to given MessageList to indicate
      * why the user does not.
      *
-     * @param document Budget document that access was requested for
-     * @param user Person who requested access
+     * @param document   Budget document that access was requested for
+     * @param user       Person who requested access
      * @param messageMap MessageMap for adding message to
      */
     public void setNoAccessMessage(BudgetConstructionDocument document, Person user, MessageMap messageMap);

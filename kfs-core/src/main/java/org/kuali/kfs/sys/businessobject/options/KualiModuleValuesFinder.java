@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Value Finder for Units Of Measure.
@@ -41,11 +41,11 @@ public class KualiModuleValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         KualiModuleService moduleService = SpringContext.getBean(KualiModuleService.class);
         List<ModuleService> results = moduleService.getInstalledModuleServices();
-        List<KeyValue> labels = new ArrayList<KeyValue>( results.size() );
+        List<KeyValue> labels = new ArrayList<KeyValue>(results.size());
         labels.add(new ConcreteKeyValue("", ""));
         for (ModuleService module : results) {
             labels.add(new ConcreteKeyValue(module.getModuleConfiguration().getNamespaceCode(),
-                    SpringContext.getBean(KualiModuleService.class).getNamespaceName(module.getModuleConfiguration().getNamespaceCode())));
+                SpringContext.getBean(KualiModuleService.class).getNamespaceName(module.getModuleConfiguration().getNamespaceCode())));
         }
         return labels;
     }

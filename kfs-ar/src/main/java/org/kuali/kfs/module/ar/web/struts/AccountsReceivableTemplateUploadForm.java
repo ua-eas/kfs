@@ -19,8 +19,8 @@
 package org.kuali.kfs.module.ar.web.struts;
 
 import org.apache.struts.upload.FormFile;
-import org.kuali.kfs.module.ar.businessobject.TemplateBase;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.module.ar.businessobject.TemplateBase;
 
 
 /**

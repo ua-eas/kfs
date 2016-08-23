@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class PurchasingProcessTotalCostValidation extends GenericValidation {
 
@@ -38,7 +38,7 @@ public class PurchasingProcessTotalCostValidation extends GenericValidation {
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        if (((PurchasingDocument)event.getDocument()).getTotalDollarAmount().isLessThan(new KualiDecimal(BigDecimal.ZERO))) {
+        if (((PurchasingDocument) event.getDocument()).getTotalDollarAmount().isLessThan(new KualiDecimal(BigDecimal.ZERO))) {
             valid = false;
             GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_TOTAL_NEGATIVE);
         }

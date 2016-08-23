@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base implementation for Form class for Contracts & Grants Report Lookups.
@@ -72,6 +72,7 @@ public class ContractsGrantsReportLookupForm extends LookupForm {
 
     /**
      * Sets whether actions should be shown in the lookup results
+     *
      * @param displayActionsForRow true if actions should be displayed, false otherwise
      */
     public void setDisplayActionsForRow(boolean displayActionsForRow) {

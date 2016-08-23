@@ -23,4 +23,5 @@ import org.kuali.kfs.integration.ld.LaborLedgerEntryGLSummary;
 /**
  * Extension of Labor LedgerEntry to allow for GL Summarization lookup
  */
-public class LedgerEntryGLSummary extends LedgerEntry implements LaborLedgerEntryGLSummary {}
+public class LedgerEntryGLSummary extends LedgerEntry implements LaborLedgerEntryGLSummary {
+}

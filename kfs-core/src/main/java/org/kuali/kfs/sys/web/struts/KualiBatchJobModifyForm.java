@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import org.kuali.kfs.sys.batch.BatchJobStatus;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.sys.batch.BatchJobStatus;
 
 public class KualiBatchJobModifyForm extends KualiForm {
-// TODO temporary hack - all input field should be added to this - see KFSMI-2184
+    // TODO temporary hack - all input field should be added to this - see KFSMI-2184
     private BatchJobStatus job;
 
     public BatchJobStatus getJob() {

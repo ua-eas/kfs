@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.module.ar.document.validation;
 
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 
 /**
  * Rule invoked when a new customer invoice detail is added
  */
-public interface AddCashControlDetailRule<F extends TransactionalDocument > extends CashControlDetailRule {
+public interface AddCashControlDetailRule<F extends TransactionalDocument> extends CashControlDetailRule {
 
 
     /**
      * This method is called when a cash control detail is added
+     *
      * @param transactionalDocument the cash control document
-     * @param cashControlDetail the detail to be added
+     * @param cashControlDetail     the detail to be added
      * @return true if valid to be added, false otherwise
      */
     public boolean processAddCashControlDetailBusinessRules(F transactionalDocument, CashControlDetail cashControlDetail);

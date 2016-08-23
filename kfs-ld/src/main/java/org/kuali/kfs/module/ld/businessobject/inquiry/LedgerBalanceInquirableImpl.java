@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ld.businessobject.inquiry;
 
+import org.kuali.kfs.gl.Constant;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.kuali.kfs.gl.Constant;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 
 /**
  * Service implementation of LedgerBalanceInquirable. This class is used to generate the URL for the user-defined attributes for the

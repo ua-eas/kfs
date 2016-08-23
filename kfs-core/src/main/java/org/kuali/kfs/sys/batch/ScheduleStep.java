@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
+
+import java.util.Date;
 
 public class ScheduleStep extends AbstractStep {
     private static final Logger LOG = Logger.getLogger(ScheduleStep.class);
@@ -39,8 +39,7 @@ public class ScheduleStep extends AbstractStep {
             isPastScheduleCutoffTime = schedulerService.isPastScheduleCutoffTime();
             try {
                 Thread.sleep(Integer.parseInt(getParameterService().getParameterValueAsString(getClass(), KFSConstants.SystemGroupParameterNames.BATCH_SCHEDULE_STATUS_CHECK_INTERVAL)));
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException("Schedule step encountered interrupt exception while trying to wait for the specified batch schedule status check interval", e);
             }
         }

@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.uif.UifConstants;
-
 /**
  * TODO delyea don't forget to fill this in.
- *
- *
  */
 public class FixedPointPatternConstraint extends ValidDataPatternConstraint {
 
@@ -107,15 +105,15 @@ public class FixedPointPatternConstraint extends ValidDataPatternConstraint {
      */
     @Override
     public List<String> getValidationMessageParams() {
-        if(validationMessageParams == null){
+        if (validationMessageParams == null) {
             validationMessageParams = new ArrayList<String>();
             ConfigurationService configService = KRADServiceLocator.getKualiConfigurationService();
             if (allowNegative) {
                 validationMessageParams.add(configService.getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
-                        + "positiveOrNegative"));
+                    + "positiveOrNegative"));
             } else {
                 validationMessageParams.add(configService.getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
-                        + "positive"));
+                    + "positive"));
             }
 
             validationMessageParams.add(Integer.toString(precision));

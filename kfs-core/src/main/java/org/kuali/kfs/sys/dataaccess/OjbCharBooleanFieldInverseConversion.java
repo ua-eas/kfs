@@ -43,16 +43,13 @@ public class OjbCharBooleanFieldInverseConversion implements FieldConversion {
         if (source instanceof Boolean) {
             if (source.equals(Boolean.TRUE)) {
                 return FALSE;
-            }
-            else {
+            } else {
                 return TRUE;
             }
-        }
-        else if (source instanceof String) {
+        } else if (source instanceof String) {
             if ("Y".equalsIgnoreCase((String) source)) {
                 return FALSE;
-            }
-            else if ("N".equalsIgnoreCase((String) source)) {
+            } else if ("N".equalsIgnoreCase((String) source)) {
                 return TRUE;
             }
         }
@@ -69,12 +66,10 @@ public class OjbCharBooleanFieldInverseConversion implements FieldConversion {
         if (source instanceof String) {
             if (TRUE.equals(source)) {
                 return Boolean.FALSE;
-            }
-            else {
+            } else {
                 return Boolean.TRUE;
             }
-        }
-        else {
+        } else {
             return source;
         }
     }

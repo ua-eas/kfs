@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.batch.FilePurgeCustomAge;
+
+import java.util.List;
 
 /**
  * Methods needed to purge files in the FilePurgeStep
@@ -29,13 +29,15 @@ public interface FilePurgeService {
 
     /**
      * Purges old files from the given directory
-     * @param directory the directory to purge
+     *
+     * @param directory  the directory to purge
      * @param customAges the List of customized ages for files which do not follow the standard
      */
     public abstract void purgeFiles(String directory, List<FilePurgeCustomAge> customAges);
 
     /**
      * Returns the age in days that files matching this custom age should leave matching files before purging
+     *
      * @param customAge a custom age to check
      * @return the number of days needed to elapse before purging
      */
@@ -43,6 +45,7 @@ public interface FilePurgeService {
 
     /**
      * Looks up the parameter for the standard number of days before a file should be purged
+     *
      * @return the standard number of days before a file should be purged
      */
     public abstract int getStandardDaysBeforePurge();

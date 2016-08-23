@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.cg.identity;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class ResearchRiskReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
     protected DocumentTypeService documentTypeService;
 
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         if (KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, CgKimAttributes.RESEARCH_RISK_TYPE_CODE)) {
             Set<String> potentialParentDocumentTypeNames = new HashSet<String>(1);
             if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {

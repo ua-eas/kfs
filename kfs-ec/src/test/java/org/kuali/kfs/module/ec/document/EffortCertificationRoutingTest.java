@@ -18,29 +18,6 @@
  */
 package org.kuali.kfs.module.ec.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.sql.DataSource;
-
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
@@ -51,6 +28,28 @@ import org.kuali.kfs.krad.service.XmlObjectSerializerService;
 import org.kuali.kfs.krad.workflow.DocumentInitiator;
 import org.kuali.kfs.krad.workflow.KualiDocumentXmlMaterializer;
 import org.kuali.kfs.krad.workflow.KualiTransactionalDocumentInformation;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.DocumentTestUtils;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 
 @ConfigureContext(session = khuntley)
@@ -85,15 +84,12 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
             query = query + "and exists (select * from KREW_RTE_NODE_LNK_T ";
             query = query + "where to_rte_node_id=nd.rte_node_id) ";
             dbAnswer = dbAsk.executeQuery(query);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 dbCon.close();
-            }
-            catch (SQLException sqle2) {
+            } catch (SQLException sqle2) {
                 sqle2.printStackTrace();
             }
         }
@@ -129,7 +125,7 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
         Note testNote = new Note();
         testNote.setNoteText("This is a nice note.");
         testNote.setAuthorUniversalIdentifier(document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
-        SpringContext.getBean(NoteService.class).createNote(testNote, document.getDocumentHeader(),document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId() );
+        SpringContext.getBean(NoteService.class).createNote(testNote, document.getDocumentHeader(), document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
         effortCertificationDetailLines.add(testDetailLine);
         testDetailLine = new EffortCertificationDetail();
         testDetailLine.setAccountNumber("4631483");
@@ -160,8 +156,7 @@ public class EffortCertificationRoutingTest extends KualiTestBase {
             String initiatorPrincipalId = documentHeader.getWorkflowDocument().getInitiatorPrincipalId();
             Person initiatorUser = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(initiatorPrincipalId);
             initiatior.setPerson(initiatorUser);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

@@ -18,190 +18,189 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsMilestoneReport" parent="ContractsGrantsMilestoneReport-parentBean" />
+    <bean id="ContractsGrantsMilestoneReport" parent="ContractsGrantsMilestoneReport-parentBean"/>
 
-	<bean id="ContractsGrantsMilestoneReport-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsMilestoneReport" />
-		<property name="lookupDefinition">
-			<ref bean="ContractsGrantsMilestoneReport-lookupDefinition" />
-		</property>
-		<property name="titleAttribute" value="milestoneNumber" />
-		<property name="objectLabel" value="Milestone Report" />
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsMilestoneReport-proposalNumber" />
-				<ref bean="ContractsGrantsMilestoneReport-chartOfAccountsCode"/>
-				<ref bean="ContractsGrantsMilestoneReport-accountNumber" />
-				<ref bean="ContractsGrantsMilestoneReport-milestoneNumber" />
-				<ref bean="ContractsGrantsMilestoneReport-milestoneAmount" />
-				<ref bean="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate" />
-				<ref bean="ContractsGrantsMilestoneReport-billed" />
-				<ref bean="ContractsGrantsMilestoneReport-active" />
-			</list>
-		</property>
-		    <property name="relationships">
-      <list>
-     	<bean parent="RelationshipDefinition" p:objectAttributeName="award">
-		<property name="primitiveAttributes">
-			<list>
-				<bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber" p:targetName="proposalNumber" />
-			</list>
-		</property>
-		</bean>
-		<bean parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="chart"/>
-          <property name="primitiveAttributes">
+    <bean id="ContractsGrantsMilestoneReport-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsMilestoneReport"/>
+        <property name="lookupDefinition">
+            <ref bean="ContractsGrantsMilestoneReport-lookupDefinition"/>
+        </property>
+        <property name="titleAttribute" value="milestoneNumber"/>
+        <property name="objectLabel" value="Milestone Report"/>
+        <property name="attributes">
             <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="chartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
+                <ref bean="ContractsGrantsMilestoneReport-proposalNumber"/>
+                <ref bean="ContractsGrantsMilestoneReport-chartOfAccountsCode"/>
+                <ref bean="ContractsGrantsMilestoneReport-accountNumber"/>
+                <ref bean="ContractsGrantsMilestoneReport-milestoneNumber"/>
+                <ref bean="ContractsGrantsMilestoneReport-milestoneAmount"/>
+                <ref bean="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate"/>
+                <ref bean="ContractsGrantsMilestoneReport-billed"/>
+                <ref bean="ContractsGrantsMilestoneReport-active"/>
             </list>
-          </property>
-        </bean>
-		<bean parent="RelationshipDefinition">
-					<property name="objectAttributeName" value="account" />
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="accountNumber"
-								p:targetName="accountNumber" />
-								<bean parent="PrimitiveAttributeDefinition" p:sourceName="chartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
-						</list>
+        </property>
+        <property name="relationships">
+            <list>
+                <bean parent="RelationshipDefinition" p:objectAttributeName="award">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber" p:targetName="proposalNumber"/>
+                        </list>
+                    </property>
+                </bean>
+                <bean parent="RelationshipDefinition">
+                    <property name="objectAttributeName" value="chart"/>
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="chartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
+                        </list>
+                    </property>
+                </bean>
+                <bean parent="RelationshipDefinition">
+                    <property name="objectAttributeName" value="account"/>
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="accountNumber"
+                                  p:targetName="accountNumber"/>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="chartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
+                        </list>
 
-					</property>
-					<property name="supportAttributes">
-						<list>
-							<bean parent="SupportAttributeDefinition" p:sourceName="accountNumber"
-								p:targetName="accountNumber" />
-						</list>
-					</property>
-		</bean>
-      </list>
-    </property>
-	</bean>
+                    </property>
+                    <property name="supportAttributes">
+                        <list>
+                            <bean parent="SupportAttributeDefinition" p:sourceName="accountNumber"
+                                  p:targetName="accountNumber"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="ContractsGrantsMilestoneReport-proposalNumber" parent="ContractsGrantsMilestoneReport-proposalNumber-parentBean" />
+    <bean id="ContractsGrantsMilestoneReport-proposalNumber" parent="ContractsGrantsMilestoneReport-proposalNumber-parentBean"/>
 
-	<bean id="ContractsGrantsMilestoneReport-proposalNumber-parentBean" abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-      <bean parent="AlphaNumericValidation" p:allowDash="true" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="14" />
-		</property>
-	</bean>
-
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneNumber" parent="ContractsGrantsMilestoneReport-milestoneNumber-parentBean" />
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="milestoneNumber" />
-		<property name="label" value="Milestone Number" />
-		<property name="shortLabel" value="MlStnNbr" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="14" />
-		</property>
-	</bean>
-
- 	<bean id="ContractsGrantsMilestoneReport-chartOfAccountsCode" parent="ContractsGrantsMilestoneReport-chartOfAccountsCode-parentBean" />
-	<bean id="ContractsGrantsMilestoneReport-chartOfAccountsCode-parentBean"
-		abstract="true" parent="Chart-chartOfAccountsCode" >
-		<property name="label" value="Award Chart Code" />
-		<property name="shortLabel" value="Chart" />
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="4"/>
-    	</property>
-	</bean>
-
-	<bean id="ContractsGrantsMilestoneReport-accountNumber" parent="ContractsGrantsMilestoneReport-accountNumber-parentBean" />
-
-	<bean id="ContractsGrantsMilestoneReport-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
-		<property name="name" value="accountNumber" />
-		<property name="label" value="Award Account Number" />
-		<property name="shortLabel" value="Acct Num" />
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="9"/>
-    	</property>
-	</bean>
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneAmount" parent="ContractsGrantsMilestoneReport-milestoneAmount-parentBean" />
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="milestoneAmount" />
-		<property name="label" value="Milestone Amount" />
-		<property name="shortLabel" value="MileStnAmt" />
-	</bean>
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate" parent="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate-parentBean" />
-
-	<bean id="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-		<property name="name" value="milestoneExpectedCompletionDate" />
-		<property name="label" value="Expected Completion Date" />
-		<property name="shortLabel" value="ExpctdMileStnDate" />
-	</bean>
-
-	<bean id="ContractsGrantsMilestoneReport-billed" parent="ContractsGrantsMilestoneReport-billed-parentBean" />
-	<bean id="ContractsGrantsMilestoneReport-billed-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
-		<property name="name" value="billed" />
-		<property name="label" value="Billed" />
-		<property name="shortLabel" value="Billed" />
-	</bean>
-
-	<bean id="ContractsGrantsMilestoneReport-active" parent="ContractsGrantsMilestoneReport-active-parentBean" />
-
-	<bean id="ContractsGrantsMilestoneReport-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
-		<property name="name" value="active" />
-		<property name="label" value="Active" />
-		<property name="shortLabel" value="Active" />
-
-	</bean>
+    <bean id="ContractsGrantsMilestoneReport-proposalNumber-parentBean" abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidation" p:allowDash="true"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="14"/>
+        </property>
+    </bean>
 
 
-	<!-- Business Object Lookup Definition -->
+    <bean id="ContractsGrantsMilestoneReport-milestoneNumber" parent="ContractsGrantsMilestoneReport-milestoneNumber-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-milestoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="milestoneNumber"/>
+        <property name="label" value="Milestone Number"/>
+        <property name="shortLabel" value="MlStnNbr"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="14"/>
+        </property>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-chartOfAccountsCode" parent="ContractsGrantsMilestoneReport-chartOfAccountsCode-parentBean"/>
+    <bean id="ContractsGrantsMilestoneReport-chartOfAccountsCode-parentBean"
+          abstract="true" parent="Chart-chartOfAccountsCode">
+        <property name="label" value="Award Chart Code"/>
+        <property name="shortLabel" value="Chart"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="4"/>
+        </property>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-accountNumber" parent="ContractsGrantsMilestoneReport-accountNumber-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
+        <property name="name" value="accountNumber"/>
+        <property name="label" value="Award Account Number"/>
+        <property name="shortLabel" value="Acct Num"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="9"/>
+        </property>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-milestoneAmount" parent="ContractsGrantsMilestoneReport-milestoneAmount-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-milestoneAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="milestoneAmount"/>
+        <property name="label" value="Milestone Amount"/>
+        <property name="shortLabel" value="MileStnAmt"/>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate" parent="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-milestoneExpectedCompletionDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="name" value="milestoneExpectedCompletionDate"/>
+        <property name="label" value="Expected Completion Date"/>
+        <property name="shortLabel" value="ExpctdMileStnDate"/>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-billed" parent="ContractsGrantsMilestoneReport-billed-parentBean"/>
+    <bean id="ContractsGrantsMilestoneReport-billed-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
+        <property name="name" value="billed"/>
+        <property name="label" value="Billed"/>
+        <property name="shortLabel" value="Billed"/>
+    </bean>
+
+    <bean id="ContractsGrantsMilestoneReport-active" parent="ContractsGrantsMilestoneReport-active-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+        <property name="label" value="Active"/>
+        <property name="shortLabel" value="Active"/>
+
+    </bean>
 
 
-	<bean id="ContractsGrantsMilestoneReport-lookupDefinition" parent="ContractsGrantsMilestoneReport-lookupDefinition-parentBean" />
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="ContractsGrantsMilestoneReport-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
-		<property name="title" value="Milestone Report" />
-		<property name="lookupableID" value="contractsGrantsMilestoneReportLookupResultLookupable" />
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
-				<bean parent="FieldDefinition" p:attributeName="accountNumber" />
-				<bean parent="FieldDefinition" p:attributeName="milestoneExpectedCompletionDate" />
-				<bean parent="FieldDefinition" p:attributeName="billed" />
-				<bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
-				<bean parent="FieldDefinition" p:attributeName="accountNumber" />
-				<bean parent="FieldDefinition" p:attributeName="milestoneNumber" />
-				<bean parent="FieldDefinition" p:attributeName="milestoneExpectedCompletionDate" />
-				<bean parent="FieldDefinition" p:attributeName="billed" />
-				<bean parent="FieldDefinition" p:attributeName="milestoneAmount" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+
+    <bean id="ContractsGrantsMilestoneReport-lookupDefinition" parent="ContractsGrantsMilestoneReport-lookupDefinition-parentBean"/>
+
+    <bean id="ContractsGrantsMilestoneReport-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+        <property name="title" value="Milestone Report"/>
+        <property name="lookupableID" value="contractsGrantsMilestoneReportLookupResultLookupable"/>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
+                <bean parent="FieldDefinition" p:attributeName="accountNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="milestoneExpectedCompletionDate"/>
+                <bean parent="FieldDefinition" p:attributeName="billed"/>
+                <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
+                <bean parent="FieldDefinition" p:attributeName="accountNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="milestoneNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="milestoneExpectedCompletionDate"/>
+                <bean parent="FieldDefinition" p:attributeName="billed"/>
+                <bean parent="FieldDefinition" p:attributeName="milestoneAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 </beans>

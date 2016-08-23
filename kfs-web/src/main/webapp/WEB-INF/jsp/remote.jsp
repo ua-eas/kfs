@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="title">
     <c:out value="${pageContext.request.getParameter('title')}"/>
@@ -32,8 +32,8 @@
     <title>Financials :: <c:out value="${title}"/></title>
 </head>
 <body>
-  <kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
+<kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
     <iframe src="<c:out value="${pageContext.request.getParameter('url')}"/>" name="remote-iframe" title="Financials Remote View" style="height: calc(100% - 60px);" width="100%" frameborder="0"></iframe>
-  </kul:page>
+</kul:page>
 </body>
 </html>

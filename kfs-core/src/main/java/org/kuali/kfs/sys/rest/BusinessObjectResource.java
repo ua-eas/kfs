@@ -85,7 +85,7 @@ public class BusinessObjectResource {
 
     @GET
     @Path("/{objectId}")
-    public Response getSingleObject(@PathParam("moduleName")String moduleName, @PathParam("businessObjectName")String businessObjectName, @PathParam("objectId")String objectId) {
+    public Response getSingleObject(@PathParam("moduleName") String moduleName, @PathParam("businessObjectName") String businessObjectName, @PathParam("objectId") String objectId) {
         LOG.debug("processV1Request() started");
 
         Class<PersistableBusinessObject> boClass = determineClass(moduleName, businessObjectName);
@@ -132,6 +132,7 @@ public class BusinessObjectResource {
 
     /**
      * Masks the
+     *
      * @param businessObjectName
      * @param attributeName
      * @param jsonValue
@@ -143,12 +144,12 @@ public class BusinessObjectResource {
             return jsonValue;
         }
         final MaskFormatter maskFormatter = (attributeDefinition.getAttributeSecurity().isMask())
-                ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
-                : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
+            ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
+            : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
         return maskFormatter.maskValue(jsonValue);
     }
 
-    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
+    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException {
         Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
         if (ObjectUtils.isNull(value)) {
             return null;
@@ -156,7 +157,7 @@ public class BusinessObjectResource {
         Class<?> propertyClass = propertyDescriptor.getPropertyType();
 
         if (BusinessObject.class.isAssignableFrom(propertyClass)) {
-            return convertBoToUrl((BusinessObject)value);
+            return convertBoToUrl((BusinessObject) value);
         }
 
         if (Collection.class.isAssignableFrom(propertyClass)) {
@@ -166,12 +167,11 @@ public class BusinessObjectResource {
             while (it.hasNext()) {
                 Object item = it.next();
                 if (item instanceof BusinessObject) {
-                    Map<String, Object> url = convertBoToUrl((BusinessObject)item);
+                    Map<String, Object> url = convertBoToUrl((BusinessObject) item);
                     if (url != null) {
                         newList.add(url);
                     }
-                }
-                else {
+                } else {
                     newList.add(item);
                 }
             }
@@ -179,7 +179,7 @@ public class BusinessObjectResource {
         }
 
         if (Date.class.isAssignableFrom(propertyClass)) {
-            return ((Date)value).getTime();
+            return ((Date) value).getTime();
         }
 
         return value;
@@ -273,13 +273,13 @@ public class BusinessObjectResource {
 
         Map<String, Object> result = new LinkedHashMap<>();
         String url = getBaseUrl()
-                + "/api/v1/"
-                + "business-object/"
-                + moduleName
-                + "/"
-                + urlBoName
-                + "/"
-                + persistableBo.getObjectId();
+            + "/api/v1/"
+            + "business-object/"
+            + moduleName
+            + "/"
+            + urlBoName
+            + "/"
+            + persistableBo.getObjectId();
         result.put(KFSPropertyConstants.LINK, url);
 
         return result;
@@ -298,10 +298,10 @@ public class BusinessObjectResource {
     }
 
     protected boolean isAuthorized(String inquireIntoRecords, Class<PersistableBusinessObject> boClass) {
-        return getPermissionService().isAuthorizedByTemplate(getPrincipalId(),KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
-                KRADUtils.getNamespaceAndComponentSimpleName(boClass),
-                Collections.<String, String>emptyMap());
+        return getPermissionService().isAuthorizedByTemplate(getPrincipalId(), KRADConstants.KNS_NAMESPACE,
+            KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+            KRADUtils.getNamespaceAndComponentSimpleName(boClass),
+            Collections.<String, String>emptyMap());
     }
 
     protected boolean isAuthorizedByAccessSecurity(PersistableBusinessObject businessObject) {
@@ -315,9 +315,9 @@ public class BusinessObjectResource {
         final AccessSecurityService accessSecurityService = getAccessSecurityService();
         if (accessSecurityService != null) {
             accessSecurityService.applySecurityRestrictions(results,
-                    getPerson(),
-                    accessSecurityService.getInquiryWithFieldValueTemplate(),
-                    Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
+                getPerson(),
+                accessSecurityService.getInquiryWithFieldValueTemplate(),
+                Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
         }
     }
 

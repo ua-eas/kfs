@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
@@ -32,6 +28,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class tests Cab Reconciliation service
@@ -84,8 +84,7 @@ public class ReconciliationServiceTest extends BatchTestBase {
             KualiDecimal targetAmount = targetEntry.getTransactionLedgerEntryAmount();
             if (CabConstants.CM.equals(targetEntry.getFinancialDocumentTypeCode())) {
                 assertTrue(glAccountLineGroup.getAmount().equals(purapAmount.negated()));
-            }
-            else {
+            } else {
                 assertTrue(glAccountLineGroup.getAmount().equals(purapAmount));
             }
 
@@ -94,8 +93,7 @@ public class ReconciliationServiceTest extends BatchTestBase {
             }
             if (CabConstants.CM.equals(targetEntry.getFinancialDocumentTypeCode())) {
                 assertTrue(targetAmount.equals(purapAmount.negated()));
-            }
-            else {
+            } else {
                 assertTrue(targetAmount.equals(purapAmount));
             }
             purapAmount = KualiDecimal.ZERO;

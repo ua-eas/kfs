@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.document.validation.ContinueCustomerCreditMemoDocumentRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.ar.document.validation.ContinueCustomerCreditMemoDocumentRule;
 
 public class ContinueCustomerCreditMemoDocumentEvent extends KualiDocumentEventBase {
 
@@ -35,7 +35,7 @@ public class ContinueCustomerCreditMemoDocumentEvent extends KualiDocumentEventB
     }
 
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((ContinueCustomerCreditMemoDocumentRule) rule).processContinueCustomerCreditMemoDocumentRules((TransactionalDocument)getDocument());
+        return ((ContinueCustomerCreditMemoDocumentRule) rule).processContinueCustomerCreditMemoDocumentRules((TransactionalDocument) getDocument());
     }
 
 }

@@ -23,13 +23,11 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
 
 /**
  * Base class for Widgets
- *
+ * <p>
  * <p>
  * Sets the component type name for all widget components and provides default
  * implementation of performFinalize
  * </p>
- *
- *
  */
 public abstract class WidgetBase extends ComponentBase implements Widget {
     private static final long serialVersionUID = -917582902829056830L;

@@ -22,19 +22,18 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 /**
  * This class is the OJB implementation of AccountDelegateGlobalDao
  */
 public class AccountDelegateGlobalDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDelegateGlobalDao {
 
-   /**
-    *
-    * @see org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao#getLockingDocumentNumber(java.lang.String, java.lang.String)
-    */
+    /**
+     * @see org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao#getLockingDocumentNumber(java.lang.String, java.lang.String)
+     */
 
     public String getLockingDocumentNumber(String lockingRepresentation, String documentNumber) {
         String lockingDocNumber = "";
@@ -77,11 +76,11 @@ public class AccountDelegateGlobalDaoOjb extends PlatformAwareDaoBaseOjb impleme
             if (val.startsWith("financialDocumentTypeCode")) {
                 String[] meh = StringUtils.split(val, "^^");
                 meh[1] = "%";
-                val = meh[0] +"^^"+meh[1];
+                val = meh[0] + "^^" + meh[1];
                 sb.append(val);
                 break;
             } else {
-                sb.append(val+"::");
+                sb.append(val + "::");
             }
         }
 

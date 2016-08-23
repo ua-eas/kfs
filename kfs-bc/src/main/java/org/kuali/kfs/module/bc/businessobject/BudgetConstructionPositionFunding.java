@@ -19,8 +19,6 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -28,6 +26,8 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 public class BudgetConstructionPositionFunding extends PersistableBusinessObjectBase {

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sec.identity;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
+import java.util.LinkedHashMap;
 
 public class SecKimAttributes extends KfsKimAttributes {
     public static final String CONSTRAINT_CODE = "constraintCode";

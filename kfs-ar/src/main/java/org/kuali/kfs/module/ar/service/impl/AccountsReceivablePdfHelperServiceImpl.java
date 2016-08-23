@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.ar.service.AccountsReceivablePdfHelperService;
-
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BadPdfFormatException;
@@ -32,6 +25,12 @@ import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.SimpleBookmark;
+import org.kuali.kfs.module.ar.service.AccountsReceivablePdfHelperService;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountsReceivablePdfHelperServiceImpl implements AccountsReceivablePdfHelperService {
 
@@ -50,7 +49,7 @@ public class AccountsReceivablePdfHelperServiceImpl implements AccountsReceivabl
         PdfCopy writer = null;
         boolean createDocument = true;
 
-        for (byte[] content:contents) {
+        for (byte[] content : contents) {
             // create a reader for the document
             PdfReader reader = new PdfReader(content);
             reader.consolidateNamedDestinations();

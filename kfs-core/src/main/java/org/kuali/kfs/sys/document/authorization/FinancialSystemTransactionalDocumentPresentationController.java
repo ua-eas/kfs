@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 
 /**
  * The methods needed to answer questions about presentation viewing based on internal document state for FinancialSystemTransactionalDocuments
@@ -28,6 +28,7 @@ public interface FinancialSystemTransactionalDocumentPresentationController exte
 
     /**
      * Determines if the given document can be error corrected, based on internal document state
+     *
      * @param document the document to error correct
      * @return true if the document can be error corrected, false otherwise
      */

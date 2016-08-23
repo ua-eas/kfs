@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionReasonStatisticsReportDao;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * build the set of rows for the salary reason statistics report
@@ -359,8 +359,8 @@ public class BudgetConstructionReasonStatisticsReportDaoJdbc extends BudgetConst
      * works in both threshold and non-threshold mode to get the summary salary statistics and appointment attributes for each
      * person
      *
-     * @param principalName--the user running the report
-     * @param idForSession--a unique ID for the session of the user running the report
+     * @param principalName--the      user running the report
+     * @param idForSession--a         unique ID for the session of the user running the report
      * @param previousFiscalYear--the fiscal year preceding the one for which we are preparing a budget
      */
     protected void adjustLastYearSalaryForAppointmentChanges(String principalName, String idForSession, Integer previousFiscalYear) {
@@ -401,7 +401,7 @@ public class BudgetConstructionReasonStatisticsReportDaoJdbc extends BudgetConst
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionReasonStatisticsReportDao#reportReasonStatisticsWithAThreshold(java.lang.String,
-     *      java.lang.Integer, boolean, org.kuali.rice.core.api.util.type.KualiDecimal)
+     * java.lang.Integer, boolean, org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public void updateReasonStatisticsReportsWithAThreshold(String principalName, Integer previousFiscalYear, boolean reportIncreasesAtOrAboveTheThreshold, KualiDecimal thresholdPercent) {
@@ -424,8 +424,7 @@ public class BudgetConstructionReasonStatisticsReportDaoJdbc extends BudgetConst
         if (reportIncreasesAtOrAboveTheThreshold) {
             // exclude everyone with increases less than the threshold
             getSimpleJdbcTemplate().update(reportReasonStatisticsWithThreshold.get(1).getSQL(), idForSession, thresholdValue);
-        }
-        else {
+        } else {
             // exclude everyone with increases over the threshold
             getSimpleJdbcTemplate().update(reportReasonStatisticsWithThreshold.get(2).getSQL(), idForSession, thresholdValue);
         }
@@ -438,7 +437,7 @@ public class BudgetConstructionReasonStatisticsReportDaoJdbc extends BudgetConst
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionReasonStatisticsReportDao#reportReasonStatisticsWithoutAThreshold(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     @Override
     public void updateReasonStatisticsReportsWithoutAThreshold(String principalName, Integer previousFiscalYear) {

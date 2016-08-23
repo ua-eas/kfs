@@ -18,22 +18,13 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.A21SubAccountService;
 import org.kuali.kfs.coa.service.ObjectTypeService;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
 import org.kuali.kfs.coa.service.PriorYearAccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.OffsetAccount;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.EncumbranceClosingOriginEntryGenerationService;
@@ -50,6 +41,7 @@ import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.businessobject.OriginEntryTestBase;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
@@ -60,8 +52,16 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /*
  * Unit tests to verify that flexible offsets are being added to year end origin entries correctly
@@ -154,14 +154,15 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
                 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                 java.util.Date jud = sdf.parse(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM));
                 balance.setTimestamp(new java.sql.Date(jud.getTime()));
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 LOG.debug("Parse date exception while parsing transaction date");
             }
             balance.refresh();
             return balance;
         }
-    };
+    }
+
+    ;
 
     enum ENCUMBRANCE_FORWARD_FIXTURE {
         FLEXIBLE_ENCUMBRANCE(DEFAULT_FLEXIBLE_ENCUMBRANCE_CHART, DEFAULT_FLEXIBLE_ENCUMBRANCE_ACCOUNT_NBR, DEFAULT_FLEXIBLE_ENCUMBRANCE_SUB_ACCT_NBR),
@@ -260,14 +261,15 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
                 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                 java.util.Date jud = sdf.parse(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM));
                 balance.setTimestamp(new java.sql.Date(jud.getTime()));
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 LOG.debug("Parse date exception while parsing transaction date");
             }
             balance.refresh();
             return balance;
         }
-    };
+    }
+
+    ;
 
     public enum FLEXIBLE_OFFSET_ACCOUNT_FIXTURE {
         FLEXIBLE_ACTIVITY_CLOSING_OFFSET_ACCOUNT(DEFAULT_FLEXIBLE_BALANCE_CHART, DEFAULT_FLEXIBLE_BALANCE_ACCOUNT_NBR, DEFAULT_NOMINAL_ACTIVITY_OFFSET_OBJECT_CODE),
@@ -298,6 +300,7 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
 
     /**
      * Initialize defaults for each test.
+     *
      * @see org.kuali.kfs.gl.businessobject.OriginEntryTestBase#setUp()
      */
     @Override
@@ -319,9 +322,9 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ol>
-     *  <li>when flexible offsets are turned on, nominal activity offsets that should get flexible offsets get them</li>
-     *  <li>when flexible offsets are turned on, nominal activity offsets that should not get flexible offsets don't get them</li>
-     *  <li>when flexible offsets are turned on, nominal activity entries do not get flexible offsets</li>
+     * <li>when flexible offsets are turned on, nominal activity offsets that should get flexible offsets get them</li>
+     * <li>when flexible offsets are turned on, nominal activity offsets that should not get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned on, nominal activity entries do not get flexible offsets</li>
      * </ol>
      */
     public void testNominalActivityFlexibleOffsetsWhenOffsetsOn() {
@@ -350,7 +353,7 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ol>
-     *  <li>when flexible offsets are turned off, nominal activity offsets that should get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned off, nominal activity offsets that should get flexible offsets don't get them</li>
      * </ol>
      */
     public void testNominalActivityFlexibleOffsetsWhenOffsetsOff() {
@@ -371,9 +374,9 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ol>
-     *  <li>when flexible offsets are turned on, encumbrance forward offsets that should get flexible offsets get them</li>
-     *  <li>when flexible offsets are turned on, encumbrance forward offsets that should not get flexible offsets don't get them</li>
-     *  <li>when flexible offsets are turned on, encumbrance forward entries do not get flexible offsets</li>
+     * <li>when flexible offsets are turned on, encumbrance forward offsets that should get flexible offsets get them</li>
+     * <li>when flexible offsets are turned on, encumbrance forward offsets that should not get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned on, encumbrance forward entries do not get flexible offsets</li>
      * </ol>
      */
     public void testEncumbranceForwardFlexibleOffsetsWhenFlexibleOffsetsOn() {
@@ -396,7 +399,7 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ol>
-     *  <li>when flexible offsets are turned off, encumbrance forward offsets that should get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned off, encumbrance forward offsets that should get flexible offsets don't get them</li>
      * </ol>
      */
     public void testEncumbranceForwardFlexibleOffsetsWhenFlexibleOffsetsOff() {
@@ -413,9 +416,9 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ul>
-     *  <li>when flexible offsets are turned on, encumbrance forward cost share offsets that should get flexible offsets get them</li>
-     *  <li>when flexible offsets are turned on, encumbrance forward cost share offsets that should not get flexible offsets don't get them</li>
-     *  <li>when flexible offsets are turned on, encumbrance forward cost share entries do not get flexible offsets</li>
+     * <li>when flexible offsets are turned on, encumbrance forward cost share offsets that should get flexible offsets get them</li>
+     * <li>when flexible offsets are turned on, encumbrance forward cost share offsets that should not get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned on, encumbrance forward cost share entries do not get flexible offsets</li>
      * </ul>
      */
     public void testEncumbranceForwardCostShareFlexibleOffsetsWhenFlexibleOffsetsOn() {
@@ -441,7 +444,7 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ul>
-     *  <li>when flexible offsets are turned off, encumbrance forward cost share offsets that should get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned off, encumbrance forward cost share offsets that should get flexible offsets don't get them</li>
      * </ul>
      */
     public void testEncumbranceForwardCostShareFlexibleOffsetsWhenFlexibleOffsetsOff() {
@@ -460,9 +463,9 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ul>
-     *  <li>when flexible offsets are turned on, cash reversion offsets that should get flexible offsets get them</li>
-     *  <li>when flexible offsets are turned on, cash reversion activity offsets that should not get flexible offsets don't get them</li>
-     *  <li>when flexible offsets are turned on, cash reversion activity entries do not get flexible offsets</li>
+     * <li>when flexible offsets are turned on, cash reversion offsets that should get flexible offsets get them</li>
+     * <li>when flexible offsets are turned on, cash reversion activity offsets that should not get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned on, cash reversion activity entries do not get flexible offsets</li>
      * </ul>
      */
     public void testOrganizationReversionCashFlexibleOffsetsWhenFlexibleOffsetsOn() {
@@ -489,7 +492,7 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
     /**
      * Test that:
      * <ul>
-     *  <li>when flexible offsets are turned off, cash reversion activity offsets that should get flexible offsets don't get them</li>
+     * <li>when flexible offsets are turned off, cash reversion activity offsets that should get flexible offsets don't get them</li>
      * </ul>
      */
     public void testOrganizationReversionCashFlexibleOffsetsWhenFlexibleOffsetsOff() {
@@ -505,11 +508,12 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
 
     /**
      * Runs the organization service against a given set of balances.
+     *
      * @param balancesToTest a List of balances to test the organization reversion process against
      * @return the list of origin entries generated by the organization reversion process
      */
     private List<OriginEntryFull> runOrganizationReversion(List<Balance> balancesToTest) {
-        OrganizationReversionService organizationReversionService = SpringContext.getBean(OrganizationReversionService.class,"glOrganizationReversionMockService");
+        OrganizationReversionService organizationReversionService = SpringContext.getBean(OrganizationReversionService.class, "glOrganizationReversionMockService");
         DateTimeService dtService = SpringContext.getBean(DateTimeService.class);
         BalanceService balanceService = SpringContext.getBean(BalanceService.class);
         CashOrganizationReversionCategoryLogic cashOrganizationReversionCategoryLogic = SpringContext.getBean(CashOrganizationReversionCategoryLogic.class);
@@ -518,17 +522,17 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
         OrganizationReversionProcessService organizationReversionProcessService = SpringContext.getBean(OrganizationReversionProcessService.class);
 
         Map jobParameters = organizationReversionProcessService.getJobParameters();
-        Integer currentFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue() + 1);
-        Integer previousFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue());
+        Integer currentFiscalYear = new Integer(((Number) jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue() + 1);
+        Integer previousFiscalYear = new Integer(((Number) jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue());
         Map<String, Integer> organizationReversionCounts = new HashMap<String, Integer>();
 
-        OrganizationReversionProcess orgRevProcess = SpringContext.getBean(OrganizationReversionProcess.class,"glOrganizationReversionTestProcess");
+        OrganizationReversionProcess orgRevProcess = SpringContext.getBean(OrganizationReversionProcess.class, "glOrganizationReversionTestProcess");
 
         clearGlBalanceTable();
         clearBatchFiles();
         //we do not need to call clearCache() since no dao and jdbc calls mixted in this method.
         //refer to KFSMI-7637
-      //  persistenceService.clearCache();
+        //  persistenceService.clearCache();
         for (Balance bal : balancesToTest) {
             bal.setUniversityFiscalYear(previousFiscalYear);
             SpringContext.getBean(BusinessObjectService.class).save(bal);
@@ -556,15 +560,16 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
 
     /**
      * Asserts that certain fields in the given origin entry equal given parameters
+     *
      * @param originEntry the actual origin entry
-     * @param fiscalYear the expected fiscal year
-     * @param periodCode the expected period code
-     * @param chart the expected chart
-     * @param account the expected account
-     * @param objectCode the expected object code
+     * @param fiscalYear  the expected fiscal year
+     * @param periodCode  the expected period code
+     * @param chart       the expected chart
+     * @param account     the expected account
+     * @param objectCode  the expected object code
      * @param balanceType the expected balance type
-     * @param objectType the expected object type
-     * @param amount the expected amount
+     * @param objectType  the expected object type
+     * @param amount      the expected amount
      */
     private void assertChartAndAccount(OriginEntryInformation originEntry, String chart, String account) {
         assertEquals("Origin Entry " + originEntry.toString() + " Chart of Accounts", chart, originEntry.getChartOfAccountsCode());
@@ -573,13 +578,13 @@ public class YearEndFlexibleOffsetTest extends OriginEntryTestBase {
 
     /**
      * Turns the flexible offset option on or off
+     *
      * @param flexibleOffsetsOn whether we should turn the flexible offsets on or off
      */
     private void toggleFlexibleOffsets(boolean flexibleOffsetsOn) {
         try {
             TestUtils.setSystemParameter(OffsetDefinition.class, KFSConstants.SystemGroupParameterNames.FLEXIBLE_OFFSET_ENABLED_FLAG, (flexibleOffsetsOn ? "Y" : "N"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

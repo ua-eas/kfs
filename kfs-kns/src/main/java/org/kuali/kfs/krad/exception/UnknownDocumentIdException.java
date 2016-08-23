@@ -22,8 +22,6 @@ import org.kuali.rice.core.api.exception.KualiException;
 
 /**
  * This class represents an UnknownDocumentIdException.
- *
- *
  */
 public class UnknownDocumentIdException extends KualiException {
     private static final long serialVersionUID = -7973140950936642618L;

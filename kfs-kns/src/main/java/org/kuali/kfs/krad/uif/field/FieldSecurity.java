@@ -22,13 +22,11 @@ import org.kuali.kfs.krad.uif.component.ComponentSecurity;
 
 /**
  * Field security adds the edit in line and view in line flags to the standard component security
- *
+ * <p>
  * <p>
  * These flags are only applicable when the field is part of a collection group. They indicate there is security
  * on the field within the collection line
  * </p>
- *
- *
  */
 public class FieldSecurity extends ComponentSecurity {
 

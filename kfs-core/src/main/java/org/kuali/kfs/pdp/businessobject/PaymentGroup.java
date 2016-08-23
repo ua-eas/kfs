@@ -18,15 +18,9 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -39,8 +33,14 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * This class represents the PaymentGroup
@@ -114,6 +114,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the dailyReportSpecialHandling
+     *
      * @return dailyReportSpecialHandling
      */
     public boolean isDailyReportSpecialHandling() {
@@ -122,6 +123,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the dailyReportAttachment
+     *
      * @return dailyReportAttachment
      */
     public boolean isDailyReportAttachment() {
@@ -130,6 +132,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the paymentStatusCode
+     *
      * @return paymentStatusCode
      */
     public String getPaymentStatusCode() {
@@ -187,6 +190,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the boolean valuse of a Boolean object.
+     *
      * @param b the boolean object
      * @return the boolean value
      */
@@ -200,11 +204,12 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the notle lines
+     *
      * @return the note lines
      */
     public int getNoteLines() {
         int count = 0;
-        for (Iterator iter = this.getPaymentDetails().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getPaymentDetails().iterator(); iter.hasNext(); ) {
             PaymentDetail element = (PaymentDetail) iter.next();
             count++; // Add a line for the invoice #
             count = count + element.getNotes().size();
@@ -219,7 +224,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
      */
     public KualiDecimal getNetPaymentAmount() {
         KualiDecimal amt = KualiDecimal.ZERO;
-        for (Iterator iter = this.getPaymentDetails().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getPaymentDetails().iterator(); iter.hasNext(); ) {
             PaymentDetail element = (PaymentDetail) iter.next();
             amt = amt.add(element.getNetPaymentAmount());
         }
@@ -237,6 +242,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the payment details list
+     *
      * @param paymentDetail
      */
     public void setPaymentDetails(List<PaymentDetail> paymentDetail) {
@@ -245,6 +251,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method adds a paymentDetail
+     *
      * @param pgh the payments detail to be added
      */
     public void addPaymentDetails(PaymentDetail pgh) {
@@ -267,6 +274,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the payment group history list
+     *
      * @param paymentGroupHistory
      */
     public void setPaymentGroupHistory(List<PaymentGroupHistory> paymentGroupHistory) {
@@ -275,6 +283,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method adds a paymentGroupHistory
+     *
      * @param pd the paymentGroupHistory to be added
      */
     public void addPaymentGroupHistory(PaymentGroupHistory pd) {
@@ -284,6 +293,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method deletes a paymentGroupHistory
+     *
      * @param pd the paymentGroupHistory to be deleted
      */
     public void deletePaymentGroupHistory(PaymentGroupHistory pd) {
@@ -291,17 +301,17 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_GRP_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_GRP_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;
     }
 
     /**
-     * @hibernate.one-to-one class="edu.iu.uis.pdp.bo.AchAccountNumber"
      * @return
+     * @hibernate.one-to-one class="edu.iu.uis.pdp.bo.AchAccountNumber"
      */
     public AchAccountNumber getAchAccountNumber() {
         return achAccountNumber;
@@ -309,6 +319,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the achAccountNumber
+     *
      * @param aan
      */
     public void setAchAccountNumber(AchAccountNumber aan) {
@@ -317,6 +328,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the sortValue
+     *
      * @return sortValue
      */
     public String getSortValue() {
@@ -325,6 +337,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the sort value
+     *
      * @param sortGroupId
      */
     public void setSortValue(int sortGroupId) {
@@ -343,16 +356,15 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
         if (defaultSortOrderParameterValue.equals(String.valueOf(sortGroupId))) {
             sb.append(this.getPayeeId());
             sb.append(this.getPayeeIdTypeCd());
-        }
-        else {
+        } else {
             sb.append(this.getPayeeName());
         }
         this.sortValue = sb.toString();
     }
 
     /**
-     * @hibernate.property column="PMT_CTY_NM" length="30"
      * @return Returns the city.
+     * @hibernate.property column="PMT_CTY_NM" length="30"
      */
     public String getCity() {
         return city;
@@ -374,8 +386,8 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
     }
 
     /**
-     * @hibernate.property column="PMT_CNTRY_NM" length="30"
      * @return Returns the country.
+     * @hibernate.property column="PMT_CNTRY_NM" length="30"
      */
     public String getCountry() {
         return country;
@@ -389,8 +401,8 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
     }
 
     /**
-     * @hibernate.property column="PMT_ST_NM" length="30"
      * @return Returns the state.
+     * @hibernate.property column="PMT_ST_NM" length="30"
      */
     public String getState() {
         return state;
@@ -495,6 +507,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the disbursementDate.
+     *
      * @return disbursementDate
      */
     public Date getDisbursementDate() {
@@ -741,6 +754,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets disbursementDate.
+     *
      * @param disbursementDate a string representing the disbursementDate
      * @throws ParseException
      */
@@ -880,8 +894,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
     public void setProcess(PaymentProcess p) {
         if (p != null) {
             processId = p.getId();
-        }
-        else {
+        } else {
             processId = null;
         }
         this.process = p;
@@ -1055,6 +1068,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets a string representation of the address lines
+     *
      * @return the street as a combined representation of the address lines
      */
     public String getStreet() {
@@ -1070,6 +1084,7 @@ public class PaymentGroup extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the payeeIdTypeDesc
+     *
      * @return the payeeIdTypeDesc
      */
     public String getPayeeIdTypeDesc() {

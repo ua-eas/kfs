@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestLogAppender extends AppenderSkeleton {
     private final List<LoggingEvent> log = new ArrayList<LoggingEvent>();

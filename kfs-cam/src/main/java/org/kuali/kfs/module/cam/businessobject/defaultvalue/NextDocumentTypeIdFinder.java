@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cam.businessobject.defaultvalue;
 
-import org.kuali.kfs.module.cam.businessobject.AssetPaymentDocumentType;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.module.cam.businessobject.AssetPaymentDocumentType;
 
 public class NextDocumentTypeIdFinder implements ValueFinder {
     /**

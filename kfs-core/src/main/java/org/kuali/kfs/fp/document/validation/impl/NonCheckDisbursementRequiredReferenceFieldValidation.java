@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_NUMBER;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.NonCheckDisbursementDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_NUMBER;
 
 /**
  * Validates that an accounting line has a reference number
@@ -40,13 +40,14 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
     /**
      * determines if a reference number has been added to the Accounting Line
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
 
 
     public boolean validate(AttributedDocumentEvent event) {
 
-        NonCheckDisbursementDocument document = (NonCheckDisbursementDocument)event.getDocument();
+        NonCheckDisbursementDocument document = (NonCheckDisbursementDocument) event.getDocument();
 
         boolean valid = true;
         Class alclass = null;
@@ -54,8 +55,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
 
         if (accountingLineForValidation.isSourceAccountingLine()) {
             alclass = document.getSourceAccountingLineClass();
-        }
-        else if (accountingLineForValidation.isTargetAccountingLine()) {
+        } else if (accountingLineForValidation.isTargetAccountingLine()) {
             alclass = document.getTargetAccountingLineClass();
         }
 
@@ -84,6 +84,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -92,6 +93,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -100,6 +102,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -108,6 +111,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

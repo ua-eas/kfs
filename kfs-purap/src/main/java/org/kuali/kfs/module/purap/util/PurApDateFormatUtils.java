@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class PurApDateFormatUtils {
 
     /**
-     *
      * This method retrieves a SimpleDataFormat by format Name.
+     *
      * @param formatName
      * @return
      */

@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.businessobject;
+
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
@@ -28,7 +29,7 @@ public class DisbursementNumberFormatter extends CurrencyFormatter {
         if (StringUtils.isEmpty(target)) {
             return null;
         }
-         return new KualiInteger(target);
+        return new KualiInteger(target);
     }
 
     /**

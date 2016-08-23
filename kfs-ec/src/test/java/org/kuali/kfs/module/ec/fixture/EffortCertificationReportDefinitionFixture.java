@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.module.ec.fixture;
 
+import org.kuali.kfs.module.ec.EffortCertificationTestConstants;
+import org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.EIGHT;
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.FOUR;
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.NINE;
@@ -27,10 +31,6 @@ import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCer
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.THREE;
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.TWELVE;
 import static org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod.TWO;
-
-import org.kuali.kfs.module.ec.EffortCertificationTestConstants;
-import org.kuali.kfs.module.ec.EffortCertificationTestConstants.EffortCertificationFiscalPeriod;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 
 /**
  * Encapsulates test data for EffortCertificationAutomaticReportPeriodUpdateServiceTest

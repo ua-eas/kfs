@@ -18,6 +18,28 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.sys.context.ProxyUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.quartz.InterruptableJob;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.StatefulJob;
+import org.quartz.UnableToInterruptJobException;
+import org.springframework.util.StopWatch;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -26,28 +48,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Appender;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.sys.context.ProxyUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.kns.bo.Step;
-import org.quartz.InterruptableJob;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.quartz.StatefulJob;
-import org.quartz.UnableToInterruptJobException;
-import org.springframework.util.StopWatch;
 
 public class Job implements StatefulJob, InterruptableJob {
 
@@ -83,15 +83,13 @@ public class Job implements StatefulJob, InterruptableJob {
         int startStep = 0;
         try {
             startStep = Integer.parseInt(jobExecutionContext.getMergedJobDataMap().getString(JOB_RUN_START_STEP));
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             // not present, do nothing
         }
         int endStep = 0;
         try {
             endStep = Integer.parseInt(jobExecutionContext.getMergedJobDataMap().getString(JOB_RUN_END_STEP));
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             // not present, do nothing
         }
         Date jobRunDate = dateTimeService.getCurrentDate();
@@ -111,8 +109,7 @@ public class Job implements StatefulJob, InterruptableJob {
                         LOG.info("Skipping step " + currentStepNumber + " - startStep=" + startStep);
                     }
                     continue; // skip to next step
-                }
-                else if (endStep > 0 && currentStepNumber > endStep) {
+                } else if (endStep > 0 && currentStepNumber > endStep) {
                     if (LOG.isInfoEnabled()) {
                         LOG.info("Ending step loop - currentStepNumber=" + currentStepNumber + " - endStep = " + endStep);
                     }
@@ -123,8 +120,7 @@ public class Job implements StatefulJob, InterruptableJob {
                     if (!runStep(parameterService, jobExecutionContext.getJobDetail().getFullName(), currentStepNumber, step, jobRunDate)) {
                         break;
                     }
-                }
-                catch (InterruptedException ex) {
+                } catch (InterruptedException ex) {
                     LOG.warn("Stopping after step interruption");
                     schedulerService.updateStatus(jobExecutionContext.getJobDetail(), SchedulerService.CANCELLED_JOB_STATUS_CODE);
                     return;
@@ -136,8 +132,7 @@ public class Job implements StatefulJob, InterruptableJob {
                     return;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             schedulerService.updateStatus(jobExecutionContext.getJobDetail(), SchedulerService.FAILED_JOB_STATUS_CODE);
             throw new JobExecutionException("Caught exception in " + jobExecutionContext.getJobDetail().getName(), e, false);
         }
@@ -149,8 +144,7 @@ public class Job implements StatefulJob, InterruptableJob {
         boolean continueJob = true;
         if (GlobalVariables.getUserSession() == null) {
             LOG.info(new StringBuffer("Started processing step: ").append(currentStepNumber).append("=").append(step.getName()).append(" for user <unknown>"));
-        }
-        else {
+        } else {
             LOG.info(new StringBuffer("Started processing step: ").append(currentStepNumber).append("=").append(step.getName()).append(" for user ").append(GlobalVariables.getUserSession().getPrincipalName()));
         }
 
@@ -175,12 +169,10 @@ public class Job implements StatefulJob, InterruptableJob {
             stopWatch.start(jobName);
             try {
                 continueJob = step.execute(jobName, jobRunDate);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 LOG.error("Exception occured executing step", e);
                 throw e;
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 LOG.error("Exception occured executing step", e);
                 throw e;
             }
@@ -212,7 +204,7 @@ public class Job implements StatefulJob, InterruptableJob {
             final boolean runInd = parameterService.getParameterValueAsBoolean(stepClass, STEP_RUN_PARM_NM);
             if (!runInd) {
                 if (LOG.isInfoEnabled()) {
-                    LOG.info("Skipping step due to system parameter: " + STEP_RUN_PARM_NM +" for "+ stepClass.getName());
+                    LOG.info("Skipping step due to system parameter: " + STEP_RUN_PARM_NM + " for " + stepClass.getName());
                 }
                 return true; // RUN_IND is false - let's skip
             }
@@ -230,22 +222,21 @@ public class Job implements StatefulJob, InterruptableJob {
             final Collection<String> runDates = parameterService.getParameterValuesAsString(stepClass, STEP_RUN_ON_DATE_PARM_NM);
             boolean matchedRunDate = false;
             final String[] cutOffTime = parameterService.parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, RUN_DATE_CUTOFF_PARM_NM) ?
-                    StringUtils.split(parameterService.getParameterValueAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, RUN_DATE_CUTOFF_PARM_NM), ':') :
-                    new String[] { "00", "00", "00"}; // no cutoff time param?  Then default to midnight of tomorrow
-            for (String runDate: runDates) {
+                StringUtils.split(parameterService.getParameterValueAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, RUN_DATE_CUTOFF_PARM_NM), ':') :
+                new String[]{"00", "00", "00"}; // no cutoff time param?  Then default to midnight of tomorrow
+            for (String runDate : runDates) {
                 try {
                     if (withinCutoffWindowForDate(jobRunDate, dTService.convertToDate(runDate), dTService, cutOffTime)) {
                         matchedRunDate = true;
                     }
-                }
-                catch (ParseException pe) {
+                } catch (ParseException pe) {
                     LOG.error("ParseException occured parsing " + runDate, pe);
                 }
             }
             // did we fail to match a run date?  then skip this step
             if (!matchedRunDate) {
                 if (LOG.isInfoEnabled()) {
-                    LOG.info("Skipping step due to system parameters: " + STEP_RUN_PARM_NM + ", " + STEP_RUN_ON_DATE_PARM_NM + " and " + RUN_DATE_CUTOFF_PARM_NM + " for "+ stepClass.getName());
+                    LOG.info("Skipping step due to system parameters: " + STEP_RUN_PARM_NM + ", " + STEP_RUN_ON_DATE_PARM_NM + " and " + RUN_DATE_CUTOFF_PARM_NM + " for " + stepClass.getName());
                 }
                 return true;
             }
@@ -259,8 +250,8 @@ public class Job implements StatefulJob, InterruptableJob {
      * Checks if the current jobRunDate is within the cutoff window for the given run date from the RUN_DATE parameter.
      * The window is defined as midnight of the date specified in the parameter to the RUN_DATE_CUTOFF_TIME of the next day.
      *
-     * @param jobRunDate the time the job is attempting to start
-     * @param runDateToCheck the current member of the appropriate RUN_DATE to check
+     * @param jobRunDate      the time the job is attempting to start
+     * @param runDateToCheck  the current member of the appropriate RUN_DATE to check
      * @param dateTimeService an instance of the DateTimeService
      * @return true if jobRunDate is within the current runDateToCheck window, false otherwise
      */
@@ -274,7 +265,7 @@ public class Job implements StatefulJob, InterruptableJob {
     /**
      * Defines the beginning of the cut off window
      *
-     * @param runDateToCheck the run date which defines the cut off window
+     * @param runDateToCheck  the run date which defines the cut off window
      * @param dateTimeService an implementation of the DateTimeService
      * @return the begin date Calendar of the cutoff window
      */
@@ -290,9 +281,9 @@ public class Job implements StatefulJob, InterruptableJob {
     /**
      * Defines the end of the cut off window
      *
-     * @param runDateToCheck the run date which defines the cut off window
+     * @param runDateToCheck  the run date which defines the cut off window
      * @param dateTimeService an implementation of the DateTimeService
-     * @param cutOffTime an Array in the form of [hour, minute, second] when the cutoff window ends
+     * @param cutOffTime      an Array in the form of [hour, minute, second] when the cutoff window ends
      * @return the end date Calendar of the cutoff window
      */
     protected static Calendar getCutoffWindowEnding(Date runDateToCheck, DateTimeService dateTimeService, String[] cutOffTime) {
@@ -305,6 +296,7 @@ public class Job implements StatefulJob, InterruptableJob {
     }
 
     /* This code is likely no longer reference, but was not removed, due to the fact that institutions may be calling */
+
     /**
      * @deprecated "Implementing institutions likely want to call Job#withinCutoffWindowForDate"
      */
@@ -322,8 +314,7 @@ public class Job implements StatefulJob, InterruptableJob {
                     runDate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(cutOffTime[0]));
                     runDate.set(Calendar.MINUTE, Integer.parseInt(cutOffTime[1]));
                     runDate.set(Calendar.SECOND, Integer.parseInt(cutOffTime[2]));
-                }
-                catch (ParseException e) {
+                } catch (ParseException e) {
                     LOG.error("ParseException occured parsing " + runDateStr, e);
                 }
                 if (jobRunDate.before(runDate)) {
@@ -398,8 +389,7 @@ public class Job implements StatefulJob, InterruptableJob {
             buf.append(key).append("=");
             if (value == jobDataMap) {
                 buf.append("(this map)");
-            }
-            else {
+            } else {
                 buf.append(value);
             }
             hasNext = keys.hasNext();
@@ -414,8 +404,7 @@ public class Job implements StatefulJob, InterruptableJob {
     protected String getMachineName() {
         try {
             return InetAddress.getLocalHost().getHostName();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
             return "Unknown";
         }
     }

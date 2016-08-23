@@ -18,18 +18,6 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
@@ -43,6 +31,18 @@ import org.kuali.kfs.sys.Message;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of LaborOriginEntryService.
@@ -66,8 +66,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         BufferedReader INPUT_FILE_br;
         try {
             INPUT_FILE = new FileReader(fileName);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         Collection<LaborOriginEntry> entryCollection = new ArrayList();
@@ -83,26 +82,22 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
                         // TODO:- Check with FIS (Row count should be all rows?)
                         rowCount++;
+                    } catch (NumberFormatException e) {
                     }
-                    catch (NumberFormatException e) {
-                    }
-                }
-                else {
+                } else {
                     amount = KualiDecimal.ZERO;
                 }
                 String debitOrCreditCode = currentLine.substring(126, 127);
 
                 if (debitOrCreditCode.equals(KFSConstants.GL_CREDIT_CODE)) {
                     totalCredit.add(amount);
-                }
-                else if (debitOrCreditCode.equals(KFSConstants.GL_DEBIT_CODE)) {
+                } else if (debitOrCreditCode.equals(KFSConstants.GL_DEBIT_CODE)) {
                     totalDebit.add(amount);
                 }
                 currentLine = INPUT_FILE_br.readLine();
             }
             INPUT_FILE_br.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // FIXME: do whatever should be done here
             throw new RuntimeException(e);
         }
@@ -326,8 +321,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //            return new ArrayList<LaborOriginEntry>(searchResultAsCollection);
 //        }
 //    }
-
-    public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList) {
+    public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList) {
 
         FileReader INPUT_GLE_FILE = null;
         BufferedReader INPUT_GLE_FILE_br;
@@ -342,7 +336,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         //returnErrorList is list of List<Message>
         Map returnMessageMap = getEntriesByBufferedReader(INPUT_GLE_FILE_br, originEntryList);
 
-        try{
+        try {
             INPUT_GLE_FILE_br.close();
             INPUT_GLE_FILE.close();
         } catch (IOException e) {
@@ -364,7 +358,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
                 LaborOriginEntry laborOriginEntry = new LaborOriginEntry();
                 tmperrors = laborOriginEntry.setFromTextFileForBatch(line, lineNumber);
                 laborOriginEntry.setEntryId(lineNumber);
-                if (tmperrors.size() > 0){
+                if (tmperrors.size() > 0) {
                     returnMessageMap.put(new Integer(lineNumber), tmperrors);
                 } else {
                     originEntryList.add(laborOriginEntry);
@@ -376,7 +370,6 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
         return returnMessageMap;
     }
-
 
 
 //    public LedgerEntryHolder getSummaryByGroupId(Collection groupIdList) {
@@ -571,13 +564,12 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //    public Integer getGroupCount(Integer groupId) {
 //        return laborOriginEntryDao.getGroupCount(groupId);
 //    }
-
-    public Integer getGroupCount(String fileNameWithPath){
+    public Integer getGroupCount(String fileNameWithPath) {
         File file = new File(fileNameWithPath);
         Iterator<LaborOriginEntry> fileIterator = new LaborOriginEntryFileIterator(file);
         int count = 0;
 
-        while(fileIterator.hasNext()){
+        while (fileIterator.hasNext()) {
             count++;
             fileIterator.next();
         }

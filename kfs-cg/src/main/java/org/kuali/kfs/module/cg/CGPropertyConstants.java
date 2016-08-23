@@ -19,11 +19,10 @@
 package org.kuali.kfs.module.cg;
 
 
-
 /**
  * Property Constants for CG module
  */
-public class CGPropertyConstants{
+public class CGPropertyConstants {
 
     // Research Risk Type
     public static final String RESEARCH_RISK_TYPE_SORT_NUMBER = "researchRiskTypeSortNumber";
@@ -49,7 +48,7 @@ public class CGPropertyConstants{
         public static final String AGENCY_ADDRESS_ZIP_CODE = "agencyZipCode";
         public static final String AGENCY_ADDRESS_INTERNATIONAL_PROVINCE_NAME = "agencyAddressInternationalProvinceName";
         public static final String AGENCY_ADDRESS_INTERNATIONAL_MAIL_CODE = "agencyInternationalMailCode";
-        public static final String AGENCY_CUSTOMER_TYPE_CODE= "customerTypeCode";
+        public static final String AGENCY_CUSTOMER_TYPE_CODE = "customerTypeCode";
         public static final String AGENCY_CUSTOMER_NUMBER = "customerNumber";
     }
 

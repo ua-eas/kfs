@@ -21,10 +21,10 @@ package org.kuali.kfs.fp.document.validation.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 
 /**
  * Validation which checks at the object type code on a Journal Voucher's accounting line is valid
@@ -36,6 +36,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Checks that the object type code on the Journal Voucher accounting line is valid and active
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,6 +51,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public VoucherSourceAccountingLine getAccountingLineForValidation() {
@@ -58,6 +60,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(VoucherSourceAccountingLine accountingLineForValidation) {
@@ -66,6 +69,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineRuleHelperService attribute.
+     *
      * @return Returns the accountingLineRuleHelperService.
      */
     public AccountingLineRuleHelperService getAccountingLineRuleHelperService() {
@@ -74,6 +78,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineRuleHelperService attribute value.
+     *
      * @param accountingLineRuleHelperService The accountingLineRuleHelperService to set.
      */
     public void setAccountingLineRuleHelperService(AccountingLineRuleHelperService accountingLineRuleHelperService) {
@@ -82,6 +87,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -90,6 +96,7 @@ public class JournalVoucherObjectTypeValidation extends GenericValidation {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

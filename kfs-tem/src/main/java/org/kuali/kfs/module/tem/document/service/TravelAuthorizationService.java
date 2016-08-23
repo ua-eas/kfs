@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.tem.document.TravelAuthorizationAmendmentDocument;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationCloseDocument;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface TravelAuthorizationService {
 
     public void createCustomerInvoice(TravelAuthorizationDocument travelAuthorizationDocument);
 
     /**
-     *
      * @param documentNumber
      * @return
      */
@@ -58,7 +57,7 @@ public interface TravelAuthorizationService {
 
     /**
      * Closing the Travel Authorization
-     *
+     * <p>
      * 1. Retired the current TA
      * 2. Copy a new TAC from the TA and route it
      *
@@ -79,7 +78,6 @@ public interface TravelAuthorizationService {
 
     /**
      * find matching trips for the same traveler, dates
-     *
      */
-    public List<String> findMatchingTrips(TravelAuthorizationDocument authorization) ;
+    public List<String> findMatchingTrips(TravelAuthorizationDocument authorization);
 }

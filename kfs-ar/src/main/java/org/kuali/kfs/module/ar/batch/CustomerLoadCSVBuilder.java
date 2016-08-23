@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerAddressCSV;
 import org.kuali.kfs.module.ar.batch.vo.CustomerAddressDigesterVO;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * CSVBuilder convert the parsed data values into CustomerDigesterVO list, which is validated by CustomerLoad service
  * and docs creation
- *
  */
 public class CustomerLoadCSVBuilder {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerLoadCSVBuilder.class);

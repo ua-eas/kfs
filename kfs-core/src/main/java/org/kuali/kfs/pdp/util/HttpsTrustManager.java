@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.pdp.util;
 
+import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
-import javax.net.ssl.X509TrustManager;
 
 /**
  * A simple implementation of X509TrustManager which bypass any server certificate.

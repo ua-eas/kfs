@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 
 /**
  * Action class for Contracts & Grants Invoice Lookup.
@@ -35,6 +35,7 @@ public class ContractsGrantsInvoiceLookupAction extends ContractsGrantsMultipleV
 
     /**
      * Collects from the given resultTable - collecting ids from children rows for ContractsGrantsInvoiceResultRows
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsMultipleValueLookupAction#collectSelectedObjectIds(java.util.List)
      */
     @Override
@@ -48,8 +49,7 @@ public class ContractsGrantsInvoiceLookupAction extends ContractsGrantsMultipleV
                     String objId = subResultRow.getObjectId();
                     selectedObjectIds.put(objId, objId);
                 }
-            }
-            else {
+            } else {
                 String objId = row.getObjectId();
                 selectedObjectIds.put(objId, objId);
             }
@@ -60,6 +60,7 @@ public class ContractsGrantsInvoiceLookupAction extends ContractsGrantsMultipleV
 
     /**
      * Returns "arContractsGrantsInvoiceSummary.do"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsMultipleValueLookupAction#getActionUrl()
      */
     @Override

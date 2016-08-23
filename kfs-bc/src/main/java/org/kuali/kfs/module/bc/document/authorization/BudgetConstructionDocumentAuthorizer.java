@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.authorization;
 
-import java.util.Map;
-
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.service.BudgetDocumentService;
@@ -27,7 +25,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Map;
 
 public class BudgetConstructionDocumentAuthorizer extends FinancialSystemTransactionalDocumentAuthorizerBase {
 
@@ -35,7 +34,7 @@ public class BudgetConstructionDocumentAuthorizer extends FinancialSystemTransac
      * Add role qualifications (chart, account, year, level code) needed from document
      *
      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object businessObject, Map<String, String> attributes) {
@@ -52,8 +51,7 @@ public class BudgetConstructionDocumentAuthorizer extends FinancialSystemTransac
 
         if (SpringContext.getBean(BudgetDocumentService.class).isAccountReportsExist(document.getChartOfAccountsCode(), document.getAccountNumber())) {
             attributes.put(BCPropertyConstants.ACCOUNT_REPORTS_EXIST, Boolean.TRUE.toString());
-        }
-        else {
+        } else {
             attributes.put(BCPropertyConstants.ACCOUNT_REPORTS_EXIST, Boolean.FALSE.toString());
         }
     }

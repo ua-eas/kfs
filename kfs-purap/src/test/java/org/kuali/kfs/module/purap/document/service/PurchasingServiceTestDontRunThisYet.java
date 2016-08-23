@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class PurchasingServiceTestDontRunThisYet extends KualiTestBase {

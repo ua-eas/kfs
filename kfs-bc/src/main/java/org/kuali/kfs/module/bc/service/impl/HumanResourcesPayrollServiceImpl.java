@@ -98,7 +98,7 @@ public class HumanResourcesPayrollServiceImpl implements HumanResourcesPayrollSe
 
     /**
      * @see org.kuali.kfs.module.bc.service.HumanResourcesPayrollService#isActiveJob(java.lang.String, java.lang.String,
-     *      java.lang.Integer, org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType)
+     * java.lang.Integer, org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType)
      */
     @Override
     @Transactional
@@ -120,7 +120,7 @@ public class HumanResourcesPayrollServiceImpl implements HumanResourcesPayrollSe
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;

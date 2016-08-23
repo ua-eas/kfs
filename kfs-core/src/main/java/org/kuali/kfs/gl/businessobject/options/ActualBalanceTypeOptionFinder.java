@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.BalanceTypeService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A value finder that returns all balance type, but selects the actual balance type
@@ -62,7 +62,7 @@ public class ActualBalanceTypeOptionFinder extends KeyValuesBase implements Valu
         BalanceTypeService bts = SpringContext.getBean(BalanceTypeService.class);
         Collection c = bts.getAllBalanceTypes();
 
-        for (Iterator iter = c.iterator(); iter.hasNext();) {
+        for (Iterator iter = c.iterator(); iter.hasNext(); ) {
             BalanceType bt = (BalanceType) iter.next();
             labels.add(new ConcreteKeyValue(bt.getCode(), bt.getCode() + " - " + bt.getName()));
         }

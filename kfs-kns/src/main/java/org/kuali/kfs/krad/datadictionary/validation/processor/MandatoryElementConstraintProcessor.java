@@ -19,62 +19,60 @@
 package org.kuali.kfs.krad.datadictionary.validation.processor;
 
 import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 
 /**
  * This abstract class can be extended by constraint processor classes that
  * must be processed on every validation.
- *
- *
  */
 public abstract class MandatoryElementConstraintProcessor<C extends Constraint> implements ConstraintProcessor<Object, C> {
 
-	protected DataDictionaryService dataDictionaryService;
-	protected DateTimeService dateTimeService;
+    protected DataDictionaryService dataDictionaryService;
+    protected DateTimeService dateTimeService;
 
 
-	/**
-	 * @see ConstraintProcessor#isOptional()
-	 */
-	@Override
-	public boolean isOptional() {
-		return false;
-	}
+    /**
+     * @see ConstraintProcessor#isOptional()
+     */
+    @Override
+    public boolean isOptional() {
+        return false;
+    }
 
-	/**
-	 * @return the dataDictionaryService
-	 */
-	public DataDictionaryService getDataDictionaryService() {
-		if (dataDictionaryService == null)
-			dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
-		return this.dataDictionaryService;
-	}
+    /**
+     * @return the dataDictionaryService
+     */
+    public DataDictionaryService getDataDictionaryService() {
+        if (dataDictionaryService == null)
+            dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
+        return this.dataDictionaryService;
+    }
 
-	/**
-	 * @param dataDictionaryService the dataDictionaryService to set
-	 */
-	public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
-		this.dataDictionaryService = dataDictionaryService;
-	}
+    /**
+     * @param dataDictionaryService the dataDictionaryService to set
+     */
+    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
+    }
 
-	/**
-	 * @return the dateTimeService
-	 */
-	public DateTimeService getDateTimeService() {
-		if (dateTimeService == null)
-			dateTimeService = CoreApiServiceLocator.getDateTimeService();
+    /**
+     * @return the dateTimeService
+     */
+    public DateTimeService getDateTimeService() {
+        if (dateTimeService == null)
+            dateTimeService = CoreApiServiceLocator.getDateTimeService();
 
-		return this.dateTimeService;
-	}
+        return this.dateTimeService;
+    }
 
-	/**
-	 * @param dateTimeService the dateTimeService to set
-	 */
-	public void setDateTimeService(DateTimeService dateTimeService) {
-		this.dateTimeService = dateTimeService;
-	}
+    /**
+     * @param dateTimeService the dateTimeService to set
+     */
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
 
 }

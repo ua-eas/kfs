@@ -43,7 +43,7 @@ public class AgencyAddressTest {
 
         agencyAddress = new AgencyAddress();
         agencyAddress.setCountryService(countryService);
-        agencyAddress.init(getAgency(),getRolodexDto());
+        agencyAddress.init(getAgency(), getRolodexDto());
 
         EasyMock.verify(countryService);
     }
@@ -66,7 +66,7 @@ public class AgencyAddressTest {
     }
 
     private Country getDefaultCountry() {
-        Country.Builder cb = Country.Builder.create("US","USA","United States",false,true);
+        Country.Builder cb = Country.Builder.create("US", "USA", "United States", false, true);
         return cb.build();
     }
 

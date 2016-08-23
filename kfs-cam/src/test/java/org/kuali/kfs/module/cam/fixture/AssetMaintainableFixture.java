@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.module.cam.businessobject.Asset;
+
 import java.io.IOException;
 import java.util.Properties;
-
-import org.kuali.kfs.module.cam.businessobject.Asset;
 
 public enum AssetMaintainableFixture {
     ASSET1(1);
@@ -29,13 +29,13 @@ public enum AssetMaintainableFixture {
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/asset.properties";
         properties = new Properties();
         try {
             properties.load(ClassLoader.getSystemResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
@@ -49,7 +49,7 @@ public enum AssetMaintainableFixture {
         String propertyKey = "asset.testData" + testDataPos;
         String deliminator = properties.getProperty("deliminator");
         String fieldNames = properties.getProperty("asset.fieldNames");
-        Asset asset= CamsFixture.DATA_POPULATOR.buildTestDataObject(Asset.class, properties, propertyKey, fieldNames, deliminator);
+        Asset asset = CamsFixture.DATA_POPULATOR.buildTestDataObject(Asset.class, properties, propertyKey, fieldNames, deliminator);
         return asset;
     }
 }

@@ -19,9 +19,9 @@
 package org.kuali.kfs.coreservice.web.parameter;
 
 import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,17 +32,17 @@ import java.util.List;
  */
 public class ParameterOperatorValuesFinder extends KeyValuesBase {
 
-	private static final List<KeyValue> KEY_VALUES;
+    private static final List<KeyValue> KEY_VALUES;
 
-	static {
-		final List<KeyValue> keyValues = new ArrayList<KeyValue>();
+    static {
+        final List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue(EvaluationOperator.ALLOW.getCode(), "Allowed"));
         keyValues.add(new ConcreteKeyValue(EvaluationOperator.DISALLOW.getCode(), "Denied"));
-		KEY_VALUES = Collections.unmodifiableList(keyValues);
-	}
+        KEY_VALUES = Collections.unmodifiableList(keyValues);
+    }
 
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
         return KEY_VALUES;
     }
 }

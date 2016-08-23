@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 
 /**
  * This interface defines methods that an Budget Construction Organization Reports Service must provide.

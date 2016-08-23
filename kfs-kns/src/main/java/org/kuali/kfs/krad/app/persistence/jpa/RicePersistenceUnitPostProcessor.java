@@ -24,50 +24,49 @@ import org.springframework.orm.jpa.persistenceunit.PersistenceUnitPostProcessor;
 import javax.sql.DataSource;
 
 public class RicePersistenceUnitPostProcessor implements PersistenceUnitPostProcessor {
-	static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RicePersistenceUnitPostProcessor.class);
+    static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RicePersistenceUnitPostProcessor.class);
 
-	public static final String KRAD_APPLICATION_PERSISTENCE_UNIT_NAME = "krad-application-unit";
-	public static final String KRAD_SERVER_PERSISTENCE_UNIT_NAME = "krad-server-unit";
+    public static final String KRAD_APPLICATION_PERSISTENCE_UNIT_NAME = "krad-application-unit";
+    public static final String KRAD_SERVER_PERSISTENCE_UNIT_NAME = "krad-server-unit";
 
-	private DataSource jtaDataSource;
+    private DataSource jtaDataSource;
 
     public void postProcessPersistenceUnitInfo(MutablePersistenceUnitInfo mutablePersistenceUnitInfo) {
         mutablePersistenceUnitInfo.setJtaDataSource(getJtaDataSource());
         addKRADManagedClassNames(mutablePersistenceUnitInfo);
         if (mutablePersistenceUnitInfo.getPersistenceUnitName().equals(KRAD_APPLICATION_PERSISTENCE_UNIT_NAME) || mutablePersistenceUnitInfo.getPersistenceUnitName().equals(
-                KRAD_SERVER_PERSISTENCE_UNIT_NAME)) {
-        	addRiceManagedClassNamesToKRADPersistenceUnit(mutablePersistenceUnitInfo);
+            KRAD_SERVER_PERSISTENCE_UNIT_NAME)) {
+            addRiceManagedClassNamesToKRADPersistenceUnit(mutablePersistenceUnitInfo);
         }
     }
 
     /**
-     *
      * Adds all the KNS Managed entities to the persistence unit - which is important, becuase all
      * persistence units get the KNS entities to manage
      *
      * @param mutablePersistenceUnitInfo
      */
     public void addKRADManagedClassNames(MutablePersistenceUnitInfo mutablePersistenceUnitInfo) {
-    	addManagedClassNames(mutablePersistenceUnitInfo, new KRADPersistableBusinessObjectClassExposer());
+        addManagedClassNames(mutablePersistenceUnitInfo, new KRADPersistableBusinessObjectClassExposer());
     }
 
     /**
      * Adds the class names listed by exposed by the given exposer into the persistence unit
      *
      * @param mutablePersistenceUnitInfo the persistence unit to add managed JPA entity class names to
-     * @param exposer the exposer for class names to manage
+     * @param exposer                    the exposer for class names to manage
      */
     public void addManagedClassNames(MutablePersistenceUnitInfo mutablePersistenceUnitInfo, PersistableBusinessObjectClassExposer exposer) {
-    	for (String exposedClassName : exposer.exposePersistableBusinessObjectClassNames()) {
-    		if (LOG.isDebugEnabled()) {
-    			LOG.debug("JPA will now be managing class: "+exposedClassName);
-    		}
-    		mutablePersistenceUnitInfo.addManagedClassName(exposedClassName);
-    	}
+        for (String exposedClassName : exposer.exposePersistableBusinessObjectClassNames()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("JPA will now be managing class: " + exposedClassName);
+            }
+            mutablePersistenceUnitInfo.addManagedClassName(exposedClassName);
+        }
     }
 
     public void addRiceManagedClassNamesToKRADPersistenceUnit(MutablePersistenceUnitInfo mutablePersistenceUnitInfo) {
-    	addManagedClassNames(mutablePersistenceUnitInfo, new RiceToNervousSystemBusinessObjectClassExposer());
+        addManagedClassNames(mutablePersistenceUnitInfo, new RiceToNervousSystemBusinessObjectClassExposer());
     }
 
     public DataSource getJtaDataSource() {

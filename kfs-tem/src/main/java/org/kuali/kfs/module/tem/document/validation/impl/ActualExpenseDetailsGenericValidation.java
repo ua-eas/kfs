@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.TemExpense;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * A validation which will attempt to generically validate all of the details in an actual expense
@@ -35,6 +35,7 @@ public class ActualExpenseDetailsGenericValidation extends GenericValidation {
 
     /**
      * For each detail on the actual expense, runs through each of the given detailValidations
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -43,8 +44,8 @@ public class ActualExpenseDetailsGenericValidation extends GenericValidation {
 
         int count = 0;
         for (TemExpense genericDetail : getActualExpenseForValidation().getExpenseDetails()) {
-            final ActualExpense detail = (ActualExpense)genericDetail;
-            final String expenseDetailIdentifier = "expenseDetails["+count+"]";
+            final ActualExpense detail = (ActualExpense) genericDetail;
+            final String expenseDetailIdentifier = "expenseDetails[" + count + "]";
 
             GlobalVariables.getMessageMap().addToErrorPath(expenseDetailIdentifier);
 

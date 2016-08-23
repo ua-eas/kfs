@@ -152,7 +152,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
             // the param we're looking for looks like: methodToCall.switchToPage.1.x , where 1 is the page nbr
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SWITCH_TO_PAGE_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix)) {
                     String switchToPageNumberStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -169,7 +169,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
             // the param we're looking for looks like: methodToCall.sort.1.x , where 1 is the column to sort on
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SORT_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                     String columnToSortStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -194,7 +194,6 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * This method synchronizes number of group holders added with the group count
-     *
      */
     public void syncGroups() {
         int groupCount = getCorrectionDocument().getCorrectionChangeGroup().size();
@@ -274,7 +273,6 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Clears origin entry for manual edit
-     *
      */
     public void clearEntryForManualEdit() {
         OriginEntryFull oe = new OriginEntryFull();
@@ -292,6 +290,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Return size of list of all OriginEntryInformation objects
+     *
      * @return size of entries size
      */
     public Integer getAllEntriesSize() {

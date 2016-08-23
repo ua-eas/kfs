@@ -21,14 +21,13 @@ package org.kuali.kfs.module.purap.document.validation.impl;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocumentBase;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
-public class PurchasingChartOrgValidation extends GenericValidation
-{
+public class PurchasingChartOrgValidation extends GenericValidation {
     private OrganizationService organizationService;
     private ChartService chartService;
 
@@ -51,19 +50,19 @@ public class PurchasingChartOrgValidation extends GenericValidation
 
         // Get the chart of accounts and organization code from the document.
         String chartOfAccountsCode = purapDoc.getChartOfAccountsCode();
-        String organizationCode    = purapDoc.getOrganizationCode();
+        String organizationCode = purapDoc.getOrganizationCode();
 
         // Get organization business object from DB.  If a valid object is
         // returned, we know that the COA and Org codes are valid; otherwise,
         // display and error message to the user.
         Organization organization = organizationService.getByPrimaryId(
-                chartOfAccountsCode,
-                organizationCode);
+            chartOfAccountsCode,
+            organizationCode);
 
         if (organization == null) {
             GlobalVariables.getMessageMap().putError(
-                    "document.documentHeader.*",
-                    PurapKeyConstants.ERROR_INVALID_COA_ORG_CODE);
+                "document.documentHeader.*",
+                PurapKeyConstants.ERROR_INVALID_COA_ORG_CODE);
 
             valid = false;
         }
@@ -73,6 +72,7 @@ public class PurchasingChartOrgValidation extends GenericValidation
 
     /**
      * Sets the organizationService attribute value.
+     *
      * @param organizationService The organizationService to set.
      */
     public void setOrganizationService(OrganizationService organizationService) {
@@ -81,6 +81,7 @@ public class PurchasingChartOrgValidation extends GenericValidation
 
     /**
      * Sets the chartService attribute value.
+     *
      * @param chartService The chartService to set.
      */
     public void setChartService(ChartService chartService) {

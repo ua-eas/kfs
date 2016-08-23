@@ -23,5 +23,6 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 public interface FiscalYearBasedBusinessObject extends PersistableBusinessObject {
 
     Integer getUniversityFiscalYear();
-    void setUniversityFiscalYear( Integer fiscalYear );
+
+    void setUniversityFiscalYear(Integer fiscalYear);
 }

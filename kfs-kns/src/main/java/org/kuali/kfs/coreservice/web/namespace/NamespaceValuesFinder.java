@@ -22,9 +22,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.kfs.coreservice.api.CoreServiceConstants;
 import org.kuali.kfs.coreservice.api.namespace.Namespace;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,23 +35,23 @@ import java.util.stream.Collectors;
 public class NamespaceValuesFinder extends KeyValuesBase {
 
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
 
         // get a list of all Namespaces
         List<Namespace> namespaces = CoreServiceApiServiceLocator.getNamespaceService().findAllNamespaces();
         // copy the list of codes before sorting, since we can't modify the results from this method
-        namespaces = namespaces == null ? new ArrayList<>(0) : new ArrayList<>( namespaces );
+        namespaces = namespaces == null ? new ArrayList<>(0) : new ArrayList<>(namespaces);
 
         // sort using comparator.
         Collections.sort(namespaces, NamespaceComparator.INSTANCE);
 
         // create a new list (code, descriptive-name)
-        List<KeyValue> labels = new ArrayList<KeyValue>( namespaces.size() );
+        List<KeyValue> labels = new ArrayList<KeyValue>(namespaces.size());
         labels.add(new ConcreteKeyValue("", ""));
         final List<KeyValue> namespaceLabels = namespaces.stream()
-                .filter((Namespace namespace) -> StringUtils.equalsIgnoreCase(namespace.getApplicationId(), CoreServiceConstants.ApplicationIdentifiers.FINANCIALS) || StringUtils.equalsIgnoreCase(namespace.getApplicationId(), CoreServiceConstants.ApplicationIdentifiers.RICE) || StringUtils.equalsIgnoreCase(namespace.getCode(), CoreServiceConstants.ApplicationIdentifiers.GENERAL_KUALI))
-                .map((Namespace namespace) -> new ConcreteKeyValue(namespace.getCode(), namespace.getCode() + " - " + namespace.getName()))
-                .collect(Collectors.toList());
+            .filter((Namespace namespace) -> StringUtils.equalsIgnoreCase(namespace.getApplicationId(), CoreServiceConstants.ApplicationIdentifiers.FINANCIALS) || StringUtils.equalsIgnoreCase(namespace.getApplicationId(), CoreServiceConstants.ApplicationIdentifiers.RICE) || StringUtils.equalsIgnoreCase(namespace.getCode(), CoreServiceConstants.ApplicationIdentifiers.GENERAL_KUALI))
+            .map((Namespace namespace) -> new ConcreteKeyValue(namespace.getCode(), namespace.getCode() + " - " + namespace.getName()))
+            .collect(Collectors.toList());
         labels.addAll(namespaceLabels);
         return labels;
     }
@@ -61,7 +61,7 @@ public class NamespaceValuesFinder extends KeyValuesBase {
 
         @Override
         public int compare(Namespace o1, Namespace o2) {
-            return o1.getCode().compareTo( o2.getCode() );
+            return o1.getCode().compareTo(o2.getCode());
         }
     }
 }

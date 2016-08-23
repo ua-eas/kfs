@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.junit.Test;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
@@ -29,8 +31,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.service.DocumentService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class TravelDocumentActualExpenseLineValidationTest extends KualiTestBase
     public void testValidation() {
         TravelReimbursementDocument tr = null;
         try {
-            tr = (TravelReimbursementDocument)docService.getNewDocument(TravelReimbursementDocument.class);
+            tr = (TravelReimbursementDocument) docService.getNewDocument(TravelReimbursementDocument.class);
         } catch (WorkflowException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +88,7 @@ public class TravelDocumentActualExpenseLineValidationTest extends KualiTestBase
         ote2.setExpenseAmount(new KualiDecimal(EXPENSE_AMOUNT));
         ote2.setExpenseDate(dateTimeService.getCurrentSqlDate());
         ote2.setExpenseTypeCode(AIRFARE_EXPENSE_TYPE_CODE);
-       //tr.addActualExpense(ote2);
+        //tr.addActualExpense(ote2);
 
         AddActualExpenseLineEvent event2 = new AddActualExpenseLineEvent("errorPathPrefix", tr, ote2);
         validation.setActualExpenseForValidation(ote2);
@@ -96,7 +96,7 @@ public class TravelDocumentActualExpenseLineValidationTest extends KualiTestBase
     }
 
     @Test
-    public void testValidateGeneralRules(){
+    public void testValidateGeneralRules() {
 
         TravelReimbursementDocument document = new TravelReimbursementDocument();
         List<ActualExpense> actualExpenses = new ArrayList<ActualExpense>();
@@ -108,17 +108,17 @@ public class TravelDocumentActualExpenseLineValidationTest extends KualiTestBase
 
         aTravelExpenseTypeCode.setExpenseTypeCode(AIRFARE_EXPENSE_TYPE_CODE);
 
-      //Testing expense amount required validation since expense type is not mileage
+        //Testing expense amount required validation since expense type is not mileage
         airFareEntry.setTravelExpenseTypeCode(aTravelExpenseTypeCode);
         airFareEntry.setExpenseDate(dateTimeService.getCurrentSqlDate());
         airFareEntry.setExpenseTypeCode(AIRFARE_EXPENSE_TYPE_CODE);
         assertTrue(validation.validateGeneralRules(airFareEntry, document));
 
-      //Testing expense amount required validation since expense type is not mileage
+        //Testing expense amount required validation since expense type is not mileage
         airFareEntry.setExpenseAmount(new KualiDecimal(-100));
         assertFalse(validation.validateGeneralRules(airFareEntry, document));
 
-      //Testing Currency rate required validation
+        //Testing Currency rate required validation
         airFareEntry.setExpenseAmount(new KualiDecimal(100));
         airFareEntry.setCurrencyRate(BigDecimal.ZERO);
         assertTrue(validation.validateGeneralRules(airFareEntry, document));
@@ -139,36 +139,44 @@ public class TravelDocumentActualExpenseLineValidationTest extends KualiTestBase
         mileageEntry.setTravelExpenseTypeCode(mTravelExpenseTypeCode);
         assertTrue(validation.validateGeneralRules(mileageEntry, document));
     }
+
     @Test
-    public void testValidateAirfareRules(){
+    public void testValidateAirfareRules() {
 
     }
+
     @Test
-    public void testValidateRentalCarRules(){
+    public void testValidateRentalCarRules() {
 
     }
+
     @Test
-    public void testValidateMileageRules(){
+    public void testValidateMileageRules() {
 
     }
+
     @Test
-    public void testValidateLodgingRules(){
+    public void testValidateLodgingRules() {
 
     }
+
     @Test
-    public void testValidateLodgingAllowanceRules(){
+    public void testValidateLodgingAllowanceRules() {
 
     }
+
     @Test
-    public void testValidateMealsRuels(){
+    public void testValidateMealsRuels() {
 
     }
+
     @Test
-    public void testMaximumAmountRules(){
+    public void testMaximumAmountRules() {
 
     }
+
     @Test
-    public void testValidatePerDiemRules(){
+    public void testValidatePerDiemRules() {
 
     }
 }

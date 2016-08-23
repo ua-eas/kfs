@@ -18,20 +18,16 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
 import org.apache.commons.collections.BidiMap;
 import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -44,12 +40,15 @@ import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
 import org.kuali.kfs.sys.document.web.renderers.DynamicNameLabelRenderer;
 import org.kuali.kfs.sys.document.web.renderers.FieldRenderer;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.kfs.kns.util.FieldUtils;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a field (plus, optionally, a dynamic name field) to be rendered as part of an accounting line.
@@ -111,7 +110,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      * Gets the field attribute.
      *
      * @return Returns the field.
-     *
+     * <p>
      * KRAD Conversion: Gets the fields - No use of data dictionary
      */
     public Field getField() {
@@ -122,8 +121,8 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      * Sets the field attribute value.
      *
      * @param field The field to set.
-     *
-     * KRAD Conversion: sets the fields - No use of data dictionary
+     *              <p>
+     *              KRAD Conversion: sets the fields - No use of data dictionary
      */
     public void setField(Field field) {
         this.field = field;
@@ -195,7 +194,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
 
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext,
-     *      javax.servlet.jsp.tagext.Tag)
+     * javax.servlet.jsp.tagext.Tag)
      */
     @Override
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
@@ -212,8 +211,8 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Renders the field portion of this tag
      *
-     * @param pageContext the page context to render to
-     * @param parentTag the tag requesting rendering
+     * @param pageContext      the page context to render to
+     * @param parentTag        the tag requesting rendering
      * @param renderingContext the rendering context of the accounting line
      * @throws JspException thrown if something goes wrong
      */
@@ -248,8 +247,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
                 if (renderingContext.isNewLine()) {
                     String format = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.LABEL_NEW_ACCOUNTING_LINE_FIELD);
                     accessibleTitle = MessageFormat.format(format, accessibleTitle, renderingContext.getGroupLabel());
-                }
-                else {
+                } else {
                     Integer lineNumber = renderingContext.getCurrentLineCount() + 1;
                     String format = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.LABEL_ACCOUNTING_LINE_FIELD);
                     accessibleTitle = MessageFormat.format(format, accessibleTitle, renderingContext.getGroupLabel(), lineNumber);
@@ -272,10 +270,10 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Updates the field so that it can have a quickfinder and inquiry link if need be
      *
-     * @param accountingDocument the accounting document the accounting line the field will render part of is on or will at some
-     *        point be on
-     * @param accountingLine the accounting line that is being rendered
-     * @param fieldNames the list of all fields being displayed on this accounting line
+     * @param accountingDocument   the accounting document the accounting line the field will render part of is on or will at some
+     *                             point be on
+     * @param accountingLine       the accounting line that is being rendered
+     * @param fieldNames           the list of all fields being displayed on this accounting line
      * @param accountingLinePrefix the prefix of all field names in the accounting line
      */
     protected void populateFieldForLookupAndInquiry(AccountingDocument accountingDocument, AccountingLine accountingLine, List<String> fieldNames, String accountingLinePrefix) {
@@ -332,12 +330,12 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Does some initial set up on the field renderer - sets the field and the business object being rendered
      *
-     * @param fieldRenderer the field renderer to prepare
-     * @param accountingLine the accounting line being rendered
+     * @param fieldRenderer          the field renderer to prepare
+     * @param accountingLine         the accounting line being rendered
      * @param accountingLineProperty the property to get the accounting line from the form
-     * @param fieldNames the names of all the fields that will be rendered as part of this accounting line
-     *
-     * KRAD Conversion: Customization of the fields - No use of data dictionary
+     * @param fieldNames             the names of all the fields that will be rendered as part of this accounting line
+     *                               <p>
+     *                               KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     protected void prepareFieldRenderer(FieldRenderer fieldRenderer, Field field, AccountingDocument document, AccountingLine accountingLine, String accountingLineProperty, List<String> fieldNames) {
         fieldRenderer.setField(field);
@@ -347,8 +345,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
 
         if (definition.getDynamicNameLabelGenerator() != null) {
             fieldRenderer.overrideOnBlur(definition.getDynamicNameLabelGenerator().getDynamicNameLabelOnBlur(accountingLine, accountingLineProperty));
-        }
-        else if (!StringUtils.isBlank(definition.getDynamicLabelProperty())) {
+        } else if (!StringUtils.isBlank(definition.getDynamicLabelProperty())) {
             fieldRenderer.setDynamicNameLabel(accountingLineProperty + "." + definition.getDynamicLabelProperty());
         }
 
@@ -366,7 +363,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
 
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformation(org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
+     * org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
     @Override
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
@@ -382,9 +379,9 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      * Runs a field transformation against all the overrides encapsulated within this field
      *
      * @param fieldTransformation the field transformation which will utterly change our fields
-     * @param accountingLine the accounting line being rendered
-     * @param editModes the current document edit modes
-     * @param unconvertedValues a Map of unconvertedValues
+     * @param accountingLine      the accounting line being rendered
+     * @param editModes           the current document edit modes
+     * @param unconvertedValues   a Map of unconvertedValues
      */
     protected void transformOverrideFields(AccountingLineFieldRenderingTransformation fieldTransformation, AccountingLine accountingLine, Map unconvertedValues) {
         for (AccountingLineViewOverrideField overrideField : getOverrideFields()) {
@@ -395,9 +392,9 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Renders the override fields for the line
      *
-     * @param pageContext the page context to render to
-     * @param parentTag the tag requesting all this rendering
-     * @param accountingLine the accounting line we're rendering
+     * @param pageContext                the page context to render to
+     * @param parentTag                  the tag requesting all this rendering
+     * @param accountingLine             the accounting line we're rendering
      * @param accountingLinePropertyPath the path to get to that accounting
      * @throws JspException thrown if rendering fails
      */
@@ -411,9 +408,9 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Renders a dynamic field label
      *
-     * @param pageContext the page context to render to
-     * @param parentTag the parent tag requesting this rendering
-     * @param accountingLine the line which owns the field being rendered
+     * @param pageContext                the page context to render to
+     * @param parentTag                  the parent tag requesting this rendering
+     * @param accountingLine             the line which owns the field being rendered
      * @param accountingLinePropertyPath the path from the form to the accounting line
      */
     protected void renderDynamicNameLabel(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
@@ -424,13 +421,11 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
         if (definition.getDynamicNameLabelGenerator() != null) {
             renderer.setFieldName(definition.getDynamicNameLabelGenerator().getDynamicNameLabelFieldName(accountingLine, accountingLinePropertyPath));
             renderer.setFieldValue(definition.getDynamicNameLabelGenerator().getDynamicNameLabelValue(accountingLine, accountingLinePropertyPath));
-        }
-        else {
+        } else {
             if (!StringUtils.isBlank(getField().getPropertyValue())) {
                 if (getField().isSecure()) {
                     renderer.setFieldValue(getField().getDisplayMask().maskValue(getField().getPropertyValue()));
-                }
-                else {
+                } else {
                     renderer.setFieldValue(getDynamicNameLabelDisplayedValue(accountingLine));
                 }
             }
@@ -453,7 +448,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
             String currentProperty = StringUtils.substringBefore(dynamicLabelProperty, ".");
             dynamicLabelProperty = StringUtils.substringAfter(dynamicLabelProperty, ".");
             if (value instanceof PersistableBusinessObject) {
-                if (!nonRefreshedPropertyList.contains(currentProperty)){
+                if (!nonRefreshedPropertyList.contains(currentProperty)) {
                     ((PersistableBusinessObject) value).refreshReferenceObject(currentProperty);
                 }
             }
@@ -521,7 +516,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
 
     /**
      * @see org.kuali.kfs.sys.document.web.HeaderLabelPopulating#populateHeaderLabel(org.kuali.kfs.sys.document.web.HeaderLabel,
-     *      org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
+     * org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
      */
     @Override
     public void populateHeaderLabel(HeaderLabel headerLabel, AccountingLineRenderingContext renderingContext) {
@@ -540,7 +535,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      * Adds the wrapped field to the list; adds any override fields this field encapsulates as well
      *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
-     *
+     * <p>
      * KRAD Conversion: Customization of adding the fields - No use of data dictionary
      */
     @Override
@@ -566,7 +561,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      *
      * @param errors the errors on the form
      * @return true if this field is in error, false otherwise
-     *
+     * <p>
      * KRAD Conversion: Checks if fields have errors - No use of data dictionary
      */
     protected boolean fieldInError(List errors) {
@@ -593,7 +588,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Check the errorKeys for a match to the fieldName
      *
-     * @param errors the errors on the form
+     * @param errors    the errors on the form
      * @param fieldName true if the fieldName matches an errorKey, false otherwise
      * @return
      */
@@ -625,7 +620,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
      * Determines whether to render the inquiry for this field
      *
      * @param document the document which the accounting line is part of or hopefully sometime will be part of
-     * @param line the accounting line being rendered
+     * @param line     the accounting line being rendered
      * @return true if inquiry links should be rendered, false otherwise
      */
     protected boolean isRenderingInquiry(AccountingDocument document, AccountingLine line) {
@@ -635,9 +630,9 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * build the lookup parameter map through applying the override parameters onto the defaults
      *
-     * @param lookupParameters the default lookup parameter string
+     * @param lookupParameters         the default lookup parameter string
      * @param overrideLookupParameters the override lookup parameter string
-     * @param accountingLinePrefix the actual accounting line prefix
+     * @param accountingLinePrefix     the actual accounting line prefix
      * @return the actual lookup parameter map
      */
     private Map<String, String> getActualParametersMap(String parameters, String overrideParameters, String accountingLinePrefix) {
@@ -651,7 +646,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * parse the given lookup parameter string into a bidirectinal map
      *
-     * @param lookupParameters the lookup parameter string
+     * @param lookupParameters     the lookup parameter string
      * @param accountingLinePrefix the actual accounting line prefix
      * @return a bidirectinal map that holds all the given lookup parameters
      */
@@ -682,7 +677,7 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     /**
      * Escapes the String ${accountingLineName} within a field and replaces it with the actual prefix of an accounting line
      *
-     * @param propertyName the name of the property to escape the special string ${accountingLineName} out of
+     * @param propertyName         the name of the property to escape the special string ${accountingLineName} out of
      * @param accountingLinePrefix the actual accounting line prefix
      * @return the property name with the correct accounting line prefix
      */

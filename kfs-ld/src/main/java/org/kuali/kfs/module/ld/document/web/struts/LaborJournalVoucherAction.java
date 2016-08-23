@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -32,6 +29,9 @@ import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.PositionData;
 import org.kuali.kfs.sys.KFSConstants;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Struts Action Form for the Labor Ledger Journal Voucher. This class piggy backs on all of the functionality in the
  * FinancialSystemTransactionalDocumentActionBase but is necessary for this document type. The Journal Voucher is unique in that it
@@ -42,7 +42,7 @@ public class LaborJournalVoucherAction extends org.kuali.kfs.fp.document.web.str
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#performLookup(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -55,13 +55,11 @@ public class LaborJournalVoucherAction extends org.kuali.kfs.fp.document.web.str
             String path = super.performLookup(mapping, form, request, response).getPath();
             path = path.replaceFirst(KFSConstants.LOOKUP_ACTION, LaborConstants.LONG_ROW_TABLE_INRUIRY_ACTION);
             return new ActionForward(path, true);
-        }
-        else if (StringUtils.equals(boClassName, PositionData.class.getName())) {
+        } else if (StringUtils.equals(boClassName, PositionData.class.getName())) {
             String path = super.performLookup(mapping, form, request, response).getPath();
             path = path.replaceFirst(KFSConstants.LOOKUP_ACTION, KFSConstants.GL_MODIFIED_INQUIRY_ACTION);
             return new ActionForward(path, true);
-        }
-        else {
+        } else {
             return super.performLookup(mapping, form, request, response);
         }
     }
@@ -83,8 +81,7 @@ public class LaborJournalVoucherAction extends org.kuali.kfs.fp.document.web.str
         // then deal with external encumbrance changes
         if (origBalType.isFinBalanceTypeEncumIndicator() && !newBalType.isFinBalanceTypeEncumIndicator()) {
             balanceTypeExternalEncumbranceChangeMode = EXT_ENCUMB_TO_NON_EXT_ENCUMB;
-        }
-        else if (!origBalType.isFinBalanceTypeEncumIndicator() && newBalType.isFinBalanceTypeEncumIndicator()) {
+        } else if (!origBalType.isFinBalanceTypeEncumIndicator() && newBalType.isFinBalanceTypeEncumIndicator()) {
             balanceTypeExternalEncumbranceChangeMode = NON_EXT_ENCUMB_TO_EXT_ENCUMB;
         }
 

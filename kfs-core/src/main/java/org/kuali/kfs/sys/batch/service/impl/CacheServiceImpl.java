@@ -38,8 +38,8 @@ public class CacheServiceImpl implements CacheService {
      */
     @Override
     public void clearSystemCaches() {
-        for ( CacheManager cm :  CoreImplServiceLocator.getCacheManagerRegistry().getCacheManagers() ) {
-            for ( String cacheName : cm.getCacheNames() ) {
+        for (CacheManager cm : CoreImplServiceLocator.getCacheManagerRegistry().getCacheManagers()) {
+            for (String cacheName : cm.getCacheNames()) {
                 cm.getCache(cacheName).clear();
             }
         }
@@ -50,22 +50,22 @@ public class CacheServiceImpl implements CacheService {
 
         try {
             CacheManager cm = CoreImplServiceLocator.getCacheManagerRegistry().getCacheManagerByCacheName(cacheName);
-            if ( cm != null ) {
+            if (cm != null) {
                 Cache cache = cm.getCache(cacheName);
                 if (cache != null) {
                     cache.clear();
-                    if ( LOG.isDebugEnabled() ) {
-                        LOG.debug( "Cleared " + cacheName + " cache." );
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Cleared " + cacheName + " cache.");
                     }
                 } else {
                     // this is at debug level intentionally, since not all BOs have caches
-                    LOG.debug( "Unable to find cache for " + cacheName + ".");
+                    LOG.debug("Unable to find cache for " + cacheName + ".");
                 }
             } else {
-                LOG.info( "Unable to find cache manager when attempting to clear " + cacheName );
+                LOG.info("Unable to find cache manager when attempting to clear " + cacheName);
             }
         } catch (RiceIllegalArgumentException e) {
-            LOG.info( "Cache manager not found when attempting to clear " + cacheName );
+            LOG.info("Cache manager not found when attempting to clear " + cacheName);
         }
 
     }

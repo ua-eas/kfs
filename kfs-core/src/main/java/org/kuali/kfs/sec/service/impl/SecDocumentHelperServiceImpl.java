@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sec.service.impl;
 
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 import org.kuali.kfs.sec.document.authorization.SecTransactionalDocumentAuthorizer;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 
 
 /**
@@ -44,7 +44,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
         // get document authorizer instance configured in data dictionary
         DocumentAuthorizer configuredDocumentAuthorizer = super.getDocumentAuthorizer(documentType);
         if (getAccessSecurityService().isAccessSecurityControlledDocumentType(documentType)) {
-            if  ( configuredDocumentAuthorizer instanceof TransactionalDocumentAuthorizer ) {
+            if (configuredDocumentAuthorizer instanceof TransactionalDocumentAuthorizer) {
                 try {
                     SecTransactionalDocumentAuthorizer secDocumentAuthorizer = SecTransactionalDocumentAuthorizer.class.newInstance();
                     secDocumentAuthorizer.setDocumentAuthorizer((TransactionalDocumentAuthorizer) configuredDocumentAuthorizer);
@@ -54,7 +54,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
                     throw new RuntimeException("Unable to create new instance of SecTransactionalDocumentAuthorizer for document type: " + documentType, e);
                 }
             } else {
-                throw new RuntimeException( "Original DocumentAuthorizer for " + documentType + " is not an instance of " + TransactionalDocumentAuthorizer.class.getName() + ". It can not be wrapped.  This is a configuration error." );
+                throw new RuntimeException("Original DocumentAuthorizer for " + documentType + " is not an instance of " + TransactionalDocumentAuthorizer.class.getName() + ". It can not be wrapped.  This is a configuration error.");
             }
         }
 
@@ -62,7 +62,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
     }
 
     public AccessSecurityService getAccessSecurityService() {
-        if ( accessSecurityService == null ) {
+        if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;

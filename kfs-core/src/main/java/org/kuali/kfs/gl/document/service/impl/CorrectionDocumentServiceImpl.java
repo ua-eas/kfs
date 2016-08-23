@@ -18,26 +18,6 @@
  */
 package org.kuali.kfs.gl.document.service.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
@@ -58,6 +38,11 @@ import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
 import org.kuali.kfs.gl.report.CorrectionDocumentReport;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.gl.service.OriginEntryService;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.comparator.NumericValueComparator;
+import org.kuali.kfs.krad.comparator.StringValueComparator;
+import org.kuali.kfs.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.FileUtil;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
@@ -67,12 +52,27 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.krad.comparator.NumericValueComparator;
-import org.kuali.kfs.krad.comparator.StringValueComparator;
-import org.kuali.kfs.krad.comparator.TemporalValueComparator;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The base implementaiton of CorrectionDocumentService
@@ -113,10 +113,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Returns a specific correction change group for a GLCP document. Defers to DAO.
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a CorrectionChangeGroup
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#findByDocumentNumberAndCorrectionChangeGroupNumber(java.lang.String,
-     *      int)
+     * int)
      */
     public CorrectionChangeGroup findByDocumentNumberAndCorrectionChangeGroupNumber(String docId, int i) {
 
@@ -127,10 +127,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Finds CollectionChange records associated with a given document id and correction change group. Defers to DAO
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a List of qualifying CorrectionChange records
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#findByDocumentHeaderIdAndCorrectionGroupNumber(java.lang.String,
-     *      int)
+     * int)
      */
     public List findByDocumentHeaderIdAndCorrectionGroupNumber(String docId, int i) {
 
@@ -141,10 +141,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Finds Collection Criteria associated with the given GLCP document and group. Defers to DAO.
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a List of qualifying CorrectionCriteria
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#findByDocumentNumberAndCorrectionGroupNumber(java.lang.String,
-     *      int)
+     * int)
      */
     public List findByDocumentNumberAndCorrectionGroupNumber(String docId, int i) {
 
@@ -162,7 +162,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
         try {
             return (GeneralLedgerCorrectionProcessDocument) documentService.getByDocumentHeaderIdSessionless(docId);
         } catch (WorkflowException ex) {
-            throw new RuntimeException( "Unable to retrieve document for GLCP process", ex );
+            throw new RuntimeException("Unable to retrieve document for GLCP process", ex);
         }
     }
 
@@ -186,7 +186,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * @param docId the document id of a GLCP document
      * @return a List of Columns to render
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#getTableRenderColumnMetadata(java.lang.String)
-     *
+     * <p>
      * KRAD Conversion: Service method creates metadata of different columns.
      * No use of data dictionary.
      */
@@ -398,9 +398,9 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
      *
      * @param document an initiated or saved document
-     * @param entries an Iterator of origin entries
+     * @param entries  an Iterator of origin entries
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#persistOriginEntriesToFile(java.lang.String,
-     *      java.util.Iterator)
+     * java.util.Iterator)
      */
     public void persistInputOriginEntriesForInitiatedOrSavedDocument(GeneralLedgerCorrectionProcessDocument document, Iterator<OriginEntryFull> entries) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
@@ -416,9 +416,9 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * This method persists an Iterator of output origin entries for a document that is in the initiated or saved state
      *
      * @param document an initiated or saved document
-     * @param entries an Iterator of origin entries
+     * @param entries  an Iterator of origin entries
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#persistOutputOriginEntriesForInitiatedOrSavedDocument(org.kuali.kfs.gl.document.CorrectionDocument,
-     *      java.util.Iterator)
+     * java.util.Iterator)
      */
     public void persistOutputOriginEntriesForInitiatedOrSavedDocument(GeneralLedgerCorrectionProcessDocument document, Iterator<OriginEntryFull> entries) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
@@ -433,7 +433,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Saves an interator of Origin Entry records to the given file name
      *
      * @param fullPathUniqueFileName the name of the file to write entries to
-     * @param entries entries to write
+     * @param entries                entries to write
      */
     protected void persistOriginEntries(String fullPathUniqueFileName, Iterator<OriginEntryFull> entries) {
         File fileOut = new File(fullPathUniqueFileName);
@@ -449,17 +449,14 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
                 bufferedStreamOut.write(entry.getLine().getBytes());
                 bufferedStreamOut.write(newLine);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("unable to persist origin entries to file: " + fullPathUniqueFileName, e);
             throw new RuntimeException("unable to persist origin entries to file.");
-        }
-        finally {
+        } finally {
             try {
                 bufferedStreamOut.close();
                 streamOut.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("unable to close output streams for file: " + fullPathUniqueFileName, e);
                 throw new RuntimeException("unable to close output streams");
             }
@@ -537,13 +534,13 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
     /**
      * retrieves input origin entries that have been persisted for this document
      *
-     * @param document the document
+     * @param document       the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
-     *        signifies that there is no limit
+     *                       signifies that there is no limit
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#retrievePersistedInputOriginEntries(org.kuali.kfs.gl.document.CorrectionDocument,
-     *      int)
+     * int)
      */
     public List<OriginEntryFull> retrievePersistedInputOriginEntries(GeneralLedgerCorrectionProcessDocument document, int abortThreshold) {
         return retrievePersistedOriginEntries(generateInputOriginEntryFileName(document), abortThreshold);
@@ -552,13 +549,13 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
     /**
      * retrieves output origin entries that have been persisted for this document
      *
-     * @param document the document
+     * @param document       the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
-     *        signifies that there is no limit
+     *                       signifies that there is no limit
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#retrievePersistedOutputOriginEntries(org.kuali.kfs.gl.document.CorrectionDocument,
-     *      int)
+     * int)
      */
     public List<OriginEntryFull> retrievePersistedOutputOriginEntries(GeneralLedgerCorrectionProcessDocument document, int abortThreshold) {
         return retrievePersistedOriginEntries(generateOutputOriginEntryFileName(document), abortThreshold);
@@ -568,7 +565,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Reads a file of origin entries and returns a List of those entry records
      *
      * @param fullPathUniqueFileName the file name of the file to read
-     * @param abortThreshold if more entries than this need to be read...well, they just won't get read
+     * @param abortThreshold         if more entries than this need to be read...well, they just won't get read
      * @return a List of OriginEntryFulls
      */
     protected List<OriginEntryFull> retrievePersistedOriginEntries(String fullPathUniqueFileName, int abortThreshold) {
@@ -595,12 +592,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
                 lineNumber++;
                 entries.add(entry);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("retrievePersistedOriginEntries() Error reading file " + fileIn.getAbsolutePath(), e);
             throw new RuntimeException("Error reading file");
-        }
-        finally {
+        } finally {
             try {
                 if (fReader != null) {
                     fReader.close();
@@ -608,8 +603,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
                 if (reader != null) {
                     reader.close();
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("Unable to close file " + fileIn.getAbsolutePath(), e);
                 throw new RuntimeException("Error closing file");
             }
@@ -664,8 +658,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
             reader = new BufferedReader(fReader);
 
             return new OriginEntryFileIterator(reader);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("retrievePersistedOriginEntries() Error opening file " + fileIn.getAbsolutePath(), e);
             throw new RuntimeException("Error opening file");
         }
@@ -701,7 +694,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Writes out the persisted input origin entries in an {@link OutputStream} in a flat file format\
      *
      * @param document a GLCP document
-     * @param out axn open and ready output stream
+     * @param out      axn open and ready output stream
      * @throws IOException thrown if IOExceptions occurred in writing the persisted origin entries
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#writePersistedInputOriginEntriesToStream(java.io.OutputStream)
      */
@@ -714,7 +707,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Writes out the persisted output origin entries in an {@link OutputStream} in a flat file format\
      *
      * @param document a GLCP document
-     * @param out axn open and ready output stream
+     * @param out      axn open and ready output stream
      * @throws IOException thrown if IOExceptions occurred in writing the persisted origin entries
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#writePersistedOutputOriginEntriesToStream(java.io.OutputStream)
      */
@@ -727,7 +720,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      * Writes origin entries to an output stream
      *
      * @param fullPathUniqueFileName the name of the file to write to
-     * @param out an output stream to write to
+     * @param out                    an output stream to write to
      * @throws IOException thrown if problems occur during writing
      */
     protected void writePersistedOriginEntriesToStream(String fullPathUniqueFileName, OutputStream out) throws IOException {
@@ -740,15 +733,14 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
             while ((bytesRead = fileIn.read(buf)) != -1) {
                 out.write(buf, 0, bytesRead);
             }
-        }
-        finally {
+        } finally {
             fileIn.close();
         }
     }
 
     public String createOutputFileForProcessing(String docId, java.util.Date today) {
         File outputFile = new File(glcpDirectoryName + File.separator + docId + OUTPUT_ORIGIN_ENTRIES_FILE_SUFFIX);
-        String newFileName = batchFileDirectoryName + File.separator + GLCP_OUTPUT_PREFIX  + "." + docId + buildFileExtensionWithDate(today);
+        String newFileName = batchFileDirectoryName + File.separator + GLCP_OUTPUT_PREFIX + "." + docId + buildFileExtensionWithDate(today);
         File newFile = new File(newFileName);
         FileReader inputFileReader;
         FileWriter newFileWriter;
@@ -772,8 +764,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
                 doneFile.createNewFile();
             }
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -790,10 +781,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
     /**
      * Saves the input and output origin entry groups for a document prior to saving the document
      *
-     * @param document a GLCP document
+     * @param document                        a GLCP document
      * @param correctionDocumentEntryMetadata metadata about this GLCP document
      * @see org.kuali.kfs.gl.document.service.CorrectionDocumentService#persistOriginEntryGroupsForDocumentSave(org.kuali.kfs.gl.document.CorrectionDocument,
-     *      org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata)
+     * org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata)
      */
     public void persistOriginEntryGroupsForDocumentSave(GeneralLedgerCorrectionProcessDocument document, CorrectionDocumentEntryMetadata correctionDocumentEntryMetadata) {
         if (correctionDocumentEntryMetadata.getAllEntries() == null && !correctionDocumentEntryMetadata.isRestrictedFunctionalityMode()) {
@@ -831,12 +822,10 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
             // we've exhausted the iterator for the origin entries group
             // reload the iterator from the file
             inputGroupEntries = retrievePersistedInputOriginEntriesAsIterator(document);
-        }
-        else if (workflowDocument.isSaved() && correctionDocumentEntryMetadata.getInputGroupIdFromLastDocumentLoad().equals(document.getCorrectionInputFileName())) {
+        } else if (workflowDocument.isSaved() && correctionDocumentEntryMetadata.getInputGroupIdFromLastDocumentLoad().equals(document.getCorrectionInputFileName())) {
             // we've saved the origin entries before, so just retrieve them
             inputGroupEntries = retrievePersistedInputOriginEntriesAsIterator(document);
-        }
-        else {
+        } else {
             LOG.error("Unexpected state while trying to persist/retrieve GLCP origin entries during document save: document status is " + workflowDocument.getStatus() + " selected input group: " + document.getCorrectionInputFileName() + " last saved input group: " + correctionDocumentEntryMetadata.getInputGroupIdFromLastDocumentLoad());
             throw new RuntimeException("Error persisting GLCP document origin entries.");
         }
@@ -849,8 +838,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
             // even though the struts action handler may have computed the doc totals, let's recompute them
             statistics = CorrectionDocumentUtils.getStatistics(correctionDocumentEntryMetadata.getAllEntries());
-        }
-        else if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionDocumentEntryMetadata.getEditMethod())) {
+        } else if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionDocumentEntryMetadata.getEditMethod())) {
             // we want to persist the values of the output group. So reapply all of the criteria on each entry, one at a time
 
             BufferedOutputStream bufferedOutputStream = null;
@@ -871,29 +859,24 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
                     // else it was null, which means that the match criteria only flag was set, and the entry didn't match the
                     // criteria
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("Unable to persist persisted output entry", e);
                 throw new RuntimeException("Unable to persist output entry");
-            }
-            finally {
+            } finally {
                 if (bufferedOutputStream != null) {
                     try {
                         bufferedOutputStream.close();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         LOG.error("Unable to close output stream for persisted output entries", e);
                         throw new RuntimeException("Unable to close output entry file");
                     }
                 }
             }
-        }
-        else if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionDocumentEntryMetadata.getEditMethod())) {
+        } else if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionDocumentEntryMetadata.getEditMethod())) {
             // just wipe out the previous output entries
             removePersistedOutputOriginEntries(document);
             statistics = new OriginEntryStatistics();
-        }
-        else {
+        } else {
             throw new RuntimeException("Unrecognized edit method: " + correctionDocumentEntryMetadata.getEditMethod());
         }
 
@@ -1056,7 +1039,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
         }
         String filePrefix = documentNumber + "_" + temporaryReportFilenameComponent;
         FileFilter filter = FileFilterUtils.andFileFilter(
-                new PrefixFileFilter(filePrefix), new SuffixFileFilter(temporaryReportFilenameSuffix));
+            new PrefixFileFilter(filePrefix), new SuffixFileFilter(temporaryReportFilenameSuffix));
 
         // FSKD-244, KFSMI-5424 sort with filename, just in case
         List<File> fileList = Arrays.asList(inputDirectory.listFiles(filter));
@@ -1077,11 +1060,12 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
         };
 
         Collections.sort(fileList, fileNameComparator);
-        return fileList ;
+        return fileList;
     }
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -1090,6 +1074,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the reportAggregatorService attribute value.
+     *
      * @param reportAggregatorService The reportAggregatorService to set.
      */
     public void setReportAggregatorService(ReportAggregatorService reportAggregatorService) {
@@ -1098,6 +1083,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the temporaryReportsDirectory attribute value.
+     *
      * @param temporaryReportsDirectory The temporaryReportsDirectory to set.
      */
     public void setTemporaryReportsDirectory(String temporaryReportsDirectory) {
@@ -1106,6 +1092,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the temporaryReportFilenameComponent attribute value.
+     *
      * @param temporaryReportFilenameComponent The temporaryReportFilenameComponent to set.
      */
     public void setTemporaryReportFilenameComponent(String temporaryReportFilenameComponent) {
@@ -1114,6 +1101,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the temporaryReportFilenameSuffix attribute value.
+     *
      * @param temporaryReportFilenameSuffix The temporaryReportFilenameSuffix to set.
      */
     public void setTemporaryReportFilenameSuffix(String temporaryReportFilenameSuffix) {
@@ -1122,6 +1110,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the reportsDirectory attribute value.
+     *
      * @param reportsDirectory The reportsDirectory to set.
      */
     public void setReportsDirectory(String reportsDirectory) {
@@ -1130,6 +1119,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the reportFilenamePrefix attribute value.
+     *
      * @param reportFilenamePrefix The reportFilenamePrefix to set.
      */
     public void setReportFilenamePrefix(String reportFilenamePrefix) {
@@ -1138,6 +1128,7 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     /**
      * Sets the reportFilenameSuffix attribute value.
+     *
      * @param reportFilenameSuffix The reportFilenameSuffix to set.
      */
     public void setReportFilenameSuffix(String reportFilenameSuffix) {
@@ -1146,16 +1137,18 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
 
     protected static class GlcpFilenameFilter implements FilenameFilter {
         String documentNumber;
-        public GlcpFilenameFilter( String documentNumber ) {
+
+        public GlcpFilenameFilter(String documentNumber) {
             this.documentNumber = documentNumber;
         }
+
         public boolean accept(File dir, String name) {
             return name.startsWith(GLCP_OUTPUT_PREFIX + "." + documentNumber);
         }
     }
 
-    public String[] findExistingCorrectionOutputFilesForDocument( String documentNumber ) {
-        return new File(batchFileDirectoryName).list( new GlcpFilenameFilter(documentNumber));
+    public String[] findExistingCorrectionOutputFilesForDocument(String documentNumber) {
+        return new File(batchFileDirectoryName).list(new GlcpFilenameFilter(documentNumber));
     }
 
     /**
@@ -1163,7 +1156,9 @@ public class CorrectionDocumentServiceImpl extends InitiateDirectoryBase impleme
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(getOriginEntryStagingDirectoryPath()); }};
+        return new ArrayList<String>() {{
+            add(getOriginEntryStagingDirectoryPath());
+        }};
     }
 
     public void setDocumentService(DocumentService documentService) {

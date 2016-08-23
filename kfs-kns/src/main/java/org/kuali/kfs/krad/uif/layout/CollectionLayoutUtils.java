@@ -32,13 +32,11 @@ import org.kuali.kfs.krad.util.KRADUtils;
 
 /**
  * Utilities for collection layout managers
- *
- *
  */
 public class CollectionLayoutUtils {
 
     public static void prepareSelectFieldForLine(Field selectField, CollectionGroup collectionGroup, String lineBindingPath,
-            Object line) {
+                                                 Object line) {
         // if select property name set use as property name for select field
         String selectPropertyName = collectionGroup.getSelectPropertyName();
         if (StringUtils.isNotBlank(selectPropertyName)) {
@@ -56,7 +54,7 @@ public class CollectionLayoutUtils {
         } else {
             // select property name not given, use UifFormBase#selectedCollectionLines
             String collectionLineKey = KRADUtils.translateToMapSafeKey(
-                    collectionGroup.getBindingInfo().getBindingPath());
+                collectionGroup.getBindingInfo().getBindingPath());
             String selectBindingPath = UifPropertyPaths.SELECTED_COLLECTION_LINES + "['" + collectionLineKey + "']";
 
             ((DataBinding) selectField).getBindingInfo().setBindingName(selectBindingPath);
@@ -74,7 +72,7 @@ public class CollectionLayoutUtils {
 
             if ((selectControl != null) && (selectControl instanceof ValueConfiguredControl)) {
                 String lineIdentifier =
-                        KRADServiceLocatorWeb.getDataObjectMetaDataService().getDataObjectIdentifierString(line);
+                    KRADServiceLocatorWeb.getDataObjectMetaDataService().getDataObjectIdentifierString(line);
                 ((ValueConfiguredControl) selectControl).setValue(lineIdentifier);
             }
         }

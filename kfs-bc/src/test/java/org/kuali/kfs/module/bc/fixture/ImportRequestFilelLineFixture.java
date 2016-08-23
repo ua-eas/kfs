@@ -18,53 +18,52 @@
  */
 package org.kuali.kfs.module.bc.fixture;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.BCConstants.RequestImportFieldSeparator;
 import org.kuali.kfs.module.bc.BCConstants.RequestImportTextFieldDelimiter;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionRequestMove;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Test data for ImportRequestFileParsingHelper
  * Lines are formatted for annual file
- *
  */
 public enum ImportRequestFilelLineFixture {
 
     CORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_QUOTE_TEXT_DELIMITER_ANNUAL("\"BA\",\"6044900\",\"\",\"1464\",\"\",245000",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
     INCORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_QUOTE_TEXT_DELIMITER_ANNUAL("\"BA\",\"6044900\",\"\",\"1464\",\"\",\"245000\"",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
 
     CORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_NO_TEXT_DELIMITER_ANNUAL("BA,6044900,,1468,,550000",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
     INCORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_NO_TEXT_DELIMITER_ANNUAL("BA,6044900,,,1468,,550000",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
 
     CORRECTLY_FORMATTED_LINE_TAB_FIELD_SEPARATOR_NO_TEXT_DELIMITER_ANNUAL("BA\u00096044900\u0009\u00091464\u0009\u0009245000",
-            RequestImportFieldSeparator.TAB.getSeparator(),
-            RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
+        RequestImportFieldSeparator.TAB.getSeparator(),
+        RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
     INCORRECTLY_FORMATTED_LINE_TAB_FIELD_SEPARATOR_NO_TEXT_DELIMITER_ANNUAL("BA\u00096044900\u0009\u00091464\u0009\u0009\u0009245000",
-            RequestImportFieldSeparator.TAB.getSeparator(),
-            RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
+        RequestImportFieldSeparator.TAB.getSeparator(),
+        RequestImportTextFieldDelimiter.NOTHING.getDelimiter()),
 
     CORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_QUOTE_TEXT_DELIMITER_MONTHLY("\"BA\",\"6044900\",\"\",\"2000\",\"\",0,0,0,0,0,0,0,0,0,0,0,0",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
     INCORRECTLY_FORMATTED_LINE_COMMA_FIELD_SEPARATOR_QUOTE_TEXT_DELIMITER_MONTHLY("\"BA\",\"6044900\",\"\",\"2000\",\"\",\"0\",0,0,0,0,0,0,0,0,0,0,0",
-            RequestImportFieldSeparator.COMMA.getSeparator(),
-            RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
+        RequestImportFieldSeparator.COMMA.getSeparator(),
+        RequestImportTextFieldDelimiter.QUOTE.getDelimiter()),
 
     CORRECTLY_FORMATTED_LINE_PERIOD_FIELD_SEPARATOR_NO_TEXT_DELIMITER_ANNUAL("BA.6044900..1468..550000",
-            ".",
-            RequestImportTextFieldDelimiter.NOTHING.getDelimiter());
+        ".",
+        RequestImportTextFieldDelimiter.NOTHING.getDelimiter());
 
     private String lineToParse;
     private String fieldSeparator;

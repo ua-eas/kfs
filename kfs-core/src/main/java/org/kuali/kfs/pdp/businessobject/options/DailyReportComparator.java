@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.pdp.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.pdp.businessobject.DailyReport;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Comparator;
 
 public class DailyReportComparator implements Comparator<DailyReport> {
 

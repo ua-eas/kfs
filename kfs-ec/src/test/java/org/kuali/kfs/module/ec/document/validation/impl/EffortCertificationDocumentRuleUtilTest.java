@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
 
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NONE;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
@@ -38,6 +30,14 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NONE;
 
 /**
  * unit tests for the methods in EffortCertificationDocumentRuleUtil
@@ -387,7 +387,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
         int countOfOverChangedLine = 0;
         for (EffortCertificationDetail detailLine : details) {
-            if(EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
+            if (EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
                 countOfOverChangedLine++;
             }
         }
@@ -408,7 +408,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
 
         int countOfOverChangedLine = 0;
         for (EffortCertificationDetail detailLine : details) {
-            if(EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
+            if (EffortCertificationDocumentRuleUtil.isPayrollAmountOverChanged(detailLine, originalTotalAmount, limitOfLinePayrollAmountChange)) {
                 countOfOverChangedLine++;
             }
         }
@@ -583,7 +583,7 @@ public class EffortCertificationDocumentRuleUtilTest extends KualiTestBase {
     /**
      * build a detail lines for the specified test target
      *
-     * @param testTarget the given test target that specifies the test data being used
+     * @param testTarget   the given test target that specifies the test data being used
      * @param propertyName the name the specified property that contains the data being used to build a detail line
      * @return a detail lines for the specified test target with the given property
      */

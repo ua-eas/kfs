@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionAccount;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -35,15 +27,9 @@ import org.kuali.kfs.coa.businessobject.ObjectLevel;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ObjectLevelService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
@@ -53,6 +39,20 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * This class represents the business rules for the maintenance of {@link ObjectCodeGlobal} business objects
@@ -95,6 +95,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectCodeGlobalRule#checkSimpleRulesAllLines()}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -112,6 +113,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectCodeGlobalRule#checkSimpleRulesAllLines()}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -131,7 +133,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             // we can only inactivate if the new active status will be false, now check whether the object codes on the document exist and are currently true
             Collection<? extends ObjectCodeGlobalDetail> objectCodeGlobalDetails = objectCodeGlobal.getObjectCodeGlobalDetails();
             int i = 0;
-            for ( ObjectCodeGlobalDetail objectCodeGlobalDetail : objectCodeGlobalDetails ) {
+            for (ObjectCodeGlobalDetail objectCodeGlobalDetail : objectCodeGlobalDetails) {
                 // get current object code from the DB
                 ObjectCode objectCode = objectCodeService.getByPrimaryId(objectCodeGlobalDetail.getUniversityFiscalYear(), objectCodeGlobalDetail.getChartOfAccountsCode(), objectCodeGlobal.getFinancialObjectCode());
                 if (objectCode != null) {
@@ -161,7 +163,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             blockingBusinessObjects = addAdditionalBlockingBusinessObjects(blockingBusinessObjects, objectCode);
 
             if (blockingBusinessObjects != null && !blockingBusinessObjects.isEmpty()) {
-                final List<PersistableBusinessObject> persistingChanges = ((GlobalBusinessObject)maintainable.getBusinessObject()).generateGlobalChangesToPersist();
+                final List<PersistableBusinessObject> persistingChanges = ((GlobalBusinessObject) maintainable.getBusinessObject()).generateGlobalChangesToPersist();
                 if (!isOnlyPersistingChangesInBlockingBusinessObjects(blockingBusinessObjects, persistingChanges)) {
                     putInactivationBlockingErrorOnPage(objectCode, inactivationBlockingMetadata, index);
                     return false;
@@ -190,14 +192,15 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if all of the given blocking business objects are among the persisting changes
+     *
      * @param blockingBusinessObjects the Collection of blocking business objects
-     * @param persistingChanges the List of Object Codes which will be persisted by this document
+     * @param persistingChanges       the List of Object Codes which will be persisted by this document
      * @return true if all the blocking business objects are persisting changes
      */
     protected boolean isOnlyPersistingChangesInBlockingBusinessObjects(Collection<BusinessObject> blockingBusinessObjects, List<PersistableBusinessObject> persistingChanges) {
         for (BusinessObject bo : blockingBusinessObjects) {
             if (bo instanceof ObjectCode) {
-                if (!isObjectCodeInPersistingChanges(persistingChanges, (ObjectCode)bo)) {
+                if (!isObjectCodeInPersistingChanges(persistingChanges, (ObjectCode) bo)) {
                     return false;
                 }
             } else {
@@ -209,13 +212,14 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the given object code is within the list of persisting changes
+     *
      * @param persistingChanges the changes to persist
-     * @param objectCode the blocking object code to look for in the persisting changes
+     * @param objectCode        the blocking object code to look for in the persisting changes
      * @return true if the object code was found in the list of persisting changes, false otherwise
      */
     protected boolean isObjectCodeInPersistingChanges(List<PersistableBusinessObject> persistingChanges, ObjectCode objectCode) {
         for (PersistableBusinessObject persistingObjectCodeAsObject : persistingChanges) {
-            if (isEqualObjectCode(objectCode, (ObjectCode)persistingObjectCodeAsObject)) {
+            if (isEqualObjectCode(objectCode, (ObjectCode) persistingObjectCodeAsObject)) {
                 return true;
             }
         }
@@ -224,20 +228,22 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the two given object codes are roughly equal
+     *
      * @param castor an object code
      * @param pollux another, though perhaps very similar, object code
      * @return true if the two object codes share primary key values, false otherwise
      */
     protected boolean isEqualObjectCode(ObjectCode castor, ObjectCode pollux) {
         return org.springframework.util.ObjectUtils.nullSafeEquals(castor.getUniversityFiscalYear(), pollux.getUniversityFiscalYear())
-                && org.springframework.util.ObjectUtils.nullSafeEquals(castor.getChartOfAccountsCode(), pollux.getChartOfAccountsCode())
-                && org.springframework.util.ObjectUtils.nullSafeEquals(castor.getFinancialObjectCode(), pollux.getFinancialObjectCode());
+            && org.springframework.util.ObjectUtils.nullSafeEquals(castor.getChartOfAccountsCode(), pollux.getChartOfAccountsCode())
+            && org.springframework.util.ObjectUtils.nullSafeEquals(castor.getFinancialObjectCode(), pollux.getFinancialObjectCode());
     }
 
     /**
      * Retrieves any additional blocking objects not handled by the inactivation framework
+     *
      * @param blockingBusinessObjects the current list of blocking business objects
-     * @param objectCode the object code to find additional blocking objects for
+     * @param objectCode              the object code to find additional blocking objects for
      * @return the perhaps fuller Collection of blocking business objects
      */
     protected Collection<BusinessObject> addAdditionalBlockingBusinessObjects(Collection<BusinessObject> blockingBusinessObjects, ObjectCode objectCode) {
@@ -253,7 +259,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Retrieves all Offset Definitions blocking the given object code and puts them in the List of additional blocking objects
-     * @param objectCode the object code to find additional blocking objects for
+     *
+     * @param objectCode                the object code to find additional blocking objects for
      * @param additionalBlockingObjects the List of additional blocking objects to populate
      */
     protected void retrieveBlockingOffsetDefinitions(ObjectCode objectCode, List<BusinessObject> additionalBlockingObjects) {
@@ -272,7 +279,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Retrieves all Indirect Cost Recovery Exclusion by Account records blocking the given object code and puts them in the List of additional blocking objects
-     * @param objectCode the object code to find additional blocking objects for
+     *
+     * @param objectCode                the object code to find additional blocking objects for
      * @param additionalBlockingObjects the List of additional blocking objects to populate
      */
     protected void retrieveBlockingIndirectCostRecoveryExclusionAccounts(ObjectCode objectCode, List<BusinessObject> additionalBlockingObjects) {
@@ -297,6 +305,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectCodeGlobalRule#checkSimpleRulesAllLines()}</li>
      * </ul>
      * This rule does not fail on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -315,6 +324,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
      * <li>valid fiscal year</li>
      * <li>unique identifiers (not currently implemented)</li>
      * </ul>
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
@@ -346,8 +356,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method (will)put an error about unique identifier fields must not exist more than once.
+     *
      * @param dtl
      * @return true (not currently implemented fully)
      */
@@ -358,13 +368,13 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks the following conditions:
      * <ul>
      * <li>{@link ObjectCodeGlobalRule#checkObjectLevelCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} </li>
      * <li>{@link ObjectCodeGlobalRule#checkNextYearObjectCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} </li>
      * <li>{@link ObjectCodeGlobalRule#checkReportsToObjectCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)}</li>
      * </ul>
+     *
      * @param dtl
      * @return true if sub-rules succeed
      */
@@ -402,20 +412,18 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             ObjectCode objCode = objectCodeService.getByPrimaryId(fiscalYear, reportsToChartCode, reportsToObjectCode);
             if (ObjectUtils.isNull(objCode)) {
                 success &= false;
-                String[] errorParameters = { reportsToObjectCode, reportsToChartCode, fiscalYear.toString() };
+                String[] errorParameters = {reportsToObjectCode, reportsToChartCode, fiscalYear.toString()};
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_RPTS_TO_OBJ_CODE, errorParameters);
-                }
-                else {
+                } else {
                     errorPath = KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "[" + lineNum + "]." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_RPTS_TO_OBJ_CODE, errorParameters);
                 }
             }
             return success;
 
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError("reportsToFinancialObjectCode", KFSKeyConstants.ERROR_REQUIRED, "Reports to Object Code");
             success &= false;
         }
@@ -440,12 +448,11 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             ObjectCode objCode = objectCodeService.getByPrimaryId(dtl.getUniversityFiscalYear(), dtl.getChartOfAccountsCode(), objectCodeGlobal.getNextYearFinancialObjectCode());
             if (ObjectUtils.isNull(objCode)) {
                 success &= false;
-                String[] errorParameters = { objectCodeGlobal.getNextYearFinancialObjectCode(), dtl.getChartOfAccountsCode(), dtl.getUniversityFiscalYear().toString() };
+                String[] errorParameters = {objectCodeGlobal.getNextYearFinancialObjectCode(), dtl.getChartOfAccountsCode(), dtl.getUniversityFiscalYear().toString()};
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_NEXT_YEAR_OBJ_CODE, errorParameters);
-                }
-                else {
+                } else {
                     errorPath = KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "[" + lineNum + "]." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_NEXT_YEAR_OBJ_CODE, errorParameters);
                 }
@@ -471,20 +478,18 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             ObjectLevel objLevel = objectLevelService.getByPrimaryId(dtl.getChartOfAccountsCode(), objectCodeGlobal.getFinancialObjectLevelCode());
             if (ObjectUtils.isNull(objLevel)) {
                 success &= false;
-                String[] errorParameters = { objectCodeGlobal.getFinancialObjectLevelCode(), dtl.getChartOfAccountsCode() };
+                String[] errorParameters = {objectCodeGlobal.getFinancialObjectLevelCode(), dtl.getChartOfAccountsCode()};
                 if (add) {
                     errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_OBJ_LEVEL, errorParameters);
-                }
-                else {
+                } else {
                     errorPath = KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "[" + lineNum + "]." + "chartOfAccountsCode";
                     putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_INVALID_OBJ_LEVEL, errorParameters);
                 }
             }
             return success;
 
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError("financialObjectLevelCode", KFSKeyConstants.ERROR_REQUIRED, "Object Level Code");
             success &= false;
         }
@@ -493,7 +498,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method checks the simple rules for all lines at once and gets called on save, submit, etc. but not on add
-     *
+     * <p>
      * <ul>
      * <li>{@link ObjectCodeGlobalRule#checkFiscalYearAllLines(ObjectCodeGlobal)} </li>
      * <li>{@link ObjectCodeGlobalRule#checkChartAllLines(ObjectCodeGlobal)} </li>
@@ -501,6 +506,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectCodeGlobalRule#checkNextYearObjectCodeAllLines(ObjectCodeGlobal)} </li>
      * <li>{@link ObjectCodeGlobalRule#checkReportsToObjectCodeAllLines(ObjectCodeGlobal)} </li>
      * </ul>
+     *
      * @return
      */
     protected boolean checkSimpleRulesAllLines() {
@@ -508,8 +514,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
         // check if there are any object codes and accounts, if either fails this should fail
         if (!checkForObjectCodeGlobalDetails(objectCodeGlobal.getObjectCodeGlobalDetails())) {
             success = false;
-        }
-        else {
+        } else {
             // check object codes
             success &= checkFiscalYearAllLines(objectCodeGlobal);
 
@@ -530,8 +535,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks to make sure that there is at least one {@link ObjectCodeGlobalDetail} in the collection
+     *
      * @param objectCodeGlobalDetails
      * @return false if the collection is empty or null
      */
@@ -544,8 +549,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method calls {@link ObjectCodeGlobalRule#checkFiscalYear(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} on each detail object
+     *
      * @param objectCodeGlobal
      * @return true if all lines pass
      */
@@ -565,7 +570,6 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method calls {@link ObjectCodeGlobalRule#checkChartOnObjCodeDetails(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} on each detail object
      *
      * @param ocChangeDocument
@@ -587,7 +591,6 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
 
 
     /**
-     *
      * This method calls {@link ObjectCodeGlobalRule#checkReportsToObjectCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} on each detail object
      *
      * @param objectCodeGlobalDocument2
@@ -609,7 +612,6 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method calls {@link ObjectCodeGlobalRule#checkNextYearObjectCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} on each detail object
      *
      * @param objectCodeGlobalDocument2
@@ -631,7 +633,6 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method calls {@link ObjectCodeGlobalRule#checkObjectLevelCode(ObjectCodeGlobal, ObjectCodeGlobalDetail, int, boolean)} on each detail object
      *
      * @param objectCodeGlobalDocument2
@@ -653,8 +654,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks to make sure that the fiscal year has been entered
+     *
      * @param objectCodeGlobal
      * @param objectCodeGlobalDetail
      * @param lineNum
@@ -669,8 +670,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             if (add) {
                 errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "." + "universityFiscalYear";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_FISCAL_YEAR_MUST_EXIST);
-            }
-            else {
+            } else {
                 errorPath = KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "[" + lineNum + "]." + "universityFiscalYear";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_FISCAL_YEAR_MUST_EXIST);
             }
@@ -682,8 +682,8 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks to make sure that the chart of accounts for the detail object has been filled in
+     *
      * @param objectCodeGlobal
      * @param objectCodeGlobalDetail
      * @param lineNum
@@ -698,8 +698,7 @@ public class ObjectCodeGlobalRule extends MaintenanceDocumentRuleBase {
             if (add) {
                 errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "." + "chartOfAccountsCode";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_CHART_MUST_EXIST);
-            }
-            else {
+            } else {
                 errorPath = KFSPropertyConstants.OBJECT_CODE_GLOBAL_DETAILS + "[" + lineNum + "]." + "chartOfAccountsCode";
                 putFieldError(errorPath, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_OBJECTMAINT_CHART_MUST_EXIST);
             }

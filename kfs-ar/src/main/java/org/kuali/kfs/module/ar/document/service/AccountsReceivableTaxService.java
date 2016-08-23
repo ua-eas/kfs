@@ -30,12 +30,13 @@ public interface AccountsReceivableTaxService {
      * @param customerInvoiceDetail
      * @return
      */
-    public boolean isCustomerInvoiceDetailTaxable( CustomerInvoiceDocument document, CustomerInvoiceDetail customerInvoiceDetail );
+    public boolean isCustomerInvoiceDetailTaxable(CustomerInvoiceDocument document, CustomerInvoiceDetail customerInvoiceDetail);
 
     /**
      * This method returns the appropriate postal code for taxation
+     *
      * @param document
      * @return
      */
-    public String getPostalCodeForTaxation( CustomerInvoiceDocument document );
+    public String getPostalCodeForTaxation(CustomerInvoiceDocument document);
 }

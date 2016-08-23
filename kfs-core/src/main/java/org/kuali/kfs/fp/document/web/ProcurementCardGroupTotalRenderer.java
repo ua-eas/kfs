@@ -57,7 +57,7 @@ public class ProcurementCardGroupTotalRenderer extends GroupTotalRenderer implem
     @Override
     public String getTotalProperty() {
         if (!StringUtils.isBlank(collectionProperty)) {
-            return collectionProperty.replaceFirst("\\.[a-z]+AccountingLines", "")+"."+simpleTotalProperty;
+            return collectionProperty.replaceFirst("\\.[a-z]+AccountingLines", "") + "." + simpleTotalProperty;
         }
         return simpleTotalProperty;
     }

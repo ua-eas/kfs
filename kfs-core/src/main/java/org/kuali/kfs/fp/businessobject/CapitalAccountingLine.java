@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This transient business object keeps properties for amount method selection

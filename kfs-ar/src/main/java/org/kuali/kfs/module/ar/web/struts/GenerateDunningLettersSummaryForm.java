@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.module.ar.businessobject.GenerateDunningLettersLookupResult;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.kuali.kfs.module.ar.businessobject.GenerateDunningLettersLookupResult;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * Form class for Generate Dunning Letters Summary.

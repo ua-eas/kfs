@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.batch.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+
+import java.util.List;
 
 /**
  * This class is used to support the enterprise feeder reconciliation process
@@ -29,11 +29,11 @@ public interface ReconciliationDao {
     /**
      * Converts a list of DB column names to a list of java attribute names. The returned list is the same size as arrap parameter
      *
-     * @param clazz a class for the OriginEntryFull class
-     * @param columnNames an array of database columns
+     * @param clazz           a class for the OriginEntryFull class
+     * @param columnNames     an array of database columns
      * @param caseInsensitive whether to do matching
      * @return for every valid index in the return value and the array, the value in the array is the db column name, and the value
-     *         in the list is the java attribute name
+     * in the list is the java attribute name
      */
     public List<String> convertDBColumnNamesToJavaName(Class<? extends OriginEntryFull> clazz, String[] columnNames, boolean caseInsensitive);
 }

@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.beans.PropertyEditorSupport;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.beans.PropertyEditorSupport;
 
 // Created for Research Participant Upload
 public class KualiDecimalPropertyEditor extends PropertyEditorSupport {
 
-	@Override
+    @Override
     public void setAsText(String text) throws IllegalArgumentException {
-	    this.setValue(new KualiDecimal(text));
-	}
+        this.setValue(new KualiDecimal(text));
+    }
 
     @Override
     public String getAsText() {
-    	return this.getValue().toString();
+        return this.getValue().toString();
     }
 
 }

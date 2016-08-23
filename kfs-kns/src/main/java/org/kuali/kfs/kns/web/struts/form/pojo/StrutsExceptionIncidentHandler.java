@@ -52,9 +52,9 @@ public class StrutsExceptionIncidentHandler extends ExceptionHandler {
 
         String documentId = "";
         if (form instanceof KualiDocumentFormBase) {
-            KualiDocumentFormBase docForm = (KualiDocumentFormBase)form;
+            KualiDocumentFormBase docForm = (KualiDocumentFormBase) form;
             if (docForm.getDocument() != null) {
-            	documentId=docForm.getDocument().getDocumentNumber();
+                documentId = docForm.getDocument().getDocumentNumber();
             }
         }
 
@@ -69,7 +69,7 @@ public class StrutsExceptionIncidentHandler extends ExceptionHandler {
         ActionForward forward = mapping.findForward(EXCEPTION_INCIDENT_HANDLER);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("execute() exception=" + exception.getMessage() + " properties=" + properties.toString() + " forward=" + ((forward==null) ? "null" : forward.getPath()));
+            LOG.trace("execute() exception=" + exception.getMessage() + " properties=" + properties.toString() + " forward=" + ((forward == null) ? "null" : forward.getPath()));
         }
 
         return forward;

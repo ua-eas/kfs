@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.sql.Date;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
@@ -47,6 +45,8 @@ import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
+
+import java.sql.Date;
 
 public interface AccountingCycleCachingService extends WrappingBatchService {
     public boolean isCurrentActiveAccountingDocumentType(String documentTypeCode);

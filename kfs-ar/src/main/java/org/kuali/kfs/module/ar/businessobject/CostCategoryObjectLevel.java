@@ -38,25 +38,32 @@ public class CostCategoryObjectLevel extends PersistableBusinessObjectBase imple
     public String getCategoryCode() {
         return categoryCode;
     }
+
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
     }
+
     @Override
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getFinancialObjectLevelCode() {
         return financialObjectLevelCode;
     }
+
     public void setFinancialObjectLevelCode(String financialObjectLevelCode) {
         this.financialObjectLevelCode = financialObjectLevelCode;
     }
+
     public Chart getChart() {
         return chart;
     }
+
     /**
      * @deprecated only ORM should call this method
      */
@@ -64,9 +71,11 @@ public class CostCategoryObjectLevel extends PersistableBusinessObjectBase imple
     public void setChart(Chart chart) {
         this.chart = chart;
     }
+
     public ObjectLevel getObjectLevel() {
         return objectLevel;
     }
+
     /**
      * @deprecated only ORM should call this method
      */
@@ -74,10 +83,12 @@ public class CostCategoryObjectLevel extends PersistableBusinessObjectBase imple
     public void setObjectLevel(ObjectLevel objectLevel) {
         this.objectLevel = objectLevel;
     }
+
     @Override
     public boolean isActive() {
         return active;
     }
+
     @Override
     public void setActive(boolean active) {
         this.active = active;

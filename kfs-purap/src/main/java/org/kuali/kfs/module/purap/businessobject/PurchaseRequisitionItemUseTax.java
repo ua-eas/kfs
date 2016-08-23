@@ -19,6 +19,6 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-public class PurchaseRequisitionItemUseTax  extends PurApItemUseTaxBase {
+public class PurchaseRequisitionItemUseTax extends PurApItemUseTaxBase {
 
 }

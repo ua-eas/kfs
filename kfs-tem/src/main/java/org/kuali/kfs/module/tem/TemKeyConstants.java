@@ -21,7 +21,6 @@ package org.kuali.kfs.module.tem;
 
 /**
  * Constants for error keys
- *
  */
 public class TemKeyConstants {
     public static final String TRMB_CONTACT_TAB_ERRORS = "TRMBContactErrors,document.contact*";
@@ -29,9 +28,9 @@ public class TemKeyConstants {
     public static final String TEM_TRAVELER_CERT_TAB_ERRORS = "TRMBTravelerCertErrors,document.employeeCertification";
 
     public static final String TA_QUESTION_DOCUMENT = "travelAuthorization.question.text";
-    public static final String TA_MESSAGE_HOLD_DOCUMENT  = "travelAuthorization.route.message.hold.text";
+    public static final String TA_MESSAGE_HOLD_DOCUMENT = "travelAuthorization.route.message.hold.text";
     public static final String TA_MESSAGE_REMOVE_HOLD_DOCUMENT = "travelAuthorization.route.message.removehold.text";
-    public static final String ERROR_TA_REASON_REQUIRED  = "error.travelAuthorization.reasonRequired";
+    public static final String ERROR_TA_REASON_REQUIRED = "error.travelAuthorization.reasonRequired";
     public static final String ERROR_TA_REASON_PASTLIMIT = "error.travelAuthorization.reason.pastLimit";
     public static final String ERROR_TAA_WITH_TR_ENROUTE = "error.travel.authorization.amendment.enroute.reimbursement";
     public static final String ERROR_TA_ADVANCE_ACCOUNTING_LINES_ADVANCE_AMOUNT_REQUESTED_NOT_EQUAL = "error.travelAuthorization.advanceAccountingLines.travelAdvanceRequested.notEqual";
@@ -43,34 +42,34 @@ public class TemKeyConstants {
     public static final String TA_MESSAGE_ADVANCE_ACCOUNTING_LINES_GLPE_DESCRIPTION = "travelAuthorization.message.advanceAccountingLines.glpeDescription";
     public static final String TA_MESSAGE_ADVANCE_PAYMENT_CANCELLED = "travelAuthorization.message.advance.paymentCanceled";
 
-    public static final String AGENCY_SITES_URL       = "url.document.travelRelocation.agencySites";
-    public static final String ENABLE_AGENCY_SITES_URL  = "config.document.travelRelocation.agencySites.enable";
-    public static final String PASS_TRIP_ID_TO_AGENCY_SITES  = "config.document.travelRelocation.agencySites.include.tripId";
+    public static final String AGENCY_SITES_URL = "url.document.travelRelocation.agencySites";
+    public static final String ENABLE_AGENCY_SITES_URL = "config.document.travelRelocation.agencySites.enable";
+    public static final String PASS_TRIP_ID_TO_AGENCY_SITES = "config.document.travelRelocation.agencySites.include.tripId";
 
-    public static final String TEM_PROFILE_ARRANGERS_QUESTION       = "tem.profile.arrangers.question.text";
-    public static final String GENERATE_TEM_PROFILE_ID_QUESTION_ID  = "GenerateTemProfileQuestionID";
+    public static final String TEM_PROFILE_ARRANGERS_QUESTION = "tem.profile.arrangers.question.text";
+    public static final String GENERATE_TEM_PROFILE_ID_QUESTION_ID = "GenerateTemProfileQuestionID";
     public static final String TA_MESSAGE_AMEND_DOCUMENT_CANCELLED_TEXT = "travelAuthorization.message.amend.cancelled.text";
 
     // errors
-    public static final String ERROR_TA_AUTH_EMERGENCY_CONTACT_REQUIRED   = "error.document.tem.emergencyContactRequired";
-    public static final String ERROR_TA_AUTH_MODE_OF_TRANSPORT_REQUIRED   = "error.document.tem.modeOfTransportRequired";
-    public static final String ERROR_TA_AUTH_END_DATE_BEFORE_BEGIN        = "error.document.tem.endDateBeforeBegin";
+    public static final String ERROR_TA_AUTH_EMERGENCY_CONTACT_REQUIRED = "error.document.tem.emergencyContactRequired";
+    public static final String ERROR_TA_AUTH_MODE_OF_TRANSPORT_REQUIRED = "error.document.tem.modeOfTransportRequired";
+    public static final String ERROR_TA_AUTH_END_DATE_BEFORE_BEGIN = "error.document.tem.endDateBeforeBegin";
     public static final String ERROR_ACTUAL_EXPENSE_OTHER_MILEAGE_RATE_EXCEED = "error.document.tem.actualexpense.mileagerateexceed";
-    public static final String ERROR_ACTUAL_EXPENSE_DETAIL_AMOUNT_EXCEED  = "error.document.tem.actualexpense.totaldetailamountexceed";
-    public static final String ERROR_ACTUAL_EXPENSE_LODGING_ENTERED       = "error.document.tem.actualexpense.lodgingentered";
-    public static final String ERROR_ACTUAL_EXPENSE_DUPLICATE_ENTRY       = "error.document.tem.actualexpense.duplicateexpenseentry";
+    public static final String ERROR_ACTUAL_EXPENSE_DETAIL_AMOUNT_EXCEED = "error.document.tem.actualexpense.totaldetailamountexceed";
+    public static final String ERROR_ACTUAL_EXPENSE_LODGING_ENTERED = "error.document.tem.actualexpense.lodgingentered";
+    public static final String ERROR_ACTUAL_EXPENSE_DUPLICATE_ENTRY = "error.document.tem.actualexpense.duplicateexpenseentry";
     public static final String ERROR_ACTUAL_EXPENSE_DUPLICATE_ENTRY_DAILY = "error.document.tem.actualexpense.duplicateexpenseentrydaily";
-    public static final String ERROR_ACTUAL_EXPENSE_MAX_AMT_PER_DAILY     = "error.document.tem.actualexpense.maxamountperpersondaily";
-    public static final String ERROR_ACTUAL_EXPENSE_MAX_AMT_PER_OCCU      = "error.document.tem.actualexpense.maxamountperoccurrence";
-    public static final String ERROR_ACTUAL_EXPENSE_DETAIL_REQUIRED       = "error.document.tem.actualexpense.detail.required";
-    public static final String ERROR_ACTUAL_EXPENSE_EXPENSE_DATE_EARLY    = "error.document.tem.actualexpense.expenseDate.earlyBird";
-    public static final String ERROR_DELINQUENT_MSG_REQUIRED              = "error.document.tem.delinquentMessageRequired";
-    public static final String ERROR_TA_TRIP_TYPE_BLANKET_NOT_ALLOWED     = "error.document.tem.tripTypeNotBlanket";
+    public static final String ERROR_ACTUAL_EXPENSE_MAX_AMT_PER_DAILY = "error.document.tem.actualexpense.maxamountperpersondaily";
+    public static final String ERROR_ACTUAL_EXPENSE_MAX_AMT_PER_OCCU = "error.document.tem.actualexpense.maxamountperoccurrence";
+    public static final String ERROR_ACTUAL_EXPENSE_DETAIL_REQUIRED = "error.document.tem.actualexpense.detail.required";
+    public static final String ERROR_ACTUAL_EXPENSE_EXPENSE_DATE_EARLY = "error.document.tem.actualexpense.expenseDate.earlyBird";
+    public static final String ERROR_DELINQUENT_MSG_REQUIRED = "error.document.tem.delinquentMessageRequired";
+    public static final String ERROR_TA_TRIP_TYPE_BLANKET_NOT_ALLOWED = "error.document.tem.tripTypeNotBlanket";
     public static final String ERROR_TA_PROFILE_NOT_COMPLETE_FOR_BLANKET_TRAVEL = "error.document.tem.profileNotCompleteForBlanketTravel";
     public static final String ERROR_REIMBURSABLE_NOT_COMPLETE_FOR_NO_REIMBURSEMENT = "error.document.tem.profileNotCompleteForNoReimbursement";
 
-    public static final String WARNING_DUPLICATE_EXPENSE             = "warning.document.tem.actualexpense.duplicateExpenseType";
-    public static final String WARNING_NOTES_JUSTIFICATION             = "warning.document.tem.actualexpense.notesJustification";
+    public static final String WARNING_DUPLICATE_EXPENSE = "warning.document.tem.actualexpense.duplicateExpenseType";
+    public static final String WARNING_NOTES_JUSTIFICATION = "warning.document.tem.actualexpense.notesJustification";
     public static final String WARNING_PERDIEM_EXPENSE_LODGING_ENTERED = "warning.document.tem.perdiemexpense.lodgingentered";
     public static final String ERROR_DOCUMENT_PER_DIEM_EXPENSE_MISSING_MILEAGE_RATE = "error.tem.document.perdiemexpense.missing.mileage.rate";
     public static final String ERROR_ACTUAL_EXPENSE_MISSING_MILEAGE_RATE = "error.actual.expense.missing.mileage.rate";
@@ -80,15 +79,15 @@ public class TemKeyConstants {
     public static final String TRVL_AUTH_ADV_ACCT_LINES_ERRORS = "advanceAccountingLines*,document.advanceAccountingLines*,newAdvanceAccountingLine*";
 
     public static final String TRVL_AUTH_TRIP_OVERVIEW_ERRORS = "tripInfoUpdateTripDetails.*,document.tripBegin,document.tripEnd,document.tripTypeCode,document.primaryDestinationName," +
-                                                                "document.travelerTypeCode,document.firstName,document.lastName,document.streetAddressLine1,"+
-                                                                "document.stateCode,document.zipCode,document.phoneNumber,document.tripDescription,document.delinquentTRMessage,tripOverview.*,document.blanketTravel";
-    public static final String TRVL_ENT_ERRORS ="document.tripBegin,document.tripEnd,document.tripTypeCode," +
-                                                                "document.travelerTypeCode,document.firstName,document.lastName,document.streetAddressLine1,"+
-                                                                "document.stateCode,document.purposeCode,document.paymentMethod,document.hostName,document.zipCode,document.phoneNumber,tripOverview.*,document.traveler*";
+        "document.travelerTypeCode,document.firstName,document.lastName,document.streetAddressLine1," +
+        "document.stateCode,document.zipCode,document.phoneNumber,document.tripDescription,document.delinquentTRMessage,tripOverview.*,document.blanketTravel";
+    public static final String TRVL_ENT_ERRORS = "document.tripBegin,document.tripEnd,document.tripTypeCode," +
+        "document.travelerTypeCode,document.firstName,document.lastName,document.streetAddressLine1," +
+        "document.stateCode,document.purposeCode,document.paymentMethod,document.hostName,document.zipCode,document.phoneNumber,tripOverview.*,document.traveler*";
     public static final String TRVL_AUTH_EMERGENCY_CONTACT_ERRORS = "newEmergencyContactLine.*,emergencyContact.*,document.regionFamiliarity,document.cellPhoneNumber,document.traveler.emergencyContacts*";
     public static final String TRVL_AUTH_SPECIAL_CIRCUMSTANCES_ERRORS = "document.expenseLimit,document.mealWithoutLodgingReason,document.specialCircumstances*";
     public static final String TRVL_EXPENSES = "newActualExpenseLine.*,newActualExpenseLine*,newImportedExpenseLines*," +
-    		                                    "document.importedExpenses*,document.actualExpenses*";
+        "document.importedExpenses*,document.actualExpenses*";
     public static final String TRVL_PER_DIEM_EXPENSES = "document.perDiemExpenses*,perDiemExpenses*";
     public static final String TRVL_AUTH_TRVL_EXPENSES_TOTAL_ERRORS = "document.estimateAmount";
     public static final String TRVL_REIMB_AIRFARE_ERROR = "document.airfareNote,document.airfare,newActualExpenseLine.*";
@@ -98,14 +97,14 @@ public class TemKeyConstants {
     public static final String TRVL_DOCUMENT_PROCEED_QUESTION = "trvl.document.proceed.text";
     public static final String TRVL_ENT_ATTENDEE_ERRORS = "document.numberOfAttendees,document.attendeeListAttached,newAttendeeLines*,attendee,attendeeType,company,name,title";
     public static final String TRVL_GROUP_TRVL_ERRORS = "newGroupTravelerLine.name,newGroupTravelerLine.travelerTypeCode,newGroupTravelerLine.groupTravelerEmpId,groupTraveler";
-    public static final String ERROR_TR_EMPLOYEE_INITIATOR_MUST_CERTIFY ="error.document.tem.employeeCertification";
+    public static final String ERROR_TR_EMPLOYEE_INITIATOR_MUST_CERTIFY = "error.document.tem.employeeCertification";
     public static final String TRVL_ACCOUNT_DIST = "accountDistributionsourceAccountingLines*,accountDistributionnewSourceLine*";
 
 
     //travel arranger errors
     public static final String TRVL_ARRGR_TRAVELER_ERRORS = "document.profileId,document.travelerName,travelerName";
     public static final String TRVL_ARRGR_REQUEST_ERRORS = "document.resign,document.taInd,document.trInd,document.primaryInd,resign,primaryInd";
-    public static final String ERROR_TTA_ARRGR_TRVLR_SAME= "error.tta.arrangerTravelerSame";
+    public static final String ERROR_TTA_ARRGR_TRVLR_SAME = "error.tta.arrangerTravelerSame";
     public static final String ERROR_TTA_ARRGR_ONE_PRIMARY = "error.tta.arrangerOnePrimary";
     public static final String ERROR_TTA_ARRGR_RESIGN = "error.tta.resignNoOtherFields";
 
@@ -118,9 +117,9 @@ public class TemKeyConstants {
     public static final String ERROR_TA_TRVL_ADV_DUE_DATE_INVALID = "error.document.tem.travel.advance.due.date.invalid";
     public static final String ERROR_TA_TRVL_ADV_POLICY = "error.document.tem.travel.advance.policy";
     public static final String ERROR_TA_TRVL_ADV_ADD_JUST = "error.document.tem.travel.advance.additional.justification";
-    public static final String ERROR_TA_TRVL_ADV_EXCCED_TOTAL_TRIP_AMOUNT ="error.document.tem.travel.advance.exceed.total.trip.amount";
+    public static final String ERROR_TA_TRVL_ADV_EXCCED_TOTAL_TRIP_AMOUNT = "error.document.tem.travel.advance.exceed.total.trip.amount";
     public static final String ERROR_TA_TRIP_BEGIN_EMPTY = "error.document.tem.tripBeginEmpty";
-    public static final String ERROR_TA_TRIP_END_EMPTY= "error.document.tem.tripEndEmpty";
+    public static final String ERROR_TA_TRIP_END_EMPTY = "error.document.tem.tripEndEmpty";
     public static final String ERROR_TA_TRIP_TYPE_CD_EMPTY = "error.document.tem.tripTypeCodeEmpty";
     public static final String ERROR_TRIP_TYPE_CD_PRI_DEST_MISMATCH = "error.document.tem.trip.type.primary.destination.mismatch";
     public static final String ERROR_TA_AR_CUST_NOT_FOUND = "error.document.tem.arCustomerNotFound";
@@ -141,7 +140,7 @@ public class TemKeyConstants {
     public static final String MESSAGE_TR_MEAL_ALREADY_CLAIMED = "message.document.tem.mealAlreadyClaimed";
     public static final String MESSAGE_TR_AIRFARE_ALREADY_CLAIMED = "message.document.tem.airfareAlreadyClaimed";
     public static final String MESSAGE_TR_LODGING_ALREADY_CLAIMED = "message.document.tem.lodgingAlreadyClaimed";
-    public static final String MESSAGE_DV_IN_ACTION_LIST       = "message.document.tem.dv.actionList";
+    public static final String MESSAGE_DV_IN_ACTION_LIST = "message.document.tem.dv.actionList";
     public static final String MESSAGE_RELO_DV_IN_ACTION_LIST = "message.document.tem.relo.dv.actionList";
     public static final String MESSAGE_TA_ADVANCE_POLICY = "message.document.tem.ta.advance.policy";
     public static final String MESSAGE_TA_ADVANCE_PAYMENT_HOLD_TEXT = "message.document.tem.ta.advance.checkText.holdingText";
@@ -169,9 +168,9 @@ public class TemKeyConstants {
     public static final String ERROR_TEM_PROFILE_ACCOUNT_EFFECTIVE_DATE = "error.tem.profile.account.effectiveDate";
     public static final String ERROR_TEM_PROFILE_ACCOUNT_EXPIRATION_DATE = "error.tem.profile.account.expirationDate";
 
-    public static final String ERROR_TEM_PROFILE_ARRANGER_PRIMARY ="error.tem.profile.arranger.primary";
-    public static final String ERROR_TEM_PROFILE_ARRANGER_DUPLICATE ="error.tem.profile.arranger.duplicate";
-    public static final String ERROR_TEM_PROFILE_ACCOUNT_ID_DUPLICATE ="error.tem.profile.accountId.duplicate";
+    public static final String ERROR_TEM_PROFILE_ARRANGER_PRIMARY = "error.tem.profile.arranger.primary";
+    public static final String ERROR_TEM_PROFILE_ARRANGER_DUPLICATE = "error.tem.profile.arranger.duplicate";
+    public static final String ERROR_TEM_PROFILE_ACCOUNT_ID_DUPLICATE = "error.tem.profile.accountId.duplicate";
 
     public static final String ERROR_TA_FISCAL_OFFICER_ACCOUNT = "error.document.fiscalofficer.account";
     public static final String ERROR_EXPENSE_DATE_BEFORE_AFTER = "error.document.tem.expenseDateBeforeAfter";
@@ -179,7 +178,7 @@ public class TemKeyConstants {
     public static final String ERROR_TRAVEL_DOCUMENT_EDIT = "error.document.tem.edit";
     public static final String ERROR_AUTHORIZATION_TR_DELINQUENT = "error.authorization.travelReimbursementDelinquent";
     public static final String ERROR_AUTHORIZATION_ADVANCE_OBJECT_CODE_PARAMETER_NOT_SET = "error.document.authorization.advanceObjectCodeParameter.notSet";
-    public static final String ERROR_TRAVEL_AGENCY_AUDIT_INITIATION ="error.document.agencyAudit.initiation";
+    public static final String ERROR_TRAVEL_AGENCY_AUDIT_INITIATION = "error.document.agencyAudit.initiation";
 
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_PER_DIEM_FILE = "message.batchUpload.title.per.diem.file";
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_PER_DIEM_XML_FILE = "message.batchUpload.title.per.diem.xml.file";
@@ -198,10 +197,10 @@ public class TemKeyConstants {
     public static final String ERROR_ATTACHMENT_REQUIRED = "error.tem.attachment.required";
     public static final String ERROR_RECEIPT_NOTES_REQUIRED = "error.document.tem.actualexpense.receipt.notes";
 
-    public static final String TEM_ENT_DOC_ATTENDEE_LIST_QUESTION  = "tem.entertainment.attendee.list.question.text";
-    public static final String TEM_ENT_QUESTION_PROCEED="tem.entertainment.question.proceed.text";
+    public static final String TEM_ENT_DOC_ATTENDEE_LIST_QUESTION = "tem.entertainment.attendee.list.question.text";
+    public static final String TEM_ENT_QUESTION_PROCEED = "tem.entertainment.question.proceed.text";
 
-    public static final String TEM_ENT_HOST_CERTIFICATION  = "tem.entertainment.host.certification";
+    public static final String TEM_ENT_HOST_CERTIFICATION = "tem.entertainment.host.certification";
 
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_AGENCY_DATA_XML_FILE = "message.batchUpload.title.agency.data.xml.file";
     public static final String MESSAGE_BATCH_UPLOAD_TITLE_CREDIT_CARD_DATA_XML_FILE = "message.batchUpload.title.credit.card.data.xml.file";
@@ -226,42 +225,41 @@ public class TemKeyConstants {
     public static final String HOST_CERTIFICATION_REQUIRED_IND = "tem.entertainment.host.certification.required";
     public static final String NON_EMPLOYEE_CERTIFICATION_REQUIRED_IND = "tem.entertainment.non.employee.certification.required";
     public static final String ERROR_TRIP_TYPE_TA_REQUIRED = "error.document.tem.triptype.ta.required";
-    public static final String ERROR_TA_REQUIRED_FOR_TR_INIT="error.document.tem.reimbursement.init.ta.required";
+    public static final String ERROR_TA_REQUIRED_FOR_TR_INIT = "error.document.tem.reimbursement.init.ta.required";
     public static final String ERROR_TR_ENROUTE_DURING_TR_INIT = "error.document.tem.reimbursement.init.enroute.tr";
 
 
+    public static final String TEM_NON_EMPLOYEE_CERTIFICATION = "tem.non.employee.certification";
 
-    public static final String TEM_NON_EMPLOYEE_CERTIFICATION  = "tem.non.employee.certification";
-
-  //Agency Data Audit Report
+    //Agency Data Audit Report
     public static final String MESSAGE_AGENCY_DATA_REPORT_HEADER = "message.batch.tem.agencyDataReportHeader";
-    public static final String MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS="message.batch.tem.agencyDataMandatoryFields";
-    public static final String MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS_GENERIC="message.batch.tem.agencyDataMandatoryFieldsGeneric";
-    public static final String MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING="message.batch.tem.agencyDataAirLodgingRentalMissing";
-    public static final String MESSAGE_AGENCY_DATA_DUPLICATE_RECORD="message.batch.tem.agencyData.DuplicateRecord";
-    public static final String MESSAGE_AGENCY_DATA_TRIP_DUPLICATE_RECORD="message.batch.tem.agencyData.trip.DuplicateRecord";
-    public static final String MESSAGE_AGENCY_DATA_TRAVELER_DUPLICATE_RECORD="message.batch.tem.agencyData.traveler.DuplicateRecord";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_TRAVELER="message.batch.tem.agencyDataInvalidTraveler";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_ACCOUNT_NUM="message.batch.tem.agencyDataInvalidAccountNum";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_SUBACCOUNT="message.batch.tem.agencyDataInvalidSubAccount";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_PROJECT_CODE="message.batch.tem.agencyDataInvalidProjectCode";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_OBJECT_CODE="message.batch.tem.agencyDataInvalidObjectCode";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_SUB_OBJECT_CODE="message.batch.tem.agencyDataInvalidSubObjectCode";
-    public static final String MESSAGE_AGENCY_DATA_REQUIRED_ACCOUNT_INFO="message.batch.tem.agencyDataAcctgInfoRequired";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_ACCTG_INFO="message.batch.tem.agencyDataInvalidAcctgInfo";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_TRIP_ID="message.batch.tem.agencyDataInvalidTripId";
-    public static final String MESSAGE_AGENCY_DATA_MISSING_COA="message.batch.tem.agencyDataMissingChartCode";
-    public static final String MESSAGE_AGENCY_DATA_MISSING_ACCOUNT_NUM="message.batch.tem.agencyDataMissingAccountNumber";
-    public static final String MESSAGE_AGENCY_DATA_MISSING_TRIP_DATA="message.batch.tem.agencyDataMissingTripData";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_TEM_PROFILE="message.batch.tem.agencyDataMissingTemProfile";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_EXPENSE_TYPE_OBJECT_CODE="message.batch.tem.agencyData.notFound.expenseTypeObjectCode";
-    public static final String MESSAGE_AGENCY_DATA_INVALID_DISTRIBUTION_CODE="message.batch.tem.agencyDataInvalidDistributionCode";
+    public static final String MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS = "message.batch.tem.agencyDataMandatoryFields";
+    public static final String MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS_GENERIC = "message.batch.tem.agencyDataMandatoryFieldsGeneric";
+    public static final String MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING = "message.batch.tem.agencyDataAirLodgingRentalMissing";
+    public static final String MESSAGE_AGENCY_DATA_DUPLICATE_RECORD = "message.batch.tem.agencyData.DuplicateRecord";
+    public static final String MESSAGE_AGENCY_DATA_TRIP_DUPLICATE_RECORD = "message.batch.tem.agencyData.trip.DuplicateRecord";
+    public static final String MESSAGE_AGENCY_DATA_TRAVELER_DUPLICATE_RECORD = "message.batch.tem.agencyData.traveler.DuplicateRecord";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_TRAVELER = "message.batch.tem.agencyDataInvalidTraveler";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_ACCOUNT_NUM = "message.batch.tem.agencyDataInvalidAccountNum";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_SUBACCOUNT = "message.batch.tem.agencyDataInvalidSubAccount";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_PROJECT_CODE = "message.batch.tem.agencyDataInvalidProjectCode";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_OBJECT_CODE = "message.batch.tem.agencyDataInvalidObjectCode";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_SUB_OBJECT_CODE = "message.batch.tem.agencyDataInvalidSubObjectCode";
+    public static final String MESSAGE_AGENCY_DATA_REQUIRED_ACCOUNT_INFO = "message.batch.tem.agencyDataAcctgInfoRequired";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_ACCTG_INFO = "message.batch.tem.agencyDataInvalidAcctgInfo";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_TRIP_ID = "message.batch.tem.agencyDataInvalidTripId";
+    public static final String MESSAGE_AGENCY_DATA_MISSING_COA = "message.batch.tem.agencyDataMissingChartCode";
+    public static final String MESSAGE_AGENCY_DATA_MISSING_ACCOUNT_NUM = "message.batch.tem.agencyDataMissingAccountNumber";
+    public static final String MESSAGE_AGENCY_DATA_MISSING_TRIP_DATA = "message.batch.tem.agencyDataMissingTripData";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_TEM_PROFILE = "message.batch.tem.agencyDataMissingTemProfile";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_EXPENSE_TYPE_OBJECT_CODE = "message.batch.tem.agencyData.notFound.expenseTypeObjectCode";
+    public static final String MESSAGE_AGENCY_DATA_INVALID_DISTRIBUTION_CODE = "message.batch.tem.agencyDataInvalidDistributionCode";
 
     public static final String MESSAGE_CREDIT_CARD_DATA_REPORT_HEADER = "message.batch.tem.creditcard.DataReportHeader";
-    public static final String MESSAGE_CREDIT_CARD_DATA_DUPLICATE_RECORD="message.batch.tem.creditcard.DuplicateRecord";
-    public static final String MESSAGE_AGENCY_CREDIT_CARD_DATA_INVALID_CCA="message.batch.tem.agency.creditcard.data.InvalidCreditCardAgency";
-    public static final String MESSAGE_CREDIT_CARD_DATA_NO_TRAVELER_FOUND="message.batch.tem.creditcard.NoTravelerFoundForCardNumber";
-    public static final String MESSAGE_CREDIT_CARD_DATA_INVALID_EXPENSE_TYPE_CODE="message.batch.tem.creditcard.InvalidExpenseTypeCode";
+    public static final String MESSAGE_CREDIT_CARD_DATA_DUPLICATE_RECORD = "message.batch.tem.creditcard.DuplicateRecord";
+    public static final String MESSAGE_AGENCY_CREDIT_CARD_DATA_INVALID_CCA = "message.batch.tem.agency.creditcard.data.InvalidCreditCardAgency";
+    public static final String MESSAGE_CREDIT_CARD_DATA_NO_TRAVELER_FOUND = "message.batch.tem.creditcard.NoTravelerFoundForCardNumber";
+    public static final String MESSAGE_CREDIT_CARD_DATA_INVALID_EXPENSE_TYPE_CODE = "message.batch.tem.creditcard.InvalidExpenseTypeCode";
 
     public static final String MESSAGE_AGENCY_DATA_RECONCILIATION_REPORT_HEADER = "message.batch.tem.agencydatareconciliation.reportHeader";
     public static final String MESSAGE_AGENCY_DATA_RECON_GLPE_CREATION = "message.batch.tem.agencydatareconciliation.glpeCreation";
@@ -277,22 +275,22 @@ public class TemKeyConstants {
     public static final String MESSAGE_AGENCY_DATA_DISTRIBUTE_INVALID_ERROR_CODE = "message.batch.tem.agencydatadistribution.errorCode";
     public static final String MESSAGE_AGENCY_DATA_DISTRIBUTE_ACTIVE = "message.batch.tem.agencydatadistribution.active";
 
-    public static final String ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_TOTAL="error.tem.distribution.accountingline.total";
-    public static final String ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT="error.tem.distribution.accountingline.amount.or.percent";
+    public static final String ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_TOTAL = "error.tem.distribution.accountingline.total";
+    public static final String ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT = "error.tem.distribution.accountingline.amount.or.percent";
     public static final String ERROR_TEM_DISTRIBUTION_TOO_MANY_DISTRIBUTION_TARGETS_WITH_EXPENSE_LIMIT = "error.tem.distribution.tooManyTargets";
-    public static final String ERROR_TEM_ACCOUNTING_LINES_OBJECT_CODE_CARD_TYPE="error.tem.accountingline.objectcode";
-    public static final String ERROR_TEM_ACCOUNTING_LINES_OBJECT_CODE_CARD_TYPE_TOTAL="error.tem.accountingline.objectcode.total";
+    public static final String ERROR_TEM_ACCOUNTING_LINES_OBJECT_CODE_CARD_TYPE = "error.tem.accountingline.objectcode";
+    public static final String ERROR_TEM_ACCOUNTING_LINES_OBJECT_CODE_CARD_TYPE_TOTAL = "error.tem.accountingline.objectcode.total";
     public static final String ERROR_TEM_ACCOUNTING_LINES_OBJECT_CODE_CARD_TYPE_EXPENSE_LIMIT = "error.tem.accountingline.objectcode.total.expenseLimit";
     public static final String ERROR_TEM_ACCOUNTING_LINES_EXPENSE_LIMIT_EXCEEDED = "error.tem.accountingline.expenseLimit.exceeded";
 
 
-    public static final String ERROR_TEM_IMPORT_EXPENSES_PROFILE_MISSING="error.document.tem.travel.import.profile.missing";
-    public static final String ERROR_TEM_IMPORT_EXPENSES_PRIMARY_DESTINATION_MISSING="error.document.tem.travel.import.primary.destination.missing";
+    public static final String ERROR_TEM_IMPORT_EXPENSES_PROFILE_MISSING = "error.document.tem.travel.import.profile.missing";
+    public static final String ERROR_TEM_IMPORT_EXPENSES_PRIMARY_DESTINATION_MISSING = "error.document.tem.travel.import.primary.destination.missing";
     public static final String ERROR_TEM_IMPORT_EXPENSE_TYPE_NOT_ALLOWED = "error.document.tem.travel.import.expense.type.not.allowed";
 
-    public static final String INFO_TEM_IMPORT_CURRENCY_CONVERSION="info.document.tem.travel.import.currency.conversion";
+    public static final String INFO_TEM_IMPORT_CURRENCY_CONVERSION = "info.document.tem.travel.import.currency.conversion";
     public static final String INFO_TEM_ACTUAL_EXPENSE_LODGING_ALLOWANCE = "info.document.tem.actualexpense.lodgingallowance";
-    public static final String INFO_TEM_IMPORT_DOCUMENT_SAVE="info.document.auto.save";
+    public static final String INFO_TEM_IMPORT_DOCUMENT_SAVE = "info.document.auto.save";
 
     public static final String ERROR_TEM_DETAIL_GREATER_THAN_EXPENSE = "error.document.detail.greater.than.expense";
     public static final String ERROR_TEM_DETAIL_LESS_THAN_EXPENSE = "error.document.detail.less.than.expense";

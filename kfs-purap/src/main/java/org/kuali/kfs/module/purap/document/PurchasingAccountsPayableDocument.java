@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.location.framework.country.CountryEbo;
+
+import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -162,6 +162,7 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     public KualiDecimal getTotalDollarAmountAllItems(String[] excludedTypes);
 
     public KualiDecimal getTotalDollarAmountAboveLineItems();
+
     /**
      * Computes the pre tax total dollar amount of all items.
      *
@@ -294,30 +295,35 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     /**
      * Always returns true.
      * This method is needed here because it's called by some tag files shared with PurAp documents.
+     *
      * @return true.
      */
     public boolean getIsATypeOfPurAPRecDoc();
 
     /**
      * Determines whether the document is a type of PurchasingDocument.
+     *
      * @return true if the document is a type of PurchasingDocument.
      */
     public boolean getIsATypeOfPurDoc();
 
     /**
      * Determines whether the document is a type of PurchseOrderDocument (including its subclass documents).
+     *
      * @return true if the document is a type of PurchseOrderDocument.
      */
     public boolean getIsATypeOfPODoc();
 
     /**
      * Determines whether the document is a PurchaseOrderDocument (excluding its subclass documents).
+     *
      * @return true if the document is a PurchaseOrderDocument.
      */
     public boolean getIsPODoc();
 
     /**
      * Determines whether the document is a RequisitionDocument.
+     *
      * @return true if the document is a RequisitionDocument.
      */
     public boolean getIsReqsDoc();
@@ -333,5 +339,6 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     public boolean shouldGiveErrorForEmptyAccountsProration();
 
     public boolean isCalculated();
+
     public void setCalculated(boolean calculated);
 }

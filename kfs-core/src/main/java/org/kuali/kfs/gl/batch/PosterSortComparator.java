@@ -18,37 +18,42 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Comparator;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFieldUtil;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.Comparator;
+import java.util.Map;
 
 public class PosterSortComparator implements Comparator<String> {
     OriginEntryFieldUtil oefu = new OriginEntryFieldUtil();
     Map<String, Integer> pMap = oefu.getFieldBeginningPositionMap();
 
     private class Range {
-        public Range( int start, int end ) { this.start = start; this.end = end; }
+        public Range(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
         public int start;
         public int end;
     }
 
     Range[] compareRanges;
+
     {
         compareRanges = new Range[2];
-        compareRanges[0] = new Range(pMap.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR),             pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
-        compareRanges[1] = new Range(pMap.get(KFSPropertyConstants.PROJECT_CODE),                       pMap.get(KFSPropertyConstants.REFERENCE_FIN_DOCUMENT_TYPE_CODE));
+        compareRanges[0] = new Range(pMap.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR), pMap.get(KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER));
+        compareRanges[1] = new Range(pMap.get(KFSPropertyConstants.PROJECT_CODE), pMap.get(KFSPropertyConstants.REFERENCE_FIN_DOCUMENT_TYPE_CODE));
     }
 
     public int compare(String string1, String string2) {
         StringBuilder sb1 = new StringBuilder();
-        sb1.append(string1.substring(compareRanges[0].start,compareRanges[0].end));
-        sb1.append(string1.substring(compareRanges[1].start,compareRanges[1].end));
+        sb1.append(string1.substring(compareRanges[0].start, compareRanges[0].end));
+        sb1.append(string1.substring(compareRanges[1].start, compareRanges[1].end));
 
         StringBuilder sb2 = new StringBuilder();
-        sb2.append(string2.substring(compareRanges[0].start,compareRanges[0].end));
-        sb2.append(string2.substring(compareRanges[1].start,compareRanges[1].end));
+        sb2.append(string2.substring(compareRanges[0].start, compareRanges[0].end));
+        sb2.append(string2.substring(compareRanges[1].start, compareRanges[1].end));
 
         return sb1.toString().compareTo(sb2.toString());
     }

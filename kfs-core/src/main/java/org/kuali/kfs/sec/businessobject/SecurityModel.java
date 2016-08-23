@@ -18,15 +18,11 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.List;
 
 /**
  * Represents the assignment of one or more definitions to one or more members (principal, group, or role). A model becomes a role in KIM
@@ -210,7 +206,6 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
         builder.append("]");
         return builder.toString();
     }
-
 
 
 }

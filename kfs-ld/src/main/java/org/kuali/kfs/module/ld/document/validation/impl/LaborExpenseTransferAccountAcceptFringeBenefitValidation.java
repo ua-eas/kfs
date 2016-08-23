@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NON_FRINGE_ACCOUNT_USED;
-
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.NON_FRINGE_ACCOUNT_USED;
 
 /**
  * verify if the accounts in target accounting lines accept fringe benefits
@@ -43,6 +43,7 @@ public class LaborExpenseTransferAccountAcceptFringeBenefitValidation extends Ge
      * Validates that an accounting line whether the expired account in the target accounting line
      * can be used.
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -67,7 +68,7 @@ public class LaborExpenseTransferAccountAcceptFringeBenefitValidation extends Ge
     protected boolean isAccountAcceptFringeBenefit(AccountingLine accountingLine) {
         boolean acceptsFringeBenefits = true;
 
- //       accountingLine.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
+        //       accountingLine.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
         Account account = accountingLine.getAccount();
         if (ObjectUtils.isNotNull(account) && !account.isAccountsFringesBnftIndicator()) {
             String overrideCode = accountingLine.getOverrideCode();
@@ -84,6 +85,7 @@ public class LaborExpenseTransferAccountAcceptFringeBenefitValidation extends Ge
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -92,6 +94,7 @@ public class LaborExpenseTransferAccountAcceptFringeBenefitValidation extends Ge
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

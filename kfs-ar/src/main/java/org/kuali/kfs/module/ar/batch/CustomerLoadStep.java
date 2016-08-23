@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.batch.service.CustomerLoadService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
+import java.util.List;
 
 public class CustomerLoadStep extends AbstractStep {
 

@@ -32,11 +32,11 @@ public class PurchasingAccountsPayableFullDocumentEntryCompletedBranchingValidat
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
 
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)event.getDocument();
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) event.getDocument();
 
         if (purapService.isFullDocumentEntryCompleted(purapDocument)) {
             return FULL_DOCUMENT_ENTRY;
-        }else{
+        } else {
             return NOT_FULL_DOCUMENT_ENTRY;
         }
     }

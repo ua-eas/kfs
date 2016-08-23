@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ar.report.util;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
@@ -30,8 +28,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerStatementDetailReportDataHolder {
 
@@ -52,39 +52,40 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     public CustomerStatementDetailReportDataHolder(FinancialSystemDocumentHeader docHeader, Organization processingOrg, String docType, KualiDecimal totalAmount) {
-       documentDescription = docHeader.getDocumentDescription();
-       if (docType.equals(ArConstants.INVOICE_DOC_TYPE)) {
-           financialDocumentTotalAmountCharge = totalAmount;
-       } else {
-           financialDocumentTotalAmountCredit = totalAmount;
-       }
+        documentDescription = docHeader.getDocumentDescription();
+        if (docType.equals(ArConstants.INVOICE_DOC_TYPE)) {
+            financialDocumentTotalAmountCharge = totalAmount;
+        } else {
+            financialDocumentTotalAmountCredit = totalAmount;
+        }
 
-       documentNumber = docHeader.getDocumentNumber();
-       if (ObjectUtils.isNotNull(docHeader.getWorkflowDocument().getDateApproved())) {
-           java.util.Date lastApprovedDate = docHeader.getWorkflowDocument().getDateApproved().toDate();
-           this.setDocumentFinalDate(new java.sql.Date(lastApprovedDate.getTime()));
-       }
-       this.docType = docType;
+        documentNumber = docHeader.getDocumentNumber();
+        if (ObjectUtils.isNotNull(docHeader.getWorkflowDocument().getDateApproved())) {
+            java.util.Date lastApprovedDate = docHeader.getWorkflowDocument().getDateApproved().toDate();
+            this.setDocumentFinalDate(new java.sql.Date(lastApprovedDate.getTime()));
+        }
+        this.docType = docType;
 
-       orgName = processingOrg.getOrganizationName();
+        orgName = processingOrg.getOrganizationName();
 
-       String fiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().toString();
-       Map<String, String> criteria = new HashMap<String, String>();
-       criteria.put("universityFiscalYear", fiscalYear);
-       criteria.put("processingChartOfAccountCode", processingOrg.getChartOfAccountsCode());
-       criteria.put("processingOrganizationCode", processingOrg.getOrganizationCode());
+        String fiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().toString();
+        Map<String, String> criteria = new HashMap<String, String>();
+        criteria.put("universityFiscalYear", fiscalYear);
+        criteria.put("processingChartOfAccountCode", processingOrg.getChartOfAccountsCode());
+        criteria.put("processingOrganizationCode", processingOrg.getOrganizationCode());
 
-       SystemInformation sysinfo = (SystemInformation)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SystemInformation.class, criteria);
-       if (sysinfo == null) {
-           fein = null;
-       } else {
-           fein = sysinfo.getUniversityFederalEmployerIdentificationNumber();
-       }
+        SystemInformation sysinfo = (SystemInformation) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SystemInformation.class, criteria);
+        if (sysinfo == null) {
+            fein = null;
+        } else {
+            fein = sysinfo.getUniversityFederalEmployerIdentificationNumber();
+        }
 
     }
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -93,6 +94,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -101,6 +103,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the documentFinalDate attribute.
+     *
      * @return Returns the documentFinalDate.
      */
     public Date getDocumentFinalDate() {
@@ -108,8 +111,8 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     *
      * This method formats the date value into a string that can then be used
+     *
      * @return
      */
     public String getDocumentFinalDateString() {
@@ -118,6 +121,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the documentFinalDate attribute value.
+     *
      * @param documentFinalDate The documentFinalDate to set.
      */
     public void setDocumentFinalDate(Date documentFinalDate) {
@@ -128,6 +132,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the documentDescription attribute.
+     *
      * @return Returns the documentDescription.
      */
     public String getDocumentDescription() {
@@ -136,6 +141,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the documentDescription attribute value.
+     *
      * @param documentDescription The documentDescription to set.
      */
     public void setDocumentDescription(String documentDescription) {
@@ -144,6 +150,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the orgName attribute.
+     *
      * @return Returns the orgName.
      */
     public String getOrgName() {
@@ -152,6 +159,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the orgName attribute value.
+     *
      * @param orgName The orgName to set.
      */
     public void setOrgName(String orgName) {
@@ -160,6 +168,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the fein attribute.
+     *
      * @return Returns the fein.
      */
     public String getFein() {
@@ -168,6 +177,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the fein attribute value.
+     *
      * @param fein The fein to set.
      */
     public void setFein(String fein) {
@@ -176,6 +186,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the docType attribute.
+     *
      * @return Returns the docType.
      */
     public String getDocType() {
@@ -184,6 +195,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the docType attribute value.
+     *
      * @param docType The docType to set.
      */
     public void setDocType(String docType) {
@@ -192,6 +204,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the financialDocumentTotalAmountCharge attribute.
+     *
      * @return Returns the financialDocumentTotalAmountCharge.
      */
     public KualiDecimal getFinancialDocumentTotalAmountCharge() {
@@ -200,6 +213,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the financialDocumentTotalAmountCharge attribute value.
+     *
      * @param financialDocumentTotalAmountCharge The financialDocumentTotalAmountCharge to set.
      */
     public void setFinancialDocumentTotalAmountCharge(KualiDecimal financialDocumentTotalAmountCharge) {
@@ -208,6 +222,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Gets the financialDocumentTotalAmountCredit attribute.
+     *
      * @return Returns the financialDocumentTotalAmountCredit.
      */
     public KualiDecimal getFinancialDocumentTotalAmountCredit() {
@@ -216,6 +231,7 @@ public class CustomerStatementDetailReportDataHolder {
 
     /**
      * Sets the financialDocumentTotalAmountCredit attribute value.
+     *
      * @param financialDocumentTotalAmountCredit The financialDocumentTotalAmountCredit to set.
      */
     public void setFinancialDocumentTotalAmountCredit(KualiDecimal financialDocumentTotalAmountCredit) {

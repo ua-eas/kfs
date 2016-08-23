@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgSubFundSummaryReport;
+
+import java.util.Collection;
 
 /**
  * This interface defines the methods for BudgetConstructionOrgSubFundSummaryReports
@@ -42,7 +42,7 @@ public interface BudgetConstructionSubFundSummaryReportService {
      * @param accountSummaryList
      * @return
      */
-    public Collection<BudgetConstructionOrgSubFundSummaryReport> buildReports(Integer universityFiscalYear,  String principalName);
+    public Collection<BudgetConstructionOrgSubFundSummaryReport> buildReports(Integer universityFiscalYear, String principalName);
 
 }
 

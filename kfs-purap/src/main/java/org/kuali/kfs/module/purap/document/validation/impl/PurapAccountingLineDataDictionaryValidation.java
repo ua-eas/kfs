@@ -35,15 +35,17 @@ public class PurapAccountingLineDataDictionaryValidation extends GenericValidati
      * Okay, okay, so yeah, I could have handled this through a bunch of DD validations.  But it's late Thursday afternoon
      * and someone has already written this code for me...
      * <strong>Expects an accounting line as the first parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
-        ruleHelperService.setDocument((PurchasingAccountsPayableDocument)event.getDocument());
+        ruleHelperService.setDocument((PurchasingAccountsPayableDocument) event.getDocument());
         return ruleHelperService.validateAccountingLine(accountingLineForValidation);
     }
 
     /**
      * Sets the ruleHelperService attribute value.
+     *
      * @param ruleHelperService The ruleHelperService to set.
      */
     public void setAccountingLineRuleHelperService(PurapAccountingLineRuleHelperService ruleHelperService) {
@@ -52,6 +54,7 @@ public class PurapAccountingLineDataDictionaryValidation extends GenericValidati
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -60,6 +63,7 @@ public class PurapAccountingLineDataDictionaryValidation extends GenericValidati
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="control" classname="org.kuali.kfs.krad.uif.control.SpinnerControl "/>
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.InputField"/>
@@ -27,10 +27,10 @@
  --%>
 
 <tiles:insertTemplate template="/krad/WEB-INF/jsp/templates/control/text.jsp">
-  <tiles:putAttribute name="control" value="${field.control}"/>
-  <tiles:putAttribute name="field" value="${field}"/>
+    <tiles:putAttribute name="control" value="${field.control}"/>
+    <tiles:putAttribute name="field" value="${field}"/>
 </tiles:insertTemplate>
 
-<krad:script value="createSpinner('${control.id}', ${control.spinner.componentOptionsJSString});" />
+<krad:script value="createSpinner('${control.id}', ${control.spinner.componentOptionsJSString});"/>
 
 

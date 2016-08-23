@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.vnd.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.VendorParameterConstants;
-import org.kuali.kfs.vnd.businessobject.OwnershipType;
-import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.VendorParameterConstants;
+import org.kuali.kfs.vnd.businessobject.OwnershipType;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /*
  *
@@ -65,12 +65,12 @@ public class OwnershipTypeRule extends MaintenanceDocumentRuleBase {
     protected boolean checkForSystemParametersExistence() {
         LOG.info("checkForSystemParametersExistence called");
         boolean success = true;
-        Collection<String> feinParameterValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.FEIN_ALLOWED_OWNERSHIP_TYPES) );
-        Collection<String> ssnParameterValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.SSN_ALLOWED_OWNERSHIP_TYPES) );
-        OwnershipType newBo = (OwnershipType)getNewBo();
+        Collection<String> feinParameterValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.FEIN_ALLOWED_OWNERSHIP_TYPES));
+        Collection<String> ssnParameterValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.SSN_ALLOWED_OWNERSHIP_TYPES));
+        OwnershipType newBo = (OwnershipType) getNewBo();
         OwnershipType oldBo = (OwnershipType) getOldBo();
 
-        if ((feinParameterValues.contains(newBo.getVendorOwnershipCode()) || ssnParameterValues.contains(newBo.getVendorOwnershipCode())) && ! newBo.isActive() && oldBo.isActive()) {
+        if ((feinParameterValues.contains(newBo.getVendorOwnershipCode()) || ssnParameterValues.contains(newBo.getVendorOwnershipCode())) && !newBo.isActive() && oldBo.isActive()) {
             success = false;
             final BusinessObjectEntry ownershipTypeEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(OwnershipType.class.getName());
             final String documentLabel = ownershipTypeEntry == null ? DEFAULT_OWNERSHIP_TYPE_LABEL : ownershipTypeEntry.getObjectLabel();

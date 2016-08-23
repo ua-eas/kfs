@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.businessobject.TemExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
+import java.util.Map;
 
 public interface TemExpenseService {
 
@@ -56,7 +56,6 @@ public interface TemExpenseService {
     public boolean validateExpenseCalculation(TemExpense expense);
 
     /**
-     *
      * @param document
      * @param includeNonReimbursable
      * @return
@@ -64,20 +63,19 @@ public interface TemExpenseService {
     public KualiDecimal getAllExpenseTotal(TravelDocument document, boolean includeNonReimbursable);
 
     /**
-     *
      * @param document
      * @return
      */
     public KualiDecimal getNonReimbursableExpenseTotal(TravelDocument document);
 
     /**
-     *
      * @param travelDocument
      */
     public void processExpense(TravelDocument travelDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper);
 
     /**
      * Processes expense when it has been finally claimed on a document
+     *
      * @param travelDocument
      */
     public void updateExpense(TravelDocument travelDocument);

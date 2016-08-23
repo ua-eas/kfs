@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 public class ElectronicFundTransferAction extends KualiAction {
     private final static String START_BEAN = "electronicFundTransferStartAction";
@@ -43,13 +42,14 @@ public class ElectronicFundTransferAction extends KualiAction {
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ElectronicFundTransferForm eftForm = (ElectronicFundTransferForm)form;
+        ElectronicFundTransferForm eftForm = (ElectronicFundTransferForm) form;
         eftForm.setAvailableClaimingDocumentStrategies(SpringContext.getBean(ElectronicPaymentClaimingService.class).getClaimingDocumentChoices(GlobalVariables.getUserSession().getPerson()));
         return super.execute(mapping, form, request, response);
     }
 
     /**
      * The action that sends the user to the correct lookup for them
+     *
      * @param mapping
      * @param form
      * @param request
@@ -58,11 +58,12 @@ public class ElectronicFundTransferAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return getActionHelpers().get(ElectronicFundTransferAction.START_BEAN).performAction((ElectronicFundTransferForm)form, mapping, request.getParameterMap(), getApplicationBaseUrl());
+        return getActionHelpers().get(ElectronicFundTransferAction.START_BEAN).performAction((ElectronicFundTransferForm) form, mapping, request.getParameterMap(), getApplicationBaseUrl());
     }
 
     /**
      * The action that is called when a document is loaded, after returning from the multivalue select
+     *
      * @param mapping
      * @param form
      * @param request
@@ -71,11 +72,12 @@ public class ElectronicFundTransferAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return getActionHelpers().get(ElectronicFundTransferAction.REFRESH_BEAN).performAction((ElectronicFundTransferForm)form, mapping, request.getParameterMap(), getApplicationBaseUrl());
+        return getActionHelpers().get(ElectronicFundTransferAction.REFRESH_BEAN).performAction((ElectronicFundTransferForm) form, mapping, request.getParameterMap(), getApplicationBaseUrl());
     }
 
     /**
      * The response to the "claim" request
+     *
      * @param mapping
      * @param form
      * @param request
@@ -84,11 +86,12 @@ public class ElectronicFundTransferAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward claim(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return getActionHelpers().get(ElectronicFundTransferAction.CLAIM_BEAN).performAction((ElectronicFundTransferForm)form, mapping, request.getParameterMap(), getApplicationBaseUrl());
+        return getActionHelpers().get(ElectronicFundTransferAction.CLAIM_BEAN).performAction((ElectronicFundTransferForm) form, mapping, request.getParameterMap(), getApplicationBaseUrl());
     }
 
     /**
      * The response to the "cancel" request
+     *
      * @param mapping
      * @param form
      * @param request
@@ -97,7 +100,7 @@ public class ElectronicFundTransferAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return getActionHelpers().get(ElectronicFundTransferAction.CANCEL_BEAN).performAction((ElectronicFundTransferForm)form, mapping, request.getParameterMap(), getApplicationBaseUrl());
+        return getActionHelpers().get(ElectronicFundTransferAction.CANCEL_BEAN).performAction((ElectronicFundTransferForm) form, mapping, request.getParameterMap(), getApplicationBaseUrl());
     }
 
     /**

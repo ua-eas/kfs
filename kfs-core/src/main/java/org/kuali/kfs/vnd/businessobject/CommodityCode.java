@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.vnd.businessobject;
 
+import org.kuali.kfs.integration.purap.PurchasingAccountsPayableSensitiveData;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.VendorPropertyConstants;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.kuali.kfs.integration.purap.PurchasingAccountsPayableSensitiveData;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.VendorPropertyConstants;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-
 /**
  * CommodityCode Business Object
  */
-public class CommodityCode extends PersistableBusinessObjectBase implements MutableInactivatable  {
+public class CommodityCode extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String purchasingCommodityCode;
     private String commodityDescription;
@@ -100,9 +100,9 @@ public class CommodityCode extends PersistableBusinessObjectBase implements Muta
             }
         }
         return sensitiveData;*/
-        return sensitiveData = (PurchasingAccountsPayableSensitiveData)SpringContext.getBean(KualiModuleService.class)
-                                .getResponsibleModuleService(PurchasingAccountsPayableSensitiveData.class)
-                                .retrieveExternalizableBusinessObjectIfNecessary(this, sensitiveData, "sensitiveData");
+        return sensitiveData = (PurchasingAccountsPayableSensitiveData) SpringContext.getBean(KualiModuleService.class)
+            .getResponsibleModuleService(PurchasingAccountsPayableSensitiveData.class)
+            .retrieveExternalizableBusinessObjectIfNecessary(this, sensitiveData, "sensitiveData");
     }
 
     public boolean isSalesTaxIndicator() {

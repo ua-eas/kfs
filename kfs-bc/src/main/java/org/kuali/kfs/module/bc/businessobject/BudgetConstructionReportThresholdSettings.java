@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 /**
  * Holds threshold settings for object code report selection screen.

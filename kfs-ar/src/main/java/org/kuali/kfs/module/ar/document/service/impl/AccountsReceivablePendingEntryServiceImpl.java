@@ -20,6 +20,7 @@ package org.kuali.kfs.module.ar.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
 import org.kuali.kfs.module.ar.document.service.AccountsReceivablePendingEntryService;
@@ -31,7 +32,6 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceivablePendingEntryService {
     protected GeneralLedgerPendingEntryService generalLedgerPendingEntryService;
@@ -39,6 +39,7 @@ public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceiv
 
     /**
      * This method creates and adds generic invoice related GLPE's
+     *
      * @param glpeSource
      * @param glpeSourceDetail
      * @param sequenceHelper
@@ -47,17 +48,17 @@ public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceiv
      * @param amount
      */
     @Override
-    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasClaimOnCashOffset, KualiDecimal amount){
+    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasClaimOnCashOffset, KualiDecimal amount) {
         GeneralLedgerPendingEntry explicitEntry = new GeneralLedgerPendingEntry();
         generalLedgerPendingEntryService.populateExplicitGeneralLedgerPendingEntry(glpeSource, glpeSourceDetail, sequenceHelper, explicitEntry);
         explicitEntry.setTransactionLedgerEntryAmount(amount.abs());
-        explicitEntry.setTransactionDebitCreditCode(isDebit? KFSConstants.GL_DEBIT_CODE : KFSConstants.GL_CREDIT_CODE);
+        explicitEntry.setTransactionDebitCreditCode(isDebit ? KFSConstants.GL_DEBIT_CODE : KFSConstants.GL_CREDIT_CODE);
 
         //add explicit entry
         glpeSource.addPendingEntry(explicitEntry);
 
         //add claim on cash offset entry
-        if( hasClaimOnCashOffset ){
+        if (hasClaimOnCashOffset) {
             sequenceHelper.increment();
 
             GeneralLedgerPendingEntry offsetEntry = new GeneralLedgerPendingEntry(explicitEntry);
@@ -68,6 +69,7 @@ public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceiv
 
     /**
      * This method creates and adds generic invoice related GLPE's
+     *
      * @param glpeSource
      * @param glpeSourceDetail
      * @param sequenceHelper
@@ -77,13 +79,13 @@ public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceiv
      * @param amount
      */
     @Override
-    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasReceivableClaimOnCashOffset, boolean writeoffTaxGenerationMethodDisallowFlag, KualiDecimal amount){
+    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasReceivableClaimOnCashOffset, boolean writeoffTaxGenerationMethodDisallowFlag, KualiDecimal amount) {
         GeneralLedgerPendingEntry explicitEntry = new GeneralLedgerPendingEntry();
         generalLedgerPendingEntryService.populateExplicitGeneralLedgerPendingEntry(glpeSource, glpeSourceDetail, sequenceHelper, explicitEntry);
         explicitEntry.setTransactionLedgerEntryAmount(amount.abs());
-        explicitEntry.setTransactionDebitCreditCode(isDebit? KFSConstants.GL_DEBIT_CODE : KFSConstants.GL_CREDIT_CODE);
+        explicitEntry.setTransactionDebitCreditCode(isDebit ? KFSConstants.GL_DEBIT_CODE : KFSConstants.GL_CREDIT_CODE);
 
-        boolean overrideFinancialObjectCodeFlag = isDebit && writeoffTaxGenerationMethodDisallowFlag  && !hasReceivableClaimOnCashOffset;
+        boolean overrideFinancialObjectCodeFlag = isDebit && writeoffTaxGenerationMethodDisallowFlag && !hasReceivableClaimOnCashOffset;
 
         if (!overrideFinancialObjectCodeFlag) {
             //add explicit entry
@@ -91,12 +93,12 @@ public class AccountsReceivablePendingEntryServiceImpl implements AccountsReceiv
         }
 
         // do not add claim on cash offset entry if GLPLE_RECEIVABLE_OFFSET_METHOD = 3 && GLPLE_WRITEOFF_TAX_GENERATION_METHOD = D
-        if (hasReceivableClaimOnCashOffset && writeoffTaxGenerationMethodDisallowFlag ) {
+        if (hasReceivableClaimOnCashOffset && writeoffTaxGenerationMethodDisallowFlag) {
             return;
         }
 
         //add claim on cash offset entry
-        if( hasReceivableClaimOnCashOffset || writeoffTaxGenerationMethodDisallowFlag ){
+        if (hasReceivableClaimOnCashOffset || writeoffTaxGenerationMethodDisallowFlag) {
             sequenceHelper.increment();
 
             GeneralLedgerPendingEntry offsetEntry = new GeneralLedgerPendingEntry(explicitEntry);

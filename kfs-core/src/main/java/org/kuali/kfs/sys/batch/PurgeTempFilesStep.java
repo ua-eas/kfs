@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
- *
  * Purges old files from the temp directory specified in build.properties
  */
 public class PurgeTempFilesStep extends AbstractStep {
@@ -48,10 +47,9 @@ public class PurgeTempFilesStep extends AbstractStep {
     }
 
     /**
-     *
      * delete files in the specified directory that are older than the modification time
      *
-     * @param location the path to temp files
+     * @param location         the path to temp files
      * @param modificationTime delete if file is older than this
      */
     private void deleteTempBefore(String location, long modificationTime) {
@@ -71,7 +69,7 @@ public class PurgeTempFilesStep extends AbstractStep {
             for (int i = 0; i < files.length; i++) {
                 String filename = files[i];
                 File f = new File(location + filename);
-                if(f.lastModified() < modificationTime) {
+                if (f.lastModified() < modificationTime) {
                     f.delete();
                 }
             }
@@ -82,6 +80,7 @@ public class PurgeTempFilesStep extends AbstractStep {
 
     /**
      * Sets the configurationService attribute value.
+     *
      * @param configurationService The configurationService to set.
      */
     public void setConfigurationService(ConfigurationService configurationService) {

@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.batch.InitiateDirectory;
 /**
  * An interface that declares the service needed to run the Collector
  */
-public interface CollectorService extends InitiateDirectory{
+public interface CollectorService extends InitiateDirectory {
     /**
      * performs collection
      *

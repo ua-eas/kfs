@@ -18,21 +18,11 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.SubAccountTrickleDownInactivationService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -44,7 +34,17 @@ import org.kuali.kfs.krad.service.DocumentHeaderService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountTrickleDownInactivationService {
@@ -59,9 +59,10 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
     /**
      * Will generate Maintenance Locks for all (active or not) sub-accounts in the system related to the inactivated account using the sub-account
      * maintainable registered for the sub-account maintenance document
-     *
+     * <p>
      * This version of the method assumes that the sub-account maintainable only requires that the SubAccount BOClass, document number, and SubAccount
      * instance only needs to be passed into it
+     *
      * @see org.kuali.kfs.gl.service.SubAccountTrickleDownInactivationService#generateTrickleDownMaintenanceLocks(org.kuali.kfs.coa.businessobject.Account, java.lang.String)
      */
     public List<MaintenanceLock> generateTrickleDownMaintenanceLocks(Account inactivatedAccount, String documentNumber) {
@@ -73,10 +74,9 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
             subAccountMaintainable = (Maintainable) maintenanceDocumentDictionaryService.getMaintainableClass(SubAccount.class.getName()).newInstance();
             subAccountMaintainable.setBoClass(SubAccount.class);
             subAccountMaintainable.setDocumentNumber(documentNumber);
-        }
-        catch (Exception e) {
-            LOG.error("Unable to instantiate SubAccount Maintainable" , e);
-            throw new RuntimeException("Unable to instantiate SubAccount Maintainable" , e);
+        } catch (Exception e) {
+            LOG.error("Unable to instantiate SubAccount Maintainable", e);
+            throw new RuntimeException("Unable to instantiate SubAccount Maintainable", e);
         }
 
         if (ObjectUtils.isNotNull(inactivatedAccount.getSubAccounts()) && !inactivatedAccount.getSubAccounts().isEmpty()) {
@@ -100,10 +100,9 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
             subAccountMaintainable = (Maintainable) maintenanceDocumentDictionaryService.getMaintainableClass(SubAccount.class.getName()).newInstance();
             subAccountMaintainable.setBoClass(SubAccount.class);
             subAccountMaintainable.setDocumentNumber(documentNumber);
-        }
-        catch (Exception e) {
-            LOG.error("Unable to instantiate SubAccount Maintainable" , e);
-            throw new RuntimeException("Unable to instantiate SubAccount Maintainable" , e);
+        } catch (Exception e) {
+            LOG.error("Unable to instantiate SubAccount Maintainable", e);
+            throw new RuntimeException("Unable to instantiate SubAccount Maintainable", e);
         }
 
         inactivatedAccount.refreshReferenceObject(KFSPropertyConstants.SUB_ACCOUNTS);
@@ -118,16 +117,14 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                     if (failedLock != null) {
                         // another document has locked this sub account, so we don't try to inactivate the account
                         alreadyLockedSubAccounts.put(subAccount, failedLock.getDocumentNumber());
-                    }
-                    else {
+                    } else {
                         // no locks other than our own (but there may have been no locks at all), just go ahead and try to update
                         subAccount.setActive(false);
 
                         try {
                             subAccountMaintainable.saveBusinessObject();
                             inactivatedSubAccounts.add(subAccount);
-                        }
-                        catch (RuntimeException e) {
+                        } catch (RuntimeException e) {
                             LOG.error("Unable to trickle-down inactivate sub-account " + subAccount.toString(), e);
                             errorPersistingSubAccounts.add(subAccount);
                         }
@@ -164,8 +161,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                     note.setNoteText(noteText);
                     noteService.save(note);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to create/save notes for document " + documentNumber, e);
                 throw new RuntimeException("Unable to create/save notes for document " + documentNumber, e);
             }
@@ -184,8 +180,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                     note.setNotePostedTimestampToCurrent();
                     noteService.save(note);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to create/save notes for document " + documentNumber, e);
                 throw new RuntimeException("Unable to create/save notes for document " + documentNumber, e);
             }
@@ -197,7 +192,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
         for (int i = startIndex; i < endIndex && i < listOfSubAccounts.size(); i++) {
             SubAccount subAccount = listOfSubAccounts.get(i);
             buf.append(subAccount.getChartOfAccountsCode()).append(" - ").append(subAccount.getAccountNumber()).append(" - ")
-                    .append(subAccount.getSubAccountNumber());
+                .append(subAccount.getSubAccountNumber());
             if (i + 1 < endIndex && i + 1 < listOfSubAccounts.size()) {
                 buf.append(", ");
             }
@@ -224,11 +219,9 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
     }
 
 
-
     public void setMaintenanceDocumentDao(MaintenanceDocumentDao maintenanceDocumentDao) {
         this.maintenanceDocumentDao = maintenanceDocumentDao;
     }
-
 
 
     public void setNoteService(NoteService noteService) {

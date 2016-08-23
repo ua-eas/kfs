@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.pdp.service;
 
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
 import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
-import org.kuali.kfs.krad.util.MessageMap;
 
 public interface ResearchParticipantPaymentValidationService {
 
@@ -29,7 +29,7 @@ public interface ResearchParticipantPaymentValidationService {
      * validate the account information provided by research participant payment file
      *
      * @param paymentFile the given payment file
-     * @param errorMap the given error map that can hold the error information
+     * @param errorMap    the given error map that can hold the error information
      */
     boolean validatePaymentAccount(PaymentFileLoad paymentFile, MessageMap errorMap);
 

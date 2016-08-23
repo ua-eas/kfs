@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
+import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * returns field delimeter vaules

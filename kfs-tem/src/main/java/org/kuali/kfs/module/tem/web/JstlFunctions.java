@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.tem.web;
 
-import static java.lang.Class.forName;
-
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.BeanUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
 import org.kuali.kfs.module.tem.document.service.AccountingDocumentRelationshipService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+import java.util.Map;
+
+import static java.lang.Class.forName;
 
 /**
  * Full of static methods for JSTL function access.
- *
  */
 public final class JstlFunctions {
     protected static final String SETTING_PARAMS_PROLOG = "Setting params ";
@@ -42,7 +41,8 @@ public final class JstlFunctions {
     protected static final String VALUES_FINDER_CLASS_EXC_PROLOG = "Could not find valuesFinder class ";
     protected static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(JstlFunctions.class);
 
-    private JstlFunctions() {}
+    private JstlFunctions() {
+    }
 
     /**
      * Returns a list of key/value pairs for displaying in an HTML option for a select list. This is a customized approach to retrieving
@@ -51,29 +51,28 @@ public final class JstlFunctions {
      * Here is an example of how the code is used from a JSP:<br/>
      * <code>
      * <jsp:useBean id="paramMap" class="java.util.HashMap"/>
-                    <c:set target="${paramMap}" property="forAddedPerson" value="true" />
-                    <kul:checkErrors keyMatch="${proposalPerson}.proposalPersonRoleId" auditMatch="${proposalPerson}.proposalPersonRoleId"/>
-                    <c:set var="roleStyle" value=""/>
-                    <c:if test="${hasErrors==true}">
-                        <c:set var="roleStyle" value="background-color:#FFD5D5"/>
-                    </c:if>
-                    <html:select property="${proposalPerson}.proposalPersonRoleId" tabindex="0" style="${roleStyle}">
-                    <c:forEach items="${krafn:getOptionList('org.kuali.kra.proposaldevelopment.lookup.keyvalue.ProposalPersonRoleValuesFinder', paramMap)}" var="option">
-                    <c:choose>
-                        <c:when test="${KualiForm.document.proposalPersons[personIndex].proposalPersonRoleId == option.key}">
-                        <option value="${option.key}" selected>${option.label}</option>
-                        </c:when>
-                        <c:otherwise>
-                        <option value="${option.key}">${option.label}</option>
-                        </c:otherwise>
-                    </c:choose>
-                    </c:forEach>
-                    </html:select>
-       </code>
-     *
+     * <c:set target="${paramMap}" property="forAddedPerson" value="true" />
+     * <kul:checkErrors keyMatch="${proposalPerson}.proposalPersonRoleId" auditMatch="${proposalPerson}.proposalPersonRoleId"/>
+     * <c:set var="roleStyle" value=""/>
+     * <c:if test="${hasErrors==true}">
+     * <c:set var="roleStyle" value="background-color:#FFD5D5"/>
+     * </c:if>
+     * <html:select property="${proposalPerson}.proposalPersonRoleId" tabindex="0" style="${roleStyle}">
+     * <c:forEach items="${krafn:getOptionList('org.kuali.kra.proposaldevelopment.lookup.keyvalue.ProposalPersonRoleValuesFinder', paramMap)}" var="option">
+     * <c:choose>
+     * <c:when test="${KualiForm.document.proposalPersons[personIndex].proposalPersonRoleId == option.key}">
+     * <option value="${option.key}" selected>${option.label}</option>
+     * </c:when>
+     * <c:otherwise>
+     * <option value="${option.key}">${option.label}</option>
+     * </c:otherwise>
+     * </c:choose>
+     * </c:forEach>
+     * </html:select>
+     * </code>
      *
      * @param valuesFinderClassName
-     * @param params mapped parameters
+     * @param params                mapped parameters
      * @return List of key values
      */
     @SuppressWarnings("unchecked")
@@ -94,7 +93,6 @@ public final class JstlFunctions {
      * if a property cannot be set or if the values finder cannot be instantiated. All of these exceptions are handled within the method. None
      * of these exceptions are thrown back.
      *
-     *
      * @param valuesFinderClassName
      * @param params
      * @return KeyValuesFinder
@@ -103,7 +101,7 @@ public final class JstlFunctions {
     private static KeyValuesFinder setupValuesFinder(String valuesFinderClassName, Map<String, Object> params) {
         KeyValuesFinder retval = getKeyFinder(valuesFinderClassName);
 
-        if(LOG.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug(SETTING_PARAMS_PROLOG + params);
         }
 
@@ -159,55 +157,49 @@ public final class JstlFunctions {
     private static String buildTraceMessage(Throwable thrownObj) {
         StackTraceElement stackTraceElement = thrownObj.getStackTrace()[0];
         return new StringBuilder(stackTraceElement.getClassName())
-                        .append("#")
-                        .append(stackTraceElement.getMethodName())
-                        .append(":")
-                        .append(stackTraceElement.getLineNumber())
-                        .append(" ")
-                        .append(thrownObj.getClass().getSimpleName())
-                        .append("\n")
-                        .append(thrownObj.getMessage())
-                        .toString();
+            .append("#")
+            .append(stackTraceElement.getMethodName())
+            .append(":")
+            .append(stackTraceElement.getLineNumber())
+            .append(" ")
+            .append(thrownObj.getClass().getSimpleName())
+            .append("\n")
+            .append(thrownObj.getMessage())
+            .toString();
     }
 
-    public static Boolean canDeleteDocumentRelationship(String documentNumber, String relDocumentNumber){
+    public static Boolean canDeleteDocumentRelationship(String documentNumber, String relDocumentNumber) {
         AccountingDocumentRelationshipService accountingDocumentRelationshipService = SpringContext.getBean(AccountingDocumentRelationshipService.class);
         List<AccountingDocumentRelationship> adrList = accountingDocumentRelationshipService.find(new AccountingDocumentRelationship(documentNumber, relDocumentNumber));
 
-        if(adrList != null && adrList.size() == 1){
+        if (adrList != null && adrList.size() == 1) {
             return adrList.get(0).getPrincipalId().equals(GlobalVariables.getUserSession().getPerson().getPrincipalId());
         }
 
         return false;
     }
 
-    public static KualiDecimal add(Object a, Object b){
+    public static KualiDecimal add(Object a, Object b) {
         KualiDecimal tempA = new KualiDecimal(0);
         KualiDecimal tempB = new KualiDecimal(0);
-        if (a instanceof Double){
-            tempA = new KualiDecimal((Double)a);
-        }
-        else if (a instanceof Integer){
-            tempA = new KualiDecimal((Integer)a);
-        }
-        else if (a instanceof String){
-            tempA = new KualiDecimal((String)a);
-        }
-        else if (a instanceof KualiDecimal){
-            tempA = (KualiDecimal)a;
+        if (a instanceof Double) {
+            tempA = new KualiDecimal((Double) a);
+        } else if (a instanceof Integer) {
+            tempA = new KualiDecimal((Integer) a);
+        } else if (a instanceof String) {
+            tempA = new KualiDecimal((String) a);
+        } else if (a instanceof KualiDecimal) {
+            tempA = (KualiDecimal) a;
         }
 
-        if (b instanceof Double){
-            tempB = new KualiDecimal((Double)b);
-        }
-        else if (b instanceof Integer){
-            tempB = new KualiDecimal((Integer)b);
-        }
-        else if (a instanceof String){
-            tempB = new KualiDecimal((String)b);
-        }
-        else if (b instanceof KualiDecimal){
-            tempB = (KualiDecimal)b;
+        if (b instanceof Double) {
+            tempB = new KualiDecimal((Double) b);
+        } else if (b instanceof Integer) {
+            tempB = new KualiDecimal((Integer) b);
+        } else if (a instanceof String) {
+            tempB = new KualiDecimal((String) b);
+        } else if (b instanceof KualiDecimal) {
+            tempB = (KualiDecimal) b;
         }
         return tempA.add(tempB);
     }

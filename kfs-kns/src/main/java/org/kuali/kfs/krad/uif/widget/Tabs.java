@@ -21,10 +21,9 @@ package org.kuali.kfs.krad.uif.widget;
 /**
  * Widget used for configuring tab options, use componentOptions for most options.
  * See http://jqueryui.com/demos/tabs/ for usable options
- *
  */
-public class Tabs extends WidgetBase{
-	private static final long serialVersionUID = 2L;
+public class Tabs extends WidgetBase {
+    private static final long serialVersionUID = 2L;
 
     public Tabs() {
         super();

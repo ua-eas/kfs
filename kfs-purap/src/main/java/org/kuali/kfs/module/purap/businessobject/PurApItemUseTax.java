@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.io.Serializable;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
 
 
 public interface PurApItemUseTax extends Serializable {

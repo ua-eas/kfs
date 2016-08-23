@@ -72,9 +72,9 @@ public class LaborKeyConstants {
     }
 
     public static final class EnterpriseFeed {
-    	public static final String ERROR_OUTPUT_FILE_NOT_GENERATED = "error.ld.enterpriseFeed.report.outputFileNotGenerated";
-    	public static final String ERROR_BENEFIT_CALCULATION_NOT_FOUND = "error.ld.enterpriseFeed.report.benefitCalculationNotFound";
-    	public static final String ERROR_BENEFIT_TYPE_NOT_FOUND = "error.ld.enterpriseFeed.report.benefitTypeNotFound";
+        public static final String ERROR_OUTPUT_FILE_NOT_GENERATED = "error.ld.enterpriseFeed.report.outputFileNotGenerated";
+        public static final String ERROR_BENEFIT_CALCULATION_NOT_FOUND = "error.ld.enterpriseFeed.report.benefitCalculationNotFound";
+        public static final String ERROR_BENEFIT_TYPE_NOT_FOUND = "error.ld.enterpriseFeed.report.benefitTypeNotFound";
     }
 
     public static final class ErrorCertification {

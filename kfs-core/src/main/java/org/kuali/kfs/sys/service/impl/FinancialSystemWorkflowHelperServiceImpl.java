@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -28,20 +25,23 @@ import org.kuali.rice.kew.api.action.ActionRequest;
 import org.kuali.rice.kew.api.document.Document;
 import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 
+import java.util.List;
+import java.util.Set;
+
 public class FinancialSystemWorkflowHelperServiceImpl implements FinancialSystemWorkflowHelperService {
 
     WorkflowDocumentService workflowDocumentService;
 
     @Override
-    public boolean isAdhocApprovalRequestedForPrincipal(WorkflowDocument workflowDocument, String principalId ) {
-        if (workflowDocument.isApprovalRequested() ) {
+    public boolean isAdhocApprovalRequestedForPrincipal(WorkflowDocument workflowDocument, String principalId) {
+        if (workflowDocument.isApprovalRequested()) {
             Set<String> currentNodes = workflowDocument.getCurrentNodeNames();
-            if ( CollectionUtils.isNotEmpty(currentNodes) ) {
-                for ( String currentNode : currentNodes ) {
-                    List<ActionRequest> requests = workflowDocumentService.getActionRequestsForPrincipalAtNode(workflowDocument.getDocumentId(), currentNode, principalId );
-                    if ( requests != null ) {
-                        for ( ActionRequest ar : requests ) {
-                            if ( ar.isActivated() && ar.isCurrent() && ar.isApprovalRequest() && ar.isAdHocRequest() ) {
+            if (CollectionUtils.isNotEmpty(currentNodes)) {
+                for (String currentNode : currentNodes) {
+                    List<ActionRequest> requests = workflowDocumentService.getActionRequestsForPrincipalAtNode(workflowDocument.getDocumentId(), currentNode, principalId);
+                    if (requests != null) {
+                        for (ActionRequest ar : requests) {
+                            if (ar.isActivated() && ar.isCurrent() && ar.isApprovalRequest() && ar.isAdHocRequest()) {
                                 return true;
                             }
                         }
@@ -59,7 +59,7 @@ public class FinancialSystemWorkflowHelperServiceImpl implements FinancialSystem
     @Override
     public String getApplicationDocumentStatus(String documentNumber) {
         Document workflowDocument = workflowDocumentService.getDocument(documentNumber);
-        if(workflowDocument!= null){
+        if (workflowDocument != null) {
             return workflowDocument.getApplicationDocumentStatus();
         }
         return "";

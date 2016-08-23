@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.krad.uif.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.service.DocumentService;
@@ -29,32 +25,34 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.UifParameters;
-import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.uif.service.ViewTypeService;
+import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.springframework.beans.PropertyValues;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Type service implementation for maintenance views
- *
+ * <p>
  * <p>
  * Indexes views on object class and name. Can retrieve views by object class,
  * object class and name, or document id
  * </p>
- *
- *
  */
 public class MaintenanceViewTypeServiceImpl implements ViewTypeService {
-	private DocumentService documentService;
+    private DocumentService documentService;
     private DocumentDictionaryService documentDictionaryService;
 
-	/**
-	 * @see ViewTypeService#getViewTypeName()
-	 */
-	public ViewType getViewTypeName() {
-		return ViewType.MAINTENANCE;
-	}
+    /**
+     * @see ViewTypeService#getViewTypeName()
+     */
+    public ViewType getViewTypeName() {
+        return ViewType.MAINTENANCE;
+    }
 
     /**
      * @see ViewTypeService#getParametersFromViewConfiguration(org.springframework.beans.PropertyValues)
@@ -64,7 +62,7 @@ public class MaintenanceViewTypeServiceImpl implements ViewTypeService {
 
         String viewName = ViewModelUtils.getStringValFromPVs(propertyValues, UifParameters.VIEW_NAME);
         String dataObjectClassName = ViewModelUtils.getStringValFromPVs(propertyValues,
-                UifParameters.DATA_OBJECT_CLASS_NAME);
+            UifParameters.DATA_OBJECT_CLASS_NAME);
 
         parameters.put(UifParameters.VIEW_NAME, viewName);
         parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, dataObjectClassName);
@@ -72,72 +70,69 @@ public class MaintenanceViewTypeServiceImpl implements ViewTypeService {
         return parameters;
     }
 
-	/**
-	 * Check for document id in request parameters, if given retrieve document
-	 * instance to get the object class and set the name parameter
-	 *
-	 * @see ViewTypeService#getParametersFromRequest(java.util.Map)
-	 */
-	@Override
-	public Map<String, String> getParametersFromRequest(Map<String, String> requestParameters) {
-		Map<String, String> parameters = new HashMap<String, String>();
+    /**
+     * Check for document id in request parameters, if given retrieve document
+     * instance to get the object class and set the name parameter
+     *
+     * @see ViewTypeService#getParametersFromRequest(java.util.Map)
+     */
+    @Override
+    public Map<String, String> getParametersFromRequest(Map<String, String> requestParameters) {
+        Map<String, String> parameters = new HashMap<String, String>();
 
-		if (requestParameters.containsKey(UifParameters.VIEW_NAME)) {
-			parameters.put(UifParameters.VIEW_NAME, requestParameters.get(UifParameters.VIEW_NAME));
-		}
-		else {
-			parameters.put(UifParameters.VIEW_NAME, UifConstants.DEFAULT_VIEW_NAME);
-		}
+        if (requestParameters.containsKey(UifParameters.VIEW_NAME)) {
+            parameters.put(UifParameters.VIEW_NAME, requestParameters.get(UifParameters.VIEW_NAME));
+        } else {
+            parameters.put(UifParameters.VIEW_NAME, UifConstants.DEFAULT_VIEW_NAME);
+        }
 
-		if (requestParameters.containsKey(UifParameters.DATA_OBJECT_CLASS_NAME)) {
-			parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME,
-					requestParameters.get(UifParameters.DATA_OBJECT_CLASS_NAME));
-		}
-		else if (requestParameters.containsKey(KRADPropertyConstants.DOC_ID)) {
-			String documentNumber = requestParameters.get(KRADPropertyConstants.DOC_ID);
+        if (requestParameters.containsKey(UifParameters.DATA_OBJECT_CLASS_NAME)) {
+            parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME,
+                requestParameters.get(UifParameters.DATA_OBJECT_CLASS_NAME));
+        } else if (requestParameters.containsKey(KRADPropertyConstants.DOC_ID)) {
+            String documentNumber = requestParameters.get(KRADPropertyConstants.DOC_ID);
 
-			boolean objectClassFound = false;
-			try {
-				// determine object class based on the document type
-				Document document = documentService.getByDocumentHeaderId(documentNumber);
+            boolean objectClassFound = false;
+            try {
+                // determine object class based on the document type
+                Document document = documentService.getByDocumentHeaderId(documentNumber);
                 if (!documentService.documentExists(documentNumber)) {
-                    parameters = new HashMap<String,String>();
+                    parameters = new HashMap<String, String>();
                     parameters.put(UifParameters.VIEW_ID, KRADConstants.KRAD_INITIATED_DOCUMENT_VIEW_NAME);
                     return parameters;
                 }
-				if (document != null) {
-					String docTypeName = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
-					Class<?> objectClassName = getDocumentDictionaryService().getMaintenanceDataObjectClass(docTypeName);
-					if (objectClassName != null) {
-						objectClassFound = true;
-						parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, objectClassName.getName());
-					}
-				}
+                if (document != null) {
+                    String docTypeName = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
+                    Class<?> objectClassName = getDocumentDictionaryService().getMaintenanceDataObjectClass(docTypeName);
+                    if (objectClassName != null) {
+                        objectClassFound = true;
+                        parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, objectClassName.getName());
+                    }
+                }
 
-				if (!objectClassFound) {
-					throw new RuntimeException("Could not determine object class for maintenance document with id: "
-							+ documentNumber);
-				}
-			}
-			catch (WorkflowException e) {
-				throw new RuntimeException("Encountered workflow exception while retrieving document with id: "
-						+ documentNumber, e);
-			}
-		}
+                if (!objectClassFound) {
+                    throw new RuntimeException("Could not determine object class for maintenance document with id: "
+                        + documentNumber);
+                }
+            } catch (WorkflowException e) {
+                throw new RuntimeException("Encountered workflow exception while retrieving document with id: "
+                    + documentNumber, e);
+            }
+        }
 
-		return parameters;
-	}
+        return parameters;
+    }
 
-	protected DocumentService getDocumentService() {
+    protected DocumentService getDocumentService() {
         if (documentService == null) {
             this.documentService = KRADServiceLocatorWeb.getDocumentService();
         }
-		return this.documentService;
-	}
+        return this.documentService;
+    }
 
-	public void setDocumentService(DocumentService documentService) {
-		this.documentService = documentService;
-	}
+    public void setDocumentService(DocumentService documentService) {
+        this.documentService = documentService;
+    }
 
     public DocumentDictionaryService getDocumentDictionaryService() {
         if (documentDictionaryService == null) {

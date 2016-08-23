@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 
@@ -33,6 +33,7 @@ public class CollectionActivityReportAction extends ContractsGrantsReportLookupA
 
     /**
      * Returns "Collection Activity Report" as the report title
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#setReportTitle(org.kuali.rice.kns.web.struts.form.LookupForm)
      */
     @Override
@@ -42,6 +43,7 @@ public class CollectionActivityReportAction extends ContractsGrantsReportLookupA
 
     /**
      * Returns "collectionActivityReportBuilderService"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getReportBuilderServiceBeanName()
      */
     @Override
@@ -51,6 +53,7 @@ public class CollectionActivityReportAction extends ContractsGrantsReportLookupA
 
     /**
      * Returns the sort field for this report's pdf generation, "CollectionActivityReport"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getSortFieldName()
      */
     @Override
@@ -60,6 +63,7 @@ public class CollectionActivityReportAction extends ContractsGrantsReportLookupA
 
     /**
      * Returns the class of CollectionActivityReport
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getPrintSearchCriteriaClass()
      */
     @Override
@@ -69,6 +73,7 @@ public class CollectionActivityReportAction extends ContractsGrantsReportLookupA
 
     /**
      * Always returns true, as collection activity report rows always have actions
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#shouldDisplayActionsForRow()
      */
     @Override

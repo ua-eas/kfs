@@ -24,8 +24,6 @@ import org.kuali.kfs.krad.uif.view.View;
 
 /**
  * Field that encloses an image element
- *
- *
  */
 public class ImageField extends FieldBase {
     private static final long serialVersionUID = -7994212503770623408L;

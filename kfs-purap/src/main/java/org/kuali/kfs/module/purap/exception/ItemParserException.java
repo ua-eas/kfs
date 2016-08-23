@@ -40,8 +40,8 @@ public class ItemParserException extends RuntimeException {
     /**
      * Constructs an ItemParserException instance.
      *
-     * @param message error message
-     * @param errorKey key to an error message
+     * @param message         error message
+     * @param errorKey        key to an error message
      * @param errorParameters error message parameters
      */
     public ItemParserException(String message, String errorKey, String... errorParameters) {

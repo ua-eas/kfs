@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Purap Item Base Business Object.
@@ -141,8 +141,7 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
         if (itemUnitPrice != null) {
             if (itemUnitPrice.scale() < PurapConstants.DOLLAR_AMOUNT_MIN_SCALE) {
                 itemUnitPrice = itemUnitPrice.setScale(PurapConstants.DOLLAR_AMOUNT_MIN_SCALE, KualiDecimal.ROUND_BEHAVIOR);
-            }
-            else if (itemUnitPrice.scale() > PurapConstants.UNIT_PRICE_MAX_SCALE) {
+            } else if (itemUnitPrice.scale() > PurapConstants.UNIT_PRICE_MAX_SCALE) {
                 itemUnitPrice = itemUnitPrice.setScale(PurapConstants.UNIT_PRICE_MAX_SCALE, KualiDecimal.ROUND_BEHAVIOR);
             }
         }
@@ -155,8 +154,7 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
         if (itemUnitPrice != null) {
             if (itemUnitPrice.scale() < PurapConstants.DOLLAR_AMOUNT_MIN_SCALE) {
                 itemUnitPrice = itemUnitPrice.setScale(PurapConstants.DOLLAR_AMOUNT_MIN_SCALE, KualiDecimal.ROUND_BEHAVIOR);
-            }
-            else if (itemUnitPrice.scale() > PurapConstants.UNIT_PRICE_MAX_SCALE) {
+            } else if (itemUnitPrice.scale() > PurapConstants.UNIT_PRICE_MAX_SCALE) {
                 itemUnitPrice = itemUnitPrice.setScale(PurapConstants.UNIT_PRICE_MAX_SCALE, KualiDecimal.ROUND_BEHAVIOR);
             }
         }
@@ -243,8 +241,7 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
 
         if (purapDocument.isUseTaxIndicator() == false) {
             taxAmount = this.itemSalesTaxAmount;
-        }
-        else {
+        } else {
             // sum use tax item tax amounts
             for (PurApItemUseTax useTaxItem : this.getUseTaxItems()) {
                 taxAmount = taxAmount.add(useTaxItem.getTaxAmount());
@@ -309,8 +306,7 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
             if (this.itemType.isAmountBasedGeneralLedgerIndicator()) {
                 // SERVICE ITEM: return unit price as extended price
                 extendedPrice = new KualiDecimal(this.itemUnitPrice.toString());
-            }
-            else if (ObjectUtils.isNotNull(this.getItemQuantity())) {
+            } else if (ObjectUtils.isNotNull(this.getItemQuantity())) {
                 BigDecimal calcExtendedPrice = this.itemUnitPrice.multiply(this.itemQuantity.bigDecimalValue());
                 // ITEM TYPE (qty driven): return (unitPrice x qty)
                 extendedPrice = new KualiDecimal(calcExtendedPrice.setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR));
@@ -382,14 +378,11 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
         PurApAccountingLine newAccount = null;
         try {
             newAccount = (PurApAccountingLine) getAccountingLineClass().newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new RuntimeException("Can't instantiate Purchasing Account from base");
         }
         return newAccount;
@@ -547,10 +540,10 @@ public abstract class PurApItemBase extends PersistableBusinessObjectBase implem
 
     @Override
     public String toString() {
-        return "Line "+(itemLineNumber==null?"(null)":itemLineNumber.toString())+": ["+itemTypeCode+"] " +
-                "Unit:"+(itemUnitPrice==null?"(null)":itemUnitPrice.toString())+" " +
-                "Tax:"+(itemSalesTaxAmount==null?"(null)":itemSalesTaxAmount.toString())+" " +
-                "*"+itemDescription+"*";
+        return "Line " + (itemLineNumber == null ? "(null)" : itemLineNumber.toString()) + ": [" + itemTypeCode + "] " +
+            "Unit:" + (itemUnitPrice == null ? "(null)" : itemUnitPrice.toString()) + " " +
+            "Tax:" + (itemSalesTaxAmount == null ? "(null)" : itemSalesTaxAmount.toString()) + " " +
+            "*" + itemDescription + "*";
     }
 
 }

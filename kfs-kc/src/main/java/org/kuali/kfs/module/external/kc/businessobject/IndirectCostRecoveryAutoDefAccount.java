@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.springframework.beans.BeanUtils;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 /**
  * IndrectCostRecoveryAccount
  */
-public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static Logger LOG = Logger.getLogger(IndirectCostRecoveryAutoDefAccount.class);
 
     private Integer indirectCostRecoveryAccountGeneratedIdentifier;
@@ -50,6 +50,7 @@ public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjec
     //BO Reference
     private Account indirectCostRecoveryAccount;
     private Chart indirectCostRecoveryChartOfAccounts;
+
     /**
      * Default constructor.
      */
@@ -125,7 +126,6 @@ public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjec
     }
 
 
-
     public boolean isActive() {
         return active;
     }
@@ -154,6 +154,7 @@ public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjec
     public void setAccountDefaultId(Integer accountDefaultId) {
         this.accountDefaultId = accountDefaultId;
     }
+
     public Account getIndirectCostRecoveryAccount() {
         return indirectCostRecoveryAccount;
     }
@@ -163,7 +164,7 @@ public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjec
      *
      * @param account The account to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryAccount(Account indirectCostRecoveryAccount) {
@@ -182,7 +183,7 @@ public class IndirectCostRecoveryAutoDefAccount extends PersistableBusinessObjec
      *
      * @param indirectCostRcvyChartOfAccounts The chartOfAccounts to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryChartOfAccounts(Chart indirectCostRecoveryChartOfAccounts) {

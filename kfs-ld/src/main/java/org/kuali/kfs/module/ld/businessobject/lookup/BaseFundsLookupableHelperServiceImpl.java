@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.module.ld.businessobject.inquiry.BaseFundsInquirableImpl;
 import org.kuali.kfs.module.ld.service.LaborBaseFundsService;
 import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The BaseFundsLookupableHelperServiceImpl class is the front-end for all Base Fund balance inquiry processing.
@@ -53,9 +53,9 @@ public class BaseFundsLookupableHelperServiceImpl extends AbstractLookupableHelp
 
     /**
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the search results.
-     *
+     * <p>
      * No uses data dictionary.
      */
     @Override
@@ -78,7 +78,7 @@ public class BaseFundsLookupableHelperServiceImpl extends AbstractLookupableHelp
      * build the serach result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the serach result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {

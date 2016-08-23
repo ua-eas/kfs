@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -36,10 +34,11 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.web.format.PhoneNumberFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action Form for Purchasing documents.
@@ -85,7 +84,6 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
 
         calculated = false;
     }
-
 
 
     public Boolean getNotOtherDeliveryBuilding() {
@@ -234,11 +232,11 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
         this.distributePurchasingCommodityDescription = distributePurchasingCommodityDescription;
     }
 
-    public Class getItemCapitalAssetClass(){
+    public Class getItemCapitalAssetClass() {
         return null;
     }
 
-    public Class getCapitalAssetLocationClass(){
+    public Class getCapitalAssetLocationClass() {
         return null;
     }
 
@@ -247,16 +245,13 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
     //Must be overridden
     public CapitalAssetLocation setupNewPurchasingCapitalAssetLocationLine() {
         CapitalAssetLocation location = null;
-        try{
-            location = (CapitalAssetLocation)getCapitalAssetLocationClass().newInstance();
-        }
-        catch (InstantiationException e) {
+        try {
+            location = (CapitalAssetLocation) getCapitalAssetLocationClass().newInstance();
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new RuntimeException("Can't instantiate Purchasing Account from base");
         }
 
@@ -282,16 +277,16 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
     }
 
     //Availability once
-    public String getPurchasingItemCapitalAssetAvailability(){
+    public String getPurchasingItemCapitalAssetAvailability() {
         String availability = PurapConstants.CapitalAssetAvailability.NONE;
-        PurchasingDocument pd = (PurchasingDocument)this.getDocument();
+        PurchasingDocument pd = (PurchasingDocument) this.getDocument();
 
-        if( (PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode())) ||
-            (PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode())) ){
+        if ((PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode())) ||
+            (PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.ONCE;
 
-        }else if((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode()))){
+        } else if ((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.MODIFY.equals(pd.getCapitalAssetSystemStateCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.EACH;
 
@@ -300,15 +295,15 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
         return availability;
     }
 
-    public String getPurchasingCapitalAssetSystemAvailability(){
+    public String getPurchasingCapitalAssetSystemAvailability() {
         String availability = PurapConstants.CapitalAssetAvailability.NONE;
-        PurchasingDocument pd = (PurchasingDocument)this.getDocument();
+        PurchasingDocument pd = (PurchasingDocument) this.getDocument();
 
-        if( (PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode())) ){
+        if ((PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.ONCE;
 
-        }else if((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))){
+        } else if ((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.EACH;
 
@@ -317,15 +312,15 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
         return availability;
     }
 
-    public String getPurchasingCapitalAssetSystemCommentsAvailability(){
+    public String getPurchasingCapitalAssetSystemCommentsAvailability() {
         String availability = PurapConstants.CapitalAssetAvailability.NONE;
-        PurchasingDocument pd = (PurchasingDocument)this.getDocument();
+        PurchasingDocument pd = (PurchasingDocument) this.getDocument();
 
-        if( (PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) || PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode())) ){
+        if ((PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) || PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.ONCE;
 
-        }else if(PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) ){
+        } else if (PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode())) {
 
             availability = PurapConstants.CapitalAssetAvailability.EACH;
 
@@ -334,12 +329,12 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
         return availability;
     }
 
-    public String getPurchasingCapitalAssetSystemDescriptionAvailability(){
+    public String getPurchasingCapitalAssetSystemDescriptionAvailability() {
         String availability = PurapConstants.CapitalAssetAvailability.NONE;
-        PurchasingDocument pd = (PurchasingDocument)this.getDocument();
+        PurchasingDocument pd = (PurchasingDocument) this.getDocument();
 
-        if( (PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode())) ||
-            (PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode())) ){
+        if ((PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode())) ||
+            (PurapConstants.CapitalAssetSystemTypes.MULTIPLE.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
 
             availability = PurapConstants.CapitalAssetAvailability.ONCE;
 
@@ -354,8 +349,7 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
 
         if ((PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
             availability = PurapConstants.CapitalAssetAvailability.ONCE;
-        }
-        else if ((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
+        } else if ((PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(pd.getCapitalAssetSystemTypeCode()) && PurapConstants.CapitalAssetSystemStates.NEW.equals(pd.getCapitalAssetSystemStateCode()))) {
             availability = PurapConstants.CapitalAssetAvailability.EACH;
         }
 
@@ -374,10 +368,10 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
     }
 
     /**
-    * KRAD Conversion: Performs customization of an extra buttons.
-    *
-    * No data dictionary is involved.
-    */
+     * KRAD Conversion: Performs customization of an extra buttons.
+     * <p>
+     * No data dictionary is involved.
+     */
 
     @Override
     public List<ExtraButton> getExtraButtons() {
@@ -425,7 +419,7 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
         this.calculated = calculated;
     }
 
-    public boolean canUserCalculate(){
+    public boolean canUserCalculate() {
         return documentActions != null && documentActions.containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
     }
 

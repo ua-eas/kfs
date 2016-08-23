@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.kfs.gl.web.TestDataGenerator;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.lookup.LookupableHelperService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is a template being used by the test case classes of GL lookupable implementation.
@@ -46,6 +46,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * Sets up the test by initializing several properties
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -90,7 +91,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
     /**
      * This method tests if the search results have the given entry
      *
-     * @param searchResults the search results
+     * @param searchResults  the search results
      * @param businessObject the given business object
      * @return true if the given business object is in the search results
      */
@@ -116,8 +117,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
                         isContains = false;
                         break;
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -129,7 +129,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
      * This method creates the lookup form fields with the given business object and lookup fields
      *
      * @param businessObject the given business object
-     * @param isExtended determine if the extended lookup fields are used
+     * @param isExtended     determine if the extended lookup fields are used
      * @return a lookup form fields
      * @throws Exception thrown if any exception is encountered for any reason
      */
@@ -146,8 +146,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
     protected void insertNewPendingEntry(GeneralLedgerPendingEntry pendingEntry) {
         try {
             getPendingEntryService().save(pendingEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

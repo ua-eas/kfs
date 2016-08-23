@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
+import org.kuali.kfs.krad.bo.KualiCodeBase;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.kuali.kfs.krad.bo.KualiCodeBase;
-
 /**
  * Travel Card Type
- *
  */
 @Entity
-@Table(name="TEM_TRVL_CARD_TYP_T")
+@Table(name = "TEM_TRVL_CARD_TYP_T")
 public class TravelCardType extends KualiCodeBase {
 
 }

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.report;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Iterator;
 
 /**
  * This class prints out a transaction listing report. This is different from a transaction report in that this lists all the
@@ -52,7 +52,7 @@ public class TransactionListingReport {
      * to call generateStatistics after printing the listing.
      *
      * @param reportWriterService destination report
-     * @param transaction Transaction to be printed
+     * @param transaction         Transaction to be printed
      */
     public void generateReport(ReportWriterService reportWriterService, Transaction transaction) {
         LOG.debug("generateReport() started");
@@ -95,7 +95,7 @@ public class TransactionListingReport {
      * This will generate a report on the transactions passed to it
      *
      * @param reportWriterService destination report
-     * @param transactions Transactions sorted properly
+     * @param transactions        Transactions sorted properly
      */
     public void generateReport(ReportWriterService reportWriterService, Iterator<? extends Transaction> transactions) {
         LOG.debug("generateReport() started");

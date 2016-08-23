@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Collection;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.GenerateDunningLettersLookupResult;
 import org.kuali.kfs.module.ar.document.service.DunningLetterService;
@@ -35,10 +33,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.Collection;
 
 /**
  * Action class for Dunning Letter Distribution Summary.
@@ -100,8 +99,7 @@ public class GenerateDunningLettersSummaryAction extends ContractsGrantsBillingS
             WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.ZIP_MIME_TYPE, baos, "Dunning_Letters_" + getDateTimeService().toDateStringForFilename(getDateTimeService().getCurrentDate()) + KFSConstants.ReportGeneration.ZIP_FILE_EXTENSION);
             dunningLetterDistributionSummaryForm.setDunningLettersGenerated(true);
             return null;
-        }
-        else {
+        } else {
             KNSGlobalVariables.getMessageList().add(ArKeyConstants.DunningCampaignConstantsAndErrors.MESSAGE_DUNNING_CAMPAIGN_BATCH_NOT_SENT);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
@@ -123,8 +121,9 @@ public class GenerateDunningLettersSummaryAction extends ContractsGrantsBillingS
 
     /**
      * Convenience method to turn a set of multiple value lookup results of ContractsGrantsInvoiceDocuments into DunningLetterDistributionLookupResult data transfer objects
+     *
      * @param lookupResultsSequenceNumber the id of the multiple value lookup results
-     * @param personId the user requesting results
+     * @param personId                    the user requesting results
      * @return a Collection of DunningLetterDistributionLookupResult data transfer objects
      */
     protected Collection<GenerateDunningLettersLookupResult> getDunningLetterDistributionLookupResultsFromLookupResultsSequenceNumber(String lookupResultsSequenceNumber, String personId) {

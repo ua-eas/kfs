@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.pdp.businessobject.inquiry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
 import org.kuali.kfs.pdp.businessobject.PayeeType;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Customer inquiry for "Payee ACH Account Lookup" results.
@@ -41,7 +41,7 @@ public class PayeeAchAccountInquirable extends KualiInquirableImpl {
 
     /**
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.lang.String, boolean)
+     * java.lang.String, boolean)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {

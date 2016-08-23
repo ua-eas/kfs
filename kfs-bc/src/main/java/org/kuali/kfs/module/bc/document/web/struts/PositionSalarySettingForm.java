@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PositionSalarySettingForm extends DetailSalarySettingForm {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PositionSalarySettingForm.class);
@@ -109,12 +109,12 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
      *
      * @return true or false
      */
-    public boolean isPendingPositionSalaryChange(){
+    public boolean isPendingPositionSalaryChange() {
 
         List<PendingBudgetConstructionAppointmentFunding> activeAppointmentFundings = this.getActiveFundingLines();
-        for (PendingBudgetConstructionAppointmentFunding appointmentFunding : activeAppointmentFundings){
-            if (!appointmentFunding.isDisplayOnlyMode()){
-                if (appointmentFunding.isPositionChangeIndicator()){
+        for (PendingBudgetConstructionAppointmentFunding appointmentFunding : activeAppointmentFundings) {
+            if (!appointmentFunding.isDisplayOnlyMode()) {
+                if (appointmentFunding.isPositionChangeIndicator()) {
                     return true;
                 }
             }
@@ -142,6 +142,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Gets the documentTitle
+     *
      * @return
      */
     public String getDocumentTitle() {

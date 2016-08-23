@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.businessobject.defaultValue;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Finds the next value in the sequence for W8TypeOwnership records
@@ -31,6 +31,7 @@ public class NextW8OwnershipIdFinder implements ValueFinder {
 
     /**
      * Pulls the next value from the PUR_VNDR_W8_OWNRSHP_ID_SEQ sequence
+     *
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     @Override

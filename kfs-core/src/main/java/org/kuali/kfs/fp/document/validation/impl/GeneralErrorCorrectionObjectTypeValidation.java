@@ -19,7 +19,9 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -28,8 +30,6 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Validates that an accounting line does not have a capital object object code
@@ -44,6 +44,7 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
     /**
      * determines if object code sub types are valid with the object type code.
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
 
@@ -54,16 +55,16 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
 
         if (!ObjectUtils.isNull(code)) {
             ParameterEvaluator parameterEvaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(
-                    GeneralErrorCorrectionDocument.class,
-                    VALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE,
-                    INVALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE,
-                    code.getFinancialObjectTypeCode(),
-                    code.getFinancialObjectSubTypeCode());
+                GeneralErrorCorrectionDocument.class,
+                VALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE,
+                INVALID_OBJECT_SUB_TYPES_BY_OBJECT_TYPE,
+                code.getFinancialObjectTypeCode(),
+                code.getFinancialObjectSubTypeCode());
 
             retVal = parameterEvaluator.evaluateAndAddError(
-                    SourceAccountingLine.class,
-                    "objectCode.financialObjectSubTypeCode",
-                    KFSPropertyConstants.FINANCIAL_OBJECT_CODE);
+                SourceAccountingLine.class,
+                "objectCode.financialObjectSubTypeCode",
+                KFSPropertyConstants.FINANCIAL_OBJECT_CODE);
         }
         return retVal;
     }
@@ -71,6 +72,7 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -79,6 +81,7 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -87,6 +90,7 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -95,6 +99,7 @@ public class GeneralErrorCorrectionObjectTypeValidation extends GenericValidatio
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

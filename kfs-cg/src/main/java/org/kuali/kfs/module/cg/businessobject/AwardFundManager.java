@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents an association between an award and a fund manager. It's like a reference to the fund manager from the

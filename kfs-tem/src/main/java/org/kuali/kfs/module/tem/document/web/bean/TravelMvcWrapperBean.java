@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.web.bean;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -28,9 +28,9 @@ import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
 import org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Interface intended to decouple the MVC framework from the classes used therein and Spring. This allows button actions to interact
@@ -225,24 +225,28 @@ public interface TravelMvcWrapperBean {
 
     /**
      * Gets the accountDistributionnextSourceLineNumber attribute.
+     *
      * @return Returns the accountDistributionnextSourceLineNumber.
      */
     public Integer getAccountDistributionnextSourceLineNumber();
 
     /**
      * Sets the accountDistributionnextSourceLineNumber attribute value.
+     *
      * @param accountDistributionnextSourceLineNumber The accountDistributionnextSourceLineNumber to set.
      */
     public void setAccountDistributionnextSourceLineNumber(Integer accountDistributionnextSourceLineNumber);
 
     /**
      * Gets the accountDistributionnewSourceLine attribute.
+     *
      * @return Returns the accountDistributionnewSourceLine.
      */
     public TemDistributionAccountingLine getAccountDistributionnewSourceLine();
 
     /**
      * Sets the accountDistributionnewSourceLine attribute value.
+     *
      * @param accountDistributionnewSourceLine The accountDistributionnewSourceLine to set.
      */
     public void setAccountDistributionnewSourceLine(TemDistributionAccountingLine accountDistributionnewSourceLine);

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
 
 public class CustomerCreditMemoDocumentPreRules extends PromptBeforeValidationBase {
 

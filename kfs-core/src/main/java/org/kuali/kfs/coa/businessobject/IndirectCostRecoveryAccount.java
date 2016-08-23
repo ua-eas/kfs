@@ -19,17 +19,17 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.math.BigDecimal;
-
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.springframework.beans.BeanUtils;
+
+import java.math.BigDecimal;
 
 /**
  * IndrectCostRecoveryAccount
  */
-public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static Logger LOG = Logger.getLogger(IndirectCostRecoveryAccount.class);
 
     private Integer indirectCostRecoveryAccountGeneratedIdentifier;
@@ -125,7 +125,7 @@ public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase i
      *
      * @param account The account to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryAccount(Account indirectCostRecoveryAccount) {
@@ -144,7 +144,7 @@ public class IndirectCostRecoveryAccount extends PersistableBusinessObjectBase i
      *
      * @param indirectCostRcvyChartOfAccounts The chartOfAccounts to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setIndirectCostRecoveryChartOfAccounts(Chart indirectCostRecoveryChartOfAccounts) {

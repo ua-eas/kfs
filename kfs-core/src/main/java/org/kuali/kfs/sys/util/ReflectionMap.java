@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.util;
 
+import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.kuali.kfs.krad.util.ObjectUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * A Map implementation which wraps a Java bean and can return values from that based on property Strings.  Unlike Apache Common's BeanMap, this Map can handle nested properties - though for the sake of that power,
@@ -66,12 +66,11 @@ public class ReflectionMap implements Map<String, Object> {
 
     @Override
     public Object get(Object key) {
-        final String keyAsString = (String)key;
+        final String keyAsString = (String) key;
         Object value;
         try {
             value = propertyUtilsBean.getProperty(this.bean, keyAsString);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | IndexOutOfBoundsException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | IndexOutOfBoundsException ex) {
             // yep - we know we're swallowing the exception here.  However, we know that bean can't be null, so
             // to fit within regular map semantics, we're just going to return null for the missing key
             return null;

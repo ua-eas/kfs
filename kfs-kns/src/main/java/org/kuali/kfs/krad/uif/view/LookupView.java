@@ -19,14 +19,14 @@
 package org.kuali.kfs.krad.uif.view;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.UifPropertyPaths;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.RequestParameter;
+import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.container.ContainerBase;
 import org.kuali.kfs.krad.uif.container.Group;
 import org.kuali.kfs.krad.uif.field.Field;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
-import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.web.form.LookupForm;
 
 import java.util.Arrays;
@@ -34,20 +34,18 @@ import java.util.List;
 
 /**
  * View type for Maintenance documents
- *
+ * <p>
  * <p>
  * Supports doing a search against a data object class or performing a more advanced query. The view
  * type is primarily made up of two groups, the search (or criteria) group and the results group. Many
  * options are supported on the view to enable/disable certain features, like what actions are available
  * on the search results.
  * </p>
- *
+ * <p>
  * <p>
  * Works in conjunction with <code>LookupableImpl</code> which customizes the view and carries out the
  * business functionality
  * </p>
- *
- *
  */
 public class LookupView extends FormView {
     private static final long serialVersionUID = 716926008488403616L;
@@ -97,7 +95,7 @@ public class LookupView extends FormView {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the abstractTypeClasses map for the lookup object path</li>
      * </ul>
@@ -139,7 +137,7 @@ public class LookupView extends FormView {
 
     /**
      * @see ContainerBase#performApplyModel(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performApplyModel(View view, Object model, Component parent) {
@@ -151,7 +149,7 @@ public class LookupView extends FormView {
         }
 
         if (StringUtils.isNotBlank(lookupForm.getReturnFormKey()) &&
-                StringUtils.isNotBlank(lookupForm.getReturnLocation()) && !isHideReturnLinks()) {
+            StringUtils.isNotBlank(lookupForm.getReturnLocation()) && !isHideReturnLinks()) {
             ((List<Field>) getResultsGroup().getItems()).add(0, getResultsReturnField());
         }
 
@@ -204,7 +202,7 @@ public class LookupView extends FormView {
 
     /**
      * Class name for the object the lookup applies to
-     *
+     * <p>
      * <p>
      * The object class name is used to pick up a dictionary entry which will
      * feed the attribute field definitions and other configuration. In addition
@@ -271,7 +269,7 @@ public class LookupView extends FormView {
 
     /**
      * Indicates whether multiple values select should be enabled for the lookup
-     *
+     * <p>
      * <p>
      * When set to true, the select field is enabled for the lookup results group that allows the user
      * to select one or more rows for returning
@@ -431,7 +429,7 @@ public class LookupView extends FormView {
     /**
      * String that maps to the maintenance controller for the maintenance document (if any) associated with the
      * lookup data object class
-     *
+     * <p>
      * <p>
      * Mapping will be used to build the maintenance action links (such as edit, copy, and new). If not given, the
      * default maintenance mapping will be used

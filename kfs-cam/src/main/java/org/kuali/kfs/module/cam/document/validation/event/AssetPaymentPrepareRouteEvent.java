@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.cam.document.validation.event;
 
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 
 public class AssetPaymentPrepareRouteEvent extends AttributedDocumentEventBase {
 

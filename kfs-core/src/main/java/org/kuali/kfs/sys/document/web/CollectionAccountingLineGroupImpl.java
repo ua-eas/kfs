@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.Iterator;
-import java.util.List;
+import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Extension to override rendering of errors to first verify the error key starts with the give collection name.
@@ -36,15 +35,15 @@ public class CollectionAccountingLineGroupImpl extends DefaultAccountingLineGrou
      * Renders any errors for the group
      *
      * @param pageContext the page context where the errors will be rendered on
-     * @param parentTag the parent tag requesting the rendering
+     * @param parentTag   the parent tag requesting the rendering
      */
     @Override
     protected void renderErrors(PageContext pageContext, Tag parentTag) throws JspException {
         String propName = getCollectionPropertyName();
         GroupErrorsRenderer errorRenderer = new GroupErrorsRenderer();
         List errors = errorRenderer.getErrorPropertyList(pageContext);
-        if ( errors != null && !errors.isEmpty()) {
-            for (Iterator itr = errors.iterator(); itr.hasNext();) {
+        if (errors != null && !errors.isEmpty()) {
+            for (Iterator itr = errors.iterator(); itr.hasNext(); ) {
                 String error = (String) itr.next();
                 if (error.startsWith(propName)) {
                     errorRenderer.setErrorKeyMatch(error);

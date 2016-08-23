@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
 import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocumentBase;
 import org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule;
 import org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * A rule that uses the accounting rule engine to perform rule validations.
@@ -43,6 +43,7 @@ public class LaborDocumentRuleEngineRuleBase extends AccountingRuleEngineRuleBas
 
     /**
      * convenience method to take BET or SET and go through its llpes to refresh reference objectgs...
+     *
      * @param document
      */
     protected void refreshReferenceObjectsInLaborLedgerPendingEntries(Document document) {

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Calculate event for Accounts Payable Document
@@ -41,7 +41,7 @@ public final class AttributedCalculateAccountsPayableEvent extends AttributedDoc
      * Constructs a CalculateAccountsPayableEvent with the given errorPathPrefix, document, and item.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked upon
+     * @param document        document the event was invoked upon
      */
     public AttributedCalculateAccountsPayableEvent(String errorPathPrefix, Document document) {
         super("calculating on document " + getDocumentId(document), errorPathPrefix, document);

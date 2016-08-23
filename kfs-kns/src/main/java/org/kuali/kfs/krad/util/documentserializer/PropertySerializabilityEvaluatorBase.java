@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.krad.util.documentserializer;
 
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityMetadata.PropertySerializability;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.Map;
@@ -28,21 +28,20 @@ import java.util.Map;
 /**
  * This abstract implementation provides a default implementation of {@link #determinePropertyType(Object)}, which should suffice for most
  * use cases.
- *
  */
 public abstract class PropertySerializabilityEvaluatorBase implements PropertySerializabilityEvaluator {
 
     protected PropertySerializerTrie serializableProperties;
 
     @Override
-	public void initializeEvaluatorForDocument(Document document){
+    public void initializeEvaluatorForDocument(Document document) {
 
-	}
+    }
 
     @Override
-	public void initializeEvaluatorForDataObject(Object businessObject){
+    public void initializeEvaluatorForDataObject(Object businessObject) {
 
-	}
+    }
 
     /**
      * @see PropertySerializabilityEvaluator#determinePropertyType(java.lang.Object)
@@ -82,8 +81,7 @@ public abstract class PropertySerializabilityEvaluatorBase implements PropertySe
             if (nextMetadata == null) {
                 allPropertiesMatched = false;
                 break;
-            }
-            else {
+            } else {
                 // we've found the child... continue searching deeper
                 metadata = nextMetadata;
             }
@@ -92,8 +90,7 @@ public abstract class PropertySerializabilityEvaluatorBase implements PropertySe
         if (allPropertiesMatched) {
             // complete match, so we determine if the child property is serializable
             return evaluateCompleteMatch(state, containingObject, metadata, childPropertyName, childPropertyValue);
-        }
-        else {
+        } else {
             // we have a partial match, so we have a different algorithm to determine serializibility
             // partial matches can occur for primitives that contains nested primitives.  For example, if we have a member field named
             // "amount" of type KualiDecimal, then the XML will have to look something like <amount><value>100.00</value></amount>.
@@ -129,10 +126,10 @@ public abstract class PropertySerializabilityEvaluatorBase implements PropertySe
      *
      * @param state
      * @param lastMatchedStateIndex the index of the state parameter that represents the last matched property
-     * @param containingObject the object containing the child property
-     * @param metadata metadata of the last matched property
-     * @param childPropertyName the name of the child property that we are going to determine whether it is serializable
-     * @param childPropertyValue the value of the child property that we are going to determine whether it is serializable
+     * @param containingObject      the object containing the child property
+     * @param metadata              metadata of the last matched property
+     * @param childPropertyName     the name of the child property that we are going to determine whether it is serializable
+     * @param childPropertyValue    the value of the child property that we are going to determine whether it is serializable
      * @return whether the child property is serializable
      */
     protected boolean evaluatePartialMatch(SerializationState state, int lastMatchedStateIndex, Object containingObject, PropertySerializabilityMetadata metadata, String childPropertyName, Object childPropertyValue) {

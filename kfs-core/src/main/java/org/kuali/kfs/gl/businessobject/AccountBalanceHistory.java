@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 /**
  * AccountBalance BO for Balancing process. I.e. a shadow representation.
@@ -56,29 +56,25 @@ public class AccountBalanceHistory extends AccountBalance {
 
     /**
      * Updates amount if the object already existed
+     *
      * @param originEntry representing the update details
      */
     public boolean addAmount(OriginEntryFull originEntryFull) {
         if (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getBudgetCheckingBalanceTypeCd())) {
             this.setCurrentBudgetLineBalanceAmount(this.getCurrentBudgetLineBalanceAmount().add(originEntryFull.getTransactionLedgerEntryAmount()));
-        }
-        else if (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getActualFinancialBalanceTypeCd())) {
+        } else if (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getActualFinancialBalanceTypeCd())) {
             if (originEntryFull.getObjectType().getFinObjectTypeDebitcreditCd().equals(originEntryFull.getTransactionDebitCreditCode()) || ((!originEntryFull.getBalanceType().isFinancialOffsetGenerationIndicator()) && KFSConstants.GL_BUDGET_CODE.equals(originEntryFull.getTransactionDebitCreditCode()))) {
                 this.setAccountLineActualsBalanceAmount(this.getAccountLineActualsBalanceAmount().add(originEntryFull.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 this.setAccountLineActualsBalanceAmount(this.getAccountLineActualsBalanceAmount().subtract(originEntryFull.getTransactionLedgerEntryAmount()));
             }
-        }
-        else if (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getExtrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getIntrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getPreencumbranceFinBalTypeCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getCostShareEncumbranceBalanceTypeCd())) {
+        } else if (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getExtrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getIntrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getPreencumbranceFinBalTypeCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getCostShareEncumbranceBalanceTypeCd())) {
             if (originEntryFull.getObjectType().getFinObjectTypeDebitcreditCd().equals(originEntryFull.getTransactionDebitCreditCode()) || ((!originEntryFull.getBalanceType().isFinancialOffsetGenerationIndicator()) && KFSConstants.GL_BUDGET_CODE.equals(originEntryFull.getTransactionDebitCreditCode()))) {
                 this.setAccountLineEncumbranceBalanceAmount(this.getAccountLineEncumbranceBalanceAmount().add(originEntryFull.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 this.setAccountLineEncumbranceBalanceAmount(this.getAccountLineEncumbranceBalanceAmount().subtract(originEntryFull.getTransactionLedgerEntryAmount()));
             }
-        }
-        else {
+        } else {
             return false;
         }
         return true;
@@ -86,13 +82,14 @@ public class AccountBalanceHistory extends AccountBalance {
 
     /**
      * Compare amounts
+     *
      * @param accountBalance
      */
     public boolean compareAmounts(AccountBalance accountBalance) {
         if (ObjectUtils.isNotNull(accountBalance)
-                && accountBalance.getCurrentBudgetLineBalanceAmount().equals(this.getCurrentBudgetLineBalanceAmount())
-                && accountBalance.getAccountLineActualsBalanceAmount().equals(this.getAccountLineActualsBalanceAmount())
-                && accountBalance.getAccountLineEncumbranceBalanceAmount().equals(this.getAccountLineEncumbranceBalanceAmount())) {
+            && accountBalance.getCurrentBudgetLineBalanceAmount().equals(this.getCurrentBudgetLineBalanceAmount())
+            && accountBalance.getAccountLineActualsBalanceAmount().equals(this.getAccountLineActualsBalanceAmount())
+            && accountBalance.getAccountLineEncumbranceBalanceAmount().equals(this.getAccountLineEncumbranceBalanceAmount())) {
             return true;
         }
 
@@ -101,6 +98,7 @@ public class AccountBalanceHistory extends AccountBalance {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()
      */
     @Override
@@ -110,6 +108,7 @@ public class AccountBalanceHistory extends AccountBalance {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()
      */
     @Override

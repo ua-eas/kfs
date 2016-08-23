@@ -21,9 +21,9 @@ package org.kuali.kfs.kns.util;
 
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.springframework.util.AutoPopulatingList;
 
 import java.io.Serializable;
@@ -36,12 +36,10 @@ import java.util.List;
  * Provides access to a copy of an ErrorMap and information derived from it. Necessary because ErrorMap implements the Map
  * interface, which for some reason makes JSTL unwilling to translate ErrorMap.errorCount into a call to the getErrorCount method of
  * that ErrorMap instance.
- *
+ * <p>
  * Since I had to create this class to provide easy access to the error count (which must be computed as the sum of the sizes of the
  * error message lists of all properties in the ErrorMap), I also moved in the existing code which massaged the contents of the
  * ErrorMap for the purposes of export to the JSP.
- *
- *
  */
 public class ErrorContainer implements Serializable {
     private final MessageMap errorMap;
@@ -61,9 +59,9 @@ public class ErrorContainer implements Serializable {
      * @return number of errors in the ErrorMap used to initialize this container
      */
     public int getErrorCount() {
-    	if (hasFormatterError()) {
-    		return 0;
-    	}
+        if (hasFormatterError()) {
+            return 0;
+        }
         return errorCount;
     }
 
@@ -73,7 +71,7 @@ public class ErrorContainer implements Serializable {
     public List getErrorPropertyList() {
         List properties = new ArrayList();
 
-        for (Iterator iter = errorMap.getAllPropertiesWithErrors().iterator(); iter.hasNext();) {
+        for (Iterator iter = errorMap.getAllPropertiesWithErrors().iterator(); iter.hasNext(); ) {
             properties.add(iter.next());
         }
 
@@ -82,17 +80,18 @@ public class ErrorContainer implements Serializable {
 
     /**
      * This method checks whether the errorMap contains at least a formatter error.
+     *
      * @return boolean true if the errorMap contains a formatter error and false otherwise
      */
     private boolean hasFormatterError() {
-    	if (errorMap.getErrorCount()>0) {
+        if (errorMap.getErrorCount() > 0) {
             for (String errorKey : errorMap.getAllPropertiesWithErrors()) {
-            	AutoPopulatingList errorValues = errorMap.getMessages(errorKey);
-            	for (ErrorMessage errorMessage : (List<ErrorMessage>)errorValues) {
+                AutoPopulatingList errorValues = errorMap.getMessages(errorKey);
+                for (ErrorMessage errorMessage : (List<ErrorMessage>) errorValues) {
                     if (errorMessage.getErrorKey().equals(RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_FORMATTING_ERROR)) {
                         return true;
                     }
-            	}
+                }
             }
         }
         return false;
@@ -100,15 +99,15 @@ public class ErrorContainer implements Serializable {
 
     /**
      * @return ActionMessages instance containing error messages constructed from the contents of the ErrorMap with which this
-     *         container was initialized
+     * container was initialized
      */
     public ActionMessages getRequestErrors() {
         ActionMessages requestErrors = new ActionMessages();
-        for (Iterator iter = errorMap.getAllPropertiesWithErrors().iterator(); iter.hasNext();) {
+        for (Iterator iter = errorMap.getAllPropertiesWithErrors().iterator(); iter.hasNext(); ) {
             String property = (String) iter.next();
             List errorList = (List) errorMap.getErrorMessagesForProperty(property);
 
-            for (Iterator iterator = errorList.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = errorList.iterator(); iterator.hasNext(); ) {
                 ErrorMessage errorMessage = (ErrorMessage) iterator.next();
 
                 // add ActionMessage with any parameters

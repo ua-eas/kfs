@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.cab.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Accounting line grouped data for GL Line
@@ -56,8 +56,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
                 setReferenceFinancialDocumentNumber(purapDocument.getPurchaseOrderIdentifier() != null ? purapDocument.getPurchaseOrderIdentifier().toString() : "");
                 setDocumentNumber(purapDocument.getDocumentNumber());
             }
-        }
-        else {
+        } else {
             LOG.error("Could not load PurAP document details for " + entry.toString());
         }
         setUniversityFiscalYear(entry.getPostingYear());
@@ -72,8 +71,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
         this.sourceEntries.add(entry);
         if (CreditMemoAccountRevision.class.isAssignableFrom(entry.getClass())) {
             setAmount(entry.getAmount().negated());
-        }
-        else {
+        } else {
             setAmount(entry.getAmount());
         }
     }
@@ -98,8 +96,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
         this.sourceEntries.add(newEntry);
         if (CreditMemoAccountRevision.class.isAssignableFrom(newEntry.getClass())) {
             this.amount = this.amount.add(newEntry.getAmount().negated());
-        }
-        else {
+        } else {
             this.amount = this.amount.add(newEntry.getAmount());
         }
     }

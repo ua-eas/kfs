@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGKeyConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
@@ -33,9 +31,11 @@ import org.kuali.kfs.module.cg.service.CloseService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Collection;
 
 @Transactional
 public class CloseServiceImpl implements CloseService {
@@ -79,9 +79,9 @@ public class CloseServiceImpl implements CloseService {
 
         boolean result = true;
         String noteText = null;
-        if (max.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains( CGConstants.CGKimApiConstants.UNPROCESSED_ROUTING_NODE_NAME) ) {
+        if (max.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains(CGConstants.CGKimApiConstants.UNPROCESSED_ROUTING_NODE_NAME)) {
 
-           try {
+            try {
 
                 Collection<Proposal> proposals = closeDao.getProposalsToClose(max);
                 Long proposalCloseCount = new Long(proposals.size());
@@ -103,12 +103,10 @@ public class CloseServiceImpl implements CloseService {
                 businessObjectService.save(max);
                 noteText = configService.getPropertyValueAsString(CGKeyConstants.MESSAGE_CLOSE_JOB_SUCCEEDED);
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 String messageProperty = configService.getPropertyValueAsString(CGKeyConstants.ERROR_CLOSE_JOB_FAILED);
                 noteText = MessageFormat.format(messageProperty, e.getMessage(), e.getCause().getMessage());
-            }
-            finally {
+            } finally {
                 result = this.addDocumentNoteAfterClosing(max, noteText);
             }
         }
@@ -125,12 +123,10 @@ public class CloseServiceImpl implements CloseService {
         if (StringUtils.isNotBlank(documentNumber)) {
             try {
                 return (ProposalAwardCloseDocument) documentService.getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -143,8 +139,7 @@ public class CloseServiceImpl implements CloseService {
         try {
             documentService.createNoteFromDocument(close, noteText);
             documentService.approveDocument(close, noteText, null);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("problem during CloseServiceImpl.addDocumentNoteAfterClosing()", we);
             return false;
         }
@@ -161,12 +156,10 @@ public class CloseServiceImpl implements CloseService {
 
             try {
                 return (ProposalAwardCloseDocument) documentService.getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
-        }
-        else {
+        } else {
             return null;
         }
     }

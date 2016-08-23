@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.RequisitionStatuses;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -34,10 +32,10 @@ import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItemCapitalAsset;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Struts Action Form for Requisition document.
@@ -73,18 +71,17 @@ public class RequisitionForm extends PurchasingFormBase {
     }
 
     /**
-    * KRAD Conversion: Performs customization of header fields.
-    *
-    * Use of data dictionary for bo RequisitionDocument.
-    */
+     * KRAD Conversion: Performs customization of header fields.
+     * <p>
+     * Use of data dictionary for bo RequisitionDocument.
+     */
     @Override
     public void populateHeaderFields(WorkflowDocument workflowDocument) {
         super.populateHeaderFields(workflowDocument);
 
         if (ObjectUtils.isNotNull(this.getRequisitionDocument().getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.RequisitionDocument.attributes.purapDocumentIdentifier", ((RequisitionDocument) this.getDocument()).getPurapDocumentIdentifier().toString()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.RequisitionDocument.attributes.purapDocumentIdentifier", PurapConstants.PURAP_APPLICATION_DOCUMENT_ID_NOT_AVAILABLE));
         }
 
@@ -103,7 +100,7 @@ public class RequisitionForm extends PurchasingFormBase {
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
         if (KRADConstants.DISPATCH_REQUEST_PARAMETER.equals(methodToCallParameterName) &&
-           ("displayB2BRequisition".equals(methodToCallParameterValue))) {
+            ("displayB2BRequisition".equals(methodToCallParameterValue))) {
             return true;
         }
         return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
@@ -159,19 +156,19 @@ public class RequisitionForm extends PurchasingFormBase {
     }
 
     /**
-    * @see org.kuali.kfs.module.purap.document.web.struts.PurchasingFormBase#getExtraButtons()
-    *
-    * KRAD Conversion: Performs customization of extra buttons.
-    *
-    * No data dictionary is involved.
-    */
+     * @see org.kuali.kfs.module.purap.document.web.struts.PurchasingFormBase#getExtraButtons()
+     * <p>
+     * KRAD Conversion: Performs customization of extra buttons.
+     * <p>
+     * No data dictionary is involved.
+     */
     @Override
     public List<ExtraButton> getExtraButtons() {
         super.getExtraButtons();
         for (int i = 0; i < extraButtons.size(); i++) {
             ExtraButton extraButton = extraButtons.get(i);
-            if ("methodToCall.calculate".equalsIgnoreCase(extraButton.getExtraButtonProperty()) ){
-                if(canUserCalculate() == false){
+            if ("methodToCall.calculate".equalsIgnoreCase(extraButton.getExtraButtonProperty())) {
+                if (canUserCalculate() == false) {
                     extraButtons.remove(i);
                     return extraButtons;
                 }
@@ -181,8 +178,8 @@ public class RequisitionForm extends PurchasingFormBase {
     }
 
     @Override
-    public boolean canUserCalculate(){
+    public boolean canUserCalculate() {
         return documentActions != null && documentActions.containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) &&
-        !getRequisitionDocument().isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ORG_REVIEW);
+            !getRequisitionDocument().isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ORG_REVIEW);
     }
 }

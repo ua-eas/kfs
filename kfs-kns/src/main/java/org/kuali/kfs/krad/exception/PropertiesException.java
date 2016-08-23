@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.exception;
 
 /**
  * This class represents an exception that is thrown when an error occurs loading values from a Properties file.
- *
- *
  */
 public class PropertiesException extends RuntimeException {
 

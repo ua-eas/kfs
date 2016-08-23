@@ -16,20 +16,20 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <html:html>
-<head>
-<title>KFS</title>
-<script language="Javascript">
-<!--
-function reload() {
-  top.location = "<%=request.getContextPath()%>" + "<%=request.getAttribute("forward")%>";
-}
-//-->
-</script>
-</head>
-<body onload="reload()">
-<center>Please wait...</center>
-</body>
+    <head>
+        <title>KFS</title>
+        <script language="Javascript">
+            <!--
+            function reload() {
+                top.location = "<%=request.getContextPath()%>" + "<%=request.getAttribute("forward")%>";
+            }
+            //-->
+        </script>
+    </head>
+    <body onload="reload()">
+    <center>Please wait...</center>
+    </body>
 </html:html>

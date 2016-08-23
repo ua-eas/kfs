@@ -28,7 +28,7 @@ public class ObjectOrganizationAccountingDefaultValueFinder extends Organization
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {
-        return (organizationAccountingDefault != null)? organizationAccountingDefault.getDefaultInvoiceFinancialObjectCode() : "";
+        return (organizationAccountingDefault != null) ? organizationAccountingDefault.getDefaultInvoiceFinancialObjectCode() : "";
     }
 
 }

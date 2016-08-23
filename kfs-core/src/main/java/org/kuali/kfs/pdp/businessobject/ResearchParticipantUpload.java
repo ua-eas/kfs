@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /*
  * This is a simple java bean class created for
@@ -41,27 +41,35 @@ public class ResearchParticipantUpload {
     public ResearchParticipantUpload() {
         this.paymentDetails = new ArrayList<ResearchParticipantPaymentDetail>();
     }
+
     public PaymentHeader getPaymentHeader() {
         return paymentHeader;
     }
+
     public void setPaymentHeader(PaymentHeader paymentHeader) {
         this.paymentHeader = paymentHeader;
     }
+
     public PaymentAccountDetail getPaymentAccountDetail() {
         return paymentAccountDetail;
     }
+
     public void setPaymentAccountDetail(PaymentAccountDetail paymentAccountDetail) {
         this.paymentAccountDetail = paymentAccountDetail;
     }
+
     public String getGenericDescription() {
         return genericDescription;
     }
+
     public void setGenericDescription(String genericDescription) {
         this.genericDescription = genericDescription;
     }
+
     public List<ResearchParticipantPaymentDetail> getPaymentDetails() {
         return paymentDetails;
     }
+
     public void setPaymentDetails(List<ResearchParticipantPaymentDetail> paymentDetails) {
         this.paymentDetails = paymentDetails;
     }

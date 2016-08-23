@@ -20,7 +20,7 @@ package org.kuali.kfs.module.bc.batch.service;
 
 public interface GLBudgetLoadService {
 
-//
+    //
 //  loads pending budget construction GL (replacing any corresponding GL rows which already exist)
 //  overloaded methods are provided so that one can load only pending GL rows for a specific fiscal year key
 //  (if there happens to be more than one fiscal year key in the pending budget construction GL table) or
@@ -29,7 +29,8 @@ public interface GLBudgetLoadService {
 //
 //  load pending budget construction GL for a specific fiscal year
     public void loadPendingBudgetConstructionGeneralLedger(Integer FiscalYear);
-//
+
+    //
 //  load for the fiscal year following the fiscal year of the current date
     public void loadPendingBudgetConstructionGeneralLedger();
 

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.sys.businessobject.SystemOptions;
+
+import java.util.Comparator;
 
 public class FiscalYearComparator implements Comparator {
 

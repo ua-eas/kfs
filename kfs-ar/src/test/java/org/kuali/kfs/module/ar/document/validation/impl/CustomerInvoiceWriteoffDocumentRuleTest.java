@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
@@ -33,18 +32,19 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
 
- public static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceWriteoffDocumentRuleTest.class);
+    public static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceWriteoffDocumentRuleTest.class);
 
     private CustomerInvoiceWriteoffDocumentRule rule;
     private CustomerInvoiceWriteoffDocument document;
     private final static String VALID_CHART_OF_ACCOUNTS_CODE_FOR_PARM = "BL";
     private final static String INVALID_CHART_OF_ACCOUNTS_CODE_FOR_PARM = "XX";
-    private final static String CHART_WRITEOFF_PARM_VALUE="BL=5105";
+    private final static String CHART_WRITEOFF_PARM_VALUE = "BL=5105";
     private final static String ORG_ACCT_DEFAULT_CHART = "UA";
     private final static String ORG_ACCT_DEFAULT_ORG = "VPIT";
     private final static String ORG_ACCT_DEFAULT_WRITEOFF_ACCT = "1031400";
@@ -52,7 +52,7 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
     private final static String ORG_ACCT_DEFAULT_WRITEOFF_OBJECT_CODE = "1500";
 
     @Override
-    protected  void setUp() throws Exception {
+    protected void setUp() throws Exception {
         super.setUp();
         rule = new CustomerInvoiceWriteoffDocumentRule();
         document = new CustomerInvoiceWriteoffDocument();
@@ -68,7 +68,7 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
     /**
      * This method...
      */
-    public void testDoesChartCodeHaveCorrespondingWriteoffObjectCode_Valid(){
+    public void testDoesChartCodeHaveCorrespondingWriteoffObjectCode_Valid() {
         TestUtils.setSystemParameter(CustomerInvoiceWriteoffDocument.class, ArConstants.GLPE_WRITEOFF_OBJECT_CODE_BY_CHART, CHART_WRITEOFF_PARM_VALUE);
         CustomerInvoiceDetail customerInvoiceDetail = new CustomerInvoiceDetail();
         customerInvoiceDetail.setChartOfAccountsCode(VALID_CHART_OF_ACCOUNTS_CODE_FOR_PARM);
@@ -79,7 +79,7 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
     /**
      * This method...
      */
-    public void testDoesChartCodeHaveCorrespondingWriteoffObjectCode_Invalid(){
+    public void testDoesChartCodeHaveCorrespondingWriteoffObjectCode_Invalid() {
         TestUtils.setSystemParameter(CustomerInvoiceWriteoffDocument.class, ArConstants.GLPE_WRITEOFF_OBJECT_CODE_BY_CHART, CHART_WRITEOFF_PARM_VALUE);
         CustomerInvoiceDetail customerInvoiceDetail = new CustomerInvoiceDetail();
         customerInvoiceDetail.setChartOfAccountsCode(INVALID_CHART_OF_ACCOUNTS_CODE_FOR_PARM);
@@ -101,9 +101,9 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
         SpringContext.getBean(BusinessObjectService.class).save(organizationAccountingDefault);
 
         String customerInvoiceDocumentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO,
-                new CustomerInvoiceDetailFixture[]
+            new CustomerInvoiceDetailFixture[]
                 {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
-                null);
+            null);
 
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = new CustomerInvoiceWriteoffDocument();
         customerInvoiceWriteoffDocument.setFinancialDocumentReferenceInvoiceNumber(customerInvoiceDocumentNumber);
@@ -117,9 +117,9 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
     public void testDoesOrganizationAccountingDefaultHaveWriteoffInformation_Invalid() throws WorkflowException {
 
         String customerInvoiceDocumentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO,
-                new CustomerInvoiceDetailFixture[]
+            new CustomerInvoiceDetailFixture[]
                 {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
-                null);
+            null);
 
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = new CustomerInvoiceWriteoffDocument();
         customerInvoiceWriteoffDocument.setFinancialDocumentReferenceInvoiceNumber(customerInvoiceDocumentNumber);
@@ -143,9 +143,9 @@ public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {
     public void testDoesCustomerInvoiceDocumentHaveValidBalance_Valid() throws WorkflowException {
 
         String customerInvoiceDocumentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO,
-                new CustomerInvoiceDetailFixture[]
+            new CustomerInvoiceDetailFixture[]
                 {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
-                null);
+            null);
 
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = new CustomerInvoiceWriteoffDocument();
         customerInvoiceWriteoffDocument.setFinancialDocumentReferenceInvoiceNumber(customerInvoiceDocumentNumber);

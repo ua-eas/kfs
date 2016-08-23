@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class BudgetConstructionDuration extends PersistableBusinessObjectBase implements MutableInactivatable {

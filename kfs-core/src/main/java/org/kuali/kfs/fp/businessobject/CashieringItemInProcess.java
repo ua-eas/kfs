@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
  * This class represents in a cashiering item in process. This cashiering item in process
- *  has an item amount, reduced amount, and remaining amount.  It also has a closed and open date.
+ * has an item amount, reduced amount, and remaining amount.  It also has a closed and open date.
  */
 public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 

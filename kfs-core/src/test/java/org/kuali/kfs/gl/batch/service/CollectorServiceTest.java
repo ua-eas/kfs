@@ -19,17 +19,17 @@
 package org.kuali.kfs.gl.batch.service;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.CollectorStep;
 import org.kuali.kfs.gl.batch.MockCollectorBatch;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 // import org.kuali.kfs.suite.RelatesTo;
 
@@ -43,6 +43,7 @@ public class CollectorServiceTest extends KualiTestBase {
 
     /**
      * Initializes services needed by this test
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -61,7 +62,7 @@ public class CollectorServiceTest extends KualiTestBase {
         String subject = parameterService.getParameterValueAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_VALIDATOR_EMAIL_SUBJECT_PARAMETER_NAME);
         assertTrue("system parameter " + SystemGroupParameterNames.COLLECTOR_VALIDATOR_EMAIL_SUBJECT_PARAMETER_NAME + " is not setup or is empty", StringUtils.isNotBlank(subject));
 
-        String[] documentTypes = parameterService.getParameterValuesAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES).toArray(new String[] {});
+        String[] documentTypes = parameterService.getParameterValuesAsString(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES).toArray(new String[]{});
         assertTrue("system parameter " + SystemGroupParameterNames.COLLECTOR_EQUAL_DC_TOTAL_DOCUMENT_TYPES + " is not setup or is empty", documentTypes.length > 0);
     }
 
@@ -102,6 +103,7 @@ public class CollectorServiceTest extends KualiTestBase {
         mockCollectorBatch.setMailingAddress("Somewhere");
         mockCollectorBatch.setDepartmentName("Some Dept");
     }
+
     /**
      * Verifies an error is added when a collector detail key does not have a matching gl entry. Note: Actual test values do have to
      * be valid, only need to be different from the gl record to the detail

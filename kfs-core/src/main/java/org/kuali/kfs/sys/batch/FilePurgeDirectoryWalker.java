@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.io.DirectoryWalker;
+import org.apache.commons.io.filefilter.IOFileFilter;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.apache.commons.io.DirectoryWalker;
-import org.apache.commons.io.filefilter.IOFileFilter;
 
 /**
  * A directory walker which finds files to purge; it's relatively simple, simply adding a file to
@@ -49,9 +49,8 @@ public class FilePurgeDirectoryWalker extends DirectoryWalker {
 
         try {
             walk(new File(directory), results);
-        }
-        catch (IOException ioe) {
-            throw new RuntimeException("Could not walk directory "+directory, ioe);
+        } catch (IOException ioe) {
+            throw new RuntimeException("Could not walk directory " + directory, ioe);
         }
 
         return results;
@@ -68,13 +67,14 @@ public class FilePurgeDirectoryWalker extends DirectoryWalker {
 
     /**
      * Finds the last subdirectory name of the given directory name and returns it
+     *
      * @param directoryName a directory name with a sub directory
      * @return the last subdirectory name
      */
     protected String getLastSubDirectoryName(String directoryName) {
         final int lastIndex = directoryName.lastIndexOf(File.separator);
         if (lastIndex > -1) {
-            return directoryName.substring(lastIndex+1);
+            return directoryName.substring(lastIndex + 1);
         }
         return directoryName; // no directory separator...so just return the whole thing
     }
@@ -84,7 +84,7 @@ public class FilePurgeDirectoryWalker extends DirectoryWalker {
      */
     @Override
     protected void handleDirectoryEnd(File directory, int depth, Collection results) throws IOException {
-        LOG.debug("Leaving directory "+directory.getName());
+        LOG.debug("Leaving directory " + directory.getName());
         super.handleDirectoryEnd(directory, depth, results);
     }
 
@@ -93,7 +93,7 @@ public class FilePurgeDirectoryWalker extends DirectoryWalker {
      */
     @Override
     protected void handleDirectoryStart(File directory, int depth, Collection results) throws IOException {
-        LOG.debug("Entering directory "+directory.getName());
+        LOG.debug("Entering directory " + directory.getName());
         super.handleDirectoryStart(directory, depth, results);
     }
 

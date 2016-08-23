@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgPositionFundingDetailReport;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings;
+
+import java.util.Collection;
 
 
 /**
@@ -32,9 +32,7 @@ public interface BudgetConstructionPositionFundingDetailReportService {
     public void updatePositionFundingDetailReport(String principalName, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings);
 
 
-
     public Collection<BudgetConstructionOrgPositionFundingDetailReport> buildReports(Integer universityFiscalYear, String principalName);
-
 
 
 }

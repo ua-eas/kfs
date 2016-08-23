@@ -47,6 +47,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Gets the totalProperty attribute.
+     *
      * @return Returns the totalProperty.
      */
     public String getTotalProperty() {
@@ -55,6 +56,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the totalProperty attribute value.
+     *
      * @param totalProperty The totalProperty to set.
      */
     public void setTotalProperty(String totalProperty) {
@@ -63,6 +65,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Gets the totalLabelProperty attribute.
+     *
      * @return Returns the totalLabelProperty.
      */
     public String getTotalLabelProperty() {
@@ -71,6 +74,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the totalLabelProperty attribute value.
+     *
      * @param totalLabelProperty The totalLabelProperty to set.
      */
     public void setTotalLabelProperty(String totalLabelProperty) {
@@ -79,6 +83,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Clears out the totalProperty
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -92,6 +97,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
 
     /**
      * Uses a Struts write tag to dump out the total
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -127,15 +133,14 @@ public class GroupTotalRenderer extends TotalRendererBase {
             if (emptyCellSpanAfter > this.getCellCount()) {
                 emptyCellSpanAfter = this.getCellCount() - 3;
             }
-            if(emptyCellSpanAfter > 0) {
+            if (emptyCellSpanAfter > 0) {
                 out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanAfter));
                 out.write("\">&nbsp;</td>");
             }
 
             out.write("</tr>");
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering group total", ioe);
         }
     }

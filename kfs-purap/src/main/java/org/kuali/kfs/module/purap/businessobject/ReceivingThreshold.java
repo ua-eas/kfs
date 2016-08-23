@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.AccountType;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-public class ReceivingThreshold extends PersistableBusinessObjectBase implements MutableInactivatable{
+import java.util.LinkedHashMap;
+
+public class ReceivingThreshold extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Integer thresholdIdentifier;
     private String chartOfAccountsCode;
@@ -55,7 +55,7 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
     private VendorDetail vendorDetail;
     private CommodityCode commodityCode;
 
-    public ReceivingThreshold(){
+    public ReceivingThreshold() {
     }
 
 
@@ -63,15 +63,15 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
 
         LinkedHashMap returnMap = new LinkedHashMap();
 
-        returnMap.put("thresholdIdentifier",thresholdIdentifier);
-        returnMap.put("chartOfAccountsCode",chartOfAccountsCode);
-        returnMap.put("accountTypeCode",accountTypeCode);
-        returnMap.put("subFundGroupCode",subFundGroupCode);
-        returnMap.put("financialObjectCode",financialObjectCode);
-        returnMap.put("organizationCode",organizationCode);
-        returnMap.put("vendorHeaderGeneratedIdentifier",vendorHeaderGeneratedIdentifier);
-        returnMap.put("thresholdAmount",thresholdAmount);
-        returnMap.put("active",active);
+        returnMap.put("thresholdIdentifier", thresholdIdentifier);
+        returnMap.put("chartOfAccountsCode", chartOfAccountsCode);
+        returnMap.put("accountTypeCode", accountTypeCode);
+        returnMap.put("subFundGroupCode", subFundGroupCode);
+        returnMap.put("financialObjectCode", financialObjectCode);
+        returnMap.put("organizationCode", organizationCode);
+        returnMap.put("vendorHeaderGeneratedIdentifier", vendorHeaderGeneratedIdentifier);
+        returnMap.put("thresholdAmount", thresholdAmount);
+        returnMap.put("active", active);
 
         return returnMap;
     }

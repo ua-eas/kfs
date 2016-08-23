@@ -18,21 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import static org.kuali.kfs.module.tem.TemConstants.DISBURSEMENT_VOUCHER_DOCTYPE;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.persistence.Column;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -55,8 +45,17 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.persistence.Column;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.module.tem.TemConstants.DISBURSEMENT_VOUCHER_DOCTYPE;
 
 public abstract class TEMReimbursementDocument extends TravelDocumentBase implements PaymentSource {
     private String paymentMethod = KFSConstants.PaymentSourceConstants.PAYMENT_METHOD_CHECK;
@@ -91,6 +90,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Sets the travel payment to be associated with this document
+     *
      * @param travelPayment a travel payment for this document
      */
     public void setTravelPayment(TravelPayment travelPayment) {
@@ -107,6 +107,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Sets the wire transfer associated with this document
+     *
      * @param wireTransfer the wire transfer for this document
      */
     public void setWireTransfer(PaymentSourceWireTransfer wireTransfer) {
@@ -155,9 +156,9 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
      */
     public void updatePayeeTypeForReimbursable() {
         if (!ObjectUtils.isNull(getTraveler()) && !ObjectUtils.isNull(getTravelPayment()) && !StringUtils.isBlank(getTraveler().getTravelerTypeCode())) {
-            if (getTravelerService().isEmployee(getTraveler())){
+            if (getTravelerService().isEmployee(getTraveler())) {
                 getTravelPayment().setPayeeTypeCode(KFSConstants.PaymentPayeeTypes.EMPLOYEE);
-            }else{
+            } else {
                 getTravelPayment().setPayeeTypeCode(KFSConstants.PaymentPayeeTypes.CUSTOMER);
             }
         }
@@ -274,7 +275,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
      *
      * @return
      */
-    public KualiDecimal getEligibleAmount(){
+    public KualiDecimal getEligibleAmount() {
         return getApprovedAmount().subtract(getCTSTotal()).subtract(getCorporateCardTotal());
     }
 
@@ -315,7 +316,6 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
     }
 
     /**
-     *
      * @return
      */
     public KualiDecimal getReimbursableGrandTotal() {
@@ -343,7 +343,6 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
     }
 
     /**
-     *
      * @return
      */
     public boolean requiresTravelerApprovalRouting() {
@@ -427,6 +426,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Returns the campus code of the initiator
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getCampusCode()
      */
     @Override
@@ -436,6 +436,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Caches and returns the Person record of the initiator of this document
+     *
      * @return a Person record for the initiator of this document
      */
     protected Person getInitiator() {
@@ -447,6 +448,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Overridden to set document number on travel payment and wire transfer
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#prepareForSave()
      */
     @Override
@@ -463,6 +465,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Overridden to extract immediate payment if necerssary
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocumentBase#doRouteStatusChange(org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange)
      */
     @Override
@@ -477,6 +480,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Every reimbursable document debits on entry
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#isDebit(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail)
      */
     @Override
@@ -486,6 +490,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Determines if any imported expenses on the document have a card type of CORP
+     *
      * @return true if there are CORP imported expenses on the document, false otherwise
      */
     public boolean isCorporateCardPayable() {
@@ -501,6 +506,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Based on which pdp dates are present (extract, paid, canceled), determines a String for the status
+     *
      * @return a String representation of the status
      */
     public String getCorporateCardPaymentPdpStatus() {
@@ -518,6 +524,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Reimbursable documents route by profile account if they have no actual expenses, per diem expenses, or reimbursable imported expenses
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocumentBase#shouldRouteByProfileAccount()
      */
     @Override
@@ -553,6 +560,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Return the expense date if it exists
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocument#getEffectiveDateForMileageRate(org.kuali.kfs.module.tem.businessobject.ActualExpense)
      */
     @Override
@@ -565,6 +573,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Returns the "mileage date" on the expense if it exists
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocument#getEffectiveDateForMileageRate(org.kuali.kfs.module.tem.businessobject.PerDiemExpense)
      */
     @Override
@@ -577,6 +586,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Returns the mileage expense date if it exists
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocument#getEffectiveDateForPerDiem(org.kuali.kfs.module.tem.businessobject.PerDiemExpense)
      */
     @Override
@@ -589,6 +599,7 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
 
     /**
      * Just returns the date back
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocument#getEffectiveDateForPerDiem(java.sql.Date)
      */
     @Override
@@ -606,10 +617,10 @@ public abstract class TEMReimbursementDocument extends TravelDocumentBase implem
      * @return the default implementation of the PaymentSourceHelperService
      */
     public static PaymentSourceHelperService getPaymentSourceHelperService() {
-       if (paymentSourceHelperService == null) {
-           paymentSourceHelperService = SpringContext.getBean(PaymentSourceHelperService.class);
-       }
-       return paymentSourceHelperService;
+        if (paymentSourceHelperService == null) {
+            paymentSourceHelperService = SpringContext.getBean(PaymentSourceHelperService.class);
+        }
+        return paymentSourceHelperService;
     }
 
     /**

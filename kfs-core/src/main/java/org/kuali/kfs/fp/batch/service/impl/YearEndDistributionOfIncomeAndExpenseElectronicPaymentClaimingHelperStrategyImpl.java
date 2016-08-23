@@ -27,8 +27,8 @@ public class YearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingHelpe
     private static final String URL_DOC_TYPE = "YearEndDistributionOfIncomeAndExpense";
 
     /**
-     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
      * @return the name YearEndDistributionOfIncomeAndExpenseDocument workflow document type
+     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
      */
     public String getClaimingDocumentWorkflowDocumentType() {
         return "YEDI";

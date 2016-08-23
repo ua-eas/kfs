@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
@@ -37,10 +34,13 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemoDocumentService {
@@ -61,14 +61,13 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
         String invoiceNumber = creditMemo.getFinancialDocumentReferenceInvoiceNumber();
         CustomerInvoiceDocument invoice;
         try {
-             invoice = (CustomerInvoiceDocument) documentService.getByDocumentHeaderId(invoiceNumber);
-        }
-        catch (WorkflowException e) {
+            invoice = (CustomerInvoiceDocument) documentService.getByDocumentHeaderId(invoiceNumber);
+        } catch (WorkflowException e) {
             throw new RuntimeException("A WorkflowException was generated when trying to load Customer Invoice #" + invoiceNumber + ".", e);
         }
         if (!invoice.isOpenInvoiceIndicator()) {
             throw new UnsupportedOperationException("The CreditMemo Document #" + creditMemo.getDocumentNumber() + " attempted to credit " +
-                    "an Invoice [#" + invoiceNumber + "] that was already closed.  This is not supported.");
+                "an Invoice [#" + invoiceNumber + "] that was already closed.  This is not supported.");
         }
 
         // this needs a little explanation.  we have to calculate manually
@@ -93,13 +92,13 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
             //  if credit amount is greater than the open amount, crash and complain
             if (detail.getCreditMemoLineTotalAmount().abs().isGreaterThan(invoiceDetail.getAmountOpen())) {
                 throw new UnsupportedOperationException("The credit detail for CreditMemo Document #" + creditMemo.getDocumentNumber() + " attempted " +
-                        "to credit more than the Open Amount on the Invoice Detail.  This is not supported.");
+                    "to credit more than the Open Amount on the Invoice Detail.  This is not supported.");
             }
 
             //  retrieve the number of current paid applieds, so we dont have item number overlap
             if (paidAppliedItemNumber == 0) {
                 paidAppliedItemNumber = paidAppliedService.getNumberOfInvoicePaidAppliedsForInvoiceDetail(invoiceNumber,
-                        invoiceDetail.getInvoiceItemNumber());
+                    invoiceDetail.getInvoiceItemNumber());
             }
 
 
@@ -114,15 +113,15 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
             invoicePaidApplied.setInvoiceItemAppliedAmount(detail.getCreditMemoLineTotalAmount().abs());
             openAmount = openAmount.subtract(detail.getCreditMemoLineTotalAmount().abs());
             businessObjectService.save(invoicePaidApplied);
-       }
+        }
 
-       //   if its open, but now with a zero openamount, then close it
-       if (invoice.isOpenInvoiceIndicator() && KualiDecimal.ZERO.equals(openAmount)) {
-           customerInvoiceDocumentService.addCloseNote(invoice, creditMemo.getDocumentHeader().getWorkflowDocument());
-           invoice.setOpenInvoiceIndicator(false);
-           invoice.setClosedDate(dateTimeService.getCurrentSqlDate());
-           documentService.updateDocument(invoice);
-       }
+        //   if its open, but now with a zero openamount, then close it
+        if (invoice.isOpenInvoiceIndicator() && KualiDecimal.ZERO.equals(openAmount)) {
+            customerInvoiceDocumentService.addCloseNote(invoice, creditMemo.getDocumentHeader().getWorkflowDocument());
+            invoice.setOpenInvoiceIndicator(false);
+            invoice.setClosedDate(dateTimeService.getCurrentSqlDate());
+            documentService.updateDocument(invoice);
+        }
     }
 
     @Override
@@ -137,7 +136,7 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
             customerCreditMemoDocument.resetTotals();
         }
 
-        for (CustomerCreditMemoDetail customerCreditMemoDetail:customerCreditMemoDetails) {
+        for (CustomerCreditMemoDetail customerCreditMemoDetail : customerCreditMemoDetails) {
             // no data entered for the current credit memo detail -> no processing needed
             itemQuantity = customerCreditMemoDetail.getCreditMemoItemQuantity();
             customerCreditMemoDetailItemAmount = customerCreditMemoDetail.getCreditMemoItemTotalAmount();
@@ -162,7 +161,7 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
             if (!blanketApproveDocumentEventFlag) {
                 customerCreditMemoDetail.setDuplicateCreditMemoItemTotalAmount(customerCreditMemoDetailItemAmount);
                 boolean isCustomerInvoiceDetailTaxable = accountsReceivableTaxService.isCustomerInvoiceDetailTaxable(customerCreditMemoDocument.getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail());
-                customerCreditMemoDocument.recalculateTotals(customerCreditMemoDetailItemAmount,isCustomerInvoiceDetailTaxable);
+                customerCreditMemoDocument.recalculateTotals(customerCreditMemoDetailItemAmount, isCustomerInvoiceDetailTaxable);
             }
         }
 
@@ -188,7 +187,7 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
         BigDecimal itemQuantity;
         List<CustomerCreditMemoDetail> customerCreditMemoDetails = customerCreditMemoDocument.getCreditMemoDetails();
 
-        for (CustomerCreditMemoDetail customerCreditMemoDetail:customerCreditMemoDetails) {
+        for (CustomerCreditMemoDetail customerCreditMemoDetail : customerCreditMemoDetails) {
             // no data entered for the current credit memo detail -> no processing needed
             itemQuantity = customerCreditMemoDetail.getCreditMemoItemQuantity();
             customerCreditMemoDetailItemAmount = customerCreditMemoDetail.getCreditMemoItemTotalAmount();
@@ -227,6 +226,7 @@ public class CustomerCreditMemoDocumentServiceImpl implements CustomerCreditMemo
     public void setAccountsReceivableTaxService(AccountsReceivableTaxService accountsReceivableTaxService) {
         this.accountsReceivableTaxService = accountsReceivableTaxService;
     }
+
     public void setCustomerInvoiceDocumentService(CustomerInvoiceDocumentService customerInvoiceDocumentService) {
         this.customerInvoiceDocumentService = customerInvoiceDocumentService;
     }

@@ -23,4 +23,5 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 /**
  * This class handles Actions for <ocde>IndirectCostAdjustmentDocument</code>s
  */
-public class IndirectCostAdjustmentAction extends KualiAccountingDocumentActionBase {}
+public class IndirectCostAdjustmentAction extends KualiAccountingDocumentActionBase {
+}

@@ -26,8 +26,8 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
  */
 public class AssetPaymentAllocationEvent extends AttributedDocumentEventBase {
 
-	public AssetPaymentAllocationEvent(String errorPathPrefix, AssetPaymentDocument document) {
-		super(AssetPaymentAllocationEvent.class.getSimpleName(), errorPathPrefix, document);
-	}
+    public AssetPaymentAllocationEvent(String errorPathPrefix, AssetPaymentDocument document) {
+        super(AssetPaymentAllocationEvent.class.getSimpleName(), errorPathPrefix, document);
+    }
 
 }

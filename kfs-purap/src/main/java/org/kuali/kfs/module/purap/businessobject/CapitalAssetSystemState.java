@@ -18,37 +18,36 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
- *
  * This class is the Capital Asset System State
  */
-public class CapitalAssetSystemState extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class CapitalAssetSystemState extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String capitalAssetSystemStateCode;
-	private String capitalAssetSystemStateDescription;
-	private boolean active;
+    private String capitalAssetSystemStateCode;
+    private String capitalAssetSystemStateDescription;
+    private boolean active;
 
-	/**
-	 * Default constructor.
-	 */
-	public CapitalAssetSystemState() {
+    /**
+     * Default constructor.
+     */
+    public CapitalAssetSystemState() {
 
-	}
+    }
 
-	public String getCapitalAssetSystemStateCode() {
-		return capitalAssetSystemStateCode;
-	}
+    public String getCapitalAssetSystemStateCode() {
+        return capitalAssetSystemStateCode;
+    }
 
-	public void setCapitalAssetSystemStateCode(String capitalAssetSystemStateCode) {
-		this.capitalAssetSystemStateCode = capitalAssetSystemStateCode;
-	}
+    public void setCapitalAssetSystemStateCode(String capitalAssetSystemStateCode) {
+        this.capitalAssetSystemStateCode = capitalAssetSystemStateCode;
+    }
 
-	public String getCapitalAssetSystemStateDescription() {
+    public String getCapitalAssetSystemStateDescription() {
         return capitalAssetSystemStateDescription;
     }
 
@@ -57,20 +56,20 @@ public class CapitalAssetSystemState extends PersistableBusinessObjectBase imple
     }
 
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("capitalAssetSystemStateCode", this.capitalAssetSystemStateCode);
-	    return m;
+        return m;
     }
 }

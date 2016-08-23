@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TravelAuthorizationFields;
@@ -26,7 +27,6 @@ import org.kuali.kfs.module.tem.businessobject.TripType;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class TravelAuthAccountingLineEncumbranceObjectCodeValidation extends GenericValidation {
 
@@ -39,12 +39,12 @@ public class TravelAuthAccountingLineEncumbranceObjectCodeValidation extends Gen
         if (authorizationDocument.isTripGenerateEncumbrance()) {
 
             //check in each of the encumbrance source accounting line if the object code matches the one defined in the trip
-            for (TemSourceAccountingLine line : authorizationDocument.getEncumbranceSourceAccountingLines()){
+            for (TemSourceAccountingLine line : authorizationDocument.getEncumbranceSourceAccountingLines()) {
                 if (!line.getFinancialObjectCode().equals(trip.getEncumbranceObjCode()) && rulePassed) {
 
-                    int index = line.getSequenceNumber().intValue()-1;
+                    int index = line.getSequenceNumber().intValue() - 1;
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.SOURCE_ACCOUNTING_LINE + "[" + index + "]." + TravelAuthorizationFields.FIN_OBJ_CD, TemKeyConstants.ERROR_TA_ENCUMBRANCE_OBJ_CD_INVALID,
-                            trip.getEncumbranceObjCode(), trip.getName());
+                        trip.getEncumbranceObjCode(), trip.getName());
                     rulePassed = false;
                 }
             }

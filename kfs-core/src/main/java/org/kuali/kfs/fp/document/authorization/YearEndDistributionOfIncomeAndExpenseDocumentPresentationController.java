@@ -28,8 +28,8 @@ import org.springframework.util.ObjectUtils;
 public class YearEndDistributionOfIncomeAndExpenseDocumentPresentationController extends DistributionOfIncomeAndExpenseDocumentPresentationController {
 
     /**
-      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
-      */
+     * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
+     */
     @Override
     public boolean canErrorCorrect(FinancialSystemTransactionalDocument document) {
 
@@ -46,7 +46,7 @@ public class YearEndDistributionOfIncomeAndExpenseDocumentPresentationController
         if (result) {
             YearEndPendingEntryService yearEndPendingEntryService = SpringContext.getBean(YearEndPendingEntryService.class);
             Integer previousFiscalYear = yearEndPendingEntryService.getPreviousFiscalYear();
-            if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument)document).getPostingYear())) {
+            if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument) document).getPostingYear())) {
                 return false;
             }
             boolean isNotElectronicFundsAccount = isNotElectronicFundsAccount(document);

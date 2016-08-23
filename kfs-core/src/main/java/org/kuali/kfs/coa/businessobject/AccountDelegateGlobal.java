@@ -18,6 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,16 +36,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObject;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
 
 /**
  * This class simply acts as a container to hold the List of Delegate Changes and the list of Account entries, for the Global
@@ -74,11 +74,9 @@ public class AccountDelegateGlobal extends PersistableBusinessObjectBase impleme
         // validate the argument
         if (accountGlobalDetail == null) {
             throw new IllegalArgumentException("The accountGlobalDetail instanced passed in was null.");
-        }
-        else if (StringUtils.isBlank(accountGlobalDetail.getChartOfAccountsCode())) {
+        } else if (StringUtils.isBlank(accountGlobalDetail.getChartOfAccountsCode())) {
             throw new IllegalArgumentException("The chartOfAccountsCode member of the accountGlobalDetail object was not populated.");
-        }
-        else if (StringUtils.isBlank(accountGlobalDetail.getAccountNumber())) {
+        } else if (StringUtils.isBlank(accountGlobalDetail.getAccountNumber())) {
             throw new IllegalArgumentException("The accountNumber member of the accountGlobalDetail object was not populated.");
         }
 
@@ -102,13 +100,12 @@ public class AccountDelegateGlobal extends PersistableBusinessObjectBase impleme
         // validate the argument
         if (StringUtils.isBlank(chartCode)) {
             throw new IllegalArgumentException("The chartCode argument was null or empty.");
-        }
-        else if (StringUtils.isBlank(accountNumber)) {
+        } else if (StringUtils.isBlank(accountNumber)) {
             throw new IllegalArgumentException("The accountNumber argument was null or empty.");
         }
 
         // walk the list of AccountGlobalDetail objects
-        for (Iterator iter = this.accountGlobalDetails.iterator(); iter.hasNext();) {
+        for (Iterator iter = this.accountGlobalDetails.iterator(); iter.hasNext(); ) {
             AccountGlobalDetail accountGlobalDetail = (AccountGlobalDetail) iter.next();
 
             // if this one is a match, then quit
@@ -189,8 +186,7 @@ public class AccountDelegateGlobal extends PersistableBusinessObjectBase impleme
                     delegate.setAccountDelegateSystemId(changeDocument.getAccountDelegateUniversalId());
                     delegate.setFinancialDocumentTypeCode(changeDocument.getFinancialDocumentTypeCode());
                     delegate.setActive(true);
-                }
-                else {
+                } else {
                     delegate.setActive(true);
                 }
 
@@ -367,8 +363,8 @@ public class AccountDelegateGlobal extends PersistableBusinessObjectBase impleme
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
 
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getAccountGlobalDetails() ) );
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getDelegateGlobals() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAccountGlobalDetails()));
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getDelegateGlobals()));
 
         return managedLists;
     }

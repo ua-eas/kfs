@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -28,8 +27,9 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * benefit transfers cannot be made between two different fringe benefit labor object codes
@@ -40,6 +40,7 @@ public class BenefitExpenseTransferSameFringeBenefitObjectCodeValidation extends
     /**
      * Validates that the accounting lines in the accounting document have the same employee id
      * <strong>Expects an accounting document as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -89,6 +90,7 @@ public class BenefitExpenseTransferSameFringeBenefitObjectCodeValidation extends
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -97,6 +99,7 @@ public class BenefitExpenseTransferSameFringeBenefitObjectCodeValidation extends
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

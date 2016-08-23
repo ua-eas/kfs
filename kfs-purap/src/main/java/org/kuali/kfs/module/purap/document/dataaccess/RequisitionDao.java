@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
+
+import java.util.List;
 
 
 /**

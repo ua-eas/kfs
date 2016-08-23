@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * An action for Electronic Fund Transfer that simply redirects to either the claiming or non-claiming lookup.
@@ -40,7 +40,7 @@ public class ElectronicFundTransferStartActionHelper implements ElectronicFundTr
      * @see org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper#performAction(org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm, org.apache.struts.action.ActionMapping, java.util.Map)
      */
     public ActionForward performAction(ElectronicFundTransferForm form, ActionMapping mapping, Map parameterMap, String basePath) {
-        return new ActionForward((form.hasAvailableClaimingDocumentStrategies() ? getClaimingLookupUrl(form, basePath) : getNonClaimingLookupUrl(form, basePath) ), true);
+        return new ActionForward((form.hasAvailableClaimingDocumentStrategies() ? getClaimingLookupUrl(form, basePath) : getNonClaimingLookupUrl(form, basePath)), true);
     }
 
     /**
@@ -95,6 +95,7 @@ public class ElectronicFundTransferStartActionHelper implements ElectronicFundTr
 
     /**
      * Sets the electronicPaymentClaimingService attribute value.
+     *
      * @param electronicPaymentClaimingService The electronicPaymentClaimingService to set.
      */
     public void setElectronicPaymentClaimingService(ElectronicPaymentClaimingService electronicPaymentClaimingService) {

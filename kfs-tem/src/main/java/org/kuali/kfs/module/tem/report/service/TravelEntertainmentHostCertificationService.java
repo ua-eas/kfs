@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.module.tem.report.service;
 
-import java.io.File;
-
 import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.module.tem.report.EntertainmentHostCertificationReport;
+
+import java.io.File;
 
 /**
  * Service implementation of ExpenseSummaryReportService.
  */
 public interface TravelEntertainmentHostCertificationService {
     EntertainmentHostCertificationReport buildReport(final TravelEntertainmentDocument document);
+
     File generateEntertainmentHostCertReport(EntertainmentHostCertificationReport report);
 }

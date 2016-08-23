@@ -24,14 +24,12 @@ import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
  * A single HTML text control.
- *
- *
  */
 @Deprecated
 public class FileControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = 8778523411471162513L;
 
-	// logger
+    // logger
     private static Log LOG = LogFactory.getLog(FileControlDefinition.class);
 
     public FileControlDefinition() {

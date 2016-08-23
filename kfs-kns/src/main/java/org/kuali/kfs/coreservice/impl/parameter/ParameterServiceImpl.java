@@ -46,7 +46,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Parameter getParameter(String namespaceCode, String componentCode, String parameterName) {
         return exec(new Fun<Parameter>() {
-            @Override public Parameter f(ParameterKey key) {
+            @Override
+            public Parameter f(ParameterKey key) {
                 return parameterRepositoryService.getParameter(key);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -55,7 +56,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Parameter getParameter(Class<?> componentClass, String parameterName) {
         return exec(new Fun<Parameter>() {
-            @Override public Parameter f(ParameterKey key) {
+            @Override
+            public Parameter f(ParameterKey key) {
                 return parameterRepositoryService.getParameter(key);
             }
         }, componentClass, parameterName);
@@ -132,7 +134,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getParameterValueAsString(Class<?> componentClass, String parameterName) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
+            @Override
+            public String f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValueAsString(key);
             }
         }, componentClass, parameterName);
@@ -147,7 +150,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getParameterValuesAsString(String namespaceCode, String componentCode, String parameterName) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValuesAsString(key);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -156,7 +160,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getParameterValuesAsString(Class<?> componentClass, String parameterName) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValuesAsString(key);
             }
         }, componentClass, parameterName);
@@ -165,7 +170,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getSubParameterValuesAsString(String namespaceCode, String componentCode, String parameterName, final String constrainingValue) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getSubParameterValuesAsString(key, constrainingValue);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -174,7 +180,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getSubParameterValuesAsString(Class<?> componentClass, String parameterName, final String constrainingValue) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getSubParameterValuesAsString(key, constrainingValue);
             }
         }, componentClass, parameterName);
@@ -183,8 +190,9 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getSubParameterValueAsString(String namespaceCode, String componentCode, String parameterName, final String constrainingValue) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
-               return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
+            @Override
+            public String f(ParameterKey key) {
+                return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
             }
         }, namespaceCode, componentCode, parameterName);
     }
@@ -192,8 +200,9 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getSubParameterValueAsString(Class<?> componentClass, String parameterName, final String constrainingValue) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
-               return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
+            @Override
+            public String f(ParameterKey key) {
+                return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
             }
         }, componentClass, parameterName);
     }

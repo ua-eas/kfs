@@ -54,6 +54,7 @@ public abstract class FieldTableJoiningWithHeader extends FieldTableJoining impl
 
     /**
      * Creates a header label cell for this element
+     *
      * @return a table cell holding the header label to render
      */
     protected AccountingLineTableCell createHeaderLabelTableCell() {
@@ -65,6 +66,7 @@ public abstract class FieldTableJoiningWithHeader extends FieldTableJoining impl
 
     /**
      * This joins a row but adds a header to the header label row
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerLabelRow, AccountingLineTableRow row) {
@@ -76,6 +78,7 @@ public abstract class FieldTableJoiningWithHeader extends FieldTableJoining impl
 
     /**
      * Always returns 2 - one row for the header, one for the row
+     *
      * @see org.kuali.kfs.sys.document.web.FieldTableJoining#getRequestedRowCount()
      */
     @Override

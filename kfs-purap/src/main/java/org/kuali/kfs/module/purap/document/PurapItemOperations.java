@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+
+import java.util.List;
 
 /**
  * This class allows for the use of items by multiple purap type docs
@@ -31,7 +31,7 @@ public interface PurapItemOperations {
 
     public void setItems(List<PurApItem> items);
 
-    public <T extends Object>T getItem(int pos);
+    public <T extends Object> T getItem(int pos);
 
     public abstract Class getItemClass();
 }

@@ -18,26 +18,25 @@
  */
 package org.kuali.kfs.vnd.businessobject.lookup;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.vnd.VendorConstants;
-import org.kuali.kfs.vnd.VendorKeyConstants;
-import org.kuali.kfs.vnd.VendorPropertyConstants;
-import org.kuali.kfs.vnd.businessobject.VendorContract;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.dao.LookupDao;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.vnd.VendorConstants;
+import org.kuali.kfs.vnd.VendorKeyConstants;
+import org.kuali.kfs.vnd.VendorPropertyConstants;
+import org.kuali.kfs.vnd.businessobject.VendorContract;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class VendorContractLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     private LookupDao lookupDao;
@@ -138,7 +137,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
      * method will add error message to the errorMap in GlobalVariables that the vendor number must be numeric or numerics separated
      * by a dash.
      *
-     * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
+     * @param fieldValues  a Map containing only those key-value pairs that have been filled in on the lookup
      * @param vendorNumber vendor number String
      */
     private void extractVendorNumberToVendorIds(Map fieldValues, String vendorNumber) {
@@ -147,8 +146,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
         int indexOfDash = vendorNumber.indexOf(VendorConstants.DASH);
         if (indexOfDash < 0) {
             vendorHeaderGeneratedIdentifier = vendorNumber;
-        }
-        else {
+        } else {
             vendorHeaderGeneratedIdentifier = vendorNumber.substring(0, indexOfDash);
             vendorDetailAssignedIdentifier = vendorNumber.substring(indexOfDash + 1, vendorNumber.length());
         }
@@ -162,8 +160,7 @@ public class VendorContractLookupableHelperServiceImpl extends AbstractLookupabl
             fieldValues.remove(VendorPropertyConstants.VENDOR_NUMBER);
             fieldValues.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, vendorHeaderGeneratedIdentifier);
             fieldValues.put(VendorPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID, vendorDetailAssignedIdentifier);
-        }
-        catch (NumberFormatException headerExc) {
+        } catch (NumberFormatException headerExc) {
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_NUMBER, VendorKeyConstants.ERROR_VENDOR_LOOKUP_VNDR_NUM_NUMERIC_DASH_SEPARATED);
         }
     }

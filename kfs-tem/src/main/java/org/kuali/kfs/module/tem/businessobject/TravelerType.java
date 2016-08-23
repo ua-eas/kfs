@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * Traveler Type
- *
  */
 @Entity
-@Table(name="TEM_TRAVELER_TYP_T")
+@Table(name = "TEM_TRAVELER_TYP_T")
 public class TravelerType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String code;
@@ -45,7 +43,7 @@ public class TravelerType extends PersistableBusinessObjectBase implements Mutab
     private Boolean active = Boolean.TRUE;
 
     @Id
-    @Column(name="code",length=3,nullable=false)
+    @Column(name = "code", length = 3, nullable = false)
     public String getCode() {
         return code;
     }
@@ -54,7 +52,7 @@ public class TravelerType extends PersistableBusinessObjectBase implements Mutab
         this.code = code;
     }
 
-    @Column(name="nm",length=40,nullable=false)
+    @Column(name = "nm", length = 40, nullable = false)
     public String getName() {
         return name;
     }
@@ -63,7 +61,7 @@ public class TravelerType extends PersistableBusinessObjectBase implements Mutab
         this.name = name;
     }
 
-    @Column(name="advances_ind",nullable=false,length=1)
+    @Column(name = "advances_ind", nullable = false, length = 1)
     public Boolean getAdvances() {
         return advances;
     }
@@ -73,7 +71,7 @@ public class TravelerType extends PersistableBusinessObjectBase implements Mutab
     }
 
     @Override
-    @Column(name="actv_ind",nullable=false,length=1)
+    @Column(name = "actv_ind", nullable = false, length = 1)
     public boolean isActive() {
         return active;
     }

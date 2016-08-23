@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.ar.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.document.validation.SuspensionCategoryBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Abstract Suspension Category base class for Customer related suspension categories.
@@ -39,7 +39,7 @@ public abstract class CustomerAddressSuspensionCategoryBase extends SuspensionCa
         }
 
         if (StringUtils.isBlank(customerAddress.getCustomerLine1StreetAddress()) ||
-                StringUtils.isBlank(customerAddress.getCustomerCityName())) {
+            StringUtils.isBlank(customerAddress.getCustomerCityName())) {
             return false;
         }
 
@@ -49,11 +49,11 @@ public abstract class CustomerAddressSuspensionCategoryBase extends SuspensionCa
         } else {
             if (StringUtils.equalsIgnoreCase(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_US, countryCode)) {
                 return !StringUtils.isBlank(customerAddress.getCustomerStateCode())
-                        && !StringUtils.isBlank(customerAddress.getCustomerZipCode());
+                    && !StringUtils.isBlank(customerAddress.getCustomerZipCode());
 
             } else {
                 return !StringUtils.isBlank(customerAddress.getCustomerAddressInternationalProvinceName())
-                        && !StringUtils.isBlank(customerAddress.getCustomerInternationalMailCode());
+                    && !StringUtils.isBlank(customerAddress.getCustomerInternationalMailCode());
             }
         }
     }

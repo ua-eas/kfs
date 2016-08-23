@@ -22,8 +22,6 @@ package org.kuali.kfs.krad.uif.control;
  * Represents a group of HTML checkbox controls. Provides preset options for the
  * user to choose by a series of checkbox controls. Only or more options can be
  * select
- *
- *
  */
 public class CheckboxGroupControl extends MultiValueControlBase {
     private static final long serialVersionUID = 8800478332086081970L;

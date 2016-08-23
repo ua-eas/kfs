@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Phone Types for Vendors. These types may be based on technical distinctions, the Vendor's organization, or the phone's intended

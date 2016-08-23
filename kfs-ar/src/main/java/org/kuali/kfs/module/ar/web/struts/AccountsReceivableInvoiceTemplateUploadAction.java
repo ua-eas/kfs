@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.ar.web.struts;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.TemplateBase;
@@ -26,7 +27,6 @@ import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Action Class for Accounts Receivable Invoice Template Upload Action.
@@ -41,7 +41,7 @@ public class AccountsReceivableInvoiceTemplateUploadAction extends AccountsRecei
         final ChartOrgHolder chartOrg = SpringContext.getBean(FinancialSystemUserService.class).getPrimaryOrganization(currentUser, ArConstants.AR_NAMESPACE_CODE);
 
         if (!StringUtils.equals(template.getBillByChartOfAccountCode(), chartOrg.getChartOfAccountsCode()) ||
-                !StringUtils.equals(template.getBilledByOrganizationCode(), chartOrg.getOrganizationCode())) {
+            !StringUtils.equals(template.getBilledByOrganizationCode(), chartOrg.getOrganizationCode())) {
             GlobalVariables.getMessageMap().putError(ArConstants.INVOICE_TEMPLATE_UPLOAD, ArKeyConstants.TemplateUploadErrors.ERROR_TEMPLATE_UPLOAD_USER_NOT_AUTHORIZED);
         }
     }

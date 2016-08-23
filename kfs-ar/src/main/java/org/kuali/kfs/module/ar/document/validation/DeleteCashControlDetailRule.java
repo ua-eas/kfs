@@ -18,16 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.validation;
 
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 
-public interface DeleteCashControlDetailRule <F extends TransactionalDocument > extends CashControlDetailRule {
+public interface DeleteCashControlDetailRule<F extends TransactionalDocument> extends CashControlDetailRule {
 
 
     /**
      * This method is called when a cash control detail is deleted
+     *
      * @param transactionalDocument the cash control document
-     * @param cashControlDetail the cash control detail being deleted
+     * @param cashControlDetail     the cash control detail being deleted
      * @return true if allowed to delete, false otherwise
      */
     public boolean processDeleteCashControlDetailBusinessRules(F transactionalDocument, CashControlDetail cashControlDetail);

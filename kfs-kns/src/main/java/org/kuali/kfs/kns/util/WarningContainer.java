@@ -25,48 +25,45 @@ import java.util.Set;
 
 /**
  * An implementation of {@link MessageContainer} that makes warning messages accessible by the JSP layer
- *
- *
- *
  */
 public class WarningContainer extends MessageContainer {
 
-	public WarningContainer(MessageMap errorMap) {
-		super(errorMap);
-	}
+    public WarningContainer(MessageMap errorMap) {
+        super(errorMap);
+    }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see MessageContainer#getMessageCount()
-	 */
-	@Override
-	public int getMessageCount() {
-		return getMessageMap().getWarningCount();
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see MessageContainer#getMessageCount()
+     */
+    @Override
+    public int getMessageCount() {
+        return getMessageMap().getWarningCount();
+    }
 
 
-	/**
-	 * @see MessageContainer#getMessagePropertyNames()
-	 */
-	@Override
-	protected Set<String> getMessagePropertyNames() {
-		return getMessageMap().getAllPropertiesWithWarnings();
-	}
+    /**
+     * @see MessageContainer#getMessagePropertyNames()
+     */
+    @Override
+    protected Set<String> getMessagePropertyNames() {
+        return getMessageMap().getAllPropertiesWithWarnings();
+    }
 
-	/**
-	 * @see MessageContainer#getMessagePropertyList()
-	 */
-	@Override
-	public List<String> getMessagePropertyList() {
-		return getMessageMap().getPropertiesWithWarnings();
-	}
+    /**
+     * @see MessageContainer#getMessagePropertyList()
+     */
+    @Override
+    public List<String> getMessagePropertyList() {
+        return getMessageMap().getPropertiesWithWarnings();
+    }
 
-	/**
-	 * @see MessageContainer#getMessagesForProperty(java.lang.String)
-	 */
-	@Override
-	protected List getMessagesForProperty(String propertyName) {
-		return getMessageMap().getWarningMessagesForProperty(propertyName);
-	}
+    /**
+     * @see MessageContainer#getMessagesForProperty(java.lang.String)
+     */
+    @Override
+    protected List getMessagesForProperty(String propertyName) {
+        return getMessageMap().getWarningMessagesForProperty(propertyName);
+    }
 }

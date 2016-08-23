@@ -18,22 +18,15 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.document.service.PayrateExportService;
@@ -44,10 +37,16 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class PayrateImportExportAction extends BudgetExpansionAction {
 
@@ -71,7 +70,7 @@ public class PayrateImportExportAction extends BudgetExpansionAction {
         messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.MSG_PAYRATE_IMPORT_LOG_FILE_HEADER_LINE, dateFormatter.format(startTime)));
 
         //parse file
-        if (!payrateImportService.importFile(payrateImportExportForm.getFile().getInputStream(), messageList, principalId) ) {
+        if (!payrateImportService.importFile(payrateImportExportForm.getFile().getInputStream(), messageList, principalId)) {
             payrateImportService.generatePdf(messageList, baos);
             WebUtils.saveMimeOutputStreamAsFile(response, ReportGeneration.PDF_MIME_TYPE, baos, BCConstants.PAYRATE_IMPORT_LOG_FILE);
             return null;
@@ -143,19 +142,19 @@ public class PayrateImportExportAction extends BudgetExpansionAction {
         FiscalYearFunctionControlService fiscalYearFunctionControlService = SpringContext.getBean(FiscalYearFunctionControlService.class);
         boolean budgetUpdatesAllowed = fiscalYearFunctionControlService.isBudgetUpdateAllowed(form.getUniversityFiscalYear());
 
-        if ( importForm.getFile() == null || importForm.getFile().getFileSize() == 0 ) {
+        if (importForm.getFile() == null || importForm.getFile().getFileSize() == 0) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILE_IS_REQUIRED);
             isValid = false;
         }
-        if ( importForm.getFile() != null && importForm.getFile().getFileSize() == 0 ) {
+        if (importForm.getFile() != null && importForm.getFile().getFileSize() == 0) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILE_EMPTY);
             isValid = false;
         }
-        if (importForm.getFile() != null && (StringUtils.isBlank(importForm.getFile().getFileName())) ) {
+        if (importForm.getFile() != null && (StringUtils.isBlank(importForm.getFile().getFileName()))) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILENAME_REQUIRED);
             isValid = false;
         }
-        if ( !budgetUpdatesAllowed ) {
+        if (!budgetUpdatesAllowed) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_PAYRATE_IMPORT_UPDATE_NOT_ALLOWED);
             isValid = false;
         }
@@ -179,8 +178,7 @@ public class PayrateImportExportAction extends BudgetExpansionAction {
         if (ObjectUtils.isNull(importForm.getPositionUnionCode()) || StringUtils.isBlank(importForm.getPositionUnionCode())) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_PAYRATE_EXPORT_POSITION_UNION_CODE_REQUIRED);
             isValid = false;
-        }
-        else {
+        } else {
             if (!payrateExportService.isValidPositionUnionCode(form.getPositionUnionCode())) {
                 errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_PAYRATE_EXPORT_INVALID_POSITION_UNION_CODE, form.getPositionUnionCode());
                 isValid = false;
@@ -189,15 +187,13 @@ public class PayrateImportExportAction extends BudgetExpansionAction {
         if (ObjectUtils.isNull(importForm.getCsfFreezeDate()) || StringUtils.isBlank(importForm.getCsfFreezeDate())) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_PAYRATE_EXPORT_CSF_FREEZE_DATE_REQUIRED);
             isValid = false;
-        }
-        else {
+        } else {
             SimpleDateFormat validDateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
             SimpleDateFormat exportFileFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);
             try {
                 Date validDate = validDateFormatter.parse(form.getCsfFreezeDate());
                 importForm.setCsfFreezeDateFormattedForExportFile(exportFileFormat.format(validDate));
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_PAYRATE_EXPORT_CSF_FREEZE_DATE_INCORRECT_FORMAT);
                 isValid = false;
             }

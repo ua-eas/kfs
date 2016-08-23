@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.businessobject.AgencyCorrectionChangeGroup;
 import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDocumentBase implements AmountTotaling {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TemCorrectionProcessDocument.class);
@@ -65,14 +65,11 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
     public String getMethod() {
         if (TemCorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionTypeCode)) {
             return "Manual Edit";
-        }
-        else if (TemCorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionTypeCode)) {
+        } else if (TemCorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionTypeCode)) {
             return "Using Criteria";
-        }
-        else if (TemCorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionTypeCode)) {
+        } else if (TemCorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionTypeCode)) {
             return "Remove Group from Processing";
-        }
-        else {
+        } else {
             return KFSConstants.NOT_AVAILABLE_STRING;
         }
     }
@@ -103,7 +100,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
      * @param changeNumber
      */
     public void removeCorrectionChangeGroup(int changeNumber) {
-        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext(); ) {
             AgencyCorrectionChangeGroup element = (AgencyCorrectionChangeGroup) iter.next();
             if (changeNumber == element.getCorrectionChangeGroupLineNumber().intValue()) {
                 iter.remove();
@@ -118,7 +115,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
      * @return
      */
     public AgencyCorrectionChangeGroup getCorrectionChangeGroupItem(int groupNumber) {
-        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext(); ) {
             AgencyCorrectionChangeGroup element = (AgencyCorrectionChangeGroup) iter.next();
             if (groupNumber == element.getCorrectionChangeGroupLineNumber().intValue()) {
                 return element;
@@ -133,11 +130,12 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     @Override
     public KualiDecimal getTotalDollarAmount() {
-          return correctionTripTotalAmount;
+        return correctionTripTotalAmount;
     }
 
     /**
      * Gets the correctionTypeCode attribute.
+     *
      * @return Returns the correctionTypeCode.
      */
     public String getCorrectionTypeCode() {
@@ -146,6 +144,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionTypeCode attribute value.
+     *
      * @param correctionTypeCode The correctionTypeCode to set.
      */
     public void setCorrectionTypeCode(String correctionTypeCode) {
@@ -154,6 +153,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionSelection attribute.
+     *
      * @return Returns the correctionSelection.
      */
     public boolean isCorrectionSelection() {
@@ -162,6 +162,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionSelection attribute value.
+     *
      * @param correctionSelection The correctionSelection to set.
      */
     public void setCorrectionSelection(boolean correctionSelection) {
@@ -170,6 +171,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionFileDelete attribute.
+     *
      * @return Returns the correctionFileDelete.
      */
     public boolean isCorrectionFileDelete() {
@@ -178,6 +180,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionFileDelete attribute value.
+     *
      * @param correctionFileDelete The correctionFileDelete to set.
      */
     public void setCorrectionFileDelete(boolean correctionFileDelete) {
@@ -186,6 +189,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionRowCount attribute.
+     *
      * @return Returns the correctionRowCount.
      */
     public Integer getCorrectionRowCount() {
@@ -194,6 +198,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionRowCount attribute value.
+     *
      * @param correctionRowCount The correctionRowCount to set.
      */
     public void setCorrectionRowCount(Integer correctionRowCount) {
@@ -202,6 +207,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionInputFileName attribute.
+     *
      * @return Returns the correctionInputFileName.
      */
     public String getCorrectionInputFileName() {
@@ -210,6 +216,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionInputFileName attribute value.
+     *
      * @param correctionInputFileName The correctionInputFileName to set.
      */
     public void setCorrectionInputFileName(String correctionInputFileName) {
@@ -218,6 +225,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionOutputFileName attribute.
+     *
      * @return Returns the correctionOutputFileName.
      */
     public String getCorrectionOutputFileName() {
@@ -226,6 +234,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionOutputFileName attribute value.
+     *
      * @param correctionOutputFileName The correctionOutputFileName to set.
      */
     public void setCorrectionOutputFileName(String correctionOutputFileName) {
@@ -234,6 +243,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionScriptText attribute.
+     *
      * @return Returns the correctionScriptText.
      */
     public String getCorrectionScriptText() {
@@ -242,6 +252,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionScriptText attribute value.
+     *
      * @param correctionScriptText The correctionScriptText to set.
      */
     public void setCorrectionScriptText(String correctionScriptText) {
@@ -250,6 +261,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionChangeGroupNextLineNumber attribute.
+     *
      * @return Returns the correctionChangeGroupNextLineNumber.
      */
     public Integer getCorrectionChangeGroupNextLineNumber() {
@@ -258,6 +270,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionChangeGroupNextLineNumber attribute value.
+     *
      * @param correctionChangeGroupNextLineNumber The correctionChangeGroupNextLineNumber to set.
      */
     public void setCorrectionChangeGroupNextLineNumber(Integer correctionChangeGroupNextLineNumber) {
@@ -266,6 +279,7 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Gets the correctionTripTotalAmount attribute.
+     *
      * @return Returns the correctionTripTotalAmount.
      */
     public KualiDecimal getCorrectionTripTotalAmount() {
@@ -274,10 +288,11 @@ public class TemCorrectionProcessDocument extends FinancialSystemTransactionalDo
 
     /**
      * Sets the correctionTripTotalAmount attribute value.
+     *
      * @param correctionTripTotalAmount The correctionTripTotalAmount to set.
      */
     public void setCorrectionTripTotalAmount(KualiDecimal correctionTripTotalAmount) {
-        if(ObjectUtils.isNull(correctionTripTotalAmount)) {
+        if (ObjectUtils.isNull(correctionTripTotalAmount)) {
             this.correctionTripTotalAmount = KualiDecimal.ZERO;
         } else {
             this.correctionTripTotalAmount = correctionTripTotalAmount;

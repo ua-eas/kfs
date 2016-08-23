@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
-import org.kuali.kfs.module.tem.businessobject.PerDiem;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.tem.businessobject.PerDiem;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * Business Prerules applicable to Per Diem documents. These PreRules checks that the Per Diem totals match.
@@ -71,8 +71,7 @@ public class PerDiemDocumentPreRules extends MaintenancePreRulesBase {
         total = total.add(newPerDiem.getDinner());
         total = total.add(newPerDiem.getIncidentals());
 
-        if(!total.equals(newPerDiem.getMealsAndIncidentals()))
-        {
+        if (!total.equals(newPerDiem.getMealsAndIncidentals())) {
             proceed = askOrAnalyzeYesNoQuestion("mealsAndIncidentals", "Warning: Breakfast, Lunch, Dinner, and Incidentals total do not match Meals and Incidentals.  Would you like to proceed anyway?");
             if (!proceed) {
                 abortRulesCheck();

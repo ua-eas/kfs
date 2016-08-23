@@ -18,15 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.integration.cam.businessobject.Asset;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -36,8 +34,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * validate the capital accounting lines object subtypes
@@ -64,7 +64,7 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
         }
 
         CapitalAccountingLinesDocumentBase capitalAccountingLinesDocumentBase = (CapitalAccountingLinesDocumentBase) accountingDocumentForValidation;
-        List <CapitalAccountingLines> capitalAccountingLines = capitalAccountingLinesDocumentBase.getCapitalAccountingLines();
+        List<CapitalAccountingLines> capitalAccountingLines = capitalAccountingLinesDocumentBase.getCapitalAccountingLines();
 
 
         if (totalCapitalAccountLinesSelected(capitalAccountingLines) <= 1) {
@@ -75,7 +75,7 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
         return isValid;
     }
 
-    protected int totalCapitalAccountLinesSelected(List <CapitalAccountingLines> capitalAccountingLines) {
+    protected int totalCapitalAccountLinesSelected(List<CapitalAccountingLines> capitalAccountingLines) {
         int totalLinesSelected = 0;
 
         for (CapitalAccountingLines capitalLine : capitalAccountingLines) {
@@ -97,7 +97,7 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
         List<String> objectSubTypeList = new ArrayList<String>();
         List<String> validObjectSubTypes = new ArrayList<String>();
 
-        subTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, KFSParameterKeyConstants.CamParameterConstants.OBJECT_SUB_TYPE_GROUPS) );
+        subTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, KFSParameterKeyConstants.CamParameterConstants.OBJECT_SUB_TYPE_GROUPS));
 
         for (String subType : subTypes) {
             validObjectSubTypes.addAll(Arrays.asList(StringUtils.split(subType, ",")));
@@ -109,7 +109,7 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
                 if (ObjectUtils.isNotNull(matchAccountingLine)) {
                     matchAccountingLine.refreshReferenceObject("objectCode");
                 }
-                if ( ObjectUtils.isNotNull( matchAccountingLine.getObjectCode() ) ) {
+                if (ObjectUtils.isNotNull(matchAccountingLine.getObjectCode())) {
                     if (validObjectSubTypes.contains(matchAccountingLine.getObjectCode().getFinancialObjectSubTypeCode())) {
                         if (!objectSubTypeList.isEmpty()) {
                             if (!objectSubTypeList.contains(matchAccountingLine.getObjectCode().getFinancialObjectSubTypeCode())) {
@@ -129,6 +129,7 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
 
     /**
      * Finds the accounting line that matches the capital accounting line.
+     *
      * @param capitalAccountLine
      * @return accounting line
      */
@@ -139,20 +140,19 @@ public class CapitalAccountingLinesObjectSubtypeValidations extends GenericValid
             List<SourceAccountingLine> sourceLines = accountingDocumentForValidation.getSourceAccountingLines();
             for (SourceAccountingLine line : sourceLines) {
                 if (capitalAccountingLine.getChartOfAccountsCode().equals(line.getChartOfAccountsCode()) &&
-                        capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
-                        capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
-                        capitalAccountingLine.getLineType().equalsIgnoreCase(KFSConstants.SOURCE)) {
+                    capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
+                    capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
+                    capitalAccountingLine.getLineType().equalsIgnoreCase(KFSConstants.SOURCE)) {
                     return line;
                 }
             }
-        }
-        else {
+        } else {
             List<TargetAccountingLine> targetLines = accountingDocumentForValidation.getTargetAccountingLines();
             for (TargetAccountingLine line : targetLines) {
                 if (capitalAccountingLine.getChartOfAccountsCode().equals(line.getChartOfAccountsCode()) &&
-                        capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
-                        capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
-                        capitalAccountingLine.getLineType().equalsIgnoreCase(KFSConstants.TARGET)) {
+                    capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
+                    capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
+                    capitalAccountingLine.getLineType().equalsIgnoreCase(KFSConstants.TARGET)) {
                     return line;
                 }
             }

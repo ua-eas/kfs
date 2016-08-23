@@ -20,8 +20,7 @@
 package org.kuali.kfs.module.bc.businessobject;
 
 
-
-public class BudgetConstructionAccountMonthlyDetailReport{
+public class BudgetConstructionAccountMonthlyDetailReport {
 
     // header
     private Integer universityFiscalYear;

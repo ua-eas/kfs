@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function setCustomerAddressName( customerNameField){
+function setCustomerAddressName(customerNameField) {
 
-	var elPrefix = findElPrefix( customerNameField.name );
-	var customerNameValue = getElementValue( customerNameField.name );
-	setRecipientValue(elPrefix + ".add.customerAddresses.customerAddressName", customerNameValue );
+    var elPrefix = findElPrefix(customerNameField.name);
+    var customerNameValue = getElementValue(customerNameField.name);
+    setRecipientValue(elPrefix + ".add.customerAddresses.customerAddressName", customerNameValue);
 }

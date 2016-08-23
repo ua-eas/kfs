@@ -18,15 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Timestamp;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelPayment;
@@ -39,7 +35,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AccountingDocumentSaveWithNoLedgerEntryGenerationEvent;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class TravelEntertainmentServiceTest extends KualiTestBase {
@@ -127,8 +127,7 @@ public class TravelEntertainmentServiceTest extends KualiTestBase {
         try {
             entservice.addListenersTo(ent);
             success = true;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             success = false;
             LOG.warn("NPE.", e);
         }
@@ -137,44 +136,42 @@ public class TravelEntertainmentServiceTest extends KualiTestBase {
     }
 
 
-
     /**
      * This method tests {@link TravelEntertainmentDocumentService#calculateTotalsFor(TravelEntertainmentDocument)}
      *
      * @throws WorkflowException
 
-    @Test
-    public void testCalculateTotalsFor() throws WorkflowException {
-        ent = new TravelEntertainmentDocument();
+     @Test public void testCalculateTotalsFor() throws WorkflowException {
+     ent = new TravelEntertainmentDocument();
 
-        traveler.setTravelerTypeCode(TemConstants.EMP_TRAVELER_TYP_CD);
-        ent.setTraveler(traveler);
+     traveler.setTravelerTypeCode(TemConstants.EMP_TRAVELER_TYP_CD);
+     ent.setTraveler(traveler);
 
-        List<ActualExpense> oteList = new ArrayList<ActualExpense>();
-        ent.setActualExpenses(oteList);
-        ent.setPerDiemExpenses(new ArrayList<PerDiemExpense>());
+     List<ActualExpense> oteList = new ArrayList<ActualExpense>();
+     ent.setActualExpenses(oteList);
+     ent.setPerDiemExpenses(new ArrayList<PerDiemExpense>());
 
-        // test with empty actualExpenseList
-        Map<String, Object> resultMap = service.calculateTotalsFor(ent);
-        assertTrue(((KualiDecimal) resultMap.get(TemConstants.NON_REIMBURSABLE_ATTRIBUTE)).equals(KualiDecimal.ZERO));
+     // test with empty actualExpenseList
+     Map<String, Object> resultMap = service.calculateTotalsFor(ent);
+     assertTrue(((KualiDecimal) resultMap.get(TemConstants.NON_REIMBURSABLE_ATTRIBUTE)).equals(KualiDecimal.ZERO));
 
-        // Override refreshReferenceObject - setting travelExpenseTypeCode manually
-        ActualExpense ote = new ActualExpense() {
-            public void refreshReferenceObject(String referenceObjectName) {
-                // do nothing;
-            }
-        };
-        ote.setExpenseAmount(new KualiDecimal(EXPENSE_AMOUNT));
-        ote.setNonReimbursable(true);
-        //ote.setTravelExpenseTypeCode(new TemTravelExpenseTypeCode());
-        oteList.add(ote);
+     // Override refreshReferenceObject - setting travelExpenseTypeCode manually
+     ActualExpense ote = new ActualExpense() {
+     public void refreshReferenceObject(String referenceObjectName) {
+     // do nothing;
+     }
+     };
+     ote.setExpenseAmount(new KualiDecimal(EXPENSE_AMOUNT));
+     ote.setNonReimbursable(true);
+     //ote.setTravelExpenseTypeCode(new TemTravelExpenseTypeCode());
+     oteList.add(ote);
 
-        ent.setActualExpenses(oteList);
+     ent.setActualExpenses(oteList);
 
-        // test with non-reimbursable other expense
-        resultMap = service.calculateTotalsFor(ent);
-        assertTrue(((KualiDecimal) resultMap.get(TemConstants.NON_REIMBURSABLE_ATTRIBUTE)).equals(new KualiDecimal(EXPENSE_AMOUNT)));
-    }
+     // test with non-reimbursable other expense
+     resultMap = service.calculateTotalsFor(ent);
+     assertTrue(((KualiDecimal) resultMap.get(TemConstants.NON_REIMBURSABLE_ATTRIBUTE)).equals(new KualiDecimal(EXPENSE_AMOUNT)));
+     }
      */
 
 
@@ -189,8 +186,7 @@ public class TravelEntertainmentServiceTest extends KualiTestBase {
 
         try {
             cover = entservice.generateCoversheetFor(new TravelEntertainmentDocument());
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             LOG.warn("Workflow doc is null.", e);
         }
 

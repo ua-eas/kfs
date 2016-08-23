@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -37,6 +30,13 @@ import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CTSCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
     protected static Logger LOG = Logger.getLogger(CTSCardApplicationDocument.class);
 
@@ -46,12 +46,15 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
     public Date getBankAppliedDate() {
         return bankAppliedDate;
     }
+
     public void setBankAppliedDate(Date bankAppliedDate) {
         this.bankAppliedDate = bankAppliedDate;
     }
+
     public Date getBankApprovedDate() {
         return bankApprovedDate;
     }
+
     public void setBankApprovedDate(Date bankApprovedDate) {
         this.bankApprovedDate = bankApprovedDate;
     }
@@ -72,7 +75,7 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         DocumentStatus status = getDocumentHeader().getWorkflowDocument().getStatus();
-        if (status.equals(DocumentStatus.PROCESSED)){
+        if (status.equals(DocumentStatus.PROCESSED)) {
             TemProfileAccount profileAccount = new TemProfileAccount();
             Calendar cal = Calendar.getInstance();
             profileAccount.setEffectiveDate(new java.sql.Date(cal.getTimeInMillis()));
@@ -94,6 +97,7 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
             getBusinessObjectService().save(temProfile);
         }
     }
+
     @Override
     public String getUserAgreementText() {
         return SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.CTS_CARD_DOCUMENT_USER_AGREEMENT);

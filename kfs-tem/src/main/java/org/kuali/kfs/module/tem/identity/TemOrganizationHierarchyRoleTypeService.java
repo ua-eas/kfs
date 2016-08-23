@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
-import org.kuali.kfs.module.tem.service.TravelerService;
 import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.module.tem.service.TravelerService;
 
 @SuppressWarnings("deprecation")
 public abstract class TemOrganizationHierarchyRoleTypeService extends RoleTypeServiceBase {
@@ -34,6 +34,7 @@ public abstract class TemOrganizationHierarchyRoleTypeService extends RoleTypeSe
 
     /**
      * Gets the travelerService attribute.
+     *
      * @return Returns the travelerService.
      */
     public TravelerService getTravelerService() {
@@ -42,12 +43,12 @@ public abstract class TemOrganizationHierarchyRoleTypeService extends RoleTypeSe
 
     /**
      * Sets the travelerService attribute value.
+     *
      * @param travelerService The travelerService to set.
      */
     public void setTravelerService(TravelerService travelerService) {
         this.travelerService = travelerService;
     }
-
 
 
 }

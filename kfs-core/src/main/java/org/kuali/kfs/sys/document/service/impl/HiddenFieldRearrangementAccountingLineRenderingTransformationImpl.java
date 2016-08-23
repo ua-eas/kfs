@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.sys.document.service.AccountingLineTableTransformation;
 import org.kuali.kfs.sys.document.web.AccountingLineTableCell;
 import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
 import org.kuali.kfs.sys.document.web.RenderableElement;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A transformation which takes all of the non-visible hidden fields of the accounting line and moves them
@@ -44,6 +44,7 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
 
     /**
      * Finds the first top-level non-hidden container from the given list of elements
+     *
      * @param elements the elements to find the first non-hidden container from
      * @return the first top-level non-hidden container
      */
@@ -60,6 +61,7 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
 
     /**
      * Moves any hidden fields in the source container to the target container
+     *
      * @param sourceContainer the container which may have hidden fields
      * @param targetContainer the container which should be carrying all hidden fields
      */
@@ -71,6 +73,7 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
 
     /**
      * Moves any hidden renderable fields in the source cell to the target cell
+     *
      * @param sourceCell the source cell to move hidden elements from
      * @param targetCell the target cell to move hidden elements to
      */

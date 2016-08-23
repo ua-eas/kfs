@@ -47,12 +47,15 @@ public class CollectorScrubberStep extends AbstractWrappedBatchStep {
     public void setScrubberStatus(ScrubberStatus scrubberStatus) {
         this.scrubberStatus = scrubberStatus;
     }
+
     public void setBatch(CollectorBatch batch) {
         this.batch = batch;
     }
+
     public void setCollectorReportData(CollectorReportData collectorReportData) {
         this.collectorReportData = collectorReportData;
     }
+
     public void setScrubberService(ScrubberService scrubberService) {
         this.scrubberService = scrubberService;
     }

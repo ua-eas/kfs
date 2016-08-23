@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.Set;
-
 import org.joda.time.DateTime;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationControllerBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AmountTotaling;
@@ -34,11 +36,9 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationControllerBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.document.Document;
 import org.springframework.util.ObjectUtils;
+
+import java.util.Set;
 
 /**
  * Base class for all FinancialSystemDocumentPresentationControllers.
@@ -69,8 +69,8 @@ public class FinancialSystemTransactionalDocumentPresentationControllerBase exte
         DocumentEntry documentEntry = getDataDictionaryService().getDataDictionary().getDocumentEntry(document.getClass().getName());
         //FinancialSystemTransactionalDocumentEntry documentEntry = (FinancialSystemTransactionalDocumentEntry) ();
 
-        if ( !(documentEntry instanceof FinancialSystemTransactionalDocumentEntry)
-                || !((FinancialSystemTransactionalDocumentEntry)documentEntry).getAllowsErrorCorrection()) {
+        if (!(documentEntry instanceof FinancialSystemTransactionalDocumentEntry)
+            || !((FinancialSystemTransactionalDocumentEntry) documentEntry).getAllowsErrorCorrection()) {
             return false;
         }
 
@@ -91,9 +91,9 @@ public class FinancialSystemTransactionalDocumentPresentationControllerBase exte
     }
 
     protected boolean isApprovalDateWithinFiscalYear(WorkflowDocument workflowDocument) {
-        if ( workflowDocument != null ) {
+        if (workflowDocument != null) {
             DateTime approvalDate = workflowDocument.getDateApproved();
-            if ( approvalDate != null ) {
+            if (approvalDate != null) {
                 // compare approval fiscal year with current fiscal year
                 Integer approvalYear = getUniversityDateService().getFiscalYear(approvalDate.toDate());
                 Integer currentFiscalYear = getUniversityDateService().getCurrentFiscalYear();
@@ -126,7 +126,7 @@ public class FinancialSystemTransactionalDocumentPresentationControllerBase exte
             // check account period selection is enabled
             // PERFORMANCE: cache this setting - move call to service
             boolean accountingPeriodEnabled = getParameterService().getParameterValueAsBoolean(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.DETAIL_PARAMETER_TYPE, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.ENABLE_FISCAL_PERIOD_SELECTION_IND, false);
-            if ( accountingPeriodEnabled) {
+            if (accountingPeriodEnabled) {
                 // check accounting period is enabled for doc type in system parameter
                 String docType = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
                 // PERFORMANCE: cache this setting - move call to service

@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * This class refers to an attribute which has a value and is labeled in the DataDictionary.
@@ -34,8 +34,8 @@ public class AttributeReference {
      * to promote the use of the property getter, to help usage searches and automated refactorings.
      *
      * @param businessObjectClass a class with a business object entry in the DataDictionary
-     * @param propertyName the name of the attribute in the DD entry and on the form (for the error path)
-     * @param value the value of the property on the form (may be null).
+     * @param propertyName        the name of the attribute in the DD entry and on the form (for the error path)
+     * @param value               the value of the property on the form (may be null).
      */
     public AttributeReference(Class businessObjectClass, String propertyName, Object value) {
         this.propertyName = propertyName;

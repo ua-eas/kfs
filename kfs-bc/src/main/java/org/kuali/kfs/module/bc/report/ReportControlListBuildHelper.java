@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.report;
 
+import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
 
 /**
  * Holds information on the current build configuration of the report control list table, and a requested configuration.
@@ -52,11 +52,9 @@ public class ReportControlListBuildHelper implements Serializable {
 
         if (this.isForceRebuild()) {
             buildNeeded = true;
-        }
-        else if (this.getCurrentState() == null && this.getRequestedState() != null) {
+        } else if (this.getCurrentState() == null && this.getRequestedState() != null) {
             buildNeeded = true;
-        }
-        else if (this.getRequestedState() != null && !this.getCurrentState().equals(this.getRequestedState())) {
+        } else if (this.getRequestedState() != null && !this.getCurrentState().equals(this.getRequestedState())) {
             buildNeeded = true;
         }
 
@@ -66,9 +64,9 @@ public class ReportControlListBuildHelper implements Serializable {
     /**
      * Helper method to add a requestState
      *
-     * @param pointOfView - request point of view
+     * @param pointOfView           - request point of view
      * @param selectedOrganizations - organizations selected for the report
-     * @param buildMode - mode in which the control list should be build
+     * @param buildMode             - mode in which the control list should be build
      * @see org.kuali.kfs.module.bc.BCConstants.Report.BuildMode
      */
     public void addBuildRequest(String pointOfView, Collection<BudgetConstructionPullup> selectedOrganizations, BuildMode buildMode) {
@@ -91,8 +89,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
             this.setRequestedState(null);
             this.setForceRebuild(false);
-        }
-        else {
+        } else {
             throw new RuntimeException("Requested state does not exist. Control list build state has been lost.");
         }
     }
@@ -114,9 +111,9 @@ public class ReportControlListBuildHelper implements Serializable {
         /**
          * Constructs a ReportControlListBuildHelper.java.
          *
-         * @param pointOfView - chart/org point of view string
+         * @param pointOfView           - chart/org point of view string
          * @param selectedOrganizations - organizations selected for reporting
-         * @param buildMode - mode for restricting report data
+         * @param buildMode             - mode for restricting report data
          */
         public BuildState(String pointOfView, Collection<BudgetConstructionPullup> selectedOrganizations, BuildMode buildMode) {
             this.pointOfView = pointOfView;
@@ -188,8 +185,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
                 if (obj == null) {
                     isEqual = false;
-                }
-                else {
+                } else {
                     BuildState compareState = (BuildState) obj;
 
                     if (!this.getPointOfView().equals(compareState.getPointOfView())) {
@@ -206,8 +202,7 @@ public class ReportControlListBuildHelper implements Serializable {
                 }
 
                 return isEqual;
-            }
-            else {
+            } else {
                 return super.equals(obj);
             }
         }
@@ -216,7 +211,7 @@ public class ReportControlListBuildHelper implements Serializable {
          * Compares two collections of BudgetConstructionPullup objects for equality. BudgetConstructionPullup objects are compared
          * by primary key.
          *
-         * @param currentOrgs - current org build
+         * @param currentOrgs   - current org build
          * @param requestedOrgs - requested org build
          * @return boolean indicating true if the collections are equal, false otherwise
          */

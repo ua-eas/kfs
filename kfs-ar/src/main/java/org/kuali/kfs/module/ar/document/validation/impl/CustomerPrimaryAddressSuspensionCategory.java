@@ -19,11 +19,11 @@
 package org.kuali.kfs.module.ar.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAddressDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Suspension Category that checks to see if the Customer Primary Address is completed.

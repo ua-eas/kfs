@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.batch.dataaccess.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl;
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl;
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 
 /**
  * Performs custom population of accounting periods records for a new year being created in the fiscal year maker process
@@ -46,7 +46,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
      * Updates the year on the fiscal period name and sets status to open for next year records
      *
      * @see org.kuali.kfs.coa.batch.dataaccess.impl.FiscalYearMakerHelperImpl#changeForNewYear(java.lang.Integer,
-     *      org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public void changeForNewYear(Integer baseFiscalYear, FiscalYearBasedBusinessObject currentRecord) {
@@ -66,11 +66,9 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
         // replace 4 digit year in name if found, else replace 2 digit
         if (StringUtils.contains(fiscalPeriodName, oldCalendarEndYear)) {
             fiscalPeriodName = StringUtils.replace(fiscalPeriodName, oldCalendarEndYear, newCalendarEndYear);
-        }
-        else if (StringUtils.contains(fiscalPeriodName, oldCalendarStartYear)) {
+        } else if (StringUtils.contains(fiscalPeriodName, oldCalendarStartYear)) {
             fiscalPeriodName = StringUtils.replace(fiscalPeriodName, oldCalendarStartYear, newCalendarStartYear);
-        }
-        else {
+        } else {
             fiscalPeriodName = updateTwoDigitYear(newCalendarEndYear.substring(2, 4), oldCalendarEndYear.substring(2, 4), fiscalPeriodName);
             fiscalPeriodName = updateTwoDigitYear(newCalendarStartYear.substring(2, 4), oldCalendarStartYear.substring(2, 4), fiscalPeriodName);
         }
@@ -94,7 +92,7 @@ public class AccountingPeriodFiscalYearMakerImpl extends FiscalYearMakerImpl {
         if (!firstCopyYear) {
             return;
         }
-        Collection<AccountingPeriod> accountingPeriods = businessObjectService.findMatching(AccountingPeriod.class,Collections.singletonMap(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, baseFiscalYear + 1));
+        Collection<AccountingPeriod> accountingPeriods = businessObjectService.findMatching(AccountingPeriod.class, Collections.singletonMap(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, baseFiscalYear + 1));
         for (AccountingPeriod accountingPeriod : accountingPeriods) {
             accountingPeriod.setActive(true);
             businessObjectService.save(accountingPeriod);

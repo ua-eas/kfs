@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.purap.service.impl.purapgeneralledgerserviceimpl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +34,10 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenerateEntriesReopenPurchaseOrderTest {
     private PurapGeneralLedgerServiceImpl purapGeneralLedgerService;
@@ -69,10 +69,10 @@ public class GenerateEntriesReopenPurchaseOrderTest {
 
     private void execute() {
         EasyMock.replay(po, item, accountingLine1, accountingLine2, purapAccountingService,
-                generalLedgerPendingEntryService, businessObjectService);
+            generalLedgerPendingEntryService, businessObjectService);
         purapGeneralLedgerService.generateEntriesReopenPurchaseOrder(po);
         EasyMock.verify(po, item, accountingLine1, accountingLine2, purapAccountingService,
-                generalLedgerPendingEntryService, businessObjectService);
+            generalLedgerPendingEntryService, businessObjectService);
     }
 
     private void baseExpectations(List<PurApItem> items, List<PurApItem> activeItems, List<SourceAccountingLine> sourceAccountingLines) {
@@ -85,8 +85,8 @@ public class GenerateEntriesReopenPurchaseOrderTest {
     }
 
     private void mockQuantityBasedItem(PurchaseOrderItem item, int original, int invoiced, double unitPrice) {
-        int remaining = original-invoiced;
-        double outstandingAmount = unitPrice*remaining;
+        int remaining = original - invoiced;
+        double outstandingAmount = unitPrice * remaining;
 
         ItemType itemType = new ItemType();
         itemType.setQuantityBasedGeneralLedgerIndicator(true);
@@ -110,9 +110,9 @@ public class GenerateEntriesReopenPurchaseOrderTest {
         EasyMock.expect(item.getItemType()).andReturn(itemType).anyTimes();
         EasyMock.expect(item.getTotalAmount()).andReturn(new KualiDecimal(total)).anyTimes();
         EasyMock.expect(item.getItemInvoicedTotalAmount()).andReturn(new KualiDecimal(invoiced));
-        item.setItemOutstandingEncumberedAmount(new KualiDecimal(total-invoiced));
+        item.setItemOutstandingEncumberedAmount(new KualiDecimal(total - invoiced));
         EasyMock.expectLastCall();
-        EasyMock.expect(item.getItemOutstandingEncumberedAmount()).andReturn(new KualiDecimal(total-invoiced)).anyTimes();
+        EasyMock.expect(item.getItemOutstandingEncumberedAmount()).andReturn(new KualiDecimal(total - invoiced)).anyTimes();
         EasyMock.expect(item.getItemLineNumber()).andReturn(1).anyTimes();
         EasyMock.expect(item.isItemActiveIndicator()).andReturn(true).anyTimes();
     }
@@ -126,8 +126,7 @@ public class GenerateEntriesReopenPurchaseOrderTest {
         EasyMock.expectLastCall();
         if (altAmount == null) {
             EasyMock.expect(accountingLine.getAlternateAmountForGLEntryCreation()).andReturn(new KualiDecimal(amount)).anyTimes();
-        }
-        else {
+        } else {
             EasyMock.expect(accountingLine.getAlternateAmountForGLEntryCreation()).andReturn(new KualiDecimal(amount));
             accountingLine.setAlternateAmountForGLEntryCreation(new KualiDecimal(altAmount));
             EasyMock.expectLastCall();

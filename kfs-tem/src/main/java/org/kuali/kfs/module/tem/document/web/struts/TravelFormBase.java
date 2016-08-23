@@ -18,22 +18,19 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.ENABLE_PER_DIEM_LOOKUP_LINKS_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.ENABLE_PRIMARY_DESTINATION_ATTRIBUTE;
-import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.uif.field.LinkField;
+import org.kuali.kfs.krad.util.NoteType;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
@@ -58,18 +55,20 @@ import org.kuali.kfs.sys.document.service.PaymentSourceHelperService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.uif.field.LinkField;
-import org.kuali.kfs.krad.util.NoteType;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+
+import static org.kuali.kfs.module.tem.TemConstants.ENABLE_PER_DIEM_LOOKUP_LINKS_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.ENABLE_PRIMARY_DESTINATION_ATTRIBUTE;
+import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
 
 /**
  * Base class for travel documents
@@ -163,9 +162,9 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
      * @return
      */
 
-    public boolean isDisplayAccountingLines(){
+    public boolean isDisplayAccountingLines() {
         TravelDocument document = getTravelDocument();
-        return !document.hasOnlyPrepaidExpenses() ? true : false ;
+        return !document.hasOnlyPrepaidExpenses() ? true : false;
     }
 
     /**
@@ -173,7 +172,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
      *
      * @return
      */
-    public String getPerDiemLabel(){
+    public String getPerDiemLabel() {
         return TemConstants.PER_DIEM_EXPENSES_LABEL;
     }
 
@@ -182,7 +181,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
      *
      * @return
      */
-    public String getExpenseLabel(){
+    public String getExpenseLabel() {
         return TemConstants.ACTUAL_EXPENSES_LABEL;
     }
 
@@ -191,7 +190,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
      *
      * @return
      */
-    public String getExpenseTabLabel(){
+    public String getExpenseTabLabel() {
         return TemConstants.ACTUAL_EXPENSES_LABEL;
     }
 
@@ -460,6 +459,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
 
     /**
      * Gets the canImportExpenses attribute.
+     *
      * @return Returns the canImportExpenses.
      */
     public boolean isCanShowImportExpenseDetails() {
@@ -546,7 +546,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
                 for (Document document : documents) {
                     //retrieve by object Id base on document's usage with BoNotesSupport
                     List<Note> remoteNotes = SpringContext.getBean(NoteService.class).getByRemoteObjectId(
-                            document.getNoteType() == NoteType.BUSINESS_OBJECT? document.getObjectId() : document.getDocumentHeader().getObjectId());
+                        document.getNoteType() == NoteType.BUSINESS_OBJECT ? document.getObjectId() : document.getDocumentHeader().getObjectId());
                     Collections.reverse(remoteNotes);
                     relatedDocumentNotes.put(document.getDocumentNumber(), remoteNotes);
                 }
@@ -594,7 +594,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
         if (canReturn()) {
             addExtraButton("methodToCall.returnToFiscalOfficer", appExternalImageURL + "buttonsmall_return_to_fo.gif", "Return to Fiscal Officer");
         }
-        if (canCalculate()){
+        if (canCalculate()) {
             addExtraButton("methodToCall.recalculate", appExternalImageURL + "buttonsmall_calculate.gif", "Calculate");
         }
 
@@ -647,8 +647,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
             }
             newSource.setFinancialObjectCode("");
             return newSource;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new InfrastructureException("Unable to create a new travel document accounting line", e);
         }
     }
@@ -664,7 +663,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
         // Pay DV to Vendor Button
         ExtraButton payDVToVendorButton = new ExtraButton();
         payDVToVendorButton.setExtraButtonProperty("methodToCall.payDVToVendor");
-        payDVToVendorButton.setExtraButtonSource("${" + EXTERNALIZABLE_IMAGES_URL_KEY + "}"+VENDOR_PAYMENT_BUTTON_IMAGE_NAME);
+        payDVToVendorButton.setExtraButtonSource("${" + EXTERNALIZABLE_IMAGES_URL_KEY + "}" + VENDOR_PAYMENT_BUTTON_IMAGE_NAME);
         payDVToVendorButton.setExtraButtonAltText("Pay DV to Vendor");
 
         result.put(payDVToVendorButton.getExtraButtonProperty(), payDVToVendorButton);
@@ -672,7 +671,6 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
     }
 
     /**
-     *
      * @return newReimbursementButtonMap with appropriately named buttonsmall and javascript onclick to open the reimbursement document in a new window
      */
     protected Map<String, ExtraButton> createNewReimbursementButtonMap() {
@@ -973,7 +971,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
      *
      * @return
      */
-    public boolean getIsTravelAuthorizationDoc(){
+    public boolean getIsTravelAuthorizationDoc() {
         return getTravelDocument().isTravelAuthorizationDoc();
     }
 
@@ -1015,14 +1013,14 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
 
 
     public boolean isDefaultOpenPaymentInfoTab() {
-        boolean  initiated =  getTravelDocument().getDocumentHeader().getWorkflowDocument().isInitiated();
-        boolean  saved =  getTravelDocument().getDocumentHeader().getWorkflowDocument().isSaved();
+        boolean initiated = getTravelDocument().getDocumentHeader().getWorkflowDocument().isInitiated();
+        boolean saved = getTravelDocument().getDocumentHeader().getWorkflowDocument().isSaved();
         if (initiated || saved) {
             return true;
         }
         return false;
 
-   }
+    }
 
     /**
      * Gets the accountDistributionsourceAccountingLines attribute.
@@ -1071,6 +1069,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
 
     /**
      * Sets whether the payment information window should be opened on the next refresh
+     *
      * @param openPaymentInformationWindow set to true if the payment information should be opened, false otherwise
      */
     public void setOpenPaymentInformationWindow(boolean openPaymentInformationWindow) {
@@ -1131,6 +1130,7 @@ public abstract class TravelFormBase extends KualiAccountingDocumentFormBase imp
 
     /**
      * Sets if per diem is creatable on this trip
+     *
      * @param perDiemCreatable set to true if per diem can be created on this trip, false otherwise
      */
     public void setPerDiemCreatable(boolean perDiemCreatable) {

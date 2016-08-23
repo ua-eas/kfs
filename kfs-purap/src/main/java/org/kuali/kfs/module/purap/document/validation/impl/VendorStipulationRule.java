@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.businessobject.VendorStipulation;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.businessobject.VendorStipulation;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Business rule(s) applicable to Purchase Order Contract Language maintenance document.
@@ -90,9 +90,9 @@ public class VendorStipulationRule extends MaintenanceDocumentRuleBase {
 
         if (oldStipulation.getVendorStipulationIdentifier() != null && newStipulation.getVendorStipulationIdentifier() != null &&
             oldStipulation.getVendorStipulationIdentifier().equals(newStipulation.getVendorStipulationIdentifier()) &&
-            oldStipulation.getVendorStipulationName().equals(newStipulation.getVendorStipulationName())){
+            oldStipulation.getVendorStipulationName().equals(newStipulation.getVendorStipulationName())) {
             return true;
-        }else{
+        } else {
             fieldValues.put("vendorStipulationName", newStipulation.getVendorStipulationName());
             if (boService.countMatching(newStipulation.getClass(), fieldValues) != 0) {
                 success &= false;

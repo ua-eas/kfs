@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.service.AccountingLineAuthorizationTransformer;
 import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Like a regular accounting line rendering transformer, though this
@@ -37,12 +37,12 @@ public class AccountingLineAuthorizationTransformerImpl implements AccountingLin
 
     /**
      * Performs transformations to the element rendering tree based on the authorization's reactions to the accounting line
-     * @param elements the element rendering tree
-     * @param accountingLine the accounting line to be rendered
-     * @param document the document that accounting line lives on
-     * @param lineAuthorizer the authorizer for the accounting line
-     * @param newLine is this line a new line or a line already on a document?
      *
+     * @param elements       the element rendering tree
+     * @param accountingLine the accounting line to be rendered
+     * @param document       the document that accounting line lives on
+     * @param lineAuthorizer the authorizer for the accounting line
+     * @param newLine        is this line a new line or a line already on a document?
      */
     public void transformElements(List<TableJoining> elements, AccountingLine accountingLine, AccountingDocument document, AccountingLineAuthorizer lineAuthorizer, boolean newLine, String accountingLinePropertyName) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
@@ -50,8 +50,7 @@ public class AccountingLineAuthorizationTransformerImpl implements AccountingLin
     }
 
     /**
-     *
-     * @param elements the elements of the rendering tree
+     * @param elements         the elements of the rendering tree
      * @param unviewableBlocks a Set of the names of blocks that are not viewable
      */
     protected void removeUnviewableBlocks(List<TableJoining> elements, Set<String> unviewableBlocks) {

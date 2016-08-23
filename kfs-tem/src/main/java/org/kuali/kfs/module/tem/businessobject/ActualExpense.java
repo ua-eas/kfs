@@ -18,19 +18,12 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelDocument;
@@ -38,22 +31,28 @@ import org.kuali.kfs.module.tem.document.service.MileageRateService;
 import org.kuali.kfs.module.tem.document.web.struts.TravelFormBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 /**
  * Expense
  */
 @Entity
-@Table(name="TEM_TRVL_EXP_T")
+@Table(name = "TEM_TRVL_EXP_T")
 public class ActualExpense extends AbstractExpense implements OtherExpense, ExpenseTypeAware {
 
     public static Logger LOG = Logger.getLogger(AbstractExpense.class);
 
-    @GeneratedValue(generator="tem_trvl_exp_id_seq")
-    @SequenceGenerator(name="tem_trvl_exp_id_seq",sequenceName="tem_trvl_exp_id_seq", allocationSize=5)
+    @GeneratedValue(generator = "tem_trvl_exp_id_seq")
+    @SequenceGenerator(name = "tem_trvl_exp_id_seq", sequenceName = "tem_trvl_exp_id_seq", allocationSize = 5)
 
     private String airfareSourceCode;
     private String classOfServiceCode;
@@ -75,7 +74,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
         // details = new ArrayList<OtherExpenseDetail>();
     }
 
-    public boolean getDefaultTabOpen(){
+    public boolean getDefaultTabOpen() {
         return !getExpenseDetails().isEmpty() || getMileageIndicator() || getAirfareIndicator() || getRentalCarIndicator() || (getExpenseTypeObjectCode() != null && getExpenseTypeObjectCode().getExpenseType().isExpenseDetailRequired());
     }
 
@@ -85,7 +84,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @param airfareSourceCode value to assign to this.airfareSourceCode
      */
     @Override
-    public void setAirfareSourceCode(final String airfareSourceCode){
+    public void setAirfareSourceCode(final String airfareSourceCode) {
         this.airfareSourceCode = airfareSourceCode;
     }
 
@@ -95,8 +94,8 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return the value of airfareSourceCode
      */
     @Override
-    @Column(name="AIRFARE_SRC_CD",nullable=true)
-    public String getAirfareSourceCode(){
+    @Column(name = "AIRFARE_SRC_CD", nullable = true)
+    public String getAirfareSourceCode() {
         return this.airfareSourceCode;
     }
 
@@ -106,7 +105,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @param classOfServiceCode value to assign to this.classOfServiceCode
      */
     @Override
-    public void setClassOfServiceCode(final String classOfServiceCode){
+    public void setClassOfServiceCode(final String classOfServiceCode) {
         this.classOfServiceCode = classOfServiceCode;
     }
 
@@ -116,8 +115,8 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return the value of classOfServiceCode
      */
     @Override
-    @Column(name="CLASS_SVC_CODE",nullable=true)
-    public String getClassOfServiceCode(){
+    @Column(name = "CLASS_SVC_CODE", nullable = true)
+    public String getClassOfServiceCode() {
         return this.classOfServiceCode;
     }
 
@@ -126,17 +125,18 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      *
      * @return the value of mileageRate
      */
-    public MileageRate getMileageRate(java.sql.Date effectiveDate){
+    public MileageRate getMileageRate(java.sql.Date effectiveDate) {
         return SpringContext.getBean(MileageRateService.class).findMileageRateByExpenseTypeCodeAndDate(getExpenseTypeCode(), effectiveDate);
     }
 
     /**
      * It's better to use the mileage rate which passes in the effective date, but when calling from the JSP, that's going to be hard.  Let's just grab the document from GlobalVariables for now
+     *
      * @return the MileageRate
      */
     @Deprecated
     public MileageRate getContextlessMileageRate() {
-        final TravelFormBase travelForm = (TravelFormBase)KNSGlobalVariables.getKualiForm();
+        final TravelFormBase travelForm = (TravelFormBase) KNSGlobalVariables.getKualiForm();
         if (travelForm == null) {
             return null;
         }
@@ -154,8 +154,8 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return the value of miles
      */
     @Override
-    @Column(name="MILES",length=19,nullable=true)
-    public Integer getMiles(){
+    @Column(name = "MILES", length = 19, nullable = true)
+    public Integer getMiles() {
         return this.miles;
     }
 
@@ -165,7 +165,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @param miles value to assign to this.miles
      */
     @Override
-    public void setMiles(Integer miles){
+    public void setMiles(Integer miles) {
         this.miles = miles;
     }
 
@@ -185,7 +185,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return the value of mileageOtherRate
      */
     @Override
-    @Column(name="MILEAGE_OTHR_RT",precision=19,scale=2,nullable=true)
+    @Column(name = "MILEAGE_OTHR_RT", precision = 19, scale = 2, nullable = true)
     public BigDecimal getMileageOtherRate() {
         return this.mileageOtherRate;
     }
@@ -196,7 +196,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @param rentalCarInsurance value to assign to this.rentalCarInsurance
      */
     @Override
-    public void setRentalCarInsurance(final Boolean rentalCarInsurance){
+    public void setRentalCarInsurance(final Boolean rentalCarInsurance) {
         this.rentalCarInsurance = rentalCarInsurance;
     }
 
@@ -206,52 +206,52 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return the value of rentalCarInsurance
      */
     @Override
-    @Column(name="RENTAL_CAR_INSURANCE",nullable=true, length=1)
-    public Boolean getRentalCarInsurance(){
+    @Column(name = "RENTAL_CAR_INSURANCE", nullable = true, length = 1)
+    public Boolean getRentalCarInsurance() {
         return this.rentalCarInsurance;
     }
 
-    public void setAirfareIndicator(Boolean airfareIndicator){
+    public void setAirfareIndicator(Boolean airfareIndicator) {
         this.airfareIndicator = airfareIndicator;
     }
 
-    public Boolean getAirfareIndicator(){
+    public Boolean getAirfareIndicator() {
         return this.airfareIndicator;
     }
 
-    public void setMileageIndicator(Boolean mileageIndicator){
+    public void setMileageIndicator(Boolean mileageIndicator) {
         this.mileageIndicator = mileageIndicator;
     }
 
-    public Boolean getMileageIndicator(){
+    public Boolean getMileageIndicator() {
         return this.mileageIndicator;
     }
 
-    public void setRentalCarIndicator(Boolean rentalCarIndicator){
+    public void setRentalCarIndicator(Boolean rentalCarIndicator) {
         this.rentalCarIndicator = rentalCarIndicator;
     }
 
-    public Boolean getRentalCarIndicator(){
+    public Boolean getRentalCarIndicator() {
         return this.rentalCarIndicator;
     }
 
-    public void setLodgingIndicator(Boolean lodgingIndicator){
+    public void setLodgingIndicator(Boolean lodgingIndicator) {
         this.lodgingIndicator = lodgingIndicator;
     }
 
-    public Boolean getLodgingIndicator(){
+    public Boolean getLodgingIndicator() {
         return this.lodgingIndicator;
     }
 
-    public void setLodgingAllowanceIndicator(Boolean lodgingAllowanceIndicator){
+    public void setLodgingAllowanceIndicator(Boolean lodgingAllowanceIndicator) {
         this.lodgingAllowanceIndicator = lodgingAllowanceIndicator;
     }
 
-    public Boolean getLodgingAllowanceIndicator(){
+    public Boolean getLodgingAllowanceIndicator() {
         return this.lodgingAllowanceIndicator;
     }
 
-    public void enableExpenseTypeSpecificFields(){
+    public void enableExpenseTypeSpecificFields() {
         setAirfareIndicator(isAirfare());
         setMileageIndicator(isMileage());
         setRentalCarIndicator(isRentalCar());
@@ -283,33 +283,34 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.DINNER);
     }
 
-    public boolean isAirfare(){
+    public boolean isAirfare() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.AIRFARE);
     }
 
-    public boolean isMileage(){
+    public boolean isMileage() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.MILEAGE);
     }
 
     @Override
-    public boolean isRentalCar(){
+    public boolean isRentalCar() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR);
     }
 
-    public boolean isLodging(){
+    public boolean isLodging() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.LODGING);
     }
 
-    public boolean isLodgingAllowance(){
+    public boolean isLodgingAllowance() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.LODGING_ALLOWANCE);
     }
 
-    public boolean isIncidental(){
+    public boolean isIncidental() {
         return isInMetaCategory(TemConstants.ExpenseTypeMetaCategory.INCIDENTALS);
     }
 
     /**
      * Determines if this expense is part of the given metacategory
+     *
      * @param category the expense type meta category to test membership in
      * @return true if the expense is in the expense type meta category, false otherwise
      */
@@ -318,10 +319,10 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
             refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
         }
 
-        return ( !ObjectUtils.isNull(getExpenseType()) && category.getCode().equals(getExpenseType().getExpenseTypeMetaCategoryCode()));
+        return (!ObjectUtils.isNull(getExpenseType()) && category.getCode().equals(getExpenseType().getExpenseTypeMetaCategoryCode()));
     }
 
-    public boolean isHostedMeal(){
+    public boolean isHostedMeal() {
         if (ObjectUtils.isNull(getExpenseType()) && !StringUtils.isBlank(getExpenseTypeCode())) {
             refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
         }
@@ -334,16 +335,15 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
      * @return
      */
     @Transient
-    public KualiDecimal getMileageTotal(){
+    public KualiDecimal getMileageTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
 
-        if(ObjectUtils.isNotNull(this.miles) && this.miles != 0){
+        if (ObjectUtils.isNotNull(this.miles) && this.miles != 0) {
             if (ObjectUtils.isNotNull(mileageOtherRate) && mileageOtherRate != BigDecimal.ZERO) {
-                total= new KualiDecimal(new BigDecimal(miles).multiply(this.mileageOtherRate)); // mileageOtherRate takes precedence
-            }
-            else {
-                try{
-                    final TravelFormBase travelForm = (TravelFormBase)KNSGlobalVariables.getKualiForm();
+                total = new KualiDecimal(new BigDecimal(miles).multiply(this.mileageOtherRate)); // mileageOtherRate takes precedence
+            } else {
+                try {
+                    final TravelFormBase travelForm = (TravelFormBase) KNSGlobalVariables.getKualiForm();
                     if (travelForm == null) {
                         return KualiDecimal.ZERO;
                     }
@@ -355,8 +355,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
 
                     final MileageRate mileageRate = getMileageRate(effectiveDate);
                     total = new KualiDecimal(new BigDecimal(miles).multiply(mileageRate.getRate()));
-                }
-                catch(Exception ex){
+                } catch (Exception ex) {
                     //This should never happen
                     LOG.error("Mileage Rate not found." + getClass());
                     LOG.error(ex.getMessage());
@@ -401,16 +400,15 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
             boolean rethrow = true;
             Exception e = null;
             while (rethrow) {
-                LOG.debug("Looking for id in "+ boClass.getName());
+                LOG.debug("Looking for id in " + boClass.getName());
                 try {
                     final Field idField = boClass.getDeclaredField("id");
                     final SequenceGenerator sequenceInfo = idField.getAnnotation(SequenceGenerator.class);
 
                     return sequenceInfo.sequenceName();
-                }
-                catch (Exception ee) {
+                } catch (Exception ee) {
                     // ignore and try again
-                    LOG.debug("Could not find id in "+ boClass.getName());
+                    LOG.debug("Could not find id in " + boClass.getName());
 
                     // At the end. Went all the way up the hierarchy until we got to Object
                     if (Object.class.equals(boClass)) {
@@ -426,9 +424,8 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
             if (e != null) {
                 throw e;
             }
-        }
-        catch (Exception e) {
-            LOG.error("Could not get the sequence name for business object "+ getClass().getSimpleName());
+        } catch (Exception e) {
+            LOG.error("Could not get the sequence name for business object " + getClass().getSimpleName());
             LOG.error(e.getMessage());
             if (LOG.isDebugEnabled()) {
                 e.printStackTrace();
@@ -454,7 +451,7 @@ public class ActualExpense extends AbstractExpense implements OtherExpense, Expe
     }
 
     @Override
-    public String getExpenseLineTypeCode(){
+    public String getExpenseLineTypeCode() {
         return expenseLineTypeCode;
     }
 

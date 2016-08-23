@@ -25,6 +25,8 @@ import org.kuali.kfs.coa.service.OffsetDefinitionService;
 import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -32,8 +34,6 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * The default implementation of the YearEndPendingEntryService
@@ -75,8 +75,7 @@ public class YearEndPendingEntryServiceImpl implements YearEndPendingEntryServic
             if (offsetObjectCode.equals(AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialObjectCode())) {
                 // no BO, so punt
                 offsetEntry.setAcctSufficientFundsFinObjCd(AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialObjectCode());
-            }
-            else {
+            } else {
                 offsetDefinition.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
                 ObjectCode financialObject = offsetDefinition.getFinancialObject();
                 // The ObjectCode reference may be invalid because a flexible offset account changed its chart code.

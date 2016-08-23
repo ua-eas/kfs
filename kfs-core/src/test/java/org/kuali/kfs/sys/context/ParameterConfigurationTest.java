@@ -18,30 +18,30 @@
  */
 package org.kuali.kfs.sys.context;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.api.component.Component;
+import org.kuali.kfs.coreservice.api.component.ComponentService;
+import org.kuali.kfs.coreservice.impl.component.ComponentBo;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
+import org.kuali.kfs.coreservice.web.parameter.ParameterRule;
+import org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
-import org.kuali.kfs.coreservice.api.component.Component;
-import org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.coreservice.impl.component.ComponentBo;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
-import org.kuali.kfs.coreservice.web.parameter.ParameterRule;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.coreservice.api.component.ComponentService;
-
-@ConfigureContext(shouldCommitTransactions=true)
+@ConfigureContext(shouldCommitTransactions = true)
 public class ParameterConfigurationTest extends KualiTestBase {
     private static final Logger LOG = Logger.getLogger(ParameterConfigurationTest.class);
 
     /**
-     *
      * This method...
+     *
      * @throws Exception
      */
 
@@ -54,16 +54,16 @@ public class ParameterConfigurationTest extends KualiTestBase {
         for (ParameterBo param : params) {
             // skip unimplemented modules
             ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getModuleServiceByNamespaceCode(param.getNamespaceCode());
-            if ( moduleService == null || moduleService instanceof UnimplementedKfsModuleServiceImpl ) {
+            if (moduleService == null || moduleService instanceof UnimplementedKfsModuleServiceImpl) {
                 continue;
             }
-            try{
-               if (!paramRule.checkComponent(param)) {
-               if (param.getNamespaceCode().startsWith("KR"))continue;
-                badComponents.append("\n").append(param.getNamespaceCode()).append("\t").append(param.getComponentCode()).append("\t").append(param.getName()).append("\t");
-                failCount++;
-            }
-            }catch (Exception e){
+            try {
+                if (!paramRule.checkComponent(param)) {
+                    if (param.getNamespaceCode().startsWith("KR")) continue;
+                    badComponents.append("\n").append(param.getNamespaceCode()).append("\t").append(param.getComponentCode()).append("\t").append(param.getName()).append("\t");
+                    failCount++;
+                }
+            } catch (Exception e) {
                 badComponents.append("\n").append(e.getMessage()).append(param.getNamespaceCode()).append("\t").append(param.getComponentCode()).append("\t").append(param.getName()).append("\t");
                 failCount++;
             }

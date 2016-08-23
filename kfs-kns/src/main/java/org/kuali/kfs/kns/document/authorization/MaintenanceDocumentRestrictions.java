@@ -22,12 +22,12 @@ import java.util.Set;
 
 
 public interface MaintenanceDocumentRestrictions extends InquiryOrMaintenanceDocumentRestrictions {
-	public void addReadOnlyField(String fieldName);
+    public void addReadOnlyField(String fieldName);
 
-	public void addReadOnlySectionId(String sectionId);
+    public void addReadOnlySectionId(String sectionId);
 
-	public Set<String> getReadOnlySectionIds();
+    public Set<String> getReadOnlySectionIds();
 
-	public boolean isReadOnlySectionId(String sectionId);
+    public boolean isReadOnlySectionId(String sectionId);
 
 }

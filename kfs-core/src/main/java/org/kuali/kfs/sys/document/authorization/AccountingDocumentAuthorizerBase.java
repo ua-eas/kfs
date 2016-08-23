@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Map;
 
 /**
  * DocumentAuthorizer containing common, reusable document-level authorization code for financial (i.e. Transactional) documents
@@ -39,8 +39,9 @@ public class AccountingDocumentAuthorizerBase extends FinancialSystemTransaction
 
     /**
      * Determines if the line is editable; if so, it adds the line to the editableAccounts map
-     * @param line the line to determine editability of
-     * @param currentUser the current session user to check permissions for
+     *
+     * @param line           the line to determine editability of
+     * @param currentUser    the current session user to check permissions for
      * @param accountService the accountService
      * @return true if the line is editable, false otherwise
      */
@@ -51,14 +52,14 @@ public class AccountingDocumentAuthorizerBase extends FinancialSystemTransaction
     }
 
     @Override
-    protected void addRoleQualification(Object dataObject, Map<String,String> attributes) {
+    protected void addRoleQualification(Object dataObject, Map<String, String> attributes) {
         super.addRoleQualification(dataObject, attributes);
-        Document document = (Document)dataObject;
+        Document document = (Document) dataObject;
         // add the document amount
-        if ( ((AccountingDocument)document).getSourceTotal() != null && ((FinancialSystemDocumentHeader)document.getDocumentHeader()).getFinancialDocumentTotalAmount() != null ) {
-            attributes.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, ((FinancialSystemDocumentHeader)document.getDocumentHeader()).getFinancialDocumentTotalAmount().toString());
+        if (((AccountingDocument) document).getSourceTotal() != null && ((FinancialSystemDocumentHeader) document.getDocumentHeader()).getFinancialDocumentTotalAmount() != null) {
+            attributes.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, ((FinancialSystemDocumentHeader) document.getDocumentHeader()).getFinancialDocumentTotalAmount().toString());
         } else {
-            attributes.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, "0" );
+            attributes.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, "0");
         }
     }
 }

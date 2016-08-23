@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * This class...
@@ -43,15 +43,15 @@ public class FiscalYearValuesFinder extends KeyValuesBase {
         FiscalYearComparator fiscalYearComparator = new FiscalYearComparator();
         List optionList = (List) boService.findAll(SystemOptions.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( optionList == null ) {
+        if (optionList == null) {
             optionList = new ArrayList(0);
         } else {
-            optionList = new ArrayList( optionList );
+            optionList = new ArrayList(optionList);
         }
         Collections.sort(optionList, fiscalYearComparator);
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = optionList.iterator(); iter.hasNext();) {
+        for (Iterator iter = optionList.iterator(); iter.hasNext(); ) {
             SystemOptions options = (SystemOptions) iter.next();
             labels.add(new ConcreteKeyValue(options.getUniversityFiscalYear().toString(), options.getUniversityFiscalYear().toString()));
         }

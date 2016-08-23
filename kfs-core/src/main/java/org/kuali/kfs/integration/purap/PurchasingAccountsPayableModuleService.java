@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.integration.purap;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 
 /**
@@ -86,6 +86,7 @@ public interface PurchasingAccountsPayableModuleService {
     /**
      * Calculates the total paid, via payment requests, to all of the requisitions, represented by passed on document numbers
      * !!!NOTE!!! There is no guarantee that every document number passed into this method is actually related to a requisition document; document numbers that do not represent requisitions need to be filtered out
+     *
      * @param documentNumbers the document numbers for requisitions to find the total payment requests made for
      * @return the total paid by all of the payment requests
      */

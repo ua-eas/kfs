@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 
 public interface BulkReceivingService {
 
@@ -56,6 +56,6 @@ public interface BulkReceivingService {
 
     public void performPrintReceivingTicketPDF(String blkDocId, ByteArrayOutputStream baosPDF);
 
-    public String getBulkReceivingDocumentNumberInProcessForPurchaseOrder(Integer poId,String bulkReceivingDocumentNumber);
+    public String getBulkReceivingDocumentNumberInProcessForPurchaseOrder(Integer poId, String bulkReceivingDocumentNumber);
 
 }

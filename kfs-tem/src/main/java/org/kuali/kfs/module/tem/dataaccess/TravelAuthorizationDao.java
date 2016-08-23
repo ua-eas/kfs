@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
+
+import java.util.List;
 
 public interface TravelAuthorizationDao {
 
     /**
-     *
      * Retrieve all authorization by traveler
+     *
      * @param temProfileId
      * @return
      */

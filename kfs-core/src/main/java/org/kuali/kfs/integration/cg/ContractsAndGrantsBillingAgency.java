@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+
+import java.util.List;
 
 /**
  * Methods which return information needed about Contracts & Grants agencies by other modules.

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
+import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Map;
-
-import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 
 public interface OriginEntryGroupDao {
     /**

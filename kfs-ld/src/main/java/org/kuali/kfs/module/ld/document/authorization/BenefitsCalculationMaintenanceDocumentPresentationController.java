@@ -17,15 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document.authorization;
-import java.util.Set;
 
-import org.kuali.kfs.module.ld.LaborConstants;
-import org.kuali.kfs.module.ld.batch.LaborEnterpriseFeedStep;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.kns.inquiry.InquiryPresentationController;
+import org.kuali.kfs.module.ld.LaborConstants;
+import org.kuali.kfs.module.ld.batch.LaborEnterpriseFeedStep;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Set;
 
 public class BenefitsCalculationMaintenanceDocumentPresentationController extends MaintenanceDocumentPresentationControllerBase implements InquiryPresentationController {
 
@@ -40,7 +41,7 @@ public class BenefitsCalculationMaintenanceDocumentPresentationController extend
 
         final Boolean offsetParmValue = getParameterService().getParameterValueAsBoolean(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
 
-        if(!offsetParmValue.booleanValue()) {
+        if (!offsetParmValue.booleanValue()) {
             fields.add(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME);
             fields.add(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME);
         } else {
@@ -53,10 +54,11 @@ public class BenefitsCalculationMaintenanceDocumentPresentationController extend
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
-        if(parameterService == null){
+        if (parameterService == null) {
             parameterService = SpringContext.getBean(ParameterService.class);
         }
         return parameterService;

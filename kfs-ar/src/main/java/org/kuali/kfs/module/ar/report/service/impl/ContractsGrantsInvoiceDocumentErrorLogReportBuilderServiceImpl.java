@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorLog;
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService to help build the Contracts & Grants Invoice Document Error Log Report
@@ -34,13 +34,14 @@ public class ContractsGrantsInvoiceDocumentErrorLogReportBuilderServiceImpl impl
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
     public ContractsGrantsReportDataHolder buildReportDataHolder(List<? extends BusinessObject> displayList, String sortPropertyName) {
         ContractsGrantsReportDataHolder cgInvoiceDocumentErrorLogReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsInvoiceDocumentErrorLog> details = cgInvoiceDocumentErrorLogReportDataHolder.getDetails();
-        for (ContractsGrantsInvoiceDocumentErrorLog contractsGrantsInvoiceDocumentErrorLog : (List<ContractsGrantsInvoiceDocumentErrorLog>)displayList) {
+        for (ContractsGrantsInvoiceDocumentErrorLog contractsGrantsInvoiceDocumentErrorLog : (List<ContractsGrantsInvoiceDocumentErrorLog>) displayList) {
             details.add(contractsGrantsInvoiceDocumentErrorLog);
         }
         return cgInvoiceDocumentErrorLogReportDataHolder;
@@ -48,6 +49,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogReportBuilderServiceImpl impl
 
     /**
      * Returns the class of ContractsGrantsMilestoneReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

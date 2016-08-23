@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.module.purap.document.service.PurchasingService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PurchasingAddCapitalAssetLocationValidation extends GenericValidation {
 
@@ -61,14 +61,14 @@ public class PurchasingAddCapitalAssetLocationValidation extends GenericValidati
     }
 
     protected ParameterService getParameterService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             parameterService = SpringContext.getBean(ParameterService.class);
         }
         return parameterService;
     }
 
     protected PurchasingService getPurchasingService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             purchasingService = SpringContext.getBean(PurchasingService.class);
         }
         return purchasingService;

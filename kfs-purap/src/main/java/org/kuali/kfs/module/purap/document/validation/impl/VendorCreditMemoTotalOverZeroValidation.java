@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class VendorCreditMemoTotalOverZeroValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
 
-        if (!((VendorCreditMemoDocument)event.getDocument()).getGrandTotal().isPositive()) {
+        if (!((VendorCreditMemoDocument) event.getDocument()).getGrandTotal().isPositive()) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM, PurapKeyConstants.ERROR_CREDIT_MEMO_TOTAL_ZERO);
             valid = false;
         }

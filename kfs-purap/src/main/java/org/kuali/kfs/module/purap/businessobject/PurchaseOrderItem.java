@@ -19,22 +19,22 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
 
 /**
  * Purchase Order Item Business Object.
@@ -85,7 +85,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         this.setItemUnitPrice(ri.getItemUnitPrice());
         this.setItemAuxiliaryPartIdentifier(ri.getItemAuxiliaryPartIdentifier());
         this.setItemAssignedToTradeInIndicator(ri.getItemAssignedToTradeInIndicator());
-        this.setItemTaxAmount( ri.getItemTaxAmount() );
+        this.setItemTaxAmount(ri.getItemTaxAmount());
 
         //copy use tax items over, and blank out keys (useTaxId and itemIdentifier)
         for (PurApItemUseTax useTaxItem : ri.getUseTaxItems()) {
@@ -104,7 +104,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         this.setItemTypeCode(ri.getItemTypeCode());
 
         if (ri.getSourceAccountingLines() != null && ri.getSourceAccountingLines().size() > 0 &&
-                !StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE,ri.getItemType().getItemTypeCode())) {
+            !StringUtils.equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE, ri.getItemType().getItemTypeCode())) {
             List accounts = new ArrayList();
             for (PurApAccountingLine account : ri.getSourceAccountingLines()) {
                 PurchaseOrderAccount poAccount = new PurchaseOrderAccount(account);
@@ -122,7 +122,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         this.setCommodityCode(getCommodityCode());
 
         // If the RequisitionItem has a CapitalAssetItem, create a new PurchasingCapitalAssetItem and add it to the PO.
-        if( ObjectUtils.isNotNull(reqCamsItem) ) {
+        if (ObjectUtils.isNotNull(reqCamsItem)) {
             PurchaseOrderCapitalAssetItem newPOCapitalAssetItem = new PurchaseOrderCapitalAssetItem(reqCamsItem, itemIdentifier);
             po.getPurchasingCapitalAssetItems().add(newPOCapitalAssetItem);
         }
@@ -182,6 +182,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     /**
      * Gets the itemDamagedTotalQuantity attribute.
+     *
      * @return Returns the itemDamagedTotalQuantity.
      */
     public KualiDecimal getItemDamagedTotalQuantity() {
@@ -190,6 +191,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     /**
      * Sets the itemDamagedTotalQuantity attribute value.
+     *
      * @param itemDamagedTotalQuantity The itemDamagedTotalQuantity to set.
      */
     public void setItemDamagedTotalQuantity(KualiDecimal itemDamagedTotalQuantity) {
@@ -252,8 +254,8 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     }
 
     /**
-     *
      * This method returns the total item paid amount
+     *
      * @return
      */
     public KualiDecimal getItemPaidAmount() {
@@ -276,8 +278,7 @@ public class PurchaseOrderItem extends PurchasingItemBase {
         // if service add the po outstanding amount to outstanding amount
         if (iT.isAmountBasedGeneralLedgerIndicator()) {
             outstandingAmount = outstandingAmount.add(this.getItemOutstandingEncumberedAmount());
-        }
-        else {
+        } else {
             // else add outstanding quantity * unit price
             BigDecimal qty = new BigDecimal(this.getOutstandingQuantity().toString());
             outstandingAmount = outstandingAmount.add(new KualiDecimal(this.getItemUnitPrice().multiply(qty).setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR)));
@@ -293,25 +294,25 @@ public class PurchaseOrderItem extends PurchasingItemBase {
 
     /**
      * Exists due to a setter requirement by the htmlControlAttribute
-     * @deprecated
+     *
      * @param amount - outstanding quantity
+     * @deprecated
      */
-    public void setOutstandingQuantity(){
+    public void setOutstandingQuantity() {
         // do nothing
     }
 
     public KualiDecimal getOutstandingQuantity() {
-            KualiDecimal outstandingQuantity = (this.getItemQuantity() != null) ? this.getItemQuantity() : KualiDecimal.ZERO;
-            KualiDecimal invoicedQuantity = (this.getItemInvoicedTotalQuantity() != null) ? this.getItemInvoicedTotalQuantity() : KualiDecimal.ZERO;
-            return outstandingQuantity.subtract(invoicedQuantity);
+        KualiDecimal outstandingQuantity = (this.getItemQuantity() != null) ? this.getItemQuantity() : KualiDecimal.ZERO;
+        KualiDecimal invoicedQuantity = (this.getItemInvoicedTotalQuantity() != null) ? this.getItemInvoicedTotalQuantity() : KualiDecimal.ZERO;
+        return outstandingQuantity.subtract(invoicedQuantity);
     }
 
     public boolean isCanInactivateItem() {
         if (versionNumber == null) {
             // don't allow newly added item to be inactivatable.
             return false;
-        }
-        else if (versionNumber != null && itemActiveIndicator && !getPurchaseOrder().getContainsUnpaidPaymentRequestsOrCreditMemos()) {
+        } else if (versionNumber != null && itemActiveIndicator && !getPurchaseOrder().getContainsUnpaidPaymentRequestsOrCreditMemos()) {
             return true;
         }
         return false;
@@ -329,13 +330,12 @@ public class PurchaseOrderItem extends PurchasingItemBase {
     public PurApSummaryItem getSummaryItem() {
         if (!this.itemActiveIndicator) {
             return null;
-        }
-        else {
+        } else {
             return super.getSummaryItem();
         }
     }
 
-    public boolean isNewUnorderedItem(){
+    public boolean isNewUnorderedItem() {
         return SpringContext.getBean(PurchaseOrderService.class).isNewUnorderedItem(this);
     }
 

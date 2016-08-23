@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * This class represents document group-related data
@@ -76,7 +76,6 @@ public class DocumentGroupData {
     }
 
     /**
-     *
      * @see java.lang.Object#hashCode()
      */
     @Override

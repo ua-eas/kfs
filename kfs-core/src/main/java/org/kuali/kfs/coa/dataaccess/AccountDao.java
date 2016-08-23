@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coa.dataaccess;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.AccountDelegate;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.AccountDelegate;
-import org.kuali.rice.kim.api.identity.Person;
 
 
 /**
@@ -37,13 +37,13 @@ public interface AccountDao {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountService#getPrimaryDelegationByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List getPrimaryDelegationByExample(AccountDelegate delegateExample, Date currentSqlDate, String totalDollarAmount);
 
     /**
      * @see org.kuali.kfs.coa.service.AccountService#getSecondaryDelegationsByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List getSecondaryDelegationsByExample(AccountDelegate delegateExample, Date currentSqlDate, String totalDollarAmount);
 
@@ -59,8 +59,8 @@ public interface AccountDao {
     /**
      * This method should determine if the given user has any responsibilities on the given account
      *
-     * @param person the user to check responsibilities for
-     * @param account the account to check responsibilities on
+     * @param person         the user to check responsibilities for
+     * @param account        the account to check responsibilities on
      * @param currentSqlDate current Sql date
      * @return true if user is somehow responsible for account, false if otherwise
      */
@@ -76,7 +76,7 @@ public interface AccountDao {
     /**
      * Retrieves all active accounts from the database where the given principal is the fiscal officer
      *
-     * @param principalId the principal id of the fiscal officer
+     * @param principalId    the principal id of the fiscal officer
      * @param currentSqlDate current sql date
      * @return an Iterator of active Accounts
      */
@@ -85,7 +85,7 @@ public interface AccountDao {
     /**
      * Retrieves all expired accounts from the database where the given principal is the fiscal officer
      *
-     * @param principalId the principal id of the fiscal officer
+     * @param principalId    the principal id of the fiscal officer
      * @param currentSqlDate current Sql Date
      * @return an Iterator of expired Accounts
      */
@@ -94,7 +94,7 @@ public interface AccountDao {
     /**
      * Retrieves all active accounts from the database where the given principal is the account supervisor
      *
-     * @param principalId the principal id of the account supervisor
+     * @param principalId    the principal id of the account supervisor
      * @param currentSalDate
      * @return an Iterator of active Accounts
      */
@@ -103,7 +103,7 @@ public interface AccountDao {
     /**
      * Retrieves all active accounts from the database where the given principal is the account supervisor
      *
-     * @param principalId the principal id of the account supervisor
+     * @param principalId    the principal id of the account supervisor
      * @param currentSqlDate current Sql Date
      * @return an Iterator of expired Accounts
      */

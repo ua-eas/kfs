@@ -51,7 +51,6 @@ public class ContractsGrantsInvoiceReport extends TransientBusinessObjectBase {
     private Customer customer;
 
 
-
     /**
      * Gets the invoiceDocument attribute.
      *

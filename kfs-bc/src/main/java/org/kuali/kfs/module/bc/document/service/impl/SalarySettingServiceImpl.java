@@ -18,19 +18,15 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReason;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode;
@@ -59,13 +55,17 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
 
 /**
  * implements the service methods defined in the SalarySettingService
@@ -124,7 +124,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
         KualiInteger annualPayAmount = KualiInteger.ZERO;
         BigDecimal hourlyPayRate = appointmentFunding.getAppointmentRequestedPayRate();
         BigDecimal fteQuantity = this.calculateFteQuantityFromAppointmentFunding(appointmentFunding);
-        if (fteQuantity.compareTo(BigDecimal.ZERO) == 0){
+        if (fteQuantity.compareTo(BigDecimal.ZERO) == 0) {
             // revert to entered amount for zero FTE to allow error message
             annualPayAmount = appointmentFunding.getAppointmentRequestedAmount();
         } else {
@@ -185,7 +185,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#calculateFteQuantity(java.lang.Integer, java.lang.Integer,
-     *      java.math.BigDecimal)
+     * java.math.BigDecimal)
      */
     public BigDecimal calculateFteQuantity(Integer payMonth, Integer fundingMonth, BigDecimal requestedTimePercent) {
         LOG.debug("calculateFteQuantity() start");
@@ -224,7 +224,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#calculateCSFFteQuantity(java.lang.Integer,
-     *      java.lang.Integer, java.math.BigDecimal)
+     * java.lang.Integer, java.math.BigDecimal)
      */
     public BigDecimal calculateCSFFteQuantity(Integer payMonth, Integer normalWorkMonth, BigDecimal requestedCSFTimePercent) {
         LOG.debug("calculateCSFFteQuantity() start");
@@ -285,7 +285,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#canBeVacant(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public boolean canBeVacant(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {
         LOG.debug("canBeVacant(List, PendingBudgetConstructionAppointmentFunding) start");
@@ -299,7 +299,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#findVacantAppointmentFunding(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public PendingBudgetConstructionAppointmentFunding findVacantAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {
         LOG.debug("findVacantAppointmentFunding() start");
@@ -311,7 +311,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#findAppointmentFunding(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public PendingBudgetConstructionAppointmentFunding findAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {
         LOG.debug("findAppointmentFunding() start");
@@ -380,7 +380,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#vacateAppointmentFunding(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public PendingBudgetConstructionAppointmentFunding vacateAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {
         PendingBudgetConstructionAppointmentFunding vacantAppointmentFunding = this.vacateAppointmentFunding(appointmentFunding);
@@ -556,8 +556,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
             if (salarySettingExpansion != null) {
                 salarySettingExpansionSet.add(salarySettingExpansion);
-            }
-            else {
+            } else {
                 // No PBGL row yet, create one to work with in memory only for now.
                 // Don't set versionNumber, this will indicate this is in memory only,
                 // so we can check for the case where there are no BCAF rows in the DB
@@ -592,8 +591,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
             // collect the set of purge/notpurged SalarySettingExpansions here
             if (fundingLine.isPurged()) {
                 purgedSseSet.add(salarySettingExpansion);
-            }
-            else {
+            } else {
                 unpurgedSseSet.add(salarySettingExpansion);
             }
 
@@ -602,8 +600,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
                 BudgetConstructionPosition budgetConstructionPosition = fundingLine.getBudgetConstructionPosition();
                 if (fundingLine.isPurged()) {
                     purgedBPOSNSet.add(budgetConstructionPosition);
-                }
-                else {
+                } else {
                     unpurgedBPOSNSet.add(budgetConstructionPosition);
                 }
             }
@@ -670,7 +667,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
         this.updateAppointmentFundingsBeforeSaving(savableAppointmentFundings);
 
         // save each line so deletion aware reasons get removed when needed
-        for (PendingBudgetConstructionAppointmentFunding savableAppointmentFunding : savableAppointmentFundings){
+        for (PendingBudgetConstructionAppointmentFunding savableAppointmentFunding : savableAppointmentFundings) {
             businessObjectService.save(savableAppointmentFunding);
         }
     }
@@ -736,7 +733,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#revert(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public void revert(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {
         PendingBudgetConstructionAppointmentFunding vacantFunding = this.findVacantAppointmentFunding(appointmentFundings, appointmentFunding);
@@ -752,7 +749,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#updateAccessOfAppointmentFunding(org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding,
-     *      org.kuali.kfs.module.bc.util.SalarySettingFieldsHolder, boolean, java.util.Map, org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.kfs.module.bc.util.SalarySettingFieldsHolder, boolean, java.util.Map, org.kuali.rice.kim.api.identity.Person)
      */
     public boolean updateAccessOfAppointmentFunding(PendingBudgetConstructionAppointmentFunding appointmentFunding, SalarySettingFieldsHolder salarySettingFieldsHolder, boolean budgetByObjectMode, boolean hasDocumentEditAccess, Person person) {
         String budgetChartOfAccountsCode = salarySettingFieldsHolder.getChartOfAccountsCode();
@@ -785,7 +782,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.SalarySettingService#updateAccessOfAppointmentFundingByUserLevel(org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     public boolean updateAccessOfAppointmentFundingByUserLevel(PendingBudgetConstructionAppointmentFunding appointmentFunding, Person user) {
         BudgetConstructionHeader budgetConstructionHeader = budgetDocumentService.getBudgetConstructionHeader(appointmentFunding);
@@ -796,8 +793,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
         BudgetConstructionDocument document;
         try {
             document = (BudgetConstructionDocument) documentService.getByDocumentHeaderId(budgetConstructionHeader.getDocumentNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Fail to retrieve budget document for doc id " + budgetConstructionHeader.getDocumentNumber());
         }
 
@@ -837,8 +833,7 @@ public class SalarySettingServiceImpl implements SalarySettingService {
 
         if (appointmentFunding.isHourlyPaid()) {
             this.normalizePayRateAndAmount(appointmentFunding);
-        }
-        else {
+        } else {
             appointmentFunding.setAppointmentRequestedPayRate(BigDecimal.ZERO);
         }
 

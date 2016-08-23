@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -32,6 +29,9 @@ import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Struts Action class for the Benefit Expense Transfer Document.
@@ -53,10 +53,10 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
 
     /**
      * @param expenseTransferDocumentFormBase ExpenseTransferDocumentForm type
-     * @param balance LedgerBalance type
+     * @param balance                         LedgerBalance type
      * @return none
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#resetLookupFields(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase,
-     *      org.kuali.kfs.module.ld.businessobject.LedgerBalance)
+     * org.kuali.kfs.module.ld.businessobject.LedgerBalance)
      */
     @Override
     protected void resetLookupFields(ExpenseTransferDocumentFormBase expenseTransferDocumentForm, LedgerBalance balance) {
@@ -65,12 +65,12 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     }
 
     /**
-     * @param mapping ActionMapping
-     * @param form ActionForm
-     * @param request HttpServletRequest
+     * @param mapping  ActionMapping
+     * @param form     ActionForm
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#performLookup(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

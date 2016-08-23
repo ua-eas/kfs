@@ -20,13 +20,14 @@ package org.kuali.kfs.kns.lookup
 
 import org.junit.Test
 import org.kuali.kfs.krad.util.KRADConstants
-import static org.junit.Assert.assertEquals
 import org.kuali.rice.kew.api.KewApiConstants
+
+import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertFalse
 
-
 class LookupUtilsTest {
-    @Test void testLookupUtilsPreprocessesStandardRangeFields() {
+    @Test
+    void testLookupUtilsPreprocessesStandardRangeFields() {
         Map<String, String> fields = new HashMap<String, String>();
         fields.put("afield", "avalue");
         fields.put(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + "arangefield", "a");
@@ -38,7 +39,8 @@ class LookupUtilsTest {
 
     // KULRICE-5630 base lookup preprocessing does NOT generate expressions for searchable attributes
     // we leave this to a second pass by the DocumentSearchCriteriaTranslator
-    @Test void testLookupUtilsDoesNotPreprocessDocumentSearchAttributes() {
+    @Test
+    void testLookupUtilsDoesNotPreprocessDocumentSearchAttributes() {
         Map<String, String> fields = new HashMap<String, String>();
         fields.put("afield", "avalue");
         fields.put(KewApiConstants.DOCUMENT_ATTRIBUTE_FIELD_PREFIX + KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + "arangefield", "a");

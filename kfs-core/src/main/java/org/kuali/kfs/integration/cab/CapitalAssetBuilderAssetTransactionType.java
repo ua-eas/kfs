@@ -37,12 +37,12 @@ public interface CapitalAssetBuilderAssetTransactionType extends ExternalizableB
     public String getCapitalAssetNonquantitySubtypeRequiredText();
 
     public void setCapitalAssetNonquantitySubtypeRequiredText(
-            String capitalAssetNonquantitySubtypeRequiredText);
+        String capitalAssetNonquantitySubtypeRequiredText);
 
     public String getCapitalAssetQuantitySubtypeRequiredText();
 
     public void setCapitalAssetQuantitySubtypeRequiredText(
-            String capitalAssetQuantitySubtypeRequiredText);
+        String capitalAssetQuantitySubtypeRequiredText);
 
     public boolean isActive();
 

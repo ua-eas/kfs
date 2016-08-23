@@ -22,9 +22,7 @@ import org.kuali.kfs.fp.businessobject.OffsetAccount;
 import org.kuali.kfs.gl.businessobject.FlexibleAccountUpdateable;
 
 /**
- *
  * This interface defines methods that a FlexibleOffsetAccount Service must provide.
- *
  */
 public interface FlexibleOffsetAccountService {
 
@@ -32,11 +30,11 @@ public interface FlexibleOffsetAccountService {
      * Retrieves the OffsetAccount by its composite primary key (all passed in as parameters) if the SYSTEM parameter
      * FLEXIBLE_OFFSET_ENABLED_FLAG is true.
      *
-     * @param chartOfAccountsCode The chart code of the account to be retrieved.
-     * @param accountNumber The account number of the account to be retrieved.
+     * @param chartOfAccountsCode       The chart code of the account to be retrieved.
+     * @param accountNumber             The account number of the account to be retrieved.
      * @param financialOffsetObjectCode Offset object code used to retrieve the OffsetAccount.
      * @return An OffsetAccount object instance. Returns null if there is none with the given key, or if the SYSTEM parameter
-     *         FLEXIBLE_OFFSET_ENABLED_FLAG is false.
+     * FLEXIBLE_OFFSET_ENABLED_FLAG is false.
      */
     public OffsetAccount getByPrimaryIdIfEnabled(String chartOfAccountsCode, String accountNumber, String financialOffsetObjectCode);
 
@@ -50,7 +48,7 @@ public interface FlexibleOffsetAccountService {
     /**
      * This method will apply the flexible offset account if necessary. It will only change the chart, account, sub account and sub
      * object on the transaction. If the flexible offset isn't enabled or valid for this transaction, it will be unchanged.
-     *
+     * <p>
      * It throws an InvalidFlexibleOffsetException if the flexible offset account associated with the transaction
      * is invalid, closed or expired or if the object code is invalid for the flexible offset.
      *

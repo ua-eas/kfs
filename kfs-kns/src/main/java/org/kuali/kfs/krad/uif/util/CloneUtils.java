@@ -37,7 +37,6 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Utility class for copying objects using reflection. Modified from the jCommon
  * library: http://www.matthicks.com/2008/05/fastest-deep-cloning.html
- *
  */
 public class CloneUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CloneUtils.class);
@@ -59,11 +58,10 @@ public class CloneUtils {
     }
 
     protected static final Object deepCloneReflectionInternal(Object original, Map<Object, Object> cache,
-            boolean referenceCollectionCopy) throws Exception {
+                                                              boolean referenceCollectionCopy) throws Exception {
         if (original == null) { // No need to clone nulls
             return original;
-        }
-        else if (cache.containsKey(original)) {
+        } else if (cache.containsKey(original)) {
             return cache.get(original);
         }
 
@@ -71,11 +69,9 @@ public class CloneUtils {
         Object clone = null;
         if (List.class.isAssignableFrom(original.getClass())) {
             clone = deepCloneList(original, cache, referenceCollectionCopy);
-        }
-        else if (Map.class.isAssignableFrom(original.getClass())) {
+        } else if (Map.class.isAssignableFrom(original.getClass())) {
             clone = deepCloneMap(original, cache, referenceCollectionCopy);
-        }
-        else {
+        } else {
             clone = deepCloneObject(original, cache);
         }
 
@@ -86,24 +82,18 @@ public class CloneUtils {
         if (original instanceof Number) { // Numbers are immutable
             if (original instanceof AtomicInteger) {
                 // AtomicIntegers are mutable
-            }
-            else if (original instanceof AtomicLong) {
+            } else if (original instanceof AtomicLong) {
                 // AtomLongs are mutable
-            }
-            else {
+            } else {
                 return original;
             }
-        }
-        else if (original instanceof String) { // Strings are immutable
+        } else if (original instanceof String) { // Strings are immutable
             return original;
-        }
-        else if (original instanceof Character) { // Characters are immutable
+        } else if (original instanceof Character) { // Characters are immutable
             return original;
-        }
-        else if (original instanceof Class) { // Classes are immutable
+        } else if (original instanceof Class) { // Classes are immutable
             return original;
-        }
-        else if (original instanceof Boolean) {
+        } else if (original instanceof Boolean) {
             return new Boolean(((Boolean) original).booleanValue());
         }
 
@@ -135,8 +125,7 @@ public class CloneUtils {
             }
 
             return copy;
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             LOG.debug("Exception during clone (returning original): " + t.getMessage());
             return original;
         }
@@ -144,7 +133,7 @@ public class CloneUtils {
 
     @SuppressWarnings("unchecked")
     protected static Object deepCloneMap(Object original, Map<Object, Object> cache, boolean referenceCollectionCopy)
-            throws Exception {
+        throws Exception {
         // Instantiate a new instance
         Map<Object, Object> clone = (Map<Object, Object>) instantiate(original);
 
@@ -152,10 +141,9 @@ public class CloneUtils {
         for (Entry<Object, Object> entry : ((Map<Object, Object>) original).entrySet()) {
             if (referenceCollectionCopy) {
                 clone.put(entry.getKey(), entry.getValue());
-            }
-            else {
+            } else {
                 clone.put(deepCloneReflectionInternal(entry.getKey(), cache, false),
-                        deepCloneReflectionInternal(entry.getValue(), cache, false));
+                    deepCloneReflectionInternal(entry.getValue(), cache, false));
             }
         }
 
@@ -164,17 +152,16 @@ public class CloneUtils {
 
     @SuppressWarnings("unchecked")
     protected static Object deepCloneList(Object original, Map<Object, Object> cache, boolean referenceCollectionCopy)
-            throws Exception {
+        throws Exception {
         // Instantiate a new instance
         List<Object> clone = (List<Object>) instantiate(original);
 
         // Populate data
-        for (Iterator<Object> iterator = ((List<Object>) original).iterator(); iterator.hasNext();) {
+        for (Iterator<Object> iterator = ((List<Object>) original).iterator(); iterator.hasNext(); ) {
             Object object = iterator.next();
             if (referenceCollectionCopy) {
                 clone.add(object);
-            }
-            else {
+            } else {
                 clone.add(deepCloneReflectionInternal(object, cache, false));
             }
         }
@@ -185,13 +172,13 @@ public class CloneUtils {
     /**
      * Retrieves all field names for the given class that have the given annotation
      *
-     * @param clazz - class to find field annotations for
+     * @param clazz           - class to find field annotations for
      * @param annotationClass - class for annotation to find
      * @return Map<String, Annotation> map containing the field name that has the annotation as a key and the
-     *         annotation instance as a value
+     * annotation instance as a value
      */
     public static Map<String, Annotation> getFieldsWithAnnotation(Class<?> clazz,
-            Class<? extends Annotation> annotationClass) {
+                                                                  Class<? extends Annotation> annotationClass) {
         Map<String, Annotation> annotationFields = new HashMap<String, Annotation>();
 
         Field[] fields = getFields(clazz, false);
@@ -208,13 +195,13 @@ public class CloneUtils {
     /**
      * Determines whether the property of the given class has the given annotation specified
      *
-     * @param clazz - class containing the property to check
-     * @param propertyName - name of the property to check
+     * @param clazz           - class containing the property to check
+     * @param propertyName    - name of the property to check
      * @param annotationClass - class for the annotation to look for
      * @return boolean true if the field associated with the property name has the given annotation, false if not
      */
     public static boolean fieldHasAnnotation(Class<?> clazz, String propertyName,
-            Class<? extends Annotation> annotationClass) {
+                                             Class<? extends Annotation> annotationClass) {
         Field[] fields = getFields(clazz, false);
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
@@ -265,8 +252,7 @@ public class CloneUtils {
                 for (Field f : allFields) {
                     if ((!includeTransient) && ((f.getModifiers() & Modifier.TRANSIENT) == Modifier.TRANSIENT)) {
                         continue;
-                    }
-                    else if (f.isSynthetic()) {
+                    } else if (f.isSynthetic()) {
                         // Synthetic fields are bad!!!
                         continue;
                     }

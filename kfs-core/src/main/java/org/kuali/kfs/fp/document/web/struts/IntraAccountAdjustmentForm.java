@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.IntraAccountAdjustmentDocument;
 
-public class IntraAccountAdjustmentForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable{
+import java.util.ArrayList;
+import java.util.List;
+
+public class IntraAccountAdjustmentForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class IntraAccountAdjustmentForm extends CapitalAccountingLinesFormBase i
 
     /**
      * Constructs a IntraAccountAdjustmentForm instance and sets
-     *  up the IntraAccountTransferofFunds document.
+     * up the IntraAccountTransferofFunds document.
      */
     public IntraAccountAdjustmentForm() {
         super();
@@ -47,6 +47,7 @@ public class IntraAccountAdjustmentForm extends CapitalAccountingLinesFormBase i
     public IntraAccountAdjustmentDocument getTransferOfFundsDocument() {
         return (IntraAccountAdjustmentDocument) getDocument();
     }
+
     @Override
     protected String getDefaultDocumentTypeName() {
         return "IAA";
@@ -60,7 +61,7 @@ public class IntraAccountAdjustmentForm extends CapitalAccountingLinesFormBase i
 
     @Override
     public void setCapitalAssetInformation(List<CapitalAssetInformation> capitalAssetInformation) {
-       this.capitalAssetInformation =capitalAssetInformation;
+        this.capitalAssetInformation = capitalAssetInformation;
 
     }
 

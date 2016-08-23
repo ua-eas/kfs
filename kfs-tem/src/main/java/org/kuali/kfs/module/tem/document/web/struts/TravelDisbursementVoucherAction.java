@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -34,6 +29,10 @@ import org.kuali.kfs.module.tem.document.TravelDocumentBase;
 import org.kuali.kfs.module.tem.document.service.AccountingDocumentRelationshipService;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * This class...
@@ -57,8 +56,8 @@ public class TravelDisbursementVoucherAction extends org.kuali.kfs.fp.document.w
                 travelDisbursementVoucherForm.getNewSourceLine().setAccountNumber(document.getTemProfile().getDefaultAccount());
             }
             if (document.getSourceAccountingLines() != null) {
-                for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>)document.getSourceAccountingLines()){
-                    if (!line.getCardType().equals(TemConstants.TRAVEL_TYPE_CTS)){
+                for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>) document.getSourceAccountingLines()) {
+                    if (!line.getCardType().equals(TemConstants.TRAVEL_TYPE_CTS)) {
                         final SourceAccountingLine newLine = convertAccountingLine(line);
                         newLine.setDocumentNumber(disbursementVoucherDocument.getDocumentNumber());
                         disbursementVoucherDocument.addSourceAccountingLine(newLine);
@@ -74,6 +73,7 @@ public class TravelDisbursementVoucherAction extends org.kuali.kfs.fp.document.w
 
     /**
      * Converts an accounting line from a TEM document into a SourceAccountingLine, like the ones that DV's use
+     *
      * @param travelAccountingLine the travel accounting line to copy
      * @return a SourceAccountingLine to be added to the DV document
      */

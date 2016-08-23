@@ -22,27 +22,27 @@ import org.kuali.rice.kim.api.identity.Person;
 
 public class TravelEntertainmentMovingModuleServiceNoOp implements TravelEntertainmentMovingModuleService {
 
-	@Override
-	public boolean isTEMDocument(String docId) {
-		return false;
-	}
+    @Override
+    public boolean isTEMDocument(String docId) {
+        return false;
+    }
 
-	@Override
-	public TravelEntertainmentMovingTravelDocument getTEMDocument(
-			String temDocId) {
-		return null;
-	}
+    @Override
+    public TravelEntertainmentMovingTravelDocument getTEMDocument(
+        String temDocId) {
+        return null;
+    }
 
-	@Override
-	public boolean isTemProfileEmployee(
-			TravelEntertainmentMovingTravelDocument document) {
-		return false;
-	}
+    @Override
+    public boolean isTemProfileEmployee(
+        TravelEntertainmentMovingTravelDocument document) {
+        return false;
+    }
 
-	@Override
-	public boolean isTravelManager(Person user) {
-		return false;
-	}
+    @Override
+    public boolean isTravelManager(Person user) {
+        return false;
+    }
 
     @Override
     public boolean isTravelReimbursementDocument(TravelEntertainmentMovingTravelDocument document) {

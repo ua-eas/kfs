@@ -37,6 +37,7 @@ public class StringHelper extends ObjectHelper {
 
     /**
      * This method returns true if String object is null or empty
+     *
      * @param s evaluated String
      * @return true if String object is null or empty
      */

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.dataaccess;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.Encumbrance;
@@ -29,6 +27,8 @@ import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.SufficientFundBalances;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
+
+import java.sql.Timestamp;
 
 public interface LedgerPreparedStatementCachingDao extends PreparedStatementCachingDao {
     public int getMaxSequenceNumber(Transaction t);

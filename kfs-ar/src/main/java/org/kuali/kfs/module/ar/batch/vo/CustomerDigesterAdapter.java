@@ -21,16 +21,15 @@ package org.kuali.kfs.module.ar.batch.vo;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.module.ar.batch.report.CustomerLoadBatchErrors;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 
 /**
- *
  * This class converts a CustomerDigesterVO object to a standard
  * Customer object.
  */
@@ -54,15 +53,14 @@ public class CustomerDigesterAdapter {
     }
 
     /**
-     *
      * Converts a CustomerDigesterVO to a real Customer BO.  Tries to do intelligent type
      * conversions where the types arent Strings.
-     *
+     * <p>
      * NOTE that conversion exceptions will be swallowed! and converted to errors in the
      * parameter errorMap.
      *
      * @param customerDigesterVO The VO full of String values to convert from.
-     * @param errorMap An empty MessageMap collection to add errors to.  Only new errors will be added.
+     * @param errorMap           An empty MessageMap collection to add errors to.  Only new errors will be added.
      * @return A populated Customer object, from the VO.
      */
     public Customer convert(CustomerDigesterVO customerDigesterVO, CustomerLoadBatchErrors errors) {
@@ -172,15 +170,14 @@ public class CustomerDigesterAdapter {
     }
 
     /**
-     *
      * This method converts a string value that may represent a date into a java.sql.Date.
      * If the value is blank (whitespace, empty, null) then a null Date object is returned.  If
      * the value cannot be converted to a java.sql.Date, then a RuntimException or ConversionException
      * will be thrown.
      *
      * @param propertyName Name of the field whose value is being converted.
-     * @param dateValue The value being converted.
-     * @param errorMap The errorMap to add conversion errors to.
+     * @param dateValue    The value being converted.
+     * @param errorMap     The errorMap to add conversion errors to.
      * @return A valid java.sql.Date with the converted value, if possible.
      */
     private java.sql.Date convertToJavaSqlDate(String propertyName, String dateValue) {
@@ -194,16 +191,14 @@ public class CustomerDigesterAdapter {
         Object obj = null;
         try {
             obj = converter.convert(java.sql.Date.class, dateValue);
-        }
-        catch (ConversionException e) {
+        } catch (ConversionException e) {
             LOG.error("Failed to convert the value [" + dateValue + "] from field [" + propertyName + "] to a java.sql.Date.");
             addError(propertyName, java.sql.Date.class, dateValue, "Could not convert value to target type.");
             return null;
         }
         try {
             date = (java.sql.Date) obj;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Failed to cast the converters results to a java.sql.Date.");
             addError(propertyName, java.sql.Date.class, dateValue, "Could not convert value to target type.");
             return null;
@@ -218,16 +213,15 @@ public class CustomerDigesterAdapter {
     }
 
     /**
-     *
      * This method converts a string, which may be blank, null or whitespace, into a KualiDecimal, if possible.
-     *
+     * <p>
      * A null, blank, or whitespace value passed in will result in a Null KualiDecimal value returned.  A value passed in
      * which is not blank, but cannot otherwise be converted to a KualiDecimal, will throw a ValueObjectConverterException.
      * Otherwise, the value will be converted to a KualiDecimal and returned.
      *
-     * @param propertyName The name of the property being converted (used for exception handling).
+     * @param propertyName  The name of the property being converted (used for exception handling).
      * @param stringDecimal The value being passed in, which will be converted to a KualiDecimal.
-     * @param errorMap The errorMap to add conversion errors to.
+     * @param errorMap      The errorMap to add conversion errors to.
      * @return A valid KualiDecimal value.  If the method returns a value, then it will be a legitimate value.
      */
     private KualiDecimal convertToKualiDecimal(String propertyName, String stringDecimal) {
@@ -237,8 +231,7 @@ public class CustomerDigesterAdapter {
         KualiDecimal kualiDecimal = null;
         try {
             kualiDecimal = new KualiDecimal(stringDecimal);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             LOG.error("Failed to convert the value [" + stringDecimal + "] from field [" + propertyName + "] to a KualiDecimal.");
             addError(propertyName, KualiDecimal.class, stringDecimal, "Could not convert value to target type.");
             return null;
@@ -247,13 +240,13 @@ public class CustomerDigesterAdapter {
     }
 
     /**
-     *
      * This method converts a String into a boolean.
-     *
+     * <p>
      * It will return
+     *
      * @param propertyName
      * @param stringBoolean
-     * @param errorMap The errorMap to add conversion errors to.
+     * @param errorMap      The errorMap to add conversion errors to.
      * @return
      */
     private static final boolean convertToLittleBoolean(String propertyName, String stringBoolean) {
@@ -279,20 +272,19 @@ public class CustomerDigesterAdapter {
     }
 
     /**
-     *
      * This method is used to apply any DataDictionary default value rules, if appropriate.
-     *
+     * <p>
      * If the incoming value isnt blank, empty, or null, then nothing happens, and the method
      * returns the incoming value.
-     *
+     * <p>
      * If the value is empty/blank/null, then the MaintenanceDocumentDictionaryService is consulted,
      * and if there is a defaultValue applied to this field, then its used in place of the empty/blank/null.
      *
      * @param propertyName The propertyName of the field (must match case exactly to work).
-     * @param batchValue The invoming value from the batch file, which at this point is always still a string.
+     * @param batchValue   The invoming value from the batch file, which at this point is always still a string.
      * @return If the original value is null/blank/empty, then if a default value is configured, that default value
-     *         is returned.  If no default value is configured, then the original value (trimmed) is returned.  Otherwise,
-     *         if the original incoming value is not empty/null/blank, then the original value is immediately returned.
+     * is returned.  If no default value is configured, then the original value (trimmed) is returned.  Otherwise,
+     * if the original incoming value is not empty/null/blank, then the original value is immediately returned.
      */
     private String applyDefaultValue(String propertyName, String batchValue) {
 
@@ -305,8 +297,7 @@ public class CustomerDigesterAdapter {
         String incomingValue;
         if (StringUtils.isBlank(batchValue)) {
             incomingValue = null;
-        }
-        else {
+        } else {
             incomingValue = StringUtils.trimToNull(batchValue);
         }
 
@@ -315,8 +306,7 @@ public class CustomerDigesterAdapter {
         if (incomingValue == null && StringUtils.isNotBlank(defaultValue)) {
             LOG.info("Applied DD default value of '" + defaultValue + "' to field [" + propertyName + "].");
             return defaultValue;
-        }
-        else {
+        } else {
             return ((incomingValue == null) ? "" : incomingValue);
         }
     }

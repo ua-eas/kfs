@@ -19,9 +19,8 @@
 
 package org.kuali.kfs.sys.document.workflow;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.PostProcessorService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
@@ -32,7 +31,8 @@ import org.kuali.rice.kew.framework.postprocessor.DocumentLockingEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kew.framework.postprocessor.ProcessDocReport;
-import org.kuali.kfs.krad.service.PostProcessorService;
+
+import java.util.List;
 
 /**
  * This class is the public entry point by which workflow communicates status changes, level changes, and other useful changes. Note

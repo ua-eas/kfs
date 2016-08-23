@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.identity;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
+import java.util.Map;
 
 public class TestPerson implements Person {
     private String principalId = "1234567890";

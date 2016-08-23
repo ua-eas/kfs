@@ -24,8 +24,6 @@ import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 
 /**
  * CollectionsMapBuilder
- *
- *
  */
 @Deprecated
 public class CollectionsMapBuilder {
@@ -44,7 +42,7 @@ public class CollectionsMapBuilder {
     public ExportMap buildCollectionsMap(DataDictionaryEntryBase entry) {
         ExportMap collectionsMap = new ExportMap("collections");
 
-        for ( CollectionDefinition collection : entry.getCollections() ) {
+        for (CollectionDefinition collection : entry.getCollections()) {
             collectionsMap.set(buildCollectionMap(collection));
         }
 

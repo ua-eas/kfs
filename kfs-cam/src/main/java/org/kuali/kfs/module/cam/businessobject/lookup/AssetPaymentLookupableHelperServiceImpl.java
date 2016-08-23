@@ -18,12 +18,14 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -34,15 +36,13 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrides the base getActionUrls method for Asset Payment. Even though it's a payment lookup screen we are maintaining
@@ -54,7 +54,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      List pkNames)
+     * List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
@@ -73,8 +73,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
         // For retired asset, all action link will be hidden.
         if (assetService.isAssetRetired(asset)) {
             anchorHtmlDataList.add(super.getViewAssetUrl(asset));
-        }
-        else {
+        } else {
             anchorHtmlDataList.add(this.getAssetUrl(asset));
             anchorHtmlDataList.add(super.getLoanUrl(asset));
             anchorHtmlDataList.add(super.getMergeUrl(asset));
@@ -87,6 +86,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
 
     /**
      * Returns the url for any drill down links within the lookup. Override so that documentNumber is not an inquiry if it doesn't exist.
+     *
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
      */
     @Override
@@ -103,7 +103,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
     }
 
     protected HtmlData getPaymentUrl(Asset asset) {
-        AssetPaymentDocumentAuthorizer assetPaymentAuhorizer =new AssetPaymentDocumentAuthorizer();
+        AssetPaymentDocumentAuthorizer assetPaymentAuhorizer = new AssetPaymentDocumentAuthorizer();
         boolean isAuhtorize = assetPaymentAuhorizer.canInitiate(CamsConstants.DocumentTypeName.ASSET_PAYMENT, GlobalVariables.getUserSession().getPerson());
 
         if (assetService.isCapitalAsset(asset) && isAuhtorize) {
@@ -134,9 +134,9 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
             String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, parameters);
             return new AnchorHtmlData(href, KFSConstants.MAINTENANCE_NEW_METHOD_TO_CALL, CamsConstants.AssetActions.SEPARATE);
         } else {
-                return new AnchorHtmlData("", "", "");
-            }
+            return new AnchorHtmlData("", "", "");
         }
+    }
 
     protected HtmlData getAssetUrl(Asset asset) {
         AssetAuthorizer assetAuthorizer = new AssetAuthorizer();

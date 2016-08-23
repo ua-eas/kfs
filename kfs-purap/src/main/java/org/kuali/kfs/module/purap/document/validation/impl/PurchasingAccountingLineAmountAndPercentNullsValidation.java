@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchasingAccountingLineAmountAndPercentNullsValidation extends GenericValidation {
 
@@ -33,7 +33,7 @@ public class PurchasingAccountingLineAmountAndPercentNullsValidation extends Gen
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PurApAccountingLine purapAccountingLine = (PurApAccountingLine)updatedAccountingLine;
+        PurApAccountingLine purapAccountingLine = (PurApAccountingLine) updatedAccountingLine;
 
         if (ObjectUtils.isNull(purapAccountingLine.getAmount()) && ObjectUtils.isNull(purapAccountingLine.getAccountLinePercent())) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ACCOUNTS, PurapKeyConstants.ERROR_PURCHASING_AMOUNT_AND_PERCENT_MISSING);

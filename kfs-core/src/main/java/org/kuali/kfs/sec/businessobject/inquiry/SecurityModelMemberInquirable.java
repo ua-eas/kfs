@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sec.businessobject.inquiry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityModelDefinition;
 import org.kuali.kfs.sys.KFSConstants;
@@ -32,11 +32,11 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
-import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -63,13 +63,11 @@ public class SecurityModelMemberInquirable extends KualiInquirableImpl {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, RoleEbo.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.ROLE_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.ROLE_ID, memberId.toString());
-                }
-                else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
+                } else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, GroupEbo.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.GROUP_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.GROUP_ID, memberId.toString());
-                }
-                else {
+                } else {
                     parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, Person.class.getName());
                     parameters.put(KimConstants.PrimaryKeyConstants.PRINCIPAL_ID, memberId);
                     fieldList.put(KimConstants.PrimaryKeyConstants.PRINCIPAL_ID, memberId.toString());

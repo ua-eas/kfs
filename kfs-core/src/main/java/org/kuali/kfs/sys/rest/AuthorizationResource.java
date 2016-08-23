@@ -25,7 +25,11 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -51,8 +55,8 @@ public class AuthorizationResource {
         Map<String, String> details = new HashMap<>();
         details.put(KFSConstants.REPORT_CODE, reportCode);
         boolean isAuthorized = KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(currentUser.getPrincipalId(),
-                KFSConstants.PermissionTemplate.VIEW_REPORT.namespace, KFSConstants.PermissionTemplate.VIEW_REPORT.name,
-                details, Collections.<String, String>emptyMap());
+            KFSConstants.PermissionTemplate.VIEW_REPORT.namespace, KFSConstants.PermissionTemplate.VIEW_REPORT.name,
+            details, Collections.<String, String>emptyMap());
 
         Map<String, Object> responseEntity = new HashMap<>();
         responseEntity.put(KFSConstants.IS_AUTHORIZED, isAuthorized);

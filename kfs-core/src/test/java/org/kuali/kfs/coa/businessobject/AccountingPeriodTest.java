@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Date;
 
 /**
  * This class tests the AccountingPeriod business object.

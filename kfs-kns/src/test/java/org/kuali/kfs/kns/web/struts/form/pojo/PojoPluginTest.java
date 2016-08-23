@@ -36,7 +36,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class PojoPluginTest {
 
@@ -89,7 +92,7 @@ public class PojoPluginTest {
      * Tests that original IndexOutOfBoundsException is thrown when the bean is not a PersistableBusinessObject
      */
     @Test
-    public void testGenerateIndexedPropertyNonPBO() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException  {
+    public void testGenerateIndexedPropertyNonPBO() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         IndexOutOfBoundsException ioobe = new IndexOutOfBoundsException("test exception");
         try {
             new PojoPropertyUtilsBean().generateIndexedProperty(new TestCollectionHolder(), "collection", 0, ioobe);
@@ -103,7 +106,7 @@ public class PojoPluginTest {
      * Tests that original IndexOutOfBoundsException is thrown when the property is not a List
      */
     @Test
-    public void testGenerateIndexedPropertyNonList() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException  {
+    public void testGenerateIndexedPropertyNonList() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         IndexOutOfBoundsException ioobe = new IndexOutOfBoundsException("test exception");
         try {
             new PojoPropertyUtilsBean().generateIndexedProperty(new DocumentAttachment(), "attachmentContent", 0, ioobe);
@@ -118,16 +121,16 @@ public class PojoPluginTest {
         final Object notAnOjbObject = new HashMap();
         // stub out the persistence service
         PojoPropertyUtilsBean.PersistenceStructureServiceProvider.persistenceStructureService =
-                (PersistenceStructureService) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-                        new Class[] { PersistenceStructureService.class },
-                        new InvocationHandler() {
-                            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                                if ("listCollectionObjectTypes".equals(method.getName())) {
-                                    return new HashMap();
-                                }
-                                return null;
-                            }
-                        });
+            (PersistenceStructureService) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+                new Class[]{PersistenceStructureService.class},
+                new InvocationHandler() {
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        if ("listCollectionObjectTypes".equals(method.getName())) {
+                            return new HashMap();
+                        }
+                        return null;
+                    }
+                });
         assertNull(new PojoPropertyUtilsBean.PersistenceStructureServiceProvider().getCollectionItemClass(notAnOjbObject, "abcd"));
     }
 
@@ -158,6 +161,7 @@ public class PojoPluginTest {
     /**
      * Test class that holds a collection, but trying to get it results in a
      * NestedNullException.
+     *
      * @throws NestedNullException
      */
     public static class TestCollectionHolder extends PersistableBusinessObjectBase {
@@ -175,6 +179,7 @@ public class PojoPluginTest {
     /**
      * Test class that holds a collection, but trying to get it results in a
      * NestedNullException.
+     *
      * @throws NestedNullException
      */
     public static class TestCollectionHolder2 extends PersistableBusinessObjectBase {

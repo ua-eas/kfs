@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Provides facilities to obtain chartofAccountsCode-accountNumber foreign key fields
@@ -32,6 +32,7 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
 
     /**
      * Decides if the specified class is an account related class, i.e. whether it contains chartOfAccountsCode and accountNumber as part of the primary keys.
+     *
      * @param clazz the specified class
      * @return true if the class contains chartOfAccountsCode and accountNumber as part of the primary keys; false otherwise.
      */
@@ -41,8 +42,8 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * Determines the list of collection accounts (or other account-involved BOs) contained within the specified parent object.
      * For example, an Award object contains awardAccounts.
      * Note: these do not include the following cases
-     *      - nested collection accounts
-     *      - non-maintainable collection accounts
+     * - nested collection accounts
+     * - non-maintainable collection accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for collection accounts.
      * @return Map containing the collection account names (key) and class type (value) or empty map if the BO contains no collection accounts.
@@ -54,8 +55,8 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * (or other account-involved BOs) contained within the specified parent object.
      * For example, an Award object contains awardAccounts with chartOfAccountsCode as one of the primary keys.
      * Note: these do not include the following cases
-     *      - nested collection accounts
-     *      - non-maintainable collection accounts
+     * - nested collection accounts
+     * - non-maintainable collection accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for collection accounts.
      * @return Set containing the chartOfAccountsCode field names in collection accounts or empty set if the BO contains no collection accounts.
@@ -66,12 +67,12 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * Determines the list of reference accounts (or other account-involved BOs) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount etc.
      * Note: these do not include the following cases:
-     *      - nested reference accounts
-     *      - reference accounts in collections
-     *      - reference accounts whose PKs are also PKs of the BO
-     *      - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintenance page in a nested way
-     *      - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
-     *      - non-maintainable reference accounts
+     * - nested reference accounts
+     * - reference accounts in collections
+     * - reference accounts whose PKs are also PKs of the BO
+     * - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintenance page in a nested way
+     * - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
+     * - non-maintainable reference accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @return Map containing the reference account names (key) and class type (value) or empty map if the BO contains no reference accounts.
@@ -83,12 +84,12 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * (or other account-involved BOs) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToChartOfAccountsCode-reportsToAccountNumber as the foreign keys.
      * Note: these do not include the following cases:
-     *      - nested reference accounts
-     *      - reference accounts in collections
-     *      - reference accounts whose PKs are also PKs of the BO
-     *      - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
-     *      - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
-     *      - non-maintainable reference accounts
+     * - nested reference accounts
+     * - reference accounts in collections
+     * - reference accounts whose PKs are also PKs of the BO
+     * - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
+     * - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
+     * - non-maintainable reference accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @return Map containing the chartOfAccountsCode-accountNumber (key-value) foreign key pairs for all reference accounts or empty map if the BO contains no reference accounts.
@@ -100,12 +101,12 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * (or other account-involved BOs) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToAccountNumber-reportsToChartOfAccountsCode as the foreign keys.
      * Note: these do not include the following cases:
-     *      - nested reference accounts
-     *      - reference accounts in collections
-     *      - reference accounts whose PKs are also PKs of the BO
-     *      - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
-     *      - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
-     *      - non-maintainable reference accounts
+     * - nested reference accounts
+     * - reference accounts in collections
+     * - reference accounts whose PKs are also PKs of the BO
+     * - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
+     * - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
+     * - non-maintainable reference accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @return Map containing the accountNumber-chartOfAccountsCode (key-value) foreign key pairs for all reference accounts or empty map if the BO contains no reference accounts.
@@ -117,12 +118,12 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * (or other account-involved BOs) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToChartOfAccountsCode as one of the foreign keys.
      * Note: these do not include the following cases:
-     *      - nested reference accounts
-     *      - reference accounts in collections
-     *      - reference accounts whose PKs are also PKs of the BO
-     *      - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
-     *      - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
-     *      - non-maintainable reference accounts
+     * - nested reference accounts
+     * - reference accounts in collections
+     * - reference accounts whose PKs are also PKs of the BO
+     * - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
+     * - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
+     * - non-maintainable reference accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @return Set containing the chartOfAccountsCode foreign key names for all reference accounts or empty set if the BO contains no reference accounts.
@@ -134,12 +135,12 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * (or other account-involved BOs) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToAccountNumber as one of the foreign keys.
      * Note: these do not include the following cases:
-     *      - nested reference accounts
-     *      - reference accounts in collections
-     *      - reference accounts whose PKs are also PKs of the BO
-     *      - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
-     *      - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
-     *      - non-maintainable reference accounts
+     * - nested reference accounts
+     * - reference accounts in collections
+     * - reference accounts whose PKs are also PKs of the BO
+     * - reference accounts whose PKs don't exist in the BO as foreign keys but are referred by the maintainance page in a nested way
+     * - non-existing reference accounts whose PKs exist in the BO as foreign keys (this should never happen)
+     * - non-maintainable reference accounts
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @return Set containing the accountNumber foreign key names for all reference accounts or empty set if the BO contains no reference accounts.
@@ -151,7 +152,7 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * as the other, of the reference account (or other account-involved BO) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToChartOfAccountsCode and reportsToAccountNumber as the foreign key pair.
      *
-     * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
+     * @param bo                     BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @param accountNumberFieldName the name of the foreign key corresponding to the primary key accountNumber of the reference account.
      * @return the chartOfAccountsCode field name of the reference account identified by foreign key accountNumberFieldName, or empty string if the BO contains no such reference account.
      */
@@ -162,7 +163,7 @@ public interface AccountPersistenceStructureService extends PersistenceStructure
      * as the other, of the reference account (or other account-involved BO) contained within the specified parent object.
      * For example, an Account object contains reportsToAccount with reportsToAccountNumber and reportsToChartOfAccountsCode as the foreign key pair.
      *
-     * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
+     * @param bo                           BusinessObject (or subclass) instance that would like to be analyzed for reference accounts.
      * @param chartOfAccountsCodeFieldName the name of the foreign key corresponding to the primary key chartOfAccountsCode of the reference account.
      * @return the accountNumber field name of the reference account identified by foreign key chartOfAccountsCode, or empty string if the BO contains no such reference account.
      */

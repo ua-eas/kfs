@@ -24,7 +24,6 @@ import org.kuali.rice.kim.api.identity.Person;
 /**
  * Supplies abstract method to define whether an authorizer can generically check for return to fiscal officer permissions
  * on a given {@link TravelDocument}
- *
  */
 public interface ReturnToFiscalOfficerAuthorizer {
     /**

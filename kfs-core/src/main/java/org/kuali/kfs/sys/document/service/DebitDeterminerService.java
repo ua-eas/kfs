@@ -167,14 +167,12 @@ public interface DebitDeterminerService {
      */
 
 
-
     public abstract boolean isDebitConsideringSectionAndTypePositiveOnly(AccountingDocument accountingDocument, AccountingLine accountingLine);
 
     /**
      * This method is to convert amount to positive or negative based on the object type and Debit CreditCode combination.
-     *
      */
-    public  String getConvertedAmount(String objectType , String debitCreditCode, String amount) ;
+    public String getConvertedAmount(String objectType, String debitCreditCode, String amount);
 
     /**
      * throws an <code>IllegalStateException</code> if the document is an error correction. otherwise does nothing
@@ -267,18 +265,21 @@ public interface DebitDeterminerService {
 
     /**
      * Gets the isDebitCalculationIllegalStateExceptionMessage attribute.
+     *
      * @return Returns the isDebitCalculationIllegalStateExceptionMessage.
      */
     public abstract String getDebitCalculationIllegalStateExceptionMessage();
 
     /**
      * Gets the isErrorCorrectionIllegalStateExceptionMessage attribute.
+     *
      * @return Returns the isErrorCorrectionIllegalStateExceptionMessage.
      */
     public abstract String getErrorCorrectionIllegalStateExceptionMessage();
 
     /**
      * Gets the isInvalidLineTypeIllegalArgumentExceptionMessage attribute.
+     *
      * @return Returns the isInvalidLineTypeIllegalArgumentExceptionMessage.
      */
     public abstract String getInvalidLineTypeIllegalArgumentExceptionMessage();

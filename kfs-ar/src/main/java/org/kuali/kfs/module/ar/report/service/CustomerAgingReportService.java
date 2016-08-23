@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.report.util.CustomerAgingReportDataHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * This interface contains methods related to the Customer Aging Report.
@@ -45,9 +45,9 @@ public interface CustomerAgingReportService {
      * which have billing dates within the given date range, for which there is an outstanding balance due.
      *
      * @param chart Processing chart code for the invoices being retrieved.
-     * @param org Processing org code for the invoices being retrieved.
+     * @param org   Processing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice balances due.
-     * @param end Ending date of the date range used to find invoice balances due.
+     * @param end   Ending date of the date range used to find invoice balances due.
      * @return
      */
     HashMap<String, KualiDecimal> findInvoiceAmountByProcessingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -57,9 +57,9 @@ public interface CustomerAgingReportService {
      * given processing chart and org codes, which have billing dates within the given date range.
      *
      * @param chart Processing chart code for the invoices being retrieved.
-     * @param org Processing org code for the invoices being retrieved.
+     * @param org   Processing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice applied amount.
-     * @param end Ending date of the date range used to find invoice applied amount.
+     * @param end   Ending date of the date range used to find invoice applied amount.
      * @return
      */
     HashMap<String, KualiDecimal> findAppliedAmountByProcessingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -69,9 +69,9 @@ public interface CustomerAgingReportService {
      * given processing chart and org codes, which have billing dates within the given date range.
      *
      * @param chart Processing chart code for the invoices being retrieved.
-     * @param org Processing org code for the invoices being retrieved.
+     * @param org   Processing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice discount amount.
-     * @param end Ending date of the date range used to find invoice discount amount.
+     * @param end   Ending date of the date range used to find invoice discount amount.
      * @return
      */
     HashMap<String, KualiDecimal> findDiscountAmountByProcessingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -83,9 +83,9 @@ public interface CustomerAgingReportService {
      * which have billing dates within the given date range, for which there is an outstanding balance due.
      *
      * @param chart Billing chart code for the invoices being retrieved.
-     * @param org Billing org code for the invoices being retrieved.
+     * @param org   Billing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice balances due.
-     * @param end Ending date of the date range used to find invoice balances due.
+     * @param end   Ending date of the date range used to find invoice balances due.
      * @return
      */
     HashMap<String, KualiDecimal> findInvoiceAmountByBillingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -95,9 +95,9 @@ public interface CustomerAgingReportService {
      * given billing chart and org codes, which have billing dates within the given date range.
      *
      * @param chart Billing chart code for the invoices being retrieved.
-     * @param org Billing org code for the invoices being retrieved.
+     * @param org   Billing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice applied amount.
-     * @param end Ending date of the date range used to find invoice applied amount.
+     * @param end   Ending date of the date range used to find invoice applied amount.
      * @return
      */
     HashMap<String, KualiDecimal> findAppliedAmountByBillingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -107,9 +107,9 @@ public interface CustomerAgingReportService {
      * given billing chart and org codes, which have billing dates within the given date range.
      *
      * @param chart Billing chart code for the invoices being retrieved.
-     * @param org Billing org code for the invoices being retrieved.
+     * @param org   Billing org code for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice discount amount.
-     * @param end Ending date of the date range used to find invoice discount amount.
+     * @param end   Ending date of the date range used to find invoice discount amount.
      * @return
      */
     HashMap<String, KualiDecimal> findDiscountAmountByBillingChartAndOrg(String chart, String org, java.sql.Date begin, java.sql.Date end);
@@ -121,9 +121,9 @@ public interface CustomerAgingReportService {
      * which have billing dates within the given date range, for which there is an outstanding balance due.
      *
      * @param chart Chart code for the invoices being retrieved.
-     * @param org Account Number for the invoices being retrieved.
+     * @param org   Account Number for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice balances due.
-     * @param end Ending date of the date range used to find invoice balances due.
+     * @param end   Ending date of the date range used to find invoice balances due.
      * @return
      */
     HashMap<String, KualiDecimal> findInvoiceAmountByAccount(String chart, String account, java.sql.Date begin, java.sql.Date end);
@@ -133,9 +133,9 @@ public interface CustomerAgingReportService {
      * given chart and account, which have billing dates within the given date range.
      *
      * @param chart Chart code for the invoices being retrieved.
-     * @param org Account Number for the invoices being retrieved.
+     * @param org   Account Number for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice balances due.
-     * @param end Ending date of the date range used to find invoice balances due.
+     * @param end   Ending date of the date range used to find invoice balances due.
      * @return
      */
     HashMap<String, KualiDecimal> findAppliedAmountByAccount(String chart, String account, java.sql.Date begin, java.sql.Date end);
@@ -145,9 +145,9 @@ public interface CustomerAgingReportService {
      * given chart and account, which have billing dates within the given date range.
      *
      * @param chart Chart code for the invoices being retrieved.
-     * @param org Account Number for the invoices being retrieved.
+     * @param org   Account Number for the invoices being retrieved.
      * @param begin Beginning date of the date range used to find invoice balances due.
-     * @param end Ending date of the date range used to find invoice balances due.
+     * @param end   Ending date of the date range used to find invoice balances due.
      * @return
      */
     HashMap<String, KualiDecimal> findDiscountAmountByAccount(String chart, String account, java.sql.Date begin, java.sql.Date end);

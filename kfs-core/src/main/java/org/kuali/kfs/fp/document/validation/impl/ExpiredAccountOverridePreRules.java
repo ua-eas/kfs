@@ -19,14 +19,15 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.AccountingDocumentBase;
+
 /**
  * Checks warnings and prompt conditions for FP documentS.
  */
-public class ExpiredAccountOverridePreRules extends PromptBeforeValidationBase{
+public class ExpiredAccountOverridePreRules extends PromptBeforeValidationBase {
 
     /**
      * Executes pre-rules for Financial Processing Documents

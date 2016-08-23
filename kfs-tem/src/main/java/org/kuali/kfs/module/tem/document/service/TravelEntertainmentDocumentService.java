@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.module.tem.pdf.Coversheet;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.Collection;
 
 public interface TravelEntertainmentDocumentService {
     public Collection<TravelEntertainmentDocument> findByTravelId(String travelDocumentIdentifier);

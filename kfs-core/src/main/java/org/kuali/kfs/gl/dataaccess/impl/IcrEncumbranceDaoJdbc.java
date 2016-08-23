@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.dataaccess.IcrEncumbranceDao;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.ResultSet;
@@ -28,13 +35,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.dataaccess.IcrEncumbranceDao;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.ResultSetExtractor;
-
 public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements IcrEncumbranceDao {
 
     /**
@@ -43,17 +43,17 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
     @Override
     public void buildIcrEncumbranceFeed(Integer fiscalYear, final String fiscalPeriod, final String icrEncumbOriginCode, final Collection<String> icrEncumbBalanceTypes, final Collection<String> icrCostTypes, final String[] expenseObjectTypes, final String costShareSubAccountType, final Writer fw) throws IOException {
         final String rateSql = "select distinct t1.univ_fiscal_yr, t1.fin_coa_cd, t1.account_nbr, t1.sub_acct_nbr, "
-        +   getDbPlatform().getIsNullFunction("t3.fin_series_id", "t2.fin_series_id") + " fin_series_id, " + getDbPlatform().getIsNullFunction("t3.icr_typ_cd", "t2.acct_icr_typ_cd") + " acct_icr_typ_cd "
-        +  "from gl_encumbrance_t t1 join ca_account_t t2 on (t1.fin_coa_cd = t2.fin_coa_cd and t1.account_nbr = t2.account_nbr) "
-        +  "left join ca_a21_sub_acct_t t3 on (t1.fin_coa_cd = t3.fin_coa_cd and t1.account_nbr = t3.account_nbr and t1.sub_acct_nbr = t3.sub_acct_nbr) "
-        +  "where t1.fin_balance_typ_cd in ("+ inString(icrEncumbBalanceTypes.size()) +") and t1.fs_origin_cd <> ? "
-        +  "and t1.univ_fiscal_yr >= ? "
-        +  "and (t3.sub_acct_typ_cd is null or t3.sub_acct_typ_cd <> ?) "
-        +  "and acct_icr_typ_cd not in ("+ inString(icrCostTypes.size()) +")";
+            + getDbPlatform().getIsNullFunction("t3.fin_series_id", "t2.fin_series_id") + " fin_series_id, " + getDbPlatform().getIsNullFunction("t3.icr_typ_cd", "t2.acct_icr_typ_cd") + " acct_icr_typ_cd "
+            + "from gl_encumbrance_t t1 join ca_account_t t2 on (t1.fin_coa_cd = t2.fin_coa_cd and t1.account_nbr = t2.account_nbr) "
+            + "left join ca_a21_sub_acct_t t3 on (t1.fin_coa_cd = t3.fin_coa_cd and t1.account_nbr = t3.account_nbr and t1.sub_acct_nbr = t3.sub_acct_nbr) "
+            + "where t1.fin_balance_typ_cd in (" + inString(icrEncumbBalanceTypes.size()) + ") and t1.fs_origin_cd <> ? "
+            + "and t1.univ_fiscal_yr >= ? "
+            + "and (t3.sub_acct_typ_cd is null or t3.sub_acct_typ_cd <> ?) "
+            + "and acct_icr_typ_cd not in (" + inString(icrCostTypes.size()) + ")";
 
         List<Object> queryArguments = new ArrayList<Object>();
         for (String balanceType : icrEncumbBalanceTypes) {
-                        queryArguments.add(balanceType);
+            queryArguments.add(balanceType);
         }
         queryArguments.add(icrEncumbOriginCode);
         queryArguments.add(fiscalYear);
@@ -97,11 +97,9 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
 
                         executeEncumbranceSql(fiscalPeriod, icrEncumbOriginCode, icrEncumbBalanceTypes, expenseObjectTypes, encArgs.toArray(), fw);
                     }
-                }
-                catch (SQLException e) {
+                } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
-                catch (DataAccessException ed) {
+                } catch (DataAccessException ed) {
                     throw new RuntimeException(ed);
                 }
 
@@ -113,27 +111,27 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
     /**
      * Retrieves and formats ICR Encumbrance information and writes output records to the file writer
      *
-     * @param fiscalPeriod the current fiscal period
-     * @param icrEncumbOriginCode the ICR origin code - system parameter INDIRECT_COST_RECOVERY_ENCUMBRANCE_ORIGINATION
+     * @param fiscalPeriod          the current fiscal period
+     * @param icrEncumbOriginCode   the ICR origin code - system parameter INDIRECT_COST_RECOVERY_ENCUMBRANCE_ORIGINATION
      * @param icrEncumbBalanceTypes a list of balance types - system parameter INDIRECT_COST_RECOVERY_ENCUMBRANCE_BALANCE_TYPES
-     * @param expenseObjectTypes a list of expense object types
-     * @param encArgs a list of query arguments
-     * @param fw the file writer
+     * @param expenseObjectTypes    a list of expense object types
+     * @param encArgs               a list of query arguments
+     * @param fw                    the file writer
      */
     protected void executeEncumbranceSql(final String fiscalPeriod, final String icrEncumbOriginCode, final Collection<String> icrEncumbBalanceTypes, final String[] expenseObjectTypes, Object[] encArgs, final Writer fw) {
         final String encumbSql = "select t1.univ_fiscal_yr, t1.fin_coa_cd, t1.account_nbr, t1.sub_acct_nbr, t5.fin_object_cd, t1.fin_balance_typ_cd, "
-                + "t1.fdoc_typ_cd, t1.fdoc_nbr, " + "sum(" + getDbPlatform().getIsNullFunction("t1.acln_encum_amt - t1.acln_encum_cls_amt", "0") + " * "
-                +  getDbPlatform().getIsNullFunction("t5.awrd_icr_rate_pct", "0") + " * .01) encumb_amt  " + "from gl_encumbrance_t t1 "
-                + "join ca_icr_auto_entr_t t5 on t5.fin_series_id = ? and t5.univ_fiscal_yr = t1.univ_fiscal_yr "
-                + "and t5.trn_debit_crdt_cd = 'D' "
-                + "join ca_object_code_t t4 on t4.univ_fiscal_yr = t1.univ_fiscal_yr and t4.fin_coa_cd = t1.fin_coa_cd and t4.fin_object_cd = t1.fin_object_cd "
-                + "where not exists (select 1 from ca_icr_excl_type_t where acct_icr_typ_cd = ? "
-                + "and acct_icr_excl_typ_actv_ind = 'Y' and fin_object_cd = t1.fin_object_cd) "
-                + "and t1.univ_fiscal_yr = ? and t1.fin_coa_cd = ? and t1.account_nbr = ? and t1.sub_acct_nbr = ? "
-                + "and t1.fin_balance_typ_cd in ("+ inString(icrEncumbBalanceTypes.size()) +") and t1.fs_origin_cd <> ? "
-                + "and t4.fin_obj_typ_cd in (" + inString(expenseObjectTypes.length)
-                + ") group by t1.univ_fiscal_yr, t1.fin_coa_cd, t1.account_nbr, t1.sub_acct_nbr, t5.fin_object_cd, t1.fin_balance_typ_cd, "
-                + "t1.fdoc_typ_cd, t1.fdoc_nbr";
+            + "t1.fdoc_typ_cd, t1.fdoc_nbr, " + "sum(" + getDbPlatform().getIsNullFunction("t1.acln_encum_amt - t1.acln_encum_cls_amt", "0") + " * "
+            + getDbPlatform().getIsNullFunction("t5.awrd_icr_rate_pct", "0") + " * .01) encumb_amt  " + "from gl_encumbrance_t t1 "
+            + "join ca_icr_auto_entr_t t5 on t5.fin_series_id = ? and t5.univ_fiscal_yr = t1.univ_fiscal_yr "
+            + "and t5.trn_debit_crdt_cd = 'D' "
+            + "join ca_object_code_t t4 on t4.univ_fiscal_yr = t1.univ_fiscal_yr and t4.fin_coa_cd = t1.fin_coa_cd and t4.fin_object_cd = t1.fin_object_cd "
+            + "where not exists (select 1 from ca_icr_excl_type_t where acct_icr_typ_cd = ? "
+            + "and acct_icr_excl_typ_actv_ind = 'Y' and fin_object_cd = t1.fin_object_cd) "
+            + "and t1.univ_fiscal_yr = ? and t1.fin_coa_cd = ? and t1.account_nbr = ? and t1.sub_acct_nbr = ? "
+            + "and t1.fin_balance_typ_cd in (" + inString(icrEncumbBalanceTypes.size()) + ") and t1.fs_origin_cd <> ? "
+            + "and t4.fin_obj_typ_cd in (" + inString(expenseObjectTypes.length)
+            + ") group by t1.univ_fiscal_yr, t1.fin_coa_cd, t1.account_nbr, t1.sub_acct_nbr, t5.fin_object_cd, t1.fin_balance_typ_cd, "
+            + "t1.fdoc_typ_cd, t1.fdoc_nbr";
 
         getJdbcTemplate().query(encumbSql, encArgs, new ResultSetExtractor() {
             @Override
@@ -190,43 +188,40 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
                         }
 
                         fw.write("" + fiscalYear // Fiscal year 1-4
-                                + chartCode // Chart code 5-6
-                                + accountNbr // Account Number 7-13
-                                + StringUtils.rightPad(subAccountNbr, 5)// Sub Account 14-18
-                                + objectCode // Object Code 19-22
-                                + "---" // Sub Object 23-25
-                                + balanceType // balance type code
-                                + objectTypeCode // Object Type 28-29
-                                + fiscalPeriod // Fiscal Period 30-31
-                                + StringUtils.rightPad(docType, 4) // Document Type 32-35
-                                + icrEncumbOriginCode // Origin Code 36-37
-                                + StringUtils.rightPad(docNbr, 14) // Doc Number 38-51
-                                + StringUtils.rightPad("", 5, '0') // Entry Seq Nbr 52-56
-                                + StringUtils.rightPad(StringUtils.substring(desc, 0, 40), 40) // Description 57-96
-                                + StringUtils.leftPad(new_encumb_amt.abs().toString(), 21, '0') // Amount 97-116
-                                + debitCreditInd // Debit/Credit 117-117
-                                + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) // Trans Date 118-127
-                                + "          " // Org Doc Nbr 128-137
-                                + "          " // Project Code 138-147
-                                + "        " // orig ref id 148-155
-                                + "    " // ref doc type 156-159
-                                + "  " // ref origin code 160-161
-                                + "              " // ref doc number 162-175
-                                + "          " // reversal date 176-185
-                                + "D" // Enc update code 186-186
+                            + chartCode // Chart code 5-6
+                            + accountNbr // Account Number 7-13
+                            + StringUtils.rightPad(subAccountNbr, 5)// Sub Account 14-18
+                            + objectCode // Object Code 19-22
+                            + "---" // Sub Object 23-25
+                            + balanceType // balance type code
+                            + objectTypeCode // Object Type 28-29
+                            + fiscalPeriod // Fiscal Period 30-31
+                            + StringUtils.rightPad(docType, 4) // Document Type 32-35
+                            + icrEncumbOriginCode // Origin Code 36-37
+                            + StringUtils.rightPad(docNbr, 14) // Doc Number 38-51
+                            + StringUtils.rightPad("", 5, '0') // Entry Seq Nbr 52-56
+                            + StringUtils.rightPad(StringUtils.substring(desc, 0, 40), 40) // Description 57-96
+                            + StringUtils.leftPad(new_encumb_amt.abs().toString(), 21, '0') // Amount 97-116
+                            + debitCreditInd // Debit/Credit 117-117
+                            + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) // Trans Date 118-127
+                            + "          " // Org Doc Nbr 128-137
+                            + "          " // Project Code 138-147
+                            + "        " // orig ref id 148-155
+                            + "    " // ref doc type 156-159
+                            + "  " // ref origin code 160-161
+                            + "              " // ref doc number 162-175
+                            + "          " // reversal date 176-185
+                            + "D" // Enc update code 186-186
                         );
 
                         fw.write(newLine);
                         fw.flush();
                     }
-                }
-                catch (SQLException e) {
+                } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
-                catch (DataAccessException ed) {
+                } catch (DataAccessException ed) {
                     throw new RuntimeException(ed);
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
@@ -239,13 +234,13 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
      * Returns the current encumbrance amount
      *
      * @param icrEncumbOriginCode the ICR origin code - system parameter INDIRECT_COST_RECOVERY_ENCUMBRANCE_ORIGINATION
-     * @param icrArgs a list of query arguments
+     * @param icrArgs             a list of query arguments
      * @return the current encumbrance amount if found, null otherwise
      */
     protected Double getCurrentEncumbranceAmount(Object[] icrArgs) {
         final String icrSql = "select sum(" + getDbPlatform().getIsNullFunction("acln_encum_amt - acln_encum_cls_amt", "0") + ") current_amt "
-                + "from gl_encumbrance_t where univ_fiscal_yr = ? and fin_coa_cd = ? and account_nbr = ? and sub_acct_nbr = ? and fin_object_cd = ? "
-                + "and fin_balance_typ_cd = ? and fdoc_typ_cd = ? and fdoc_nbr = ? and fs_origin_cd = ?";
+            + "from gl_encumbrance_t where univ_fiscal_yr = ? and fin_coa_cd = ? and account_nbr = ? and sub_acct_nbr = ? and fin_object_cd = ? "
+            + "and fin_balance_typ_cd = ? and fdoc_typ_cd = ? and fdoc_nbr = ? and fs_origin_cd = ?";
 
         Double icrAmount = (Double) getJdbcTemplate().query(icrSql, icrArgs, new ResultSetExtractor() {
             @Override
@@ -256,11 +251,9 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
                     }
 
                     return null;
-                }
-                catch (SQLException e) {
+                } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
-                catch (DataAccessException ed) {
+                } catch (DataAccessException ed) {
                     throw new RuntimeException(ed);
                 }
             }
@@ -277,7 +270,7 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
      */
     protected String getICRObjectTypeCode(Object[] icrArgs) {
         final String icrSql = "select fin_obj_typ_cd "
-                + "from ca_object_code_t where univ_fiscal_yr = ? and fin_coa_cd = ? and fin_object_cd = ?";
+            + "from ca_object_code_t where univ_fiscal_yr = ? and fin_coa_cd = ? and fin_object_cd = ?";
 
         String objectTypeCode = (String) getJdbcTemplate().query(icrSql, icrArgs, new ResultSetExtractor() {
             @Override
@@ -288,11 +281,9 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
                     }
 
                     return null;
-                }
-                catch (SQLException e) {
+                } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
-                catch (DataAccessException ed) {
+                } catch (DataAccessException ed) {
                     throw new RuntimeException(ed);
                 }
             }
@@ -312,9 +303,8 @@ public class IcrEncumbranceDaoJdbc extends PlatformAwareDaoBaseJdbc implements I
         //prevent SQL errors in the event of an empty array
         if (arraySize < 1) {
             inClause = "?";
-        }
-        else {
-            inClause = StringUtils.repeat("?",",",arraySize);
+        } else {
+            inClause = StringUtils.repeat("?", ",", arraySize);
         }
         return inClause;
     }

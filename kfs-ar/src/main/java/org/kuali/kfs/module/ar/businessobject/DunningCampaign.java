@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableDunningCampaign;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.integration.ar.AccountsReceivableDunningCampaign;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Business Object for Dunning Campaigns
@@ -127,7 +127,6 @@ public class DunningCampaign extends PersistableBusinessObjectBase implements Ac
     public void setDunningLetterDistributions(List<DunningLetterDistribution> dunningLetterDistributions) {
         this.dunningLetterDistributions = dunningLetterDistributions;
     }
-
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {

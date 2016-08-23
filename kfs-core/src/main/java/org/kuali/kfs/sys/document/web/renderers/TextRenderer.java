@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.taglib.html.KNSTextTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.kns.web.taglib.html.KNSTextTag;
 
 /**
  * Represents a field rendered as a text field
@@ -33,6 +33,7 @@ public class TextRenderer extends FieldRendererBase {
 
     /**
      * cleans up the html:text tag
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRendererBase#clear()
      */
     @Override
@@ -51,6 +52,7 @@ public class TextRenderer extends FieldRendererBase {
 
     /**
      * Uses a struts html:text tag to render this field
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -82,6 +84,7 @@ public class TextRenderer extends FieldRendererBase {
 
     /**
      * Determines the max length of the field
+     *
      * @return the max length of the field, formatted to a string
      */
     protected String getFieldMaxLength() {
@@ -90,6 +93,7 @@ public class TextRenderer extends FieldRendererBase {
 
     /**
      * Determines the size of the field
+     *
      * @return the size of the field, formatted as a String
      */
     protected String getFieldSize() {
@@ -98,6 +102,7 @@ public class TextRenderer extends FieldRendererBase {
 
     /**
      * Yes, I'd like a quickfinder please
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

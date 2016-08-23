@@ -18,17 +18,10 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
@@ -41,8 +34,15 @@ import org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionServic
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.MessageBuilder;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Provide the implementation of the service methods related to EffortCertificationReportDefinition
@@ -81,7 +81,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
         String combinedFieldValues = new StringBuilder(fiscalYear.toString()).append(EffortConstants.VALUE_SEPARATOR).append(reportNumber).toString();
 
         // check if there exists the given report definition
-        effortCertificationReportDefinition = (EffortCertificationReportDefinition)businessObjectService.retrieve(effortCertificationReportDefinition);
+        effortCertificationReportDefinition = (EffortCertificationReportDefinition) businessObjectService.retrieve(effortCertificationReportDefinition);
         if (effortCertificationReportDefinition == null) {
             return MessageBuilder.buildMessage(EffortKeyConstants.ERROR_REPORT_DEFINITION_NOT_EXIST, combinedFieldValues).getMessage();
         }
@@ -125,8 +125,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
             if (earnCodePayGroups.containsKey(payGroup)) {
                 Set<String> earnCodeSet = earnCodePayGroups.get(payGroup);
                 earnCodeSet.add(earnCode);
-            }
-            else {
+            } else {
                 Set<String> earnCodeSet = new HashSet<String>();
                 earnCodeSet.add(earnCode);
                 earnCodePayGroups.put(payGroup, earnCodeSet);
@@ -157,7 +156,7 @@ public class EffortCertificationReportDefinitionServiceImpl implements EffortCer
         fieldValues.put(EffortPropertyConstants.EFFORT_CERTIFICATION_REPORT_NUMBER, reportDefinition.getEffortCertificationReportNumber());
 
         int numOfPendingDocuments = businessObjectService.countMatching(EffortCertificationDocumentBuild.class, fieldValues);
-        if(numOfPendingDocuments > 0) {
+        if (numOfPendingDocuments > 0) {
             return true;
         }
 

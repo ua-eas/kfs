@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.krad.service.SessionDocumentService;
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.sql.Timestamp;
 import java.util.Date;
-
-import org.apache.commons.lang.time.DateUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.service.SessionDocumentService;
 
 public class PurgeSessionDocumentsStep extends AbstractStep {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurgeSessionDocumentsStep.class);
@@ -43,8 +43,7 @@ public class PurgeSessionDocumentsStep extends AbstractStep {
 
             sessionDocumentService.purgeAllSessionDocuments(expirationDate);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to purge session document from DB: ", e);
         }
         return false;

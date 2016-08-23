@@ -49,6 +49,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Clears out the totalProperty
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -68,6 +69,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Uses a Struts write tag to dump out the total
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -113,14 +115,14 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             }
 
             out.write("</tr>");
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering debit credit totals", ioe);
         }
     }
 
     /**
      * Gets the debitTotalProperty attribute.
+     *
      * @return Returns the debitTotalProperty.
      */
     public String getDebitTotalProperty() {
@@ -129,6 +131,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the debitTotalProperty attribute value.
+     *
      * @param debitTotalProperty The debitTotalProperty to set.
      */
     public void setDebitTotalProperty(String debitTotalProperty) {
@@ -137,6 +140,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Gets the creditTotalProperty attribute.
+     *
      * @return Returns the creditTotalProperty.
      */
     public String getCreditTotalProperty() {
@@ -145,6 +149,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the creditTotalProperty attribute value.
+     *
      * @param creditTotalProperty The creditTotalProperty to set.
      */
     public void setCreditTotalProperty(String creditTotalProperty) {
@@ -153,6 +158,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Gets the debitTotalLabelProperty attribute.
+     *
      * @return Returns the debitTotalLabelProperty.
      */
     public String getDebitTotalLabelProperty() {
@@ -161,6 +167,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the debitTotalLabelProperty attribute value.
+     *
      * @param debitTotalLabelProperty The debitTotalLabelProperty to set.
      */
     public void setDebitTotalLabelProperty(String debitTotalLabelProperty) {
@@ -169,6 +176,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Gets the creditTotalLabelProperty attribute.
+     *
      * @return Returns the creditTotalLabelProperty.
      */
     public String getCreditTotalLabelProperty() {
@@ -177,6 +185,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
     /**
      * Sets the creditTotalLabelProperty attribute value.
+     *
      * @param creditTotalLabelProperty The creditTotalLabelProperty to set.
      */
     public void setCreditTotalLabelProperty(String creditTotalLabelProperty) {

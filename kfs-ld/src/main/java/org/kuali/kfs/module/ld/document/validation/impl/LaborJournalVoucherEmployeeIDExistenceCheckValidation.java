@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborJournalVoucherDetail;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -31,8 +29,10 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Validates that a labor journal voucher document's accounting lines have valid Employee ID
@@ -42,6 +42,7 @@ public class LaborJournalVoucherEmployeeIDExistenceCheckValidation extends Gener
 
     /**
      * Validates that the accounting line in the labor journal voucher document have an existing employee id
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -51,12 +52,12 @@ public class LaborJournalVoucherEmployeeIDExistenceCheckValidation extends Gener
         String emplid = laborJournalVoucherDetail.getEmplid();
 
         if (StringUtils.isBlank(emplid) || LaborConstants.getDashEmplId().equals(emplid)) {
-            return true ;
+            return true;
         }
         if (!employeeIDExistenceCheck(emplid)) {
-            result = false ;
+            result = false;
         }
-        return result ;
+        return result;
     }
 
     /**
@@ -67,22 +68,23 @@ public class LaborJournalVoucherEmployeeIDExistenceCheckValidation extends Gener
      */
     protected boolean employeeIDExistenceCheck(String employeeid) {
 
-        boolean employeeIDExists  = true ;
+        boolean employeeIDExists = true;
         Map criteria = new HashMap();
         criteria.put(KFSPropertyConstants.PERSON_PAYROLL_IDENTIFIER, employeeid);
 
         Collection emplidMatches = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).findPeople(criteria);
         if (emplidMatches == null || emplidMatches.isEmpty()) {
             String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(LaborJournalVoucherDetail.class.getName()).getAttributeDefinition(KFSPropertyConstants.EMPLID).getLabel();
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.EMPLID, KFSKeyConstants.ERROR_EXISTENCE, label) ;
-            employeeIDExists = false ;
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.EMPLID, KFSKeyConstants.ERROR_EXISTENCE, label);
+            employeeIDExists = false;
         }
 
-        return employeeIDExists ;
+        return employeeIDExists;
     }
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -91,6 +93,7 @@ public class LaborJournalVoucherEmployeeIDExistenceCheckValidation extends Gener
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

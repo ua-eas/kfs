@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerInvoiceRecurrenceWorkgroupValidation extends GenericValidation {
 

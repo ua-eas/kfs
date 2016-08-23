@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.util.LedgerBalanceConsolidationHelper;
@@ -35,7 +31,11 @@ import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The validator provides a set of facilities to determine whether the given ledger balances meet the specified requirements. As a
@@ -60,10 +60,10 @@ public class LedgerBalanceFieldValidator {
     /**
      * detetermine if the fund group code associated with the given ledger balance is in the given fund group codes
      *
-     * @param ledgerBalance the given ledger balance
+     * @param ledgerBalance  the given ledger balance
      * @param fundGroupCodes the given fund group codes
      * @return null if the fund group code associated with the given ledger balance is in the given fund group codes; otherwise, a
-     *         message
+     * message
      */
     public static Message isInFundGroups(LaborLedgerBalance ledgerBalance, List<String> fundGroupCodes) {
         SubFundGroup subFundGroup = getSubFundGroup(ledgerBalance);
@@ -77,10 +77,10 @@ public class LedgerBalanceFieldValidator {
     /**
      * detetermine if the sub fund group code associated with the given ledger balance is in the given sub fund group codes
      *
-     * @param ledgerBalance the given ledger balance
+     * @param ledgerBalance     the given ledger balance
      * @param subFundGroupCodes the given sub fund group codes
      * @return null if the sub fund group code associated with the given ledger balance is in the given sub fund group codes;
-     *         otherwise, an error message
+     * otherwise, an error message
      */
     public static Message isInSubFundGroups(LaborLedgerBalance ledgerBalance, List<String> subFundGroupCodes) {
         SubFundGroup subFundGroup = getSubFundGroup(ledgerBalance);
@@ -97,7 +97,7 @@ public class LedgerBalanceFieldValidator {
      * @param ledgerBalance the given ledger balance
      * @param reportPeriods the specified periods
      * @return null the total amount within the specified periods of the given ledger balance is NOT ZERO; otherwise, a message
-     *         message
+     * message
      */
     public static Message isNonZeroAmountBalanceWithinReportPeriod(LaborLedgerBalance ledgerBalance, Map<Integer, Set<String>> reportPeriods) {
         KualiDecimal totalAmount = LedgerBalanceConsolidationHelper.calculateTotalAmountWithinReportPeriod(ledgerBalance, reportPeriods);
@@ -114,7 +114,7 @@ public class LedgerBalanceFieldValidator {
      * @param ledgerBalance the given ledger balance
      * @param reportPeriods the specified periods
      * @return null the total amount within the specified periods of the given ledger balance is positive; otherwise, a message
-     *         message
+     * message
      */
     public static Message isTotalAmountPositive(Collection<LaborLedgerBalance> ledgerBalances, Map<Integer, Set<String>> reportPeriods) {
         KualiDecimal totalAmount = LedgerBalanceConsolidationHelper.calculateTotalAmountWithinReportPeriod(ledgerBalances, reportPeriods);
@@ -132,7 +132,7 @@ public class LedgerBalanceFieldValidator {
      *
      * @param ledgerBalances the given ledger balances
      * @return null if one of the group codes associated with the ledger balances is in the specified codes; otherwise, a message
-     *         message
+     * message
      */
     public static Message hasGrantAccount(Collection<LaborLedgerBalance> ledgerBalances) {
         for (LaborLedgerBalance balance : ledgerBalances) {
@@ -148,7 +148,7 @@ public class LedgerBalanceFieldValidator {
      * determine whether there is at least one account of the given ledger balances that is funded by a federal grant. The award
      * associated with the account must be one of the given federal agency types or have an enabled federal pass through flag.
      *
-     * @param the given labor ledger balances
+     * @param the                    given labor ledger balances
      * @param federalAgencyTypeCodes the given federal agency type codes
      * @return null if there is at least one account with federal funding; otherwise, a message
      */
@@ -197,8 +197,7 @@ public class LedgerBalanceFieldValidator {
         SubFundGroup subFundGroup = null;
         try {
             subFundGroup = ledgerBalance.getAccount().getSubFundGroup();
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             return null;
         }
         return subFundGroup;

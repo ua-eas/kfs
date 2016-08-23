@@ -18,75 +18,74 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage" parent="ContractsGrantsInvoiceDocumentErrorMessage-parentBean" />
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage" parent="ContractsGrantsInvoiceDocumentErrorMessage-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorMessage" />
-		<property name="titleAttribute" value="proposalNumber" />
-		<property name="objectLabel" value="ContractsGrantsInvoiceDocumentErrorMessage" />
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier" />
-				<ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier" />
-				<ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText" />
-			</list>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorMessage"/>
+        <property name="titleAttribute" value="proposalNumber"/>
+        <property name="objectLabel" value="ContractsGrantsInvoiceDocumentErrorMessage"/>
+        <property name="attributes">
+            <list>
+                <ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier"/>
+                <ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier"/>
+                <ref bean="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier-parentBean" />
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="errorLogIdentifier" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Error Log Identifier" />
-		<property name="shortLabel" value="ErrLogId" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorLogIdentifier-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="errorLogIdentifier"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Error Log Identifier"/>
+        <property name="shortLabel" value="ErrLogId"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier-parentBean" />
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="errorMessageIdentifier" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Error Message Identifier" />
-		<property name="shortLabel" value="ErrMsgId" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageIdentifier-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="errorMessageIdentifier"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Error Message Identifier"/>
+        <property name="shortLabel" value="ErrMsgId"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText-parentBean" />
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText" parent="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="errorMessageText" />
-		<property name="label" value="Error Message Text" />
-		<property name="shortLabel" value="ValText" />
-		<property name="maxLength" value="500" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextareaControlDefinition" p:rows="5" p:cols="100"/>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceDocumentErrorMessage-errorMessageText-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="errorMessageText"/>
+        <property name="label" value="Error Message Text"/>
+        <property name="shortLabel" value="ValText"/>
+        <property name="maxLength" value="500"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextareaControlDefinition" p:rows="5" p:cols="100"/>
+        </property>
+    </bean>
 
 </beans>

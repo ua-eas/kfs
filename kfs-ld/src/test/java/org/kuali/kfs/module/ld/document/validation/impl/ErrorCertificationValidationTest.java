@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ErrorCertification;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * The unit tests for methods in the ErrorCertificationValidation class using a Salary Expense Transfer document.
@@ -73,8 +73,7 @@ public class ErrorCertificationValidationTest extends KualiTestBase {
             errorCertification.setErrorDescription("test desc");
             errorCertification.setExpenditureDescription("test description");
             errorCertification.setExpenditureProjectBenefit("test benefit");
-        }
-        else {
+        } else {
             errorCertification.setErrorCorrectionReason("test reason");
             errorCertification.setErrorDescription("test desc");
             errorCertification.setExpenditureDescription("");

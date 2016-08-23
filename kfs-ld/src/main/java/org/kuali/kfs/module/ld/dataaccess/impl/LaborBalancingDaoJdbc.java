@@ -45,10 +45,10 @@ public class LaborBalancingDaoJdbc extends BalancingDaoJdbc implements LedgerBal
         String laborEntryHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(LaborEntryHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + laborEntryHistoryTableName + " (" + ENTRY_KEY_FIELDS + ", " + VER_NBR + ", " + LaborConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + ", " + ROW_COUNT + ")"
-        + " SELECT " + ENTRY_KEY_FIELDS + ", 1, sum(" +  LaborConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + "), count(*)"
-        + " FROM " + laborEntryTableName
-        + " WHERE " + LaborConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear
-        + " GROUP BY " + ENTRY_KEY_FIELDS;
+            + " SELECT " + ENTRY_KEY_FIELDS + ", 1, sum(" + LaborConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + "), count(*)"
+            + " FROM " + laborEntryTableName
+            + " WHERE " + LaborConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear
+            + " GROUP BY " + ENTRY_KEY_FIELDS;
 
         LOG.debug(sql);
 
@@ -63,9 +63,9 @@ public class LaborBalancingDaoJdbc extends BalancingDaoJdbc implements LedgerBal
         String laborBalanceHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(LaborBalanceHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + laborBalanceHistoryTableName + " (" + BALANCE_KEY_FIELDS + ", " + BALANCE_LABOR_KEY_FIELDS + ", " + VER_NBR + ", " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS + ")"
-        + " SELECT " + BALANCE_KEY_FIELDS + ", " + BALANCE_LABOR_KEY_FIELDS + ", 1, " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS
-        + " FROM " + laborBalanceTableName
-        + " WHERE " + LaborConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
+            + " SELECT " + BALANCE_KEY_FIELDS + ", " + BALANCE_LABOR_KEY_FIELDS + ", 1, " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS
+            + " FROM " + laborBalanceTableName
+            + " WHERE " + LaborConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
 
         LOG.debug(sql);
 

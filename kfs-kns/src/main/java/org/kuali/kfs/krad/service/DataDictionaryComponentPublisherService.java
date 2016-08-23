@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.service;
 
 /**
  * A service which can be used to publish components to the Rice core component system from the data dicationary.
- *
- *
  */
 public interface DataDictionaryComponentPublisherService {
 

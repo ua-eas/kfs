@@ -18,30 +18,30 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Set;
 
 public class PaymentRequestInvoiceImageAttachmentValidation extends GenericValidation {
 
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PaymentRequestDocument document = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument document = (PaymentRequestDocument) event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
 
-        if(isDocumentStoppedInRouteNode(document, "ImageAttachment")){
+        if (isDocumentStoppedInRouteNode(document, "ImageAttachment")) {
             //assume false if we're in the correct node
             valid = false;
 
@@ -59,7 +59,7 @@ public class PaymentRequestInvoiceImageAttachmentValidation extends GenericValid
                 }
             }
 
-            if(valid == false){
+            if (valid == false) {
                 GlobalVariables.getMessageMap().putError(KRADConstants.NEW_DOCUMENT_NOTE_PROPERTY_NAME, PurapKeyConstants.ERROR_PAYMENT_REQUEST_INVOICE_REQUIRED);
             }
         }
@@ -70,7 +70,6 @@ public class PaymentRequestInvoiceImageAttachmentValidation extends GenericValid
     }
 
     /**
-     *
      * @param document
      * @param nodeName
      * @return

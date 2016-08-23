@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.sys.businessobject.AccountingLine;
+
+import java.util.Comparator;
 
 
 public class PurapAccountingLineComparator implements Comparator<AccountingLine> {
     /**
      * Compares two accounting lines based on their account number and object code, in ascending order.
+     *
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     public int compare(AccountingLine sal1, AccountingLine sal2) {
@@ -35,7 +36,7 @@ public class PurapAccountingLineComparator implements Comparator<AccountingLine>
                 compare = sal1.getAccountNumber().compareTo(sal2.getAccountNumber());
                 if (compare == 0) {
                     if (sal1.getFinancialObjectCode() != null && sal2.getFinancialObjectCode() != null)
-                        compare =  sal1.getFinancialObjectCode().compareTo(sal2.getFinancialObjectCode());
+                        compare = sal1.getFinancialObjectCode().compareTo(sal2.getFinancialObjectCode());
                 }
             }
         }

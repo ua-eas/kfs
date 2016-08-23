@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.quartz.JobDetail;
+
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.bo.Step;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
-import org.quartz.JobDetail;
 
 public class BatchJobStatus extends TransientBusinessObjectBase {
 
@@ -68,17 +68,17 @@ public class BatchJobStatus extends TransientBusinessObjectBase {
     }
 
     public String getNamespaceCode() {
-        if(jobDescriptor == null) return null;
+        if (jobDescriptor == null) return null;
         return jobDescriptor.getNamespaceCode();
     }
 
     public Map<String, String> getDependencies() {
-        if(jobDescriptor == null) return null;
+        if (jobDescriptor == null) return null;
         return jobDescriptor.getDependencies();
     }
 
     public List<Step> getSteps() {
-        if(jobDescriptor == null) return null;
+        if (jobDescriptor == null) return null;
         return jobDescriptor.getSteps();
     }
 
@@ -90,8 +90,7 @@ public class BatchJobStatus extends TransientBusinessObjectBase {
         if (tempStatus == null) {
             if (getNextRunDate() != null) {
                 return SchedulerService.SCHEDULED_JOB_STATUS_CODE;
-            }
-            else if (getGroup().equals(SchedulerService.SCHEDULED_GROUP)) {
+            } else if (getGroup().equals(SchedulerService.SCHEDULED_GROUP)) {
                 return SchedulerService.PENDING_JOB_STATUS_CODE;
             }
         }

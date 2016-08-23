@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentDetail;
@@ -35,9 +34,10 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class validates asset payment posting date
@@ -93,8 +93,7 @@ public class AssetPaymentPostingDateValidation extends GenericValidation {
             if (valid) {
                 assetPaymentService.extractPostedDatePeriod(assetPaymentDetail);
             }
-        }
-        else {
+        } else {
             String label = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(AssetPaymentDetail.class.getName()).getAttributeDefinition(CamsPropertyConstants.AssetPaymentDetail.DOCUMENT_POSTING_DATE).getLabel();
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.AssetPaymentDetail.DOCUMENT_POSTING_DATE, KFSKeyConstants.ERROR_REQUIRED, label);
             valid = false;

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ar.businessobject.NonInvoicedDistribution;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+
+import java.util.Collection;
 
 public interface NonInvoicedDistributionService {
 

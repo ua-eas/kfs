@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class...
@@ -43,7 +43,7 @@ public class ProcurementCardErrorPathUtil {
      * Hence the error path is slightly different.
      *
      * @param financialDocument The financial document the errors will be posted to.
-     * @param accountingLine The accounting line the error will be posted on.
+     * @param accountingLine    The accounting line the error will be posted on.
      */
     public static void fixErrorPath(AccountingDocument financialDocument, AccountingLine accountingLine) {
         List transactionEntries = ((ProcurementCardDocument) financialDocument).getTransactionEntries();

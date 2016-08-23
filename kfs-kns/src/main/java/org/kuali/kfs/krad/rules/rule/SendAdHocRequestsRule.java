@@ -22,10 +22,7 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public interface SendAdHocRequestsRule extends BusinessRule {
-	public boolean processSendAdHocRequests(Document document);
+    public boolean processSendAdHocRequests(Document document);
 }

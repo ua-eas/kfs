@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelPayment;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * Validates that when certain conditions exist, notes are present on the document to explain the conditions
@@ -40,6 +40,7 @@ public class TravelPaymentRequiredNotesValidation extends GenericValidation {
 
     /**
      * Verifies that if special handling or exception attached are checked, notes for them are present.
+     *
      * @param event the event triggering this validation
      * @return true if the validation successfully verified the status of the document, false otherwise
      */
@@ -84,6 +85,7 @@ public class TravelPaymentRequiredNotesValidation extends GenericValidation {
 
     /**
      * Sets the travel document which is being validated
+     *
      * @param travelDocumentForValidation the travel document which is about to get itself all validated
      */
     public void setTravelDocumentForValidation(TravelDocument travelDocumentForValidation) {
@@ -99,6 +101,7 @@ public class TravelPaymentRequiredNotesValidation extends GenericValidation {
 
     /**
      * Sets the travel payment which should be validated
+     *
      * @param travelPaymentForValidation the travel payment which should be validated
      */
     public void setTravelPaymentForValidation(TravelPayment travelPaymentForValidation) {

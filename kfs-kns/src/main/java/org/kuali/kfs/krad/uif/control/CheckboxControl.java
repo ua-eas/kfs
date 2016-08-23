@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.uif.control;
 /**
  * Represents a HTML Checkbox control. Typically used for boolean attributes (where the
  * value is either on/off, true/false)
- *
- *
  */
 public class CheckboxControl extends ControlBase implements ValueConfiguredControl {
     private static final long serialVersionUID = -1397028958569144230L;
@@ -30,12 +28,12 @@ public class CheckboxControl extends ControlBase implements ValueConfiguredContr
     private String value;
 
     public CheckboxControl() {
-       super();
-	}
+        super();
+    }
 
     /**
      * The value that will be submitted when the checkbox control is checked
-     *
+     * <p>
      * <p>
      * Value can be left blank, in which case the checkbox will submit a boolean value that
      * will populate a boolean property. In cases where the checkbox needs to submit another value (for

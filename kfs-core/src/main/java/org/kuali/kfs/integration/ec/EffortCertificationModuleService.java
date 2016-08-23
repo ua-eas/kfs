@@ -40,7 +40,7 @@ public interface EffortCertificationModuleService {
      * Checks whether the given employee has an certification for one of the given open report periods.
      *
      * @param effortCertificationReports - report periods to check for employee certification
-     * @param emplid - employee id of certification
+     * @param emplid                     - employee id of certification
      * @return report definition for which emplid has certification, or null
      */
     public EffortCertificationReport isEmployeeWithOpenCertification(List<EffortCertificationReport> effortCertificationReports, String emplid);

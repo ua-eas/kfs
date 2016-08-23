@@ -25,7 +25,7 @@ public interface AssetObjectCodeService {
      * Retrieves the asset object code from database for a given Chart code and payment record
      *
      * @param chartOfAccountsCode Charts of Accounts code
-     * @param assetPayment Current Payment Record
+     * @param assetPayment        Current Payment Record
      * @return AssetObjectCode
      */
     AssetObjectCode findAssetObjectCode(String chartOfAccountsCode, String financialObjectSubTypeCode);

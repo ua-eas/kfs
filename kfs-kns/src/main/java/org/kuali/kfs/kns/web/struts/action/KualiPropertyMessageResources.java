@@ -28,9 +28,6 @@ import java.util.Set;
 
 /**
  * This is a description of what this class does - jjhanso don't forget to fill this in.
- *
- *
- *
  */
 public class KualiPropertyMessageResources extends PropertyMessageResources {
     private static final long serialVersionUID = -7712311580595112293L;

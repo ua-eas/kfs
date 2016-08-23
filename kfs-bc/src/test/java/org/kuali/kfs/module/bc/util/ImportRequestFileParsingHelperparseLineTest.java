@@ -82,8 +82,7 @@ public class ImportRequestFileParsingHelperparseLineTest extends KualiTestBase {
         if (isAnnual) {
             if (!actual.getAccountLineAnnualBalanceAmount().equals(expected.getAccountLineAnnualBalanceAmount()))
                 return false;
-        }
-        else {
+        } else {
             if (!actual.getFinancialDocumentMonth1LineAmount().equals(expected.getFinancialDocumentMonth1LineAmount()))
                 return false;
             if (!actual.getFinancialDocumentMonth2LineAmount().equals(expected.getFinancialDocumentMonth2LineAmount()))

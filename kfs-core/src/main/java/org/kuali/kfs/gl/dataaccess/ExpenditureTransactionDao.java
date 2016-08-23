@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.ExpenditureTransaction;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.Iterator;
 
 /**
  * An DAO interface to deal help expenditure transactions to deal with the database

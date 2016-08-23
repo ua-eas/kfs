@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 
 public class ProjectCode extends KualiCodeBase implements MutableInactivatable {

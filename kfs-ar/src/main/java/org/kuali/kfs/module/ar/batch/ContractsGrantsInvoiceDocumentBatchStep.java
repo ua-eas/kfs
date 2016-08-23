@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.File;
-import java.util.Date;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.service.ContractsGrantsInvoiceBatchCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.util.Date;
 
 /**
  * A step to run the cgInvoice document creation process.

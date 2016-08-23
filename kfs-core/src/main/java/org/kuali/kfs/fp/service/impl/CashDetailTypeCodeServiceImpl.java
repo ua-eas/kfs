@@ -60,12 +60,11 @@ public class CashDetailTypeCodeServiceImpl implements CashDetailTypeCodeService 
     /**
      * Retrieves a populated instance corresponding to the code passed into this method. This is retrieved via the KualiCodeService
      * and in turn from the database.
-     *
+     * <p>
      * TODO - uncomment the commented out line and remove the others when the table is in place
      *
      * @param cashDetailTypeCode The identifier used to retrieve the appropriate type code object.
      * @return A CashDetailTypeCode instance based on the code provided.
-     *
      * @see #CASH_RECEIPT_CHECK
      * @see #CASH_RECEIPT_COIN
      */
@@ -77,7 +76,7 @@ public class CashDetailTypeCodeServiceImpl implements CashDetailTypeCodeService 
     /**
      * This method is a temporary helper method. This should be removed when the lookup table for CashDetailTypeCode business
      * objects is put in place. Then we'll be retrieving the stuff from the database.
-     *
+     * <p>
      * TODO - remove this method after the table is in place; this is a temp helper method
      *
      * @param cashDetailTypeCodeCode The code to populate the dummy instance with.

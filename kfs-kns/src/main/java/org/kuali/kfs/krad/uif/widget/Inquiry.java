@@ -19,11 +19,6 @@
 package org.kuali.kfs.krad.uif.widget;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.kfs.krad.uif.field.LinkField;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -31,11 +26,16 @@ import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.field.DataField;
+import org.kuali.kfs.krad.uif.field.LinkField;
 import org.kuali.kfs.krad.uif.util.LookupInquiryUtils;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
 import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.web.format.Formatter;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
@@ -46,8 +46,6 @@ import java.util.Properties;
 
 /**
  * Widget for rendering an Inquiry link on a field's value
- *
- *
  */
 public class Inquiry extends WidgetBase {
     private static final long serialVersionUID = -2154388007867302901L;
@@ -75,7 +73,7 @@ public class Inquiry extends WidgetBase {
 
     /**
      * @see WidgetBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -105,7 +103,7 @@ public class Inquiry extends WidgetBase {
      * This was moved from the performFinalize because overlapping and to be used
      * by DirectInquiry
      *
-     * @param view - Container View
+     * @param view  - Container View
      * @param model - model
      * @param field - The parent Attribute field
      */
@@ -114,7 +112,7 @@ public class Inquiry extends WidgetBase {
 
         // if class and parameters configured, build link from those
         if (StringUtils.isNotBlank(getDataObjectClassName()) && (getInquiryParameters() != null) &&
-                !getInquiryParameters().isEmpty()) {
+            !getInquiryParameters().isEmpty()) {
             Class<?> inquiryObjectClass = null;
             try {
                 inquiryObjectClass = Class.forName(getDataObjectClassName());
@@ -156,14 +154,14 @@ public class Inquiry extends WidgetBase {
     /**
      * Builds the inquiry link based on the given inquiry class and parameters
      *
-     * @param dataObject - parent object that contains the data (used to pull inquiry
-     * parameters)
-     * @param propertyName - name of the property the inquiry is set on
+     * @param dataObject         - parent object that contains the data (used to pull inquiry
+     *                           parameters)
+     * @param propertyName       - name of the property the inquiry is set on
      * @param inquiryObjectClass - class of the object the inquiry should point to
-     * @param inquiryParms - map of key field mappings for the inquiry
+     * @param inquiryParms       - map of key field mappings for the inquiry
      */
     public void buildInquiryLink(Object dataObject, String propertyName, Class<?> inquiryObjectClass,
-            Map<String, String> inquiryParms) {
+                                 Map<String, String> inquiryParms) {
         Properties urlParameters = new Properties();
 
         urlParameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, inquiryObjectClass.getName());
@@ -189,9 +187,9 @@ public class Inquiry extends WidgetBase {
             // Encrypt value if it is a field that has restriction that prevents a value from being shown to
             // user, because we don't want the browser history to store the restricted attributes value in the URL
             if (KRADServiceLocatorWeb.getDataObjectAuthorizationService()
-                    .attributeValueNeedsToBeEncryptedOnFormsAndLinks(inquiryObjectClass, inquiryParameter.getValue())) {
+                .attributeValueNeedsToBeEncryptedOnFormsAndLinks(inquiryObjectClass, inquiryParameter.getValue())) {
                 try {
-                    if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                    if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                         parameterValue = CoreApiServiceLocator.getEncryptionService().encrypt(parameterValue);
                     }
                 } catch (GeneralSecurityException e) {
@@ -209,10 +207,10 @@ public class Inquiry extends WidgetBase {
 
         // check for EBOs for an alternate inquiry URL
         ModuleService responsibleModuleService =
-                KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(inquiryObjectClass);
+            KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(inquiryObjectClass);
         if (responsibleModuleService != null && responsibleModuleService.isExternalizable(inquiryObjectClass)) {
             inquiryUrl = responsibleModuleService.getExternalizableDataObjectLookupUrl(inquiryObjectClass,
-                    urlParameters);
+                urlParameters);
         } else {
             inquiryUrl = UrlFactory.parameterizeUrl(getBaseInquiryUrl(), urlParameters);
         }
@@ -237,13 +235,13 @@ public class Inquiry extends WidgetBase {
         String titleText = "";
 
         String titlePrefixProp =
-                KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(INQUIRY_TITLE_PREFIX);
+            KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(INQUIRY_TITLE_PREFIX);
         if (StringUtils.isNotBlank(titlePrefixProp)) {
             titleText += titlePrefixProp + " ";
         }
 
         String objectLabel = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary()
-                .getDataObjectEntry(dataObjectClass.getName()).getObjectLabel();
+            .getDataObjectEntry(dataObjectClass.getName()).getObjectLabel();
         if (StringUtils.isNotBlank(objectLabel)) {
             titleText += objectLabel + " ";
         }

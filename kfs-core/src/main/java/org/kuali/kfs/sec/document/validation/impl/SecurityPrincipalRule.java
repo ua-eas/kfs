@@ -19,17 +19,17 @@
 package org.kuali.kfs.sec.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sec.SecConstants;
-import org.kuali.kfs.sec.SecKeyConstants;
-import org.kuali.kfs.sec.SecPropertyConstants;
-import org.kuali.kfs.sec.businessobject.SecurityPrincipal;
-import org.kuali.kfs.sec.businessobject.SecurityPrincipalDefinition;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sec.SecConstants;
+import org.kuali.kfs.sec.SecKeyConstants;
+import org.kuali.kfs.sec.SecPropertyConstants;
+import org.kuali.kfs.sec.businessobject.SecurityPrincipal;
+import org.kuali.kfs.sec.businessobject.SecurityPrincipalDefinition;
 
 
 /**
@@ -71,7 +71,7 @@ public class SecurityPrincipalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -120,7 +120,7 @@ public class SecurityPrincipalRule extends MaintenanceDocumentRuleBase {
      * Validates a definition assignment to the principal
      *
      * @param principalDefinition SecurityPrincipalDefinition to validate
-     * @param errorKeyPrefix String errorPrefix to use if any errors are found
+     * @param errorKeyPrefix      String errorPrefix to use if any errors are found
      * @return boolean true if validation was successful, false if there are errors
      */
     protected boolean validatePrincipalDefinition(SecurityPrincipalDefinition principalDefinition, String errorKeyPrefix) {

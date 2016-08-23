@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.apache.ojb.broker.PersistenceBrokerAware;
 import org.kuali.kfs.integration.purap.ExternalPurApItem;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Purap Item Business Object.
@@ -99,6 +99,7 @@ public interface PurApItem extends PersistableBusinessObject, PersistenceBrokerA
 
     /**
      * gets the total amount to remit to a vendor
+     *
      * @return pre tax total if use tax post tax if sales
      */
     public KualiDecimal getTotalRemitAmount();

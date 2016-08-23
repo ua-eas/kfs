@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.GEC_LINE1;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.fp.businessobject.GECSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.GECTargetAccountingLine;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -39,10 +35,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.GEC_LINE1;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class is used to test GeneralErrorCorrectionDocument.
@@ -77,13 +77,13 @@ public class YearEndGeneralErrorCorrectionDocumentTest extends KualiTestBase {
         for (AccountingLineFixture sourceFixture : getSourceAccountingLineParametersFromFixtures()) {
             AccountingLine accountingLine = sourceFixture.createAccountingLine(GECSourceAccountingLine.class, document.getDocumentNumber(), document.getPostingYear(), document.getNextSourceLineNumber());
             accountingLine.setPostingYear(postingYear);
-            document.addSourceAccountingLine((SourceAccountingLine)accountingLine);
+            document.addSourceAccountingLine((SourceAccountingLine) accountingLine);
         }
 
         for (AccountingLineFixture targetFixture : getTargetAccountingLineParametersFromFixtures()) {
             AccountingLine accountingLine = targetFixture.createAccountingLine(GECTargetAccountingLine.class, document.getDocumentNumber(), document.getPostingYear(), document.getNextTargetLineNumber());
             accountingLine.setPostingYear(postingYear);
-            document.addTargetAccountingLine((TargetAccountingLine)accountingLine);
+            document.addTargetAccountingLine((TargetAccountingLine) accountingLine);
         }
 
         return document;

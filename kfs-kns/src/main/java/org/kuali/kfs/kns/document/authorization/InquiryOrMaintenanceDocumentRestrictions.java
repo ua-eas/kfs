@@ -19,10 +19,10 @@
 package org.kuali.kfs.kns.document.authorization;
 
 public interface InquiryOrMaintenanceDocumentRestrictions extends
-		BusinessObjectRestrictions {
-	public void addHiddenField(String fieldName);
+    BusinessObjectRestrictions {
+    public void addHiddenField(String fieldName);
 
-	public void addHiddenSectionId(String sectionId);
+    public void addHiddenSectionId(String sectionId);
 
-	public boolean isHiddenSectionId(String sectionId);
+    public boolean isHiddenSectionId(String sectionId);
 }

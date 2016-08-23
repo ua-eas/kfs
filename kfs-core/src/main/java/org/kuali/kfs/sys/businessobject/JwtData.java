@@ -29,11 +29,11 @@ public class JwtData {
     public JwtData() {
     }
 
-    public JwtData(String principalName,int expirationSeconds) {
+    public JwtData(String principalName, int expirationSeconds) {
         this.issuedAt = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(issuedAt);
-        c.add(Calendar.SECOND,expirationSeconds);
+        c.add(Calendar.SECOND, expirationSeconds);
         this.expired = c.getTime();
 
         this.principalName = principalName;

@@ -18,24 +18,23 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="IntraAccountAdjustment-transferTotalsBalanceValidation"
-					class="org.kuali.kfs.fp.document.validation.impl.IntraAccountAdjustmentAmountBalancedValidation" abstract="true">
-	</bean>
+    <bean id="IntraAccountAdjustment-transferTotalsBalanceValidation"
+          class="org.kuali.kfs.fp.document.validation.impl.IntraAccountAdjustmentAmountBalancedValidation" abstract="true">
+    </bean>
 
-	<bean id="IAADocument-accountingLineSubAccountValuesAllowedValidation"
-					class="org.kuali.kfs.fp.document.validation.impl.IntraAccountAdjustmentSubAccountValidation" abstract="true">
-	</bean>
+    <bean id="IAADocument-accountingLineSubAccountValuesAllowedValidation"
+          class="org.kuali.kfs.fp.document.validation.impl.IntraAccountAdjustmentSubAccountValidation" abstract="true">
+    </bean>
 
 
-	<bean id="IAADocument-defaultAccountingLineValuesAllowedValidation"
-					class="org.kuali.kfs.sys.document.validation.impl.AccountingLineValuesAllowedValidationHutch" abstract="true">
-		<property name="objectTypeAllowedValidation" ref="AccountingDocument-IsObjectTypeAllowed-DefaultValidation" />
-		<property name="objectSubTypeAllowedValidation" ref="AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation" />
-	</bean>
+    <bean id="IAADocument-defaultAccountingLineValuesAllowedValidation"
+          class="org.kuali.kfs.sys.document.validation.impl.AccountingLineValuesAllowedValidationHutch" abstract="true">
+        <property name="objectTypeAllowedValidation" ref="AccountingDocument-IsObjectTypeAllowed-DefaultValidation"/>
+        <property name="objectSubTypeAllowedValidation" ref="AccountingDocument-IsObjectSubTypeAllowed-DefaultValidation"/>
+    </bean>
 
 </beans>

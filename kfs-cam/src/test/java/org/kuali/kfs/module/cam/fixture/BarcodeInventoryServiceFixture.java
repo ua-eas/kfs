@@ -18,39 +18,39 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-
 //@Transactional
 
-public enum BarcodeInventoryServiceFixture{
+public enum BarcodeInventoryServiceFixture {
 
     DATA();
     private BusinessObjectService businessObjectService;
     private int testDataPos;
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/barcode_inventory_service.properties";
         properties = new Properties();
         try {
             properties.load(BarcodeInventoryServiceFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
 
-    static String TEST_RECORD="testRecord";
-    static String BCIE="bcie";
-    static String FIELD_NAMES="fieldNames";
-    static String NUM_OF_REC="numOfRecords";
-    static String DELIMINATOR="deliminator";
+    static String TEST_RECORD = "testRecord";
+    static String BCIE = "bcie";
+    static String FIELD_NAMES = "fieldNames";
+    static String NUM_OF_REC = "numOfRecords";
+    static String DELIMINATOR = "deliminator";
 
     private BarcodeInventoryServiceFixture() {
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
@@ -58,14 +58,14 @@ public enum BarcodeInventoryServiceFixture{
 
     @SuppressWarnings("deprecation")
     public List<BarcodeInventoryErrorDetail> getBarcodeInventoryDetail() {
-        Integer numOfRecords = new Integer(properties.getProperty(BCIE+"."+NUM_OF_REC));
+        Integer numOfRecords = new Integer(properties.getProperty(BCIE + "." + NUM_OF_REC));
         List<BarcodeInventoryErrorDetail> details = new ArrayList<BarcodeInventoryErrorDetail>();
 
         String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(BCIE+"."+FIELD_NAMES);
+        String fieldNames = properties.getProperty(BCIE + "." + FIELD_NAMES);
 
-        for(int i=1;i<=numOfRecords.intValue();i++) {
-            String propertyKey = BCIE+"."+TEST_RECORD + i;
+        for (int i = 1; i <= numOfRecords.intValue(); i++) {
+            String propertyKey = BCIE + "." + TEST_RECORD + i;
             details.add(CamsFixture.DATA_POPULATOR.buildTestDataObject(BarcodeInventoryErrorDetail.class, properties, propertyKey, fieldNames, deliminator));
         }
         return details;

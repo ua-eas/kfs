@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
+
 import java.io.IOException;
 import java.util.Properties;
-
-import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
 
 public enum AssetAcquisitionTypeFixture {
     WITHOUT_INCOME_ASSET_OBJECT_CODE(1), WITH_INCOME_ASSET_OBJECT_CODE(2);
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/asset_acquisition_type_service.properties";
         properties = new Properties();
         try {
             properties.load(AssetAcquisitionTypeFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }

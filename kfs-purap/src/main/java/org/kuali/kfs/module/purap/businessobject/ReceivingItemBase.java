@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class...
@@ -67,16 +67,16 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     public boolean isConsideredEntered() {
         //if all are not null then return true
         return !((ObjectUtils.isNull(this.getItemReceivedTotalQuantity()) || this.getItemReceivedTotalQuantity().isZero()) &&
-                (ObjectUtils.isNull(this.getItemDamagedTotalQuantity()) || this.getItemDamagedTotalQuantity().isZero()) &&
-                (ObjectUtils.isNull(this.getItemReturnedTotalQuantity()) || this.getItemReturnedTotalQuantity().isZero()));
+            (ObjectUtils.isNull(this.getItemDamagedTotalQuantity()) || this.getItemDamagedTotalQuantity().isZero()) &&
+            (ObjectUtils.isNull(this.getItemReturnedTotalQuantity()) || this.getItemReturnedTotalQuantity().isZero()));
     }
 
     public Integer getReceivingItemIdentifier() {
-    	return receivingItemIdentifier;
+        return receivingItemIdentifier;
     }
 
     public void setReceivingItemIdentifier(Integer receivingItemIdentifier) {
-    	this.receivingItemIdentifier = receivingItemIdentifier;
+        this.receivingItemIdentifier = receivingItemIdentifier;
     }
 
     public String getDocumentNumber() {
@@ -166,8 +166,10 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     public void setItemReasonAddedCode(String itemReasonAddedCode) {
         this.itemReasonAddedCode = itemReasonAddedCode;
     }
+
     /**
      * Gets the itemType attribute.
+     *
      * @return Returns the itemType.
      */
     public ItemType getItemType() {
@@ -179,6 +181,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
 
     /**
      * Sets the itemType attribute value.
+     *
      * @param itemType The itemType to set.
      * @deprecated
      */
@@ -187,34 +190,33 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     }
 
     public KualiDecimal getItemOriginalReceivedTotalQuantity() {
-    	return itemOriginalReceivedTotalQuantity;
+        return itemOriginalReceivedTotalQuantity;
     }
 
     public void setItemOriginalReceivedTotalQuantity(KualiDecimal itemOriginalReceivedTotalQuantity) {
-    	this.itemOriginalReceivedTotalQuantity = itemOriginalReceivedTotalQuantity;
+        this.itemOriginalReceivedTotalQuantity = itemOriginalReceivedTotalQuantity;
     }
 
     public KualiDecimal getItemOriginalReturnedTotalQuantity() {
-    	return itemOriginalReturnedTotalQuantity;
+        return itemOriginalReturnedTotalQuantity;
     }
 
     public void setItemOriginalReturnedTotalQuantity(KualiDecimal itemOriginalReturnedTotalQuantity) {
-    	this.itemOriginalReturnedTotalQuantity = itemOriginalReturnedTotalQuantity;
+        this.itemOriginalReturnedTotalQuantity = itemOriginalReturnedTotalQuantity;
     }
 
     public KualiDecimal getItemOriginalDamagedTotalQuantity() {
-    	return itemOriginalDamagedTotalQuantity;
+        return itemOriginalDamagedTotalQuantity;
     }
 
     public void setItemOriginalDamagedTotalQuantity(KualiDecimal itemOriginalDamagedTotalQuantity) {
-    	this.itemOriginalDamagedTotalQuantity = itemOriginalDamagedTotalQuantity;
+        this.itemOriginalDamagedTotalQuantity = itemOriginalDamagedTotalQuantity;
     }
 
     public ItemReasonAdded getItemReasonAdded() {
         if (itemReasonAdded != null) {
             return itemReasonAdded;
-        }
-        else if (itemReasonAddedCode != null){
+        } else if (itemReasonAddedCode != null) {
             refreshReferenceObject(PurapPropertyConstants.ITEM_REASON_ADDED);
         }
         return itemReasonAdded;

@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Adds extra role qualifiers for funky travel edit mode permission
@@ -41,12 +41,13 @@ public class DisbursementVoucherDocumentAuthorizer extends AccountingDocumentAut
 
     /**
      * Adds chart codes and account numbers for accounting lines if we're at Account level, so that the fiscal officer gets travel edit mode
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.krad.bo.BusinessObject, java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> attributes) {
         super.addRoleQualification(dataObject, attributes);
-        final DisbursementVoucherDocument disbursementVoucherDocument = (DisbursementVoucherDocument)dataObject;
+        final DisbursementVoucherDocument disbursementVoucherDocument = (DisbursementVoucherDocument) dataObject;
 
         // are we add Account level?  Then let's add our qualifiers
         if (isAtAccountLevel(disbursementVoucherDocument)) {
@@ -61,6 +62,7 @@ public class DisbursementVoucherDocumentAuthorizer extends AccountingDocumentAut
 
     /**
      * Finds the source accounting lines in the given business object
+     *
      * @param disbursementVoucherDocument a document to get accounting lines from
      * @return a List of accounting lines
      */
@@ -71,8 +73,9 @@ public class DisbursementVoucherDocumentAuthorizer extends AccountingDocumentAut
     /**
      * Goes through the given List of accounting lines and fines one line where the current user is the fiscal officer; it uses that line to put chart of accounts
      * code and account number qualifications into the given Map of attributes for role qualification
+     *
      * @param accountingLines a List of AccountingLines
-     * @param attributes a Map of role qualification attributes
+     * @param attributes      a Map of role qualification attributes
      */
     protected void addAccountQualification(List<? extends AccountingLine> accountingLines, Map<String, String> attributes) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
@@ -104,6 +107,7 @@ public class DisbursementVoucherDocumentAuthorizer extends AccountingDocumentAut
 
     /**
      * Determines if the document is at the Account route level
+     *
      * @param disbursementVoucherDocument the Disbursement Voucher document to determine the account level of
      * @return true if the document is at the account level, false otherwise
      */

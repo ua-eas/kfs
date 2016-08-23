@@ -36,14 +36,15 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
     protected static transient OrganizationService organizationService;
     protected static transient ChartService chartService;
 
-    public ChartOrgHolderImpl() {}
+    public ChartOrgHolderImpl() {
+    }
 
-    public ChartOrgHolderImpl( String chartOfAccountsCode, String organizationCode ) {
+    public ChartOrgHolderImpl(String chartOfAccountsCode, String organizationCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
         this.organizationCode = organizationCode;
     }
 
-    public ChartOrgHolderImpl( Organization org ) {
+    public ChartOrgHolderImpl(Organization org) {
         this.chartOfAccountsCode = org.getChartOfAccountsCode();
         this.organizationCode = org.getOrganizationCode();
         this.organization = org;
@@ -59,28 +60,28 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
     }
 
     public Chart getChartOfAccounts() {
-        if ( chartOfAccounts == null && StringUtils.isNotBlank(chartOfAccountsCode) ) {
+        if (chartOfAccounts == null && StringUtils.isNotBlank(chartOfAccountsCode)) {
             chartOfAccounts = getChartService().getByPrimaryId(chartOfAccountsCode);
         }
         return chartOfAccounts;
     }
 
     public Organization getOrganization() {
-        if ( organization == null && StringUtils.isNotBlank(chartOfAccountsCode) && StringUtils.isNotBlank(organizationCode) ) {
+        if (organization == null && StringUtils.isNotBlank(chartOfAccountsCode) && StringUtils.isNotBlank(organizationCode)) {
             organization = getOrganizationService().getByPrimaryId(chartOfAccountsCode, organizationCode);
         }
         return organization;
     }
 
     private static OrganizationService getOrganizationService() {
-        if ( organizationService == null ) {
+        if (organizationService == null) {
             organizationService = SpringContext.getBean(OrganizationService.class);
         }
         return organizationService;
     }
 
     private static ChartService getChartService() {
-        if ( chartService == null ) {
+        if (chartService == null) {
             chartService = SpringContext.getBean(ChartService.class);
         }
         return chartService;
@@ -98,11 +99,11 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
 
     @Override
     public boolean equals(Object obj) {
-        if ( obj == null || !(obj instanceof ChartOrgHolder) ) {
+        if (obj == null || !(obj instanceof ChartOrgHolder)) {
             return false;
         }
-        return StringUtils.equals( chartOfAccountsCode, ((ChartOrgHolder)obj).getChartOfAccountsCode() )
-                && StringUtils.equals( organizationCode, ((ChartOrgHolder)obj).getOrganizationCode() );
+        return StringUtils.equals(chartOfAccountsCode, ((ChartOrgHolder) obj).getChartOfAccountsCode())
+            && StringUtils.equals(organizationCode, ((ChartOrgHolder) obj).getOrganizationCode());
     }
 
     @Override

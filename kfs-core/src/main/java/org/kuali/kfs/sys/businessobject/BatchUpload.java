@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Object that contains properties used on the batch upload screen.
@@ -96,7 +96,6 @@ public class BatchUpload extends TransientBusinessObjectBase {
     public void setFileUserIdentifer(String fileRename) {
         this.fileUserIdentifer = fileRename;
     }
-
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {

@@ -27,7 +27,7 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 
 import java.sql.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ContractsGrantsInvoiceDocumentPresentationControllerTest {
 

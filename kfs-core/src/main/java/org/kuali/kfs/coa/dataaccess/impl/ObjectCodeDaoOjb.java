@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.dataaccess.ObjectCodeDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -48,7 +48,7 @@ public class ObjectCodeDaoOjb extends PlatformAwareDaoBaseOjb implements ObjectC
         criteria.addEqualTo("chartOfAccountsCode", chartOfAccountsCode);
         criteria.addEqualTo("financialObjectCode", financialObjectCode);
         Collection years = getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(ObjectCode.class, criteria));
-        for (Iterator iter = years.iterator(); iter.hasNext();) {
+        for (Iterator iter = years.iterator(); iter.hasNext(); ) {
             ObjectCode o = (ObjectCode) iter.next();
             if (o != null) {
                 returnList.add(o.getUniversityFiscalYear());

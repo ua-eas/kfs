@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
 
 /**
  * Exception thrown when a DataDictionary entry or definition is created using a key which is already in use.
- *
- *
  */
 public class DuplicateEntryException extends DataDictionaryException {
 

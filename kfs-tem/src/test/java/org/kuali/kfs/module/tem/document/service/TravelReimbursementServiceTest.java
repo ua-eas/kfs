@@ -18,16 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelPayment;
@@ -42,7 +37,12 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AccountingDocumentSaveWithNoLedgerEntryGenerationEvent;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class TravelReimbursementServiceTest extends KualiTestBase {
@@ -143,8 +143,7 @@ public class TravelReimbursementServiceTest extends KualiTestBase {
         try {
             trService.addListenersTo(tr);
             success = true;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             success = false;
             LOG.warn("NPE.", e);
         }
@@ -163,8 +162,7 @@ public class TravelReimbursementServiceTest extends KualiTestBase {
 
         try {
             cover = trService.generateCoversheetFor(new TravelReimbursementDocument());
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             LOG.warn("Workflow doc is null.", e);
         }
 

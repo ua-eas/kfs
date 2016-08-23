@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLevelSummary;
@@ -37,6 +32,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Service implementation of BudgetConstructionLevelSummaryReportService.
@@ -69,7 +69,7 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionLevelSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     public Collection<BudgetConstructionOrgLevelSummaryReport> buildReports(Integer universityFiscalYear, String principalName) {
         Collection<BudgetConstructionOrgLevelSummaryReport> reportSet = new ArrayList();
@@ -120,40 +120,35 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
 
         if (orgChartDesc == null) {
             orgLevelSummaryReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
 
         orgLevelSummaryReportEntry.setOrganizationCode(levelSummary.getOrganizationCode());
         if (orgName == null) {
             orgLevelSummaryReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setOrganizationName(orgName);
         }
 
         orgLevelSummaryReportEntry.setChartOfAccountsCode(levelSummary.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgLevelSummaryReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setChartOfAccountDescription(chartDesc);
         }
 
         orgLevelSummaryReportEntry.setFundGroupCode(levelSummary.getSubFundGroup().getFundGroupCode());
         if (fundGroupDes == null) {
             orgLevelSummaryReportEntry.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setFundGroupName(fundGroupDes);
         }
 
         orgLevelSummaryReportEntry.setSubFundGroupCode(levelSummary.getSubFundGroupCode());
         if (subFundGroupDes == null) {
             orgLevelSummaryReportEntry.setSubFundGroupDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUBFUNDGROUP_DESCRIPTION));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setSubFundGroupDescription(subFundGroupDes);
         }
 
@@ -187,8 +182,7 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
 
         if (levelSummary.getFinancialObjectLevel() == null) {
             orgLevelSummaryReportEntry.setFinancialObjectLevelName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_OBJECT_LEVEL_NAME));
-        }
-        else {
+        } else {
             orgLevelSummaryReportEntry.setFinancialObjectLevelName(levelSummary.getFinancialObjectLevel().getFinancialObjectLevelName());
         }
 
@@ -216,7 +210,7 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
      * builds report total
      *
      * @param BudgetConstructionLevelSummary bcas
-     * @param List reportTotalList
+     * @param List                           reportTotalList
      */
     public void buildReportsTotal(BudgetConstructionOrgLevelSummaryReport orgLevelSummaryReportEntry, BudgetConstructionLevelSummary levelSummary, List<BudgetConstructionOrgLevelSummaryReportTotal> levelSummaryTotalConsList, List<BudgetConstructionOrgLevelSummaryReportTotal> levelSummaryTotalGexpAndTypeList, List<BudgetConstructionOrgLevelSummaryReportTotal> levelSummaryTotalList) {
 
@@ -249,8 +243,7 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
 
                 if (levelSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
                     orgLevelSummaryReportEntry.setTypeDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_UPPERCASE_REVENUE));
-                }
-                else {
+                } else {
                     orgLevelSummaryReportEntry.setTypeDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXPENDITURE_NET_TRNFR));
                 }
                 orgLevelSummaryReportEntry.setTypePositionCsfLeaveFteQuantity(BudgetConstructionReportHelper.setDecimalDigit(gexpAndTypeTotal.getTypePositionCsfLeaveFteQuantity(), 2, true));
@@ -418,8 +411,7 @@ public class BudgetConstructionLevelSummaryReportServiceImpl implements BudgetCo
                     if (bclsListEntry.getIncomeExpenseCode().equals("A")) {
                         revenueFinancialBeginningBalanceLineAmount = revenueFinancialBeginningBalanceLineAmount.add(bclsListEntry.getFinancialBeginningBalanceLineAmount());
                         revenueAccountLineAnnualBalanceAmount = revenueAccountLineAnnualBalanceAmount.add(bclsListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else {
+                    } else {
                         expenditureFinancialBeginningBalanceLineAmount = expenditureFinancialBeginningBalanceLineAmount.add(bclsListEntry.getFinancialBeginningBalanceLineAmount());
                         expenditureAccountLineAnnualBalanceAmount = expenditureAccountLineAnnualBalanceAmount.add(bclsListEntry.getAccountLineAnnualBalanceAmount());
                     }

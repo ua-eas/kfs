@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sys.dataaccess;
 
-import java.sql.Date;
-import java.util.Collection;
-
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 
 /**

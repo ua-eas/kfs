@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.monitor;
 
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 public class DocumentWorkflowRequestMonitor extends ChangeMonitor {
 
@@ -40,16 +39,13 @@ public class DocumentWorkflowRequestMonitor extends ChangeMonitor {
 
     public boolean valueChanged() throws WorkflowException {
         WorkflowDocument document = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(docHeaderId, user);
-        if ( ActionRequestType.COMPLETE.equals(actionRequested)) {
+        if (ActionRequestType.COMPLETE.equals(actionRequested)) {
             return document.isCompletionRequested();
-        }
-        else if (ActionRequestType.APPROVE.equals(actionRequested)) {
+        } else if (ActionRequestType.APPROVE.equals(actionRequested)) {
             return document.isApprovalRequested();
-        }
-        else if (ActionRequestType.ACKNOWLEDGE.equals(actionRequested)) {
+        } else if (ActionRequestType.ACKNOWLEDGE.equals(actionRequested)) {
             return document.isAcknowledgeRequested();
-        }
-        else if (ActionRequestType.FYI.equals(actionRequested)) {
+        } else if (ActionRequestType.FYI.equals(actionRequested)) {
             return document.isFYIRequested();
         }
         return false;

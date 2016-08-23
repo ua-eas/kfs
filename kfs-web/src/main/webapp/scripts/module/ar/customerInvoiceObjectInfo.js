@@ -17,34 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function loadCustomerNumberAndName( invoiceNumberFieldName ){
+function loadCustomerNumberAndName(invoiceNumberFieldName) {
 
-    var elPrefix = findElPrefix( invoiceNumberFieldName.name );
+    var elPrefix = findElPrefix(invoiceNumberFieldName.name);
     var customerNumberFieldName = elPrefix + ".customerNumber";
     var customerNameFieldName = elPrefix + ".customer.customerName";
-	var invoiceNumber = dwr.util.getValue( invoiceNumberFieldName );
+    var invoiceNumber = dwr.util.getValue(invoiceNumberFieldName);
 
-	if (invoiceNumber=='') {
-		clearRecipients(customerNumberFieldName);
-		clearRecipients(customerNameFieldName);
-	} else {
-		var dwrReply = {
-			callback:function(data) {
-			if ( data != null && typeof data == 'object' ) {
-				setRecipientValue( customerNumberFieldName, data.customer.customerNumber );
-				setRecipientValue( customerNameFieldName, data.customer.customerName );
-			} else {
-				setRecipientValue( customerNumberFieldName, wrapError( "invoice not found" ), true );
-				clearRecipients( customerNameFieldName );
-			} },
-			errorHandler:function( errorMessage ) {
-				window.status = errorMessage;
-				setRecipientValue( customerNumberFieldName, wrapError( "invoice not found" ), true );
-				clearRecipients( customerNameFieldName );
-			}
-		};
-		CustomerInvoiceDocumentService.getInvoiceByInvoiceDocumentNumber( invoiceNumber, dwrReply );
-	}
+    if (invoiceNumber == '') {
+        clearRecipients(customerNumberFieldName);
+        clearRecipients(customerNameFieldName);
+    } else {
+        var dwrReply = {
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    setRecipientValue(customerNumberFieldName, data.customer.customerNumber);
+                    setRecipientValue(customerNameFieldName, data.customer.customerName);
+                } else {
+                    setRecipientValue(customerNumberFieldName, wrapError("invoice not found"), true);
+                    clearRecipients(customerNameFieldName);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                window.status = errorMessage;
+                setRecipientValue(customerNumberFieldName, wrapError("invoice not found"), true);
+                clearRecipients(customerNameFieldName);
+            }
+        };
+        CustomerInvoiceDocumentService.getInvoiceByInvoiceDocumentNumber(invoiceNumber, dwrReply);
+    }
 }
 
 

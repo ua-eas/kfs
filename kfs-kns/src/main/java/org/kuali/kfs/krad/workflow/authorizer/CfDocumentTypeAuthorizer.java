@@ -20,6 +20,14 @@ package org.kuali.kfs.krad.workflow.authorizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.framework.document.security.AuthorizableAction;
@@ -29,14 +37,6 @@ import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.KRADUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,7 +68,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
                         return new Authorization(canCancel(principalId, DocumentRouteHeaderValue.from(document)));
                     case RECALL:
                         return new Authorization(canRecall(principalId, DocumentRouteHeaderValue.from(document)));
-                    case ROUTE :
+                    case ROUTE:
                         return new Authorization(canRoute(principalId, DocumentRouteHeaderValue.from(document)));
                     case SAVE:
                         return new Authorization(canSave(principalId, DocumentRouteHeaderValue.from(document)));
@@ -90,7 +90,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         Map<String, String> permissionDetails = buildDocumentTypePermissionDetails(documentType, null, null, null);
         if (useKimPermission(KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KewApiConstants.INITIATE_PERMISSION, permissionDetails, true)) {
             return getPermissionService().isAuthorizedByTemplate(principalId, KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
-                    KewApiConstants.INITIATE_PERMISSION, permissionDetails, new HashMap<String, String>());
+                KewApiConstants.INITIATE_PERMISSION, permissionDetails, new HashMap<String, String>());
         }
         return true;
     }
@@ -118,7 +118,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
             }
             if (useKimPermission(KewApiConstants.KEW_NAMESPACE, KewApiConstants.ROUTE_PERMISSION, permissionDetails, true)) {
                 return getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                        KewApiConstants.ROUTE_PERMISSION, permissionDetails, roleQualifiers);
+                    KewApiConstants.ROUTE_PERMISSION, permissionDetails, roleQualifiers);
             }
         }
 
@@ -141,7 +141,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         PermissionService permissionService = getPermissionService();
         for (Map<String, String> permissionDetails : permissionDetailList) {
             if (permissionService.isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                    KewApiConstants.SUPER_USER_APPROVE_SINGLE_ACTION_REQUEST, permissionDetails, new HashMap<String, String>())) {
+                KewApiConstants.SUPER_USER_APPROVE_SINGLE_ACTION_REQUEST, permissionDetails, new HashMap<String, String>())) {
                 return true;
             }
         }
@@ -161,7 +161,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         PermissionService permissionService = getPermissionService();
         for (Map<String, String> permissionDetails : permissionDetailList) {
             if (permissionService.isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                    KewApiConstants.SUPER_USER_APPROVE_DOCUMENT, permissionDetails, new HashMap<String, String>())) {
+                KewApiConstants.SUPER_USER_APPROVE_DOCUMENT, permissionDetails, new HashMap<String, String>())) {
                 return true;
             }
         }
@@ -172,7 +172,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
      * Implements {@link org.kuali.rice.kew.doctype.service.DocumentTypePermissionService#canSuperUserDisapproveDocument(String, org.kuali.rice.kew.doctype.bo.DocumentType, java.util.List, String)}
      */
     protected boolean canSuperUserDisapproveDocument(String principalId, DocumentType documentType,
-                                                     Collection<String> routeNodeNames,String routeStatusCode) {
+                                                     Collection<String> routeNodeNames, String routeStatusCode) {
         validatePrincipalId(principalId);
         validateDocumentType(documentType);
 
@@ -181,7 +181,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         PermissionService permissionService = getPermissionService();
         for (Map<String, String> permissionDetails : permissionDetailList) {
             if (permissionService.isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                    KewApiConstants.SUPER_USER_DISAPPROVE_DOCUMENT, permissionDetails, new HashMap<String, String>())) {
+                KewApiConstants.SUPER_USER_DISAPPROVE_DOCUMENT, permissionDetails, new HashMap<String, String>())) {
                 return true;
             }
         }
@@ -213,7 +213,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
                 if (useKimPermission(KewApiConstants.KEW_NAMESPACE, KewApiConstants.CANCEL_PERMISSION, permissionDetails, true)) {
                     foundAtLeastOnePermission = true;
                     if (getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                            KewApiConstants.CANCEL_PERMISSION, permissionDetails, roleQualifiers)) {
+                        KewApiConstants.CANCEL_PERMISSION, permissionDetails, roleQualifiers)) {
                         return true;
                     }
                 }
@@ -250,7 +250,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         // add appDocStatus to the details
         List<Map<String, String>> permissionDetailList = buildDocumentTypePermissionDetailsForNodes(documentType, routeNodeNames, documentStatus, null);
         if (!StringUtils.isBlank(appDocStatus)) {
-            for (Map<String, String> details: permissionDetailList) {
+            for (Map<String, String> details : permissionDetailList) {
                 details.put(KewApiConstants.APP_DOC_STATUS_DETAIL, appDocStatus);
             }
         }
@@ -265,7 +265,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
                 if (getPermissionService().isPermissionDefinedByTemplate(KewApiConstants.KEW_NAMESPACE, KewApiConstants.RECALL_PERMISSION, permissionDetails)) {
                     foundAtLeastOnePermission = true;
                     if (getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                            KewApiConstants.RECALL_PERMISSION, permissionDetails, roleQualifiers)) {
+                        KewApiConstants.RECALL_PERMISSION, permissionDetails, roleQualifiers)) {
                         return true;
                     }
                 }
@@ -301,7 +301,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
         } else {
             Map<String, String> permissionDetails = buildDocumentTypePermissionDetails(documentType, documentStatus, null, null);
             result = getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                    KewApiConstants.BLANKET_APPROVE_PERMISSION, permissionDetails, new HashMap<String, String>());
+                KewApiConstants.BLANKET_APPROVE_PERMISSION, permissionDetails, new HashMap<String, String>());
         }
         return result;
     }
@@ -331,7 +331,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
                 if (useKimPermission(KewApiConstants.KEW_NAMESPACE, KewApiConstants.SAVE_PERMISSION, permissionDetails, true)) {
                     foundAtLeastOnePermission = true;
                     if (getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                            KewApiConstants.SAVE_PERMISSION, permissionDetails, roleQualifiers)) {
+                        KewApiConstants.SAVE_PERMISSION, permissionDetails, roleQualifiers)) {
                         return true;
                     }
                 }
@@ -354,10 +354,11 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
      * Note that this has to match the required data defined in krim_typ_attr_t for the krim_typ_t with
      * srvc_nm='documentTypeAndNodeOrStatePermissionTypeService'.
      * TODO: See KULRICE-3490, make assembly of permission details dynamic based on db config
-     * @param documentType the KEW DocumentType
-     * @param documentStatus the document status
+     *
+     * @param documentType      the KEW DocumentType
+     * @param documentStatus    the document status
      * @param actionRequestCode action request code if applicable
-     * @param routeNodeName routeNode name if applicable
+     * @param routeNodeName     routeNode name if applicable
      * @return map of permission details for permission check
      */
     protected Map<String, String> buildDocumentTypePermissionDetails(DocumentType documentType, String documentStatus, String actionRequestCode, String routeNodeName) {
@@ -369,7 +370,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
             details.put(KimConstants.AttributeConstants.ROUTE_STATUS_CODE, documentStatus);
         }
         if (KewApiConstants.ROUTE_HEADER_INITIATED_CD.equals(documentStatus) ||
-                KewApiConstants.ROUTE_HEADER_SAVED_CD.equals(documentStatus)) {
+            KewApiConstants.ROUTE_HEADER_SAVED_CD.equals(documentStatus)) {
             details.put(KewApiConstants.ROUTE_NODE_NAME_DETAIL, DocumentAuthorizerBase.PRE_ROUTING_ROUTE_NAME);
         } else if (!StringUtils.isBlank(routeNodeName)) {
             details.put(KewApiConstants.ROUTE_NODE_NAME_DETAIL, routeNodeName);
@@ -384,9 +385,10 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
      * This method generates the permission details for the given document with current active route nodes.
      * This method simply invokes {@link #buildDocumentTypePermissionDetails(org.kuali.rice.kew.doctype.bo.DocumentType, String, String, String)}
      * for each node (or once if no node names are provided).
-     * @param documentType the DocumentType
-     * @param routeNodeNames active route nodes for which to generate permission details
-     * @param documentStatus document status
+     *
+     * @param documentType      the DocumentType
+     * @param routeNodeNames    active route nodes for which to generate permission details
+     * @param documentStatus    document status
      * @param actionRequestCode action request code if applicable
      * @return list of permission details maps, one for each route node inspected
      */
@@ -407,7 +409,8 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
     /**
      * Generates role qualifiers for authorization check.  If the document status is a non-routed status, "PreRoute" is used.
      * The namespaceCode attribute is derived from the KRAD DataDictionary if there is a mapping for the document type.
-     * @param document the document instance
+     *
+     * @param document      the document instance
      * @param routeNodeName name of the applicable routenode
      * @return map of role qualifiers
      */
@@ -418,8 +421,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
             qualifiers.put(KewApiConstants.DOCUMENT_STATUS_DETAIL, document.getDocRouteStatus());
             if (KewApiConstants.ROUTE_HEADER_INITIATED_CD.equals(document.getDocRouteStatus()) || KewApiConstants.ROUTE_HEADER_SAVED_CD.equals(document.getDocRouteStatus())) {
                 qualifiers.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME, DocumentAuthorizerBase.PRE_ROUTING_ROUTE_NAME);
-            }
-            else {
+            } else {
                 qualifiers.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME, routeNodeName);
             }
         }
@@ -432,8 +434,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
             if (MaintenanceDocument.class.isAssignableFrom(documentClass)) {
                 MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry) documentEntry;
                 namespaceCode = KRADUtils.getNamespaceCode(maintenanceDocumentEntry.getDataObjectClass());
-            }
-            else {
+            } else {
                 namespaceCode = KRADUtils.getNamespaceCode(documentClass);
             }
             qualifiers.put(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode);
@@ -447,22 +448,23 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
      * to determine whether we should check for permission existence.  If this parameter is unset or is true, we proceed to invoke
      * {@link PermissionService#isPermissionDefinedByTemplate(String, String, java.util.Map)} to determine whether the given permission
      * is defined anywhere in the system.
-     * @param namespace namespace of permission we are querying
+     *
+     * @param namespace              namespace of permission we are querying
      * @param permissionTemplateName template name of permissions we are querying
-     * @param permissionDetails details of permissions we are querying
-     * @param checkKimPriorityInd whether to consult the {@link KewApiConstants#KIM_PRIORITY_ON_DOC_TYP_PERMS_IND} parameter to determine whether the check for
-     *                            permission definition
+     * @param permissionDetails      details of permissions we are querying
+     * @param checkKimPriorityInd    whether to consult the {@link KewApiConstants#KIM_PRIORITY_ON_DOC_TYP_PERMS_IND} parameter to determine whether the check for
+     *                               permission definition
      * @return whether there are any permissions defined for the given permission template, or false if we are checking the kim priority indicator and
-     *         the {@link KewApiConstants@KIM_PRIORITY_ON_DOC_TYP_PERMS_IND} system parameter is disabled.
+     * the {@link KewApiConstants@KIM_PRIORITY_ON_DOC_TYP_PERMS_IND} system parameter is disabled.
      */
     protected boolean useKimPermission(String namespace, String permissionTemplateName, Map<String, String> permissionDetails, boolean checkKimPriorityInd) {
         Boolean b = true;
         if (checkKimPriorityInd) {
-            b =  CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean(KewApiConstants.KEW_NAMESPACE, KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KewApiConstants.KIM_PRIORITY_ON_DOC_TYP_PERMS_IND);
+            b = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean(KewApiConstants.KEW_NAMESPACE, KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KewApiConstants.KIM_PRIORITY_ON_DOC_TYP_PERMS_IND);
         }
         if (b == null || b) {
             return getPermissionService().isPermissionDefinedByTemplate(namespace, permissionTemplateName,
-                    permissionDetails);
+                permissionDetails);
         }
         return false;
     }
@@ -473,6 +475,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
 
     /**
      * Validates principal id parameter
+     *
      * @param principalId the principal id
      * @throw IllegalArgumentException if the principal is not valid (null or empty)
      */
@@ -484,17 +487,19 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
 
     /**
      * Validates document parameter
+     *
      * @param document the document
      * @throw IllegalArgumentException if the document is null
      */
     protected void validateDocument(DocumentRouteHeaderValue document) {
-        if (document== null) {
+        if (document == null) {
             throw new IllegalArgumentException("document cannot be null");
         }
     }
 
     /**
      * Validates documenttype parameter
+     *
      * @param documentType the document type
      * @throw IllegalArgumentException if the documenttype is null
      */
@@ -506,6 +511,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
 
     /**
      * Validates routeNodeNames parameter
+     *
      * @param routeNodeNames the routeNode names
      * @throw IllegalArgumentException if any routeNode name is empty or null
      */
@@ -523,6 +529,7 @@ public class CfDocumentTypeAuthorizer implements DocumentTypeAuthorizer {
 
     /**
      * Validates documentStatus parameter
+     *
      * @param documentStatus the document status
      * @throw IllegalArgumentException if document status is empty or null, or an invalid value
      */

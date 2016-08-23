@@ -27,8 +27,6 @@ import java.io.Serializable;
 
 /**
  * Empty FormFile instance, used to clear out FormFile attributes of Struts forms.
- *
- *
  */
 public class BlankFormFile implements FormFile, Serializable {
     public void destroy() {

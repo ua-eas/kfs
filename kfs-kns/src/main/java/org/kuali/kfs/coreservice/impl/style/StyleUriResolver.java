@@ -18,43 +18,41 @@
  */
 package org.kuali.kfs.coreservice.impl.style;
 
-import java.io.StringReader;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.stream.StreamSource;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coreservice.api.style.Style;
 import org.kuali.kfs.coreservice.api.style.StyleService;
 
+import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.stream.StreamSource;
+import java.io.StringReader;
+
 /**
  * A URIResolver that knows how to resolve href's based on style names.
- *
  */
 class StyleUriResolver implements URIResolver {
 
-	private static final Logger LOG = Logger.getLogger(StyleUriResolver.class);
+    private static final Logger LOG = Logger.getLogger(StyleUriResolver.class);
 
-	private final StyleService styleService;
+    private final StyleService styleService;
 
-	StyleUriResolver(StyleService styleService) {
-		if (styleService == null) {
-			throw new IllegalArgumentException("styleService cannot be null");
-		}
-		this.styleService = styleService;
-	}
+    StyleUriResolver(StyleService styleService) {
+        if (styleService == null) {
+            throw new IllegalArgumentException("styleService cannot be null");
+        }
+        this.styleService = styleService;
+    }
 
-	public Source resolve(String href, String base) {
+    public Source resolve(String href, String base) {
 
-		try {
-			Style style = styleService.getStyle(href);
-			return new StreamSource(new StringReader(style.getXmlContent()));
+        try {
+            Style style = styleService.getStyle(href);
+            return new StreamSource(new StringReader(style.getXmlContent()));
 
-		} catch (Exception e) {
-			LOG.error("Error ocurred getting style " + href, e);
-		}
-		return null;
-	}
+        } catch (Exception e) {
+            LOG.error("Error ocurred getting style " + href, e);
+        }
+        return null;
+    }
 
 }

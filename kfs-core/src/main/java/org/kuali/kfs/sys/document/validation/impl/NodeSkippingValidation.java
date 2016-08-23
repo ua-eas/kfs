@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * The opposite of org.kuali.kfs.sys.document.validation.impl.NodeSpecificValidation, this validation will run the child validation
@@ -41,6 +41,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * Sets a List of route node names where this validation should be skipped
+     *
      * @param validationSkipNodes the List of node names to skip
      */
     public void setValidationSkipNodes(List<String> validationSkipNodes) {
@@ -49,6 +50,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * There's less harm here if no validation nodes are set, because the validation will just run everywhere - so this is always true
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.NodeAwareValidation#isNodesPropertyValid()
      */
     @Override
@@ -58,6 +60,7 @@ public class NodeSkippingValidation extends NodeAwareValidation {
 
     /**
      * Determines if this validation should be run at this node
+     *
      * @param document the document which is being validated
      * @return true if one of the validation nodes is within the current nodes and the validation should run; false otherwise
      */

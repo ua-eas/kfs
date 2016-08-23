@@ -24,13 +24,11 @@ import org.kuali.kfs.krad.uif.component.ComponentSecurity;
  * Collection Group security is used to flag that permissions exist for the associated {@link CollectionGroup}
  * in KIM and should be checked to determine the associated group, line, and field state. In particular this adds
  * the edit line and view line flags
- *
+ * <p>
  * <p>
  * In addition, properties such as additional role and permission details can be configured to use when
  * checking the KIM permissions
  * </p>
- *
- *
  */
 public class CollectionGroupSecurity extends ComponentSecurity {
     private static final long serialVersionUID = 1134455196763917062L;

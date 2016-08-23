@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-            This element is used to define a set of workflowPropertyGroups, which are used to
-            specify which document properties should be serialized during the document serialization
-            process.
+ * This element is used to define a set of workflowPropertyGroups, which are used to
+ * specify which document properties should be serialized during the document serialization
+ * process.
  */
 public class WorkflowProperties implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,9 +47,9 @@ public class WorkflowProperties implements Serializable {
     }
 
     /**
-            This element is used to define a set of workflowPropertyGroups, which are used to
-            specify which document properties should be serialized during the document serialization
-            process.
+     * This element is used to define a set of workflowPropertyGroups, which are used to
+     * specify which document properties should be serialized during the document serialization
+     * process.
      */
     public void setWorkflowPropertyGroups(List<WorkflowPropertyGroup> workflowPropertyGroups) {
         this.workflowPropertyGroups = workflowPropertyGroups;

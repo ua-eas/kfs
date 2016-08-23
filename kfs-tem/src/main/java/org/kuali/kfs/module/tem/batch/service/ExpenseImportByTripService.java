@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ExpenseImportByTripService {
 
     /**
-     *
      * This method checks to see if the following fields are present in the {@link AgencyStagingData}:
      * Trip ID, Accounting Info, Expense Amount, Invoice Number, Transaction Posting Date, Alternate Trip ID,
      * Trip Info (contains air ticket number, air service fee number, lodging itinerary number, rental car itinerary number)
+     *
      * @param agencyData
      * @return List of ErrorMessage for fields which are not present
      */
@@ -49,37 +49,37 @@ public interface ExpenseImportByTripService {
     public List<ErrorMessage> validateMissingAccountingInfo(AgencyStagingData agencyData);
 
     /**
-     *
      * This method performs the validation on the {@link AgencyStagingData} object.
+     *
      * @param agencyData
      * @return
      */
     public List<ErrorMessage> validateAgencyData(AgencyStagingData agencyData);
 
     /**
-     *
      * This method looks up Travel Documents based on the trip id. It returns the TA if found.
+     *
      * @param agencyData
      * @return
      */
     public List<ErrorMessage> validateTripId(AgencyStagingData agencyData);
 
     /**
-     *
      * This method validates the Account Number Sub-account Number, Project Code, Object Code and Sub-object Code
      * for each of the {@link TripAccountingInformation} objects. It uses the ACCOUNTING_LINE_VALIDATION parameter
      * to determine which fields are to be validated.
+     *
      * @param agencyData
      * @return
      */
     public List<ErrorMessage> validateAccountingInfo(AgencyStagingData agencyData);
 
-    public Map<String,ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine);
+    public Map<String, ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine);
 
     /**
-     *
      * This method checks to see if the agencyData already exists in the staging table, based on the following properties:
      * Trip ID, Agency Name, Transaction Date, Transaction Amount
+     *
      * @param agencyData
      * @return
      */
@@ -103,9 +103,9 @@ public interface ExpenseImportByTripService {
     public List<ErrorMessage> validateDistributionCode(AgencyStagingData agencyData);
 
     /**
-     *
      * This method performs the "matching process" where it matches agency data with credit card data. If the agency matches a credit card,
      * GLPEs are created, and {@link HistoricalTravelExpense} is created (hanging off of the tripId's travel document).
+     *
      * @param agencyData
      * @param sequenceHelper
      * @return

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.cam.businessobject.Asset;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.document.Document;
 
 
 /**

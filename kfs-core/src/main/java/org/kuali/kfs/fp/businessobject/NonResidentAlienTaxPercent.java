@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a non-resident alien tax percent.  This is the percentage of a total
@@ -138,6 +138,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -146,6 +147,7 @@ public class NonResidentAlienTaxPercent extends PersistableBusinessObjectBase im
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

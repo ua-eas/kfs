@@ -32,28 +32,26 @@ import java.util.List;
  * So, a 7-digit US phone number might have a prerequisite of an area code, or an address street2 might have a prerequisite
  * that street1 is non-empty.
  *
- *
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PrerequisiteConstraint extends BaseConstraint {
-	@XmlElement
+    @XmlElement
     protected String propertyName;
 
-	public String getPropertyName() {
-		return propertyName;
-	}
+    public String getPropertyName() {
+        return propertyName;
+    }
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
-	}
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
 
     @Override
-    public String getLabelKey(){
-        if(StringUtils.isBlank(this.labelKey)){
+    public String getLabelKey() {
+        if (StringUtils.isBlank(this.labelKey)) {
             return UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "prerequisiteFallback";
-        }
-        else{
+        } else {
             return super.getLabelKey();
         }
     }
@@ -64,7 +62,7 @@ public class PrerequisiteConstraint extends BaseConstraint {
      * @return the validation message list if defined. If not defined,  return  the property name
      */
     public List<String> getValidationMessageParams() {
-        if(super.getValidationMessageParams() == null) {
+        if (super.getValidationMessageParams() == null) {
             ArrayList<String> params = new ArrayList<String>(1);
             params.add(getPropertyName());
             return params;

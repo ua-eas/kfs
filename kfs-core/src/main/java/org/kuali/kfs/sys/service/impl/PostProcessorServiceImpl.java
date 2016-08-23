@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.gl.businessobject.inquiry;
 
+import org.kuali.kfs.gl.Constant;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.businessobject.AccountBalanceByLevel;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.kuali.kfs.gl.Constant;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.businessobject.AccountBalanceByLevel;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.krad.service.LookupService;
 
 /**
  * This class is used to generate the URL for the user-defined attributes for the account balace by consolidation screen. It is
@@ -94,7 +94,7 @@ public class AccountBalanceByConsolidationInquirableImpl extends AbstractGeneral
     /**
      * Overrides the key value with a blank string if it's an exclusive value
      *
-     * @param keyName the keyName of the key to check
+     * @param keyName  the keyName of the key to check
      * @param keyValue the value of the key to check
      * @return a new value
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getKeyValue(java.lang.String, java.lang.Object)
@@ -153,7 +153,8 @@ public class AccountBalanceByConsolidationInquirableImpl extends AbstractGeneral
 
     /**
      * For a given attribute, lets this inquiry add more parameters
-     * @param parameter the set of parameters for the inquiry
+     *
+     * @param parameter     the set of parameters for the inquiry
      * @param attributeName the attributeName parameters are being set for
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#addMoreParameters(java.util.Properties, java.lang.String)
      */

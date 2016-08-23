@@ -26,23 +26,22 @@ import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 /**
  * This is the contract for a Style.  A style represents a stylesheet that is used for transforming data from
  * one format to another (currently only XSL is supported).
- *
  */
 public interface StyleContract extends Identifiable, Versioned, GloballyUnique, Inactivatable {
 
-	/**
-	 * Returns the name of this style.  All styles have a name and this value
-	 * can never be null or blank.  The name must be unique within the entire
-	 * repository of existing styles.
-	 *
-	 * @return the name of this style
-	 */
-	String getName();
+    /**
+     * Returns the name of this style.  All styles have a name and this value
+     * can never be null or blank.  The name must be unique within the entire
+     * repository of existing styles.
+     *
+     * @return the name of this style
+     */
+    String getName();
 
-	/**
-	 * Returns the XML definition of this style as a String.
-	 *
-	 * @return the xml definition of this style
-	 */
-	String getXmlContent();
+    /**
+     * Returns the XML definition of this style as a String.
+     *
+     * @return the xml definition of this style
+     */
+    String getXmlContent();
 }

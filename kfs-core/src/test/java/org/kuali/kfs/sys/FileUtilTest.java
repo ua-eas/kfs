@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys;
 
-import java.io.File;
-import java.io.FilenameFilter;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 @ConfigureContext
 public class FileUtilTest extends KualiTestBase {
@@ -33,9 +33,9 @@ public class FileUtilTest extends KualiTestBase {
 
     protected String stagingDirectory;
 
-    protected String[] DATA = new String[] {
-            "2007BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                      619.90D2009-02-05                                                                     0.00     200905000000000010                                                      ",
-            "2007BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                      276.47D2009-02-05                                                                     0.00     200905000000000010                                                      ",
+    protected String[] DATA = new String[]{
+        "2007BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                      619.90D2009-02-05                                                                     0.00     200905000000000010                                                      ",
+        "2007BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                      276.47D2009-02-05                                                                     0.00     200905000000000010                                                      ",
     };
 
     @Override
@@ -56,7 +56,7 @@ public class FileUtilTest extends KualiTestBase {
         FilenameFilter filenameFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return (name.startsWith(testFilename) &&
-                        name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
+                    name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
             }
         };
 

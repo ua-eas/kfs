@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.fp.document.validation.impl.CreditCardReceiptDocumentRuleConstants.CREDIT_CARD_RECEIPT_PREFIX;
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
 import org.kuali.kfs.fp.document.CreditCardReceiptDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSKeyConstants.CashReceipt;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -29,15 +29,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.fp.document.validation.impl.CreditCardReceiptDocumentRuleConstants.CREDIT_CARD_RECEIPT_PREFIX;
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * This class...
  */
 public class CreditCardReceiptCashTotalsValidation extends GenericValidation {
     private CreditCardReceiptDocument accountingDocumentForValidation;
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
@@ -57,8 +58,7 @@ public class CreditCardReceiptCashTotalsValidation extends GenericValidation {
             GlobalVariables.getMessageMap().putError(errorProperty, CashReceipt.ERROR_ZERO_TOTAL, errorLabel);
 
             isValid = false;
-        }
-        else {
+        } else {
             int precount = GlobalVariables.getMessageMap().getNumberOfPropertiesWithErrors();
 
             DictionaryValidationService dvs = SpringContext.getBean(DictionaryValidationService.class);
@@ -73,15 +73,19 @@ public class CreditCardReceiptCashTotalsValidation extends GenericValidation {
 
         return isValid;
     }
+
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public CreditCardReceiptDocument getAccountingDocumentForValidation() {
         return accountingDocumentForValidation;
     }
+
     /**
      * Sets the documentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setAccountingDocumentForValidation(CreditCardReceiptDocument accountingDocumentForValidation) {

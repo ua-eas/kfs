@@ -18,6 +18,18 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
+import org.kuali.kfs.coa.businessobject.OrganizationReversion;
+import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
+import org.kuali.kfs.coa.service.OrganizationReversionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic;
+import org.kuali.kfs.gl.batch.service.impl.GenericOrganizationReversionCategory;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.NonTransactional;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,20 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.coa.businessobject.OrganizationReversion;
-import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
-import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic;
-import org.kuali.kfs.gl.batch.service.impl.GenericOrganizationReversionCategory;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-
 /**
- *
  * This service implementation is the default implementation of the OrganizationReversion service that is delivered with Kuali.
  */
 
@@ -51,7 +50,7 @@ public class OrganizationReversionServiceImpl implements OrganizationReversionSe
 
     /**
      * @see org.kuali.kfs.coa.service.OrganizationReversionService#getByPrimaryId(java.lang.Integer, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public OrganizationReversion getByPrimaryId(Integer fiscalYear, String chartCode, String orgCode) {
@@ -71,17 +70,17 @@ public class OrganizationReversionServiceImpl implements OrganizationReversionSe
         Map<String, OrganizationReversionCategoryLogic> orgReversionCategoryLogicMap = SpringContext.getBeansOfType(OrganizationReversionCategoryLogic.class);
         Map<String, OrganizationReversionCategoryLogic> categories = new HashMap<String, OrganizationReversionCategoryLogic>(cats.size());
 
-        for ( OrganizationReversionCategory orc : cats ) {
+        for (OrganizationReversionCategory orc : cats) {
             String categoryCode = orc.getOrganizationReversionCategoryCode();
             OrganizationReversionCategoryLogic cat = null;
             String key = "gl" + categoryCode + "OrganizationReversionCategory";
             if (orgReversionCategoryLogicMap.containsKey(key)) {
-                if ( LOG.isDebugEnabled() ) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("Found Organization Reversion Category Logic for " + key);
                 }
                 cat = orgReversionCategoryLogicMap.get(key);
             } else {
-                if ( LOG.isInfoEnabled() ) {
+                if (LOG.isInfoEnabled()) {
                     LOG.info("No Organization Reversion Category Logic for " + key + "; using generic");
                 }
                 // This is a prototype bean - a new instance is pulled every time this is called
@@ -95,14 +94,13 @@ public class OrganizationReversionServiceImpl implements OrganizationReversionSe
     }
 
     /**
-     *
      * @see org.kuali.kfs.coa.service.OrganizationReversionService#getCategoryList()
      */
     @Override
     public List<OrganizationReversionCategory> getCategoryList() {
         return new ArrayList<OrganizationReversionCategory>(
-                businessObjectService.findMatchingOrderBy(OrganizationReversionCategory.class, Collections.singletonMap(KFSPropertyConstants.ACTIVE, true), "organizationReversionSortCode", true)
-                );
+            businessObjectService.findMatchingOrderBy(OrganizationReversionCategory.class, Collections.singletonMap(KFSPropertyConstants.ACTIVE, true), "organizationReversionSortCode", true)
+        );
     }
 
 
@@ -133,8 +131,8 @@ public class OrganizationReversionServiceImpl implements OrganizationReversionSe
     @Override
     public boolean isCategoryActiveByName(String categoryName) {
         Collection<OrganizationReversionCategory> categories = businessObjectService.findMatching(OrganizationReversionCategory.class, Collections.singletonMap("organizationReversionCategoryName", categoryName));
-        for ( OrganizationReversionCategory category : categories ) {
-            if ( category.isActive() ) {
+        for (OrganizationReversionCategory category : categories) {
+            if (category.isActive()) {
                 return true;
             }
         }

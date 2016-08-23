@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
 
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping;
@@ -27,77 +25,80 @@ import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.module.purap.dataaccess.ElectronicInvoiceItemMappingDao;
 import org.springmodules.orm.ojb.support.PersistenceBrokerDaoSupport;
 
+import java.util.List;
+
 public class ElectronicInvoiceItemMappingDaoOjb extends PersistenceBrokerDaoSupport implements
-ElectronicInvoiceItemMappingDao {
-  private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceItemMappingDaoOjb.class);
+    ElectronicInvoiceItemMappingDao {
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceItemMappingDaoOjb.class);
 
-  /**
-   * Get list of all ElectronicInvoiceItemMappings
-   */
-  @Override
-public List getAll() {
-    LOG.debug("getAll() started");
-    QueryByCriteria qbc = new QueryByCriteria(ElectronicInvoiceItemMapping.class);
-    qbc.addOrderBy("id", true);
-    List l = (List) getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
-    return l;
-  }
+    /**
+     * Get list of all ElectronicInvoiceItemMappings
+     */
+    @Override
+    public List getAll() {
+        LOG.debug("getAll() started");
+        QueryByCriteria qbc = new QueryByCriteria(ElectronicInvoiceItemMapping.class);
+        qbc.addOrderBy("id", true);
+        List l = (List) getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
+        return l;
+    }
 
-  @Override
-public ElectronicInvoiceItemMapping getByUniqueKeys(Integer headerId, Integer detailId, String invoiceTypeCode) {
-    LOG.debug("getByUniqueKeys() started");
-    Criteria criteria = new Criteria();
-    criteria.addEqualTo("vendorHeaderGeneratedId", headerId);
-    criteria.addEqualTo("vendorDetailAssignedId", detailId);
-    criteria.addEqualTo("electronicInvoiceItemTypeCode", invoiceTypeCode);
-    QueryByCriteria qbc = new QueryByCriteria(ElectronicInvoiceItemMapping.class,criteria);
-    return (ElectronicInvoiceItemMapping)getPersistenceBrokerTemplate().getObjectByQuery(qbc);
-  }
+    @Override
+    public ElectronicInvoiceItemMapping getByUniqueKeys(Integer headerId, Integer detailId, String invoiceTypeCode) {
+        LOG.debug("getByUniqueKeys() started");
+        Criteria criteria = new Criteria();
+        criteria.addEqualTo("vendorHeaderGeneratedId", headerId);
+        criteria.addEqualTo("vendorDetailAssignedId", detailId);
+        criteria.addEqualTo("electronicInvoiceItemTypeCode", invoiceTypeCode);
+        QueryByCriteria qbc = new QueryByCriteria(ElectronicInvoiceItemMapping.class, criteria);
+        return (ElectronicInvoiceItemMapping) getPersistenceBrokerTemplate().getObjectByQuery(qbc);
+    }
 
-  @Override
-public List getAllItemTypes() {
-    LOG.debug("getAllItemTypes() started");
+    @Override
+    public List getAllItemTypes() {
+        LOG.debug("getAllItemTypes() started");
 
-    Criteria criteria = new Criteria();
-    criteria.addEqualTo("active",Boolean.TRUE);
+        Criteria criteria = new Criteria();
+        criteria.addEqualTo("active", Boolean.TRUE);
 
-    QueryByCriteria qbc = new QueryByCriteria(ItemType.class,criteria);
-    qbc.addOrderByAscending("code");
+        QueryByCriteria qbc = new QueryByCriteria(ItemType.class, criteria);
+        qbc.addOrderByAscending("code");
 
-    return (List)getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
-  }
+        return (List) getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
+    }
 
-  @Override
-public ItemType getItemTypeByCode(String code) {
-  	LOG.debug("getItemTypeByCode() started");
-  	Criteria criteria = new Criteria();
-  	criteria.addEqualTo("code", code);
-  	QueryByCriteria qbc = new QueryByCriteria(ItemType.class,criteria);
-  	return (ItemType)getPersistenceBrokerTemplate().getObjectByQuery(qbc);
-  }
-  /**
-   * Get an ElectronicInvoiceItemMapping by primary key.
-   *
-   * @param id    the id to lookup
-   */
-  @Override
-public ElectronicInvoiceItemMapping getById(String id) {
-    LOG.debug("getById() started");
-    Criteria crit = new Criteria();
-    crit.addEqualTo("id", id);
-    ElectronicInvoiceItemMapping row = (ElectronicInvoiceItemMapping) getPersistenceBrokerTemplate().getObjectByQuery(new QueryByCriteria(ElectronicInvoiceItemMapping.class, crit));
-    return row;
-  }
+    @Override
+    public ItemType getItemTypeByCode(String code) {
+        LOG.debug("getItemTypeByCode() started");
+        Criteria criteria = new Criteria();
+        criteria.addEqualTo("code", code);
+        QueryByCriteria qbc = new QueryByCriteria(ItemType.class, criteria);
+        return (ItemType) getPersistenceBrokerTemplate().getObjectByQuery(qbc);
+    }
 
-  /**
-   * Delete a ElectronicInvoiceItemMapping.
-   *
-   * @param row
-   */
-  @Override
-public void delete(ElectronicInvoiceItemMapping row) {
-    LOG.debug("delete() started");
-    getPersistenceBrokerTemplate().delete(row);
-  }
+    /**
+     * Get an ElectronicInvoiceItemMapping by primary key.
+     *
+     * @param id the id to lookup
+     */
+    @Override
+    public ElectronicInvoiceItemMapping getById(String id) {
+        LOG.debug("getById() started");
+        Criteria crit = new Criteria();
+        crit.addEqualTo("id", id);
+        ElectronicInvoiceItemMapping row = (ElectronicInvoiceItemMapping) getPersistenceBrokerTemplate().getObjectByQuery(new QueryByCriteria(ElectronicInvoiceItemMapping.class, crit));
+        return row;
+    }
+
+    /**
+     * Delete a ElectronicInvoiceItemMapping.
+     *
+     * @param row
+     */
+    @Override
+    public void delete(ElectronicInvoiceItemMapping row) {
+        LOG.debug("delete() started");
+        getPersistenceBrokerTemplate().delete(row);
+    }
 
 }

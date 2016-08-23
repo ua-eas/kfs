@@ -87,6 +87,7 @@ public class AwardAccountDTO implements Serializable {
     public String getPrimeSponsorName() {
         return primeSponsorName;
     }
+
     public void setPrimeSponsorName(String primeSponsorName) {
         this.primeSponsorName = primeSponsorName;
     }
@@ -175,43 +176,43 @@ public class AwardAccountDTO implements Serializable {
         return serialVersionUID;
     }
 
-	public String getChartOfAcccountsCode() {
-		return chartOfAcccountsCode;
-	}
+    public String getChartOfAcccountsCode() {
+        return chartOfAcccountsCode;
+    }
 
-	public void setChartOfAcccountsCode(String chartOfAcccountsCode) {
-		this.chartOfAcccountsCode = chartOfAcccountsCode;
-	}
+    public void setChartOfAcccountsCode(String chartOfAcccountsCode) {
+        this.chartOfAcccountsCode = chartOfAcccountsCode;
+    }
 
-	public String getAccountNumber() {
-		return accountNumber;
-	}
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
-	public boolean isFinalBill() {
-		return finalBill;
-	}
+    public boolean isFinalBill() {
+        return finalBill;
+    }
 
-	public void setFinalBill(boolean finalBill) {
-		this.finalBill = finalBill;
-	}
+    public void setFinalBill(boolean finalBill) {
+        this.finalBill = finalBill;
+    }
 
-	public Date getLastBilledDate() {
-		return lastBilledDate;
-	}
+    public Date getLastBilledDate() {
+        return lastBilledDate;
+    }
 
-	public void setLastBilledDate(Date lastBilledDate) {
-		this.lastBilledDate = lastBilledDate;
-	}
+    public void setLastBilledDate(Date lastBilledDate) {
+        this.lastBilledDate = lastBilledDate;
+    }
 
-	public Date getPreviousLastBilledDate() {
-		return previousLastBilledDate;
-	}
+    public Date getPreviousLastBilledDate() {
+        return previousLastBilledDate;
+    }
 
-	public void setPreviousLastBilledDate(Date previousLastBilledDate) {
-		this.previousLastBilledDate = previousLastBilledDate;
-	}
+    public void setPreviousLastBilledDate(Date previousLastBilledDate) {
+        this.previousLastBilledDate = previousLastBilledDate;
+    }
 }

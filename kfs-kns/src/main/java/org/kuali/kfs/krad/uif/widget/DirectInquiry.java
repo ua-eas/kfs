@@ -19,13 +19,13 @@
 package org.kuali.kfs.krad.uif.widget;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.field.ActionField;
 import org.kuali.kfs.krad.uif.field.InputField;
-import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.UrlFactory;
 
@@ -36,8 +36,6 @@ import java.util.Properties;
 
 /**
  * Widget for rendering an Direct Inquiry link icon next to a input field
- *
- *
  */
 public class DirectInquiry extends Inquiry {
     private static final long serialVersionUID = -2490979579285984314L;
@@ -55,7 +53,7 @@ public class DirectInquiry extends Inquiry {
 
     /**
      * @see WidgetBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -73,53 +71,49 @@ public class DirectInquiry extends Inquiry {
 
         // determine whether inquiry parameters will need adjusted
         if (StringUtils.isBlank(getDataObjectClassName())
-                || (getInquiryParameters() == null)
-                || getInquiryParameters().isEmpty()) {
+            || (getInquiryParameters() == null)
+            || getInquiryParameters().isEmpty()) {
             // if inquiry parameters not given, they will not be adjusted by super
             adjustInquiryParameters = true;
             fieldBindingInfo = field.getBindingInfo();
         }
 
-    	setupLink(view, model, field);
+        setupLink(view, model, field);
     }
 
     /**
      * Builds the inquiry link and onclick script based on the given inquiry class and parameters
      *
-     * @param dataObject
-     *            - parent object that contains the data (used to pull inquiry
-     *            parameters)
-     * @param propertyName
-     *            - name of the property the inquiry is set on
-     * @param inquiryObjectClass
-     *            - class of the object the inquiry should point to
-     * @param inquiryParms
-     *            - map of key field mappings for the inquiry
+     * @param dataObject         - parent object that contains the data (used to pull inquiry
+     *                           parameters)
+     * @param propertyName       - name of the property the inquiry is set on
+     * @param inquiryObjectClass - class of the object the inquiry should point to
+     * @param inquiryParms       - map of key field mappings for the inquiry
      */
-	public void buildInquiryLink(Object dataObject, String propertyName,
-			Class<?> inquiryObjectClass, Map<String, String> inquiryParms) {
-		Properties urlParameters = new Properties();
+    public void buildInquiryLink(Object dataObject, String propertyName,
+                                 Class<?> inquiryObjectClass, Map<String, String> inquiryParms) {
+        Properties urlParameters = new Properties();
 
-		urlParameters.put(UifParameters.DATA_OBJECT_CLASS_NAME,
-				inquiryObjectClass.getName());
-		urlParameters.put(UifParameters.METHOD_TO_CALL,
-				UifConstants.MethodToCallNames.START);
+        urlParameters.put(UifParameters.DATA_OBJECT_CLASS_NAME,
+            inquiryObjectClass.getName());
+        urlParameters.put(UifParameters.METHOD_TO_CALL,
+            UifConstants.MethodToCallNames.START);
 
-		// Direct inquiry
-		String inquiryUrl = UrlFactory.parameterizeUrl(getBaseInquiryUrl(),
-				urlParameters);
-		StringBuilder paramMapString = new StringBuilder();
+        // Direct inquiry
+        String inquiryUrl = UrlFactory.parameterizeUrl(getBaseInquiryUrl(),
+            urlParameters);
+        StringBuilder paramMapString = new StringBuilder();
 
-		// Check if lightbox is set. Get lightbox options.
-		String lightBoxOptions = "";
-		boolean lightBoxShow = directInquiryActionField.getLightBoxDirectInquiry() != null;
-		if (lightBoxShow) {
-			lightBoxOptions = directInquiryActionField.getLightBoxDirectInquiry()
-					.getComponentOptionsJSString();
-		}
+        // Check if lightbox is set. Get lightbox options.
+        String lightBoxOptions = "";
+        boolean lightBoxShow = directInquiryActionField.getLightBoxDirectInquiry() != null;
+        if (lightBoxShow) {
+            lightBoxOptions = directInquiryActionField.getLightBoxDirectInquiry()
+                .getComponentOptionsJSString();
+        }
 
-		// Build parameter string using the actual names of the fields as on the
-		// html page
+        // Build parameter string using the actual names of the fields as on the
+        // html page
         for (Entry<String, String> inquiryParameter : inquiryParms.entrySet()) {
             String inquiryParameterFrom = inquiryParameter.getKey();
             if (adjustInquiryParameters && (fieldBindingInfo != null)) {
@@ -130,25 +124,25 @@ public class DirectInquiry extends Inquiry {
             paramMapString.append(inquiryParameter.getValue());
             paramMapString.append(",");
         }
-		paramMapString.deleteCharAt(paramMapString.length() - 1);
+        paramMapString.deleteCharAt(paramMapString.length() - 1);
 
-		// Create onlick script to open the inquiry window on the click event
-		// of the direct inquiry
-		StringBuilder onClickScript = new StringBuilder("showDirectInquiry(\"");
-		onClickScript.append(inquiryUrl);
-		onClickScript.append("\", \"");
-		onClickScript.append(paramMapString);
-		onClickScript.append("\", ");
-		onClickScript.append(lightBoxShow);
-		onClickScript.append(", ");
-		onClickScript.append(lightBoxOptions);
-		onClickScript.append(");");
+        // Create onlick script to open the inquiry window on the click event
+        // of the direct inquiry
+        StringBuilder onClickScript = new StringBuilder("showDirectInquiry(\"");
+        onClickScript.append(inquiryUrl);
+        onClickScript.append("\", \"");
+        onClickScript.append(paramMapString);
+        onClickScript.append("\", ");
+        onClickScript.append(lightBoxShow);
+        onClickScript.append(", ");
+        onClickScript.append(lightBoxOptions);
+        onClickScript.append(");");
 
-		directInquiryActionField.setBlockValidateDirty(true);
-		directInquiryActionField.setClientSideJs(onClickScript.toString());
+        directInquiryActionField.setBlockValidateDirty(true);
+        directInquiryActionField.setClientSideJs(onClickScript.toString());
 
-		setRender(true);
-	}
+        setRender(true);
+    }
 
     /**
      * @see ComponentBase#getComponentsForLifecycle()
@@ -162,18 +156,18 @@ public class DirectInquiry extends Inquiry {
         return components;
     }
 
-	/**
-	 * @return the directInquiryActionField
-	 */
-	public ActionField getDirectInquiryActionField() {
-		return this.directInquiryActionField;
-	}
+    /**
+     * @return the directInquiryActionField
+     */
+    public ActionField getDirectInquiryActionField() {
+        return this.directInquiryActionField;
+    }
 
-	/**
-	 * @param directInquiryActionField the directInquiryActionField to set
-	 */
-	public void setDirectInquiryActionField(ActionField directInquiryActionField) {
-		this.directInquiryActionField = directInquiryActionField;
-	}
+    /**
+     * @param directInquiryActionField the directInquiryActionField to set
+     */
+    public void setDirectInquiryActionField(ActionField directInquiryActionField) {
+        this.directInquiryActionField = directInquiryActionField;
+    }
 
 }

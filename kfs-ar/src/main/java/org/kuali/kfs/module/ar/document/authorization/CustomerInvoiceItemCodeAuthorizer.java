@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
+
+import java.util.Map;
 
 public class CustomerInvoiceItemCodeAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
 
@@ -38,8 +38,7 @@ public class CustomerInvoiceItemCodeAuthorizer extends FinancialSystemMaintenanc
             FinancialSystemMaintenanceDocument maintDoc = (FinancialSystemMaintenanceDocument) businessObject;
             Maintainable newMaintainable = maintDoc.getNewMaintainableObject();
             itemCode = (CustomerInvoiceItemCode) newMaintainable.getBusinessObject();
-        }
-        else if (businessObject instanceof CustomerInvoiceItemCode) {
+        } else if (businessObject instanceof CustomerInvoiceItemCode) {
             itemCode = (CustomerInvoiceItemCode) businessObject;
         }
 

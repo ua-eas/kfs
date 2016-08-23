@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.module.cab.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Asset Transaction Type Business Object.

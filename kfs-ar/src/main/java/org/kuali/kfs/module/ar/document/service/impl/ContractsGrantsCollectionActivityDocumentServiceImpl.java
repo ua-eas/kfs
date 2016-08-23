@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CollectionEvent;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsCollectionActivityInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
@@ -39,13 +38,14 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation class for Collection Activity Document.
@@ -88,6 +88,7 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
 
     /**
      * This method gets the business object service
+     *
      * @return the business object service
      */
     @NonTransactional
@@ -97,6 +98,7 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
 
     /**
      * This method sets the business object service
+     *
      * @param businessObjectService
      */
     @NonTransactional
@@ -121,12 +123,12 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsCollectionActivityDocumentService#addNewEvent(java.lang.String,
-     *      org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument, org.kuali.kfs.module.ar.businessobject.CollectionEvent)
+     * org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument, org.kuali.kfs.module.ar.businessobject.CollectionEvent)
      */
     @Override
     @Transactional
     public void createAndSaveCollectionEvents(ContractsGrantsCollectionActivityDocument colActDoc) {
-        for (ContractsGrantsCollectionActivityInvoiceDetail invoiceDetail: colActDoc.getInvoiceDetails()) {
+        for (ContractsGrantsCollectionActivityInvoiceDetail invoiceDetail : colActDoc.getInvoiceDetails()) {
             CollectionEvent newCollectionEvent = new CollectionEvent();
             final Timestamp now = dateTimeService.getCurrentTimestamp();
 
@@ -212,6 +214,7 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
 
     /**
      * Determines if a Contracts & Grants Invoice is fully paid or not
+     *
      * @param contractsGrantsInvoiceDocument the Contracts & Grants Invoice to check
      * @return true if the document is fully paid, false otherwise
      */
@@ -229,10 +232,12 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
     public void setInvoicePaidAppliedService(InvoicePaidAppliedService invoicePaidAppliedService) {
         this.invoicePaidAppliedService = invoicePaidAppliedService;
     }
+
     @NonTransactional
     public ContractsGrantsInvoiceDocumentDao getContractsGrantsInvoiceDocumentDao() {
         return contractsGrantsInvoiceDocumentDao;
     }
+
     @NonTransactional
     public void setContractsGrantsInvoiceDocumentDao(ContractsGrantsInvoiceDocumentDao contractsGrantsInvoiceDocumentDao) {
         this.contractsGrantsInvoiceDocumentDao = contractsGrantsInvoiceDocumentDao;

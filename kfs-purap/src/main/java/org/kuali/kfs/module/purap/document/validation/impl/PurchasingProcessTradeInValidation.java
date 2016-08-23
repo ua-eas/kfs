@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -25,7 +26,6 @@ import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class PurchasingProcessTradeInValidation extends GenericValidation {
 
@@ -37,7 +37,7 @@ public class PurchasingProcessTradeInValidation extends GenericValidation {
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean isAssignedToTradeInItemFound = false;
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)event.getDocument();
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) event.getDocument();
         for (PurApItem item : purapDocument.getItems()) {
             // Refresh the item type for validation.
             item.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);

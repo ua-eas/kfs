@@ -75,81 +75,81 @@ public class PdpPropertyConstants {
     public static final String CUSTOMER_INSTITUTION_NUMBER = "customerInstitutionNumber";
     public static final String PAYMENT_PROC_IDENTIFIER = "paymentProcIdentifier";
 
-    public static class BatchConstants{
-            public static final String BATCH_ID = "id";
-            public static final String CHART_CODE = "customerProfile.chartCode";
-            public static final String ORG_CODE = "customerProfile.orgCode";
-            public static final String SUB_UNIT_CODE = "customerProfile.subUnitCode";
-            public static final String PAYMENT_COUNT = "paymentCount";
-            public static final String PAYMENT_TOTAL_AMOUNT = "paymentTotalAmount";
-            public static final String FILE_CREATION_TIME = "customerFileCreateTimestamp";
-            public static final String CUSTOMER_ID = "customerId";
-        }
+    public static class BatchConstants {
+        public static final String BATCH_ID = "id";
+        public static final String CHART_CODE = "customerProfile.chartCode";
+        public static final String ORG_CODE = "customerProfile.orgCode";
+        public static final String SUB_UNIT_CODE = "customerProfile.subUnitCode";
+        public static final String PAYMENT_COUNT = "paymentCount";
+        public static final String PAYMENT_TOTAL_AMOUNT = "paymentTotalAmount";
+        public static final String FILE_CREATION_TIME = "customerFileCreateTimestamp";
+        public static final String CUSTOMER_ID = "customerId";
+    }
 
     public static class PaymentDetail {
-            public static final String PAYMENT_GROUP_BATCH_ID = "paymentGroup.batchId";
-            public static final String PAYMENT_STATUS_CODE = "paymentGroup.paymentStatusCode";
-            public static final String PAYMENT_DISBURSEMENT_NUMBER = "paymentGroup.disbursementNbr";
-            public static final String PAYMENT_PAYEE_NAME = "paymentGroup.payeeName";
-            public static final String PAYMENT_CHART_CODE = "paymentGroup.batch.customerProfile.chartCode";
-            public static final String PAYMENT_UNIT_CODE = "paymentGroup.batch.customerProfile.unitCode";
-            public static final String PAYMENT_CUSTOMER_DOC_NUMBER = "custPaymentDocNbr";
-            public static final String PAYMENT_PAYEE_ID_TYPE_CODE = "paymentGroup.payeeIdTypeCd";
-            public static final String PAYMENT_PURCHASE_ORDER_NUMBER = "purchaseOrderNbr";
-            public static final String PAYMENT_PAYEE_ID = "paymentGroup.payeeId";
-            public static final String PAYMENT_SUBUNIT_CODE = "paymentGroup.batch.customerProfile.subUnitCode";
-            public static final String PAYMENT_INVOICE_NUMBER = "invoiceNbr";
-            public static final String PAYMENT_DISBURSEMENT_TYPE_CODE = "paymentGroup.disbursementTypeCode";
-            public static final String PAYMENT_PROCESS_IMEDIATE = "paymentGroup.processImmediate";
-            public static final String PAYMENT_REQUISITION_NUMBER = "requisitionNbr";
-            public static final String PAYMENT_SPECIAL_HANDLING = "paymentGroup.pymtSpecialHandling";
-            public static final String PAYMENT_CUSTOMER_INSTITUTION_NUMBER = "customerInstitutionNumber";
-            public static final String PAYMENT_DISBURSEMENT_DATE = "paymentGroup.disbursementDate";
-            public static final String PAYMENT_ATTACHMENT = "paymentGroup.pymtAttachment";
-            public static final String PAYMENT_PROCESS_ID = "paymentGroup.processId";
-            public static final String PAYMENT_DATE = "paymentGroup.paymentDate";
-            public static final String PAYMENT_ID = "id";
-            public static final String PAYMENT_NET_AMOUNT = "netPaymentAmount";
-            public static final String PAYMENT_DISBURSEMENT_FINANCIAL_DOCUMENT_TYPE_CODE = "financialDocumentTypeCode";
-            public static final String PAYMENT_DISBURSEMENT_CUST_PAYMENT_DOC_NBR = "custPaymentDocNbr";
-            public static final String PAYMENT_DISBURSEMENT_TYPE_NAME = "paymentGroup.disbursementType.name";
-            public static final String PAYMENT_ORIGINAL_INVOICE_AMOUNT = "origInvoiceAmount";
-            public static final String PAYMENT_INVOICE_TOTAL_DISCOUNT_AMOUNT = "invTotDiscountAmount";
-            public static final String PAYMENT_INVOICE_TOTAL_SHIPPING_AMOUNT = "invTotShipAmount";
-            public static final String PAYMENT_INVOICE_TOTAL_OTHER_DEBIT_AMOUNT = "invTotOtherDebitAmount";
-            public static final String PAYMENT_INVOICE_TOTAL_OTHER_CREDIT_AMOUNT = "invTotOtherCreditAmount";
-            public static final String PAYMENT_GROUP = "paymentGroup";
-            public static final String PAYMENT_EPIC_PAYMENT_CANCELLED_DATE = "paymentGroup.epicPaymentCancelledExtractedDate";
-            public static final String PAYMENT_EPIC_PAYMENT_PAID_EXTRACTED_DATE = "paymentGroup.epicPaymentPaidExtractedDate";
-            public static final String PAYMENT_DETAIL_NUMBER_OF_PAYMENTS_IN_PAYMENT_GROUP = "nbrOfPaymentsInPaymentGroup";
-            public static final String PAYMENT_DETAIL_NUMBER_OF_PAYMENTS_IN_DISBURSEMENT = "nbrOfPaymentsInDisbursement";
-            public static final String PAYMENT_DETAIL_PAYMENT_GROUP_ID = "paymentGroupId";
-            public static final String BEGIN_DISBURSEMENT_DATE = "beginDisbursementDate";
-            public static final String END_DISBURSEMENT_DATE = "endDisbursementDate";
-            public static final String BEGIN_PAYMENT_DATE = "beginPaymentDate";
-            public static final String END_PAYMENT_DATE = "endPaymentDate";
-        }
+        public static final String PAYMENT_GROUP_BATCH_ID = "paymentGroup.batchId";
+        public static final String PAYMENT_STATUS_CODE = "paymentGroup.paymentStatusCode";
+        public static final String PAYMENT_DISBURSEMENT_NUMBER = "paymentGroup.disbursementNbr";
+        public static final String PAYMENT_PAYEE_NAME = "paymentGroup.payeeName";
+        public static final String PAYMENT_CHART_CODE = "paymentGroup.batch.customerProfile.chartCode";
+        public static final String PAYMENT_UNIT_CODE = "paymentGroup.batch.customerProfile.unitCode";
+        public static final String PAYMENT_CUSTOMER_DOC_NUMBER = "custPaymentDocNbr";
+        public static final String PAYMENT_PAYEE_ID_TYPE_CODE = "paymentGroup.payeeIdTypeCd";
+        public static final String PAYMENT_PURCHASE_ORDER_NUMBER = "purchaseOrderNbr";
+        public static final String PAYMENT_PAYEE_ID = "paymentGroup.payeeId";
+        public static final String PAYMENT_SUBUNIT_CODE = "paymentGroup.batch.customerProfile.subUnitCode";
+        public static final String PAYMENT_INVOICE_NUMBER = "invoiceNbr";
+        public static final String PAYMENT_DISBURSEMENT_TYPE_CODE = "paymentGroup.disbursementTypeCode";
+        public static final String PAYMENT_PROCESS_IMEDIATE = "paymentGroup.processImmediate";
+        public static final String PAYMENT_REQUISITION_NUMBER = "requisitionNbr";
+        public static final String PAYMENT_SPECIAL_HANDLING = "paymentGroup.pymtSpecialHandling";
+        public static final String PAYMENT_CUSTOMER_INSTITUTION_NUMBER = "customerInstitutionNumber";
+        public static final String PAYMENT_DISBURSEMENT_DATE = "paymentGroup.disbursementDate";
+        public static final String PAYMENT_ATTACHMENT = "paymentGroup.pymtAttachment";
+        public static final String PAYMENT_PROCESS_ID = "paymentGroup.processId";
+        public static final String PAYMENT_DATE = "paymentGroup.paymentDate";
+        public static final String PAYMENT_ID = "id";
+        public static final String PAYMENT_NET_AMOUNT = "netPaymentAmount";
+        public static final String PAYMENT_DISBURSEMENT_FINANCIAL_DOCUMENT_TYPE_CODE = "financialDocumentTypeCode";
+        public static final String PAYMENT_DISBURSEMENT_CUST_PAYMENT_DOC_NBR = "custPaymentDocNbr";
+        public static final String PAYMENT_DISBURSEMENT_TYPE_NAME = "paymentGroup.disbursementType.name";
+        public static final String PAYMENT_ORIGINAL_INVOICE_AMOUNT = "origInvoiceAmount";
+        public static final String PAYMENT_INVOICE_TOTAL_DISCOUNT_AMOUNT = "invTotDiscountAmount";
+        public static final String PAYMENT_INVOICE_TOTAL_SHIPPING_AMOUNT = "invTotShipAmount";
+        public static final String PAYMENT_INVOICE_TOTAL_OTHER_DEBIT_AMOUNT = "invTotOtherDebitAmount";
+        public static final String PAYMENT_INVOICE_TOTAL_OTHER_CREDIT_AMOUNT = "invTotOtherCreditAmount";
+        public static final String PAYMENT_GROUP = "paymentGroup";
+        public static final String PAYMENT_EPIC_PAYMENT_CANCELLED_DATE = "paymentGroup.epicPaymentCancelledExtractedDate";
+        public static final String PAYMENT_EPIC_PAYMENT_PAID_EXTRACTED_DATE = "paymentGroup.epicPaymentPaidExtractedDate";
+        public static final String PAYMENT_DETAIL_NUMBER_OF_PAYMENTS_IN_PAYMENT_GROUP = "nbrOfPaymentsInPaymentGroup";
+        public static final String PAYMENT_DETAIL_NUMBER_OF_PAYMENTS_IN_DISBURSEMENT = "nbrOfPaymentsInDisbursement";
+        public static final String PAYMENT_DETAIL_PAYMENT_GROUP_ID = "paymentGroupId";
+        public static final String BEGIN_DISBURSEMENT_DATE = "beginDisbursementDate";
+        public static final String END_DISBURSEMENT_DATE = "endDisbursementDate";
+        public static final String BEGIN_PAYMENT_DATE = "beginPaymentDate";
+        public static final String END_PAYMENT_DATE = "endPaymentDate";
+    }
 
     public static class PaymentGroupHistory {
-            public static final String PAYMENT_GROUP_PAYEE_NAME = "paymentGroup.payeeName";
-            public static final String PAYMENT_GROUP_PAYEE_ID = "paymentGroup.payeeId";
-            public static final String PAYMENT_GROUP_PAYEE_ID_TYPE_CODE = "paymentGroup.payeeIdTypeCd";
-            public static final String PAYMENT_GROUP_PAYMENT_ATTACHMENT = "paymentGroup.pymtAttachment";
-            public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_SPECIAL_HANDLING = "origPmtSpecHandling";
-            public static final String PAYMENT_GROUP_ORIGIN_PROCESS_IMMEDIATE = "origProcessImmediate";
-            public static final String PAYMENT_GROUP_ORIGIN_DISBURSEMENT_NUMBER = "origDisburseNbr";
-            public static final String PAYMENT_GROUP_PAYMENT_PROCESS_ID = "processId";
-            public static final String PAYMENT_GROUP_PAYMENT_DETAILS_NET_AMOUNT = "paymentGroup.paymentDetails.netPaymentAmount";
-            public static final String PAYMENT_GROUP_ORIGIN_DISBURSE_DATE = "origDisburseDate";
-            public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_DATE = "origPaymentDate";
-            public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_STATUS_CODE = "origPaymentStatus.code";
-            public static final String PAYMENT_GROUP_DISBURSEMENT_TYPE_CODE = "disbursementType.code";
-            public static final String PAYMENT_GROUP_CHART_CODE = "paymentGroup.batch.customerProfile.chartCode";
-            public static final String PAYMENT_GROUP_ORG_CODE = "paymentGroup.batch.customerProfile.unitCode";
-            public static final String PAYMENT_GROUP_SUB_UNIT_CODE = "paymentGroup.batch.customerProfile.subUnitCode";
-            public static final String PMT_CANCEL_EXTRACT_DATE = "pmtCancelExtractDate";
+        public static final String PAYMENT_GROUP_PAYEE_NAME = "paymentGroup.payeeName";
+        public static final String PAYMENT_GROUP_PAYEE_ID = "paymentGroup.payeeId";
+        public static final String PAYMENT_GROUP_PAYEE_ID_TYPE_CODE = "paymentGroup.payeeIdTypeCd";
+        public static final String PAYMENT_GROUP_PAYMENT_ATTACHMENT = "paymentGroup.pymtAttachment";
+        public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_SPECIAL_HANDLING = "origPmtSpecHandling";
+        public static final String PAYMENT_GROUP_ORIGIN_PROCESS_IMMEDIATE = "origProcessImmediate";
+        public static final String PAYMENT_GROUP_ORIGIN_DISBURSEMENT_NUMBER = "origDisburseNbr";
+        public static final String PAYMENT_GROUP_PAYMENT_PROCESS_ID = "processId";
+        public static final String PAYMENT_GROUP_PAYMENT_DETAILS_NET_AMOUNT = "paymentGroup.paymentDetails.netPaymentAmount";
+        public static final String PAYMENT_GROUP_ORIGIN_DISBURSE_DATE = "origDisburseDate";
+        public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_DATE = "origPaymentDate";
+        public static final String PAYMENT_GROUP_ORIGIN_PAYMENT_STATUS_CODE = "origPaymentStatus.code";
+        public static final String PAYMENT_GROUP_DISBURSEMENT_TYPE_CODE = "disbursementType.code";
+        public static final String PAYMENT_GROUP_CHART_CODE = "paymentGroup.batch.customerProfile.chartCode";
+        public static final String PAYMENT_GROUP_ORG_CODE = "paymentGroup.batch.customerProfile.unitCode";
+        public static final String PAYMENT_GROUP_SUB_UNIT_CODE = "paymentGroup.batch.customerProfile.subUnitCode";
+        public static final String PMT_CANCEL_EXTRACT_DATE = "pmtCancelExtractDate";
 
-        }
+    }
 
     public static class PaymentGroup {
         public static final String PAYMENT_GROUP_ID = "id";

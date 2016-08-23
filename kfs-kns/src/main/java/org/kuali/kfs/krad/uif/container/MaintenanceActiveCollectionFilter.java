@@ -20,8 +20,8 @@ package org.kuali.kfs.krad.uif.container;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,6 @@ import java.util.List;
 /**
  * Collection filter for maintenance groups that removes inactive lines if certain
  * conditions are met
- *
- *
  */
 public class MaintenanceActiveCollectionFilter implements CollectionFilter {
     private static final long serialVersionUID = -6045332235106531456L;
@@ -40,7 +38,7 @@ public class MaintenanceActiveCollectionFilter implements CollectionFilter {
     /**
      * Iterates through the collection and if the collection line type implements <code>Inactivatable</code>
      * active indexes are added to the show indexes list
-     *
+     * <p>
      * <p>
      * In the case of a new line being added, the user is not allowed to hide the record (even if it is inactive).
      * Likewise in the case of an edit where the active flag has changed between the old and new side, the user
@@ -54,13 +52,13 @@ public class MaintenanceActiveCollectionFilter implements CollectionFilter {
 
         // get the collection for this group from the model
         List<Object> newCollection =
-                ObjectPropertyUtils.getPropertyValue(model, collectionGroup.getBindingInfo().getBindingPath());
+            ObjectPropertyUtils.getPropertyValue(model, collectionGroup.getBindingInfo().getBindingPath());
 
         // Get collection from old data object
         List<Object> oldCollection = null;
         String oldCollectionBindingPath = null;
         oldCollectionBindingPath = StringUtils.replaceOnce(collectionGroup.getBindingInfo().getBindingPath(),
-                    collectionGroup.getBindingInfo().getBindingObjectPath(), oldBindingObjectPath);
+            collectionGroup.getBindingInfo().getBindingObjectPath(), oldBindingObjectPath);
         oldCollection = ObjectPropertyUtils.getPropertyValue(model, oldCollectionBindingPath);
 
         // iterate through and add only active indexes

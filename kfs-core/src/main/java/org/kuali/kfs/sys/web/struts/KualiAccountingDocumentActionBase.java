@@ -41,7 +41,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.businessobject.AccountingLineParser;
-import org.kuali.kfs.sys.businessobject.AccountingLineParser;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -72,7 +71,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import static org.kuali.kfs.sys.KFSKeyConstants.*;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_SALES_TAX_INVALID_ACCOUNT;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_SALES_TAX_REQUIRED;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_REQUIRED;
 
 /**
  * This class handles UI actions for all shared methods of financial documents.
@@ -84,7 +85,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * Adds check for accountingLine updates, generates and dispatches any events caused by such updates
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -129,7 +130,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * Needed to override this to keep from losing Sales Tax information
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -143,7 +144,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * Needed to override this to keep from losing Sales Tax information
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#toggleTab(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward toggleTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -156,8 +157,9 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     // Set of actions for which updateEvents should be generated
     protected static final Set UPDATE_EVENT_ACTIONS;
+
     static {
-        String[] updateEventActions = { KFSConstants.SAVE_METHOD, KFSConstants.ROUTE_METHOD, KFSConstants.APPROVE_METHOD, KFSConstants.BLANKET_APPROVE_METHOD };
+        String[] updateEventActions = {KFSConstants.SAVE_METHOD, KFSConstants.ROUTE_METHOD, KFSConstants.APPROVE_METHOD, KFSConstants.BLANKET_APPROVE_METHOD};
         UPDATE_EVENT_ACTIONS = new HashSet();
         for (int i = 0; i < updateEventActions.length; ++i) {
             UPDATE_EVENT_ACTIONS.add(updateEventActions[i]);
@@ -173,8 +175,8 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         if (transForm.hasDocumentId()) {
             AccountingDocument financialDocument = (AccountingDocument) transForm.getDocument();
 
-            processAccountingLineOverrides(financialDocument,financialDocument.getSourceAccountingLines());
-            processAccountingLineOverrides(financialDocument,financialDocument.getTargetAccountingLines());
+            processAccountingLineOverrides(financialDocument, financialDocument.getSourceAccountingLines());
+            processAccountingLineOverrides(financialDocument, financialDocument.getTargetAccountingLines());
         }
     }
 
@@ -182,24 +184,25 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * @param line
      */
     protected void processAccountingLineOverrides(AccountingLine line) {
-        processAccountingLineOverrides(Arrays.asList(new AccountingLine[] { line }));
+        processAccountingLineOverrides(Arrays.asList(new AccountingLine[]{line}));
     }
 
     protected void processAccountingLineOverrides(List accountingLines) {
-        processAccountingLineOverrides(null,accountingLines);
+        processAccountingLineOverrides(null, accountingLines);
     }
+
     /**
      * @param accountingLines
      */
-    protected void processAccountingLineOverrides(AccountingDocument financialDocument ,List accountingLines) {
+    protected void processAccountingLineOverrides(AccountingDocument financialDocument, List accountingLines) {
         if (!accountingLines.isEmpty()) {
 
 
-            for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+            for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
                 AccountingLine line = (AccountingLine) i.next();
-               // line.refreshReferenceObject("account");
+                // line.refreshReferenceObject("account");
                 SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(line, AccountingLineOverride.REFRESH_FIELDS);
-                AccountingLineOverride.processForOutput(financialDocument,line);
+                AccountingLineOverride.processForOutput(financialDocument, line);
             }
         }
     }
@@ -218,8 +221,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
             formLines = transDoc.getSourceAccountingLines();
             pathPrefix = KFSConstants.DOCUMENT_PROPERTY_NAME + "." + KFSConstants.EXISTING_SOURCE_ACCT_LINE_PROPERTY_NAME;
             source = true;
-        }
-        else {
+        } else {
             formLines = transDoc.getTargetAccountingLines();
             pathPrefix = KFSConstants.DOCUMENT_PROPERTY_NAME + "." + KFSConstants.EXISTING_TARGET_ACCT_LINE_PROPERTY_NAME;
             source = false;
@@ -235,7 +237,6 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
             checkSalesTax(transDoc, formLine, source, false, index);
         }
     }
-
 
 
     /**
@@ -259,9 +260,8 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         // if the rule evaluation passed, let's delete it
         if (rulePassed) {
             deleteAccountingLine(false, financialDocumentForm, deleteIndex);
-        }
-        else {
-            String[] errorParams = new String[] { "target", Integer.toString(deleteIndex + 1) };
+        } else {
+            String[] errorParams = new String[]{"target", Integer.toString(deleteIndex + 1)};
             GlobalVariables.getMessageMap().putError(errorPath, KFSKeyConstants.ERROR_ACCOUNTINGLINE_DELETERULE_INVALIDACCOUNT, errorParams);
         }
 
@@ -289,9 +289,8 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         // if the rule evaluation passed, let's delete it
         if (rulePassed) {
             deleteAccountingLine(true, financialDocumentForm, deleteIndex);
-        }
-        else {
-            String[] errorParams = new String[] { "source", Integer.toString(deleteIndex + 1) };
+        } else {
+            String[] errorParams = new String[]{"source", Integer.toString(deleteIndex + 1)};
             GlobalVariables.getMessageMap().putError(errorPath, KFSKeyConstants.ERROR_ACCOUNTINGLINE_DELETERULE_INVALIDACCOUNT, errorParams);
         }
 
@@ -312,8 +311,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
             // remove from document
             financialDocumentForm.getFinancialDocument().getSourceAccountingLines().remove(deleteIndex);
 
-        }
-        else {
+        } else {
             // remove from document
             financialDocumentForm.getFinancialDocument().getTargetAccountingLines().remove(deleteIndex);
         }
@@ -391,21 +389,19 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
                 FormFile sourceFile = tmpForm.getSourceFile();
                 checkUploadFile(sourceFile);
                 importedLines = accountingLineParser.importSourceAccountingLines(sourceFile.getFileName(), sourceFile.getInputStream(), financialDocument);
-            }
-            else {
+            } else {
                 errorPathPrefix = KFSConstants.DOCUMENT_PROPERTY_NAME + "." + KFSConstants.TARGET_ACCOUNTING_LINE_ERRORS;
                 FormFile targetFile = tmpForm.getTargetFile();
                 checkUploadFile(targetFile);
                 importedLines = accountingLineParser.importTargetAccountingLines(targetFile.getFileName(), targetFile.getInputStream(), financialDocument);
             }
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             GlobalVariables.getMessageMap().putError(errorPathPrefix, e.getErrorKey(), e.getErrorParameters());
         }
 
         // add line to list for those lines which were successfully imported
         if (importedLines != null) {
-            for (Iterator i = importedLines.iterator(); i.hasNext();) {
+            for (Iterator i = importedLines.iterator(); i.hasNext(); ) {
                 AccountingLine importedLine = (AccountingLine) i.next();
                 insertAccountingLine(isSource, tmpForm, importedLine);
             }
@@ -519,8 +515,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
             // Update the doc total
             if (tdoc instanceof AmountTotaling)
                 ((FinancialSystemDocumentHeader) financialDocumentForm.getDocument().getDocumentHeader()).setFinancialDocumentTotalAmount(((AmountTotaling) tdoc).getTotalDollarAmount());
-        }
-        else {
+        } else {
             // add it to the document
             tdoc.addTargetAccountingLine((TargetAccountingLine) line);
 
@@ -700,8 +695,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         if (StringUtils.isNotBlank(getObjectTypeCodeFromLine(line))) {
             if (!StringUtils.isBlank(line.getObjectTypeCode())) {
                 parameters.put("objectTypeCode", line.getObjectTypeCode());
-            }
-            else {
+            } else {
                 line.refreshReferenceObject("objectCode");
                 parameters.put("objectTypeCode", line.getObjectCode().getFinancialObjectTypeCode());
             }
@@ -755,7 +749,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiAccountingDocumentFormBase tmpForm = (KualiAccountingDocumentFormBase) form;
-     //   this.applyCapitalAssetInformation(tmpForm);
+        //   this.applyCapitalAssetInformation(tmpForm);
 
         ActionForward forward = super.route(mapping, form, request, response);
 
@@ -830,8 +824,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
                 if (!salesTaxApplicableAcctAndObjectEvaluator.evaluationSucceeds()) {
                     required = false;
                 }
-            }
-            else {
+            } else {
                 // the two fields are currently empty and we don't need to check yet
                 required = false;
             }
@@ -855,22 +848,18 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         String pathPrefix = "";
         if (source && !newLine) {
             pathPrefix = "document." + KFSConstants.EXISTING_SOURCE_ACCT_LINE_PROPERTY_NAME + "[" + index + "]";
-        }
-        else if (!source && !newLine) {
+        } else if (!source && !newLine) {
             pathPrefix = "document." + KFSConstants.EXISTING_TARGET_ACCT_LINE_PROPERTY_NAME + "[" + index + "]";
-        }
-        else if (source && newLine) {
+        } else if (source && newLine) {
             pathPrefix = KFSConstants.NEW_SOURCE_ACCT_LINE_PROPERTY_NAME;
-        }
-        else if (!source && newLine) {
+        } else if (!source && newLine) {
             pathPrefix = KFSConstants.NEW_TARGET_ACCT_LINE_PROPERTY_NAME;
         }
         GlobalVariables.getMessageMap().addToErrorPath(pathPrefix);
         if (ObjectUtils.isNull(salesTax)) {
             valid &= false;
             GlobalVariables.getMessageMap().putError("salesTax.chartOfAccountsCode", ERROR_DOCUMENT_ACCOUNTING_LINE_SALES_TAX_REQUIRED, account, objCd);
-        }
-        else {
+        } else {
 
             if (StringUtils.isBlank(salesTax.getChartOfAccountsCode())) {
                 valid &= false;
@@ -936,8 +925,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         if (salesTaxRequired) {
             formLine.setSalesTaxRequired(true);
             populateSalesTax(formLine);
-        }
-        else if (!salesTaxRequired && hasSalesTaxBeenEntered(formLine, source, newLine, index)) {
+        } else if (!salesTaxRequired && hasSalesTaxBeenEntered(formLine, source, newLine, index)) {
             // remove it if it has been added but is no longer required
             removeSalesTax(formLine);
             formLine.setSalesTax(null);

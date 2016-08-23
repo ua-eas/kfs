@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.gl.batch.service.PostTransaction;
@@ -34,6 +32,8 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
 
 /**
  * This class is used to post a transaction into labor GL entry table
@@ -56,7 +56,7 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
         laborGeneralLedgerEntry.setTransactionDate(new Date(postDate.getTime()));
 
         BalanceType balanceType = getBalanceType(transaction.getFinancialBalanceTypeCode());
-        if (balanceType.isFinancialOffsetGenerationIndicator()){
+        if (balanceType.isFinancialOffsetGenerationIndicator()) {
             laborGeneralLedgerEntry.setTransactionDebitCreditCode(this.getDebitCreditCode(transaction));
         } else {
             laborGeneralLedgerEntry.setTransactionDebitCreditCode(" ");
@@ -64,7 +64,7 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
         laborGeneralLedgerEntry.setTransactionLedgerEntryAmount(this.getTransactionAmount(transaction));
 
         String encumbranceUpdateCode = this.getEncumbranceUpdateCode(transaction);
-        if(StringUtils.isNotEmpty(encumbranceUpdateCode)) {
+        if (StringUtils.isNotEmpty(encumbranceUpdateCode)) {
             laborGeneralLedgerEntry.setTransactionEncumbranceUpdateCode(encumbranceUpdateCode);
         }
 
@@ -72,8 +72,7 @@ public class LaborGLLedgerEntryPoster implements PostTransaction {
         laborGeneralLedgerEntry.setTransactionLedgerEntrySequenceNumber(sequenceNumber);
         try {
             laborGeneralLedgerEntryService.save(laborGeneralLedgerEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return operationType;

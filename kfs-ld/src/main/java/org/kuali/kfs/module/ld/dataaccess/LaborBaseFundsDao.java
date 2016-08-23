@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.dataaccess;
 
+import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 
 /**
  * This is the data access object for account status base funds.
@@ -33,7 +33,7 @@ public interface LaborBaseFundsDao {
     /**
      * This method finds the records of base budget for each Labor object according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of base budgets for Labor objects
      */

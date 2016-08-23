@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.batch;
 
-import java.sql.Date;
-
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Date;
 
 /**
  * This class is created for generating Procurement Card Report object.
@@ -34,6 +34,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Gets the transactionPostingDate attribute.
+     *
      * @return Returns the transactionPostingDate.
      */
     public Date getTransactionPostingDate() {
@@ -43,6 +44,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Sets the transactionPostingDate attribute value.
+     *
      * @param transactionPostingDate The transactionPostingDate to set.
      */
     public void setTransactionPostingDate(Date transactionPostingDate) {
@@ -52,6 +54,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Gets the totalDocNumber attribute.
+     *
      * @return Returns the totalDocNumber.
      */
     public int getTotalDocNumber() {
@@ -61,6 +64,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Sets the totalDocNumber attribute value.
+     *
      * @param totalDocNumber The totalDocNumber to set.
      */
     public void setTotalDocNumber(int totalDocNumber) {
@@ -70,6 +74,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Gets the totalTranNumber attribute.
+     *
      * @return Returns the totalTranNumber.
      */
     public int getTotalTranNumber() {
@@ -79,6 +84,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Sets the totalTranNumber attribute value.
+     *
      * @param totalTranNumber The totalTranNumber to set.
      */
     public void setTotalTranNumber(int totalTranNumber) {
@@ -88,6 +94,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Gets the totalAmount attribute.
+     *
      * @return Returns the totalAmount.
      */
     public String getTotalAmount() {
@@ -97,6 +104,7 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
 
     /**
      * Sets the totalAmount attribute value.
+     *
      * @param totalAmount The totalAmount to set.
      */
     public void setTotalAmount(String totalAmount) {
@@ -104,9 +112,9 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
     }
 
 
-
     /**
      * Gets the formattedPostingDate attribute.
+     *
      * @return Returns the formattedPostingDate.
      */
     public String getFormattedPostingDate() {
@@ -114,15 +122,14 @@ public class ProcurementCardReportType extends TransientBusinessObjectBase {
     }
 
 
-
     /**
      * Sets the formattedPostingDate attribute value.
+     *
      * @param formattedPostingDate The formattedPostingDate to set.
      */
     public void setFormattedPostingDate(String formattedPostingDate) {
         this.formattedPostingDate = formattedPostingDate;
     }
-
 
 
 }

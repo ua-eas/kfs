@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.dataaccess;
 
+import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
 
 /**
  * This is the data access object for ledger entry.
@@ -54,10 +54,10 @@ public interface LaborLedgerEntryDao {
      * find the employees who were paid based on a set of specified pay type within the given report periods. Here, a pay type can
      * be determined by earn code and pay group.
      *
-     * @param payPeriods the given pay periods
-     * @param balanceTypes the specified balance type codes
+     * @param payPeriods          the given pay periods
+     * @param balanceTypes        the specified balance type codes
      * @param earnCodePayGroupMap the combination of earn codes and pay groups, where pay group is the key and earn code set is the
-     *        value
+     *                            value
      * @return the employees who were paid based on a set of specified pay type within the given report periods
      */
     List<String> findEmployeesWithPayType(Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap);
@@ -66,11 +66,11 @@ public interface LaborLedgerEntryDao {
      * get the ledger entries for the given employee based on a set of specified pay type within the given report periods. Here, a pay type can
      * be determined by earn code and pay group.
      *
-     * @param emplid the given employee id
-     * @param payPeriods the given pay periods
-     * @param balanceTypes the specified balance type codes
+     * @param emplid              the given employee id
+     * @param payPeriods          the given pay periods
+     * @param balanceTypes        the specified balance type codes
      * @param earnCodePayGroupMap the combination of earn codes and pay groups, where pay group is the key and earn code set is the
-     *        value
+     *                            value
      * @return true if the given employee was paid based on a set of specified pay type within the given report periods; otherwise, false
      */
     Collection<LedgerEntry> getLedgerEntriesForEmployeeWithPayType(String emplid, Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap);
@@ -79,11 +79,11 @@ public interface LaborLedgerEntryDao {
      * determine if the given employee is associated with a set of specified pay type within the given report periods. Here, a pay type can
      * be determined by earn code and pay group.
      *
-     * @param emplid the given employee id
-     * @param payPeriods the given pay periods
-     * @param balanceTypes the specified balance type codes
+     * @param emplid              the given employee id
+     * @param payPeriods          the given pay periods
+     * @param balanceTypes        the specified balance type codes
      * @param earnCodePayGroupMap the combination of earn codes and pay groups, where pay group is the key and earn code set is the
-     *        value
+     *                            value
      * @return true if the given employee was paid based on a set of specified pay type within the given report periods; otherwise, false
      */
     boolean isEmployeeWithPayType(String emplid, Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap);
@@ -91,7 +91,7 @@ public interface LaborLedgerEntryDao {
     /**
      * delete the ledger entry records that were posted prior to the given fiscal year
      *
-     * @param fiscalYear the given fiscal year
+     * @param fiscalYear          the given fiscal year
      * @param chartOfAccountsCode the given chart of account code
      */
     void deleteLedgerEntriesPriorToYear(Integer fiscalYear, String chartOfAccountsCode);

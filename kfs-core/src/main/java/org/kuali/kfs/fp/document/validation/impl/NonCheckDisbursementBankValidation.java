@@ -46,6 +46,7 @@ public class NonCheckDisbursementBankValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -54,6 +55,7 @@ public class NonCheckDisbursementBankValidation extends GenericValidation {
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

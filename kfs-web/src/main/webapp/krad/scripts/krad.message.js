@@ -26,10 +26,10 @@
 function showGrowl(message, title, theme) {
     var context = getContext();
     if (theme) {
-        context.jGrowl(message, { header: title, theme: theme});
+        context.jGrowl(message, {header: title, theme: theme});
     }
     else {
-        context.jGrowl(message, { header: title});
+        context.jGrowl(message, {header: title});
     }
 }
 
@@ -53,7 +53,7 @@ function setGrowlDefaults(options) {
  *          (true) or hidden (false)
  */
 function createLoading(showLoading) {
-    var loadingMessage =  '<h1><img src="' + getConfigParam("kradImageLocation") + 'loading.gif" alt="working..." />Loading...</h1>';
+    var loadingMessage = '<h1><img src="' + getConfigParam("kradImageLocation") + 'loading.gif" alt="working..." />Loading...</h1>';
     var savingMessage = '<h1><img src="' + getConfigParam("kradImageLocation") + 'loading.gif" alt="working..." />Saving...</h1>';
 
     var methodToCall = jq("input[name='methodToCall']").val();
@@ -74,7 +74,7 @@ function createLoading(showLoading) {
     }
 }
 
-function clearServerErrorColors(errorDivId){
+function clearServerErrorColors(errorDivId) {
     if (errorDivId) {
         var div = jq("#" + errorDivId);
         var label = jq("#" + errorDivId.replace("errors_div", "label"));
@@ -138,8 +138,8 @@ function applyErrorColors(errorDivId, errorNum, warningNum, infoNum, clientSide)
                     if (div.parent().hasClass("kr-errorsField")) {
                         var error_ul = div.parent().find(".kr-errorMessages").find("ul.errorLines");
                         var moreErrors = false;
-                        error_ul.each(function() {
-                            jq(this).children().each(function() {
+                        error_ul.each(function () {
+                            jq(this).children().each(function () {
                                 if (jq(this).css("display") != "none") {
                                     moreErrors = true;
                                     return false;
@@ -177,7 +177,7 @@ function applyErrorColors(errorDivId, errorNum, warningNum, infoNum, clientSide)
                 }
                 else {
                     var error_li = tabDiv.find(".kr-errorMessages").find("li");
-                    error_li.each(function() {
+                    error_li.each(function () {
                         if (jq(this).css("display") != "none") {
                             hasErrors = true;
                         }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.sql.Date;
-
 import org.kuali.kfs.sys.KFSConstants;
+
+import java.sql.Date;
 
 /**
  * This helper class works in conjunction with the DepositWizardForm to help build the UI for the Deposit Wizard.

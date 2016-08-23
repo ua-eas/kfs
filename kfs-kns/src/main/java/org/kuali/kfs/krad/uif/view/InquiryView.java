@@ -18,28 +18,26 @@
  */
 package org.kuali.kfs.krad.uif.view;
 
-import org.kuali.kfs.krad.uif.container.ContainerBase;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.container.ContainerBase;
 
 /**
  * Type of <code>View</code> that provides a read-only display of a record of
  * data (object instance)
- *
+ * <p>
  * <p>
  * The <code>InquiryView</code> provides the interface for the Inquiry
  * framework. It works with the <code>Inquirable</code> service and inquiry
  * controller. The view does render a form to support the configuration of
  * actions to perform operations on the data.
  * </p>
- *
+ * <p>
  * <p>
  * Inquiry views are primarily configured by the object class they are
  * associated with. This provides the default dictionary information for the
  * fields. If more than one inquiry view is needed for the same object class,
  * the view name can be used to further identify an unique view
  * </p>
- *
- *
  */
 public class InquiryView extends FormView {
     private static final long serialVersionUID = 716926008488403616L;
@@ -56,7 +54,7 @@ public class InquiryView extends FormView {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the abstractTypeClasses map for the inquiry object path</li>
      * </ul>
@@ -72,7 +70,7 @@ public class InquiryView extends FormView {
 
     /**
      * Class name for the object the inquiry applies to
-     *
+     * <p>
      * <p>
      * The object class name is used to pick up a dictionary entry which will
      * feed the attribute field definitions and other configuration. In addition

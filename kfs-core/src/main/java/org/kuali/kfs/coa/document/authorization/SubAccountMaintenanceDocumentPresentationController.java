@@ -19,13 +19,13 @@
 
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Set;
 
 
 /**
@@ -40,7 +40,7 @@ public class SubAccountMaintenanceDocumentPresentationController extends Financi
 
     /**
      * @see org.kuali.rice.krad.document.authorization.MaintenanceDocumentPresentationControllerBase#getConditionallyReadOnlyPropertyNames(org.kuali.rice.kns.document.MaintenanceDocument)
-     *
+     * <p>
      * This methods adds the extra COA code fields that are PKs of nested reference accounts but don't exist in the BO as FKs
      * to the readOnlyPropertyNames set when accounts can't cross charts.
      * Since these fields aren't included in AccountPersistenceStructureService.listChartOfAccountsCodeNames as
@@ -52,7 +52,7 @@ public class SubAccountMaintenanceDocumentPresentationController extends Financi
 
         // if accounts can't cross charts, then add the extra chartOfAccountsCode fields to be displayed readOnly
         if (!SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
-            for (int i=0; i<COA_CODE_NAMES.length; i++) {
+            for (int i = 0; i < COA_CODE_NAMES.length; i++) {
                 readOnlyPropertyNames.add(COA_CODE_NAMES[i]);
             }
         }

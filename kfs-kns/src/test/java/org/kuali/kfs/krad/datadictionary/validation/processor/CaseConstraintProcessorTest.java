@@ -30,62 +30,61 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
 import java.util.List;
 
 
-
 /**
  *
  *
  */
 public class CaseConstraintProcessorTest extends BaseConstraintProcessorTest<CaseConstraintProcessor> {
 
-	private Address londonAddress = new Address("812 Maiden Lane", "", "London", "", "", "UK", null);
-	private Address noStateAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "", "92342", "USA", null);
+    private Address londonAddress = new Address("812 Maiden Lane", "", "London", "", "", "UK", null);
+    private Address noStateAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "", "92342", "USA", null);
 
 
-	@Test
-	public void testCaseConstraintNotInvoked() {
-		ProcessorResult processorResult = processRaw(londonAddress, "country", countryIsUSACaseConstraint);
-		ConstraintValidationResult result = processorResult.getFirstConstraintValidationResult();
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new CaseConstraintProcessor().getName(), result.getConstraintName());
+    @Test
+    public void testCaseConstraintNotInvoked() {
+        ProcessorResult processorResult = processRaw(londonAddress, "country", countryIsUSACaseConstraint);
+        ConstraintValidationResult result = processorResult.getFirstConstraintValidationResult();
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new CaseConstraintProcessor().getName(), result.getConstraintName());
 
-		List<Constraint> constraints = processorResult.getConstraints();
+        List<Constraint> constraints = processorResult.getConstraints();
 
-		Assert.assertNotNull(constraints);
-		Assert.assertEquals(0, constraints.size());
-	}
+        Assert.assertNotNull(constraints);
+        Assert.assertEquals(0, constraints.size());
+    }
 
-	@Test
-	public void testCaseConstraintInvoked() {
-		ProcessorResult processorResult = processRaw(noStateAddress, "country", countryIsUSACaseConstraint);
+    @Test
+    public void testCaseConstraintInvoked() {
+        ProcessorResult processorResult = processRaw(noStateAddress, "country", countryIsUSACaseConstraint);
 
-		List<Constraint> constraints = processorResult.getConstraints();
+        List<Constraint> constraints = processorResult.getConstraints();
 
-		Assert.assertNotNull(constraints);
-		Assert.assertEquals(1, constraints.size());
+        Assert.assertNotNull(constraints);
+        Assert.assertEquals(1, constraints.size());
 
-		Constraint constraint = constraints.get(0);
+        Constraint constraint = constraints.get(0);
 
-		Assert.assertTrue(constraint instanceof PrerequisiteConstraint);
+        Assert.assertTrue(constraint instanceof PrerequisiteConstraint);
 
-		PrerequisiteConstraint prerequisiteConstraint = (PrerequisiteConstraint)constraint;
+        PrerequisiteConstraint prerequisiteConstraint = (PrerequisiteConstraint) constraint;
 
-		Assert.assertEquals("state", prerequisiteConstraint.getPropertyName());
+        Assert.assertEquals("state", prerequisiteConstraint.getPropertyName());
 
-		ConstraintValidationResult result = processorResult.getFirstConstraintValidationResult();
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new CaseConstraintProcessor().getName(), result.getConstraintName());
-	}
+        ConstraintValidationResult result = processorResult.getFirstConstraintValidationResult();
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new CaseConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	/**
-	 * @see BaseConstraintProcessorTest#newProcessor()
-	 */
-	@Override
-	protected CaseConstraintProcessor newProcessor() {
-		return new CaseConstraintProcessor();
-	}
+    /**
+     * @see BaseConstraintProcessorTest#newProcessor()
+     */
+    @Override
+    protected CaseConstraintProcessor newProcessor() {
+        return new CaseConstraintProcessor();
+    }
 
 }

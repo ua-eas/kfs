@@ -37,6 +37,7 @@ public class TableRowRenderer implements Renderer {
 
     /**
      * Resets the table row.
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -47,7 +48,6 @@ public class TableRowRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -78,8 +78,7 @@ public class TableRowRenderer implements Renderer {
                 row.renderChildrenCells(pageContext, parentTag);
                 out.write(buildEndingRowTag());
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Could not render table row", ioe);
         }
     }
@@ -98,6 +97,7 @@ public class TableRowRenderer implements Renderer {
 
     /**
      * Gets the row attribute.
+     *
      * @return Returns the row.
      */
     public AccountingLineTableRow getRow() {
@@ -106,6 +106,7 @@ public class TableRowRenderer implements Renderer {
 
     /**
      * Sets the row attribute value.
+     *
      * @param row The row to set.
      */
     public void setRow(AccountingLineTableRow row) {

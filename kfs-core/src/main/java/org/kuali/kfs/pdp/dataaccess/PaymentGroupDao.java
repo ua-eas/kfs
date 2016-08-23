@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.pdp.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
+
+import java.util.List;
 
 public interface PaymentGroupDao {
 
@@ -38,7 +38,7 @@ public interface PaymentGroupDao {
      *
      * @param pid
      * @param disbursementType
-     * @param bankCode the bank code to find disbursement numbers for
+     * @param bankCode         the bank code to find disbursement numbers for
      * @return
      */
     public abstract List<Integer> getDisbursementNumbersByDisbursementTypeAndBankCode(Integer pid, String disbursementType, String bankCode);
@@ -52,7 +52,8 @@ public interface PaymentGroupDao {
 
     /**
      * Given a process id and a disbursement type, finds a distinct list of bank codes used by payment groups within that payment process
-     * @param pid payment process to query payment groups of
+     *
+     * @param pid              payment process to query payment groups of
      * @param disbursementType the type of disbursements to query
      * @return a sorted List of bank codes
      */

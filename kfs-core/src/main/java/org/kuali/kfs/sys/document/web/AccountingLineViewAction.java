@@ -45,41 +45,52 @@ public class AccountingLineViewAction {
 
     /**
      * Gets the actionLabel attribute.
+     *
      * @return Returns the actionLabel.
      */
     public String getActionLabel() {
         return actionLabel;
     }
+
     /**
      * Sets the actionLabel attribute value.
+     *
      * @param actionLabel The actionLabel to set.
      */
     public void setActionLabel(String actionLabel) {
         this.actionLabel = actionLabel;
     }
+
     /**
      * Gets the actionMethod attribute.
+     *
      * @return Returns the actionMethod.
      */
     public String getActionMethod() {
         return actionMethod;
     }
+
     /**
      * Sets the actionMethod attribute value.
+     *
      * @param actionMethod The actionMethod to set.
      */
     public void setActionMethod(String actionMethod) {
         this.actionMethod = actionMethod;
     }
+
     /**
      * Gets the buttonStyle attribute.
+     *
      * @return Returns the buttonStyle.
      */
     public String getButtonStyle() {
         return buttonStyle;
     }
+
     /**
      * Sets the imageName attribute value.
+     *
      * @param buttonStyle The imageName to set.
      */
     public void setButtonStyle(String buttonStyle) {

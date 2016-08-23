@@ -19,10 +19,11 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 /**
  * Exclusive kinds of basic business organization that a vendor may have. Other broad exclusive categories for vendors can be
  * instances of <code>OwnershipCategory</code>.

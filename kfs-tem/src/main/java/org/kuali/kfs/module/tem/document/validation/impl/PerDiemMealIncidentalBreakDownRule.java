@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import org.kuali.kfs.module.tem.TemKeyConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
-import org.kuali.kfs.module.tem.businessobject.PerDiemMealIncidentalBreakDown;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
+import org.kuali.kfs.module.tem.businessobject.PerDiemMealIncidentalBreakDown;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * Rules for the Per Diem Meals and Incidentals Breakdown maintenance document.
@@ -38,7 +38,7 @@ public class PerDiemMealIncidentalBreakDownRule extends MaintenanceDocumentRuleB
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
         boolean result = super.processCustomSaveDocumentBusinessRules(document);
 
-        final PerDiemMealIncidentalBreakDown perDiemMealIncidentalBreakDown = (PerDiemMealIncidentalBreakDown)document.getNewMaintainableObject().getBusinessObject();
+        final PerDiemMealIncidentalBreakDown perDiemMealIncidentalBreakDown = (PerDiemMealIncidentalBreakDown) document.getNewMaintainableObject().getBusinessObject();
         result &= validateTotals(perDiemMealIncidentalBreakDown);
 
         return result;
@@ -48,7 +48,7 @@ public class PerDiemMealIncidentalBreakDownRule extends MaintenanceDocumentRuleB
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean result = super.processCustomRouteDocumentBusinessRules(document);
 
-        final PerDiemMealIncidentalBreakDown perDiemMealIncidentalBreakDown = (PerDiemMealIncidentalBreakDown)document.getNewMaintainableObject().getBusinessObject();
+        final PerDiemMealIncidentalBreakDown perDiemMealIncidentalBreakDown = (PerDiemMealIncidentalBreakDown) document.getNewMaintainableObject().getBusinessObject();
         result &= validateTotals(perDiemMealIncidentalBreakDown);
 
         return result;
@@ -99,9 +99,8 @@ public class PerDiemMealIncidentalBreakDownRule extends MaintenanceDocumentRuleB
      */
     protected boolean validateAmount(KualiDecimal amount, String property) {
         if (ObjectUtils.isNull(amount)) {
-           return false;
-        }
-        else if (amount.isNegative()) {
+            return false;
+        } else if (amount.isNegative()) {
             putFieldError(property, TemKeyConstants.ERROR_PER_DIEM_MIB_INVALID_AMOUNTS_MUST_BE_POSITIVE);
             return false;
         }

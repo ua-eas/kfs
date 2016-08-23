@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
+import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * This class returns list, ready for populating a drop down select control, of "systems" that can

@@ -18,20 +18,20 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <!DOCTYPE digester-rules
-    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
-    "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+        PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 
 <digester-rules>
 
-	<pattern value="cXML/Response">
-        <object-create-rule classname="org.kuali.kfs.module.purap.util.cxml.PunchOutSetupResponse" />
+    <pattern value="cXML/Response">
+        <object-create-rule classname="org.kuali.kfs.module.purap.util.cxml.PunchOutSetupResponse"/>
 
-			<set-properties-rule pattern="Status">
-			   <alias attr-name="code" prop-name="statusCode" />
-			   <alias attr-name="text" prop-name="statusText" />
-		    </set-properties-rule>
+        <set-properties-rule pattern="Status">
+            <alias attr-name="code" prop-name="statusCode"/>
+            <alias attr-name="text" prop-name="statusText"/>
+        </set-properties-rule>
 
-			<call-method-rule pattern="PunchOutSetupResponse/StartPage/URL" methodname="setPunchOutUrl" paramcount="0" />
+        <call-method-rule pattern="PunchOutSetupResponse/StartPage/URL" methodname="setPunchOutUrl" paramcount="0"/>
 
     </pattern>
 

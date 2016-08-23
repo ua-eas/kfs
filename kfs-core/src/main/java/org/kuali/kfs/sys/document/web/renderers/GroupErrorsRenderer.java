@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.struts.Globals;
+import org.apache.struts.taglib.html.ErrorsTag;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.struts.Globals;
-import org.apache.struts.taglib.html.ErrorsTag;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.KRADConstants;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Renders any errors associated with an accounting line group
@@ -48,6 +47,7 @@ public class GroupErrorsRenderer implements Renderer {
     /**
      * Cleans up the errorPropertyList, the sectionTitle, the errorsRendered (so you'd better read that first),
      * and the ErrorTag used to display the errors
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -71,6 +71,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Renders the errors, warnings, and messages for this page
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -81,15 +82,16 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Renders a group of messages
-     * @param pageContext the page context to render to
-     * @param parentTag the name of the parent tag requesting this rendering
-     * @param titleConstant the Key Constant to text for the title
-     * @param propertyList the list of properties to display
+     *
+     * @param pageContext            the page context to render to
+     * @param parentTag              the name of the parent tag requesting this rendering
+     * @param titleConstant          the Key Constant to text for the title
+     * @param propertyList           the list of properties to display
      * @param sectionMarkGraphicName the file name of the mark graphic to display
-     * @param sectionGraphicAlt the wording to be used in the "alt" section of the mark graphic
+     * @param sectionGraphicAlt      the wording to be used in the "alt" section of the mark graphic
      * @throws JspException thrown if rendering cannot be successfully completed
      */
-    protected void renderMessages(PageContext pageContext, Tag parentTag, String titleConstant, List propertyList, String sectionMarkGraphicName, String sectionGraphicAlt, List<String> keysRendered, String requestScopeBeanNameContainingMessages ) throws JspException {
+    protected void renderMessages(PageContext pageContext, Tag parentTag, String titleConstant, List propertyList, String sectionMarkGraphicName, String sectionGraphicAlt, List<String> keysRendered, String requestScopeBeanNameContainingMessages) throws JspException {
         JspWriter out = pageContext.getOut();
 
         try {
@@ -117,17 +119,17 @@ public class GroupErrorsRenderer implements Renderer {
             if (matchingKeys.size() > 0) {
                 out.write(buildTableRowAndCellClosing());
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty while rendering errors for group", ioe);
         }
     }
 
     /**
      * Builds the HTML String for a section title
-     * @param titleConstant the Key Constant to find the text for the title
+     *
+     * @param titleConstant          the Key Constant to find the text for the title
      * @param sectionMarkGraphicName the name of the graphic file to use
-     * @param sectionGraphicAlt the alt for the graphic
+     * @param sectionGraphicAlt      the alt for the graphic
      * @return the String to output as HTML for the section title
      */
     protected String buildSectionTitle(String titleConstant, String sectionMarkGraphicName, String sectionGraphicAlt) {
@@ -138,20 +140,21 @@ public class GroupErrorsRenderer implements Renderer {
         StringBuilder sectionTitle = new StringBuilder();
 
         sectionTitle.append("<img src=\"")
-                    .append(riceImageUrl)
-                    .append(sectionMarkGraphicName)
-                    .append("\" alt=\"")
-                    .append(sectionGraphicAlt)
-                    .append("\" /><strong>")
-                    .append(titleMessage)
-                    .append("</strong>");
+            .append(riceImageUrl)
+            .append(sectionMarkGraphicName)
+            .append("\" alt=\"")
+            .append(sectionGraphicAlt)
+            .append("\" /><strong>")
+            .append(titleMessage)
+            .append("</strong>");
 
         return sectionTitle.toString();
     }
 
     /**
      * Builds an HTML comment, useful for debugging, which dumps out the message key being displayed
-     * @param matchingKey the key to display
+     *
+     * @param matchingKey       the key to display
      * @param sectionGraphicAlt the alt for this section, we'll reuse it for the comments
      * @return the String to output for the key comment
      */
@@ -159,10 +162,10 @@ public class GroupErrorsRenderer implements Renderer {
         StringBuilder keyComment = new StringBuilder();
 
         keyComment.append("\n<!-- ")
-                  .append(sectionGraphicAlt)
-                  .append(" key = '")
-                  .append(matchingKey)
-                  .append("' -->\n");
+            .append(sectionGraphicAlt)
+            .append(" key = '")
+            .append(matchingKey)
+            .append("' -->\n");
 
         return keyComment.toString();
     }
@@ -193,6 +196,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Returns a list of all error keys that should be rendered
+     *
      * @param keysToMatch the keys that this group will match
      * @return a List of all error keys this group will match
      */
@@ -201,7 +205,7 @@ public class GroupErrorsRenderer implements Renderer {
 
         if (messagePropertyList != null && messagePropertyList.size() > 0) {
             for (Object keyAsObject : messagePropertyList) {
-                String key = (String)keyAsObject;
+                String key = (String) keyAsObject;
                 if (matchesGroup(key, keysToMatch)) {
                     matchingKeys.add(key);
                 }
@@ -221,7 +225,8 @@ public class GroupErrorsRenderer implements Renderer {
     /**
      * Determines if the given error key matches the keyToMatch - either because the two keys are
      * equal, or if the keyToMatch is a wildcard key and would wildcard match the key
-     * @param key the error key to match
+     *
+     * @param key        the error key to match
      * @param keyToMatch one of the error keys this group will display
      * @return true if the keys match, false if not
      */
@@ -231,7 +236,8 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Determines if the given key matches any error key associated with this group
-     * @param key the error key that may or may not be displayed here
+     *
+     * @param key         the error key that may or may not be displayed here
      * @param keysToMatch the keys that this group will match against
      * @return true if this group can display the given key, false otherwise
      */
@@ -244,33 +250,37 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Looks up the InfoPropertyList from the generating request
+     *
      * @param pageContext the pageContext which this tag is rendering to
      * @return the ErrorPropertyList from the request
      */
     public List getErrorPropertyList(PageContext pageContext) {
-        return (List)pageContext.getRequest().getAttribute("ErrorPropertyList");
+        return (List) pageContext.getRequest().getAttribute("ErrorPropertyList");
     }
 
     /**
      * Looks up the InfoPropertyList from the generating request
+     *
      * @param pageContext the pageContext which this tag is rendering to
      * @return the WarningPropertyList from the request
      */
     protected List getWarningPropertyList(PageContext pageContext) {
-        return (List)pageContext.getRequest().getAttribute("WarningPropertyList");
+        return (List) pageContext.getRequest().getAttribute("WarningPropertyList");
     }
 
     /**
      * Looks up the InfoPropertyList from the generating request
+     *
      * @param pageContext the pageContext which this tag is rendering to
      * @return the InfoPropertyList from the request
      */
     protected List getInfoPropertyList(PageContext pageContext) {
-        return (List)pageContext.getRequest().getAttribute("InfoPropertyList");
+        return (List) pageContext.getRequest().getAttribute("InfoPropertyList");
     }
 
     /**
      * Gets the errorsRendered attribute.
+     *
      * @return Returns the errorsRendered.
      */
     public List<String> getErrorsRendered() {
@@ -282,6 +292,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Gets the warningsRendered attribute.
+     *
      * @return Returns the warningsRendered.
      */
     public List<String> getWarningsRendered() {
@@ -293,6 +304,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Gets the infoRendered attribute.
+     *
      * @return Returns the infoRendered.
      */
     public List<String> getInfoRendered() {
@@ -304,6 +316,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Gets the errorKeyMatch attribute.
+     *
      * @return Returns the errorKeyMatch.
      */
     public String getErrorKeyMatch() {
@@ -312,6 +325,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Sets the errorKeyMatch attribute value.
+     *
      * @param errorKeyMatch The errorKeyMatch to set.
      */
     public void setErrorKeyMatch(String errorKeyMatch) {
@@ -320,6 +334,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Gets the colSpan attribute.
+     *
      * @return Returns the colSpan.
      */
     public int getColSpan() {
@@ -328,6 +343,7 @@ public class GroupErrorsRenderer implements Renderer {
 
     /**
      * Sets the colSpan attribute value.
+     *
      * @param colSpan The colSpan to set.
      */
     public void setColSpan(int colSpan) {

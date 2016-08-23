@@ -22,7 +22,6 @@ import org.kuali.kfs.kns.document.authorization.InquiryOrMaintenanceDocumentRest
 
 /**
  * This is a description of what this class does - abyrne don't forget to fill this in.
- *
  */
 public interface InquiryRestrictions extends InquiryOrMaintenanceDocumentRestrictions {
 

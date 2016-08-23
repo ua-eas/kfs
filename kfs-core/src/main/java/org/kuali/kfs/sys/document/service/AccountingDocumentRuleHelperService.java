@@ -39,8 +39,8 @@ public interface AccountingDocumentRuleHelperService {
      * This method checks for the existence of the provided balance type, in the system and also checks to see if it is active.
      *
      * @param balanceType
-     * @param entryClass the Class of the DataDictionary entry containing the attribute with the label for the error message
-     * @param attributeName the name of the attribute in the DataDictionary entry
+     * @param entryClass        the Class of the DataDictionary entry containing the attribute with the label for the error message
+     * @param attributeName     the name of the attribute in the DataDictionary entry
      * @param errorPropertyName
      * @return True if the balance type is valid, false otherwise.
      */
@@ -100,7 +100,7 @@ public interface AccountingDocumentRuleHelperService {
      * @param propertyName
      * @param arguments
      * @return the formatted property (i.e., message), with any {@code {0}} replaced with the first argument, {@code {1}} with the
-     *         second argument, etc.
+     * second argument, etc.
      */
     public abstract String formatProperty(String propertyName, Object... arguments);
 }

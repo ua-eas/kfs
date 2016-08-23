@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
+import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-
-import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 
 public class TravelStrutsObservable extends Observable {
     public Map<String, List<Observer>> observers;
@@ -43,8 +43,7 @@ public class TravelStrutsObservable extends Observable {
         TravelMvcWrapperBean wrapper = null;
         if (arg instanceof TravelMvcWrapperBean) {
             wrapper = (TravelMvcWrapperBean) arg;
-        }
-        else if (arg instanceof Object[]) {
+        } else if (arg instanceof Object[]) {
             final Object[] args = (Object[]) arg;
             if (args != null && args.length > 0
                 && args[0] instanceof TravelMvcWrapperBean) {
@@ -73,7 +72,7 @@ public class TravelStrutsObservable extends Observable {
      *
      * @param observers The observers to set.
      */
-    public void setObservers(final Map<String,List<Observer>> observers) {
+    public void setObservers(final Map<String, List<Observer>> observers) {
         this.observers = observers;
     }
 }

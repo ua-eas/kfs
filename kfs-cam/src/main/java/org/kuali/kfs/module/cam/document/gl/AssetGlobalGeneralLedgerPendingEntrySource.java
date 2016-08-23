@@ -32,10 +32,10 @@ public class AssetGlobalGeneralLedgerPendingEntrySource extends CamsGeneralLedge
 
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
         boolean debit = false;
-        AssetGlpeSourceDetail assetPostable = (AssetGlpeSourceDetail)postable;
+        AssetGlpeSourceDetail assetPostable = (AssetGlpeSourceDetail) postable;
         KualiDecimal amount = assetPostable.getAmount();
 
-        if((assetPostable.isCapitalization() && amount.isPositive()) || (assetPostable.isCapitalizationOffset() && amount.isNegative()) || (assetPostable.isPayment() && amount.isPositive()) || (assetPostable.isPaymentOffset() && amount.isNegative())) {
+        if ((assetPostable.isCapitalization() && amount.isPositive()) || (assetPostable.isCapitalizationOffset() && amount.isNegative()) || (assetPostable.isPayment() && amount.isPositive()) || (assetPostable.isPaymentOffset() && amount.isNegative())) {
             debit = true;
         }
         return debit;

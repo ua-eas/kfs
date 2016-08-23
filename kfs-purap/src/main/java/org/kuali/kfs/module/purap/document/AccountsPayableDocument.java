@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
@@ -28,6 +26,8 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Timestamp;
 
 /**
  * Accounts Payable Document Interface
@@ -106,8 +106,8 @@ public interface AccountsPayableDocument extends PurchasingAccountsPayableDocume
     public KualiDecimal getGrandTotal();
 
     /**
-     *
      * This method returns the amount of tax to remit to the vendor
+     *
      * @return total of document tax to remit to the vendor null if none
      */
     public KualiDecimal getTotalRemitTax();

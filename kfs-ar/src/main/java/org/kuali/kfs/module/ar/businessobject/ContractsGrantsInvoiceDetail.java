@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a invoice detail on the customer invoice document.
@@ -278,6 +278,7 @@ public class ContractsGrantsInvoiceDetail extends PersistableBusinessObjectBase 
 
     /**
      * Adds the values from the given ContractgsGrantsInvoiceDetail onto this one
+     *
      * @param contractsGrantsInvoiceDetail the detail to sum into this
      */
     public void sumInvoiceDetail(ContractsGrantsInvoiceDetail contractsGrantsInvoiceDetail) {

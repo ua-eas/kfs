@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
+import java.util.Map;
+
 @SuppressWarnings("deprecation")
-public class ExecutiveManagerRoleTypeServiceImpl extends RoleTypeServiceBase{
+public class ExecutiveManagerRoleTypeServiceImpl extends RoleTypeServiceBase {
 
     /**
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#performMatch(java.util.Map, java.util.Map)
@@ -35,7 +35,7 @@ public class ExecutiveManagerRoleTypeServiceImpl extends RoleTypeServiceBase{
         final String jobClassificationFromRoleQualification = storedAttributes.get(TemKimAttributes.JOB_CLASSIFICATION_CODE);
         if (StringUtils.isBlank(jobClassificationFromRoleQualification)) {
             return true; // members with blank role qualifications always match
-        } else if (jobClassificationFromRoleQualification.equals(jobClassificationFromCheckInput)){
+        } else if (jobClassificationFromRoleQualification.equals(jobClassificationFromCheckInput)) {
             return true; // the classification codes matched
         }
         return false;

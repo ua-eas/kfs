@@ -20,7 +20,6 @@ package org.kuali.kfs.coa.service;
 
 
 /**
- *
  * This service interface defines methods necessary for populating the prior year organization table with values from current year
  */
 public interface PriorYearOrganizationService {

@@ -19,9 +19,9 @@
 package org.kuali.kfs.vnd;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Utility class with helper methods for Vendor processing
@@ -72,8 +72,8 @@ public class VendorUtils {
      * @return Newly formatted string
      */
     public static String assembleWithPosition(String full, String collection, int position) {
-        String[] collections = { collection };
-        int[] positions = { position };
+        String[] collections = {collection};
+        int[] positions = {position};
         return assembleWithPosition(full, collections, positions);
     }
 

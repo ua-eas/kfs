@@ -19,12 +19,12 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.document.CreditCardReceiptDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * This class...
@@ -32,11 +32,12 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class CreditCardReceiptMinimumCreditCardReceiptValidation extends GenericValidation {
     private AccountingDocument accountingDocumentForValidation;
     private int requiredMinimumCount;
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
-        CreditCardReceiptDocument ccr = (CreditCardReceiptDocument)getAccountingDocumentForValidation();
+        CreditCardReceiptDocument ccr = (CreditCardReceiptDocument) getAccountingDocumentForValidation();
         if (ccr.getCreditCardReceipts().size() < requiredMinimumCount) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.NEW_CREDIT_CARD_RECEIPT, KFSKeyConstants.CreditCardReceipt.ERROR_DOCUMENT_CREDIT_CARD_RECEIPT_REQ_NUMBER_RECEIPTS_NOT_MET);
             return false;
@@ -46,6 +47,7 @@ public class CreditCardReceiptMinimumCreditCardReceiptValidation extends Generic
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -54,6 +56,7 @@ public class CreditCardReceiptMinimumCreditCardReceiptValidation extends Generic
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -62,13 +65,16 @@ public class CreditCardReceiptMinimumCreditCardReceiptValidation extends Generic
 
     /**
      * Gets the requiredMinimumCount attribute.
+     *
      * @return Returns the requiredMinimumCount.
      */
     public int getRequiredMinimumCount() {
         return requiredMinimumCount;
     }
+
     /**
      * Sets the requiredMinimumCount attribute value.
+     *
      * @param requiredMinimumCount The requiredMinimumCount to set.
      */
     public void setRequiredMinimumCount(int requiredMinimumCount) {

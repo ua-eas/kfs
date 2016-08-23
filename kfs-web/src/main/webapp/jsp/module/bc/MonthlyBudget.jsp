@@ -16,32 +16,32 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="budgetConstructionMonthlyAttributes"
-	value="${DataDictionary['BudgetConstructionMonthly'].attributes}" />
+       value="${DataDictionary['BudgetConstructionMonthly'].attributes}"/>
 
 <kul:page showDocumentInfo="false"
-	htmlFormAction="budgetMonthlyBudget" renderMultipart="true"
-	showTabButtons="true"
-	docTitle="BC Monthly"
-    transactionalDocument="false"
-	>
+          htmlFormAction="budgetMonthlyBudget" renderMultipart="true"
+          showTabButtons="true"
+          docTitle="BC Monthly"
+          transactionalDocument="false"
+>
 
-    <html:hidden property="mainWindow" />
+    <html:hidden property="mainWindow"/>
 
-    <c:set var="readOnly" value="${KualiForm.monthlyReadOnly}" />
+    <c:set var="readOnly" value="${KualiForm.monthlyReadOnly}"/>
 
-    <bc:monthlyBudget readOnly="${readOnly}" />
+    <bc:monthlyBudget readOnly="${readOnly}"/>
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${!readOnly}">
-	        <html:submit
+            <html:submit
                     styleClass="btn btn-default"
                     property="methodToCall.save"
                     title="save"
                     alt="save"
                     value="Save"/>
-	    </c:if>
+        </c:if>
         <html:submit
                 styleClass="btn btn-default"
                 property="methodToCall.close"

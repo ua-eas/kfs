@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.bc.document.service;
 
 
-
 /**
  * Provides build methods and file dump services for report dumps.
  */
@@ -35,27 +34,27 @@ public interface ReportExportService {
     /**
      * Retrieves records for organization account dump and outputs file based on user preferences
      *
-     * @param principalId - current user who is running the dump
+     * @param principalId    - current user who is running the dump
      * @param fieldSeperator - string to seperate fields
-     * @param textDelimiter - string for text delimiter
+     * @param textDelimiter  - string for text delimiter
      */
     public StringBuilder buildOrganizationAccountDumpFile(String principalId, String fieldSeperator, String textDelimiter);
 
     /**
      * Retrieves records for organization monthly dump and outputs file based on user preferences
      *
-     * @param principalId - current user who is running the dump
+     * @param principalId    - current user who is running the dump
      * @param fieldSeperator - string to seperate fields
-     * @param textDelimiter - string for text delimiter
+     * @param textDelimiter  - string for text delimiter
      */
     public StringBuilder buildOrganizationMonthlyDumpFile(String principalId, String fieldSeperator, String textDelimiter);
 
     /**
      * Retrieves records for organization funding dump and outputs file based on user preferences
      *
-     * @param principalId - current user who is running the dump
+     * @param principalId    - current user who is running the dump
      * @param fieldSeperator - string to seperate fields
-     * @param textDelimiter - string for text delimiter
+     * @param textDelimiter  - string for text delimiter
      */
     public StringBuilder buildOrganizationFundingDumpFile(String principalId, String fieldSeperator, String textDelimiter);
 

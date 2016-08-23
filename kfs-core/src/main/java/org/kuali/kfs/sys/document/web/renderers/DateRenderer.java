@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+import java.io.IOException;
 
 /**
  * Renders a field as a text field with a date picker
@@ -34,7 +33,6 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 public class DateRenderer extends TextRenderer {
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.TextRenderer#clear()
      */
     @Override
@@ -43,7 +41,6 @@ public class DateRenderer extends TextRenderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.TextRenderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     @Override
@@ -54,14 +51,14 @@ public class DateRenderer extends TextRenderer {
         try {
             out.write(buildDateImage());
             out.write(buildDateJavascript());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering date picker", ioe);
         }
     }
 
     /**
      * Builds the image for the icon of the date component
+     *
      * @return the HTML for the image icon for the date component
      */
     protected String buildDateImage() {
@@ -87,6 +84,7 @@ public class DateRenderer extends TextRenderer {
 
     /**
      * Builds the JavaScript portion of the date picker
+     *
      * @return the HTML for the javascript to make the date component work
      */
     protected String buildDateJavascript() {
@@ -110,6 +108,7 @@ public class DateRenderer extends TextRenderer {
 
     /**
      * Overridden to do nothing - date fields never need quick finders
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRendererBase#renderQuickFinderIfNecessary(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     @Override

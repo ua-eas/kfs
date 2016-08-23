@@ -26,8 +26,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 /**
  * Spring <code>BeanPostProcessor</code> that processes configured <code>Component</code>
  * instances in the dictionary
- *
- *
  */
 public class ComponentBeanPostProcessor implements BeanPostProcessor {
 
@@ -36,7 +34,7 @@ public class ComponentBeanPostProcessor implements BeanPostProcessor {
 
     /**
      * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessBeforeInitialization(java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -46,14 +44,14 @@ public class ComponentBeanPostProcessor implements BeanPostProcessor {
     /**
      * Sets the unique Id for a <code>Component</code> if bean name given (not generated) and the id property was
      * not set for the view
-     *
+     * <p>
      * <p>
      * The ID will only be set here if an id is given for the Spring bean. For inner beans, the ID will be generated
      * during the view lifecycle
      * </p>
      *
      * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization(java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {

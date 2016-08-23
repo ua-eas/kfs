@@ -19,14 +19,14 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class PreEncumbranceRequiredReferenceFieldValidation extends GenericValidation {
     private DataDictionaryService dataDictionaryService;
@@ -59,6 +59,7 @@ public class PreEncumbranceRequiredReferenceFieldValidation extends GenericValid
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -67,6 +68,7 @@ public class PreEncumbranceRequiredReferenceFieldValidation extends GenericValid
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -75,6 +77,7 @@ public class PreEncumbranceRequiredReferenceFieldValidation extends GenericValid
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -83,6 +86,7 @@ public class PreEncumbranceRequiredReferenceFieldValidation extends GenericValid
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accoutingLineForValidation) {

@@ -49,6 +49,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the traveler type code
+     *
      * @param travelerTypeCode the traveler type code
      */
     public void setTravelerTypeCode(String travelerTypeCode) {
@@ -64,6 +65,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the the job classification code
+     *
      * @param jobClassificationCode the job classification code
      */
     public void setJobClsCode(String jobClassificationCode) {
@@ -79,6 +81,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the amounted being reimbursed
+     *
      * @param reimbursementAmount the reimbursement amount
      */
     public void setReimbursementAmount(KualiDecimal reimbursementAmount) {
@@ -94,6 +97,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the total amount authorized
+     *
      * @param authorizationAmount the authorization amount
      */
     public void setAuthorizationAmount(KualiDecimal authorizationAmount) {
@@ -109,6 +113,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the reimbursement overage percentage
+     *
      * @param reimbursementOveragePercentage the positive reimbursement overage percentage
      */
     public void setReimbursementOveragePercentage(KualiDecimal reimbursementOveragePercentage) {
@@ -124,6 +129,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the traveler type
+     *
      * @param travelerType the related traveler type
      */
     public void setTravelerType(TravelerType travelerType) {
@@ -139,6 +145,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the related job classification
+     *
      * @param jobClassification the related job classification
      */
     public void setJobClassification(JobClassification jobClassification) {

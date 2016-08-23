@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.module.purap.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.purap.businessobject.ReceivingAddress;
+
+import java.util.Collection;
 
 public interface ReceivingAddressService {
 
@@ -29,7 +29,7 @@ public interface ReceivingAddressService {
      * Finds all of the active receiving addresses with the specified chart/org code.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - collection of receiving addresses found.
      */
     public Collection<ReceivingAddress> findActiveByChartOrg(String chartCode, String orgCode);
@@ -39,7 +39,7 @@ public interface ReceivingAddressService {
      * When the database is not in consistent state, there could be more than one active default address per chart/org.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - collection of receiving addresses found.
      */
     public Collection<ReceivingAddress> findDefaultByChartOrg(String chartCode, String orgCode);
@@ -49,7 +49,7 @@ public interface ReceivingAddressService {
      * When the database is in consistent state, there shall be no more than one active default address per chart/org.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - receiving addresses found.
      */
     public ReceivingAddress findUniqueDefaultByChartOrg(String chartCode, String orgCode);
@@ -58,7 +58,7 @@ public interface ReceivingAddressService {
      * Counts the number of the active receiving addresses with the specified chart/org code.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - number of receiving addresses found.
      */
     public int countActiveByChartOrg(String chartCode, String orgCode);

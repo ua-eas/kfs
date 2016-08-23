@@ -22,7 +22,6 @@ import org.kuali.kfs.fp.businessobject.CashDetailTypeCode;
 
 /**
  * This service interface defines methods that a CashDetailTypeCodeService implementation must provide.
- *
  */
 public interface CashDetailTypeCodeService {
     /**

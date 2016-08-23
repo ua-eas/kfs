@@ -25,10 +25,12 @@ import java.util.concurrent.Callable;
 /**
  * A proxy invocationhandler that implements around advice which pushes a new GlobalVariables frame before
  * invocation and pops it after invocation.
+ *
  * @see GlobalVariables#doInNewGlobalVariables
  */
 public class GlobalVariablesContextInvocationHandler implements InvocationHandler {
     private Object proxied;
+
     public GlobalVariablesContextInvocationHandler(Object proxied) {
         this.proxied = proxied;
     }

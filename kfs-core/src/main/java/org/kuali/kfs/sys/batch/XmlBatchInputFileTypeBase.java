@@ -18,20 +18,6 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rules;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -41,11 +27,20 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.exception.XmlErrorHandler;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 
 /**
@@ -125,8 +120,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         try {
             ByteArrayInputStream parseFileContents = new ByteArrayInputStream(fileByteContent);
             parsedContents = digester.parse(parseFileContents);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Error parsing xml contents", e);
             throw new ParseException("Error parsing xml contents: " + e.getMessage(), e);
         }
@@ -138,7 +132,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
      * Validates the xml contents against the batch input type schema using the java 1.5 validation package.
      *
      * @param schemaLocation - location of the schema file
-     * @param fileContents - xml contents to validate against the schema
+     * @param fileContents   - xml contents to validate against the schema
      */
     protected void validateContentsAgainstSchema(String schemaLocation, InputStream fileContents) throws ParseException {
         // create a SchemaFactory capable of understanding WXS schemas
@@ -150,8 +144,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         Source schemaSource = null;
         try {
             schemaSource = new StreamSource(schemaResource.getInputStream());
-        }
-        catch (IOException e2) {
+        } catch (IOException e2) {
             LOG.error("error getting schema stream from url: " + e2.getMessage());
             throw new RuntimeException("error getting schema stream from url:   " + e2.getMessage(), e2);
         }
@@ -159,8 +152,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         Schema schema = null;
         try {
             schema = factory.newSchema(schemaSource);
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             LOG.error("error occured while setting schema file: " + e.getMessage());
             throw new RuntimeException("error occured while setting schema file: " + e.getMessage(), e);
         }
@@ -172,12 +164,10 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         // validate
         try {
             validator.validate(new StreamSource(fileContents));
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             LOG.error("error encountered while parsing xml " + e.getMessage());
             throw new ParseException("Schema validation error occured while processing file: " + e.getMessage(), e);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("error occured while validating file contents: " + e1.getMessage());
             throw new RuntimeException("error occured while validating file contents: " + e1.getMessage(), e1);
         }

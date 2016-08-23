@@ -18,26 +18,9 @@
  */
 package org.kuali.kfs.sec.businessobject.lookup;
 
-import java.beans.PropertyDescriptor;
-import java.sql.Date;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
-import org.kuali.kfs.sec.SecKeyConstants;
-import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.core.web.format.BooleanFormatter;
-import org.kuali.rice.core.web.format.CollectionFormatter;
-import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.document.authorization.FieldRestriction;
 import org.kuali.kfs.kns.lookup.HtmlData;
@@ -51,13 +34,30 @@ import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sec.SecKeyConstants;
+import org.kuali.kfs.sec.service.AccessSecurityService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.core.web.format.BooleanFormatter;
+import org.kuali.rice.core.web.format.CollectionFormatter;
+import org.kuali.rice.core.web.format.DateFormatter;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.beans.PropertyDescriptor;
+import java.sql.Date;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -300,8 +300,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
         // call search method to get results
         if (bounded) {
             displayList = getSearchResults(lookupForm.getFieldsForLookup());
-        }
-        else {
+        } else {
             displayList = getSearchResultsUnbounded(lookupForm.getFieldsForLookup());
         }
 
@@ -314,7 +313,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
         Person user = GlobalVariables.getUserSession().getPerson();
 
         // iterate through result list and wrap rows with return url and action urls
-        for (Iterator iter = displayList.iterator(); iter.hasNext();) {
+        for (Iterator iter = displayList.iterator(); iter.hasNext(); ) {
             BusinessObject element = (BusinessObject) iter.next();
             if (element instanceof PersistableBusinessObject) {
                 lookupForm.setLookupObjectId(((PersistableBusinessObject) element).getObjectId());
@@ -331,7 +330,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             }
 
             List<Column> columns = getColumns();
-            for (Iterator iterator = columns.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = columns.iterator(); iterator.hasNext(); ) {
 
                 Column col = (Column) iterator.next();
                 Formatter formatter = col.getFormatter();
@@ -346,8 +345,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                     try {
                         propClass = ObjectUtils.getPropertyType(element, col.getPropertyName(), persistenceStructureService);
                         propertyTypes.put(col.getPropertyName(), propClass);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", e);
                     }
                 }
@@ -371,8 +369,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
 
                     if (formatter != null) {
                         propValue = (String) formatter.format(prop);
-                    }
-                    else {
+                    } else {
                         propValue = prop.toString();
                     }
                 }
@@ -400,7 +397,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                 row.setBusinessObject(element);
             }
 
-            if(element instanceof SegmentedBusinessObject) {
+            if (element instanceof SegmentedBusinessObject) {
                 for (String propertyName : ((SegmentedBusinessObject) element).getSegmentedPropertyNames()) {
                     columns.add(setupResultsColumn(element, propertyName, businessObjectRestrictions));
                 }
@@ -447,11 +444,9 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             try {
                 formatter = (Formatter) formatterClass.newInstance();
                 col.setFormatter(formatter);
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get new instance of formatter class: " + formatterClass.getName());
             }
         }
@@ -467,8 +462,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
             if (propDescriptor != null) {
                 propClass = propDescriptor.getPropertyType();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", e);
         }
 
@@ -481,8 +475,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
 
             if (formatter != null) {
                 propValue = (String) formatter.format(prop);
-            }
-            else {
+            } else {
                 propValue = prop.toString();
             }
         }
@@ -518,11 +511,9 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
                 String newPropValue = dateValue;// maybe clean above with ObjectUtils.clean(propertyValue)
                 if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isNotEmpty(dateValue)) {
                     newPropValue = fromDateValue + ".." + dateValue;
-                }
-                else if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isEmpty(dateValue)) {
+                } else if (StringUtils.isNotEmpty(fromDateValue) && StringUtils.isEmpty(dateValue)) {
                     newPropValue = ">=" + fromDateValue;
-                }
-                else if (StringUtils.isNotEmpty(dateValue) && StringUtils.isEmpty(fromDateValue)) {
+                } else if (StringUtils.isNotEmpty(dateValue) && StringUtils.isEmpty(fromDateValue)) {
                     newPropValue = "<=" + dateValue;
                 } // could optionally continue on else here
 

@@ -18,27 +18,25 @@
  */
 package org.kuali.kfs.krad.kim.bo.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- *
- *
- *
  * This exists to make the data dictionary loading happy!
  */
 public class MemberTypeValuesFinder extends KeyValuesBase {
 
     private static final List<KeyValue> LABELS;
+
     static {
-        final List<KeyValue> labels = new ArrayList<KeyValue>( 3 );
+        final List<KeyValue> labels = new ArrayList<KeyValue>(3);
         labels.add(new ConcreteKeyValue(MemberType.PRINCIPAL.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_PRINCIPAL));
         labels.add(new ConcreteKeyValue(MemberType.GROUP.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_GROUP));
         labels.add(new ConcreteKeyValue(MemberType.ROLE.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_ROLE));

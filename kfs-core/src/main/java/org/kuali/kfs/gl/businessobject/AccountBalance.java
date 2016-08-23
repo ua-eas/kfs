@@ -18,32 +18,32 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.ReportBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Just as Balance is a summarization of Entry, so AccountBalance is a summarization of Balance.
  * Specifically, it stores the current budget, actual, and encumbrance totals in one record.
  */
-public class AccountBalance extends PersistableBusinessObjectBase implements ReportBusinessObject{
+public class AccountBalance extends PersistableBusinessObjectBase implements ReportBusinessObject {
     static final long serialVersionUID = 6873573726961704771L;
 
     private Integer universityFiscalYear;
@@ -111,8 +111,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else if (TYPE_LEVEL.equals(type)) {
+        } else if (TYPE_LEVEL.equals(type)) {
             financialObject.getFinancialObjectLevel().setFinancialReportingSortCode((String) data.get(GeneralLedgerConstants.ColumnNames.REPORT_SORT_CODE));
             financialObject.setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE2));
             financialObject.getFinancialObjectLevel().setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE2));
@@ -120,8 +119,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
             // tricking it so getVariance() works
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else if (TYPE_OBJECT.equals(type)) {
+        } else if (TYPE_OBJECT.equals(type)) {
             objectCode = (String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_CODE);
             financialObject.setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE));
             financialObject.getFinancialObjectLevel().setFinancialObjectLevelCode((String) data.get(GeneralLedgerConstants.ColumnNames.OBJECT_LEVEL_CODE));
@@ -129,8 +127,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
             // tricking it so getVariance() works
             financialObject.getFinancialObjectType().setBasicAccountingCategoryCode((String) data.get(GeneralLedgerConstants.ColumnNames.ACCTG_CTGRY_CD));
             fixVariance();
-        }
-        else {
+        } else {
             throw new RuntimeException("Unknown type: " + type);
         }
     }
@@ -139,7 +136,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
      * Perform the refresh non-updateable method but do an additional check on the following  objects
      * within financialObject if either the object is null or the primary key returned null.  If that is true,
      * re-use the original object/values.
-     *
+     * <p>
      * 1. FinancialObjectLevel
      * 2. FinancialObjectType
      *
@@ -151,19 +148,19 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         ObjectCode origfinancialObject = getFinancialObject();
         super.refreshNonUpdateableReferences();
 
-        if (ObjectUtils.isNull(financialObject)){
+        if (ObjectUtils.isNull(financialObject)) {
             //entire financial object is  null, simply replace with the original
             setFinancialObject(origfinancialObject);
-        }else{
+        } else {
             //check individual subobjects
 
             //check financial object level - if the object is null or primary key value is null, this object needs to be updated
-            if (ObjectUtils.isNull(financialObject.getFinancialObjectLevel()) || ObjectUtils.isNull(financialObject.getFinancialObjectLevel().getFinancialObjectLevelCode())){
+            if (ObjectUtils.isNull(financialObject.getFinancialObjectLevel()) || ObjectUtils.isNull(financialObject.getFinancialObjectLevel().getFinancialObjectLevelCode())) {
                 financialObject.setFinancialObjectLevel(origfinancialObject.getFinancialObjectLevel());
                 financialObject.setFinancialObjectLevelCode(origfinancialObject.getFinancialObjectCode());
             }
             //check financial object type - if the object is null or primary key value is null, this object needs to be updated
-            if (ObjectUtils.isNull(financialObject.getFinancialObjectType().getCode()) || ObjectUtils.isNull(financialObject.getFinancialObjectType())){
+            if (ObjectUtils.isNull(financialObject.getFinancialObjectType().getCode()) || ObjectUtils.isNull(financialObject.getFinancialObjectType())) {
                 financialObject.setFinancialObjectType(origfinancialObject.getFinancialObjectType());
             }
         }
@@ -174,7 +171,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
      *
      * @return
      */
-    public String getAccountingCategoryExpenseCode(){
+    public String getAccountingCategoryExpenseCode() {
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
         String accountingCategoryExpenseCode = parameterService.getParameterValueAsString(AccountBalanceByConsolidation.class, GeneralLedgerConstants.BASIC_ACCOUNTING_CATEGORY_REPRESENTING_EXPENSES);
         return accountingCategoryExpenseCode;
@@ -191,6 +188,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
 
     /**
      * Constructs a AccountBalance.java per the primary keys only of the passed in accountBalanceHistory
+     *
      * @param accountBalanceHistory
      */
     public AccountBalance(AccountBalanceHistory accountBalanceHistory) {
@@ -214,8 +212,7 @@ public class AccountBalance extends PersistableBusinessObjectBase implements Rep
         if (getAccountingCategoryExpenseCode().equals(financialObject.getFinancialObjectType().getBasicAccountingCategoryCode())) {
             variance = currentBudgetLineBalanceAmount.subtract(accountLineActualsBalanceAmount);
             variance = variance.subtract(accountLineEncumbranceBalanceAmount);
-        }
-        else {
+        } else {
             variance = accountLineActualsBalanceAmount.subtract(currentBudgetLineBalanceAmount);
         }
         return variance;

@@ -18,49 +18,44 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
- 	<bean id="accountCreationServiceSOAP" parent="kfsCallbackService"
-    	p:callbackService-ref="accountCreationService" p:localServiceName="accountCreationServiceSOAP"
-        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-        p:serviceInterface="org.kuali.kfs.module.external.kc.service.AccountCreationService"
-		p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+    <bean id="accountCreationServiceSOAP" parent="kfsCallbackService"
+          p:callbackService-ref="accountCreationService" p:localServiceName="accountCreationServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.AccountCreationService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
     <bean id="budgetAdjustmentServiceSOAP" parent="kfsCallbackService"
-        p:callbackService-ref="budgetAdjustmentService" p:localServiceName="budgetAdjustmentServiceSOAP"
-        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-        p:serviceInterface="org.kuali.kfs.module.external.kc.service.BudgetAdjustmentService"
-		p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+          p:callbackService-ref="budgetAdjustmentService" p:localServiceName="budgetAdjustmentServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.BudgetAdjustmentService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
     <bean id="kcObjectCodeServiceSOAP" parent="kfsCallbackService"
-        p:callbackService-ref="kcObjectCodeService" p:localServiceName="kcObjectCodeServiceSOAP"
-        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-        p:serviceInterface="org.kuali.kfs.module.external.kc.service.KcObjectCodeService"
-		p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+          p:callbackService-ref="kcObjectCodeService" p:localServiceName="kcObjectCodeServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.KcObjectCodeService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
     <bean id="dunningCampaignServiceSOAP" parent="kfsCallbackService"
-        p:callbackService-ref="dunningCampaignService" p:localServiceName="dunningCampaignServiceSOAP"
-        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-        p:serviceInterface="org.kuali.kfs.module.external.kc.service.DunningCampaignService"
-        p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+          p:callbackService-ref="dunningCampaignService" p:localServiceName="dunningCampaignServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.DunningCampaignService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
     <bean id="billingFrequencyServiceSOAP" parent="kfsCallbackService"
-    	p:callbackService-ref="billingFrequencyService" p:localServiceName="billingFrequencyServiceSOAP"
-        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-        p:serviceInterface="org.kuali.kfs.module.external.kc.service.BillingFrequencyService"
-        p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+          p:callbackService-ref="billingFrequencyService" p:localServiceName="billingFrequencyServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.BillingFrequencyService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
     <bean id="customerCreationServiceSOAP" parent="kfsCallbackService"
-    	p:callbackService-ref="customerCreationService" p:localServiceName="customerCreationServiceSOAP"
-    	p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
-    	p:serviceInterface="org.kuali.kfs.module.external.kc.service.CustomerCreationService"
-        p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+          p:callbackService-ref="customerCreationService" p:localServiceName="customerCreationServiceSOAP"
+          p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+          p:serviceInterface="org.kuali.kfs.module.external.kc.service.CustomerCreationService"
+          p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
 
- </beans>
+</beans>

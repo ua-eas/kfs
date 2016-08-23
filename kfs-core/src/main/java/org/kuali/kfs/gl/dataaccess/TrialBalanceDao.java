@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.TrialBalanceReport;
+
+import java.util.List;
 
 /**
  * An interface to methods needed to calculate Balance By Consolidation Balance inquiries to query the database

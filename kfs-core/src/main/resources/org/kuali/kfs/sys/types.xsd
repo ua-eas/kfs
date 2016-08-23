@@ -18,14 +18,13 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <xsd:schema elementFormDefault="qualified"
-    targetNamespace="http://www.kuali.org/kfs/sys/types"
-    xmlns:kfs="http://www.kuali.org/kfs/sys/types"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            targetNamespace="http://www.kuali.org/kfs/sys/types"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <!-- simple data types -->
     <xsd:simpleType name="yearType">
         <xsd:restriction base="xsd:string">
-	    <!-- FIXME: should be more strict about year check -->
+            <!-- FIXME: should be more strict about year check -->
             <xsd:pattern value="[0-9]{4}"/>
         </xsd:restriction>
     </xsd:simpleType>
@@ -278,7 +277,7 @@
         <xsd:restriction base="xsd:string">
             <xsd:minLength value="1"/>
             <xsd:maxLength value="40"/>
-	    <!-- FIXME: add regex for email address -->
+            <!-- FIXME: add regex for email address -->
         </xsd:restriction>
     </xsd:simpleType>
 

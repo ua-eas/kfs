@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching fully-specified Java class names
- *
- *
  */
 public class JavaClassValidationPattern extends FieldLevelValidationPattern {
 

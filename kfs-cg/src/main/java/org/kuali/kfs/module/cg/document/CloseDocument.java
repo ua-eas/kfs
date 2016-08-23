@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cg.document;
 
-import java.sql.Date;
-
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
+
+import java.sql.Date;
 
 /**
  * Instances of CloseDocument indicate dates on which the {@link CloseBatchStep} should be executed.
@@ -63,7 +63,7 @@ public class CloseDocument extends FinancialSystemTransactionalDocumentBase {
      * Sets the date on which this instance should trigger the CloseBatchStep to close out {@link {Proposal}s and {@link Award}s.
      *
      * @param userInitiatedCloseDate the date on which this instance should trigger the CloseBatchStep to close out
-     *        {@link {Proposal}s and {@link Award}s.
+     *                               {@link {Proposal}s and {@link Award}s.
      */
     public void setCloseOnOrBeforeDate(Date closeOnOrBeforeDate) {
         this.closeOnOrBeforeDate = closeOnOrBeforeDate;

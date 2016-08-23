@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -31,8 +27,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
-public class BulkReceivingDaoOjb  extends PlatformAwareDaoBaseOjb implements BulkReceivingDao {
+public class BulkReceivingDaoOjb extends PlatformAwareDaoBaseOjb implements BulkReceivingDao {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BulkReceivingDaoOjb.class);
 
@@ -82,7 +82,7 @@ public class BulkReceivingDaoOjb  extends PlatformAwareDaoBaseOjb implements Bul
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(BulkReceivingDocument.class, criteria);
         if (orderByAscending) {
             rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
-        }else {
+        } else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
 

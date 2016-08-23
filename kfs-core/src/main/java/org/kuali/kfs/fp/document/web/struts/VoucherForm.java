@@ -18,16 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import static org.kuali.kfs.sys.KFSConstants.VOUCHER_LINE_HELPER_CREDIT_PROPERTY_NAME;
-import static org.kuali.kfs.sys.KFSConstants.VOUCHER_LINE_HELPER_DEBIT_PROPERTY_NAME;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -36,6 +26,8 @@ import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelper;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelperBase;
 import org.kuali.kfs.fp.document.VoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -46,8 +38,15 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.KFSConstants.VOUCHER_LINE_HELPER_CREDIT_PROPERTY_NAME;
+import static org.kuali.kfs.sys.KFSConstants.VOUCHER_LINE_HELPER_DEBIT_PROPERTY_NAME;
 
 /**
  * This class is the Struts specific form object that works in conjunction with the pojo utilities to build the UI for Voucher
@@ -424,7 +423,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      * @param sourceLine
      * @param debitAmount
      * @param creditAmount
-     * @param index if -1, then its a new line, if not -1 then it's an existing line
+     * @param index        if -1, then its a new line, if not -1 then it's an existing line
      * @return boolean True if the processing was successful, false otherwise.
      */
     protected boolean processDebitAndCreditForSourceLine(SourceAccountingLine sourceLine, KualiDecimal debitAmount, KualiDecimal creditAmount, int index) {
@@ -440,14 +439,12 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
             KualiDecimal tmpDebitAmount = new KualiDecimal(debitAmount.toString());
             sourceLine.setDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             sourceLine.setAmount(tmpDebitAmount);
-        }
-        else if (creditAmount != null && creditAmount.isNonZero()) { // assume credit, if both are set the br eval framework will
+        } else if (creditAmount != null && creditAmount.isNonZero()) { // assume credit, if both are set the br eval framework will
             // catch it
             KualiDecimal tmpCreditAmount = new KualiDecimal(creditAmount.toString());
             sourceLine.setDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             sourceLine.setAmount(tmpCreditAmount);
-        }
-        else { // default to DEBIT, note the br eval framework will still pick it up
+        } else { // default to DEBIT, note the br eval framework will still pick it up
             sourceLine.setDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             sourceLine.setAmount(KualiDecimal.ZERO);
         }
@@ -460,7 +457,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      *
      * @param creditAmount
      * @param debitAmount
-     * @param index if -1, it's a new line, if not -1, then its an existing line
+     * @param index        if -1, it's a new line, if not -1, then its an existing line
      * @return boolean False if both the credit and debit fields have a value, true otherwise.
      */
     protected boolean validateCreditAndDebitAmounts(KualiDecimal debitAmount, KualiDecimal creditAmount, int index) {
@@ -471,18 +468,15 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
                 if (KFSConstants.NEGATIVE_ONE == index) { // it's a new line
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(KFSConstants.DEBIT_AMOUNT_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_JV_AMOUNTS_IN_CREDIT_AND_DEBIT_FIELDS);
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(KFSConstants.CREDIT_AMOUNT_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_JV_AMOUNTS_IN_CREDIT_AND_DEBIT_FIELDS);
-                }
-                else {
+                } else {
                     String errorKeyPath = KFSConstants.JOURNAL_LINE_HELPER_PROPERTY_NAME + KFSConstants.SQUARE_BRACKET_LEFT + Integer.toString(index) + KFSConstants.SQUARE_BRACKET_RIGHT;
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorKeyPath + VOUCHER_LINE_HELPER_DEBIT_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_JV_AMOUNTS_IN_CREDIT_AND_DEBIT_FIELDS);
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorKeyPath + VOUCHER_LINE_HELPER_CREDIT_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_JV_AMOUNTS_IN_CREDIT_AND_DEBIT_FIELDS);
                 }
-            }
-            else {
+            } else {
                 valid = true;
             }
-        }
-        else {
+        } else {
             valid = true;
         }
         return valid;

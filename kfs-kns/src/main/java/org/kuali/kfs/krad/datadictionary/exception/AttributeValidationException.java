@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
 
 /**
  * Exception thrown when an attribute can't be found during attribute-related validation.
- *
- *
  */
 public class AttributeValidationException extends DataDictionaryException {
 

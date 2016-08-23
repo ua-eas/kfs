@@ -19,55 +19,55 @@
  -->
 
 <xsd:schema elementFormDefault="qualified"
-		    targetNamespace="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
-		    xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
-		    xmlns:purap="http://www.kuali.org/kfs/purap/types"
-		    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            targetNamespace="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
+            xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
+            xmlns:purap="http://www.kuali.org/kfs/purap/types"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:org/kuali/kfs/sys/xml.xsd"/>
-<xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:org/kuali/kfs/sys/xml.xsd"/>
+    <xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd"/>
 
-	<xsd:element name="cXML">
-	    <xsd:complexType>
-	      <xsd:sequence>
-	        <xsd:element name="Response">
-	        	<xsd:complexType>
-		            <xsd:sequence>
+    <xsd:element name="cXML">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Response">
+                    <xsd:complexType>
+                        <xsd:sequence>
 
-       		      		<xsd:element name="Status">
-						  <xsd:complexType>
-						  	<xsd:simpleContent>
-						  		<xsd:extension base="xsd:string">
-						  			<xsd:attribute name="code" type="purap:statusCodeType" />
-						  			<xsd:attribute name="text" type="purap:statusTextType" />
-						  		</xsd:extension>
-						  	</xsd:simpleContent>
-						  </xsd:complexType>
-						</xsd:element>
+                            <xsd:element name="Status">
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:extension base="xsd:string">
+                                            <xsd:attribute name="code" type="purap:statusCodeType"/>
+                                            <xsd:attribute name="text" type="purap:statusTextType"/>
+                                        </xsd:extension>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
 
-						<xsd:element name="PunchOutSetupResponse">
-							  <xsd:complexType>
-									<xsd:sequence>
-										<xsd:element name="StartPage">
-											<xsd:complexType>
-												<xsd:sequence>
-													<xsd:element name="URL" type="xsd:string"/>
-												</xsd:sequence>
-					       		      		</xsd:complexType>
-					       		      	 </xsd:element>
-	       		      				</xsd:sequence>
-	       		      		</xsd:complexType>
-        		      	</xsd:element>
+                            <xsd:element name="PunchOutSetupResponse">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="StartPage">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="URL" type="xsd:string"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
 
-        		    </xsd:sequence>
-        		</xsd:complexType>
-        	</xsd:element> <!-- Response -->
-        </xsd:sequence>
-        <xsd:attribute name="version" type="xsd:string" use="optional"/>
-        <xsd:attribute ref="xml:lang" use="optional" />
-        <xsd:attribute name="timestamp" type="xsd:string" use="required" />
-        <xsd:attribute name="payloadID" type="xsd:string" use="required" />
-       </xsd:complexType>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element> <!-- Response -->
+            </xsd:sequence>
+            <xsd:attribute name="version" type="xsd:string" use="optional"/>
+            <xsd:attribute ref="xml:lang" use="optional"/>
+            <xsd:attribute name="timestamp" type="xsd:string" use="required"/>
+            <xsd:attribute name="payloadID" type="xsd:string" use="required"/>
+        </xsd:complexType>
     </xsd:element>
 
 </xsd:schema>

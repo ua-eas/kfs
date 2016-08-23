@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
@@ -30,8 +27,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * check to ensure totals of accounting lines in source and target sections match by pay FY + pay period
@@ -44,6 +44,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -104,7 +105,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
         String payFYPeriodKey = null;
 
         // go through source lines adding amounts to appropriate place in map
-        for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+        for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
             // initialize
             line = (ExpenseTransferAccountingLine) i.next();
             linesAmount = KualiDecimal.ZERO;
@@ -163,7 +164,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
 
         // Loop through source lines comparing against target lines
-        for (Iterator i = sourceLinesMap.entrySet().iterator(); i.hasNext() && isValid;) {
+        for (Iterator i = sourceLinesMap.entrySet().iterator(); i.hasNext() && isValid; ) {
             // initialize
             entry = (Map.Entry) i.next();
             currentKey = (String) entry.getKey();
@@ -177,8 +178,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
                     isValid = false;
                 }
 
-            }
-            else {
+            } else {
                 isValid = false;
             }
         }
@@ -187,7 +187,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
          * Now loop through target lines comparing against source lines. This finds missing entries from either direction (source or
          * target)
          */
-        for (Iterator i = targetLinesMap.entrySet().iterator(); i.hasNext() && isValid;) {
+        for (Iterator i = targetLinesMap.entrySet().iterator(); i.hasNext() && isValid; ) {
             // initialize
             entry = (Map.Entry) i.next();
             currentKey = (String) entry.getKey();
@@ -201,8 +201,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
                     isValid = false;
                 }
 
-            }
-            else {
+            } else {
                 isValid = false;
             }
         }
@@ -211,6 +210,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -219,6 +219,7 @@ public class LaborExpenseTransferAccountingLineTotalsMatchByPayFYAndPayPeriodVal
 
     /**
      * Sets the documentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

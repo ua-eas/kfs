@@ -20,8 +20,8 @@ package org.kuali.kfs.sys.businessobject;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * A collection of methods, specifying data that would be necessary to create a GeneralLedgerPendingEntry
@@ -31,66 +31,82 @@ public interface GeneralLedgerPendingEntrySourceDetail extends PersistableBusine
      * @return Returns the chartOfAccountsCode.
      */
     public abstract String getChartOfAccountsCode();
+
     /**
      * @return Returns the accountNumber.
      */
     public abstract String getAccountNumber();
+
     /**
      * @return Returns the account.
      */
     public abstract Account getAccount();
+
     /**
      * @return Returns the documentNumber.
      */
     public abstract String getDocumentNumber();
+
     /**
      * @return Returns the financialObjectCode.
      */
     public abstract String getFinancialObjectCode();
+
     /**
      * @return Returns the objectCode.
      */
     public abstract ObjectCode getObjectCode();
+
     /**
      * @return Returns the organizationReferenceId.
      */
     public abstract String getOrganizationReferenceId();
+
     /**
      * @return Returns the projectCode.
      */
     public abstract String getProjectCode();
+
     /**
      * @return Returns the referenceNumber.
      */
     public abstract String getReferenceNumber();
+
     /**
      * @return Returns the referenceTypeCode.
      */
     public abstract String getReferenceTypeCode();
+
     /**
      * @return Returns the referenceOriginCode.
      */
     public abstract String getReferenceOriginCode();
+
     /**
      * @return Returns the subAccountNumber.
      */
     public abstract String getSubAccountNumber();
+
     /**
      * @return Returns the financialSubObjectCode.
      */
     public abstract String getFinancialSubObjectCode();
+
     /**
      * @return Returns the financialDocumentLineDescription.
      */
     public abstract String getFinancialDocumentLineDescription();
+
     /**
      * @return Returns the amount.
      */
     public abstract KualiDecimal getAmount();
+
     /**
      * @return Returns the postingYear.
      */
     public abstract Integer getPostingYear();
+
     /**
      * @return Returns the balanceTypeCode.
      */

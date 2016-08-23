@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ld.batch.dataaccess.impl;
 
+import org.kuali.kfs.gl.batch.dataaccess.impl.LedgerEntryBalanceCachingDaoJdbc;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.batch.dataaccess.impl.LedgerEntryBalanceCachingDaoJdbc;
 
 /**
  * This class...
  */
 public class LaborLedgerEntryBalanceCachingDaoJdbc extends LedgerEntryBalanceCachingDaoJdbc {
 
-    public List compareBalanceHistory(String balanceTable, String historyTable,int fiscalYear) {
+    public List compareBalanceHistory(String balanceTable, String historyTable, int fiscalYear) {
         List<Map<String, Object>> data = null;
 
         StringBuilder queryBuilder = new StringBuilder();

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.coreservice.web.parameter;
 
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import java.util.ArrayList;
 import java.util.Collections;

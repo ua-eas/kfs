@@ -18,38 +18,37 @@
  */
 package org.kuali.rice.kim.api.jaxb;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An XML element that can have zero or more StringMapEntry elements. This is similar
  * to the StringMapEntryList, except this element's children are &lt;qualification&gt; elements.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="QualificationListType", propOrder={"qualifications"})
+@XmlType(name = "QualificationListType", propOrder = {"qualifications"})
 public class QualificationList implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="qualification")
+    @XmlElement(name = "qualification")
     private List<MapStringStringAdapter.StringMapEntry> qualifications;
 
-    public QualificationList () {
+    public QualificationList() {
         qualifications = new ArrayList<MapStringStringAdapter.StringMapEntry>();
     }
 
     public QualificationList(Map<String, String> map) {
         this();
-        for (Map.Entry<String,String> tempEntry : map.entrySet()) {
+        for (Map.Entry<String, String> tempEntry : map.entrySet()) {
             qualifications.add(new MapStringStringAdapter.StringMapEntry(tempEntry));
         }
     }

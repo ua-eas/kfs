@@ -21,35 +21,33 @@ package org.kuali.kfs.krad.uif.control;
 /**
  * Represents a group of HTML Radio controls. Provides preset options for the
  * user to choose by a series of radio controls. Only one option can be selected
- *
- *
  */
 public class RadioGroupControl extends MultiValueControlBase {
-	private static final long serialVersionUID = 8800478332086081970L;
+    private static final long serialVersionUID = 8800478332086081970L;
 
-	private String delimiter;
+    private String delimiter;
 
-	public RadioGroupControl() {
-		super();
-	}
+    public RadioGroupControl() {
+        super();
+    }
 
-	/**
-	 * Delimiter string to be rendered between the radio group options, defaults
-	 * to none
-	 *
-	 * @return String delimiter string
-	 */
-	public String getDelimiter() {
-		return this.delimiter;
-	}
+    /**
+     * Delimiter string to be rendered between the radio group options, defaults
+     * to none
+     *
+     * @return String delimiter string
+     */
+    public String getDelimiter() {
+        return this.delimiter;
+    }
 
-	/**
-	 * Setter for the string delimiter for each radio option
-	 *
-	 * @param delimiter
-	 */
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
-	}
+    /**
+     * Setter for the string delimiter for each radio option
+     *
+     * @param delimiter
+     */
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
 
 }

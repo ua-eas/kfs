@@ -18,15 +18,9 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
@@ -37,38 +31,42 @@ import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.type.KimAttributeField;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
     protected DocumentTypeService documentTypeService;
     protected OrganizationService organizationService;
 
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         if (StringUtils.isBlank(roleQualifier.get(KfsKimAttributes.ACCOUNT_NUMBER))) {
             if (KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.CHART_OF_ACCOUNTS_CODE)
-                    && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.ORGANIZATION_CODE)
-                    && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.SUB_ACCOUNT_NUMBER)) {
+                && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.ORGANIZATION_CODE)
+                && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.SUB_ACCOUNT_NUMBER)) {
                 Set<String> potentialParentDocumentTypeNames = new HashSet<String>(1);
                 if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {
                     potentialParentDocumentTypeNames.add(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME));
                 }
                 return potentialParentDocumentTypeNames.isEmpty()
-                        || qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME).equalsIgnoreCase(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
-                        || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
+                    || qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME).equalsIgnoreCase(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
+                    || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
             }
-        }
-        else {
+        } else {
             if (KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.CHART_OF_ACCOUNTS_CODE)
-                    && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.ACCOUNT_NUMBER)
-                    && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.SUB_ACCOUNT_NUMBER)) {
+                && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.ACCOUNT_NUMBER)
+                && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.SUB_ACCOUNT_NUMBER)) {
                 Set<String> potentialParentDocumentTypeNames = new HashSet<String>(1);
                 if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {
                     potentialParentDocumentTypeNames.add(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME));
                 }
                 return potentialParentDocumentTypeNames.isEmpty()
-                        || qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME).equalsIgnoreCase(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
-                        || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
+                    || qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME).equalsIgnoreCase(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
+                    || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
             }
         }
         return false;
@@ -86,9 +84,9 @@ public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
      *
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#validateAttributes(java.lang.String, java.util.Map)
      */
-    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String,String> attributes) {
+    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String, String> attributes) {
         List<RemotableAttributeError> originalErrorMap = super.validateAttributes(kimTypeId, attributes);
-        List<RemotableAttributeError> errorMap = new ArrayList<RemotableAttributeError>( originalErrorMap.size() );
+        List<RemotableAttributeError> errorMap = new ArrayList<RemotableAttributeError>(originalErrorMap.size());
         String chartCode = attributes.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
         String organizationCode = attributes.get(KfsKimAttributes.ORGANIZATION_CODE);
         String accountNumber = attributes.get(KfsKimAttributes.ACCOUNT_NUMBER);
@@ -96,18 +94,18 @@ public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
 
         if (StringUtils.isEmpty(accountNumber) && StringUtils.isEmpty(organizationCode)) {
             // remove chartofAccountCode, organizationCode and account number and sub-account number errors
-            for ( RemotableAttributeError err : originalErrorMap ) {
-                if ( err.getAttributeName().equals( KfsKimAttributes.ACCOUNT_NUMBER ) ) {
+            for (RemotableAttributeError err : originalErrorMap) {
+                if (err.getAttributeName().equals(KfsKimAttributes.ACCOUNT_NUMBER)) {
                     // remove (by not adding) to the new error map
-                } else if ( err.getAttributeName().equals( KfsKimAttributes.ORGANIZATION_CODE ) ) {
+                } else if (err.getAttributeName().equals(KfsKimAttributes.ORGANIZATION_CODE)) {
                     // remove (by not adding) to the new error map
-                } else if ( err.getAttributeName().equals(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE) && StringUtils.isEmpty(chartCode) ) {
+                } else if (err.getAttributeName().equals(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE) && StringUtils.isEmpty(chartCode)) {
                     // remove (by not adding) to the new error map
-                } else if ( err.getAttributeName().equals(KfsKimAttributes.SUB_ACCOUNT_NUMBER) && StringUtils.isEmpty(subAccountNumber) ) {
+                } else if (err.getAttributeName().equals(KfsKimAttributes.SUB_ACCOUNT_NUMBER) && StringUtils.isEmpty(subAccountNumber)) {
                     // remove (by not adding) to the new error map
                 } else {
                     // let it stay in the resulting map
-                    errorMap.add( err );
+                    errorMap.add(err);
                 }
             }
         } else if (StringUtils.isNotEmpty(accountNumber) || StringUtils.isNotEmpty(organizationCode)) {
@@ -134,7 +132,7 @@ public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
         for (KimAttributeField definition : super.getAttributeDefinitions(kimTypeId)) {
             RemotableAttributeField attribute = definition.getAttributeField();
 
-            List<String> attributeList = new ArrayList<String>(){{
+            List<String> attributeList = new ArrayList<String>() {{
                 add(KfsKimAttributes.SUB_ACCOUNT_NUMBER);
                 add(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
                 add(KfsKimAttributes.ACCOUNT_NUMBER);
@@ -151,7 +149,7 @@ public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
                 KimAttributeField.Builder nonRequiredAttribute = KimAttributeField.Builder.create(nonRequiredAttributeBuilder, definition.getId());
                 nonRequiredAttribute.setUnique(definition.isUnique());
                 attributeDefinitionList.add(nonRequiredAttribute.build());
-            }else{
+            } else {
                 attributeDefinitionList.add(definition);
             }
         }

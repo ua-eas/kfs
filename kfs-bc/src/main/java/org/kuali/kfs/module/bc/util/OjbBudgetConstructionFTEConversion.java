@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.util;
 
-import java.math.BigDecimal;
-
 import org.apache.ojb.broker.accesslayer.conversions.ConversionException;
 import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
+
+import java.math.BigDecimal;
 
 /**
  * Ensures that the database FTE value is rounded to 5 decimal places when reading. Any saved FTE value will automatically be forced
@@ -36,8 +36,7 @@ public class OjbBudgetConstructionFTEConversion implements FieldConversion {
         if (source != null && source instanceof BigDecimal) {
             BigDecimal converted = (BigDecimal) source;
             return converted;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -50,8 +49,7 @@ public class OjbBudgetConstructionFTEConversion implements FieldConversion {
             BigDecimal converted = (BigDecimal) source;
 
             return converted.setScale(5, BigDecimal.ROUND_HALF_UP);
-        }
-        else {
+        } else {
             return null;
         }
     }

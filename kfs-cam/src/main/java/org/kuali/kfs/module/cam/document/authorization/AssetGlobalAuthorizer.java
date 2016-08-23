@@ -18,26 +18,25 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * AssetAuthorizer for Asset edit.
  */
 public class AssetGlobalAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
     /**
-     *
      * @see org.kuali.rice.krad.document.authorization.MaintenanceDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.krad.bo.BusinessObject, java.util.Map)
      */
     @Override
@@ -48,7 +47,7 @@ public class AssetGlobalAuthorizer extends FinancialSystemMaintenanceDocumentAut
         // to some asset functions like "Separate". Take a look at AssetLookupableHelperServiceImpl.getSeparateUrl(Asset asset) for more info.
         if (businessObject instanceof Asset) {
             Asset asset = (Asset) businessObject;
-            attributes.put(CamsPropertyConstants.Asset.CAMPUS_CODE,asset.getCampusCode());
+            attributes.put(CamsPropertyConstants.Asset.CAMPUS_CODE, asset.getCampusCode());
         }
     }
 

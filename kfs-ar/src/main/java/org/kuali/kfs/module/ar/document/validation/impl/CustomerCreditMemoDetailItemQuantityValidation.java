@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
@@ -29,8 +27,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 public class CustomerCreditMemoDetailItemQuantityValidation extends GenericValidation {
 
@@ -45,7 +45,7 @@ public class CustomerCreditMemoDetailItemQuantityValidation extends GenericValid
         if (ObjectUtils.isNotNull(quantity) && ObjectUtils.isNull(amount)) {
 
             // customer credit memo quantity must be greater than zero
-            isValid = (quantity.compareTo(BigDecimal.ZERO) == 1 ?true:false);
+            isValid = (quantity.compareTo(BigDecimal.ZERO) == 1 ? true : false);
             if (!isValid) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_ITEM_QUANTITY, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DETAIL_ITEM_QUANTITY_LESS_THAN_OR_EQUAL_TO_ZERO);
                 return false;
@@ -55,7 +55,7 @@ public class CustomerCreditMemoDetailItemQuantityValidation extends GenericValid
             BigDecimal customerCreditMemoItemQty = customerCreditMemoDetail.getCreditMemoItemQuantity();
 
             // customer credit memo quantity must not be greater than invoice open item quantity
-            isValid = (customerCreditMemoItemQty.compareTo(invoiceOpenItemQty) < 1?true:false);
+            isValid = (customerCreditMemoItemQty.compareTo(invoiceOpenItemQty) < 1 ? true : false);
             if (!isValid) {
                 GlobalVariables.getMessageMap().putError(DOCUMENT_ERROR_PREFIX + KFSConstants.CUSTOMER_CREDIT_MEMO_DETAIL_PROPERTY_NAME + "." + ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_ITEM_QUANTITY, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DETAIL_ITEM_QUANTITY_GREATER_THAN_INVOICE_ITEM_QUANTITY);
                 return false;

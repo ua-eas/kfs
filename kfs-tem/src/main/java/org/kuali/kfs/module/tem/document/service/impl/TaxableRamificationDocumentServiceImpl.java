@@ -18,17 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoice;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -43,15 +40,18 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * implement the service calls and operations on tax ramification document
@@ -99,8 +99,7 @@ public class TaxableRamificationDocumentServiceImpl implements TaxableRamificati
             this.addAdHocRoutePersons(taxRamificationDocument);
 
             this.getDocumentService().blanketApproveDocument(taxRamificationDocument, KFSConstants.EMPTY_STRING, new ArrayList<AdHocRouteRecipient>(taxRamificationDocument.getAdHocRoutePersons()));
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Failed to blanket approve the given tax ramification document. ", we);
             throw new RuntimeException(we);
         }
@@ -149,8 +148,7 @@ public class TaxableRamificationDocumentServiceImpl implements TaxableRamificati
             this.populateTaxRamificationDocument(taxRamificationDocument, travelAdvance);
 
             return taxRamificationDocument;
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error(we);
             throw new RuntimeException(we);
         }

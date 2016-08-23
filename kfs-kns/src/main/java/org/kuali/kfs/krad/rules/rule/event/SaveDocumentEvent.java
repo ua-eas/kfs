@@ -30,8 +30,6 @@ import java.util.List;
 /**
  * This class represents the save event that is part of an eDoc in Kuali. This could be triggered when a user presses the save
  * button for a given document or it could happen when another piece of code calls the save method in the document service.
- *
- *
  */
 public class SaveDocumentEvent extends KualiDocumentEventBase implements SaveEvent {
     /**
@@ -57,7 +55,7 @@ public class SaveDocumentEvent extends KualiDocumentEventBase implements SaveEve
      * @see KualiDocumentEventBase#KualiDocumentEventBase(java.lang.String, java.lang.String, Document)
      */
     public SaveDocumentEvent(String description, String errorPathPrefix, Document document) {
-	super(description, errorPathPrefix, document);
+        super(description, errorPathPrefix, document);
     }
 
     /**

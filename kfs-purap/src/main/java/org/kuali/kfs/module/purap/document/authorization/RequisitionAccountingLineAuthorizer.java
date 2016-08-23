@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -27,6 +25,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Set;
 
 /**
  * Accounting line authorizer for Requisition document which allows adding accounting lines at specified nodes
@@ -37,11 +37,12 @@ public class RequisitionAccountingLineAuthorizer extends PurapAccountingLineAuth
 
     /**
      * Allow new lines to be rendered at Initiator node
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#renderNewLine(org.kuali.kfs.sys.document.AccountingDocument, java.lang.String)
      */
     @Override
     public boolean renderNewLine(AccountingDocument accountingDocument, String accountingGroupProperty) {
-        WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument)accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
+        WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
 
         Set<String> currentNodes = workflowDocument.getCurrentNodeNames();
         if (CollectionUtils.isNotEmpty(currentNodes) && (currentNodes.contains(RequisitionAccountingLineAuthorizer.INITIATOR_NODE) || currentNodes.contains(RequisitionAccountingLineAuthorizer.CONTENT_REVIEW_NODE))) {

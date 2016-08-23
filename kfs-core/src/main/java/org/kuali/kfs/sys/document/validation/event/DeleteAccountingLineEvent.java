@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
 
 public class DeleteAccountingLineEvent extends AttributedDocumentEventBase implements AccountingLineEvent {
     private final AccountingLine accountingLine;
@@ -48,6 +48,7 @@ public class DeleteAccountingLineEvent extends AttributedDocumentEventBase imple
 
     /**
      * Gets the lineWasAlreadyDeletedFromDocument attribute.
+     *
      * @return Returns the lineWasAlreadyDeletedFromDocument.
      */
     public boolean isLineWasAlreadyDeletedFromDocument() {

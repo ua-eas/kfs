@@ -44,6 +44,6 @@ public class BudgetPositionAlreadyExistsException extends RuntimeException {
     }
 
     public String[] getMessageParameters() {
-        return new String[] { universityFiscalYear.toString(), positionNumber };
+        return new String[]{universityFiscalYear.toString(), positionNumber};
     }
 }

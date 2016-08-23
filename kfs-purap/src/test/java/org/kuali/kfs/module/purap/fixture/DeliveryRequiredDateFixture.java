@@ -18,20 +18,18 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
+import java.sql.Date;
+
 public enum DeliveryRequiredDateFixture {
     DELIVERY_REQUIRED_EQUALS_CURRENT_DATE(SpringContext.getBean(DateTimeService.class).getCurrentSqlDateMidnight()),
 
-    DELIVERY_REQUIRED_BEFORE_CURRENT_DATE(new Date(System.currentTimeMillis()/2)),
+    DELIVERY_REQUIRED_BEFORE_CURRENT_DATE(new Date(System.currentTimeMillis() / 2)),
 
-    DELIVERY_REQUIRED_AFTER_CURRENT_DATE(new Date(System.currentTimeMillis() + 100000))
-
-    ;
+    DELIVERY_REQUIRED_AFTER_CURRENT_DATE(new Date(System.currentTimeMillis() + 100000));
 
     Date deliveryRequiredDate;
 

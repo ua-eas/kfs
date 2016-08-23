@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.batch.service.FiscalYearMakerService;
+
+import java.util.Date;
 
 /**
  * Batch step implementation for Fiscal Year Maker

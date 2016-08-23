@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.service;
 
-import javax.mail.MessagingException;
-
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.rice.core.api.mail.MailMessage;
+
+import javax.mail.MessagingException;
 
 public interface MailService {
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException;

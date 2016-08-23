@@ -22,7 +22,6 @@ import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 /**
- *
  * Purchasing Item Capital Asset Event
  */
 public interface AttributedPurchasingItemCapitalAssetEvent extends AttributedDocumentEvent {

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Base abstract implementation of an attributed document event.
@@ -35,6 +35,7 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
 
     /**
      * Constructs a AttributedDocumentEventBase
+     *
      * @param description
      * @param errorPathPrefix
      */
@@ -67,6 +68,7 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
 
     /**
      * Gets the iterationSubject attribute.
+     *
      * @return Returns the iterationSubject.
      */
     public Object getIterationSubject() {
@@ -75,6 +77,7 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
 
     /**
      * Sets the iterationSubject attribute value.
+     *
      * @param iterationSubject The iterationSubject to set.
      */
     public void setIterationSubject(Object iterationSubject) {
@@ -92,6 +95,6 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
      * @see org.kuali.kfs.krad.rule.event.KualiDocumentEvent#invokeRuleMethod(org.kuali.kfs.krad.rule.BusinessRule)
      */
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((AccountingRuleEngineRule)rule).validateForEvent(this);
+        return ((AccountingRuleEngineRule) rule).validateForEvent(this);
     }
 }

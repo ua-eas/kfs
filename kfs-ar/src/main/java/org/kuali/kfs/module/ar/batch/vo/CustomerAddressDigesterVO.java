@@ -35,7 +35,8 @@ public class CustomerAddressDigesterVO {
     private String customerAddressTypeCode;
     private String customerAddressEndDate;
 
-    public CustomerAddressDigesterVO() {}
+    public CustomerAddressDigesterVO() {
+    }
 
     public String getCustomerNumber() {
         return customerNumber;

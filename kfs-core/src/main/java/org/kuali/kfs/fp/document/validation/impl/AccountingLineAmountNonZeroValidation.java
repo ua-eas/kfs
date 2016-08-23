@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates that the amount on a given accounting line is not zero
@@ -35,6 +35,7 @@ public class AccountingLineAmountNonZeroValidation extends GenericValidation {
     /**
      * Validates that the amount of the given accounting line is not zero
      * <strong>the accounting document must be the first parameter, the accounting line must be the second parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -49,6 +50,7 @@ public class AccountingLineAmountNonZeroValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -57,6 +59,7 @@ public class AccountingLineAmountNonZeroValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectType;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.LinkedHashMap;
 
 
 public class SystemOptions extends PersistableBusinessObjectBase implements FiscalYearBasedBusinessObject {

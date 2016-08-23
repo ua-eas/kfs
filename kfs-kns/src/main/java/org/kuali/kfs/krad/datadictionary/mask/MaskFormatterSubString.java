@@ -24,8 +24,6 @@ import org.apache.commons.lang.StringUtils;
  * The maskTo element is to used hide the beginning part of the value for
  * unauthorized users. The number of leading characters to hide and the
  * replacement character can be specified.
- *
- *
  */
 public class MaskFormatterSubString implements MaskFormatter {
     private static final long serialVersionUID = -876112522775686636L;
@@ -45,12 +43,12 @@ public class MaskFormatterSubString implements MaskFormatter {
 
         String strValue = value.toString();
         if (strValue.length() < maskLength) {
-        	return StringUtils.repeat(maskCharacter, maskLength);
+            return StringUtils.repeat(maskCharacter, maskLength);
         }
-        if(maskLength >0){
-        	return StringUtils.repeat(maskCharacter, maskLength) + strValue.substring(maskLength);
-        }else{
-        	return strValue;
+        if (maskLength > 0) {
+            return StringUtils.repeat(maskCharacter, maskLength) + strValue.substring(maskLength);
+        } else {
+            return strValue;
         }
     }
 

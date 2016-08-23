@@ -19,9 +19,9 @@
 package org.kuali.kfs.krad.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.rice.kew.api.KewApiConstants;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -36,7 +36,7 @@ public class RouteToCompletionUtil {
         boolean foundAtleastOneCompleteReq = false;
         // iterating the adhoc recpients list to check if there is atleast on complete request for the document.
         foundAtleastOneCompleteReq = loopAndCheckValue(document.getAdHocRouteWorkgroups()) || loopAndCheckValue(
-                document.getAdHocRoutePersons());
+            document.getAdHocRoutePersons());
 
         return foundAtleastOneCompleteReq;
     }

@@ -29,7 +29,9 @@ import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJd
  */
 public class PriorYearOrganizationDaoJdbc extends PlatformAwareDaoBaseJdbc implements PriorYearOrganizationDao {
 
-    /** Constant used to retrieve row counts for tables. Obj_Id value exists in all tables in DB. */
+    /**
+     * Constant used to retrieve row counts for tables. Obj_Id value exists in all tables in DB.
+     */
     private static final String OBJ_ID = "OBJ_ID";
 
     /**

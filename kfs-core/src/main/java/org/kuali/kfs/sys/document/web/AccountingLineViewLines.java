@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLinesDefinition;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLinesDefinition;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * Represents the rendering for a bunch of elements within the accounting line view
@@ -36,13 +36,16 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
 
     /**
      * Gets the definition attribute.
+     *
      * @return Returns the definition.
      */
     public AccountingLineViewLinesDefinition getDefinition() {
         return definition;
     }
+
     /**
      * Sets the definition attribute value.
+     *
      * @param definition The definition to set.
      */
     public void setDefinition(AccountingLineViewLinesDefinition definition) {
@@ -55,15 +58,19 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     public String getName() {
         return definition.getElementName();
     }
+
     /**
      * Gets the elements attribute.
+     *
      * @return Returns the elements.
      */
     public List<AccountingLineViewLineFillingElement> getElements() {
         return elements;
     }
+
     /**
      * Sets the elements attribute value.
+     *
      * @param lines The elements to set.
      */
     public void setElements(List<AccountingLineViewLineFillingElement> lines) {
@@ -73,6 +80,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     /**
      * The interesting implementation...how many does it need?  Let's see here...one for each child row...
      * yes...that's right, one table row for each child row
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLines#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -85,6 +93,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
 
     /**
      * Throws an exception - lines should never be asked to join rows
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerRow, AccountingLineTableRow row) {
@@ -93,6 +102,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
 
     /**
      * Attempts to have each child line join the rows that have been given
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -103,8 +113,8 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
             AccountingLineTableRow headerRow = rows.get(count);
 
             if (line.getRequestedRowCount() > 1) {
-                line.joinRow(headerRow, rows.get(count+1));
-                padOutOrStretchCells(line, maxExpectedLineWidth, headerRow, rows.get(count+1));
+                line.joinRow(headerRow, rows.get(count + 1));
+                padOutOrStretchCells(line, maxExpectedLineWidth, headerRow, rows.get(count + 1));
 
                 count += 2;
             } else {
@@ -118,10 +128,11 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
 
     /**
      * Either pads out out the given table rows with an empty cell or stretches the cell to fill the whole line
-     * @param line the line joining the table
+     *
+     * @param line                 the line joining the table
      * @param maxExpectedLineWidth the expected width, in cell count, of the line
-     * @param headerRow the first row to add padding out to
-     * @param row the second row to add padding out to - if we're only filling one row, this will be null
+     * @param headerRow            the first row to add padding out to
+     * @param row                  the second row to add padding out to - if we're only filling one row, this will be null
      */
     protected void padOutOrStretchCells(AccountingLineViewLineFillingElement line, int maxExpectedLineWidth, AccountingLineTableRow headerRow, AccountingLineTableRow row) {
         final int shorterThanMax = maxExpectedLineWidth - line.getDisplayingFieldWidth();
@@ -197,7 +208,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
      */
     public int getMaxExpectedLineWidth() {
         int maxWidth = 0;
-        for (AccountingLineViewLineFillingElement line: elements) {
+        for (AccountingLineViewLineFillingElement line : elements) {
             int width = line.getDisplayingFieldWidth();
             if (width > maxWidth) {
                 maxWidth = width;
@@ -208,6 +219,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
 
     /**
      * Shuffles the responsibility to the child lines
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
     public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {

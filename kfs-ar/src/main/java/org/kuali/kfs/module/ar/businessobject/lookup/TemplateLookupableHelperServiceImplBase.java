@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.io.File;
-import java.util.Properties;
-
-import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
@@ -32,6 +25,13 @@ import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.io.File;
+import java.util.Properties;
 
 public abstract class TemplateLookupableHelperServiceImplBase extends KualiLookupableHelperServiceImpl {
 
@@ -50,7 +50,7 @@ public abstract class TemplateLookupableHelperServiceImplBase extends KualiLooku
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
         parameters.put(templateCodeKey, templateCodeValue);
         parameters.put(KFSConstants.DOC_FORM_KEY, "88888888");
-        String href = UrlFactory.parameterizeUrl(getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)+ "/" + getAction(), parameters);
+        String href = UrlFactory.parameterizeUrl(getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY) + "/" + getAction(), parameters);
         return new AnchorHtmlData(href, KFSConstants.SEARCH_METHOD, ArConstants.UPLOAD_METHOD);
     }
 
@@ -81,12 +81,13 @@ public abstract class TemplateLookupableHelperServiceImplBase extends KualiLooku
             parameters.put(KFSPropertyConstants.FILE_NAME, fileName);
             parameters.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, ArConstants.DOWNLOAD_METHOD);
         }
-        String href = UrlFactory.parameterizeUrl(getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)+ "/" + getAction(), parameters);
+        String href = UrlFactory.parameterizeUrl(getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY) + "/" + getAction(), parameters);
         return new AnchorHtmlData(href, KFSConstants.SEARCH_METHOD, ArConstants.DOWNLOAD_METHOD);
     }
 
     /**
      * Return the action used to build the URLs for the template. Implemented by child classes.
+     *
      * @return
      */
     protected abstract String getAction();
@@ -95,7 +96,7 @@ public abstract class TemplateLookupableHelperServiceImplBase extends KualiLooku
      * Gets the kualiModuleService attribute.
      *
      * @return Returns the kualiModuleService
-    */
+     */
 
     public KualiModuleService getKualiModuleService() {
         return kualiModuleService;

@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborAccountingLineOverride;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -28,7 +27,8 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.Map;
 
 /**
  * Base Struts Action Form for all expense transfer documents.
@@ -36,9 +36,9 @@ import org.kuali.kfs.krad.util.KRADConstants;
 public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormBase implements MultipleValueLookupBroker {
 
     protected String lookupResultsSequenceNumber; // Indicates which result set we are using when refreshing/returning from a
-                                                // multi-value lookup.
+    // multi-value lookup.
     protected String lookupResultsBOClassName; // Type of result returned by the multi-value lookup. ?to be persisted in the lookup
-                                                // results service instead?
+    // results service instead?
     protected String lookedUpCollectionName; // The name of the collection looked up (by a multiple value lookup)
     protected Integer universityFiscalYear;
 
@@ -184,8 +184,8 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
         super.repopulateOverrides(line, accountingLinePropertyName, parameterMap);
         LaborAccountingLineOverride.determineNeededOverrides(getFinancialDocument(), line);
         if (line.getNonFringeAccountOverrideNeeded()) {
-            if (parameterMap.containsKey(accountingLinePropertyName+".nonFringeAccountOverride.present")) {
-                line.setNonFringeAccountOverride(parameterMap.containsKey(accountingLinePropertyName+".nonFringeAccountOverride"));
+            if (parameterMap.containsKey(accountingLinePropertyName + ".nonFringeAccountOverride.present")) {
+                line.setNonFringeAccountOverride(parameterMap.containsKey(accountingLinePropertyName + ".nonFringeAccountOverride"));
             }
         } else {
             line.setNonFringeAccountOverride(false);

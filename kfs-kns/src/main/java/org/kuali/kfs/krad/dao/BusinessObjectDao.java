@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.krad.dao;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-
 /**
  * This is the generic data access interface for business objects. This should be used for unit testing purposes only.
- *
- *
  */
 public interface BusinessObjectDao {
     /**
@@ -66,13 +64,13 @@ public interface BusinessObjectDao {
     public <T extends BusinessObject> T findByPrimaryKey(Class<T> clazz, Map<String, ?> primaryKeys);
 
     /**
-	 * Retrieves an object, based on its PK object
-	 *
-	 * @param clazz the class of the object to retrieve
-	 * @param pkObject the value of the primary key
-	 * @return the retrieved PersistableBusinessObject
-	 */
-	public abstract <T  extends BusinessObject> T findByPrimaryKeyUsingKeyObject(Class<T> clazz, Object pkObject);
+     * Retrieves an object, based on its PK object
+     *
+     * @param clazz    the class of the object to retrieve
+     * @param pkObject the value of the primary key
+     * @return the retrieved PersistableBusinessObject
+     */
+    public abstract <T extends BusinessObject> T findByPrimaryKeyUsingKeyObject(Class<T> clazz, Object pkObject);
 
     /**
      * Retrieves an object instance identified by the class of the given object and the object's primary key values.
@@ -94,7 +92,7 @@ public interface BusinessObjectDao {
     /**
      * Retrieves a collection of business objects populated with data, such that each record in the database populates a new object
      * instance. This will only retrieve business objects by class type.
-     *
+     * <p>
      * Adds criteria on active column to return only active records. Assumes there exist a mapping for PropertyConstants.Active
      *
      * @param clazz
@@ -116,8 +114,9 @@ public interface BusinessObjectDao {
     /**
      * Retrieves a collection of business objects populated with data, such that each record in the database populates a new object
      * instance. This will only retrieve business objects by class type. Orders the results by the given field.
-     *
+     * <p>
      * Adds criteria on active column to return only active records. Assumes there exist a mapping for PropertyConstants.Active
+     *
      * @param clazz
      * @return
      */
@@ -147,7 +146,7 @@ public interface BusinessObjectDao {
      * This method retrieves a collection of business objects populated with data, such that each record in the database populates a
      * new object instance. This will retrieve business objects by class type and also by criteria passed in as key-value pairs,
      * specifically attribute name-expected value.
-     *
+     * <p>
      * Adds criteria on active column to return only active records. Assumes there exist a mapping for PropertyConstants.Active
      *
      * @param clazz
@@ -165,14 +164,13 @@ public interface BusinessObjectDao {
 
 
     /**
-     *
      * This method returns the number of matching result given the positive criterias and
      * negative criterias. The negative criterias are the ones that will be set to
      * "notEqualTo" or "notIn"
      *
      * @param clazz
-     * @param positiveFieldValues  Map of fields and values for positive criteria
-     * @param negativeFieldValues  Map of fields and values for negative criteria
+     * @param positiveFieldValues Map of fields and values for positive criteria
+     * @param negativeFieldValues Map of fields and values for negative criteria
      * @return
      */
     public int countMatching(Class clazz, Map<String, ?> positiveFieldValues, Map<String, ?> negativeFieldValues);

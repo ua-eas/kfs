@@ -27,8 +27,7 @@ public class PunchOutSetupResponse extends B2BShoppingCartBase {
     public String getPunchOutUrl() {
         if (isSuccess()) {
             return punchOutUrl;
-        }
-        else {
+        } else {
             return null;
         }
     }

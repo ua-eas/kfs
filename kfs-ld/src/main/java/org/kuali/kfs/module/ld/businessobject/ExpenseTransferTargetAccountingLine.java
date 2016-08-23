@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -28,6 +25,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for special case <code>{@link TargetAccountingLine}</code> type for

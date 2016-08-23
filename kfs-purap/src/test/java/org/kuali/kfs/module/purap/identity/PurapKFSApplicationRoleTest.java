@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.identity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.kfs.sys.identity.RoleTestBase;
 import org.kuali.rice.kim.api.KimConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ConfigureContext
 public class PurapKFSApplicationRoleTest extends RoleTestBase {
@@ -38,7 +38,7 @@ public class PurapKFSApplicationRoleTest extends RoleTestBase {
     public static final String COMMODITY_REVIEWER_ROLE_NAME = "Commodity Reviewer";
 
     public void testCommodityReviewRoleTypeService() {
-        Map<String,String> roleQualifiers = new HashMap<String,String>();
+        Map<String, String> roleQualifiers = new HashMap<String, String>();
         roleQualifiers.put(KimConstants.AttributeConstants.CAMPUS_CODE, COMMODITY_CAMPUS);
         roleQualifiers.put(KfsKimAttributes.PURCHASING_COMMODITY_CODE, COMMODITY_CODE);
 
@@ -47,8 +47,8 @@ public class PurapKFSApplicationRoleTest extends RoleTestBase {
         assertUserIsNotRoleMember(getPrincipalIdByName(BAD_WILDCARD_COMMODITY_USER), PURAP_NAMESPACE, COMMODITY_REVIEWER_ROLE_NAME, roleQualifiers);
     }
 
-    public Map<String,String> buildRoleQualificationForSensitiveData(String sensitiveDataCode) {
-        Map<String,String> roleQualification = new HashMap<String,String>();
+    public Map<String, String> buildRoleQualificationForSensitiveData(String sensitiveDataCode) {
+        Map<String, String> roleQualification = new HashMap<String, String>();
         roleQualification.put(PurapKimAttributes.SENSITIVE_DATA_CODE, sensitiveDataCode);
         return roleQualification;
     }

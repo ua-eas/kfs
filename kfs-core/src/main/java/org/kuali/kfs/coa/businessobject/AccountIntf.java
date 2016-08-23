@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.List;
-
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
 
 
 public interface AccountIntf {
@@ -208,7 +208,7 @@ public interface AccountIntf {
      * date values, not time-values.
      *
      * @param testDate - Calendar instance with the date to test the Account's Expiration Date against. This is most commonly set to
-     *        today's date.
+     *                 today's date.
      * @return true or false based on the logic outlined above
      */
     public boolean isExpired(Calendar testDate);
@@ -220,7 +220,7 @@ public interface AccountIntf {
      * date values, not time-values.
      *
      * @param testDate - java.util.Date instance with the date to test the Account's Expiration Date against. This is most commonly
-     *        set to today's date.
+     *                 set to today's date.
      * @return true or false based on the logic outlined above
      */
     public boolean isExpired(Date testDate);

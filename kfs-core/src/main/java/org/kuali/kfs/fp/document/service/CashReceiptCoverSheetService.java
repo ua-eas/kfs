@@ -26,7 +26,6 @@ import java.io.OutputStream;
 
 /**
  * Service for handling creation of the cover sheet of the <code>{@link CashReceiptDocument}</code>
- *
  */
 public interface CashReceiptCoverSheetService {
 
@@ -43,9 +42,9 @@ public interface CashReceiptCoverSheetService {
      * Generate a cover sheet for the <code>{@link CashReceiptDocument}</code>. An <code>{@link OutputStream}</code> is written
      * to for the coversheet.
      *
-     * @param document The <code>{@link CashReceiptDocument}</code> the cover sheet is being generated for.
+     * @param document     The <code>{@link CashReceiptDocument}</code> the cover sheet is being generated for.
      * @param outputStream The output stream that the printable cover sheet will be piped to.
-     * @exception Exception Thrown if there are any problems generating the cover sheet.
+     * @throws Exception Thrown if there are any problems generating the cover sheet.
      */
     public void generateCoverSheet(CashReceiptDocument document, OutputStream outputStream) throws Exception;
 }

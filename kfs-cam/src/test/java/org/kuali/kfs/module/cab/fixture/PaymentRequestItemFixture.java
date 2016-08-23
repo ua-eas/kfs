@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PaymentRequestItemFixture {
 
@@ -43,7 +43,9 @@ public enum PaymentRequestItemFixture {
             obj.setItemAssignedToTradeInIndicator(false);
             obj.setCapitalAssetTransactionTypeCode("MDEX");
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
         @Override
@@ -58,7 +60,9 @@ public enum PaymentRequestItemFixture {
             obj.setItemAssignedToTradeInIndicator(false);
             obj.setCapitalAssetTransactionTypeCode("NEW");
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
         @Override
@@ -76,7 +80,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(18000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC4 {
         @Override
@@ -94,7 +100,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(14000));
             obj.setItemAssignedToTradeInIndicator(true);
             return obj;
-        };
+        }
+
+        ;
     },
     REC5 {
         @Override
@@ -109,7 +117,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(-3000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC6 {
         @Override
@@ -123,7 +133,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(750));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC7 {
         @Override
@@ -137,7 +149,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(250));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC8 {
         @Override
@@ -155,7 +169,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(18000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC9 {
         @Override
@@ -173,7 +189,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(14000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC10 {
         @Override
@@ -187,7 +205,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(750));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC11 {
         @Override
@@ -201,7 +221,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(250));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC12 {
         @Override
@@ -219,7 +241,9 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(18000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC13 {
         @Override
@@ -237,8 +261,11 @@ public enum PaymentRequestItemFixture {
             obj.setExtendedPrice(new KualiDecimal(14000));
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PaymentRequestItem newRecord();
 
     public static void setUpData() {

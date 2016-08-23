@@ -21,11 +21,11 @@ package org.kuali.kfs.krad.keyvalues;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,7 +39,7 @@ import java.util.List;
  * that are specified.
  */
 @Transactional
-public class PersistableBusinessObjectValuesFinder <T extends PersistableBusinessObject> extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
+public class PersistableBusinessObjectValuesFinder<T extends PersistableBusinessObject> extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
 
     private static final Log LOG = LogFactory.getLog(PersistableBusinessObjectValuesFinder.class);
 
@@ -57,36 +57,36 @@ public class PersistableBusinessObjectValuesFinder <T extends PersistableBusines
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> labels = new ArrayList<KeyValue>();
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> labels = new ArrayList<KeyValue>();
 
-    	try {
-    	    KeyValuesService boService = KRADServiceLocator.getKeyValuesService();
+        try {
+            KeyValuesService boService = KRADServiceLocator.getKeyValuesService();
             Collection<T> objects = boService.findAll(businessObjectClass);
-            if(includeBlankRow) {
-            	labels.add(new ConcreteKeyValue("", ""));
+            if (includeBlankRow) {
+                labels.add(new ConcreteKeyValue("", ""));
             }
             for (T object : objects) {
-            	Object key = PropertyUtils.getProperty(object, keyAttributeName);
-            	String label = (String)PropertyUtils.getProperty(object, labelAttributeName);
-            	if (includeKeyInDescription) {
-            	    label = key + " - " + label;
-            	}
-            	labels.add(new ConcreteKeyValue(key.toString(), label));
-    	    }
-    	} catch (IllegalAccessException e) {
+                Object key = PropertyUtils.getProperty(object, keyAttributeName);
+                String label = (String) PropertyUtils.getProperty(object, labelAttributeName);
+                if (includeKeyInDescription) {
+                    label = key + " - " + label;
+                }
+                labels.add(new ConcreteKeyValue(key.toString(), label));
+            }
+        } catch (IllegalAccessException e) {
             LOG.debug(e.getMessage(), e);
             LOG.error(e.getMessage());
             throw new RuntimeException("IllegalAccessException occurred while trying to build keyValues List. dataObjectClass: " + businessObjectClass + "; keyAttributeName: " + keyAttributeName + "; labelAttributeName: " + labelAttributeName + "; includeKeyInDescription: " + includeKeyInDescription, e);
-    	} catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             LOG.debug(e.getMessage(), e);
             LOG.error(e.getMessage());
             throw new RuntimeException("InvocationTargetException occurred while trying to build keyValues List. dataObjectClass: " + businessObjectClass + "; keyAttributeName: " + keyAttributeName + "; labelAttributeName: " + labelAttributeName + "; includeKeyInDescription: " + includeKeyInDescription, e);
-    	} catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             LOG.debug(e.getMessage(), e);
             LOG.error(e.getMessage());
             throw new RuntimeException("NoSuchMethodException occurred while trying to build keyValues List. dataObjectClass: " + businessObjectClass + "; keyAttributeName: " + keyAttributeName + "; labelAttributeName: " + labelAttributeName + "; includeKeyInDescription: " + includeKeyInDescription, e);
-    	}
+        }
 
         return labels;
     }
@@ -147,18 +147,18 @@ public class PersistableBusinessObjectValuesFinder <T extends PersistableBusines
         this.labelAttributeName = labelAttributeName;
     }
 
-	/**
-	 * @return the includeBlankRow
-	 */
-	public boolean isIncludeBlankRow() {
-		return this.includeBlankRow;
-	}
+    /**
+     * @return the includeBlankRow
+     */
+    public boolean isIncludeBlankRow() {
+        return this.includeBlankRow;
+    }
 
-	/**
-	 * @param includeBlankRow the includeBlankRow to set
-	 */
-	public void setIncludeBlankRow(boolean includeBlankRow) {
-		this.includeBlankRow = includeBlankRow;
-	}
+    /**
+     * @param includeBlankRow the includeBlankRow to set
+     */
+    public void setIncludeBlankRow(boolean includeBlankRow) {
+        this.includeBlankRow = includeBlankRow;
+    }
 
 }

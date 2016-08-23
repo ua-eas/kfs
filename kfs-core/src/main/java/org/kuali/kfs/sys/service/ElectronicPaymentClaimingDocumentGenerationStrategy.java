@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
 
 /**
  * A set of methods that help the ElectronicPaymentClaimingService turn a list of ElectronicPaymentClaim records into a document
@@ -59,7 +59,7 @@ public interface ElectronicPaymentClaimingDocumentGenerationStrategy {
      * Creates a document to claim a given list of ElectronicPaymentClaim records.
      *
      * @param electronicPayments a List of ElectronicPaymentClaim records
-     * @param user the user doing the claiming
+     * @param user               the user doing the claiming
      * @return the absolute URL that should be redirected to, so that the user can edit the document
      */
     public abstract String createDocumentFromElectronicPayments(List<ElectronicPaymentClaim> electronicPayments, Person user);

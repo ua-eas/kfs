@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -33,7 +33,7 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 public class RequisitionAccount extends PurApAccountingLineBase {
 
     private static final long serialVersionUID = -8655437895493693864L;
- //   protected static final int BIG_DECIMAL_SCALE = 2;
+    //   protected static final int BIG_DECIMAL_SCALE = 2;
 
     public RequisitionAccount() {
         this.setSequenceNumber(0);
@@ -44,7 +44,6 @@ public class RequisitionAccount extends PurApAccountingLineBase {
     }
 
     /**
-     *
      * @param requisitionItem The requisitionItem to set.
      * @deprecated
      */
@@ -59,8 +58,8 @@ public class RequisitionAccount extends PurApAccountingLineBase {
         BigDecimal accountLinePercent = super.getAccountLinePercent();
         String defaultDistributionMethod = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", PurapParameterConstants.DISTRIBUTION_METHOD_FOR_ACCOUNTING_LINES);
 
-        if(PurapConstants.AccountDistributionMethodCodes.PROPORTIONAL_CODE.equalsIgnoreCase(defaultDistributionMethod)){
-            if(accountLinePercent == null || accountLinePercent.compareTo(BigDecimal.ZERO) == 0){
+        if (PurapConstants.AccountDistributionMethodCodes.PROPORTIONAL_CODE.equalsIgnoreCase(defaultDistributionMethod)) {
+            if (accountLinePercent == null || accountLinePercent.compareTo(BigDecimal.ZERO) == 0) {
                 accountLinePercent = new BigDecimal(100);
                 this.setAccountLinePercent(accountLinePercent);
             }

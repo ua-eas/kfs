@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.Properties;
-
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Properties;
 
 public class SpringContextForBatchRunner {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpringContextForBatchRunner.class);

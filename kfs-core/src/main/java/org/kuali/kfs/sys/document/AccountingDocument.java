@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.AccountingLineParser;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 /**
  * This is the FinancialDocument interface. The TransactionalDocument interface should extend this. It represents any document that
@@ -174,8 +173,9 @@ public interface AccountingDocument extends GeneralLedgerPostingDocument, Genera
     public Class<? extends AccountingDocument> getDocumentClassForAccountingLineValueAllowedValidation();
 
     /**
-     *This method check the document status to determine whether the document is final/processed or not.
-     *@return true if documentFinalOrProcessed otherwise false
+     * This method check the document status to determine whether the document is final/processed or not.
+     *
+     * @return true if documentFinalOrProcessed otherwise false
      */
     public boolean isDocumentFinalOrProcessed();
 }

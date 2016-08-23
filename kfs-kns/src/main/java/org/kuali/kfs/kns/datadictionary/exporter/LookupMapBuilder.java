@@ -18,18 +18,16 @@
  */
 package org.kuali.kfs.kns.datadictionary.exporter;
 
-import java.util.Iterator;
-
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.datadictionary.FieldDefinition;
 import org.kuali.kfs.kns.datadictionary.LookupDefinition;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.SortDefinition;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 
+import java.util.Iterator;
+
 /**
  * LookupMapBuilder
- *
- *
  */
 @Deprecated
 public class LookupMapBuilder {
@@ -44,7 +42,7 @@ public class LookupMapBuilder {
     /**
      * @param entry
      * @return ExportMap containing the standard entries for the given entry's LookupDefinition, or null if the given entry has no
-     *         lookupDefinition
+     * lookupDefinition
      */
     public ExportMap buildLookupMap(BusinessObjectEntry entry) {
         ExportMap lookupMap = null;
@@ -93,7 +91,7 @@ public class LookupMapBuilder {
     private ExportMap buildSortAttributesMap(SortDefinition sortDefinition) {
         ExportMap sortAttributesMap = new ExportMap("sortAttributes");
 
-        for (Iterator i = sortDefinition.getAttributeNames().iterator(); i.hasNext();) {
+        for (Iterator i = sortDefinition.getAttributeNames().iterator(); i.hasNext(); ) {
             String attributeName = (String) i.next();
 
             ExportMap attributeMap = new ExportMap(attributeName);
@@ -108,7 +106,7 @@ public class LookupMapBuilder {
     private ExportMap buildLookupFieldsMap(LookupDefinition lookupDefinition) {
         ExportMap lookupFieldsMap = new ExportMap("lookupFields");
 
-        for (Iterator i = lookupDefinition.getLookupFields().iterator(); i.hasNext();) {
+        for (Iterator i = lookupDefinition.getLookupFields().iterator(); i.hasNext(); ) {
             FieldDefinition lookupField = (FieldDefinition) i.next();
             lookupFieldsMap.set(buildLookupFieldMap(lookupField));
         }
@@ -128,7 +126,7 @@ public class LookupMapBuilder {
     private ExportMap buildResultFieldsMap(LookupDefinition lookupDefinition) {
         ExportMap resultFieldsMap = new ExportMap("resultFields");
 
-        for (Iterator i = lookupDefinition.getResultFields().iterator(); i.hasNext();) {
+        for (Iterator i = lookupDefinition.getResultFields().iterator(); i.hasNext(); ) {
             FieldDefinition resultField = (FieldDefinition) i.next();
             resultFieldsMap.set(MapperUtils.buildFieldMap(resultField));
         }

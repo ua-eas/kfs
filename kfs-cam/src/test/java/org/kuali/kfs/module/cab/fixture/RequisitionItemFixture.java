@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum RequisitionItemFixture {
     REC1 {
@@ -43,7 +43,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC2 {
@@ -61,7 +63,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC3 {
@@ -76,7 +80,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("FRHT");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC4 {
@@ -91,7 +97,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("SPHD");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC5 {
@@ -109,7 +117,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC6 {
@@ -127,7 +137,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC7 {
@@ -142,7 +154,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("FRHT");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC8 {
@@ -157,7 +171,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("SPHD");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC9 {
@@ -175,7 +191,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC10 {
@@ -193,7 +211,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("ITEM");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC11 {
@@ -208,7 +228,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("FRHT");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC12 {
@@ -223,7 +245,9 @@ public enum RequisitionItemFixture {
             obj.setItemTypeCode("SPHD");
             obj.setItemAssignedToTradeInIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     };
 
     public abstract RequisitionItem newRecord();

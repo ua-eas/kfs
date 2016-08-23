@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.krad.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiExceptionIncidentService;
 import org.kuali.kfs.krad.web.form.IncidentReportForm;
@@ -32,10 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Handler for incident reports
- *
- *
  */
 @Controller
 @RequestMapping(value = "/incidentReport")
@@ -54,11 +52,11 @@ public class IncidentReportController extends UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=submitReport")
     public ModelAndView submitReport(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
         // get the exception incident service and use it to mail the report
         KualiExceptionIncidentService reporterService = KRADServiceLocatorWeb.getKualiExceptionIncidentService();
         reporterService.emailReport(((IncidentReportForm) uifForm).createEmailSubject(),
-                ((IncidentReportForm) uifForm).createEmailMessage());
+            ((IncidentReportForm) uifForm).createEmailMessage());
 
         // return the close redirect
         return close(uifForm, result, request, response);

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Iterator;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
 
 public class AgencyEntryFileIterator implements Iterator<AgencyEntryFull> {
     private static Logger LOG = Logger.getLogger(AgencyEntryFileIterator.class);
@@ -34,6 +34,7 @@ public class AgencyEntryFileIterator implements Iterator<AgencyEntryFull> {
     protected BufferedReader reader;
     protected int lineNumber;
     protected boolean autoCloseReader;
+
     /**
      * Constructs a AgencyEntryFileIterator When constructed with this method, the file handle will be automatically closed when the
      * end of origin entries has been reached (i.e. when hasNext() returns false)
@@ -50,8 +51,7 @@ public class AgencyEntryFileIterator implements Iterator<AgencyEntryFull> {
             this.autoCloseReader = true;
             nextEntry = null;
             lineNumber = 0;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             LOG.error("File not found for AgencyEntryFileIterator! " + file.getAbsolutePath(), e);
             throw new RuntimeException("File not found for AgencyEntryFileIterator! " + file.getAbsolutePath());
         }

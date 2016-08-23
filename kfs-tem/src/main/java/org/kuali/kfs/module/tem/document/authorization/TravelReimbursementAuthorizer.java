@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Set;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetail;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class TravelReimbursementAuthorizer extends TravelArrangeableAuthorizer implements ReturnToFiscalOfficerAuthorizer{
+import java.util.Set;
+
+public class TravelReimbursementAuthorizer extends TravelArrangeableAuthorizer implements ReturnToFiscalOfficerAuthorizer {
 
     /**
-     *
      * @param reimbursement
      * @param user
      * @return
@@ -47,6 +46,7 @@ public class TravelReimbursementAuthorizer extends TravelArrangeableAuthorizer i
 
     /**
      * Overridden to add awaiting special request review status, since that happens before FO on TR's
+     *
      * @see org.kuali.kfs.module.tem.document.authorization.TravelArrangeableAuthorizer#getNonReturnToFiscalOfficerDocumentStatuses()
      */
     @Override

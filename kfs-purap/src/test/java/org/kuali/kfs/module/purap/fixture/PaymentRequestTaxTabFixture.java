@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
 
 public enum PaymentRequestTaxTabFixture {
     // S: successful; F: failing
@@ -84,18 +84,18 @@ public enum PaymentRequestTaxTabFixture {
     private String statusCode;
 
     private PaymentRequestTaxTabFixture(
-            String taxClassificationCode,
-            BigDecimal federalTaxPercent,
-            BigDecimal stateTaxPercent,
-            String taxCountryCode,
-            String taxNQIId,
-            KualiDecimal taxSpecialW4Amount,
-            Boolean taxExemptTreatyIndicator,
-            Boolean grossUpIndicator,
-            Boolean foreignSourceIndicator,
-            Boolean taxUSAIDPerDiemIndicator,
-            Boolean otherTaxExemptIndicator,
-            String statusCode) {
+        String taxClassificationCode,
+        BigDecimal federalTaxPercent,
+        BigDecimal stateTaxPercent,
+        String taxCountryCode,
+        String taxNQIId,
+        KualiDecimal taxSpecialW4Amount,
+        Boolean taxExemptTreatyIndicator,
+        Boolean grossUpIndicator,
+        Boolean foreignSourceIndicator,
+        Boolean taxUSAIDPerDiemIndicator,
+        Boolean otherTaxExemptIndicator,
+        String statusCode) {
         this.taxClassificationCode = taxClassificationCode;
         this.federalTaxPercent = federalTaxPercent;
         this.stateTaxPercent = stateTaxPercent;

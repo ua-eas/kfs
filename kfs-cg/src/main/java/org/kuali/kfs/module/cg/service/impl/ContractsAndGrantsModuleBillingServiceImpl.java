@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
-import org.kuali.kfs.module.cg.businessobject.Award;
-import org.kuali.kfs.module.cg.businessobject.AwardAccount;
-import org.kuali.kfs.module.cg.service.AwardService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cg.businessobject.Award;
+import org.kuali.kfs.module.cg.businessobject.AwardAccount;
+import org.kuali.kfs.module.cg.service.AwardService;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This Class provides implementation to the services required for inter-module communication, allowing AR to utilize
@@ -46,6 +46,7 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
 
     /**
      * This method would return list of business object - in this case Awards for CG Invoice functionality in AR.
+     *
      * @param fieldValues
      * @param unbounded
      * @return
@@ -66,28 +67,24 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
             fieldValues.put("awardTotalAmount", value);
         }
 
-        if(StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("awardBeginningDate"))){
+        if (StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("awardBeginningDate"))) {
             String date = fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate") + ".." + fieldValues.remove("awardBeginningDate");
             fieldValues.put("awardBeginningDate", date);
-        }
-        else if(StringUtils.isEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("awardBeginningDate"))){
+        } else if (StringUtils.isEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("awardBeginningDate"))) {
             String date = "<=" + fieldValues.remove("awardBeginningDate");
             fieldValues.put("awardBeginningDate", date);
-        }
-        else if(StringUtils.isEmpty(fieldValues.get("awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate"))){
+        } else if (StringUtils.isEmpty(fieldValues.get("awardBeginningDate")) && StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate"))) {
             String date = ">=" + fieldValues.get("rangeLowerBoundKeyPrefix_awardBeginningDate");
             fieldValues.put("awardBeginningDate", date);
         }
 
-        if(StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("awardEndingDate"))){
+        if (StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("awardEndingDate"))) {
             String date = fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate") + ".." + fieldValues.remove("awardEndingDate");
             fieldValues.put("awardEndingDate", date);
-        }
-        else if(StringUtils.isEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("awardEndingDate"))){
+        } else if (StringUtils.isEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("awardEndingDate"))) {
             String date = "<=" + fieldValues.remove("awardEndingDate");
             fieldValues.put("awardEndingDate", date);
-        }
-        else if(StringUtils.isEmpty(fieldValues.get("awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate"))){
+        } else if (StringUtils.isEmpty(fieldValues.get("awardEndingDate")) && StringUtils.isNotEmpty(fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate"))) {
             String date = ">=" + fieldValues.get("rangeLowerBoundKeyPrefix_awardEndingDate");
             fieldValues.put("awardEndingDate", date);
         }
@@ -96,13 +93,13 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
     }
 
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward) {
         ContractsAndGrantsBillingAward award = currentAward;
 
-        if ( ObjectUtils.isNull(proposalNumber)) {
+        if (ObjectUtils.isNull(proposalNumber)) {
             award = null;
         } else {
-            if ( ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber))  {
+            if (ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber)) {
                 award = awardService.getByPrimaryId(proposalNumber);
             }
         }

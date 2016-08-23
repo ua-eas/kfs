@@ -25,8 +25,9 @@ public interface MilestoneScheduleMaintenanceService {
 
     /**
      * Has the Milestone been copied to an Invoice Milestone on an invoice doc? This method investigates!
+     *
      * @param proposalNumber proposal number to check
-     * @param milestoneId milestoneId to check
+     * @param milestoneId    milestoneId to check
      * @return true if the Milestone has been copied, false if otherwise
      */
     public boolean hasMilestoneBeenCopiedToInvoice(String proposalNumber, String milestoneId);

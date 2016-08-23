@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.gl.web;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A test of the TestDataGenerator fixtures.
@@ -40,6 +40,7 @@ public class TestDataGeneratorTest extends KualiTestBase {
 
     /**
      * Sets up the test by creating a new TestDataGenerator as well as an account balance and pending entry
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -52,6 +53,7 @@ public class TestDataGeneratorTest extends KualiTestBase {
 
     /**
      * test case for generateTransactionDate method of TestDataGenerator class
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testGenerateTransactionData() throws Exception {
@@ -61,14 +63,14 @@ public class TestDataGeneratorTest extends KualiTestBase {
         try {
             Object property = PropertyUtils.getProperty(pendingEntry, "objectCode");
             assertTrue(false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
         }
     }
 
     /**
      * test case for generateTransactionDate method of TestDataGenerator class
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testGenerateFieldValues() throws Exception {
@@ -91,6 +93,7 @@ public class TestDataGeneratorTest extends KualiTestBase {
 
     /**
      * test case for generateTransactionDate method of TestDataGenerator class
+     *
      * @param test an unused parameter
      * @throws Exception thrown if an exception is encountered for any reason
      */

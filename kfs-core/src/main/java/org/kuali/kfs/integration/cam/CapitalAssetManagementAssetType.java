@@ -29,7 +29,6 @@ public interface CapitalAssetManagementAssetType extends ExternalizableBusinessO
      * Gets the capitalAssetTypeCode attribute.
      *
      * @return Returns the capitalAssetTypeCode
-     *
      */
     public String getCapitalAssetTypeCode();
 
@@ -37,7 +36,6 @@ public interface CapitalAssetManagementAssetType extends ExternalizableBusinessO
      * Gets the capitalAssetTypeDescription attribute.
      *
      * @return Returns the capitalAssetTypeDescription
-     *
      */
     public String getCapitalAssetTypeDescription();
 }

@@ -19,12 +19,12 @@
 package org.kuali.kfs.sys.service.impl;
 
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
 
 @NonTransactional
@@ -32,14 +32,14 @@ public class OptionsServiceImpl implements OptionsService {
     protected UniversityDateService universityDateService;
 
     @Override
-    @Cacheable(value=SystemOptions.CACHE_NAME, key="'CurrentFY'")
+    @Cacheable(value = SystemOptions.CACHE_NAME, key = "'CurrentFY'")
     public SystemOptions getCurrentYearOptions() {
         Integer fy = universityDateService.getCurrentFiscalYear();
         return SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(SystemOptions.class, fy);
     }
 
     @Override
-    @Cacheable(value=SystemOptions.CACHE_NAME, key="'universityFiscalYear='+#p0")
+    @Cacheable(value = SystemOptions.CACHE_NAME, key = "'universityFiscalYear='+#p0")
     public SystemOptions getOptions(Integer universityFiscalYear) {
         return SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(SystemOptions.class, universityFiscalYear);
     }

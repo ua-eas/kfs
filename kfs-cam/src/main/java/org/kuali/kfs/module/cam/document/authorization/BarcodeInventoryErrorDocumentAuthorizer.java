@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class BarcodeInventoryErrorDocumentAuthorizer extends FinancialSystemTran
      * Overridden to check if document error correction can be allowed here.
      *
      * @see org.kuali.kfs.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.kfs.krad.document.Document,
-     *      org.kuali.rice.kim.api.identity.Person, java.util.Set)
+     * org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActionsFromPresentationController) {

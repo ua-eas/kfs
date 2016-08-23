@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.impl.config.property.ConfigLogger;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Configures a property placeholder in Spring which will allow access to the properties configured in the workflow configuration.
@@ -43,7 +43,7 @@ public class ConfigPropertyPlaceholderConfigurer extends PropertyPlaceholderConf
         // put the properties into the Rice configuration context
         ConfigContext.getCurrentContextConfig().putProperties(props);
         // load the Rice properties
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             Config config = ConfigContext.getCurrentContextConfig();
             if (config != null) {
                 LOG.debug("Replacing parameters in Spring using config:\r\n" + config);

@@ -23,7 +23,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public interface BudgetConstructionPositionFundingDetailReportDao {
 
     /**
-     *  cleans Position Funding Detail table.
+     * cleans Position Funding Detail table.
      *
      * @param principalName
      */
@@ -31,12 +31,12 @@ public interface BudgetConstructionPositionFundingDetailReportDao {
 
 
     /**
-     *
      * populates the reporting table for PositionFunding so the user can run a report
-     * @param principalName--the user making the request
-     * @param applyAThreshold--true if the report will only list people with increases above (or below) a threshold, false otherwise
+     *
+     * @param principalName--the                            user making the request
+     * @param applyAThreshold--true                         if the report will only list people with increases above (or below) a threshold, false otherwise
      * @param selectOnlyGreaterThanOrEqualToThreshold--true if people at or above the threshold are to be listed: false lists people at or below
-     * @param thresholdPercent--percent (a fraction times 100) increase which marks the threshold
+     * @param thresholdPercent--percent                     (a fraction times 100) increase which marks the threshold
      */
     public void updateReportsPositionFundingDetailTable(String principalName, boolean applyAThreshold, boolean selectOnlyGreaterThanOrEqualToThreshold, KualiDecimal thresholdPercent);
 

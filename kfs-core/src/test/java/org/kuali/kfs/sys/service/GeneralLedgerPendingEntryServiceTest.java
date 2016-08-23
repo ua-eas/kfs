@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -27,6 +25,8 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Iterator;
 
 /**
  * This class tests the GeneralLedgerPending service.
@@ -39,6 +39,7 @@ public class GeneralLedgerPendingEntryServiceTest extends KualiTestBase {
     /**
      * Initalizes the services needef or this test; also, since this test creates a fake document, deletes
      * any entries from the real version of that document if they exist
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -108,11 +109,9 @@ public class GeneralLedgerPendingEntryServiceTest extends KualiTestBase {
 
                 System.out.println(counter + ":" + generalLedgerPendingEntry.getDocumentNumber());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue("Failed to fetch all entries", true);
-        }
-        finally {
+        } finally {
             generalLedgerPendingEntryService.delete(docHeaderId);
         }
     }

@@ -18,15 +18,9 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapContains;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.EXPENSE_LINE;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.PFIP_SUB_FUND_LINE;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
-import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
-
 import org.kuali.kfs.fp.document.InternalBillingDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -40,8 +34,14 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedVali
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapContains;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.EXPENSE_LINE;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.PFIP_SUB_FUND_LINE;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
+import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
 
 /**
  * This class tests the business rules of the internal billing document. This is not implemented yet and needs to extend
@@ -60,8 +60,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(DocumentService.class).saveDocument(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -82,19 +81,20 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
         line.refresh();
         assertGlobalMessageMapEmpty();
         boolean actual = isSubFundGroupAllowed(new InternalBillingDocument(), line);
-        assertGlobalMessageMapContains(KFSPropertyConstants.ACCOUNT_NUMBER, RiceKeyConstants.ERROR_DOCUMENT_INVALID_VALUE_DENIED_VALUES_PARAMETER, new String[] { null, "PFIP", null, "PFRI, PFIP", null });
+        assertGlobalMessageMapContains(KFSPropertyConstants.ACCOUNT_NUMBER, RiceKeyConstants.ERROR_DOCUMENT_INVALID_VALUE_DENIED_VALUES_PARAMETER, new String[]{null, "PFIP", null, "PFRI, PFIP", null});
         assertEquals(false, actual);
     }
 
     /**
      * Tests if a given sub fund group is allowed for an internal billing document
+     *
      * @param ibDoc the internal billing document to check
-     * @param line the accounting line to check
+     * @param line  the accounting line to check
      * @return true if the sub fund group is allowed, false otherwise
      */
     public boolean isSubFundGroupAllowed(InternalBillingDocument ibDoc, AccountingLine line) {
         boolean result = true;
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)SpringContext.getBean(Validation.class,"AccountingDocument-IsSubFundGroupAllowed-DefaultValidation");
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation) SpringContext.getBean(Validation.class, "AccountingDocument-IsSubFundGroupAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object sub type value allowed validation");
         validation.setAccountingDocumentForValidation(ibDoc);
         validation.setAccountingLineForValidation(line);

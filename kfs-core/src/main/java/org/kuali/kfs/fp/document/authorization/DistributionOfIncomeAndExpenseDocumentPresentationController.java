@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.DistributionOfIncomeAndExpenseDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants.RouteLevelNames;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
@@ -34,8 +33,9 @@ import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.List;
+import java.util.Set;
 
 public class DistributionOfIncomeAndExpenseDocumentPresentationController extends AccountingDocumentPresentationControllerBase {
 
@@ -90,8 +90,7 @@ public class DistributionOfIncomeAndExpenseDocumentPresentationController extend
 
         if (workflowDocument.isCanceled()) {
             return false;
-        }
-        else if (workflowDocument.isEnroute()) {
+        } else if (workflowDocument.isEnroute()) {
             Set<String> currentRouteLevels = workflowDocument.getCurrentNodeNames();
 
             if (currentRouteLevels.contains(RouteLevelNames.ACCOUNTING_ORGANIZATION_HIERARCHY)) {

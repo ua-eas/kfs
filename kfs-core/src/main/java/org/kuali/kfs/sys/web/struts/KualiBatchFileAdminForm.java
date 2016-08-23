@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class KualiBatchFileAdminForm extends KualiForm {
     private String filePath;
@@ -34,9 +34,9 @@ public class KualiBatchFileAdminForm extends KualiForm {
     public void populate(HttpServletRequest request) {
         super.populate(request);
 
-        if (StringUtils.isBlank(getFilePath())&&
-                StringUtils.isNotBlank(request.getParameter(KRADConstants.QUESTION_INST_ATTRIBUTE_NAME)) &&
-                StringUtils.isNotBlank(request.getParameter(KRADConstants.QUESTION_CONTEXT))) {
+        if (StringUtils.isBlank(getFilePath()) &&
+            StringUtils.isNotBlank(request.getParameter(KRADConstants.QUESTION_INST_ATTRIBUTE_NAME)) &&
+            StringUtils.isNotBlank(request.getParameter(KRADConstants.QUESTION_CONTEXT))) {
             setFilePath(request.getParameter(KRADConstants.QUESTION_CONTEXT));
         }
 

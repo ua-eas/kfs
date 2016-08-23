@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.kns.bo.lookup;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.campus.CampusService;
 import org.kuali.rice.location.api.services.LocationApiServiceLocator;
@@ -39,7 +39,7 @@ public class CampusValuesFinder extends KeyValuesBase {
         List<Campus> campuses = campusService.findAllCampuses();
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
-        for ( Campus campus : campuses ) {
+        for (Campus campus : campuses) {
             labels.add(new ConcreteKeyValue(campus.getCode(), campus.getCode() + " - " + campus.getName()));
         }
         return labels;

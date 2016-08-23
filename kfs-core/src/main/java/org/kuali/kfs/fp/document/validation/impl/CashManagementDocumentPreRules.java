@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.text.MessageFormat;
-
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.document.CashManagementDocument;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -29,8 +29,8 @@ import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
+
+import java.text.MessageFormat;
 
 /**
  * Performs warning checks and prompts for CashManagement.

@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.impl.OriginEntryFileIterator;
@@ -41,6 +35,12 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.service.FiscalYearAwareReportWriterService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A step to generate summary reports from a recent poster run
@@ -73,7 +73,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
              * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)
              */
             public boolean execute() {
-                synchronized(this) { // why the synchronization?
+                synchronized (this) { // why the synchronization?
                     final String CURRENT_YEAR_LOWER = getCurrentYearLowerParameter();
                     final String CURRENT_YEAR_UPPER = getCurrentYearUpperParameter();
                     final String CURRENT_AND_LAST_YEAR = getCurrentAndLastYearParameter();
@@ -91,8 +91,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
                         generateGlSummary(runDate, currentYear, BUD);
                         generateGlSummary(runDate, currentYear, ACT);
                         generateGlSummary(runDate, currentYear, ENC);
-                    }
-                    else if ((md.compareTo(CURRENT_AND_LAST_YEAR) > 0)) {
+                    } else if ((md.compareTo(CURRENT_AND_LAST_YEAR) > 0)) {
                         // Current year and Last year
                         generateGlSummary(runDate, currentYear, BUD);
                         generateGlSummary(runDate, previousYear, BUD);
@@ -100,8 +99,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
                         generateGlSummary(runDate, previousYear, ACT);
                         generateGlSummary(runDate, currentYear, ENC);
                         generateGlSummary(runDate, previousYear, ENC);
-                    }
-                    else {
+                    } else {
                         // Current year and next year
                         generateGlSummary(runDate, currentYear, BUD);
                         generateGlSummary(runDate, nextYear, BUD);
@@ -133,7 +131,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
                 posterOutputSummaryReport.summarize(originEntry);
             }
         } else {
-            LOG.warn("Could not Main Poster Input file with prefix "+GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE+" for tabulation in the Poster Output Summary Report");
+            LOG.warn("Could not Main Poster Input file with prefix " + GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE + " for tabulation in the Poster Output Summary Report");
         }
 
         // summarize today's reversals
@@ -141,11 +139,11 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         if (reversalPosterFile != null && reversalPosterFile.exists()) {
             OriginEntryFileIterator reversalOriginEntryIterator = new OriginEntryFileIterator(reversalPosterFile);
             while (reversalOriginEntryIterator.hasNext()) {
-                final Reversal reversal = new Reversal (reversalOriginEntryIterator.next());
+                final Reversal reversal = new Reversal(reversalOriginEntryIterator.next());
                 posterOutputSummaryReport.summarize(reversal);
             }
         } else {
-            LOG.warn("Could not Reversal Output file with prefix "+GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE+" for tabulation in the Poster Output Summary Report");
+            LOG.warn("Could not Reversal Output file with prefix " + GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE + " for tabulation in the Poster Output Summary Report");
         }
 
         // summarize the icr poster
@@ -157,7 +155,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
                 posterOutputSummaryReport.summarize(originEntry);
             }
         } else {
-            LOG.warn("Could not Indirect Cost Recovery Poster Input file with prefix "+GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE+" for tabulation in the Poster Output Summary Report");
+            LOG.warn("Could not Indirect Cost Recovery Poster Input file with prefix " + GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE + " for tabulation in the Poster Output Summary Report");
         }
 
         posterOutputSummaryReport.writeReport(posterOutputSummaryReportWriterService);
@@ -166,8 +164,8 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
     /**
      * Generates the GL Summary report
      *
-     * @param runDate the run date of the poster service that should be reported
-     * @param options the options of the fiscal year the poster was run
+     * @param runDate    the run date of the poster service that should be reported
+     * @param options    the options of the fiscal year the poster was run
      * @param reportType the type of the report that should be generated
      */
     protected void generateGlSummary(Date runDate, SystemOptions year, String reportType) {
@@ -179,8 +177,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         if (ACT.equals(reportType)) {
             fiscalYearAwareReportWriterService = posterActualBalanceSummaryReportWriterService;
             balanceTypeCodes.add(year.getActualFinancialBalanceTypeCd());
-        }
-        else if (BUD.equals(reportType)) {
+        } else if (BUD.equals(reportType)) {
             fiscalYearAwareReportWriterService = posterBudgetBalanceSummaryReportWriterService;
             balanceTypeCodes.add(year.getBudgetCheckingBalanceTypeCd());
             balanceTypeCodes.add(year.getBaseBudgetFinancialBalanceTypeCd());
@@ -196,7 +193,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         List<GlSummary> balances = balanceService.getGlSummary(year.getUniversityFiscalYear(), balanceTypeCodes);
 
         GlSummary totals = new GlSummary();
-        for(GlSummary balance : balances) {
+        for (GlSummary balance : balances) {
             totals.add(balance);
         }
         totals.setFundGroup("Total");
@@ -251,6 +248,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Gets the posterOutputSummaryReportWriterService attribute.
+     *
      * @return Returns the posterOutputSummaryReportWriterService.
      */
     public ReportWriterService getPosterOutputSummaryReportWriterService() {
@@ -259,6 +257,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the posterOutputSummaryReportWriterService attribute value.
+     *
      * @param posterOutputSummaryReportWriterService The posterOutputSummaryReportWriterService to set.
      */
     public void setPosterOutputSummaryReportWriterService(ReportWriterService posterOutputSummaryReportWriterService) {
@@ -267,6 +266,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the posterActualBalanceSummaryReportWriterService attribute value.
+     *
      * @param posterActualBalanceSummaryReportWriterService The posterActualBalanceSummaryReportWriterService to set.
      */
     public void setPosterActualBalanceSummaryReportWriterService(FiscalYearAwareReportWriterService posterActualBalanceSummaryReportWriterService) {
@@ -275,6 +275,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the posterBudgetBalanceSummaryReportWriterService attribute value.
+     *
      * @param posterBudgetBalanceSummaryReportWriterService The posterBudgetBalanceSummaryReportWriterService to set.
      */
     public void setPosterBudgetBalanceSummaryReportWriterService(FiscalYearAwareReportWriterService posterBudgetBalanceSummaryReportWriterService) {
@@ -283,6 +284,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the posterEncumbranceSummaryReportWriterService attribute value.
+     *
      * @param posterEncumbranceSummaryReportWriterService The posterEncumbranceSummaryReportWriterService to set.
      */
     public void setPosterEncumbranceSummaryReportWriterService(FiscalYearAwareReportWriterService posterEncumbranceSummaryReportWriterService) {
@@ -291,6 +293,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Gets the reversalService attribute.
+     *
      * @return Returns the reversalService.
      */
     public ReversalService getReversalService() {
@@ -299,6 +302,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the reversalService attribute value.
+     *
      * @param reversalService The reversalService to set.
      */
     public void setReversalService(ReversalService reversalService) {
@@ -307,6 +311,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the balanceService attribute value.
+     *
      * @param balanceService The balanceService to set.
      */
     public void setBalanceService(BalanceService balanceService) {
@@ -315,6 +320,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Gets the batchFileDirectoryName attribute.
+     *
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {
@@ -323,6 +329,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

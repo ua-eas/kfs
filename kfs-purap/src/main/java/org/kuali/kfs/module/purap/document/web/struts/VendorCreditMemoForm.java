@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.CreditMemoEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -29,10 +30,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * Struts Action Form for Credit Memo document.
@@ -53,7 +52,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
 
     /**
      * KRAD Conversion: Performs customization of an header fields.
-     *
+     * <p>
      * Use of data dictionary for bo RequisitionDocument.
      */
     @Override
@@ -61,8 +60,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
         super.populateHeaderFields(workflowDocument);
         if (ObjectUtils.isNotNull(((VendorCreditMemoDocument) getDocument()).getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.purapDocumentIdentifier", ((VendorCreditMemoDocument) getDocument()).getPurapDocumentIdentifier().toString()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.purapDocumentIdentifier", PurapConstants.PURAP_APPLICATION_DOCUMENT_ID_NOT_AVAILABLE));
         }
 
@@ -81,7 +79,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
      *
      * @return - list of extra buttons to be displayed to the user
      * KRAD Conversion: Performs customization of extra buttons.
-     *
+     * <p>
      * No data dictionary is involved.
      */
     @Override
@@ -94,8 +92,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
         if (getEditingMode().containsKey(CreditMemoEditMode.DISPLAY_INIT_TAB)) {
             addExtraButton("methodToCall.continueCreditMemo", externalImageURL + "buttonsmall_continue.gif", "Continue");
             addExtraButton("methodToCall.clearInitFields", externalImageURL + "buttonsmall_clear.gif", "Clear");
-        }
-        else {
+        } else {
             if (getEditingMode().containsKey(CreditMemoEditMode.HOLD)) {
                 addExtraButton("methodToCall.addHoldOnCreditMemo", appExternalImageURL + "buttonsmall_hold.gif", "Hold");
             }
@@ -116,12 +113,10 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
                         if (!cmDocument.getPurchaseOrderDocument().isPendingActionIndicator()) {
                             addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Reopen PO");
                         }
-                    }
-                    else {
+                    } else {
                         addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                     }
-                }
-                else {
+                } else {
                     //if the source is Vendor, no need to check the PO status
                     addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                 }

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class TravelReimbursementDocumentPreRules extends PromptBeforeValidationBase {
     @SuppressWarnings("rawtypes")
@@ -40,27 +40,27 @@ public class TravelReimbursementDocumentPreRules extends PromptBeforeValidationB
 
         List<String> documentIds = SpringContext.getBean(TravelDocumentService.class).findMatchingTrips(reimbursementDocument);
 
-        if(ObjectUtils.isNotNull(documentIds)&& !documentIds.isEmpty()) {
+        if (ObjectUtils.isNotNull(documentIds) && !documentIds.isEmpty()) {
             foundMatchingTrips = true;
         }
 
-       boolean shouldAskQuestion = false;
-        String proceed =  SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TRVL_DOCUMENT_PROCEED_QUESTION);;
+        boolean shouldAskQuestion = false;
+        String proceed = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TRVL_DOCUMENT_PROCEED_QUESTION);
+        ;
         String question = "";
-        if(foundMatchingTrips){
+        if (foundMatchingTrips) {
             question = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TRVL_DUPLICATE_TRIP_QUESTION);
             shouldAskQuestion = true;
         }
 
 
         if (shouldAskQuestion) {
-            boolean userClickedYes = super.askOrAnalyzeYesNoQuestion("REMIB_WARNING", question + " " + documentIds.toString() + " " + proceed  );
+            boolean userClickedYes = super.askOrAnalyzeYesNoQuestion("REMIB_WARNING", question + " " + documentIds.toString() + " " + proceed);
             if (!userClickedYes) {
                 this.event.setActionForwardName(KFSConstants.MAPPING_BASIC);
             }
             return userClickedYes;
-        }
-        else {
+        } else {
             //no question necessary- continue as normal
             return true;
         }

@@ -19,14 +19,14 @@
 package org.kuali.kfs.module.ld.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates that the target accounting lines in the accounting document has accounts which allow wages
@@ -40,6 +40,7 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
     /**
      * Validates that a target accounting line has an account with a sub fund that allows wages and salaries
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -57,6 +58,7 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
 
     /**
      * Checks whether the given Account has a sub fund which accepts salaries and wages
+     *
      * @param Account
      * @return True if the given accounting line's account sub fund accepts wages, false otherwise.
      */
@@ -64,12 +66,12 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
         return (account.getSubFundGroup().isSubFundGroupWagesIndicator());
     }
 
-   /**
-    * extract Account number from accounting line
-    *
+    /**
+     * extract Account number from accounting line
+     *
      * @param accountingLine The accounting line the account code will be retrieved from.
-    * @return account
-    */
+     * @return account
+     */
     protected Account accountFromLine(AccountingLine accountingLine) {
 
         ExpenseTransferAccountingLine expenseTransferAccountingLine = (ExpenseTransferAccountingLine) accountingLine;
@@ -79,6 +81,7 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -87,6 +90,7 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

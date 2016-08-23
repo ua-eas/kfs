@@ -31,7 +31,7 @@ public interface DataDictionaryDefinition extends Serializable {
      * Performs complete intra-definition validation which couldn't be done earlier - for example, verifies that field references
      * refer to actual fields of some specific class.
      *
-     * @param rootBusinessObjectClass Class of the BusinessObjectEntry which ultimately contains this definition
+     * @param rootBusinessObjectClass  Class of the BusinessObjectEntry which ultimately contains this definition
      * @param otherBusinessObjectClass other stuff required to complete validation
      * @throws CompletionException if a problem arises during validation-completion
      */

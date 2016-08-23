@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.util.List;
-
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.util.List;
 
 public interface ContractsAndGrantsUnit extends ExternalizableBusinessObject {
 
@@ -28,7 +28,7 @@ public interface ContractsAndGrantsUnit extends ExternalizableBusinessObject {
 
     public String getParentUnitNumber();
 
-     public String getOrganizationId();
+    public String getOrganizationId();
 
     public String getUnitName();
 

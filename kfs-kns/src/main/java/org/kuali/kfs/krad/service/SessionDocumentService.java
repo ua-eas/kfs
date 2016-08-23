@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.krad.service;
 
-import java.sql.Timestamp;
-
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.web.form.DocumentFormBase;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.sql.Timestamp;
 
 /**
  * Service API for persisting <code>Document</code> form content and
  * retrieving back
- *
+ * <p>
  * <p>
  * Used as an extension to session support. If a session times out, the doucment contents
  * can be retrieved from the persistence storage and work resumed
  * </p>
- *
- *
  */
 public interface SessionDocumentService {
 
@@ -47,7 +45,7 @@ public interface SessionDocumentService {
      */
     public void addDocumentToUserSession(UserSession userSession, WorkflowDocument document);
 
-     /**
+    /**
      * Delete DocumentFormBase from session and database.
      *
      * @param documentNumber
@@ -57,7 +55,7 @@ public interface SessionDocumentService {
      */
     public void purgeDocumentForm(String documentNumber, String docFormKey, UserSession userSession, String ipAddress);
 
-	/**
+    /**
      * Delete KualiDocumentFormBase from session and database.
      *
      * @param documentNumber
@@ -84,5 +82,5 @@ public interface SessionDocumentService {
      * @return
      */
     public DocumentFormBase getDocumentForm(String documentNumber, String docFormKey, UserSession userSession,
-            String ipAddress);
+                                            String ipAddress);
 }

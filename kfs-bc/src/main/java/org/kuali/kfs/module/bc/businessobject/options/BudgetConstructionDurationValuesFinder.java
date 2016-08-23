@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.bc.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionDuration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * a value finder built from the budget construction duration codes
@@ -53,8 +53,7 @@ public class BudgetConstructionDurationValuesFinder extends KeyValuesBase {
             String code = budgetConstructionDurationCode.getAppointmentDurationCode();
             if (StringUtils.equals(code, BCConstants.AppointmentFundingDurationCodes.NONE.durationCode)) {
                 durationKeyLabels.add(0, new ConcreteKeyValue(code, code));
-            }
-            else {
+            } else {
                 durationKeyLabels.add(new ConcreteKeyValue(code, code));
             }
         }

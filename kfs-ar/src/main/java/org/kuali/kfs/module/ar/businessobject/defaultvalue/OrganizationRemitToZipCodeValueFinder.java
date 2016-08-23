@@ -30,7 +30,7 @@ public class OrganizationRemitToZipCodeValueFinder extends SystemInformationValu
      */
     public String getValue() {
 
-        return (systemInformation != null)? systemInformation.getOrganizationRemitToZipCode() : "";
+        return (systemInformation != null) ? systemInformation.getOrganizationRemitToZipCode() : "";
     }
 
 }

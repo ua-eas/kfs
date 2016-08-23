@@ -19,11 +19,14 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -35,9 +38,6 @@ import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
 public class DisbursementVoucherPaymentReasonValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPaymentReasonValidation.class);
@@ -135,7 +135,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
     /**
      * Retrieves the VendorDetail object from the vendor id number.
      *
-     * @param vendorIdNumber vendor ID number
+     * @param vendorIdNumber       vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
      */
@@ -145,6 +145,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -153,6 +154,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Gets the disbursementVoucherPaymentReasonService attribute.
+     *
      * @return Returns the disbursementVoucherPaymentReasonService.
      */
     public DisbursementVoucherPaymentReasonService getDisbursementVoucherPaymentReasonService() {
@@ -161,6 +163,7 @@ public class DisbursementVoucherPaymentReasonValidation extends GenericValidatio
 
     /**
      * Gets the disbursementVoucherPayeeService attribute.
+     *
      * @return Returns the disbursementVoucherPayeeService.
      */
     public DisbursementVoucherPayeeService getDisbursementVoucherPayeeService() {

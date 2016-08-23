@@ -18,86 +18,87 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.fp.businessobject.NonResidentAlienTaxPercent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.PurapPropertyConstants;
+import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
+import org.kuali.kfs.sys.document.validation.GenericValidation;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.fp.businessobject.NonResidentAlienTaxPercent;
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.PurapPropertyConstants;
-import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
-import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-
 public class PaymentRequestTaxAreaValidation extends GenericValidation {
 
     private BusinessObjectService businessObjectService;
 
     /** Map for allowed federal and state tax rates based on income class. *
-    private static HashMap<String, ArrayList<BigDecimal>> federalTaxRates;
-    private static HashMap<String, ArrayList<BigDecimal>> stateTaxRates;
+     private static HashMap<String, ArrayList<BigDecimal>> federalTaxRates;
+     private static HashMap<String, ArrayList<BigDecimal>> stateTaxRates;
 
-    //TODO these rates shall be kept in DB tables or as parameter
-    // set up the tax rate maps
-    static {
-        federalTaxRates = new HashMap<String, ArrayList<BigDecimal>>();
-        stateTaxRates = new HashMap<String, ArrayList<BigDecimal>>();
+     //TODO these rates shall be kept in DB tables or as parameter
+     // set up the tax rate maps
+     static {
+     federalTaxRates = new HashMap<String, ArrayList<BigDecimal>>();
+     stateTaxRates = new HashMap<String, ArrayList<BigDecimal>>();
 
-        ArrayList<BigDecimal> fedrates = new ArrayList<BigDecimal>();
-        fedrates.add(new BigDecimal(30));
-        fedrates.add(new BigDecimal(14));
-        fedrates.add(new BigDecimal(0));
-        federalTaxRates.put("F", fedrates);
+     ArrayList<BigDecimal> fedrates = new ArrayList<BigDecimal>();
+     fedrates.add(new BigDecimal(30));
+     fedrates.add(new BigDecimal(14));
+     fedrates.add(new BigDecimal(0));
+     federalTaxRates.put("F", fedrates);
 
-        fedrates = new ArrayList<BigDecimal>();
-        fedrates.add(new BigDecimal(30));
-        fedrates.add(new BigDecimal(15));
-        fedrates.add(new BigDecimal(10));
-        fedrates.add(new BigDecimal(5));
-        fedrates.add(new BigDecimal(0));
-        federalTaxRates.put("R", fedrates);
+     fedrates = new ArrayList<BigDecimal>();
+     fedrates.add(new BigDecimal(30));
+     fedrates.add(new BigDecimal(15));
+     fedrates.add(new BigDecimal(10));
+     fedrates.add(new BigDecimal(5));
+     fedrates.add(new BigDecimal(0));
+     federalTaxRates.put("R", fedrates);
 
-        fedrates = new ArrayList<BigDecimal>();
-        fedrates.add(new BigDecimal(30));
-        fedrates.add(new BigDecimal(0));
-        federalTaxRates.put("I", fedrates);
-        federalTaxRates.put("A", fedrates);
-        federalTaxRates.put("O", fedrates);
+     fedrates = new ArrayList<BigDecimal>();
+     fedrates.add(new BigDecimal(30));
+     fedrates.add(new BigDecimal(0));
+     federalTaxRates.put("I", fedrates);
+     federalTaxRates.put("A", fedrates);
+     federalTaxRates.put("O", fedrates);
 
-        ArrayList<BigDecimal> strates = new ArrayList<BigDecimal>();
-        strates.add(new BigDecimal("3.40"));
-        strates.add(new BigDecimal(0));
-        stateTaxRates.put("F", strates);
-        stateTaxRates.put("A", strates);
-        stateTaxRates.put("O", strates);
+     ArrayList<BigDecimal> strates = new ArrayList<BigDecimal>();
+     strates.add(new BigDecimal("3.40"));
+     strates.add(new BigDecimal(0));
+     stateTaxRates.put("F", strates);
+     stateTaxRates.put("A", strates);
+     stateTaxRates.put("O", strates);
 
-        strates = new ArrayList<BigDecimal>();
-        strates.add(new BigDecimal(0));
-        stateTaxRates.put("I", strates);
-        stateTaxRates.put("R", strates);
-    }
-    */
+     strates = new ArrayList<BigDecimal>();
+     strates.add(new BigDecimal(0));
+     stateTaxRates.put("I", strates);
+     stateTaxRates.put("R", strates);
+     }
+     */
 
     /**
      * Process business rules applicable to tax area data before calculating the withholding tax on payment request.
+     *
      * @param paymentRequest - payment request document
      * @return true if all business rules applicable passes; false otherwise.
      */
     public boolean validate(AttributedDocumentEvent event) {
-        PaymentRequestDocument preq = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument preq = (PaymentRequestDocument) event.getDocument();
 
         // do this validation only at route level of awaiting tax review
-        if ( ! StringUtils.equals(preq.getApplicationDocumentStatus(), PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW)) {
+        if (!StringUtils.equals(preq.getApplicationDocumentStatus(), PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW)) {
             return true;
         }
 
@@ -119,6 +120,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
      * Validates tax income class: when Non-Reportable income class is chosen, all other fields shall be left blank;
      * It assumed that the input tax income class code is valid (existing and active in the system) since it's chosen from drop-down list.
      * otherwise tax rates and country are required;
+     *
      * @param paymentRequest - payment request document
      * @return true if this validation passes; false otherwise.
      */
@@ -173,8 +175,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_OTHER_EXEMPT_INDICATOR, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF, PurapPropertyConstants.TAX_CLASSIFICATION_CODE, PurapPropertyConstants.TAX_OTHER_EXEMPT_INDICATOR);
             }
-        }
-        else {
+        } else {
             // If TaxClassificationCode is not N (Non_Reportable, then the federal/state tax percent and country are required.
             if (preq.getTaxFederalPercent() == null) {
                 valid = false;
@@ -196,6 +197,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
     /**
      * Validates federal and state tax rates based on each other and the income class.
      * Validation will be bypassed if income class is empty or N, or tax rates are null.
+     *
      * @param paymentRequest - payment request document
      * @return true if this validation passes; false otherwise.
      */
@@ -239,6 +241,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
 
     /**
      * Validates rules among tax treaty, gross up, foreign source, USAID, other exempt, and Special W-4.
+     *
      * @param paymentRequest - payment request document
      * @return true if this validation passes; false otherwise.
      */
@@ -300,7 +303,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF, PurapPropertyConstants.TAX_GROSS_UP_INDICATOR, PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT);
             }
-            if (preq.getTaxFederalPercent() == null || preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) == 0 ) {
+            if (preq.getTaxFederalPercent() == null || preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) == 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_FEDERAL_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_NOT_ZERO_IF, PurapPropertyConstants.TAX_GROSS_UP_INDICATOR, PurapPropertyConstants.TAX_FEDERAL_PERCENT);
             }
@@ -364,11 +367,11 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_CLASSIFICATION_CODE, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_VALUE_INVALID_IF, PurapPropertyConstants.TAX_USAID_PER_DIEM_INDICATOR, PurapPropertyConstants.TAX_CLASSIFICATION_CODE);
             }
-            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_FEDERAL_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_USAID_PER_DIEM_INDICATOR, PurapPropertyConstants.TAX_FEDERAL_PERCENT);
             }
-            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_STATE_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_USAID_PER_DIEM_INDICATOR, PurapPropertyConstants.TAX_STATE_PERCENT);
             }
@@ -388,18 +391,18 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_FOREIGN_SOURCE_INDICATOR, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF, PurapPropertyConstants.TAX_OTHER_EXEMPT_INDICATOR, PurapPropertyConstants.TAX_FOREIGN_SOURCE_INDICATOR);
             }
-            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_FEDERAL_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_OTHER_EXEMPT_INDICATOR, PurapPropertyConstants.TAX_FEDERAL_PERCENT);
             }
-            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_STATE_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_OTHER_EXEMPT_INDICATOR, PurapPropertyConstants.TAX_STATE_PERCENT);
             }
         }
 
         // if choose Special W-4, cannot choose tax treaty, gross up, and foreign source; income class shall be fellowship with tax rates 0
-        if (preq.getTaxSpecialW4Amount() != null && preq.getTaxSpecialW4Amount().compareTo(new KualiDecimal(0)) != 0 ) {
+        if (preq.getTaxSpecialW4Amount() != null && preq.getTaxSpecialW4Amount().compareTo(new KualiDecimal(0)) != 0) {
             if (ObjectUtils.equals(preq.getTaxExemptTreatyIndicator(), true)) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_EXEMPT_TREATY_INDICATOR, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF, PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT, PurapPropertyConstants.TAX_EXEMPT_TREATY_INDICATOR);
@@ -426,11 +429,11 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_CLASSIFICATION_CODE, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_FIELD_VALUE_INVALID_IF, PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT, PurapPropertyConstants.TAX_CLASSIFICATION_CODE);
             }
-            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxFederalPercent() != null && preq.getTaxFederalPercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_FEDERAL_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT, PurapPropertyConstants.TAX_FEDERAL_PERCENT);
             }
-            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0 ) {
+            if (preq.getTaxStatePercent() != null && preq.getTaxStatePercent().compareTo(new BigDecimal(0)) != 0) {
                 valid = false;
                 errorMap.putError(PurapPropertyConstants.TAX_STATE_PERCENT, PurapKeyConstants.ERROR_PAYMENT_REQUEST_TAX_RATE_MUST_ZERO_IF, PurapPropertyConstants.TAX_SPECIAL_W4_AMOUNT, PurapPropertyConstants.TAX_STATE_PERCENT);
             }
@@ -442,29 +445,30 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
     /**
      * Initiates the federal and state tax rate maps for the purpose of validation on tax rates.
      *
-    private void loadTaxRates() {
-        Collection<TaxIncomeClassCode> incomeClasses = retrieveAllTaxIncomeClasses();
-        for (TaxIncomeClassCode incomeClass : incomeClasses) {
-            String incomeCode = incomeClass.getCode();
-            ArrayList<BigDecimal> fedrates = retrieveTaxRates(incomeCode, "F"); // federal rates
-            federalTaxRates.put(incomeCode, fedrates);
-            ArrayList<BigDecimal> strates = retrieveTaxRates(incomeCode, "S"); // state rates
-            federalTaxRates.put(incomeCode, strates);
-        }
-    }
-    */
+     private void loadTaxRates() {
+     Collection<TaxIncomeClassCode> incomeClasses = retrieveAllTaxIncomeClasses();
+     for (TaxIncomeClassCode incomeClass : incomeClasses) {
+     String incomeCode = incomeClass.getCode();
+     ArrayList<BigDecimal> fedrates = retrieveTaxRates(incomeCode, "F"); // federal rates
+     federalTaxRates.put(incomeCode, fedrates);
+     ArrayList<BigDecimal> strates = retrieveTaxRates(incomeCode, "S"); // state rates
+     federalTaxRates.put(incomeCode, strates);
+     }
+     }
+     */
 
     /**
      * Retrieves all valid tax income classes in the system.
      *
-    public Collection<TaxIncomeClassCode> retrieveAllTaxIncomeClasses() {
-        return businessObjectService.findAll(TaxIncomeClassCode.class);
-    }
-    */
+     public Collection<TaxIncomeClassCode> retrieveAllTaxIncomeClasses() {
+     return businessObjectService.findAll(TaxIncomeClassCode.class);
+     }
+     */
 
     /**
      * Retrieve active NonResidentAlien tax rate percent from database based on the specified income class and federal/state tax type.
-     * @param incomeClassCode The specified income class type code.
+     *
+     * @param incomeClassCode   The specified income class type code.
      * @param incomeTaxTypeCode The specified income tax type code.
      * @return The array list containing the tax rates retrieved.
      */
@@ -474,7 +478,7 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
         criterion.put("incomeClassCode", incomeClassCode);
         criterion.put("incomeTaxTypeCode", incomeTaxTypeCode);
         criterion.put("active", "Y"); // only retrieve active tax percents
-        List<NonResidentAlienTaxPercent> percents = (List<NonResidentAlienTaxPercent>)businessObjectService.findMatching(NonResidentAlienTaxPercent.class, criterion);
+        List<NonResidentAlienTaxPercent> percents = (List<NonResidentAlienTaxPercent>) businessObjectService.findMatching(NonResidentAlienTaxPercent.class, criterion);
 
         for (NonResidentAlienTaxPercent percent : percents) {
             rates.add(percent.getIncomeTaxPercent().bigDecimalValue());
@@ -484,7 +488,8 @@ public class PaymentRequestTaxAreaValidation extends GenericValidation {
 
     /**
      * Returns true if the specified ArrayList contains the specified BigDecimal value.
-     * @param list the specified ArrayList
+     *
+     * @param list  the specified ArrayList
      * @param value the specified BigDecimal
      */
     protected boolean listContainsValue(ArrayList<BigDecimal> list, BigDecimal value) {

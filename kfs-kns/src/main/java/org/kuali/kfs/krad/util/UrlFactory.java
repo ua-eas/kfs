@@ -27,8 +27,6 @@ import java.util.Properties;
 
 /**
  * This class Provides utility methods for re/building URLs.
- *
- *
  */
 
 public class UrlFactory {
@@ -60,24 +58,24 @@ public class UrlFactory {
         StringBuffer ret = new StringBuffer(baseUrl);
         // Only start with ? if it has not been added to the url
         String delimiter = (ret.indexOf("?") == -1) ? "?" : "&";
-        for ( Object key : params.keySet() ) {
-            String paramName = StringUtils.trim( (String)key );
+        for (Object key : params.keySet()) {
+            String paramName = StringUtils.trim((String) key);
             String paramValue = params.getProperty(paramName);
-            ret.append( delimiter );
+            ret.append(delimiter);
             if (StringUtils.isEmpty(paramName)) {
                 throw new IllegalArgumentException("invalid (blank) paramName");
             }
             if (paramValue == null) {
-                ret.append( paramName );
-                ret.append( "=" );
+                ret.append(paramName);
+                ret.append("=");
             } else {
                 try {
-                    ret.append( paramName );
-                    ret.append( "=" );
-                    ret.append( urlCodec.encode(paramValue) );
-                } catch ( EncoderException ex ) {
+                    ret.append(paramName);
+                    ret.append("=");
+                    ret.append(urlCodec.encode(paramValue));
+                } catch (EncoderException ex) {
                     LOG.error("Unable to encode parameter name or value: " + paramName + "=" + paramValue, ex);
-                    throw new RuntimeException( "Unable to encode parameter name or value: " + paramName + "=" + paramValue, ex );
+                    throw new RuntimeException("Unable to encode parameter name or value: " + paramName + "=" + paramValue, ex);
                 }
             }
             delimiter = "&";
@@ -86,11 +84,11 @@ public class UrlFactory {
         return ret.toString();
     }
 
-    public static String encode( String value ) {
+    public static String encode(String value) {
         try {
             return urlCodec.encode(value);
-        } catch ( EncoderException ex ) {
-            throw new RuntimeException( "Unable to encode value: " + value, ex );
+        } catch (EncoderException ex) {
+            throw new RuntimeException("Unable to encode value: " + value, ex);
         }
     }
 }

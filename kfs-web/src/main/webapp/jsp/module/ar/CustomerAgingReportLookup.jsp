@@ -19,7 +19,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}"/>
-<c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+<c:set var="numberOfColumns" value="${KualiForm.numColumns}"/>
 
 <kul:page lookup="true" showDocumentInfo="false"
           htmlFormAction="arCustomerAgingReportLookup"
@@ -63,15 +63,15 @@
                                 <html:submit
                                         property="methodToCall.search" value="Search"
                                         styleClass="tinybutton btn btn-default"
-                                        alt="Search" title="Search" />
+                                        alt="Search" title="Search"/>
                                 <html:submit
                                         property="methodToCall.clearValues" value="Clear"
                                         styleClass="tinybutton btn btn-default"
-                                        alt="Clear" title="Clear" />
+                                        alt="Clear" title="Clear"/>
                                 <html:submit
                                         property="methodToCall.cancel" value="Cancel"
                                         styleClass="tinybutton btn btn-default"
-                                        alt="Cancel" title="Cancel" />
+                                        alt="Cancel" title="Cancel"/>
 
                                 <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
                                     <c:set var="backLocation" value="${KualiForm.backLocation}"/>
@@ -88,49 +88,49 @@
                 </div>
 
                 <c:if test="${reqSearchResults != null and empty reqSearchResults}">
-                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                <div class="search-message"><bean-el:message key="error.no.matching.invoice"/></div>
                 </c:if>
 
                 <c:if test="${!empty reqSearchResultsSize }">
                     <c:set var="offset" value="0"/>
-                    <display:table class="datatable-100" name="${reqSearchResults}"
-                                   id="row" export="true" pagesize="100" offset="${offset}"
-                                   requestURI="arCustomerAgingReportLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
-                        <c:forEach items="${row.columns}" var="column" varStatus="status">
-                            <display:column
-                                    class="${ fn:startsWith(column.columnTitle, 'Customer') ? 'infocell' : 'numbercell' }"
-                                    title="${column.columnTitle}" comparator="${column.comparator}"
-                                    sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
-                                <c:choose>
-                                    <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
-                                        <a href="<c:out value="${column.propertyURL}"/>" title="${column.propertyValue}"
-                                        target="blank"><c:out value="${column.propertyValue}"/></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:out value="${column.propertyValue}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </display:column>
-                        </c:forEach>
+                <display:table class="datatable-100" name="${reqSearchResults}"
+                               id="row" export="true" pagesize="100" offset="${offset}"
+                               requestURI="arCustomerAgingReportLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
+                <c:forEach items="${row.columns}" var="column" varStatus="status">
+                <display:column
+                        class="${ fn:startsWith(column.columnTitle, 'Customer') ? 'infocell' : 'numbercell' }"
+                        title="${column.columnTitle}" comparator="${column.comparator}"
+                        sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
+                <c:choose>
+                <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
+                <a href="<c:out value="${column.propertyURL}"/>" title="${column.propertyValue}"
+                   target="blank"><c:out value="${column.propertyValue}"/></a>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${column.propertyValue}"/>
+                </c:otherwise>
+                </c:choose>
+                </display:column>
+                </c:forEach>
 
-                        <display:footer>
-                            <th><span class="grid">TOTALS:</span></th>
-                            <c:if test="${reqSearchResultsSize == '1'}">
-                                <td class="numbercell">&nbsp; <c:out value="${reqSearchResultsSize}"/> customer</td>
-                            </c:if>
-                            <c:if test="${reqSearchResultsSize != '1'}">
-                                <td class="numbercell">&nbsp; <c:out value="${reqSearchResultsSize}"/> customers</td>
-                            </c:if>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total0to30}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total31to60}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total61to90}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total91toSYSPR}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalSYSPRplus1orMore}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalOpenInvoices}"/></td>
-                            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalWriteOffs}"/></td>
-                        </display:footer>
-                    </display:table>
-                </c:if>
+                <display:footer>
+            <th><span class="grid">TOTALS:</span></th>
+            <c:if test="${reqSearchResultsSize == '1'}">
+                <td class="numbercell">&nbsp; <c:out value="${reqSearchResultsSize}"/> customer</td>
+            </c:if>
+            <c:if test="${reqSearchResultsSize != '1'}">
+                <td class="numbercell">&nbsp; <c:out value="${reqSearchResultsSize}"/> customers</td>
+            </c:if>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total0to30}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total31to60}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total61to90}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.total91toSYSPR}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalSYSPRplus1orMore}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalOpenInvoices}"/></td>
+            <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalWriteOffs}"/></td>
+            </display:footer>
+            </display:table>
+            </c:if>
             </td>
         </tr>
     </table>

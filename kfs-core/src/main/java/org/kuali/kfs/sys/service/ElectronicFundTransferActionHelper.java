@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Map;
-
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
+
+import java.util.Map;
 
 /**
  * This represents one "controller" action performed by the ElectronicFundTransfer Action
@@ -30,8 +30,9 @@ import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
 public interface ElectronicFundTransferActionHelper {
     /**
      * Performs a web controller action
-     * @param form the form that the action is to perform on
-     * @param mapping the action mappings to return to
+     *
+     * @param form     the form that the action is to perform on
+     * @param mapping  the action mappings to return to
      * @param paramMap the map of parameters from the request
      * @param basePath the basePath of the request
      * @return the ActionForward that represents where the controller should next redirect to

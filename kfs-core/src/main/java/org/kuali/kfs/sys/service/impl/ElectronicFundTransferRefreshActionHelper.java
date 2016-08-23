@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.lookup.LookupResultsService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a web action that occurs when a user returns a bunch of selected claims and redirects to the electronic funds transfer "claimng" page
@@ -60,7 +60,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
         // does the current user have claimed funds waiting for them?
         String lookupResultsSequenceNumber = null;
         if (params.get("lookupResultsSequenceNumber") != null) {
-            lookupResultsSequenceNumber = ((String[])params.get("lookupResultsSequenceNumber"))[0];
+            lookupResultsSequenceNumber = ((String[]) params.get("lookupResultsSequenceNumber"))[0];
         }
         if (StringUtils.isBlank(lookupResultsSequenceNumber)) {
             return mapping.findForward(PORTAL_FORWARD);
@@ -77,7 +77,8 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
 
     /**
      * Gets the selected electronic payment claim records from the LookupResults service
-     * @param currentUser the claiming user
+     *
+     * @param currentUser                 the claiming user
      * @param lookupResultsSequenceNumber the parameter for the lookup results sequence number
      * @return a list of claims
      */
@@ -91,8 +92,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
                     claims.add(claim);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return claims;
@@ -100,6 +100,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
 
     /**
      * Sets the electronicPaymentClaimingService attribute value.
+     *
      * @param electronicPaymentClaimingService The electronicPaymentClaimingService to set.
      */
     public void setElectronicPaymentClaimingService(ElectronicPaymentClaimingService electronicPaymentClaimingService) {
@@ -108,6 +109,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
 
     /**
      * Sets the ddService attribute value.
+     *
      * @param ddService The ddService to set.
      */
     public void setDataDictonaryService(DataDictionaryService ddService) {
@@ -116,6 +118,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
 
     /**
      * Sets the lookupResultsService attribute value.
+     *
      * @param lookupResultsService The lookupResultsService to set.
      */
     public void setLookupResultsService(LookupResultsService lookupResultsService) {

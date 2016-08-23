@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.integration.cab;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.integration.purap.ExternalPurApItem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.krad.bo.DocumentHeader;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CapitalAssetBuilderModuleServiceNoOp implements CapitalAssetBuilderModuleService {
 
@@ -185,9 +185,9 @@ public class CapitalAssetBuilderModuleServiceNoOp implements CapitalAssetBuilder
     }
 
     public boolean isAssetLineEligibleForCABBatch(
-            CapitalAssetInformation assetInfoLine, Integer postingYear,
-            List<String> includedObjectSubTypeCodes,
-            List<String> excludedChartCodes, List<String> excludedSubFundCodes) {
+        CapitalAssetInformation assetInfoLine, Integer postingYear,
+        List<String> includedObjectSubTypeCodes,
+        List<String> excludedChartCodes, List<String> excludedSubFundCodes) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return true;
     }

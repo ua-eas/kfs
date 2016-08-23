@@ -19,36 +19,35 @@
 package org.kuali.kfs.krad.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
- *                     The reference element specifies the name of a reference
-                    object that is required to exist in order for the primary
-                    business object to be created or modified on a BO.
-
-                    DD: See ReferenceDefinition.java
-
-                    JSTL: references are Maps with the following keys:
-                    * attributeName (String)
-                    * activeIndicatorAttributeName (String)
-                    * activeIndicatorReversed (boolean String)
-                    * attributeToHighlightOnFail (String)
-                    * displayFieldName (String)
-
- *
+ * The reference element specifies the name of a reference
+ * object that is required to exist in order for the primary
+ * business object to be created or modified on a BO.
+ * <p>
+ * DD: See ReferenceDefinition.java
+ * <p>
+ * JSTL: references are Maps with the following keys:
+ * attributeName (String)
+ * activeIndicatorAttributeName (String)
+ * activeIndicatorReversed (boolean String)
+ * attributeToHighlightOnFail (String)
+ * displayFieldName (String)
  */
 public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 1737968024207302931L;
 
-	protected String attributeName;
+    protected String attributeName;
     protected String attributeToHighlightOnFail;
     protected String displayFieldName;
     protected String collection;
     protected Class<? extends BusinessObject> collectionBusinessObjectClass;
     protected Class<? extends BusinessObject> businessObjectClass;
 
-    public ReferenceDefinition() {}
+    public ReferenceDefinition() {
+    }
 
     /**
      * @return attributeName
@@ -59,9 +58,9 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * attributeName is the name of a reference object that
-                        must exist and not be null.  In the case of a collection,
-                        then this is the name of a reference object within the
-                        collection element.
+     * must exist and not be null.  In the case of a collection,
+     * then this is the name of a reference object within the
+     * collection element.
      *
      * @throws IllegalArgumentException if the given attributeName is blank
      */
@@ -82,9 +81,9 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-            attributeToHighlightOnFail is the name of the busines
-                        object attribute which will be highlighted when
-                        the default existence check fails.
+     * attributeToHighlightOnFail is the name of the busines
+     * object attribute which will be highlighted when
+     * the default existence check fails.
      */
     public void setAttributeToHighlightOnFail(String attributeToHighlightOnFail) {
         if (StringUtils.isBlank(attributeToHighlightOnFail)) {
@@ -103,8 +102,8 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-        displayFieldName is the name of the field to pull the label as it will
-                        appear in an error message.  e.g. "chartOfAccountsCode".
+     * displayFieldName is the name of the field to pull the label as it will
+     * appear in an error message.  e.g. "chartOfAccountsCode".
      */
     public void setDisplayFieldName(String displayFieldName) {
         this.displayFieldName = displayFieldName;
@@ -125,7 +124,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-        collection is the name of a collection that must exist
+     * collection is the name of a collection that must exist
      */
     public void setCollection(String collection) {
         this.collection = collection;
@@ -136,14 +135,15 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     }
 
     public Class<? extends BusinessObject> getCollectionBusinessObjectClass() {
-        if( collectionBusinessObjectClass == null && isCollectionReference() ){
-            collectionBusinessObjectClass=DataDictionary.getCollectionElementClass(businessObjectClass, collection);
+        if (collectionBusinessObjectClass == null && isCollectionReference()) {
+            collectionBusinessObjectClass = DataDictionary.getCollectionElementClass(businessObjectClass, collection);
         }
 
         return collectionBusinessObjectClass;
     }
 
-    /** Class that the specified collection represents.  Does not need to be set.  The DD
+    /**
+     * Class that the specified collection represents.  Does not need to be set.  The DD
      * Will set this attribute through introspection.
      */
     public void setCollectionBusinessObjectClass(Class<? extends BusinessObject> collectionBusinessObjectClass) {
@@ -166,15 +166,14 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
         // make sure the attributeToHighlightOnFail is actually a property of the BO
         if (isCollectionReference()) {
             getCollectionBusinessObjectClass(); // forces loading of the class
-            if ( collectionBusinessObjectClass == null ) {
+            if (collectionBusinessObjectClass == null) {
                 throw new AttributeValidationException("Unable to determine collectionBusinessObjectClass for collection '" + businessObjectClass.getName() + "." + collection + "'");
             }
 
             if (!DataDictionary.isPropertyOf(collectionBusinessObjectClass, attributeToHighlightOnFail)) {
                 throw new AttributeValidationException("unable to find attribute '" + attributeToHighlightOnFail + "' in collectionBusinessObjectClass '" + collectionBusinessObjectClass.getName() + "' (" + "" + ")");
             }
-        }
-        else {
+        } else {
             if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, attributeToHighlightOnFail)) {
                 throw new AttributeValidationException("unable to find attribute '" + attributeToHighlightOnFail + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }

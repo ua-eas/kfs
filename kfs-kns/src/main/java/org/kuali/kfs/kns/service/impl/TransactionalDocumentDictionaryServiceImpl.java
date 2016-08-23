@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.kns.service.impl;
 
-import java.util.Collection;
-
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+
+import java.util.Collection;
 
 /**
  * This class is the service implementation for the TransactionalDocumentDictionary structure. Defines the API for the interacting
@@ -132,7 +132,7 @@ public class TransactionalDocumentDictionaryServiceImpl implements Transactional
             throw new IllegalArgumentException("invalid (null) document");
         }
 
-        TransactionalDocumentEntry entry = (TransactionalDocumentEntry)getDataDictionary().getDocumentEntry(document.getClass().getName());
+        TransactionalDocumentEntry entry = (TransactionalDocumentEntry) getDataDictionary().getDocumentEntry(document.getClass().getName());
 
         return entry;
     }
@@ -153,12 +153,12 @@ public class TransactionalDocumentDictionaryServiceImpl implements Transactional
         return entry;
     }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see TransactionalDocumentDictionaryService#getDefaultExistenceChecks(java.lang.String)
-	 */
-	public Collection getDefaultExistenceChecks(String docTypeName) {
+    /**
+     * This overridden method ...
+     *
+     * @see TransactionalDocumentDictionaryService#getDefaultExistenceChecks(java.lang.String)
+     */
+    public Collection getDefaultExistenceChecks(String docTypeName) {
         Collection defaultExistenceChecks = null;
 
         TransactionalDocumentEntry entry = getTransactionalDocumentEntryBydocumentTypeName(docTypeName);
@@ -167,14 +167,14 @@ public class TransactionalDocumentDictionaryServiceImpl implements Transactional
         }
 
         return defaultExistenceChecks;
-	}
+    }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see TransactionalDocumentDictionaryService#getDefaultExistenceChecks(TransactionalDocument)
-	 */
-	public Collection getDefaultExistenceChecks(TransactionalDocument document) {
-		return getDefaultExistenceChecks(getTransactionalDocumentEntry(document).getDocumentTypeName());
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see TransactionalDocumentDictionaryService#getDefaultExistenceChecks(TransactionalDocument)
+     */
+    public Collection getDefaultExistenceChecks(TransactionalDocument document) {
+        return getDefaultExistenceChecks(getTransactionalDocumentEntry(document).getDocumentTypeName());
+    }
 }

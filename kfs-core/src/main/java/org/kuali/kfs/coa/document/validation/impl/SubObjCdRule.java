@@ -20,10 +20,10 @@ package org.kuali.kfs.coa.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSKeyConstants;
 
 public class SubObjCdRule extends MaintenanceDocumentRuleBase {
 
@@ -42,6 +42,7 @@ public class SubObjCdRule extends MaintenanceDocumentRuleBase {
      * <li>{@link SubObjCdRule#checkExistenceAndActive()}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomApproveDocumentBusinessRules(MaintenanceDocument document) {
@@ -60,6 +61,7 @@ public class SubObjCdRule extends MaintenanceDocumentRuleBase {
      * <li>{@link SubObjCdRule#checkExistenceAndActive()}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -80,6 +82,7 @@ public class SubObjCdRule extends MaintenanceDocumentRuleBase {
      * <li>{@link SubObjCdRule#checkExistenceAndActive()}</li>
      * </ul>
      * This rule does not fail on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -111,8 +114,8 @@ public class SubObjCdRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks that the account on the sub object code is not closed
+     *
      * @return false if the account is closed
      */
     protected boolean checkExistenceAndActive() {

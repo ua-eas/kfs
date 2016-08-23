@@ -19,8 +19,6 @@
 package org.kuali.kfs.krad.maintenance;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.exception.KualiExceptionIncident;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
@@ -28,6 +26,8 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.kew.api.WorkflowDocument;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +35,6 @@ import java.util.Properties;
 
 /**
  * Provides static utility methods for use within the maintenance framework
- *
- *
  */
 public class MaintenanceUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MaintenanceUtils.class);
@@ -45,9 +43,9 @@ public class MaintenanceUtils {
      * Determines if there is another maintenance document that has a lock on the same key as the given document, and
      * therefore will block the maintenance document from being submitted
      *
-     * @param document - maintenance document instance to check locking for
+     * @param document               - maintenance document instance to check locking for
      * @param throwExceptionIfLocked - indicates if an exception should be thrown in the case of found locking document,
-     * if false only an error will be added
+     *                               if false only an error will be added
      */
     public static void checkForLockingDocument(MaintenanceDocument document, boolean throwExceptionIfLocked) {
         LOG.info("starting checkForLockingDocument (by MaintenanceDocument)");
@@ -76,12 +74,12 @@ public class MaintenanceUtils {
             // occur, even though the exception would be caught here
             if (KRADServiceLocatorWeb.getWorkflowDocumentService().workflowDocumentExists(blockingDocId)) {
                 lockedDocument = KRADServiceLocatorWeb.getWorkflowDocumentService()
-                        .loadWorkflowDocument(blockingDocId, GlobalVariables.getUserSession().getPerson());
+                    .loadWorkflowDocument(blockingDocId, GlobalVariables.getUserSession().getPerson());
             }
         } catch (Exception ex) {
             // clean up the lock and notify the admins
             MaintenanceUtils.LOG.error("Unable to retrieve locking document specified in the maintenance lock table: " +
-                    blockingDocId, ex);
+                blockingDocId, ex);
 
             cleanOrphanLocks(blockingDocId, ex);
             return;
@@ -101,9 +99,9 @@ public class MaintenanceUtils {
         parameters.put(KRADConstants.PARAMETER_DOC_ID, blockingDocId);
         parameters.put(KRADConstants.PARAMETER_COMMAND, KRADConstants.METHOD_DISPLAY_DOC_SEARCH_VIEW);
         String blockingUrl = UrlFactory.parameterizeUrl(
-                KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                        KRADConstants.WORKFLOW_URL_KEY) +
-                        "/" + KRADConstants.DOC_HANDLER_ACTION, parameters);
+            KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
+                KRADConstants.WORKFLOW_URL_KEY) +
+                "/" + KRADConstants.DOC_HANDLER_ACTION, parameters);
         if (MaintenanceUtils.LOG.isDebugEnabled()) {
             MaintenanceUtils.LOG.debug("blockingUrl = '" + blockingUrl + "'");
             MaintenanceUtils.LOG.debug("Maintenance record: " + lockedDocument.getApplicationDocumentId() + "is locked.");
@@ -114,13 +112,13 @@ public class MaintenanceUtils {
         if (throwExceptionIfLocked) {
             // post an error about the locked document
             GlobalVariables.getMessageMap()
-                    .putError(KRADConstants.GLOBAL_ERRORS, RiceKeyConstants.ERROR_MAINTENANCE_LOCKED, errorParameters);
+                .putError(KRADConstants.GLOBAL_ERRORS, RiceKeyConstants.ERROR_MAINTENANCE_LOCKED, errorParameters);
             throw new ValidationException("Maintenance Record is locked by another document.");
         } else {
             // Post a warning about the locked document.
             GlobalVariables.getMessageMap()
-                    .putWarning(KRADConstants.GLOBAL_MESSAGES, RiceKeyConstants.WARNING_MAINTENANCE_LOCKED,
-                            errorParameters);
+                .putWarning(KRADConstants.GLOBAL_MESSAGES, RiceKeyConstants.WARNING_MAINTENANCE_LOCKED,
+                    errorParameters);
         }
     }
 
@@ -131,7 +129,6 @@ public class MaintenanceUtils {
      * @param lockedDocument
      * @return
      * @throws org.kuali.rice.kew.api.exception.WorkflowException
-     *
      */
     private static boolean lockCanBeIgnored(WorkflowDocument lockedDocument) {
         // TODO: implement real authorization for Maintenance Document Save/Route - KULNRVSYS-948
@@ -164,7 +161,7 @@ public class MaintenanceUtils {
             Map<String, String> parameters = new HashMap<String, String>(1);
             parameters.put(KRADConstants.PARAMETER_DOC_ID, lockingDocumentNumber);
             KualiExceptionIncident kei = KRADServiceLocatorWeb.getKualiExceptionIncidentService()
-                    .getExceptionIncident(workflowException, parameters);
+                .getExceptionIncident(workflowException, parameters);
             KRADServiceLocatorWeb.getKualiExceptionIncidentService().report(kei);
         } catch (Exception ex) {
             MaintenanceUtils.LOG.error("Unable to delete and notify upon locking document retrieval failure.", ex);

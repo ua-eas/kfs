@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.dataaccess.AccountDelegateDao;
@@ -30,6 +25,11 @@ import org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao;
 import org.kuali.kfs.coa.document.AccountDelegateGlobalMaintainableImpl;
 import org.kuali.kfs.coa.document.AccountDelegateMaintainableImpl;
 import org.kuali.kfs.coa.service.AccountDelegateService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.sys.service.NonTransactional;
@@ -38,13 +38,13 @@ import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.role.RoleResponsibility;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The default implementation of AccountDelegateService.
@@ -59,7 +59,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountDelegateService#getLockingDocumentId(org.kuali.kfs.coa.document.AccountDelegateGlobalMaintainableImpl,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     @NonTransactional
@@ -77,7 +77,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
 
     /**
      * @see org.kuali.kfs.coa.service.AccountDelegateService#getLockingDocumentId(org.kuali.kfs.coa.document.AccountDelegateMaintainableImpl,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     @NonTransactional
@@ -123,8 +123,7 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
         final FinancialSystemMaintainable maintainable;
         try {
             maintainable = (FinancialSystemMaintainable) maintainableClazz.newInstance();
-        }
-        catch (Exception ie) {
+        } catch (Exception ie) {
             throw new RuntimeException("Could not instantiate maintainable for AccountDelegate maintenance document", ie);
         }
         return maintainable;
@@ -207,10 +206,11 @@ public class AccountDelegateServiceImpl implements AccountDelegateService {
             KEWServiceLocator.getActionRequestService().updateActionRequestsForResponsibilityChange(getChangedRoleResponsibilityIds(newRoleResp));
         }
     }
-    protected Set<String> getChangedRoleResponsibilityIds( List<RoleResponsibility> newRoleResp){
+
+    protected Set<String> getChangedRoleResponsibilityIds(List<RoleResponsibility> newRoleResp) {
         Set<String> lRet = new HashSet<String>();
-          if(ObjectUtils.isNotNull(newRoleResp)){
-            for(RoleResponsibility roleResp: newRoleResp){
+        if (ObjectUtils.isNotNull(newRoleResp)) {
+            for (RoleResponsibility roleResp : newRoleResp) {
                 lRet.add(roleResp.getResponsibilityId());
             }
         }

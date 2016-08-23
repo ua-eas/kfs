@@ -18,19 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.PurapPropertyConstants;
-import org.kuali.kfs.module.purap.businessobject.ContractManagerAssignmentDetail;
-import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
@@ -38,6 +25,19 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.PurapPropertyConstants;
+import org.kuali.kfs.module.purap.businessobject.ContractManagerAssignmentDetail;
+import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.ContractManager;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Business rule(s) applicable to Contract Manager Assignment document.
@@ -91,7 +91,7 @@ public class ContractManagerAssignmentDocumentRule extends TransactionalDocument
         int index = 0;
 
         String propertyNamePattern = "document.contractManagerAssignmentDetails[{0}].contractManagerCode";
-        for (Iterator iter = contractManagerAssignmentDetails.iterator(); iter.hasNext();) {
+        for (Iterator iter = contractManagerAssignmentDetails.iterator(); iter.hasNext(); ) {
             ContractManagerAssignmentDetail detail = (ContractManagerAssignmentDetail) iter.next();
 
             // Look for the contractManagerCode in the table. If not there the code is invalid.
@@ -110,7 +110,7 @@ public class ContractManagerAssignmentDocumentRule extends TransactionalDocument
                     isValid = false;
                 }
 
-                if(isValid){
+                if (isValid) {
                     count++;
                 }
             }

@@ -18,6 +18,18 @@
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
 
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.module.cam.batch.AssetBarcodeInventoryInputFileType;
+import org.kuali.kfs.module.cam.batch.service.AssetBarcodeInventoryInputFileService;
+import org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileForm;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.batch.service.impl.BatchInputFileSetServiceImpl;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.exception.FileStorageException;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,19 +40,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.module.cam.batch.AssetBarcodeInventoryInputFileType;
-import org.kuali.kfs.module.cam.batch.service.AssetBarcodeInventoryInputFileService;
-import org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileForm;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.batch.service.impl.BatchInputFileSetServiceImpl;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.exception.FileStorageException;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.exception.ValidationException;
-
-public class AssetBarcodeInventoryInputFileServiceImpl extends BatchInputFileSetServiceImpl implements  AssetBarcodeInventoryInputFileService {
+public class AssetBarcodeInventoryInputFileServiceImpl extends BatchInputFileSetServiceImpl implements AssetBarcodeInventoryInputFileService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetBarcodeInventoryInputFileServiceImpl.class);
 
     public Map<String, String> save(Person user, AssetBarcodeInventoryInputFileType inputType, String fileUserIdentifier, Map<String, InputStream> typeToStreamMap, AssetBarCodeInventoryInputFileForm form) throws AuthorizationException, FileStorageException {
@@ -79,14 +79,12 @@ public class AssetBarcodeInventoryInputFileServiceImpl extends BatchInputFileSet
                     fileContents.close();
                     typeToFileNames.put(fileType, saveFileName);
                     typeToFiles.put(fileType, fileToSave);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     LOG.error("unable to save contents to file " + saveFileName, e);
                     throw new RuntimeException("errors encountered while writing file " + saveFileName, e);
                 }
             }
-        }
-        finally {
+        } finally {
             deleteTempFiles(typeToTempFiles);
         }
 
@@ -96,13 +94,12 @@ public class AssetBarcodeInventoryInputFileServiceImpl extends BatchInputFileSet
             doneFile.createNewFile();
 
             typeToFiles.put(KFSConstants.DONE_FILE_TYPE, doneFile);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("unable to create done file", e);
             throw new RuntimeException("unable to create done file", e);
         }
 
-        inputType.process(typeToFiles,form);
+        inputType.process(typeToFiles, form);
 
         return typeToFileNames;
     }

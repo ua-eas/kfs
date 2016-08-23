@@ -46,8 +46,7 @@ public enum PurchaseOrderChangeDocumentFixture {
             po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS.createPurchaseOrderDocument();
             po.setApplicationDocumentStatus(status);
             po.refreshNonUpdateableReferences();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Problems creating new PO: " + e);
         }
         return po;

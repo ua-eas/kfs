@@ -23,7 +23,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-
 /**
  * This interface defines all the necessary methods to define a Contracts & Grants fund manager object.
  */

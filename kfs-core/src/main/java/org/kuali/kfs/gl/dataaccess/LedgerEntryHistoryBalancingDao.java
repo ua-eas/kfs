@@ -19,7 +19,6 @@
 package org.kuali.kfs.gl.dataaccess;
 
 
-
 /**
  * The DAO interface that declares methods needed for the balancing process. This is for the GL and Labor EntryHistory BO.
  */

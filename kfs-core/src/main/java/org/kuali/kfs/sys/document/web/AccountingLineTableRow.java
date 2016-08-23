@@ -44,6 +44,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Gets the cells attribute.
+     *
      * @return Returns the cells.
      */
     public List<AccountingLineTableCell> getCells() {
@@ -52,6 +53,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Sets the cells attribute value.
+     *
      * @param cells The cells to set.
      */
     public void setCells(List<AccountingLineTableCell> cells) {
@@ -60,6 +62,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Adds a new table cell to the row
+     *
      * @param cell the cell to add to the row
      */
     public void addCell(AccountingLineTableCell cell) {
@@ -80,6 +83,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * This is not an action block
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
@@ -126,8 +130,9 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Requests that the row renders all of its children cells
+     *
      * @param pageContext the page contex to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      * @throws JspException exception thrown when...something...goes, I don't know...wrong or somethin'
      */
     public void renderChildrenCells(PageContext pageContext, Tag parentTag) throws JspException {
@@ -138,6 +143,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Returns the number of children cells this row has
+     *
      * @return the number of children cells this row has
      */
     public int getChildCellCount() {
@@ -157,9 +163,10 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Dutifully appends the names of any fields it knows about to the given List of field names
-     * @param fields a List of field names to append other names to
      *
-     * KRAD Conversion: Customization of the fields - No use of data dictionary
+     * @param fields a List of field names to append other names to
+     *               <p>
+     *               KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
         for (AccountingLineTableCell cell : cells) {
@@ -178,6 +185,7 @@ public class AccountingLineTableRow implements RenderableElement {
 
     /**
      * Determines whether each cell is safe to remove; if so, simply removes that cell
+     *
      * @return true if the row can be safely removed; false otherwise
      */
     public boolean safeToRemove() {

@@ -32,14 +32,12 @@ import java.util.Set;
 
 /**
  * Class is a top level BeanWrapper for a UIF View Model
- *
+ * <p>
  * <p>
  * Registers custom property editors configured on the field associated with the property name for which
  * we are getting or setting a value. In addition determines if the field requires encryption and if so applies
  * the {@link UifEncryptionPropertyEditorWrapper}
  * </p>
- *
- *
  */
 public class UifViewBeanWrapper extends BeanWrapperImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UifViewBeanWrapper.class);
@@ -102,13 +100,13 @@ public class UifViewBeanWrapper extends BeanWrapperImpl {
         if (propertyEditor != null) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Registering custom editor for property path '" + propertyName
-                        + "' and property editor class '" + propertyEditor.getClass().getName() + "'");
+                    + "' and property editor class '" + propertyEditor.getClass().getName() + "'");
             }
 
             if (requiresEncryption) {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Enabling encryption for custom editor '" + propertyName +
-                            "' and property editor class '" + propertyEditor.getClass().getName() + "'");
+                        "' and property editor class '" + propertyEditor.getClass().getName() + "'");
                 }
                 this.registerCustomEditor(null, propertyName, new UifEncryptionPropertyEditorWrapper(propertyEditor));
             } else {
@@ -117,11 +115,11 @@ public class UifViewBeanWrapper extends BeanWrapperImpl {
         } else if (requiresEncryption) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("No custom formatter for property path '" + propertyName
-                        + "' but property does require encryption");
+                    + "' but property does require encryption");
             }
 
             this.registerCustomEditor(null, propertyName, new UifEncryptionPropertyEditorWrapper(
-                    findEditorForPropertyName(propertyName)));
+                findEditorForPropertyName(propertyName)));
         }
 
         processedProperties.add(propertyName);
@@ -131,20 +129,20 @@ public class UifViewBeanWrapper extends BeanWrapperImpl {
         Class<?> clazz = getPropertyType(propertyName);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Attempting retrieval of property editor using class '"
-                    + clazz
-                    + "' and property path '"
-                    + propertyName
-                    + "'");
+                + clazz
+                + "' and property path '"
+                + propertyName
+                + "'");
         }
 
         PropertyEditor editor = findCustomEditor(clazz, propertyName);
         if (editor == null) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("No custom property editor found using class '"
-                        + clazz
-                        + "' and property path '"
-                        + propertyName
-                        + "'. Attempting to find default property editor class.");
+                    + clazz
+                    + "' and property path '"
+                    + propertyName
+                    + "'. Attempting to find default property editor class.");
             }
             editor = getDefaultEditor(clazz);
         }

@@ -34,6 +34,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Constructs a CashieringTransactionApplicationEventBase
+     *
      * @param description
      * @param errorPathPrefix
      * @param document
@@ -47,6 +48,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns the cashieringTransaction to validate
+     *
      * @see org.kuali.kfs.fp.document.validation.event.CashieringTransactionApplicationEvent#getCashieringTransaction()
      */
     public CashieringTransaction getCashieringTransaction() {
@@ -55,6 +57,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns the cash drawer the cashiering transaction will apply to
+     *
      * @see org.kuali.kfs.fp.document.validation.event.CashieringTransactionApplicationEvent#getCashDrawer()
      */
     public CashDrawer getCashDrawer() {
@@ -63,6 +66,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns CashManagingRule.class
+     *
      * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#getRuleInterfaceClass()
      */
     public Class getRuleInterfaceClass() {
@@ -71,10 +75,11 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Casts the rule to CashManagingRule and calls processCashieringTransactionApplication
+     *
      * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#invokeRuleMethod(org.kuali.rice.krad.rule.BusinessRule)
      */
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((CashManagingRule)rule).processCashieringTransactionApplication(getCashDrawer(), getCashieringTransaction());
+        return ((CashManagingRule) rule).processCashieringTransactionApplication(getCashDrawer(), getCashieringTransaction());
     }
 
 }

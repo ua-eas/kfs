@@ -35,12 +35,12 @@ public class AttachmentDevelopmentMailServiceImpl extends AttachmentMailServiceI
     @Override
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
-        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
-        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
-        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
-        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
-        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
-        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress());
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses());
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses());
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses());
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject());
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage());
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);
     }
 
@@ -53,18 +53,18 @@ public class AttachmentDevelopmentMailServiceImpl extends AttachmentMailServiceI
     @Override
     public void sendMessage(AttachmentMailMessage message) throws InvalidAddressException, MessagingException {
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
-        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
-        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
-        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
-        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
-        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
-        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress());
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses());
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses());
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses());
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject());
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage());
         LOG.info(DevelopmentMailServerConstants.ATTACHMENT_INFO_LINE);
         LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_NAME + message.getFileName());
         if (message.getContent() != null) {
-        	LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + message.getContent().length);
+            LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + message.getContent().length);
         } else {
-        	LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + "No content found");
+            LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + "No content found");
         }
         LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_MIME_TYPE + message.getType());
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);

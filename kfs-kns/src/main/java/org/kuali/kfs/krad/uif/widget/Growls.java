@@ -25,8 +25,6 @@ package org.kuali.kfs.krad.uif.widget;
  * However, the header and theme option is set by the growl processing in PageGroup
  * automatically.
  * See the jquery jGrowl plugin for more details.
- *
- *
  */
 public class Growls extends WidgetBase {
     private static final long serialVersionUID = -8701090110933484411L;

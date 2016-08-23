@@ -21,13 +21,14 @@ package org.kuali.kfs.sys.service;
 /**
  * This interface specifies a ReportWriterService that needs to be aware of the document number when
  * generating reports.
- *
+ * <p>
  * Note that the implementing service may need to implement mechanisms to ensure that if multiple reports are
  * generated using this service (in particular the same instance), that each report uses the proper document number.
  */
 public interface DocumentNumberAwareReportWriterService extends ReportWriterService {
     /**
      * Sets the document number
+     *
      * @param documentNumber
      */
     public void setDocumentNumber(String documentNumber);

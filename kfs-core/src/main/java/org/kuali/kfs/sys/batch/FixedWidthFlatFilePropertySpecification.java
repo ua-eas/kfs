@@ -36,6 +36,7 @@ public class FixedWidthFlatFilePropertySpecification extends AbstractFlatFilePro
 
     /**
      * Sets the beginning index of the substring to parse
+     *
      * @param start the beginning index of the substring to parse
      */
     public void setStart(int start) {
@@ -51,6 +52,7 @@ public class FixedWidthFlatFilePropertySpecification extends AbstractFlatFilePro
 
     /**
      * Sets the ending index of the substring to parse; if not set, line will be parsed to end of String
+     *
      * @param end the ending index of the substring to parse
      */
     public void setEnd(int end) {

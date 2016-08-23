@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 import org.kuali.kfs.sys.businessobject.options.YesNoValuesFinder;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * An implementation of ValueFinder that allows balance inquiries to choose whether to exclude
@@ -30,6 +30,7 @@ public class CGBeginningBalanceExcludeOptionFinder extends YesNoValuesFinder imp
 
     /**
      * Gets the default value for this ValueFinder, in this case "Y".
+     *
      * @return a String with the default value for this ValueFinder
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */

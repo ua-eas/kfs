@@ -18,29 +18,35 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
 import org.kuali.kfs.integration.ld.LaborLedgerBenefitsCalculation;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.SessionDocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionHeader;
@@ -68,27 +74,21 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.service.SessionDocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * Implements the BudgetDocumentService interface. Methods here operate on objects associated with the Budget Construction document
@@ -114,7 +114,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#getByCandidateKey(java.lang.String, java.lang.String,
-     *      java.lang.String, java.lang.Integer)
+     * java.lang.String, java.lang.Integer)
      */
     @Transactional
     public BudgetConstructionHeader getByCandidateKey(String chartOfAccountsCode, String accountNumber, String subAccountNumber, Integer fiscalYear) {
@@ -123,7 +123,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#saveDocument(org.kuali.rice.krad.document.Document)
-     *      similar to DocumentService.saveDocument()
+     * similar to DocumentService.saveDocument()
      */
     @Transactional
     public Document saveDocument(BudgetConstructionDocument budgetConstructionDocument) throws WorkflowException, ValidationException {
@@ -160,7 +160,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#saveDocumentNoWorkFlow(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType, boolean)
+     * org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType, boolean)
      */
     @Transactional
     public Document saveDocumentNoWorkFlow(BudgetConstructionDocument bcDoc, MonthSpreadDeleteType monthSpreadDeleteType, boolean doMonthRICheck) throws ValidationException {
@@ -173,8 +173,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         // this eventually calls BudgetConstructionRules.processSaveDocument() which overrides the method in DocumentRuleBase
         if (doMonthRICheck) {
             validateAndPersistDocument(bcDoc, new SaveDocumentEvent(bcDoc));
-        }
-        else {
+        } else {
             validateAndPersistDocument(bcDoc, new DeleteMonthlySpreadEvent(bcDoc, monthSpreadDeleteType));
         }
         return bcDoc;
@@ -203,7 +202,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
             businessObjectService.save(sourceRow);
 
             this.addOrUpdatePBGLRow(bcDoc, sourceRow, monthlyBudgetForm.isRevenue());
-            if (monthlyBudgetForm.isRevenue()){
+            if (monthlyBudgetForm.isRevenue()) {
                 bcDoc.setRevenueAccountLineAnnualBalanceAmountTotal(bcDoc.getRevenueAccountLineAnnualBalanceAmountTotal().add(changeAmount));
             } else {
                 bcDoc.setExpenditureAccountLineAnnualBalanceAmountTotal(bcDoc.getExpenditureAccountLineAnnualBalanceAmountTotal().add(changeAmount));
@@ -217,7 +216,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#callForBenefitsCalcIfNeeded(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly, org.kuali.rice.core.api.util.type.KualiInteger)
+     * org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly, org.kuali.rice.core.api.util.type.KualiInteger)
      */
     @Transactional
     public void callForBenefitsCalcIfNeeded(BudgetConstructionDocument bcDoc, BudgetConstructionMonthly budgetConstructionMonthly, KualiInteger pbglChangeAmount) {
@@ -328,8 +327,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
     protected void checkForNulls(Document document) {
         if (document == null) {
             throw new IllegalArgumentException("invalid (null) document");
-        }
-        else if (document.getDocumentNumber() == null) {
+        } else if (document.getDocumentNumber() == null) {
             throw new IllegalStateException("invalid (null) documentHeaderId");
         }
     }
@@ -361,8 +359,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         try {
             LOG.info("storing document " + document.getDocumentNumber());
             documentDao.save(document);
-        }
-        catch (OptimisticLockingFailureException e) {
+        } catch (OptimisticLockingFailureException e) {
             LOG.error("exception encountered on store of document " + e.getMessage());
             throw e;
         }
@@ -421,13 +418,13 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#addOrUpdatePBGLRow(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger)
      */
     @NonTransactional
     public BudgetConstructionDocument addOrUpdatePBGLRow(BudgetConstructionDocument bcDoc, PendingBudgetConstructionGeneralLedger sourceRow, boolean isRevenue) {
 
         List<PendingBudgetConstructionGeneralLedger> pbglRows;
-        if (isRevenue){
+        if (isRevenue) {
             pbglRows = bcDoc.getPendingBudgetConstructionGeneralLedgerRevenueLines();
         } else {
             pbglRows = bcDoc.getPendingBudgetConstructionGeneralLedgerExpenditureLines();
@@ -447,8 +444,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                 pbglRow.setPersistedAccountLineAnnualBalanceAmount(sourceRow.getAccountLineAnnualBalanceAmount());
                 pbglRow.setVersionNumber(sourceRow.getVersionNumber());
                 break;
-            }
-            else {
+            } else {
                 if (pbglRowKey.compareToIgnoreCase(sourceRowKey) > 0) {
                     // insert here - drop out
                     break;
@@ -509,8 +505,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
             if (docPBGLExpLines == null || docPBGLExpLines.isEmpty()) {
                 docPBGLExpLines.addAll(dbPBGLFringeLines);
-            }
-            else {
+            } else {
                 ListIterator dbLines = dbPBGLFringeLines.listIterator();
                 docLines = docPBGLExpLines.listIterator();
                 PendingBudgetConstructionGeneralLedger dbLine = (PendingBudgetConstructionGeneralLedger) dbLines.next();
@@ -531,16 +526,13 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                         }
                         if (dbLines.hasNext()) {
                             dbLine = (PendingBudgetConstructionGeneralLedger) dbLines.next();
-                        }
-                        else {
+                        } else {
                             dbDone = true;
                         }
-                    }
-                    else {
+                    } else {
                         if (docLines.hasNext()) {
                             docLine = (PendingBudgetConstructionGeneralLedger) docLines.next();
-                        }
-                        else {
+                        } else {
                             docDone = true;
                         }
                     }
@@ -561,10 +553,9 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
         final List REFRESH_FIELDS;
         if (StringUtils.isNotBlank(line.getFinancialSubObjectCode())) {
-            REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { KFSPropertyConstants.FINANCIAL_OBJECT, KFSPropertyConstants.FINANCIAL_SUB_OBJECT, BCPropertyConstants.BUDGET_CONSTRUCTION_MONTHLY }));
-        }
-        else {
-            REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { KFSPropertyConstants.FINANCIAL_OBJECT, BCPropertyConstants.BUDGET_CONSTRUCTION_MONTHLY }));
+            REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{KFSPropertyConstants.FINANCIAL_OBJECT, KFSPropertyConstants.FINANCIAL_SUB_OBJECT, BCPropertyConstants.BUDGET_CONSTRUCTION_MONTHLY}));
+        } else {
+            REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{KFSPropertyConstants.FINANCIAL_OBJECT, BCPropertyConstants.BUDGET_CONSTRUCTION_MONTHLY}));
         }
         persistenceService.retrieveReferenceObjects(line, REFRESH_FIELDS);
 
@@ -678,7 +669,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#isBudgetableAccount(java.lang.Integer,
-     *      org.kuali.kfs.coa.businessobject.Account)
+     * org.kuali.kfs.coa.businessobject.Account)
      */
     @NonTransactional
     public boolean isBudgetableAccount(Integer budgetYear, Account account, boolean isWagesCheck) {
@@ -717,7 +708,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#isBudgetableSubAccount(org.kuali.kfs.coa.businessobject.SubAccount,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @NonTransactional
     public boolean isBudgetableSubAccount(SubAccount subAccount, String subAccountNumber) {
@@ -748,15 +739,14 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         BudgetConstructionAccountReports accountReports = (BudgetConstructionAccountReports) budgetConstructionDao.getAccountReports(chartOfAccountsCode, accountNumber);
         if (accountReports == null) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#updatePendingBudgetGeneralLedger(org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding,
-     *      org.kuali.rice.core.api.util.type.KualiInteger)
+     * org.kuali.rice.core.api.util.type.KualiInteger)
      */
     @Transactional
     public void updatePendingBudgetGeneralLedger(PendingBudgetConstructionAppointmentFunding appointmentFunding, KualiInteger updateAmount) {
@@ -771,7 +761,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#updatePendingBudgetGeneralLedgerPlug(org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding,
-     *      org.kuali.rice.core.api.util.type.KualiInteger)
+     * org.kuali.rice.core.api.util.type.KualiInteger)
      */
     @Transactional
     public void updatePendingBudgetGeneralLedgerPlug(PendingBudgetConstructionAppointmentFunding appointmentFunding, KualiInteger updateAmount) {
@@ -792,8 +782,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
             if ((annualBalanceAmount == null || annualBalanceAmount.isZero()) && (beginningBalanceAmount == null || beginningBalanceAmount.isZero())) {
                 businessObjectService.delete(plugRecord);
-            }
-            else {
+            } else {
                 businessObjectService.save(plugRecord);
             }
         }
@@ -801,7 +790,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#updatePendingBudgetGeneralLedgerPlug(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.rice.core.api.util.type.KualiInteger)
+     * org.kuali.rice.core.api.util.type.KualiInteger)
      */
     @Transactional
     public PendingBudgetConstructionGeneralLedger updatePendingBudgetGeneralLedgerPlug(BudgetConstructionDocument bcDoc, KualiInteger updateAmount) {
@@ -826,8 +815,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                 expRow.refresh();
                 twoPlugRow = expRow;
                 break;
-            }
-            else {
+            } else {
                 if (expRowKey.compareToIgnoreCase(twoPlugKey) > 0) {
 
                     // case where offsetting salary setting updates under different object codes - insert a new row here
@@ -901,8 +889,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         for (BudgetConstructionDocument document : documents) {
             try {
                 return (BudgetConstructionDocument) documentService.getByDocumentHeaderId(document.getDocumentHeader().getDocumentNumber());
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Fail to retrieve the document for appointment funding" + appointmentFunding, e);
             }
         }
@@ -917,8 +904,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
     public BudgetConstructionDocument getBudgetConstructionDocument(SalarySettingExpansion salarySettingExpansion) {
         try {
             return (BudgetConstructionDocument) documentService.getByDocumentHeaderId(salarySettingExpansion.getDocumentNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Fail to retrieve the document for salary expansion" + salarySettingExpansion, e);
         }
     }
@@ -958,9 +944,9 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
      * create it with the given information
      *
      * @param budgetConstructionHeader the budget construction header of the pending budget construction GL record
-     * @param appointmentFunding the appointment funding associated with the pending budget construction GL record
-     * @param updateAmount the amount being used to update the retrieved pending budget construction GL record
-     * @param is2PLG the flag used to instrcut to retrieve a pending budget construction GL plug record
+     * @param appointmentFunding       the appointment funding associated with the pending budget construction GL record
+     * @param updateAmount             the amount being used to update the retrieved pending budget construction GL record
+     * @param is2PLG                   the flag used to instrcut to retrieve a pending budget construction GL plug record
      * @return a pending budget construction GL record if any; otherwise, create one with the given information
      */
     @Transactional
@@ -982,8 +968,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         if (pendingRecord != null) {
             KualiInteger newAnnaulBalanceAmount = pendingRecord.getAccountLineAnnualBalanceAmount().add(updateAmount);
             pendingRecord.setAccountLineAnnualBalanceAmount(newAnnaulBalanceAmount);
-        }
-        else if (!is2PLG || (is2PLG && updateAmount.isNonZero())) {
+        } else if (!is2PLG || (is2PLG && updateAmount.isNonZero())) {
             // initialize a new pending record if not plug line or plug line not zero
 
             Integer budgetYear = appointmentFunding.getUniversityFiscalYear();
@@ -1015,8 +1000,8 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
      * retrieve a pending budget construction GL record based on the given infromation
      *
      * @param budgetConstructionHeader the budget construction header of the pending budget construction GL record to be retrieved
-     * @param appointmentFunding the appointment funding associated with the pending budget construction GL record to be retrieved
-     * @param is2PLG the flag used to instrcut to retrieve a pending budget construction GL plug record
+     * @param appointmentFunding       the appointment funding associated with the pending budget construction GL record to be retrieved
+     * @param is2PLG                   the flag used to instrcut to retrieve a pending budget construction GL plug record
      * @return a pending budget construction GL record if any; otherwise, null
      */
     @NonTransactional
@@ -1058,7 +1043,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#retrieveOrBuildAccountOrganizationHierarchy(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Transactional
     public List<BudgetConstructionAccountOrganizationHierarchy> retrieveOrBuildAccountOrganizationHierarchy(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber) {
@@ -1114,7 +1099,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetDocumentService#getPushPullLevelList(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     @Transactional
     public List<BudgetConstructionAccountOrganizationHierarchy> getPushPullLevelList(BudgetConstructionDocument bcDoc, Person person) {
@@ -1282,16 +1267,16 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Gets the defaultLaborBenefitRateCategoryCode attribute.
+     *
      * @return Returns the defaultLaborBenefitRateCategoryCode.
      */
     @Transactional
     public String getDefaultLaborBenefitRateCategoryCode() {
-        if(ObjectUtils.isNull(defaultLaborBenefitRateCategoryCode)){
-         // make sure the parameter exists
+        if (ObjectUtils.isNull(defaultLaborBenefitRateCategoryCode)) {
+            // make sure the parameter exists
             if (SpringContext.getBean(ParameterService.class).parameterExists(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE)) {
                 this.defaultLaborBenefitRateCategoryCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE);
-            }
-            else {
+            } else {
                 this.defaultLaborBenefitRateCategoryCode = "";
             }
         }
@@ -1300,6 +1285,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the defaultLaborBenefitRateCategoryCode attribute value.
+     *
      * @param defaultLaborBenefitRateCategoryCode The defaultLaborBenefitRateCategoryCode to set.
      */
     @Transactional

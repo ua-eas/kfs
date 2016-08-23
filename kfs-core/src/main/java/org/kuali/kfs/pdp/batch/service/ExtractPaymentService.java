@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.pdp.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.batch.InitiateDirectory;
+
+import java.util.List;
 
 public interface ExtractPaymentService extends InitiateDirectory {
     /**

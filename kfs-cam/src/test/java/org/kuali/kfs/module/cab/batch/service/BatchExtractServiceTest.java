@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
@@ -35,8 +32,11 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Default implementation
@@ -69,7 +69,7 @@ public class BatchExtractServiceTest extends BatchTestBase {
         batchExtractService.saveFPLines(fpLines, processLog);
         Collection<GeneralLedgerEntry> fpGls = boService.findAll(GeneralLedgerEntry.class);
         assertEquals(2, fpGls.size());
-        Timestamp ts = new Timestamp(DateUtils.parseDate("01/01/1970 23:59:59", new String[] { CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME }).getTime());
+        Timestamp ts = new Timestamp(DateUtils.parseDate("01/01/1970 23:59:59", new String[]{CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME}).getTime());
         // Test updating the last extract time stamp
         batchExtractService.updateLastExtractTime(ts);
         Parameter parameter = findCabExtractTimeParam();

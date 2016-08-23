@@ -16,16 +16,16 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page headerTitle="Format Process is Running"
-	transactionalDocument="false" showDocumentInfo="false" errorKey="foo"
-	htmlFormAction="pdp/format" docTitle="Format Process is Running">
+          transactionalDocument="false" showDocumentInfo="false" errorKey="foo"
+          htmlFormAction="pdp/format" docTitle="Format Process is Running">
 
-	The PDP format for Process ID "${KualiForm.formatProcessSummary.processId}" has started. An email will be sent to "${KualiForm.initiatorEmail}" when the process is complete.
-	<div id="globalbuttons" class="globalbuttons">
-		<html:submit value="Close"
-			styleClass="btn btn-default small" property="methodToCall.returnToPortal" title="Close Window" alt="Close"/>
-	</div>
+    The PDP format for Process ID "${KualiForm.formatProcessSummary.processId}" has started. An email will be sent to "${KualiForm.initiatorEmail}" when the process is complete.
+    <div id="globalbuttons" class="globalbuttons">
+        <html:submit value="Close"
+                     styleClass="btn btn-default small" property="methodToCall.returnToPortal" title="Close Window" alt="Close"/>
+    </div>
 
 </kul:page>

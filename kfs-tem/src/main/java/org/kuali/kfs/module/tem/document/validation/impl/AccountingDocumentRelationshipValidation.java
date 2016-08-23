@@ -18,32 +18,32 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import org.kuali.kfs.module.tem.TemKeyConstants;
-import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
+import org.kuali.kfs.sys.context.SpringContext;
 
-public class AccountingDocumentRelationshipValidation extends MaintenanceDocumentRuleBase{
+public class AccountingDocumentRelationshipValidation extends MaintenanceDocumentRuleBase {
 
     @Override
     protected boolean dataDictionaryValidate(MaintenanceDocument document) {
         boolean success = super.dataDictionaryValidate(document);
 
-        AccountingDocumentRelationship adr = (AccountingDocumentRelationship)document.getNewMaintainableObject().getBusinessObject();
+        AccountingDocumentRelationship adr = (AccountingDocumentRelationship) document.getNewMaintainableObject().getBusinessObject();
         DocumentService documentService = (DocumentService) SpringContext.getBean(DocumentService.class);
 
-        if(adr.getDocumentNumber() != null){
-            if(!(documentService.documentExists(adr.getDocumentNumber()))){
+        if (adr.getDocumentNumber() != null) {
+            if (!(documentService.documentExists(adr.getDocumentNumber()))) {
                 success = false;
                 GlobalVariables.getMessageMap().putError("document.newMaintainableObject.documentNumber", TemKeyConstants.ERROR_ADR_DOCUMENT_NOT_EXIST, new String[]{"Document", adr.getDocumentNumber()});
             }
         }
 
-        if(adr.getRelDocumentNumber() != null){
-            if(!(documentService.documentExists(adr.getRelDocumentNumber()))){
+        if (adr.getRelDocumentNumber() != null) {
+            if (!(documentService.documentExists(adr.getRelDocumentNumber()))) {
                 success = false;
                 GlobalVariables.getMessageMap().putError("document.newMaintainableObject.relDocumentNumber", TemKeyConstants.ERROR_ADR_DOCUMENT_NOT_EXIST, new String[]{"Related Document", adr.getRelDocumentNumber()});
             }

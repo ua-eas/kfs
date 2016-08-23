@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ar.batch.service;
 
-import java.io.File;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerInvoiceWriteoffBatchVO;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -29,6 +27,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+
+import java.io.File;
 
 @ConfigureContext
 public class CustomerInvoiceWriteoffBatchServiceTest extends KualiTestBase {

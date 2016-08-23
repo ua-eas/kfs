@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.Constant;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An implmentation of ValueFinder that allows the balance inquiries to choose whether to include or exclude cost share entries
@@ -33,6 +33,7 @@ public class CostShareOptionFinder extends KeyValuesBase implements ValueFinder 
 
     /**
      * Returns the default value for this ValueFinder, in this case, exclude cost share entries
+     *
      * @return a String with the default key
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
@@ -42,6 +43,7 @@ public class CostShareOptionFinder extends KeyValuesBase implements ValueFinder 
 
     /**
      * Returns a list of possible values for this ValueFinder, in this case include cost share entries or exclude cost share entries
+     *
      * @return a List of key/value pairs to populate radio buttons
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */

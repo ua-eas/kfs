@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.module.cg.businessobject.inquiry;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
+import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.kns.web.ui.SectionBridge;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.cg.service.ContractsAndGrantsBillingService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
-import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.module.cg.service.ContractsAndGrantsBillingService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.kfs.kns.web.ui.SectionBridge;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Used for wiring up {@link Agency} for inquiries.
@@ -46,7 +46,7 @@ public class AgencyInquirableImpl extends KualiInquirableImpl {
      * Don't process Contracts & Grants Billing (CGB) related sections if CGB is disabled.
      *
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.kfs.krad.bo.BusinessObject)
-     *
+     * <p>
      * KRAD Conversion: Inquirable performs conditional display/hiding of the sections on the inquiry
      * But all field/section definitions are in data dictionary for bo Asset.
      */
@@ -59,13 +59,13 @@ public class AgencyInquirableImpl extends KualiInquirableImpl {
         }
 
         InquiryRestrictions inquiryRestrictions = KNSServiceLocator.getBusinessObjectAuthorizationService()
-                .getInquiryRestrictions(businessObject, GlobalVariables.getUserSession().getPerson());
+            .getInquiryRestrictions(businessObject, GlobalVariables.getUserSession().getPerson());
 
         Collection<InquirySectionDefinition> inquirySections = getBusinessObjectDictionaryService().getInquirySections(
-                getBusinessObjectClass());
+            getBusinessObjectClass());
         Collection<?> sectionIdsToIgnore = getSectionIdsToIgnore();
 
-        for (Iterator<InquirySectionDefinition> iter = inquirySections.iterator(); iter.hasNext();) {
+        for (Iterator<InquirySectionDefinition> iter = inquirySections.iterator(); iter.hasNext(); ) {
             InquirySectionDefinition inquirySection = iter.next();
             String sectionId = inquirySection.getId();
             if (!inquiryRestrictions.isHiddenSectionId(sectionId) && !sectionIdsToIgnore.contains(sectionId)) {

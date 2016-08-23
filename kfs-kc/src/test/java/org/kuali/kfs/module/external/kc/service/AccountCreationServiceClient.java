@@ -18,20 +18,17 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import java.net.URL;
-import java.util.Calendar;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
 import junit.framework.TestCase;
-
 import org.kuali.kfs.integration.cg.dto.AccountCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.AccountParametersDTO;
 import org.kuali.kfs.module.external.kc.service.impl.AccountCreationServiceImpl;
 
-public class AccountCreationServiceClient extends TestCase
-{
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import java.net.URL;
+import java.util.Calendar;
+
+public class AccountCreationServiceClient extends TestCase {
     private AccountParametersDTO accountParameters;
     private AccountCreationService accountCreationService;
 
@@ -39,8 +36,7 @@ public class AccountCreationServiceClient extends TestCase
      * @see junit.framework.TestCase#setUp()
      */
     @Override
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         // Initialize service objects.
         //accountCreationService = SpringContext.getBean(AccountCreationService.class);
         accountCreationService = new AccountCreationServiceImpl();
@@ -69,19 +65,19 @@ public class AccountCreationServiceClient extends TestCase
         accountParameters.setAdminContactAddressZipCode("20090");
 
         Calendar cal = Calendar.getInstance();
-        cal.set( Calendar.YEAR, 2012 );
-        cal.set( Calendar.MONTH, Calendar.DECEMBER);
-        cal.set( Calendar.DATE, 1 );
-        cal.set( Calendar.HOUR_OF_DAY, 0 );
-        cal.set( Calendar.MINUTE, 0 );
-        cal.set( Calendar.SECOND, 0 );
-        cal.set( Calendar.MILLISECOND, 0 );
-        accountParameters.setExpirationDate(new java.sql.Date(cal.getTime().getTime()) );
+        cal.set(Calendar.YEAR, 2012);
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DATE, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        accountParameters.setExpirationDate(new java.sql.Date(cal.getTime().getTime()));
 
-        cal.set( Calendar.YEAR, 2010 );
-        cal.set( Calendar.MONTH, Calendar.JANUARY );
-        cal.set( Calendar.DATE, 1 );
-        accountParameters.setEffectiveDate(new java.sql.Date(cal.getTime().getTime()) );
+        cal.set(Calendar.YEAR, 2010);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DATE, 1);
+        accountParameters.setEffectiveDate(new java.sql.Date(cal.getTime().getTime()));
 
         accountParameters.setOffCampusIndicator(false);
         accountParameters.setPrincipalId("6162502038");  //khuntley
@@ -90,27 +86,24 @@ public class AccountCreationServiceClient extends TestCase
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
-    protected void tearDown() throws Exception
-    {
+    protected void tearDown() throws Exception {
         super.tearDown();
     }
 
     /**
      * This method tests the remote Service without using KSB so the server should be up before testing
      */
-    public void testCreateAccountServiceSoap()
-    {
+    public void testCreateAccountServiceSoap() {
         try {
             URL url = new URL("http://localhost:8080/kfs-dev/remoting/accountCreationServiceSOAP?wsdl");
             //URL url = new URL("https://test.kfs.kuali.org/kfs-cnv/remoting/accountCreationServiceSOAP?wsdl");
             QName qName = new QName("KFS", "accountCreationServiceSOAP");
 
             Service service = Service.create(url, qName);
-            AccountCreationService accountService = (AccountCreationService)service.getPort(AccountCreationService.class);
+            AccountCreationService accountService = (AccountCreationService) service.getPort(AccountCreationService.class);
 
             AccountCreationStatusDTO creationStatus = accountService.createAccount(accountParameters);
             System.out.println("account number: " + creationStatus.getAccountNumber());

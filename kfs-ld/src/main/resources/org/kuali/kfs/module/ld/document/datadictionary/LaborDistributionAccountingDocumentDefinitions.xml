@@ -17,26 +17,26 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
- 	<bean id="ExpenseTransferDocument-sourceGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
-		<property name="sourceList">
-			<list>
-				<bean parent="AccountingLineView-action" p:actionMethod="copyAllAccountingLines" p:actionLabel="copy all" p:buttonStyle="btn btn-default uppercase" p:buttonLabel="Copy All"/>
-				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllSourceAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="ExpenseTransferDocument-sourceGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <bean parent="AccountingLineView-action" p:actionMethod="copyAllAccountingLines" p:actionLabel="copy all" p:buttonStyle="btn btn-default uppercase" p:buttonLabel="Copy All"/>
+                <bean parent="AccountingLineView-action" p:actionMethod="deleteAllSourceAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="ExpenseTransferDocument-targetGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
-		<property name="sourceList">
-			<list>
-				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="ExpenseTransferDocument-targetGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.module.cam.businessobject.authorization;
 
-import java.util.Map;
-
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.inquiry.InquiryAuthorizerBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.businessobject.Asset;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
+import java.util.Map;
 
 /**
  * AssetAuthorizer for Asset inquiry
+ *
  * @see org.kuali.kfs.module.cam.document.authorization.AssetAuthorizer
  */
-public class AssetInquiryAuthorizer extends InquiryAuthorizerBase{
+public class AssetInquiryAuthorizer extends InquiryAuthorizerBase {
     /**
      * @see org.kuali.kfs.kns.document.authorization.BusinessObjectAuthorizerBase#addRoleQualification(org.kuali.kfs.krad.bo.BusinessObject, java.util.Map)
      */
@@ -41,8 +42,7 @@ public class AssetInquiryAuthorizer extends InquiryAuthorizerBase{
         Asset asset = null;
         if (businessObject instanceof MaintenanceDocument) {
             asset = (Asset) ((MaintenanceDocument) businessObject).getNewMaintainableObject().getBusinessObject();
-        }
-        else {
+        } else {
             asset = (Asset) businessObject;
         }
 

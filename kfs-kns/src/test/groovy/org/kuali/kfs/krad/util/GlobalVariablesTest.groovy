@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.krad.util
 
-import org.junit.Test
 import org.junit.After
-import org.kuali.kfs.krad.util.GlobalVariables
+import org.junit.Test
 import org.springframework.test.AssertThrows
-import static org.junit.Assert.assertNull
-import static org.junit.Assert.assertTrue
-import static org.junit.Assert.assertEquals
+
+import static org.junit.Assert.*
 
 class GlobalVariablesTest {
     @After
@@ -37,7 +35,7 @@ class GlobalVariablesTest {
         assertEmptyGlobalVariables()
     }
 
-    @Test(expected=NoSuchElementException)
+    @Test(expected = NoSuchElementException)
     void testUnderflow() {
         GlobalVariables.popGlobalVariables()
         GlobalVariables.popGlobalVariables()
@@ -75,7 +73,7 @@ class GlobalVariablesTest {
         };
     }
 
-    @Test(expected=RuntimeException)
+    @Test(expected = RuntimeException)
     void testHideSessionFromTests() {
         GlobalVariables.hideSessionFromTestsMessage = "test"
         GlobalVariables.userSession

@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.gl.service.impl.StringHelper;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.gl.service.impl.StringHelper;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class DetailLine extends TransientBusinessObjectBase {
     private String financialDocumentReferenceInvoiceNumber; //document number of the invoice being processed.
@@ -36,7 +35,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Gets the financialDocumentReferenceInvoiceNumber attribute.
      *
      * @return Returns the financialDocumentReferenceInvoiceNumber
-     *
      */
     public String getFinancialDocumentReferenceInvoiceNumber() {
         return financialDocumentReferenceInvoiceNumber;
@@ -46,7 +44,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Sets the financialDocumentReferenceInvoiceNumber attribute.
      *
      * @param financialDocumentReferenceInvoiceNumber The financialDocumentReferenceInvoiceNumber to set.
-     *
      */
     public void setFinancialDocumentReferenceInvoiceNumber(String financialDocumentReferenceInvoiceNumber) {
         this.financialDocumentReferenceInvoiceNumber = financialDocumentReferenceInvoiceNumber;
@@ -57,7 +54,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Gets the billingDate attribute.
      *
      * @return Returns the billingDate
-     *
      */
     public Date getBillingDate() {
         return billingDate;
@@ -67,20 +63,16 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Sets the billingDate attribute.
      *
      * @param billingDate The billingDate to set.
-     *
      */
     public void setBillingDate(Date billingDate) {
         this.billingDate = billingDate;
     }
 
 
-
-
     /**
      * Gets the customerPaymentMediumCode attribute.
      *
      * @return Returns the customerPaymentMediumCode
-     *
      */
     public String getCustomerPaymentMediumCode() {
         return customerPaymentMediumCode;
@@ -90,12 +82,11 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Sets the customerPaymentMediumCode attribute.
      *
      * @param customerPaymentMediumCode The customerPaymentMediumCode to set.
-     *
      */
     public void setCustomerPaymentMediumCode(String customerPaymentMediumCode) {
-        if(!StringHelper.isNullOrEmpty(customerPaymentMediumCode) && customerPaymentMediumCode.equals("C")) {
-             this.customerPaymentMediumCode = "CK";
-         }
+        if (!StringHelper.isNullOrEmpty(customerPaymentMediumCode) && customerPaymentMediumCode.equals("C")) {
+            this.customerPaymentMediumCode = "CK";
+        }
 
     }
 
@@ -103,7 +94,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Gets the invoiceSequenceNumber attribute.
      *
      * @return Returns the invoiceSequenceNumber
-     *
      */
     public int getInvoiceSequenceNumber() {
 
@@ -114,11 +104,9 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Sets the invoiceSequenceNumber attribute.
      *
      * @param invoiceSequenceNumber to set the invoice number
-     *
-     *
      */
     public void setInvoiceSequenceNumber(int invoiceSequenceNumber) {
-        this.invoiceSequenceNumber =  invoiceSequenceNumber;
+        this.invoiceSequenceNumber = invoiceSequenceNumber;
     }
 
 
@@ -126,7 +114,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Gets the customerNumber attribute.
      *
      * @return Returns the customerNumber
-     *
      */
     public String getCustomerNumber() {
         return customerNumber;
@@ -136,7 +123,6 @@ public class DetailLine extends TransientBusinessObjectBase {
      * Sets the customerNumber attribute.
      *
      * @param customerNumber The customerNumber to set.
-     *
      */
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;

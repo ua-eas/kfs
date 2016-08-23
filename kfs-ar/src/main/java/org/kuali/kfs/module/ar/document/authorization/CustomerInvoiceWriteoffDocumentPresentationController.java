@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Set;
 
 public class CustomerInvoiceWriteoffDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
 

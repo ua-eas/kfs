@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.batch.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.batch.service.PurapRunDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants.PURCHASING_BATCH;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 public class PurapRunDateServiceImpl implements PurapRunDateService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapRunDateServiceImpl.class);
@@ -46,8 +46,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
             // go back one day
             currentCal.add(Calendar.DAY_OF_MONTH, 1);
             adjustTimeOfDay(currentCal, true);
-        }
-        else {
+        } else {
             adjustTimeOfDay(currentCal, false);
         }
 
@@ -66,6 +65,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
     }
+
     /**
      * Determines if the given calendar time is before the given cutoff time
      *
@@ -115,7 +115,8 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
 
         /**
          * Constructs a RunDateServiceImpl instance
-         * @param hour the cutoff hour
+         *
+         * @param hour   the cutoff hour
          * @param minute the cutoff minute
          * @param second the cutoff second
          */
@@ -135,8 +136,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
     protected CutoffTime parseCutoffTime(String cutoffTime) {
         if (StringUtils.isBlank(cutoffTime)) {
             return null;
-        }
-        else {
+        } else {
             cutoffTime = cutoffTime.trim();
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Cutoff time value found: " + cutoffTime);
@@ -156,8 +156,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
                     throw new IllegalArgumentException("Cutoff time must be in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.  In particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59");
                 }
                 return new CutoffTime(hourInt, minuteInt, secondInt);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new IllegalArgumentException("Cutoff time should either be null, or in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.");
             }
         }
@@ -167,7 +166,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
      * Retrieves the cutoff time from a repository.
      *
      * @return a time of day in the format "HH:mm:ss", where HH, mm, ss are defined in the java.text.SimpleDateFormat class. In
-     *         particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
+     * particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
      */
     protected String retrieveCutoffTimeValue() {
         String value = parameterService.getParameterValueAsString(PURCHASING_BATCH.class, PurapParameterConstants.PRE_DISBURSEMENT_EXTRACT_CUTOFF_TIME);

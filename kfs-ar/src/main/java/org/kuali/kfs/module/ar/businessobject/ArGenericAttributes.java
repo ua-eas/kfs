@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * Attribute Reference Dummy Business Object

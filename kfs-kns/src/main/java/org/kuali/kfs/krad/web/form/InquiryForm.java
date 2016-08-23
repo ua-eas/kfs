@@ -19,17 +19,15 @@
 package org.kuali.kfs.krad.web.form;
 
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.inquiry.Inquirable;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.view.InquiryView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Form class for <code>InquiryView</code> screens
- *
- *
  */
 public class InquiryForm extends UifFormBase {
     private static final long serialVersionUID = 4733144086378429410L;
@@ -60,7 +58,7 @@ public class InquiryForm extends UifFormBase {
 
     /**
      * Class name of the data object the inquiry will display
-     *
+     * <p>
      * <p>
      * Used to set the data object class for the <code>Inquirable</code> which
      * is then used to perform the inquiry query

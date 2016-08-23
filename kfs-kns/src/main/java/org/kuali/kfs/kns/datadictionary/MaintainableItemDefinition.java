@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 public abstract class MaintainableItemDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 4564613758722159747L;
 
-	private String name;
+    private String name;
 
     public MaintainableItemDefinition() {
     }

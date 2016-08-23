@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Generic Phone Numbers for Vendors, as opposed to <code>VendorContactPhoneNumber</code> instances, which are specific to the

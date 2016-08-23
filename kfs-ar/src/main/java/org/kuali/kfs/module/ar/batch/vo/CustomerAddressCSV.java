@@ -20,11 +20,11 @@ package org.kuali.kfs.module.ar.batch.vo;
 
 /**
  * Customer upload batch process CSV headers
- *
+ * <p>
  * The enum order should match the order of headers in the CSV file.  Also the listing of
  * enum indicate the required fields
- *
- *  This enum class is used for file parsing and validation
+ * <p>
+ * This enum class is used for file parsing and validation
  */
 public enum CustomerAddressCSV {
 

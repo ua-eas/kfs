@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
+
+import java.util.Collection;
 
 public interface PerDiemDao {
 

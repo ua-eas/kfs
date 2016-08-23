@@ -32,13 +32,13 @@ import java.util.Calendar;
 
 /**
  * PropertyEditor converts between date display strings and <code>java.sql.Date</code> objects
- *
- *
  */
 public class UifDateEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 8122469337264797008L;
 
-    /** The date time service. */
+    /**
+     * The date time service.
+     */
     private transient DateTimeService dateTimeService;
 
     /**
@@ -87,11 +87,9 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
      * Convert display text to <code>java.sql.Date</code> object using the
      * <code>org.kuali.rice.core.api.datetime.DateTimeService</code>.
      *
-     * @param text
-     *            the display text
+     * @param text the display text
      * @return the <code>java.sql.Date</code> object
-     * @throws IllegalArgumentException
-     *             the illegal argument exception
+     * @throws IllegalArgumentException the illegal argument exception
      */
     protected Object convertToObject(String text) throws IllegalArgumentException {
         try {

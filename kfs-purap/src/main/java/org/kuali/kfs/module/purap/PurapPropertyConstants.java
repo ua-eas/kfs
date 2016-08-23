@@ -158,14 +158,14 @@ public class PurapPropertyConstants {
     public static final String TOTAL_ENCUMBRANCE = "totalEncumbrance";
     public static final String VENDOR_CHOICE_CODE = "vendorChoiceCode";
     public static final String CONTRACT_MANAGER = "contractManager";
-    public static final String  ASSIGNED_USER_PRINCIPAL_NAME = "assignedUserPrincipalName";
+    public static final String ASSIGNED_USER_PRINCIPAL_NAME = "assignedUserPrincipalName";
 
     // Quote Language
     public static final String PURCHASE_ORDER_QUOTE_LANGUAGE_ID = "purchaseOrderQuoteLanguageIdentifier";
 
     // vendor quote
     public static final String PURCHASE_ORDER_VENDOR_QUOTE_IDENTIFIER = "purchaseOrderVendorQuoteIdentifier";
-    public static final String PURCHASE_ORDER_QUOTE_STATUS ="purchaseOrderQuoteStatus";
+    public static final String PURCHASE_ORDER_QUOTE_STATUS = "purchaseOrderQuoteStatus";
     public static final String PURCHASE_ORDER_VENDOR_QUOTES = "purchaseOrderVendorQuotes";
     public static final String PURCHASE_ORDER_QUOTE_INITIALIZATION_DATE = "purchaseOrderQuoteInitializationDate";
     public static final String PURCHASE_ORDER_QUOTE_AWARDED_DATE = "purchaseOrderQuoteAwardedDate";
@@ -193,7 +193,7 @@ public class PurapPropertyConstants {
     public static final String PAYMENT_REQUEST = "paymentRequest";
     public static final String RECURRING_PAYMENT_TYPE = "recurringPaymentType";
     public static final String HOLD_INDICATOR = "holdIndicator";
-    public static final String HOLD_INDICATOR_FOR_SEARCHING= "holdIndicatorForSearching";
+    public static final String HOLD_INDICATOR_FOR_SEARCHING = "holdIndicatorForSearching";
     public static final String PAYMENT_REQUEST_CANCEL_INDICATOR = "paymentRequestedCancelIndicator";
     public static final String PAYMENT_REQUEST_CANCEL_INDICATOR_FOR_SEARCHING = "paymentRequestedCancelIndicatorForSearching";
 

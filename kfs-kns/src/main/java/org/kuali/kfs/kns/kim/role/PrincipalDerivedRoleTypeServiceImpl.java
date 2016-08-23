@@ -42,7 +42,7 @@ import java.util.Map;
 @Deprecated
 public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 
-	private IdentityService identityService;
+    private IdentityService identityService;
 
     @Override
     protected List<String> getRequiredAttributes() {
@@ -56,25 +56,25 @@ public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceB
         return false;
     }
 
-	@Override
-	public boolean performMatch(Map<String, String> inputAttributes, Map<String, String> storedAttributes) {
-		if (inputAttributes == null) {
+    @Override
+    public boolean performMatch(Map<String, String> inputAttributes, Map<String, String> storedAttributes) {
+        if (inputAttributes == null) {
             throw new RiceIllegalArgumentException("inputAttributes was null");
         }
 
-		if (storedAttributes == null) {
+        if (storedAttributes == null) {
             throw new RiceIllegalArgumentException("storedAttributes was null");
         }
 
         return true;
-	}
+    }
 
-	/**
-	 * Since this is potentially the entire set of users, just check the qualification for the user we are interested in and return it.
-	 */
-	@Override
+    /**
+     * Since this is potentially the entire set of users, just check the qualification for the user we are interested in and return it.
+     */
+    @Override
     public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
-		if (StringUtils.isBlank(namespaceCode)) {
+        if (StringUtils.isBlank(namespaceCode)) {
             throw new RiceIllegalArgumentException("namespaceCode was null or blank");
         }
 
@@ -82,21 +82,21 @@ public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceB
             throw new RiceIllegalArgumentException("roleName was null");
         }
 
-		if ( qualification == null || qualification.isEmpty() ) {
-			return Collections.emptyList();
-		}
+        if (qualification == null || qualification.isEmpty()) {
+            return Collections.emptyList();
+        }
         ArrayList<RoleMembership> tempIdList = new ArrayList<RoleMembership>();
-		qualification = translateInputAttributes(qualification);
-		// check that the principal ID is not null
-		String principalId = qualification.get( KimConstants.AttributeConstants.PRINCIPAL_ID );
-		if ( hasDerivedRole(principalId, null, namespaceCode, roleName, qualification)) {
-	        tempIdList.add( RoleMembership.Builder.create(null/*roleId*/, null, principalId, MemberType.PRINCIPAL, null).build());
-		}
-		return tempIdList;
-	}
+        qualification = translateInputAttributes(qualification);
+        // check that the principal ID is not null
+        String principalId = qualification.get(KimConstants.AttributeConstants.PRINCIPAL_ID);
+        if (hasDerivedRole(principalId, null, namespaceCode, roleName, qualification)) {
+            tempIdList.add(RoleMembership.Builder.create(null/*roleId*/, null, principalId, MemberType.PRINCIPAL, null).build());
+        }
+        return tempIdList;
+    }
 
-	@Override
-	public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
+    @Override
+    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
         if (StringUtils.isBlank(principalId)) {
             throw new RiceIllegalArgumentException("principalId was null or blank");
         }
@@ -118,19 +118,19 @@ public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceB
         }
 
         // check that the principal exists and is active
-        Principal principal = getIdentityService().getPrincipal( principalId );
-        if ( principal == null || !principal.isActive() ) {
+        Principal principal = getIdentityService().getPrincipal(principalId);
+        if (principal == null || !principal.isActive()) {
             return false;
         }
         // check that the identity is active
-        EntityDefault entity = getIdentityService().getEntityDefault( principal.getEntityId() );
+        EntityDefault entity = getIdentityService().getEntityDefault(principal.getEntityId());
         return entity != null && entity.isActive();
-	}
+    }
 
-	protected IdentityService getIdentityService() {
-		if ( identityService == null ) {
-			identityService = KimApiServiceLocator.getIdentityService();
-		}
-		return identityService;
-	}
+    protected IdentityService getIdentityService() {
+        if (identityService == null) {
+            identityService = KimApiServiceLocator.getIdentityService();
+        }
+        return identityService;
+    }
 }

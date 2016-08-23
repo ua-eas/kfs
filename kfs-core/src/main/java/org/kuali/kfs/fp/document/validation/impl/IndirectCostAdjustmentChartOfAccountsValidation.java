@@ -19,12 +19,12 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class IndirectCostAdjustmentChartOfAccountsValidation extends GenericValidation {
     protected AccountingLine accountingLineForValidation;
@@ -43,17 +43,16 @@ public class IndirectCostAdjustmentChartOfAccountsValidation extends GenericVali
             if (!isValid) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_CHART_OF_ACCOUNTS, accountingLine.getChartOfAccountsCode());
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_CHART_OF_ACCOUNTS + " / " + accountingLine.getChartOfAccountsCode() );
+                    LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_CHART_OF_ACCOUNTS + " / " + accountingLine.getChartOfAccountsCode());
                 }
             }
-        }
-        else {
+        } else {
             String icrIncome = accountingLine.getChart().getIcrIncomeFinancialObjectCode();
             isValid &= StringUtils.isNotBlank(icrIncome);
             if (!isValid) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_RECEIPT_INVALID_CHART_OF_ACCOUNTS, accountingLine.getChartOfAccountsCode());
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_RECEIPT_INVALID_CHART_OF_ACCOUNTS + " / " + accountingLine.getChartOfAccountsCode() );
+                    LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_RECEIPT_INVALID_CHART_OF_ACCOUNTS + " / " + accountingLine.getChartOfAccountsCode());
                 }
             }
         }
@@ -63,6 +62,7 @@ public class IndirectCostAdjustmentChartOfAccountsValidation extends GenericVali
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -71,6 +71,7 @@ public class IndirectCostAdjustmentChartOfAccountsValidation extends GenericVali
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

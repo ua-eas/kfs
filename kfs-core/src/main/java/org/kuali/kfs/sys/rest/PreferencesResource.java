@@ -57,17 +57,17 @@ public class PreferencesResource {
 
     @GET
     @Path("/institution-links/{principalName}")
-    public Response getInstitutionLinks(@HeaderParam("cache-control")String cacheControlHeader,@PathParam("principalName")String principalName) {
+    public Response getInstitutionLinks(@HeaderParam("cache-control") String cacheControlHeader, @PathParam("principalName") String principalName) {
         LOG.debug("getInstitutionLinks() started");
 
         boolean useCache = true;
-        if ( cacheControlHeader != null ) {
+        if (cacheControlHeader != null) {
             CacheControl cacheControl = CacheControl.valueOf(cacheControlHeader);
             useCache = !cacheControl.isMustRevalidate();
         }
 
-        if ( isAuthorized(principalName) ) {
-            Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesLinks(getPerson(),useCache);
+        if (isAuthorized(principalName)) {
+            Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesLinks(getPerson(), useCache);
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to retrieve preferences for this user").build();
@@ -89,7 +89,7 @@ public class PreferencesResource {
         LOG.debug("saveInstitutionPreferences started");
 
         if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User "+getPrincipalName()+" does not have access to InstitutionConfig").build();
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
         }
 
         getInstitutionPreferencesService().saveInstitutionPreferences(institutionId, linkGroups);
@@ -184,10 +184,10 @@ public class PreferencesResource {
 
     @GET
     @Path("/users/{principalName}")
-    public Response getUserPreferences(@PathParam("principalName")String principalName) {
+    public Response getUserPreferences(@PathParam("principalName") String principalName) {
         LOG.debug("getUserPreferences() started");
 
-        if ( isAuthorized(principalName) ) {
+        if (isAuthorized(principalName)) {
             Map<String, Object> preferences = getUserPreferencesService().getUserPreferences(principalName);
             if (preferences == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("User Preference Not Found").build();
@@ -200,10 +200,10 @@ public class PreferencesResource {
 
     @PUT
     @Path("/users/{principalName}")
-    public Response saveUserPreferences(@PathParam("principalName")String principalName, String preferences) {
+    public Response saveUserPreferences(@PathParam("principalName") String principalName, String preferences) {
         LOG.debug("saveUserPreferences() started");
 
-        if ( isAuthorized(principalName) ) {
+        if (isAuthorized(principalName)) {
             getUserPreferencesService().saveUserPreferences(principalName, preferences);
             return Response.ok(preferences).build();
         } else {
@@ -213,10 +213,10 @@ public class PreferencesResource {
 
     @PUT
     @Path("/users/{principalName}/{key}")
-    public Response saveUserPreferenceKey(@PathParam("principalName")String principalName,@PathParam("key")String key,String preferences) {
+    public Response saveUserPreferenceKey(@PathParam("principalName") String principalName, @PathParam("key") String key, String preferences) {
         LOG.debug("saveUserPreferenceKey() started");
 
-        if ( isAuthorized(principalName) ) {
+        if (isAuthorized(principalName)) {
             getUserPreferencesService().saveUserPreferencesKey(principalName, key, preferences);
             return Response.ok(preferences).build();
         } else {

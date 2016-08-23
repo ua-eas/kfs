@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.LinkedHashMap;
 
 /**
  * A class that represents a change to any origin entry that was altered within a GLCP Document
@@ -110,12 +110,10 @@ public class CorrectionChange extends PersistableBusinessObjectBase implements C
                 Integer thisCln = correctionChangeLineNumber == null ? 0 : correctionChangeLineNumber;
                 Integer thatCln = correctionChangeLineNumber == null ? 0 : cc.correctionChangeLineNumber;
                 return c = thisCln.compareTo(thatCln);
-            }
-            else {
+            } else {
                 return c;
             }
-        }
-        else {
+        } else {
             return c;
         }
     }

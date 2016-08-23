@@ -32,6 +32,7 @@ public class AgencyImportData {
 
     /**
      * Gets the importBy attribute.
+     *
      * @return Returns the importBy.
      */
     public String getImportBy() {
@@ -40,6 +41,7 @@ public class AgencyImportData {
 
     /**
      * Sets the importBy attribute value.
+     *
      * @param importBy The importBy to set.
      */
     public void setImportBy(String importBy) {
@@ -48,6 +50,7 @@ public class AgencyImportData {
 
     /**
      * Gets the agencies attribute.
+     *
      * @return Returns the agencies.
      */
     public List<AgencyStagingData> getAgencyStagingData() {
@@ -56,6 +59,7 @@ public class AgencyImportData {
 
     /**
      * Sets the agencies attribute value.
+     *
      * @param agencies The agencies to set.
      */
     public void setAgencyStagingData(List<AgencyStagingData> agencyStagingData) {
@@ -63,8 +67,8 @@ public class AgencyImportData {
     }
 
     /**
-     *
      * This method adds the {@link AgencyStagingData} to the list.
+     *
      * @param agency
      */
     public void addAgencyStagingData(AgencyStagingData agencyStagingData) {

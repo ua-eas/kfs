@@ -20,6 +20,6 @@ package org.kuali.kfs.fp.document.dataaccess;
 
 public interface CapitalAssetInformationDao {
 
-    public int getNextCapitalAssetLineNumber ( String financialDocumentNumber );
+    public int getNextCapitalAssetLineNumber(String financialDocumentNumber);
 
 }

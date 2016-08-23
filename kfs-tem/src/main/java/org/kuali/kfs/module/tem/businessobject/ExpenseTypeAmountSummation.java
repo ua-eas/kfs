@@ -47,6 +47,7 @@ public enum ExpenseTypeAmountSummation implements Coded {
 
     /**
      * Retrieves the ExpenseTypeAmountSummation associated with the given code
+     *
      * @param code the code to find an ExpenseTypeAmountSummation value for
      * @return an ExpenseTypeAmountSummation value
      */

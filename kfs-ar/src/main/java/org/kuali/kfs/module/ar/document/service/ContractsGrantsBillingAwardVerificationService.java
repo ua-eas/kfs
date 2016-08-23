@@ -25,69 +25,69 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
  */
 public interface ContractsGrantsBillingAwardVerificationService {
 
-   /**
-    * Check if Billing Frequency Code is set correctly.
-    *
-    * @param award
-    * @return False if billing frequency is set as predetermined billing schedule or milestone billing schedule, and award
-    *         has no award account or more than 1 award accounts assigned.
-    */
-   public boolean isBillingFrequencySetCorrectly(ContractsAndGrantsBillingAward award);
+    /**
+     * Check if Billing Frequency Code is set correctly.
+     *
+     * @param award
+     * @return False if billing frequency is set as predetermined billing schedule or milestone billing schedule, and award
+     * has no award account or more than 1 award accounts assigned.
+     */
+    public boolean isBillingFrequencySetCorrectly(ContractsAndGrantsBillingAward award);
 
-   /**
-    * Check if the value of Billing Frequency Code is in the value set.
-    *
-    * @param award
-    * @return
-    */
-   public boolean isValueOfBillingFrequencyValid(ContractsAndGrantsBillingAward award);
+    /**
+     * Check if the value of Billing Frequency Code is in the value set.
+     *
+     * @param award
+     * @return
+     */
+    public boolean isValueOfBillingFrequencyValid(ContractsAndGrantsBillingAward award);
 
-   /**
-    * Check if the final Invoice for all accounts in the invoice have already been built.
-    *
-    * @param award
-    * @return
-    */
-   public boolean isAwardFinalInvoiceAlreadyBuilt(ContractsAndGrantsBillingAward award);
+    /**
+     * Check if the final Invoice for all accounts in the invoice have already been built.
+     *
+     * @param award
+     * @return
+     */
+    public boolean isAwardFinalInvoiceAlreadyBuilt(ContractsAndGrantsBillingAward award);
 
-   /**
-    * Checks if the award has valid milestones to invoice.
-    *
-    * @param award
-    * @return true if has valid milestones to invoice. false if not.
-    */
-   public boolean hasMilestonesToInvoice(ContractsAndGrantsBillingAward award);
+    /**
+     * Checks if the award has valid milestones to invoice.
+     *
+     * @param award
+     * @return true if has valid milestones to invoice. false if not.
+     */
+    public boolean hasMilestonesToInvoice(ContractsAndGrantsBillingAward award);
 
-   /**
-    * Checks if the award has valid milestones to invoice.
-    *
-    * @param award
-    * @return true if has valid milestones to invoice. false if not.
-    */
-   public boolean hasBillsToInvoice(ContractsAndGrantsBillingAward award);
+    /**
+     * Checks if the award has valid milestones to invoice.
+     *
+     * @param award
+     * @return true if has valid milestones to invoice. false if not.
+     */
+    public boolean hasBillsToInvoice(ContractsAndGrantsBillingAward award);
 
-   /**
-    * Check if agency owning award has no customer record
-    *
-    * @param award
-    * @return
-    */
-   public boolean owningAgencyHasCustomerRecord(ContractsAndGrantsBillingAward award);
+    /**
+     * Check if agency owning award has no customer record
+     *
+     * @param award
+     * @return
+     */
+    public boolean owningAgencyHasCustomerRecord(ContractsAndGrantsBillingAward award);
 
-   /**
-    * This method checks if the System Information and ORganization Accounting Default are setup for the Chart Code and Org Code
-    * from the award accounts.
-    *
-    * @param award
-    * @return
-    */
-   public boolean isChartAndOrgSetupForInvoicing(ContractsAndGrantsBillingAward award);
+    /**
+     * This method checks if the System Information and ORganization Accounting Default are setup for the Chart Code and Org Code
+     * from the award accounts.
+     *
+     * @param award
+     * @return
+     */
+    public boolean isChartAndOrgSetupForInvoicing(ContractsAndGrantsBillingAward award);
 
-   /**
-    * this method checks If all accounts of award has invoices in progress.
-    *
-    * @param award
-    * @return
-    */
-   public boolean isInvoiceInProgress(ContractsAndGrantsBillingAward award);
+    /**
+     * this method checks If all accounts of award has invoices in progress.
+     *
+     * @param award
+     * @return
+     */
+    public boolean isInvoiceInProgress(ContractsAndGrantsBillingAward award);
 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.document.web.struts;
 
-import java.io.Serializable;
-
 import org.kuali.kfs.gl.businessobject.CorrectionChange;
 import org.kuali.kfs.gl.businessobject.CorrectionCriteria;
+
+import java.io.Serializable;
 
 /**
  * This represents a Group Holder which contains correction change and criteria objects

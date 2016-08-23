@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.ec.batch.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
@@ -37,9 +35,11 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class EffortCertificationCreateServiceTest extends KualiTestBase {
@@ -99,10 +99,9 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            fail(message.getProperty("error.validParameters") + " - Reported Errors: " + GlobalVariables.getMessageMap() );
+            fail(message.getProperty("error.validParameters") + " - Reported Errors: " + GlobalVariables.getMessageMap());
         }
     }
 
@@ -118,8 +117,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(null, reportNumber);
             fail(message.getProperty("error.emptyFiscalYear"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -136,8 +134,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.emptyReportNumber"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -154,8 +151,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.undefinedReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -175,8 +171,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.inactiveReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -196,8 +191,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.notOpenedReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -217,8 +211,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.closedReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -241,8 +234,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.documentBuildNotExist"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -272,8 +264,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
             fail(message.getProperty("error.documentExist"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -298,7 +289,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
-        } catch ( ValidationException e ) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }
@@ -336,7 +327,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
         try {
             effortCertificationCreateService.create(fiscalYear, reportNumber);
-        } catch ( ValidationException e ) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }

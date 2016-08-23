@@ -18,26 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.text.MessageFormat;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.module.ld.LaborConstants;
-import org.kuali.kfs.module.ld.LaborKeyConstants;
-import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
-import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
-import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
-import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
-import org.kuali.kfs.module.ld.document.service.SalaryTransferPeriodValidationService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
@@ -45,6 +28,21 @@ import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.ld.LaborConstants;
+import org.kuali.kfs.module.ld.LaborKeyConstants;
+import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
+import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
+import org.kuali.kfs.module.ld.document.service.SalaryTransferPeriodValidationService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.ObjectUtil;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.MessageFormat;
+
 /**
  * Struts action class for Salary Expense Transfer Document. This class extends the parent FinancialSystemTransactionalDocumentActionBase
  * class, which contains all common action methods. Since the SEP follows the basic transactional document pattern, there are no
@@ -55,7 +53,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
      * Resets lookup fields for salary expense transfer action
      *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#resetLookupFields(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase,
-     *      org.kuali.kfs.module.ld.businessobject.LedgerBalance)
+     * org.kuali.kfs.module.ld.businessobject.LedgerBalance)
      */
     @Override
     protected void resetLookupFields(ExpenseTransferDocumentFormBase expenseTransferDocumentForm, LedgerBalance balance) {
@@ -68,7 +66,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
      * If user is approving document, capture the object code balances for comparison in business rules on route
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -84,7 +82,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -98,7 +96,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#approve(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -112,7 +110,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#blanketApprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -128,8 +126,8 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
      * Calls service to verify the salary transfer does not conflict with effort certifications and handle any errors returned.
      *
      * @return ActionForward which is null if everything was OK, the question redirect if errors found and user is admin, the basic
-     *         mapping (which goes back to document) if errors were found and the user is not admin and document is not enroute, or
-     *         finally redirect back to portal if document was disapproved due to errors
+     * mapping (which goes back to document) if errors were found and the user is not admin and document is not enroute, or
+     * finally redirect back to portal if document was disapproved due to errors
      */
     protected ActionForward doEffortCertificationValidation(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, String caller) throws Exception {
         SalaryExpenseTransferDocument salaryExpenseDocument = (SalaryExpenseTransferDocument) ((KualiDocumentFormBase) form).getDocument();
@@ -148,8 +146,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
             if (!transferValid) {
                 return handleEffortValidationErrors(mapping, form, request, response, caller, false);
             }
-        }
-        else {
+        } else {
             // check if admin wants to continue, or not in which case we return to document or cancel document (in enroute)
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((LaborConstants.SalaryExpenseTransfer.EFFORT_VALIDATION_OVERRIDE_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
@@ -173,8 +170,8 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
         TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(salaryExpenseDocument);
 
         boolean isAdmin = documentAuthorizer.isAuthorized(salaryExpenseDocument, LaborConstants.LABOR_MODULE_CODE,
-                 LaborConstants.PermissionNames.OVERRIDE_TRANSFER_IMPACTING_EFFORT_CERTIFICATION,
-                                  GlobalVariables.getUserSession().getPerson().getPrincipalId());
+            LaborConstants.PermissionNames.OVERRIDE_TRANSFER_IMPACTING_EFFORT_CERTIFICATION,
+            GlobalVariables.getUserSession().getPerson().getPrincipalId());
 
         if (isAdmin && !questionAsked) {
             // error found, ask admin user if they want to override
@@ -245,8 +242,6 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
         return super.deleteAllTargetAccountingLines(mapping, form, request, response);
     }
-
-
 
 
 }

@@ -22,15 +22,15 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
- The button element is used to render an HTML button
- control.
+ * The button element is used to render an HTML button
+ * control.
  */
 @Deprecated
 public class ButtonControlDefinition extends ControlDefinitionBase {
-	 private static final long serialVersionUID = -4014804850405243606L;
+    private static final long serialVersionUID = -4014804850405243606L;
 
-	 protected String imageSrc;
-	 protected String styleClass;
+    protected String imageSrc;
+    protected String styleClass;
 
     public ButtonControlDefinition() {
     }
@@ -50,33 +50,32 @@ public class ButtonControlDefinition extends ControlDefinitionBase {
     }
 
     /**
-	 * @return the mageSrc
-	 */
-	public String getImageSrc() {
-		return this.imageSrc;
-	}
+     * @return the mageSrc
+     */
+    public String getImageSrc() {
+        return this.imageSrc;
+    }
 
-	/**
-	 * @param mageSrc the mageSrc to set
-	 */
-	public void setImageSrc(String imageSrc) {
-		this.imageSrc = imageSrc;
-	}
+    /**
+     * @param mageSrc the mageSrc to set
+     */
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
 
-	/**
-	 * @return the styleClass
-	 */
-	public String getStyleClass() {
-		return this.styleClass;
-	}
+    /**
+     * @return the styleClass
+     */
+    public String getStyleClass() {
+        return this.styleClass;
+    }
 
-	/**
-	 * @param styleClass the styleClass to set
-	 */
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-
+    /**
+     * @param styleClass the styleClass to set
+     */
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
 
 
 }

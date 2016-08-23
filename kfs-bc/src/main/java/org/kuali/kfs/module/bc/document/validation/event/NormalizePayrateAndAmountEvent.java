@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.validation.SalarySettingRule;
-import org.kuali.kfs.krad.rules.rule.BusinessRule;
 
 /**
  * Event triggered when normalizing the pay rate and salary amount.
@@ -32,7 +32,7 @@ public class NormalizePayrateAndAmountEvent extends SalarySettingBaseEvent {
     /**
      * Constructs a PayrateAndAmountNormalizationEvent.java.
      *
-     * @param errorPathPrefix the specified error path prefix
+     * @param errorPathPrefix    the specified error path prefix
      * @param appointmentFunding the given appointment funding
      */
     public NormalizePayrateAndAmountEvent(String description, String errorPathPrefix, BudgetConstructionDocument document, PendingBudgetConstructionAppointmentFunding appointmentFunding) {

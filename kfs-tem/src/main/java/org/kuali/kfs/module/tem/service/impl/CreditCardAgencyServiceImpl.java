@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.CreditCardAgency;
 import org.kuali.kfs.module.tem.service.CreditCardAgencyService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CreditCardAgencyServiceImpl implements CreditCardAgencyService {
 
@@ -41,7 +41,7 @@ public class CreditCardAgencyServiceImpl implements CreditCardAgencyService {
     public List<CreditCardAgency> getCorpCreditCardAgencyList() {
         Map<String, String> key = new HashMap<String, String>();
         key.put(TemPropertyConstants.TRAVEL_CARD_TYPE_CODE, TemConstants.TRAVEL_TYPE_CORP);
-        List<CreditCardAgency> resultList = (List<CreditCardAgency>)businessObjectService.findMatching(CreditCardAgency.class, key);
+        List<CreditCardAgency> resultList = (List<CreditCardAgency>) businessObjectService.findMatching(CreditCardAgency.class, key);
         return resultList;
     }
 
@@ -51,7 +51,7 @@ public class CreditCardAgencyServiceImpl implements CreditCardAgencyService {
     @Override
     public List<String> getCorpCreditCardAgencyCodeList() {
         List<String> resultList = new ArrayList<String>();
-        for (CreditCardAgency agency : getCorpCreditCardAgencyList()){
+        for (CreditCardAgency agency : getCorpCreditCardAgencyList()) {
             resultList.add(agency.getTravelCardTypeCode());
         }
         return resultList;
@@ -62,9 +62,9 @@ public class CreditCardAgencyServiceImpl implements CreditCardAgencyService {
      */
     @Override
     public CreditCardAgency getCreditCardAgencyByCode(String code) {
-        Map<String,String> criteria = new HashMap<String,String>(1);
-        criteria.put(TemPropertyConstants.CREDIT_CARD_AGENCY_CODE,code);
-        List<CreditCardAgency> agencyList = (List<CreditCardAgency>)businessObjectService.findMatching(CreditCardAgency.class, criteria);
+        Map<String, String> criteria = new HashMap<String, String>(1);
+        criteria.put(TemPropertyConstants.CREDIT_CARD_AGENCY_CODE, code);
+        List<CreditCardAgency> agencyList = (List<CreditCardAgency>) businessObjectService.findMatching(CreditCardAgency.class, criteria);
 
         return ObjectUtils.isNotNull(agencyList) && !agencyList.isEmpty() ? agencyList.get(0) : null;
     }

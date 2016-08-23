@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys;
 
+import junit.framework.AssertionFailedError;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
-
-import junit.framework.AssertionFailedError;
 
 /**
  * This class implements a mock object for any service, using a dynamic proxy. It returns results for specific methods and
@@ -64,30 +64,30 @@ public class MockService implements InvocationHandler {
     /**
      * Creates a dynamic proxy with the given mock methods.
      *
-     * @param iface the interface to proxy
-     * @param mockMethods the methods to mock
+     * @param iface            the interface to proxy
+     * @param mockMethods      the methods to mock
      * @param noMethodFallback the Object to use when there is no mock method for the invoked method, or null if a
-     *        {@link junit.framework.AssertionFailedError} should be thrown in this case instead.
+     *                         {@link junit.framework.AssertionFailedError} should be thrown in this case instead.
      * @return a dynamic proxy implementing the given interface
      */
     public static <I> I createProxy(Class<I> iface, MockMethod[] mockMethods, Object noMethodFallback) {
         // noinspection unchecked
-        return (I) Proxy.newProxyInstance(iface.getClassLoader(), new Class[] { iface }, new MockService(mockMethods, noMethodFallback));
+        return (I) Proxy.newProxyInstance(iface.getClassLoader(), new Class[]{iface}, new MockService(mockMethods, noMethodFallback));
     }
 
     /**
      * Creates a dynamic proxy with a single mock method that has a single result. Invocations of other methods or arguments will
      * throw a {@link junit.framework.AssertionFailedError}.
      *
-     * @param iface the interface to proxy
+     * @param iface      the interface to proxy
      * @param methodName the name of the method to mock
-     * @param args the arguments to expect for the named method
-     * @param result the result to return from the named method
+     * @param args       the arguments to expect for the named method
+     * @param result     the result to return from the named method
      * @return a dynamic proxy implementing the given interface
      */
     public static <I> I createProxy(Class<I> iface, String methodName, Object[] args, Object result) {
         MockMethod mockMethod = new MockMethod(methodName, null);
         mockMethod.setResult(result, args);
-        return createProxy(iface, new MockMethod[] { mockMethod }, null);
+        return createProxy(iface, new MockMethod[]{mockMethod}, null);
     }
 }

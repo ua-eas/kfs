@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.integration.ec;
 
-import java.sql.Date;
-
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
 
 /**
  * Methods for getting and setting report attributes.
  */
-public interface EffortCertificationReport extends ExternalizableBusinessObject{
+public interface EffortCertificationReport extends ExternalizableBusinessObject {
 
     /**
      * Gets the universityFiscalYear attribute.

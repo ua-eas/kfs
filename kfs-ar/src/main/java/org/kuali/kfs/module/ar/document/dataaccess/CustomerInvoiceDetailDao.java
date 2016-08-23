@@ -26,9 +26,9 @@ public interface CustomerInvoiceDetailDao {
     /**
      * This method retrieves all CustomerInvoiceDetail objects for the accountNumber if invoiceNumber is from the documentNumbers List
      *
-     * @param accountNumber account number for the search criteria
+     * @param accountNumber   account number for the search criteria
      * @param documentNumbers List of documentNumbers for the search criteria
      * @return CustomerInvoiceDetail objects matching the search criteria
      */
-    public Collection getCustomerInvoiceDetailsByAccountNumberByInvoiceDocumentNumbers(String accountNumber,List documentNumbers);
+    public Collection getCustomerInvoiceDetailsByAccountNumberByInvoiceDocumentNumbers(String accountNumber, List documentNumbers);
 }

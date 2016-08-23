@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
@@ -36,9 +32,12 @@ import org.kuali.kfs.module.cab.document.service.GlAndPurApHelperService;
 import org.kuali.kfs.module.cab.document.service.GlLineService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts action class that handles Capital Asset Information Screen actions
@@ -48,9 +47,9 @@ public class CapitalAssetInformationAction extends CabActionBase {
     /**
      * Action "process" from CAB GL Lookup screen is processed by this method
      *
-     * @param mapping {@link ActionMapping}
-     * @param form {@link ActionForm}
-     * @param request {@link HttpServletRequest}
+     * @param mapping  {@link ActionMapping}
+     * @param form     {@link ActionForm}
+     * @param request  {@link HttpServletRequest}
      * @param response {@link HttpServletResponse}
      * @return {@link ActionForward}
      * @throws Exception
@@ -65,9 +64,9 @@ public class CapitalAssetInformationAction extends CabActionBase {
         if (ObjectUtils.isNotNull(entry)) {
             prepareRecordsForDisplay(capitalAssetForm, entry);
         }
-      //  if (!entry.isActive()) {
-      //      KNSGlobalVariables.getMessageList().add(CabKeyConstants.WARNING_GL_PROCESSED);
-      //  }
+        //  if (!entry.isActive()) {
+        //      KNSGlobalVariables.getMessageList().add(CabKeyConstants.WARNING_GL_PROCESSED);
+        //  }
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
@@ -123,9 +122,9 @@ public class CapitalAssetInformationAction extends CabActionBase {
     /**
      * Cancels the action and returns to portal main page
      *
-     * @param mapping {@link ActionMapping}
-     * @param form {@link ActionForm}
-     * @param request {@link HttpServletRequest}
+     * @param mapping  {@link ActionMapping}
+     * @param form     {@link ActionForm}
+     * @param request  {@link HttpServletRequest}
      * @param response {@link HttpServletResponse}
      * @return {@link ActionForward}
      * @throws Exception
@@ -136,7 +135,7 @@ public class CapitalAssetInformationAction extends CabActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#showAllTabs(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward showAllTabs(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -162,10 +161,10 @@ public class CapitalAssetInformationAction extends CabActionBase {
 
         GeneralLedgerEntry entry = capitalAssetForm.getGeneralLedgerEntry();
 
-     //   GeneralLedgerEntry entry = findGeneralLedgerEntry(request);
-     //   if (entry != null) {
-            prepareRecordsForDisplay(capitalAssetForm, entry);
-      //  }
+        //   GeneralLedgerEntry entry = findGeneralLedgerEntry(request);
+        //   if (entry != null) {
+        prepareRecordsForDisplay(capitalAssetForm, entry);
+        //  }
 
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }

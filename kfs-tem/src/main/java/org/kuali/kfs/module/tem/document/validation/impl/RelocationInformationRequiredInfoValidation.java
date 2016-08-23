@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TravelRelocationFields;
@@ -25,7 +26,6 @@ import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class RelocationInformationRequiredInfoValidation extends GenericValidation {

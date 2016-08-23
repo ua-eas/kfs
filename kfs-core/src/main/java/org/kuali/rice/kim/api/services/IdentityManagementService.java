@@ -18,11 +18,11 @@
  */
 package org.kuali.rice.kim.api.services;
 
-import java.util.Map;
-
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
 import org.kuali.rice.kim.api.identity.principal.Principal;
+
+import java.util.Map;
 
 /**
  * This is the front end for the KIM module.  Clients of KIM should access this service from
@@ -30,59 +30,61 @@ import org.kuali.rice.kim.api.identity.principal.Principal;
  * (as would be the case with a standalone Rice server), then this service should be implemented
  * locally within the application and access the core KIM services
  * (Authentication/Authorization/Identity/Group) via the service bus.
- *
- *  For efficiency, implementations of this interface should add appropriate caching of
- *  the information retrieved from the core services for load and performance reasons.
- *
- *  Most of the methods on this interface are straight pass-thrus to methods on the four core services.
- *
+ * <p>
+ * For efficiency, implementations of this interface should add appropriate caching of
+ * the information retrieved from the core services for load and performance reasons.
+ * <p>
+ * Most of the methods on this interface are straight pass-thrus to methods on the four core services.
  */
 @Deprecated
 public interface IdentityManagementService {
 
-	// *******************************
-	// IdentityService
-	// *******************************
+    // *******************************
+    // IdentityService
+    // *******************************
 
-	Principal getPrincipal( String principalId);
-	Principal getPrincipalByPrincipalName( String principalName);
+    Principal getPrincipal(String principalId);
 
-	EntityDefault getEntityDefaultInfo( String entityId);
-	EntityDefault getEntityDefaultInfoByPrincipalId( String principalId);
-	EntityDefault getEntityDefaultInfoByPrincipalName( String principalName);
+    Principal getPrincipalByPrincipalName(String principalName);
 
-	Entity getEntityByPrincipalId( String principalId);
+    EntityDefault getEntityDefaultInfo(String entityId);
+
+    EntityDefault getEntityDefaultInfoByPrincipalId(String principalId);
+
+    EntityDefault getEntityDefaultInfoByPrincipalName(String principalName);
+
+    Entity getEntityByPrincipalId(String principalId);
 
     // --------------------
     // Authorization Checks
     // --------------------
 
     boolean hasPermission(
-             String principalId,
-             String namespaceCode,
-             String permissionName
+        String principalId,
+        String namespaceCode,
+        String permissionName
     );
 
     boolean isAuthorized(
-             String principalId,
-             String namespaceCode,
-             String permissionName,
-              Map<String, String> qualification
+        String principalId,
+        String namespaceCode,
+        String permissionName,
+        Map<String, String> qualification
     );
 
     boolean hasPermissionByTemplateName(
-             String principalId,
-             String namespaceCode,
-             String permissionTemplateName,
-              Map<String, String> permissionDetails
+        String principalId,
+        String namespaceCode,
+        String permissionTemplateName,
+        Map<String, String> permissionDetails
     );
 
     boolean isAuthorizedByTemplateName(
-             String principalId,
-             String namespaceCode,
-             String permissionTemplateName,
-             Map<String, String> permissionDetails,
-             Map<String, String> qualification
+        String principalId,
+        String namespaceCode,
+        String permissionTemplateName,
+        Map<String, String> permissionDetails,
+        Map<String, String> qualification
     );
 
 }

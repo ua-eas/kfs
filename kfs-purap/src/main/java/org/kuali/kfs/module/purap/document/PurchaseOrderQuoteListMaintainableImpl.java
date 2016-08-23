@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.vnd.VendorUtils;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+import org.kuali.kfs.vnd.VendorUtils;
+
+import java.util.Map;
 
 /*
  * A special implementation of Maintainable specifically for PurchaseOrderQuoteLanguage
@@ -35,15 +35,14 @@ import org.kuali.kfs.krad.util.KRADConstants;
 */
 public class PurchaseOrderQuoteListMaintainableImpl extends FinancialSystemMaintainable {
     @Override
-    public Map<String, String> populateNewCollectionLines( Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall ) {
+    public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall) {
         String collName = "quoteListVendors.vendorDetail.vendorNumber";
-        String vendorNumber = (String)fieldValues.get(collName);
+        String vendorNumber = (String) fieldValues.get(collName);
         if (StringUtils.isNotBlank(vendorNumber)) {
             if (!VendorUtils.validVendorNumberFormat(vendorNumber)) {
-                GlobalVariables.getMessageMap().putError(KRADConstants.MAINTENANCE_ADD_PREFIX + collName , PurapKeyConstants.ERROR_PURCHASE_ORDER_QUOTE_LIST_NON_EXISTENCE_VENDOR);
+                GlobalVariables.getMessageMap().putError(KRADConstants.MAINTENANCE_ADD_PREFIX + collName, PurapKeyConstants.ERROR_PURCHASE_ORDER_QUOTE_LIST_NON_EXISTENCE_VENDOR);
                 return fieldValues;
-            }
-            else {
+            } else {
                 Integer headerId = VendorUtils.getVendorHeaderId(vendorNumber);
                 Integer detailId = VendorUtils.getVendorDetailId(vendorNumber);
                 resetPreviousVendorInformationOnAddLine(fieldValues, headerId, detailId);

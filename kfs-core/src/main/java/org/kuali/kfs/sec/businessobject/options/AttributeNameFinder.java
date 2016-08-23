@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sec.SecConstants.NonSecurityAttributeNames;
 import org.kuali.kfs.sec.SecConstants.SecurityAttributeNames;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +34,7 @@ import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 public class AttributeNameFinder extends KeyValuesBase {
 
     protected static final List<KeyValue> OPTIONS = new ArrayList<KeyValue>();
+
     static {
         OPTIONS.add(new ConcreteKeyValue(SecurityAttributeNames.ACCOUNT, SecurityAttributeNames.ACCOUNT));
         OPTIONS.add(new ConcreteKeyValue(SecurityAttributeNames.CHART, SecurityAttributeNames.CHART));

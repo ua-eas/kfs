@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.service;
 
-import java.util.List;
-
-import org.kuali.kfs.module.cg.businessobject.Agency;
 import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.module.cg.businessobject.Agency;
+
+import java.util.List;
 
 /**
  * Services for Agency
@@ -39,8 +39,9 @@ public interface AgencyService {
 
     /**
      * Gets Notes for Agency maintenance document
+     *
      * @param agencyNumber
      * @return
      */
-    public List<Note> getAgencyNotes(String agencyNumber) ;
+    public List<Note> getAgencyNotes(String agencyNumber);
 }

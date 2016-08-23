@@ -21,14 +21,12 @@ package org.kuali.kfs.kns.rule.event;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.kns.rule.PromptBeforeValidation;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
 
 /**
  * Event for handling warnings/questions before rules are called.
- *
- *
  */
 public class PromptBeforeValidationEvent extends KualiDocumentEventBase {
     private static final Logger LOG = Logger.getLogger(PromptBeforeValidationEvent.class);

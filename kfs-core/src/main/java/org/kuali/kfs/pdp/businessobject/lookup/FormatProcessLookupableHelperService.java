@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.pdp.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -34,13 +34,13 @@ import org.kuali.kfs.pdp.service.PdpAuthorizationService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class allows custom handling of FormatProcesses within the lookup framework.
@@ -87,8 +87,7 @@ public class FormatProcessLookupableHelperService extends KualiLookupableHelperS
 
                 AnchorHtmlData anchorHtmlData = new AnchorHtmlData(url, PdpConstants.ActionMethods.CONFIRM_CANCEL_ACTION, linkText);
                 anchorHtmlDataList.add(anchorHtmlData);
-            }
-            else {
+            } else {
                 AnchorHtmlData anchorHtmlData = new AnchorHtmlData("&nbsp;", "", "");
                 anchorHtmlDataList.add(anchorHtmlData);
             }
@@ -108,6 +107,7 @@ public class FormatProcessLookupableHelperService extends KualiLookupableHelperS
 
     /**
      * This method sets the configurationService.
+     *
      * @param configurationService
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -116,6 +116,7 @@ public class FormatProcessLookupableHelperService extends KualiLookupableHelperS
 
     /**
      * This method sets the pdpAuthorizationService.
+     *
      * @param pdpAuthorizationService The pdpAuthorizationService to be set.
      */
     public void setPdpAuthorizationService(PdpAuthorizationService pdpAuthorizationService) {

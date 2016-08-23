@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_CREDIT_CARD_AGENCY_T")
@@ -88,6 +87,7 @@ public class CreditCardAgency extends PersistableBusinessObjectBase implements M
     public Boolean getPaymentIndicator() {
         return paymentIndicator;
     }
+
     public Boolean isPaymentIndicator() {
         return paymentIndicator;
     }
@@ -186,6 +186,7 @@ public class CreditCardAgency extends PersistableBusinessObjectBase implements M
     public Boolean getPreReconciled() {
         return preReconciled;
     }
+
     public Boolean isPreReconciled() {
         return preReconciled;
     }
@@ -197,6 +198,7 @@ public class CreditCardAgency extends PersistableBusinessObjectBase implements M
     public Boolean getEnableNonReimbursable() {
         return enableNonReimbursable;
     }
+
     public Boolean isEnableNonReimbursable() {
         return enableNonReimbursable;
     }
@@ -221,8 +223,7 @@ public class CreditCardAgency extends PersistableBusinessObjectBase implements M
             vd.setVendorHeaderGeneratedIdentifier(vendorHeaderGeneratedIdentifier);
             vd.setVendorDetailAssignedIdentifier(vendorDetailAssignedIdentifier);
             return vd.getVendorNumber();
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -249,7 +250,7 @@ public class CreditCardAgency extends PersistableBusinessObjectBase implements M
 
     @Override
     public void setActive(boolean active) {
-       this.active = active;
+        this.active = active;
     }
 
     @SuppressWarnings("rawtypes")

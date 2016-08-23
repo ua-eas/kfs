@@ -18,25 +18,25 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
+import org.kuali.rice.core.impl.jaxb.DataXmlDTO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import org.kuali.rice.core.impl.jaxb.DataXmlDTO;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 /**
  * Helper class for importing and exporting KIM XML.
- *
+ * <p>
  * <p>TODO: Should this be converted into a service instead?
  */
 public final class KimXmlUtil {
     // Do not allow outside code to instantiate this class.
-    private KimXmlUtil() {}
+    private KimXmlUtil() {
+    }
 
     /**
      * Parses permissions and/or roles from XML.
@@ -57,14 +57,14 @@ public final class KimXmlUtil {
      * Exports one or more sets of KIM objects to XML.
      *
      * @param outputStream The output stream to write the XML to.
-     * @param permissions The KIM permissions to export; set to a null or empty list to prevent exportation of a &lt;permissionData&gt; element.
-     * @param roles The KIM roles to export; set to a null or empty list to prevent exportation of a &lt;roleData&gt; element.
+     * @param permissions  The KIM permissions to export; set to a null or empty list to prevent exportation of a &lt;permissionData&gt; element.
+     * @param roles        The KIM roles to export; set to a null or empty list to prevent exportation of a &lt;roleData&gt; element.
      */
     public static void exportKimXml(OutputStream outputStream, List<? extends Object> permissions, List<? extends Object> roles) {
         PermissionDataXmlDTO permissionData = (permissions != null && !permissions.isEmpty()) ?
-                new PermissionDataXmlDTO(new PermissionsXmlDTO(permissions)) : null;
+            new PermissionDataXmlDTO(new PermissionsXmlDTO(permissions)) : null;
         RoleDataXmlDTO roleData = (roles != null && !roles.isEmpty()) ?
-                new RoleDataXmlDTO(new RolesXmlDTO(roles)) : null;
+            new RoleDataXmlDTO(new RolesXmlDTO(roles)) : null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(DataXmlDTO.class);
             Marshaller marshaller = jaxbContext.createMarshaller();

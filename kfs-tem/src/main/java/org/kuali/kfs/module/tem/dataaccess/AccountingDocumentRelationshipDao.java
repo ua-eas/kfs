@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
+
+import java.util.List;
 
 public interface AccountingDocumentRelationshipDao {
     public List<AccountingDocumentRelationship> findAccountingDocumentRelationshipByDocumentNumber(String value);

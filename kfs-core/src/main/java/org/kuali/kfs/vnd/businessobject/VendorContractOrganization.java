@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 /**
  * A relation between a particular <code>Org</code> and a <code>VendorContract</code> indicating that the Org uses this Vendor
@@ -162,8 +162,7 @@ public class VendorContractOrganization extends PersistableBusinessObjectBase im
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorContractOrganization)) {
 
             return false;
-        }
-        else {
+        } else {
             VendorContractOrganization vco = (VendorContractOrganization) toCompare;
 
             return new EqualsBuilder().append(this.getVendorContractGeneratedIdentifier(), vco.getVendorContractGeneratedIdentifier()).append(this.getChartOfAccountsCode(), vco.getChartOfAccountsCode()).append(this.getOrganizationCode(), vco.getOrganizationCode()).append(this.getVendorContractPurchaseOrderLimitAmount(), vco.getVendorContractPurchaseOrderLimitAmount()).append(this.isVendorContractExcludeIndicator(), vco.isVendorContractExcludeIndicator()).isEquals();

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.fp.batch.service;
 
-import java.io.File;
-
 import org.kuali.kfs.fp.batch.ProcurementCardInputFileType;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.io.File;
 
 /**
  * Tests the PcdoLoadStep. DEPENDENCIES: Procurement card xml file transaction1.xml must be in /opt/kuali/dev/staging/PCDO/ this

@@ -18,30 +18,29 @@
  */
 package org.kuali.kfs.kns.lookup;
 
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.Collection;
 import java.util.Set;
 
-import org.kuali.rice.krad.bo.BusinessObject;
-
 /**
  * Contract for strategies which can help LokoupResultsService with aspects (mainly id generation and result lookup) of multi value lookup support
- *
  */
 public interface LookupResultsSupportStrategyService {
 
-	/**
-	 * Returns a list of BOs that were selected.
-	 *
-	 * This implementation makes an attempt to retrieve all BOs with the given object IDs, unless they have been deleted or the object ID changed.
-	 * Since data may have changed since the search, the returned BOs may not match the criteria used to search.
-	 *
-	 * @param lookupResultsSequenceNumber the sequence number identifying the lookup results in the database
-	 * @param boClass the class of the business object to retrieve
-	 * @param personId the id of the principal performing this search
-	 * @param lookupResultsService an implementation of the lookupResultsService to do some of the dirty work...
-	 * @return a Collection of retrieved BusinessObjects
-	 * @throws Exception if anything goes wrong...well, just blow up, okay?
-	 */
+    /**
+     * Returns a list of BOs that were selected.
+     * <p>
+     * This implementation makes an attempt to retrieve all BOs with the given object IDs, unless they have been deleted or the object ID changed.
+     * Since data may have changed since the search, the returned BOs may not match the criteria used to search.
+     *
+     * @param lookupResultsSequenceNumber the sequence number identifying the lookup results in the database
+     * @param boClass                     the class of the business object to retrieve
+     * @param personId                    the id of the principal performing this search
+     * @param lookupResultsService        an implementation of the lookupResultsService to do some of the dirty work...
+     * @return a Collection of retrieved BusinessObjects
+     * @throws Exception if anything goes wrong...well, just blow up, okay?
+     */
     public abstract <T extends BusinessObject> Collection<T> retrieveSelectedResultBOs(Class<T> boClass, Set<String> lookupIds) throws Exception;
 
     /**

@@ -22,27 +22,27 @@
 
 <krad:group group="${group}">
 
-  <c:choose>
-    <c:when test="${empty group.items}">
-        ${group.emptyLinkGroupString}
-    </c:when>
-    <c:otherwise>
-      <c:if test="${!empty group.groupBeginDelimiter}">
-        ${group.groupBeginDelimiter}
-      </c:if>
+    <c:choose>
+        <c:when test="${empty group.items}">
+            ${group.emptyLinkGroupString}
+        </c:when>
+        <c:otherwise>
+            <c:if test="${!empty group.groupBeginDelimiter}">
+                ${group.groupBeginDelimiter}
+            </c:if>
 
-      <c:forEach items="${group.items}" var="item" varStatus="itemVarStatus">
-        <krad:template component="${item}"/>
+            <c:forEach items="${group.items}" var="item" varStatus="itemVarStatus">
+                <krad:template component="${item}"/>
 
-        <c:if test="${!empty group.linkSeparator and !itemVarStatus.last}">
-          ${group.linkSeparator}
-        </c:if>
-      </c:forEach>
+                <c:if test="${!empty group.linkSeparator and !itemVarStatus.last}">
+                    ${group.linkSeparator}
+                </c:if>
+            </c:forEach>
 
-      <c:if test="${!empty group.groupEndDelimiter}">
-        ${group.groupEndDelimiter}
-      </c:if>
-    </c:otherwise>
-  </c:choose>
+            <c:if test="${!empty group.groupEndDelimiter}">
+                ${group.groupEndDelimiter}
+            </c:if>
+        </c:otherwise>
+    </c:choose>
 
 </krad:group>

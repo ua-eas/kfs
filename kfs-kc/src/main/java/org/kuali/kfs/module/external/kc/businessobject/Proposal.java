@@ -84,6 +84,7 @@ public class Proposal implements ContractAndGrantsProposal {
     public Proposal() {
 
     }
+
     /**
      * Gets the proposalNumber attribute.
      *
@@ -181,147 +182,189 @@ public class Proposal implements ContractAndGrantsProposal {
         this.active = active;
     }
 
-    public void prepareForWorkflow() {}
+    public void prepareForWorkflow() {
+    }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
+
     @Override
     public Award getAward() {
         return award;
     }
+
     public void setAward(Award award) {
         this.award = award;
     }
+
     @Override
     public Date getProposalBeginningDate() {
         return proposalBeginningDate;
     }
+
     public void setProposalBeginningDate(Date proposalBeginningDate) {
         this.proposalBeginningDate = proposalBeginningDate;
     }
+
     @Override
     public Date getProposalEndingDate() {
         return proposalEndingDate;
     }
+
     public void setProposalEndingDate(Date proposalEndingDate) {
         this.proposalEndingDate = proposalEndingDate;
     }
+
     @Override
     public KualiDecimal getProposalTotalAmount() {
         return proposalTotalAmount;
     }
+
     public void setProposalTotalAmount(KualiDecimal proposalTotalAmount) {
         this.proposalTotalAmount = proposalTotalAmount;
     }
+
     @Override
     public KualiDecimal getProposalDirectCostAmount() {
         return proposalDirectCostAmount;
     }
+
     public void setProposalDirectCostAmount(KualiDecimal proposalDirectCostAmount) {
         this.proposalDirectCostAmount = proposalDirectCostAmount;
     }
+
     @Override
     public KualiDecimal getProposalIndirectCostAmount() {
         return proposalIndirectCostAmount;
     }
+
     public void setProposalIndirectCostAmount(KualiDecimal proposalIndirectCostAmount) {
         this.proposalIndirectCostAmount = proposalIndirectCostAmount;
     }
+
     @Override
     public Date getProposalRejectedDate() {
         return proposalRejectedDate;
     }
+
     public void setProposalRejectedDate(Date proposalRejectedDate) {
         this.proposalRejectedDate = proposalRejectedDate;
     }
+
     @Override
     public Timestamp getProposalLastUpdateDate() {
         return proposalLastUpdateDate;
     }
+
     public void setProposalLastUpdateDate(Timestamp proposalLastUpdateDate) {
         this.proposalLastUpdateDate = proposalLastUpdateDate;
     }
+
     @Override
     public Date getProposalDueDate() {
         return proposalDueDate;
     }
+
     public void setProposalDueDate(Date proposalDueDate) {
         this.proposalDueDate = proposalDueDate;
     }
+
     @Override
     public KualiDecimal getProposalTotalProjectAmount() {
         return proposalTotalProjectAmount;
     }
+
     public void setProposalTotalProjectAmount(KualiDecimal proposalTotalProjectAmount) {
         this.proposalTotalProjectAmount = proposalTotalProjectAmount;
     }
+
     @Override
     public Date getProposalSubmissionDate() {
         return proposalSubmissionDate;
     }
+
     public void setProposalSubmissionDate(Date proposalSubmissionDate) {
         this.proposalSubmissionDate = proposalSubmissionDate;
     }
+
     @Override
     public String getOldProposalNumber() {
         return oldProposalNumber;
     }
+
     public void setOldProposalNumber(String oldProposalNumber) {
         this.oldProposalNumber = oldProposalNumber;
     }
+
     @Override
     public Date getProposalClosingDate() {
         return proposalClosingDate;
     }
+
     public void setProposalClosingDate(Date proposalClosingDate) {
         this.proposalClosingDate = proposalClosingDate;
     }
+
     @Override
     public String getProposalAwardTypeCode() {
         return proposalAwardTypeCode;
     }
+
     public void setProposalAwardTypeCode(String proposalAwardTypeCode) {
         this.proposalAwardTypeCode = proposalAwardTypeCode;
     }
+
     @Override
     public String getAgencyNumber() {
         return agencyNumber;
     }
+
     public void setAgencyNumber(String agencyNumber) {
         this.agencyNumber = agencyNumber;
     }
+
     @Override
     public String getProposalStatusCode() {
         return proposalStatusCode;
     }
+
     public void setProposalStatusCode(String proposalStatusCode) {
         this.proposalStatusCode = proposalStatusCode;
     }
+
     @Override
     public String getCfdaNumber() {
         return cfdaNumber;
     }
+
     public void setCfdaNumber(String cfdaNumber) {
         this.cfdaNumber = cfdaNumber;
     }
+
     @Override
     public String getProposalFellowName() {
         return proposalFellowName;
     }
+
     public void setProposalFellowName(String proposalFellowName) {
         this.proposalFellowName = proposalFellowName;
     }
+
     @Override
     public String getProposalPurposeCode() {
         return proposalPurposeCode;
     }
+
     public void setProposalPurposeCode(String proposalPurposeCode) {
         this.proposalPurposeCode = proposalPurposeCode;
     }
+
     @Override
     public String getProposalProjectTitle() {
         return proposalProjectTitle;
     }
+
     public void setProposalProjectTitle(String proposalProjectTitle) {
         this.proposalProjectTitle = proposalProjectTitle;
     }

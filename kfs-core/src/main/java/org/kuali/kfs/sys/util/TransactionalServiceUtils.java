@@ -18,23 +18,24 @@
  */
 package org.kuali.kfs.sys.util;
 
-import java.util.Iterator;
-
 import org.apache.commons.collections.IteratorUtils;
+
+import java.util.Iterator;
 
 /**
  * This class provides utility methods to support the operation of transactional services
  */
 public final class TransactionalServiceUtils {
 
-	private TransactionalServiceUtils() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private TransactionalServiceUtils() {
+        throw new UnsupportedOperationException("do not call");
+    }
+
     /**
      * Copys iterators so that they may be used outside of this class.  Often, the DAO may
      * return iterators that may not be used outside of this class because the transaction/
      * connection may be automatically closed by Spring.
-     *
+     * <p>
      * This method copies all of the elements in the OJB backed iterators into list-based iterators
      * by placing the returned BOs into a list
      *
@@ -48,7 +49,7 @@ public final class TransactionalServiceUtils {
     /**
      * Returns the first element and exhausts an iterator
      *
-     * @param <E> the type of elements in the iterator
+     * @param <E>      the type of elements in the iterator
      * @param iterator the iterator to exhaust
      * @return the first element of the iterator; null if the iterator's empty
      */

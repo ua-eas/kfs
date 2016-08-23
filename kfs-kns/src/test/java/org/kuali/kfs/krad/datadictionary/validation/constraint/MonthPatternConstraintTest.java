@@ -19,11 +19,6 @@
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
 
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +33,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. empty value check. (failure) {@link #testValueInvalidMonthEmpty()}
  * 2. value with valid month. (success) {@link #testValueValidMonth()}
  * 3. value with valid month. (success) {@link #testValueValidMonth1()}
@@ -47,132 +42,130 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 6. value with invalid month. (failure) {@link #testValueInvalidMonth1()}
  * 7. value with invalid month. (failure) {@link #testValueInvalidMonth2()}
  * 8. value with invalid month. (failure) {@link #testValueInvalidMonth3()}
- *
- *
  */
 public class MonthPatternConstraintTest {
 
-	private final String PATTERN_CONSTRAINT = "validationPatternRegex.month";
+    private final String PATTERN_CONSTRAINT = "validationPatternRegex.month";
 
-	private AttributeDefinition monthDefinition;
+    private AttributeDefinition monthDefinition;
 
-	private DictionaryValidationResult dictionaryValidationResult;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private String validMonth;
-	private String validMonth1;
-	private String validMonth2;
-	private String invalidMonthEmpty;
-	private String invalidMonth;
-	private String invalidMonth1;
-	private String invalidMonth2;
-	private String invalidMonth3;
+    private String validMonth;
+    private String validMonth1;
+    private String validMonth2;
+    private String invalidMonthEmpty;
+    private String invalidMonth;
+    private String invalidMonth1;
+    private String invalidMonth2;
+    private String invalidMonth3;
 
-	private ConfigurationBasedRegexPatternConstraint monthPatternConstraint;
+    private ConfigurationBasedRegexPatternConstraint monthPatternConstraint;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
+        String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		validMonth = "1";
-		validMonth1 = "05";
-		validMonth2 = "12";
-		invalidMonthEmpty = "";
-		invalidMonth = "00";
-		invalidMonth1 = "0";
-		invalidMonth2 = "13";
-		invalidMonth3 = "JAN";
+        validMonth = "1";
+        validMonth1 = "05";
+        validMonth2 = "12";
+        invalidMonthEmpty = "";
+        invalidMonth = "00";
+        invalidMonth1 = "0";
+        invalidMonth2 = "13";
+        invalidMonth3 = "JAN";
 
-		monthPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
-		monthPatternConstraint.setValue(regex);
+        monthPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
+        monthPatternConstraint.setValue(regex);
 
-		monthDefinition = new AttributeDefinition();
-		monthDefinition.setName("month");
-		monthDefinition.setValidCharactersConstraint(monthPatternConstraint);
-	}
+        monthDefinition = new AttributeDefinition();
+        monthDefinition.setName("month");
+        monthDefinition.setValidCharactersConstraint(monthPatternConstraint);
+    }
 
-	@Test
-	public void testValueInvalidMonthEmpty() {
-		ConstraintValidationResult result = process(invalidMonthEmpty, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidMonthEmpty() {
+        ConstraintValidationResult result = process(invalidMonthEmpty, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidMonth() {
-		ConstraintValidationResult result = process(validMonth, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidMonth() {
+        ConstraintValidationResult result = process(validMonth, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidMonth1() {
-		ConstraintValidationResult result = process(validMonth1, "Mmonth", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidMonth1() {
+        ConstraintValidationResult result = process(validMonth1, "Mmonth", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidMonth2() {
-		ConstraintValidationResult result = process(validMonth2, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidMonth2() {
+        ConstraintValidationResult result = process(validMonth2, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidMonth() {
-		ConstraintValidationResult result = process(invalidMonth, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidMonth() {
+        ConstraintValidationResult result = process(invalidMonth, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidMonth1() {
-		ConstraintValidationResult result = process(invalidMonth1, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidMonth1() {
+        ConstraintValidationResult result = process(invalidMonth1, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidMonth2() {
-		ConstraintValidationResult result = process(invalidMonth2, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidMonth2() {
+        ConstraintValidationResult result = process(invalidMonth2, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidMonth3() {
-		ConstraintValidationResult result = process(invalidMonth3, "month", monthPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidMonth3() {
+        ConstraintValidationResult result = process(invalidMonth3, "month", monthPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new SingleAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", attributeName,  monthDefinition);
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new SingleAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", attributeName, monthDefinition);
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 }

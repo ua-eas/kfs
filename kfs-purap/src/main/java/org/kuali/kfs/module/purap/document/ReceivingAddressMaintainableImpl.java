@@ -18,10 +18,12 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.security.GeneralSecurityException;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.ReceivingAddress;
 import org.kuali.kfs.module.purap.document.service.ReceivingAddressService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -29,12 +31,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.core.api.encryption.EncryptionService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.security.GeneralSecurityException;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * ReceivingAddressMaintainableImpl is a special implementation of FinancialSystemMaintainable for ReceivingAddresss.
@@ -53,8 +53,8 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
     public List<MaintenanceLock> generateMaintenanceLocks() {
         ReceivingAddress receivingAddress = (ReceivingAddress) this.businessObject;
         List<MaintenanceLock> locks = super.generateMaintenanceLocks();
-        if ( receivingAddress.isDefaultIndicator() && receivingAddress.isActive() ) {
-            locks.add(createMaintenanceLock(new String[] { "chartOfAccountsCode", "organizationCode", "defaultIndicator", "active" }));
+        if (receivingAddress.isDefaultIndicator() && receivingAddress.isActive()) {
+            locks.add(createMaintenanceLock(new String[]{"chartOfAccountsCode", "organizationCode", "defaultIndicator", "active"}));
         }
         return locks;
     }
@@ -118,8 +118,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
         if (SpringContext.getBean(BusinessObjectAuthorizationService.class).attributeValueNeedsToBeEncryptedOnFormsAndLinks(getBoClass(), fieldName)) {
             try {
                 fieldValue = encryptionService.encrypt(fieldValue);
-            }
-            catch (GeneralSecurityException e) {
+            } catch (GeneralSecurityException e) {
                 LOG.error("Unable to encrypt secure field for locking representation " + e.getMessage());
                 throw new RuntimeException("Unable to encrypt secure field for locking representation " + e.getMessage());
             }
@@ -139,7 +138,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
 
         ReceivingAddress ra = (ReceivingAddress) getBusinessObject();
         // proceed only if this bo is active and default.
-        if ( !ra.isActive() || !ra.isDefaultIndicator() )
+        if (!ra.isActive() || !ra.isDefaultIndicator())
             return;
 
         WorkflowDocument workflowDoc = header.getWorkflowDocument();
@@ -153,9 +152,9 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
             criteria.put(PurapPropertyConstants.RCVNG_ADDR_ACTIVE, true);
             List<ReceivingAddress> addresses = (List)SpringContext.getBean(BusinessObjectService.class).findMatching(ReceivingAddress.class, criteria);
             */
-            Collection<ReceivingAddress> addresses  = SpringContext.getBean(ReceivingAddressService.class).findDefaultByChartOrg(ra.getChartOfAccountsCode(),ra.getOrganizationCode());
-            for ( ReceivingAddress rai : addresses ) {
-                if ( !rai.getReceivingAddressIdentifier().equals(ra.getReceivingAddressIdentifier()) ) {
+            Collection<ReceivingAddress> addresses = SpringContext.getBean(ReceivingAddressService.class).findDefaultByChartOrg(ra.getChartOfAccountsCode(), ra.getOrganizationCode());
+            for (ReceivingAddress rai : addresses) {
+                if (!rai.getReceivingAddressIdentifier().equals(ra.getReceivingAddressIdentifier())) {
                     rai.setDefaultIndicator(false);
                     SpringContext.getBean(BusinessObjectService.class).save(rai);
                 }

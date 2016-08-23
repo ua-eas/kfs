@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.maintenance;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Map;
 
 /**
  * Overrides maintainable so that if the threshhold is not null, turns receipted required to true (if it isn't)
@@ -31,13 +31,14 @@ public class ExpenseTypeObjectCodeMaintainable extends FinancialSystemMaintainab
 
     /**
      * Overridden to turn receipt required to true if the receipt required threshold is not null
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#processAfterPost(org.kuali.rice.kns.document.MaintenanceDocument, java.util.Map)
      */
     @Override
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterPost(document, parameters);
         // let's be careful and get the new maintainable and business object from the maint doc directly
-        ExpenseTypeObjectCode etoc = (ExpenseTypeObjectCode)document.getNewMaintainableObject().getBusinessObject();
+        ExpenseTypeObjectCode etoc = (ExpenseTypeObjectCode) document.getNewMaintainableObject().getBusinessObject();
         if (!etoc.isReceiptRequired() && etoc.getReceiptRequirementThreshold() != null && (etoc.getReceiptRequirementThreshold().isPositive() || etoc.getReceiptRequirementThreshold().isZero())) {
             etoc.setReceiptRequired(true);
         }

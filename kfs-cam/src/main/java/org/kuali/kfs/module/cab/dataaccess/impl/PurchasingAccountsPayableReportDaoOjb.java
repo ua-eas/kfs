@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.cab.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -37,6 +31,12 @@ import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument
 import org.kuali.kfs.module.cab.dataaccess.PurchasingAccountsPayableReportDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseOjb implements PurchasingAccountsPayableReportDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchasingAccountsPayableReportDaoOjb.class);
@@ -129,8 +129,7 @@ public class PurchasingAccountsPayableReportDaoOjb extends PlatformAwareDaoBaseO
             if (StringUtils.isEmpty(fieldValue)) {
                 docTypeCodes.add(CabConstants.PREQ);
                 docTypeCodes.add(CabConstants.CM);
-            }
-            else {
+            } else {
                 docTypeCodes.add(fieldValue);
             }
             // truncate the non-property filed

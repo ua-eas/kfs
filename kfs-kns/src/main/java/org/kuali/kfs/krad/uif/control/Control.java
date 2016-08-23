@@ -30,14 +30,12 @@ import org.kuali.kfs.krad.uif.component.Component;
  * initiate an action. HTML controls must be rendered within a <code>Form</code>
  * element.
  * </p>
- *
- *
  */
 public interface Control extends Component {
 
     /**
      * Unique index of the control within the tab order
-     *
+     * <p>
      * <p>
      * Tab index provides a way to set the order users will tab through the
      * controls. The control with index 1 will receive focus when the page is

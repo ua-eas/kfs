@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
+
+import java.util.Collection;
 
 /**
  * When reading FinancialSystemDocumentHeader records for population by the batch job, we only want to read a limited number at a time.  Therefore,
@@ -35,8 +35,9 @@ public interface FinancialSystemDocumentHeaderPopulationDao {
 
     /**
      * Looks up a set of FinancialSystemDocumentHeader records in the database between the given start and end indices
+     *
      * @param batchStartIndex the first record to search for
-     * @param batchEndIndex the last record to be part of the current batch
+     * @param batchEndIndex   the last record to be part of the current batch
      * @return a batch sized collection of FinancialSystemDocumentHeader records
      */
     public abstract Collection<FinancialSystemDocumentHeader> getFinancialSystemDocumentHeadersForBatch(int batchStartIndex, int batchEndIndex);

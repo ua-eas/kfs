@@ -25,8 +25,6 @@ import org.kuali.kfs.krad.uif.UifConstants;
 
 /**
  * Pattern for matching alpha characters
- *
- *
  */
 public class AlphaPatternConstraint extends AllowCharacterConstraint {
     protected boolean lowerCase = false;
@@ -42,8 +40,7 @@ public class AlphaPatternConstraint extends AllowCharacterConstraint {
          */
         if (lowerCase) {
             regexString = new StringBuilder("[a-z");
-        }
-        else if(upperCase){
+        } else if (upperCase) {
             regexString = new StringBuilder("[A-Z");
         }
         regexString.append(this.getAllowedCharacterRegex());
@@ -64,10 +61,9 @@ public class AlphaPatternConstraint extends AllowCharacterConstraint {
             StringBuilder key = new StringBuilder("");
             if (lowerCase) {
                 return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphaPatternLowerCase");
-            } else if(upperCase){
+            } else if (upperCase) {
                 return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphaPatternUpperCase");
-            }
-            else{
+            } else {
                 return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphaPattern");
             }
         }
@@ -84,6 +80,7 @@ public class AlphaPatternConstraint extends AllowCharacterConstraint {
     /**
      * Only allow lowerCase characters. DO NOT use with upperCase option, no flags set for case
      * means both upper and lower case are allowed.
+     *
      * @param lowerCase the lowerCase to set
      */
     public void setLowerCase(boolean lowerCase) {
@@ -97,6 +94,7 @@ public class AlphaPatternConstraint extends AllowCharacterConstraint {
     /**
      * Only allow upperCase characters.  DO NOT use with lowerCase option, no flags set for case
      * means both upper and lower case are allowed.
+     *
      * @param lowerCase the lowerCase to set
      */
     public void setUpperCase(boolean upperCase) {

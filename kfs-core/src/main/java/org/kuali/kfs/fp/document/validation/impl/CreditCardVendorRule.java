@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent;
 import org.kuali.kfs.fp.businessobject.CreditCardVendor;
-import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.sys.KFSKeyConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class represents business rules for the credit card vendor maintenance document
@@ -39,7 +39,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
     protected CreditCardVendor newCreditCardVendor;
 
     /**
-     *  Sets up a CreditCardVendor convenience objects to make sure all possible sub-objects are populated
+     * Sets up a CreditCardVendor convenience objects to make sure all possible sub-objects are populated
      *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupConvenienceObjects()
      */
@@ -53,7 +53,6 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
      *
      * @param document maintenance document
      * @return true credit card vendor number is valid
-     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -72,7 +71,6 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
      *
      * @param document maintenance document
      * @return value from processCustomRouteDocumentBusinessRules(document)
-     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomApproveDocumentBusinessRules(MaintenanceDocument document) {
@@ -85,7 +83,6 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
      *
      * @param document submitted credit card maintenance document
      * @return true if credit card vendor number, income/expense account numbers, income/expense sub-account numbers, and income/expense sub-object codes are valid
-     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -98,17 +95,17 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
         success &= checkCreditCardVendorNumber();
 
         // check Income Account Number business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getIncomeAccountNumber() ) ) {
-            success &= checkExistingActiveAccount( newCreditCardVendor.getIncomeFinancialChartOfAccountsCode(), newCreditCardVendor.getIncomeAccountNumber(), "incomeAccountNumber", "Income Account Number");
+        if (StringUtils.isNotBlank(newCreditCardVendor.getIncomeAccountNumber())) {
+            success &= checkExistingActiveAccount(newCreditCardVendor.getIncomeFinancialChartOfAccountsCode(), newCreditCardVendor.getIncomeAccountNumber(), "incomeAccountNumber", "Income Account Number");
         }
 
         // check Expense Account Number business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getExpenseAccountNumber() ) ) {
-            success &= checkExistingActiveAccount( newCreditCardVendor.getExpenseFinancialChartOfAccountsCode(), newCreditCardVendor.getExpenseAccountNumber(), "expenseAccountNumber", "Expense Account Number");
+        if (StringUtils.isNotBlank(newCreditCardVendor.getExpenseAccountNumber())) {
+            success &= checkExistingActiveAccount(newCreditCardVendor.getExpenseFinancialChartOfAccountsCode(), newCreditCardVendor.getExpenseAccountNumber(), "expenseAccountNumber", "Expense Account Number");
         }
 
         // check Income Sub-Account business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getIncomeSubAccountNumber() ) ) {
+        if (StringUtils.isNotBlank(newCreditCardVendor.getIncomeSubAccountNumber())) {
 
             // check required fields to validate Sub-Account
             if (checkRequiredSubAccount("Income")) {
@@ -117,18 +114,17 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
                 // check existence of Sub-Account
                 if (existenceSubAccount == null) {
                     putFieldError("incomeSubAccountNumber", KFSKeyConstants.ERROR_CCV_INVALIDSUBACCOUNT, "Income Sub-Account Number, " + newCreditCardVendor.getIncomeSubAccountNumber());
-                }
-                else
+                } else
 
-                // check the Sub-Account is active
-                if (!existenceSubAccount.isActive()) {
-                    putFieldError("incomeSubAccountNumber", KFSKeyConstants.ERROR_INACTIVE, "Income Sub-Account");
-                }
+                    // check the Sub-Account is active
+                    if (!existenceSubAccount.isActive()) {
+                        putFieldError("incomeSubAccountNumber", KFSKeyConstants.ERROR_INACTIVE, "Income Sub-Account");
+                    }
             }
         }
 
         // check Expense Sub-Account business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getExpenseSubAccountNumber() ) ) {
+        if (StringUtils.isNotBlank(newCreditCardVendor.getExpenseSubAccountNumber())) {
             if (checkRequiredSubAccount("Expense")) {
 
                 // check existence of Sub-Account
@@ -136,48 +132,45 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
                 if (existenceSubAccount == null) {
                     putFieldError("expenseSubAccountNumber", KFSKeyConstants.ERROR_CCV_INVALIDSUBACCOUNT, "Expense Sub-Account Number, " + newCreditCardVendor.getExpenseSubAccountNumber());
 
-                }
-                else
+                } else
 
-                // check the Sub-Account is active
-                if (!existenceSubAccount.isActive()) {
-                    putFieldError("expenseSubAccountNumber", KFSKeyConstants.ERROR_INACTIVE, "Expense Sub-Account");
-                }
+                    // check the Sub-Account is active
+                    if (!existenceSubAccount.isActive()) {
+                        putFieldError("expenseSubAccountNumber", KFSKeyConstants.ERROR_INACTIVE, "Expense Sub-Account");
+                    }
             }
         }
 
         // check Income Sub-Object Code business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getIncomeFinancialSubObjectCode() ) ) {
+        if (StringUtils.isNotBlank(newCreditCardVendor.getIncomeFinancialSubObjectCode())) {
             if (checkRequiredSubObjectCode("Income")) {
 
                 // check existence of Sub-Object
                 SubObjectCode existenceSubObj = checkExistenceSubObj("Income");
                 if (existenceSubObj == null) {
                     putFieldError("incomeFinancialSubObjectCode", KFSKeyConstants.ERROR_CCV_INVALIDSUBOBJECT, "Income Sub-Object Code, " + newCreditCardVendor.getIncomeFinancialSubObjectCode());
-                }
-                else
-                // check the Sub-Object is active
-                if (!existenceSubObj.isActive()) {
-                    putFieldError("incomeFinancialSubObjectCode", KFSKeyConstants.ERROR_INACTIVE, "Income Sub-Object");
-                }
+                } else
+                    // check the Sub-Object is active
+                    if (!existenceSubObj.isActive()) {
+                        putFieldError("incomeFinancialSubObjectCode", KFSKeyConstants.ERROR_INACTIVE, "Income Sub-Object");
+                    }
 
             }
         }
 
         // check Expense Sub-Object Code business rule
-        if ( StringUtils.isNotBlank( newCreditCardVendor.getExpenseFinancialSubObjectCode() ) ) {
+        if (StringUtils.isNotBlank(newCreditCardVendor.getExpenseFinancialSubObjectCode())) {
             if (checkRequiredSubObjectCode("Expense")) {
 
                 // check existence of Sub-Object
                 SubObjectCode existenceSubObj = checkExistenceSubObj("Expense");
                 if (existenceSubObj == null) {
                     putFieldError("expenseFinancialSubObjectCode", KFSKeyConstants.ERROR_CCV_INVALIDSUBOBJECT, "Expense Sub-Object Code, " + newCreditCardVendor.getExpenseFinancialSubObjectCode());
-                }
-                else
-                // check the Sub-Object is active
-                if (!existenceSubObj.isActive()) {
-                    putFieldError("expenseFinancialSubObjectCode", KFSKeyConstants.ERROR_INACTIVE, "Expense Sub-Object");
-                }
+                } else
+                    // check the Sub-Object is active
+                    if (!existenceSubObj.isActive()) {
+                        putFieldError("expenseFinancialSubObjectCode", KFSKeyConstants.ERROR_INACTIVE, "Expense Sub-Object");
+                    }
             }
         }
 
@@ -196,14 +189,12 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
         if (ccvNumber == null) {
             return false;
-        }
-        else if (!StringUtils.isNumeric(ccvNumber)) {
+        } else if (!StringUtils.isNumeric(ccvNumber)) {
             putFieldError("financialDocumentCreditCardVendorNumber", KFSKeyConstants.ERROR_NUMERIC, "Vendor Credit Card Number");
             return false;
-        }
-        else if (ccvNumber.length() < 5) {
+        } else if (ccvNumber.length() < 5) {
             String errorMessage[] = null;
-            errorMessage = new String[] { "Vendor Credit Card Number", "5" };
+            errorMessage = new String[]{"Vendor Credit Card Number", "5"};
             putFieldError("financialDocumentCreditCardVendorNumber", KFSKeyConstants.ERROR_MIN_LENGTH, errorMessage);
             return false;
         }
@@ -216,14 +207,14 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
      * Returns true if account is active (i.e. exists and is not expired or closed)
      *
      * @param accountNumber account number
-     * @param fieldName field name to place error for
-     * @param errorMessage error message to display
+     * @param fieldName     field name to place error for
+     * @param errorMessage  error message to display
      * @return true if account is active (i.e. exists and is not expired or closed)
      */
-    protected boolean checkExistingActiveAccount( String chartOfAccountsCode, String accountNumber, String fieldName, String errorMessage) {
+    protected boolean checkExistingActiveAccount(String chartOfAccountsCode, String accountNumber, String fieldName, String errorMessage) {
         boolean result = false;
         Account account;
-        Map<String,String> pkMap = new HashMap<String,String>();
+        Map<String, String> pkMap = new HashMap<String, String>();
         pkMap.put("accountNumber", accountNumber);
         pkMap.put("chartOfAccountsCode", chartOfAccountsCode);
         account = (Account) getBoService().findByPrimaryKey(Account.class, pkMap);
@@ -300,7 +291,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
         SubAccount subAccount = null;
 
         if (string.equals("Income")) {
-            Map<String,String> pkMap = new HashMap<String,String>();
+            Map<String, String> pkMap = new HashMap<String, String>();
             pkMap.put("chartOfAccountsCode", newCreditCardVendor.getIncomeFinancialChartOfAccountsCode());
             pkMap.put("accountNumber", newCreditCardVendor.getIncomeAccountNumber());
             pkMap.put("subAccountNumber", newCreditCardVendor.getIncomeSubAccountNumber());
@@ -308,7 +299,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
         }
 
         if (string.equals("Expense")) {
-            Map<String,String> pkMap = new HashMap<String,String>();
+            Map<String, String> pkMap = new HashMap<String, String>();
             pkMap.put("chartOfAccountsCode", newCreditCardVendor.getExpenseFinancialChartOfAccountsCode());
             pkMap.put("accountNumber", newCreditCardVendor.getExpenseAccountNumber());
             pkMap.put("subAccountNumber", newCreditCardVendor.getExpenseSubAccountNumber());
@@ -329,17 +320,17 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
         boolean returnVal = true;
         if (string.equals("Income")) {
-            if ( StringUtils.isBlank( newCreditCardVendor.getIncomeFinancialChartOfAccountsCode() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getIncomeFinancialChartOfAccountsCode())) {
                 putFieldError("incomeFinancialChartOfAccountsCode", KFSKeyConstants.ERROR_CCV_INCOME_SUBOBJ_REQUIRED, "Income Chart");
                 returnVal = false;
             }
 
-            if ( StringUtils.isBlank( newCreditCardVendor.getIncomeAccountNumber() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getIncomeAccountNumber())) {
                 putFieldError("incomeAccountNumber", KFSKeyConstants.ERROR_CCV_INCOME_SUBOBJ_REQUIRED, "Income Account Number");
                 returnVal = false;
             }
 
-            if ( StringUtils.isBlank( newCreditCardVendor.getIncomeFinancialObjectCode() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getIncomeFinancialObjectCode())) {
                 putFieldError("incomeFinancialObjectCode", KFSKeyConstants.ERROR_CCV_INCOME_SUBOBJ_REQUIRED, "Income Object Code");
                 returnVal = false;
             }
@@ -348,17 +339,17 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
 
         if (string.equals("Expense")) {
-            if ( StringUtils.isBlank( newCreditCardVendor.getExpenseFinancialChartOfAccountsCode() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getExpenseFinancialChartOfAccountsCode())) {
                 putFieldError("expenseFinancialChartOfAccountsCode", KFSKeyConstants.ERROR_CCV_EXPENSE_SUBOBJ_REQUIRED, "Expense Chart");
                 returnVal = false;
             }
 
-            if ( StringUtils.isBlank( newCreditCardVendor.getExpenseAccountNumber() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getExpenseAccountNumber())) {
                 putFieldError("expenseAccountNumber", KFSKeyConstants.ERROR_CCV_EXPENSE_SUBOBJ_REQUIRED, "Expense Account Number");
                 returnVal = false;
             }
 
-            if ( StringUtils.isBlank( newCreditCardVendor.getExpenseFinancialObjectCode() ) ) {
+            if (StringUtils.isBlank(newCreditCardVendor.getExpenseFinancialObjectCode())) {
                 putFieldError("expenseFinancialObjectCode", KFSKeyConstants.ERROR_CCV_EXPENSE_SUBOBJ_REQUIRED, "Expense Object Code");
                 returnVal = false;
             }
@@ -381,7 +372,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
         SubObjectCode subObjCd = null;
 
         if (string.equals("Income")) {
-            Map<String,String> pkMap = new HashMap<String,String>();
+            Map<String, String> pkMap = new HashMap<String, String>();
             pkMap.put("chartOfAccountsCode", newCreditCardVendor.getIncomeFinancialChartOfAccountsCode());
             pkMap.put("accountNumber", newCreditCardVendor.getIncomeAccountNumber());
             pkMap.put("financialObjectCode", newCreditCardVendor.getIncomeFinancialObjectCode());
@@ -390,7 +381,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
         }
 
         if (string.equals("Expense")) {
-            Map<String,String> pkMap = new HashMap<String,String>();
+            Map<String, String> pkMap = new HashMap<String, String>();
             pkMap.put("chartOfAccountsCode", newCreditCardVendor.getExpenseFinancialChartOfAccountsCode());
             pkMap.put("accountNumber", newCreditCardVendor.getExpenseAccountNumber());
             pkMap.put("financialObjectCode", newCreditCardVendor.getExpenseFinancialObjectCode());

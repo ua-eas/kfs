@@ -19,24 +19,24 @@
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.BindingInfo;
-import org.kuali.kfs.krad.uif.component.Component;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.kfs.krad.uif.component.DataBinding;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.kfs.krad.uif.widget.Inquiry;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.bo.KualiCode;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.component.BindingInfo;
+import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.component.ComponentSecurity;
+import org.kuali.kfs.krad.uif.component.DataBinding;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
 import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.widget.Inquiry;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 
 import java.beans.PropertyEditor;
 import java.util.ArrayList;
@@ -44,8 +44,6 @@ import java.util.List;
 
 /**
  * Field that renders data from the application, such as the value of a data object property
- *
- *
  */
 public class DataField extends FieldBase implements DataBinding {
     private static final long serialVersionUID = -4129678891948564724L;
@@ -98,14 +96,14 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set defaults for binding</li>
      * <li>Default the model path if not set</li>
      * </ul>
      *
      * @see ComponentBase#performInitialization(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performInitialization(View view, Object model) {
@@ -118,7 +116,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * The following updates are done here:
-     *
+     * <p>
      * <ul>
      * <li>If readOnlyHidden set to true, set field to readonly and add to hidden property names</li>
      * </ul>
@@ -134,7 +132,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the ids for the various attribute components</li>
      * <li>Sets up the client side validation for constraints on this field. In
@@ -142,7 +140,7 @@ public class DataField extends FieldBase implements DataBinding {
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -171,7 +169,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Sets alternate and additional property value for this field.
-     *
+     * <p>
      * <p>
      * If <code>AttributeSecurity</code> present in this field, make sure the current user has permission to view the
      * field value. If user doesn't have permission to view the value, mask the value as configured and set it
@@ -179,7 +177,7 @@ public class DataField extends FieldBase implements DataBinding {
      * <code>alternateDisplayPropertyName</code> present, get its value and format it based on that
      * fields formatting and set for display.
      * </p>
-     *
+     * <p>
      * <p>
      * For additional display value, if <code>AttributeSecurity</code> not present, sets the value if
      * <code>additionalDisplayPropertyName</code> present. If not present, check whether this field is a
@@ -189,7 +187,7 @@ public class DataField extends FieldBase implements DataBinding {
      * for the value and set it as additional display value.
      * </p>
      *
-     * @param view - the current view instance
+     * @param view  - the current view instance
      * @param model - model instance
      */
     protected void setAlternateAndAdditionalDisplayValue(View view, Object model) {
@@ -216,7 +214,7 @@ public class DataField extends FieldBase implements DataBinding {
         // if field is not secure, check for alternate and additional display properties
         if (StringUtils.isNotBlank(getAlternateDisplayPropertyName())) {
             String alternateDisplayPropertyPath = getBindingInfo().getPropertyAdjustedBindingPath(
-                    getAlternateDisplayPropertyName());
+                getAlternateDisplayPropertyName());
 
             Object alternateFieldValue = ObjectPropertyUtils.getPropertyValue(model, alternateDisplayPropertyPath);
             if (alternateFieldValue != null) {
@@ -230,21 +228,21 @@ public class DataField extends FieldBase implements DataBinding {
             // check for any relationship present for this field and it's of type KualiCode
             Class<?> parentObjectClass = ViewModelUtils.getParentObjectClassForMetadata(view, model, this);
             DataObjectRelationship relationship =
-                    KRADServiceLocatorWeb.getDataObjectMetaDataService().getDataObjectRelationship(null,
-                            parentObjectClass, getBindingInfo().getBindingName(), "", true, false, false);
+                KRADServiceLocatorWeb.getDataObjectMetaDataService().getDataObjectRelationship(null,
+                    parentObjectClass, getBindingInfo().getBindingName(), "", true, false, false);
 
             if (relationship != null
-                    && getPropertyName().startsWith(relationship.getParentAttributeName())
-                    && KualiCode.class.isAssignableFrom(relationship.getRelatedClass())) {
+                && getPropertyName().startsWith(relationship.getParentAttributeName())
+                && KualiCode.class.isAssignableFrom(relationship.getRelatedClass())) {
                 additionalDisplayPropertyName =
-                        relationship.getParentAttributeName() + "." + KRADPropertyConstants.NAME;
+                    relationship.getParentAttributeName() + "." + KRADPropertyConstants.NAME;
             }
         }
 
         // now check for an additional display property and if set get the value
         if (StringUtils.isNotBlank(getAdditionalDisplayPropertyName())) {
             String additionalDisplayPropertyPath = getBindingInfo().getPropertyAdjustedBindingPath(
-                    getAdditionalDisplayPropertyName());
+                getAdditionalDisplayPropertyName());
 
             Object additionalFieldValue = ObjectPropertyUtils.getPropertyValue(model, additionalDisplayPropertyPath);
             if (additionalFieldValue != null) {
@@ -261,9 +259,9 @@ public class DataField extends FieldBase implements DataBinding {
      * already contains a value for a property, the definitions value is not
      * used.
      *
-     * @param view - view instance the field belongs to
+     * @param view                - view instance the field belongs to
      * @param attributeDefinition - AttributeDefinition instance the property values should be
-     * copied from
+     *                            copied from
      */
     public void copyFromAttributeDefinition(View view, AttributeDefinition attributeDefinition) {
         // label
@@ -293,13 +291,13 @@ public class DataField extends FieldBase implements DataBinding {
 
         // alternate property name
         if (getAlternateDisplayPropertyName() == null && StringUtils.isNotBlank(
-                attributeDefinition.getAlternateDisplayAttributeName())) {
+            attributeDefinition.getAlternateDisplayAttributeName())) {
             setAlternateDisplayPropertyName(attributeDefinition.getAlternateDisplayAttributeName());
         }
 
         // additional property display name
         if (getAdditionalDisplayPropertyName() == null && StringUtils.isNotBlank(
-                attributeDefinition.getAdditionalDisplayAttributeName())) {
+            attributeDefinition.getAdditionalDisplayAttributeName())) {
             setAdditionalDisplayPropertyName(attributeDefinition.getAdditionalDisplayAttributeName());
         }
 
@@ -350,7 +348,7 @@ public class DataField extends FieldBase implements DataBinding {
     /**
      * Performs formatting of the field value for display and then converting the value back to its
      * expected type from a string
-     *
+     * <p>
      * <p>
      * Note property editors exist and are already registered for the basic Java types and the
      * common Kuali types such as [@link KualiDecimal}. Registration with this property is only
@@ -400,7 +398,7 @@ public class DataField extends FieldBase implements DataBinding {
     /**
      * Name of the attribute within the data dictionary the attribute field is
      * associated with
-     *
+     * <p>
      * <p>
      * During the initialize phase for the <code>View</code>, properties for
      * attribute fields are defaulted from a corresponding
@@ -410,7 +408,7 @@ public class DataField extends FieldBase implements DataBinding {
      * set this property. However this property can also be set in the fields
      * configuration to use another dictionary attribute.
      * </p>
-     *
+     * <p>
      * <p>
      * The attribute name is used along with the dictionary object entry to find
      * the <code>AttributeDefinition</code>
@@ -434,7 +432,7 @@ public class DataField extends FieldBase implements DataBinding {
     /**
      * Object entry name in the data dictionary the associated attribute is
      * apart of
-     *
+     * <p>
      * <p>
      * During the initialize phase for the <code>View</code>, properties for
      * attribute fields are defaulted from a corresponding
@@ -443,7 +441,7 @@ public class DataField extends FieldBase implements DataBinding {
      * associated attribute. However the object entry can be set in the field's
      * configuration to use another object entry for the attribute
      * </p>
-     *
+     * <p>
      * <p>
      * The attribute name is used along with the dictionary object entry to find
      * the <code>AttributeDefinition</code>
@@ -466,7 +464,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Default value for the model property the field points to
-     *
+     * <p>
      * <p>
      * When a new <code>View</code> instance is requested, the corresponding
      * model will be newly created. During this initialization process the value
@@ -573,7 +571,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Indicates the field should be read-only but also a hidden should be generated for the field
-     *
+     * <p>
      * <p>
      * Useful for when a value is just displayed but is needed by script
      * </p>
@@ -595,7 +593,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Inquiry widget for the field
-     *
+     * <p>
      * <p>
      * The inquiry widget will render a link for the field value when read-only
      * that points to the associated inquiry view for the field. The inquiry can
@@ -695,11 +693,11 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Indicates whether the value for the field should be masked (or partially masked) on display
-     *
+     * <p>
      * <p>
      * If set to true, the field value will be masked by applying the configured {@link #getMaskFormatter()}
      * </p>
-     *
+     * <p>
      * <p>
      * If a KIM permission exists that should be checked to determine whether the value should be masked or not,
      * this value should not be set but instead the mask or partialMask property on {@link #getComponentSecurity()}
@@ -725,7 +723,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * MaskFormatter instance that will be used to mask the field value when {@link #isApplyValueMask()} is true
-     *
+     * <p>
      * <p>
      * Note in cases where the mask is applied due to security (KIM permissions), the mask or partial mask formatter
      * configured on {@link #getComponentSecurity()} will be used instead of this mask formatter
@@ -767,13 +765,13 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * List of property names whose values should be displayed read-only under this field
-     *
+     * <p>
      * <p>
      * In the attribute field template for each information property name given its values is
      * outputted read-only. Informational property values can also be updated dynamically with
      * the use of field attribute query
      * </p>
-     *
+     * <p>
      * <p>
      * Simple property names can be given if the property has the same binding parent as this
      * field, in which case the binding path will be adjusted by the framework. If the property
@@ -815,7 +813,7 @@ public class DataField extends FieldBase implements DataBinding {
 
     /**
      * Indicates whether the value for the field is secure
-     *
+     * <p>
      * <p>
      * A value will be secured if masking has been applied (by configuration or a failed KIM permission) or the field
      * has been marked as hidden due to an authorization check
@@ -825,9 +823,9 @@ public class DataField extends FieldBase implements DataBinding {
      */
     public boolean hasSecureValue() {
         return isApplyValueMask() || ((getComponentSecurity().isViewAuthz()
-                || getDataFieldSecurity().isViewInLineAuthz()
-                || ((getDataFieldSecurity().getAttributeSecurity() != null) && getDataFieldSecurity()
-                .getAttributeSecurity().isHide())) && isHidden());
+            || getDataFieldSecurity().isViewInLineAuthz()
+            || ((getDataFieldSecurity().getAttributeSecurity() != null) && getDataFieldSecurity()
+            .getAttributeSecurity().isHide())) && isHidden());
     }
 
 }

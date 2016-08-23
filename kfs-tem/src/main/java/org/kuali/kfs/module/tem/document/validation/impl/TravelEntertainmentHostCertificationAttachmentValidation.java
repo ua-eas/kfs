@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -28,9 +29,8 @@ import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class TravelEntertainmentHostCertificationAttachmentValidation extends GenericValidation {
     protected boolean warningOnly = true;
@@ -61,7 +61,6 @@ public class TravelEntertainmentHostCertificationAttachmentValidation extends Ge
 
     /**
      * Adds an error
-     *
      *
      * @param warningOnly whether error should be a true error or a warning only
      * @return true if rule suceeded, false otherwise

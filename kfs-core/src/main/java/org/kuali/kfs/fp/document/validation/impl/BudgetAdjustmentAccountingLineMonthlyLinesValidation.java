@@ -19,12 +19,12 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation for a budget adjustment accounting line that validates the information in the monthly lines
@@ -52,6 +52,7 @@ public class BudgetAdjustmentAccountingLineMonthlyLinesValidation extends Generi
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public BudgetAdjustmentAccountingLine getAccountingLineForValidation() {
@@ -60,6 +61,7 @@ public class BudgetAdjustmentAccountingLineMonthlyLinesValidation extends Generi
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(BudgetAdjustmentAccountingLine accountingLineForValidation) {

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.ld.LaborLedgerPostingDocumentForSearching;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.document.AccountingDocument;
+
+import java.util.List;
 
 /**
  * Labor Document Defines methods that must be implements for a labor ledger posting document.

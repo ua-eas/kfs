@@ -18,51 +18,51 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-                           http://www.springframework.org/schema/util
-                           http://www.springframework.org/schema/util/spring-util-3.1.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+
+
+
+
+
+
                            http://www.springframework.org/schema/cache
                            http://www.springframework.org/schema/cache/spring-cache.xsd"
-	default-lazy-init="false">
+       default-lazy-init="false">
 
-	<!-- spring service that should be exposed on the ksb to receive messages from the distributed cache manager -->
-	<bean id="kfs.core.CacheAdminService" class="org.kuali.rice.core.impl.cache.CacheAdminServiceImpl"
-		p:cacheManager-ref="kfs.core.LocalCacheManager" />
+    <!-- spring service that should be exposed on the ksb to receive messages from the distributed cache manager -->
+    <bean id="kfs.core.CacheAdminService" class="org.kuali.rice.core.impl.cache.CacheAdminServiceImpl"
+          p:cacheManager-ref="kfs.core.LocalCacheManager"/>
 
-	<bean id="kfs.core.LocalCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-		<property name="cacheManager">
-			<bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="${kfs.ehcache.config.location}" />
-		</property>
-	</bean>
+    <bean id="kfs.core.LocalCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager">
+            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="${kfs.ehcache.config.location}"/>
+        </property>
+    </bean>
 
-	<!-- the distributed cache manager that calls into the CacheAdminService on the ksb -->
-	<bean id="kfs.core.DistributedCacheManager" class="org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator">
-		<property name="cacheManager" ref="kfs.core.LocalCacheManager" />
-		<property name="serviceName" value="{${kfs.service.namespace.uri}}kfsCoreCacheAdminService" />
-	</bean>
+    <!-- the distributed cache manager that calls into the CacheAdminService on the ksb -->
+    <bean id="kfs.core.DistributedCacheManager" class="org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator">
+        <property name="cacheManager" ref="kfs.core.LocalCacheManager"/>
+        <property name="serviceName" value="{${kfs.service.namespace.uri}}kfsCoreCacheAdminService"/>
+    </bean>
 
-	<bean id="kfs.core.cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl">
-		<property name="cacheManager" ref="kfs.core.DistributedCacheManager" />
-	</bean>
+    <bean id="kfs.core.cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl">
+        <property name="cacheManager" ref="kfs.core.DistributedCacheManager"/>
+    </bean>
 
-	<bean id="kfs.core.CacheAdminService.exporter" parent="kfsServiceBusExporter">
-		<property name="serviceDefinition">
-			<bean parent="kfsSoapServiceDefinition" p:service-ref="kfs.core.CacheAdminService" p:localServiceName="kfsCoreCacheAdminService"
-				p:queue="false" p:busSecurity="${cache.service.bus.security.enabled}" />
-		</property>
-	</bean>
+    <bean id="kfs.core.CacheAdminService.exporter" parent="kfsServiceBusExporter">
+        <property name="serviceDefinition">
+            <bean parent="kfsSoapServiceDefinition" p:service-ref="kfs.core.CacheAdminService" p:localServiceName="kfsCoreCacheAdminService"
+                  p:queue="false" p:busSecurity="${cache.service.bus.security.enabled}"/>
+        </property>
+    </bean>
 
-	<bean id="kfs.import.globalCacheManager" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-		<property name="serviceName" value="globalCacheManager" />
-	</bean>
+    <bean id="kfs.import.globalCacheManager" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="globalCacheManager"/>
+    </bean>
 
-	<cache:annotation-driven cache-manager="kfs.import.globalCacheManager" />
+    <cache:annotation-driven cache-manager="kfs.import.globalCacheManager"/>
 
 </beans>

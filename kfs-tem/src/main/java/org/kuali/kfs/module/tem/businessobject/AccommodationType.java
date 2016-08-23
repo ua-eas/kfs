@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * Accommodation Type
- *
  */
 @Entity
-@Table(name="TEM_ACCOMM_TYP_T")
+@Table(name = "TEM_ACCOMM_TYP_T")
 public class AccommodationType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String code;
@@ -43,7 +41,7 @@ public class AccommodationType extends PersistableBusinessObjectBase implements 
     private Boolean active = Boolean.TRUE;
 
     @Id
-    @Column(name="code",length=4,nullable=false)
+    @Column(name = "code", length = 4, nullable = false)
     public String getCode() {
         return code;
     }
@@ -52,7 +50,7 @@ public class AccommodationType extends PersistableBusinessObjectBase implements 
         this.code = code;
     }
 
-    @Column(name="nm",length=40,nullable=false)
+    @Column(name = "nm", length = 40, nullable = false)
     public String getName() {
         return name;
     }
@@ -62,7 +60,7 @@ public class AccommodationType extends PersistableBusinessObjectBase implements 
     }
 
     @Override
-    @Column(name="actv_ind",nullable=false,length=1)
+    @Column(name = "actv_ind", nullable = false, length = 1)
     public boolean isActive() {
         return active;
     }

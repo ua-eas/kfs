@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.service.RequisitionService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.document.Document;
 
 
 public class ContractManagerAssignmentDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
@@ -42,7 +42,7 @@ public class ContractManagerAssignmentDocumentPresentationController extends Pur
     public boolean canInitiate(String documentTypeName) {
         int numberOfRequisitions = SpringContext.getBean(RequisitionService.class).getCountOfRequisitionsAwaitingContractManagerAssignment();
         if (numberOfRequisitions == 0) {
-            throw new DocumentInitiationException(PurapKeyConstants.ERROR_AUTHORIZATION_ACM_INITIATION, new String[] { documentTypeName }, true);
+            throw new DocumentInitiationException(PurapKeyConstants.ERROR_AUTHORIZATION_ACM_INITIATION, new String[]{documentTypeName}, true);
         }
 
         return super.canInitiate(documentTypeName);

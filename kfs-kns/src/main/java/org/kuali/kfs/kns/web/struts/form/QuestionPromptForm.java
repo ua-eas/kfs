@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.kns.web.struts.form;
 
+import org.kuali.kfs.kns.question.Question;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.question.Question;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
  * This class is the action form for all Question Prompts.
- *
- *
  */
 public class QuestionPromptForm extends KualiForm {
     private static final long serialVersionUID = 1L;
@@ -136,8 +135,7 @@ public class QuestionPromptForm extends KualiForm {
 
         if (request.getAttribute(KRADConstants.DOC_FORM_KEY) != null) {
             this.setFormKey((String) request.getAttribute(KRADConstants.DOC_FORM_KEY));
-        }
-        else if (request.getParameter(KRADConstants.DOC_FORM_KEY) != null) {
+        } else if (request.getParameter(KRADConstants.DOC_FORM_KEY) != null) {
             this.setFormKey(request.getParameter(KRADConstants.DOC_FORM_KEY));
         }
 
@@ -160,8 +158,8 @@ public class QuestionPromptForm extends KualiForm {
             String questionId = request.getParameter(KRADConstants.QUESTION_INST_ATTRIBUTE_NAME);
             String questionTextAttributeName = KRADConstants.QUESTION_TEXT_ATTRIBUTE_NAME + questionId;
 
-            if (GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName)!=null) {
-                this.setQuestionText((String)GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName));
+            if (GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName) != null) {
+                this.setQuestionText((String) GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName));
                 GlobalVariables.getUserSession().removeObject(questionTextAttributeName);
             }
 
@@ -258,7 +256,8 @@ public class QuestionPromptForm extends KualiForm {
 
     public String getMethodToCallPath() {
         return methodToCallPath;
-}
+    }
+
     public void setMethodToCallPath(String methodToCallPath) {
         this.methodToCallPath = methodToCallPath;
     }

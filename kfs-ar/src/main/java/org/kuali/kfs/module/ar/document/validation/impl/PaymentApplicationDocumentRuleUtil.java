@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -30,6 +25,11 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -41,11 +41,11 @@ import org.kuali.kfs.module.ar.document.PaymentApplicationDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Document Rule Utility class for Payment Application.
@@ -78,7 +78,9 @@ public class PaymentApplicationDocumentRuleUtil {
         boolean isValid = true;
 
         invoicePaidApplied.refreshReferenceObject("invoiceDetail");
-        if(ObjectUtils.isNull(invoicePaidApplied) || ObjectUtils.isNull(invoicePaidApplied.getInvoiceDetail())) { return true; }
+        if (ObjectUtils.isNull(invoicePaidApplied) || ObjectUtils.isNull(invoicePaidApplied.getInvoiceDetail())) {
+            return true;
+        }
         KualiDecimal amountOwed = invoicePaidApplied.getInvoiceDetail().getAmountOpen();
         KualiDecimal amountPaid = invoicePaidApplied.getInvoiceItemAppliedAmount();
 
@@ -102,7 +104,7 @@ public class PaymentApplicationDocumentRuleUtil {
             isValid = false;
             LOG.debug("InvoicePaidApplied is not valid. Cannot apply more than cash control total amount.");
             GlobalVariables.getMessageMap().putError(
-                fieldName,ArKeyConstants.PaymentApplicationDocumentErrors.CANNOT_APPLY_MORE_THAN_CASH_CONTROL_TOTAL_AMOUNT);
+                fieldName, ArKeyConstants.PaymentApplicationDocumentErrors.CANNOT_APPLY_MORE_THAN_CASH_CONTROL_TOTAL_AMOUNT);
         }
 
         //  cant apply negative amounts
@@ -110,7 +112,7 @@ public class PaymentApplicationDocumentRuleUtil {
             isValid = false;
             LOG.debug("InvoicePaidApplied is not valid. Amount to be applied must be positive.");
             GlobalVariables.getMessageMap().putError(
-                    fieldName,ArKeyConstants.PaymentApplicationDocumentErrors.AMOUNT_TO_BE_APPLIED_MUST_BE_POSTIIVE);
+                fieldName, ArKeyConstants.PaymentApplicationDocumentErrors.AMOUNT_TO_BE_APPLIED_MUST_BE_POSTIIVE);
         }
         return isValid;
     }
@@ -222,20 +224,20 @@ public class PaymentApplicationDocumentRuleUtil {
 
         // Required fields, so always validate these.
         nonInvoiced.refreshReferenceObject("account");
-        if ( ObjectUtils.isNull(nonInvoiced.getAccount())) {
+        if (ObjectUtils.isNull(nonInvoiced.getAccount())) {
             isValid &= false;
-            errorMap.putError( ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_ACCOUNT,
-                    ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_ACCOUNT_INVALID, nonInvoiced.getAccountNumber());
+            errorMap.putError(ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_ACCOUNT,
+                ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_ACCOUNT_INVALID, nonInvoiced.getAccountNumber());
         }
         isValid &= validateNonInvoicedLineItem("chartOfAccountsCode", nonInvoiced.getChartOfAccountsCode(), Chart.class,
-                ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_CHART,
-                ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_CHART_INVALID);
+            ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_CHART,
+            ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_CHART_INVALID);
         isValid &= validateNonInvoicedLineItem("accountNumber", nonInvoiced.getAccountNumber(), Account.class,
-                ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_ACCOUNT,
-                ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_ACCOUNT_INVALID);
+            ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_ACCOUNT,
+            ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_ACCOUNT_INVALID);
         isValid &= validateNonInvoicedLineItem("financialObjectCode", nonInvoiced.getFinancialObjectCode(), ObjectCode.class,
-                ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_OBJECT,
-                ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_OBJECT_CODE_INVALID);
+            ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_OBJECT,
+            ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_OBJECT_CODE_INVALID);
 
         // Optional fields, so only validate if a value was entered.
         if (StringUtils.isNotBlank(nonInvoiced.getSubAccountNumber())) {
@@ -256,12 +258,12 @@ public class PaymentApplicationDocumentRuleUtil {
     /**
      * This method validates the provided non invoiced line value.
      *
-     * @param attributeName The name of the attribute as it is defined within its parent business object (ie. financialObjectCode in
-     *        ObjectCode.java)
-     * @param value The value of the NonInvoiced line to be validated.
-     * @param boClass The class that the provided value represents (ie. accountNumber represents Account.class)
+     * @param attributeName     The name of the attribute as it is defined within its parent business object (ie. financialObjectCode in
+     *                          ObjectCode.java)
+     * @param value             The value of the NonInvoiced line to be validated.
+     * @param boClass           The class that the provided value represents (ie. accountNumber represents Account.class)
      * @param errorPropertyName The Payment Application document property name to be used for applying errors when necessary.
-     * @param errorMessageKey The error key path to be used for applying errors when necessary.
+     * @param errorMessageKey   The error key path to be used for applying errors when necessary.
      * @return True if the value provided is valid and exists, false otherwise.
      */
     protected static boolean validateNonInvoicedLineItem(String attributeName, String value, Class boClass, String errorPropertyName, String errorMessageKey) {
@@ -271,7 +273,7 @@ public class PaymentApplicationDocumentRuleUtil {
         criteria.put(attributeName, value);
 
         Object object = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(boClass, criteria);
-        if(ObjectUtils.isNull(object)) {
+        if (ObjectUtils.isNull(object)) {
             errorMap.putError(errorPropertyName, errorMessageKey, value);
             isValid &= false;
         }
@@ -291,8 +293,7 @@ public class PaymentApplicationDocumentRuleUtil {
         if (ObjectUtils.isNull(nonArLineAmount)) {
             errorMap.putError(ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_AMOUNT, ArKeyConstants.PaymentApplicationDocumentErrors.NON_AR_AMOUNT_REQUIRED);
             return false;
-        }
-        else {
+        } else {
             KualiDecimal cashControlBalanceToBeApplied = totalFromControl;
             cashControlBalanceToBeApplied = cashControlBalanceToBeApplied.add(paymentApplicationDocument.getTotalFromControl());
             cashControlBalanceToBeApplied.subtract(paymentApplicationDocument.getTotalApplied());
@@ -301,8 +302,7 @@ public class PaymentApplicationDocumentRuleUtil {
             if (nonArLineAmount.isZero()) {
                 errorMap.putError(ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_AMOUNT, ArKeyConstants.PaymentApplicationDocumentErrors.AMOUNT_TO_BE_APPLIED_CANNOT_BE_ZERO);
                 return false;
-            }
-            else if (nonArLineAmount.isNegative()) {
+            } else if (nonArLineAmount.isNegative()) {
                 errorMap.putError(ArPropertyConstants.PaymentApplicationDocumentFields.NON_INVOICED_LINE_AMOUNT, ArKeyConstants.PaymentApplicationDocumentErrors.AMOUNT_TO_BE_APPLIED_MUST_BE_POSTIIVE);
                 return false;
             }
@@ -415,13 +415,11 @@ public class PaymentApplicationDocumentRuleUtil {
                 GlobalVariables.getMessageMap().putError(propertyName, errorKey);
             }
             return isValid;
-        }
-        else {
+        } else {
             if (ObjectUtils.isNull(nonAppliedHolding.getFinancialDocumentLineAmount()) || KualiDecimal.ZERO.equals(nonAppliedHolding.getFinancialDocumentLineAmount())) {
                 // All's OK. Both customer number and amount are empty/null.
                 return true;
-            }
-            else {
+            } else {
                 // Error. Customer number is empty but amount wasn't.
                 String propertyName = ArPropertyConstants.PaymentApplicationDocumentFields.UNAPPLIED_CUSTOMER_NUMBER;
                 String errorKey = ArKeyConstants.PaymentApplicationDocumentErrors.UNAPPLIED_AMOUNT_CANNOT_BE_EMPTY_OR_ZERO;

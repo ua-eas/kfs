@@ -18,21 +18,6 @@
  */
 package org.kuali.kfs.module.tem.pdf;
 
-import static com.lowagie.text.Element.ALIGN_RIGHT;
-import static com.lowagie.text.PageSize.LETTER;
-import static com.lowagie.text.Rectangle.NO_BORDER;
-import static java.awt.Color.BLACK;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FAX_NUMBER;
-
-import java.io.OutputStream;
-import java.util.Collection;
-import java.util.Map;
-
-import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
-import org.kuali.kfs.module.tem.report.util.BarcodeHelper;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Chunk;
@@ -45,15 +30,29 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.Table;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
+import org.kuali.kfs.module.tem.report.util.BarcodeHelper;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.io.OutputStream;
+import java.util.Collection;
+import java.util.Map;
+
+import static com.lowagie.text.Element.ALIGN_RIGHT;
+import static com.lowagie.text.PageSize.LETTER;
+import static com.lowagie.text.Rectangle.NO_BORDER;
+import static java.awt.Color.BLACK;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FAX_NUMBER;
 
 /**
  * Class representing a PDF Coversheet of the {@link TravelReimbursementDocument}.
  */
 public class Coversheet implements PdfStream {
     private static final int ALIGNMENT_MARK_HEIGHT = 8;
-    private static final int ALIGNMENT_MARK_WIDTH  = 10;
-    private static final int ALIGNMENT_MARGIN      = 5;
-    private static final int TOP_MARGIN            = 50;
+    private static final int ALIGNMENT_MARK_WIDTH = 10;
+    private static final int ALIGNMENT_MARGIN = 5;
+    private static final int TOP_MARGIN = 50;
 
     private String initiatorName;
     private String initiatorPrincipalName;
@@ -411,7 +410,6 @@ public class Coversheet implements PdfStream {
 
     /**
      * Information about the traveler described in the trip for the {@link TravelReimbursementDocument}
-     *
      */
     protected Cell getTravelerInfo() throws BadElementException {
         final StringBuilder strBuilder = new StringBuilder();
@@ -520,9 +518,9 @@ public class Coversheet implements PdfStream {
     protected void upperLeftAlignmentMark(final PdfContentByte cb) {
         cb.saveState();
         cb.rectangle(ALIGNMENT_MARGIN,
-                     (LETTER.height() + TOP_MARGIN) - ALIGNMENT_MARK_HEIGHT - ALIGNMENT_MARGIN,
-                     ALIGNMENT_MARK_WIDTH,
-                     ALIGNMENT_MARK_HEIGHT);
+            (LETTER.height() + TOP_MARGIN) - ALIGNMENT_MARK_HEIGHT - ALIGNMENT_MARGIN,
+            ALIGNMENT_MARK_WIDTH,
+            ALIGNMENT_MARK_HEIGHT);
         cb.setColorFill(BLACK);
         cb.fill();
         cb.restoreState();
@@ -531,9 +529,9 @@ public class Coversheet implements PdfStream {
     protected void lowerLeftAlignmentMark(final PdfContentByte cb) {
         cb.saveState();
         cb.rectangle(ALIGNMENT_MARGIN,
-                     ALIGNMENT_MARGIN,
-                     ALIGNMENT_MARK_WIDTH,
-                     ALIGNMENT_MARK_HEIGHT);
+            ALIGNMENT_MARGIN,
+            ALIGNMENT_MARK_WIDTH,
+            ALIGNMENT_MARK_HEIGHT);
         cb.setColorFill(BLACK);
         cb.fill();
         cb.restoreState();
@@ -542,9 +540,9 @@ public class Coversheet implements PdfStream {
     protected void lowerRightAlignmentMark(final PdfContentByte cb) {
         cb.saveState();
         cb.rectangle(LETTER.width() - (ALIGNMENT_MARGIN * 4) - ALIGNMENT_MARK_WIDTH,
-                     ALIGNMENT_MARGIN,
-                     ALIGNMENT_MARK_WIDTH,
-                     ALIGNMENT_MARK_HEIGHT);
+            ALIGNMENT_MARGIN,
+            ALIGNMENT_MARK_WIDTH,
+            ALIGNMENT_MARK_HEIGHT);
         cb.setColorFill(BLACK);
         cb.fill();
         cb.restoreState();
@@ -553,9 +551,9 @@ public class Coversheet implements PdfStream {
     protected void upperRightAlignmentMark(final PdfContentByte cb) {
         cb.saveState();
         cb.rectangle(LETTER.width() - (ALIGNMENT_MARGIN * 4) - ALIGNMENT_MARK_WIDTH,
-                     (LETTER.height() + TOP_MARGIN) - ALIGNMENT_MARGIN - ALIGNMENT_MARK_HEIGHT,
-                     ALIGNMENT_MARK_WIDTH,
-                     ALIGNMENT_MARK_HEIGHT);
+            (LETTER.height() + TOP_MARGIN) - ALIGNMENT_MARGIN - ALIGNMENT_MARK_HEIGHT,
+            ALIGNMENT_MARK_WIDTH,
+            ALIGNMENT_MARK_HEIGHT);
         cb.setColorFill(BLACK);
         cb.fill();
         cb.restoreState();
@@ -569,20 +567,20 @@ public class Coversheet implements PdfStream {
     }
 
     /**
-     * @see org.kuali.kfs.module.tem.pdf.PdfStream#print(java.io.OutputStream)
      * @throws Exception
+     * @see org.kuali.kfs.module.tem.pdf.PdfStream#print(java.io.OutputStream)
      */
     @Override
     public void print(final OutputStream stream) throws Exception {
-        final Font titleFont  = FontFactory.getFont(FontFactory.HELVETICA, 20, Font.BOLD);
+        final Font titleFont = FontFactory.getFont(FontFactory.HELVETICA, 20, Font.BOLD);
         final Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD);
         final Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
 
         final Document doc = new Document();
         final PdfWriter writer = PdfWriter.getInstance(doc, stream);
         doc.open();
-        if(getDocumentNumber()!=null){
-            Image image=Image.getInstance(new BarcodeHelper().generateBarcodeImage(getDocumentNumber()),null);
+        if (getDocumentNumber() != null) {
+            Image image = Image.getInstance(new BarcodeHelper().generateBarcodeImage(getDocumentNumber()), null);
             doc.add(image);
         }
 

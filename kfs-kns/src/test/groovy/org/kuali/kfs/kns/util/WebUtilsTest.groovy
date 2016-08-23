@@ -18,26 +18,27 @@
  */
 package org.kuali.kfs.kns.util
 
-import org.kuali.kfs.kns.web.ui.Section
-import org.junit.Test
-import org.kuali.kfs.kns.web.ui.Row
-import org.kuali.kfs.kns.web.ui.Field
-
-import static org.junit.Assert.assertEquals
 import org.apache.struts.action.ActionForm
 import org.apache.struts.config.ControllerConfig
 import org.junit.Before
-import org.kuali.rice.core.framework.config.property.SimpleConfig
+import org.junit.Test
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService
+import org.kuali.kfs.kim.impl.identity.TestPerson
+import org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm
+import org.kuali.kfs.kns.web.ui.Field
+import org.kuali.kfs.kns.web.ui.Row
+import org.kuali.kfs.kns.web.ui.Section
+import org.kuali.kfs.krad.util.KRADConstants
 import org.kuali.rice.core.api.CoreConstants
 import org.kuali.rice.core.api.config.property.ConfigContext
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader
+import org.kuali.rice.core.framework.config.property.SimpleConfig
 import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader
-import javax.xml.namespace.QName
-import org.kuali.kfs.krad.util.KRADConstants
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService
 import org.kuali.rice.kim.api.identity.PersonService
-import org.kuali.kfs.kim.impl.identity.TestPerson
-import org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm
+
+import javax.xml.namespace.QName
+
+import static org.junit.Assert.assertEquals
 
 /**
  * Unit tests WebUtils
@@ -62,14 +63,14 @@ class WebUtilsTest {
 
         GlobalResourceLoader.addResourceLoader(new BaseResourceLoader(new QName("Foo", "Bar")) {
             def getService(QName name) {
-                [ "cf.parameterService":
-                        [ getParameterValueAsString: { ns, cmp, param ->
-                            [ (KRADConstants.MAX_UPLOAD_SIZE_PARM_NM): maxUploadSize,
-                                    (KRADConstants.ATTACHMENT_MAX_FILE_SIZE_PARM_NM): maxAttachmentSize ][param]
-                        } ] as ParameterService,
-                        // KualiMaintenanceForm -> Note -> AdHocRoutePerson -> PersonService getPersonImplementationClass lookup :(
-                        // stub impl class
-                        personService: { TestPerson.class } as PersonService
+                ["cf.parameterService":
+                         [getParameterValueAsString: { ns, cmp, param ->
+                             [(KRADConstants.MAX_UPLOAD_SIZE_PARM_NM)         : maxUploadSize,
+                              (KRADConstants.ATTACHMENT_MAX_FILE_SIZE_PARM_NM): maxAttachmentSize][param]
+                         }] as ParameterService,
+                 // KualiMaintenanceForm -> Note -> AdHocRoutePerson -> PersonService getPersonImplementationClass lookup :(
+                 // stub impl class
+                 personService        : { TestPerson.class } as PersonService
                 ][name.getLocalPart()]
             }
         })
@@ -80,41 +81,41 @@ class WebUtilsTest {
                 new Field(fieldLabel: "Field One", propertyName: "field1", propertyValue: "value one"),
                 new Field(fieldLabel: "Field Two", propertyName: "field2", propertyValue: "value two"),
                 new Field(fieldLabel: "Field Three", propertyName: "field3", propertyValue: "value three"),
-                new Field(fieldLabel: "Multi-value Field", propertyName: "multiValueField", propertyValues: [ "value1", "value2", "value3" ])
+                new Field(fieldLabel: "Multi-value Field", propertyName: "multiValueField", propertyValues: ["value1", "value2", "value3"])
         ], 50)
         f.setContainerElementName(containerName + "-element")
         f.setContainerName(containerName)
-        f.setContainerDisplayFields( [
+        f.setContainerDisplayFields([
                 new Field(fieldLabel: "Contained Field One", propertyName: "containedField1", propertyValue: "contained value one"),
                 new Field(fieldLabel: "Contained Field Two", propertyName: "containedField2", propertyValue: "contained value two"),
                 new Field(fieldLabel: "Contained Field Three", propertyName: "containedField3", propertyValue: "contained value three"),
-                new Field(fieldLabel: "Contained Multi-value Field", propertyName: "multiValueField", propertyValues: [ "value1", "value2", "value3" ])
+                new Field(fieldLabel: "Contained Multi-value Field", propertyName: "multiValueField", propertyValues: ["value1", "value2", "value3"])
         ])
         f
     }
 
     protected Row generateRow(String sectionNo, String rowNo) {
         new Row([
-            generateContainerField("sections[$sectionNo].rows[$rowNo].field0", "field-$sectionNo-$rowNo-0", "field_${sectionNo}_${rowNo}_0"),
-            generateContainerField("sections[$sectionNo].rows[$rowNo].field1", "field-$sectionNo-$rowNo-1", "field_${sectionNo}_${rowNo}_1"),
-            generateContainerField("sections[$sectionNo].rows[$rowNo].field2", "field-$sectionNo-$rowNo-2", "field_${sectionNo}_${rowNo}_2")
+                generateContainerField("sections[$sectionNo].rows[$rowNo].field0", "field-$sectionNo-$rowNo-0", "field_${sectionNo}_${rowNo}_0"),
+                generateContainerField("sections[$sectionNo].rows[$rowNo].field1", "field-$sectionNo-$rowNo-1", "field_${sectionNo}_${rowNo}_1"),
+                generateContainerField("sections[$sectionNo].rows[$rowNo].field2", "field-$sectionNo-$rowNo-2", "field_${sectionNo}_${rowNo}_2")
         ])
     }
 
     protected Section generateSection(String num) {
         new Section([
-            generateRow(num, "0"),
-            generateRow(num, "Uno"),
-            generateRow(num, "Dos")
+                generateRow(num, "0"),
+                generateRow(num, "Uno"),
+                generateRow(num, "Dos")
         ])
     }
 
     @Test
     void testReopenInactiveRecords() {
         def sections = [
-            generateSection("0"),
-            generateSection("Un"),
-            generateSection("Deux")
+                generateSection("0"),
+                generateSection("Un"),
+                generateSection("Deux")
         ]
         def tabstates = [:]
 
@@ -123,7 +124,7 @@ class WebUtilsTest {
         assertEquals(["field___elementcontainedvalueonecontainedvaluetwocontainedvaluethree": "OPEN"], tabstates)
 
         WebUtils.reopenInactiveRecords(sections, tabstates, "field_Un_Uno_1")
-        assertEquals(["field___elementcontainedvalueonecontainedvaluetwocontainedvaluethree": "OPEN",
+        assertEquals(["field___elementcontainedvalueonecontainedvaluetwocontainedvaluethree"     : "OPEN",
                       "field_Un_Uno_elementcontainedvalueonecontainedvaluetwocontainedvaluethree": "OPEN"], tabstates)
 
         // should switch existing value
@@ -153,12 +154,12 @@ class WebUtilsTest {
 
     @Test
     void testHandleNullValues() {
-        def sections = [ new Section([ new Row([
-            null, // null field
-            new Field(fieldDataType:  null, containerName:  "containerName"), // null type
-            new Field(), // null containerName
-            generateContainerField("containerField", "containerField", "containerField") // legit
-        ])]) ]
+        def sections = [new Section([new Row([
+                null, // null field
+                new Field(fieldDataType: null, containerName: "containerName"), // null type
+                new Field(), // null containerName
+                generateContainerField("containerField", "containerField", "containerField") // legit
+        ])])]
 
         assertEquals("containerName", sections[0].rows[0].fields[1].containerName)
         assertEquals(null, sections[0].rows[0].fields[1].fieldDataType)
@@ -169,7 +170,7 @@ class WebUtilsTest {
         def tabstates = [:]
 
         WebUtils.reopenInactiveRecords(sections, tabstates, "containerField")
-        assertEquals([containerFieldelementcontainedvalueonecontainedvaluetwocontainedvaluethree:"OPEN"], tabstates)
+        assertEquals([containerFieldelementcontainedvalueonecontainedvaluetwocontainedvaluethree: "OPEN"], tabstates)
     }
 
     @Test

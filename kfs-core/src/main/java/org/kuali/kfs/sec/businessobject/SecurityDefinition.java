@@ -18,14 +18,12 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a restriction that can be given to a model or principal. A restriction defines the attribute that is restricted on, and the action(s) that are being restricted. A KIM

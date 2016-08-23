@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 public class BudgetConstructionPayRateHolding extends PersistableBusinessObjectBase {

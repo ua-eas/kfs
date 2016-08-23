@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
@@ -48,6 +41,13 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
  */
@@ -68,9 +68,8 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
 
         KualiDecimal thresholdPercent = budgetConstructionReportThresholdSettings.getThresholdPercent();
         if (applyAThreshold) {
-            budgetConstructionSalarySummaryReportDao.updateSalaryAndReasonSummaryReportsWithThreshold(principalName, universityFiscalYear-1, selectOnlyGreaterThanOrEqualToThreshold, thresholdPercent);
-        }
-        else {
+            budgetConstructionSalarySummaryReportDao.updateSalaryAndReasonSummaryReportsWithThreshold(principalName, universityFiscalYear - 1, selectOnlyGreaterThanOrEqualToThreshold, thresholdPercent);
+        } else {
             budgetConstructionSalarySummaryReportDao.updateSalaryAndReasonSummaryReportsWithoutThreshold(principalName, false);
         }
 
@@ -128,16 +127,14 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
         orgSalarySummaryReportEntry.setOrganizationCode(bcSSN.getOrganizationCode());
         if (orgName == null) {
             orgSalarySummaryReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgSalarySummaryReportEntry.setOrganizationName(orgName);
         }
 
         orgSalarySummaryReportEntry.setOrgChartOfAccountsCode(bcSSN.getOrganizationChartOfAccountsCode());
         if (chartDesc == null) {
             orgSalarySummaryReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSalarySummaryReportEntry.setOrgChartOfAccountDescription(chartDesc);
         }
 
@@ -150,8 +147,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
         if (budgetConstructionReportThresholdSettings.isUseThreshold()) {
             if (budgetConstructionReportThresholdSettings.isUseGreaterThanOperator()) {
                 orgSalarySummaryReportEntry.setThreshold(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_GREATER + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
-            }
-            else {
+            } else {
                 orgSalarySummaryReportEntry.setThreshold(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_LESS + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
             }
         }
@@ -220,14 +216,12 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
                 orgSalarySummaryReportEntry.setPercentAmount(appointmentFundingEntry.getAppointmentRequestedTimePercent());
                 orgSalarySummaryReportEntry.setSalaryMonths(appointmentFundingEntry.getAppointmentFundingMonth());
 
-            }
-            else {
+            } else {
                 orgSalarySummaryReportEntry.setSalaryAmount(BudgetConstructionReportHelper.convertKualiInteger(appointmentFundingEntry.getAppointmentRequestedCsfAmount()));
 
                 if (appointmentFundingEntry.getAppointmentRequestedCsfTimePercent() == null) {
                     orgSalarySummaryReportEntry.setPercentAmount(BigDecimal.ZERO);
-                }
-                else {
+                } else {
                     orgSalarySummaryReportEntry.setPercentAmount(appointmentFundingEntry.getAppointmentRequestedCsfTimePercent());
                 }
 
@@ -243,8 +237,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
 
         if (appointmentFundingEntry.isAppointmentFundingDeleteIndicator()) {
             orgSalarySummaryReportEntry.setDeleteBox(BCConstants.Report.DELETE_MARK);
-        }
-        else {
+        } else {
             orgSalarySummaryReportEntry.setDeleteBox(BCConstants.Report.BLANK);
         }
 
@@ -252,14 +245,12 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
         if (appointmentFundingEntry.isAppointmentFundingDeleteIndicator()) {
             if (curToInt == -1) {
                 curToInt = appointmentFundingEntry.getAppointmentTotalIntendedAmount().intValue();
-            }
-            else if (curToInt != appointmentFundingEntry.getAppointmentTotalIntendedAmount().intValue()) {
+            } else if (curToInt != appointmentFundingEntry.getAppointmentTotalIntendedAmount().intValue()) {
                 orgSalarySummaryReportEntry.setTiFlag(BCConstants.Report.PLUS);
             }
             if (curFteInt == -1.00) {
                 curFteInt = appointmentFundingEntry.getAppointmentTotalIntendedFteQuantity().doubleValue();
-            }
-            else if (curFteInt != appointmentFundingEntry.getAppointmentTotalIntendedFteQuantity().doubleValue()) {
+            } else if (curFteInt != appointmentFundingEntry.getAppointmentTotalIntendedFteQuantity().doubleValue()) {
                 orgSalarySummaryReportEntry.setTiFlag(BCConstants.Report.PLUS);
             }
         }
@@ -351,8 +342,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
         Integer restatementCsfAmount = 0;
         if (totalsHolder.salaryPayMonth == 0 || totalsHolder.csfPayMonths == 0 || BigDecimal.ZERO.compareTo(totalsHolder.csfPercent) == 0 || totalsHolder.csfNormalMonths == 0) {
             restatementCsfAmount = 0;
-        }
-        else {
+        } else {
             BigDecimal salaryMonthPercent = new BigDecimal(totalsHolder.salaryNormalMonths * 1.0 / totalsHolder.salaryPayMonth);
             BigDecimal salaryFteQuantity = totalsHolder.salaryPercent.multiply(salaryMonthPercent);
 
@@ -366,8 +356,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
 
         if (totalsHolder.salaryPayMonth == 0) {
             totalsHolder.salaryFte = BigDecimal.ZERO;
-        }
-        else {
+        } else {
             BigDecimal salaryFte = totalsHolder.salaryPercent.multiply(new BigDecimal(totalsHolder.salaryNormalMonths * 1.0 / (totalsHolder.salaryPayMonth * 100.0)));
             totalsHolder.salaryFte = BudgetConstructionReportHelper.setDecimalDigit(salaryFte, 5, false);
         }
@@ -375,8 +364,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
         if (totalsHolder.salaryPayMonth != totalsHolder.csfPayMonths) {
             if (totalsHolder.csfPayMonths == 0) {
                 restatementCsfAmount = 0;
-            }
-            else {
+            } else {
                 BigDecimal amount = new BigDecimal(restatementCsfAmount * totalsHolder.salaryPayMonth * 1.0 / totalsHolder.csfPayMonths);
                 restatementCsfAmount = BudgetConstructionReportHelper.setDecimalDigit(amount, 0, false).intValue();
             }
@@ -387,15 +375,13 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
 
         if (totalsHolder.csfAmount != 0) {
             totalsHolder.percentChange = BudgetConstructionReportHelper.calculatePercent(totalsHolder.amountChange, totalsHolder.csfAmount);
-        }
-        else {
+        } else {
             totalsHolder.percentChange = BigDecimal.ZERO;
         }
 
         if (totalsHolder.curToInt != 0 && totalsHolder.curToInt != -1 && totalsHolder.curToInt != totalsHolder.salaryAmount.intValue() || totalsHolder.curFteInt != 0 && totalsHolder.curFteInt != -1.00 && totalsHolder.curFteInt != totalsHolder.salaryFte.doubleValue()) {
             totalsHolder.tiFlag = BCConstants.Report.PLUS;
-        }
-        else {
+        } else {
             totalsHolder.tiFlag = BCConstants.Report.BLANK;
         }
     }
@@ -418,8 +404,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
                 salaryAmount = appointmentFunding.getAppointmentRequestedAmount().intValue();
                 salaryMonths = appointmentFunding.getAppointmentFundingMonth();
                 salaryPercent = appointmentFunding.getAppointmentRequestedTimePercent();
-            }
-            else {
+            } else {
                 salaryAmount = appointmentFunding.getAppointmentRequestedCsfAmount().intValue();
                 salaryMonths = budgetConstructionPosition.getIuNormalWorkMonths();
 
@@ -487,8 +472,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
                     if (reportTotalPersonEntry.getPersonCsfAmount() == 0) {
                         totalsHolder.newFte = totalsHolder.newFte.add(reportTotalPersonEntry.getPersonSalaryFte());
                         totalsHolder.newTotalAmount += reportTotalPersonEntry.getPersonSalaryAmount();
-                    }
-                    else {
+                    } else {
                         totalsHolder.conTotalBaseAmount += reportTotalPersonEntry.getPersonCsfAmount();
                         totalsHolder.conFte = totalsHolder.conFte.add(reportTotalPersonEntry.getPersonSalaryFte());
                         totalsHolder.conTotalRequestAmount += reportTotalPersonEntry.getPersonSalaryAmount();
@@ -656,8 +640,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
     protected boolean isSameSsnEntryForTotalPerson(BudgetConstructionSalarySocialSecurityNumber firstSsn, BudgetConstructionSalarySocialSecurityNumber secondSsn) {
         if (firstSsn.getOrganizationChartOfAccountsCode().equals(secondSsn.getOrganizationChartOfAccountsCode()) && firstSsn.getOrganizationCode().equals(secondSsn.getOrganizationCode()) && firstSsn.getEmplid().equals(secondSsn.getEmplid())) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -665,8 +648,7 @@ public class BudgetConstructionSalarySummaryReportServiceImpl implements BudgetC
     protected boolean isSameSsnEntryForTotalOrg(BudgetConstructionSalarySocialSecurityNumber firstSsn, BudgetConstructionSalarySocialSecurityNumber secondSsn) {
         if (firstSsn.getOrganizationChartOfAccountsCode().equals(secondSsn.getOrganizationChartOfAccountsCode()) && firstSsn.getOrganizationCode().equals(secondSsn.getOrganizationCode())) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

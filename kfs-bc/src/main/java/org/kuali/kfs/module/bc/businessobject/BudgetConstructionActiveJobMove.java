@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 public class BudgetConstructionActiveJobMove extends PersistableBusinessObjectBase {

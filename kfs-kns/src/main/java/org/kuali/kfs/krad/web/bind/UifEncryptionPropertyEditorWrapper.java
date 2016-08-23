@@ -27,10 +27,8 @@ import java.security.GeneralSecurityException;
 /**
  * Property editor which encrypts values for display and decrypts on binding, uses the
  * {@link org.kuali.rice.core.api.encryption.EncryptionService} to perform the encryption
- *
- *
  */
-public class UifEncryptionPropertyEditorWrapper extends PropertyEditorSupport{
+public class UifEncryptionPropertyEditorWrapper extends PropertyEditorSupport {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UifEncryptionPropertyEditorWrapper.class);
 
@@ -48,11 +46,11 @@ public class UifEncryptionPropertyEditorWrapper extends PropertyEditorSupport{
     public String getAsText() {
         try {
             if (propertyEditor != null) {
-                if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                     return CoreApiServiceLocator.getEncryptionService().encrypt(propertyEditor.getAsText());
                 }
             }
-            if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+            if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                 return CoreApiServiceLocator.getEncryptionService().encrypt(getValue());
             }
             return null;
@@ -66,7 +64,7 @@ public class UifEncryptionPropertyEditorWrapper extends PropertyEditorSupport{
     public void setAsText(String text) throws IllegalArgumentException {
         try {
             String value = "";
-            if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+            if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                 value = CoreApiServiceLocator.getEncryptionService().decrypt(text);
             }
             if (propertyEditor != null) {

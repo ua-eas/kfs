@@ -19,11 +19,11 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation for the Advance Deposit document that checks the total amount of the document.
@@ -50,6 +50,7 @@ public class AdvanceDepositDocumentTotalValidation extends GenericValidation {
 
     /**
      * Gets the advanceDepositDocumentForValidation attribute.
+     *
      * @return Returns the advanceDepositDocumentForValidation.
      */
     public AdvanceDepositDocument getAdvanceDepositDocumentForValidation() {
@@ -58,6 +59,7 @@ public class AdvanceDepositDocumentTotalValidation extends GenericValidation {
 
     /**
      * Sets the advanceDepositDocumentForValidation attribute value.
+     *
      * @param advanceDepositDocumentForValidation The advanceDepositDocumentForValidation to set.
      */
     public void setAdvanceDepositDocumentForValidation(AdvanceDepositDocument advanceDepositDocumentForValidation) {

@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.exception;
 
 /**
  * This class represents an exception that is thrown during some reflection or introspection-related task.
- *
- *
  */
 public class IntrospectionException extends RuntimeException {
 

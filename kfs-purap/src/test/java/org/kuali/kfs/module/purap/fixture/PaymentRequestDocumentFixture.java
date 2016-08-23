@@ -18,241 +18,241 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public enum PaymentRequestDocumentFixture {
 
     PREQ_ONLY_REQUIRED_FIELDS(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123456",   //invoiceNumber,
-            new KualiDecimal(100),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_1} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123456",   //invoiceNumber,
+        new KualiDecimal(100),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_1} // requisitionItemMultiFixtures
     ),
     PREQ_TWO_ITEM(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123456",   //invoiceNumber,
-            new KualiDecimal(100),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {
-                PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_1,
-                PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_2} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123456",   //invoiceNumber,
+        new KualiDecimal(100),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{
+            PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_1,
+            PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_2} // requisitionItemMultiFixtures
     ),
     PREQ_APPROVAL_REQUIRED(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123458",   //invoiceNumber,
-            new KualiDecimal(995),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123458",   //invoiceNumber,
+        new KualiDecimal(995),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{} // requisitionItemMultiFixtures
     ),
     PREQ_FOR_PO_CLOSE_DOC(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123457",   //invoiceNumber,
-            new KualiDecimal(100),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            true,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1000,   //originalVendorHeaderGeneratedIdentifier,
-            0,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_VENDOR_FOR_PO_CLOSE_DOC,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.PREQ_FOR_PO_CLOSE_DOC,                   // apDocumentFixture
-            new PaymentRequestItemFixture[] {PaymentRequestItemFixture.PREQ_ITEM_FOR_PO_CLOSE_DOC} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123457",   //invoiceNumber,
+        new KualiDecimal(100),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        true,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1000,   //originalVendorHeaderGeneratedIdentifier,
+        0,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_VENDOR_FOR_PO_CLOSE_DOC,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.PREQ_FOR_PO_CLOSE_DOC,                   // apDocumentFixture
+        new PaymentRequestItemFixture[]{PaymentRequestItemFixture.PREQ_ITEM_FOR_PO_CLOSE_DOC} // requisitionItemMultiFixtures
     ),
     CLOSE_PO_WITH_PREQ(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123459",   //invoiceNumber,
-            new KualiDecimal(995),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            true,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.CLOSE_PO_WITH_PREQ,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123459",   //invoiceNumber,
+        new KualiDecimal(995),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        true,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.CLOSE_PO_WITH_PREQ,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{} // requisitionItemMultiFixtures
     ),
     REOPEN_PO_WITH_PREQ(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123450",   //invoiceNumber,
-            new KualiDecimal(995),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.REOPEN_PO_WITH_PREQ,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123450",   //invoiceNumber,
+        new KualiDecimal(995),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.REOPEN_PO_WITH_PREQ,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{} // requisitionItemMultiFixtures
     ),
     REQUEST_CANCEL_PREQ(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123460",   //invoiceNumber,
-            new KualiDecimal(995),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            true,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.REQUEST_CANCEL_PREQ,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123460",   //invoiceNumber,
+        new KualiDecimal(995),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        true,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.REQUEST_CANCEL_PREQ,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{} // requisitionItemMultiFixtures
     ),
     REQUEST_HOLD_PREQ(
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
-            "123461",   //invoiceNumber,
-            new KualiDecimal(995),  //vendorInvoiceAmount,
-            "00N10",    //vendorPaymentTermsCode,
-            "CL",   //vendorShippingPaymentTermsCode,
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
-            "EST",  //paymentRequestCostSourceCode,
-            false,  //paymentRequestedCancelIndicator,
-            false,  //paymentAttachmentIndicator,
-            false,  //immediatePaymentIndicator,
-            false,  //closePurchaseOrderIndicator,
-            null,   //specialHandlingInstructionLine1Text,
-            null,   //specialHandlingInstructionLine2Text,
-            null,   //specialHandlingInstructionLine3Text,
-            null,   //paymentPaidTimestamp,
-            false,  //paymentRequestElectronicInvoiceIndicator,
-            null,   //accountsPayableRequestCancelIdentifier,
-            1010,   //originalVendorHeaderGeneratedIdentifier,
-            2,      //originalVendorDetailAssignedIdentifier,
-            null,           //alternateVendorHeaderGeneratedIdentifier,
-            null,           //alternateVendorDetailAssignedIdentifier,
-            null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.REQUEST_HOLD_PREQ,             // apDocumentFixture
-            new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
+        "123461",   //invoiceNumber,
+        new KualiDecimal(995),  //vendorInvoiceAmount,
+        "00N10",    //vendorPaymentTermsCode,
+        "CL",   //vendorShippingPaymentTermsCode,
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //paymentRequestPayDate,
+        "EST",  //paymentRequestCostSourceCode,
+        false,  //paymentRequestedCancelIndicator,
+        false,  //paymentAttachmentIndicator,
+        false,  //immediatePaymentIndicator,
+        false,  //closePurchaseOrderIndicator,
+        null,   //specialHandlingInstructionLine1Text,
+        null,   //specialHandlingInstructionLine2Text,
+        null,   //specialHandlingInstructionLine3Text,
+        null,   //paymentPaidTimestamp,
+        false,  //paymentRequestElectronicInvoiceIndicator,
+        null,   //accountsPayableRequestCancelIdentifier,
+        1010,   //originalVendorHeaderGeneratedIdentifier,
+        2,      //originalVendorDetailAssignedIdentifier,
+        null,           //alternateVendorHeaderGeneratedIdentifier,
+        null,           //alternateVendorDetailAssignedIdentifier,
+        null,           //purchaseOrderNotes,
+        null,           //recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.REQUEST_HOLD_PREQ,             // apDocumentFixture
+        new PaymentRequestItemFixture[]{} // requisitionItemMultiFixtures
     );
 
     public final Date invoiceDate;
@@ -284,32 +284,32 @@ public enum PaymentRequestDocumentFixture {
     private PaymentRequestItemFixture[] paymentRequestItemFixtures;
 
     private PaymentRequestDocumentFixture(
-            Date invoiceDate,
-            String invoiceNumber,
-            KualiDecimal vendorInvoiceAmount,
-            String vendorPaymentTermsCode,
-            String vendorShippingPaymentTermsCode,
-            Date paymentRequestPayDate,
-            String paymentRequestCostSourceCode,
-            boolean paymentRequestedCancelIndicator,
-            boolean paymentAttachmentIndicator,
-            boolean immediatePaymentIndicator,
-            boolean closePurchaseOrderIndicator,
-            String specialHandlingInstructionLine1Text,
-            String specialHandlingInstructionLine2Text,
-            String specialHandlingInstructionLine3Text,
-            Timestamp paymentPaidTimestamp,
-            boolean paymentRequestElectronicInvoiceIndicator,
-            String accountsPayableRequestCancelIdentifier,
-            Integer originalVendorHeaderGeneratedIdentifier,
-            Integer originalVendorDetailAssignedIdentifier,
-            Integer alternateVendorHeaderGeneratedIdentifier,
-            Integer alternateVendorDetailAssignedIdentifier,
-            String purchaseOrderNotes,
-            String recurringPaymentTypeCode,
-            PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
-            AccountsPayableDocumentFixture apDocumentFixture,
-            PaymentRequestItemFixture[] paymentRequestItemFixtures) {
+        Date invoiceDate,
+        String invoiceNumber,
+        KualiDecimal vendorInvoiceAmount,
+        String vendorPaymentTermsCode,
+        String vendorShippingPaymentTermsCode,
+        Date paymentRequestPayDate,
+        String paymentRequestCostSourceCode,
+        boolean paymentRequestedCancelIndicator,
+        boolean paymentAttachmentIndicator,
+        boolean immediatePaymentIndicator,
+        boolean closePurchaseOrderIndicator,
+        String specialHandlingInstructionLine1Text,
+        String specialHandlingInstructionLine2Text,
+        String specialHandlingInstructionLine3Text,
+        Timestamp paymentPaidTimestamp,
+        boolean paymentRequestElectronicInvoiceIndicator,
+        String accountsPayableRequestCancelIdentifier,
+        Integer originalVendorHeaderGeneratedIdentifier,
+        Integer originalVendorDetailAssignedIdentifier,
+        Integer alternateVendorHeaderGeneratedIdentifier,
+        Integer alternateVendorDetailAssignedIdentifier,
+        String purchaseOrderNotes,
+        String recurringPaymentTypeCode,
+        PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
+        AccountsPayableDocumentFixture apDocumentFixture,
+        PaymentRequestItemFixture[] paymentRequestItemFixtures) {
 
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;

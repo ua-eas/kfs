@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine;
 import org.kuali.kfs.module.tem.businessobject.TemSourceAccountingLine;
@@ -29,6 +25,10 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.web.bean.AccountingLineDistributionKey;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 public interface AccountingDistributionService {
 
@@ -61,7 +61,7 @@ public interface AccountingDistributionService {
 
     /**
      * From the accounting line list, calculate the percentage of each of the accounting line distribution.
-     *
+     * <p>
      * This does not take into consideration of card type in TEM accounting lines, so the lines must be pre-filtered when used for
      * a particular card type
      *

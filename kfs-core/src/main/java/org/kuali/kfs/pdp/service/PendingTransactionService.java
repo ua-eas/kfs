@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.pdp.service;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.pdp.businessobject.GlPendingTransaction;
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
+
+import java.util.Iterator;
 
 /**
  * Creates GLPEs for PDP extracted and canceled payments.
@@ -78,9 +78,9 @@ public interface PendingTransactionService {
     /**
      * Generates and saves the bank offset for an entry
      *
-     * @param paymentGroup PaymentGroup for which entries are being generated, contains the Bank
+     * @param paymentGroup         PaymentGroup for which entries are being generated, contains the Bank
      * @param glPendingTransaction PDP entry created for payment detail
-     * @param sequenceHelper holds current entry sequence value
+     * @param sequenceHelper       holds current entry sequence value
      */
     public void populateBankOffsetEntry(PaymentGroup paymentGroup, GlPendingTransaction glPendingTransaction, GeneralLedgerPendingEntrySequenceHelper sequenceHelper);
 }

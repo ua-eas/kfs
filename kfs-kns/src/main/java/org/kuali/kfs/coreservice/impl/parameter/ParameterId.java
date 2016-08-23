@@ -30,19 +30,21 @@ public class ParameterId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@Column(name="NMSPC_CD")
+    @Column(name = "NMSPC_CD")
     private final String namespaceCode;
 
-    @Column(name="CMPNT_CD")
+    @Column(name = "CMPNT_CD")
     private final String componentCode;
 
-    @Column(name="PARM_NM")
+    @Column(name = "PARM_NM")
     private final String name;
 
-    @Column(name="APPL_ID")
+    @Column(name = "APPL_ID")
     private final String applicationId;
 
-    /** this ctor should never be called.  It is only present for hibernate */
+    /**
+     * this ctor should never be called.  It is only present for hibernate
+     */
     public ParameterId() {
         namespaceCode = null;
         componentCode = null;
@@ -51,26 +53,26 @@ public class ParameterId implements Serializable {
     }
 
     public ParameterId(String namespaceCode, String componentCode, String name, String applicationId) {
-    	this.namespaceCode = namespaceCode;
-    	this.componentCode = componentCode;
-    	this.name = name;
-    	this.applicationId = applicationId;
+        this.namespaceCode = namespaceCode;
+        this.componentCode = componentCode;
+        this.name = name;
+        this.applicationId = applicationId;
     }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(obj, this);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(obj, this);
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
     public String getCacheKey() {
         return this.applicationId + this.componentCode + this.namespaceCode + this.name;

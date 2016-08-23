@@ -18,12 +18,13 @@
  */
 package org.kuali.kfs.module.ar.report.util;
 
+import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 /**
  * To group and hold the data presented to working reports of extract process
  */
@@ -58,6 +59,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Gets the invoice attribute.
+     *
      * @return Returns the invoice.
      */
     public Map<String, String> getInvoice() {
@@ -66,6 +68,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Sets the invoice attribute value.
+     *
      * @param invoice The invoice to set.
      */
     public void setInvoice(Map<String, String> invoice) {
@@ -74,6 +77,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Gets the customer attribute.
+     *
      * @return Returns the customer.
      */
     public Map<String, String> getCustomer() {
@@ -82,6 +86,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Sets the customer attribute value.
+     *
      * @param customer The customer to set.
      */
     public void setCustomer(Map<String, String> customer) {
@@ -90,6 +95,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Gets the sysinfo attribute.
+     *
      * @return Returns the sysinfo.
      */
     public Map<String, String> getSysinfo() {
@@ -98,6 +104,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Sets the sysinfo attribute value.
+     *
      * @param sysinfo The sysinfo to set.
      */
     public void setSysinfo(Map<String, String> sysinfo) {
@@ -106,6 +113,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Gets the details attribute.
+     *
      * @return Returns the details.
      */
     public List<CustomerInvoiceDetail> getDetails() {
@@ -114,6 +122,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Sets the details attribute value.
+     *
      * @param details The details to set.
      */
     public void setDetails(List<CustomerInvoiceDetail> details) {
@@ -121,9 +130,9 @@ public class CustomerInvoiceReportDataHolder {
     }
 
 
-
     /**
      * Gets the reportData attribute.
+     *
      * @return Returns the reportData.
      */
     public Map<String, Object> getReportData() {
@@ -139,6 +148,7 @@ public class CustomerInvoiceReportDataHolder {
 
     /**
      * Sets the reportData attribute value.
+     *
      * @param reportData The reportData to set.
      */
     public void setReportData(Map<String, Object> reportData) {

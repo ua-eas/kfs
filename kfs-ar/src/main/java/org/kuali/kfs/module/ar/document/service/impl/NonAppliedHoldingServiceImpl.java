@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
 import org.kuali.kfs.module.ar.document.dataaccess.NonAppliedHoldingDao;
 import org.kuali.kfs.module.ar.document.service.NonAppliedHoldingService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Transactional
 public class NonAppliedHoldingServiceImpl implements NonAppliedHoldingService {

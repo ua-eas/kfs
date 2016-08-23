@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+
+import java.util.Collection;
 
 /**
  * This service interface defines methods necessary for retrieving fully populated SubFundGroup business objects from the
@@ -46,16 +46,16 @@ public interface SubFundGroupService {
     public SubFundGroup getByChartAndAccount(String chartCode, String accountNumber);
 
     /**
-     *
      * This checks to see if a particular SubFundGroup is related to Contracts and Grants through its Account
+     *
      * @param subFundGroup
      * @return true if it is for contracts and grants
      */
     public boolean isForContractsAndGrants(SubFundGroup subFundGroup);
 
     /**
-     *
      * This retrieves the attribute label for Contracts and Grants
+     *
      * @return string representation of Contracts and Grants label
      */
     public String getContractsAndGrantsDenotingAttributeLabel();
@@ -69,16 +69,15 @@ public interface SubFundGroupService {
     public String getContractsAndGrantsDenotingValue(SubFundGroup subFundGroup);
 
     /**
-     *
      * This check is the specified code is related to Contracts and Grants
+     *
      * @return string representation of the Contracts and Grants value
      */
     public Collection<String> getContractsAndGrantsDenotingValues();
 
     /**
      * This retrieves the SubFundGroupCodes of Contracts and Grants
-     * @return string representation of Contracts and Grants value formatted for messages
-     * This method...
+     *
      * @return
      */
     public String getContractsAndGrantsDenotingValueForMessage();

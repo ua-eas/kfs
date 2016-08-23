@@ -16,31 +16,31 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="generalLedgerPendingEntriesList"
-	value="${KualiForm.document.newMaintainableObject.businessObject.generalLedgerPendingEntries}" />
+       value="${KualiForm.document.newMaintainableObject.businessObject.generalLedgerPendingEntries}"/>
 <c:if test="${!empty generalLedgerPendingEntriesList}">
-	<gl:generalLedgerPendingEntries
-		generalLedgerPendingEntries="${generalLedgerPendingEntriesList}"
-		generalLedgerPendingEntryProperty="document.newMaintainableObject.businessObject.generalLedgerPendingEntries"
-		generalLedgerPendingEntriesProperty="document.newMaintainableObject.businessObject.generalLedgerPendingEntries" />
+    <gl:generalLedgerPendingEntries
+            generalLedgerPendingEntries="${generalLedgerPendingEntriesList}"
+            generalLedgerPendingEntryProperty="document.newMaintainableObject.businessObject.generalLedgerPendingEntries"
+            generalLedgerPendingEntriesProperty="document.newMaintainableObject.businessObject.generalLedgerPendingEntries"/>
 </c:if>
 <c:if test="${empty generalLedgerPendingEntriesList}">
-	<kul:tab tabTitle="General Ledger Pending Entries" defaultOpen="false"
-		tabErrorKey="${KFSConstants.GENERAL_LEDGER_PENDING_ENTRIES_TAB_ERRORS}">
-		<div class="tab-container" align=center>
-		<h3>General Ledger Pending Entries <kul:lookup
-			boClassName="org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry"
-			lookupParameters="document.documentNumber:documentNumber"
-			hideReturnLink="true" suppressActions="true" /></h3>
-		<table cellpadding="0" cellspacing="0" class="datatable"
-			summary="view/edit pending entries">
-			<tr>
-				<td class="datacell" height="50" colspan="12">
-				<div align="center">There are currently no General Ledger Pending Entries associated with this Transaction Processing document.</div>
-				</td>
-			</tr>
-		</table>
-		</div>
-	</kul:tab>
+    <kul:tab tabTitle="General Ledger Pending Entries" defaultOpen="false"
+             tabErrorKey="${KFSConstants.GENERAL_LEDGER_PENDING_ENTRIES_TAB_ERRORS}">
+        <div class="tab-container" align=center>
+            <h3>General Ledger Pending Entries <kul:lookup
+                    boClassName="org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry"
+                    lookupParameters="document.documentNumber:documentNumber"
+                    hideReturnLink="true" suppressActions="true"/></h3>
+            <table cellpadding="0" cellspacing="0" class="datatable"
+                   summary="view/edit pending entries">
+                <tr>
+                    <td class="datacell" height="50" colspan="12">
+                        <div align="center">There are currently no General Ledger Pending Entries associated with this Transaction Processing document.</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </kul:tab>
 </c:if>

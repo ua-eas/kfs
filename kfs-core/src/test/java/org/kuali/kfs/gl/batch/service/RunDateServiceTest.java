@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.kuali.kfs.gl.batch.service.impl.RunDateServiceImpl;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.kuali.kfs.gl.batch.service.impl.RunDateServiceImpl;
 
 /**
  * Tests the cutoff time functionality of RunDateService
@@ -40,6 +40,7 @@ public class RunDateServiceTest {
 
     /**
      * Initializes the RunDateService implementation to test
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Before
@@ -54,8 +55,8 @@ public class RunDateServiceTest {
      */
     @Test
     public void testCalculateCutoff() throws Exception {
-        final RunDateService runDateService =  new RunDateServiceImpl() {
-           @Override
+        final RunDateService runDateService = new RunDateServiceImpl() {
+            @Override
             protected String retrieveCutoffTimeValue() {
                 return "10:00:00";
             }
@@ -92,12 +93,13 @@ public class RunDateServiceTest {
      */
     @Test
     public void testCalculateCutoffDuringMidnightHour() throws Exception {
-        final RunDateService runDateService =  new RunDateServiceImpl() {
+        final RunDateService runDateService = new RunDateServiceImpl() {
             @Override
             protected String retrieveCutoffTimeValue() {
                 return "0:05:00";
             }
-        };        Map<String, String> expectedCurrentToRunTimeMappings = new LinkedHashMap<String, String>();
+        };
+        Map<String, String> expectedCurrentToRunTimeMappings = new LinkedHashMap<String, String>();
 
         expectedCurrentToRunTimeMappings.put("6/1/2006 0:05:00", "6/1/2006 0:05:00");
         expectedCurrentToRunTimeMappings.put("3/1/2006 0:02:33", "2/28/2006 23:59:59");

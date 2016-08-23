@@ -18,26 +18,25 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="FinalBilledIndicatorDocument" parent="FinalBilledIndicatorDocument-parentBean" />
+    <bean id="FinalBilledIndicatorDocument" parent="FinalBilledIndicatorDocument-parentBean"/>
 
-	<bean id="FinalBilledIndicatorDocument-parentBean" abstract="true"
-		parent="TransactionalDocumentEntry">
-		<property name="documentTypeName" value="FBI" />
-		<property name="documentClass"
-			value="org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument" />
-		<property name="workflowAttributes">
-	      	<ref bean="FinalBilledIndicatorDocument-workflowAttributes"/>
-	    </property>
-	</bean>
+    <bean id="FinalBilledIndicatorDocument-parentBean" abstract="true"
+          parent="TransactionalDocumentEntry">
+        <property name="documentTypeName" value="FBI"/>
+        <property name="documentClass"
+                  value="org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument"/>
+        <property name="workflowAttributes">
+            <ref bean="FinalBilledIndicatorDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<!-- workflow attributes -->
-  	<bean id="FinalBilledIndicatorDocument-workflowAttributes" parent="FinalBilledIndicatorDocument-workflowAttributes-parentBean"/>
+    <!-- workflow attributes -->
+    <bean id="FinalBilledIndicatorDocument-workflowAttributes" parent="FinalBilledIndicatorDocument-workflowAttributes-parentBean"/>
 
-  	<bean id="FinalBilledIndicatorDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
-  	</bean>
+    <bean id="FinalBilledIndicatorDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
+    </bean>
 
 </beans>

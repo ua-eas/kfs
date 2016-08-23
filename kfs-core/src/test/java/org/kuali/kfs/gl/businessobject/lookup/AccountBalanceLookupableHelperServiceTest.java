@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.AccountBalanceByConsolidation;
@@ -31,6 +27,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains the test cases that can be applied to the method in AccountBalanceLookupableImpl class.
@@ -42,6 +42,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Initializes the services needed for this test
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#setUp()
      */
     @Override
@@ -55,6 +56,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Covers the search results returned by AccountBalanceLookupableService
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#testGetSearchResults()
      */
@@ -180,6 +182,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Returns a List of field names to check in the search results
+     *
      * @param isExtended true if extended attributes should be included for checking, false otherwise
      * @return a List of field names to check
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#getLookupFields(boolean)
@@ -210,8 +213,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
     protected void insertNewRecord(AccountBalance accounBalance) {
         try {
             getAccountBalanceService().save(accounBalance);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 

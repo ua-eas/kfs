@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -32,6 +25,10 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelper;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelperBase;
 import org.kuali.kfs.fp.document.VoucherDocument;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -43,10 +40,12 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class piggy backs on all of the functionality in the FinancialSystemTransactionalDocumentActionBase but is necessary for this document
@@ -81,7 +80,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
      * implementation.
      *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#insertSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -109,7 +108,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
      * Overrides parent to remove the associated helper line also, and then it call the parent's implementation.
      *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#deleteSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward deleteSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -162,8 +161,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
             String selectedAccountingPeriod = voucherDocument.getPostingPeriodCode();
             if (null != voucherDocument.getPostingYear()) {
                 selectedAccountingPeriod += voucherDocument.getPostingYear().toString();
-            }
-            else {
+            } else {
                 selectedAccountingPeriod += SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().toString();
             }
             voucherForm.setSelectedAccountingPeriod(selectedAccountingPeriod);
@@ -223,8 +221,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
                 if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
                     avAcctLineHelperForm.setDebit(sourceAccountingLine.getAmount());
                     avAcctLineHelperForm.setCredit(KualiDecimal.ZERO);
-                }
-                else if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
+                } else if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
                     avAcctLineHelperForm.setCredit(sourceAccountingLine.getAmount());
                     avAcctLineHelperForm.setDebit(KualiDecimal.ZERO);
                 }
@@ -266,8 +263,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
 
             // now transfer control over to the question component
             return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.ROUTE_METHOD, "");
-        }
-        else {
+        } else {
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.MESSAGE_JV_CANCELLED_ROUTE);
@@ -338,12 +334,13 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
 
     /**
      * Overridden to reset the available and selected accounting periods on the form, so that copies are moved forward to the current accounting period correctly
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#copy(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward copy(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward forward = super.copy(mapping, form, request, response);
-        VoucherForm voucherForm = (VoucherForm)form;
+        VoucherForm voucherForm = (VoucherForm) form;
         voucherForm.populateAccountingPeriodListForRendering();
         voucherForm.populateDefaultSelectedAccountingPeriod();
         return forward;

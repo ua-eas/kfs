@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.fp.document.CashReceiptFamilyTestUtil;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.context.KualiTestBase;
@@ -32,9 +30,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CashReceiptServiceTest extends KualiTestBase {
@@ -65,8 +65,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceiptVerificationUnitForUser(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -87,8 +86,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts("   ", (String) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -100,8 +98,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts(TEST_CAMPUS_CD, "");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -208,9 +205,9 @@ public class CashReceiptServiceTest extends KualiTestBase {
     }
 
 
-    private static final String[] BOTH_STATII = { CashReceipt.VERIFIED, CashReceipt.INTERIM };
-    private static final String[] ISTATII = { CashReceipt.INTERIM };
-    private static final String[] VSTATII = { CashReceipt.VERIFIED };
+    private static final String[] BOTH_STATII = {CashReceipt.VERIFIED, CashReceipt.INTERIM};
+    private static final String[] ISTATII = {CashReceipt.INTERIM};
+    private static final String[] VSTATII = {CashReceipt.VERIFIED};
 
 
     public final void testGetCashReceipts2_blankUnitName() {
@@ -218,8 +215,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts("   ", (String[]) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -231,8 +227,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts(TEST_CAMPUS_CD, (String[]) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -245,8 +240,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
         String[] emptyStatii = {};
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts(TEST_CAMPUS_CD, emptyStatii);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -256,11 +250,10 @@ public class CashReceiptServiceTest extends KualiTestBase {
     public final void testGetCashReceipts2_blankStatii() {
         boolean failedAsExpected = false;
 
-        String[] blankStatii = { "  " };
+        String[] blankStatii = {"  "};
         try {
             SpringContext.getBean(CashReceiptService.class).getCashReceipts(TEST_CAMPUS_CD, blankStatii);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
@@ -372,7 +365,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
     private void denatureCashReceipts(String campusCode) {
         List verifiedReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(campusCode, BOTH_STATII);
 
-        for (Iterator i = verifiedReceipts.iterator(); i.hasNext();) {
+        for (Iterator i = verifiedReceipts.iterator(); i.hasNext(); ) {
             CashReceiptDocument receipt = (CashReceiptDocument) i.next();
             receipt.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode("Z");
             SpringContext.getBean(DocumentService.class).updateDocument(receipt);
@@ -394,8 +387,7 @@ public class CashReceiptServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(DocumentService.class).saveDocument(crDoc);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }

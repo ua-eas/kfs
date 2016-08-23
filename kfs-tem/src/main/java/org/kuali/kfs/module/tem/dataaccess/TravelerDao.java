@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.dataaccess;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+
 import java.util.Collection;
 import java.util.Map;
-
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 
 /**
  * This is the data access interface for Travelers.

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class IncumbentSalarySettingForm extends DetailSalarySettingForm {
@@ -121,6 +121,7 @@ public class IncumbentSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Gets the documentTitle
+     *
      * @return
      */
     public String getDocumentTitle() {

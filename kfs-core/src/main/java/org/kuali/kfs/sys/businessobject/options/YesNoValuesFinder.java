@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.KFSConstants.OptionLabels;
 import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class YesNoValuesFinder extends KeyValuesBase {

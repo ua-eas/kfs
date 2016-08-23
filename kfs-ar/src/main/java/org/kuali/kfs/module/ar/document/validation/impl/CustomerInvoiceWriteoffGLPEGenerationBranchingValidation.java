@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class CustomerInvoiceWriteoffGLPEGenerationBranchingValidation extends BranchingValidation {
 
@@ -37,9 +37,9 @@ public class CustomerInvoiceWriteoffGLPEGenerationBranchingValidation extends Br
 
         String writeoffGLPEGenerationOption = SpringContext.getBean(ParameterService.class).getParameterValueAsString(CustomerInvoiceWriteoffDocument.class, ArConstants.GLPE_WRITEOFF_GENERATION_METHOD);
 
-        if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_CHART.equals( writeoffGLPEGenerationOption ) ){
+        if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_CHART.equals(writeoffGLPEGenerationOption)) {
             return IS_CHART_CODE_WRITEOFF_GLPE_VALIDATION;
-        } else if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGLPEGenerationOption)){
+        } else if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGLPEGenerationOption)) {
             return IS_ORG_ACCOUNTING_DEFAULT_WRITEOFF_GLPE_VALIDATION;
         }
         return null;

@@ -21,8 +21,8 @@ package org.kuali.kfs.kns.web.struts.action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.config.property.ConfigContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +31,6 @@ import java.util.regex.Pattern;
 
 /**
  * This is the action for the portal.
- *
- *
  */
 public class KualiPortalAction extends KualiSimpleAction {
 
@@ -57,7 +55,7 @@ public class KualiPortalAction extends KualiSimpleAction {
             // check url allowed to display in portal
             Pattern pattern = Pattern.compile(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.PORTAL_ALLOWED_REGEX));
             Matcher matcher = pattern.matcher(gotoUrl);
-            if(!matcher.matches()) {
+            if (!matcher.matches()) {
                 throw new Exception("The requested channel URL is not authorized for display in portal.");
             }
         }

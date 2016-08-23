@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.YearEndService;
 import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.springframework.util.StopWatch;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * This step runs the balance forward year end process.
@@ -61,8 +61,7 @@ public class BalanceForwardStep extends AbstractWrappedBatchStep {
                 try {
                     DateFormat transactionDateFormat = new SimpleDateFormat(TRANSACTION_DATE_FORMAT_STRING);
                     varTransactionDate = new Date(transactionDateFormat.parse(getParameterService().getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM)).getTime());
-                }
-                catch (ParseException e) {
+                } catch (ParseException e) {
                     LOG.error("forwardBalances() Unable to parse transaction date", e);
                     throw new IllegalArgumentException("Unable to parse transaction date");
                 }
@@ -78,8 +77,7 @@ public class BalanceForwardStep extends AbstractWrappedBatchStep {
                     //execute delivered foundation code, either ANNUAL_CLOSING_CHARTS parameter did not exist or there were no values specified
                     yearEndService.logAllMissingPriorYearAccounts(varFiscalYear);
                     yearEndService.logAllMissingSubFundGroups(varFiscalYear);
-                }
-                else {
+                } else {
                     //ANNUAL_CLOSING_CHARTS parameter was detected and contained values
                     yearEndService.logAllMissingPriorYearAccounts(varFiscalYear, balanceForwardRuleHelper.getAnnualClosingCharts());
                     yearEndService.logAllMissingSubFundGroups(varFiscalYear, balanceForwardRuleHelper.getAnnualClosingCharts());

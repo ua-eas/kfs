@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
 
 /**
  * Budget Construction Organization Account Summary Report Business Object.
@@ -1252,6 +1252,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the subAccountNumberAndName attribute.
+     *
      * @return Returns the subAccountNumberAndName.
      */
     public String getSubAccountNumberAndName() {
@@ -1260,6 +1261,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the subAccountNumberAndName attribute value.
+     *
      * @param subAccountNumberAndName The subAccountNumberAndName to set.
      */
     public void setSubAccountNumberAndName(String subAccountNumberAndName) {
@@ -1268,6 +1270,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the accountNumberAndName attribute.
+     *
      * @return Returns the accountNumberAndName.
      */
     public String getAccountNumberAndName() {
@@ -1276,6 +1279,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the accountNumberAndName attribute value.
+     *
      * @param accountNumberAndName The accountNumberAndName to set.
      */
     public void setAccountNumberAndName(String accountNumberAndName) {
@@ -1284,6 +1288,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the divider attribute.
+     *
      * @return Returns the divider.
      */
     public String getDivider() {
@@ -1292,6 +1297,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the divider attribute value.
+     *
      * @param divider The divider to set.
      */
     public void setDivider(String divider) {

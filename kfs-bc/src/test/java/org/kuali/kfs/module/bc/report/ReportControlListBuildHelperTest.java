@@ -18,14 +18,8 @@
  */
 package org.kuali.kfs.module.bc.report;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
@@ -33,7 +27,13 @@ import org.kuali.kfs.module.bc.report.ReportControlListBuildHelper.BuildState;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class ReportControlListBuildHelperTest extends KualiTestBase {
@@ -293,12 +293,10 @@ public class ReportControlListBuildHelperTest extends KualiTestBase {
             }
             if (elementsSeen < 4) {
                 setUpAnArrayList(organizationReports);
-            }
-            else {
+            } else {
                 if (elementsSeen < 6) {
                     setUpAHashSet(organizationReports);
-                }
-                else {
+                } else {
                     setUpExtraArrayListRow(organizationReports);
                 }
             }

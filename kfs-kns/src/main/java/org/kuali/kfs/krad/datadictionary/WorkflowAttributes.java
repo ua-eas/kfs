@@ -27,58 +27,56 @@ import java.util.Map;
 /**
  * A container that holds all of the {@link WorkflowAttributeDefinition} for a document for both document searches
  * and routing that depends on the values that exist on the document.
- *
- *
- *
  */
 public class WorkflowAttributes extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 6435015497886060280L;
 
-	private List<SearchingTypeDefinition> searchingTypeDefinitions;
+    private List<SearchingTypeDefinition> searchingTypeDefinitions;
     private Map<String, RoutingTypeDefinition> routingTypeDefinitions;
 
     public WorkflowAttributes() {
-    	searchingTypeDefinitions = new ArrayList<SearchingTypeDefinition>();;
-    	routingTypeDefinitions = new HashMap<String, RoutingTypeDefinition>();
+        searchingTypeDefinitions = new ArrayList<SearchingTypeDefinition>();
+        ;
+        routingTypeDefinitions = new HashMap<String, RoutingTypeDefinition>();
     }
 
-	/**
-	 * @return the searchingTypeDefinitions
-	 */
-	public List<SearchingTypeDefinition> getSearchingTypeDefinitions() {
-		return this.searchingTypeDefinitions;
-	}
+    /**
+     * @return the searchingTypeDefinitions
+     */
+    public List<SearchingTypeDefinition> getSearchingTypeDefinitions() {
+        return this.searchingTypeDefinitions;
+    }
 
-	/**
-	 * @param searchingTypeDefinitions the searchingTypeDefinitions to set
-	 */
-	public void setSearchingTypeDefinitions(
-			List<SearchingTypeDefinition> searchingTypeDefinitions) {
-		this.searchingTypeDefinitions = searchingTypeDefinitions;
-	}
+    /**
+     * @param searchingTypeDefinitions the searchingTypeDefinitions to set
+     */
+    public void setSearchingTypeDefinitions(
+        List<SearchingTypeDefinition> searchingTypeDefinitions) {
+        this.searchingTypeDefinitions = searchingTypeDefinitions;
+    }
 
-	public Map<String, RoutingTypeDefinition> getRoutingTypeDefinitions() {
-		return this.routingTypeDefinitions;
-	}
+    public Map<String, RoutingTypeDefinition> getRoutingTypeDefinitions() {
+        return this.routingTypeDefinitions;
+    }
 
-	public void setRoutingTypeDefinitions(
-			Map<String, RoutingTypeDefinition> routingTypeDefinitions) {
-		this.routingTypeDefinitions = routingTypeDefinitions;
-	}
+    public void setRoutingTypeDefinitions(
+        Map<String, RoutingTypeDefinition> routingTypeDefinitions) {
+        this.routingTypeDefinitions = routingTypeDefinitions;
+    }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
-	 */
-	public void completeValidation(Class rootBusinessObjectClass,
-			Class otherBusinessObjectClass) {
-		for (SearchingTypeDefinition definition : searchingTypeDefinitions) {
-			definition.completeValidation(rootBusinessObjectClass, otherBusinessObjectClass);
-		}
-		for (RoutingTypeDefinition definitions : routingTypeDefinitions.values()) {
-			definitions.completeValidation(rootBusinessObjectClass, otherBusinessObjectClass);
-		}
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
+     */
+    public void completeValidation(Class rootBusinessObjectClass,
+                                   Class otherBusinessObjectClass) {
+        for (SearchingTypeDefinition definition : searchingTypeDefinitions) {
+            definition.completeValidation(rootBusinessObjectClass, otherBusinessObjectClass);
+        }
+        for (RoutingTypeDefinition definitions : routingTypeDefinitions.values()) {
+            definitions.completeValidation(rootBusinessObjectClass, otherBusinessObjectClass);
+        }
+    }
 
 }

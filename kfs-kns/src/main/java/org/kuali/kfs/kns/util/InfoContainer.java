@@ -25,45 +25,42 @@ import java.util.Set;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class InfoContainer extends MessageContainer {
-	public InfoContainer(MessageMap errorMap) {
-		super(errorMap);
-	}
+    public InfoContainer(MessageMap errorMap) {
+        super(errorMap);
+    }
 
-	/**
-	 * @see MessageContainer#getMessageCount()
-	 */
-	@Override
-	public int getMessageCount() {
-		return getMessageMap().getInfoCount();
-	}
+    /**
+     * @see MessageContainer#getMessageCount()
+     */
+    @Override
+    public int getMessageCount() {
+        return getMessageMap().getInfoCount();
+    }
 
-	/**
-	 * @see MessageContainer#getMessagePropertyList()
-	 */
-	@Override
-	public List<String> getMessagePropertyList() {
-		return getMessageMap().getPropertiesWithInfo();
-	}
+    /**
+     * @see MessageContainer#getMessagePropertyList()
+     */
+    @Override
+    public List<String> getMessagePropertyList() {
+        return getMessageMap().getPropertiesWithInfo();
+    }
 
-	/**
-	 * @see MessageContainer#getMessagePropertyNames()
-	 */
-	@Override
-	protected Set<String> getMessagePropertyNames() {
-		return getMessageMap().getAllPropertiesWithInfo();
-	}
+    /**
+     * @see MessageContainer#getMessagePropertyNames()
+     */
+    @Override
+    protected Set<String> getMessagePropertyNames() {
+        return getMessageMap().getAllPropertiesWithInfo();
+    }
 
-	/**
-	 * @see MessageContainer#getMessagesForProperty(java.lang.String)
-	 */
-	@Override
-	protected List getMessagesForProperty(String propertyName) {
-		return getMessageMap().getInfoMessagesForProperty(propertyName);
-	}
+    /**
+     * @see MessageContainer#getMessagesForProperty(java.lang.String)
+     */
+    @Override
+    protected List getMessagesForProperty(String propertyName) {
+        return getMessageMap().getInfoMessagesForProperty(propertyName);
+    }
 
 }

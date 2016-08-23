@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.dataaccess;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 import org.kuali.kfs.module.ld.businessobject.EmployeeFunding;
 import org.kuali.kfs.module.ld.businessobject.LaborCalculatedSalaryFoundationTracker;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the data access object for calculated salary foundation tracker
@@ -35,7 +35,7 @@ public interface LaborCalculatedSalaryFoundationTrackerDao {
     /**
      * This method finds the CSF trackers according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of CSF trackers
      */
@@ -44,7 +44,7 @@ public interface LaborCalculatedSalaryFoundationTrackerDao {
     /**
      * This method finds the CSF trackers according to input fields and values and converts the trackers into AccountStatusBaseFunds
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of base budgets for Labor objects
      */
@@ -53,7 +53,7 @@ public interface LaborCalculatedSalaryFoundationTrackerDao {
     /**
      * This method finds the CSF trackers according to input fields and values and converts the trackers into EmployeeFunding
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of CSF trackers as EmployeeFunding
      */

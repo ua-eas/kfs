@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger;
-import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
-import org.kuali.kfs.module.bc.document.validation.DeletePendingBudgetGeneralLedgerLineRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger;
+import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
+import org.kuali.kfs.module.bc.document.validation.DeletePendingBudgetGeneralLedgerLineRule;
 
 /**
  * Defines the delete line event for revenue or expenditure tab rows on the Budget Construction Document.
@@ -36,6 +36,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Constructs a DeletePendingBudgetGeneralLedgerLineEvent.java.
+     *
      * @param description
      * @param errorPathPrefix
      */
@@ -62,6 +63,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Gets the budgetConstructionDocument attribute.
+     *
      * @return Returns the budgetConstructionDocument.
      */
     public BudgetConstructionDocument getBudgetConstructionDocument() {
@@ -70,6 +72,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Sets the budgetConstructionDocument attribute value.
+     *
      * @param budgetConstructionDocument The budgetConstructionDocument to set.
      */
     public void setBudgetConstructionDocument(BudgetConstructionDocument budgetConstructionDocument) {
@@ -78,6 +81,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Gets the isRevenue attribute.
+     *
      * @return Returns the isRevenue.
      */
     public boolean isRevenue() {
@@ -86,6 +90,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Sets the isRevenue attribute value.
+     *
      * @param isRevenue The isRevenue to set.
      */
     public void setRevenue(boolean isRevenue) {
@@ -94,6 +99,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Gets the pendingBudgetConstructionGeneralLedger attribute.
+     *
      * @return Returns the pendingBudgetConstructionGeneralLedger.
      */
     public PendingBudgetConstructionGeneralLedger getPendingBudgetConstructionGeneralLedger() {
@@ -102,6 +108,7 @@ public class DeletePendingBudgetGeneralLedgerLineEvent extends KualiDocumentEven
 
     /**
      * Sets the pendingBudgetConstructionGeneralLedger attribute value.
+     *
      * @param pendingBudgetConstructionGeneralLedger The pendingBudgetConstructionGeneralLedger to set.
      */
     public void setPendingBudgetConstructionGeneralLedger(PendingBudgetConstructionGeneralLedger pendingBudgetConstructionGeneralLedger) {

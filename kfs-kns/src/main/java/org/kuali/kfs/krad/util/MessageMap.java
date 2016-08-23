@@ -38,7 +38,7 @@ import java.util.Set;
 /**
  * Holds errors due to validation. Keys of map represent property paths, and value is a AutoPopulatingList that contains resource string
  * keys (to retrieve the error message).
- *
+ * <p>
  * Note, prior to rice 0.9.4, this class implemented {@link java.util.Map}.  The implements has been removed as of rice 0.9.4
  */
 public class MessageMap implements Serializable {
@@ -50,67 +50,68 @@ public class MessageMap implements Serializable {
     private Map<String, AutoPopulatingList<ErrorMessage>> warningMessages = new LinkedHashMap<String, AutoPopulatingList<ErrorMessage>>();
     private Map<String, AutoPopulatingList<ErrorMessage>> infoMessages = new LinkedHashMap<String, AutoPopulatingList<ErrorMessage>>();
 
-    public MessageMap() {}
+    public MessageMap() {
+    }
 
     public MessageMap(MessageMap messageMap) {
-    	this.errorPath = messageMap.errorPath;
-    	this.errorMessages = messageMap.errorMessages;
-    	this.warningMessages = messageMap.warningMessages;
-    	this.infoMessages = messageMap.infoMessages;
+        this.errorPath = messageMap.errorPath;
+        this.errorMessages = messageMap.errorMessages;
+        this.warningMessages = messageMap.warningMessages;
+        this.infoMessages = messageMap.infoMessages;
     }
 
 
-    public void merge(MessageMap messageMap){
-    	if(messageMap != null){
-    		if(messageMap.hasErrors()){
-    			merge(messageMap.getErrorMessages(), errorMessages);
-    		}
-    		if(messageMap.hasInfo()){
-    			merge(messageMap.getInfoMessages(), infoMessages);
-    		}
-    		if(messageMap.hasWarnings()){
-    			merge(messageMap.getWarningMessages(), warningMessages);
-    		}
+    public void merge(MessageMap messageMap) {
+        if (messageMap != null) {
+            if (messageMap.hasErrors()) {
+                merge(messageMap.getErrorMessages(), errorMessages);
+            }
+            if (messageMap.hasInfo()) {
+                merge(messageMap.getInfoMessages(), infoMessages);
+            }
+            if (messageMap.hasWarnings()) {
+                merge(messageMap.getWarningMessages(), warningMessages);
+            }
 
-    	}
+        }
 
     }
 
     /**
-     *
      * This method takes one message map and merges it into another.  Makes sure there are no duplicates.
      *
      * @param messagesFrom
      * @param messagesTo
      */
-    protected void merge(Map<String, AutoPopulatingList<ErrorMessage>> messagesFrom, Map<String, AutoPopulatingList<ErrorMessage>> messagesTo){
-    	for(String key : messagesFrom.keySet()){
+    protected void merge(Map<String, AutoPopulatingList<ErrorMessage>> messagesFrom, Map<String, AutoPopulatingList<ErrorMessage>> messagesTo) {
+        for (String key : messagesFrom.keySet()) {
 
-    		if(messagesTo.containsKey(key)){
-    			// now we need to merge the messages
-    			AutoPopulatingList<ErrorMessage> tal = messagesFrom.get(key);
-    			AutoPopulatingList<ErrorMessage> parentList = messagesTo.get(key);
+            if (messagesTo.containsKey(key)) {
+                // now we need to merge the messages
+                AutoPopulatingList<ErrorMessage> tal = messagesFrom.get(key);
+                AutoPopulatingList<ErrorMessage> parentList = messagesTo.get(key);
 
-    			for(Object o :tal){
+                for (Object o : tal) {
 
-    				 if ( !parentList.contains( o ) ) {
-    					 parentList.add((ErrorMessage)o);
-    			     }
-    			}
+                    if (!parentList.contains(o)) {
+                        parentList.add((ErrorMessage) o);
+                    }
+                }
 
-    		}else{
-    			messagesTo.put(key, messagesFrom.get(key));
-    		}
+            } else {
+                messagesTo.put(key, messagesFrom.get(key));
+            }
 
-    	}
+        }
 
     }
+
     /**
      * Adds an error to the map under the given propertyName and adds an array of message parameters. This will fully prepend the
      * propertyName with the current errorPath.
      *
-     * @param propertyName name of the property to add error under
-     * @param errorKey resource key used to retrieve the error text from the error message resource bundle
+     * @param propertyName    name of the property to add error under
+     * @param errorKey        resource key used to retrieve the error text from the error message resource bundle
      * @param errorParameters zero or more string parameters for the displayed error message
      * @return AutoPopulatingList
      */
@@ -130,8 +131,8 @@ public class MessageMap implements Serializable {
      * Adds an error to the map under the given propertyName and adds an array of message parameters. This will
      * <strong>not</strong> prepend the propertyName with the current errorPath.
      *
-     * @param propertyName name of the property to add error under
-     * @param errorKey resource key used to retrieve the error text from the error message resource bundle
+     * @param propertyName    name of the property to add error under
+     * @param errorKey        resource key used to retrieve the error text from the error message resource bundle
      * @param errorParameters zero or more string parameters for the displayed error message
      * @return AutoPopulatingList
      */
@@ -157,25 +158,25 @@ public class MessageMap implements Serializable {
      * @return
      */
     public AutoPopulatingList<ErrorMessage> putErrorForSectionId(String sectionId, String errorKey, String... errorParameters) {
-    	return putErrorWithoutFullErrorPath(sectionId, errorKey, errorParameters);
+        return putErrorWithoutFullErrorPath(sectionId, errorKey, errorParameters);
     }
 
     public AutoPopulatingList<ErrorMessage> putWarningForSectionId(String sectionId, String messageKey, String... messageParameters) {
-    	return putWarningWithoutFullErrorPath(sectionId, messageKey, messageParameters);
+        return putWarningWithoutFullErrorPath(sectionId, messageKey, messageParameters);
     }
 
     public AutoPopulatingList<ErrorMessage> putInfoForSectionId(String sectionId, String messageKey, String... messageParameters) {
-    	return putInfoWithoutFullErrorPath(sectionId, messageKey, messageParameters);
+        return putInfoWithoutFullErrorPath(sectionId, messageKey, messageParameters);
     }
 
     /**
      * adds an error to the map under the given propertyName and adds an array of message parameters.
      *
-     * @param propertyName name of the property to add error under
-     * @param messageKey resource key used to retrieve the error text from the error message resource bundle
-     * @param prependFullErrorPath true if you want the whole parent error path prepended, false otherwise
+     * @param propertyName                name of the property to add error under
+     * @param messageKey                  resource key used to retrieve the error text from the error message resource bundle
+     * @param prependFullErrorPath        true if you want the whole parent error path prepended, false otherwise
      * @param escapeHtmlMessageParameters whether to escape HTML characters in the message parameters, provides protection against XSS attacks
-     * @param messageParameters zero or more string parameters for the displayed error message
+     * @param messageParameters           zero or more string parameters for the displayed error message
      * @return TypeArrayList
      */
     private AutoPopulatingList<ErrorMessage> putMessageInMap(Map<String, AutoPopulatingList<ErrorMessage>> messagesMap, String propertyName, String messageKey, boolean prependFullErrorPath, boolean escapeHtmlMessageParameters, String... messageParameters) {
@@ -191,23 +192,22 @@ public class MessageMap implements Serializable {
         String propertyKey = getKeyPath(propertyName, prependFullErrorPath);
         if (messagesMap.containsKey(propertyKey)) {
             errorList = messagesMap.get(propertyKey);
-        }
-        else {
+        } else {
             errorList = new AutoPopulatingList<ErrorMessage>(ErrorMessage.class);
         }
 
         if (escapeHtmlMessageParameters && messageParameters != null) {
-        	String[] filteredMessageParameters = new String[messageParameters.length];
-        	for (int i = 0; i < messageParameters.length; i++) {
-        		filteredMessageParameters[i] = StringEscapeUtils.escapeHtml(messageParameters[i]);
-        	}
-        	messageParameters = filteredMessageParameters;
+            String[] filteredMessageParameters = new String[messageParameters.length];
+            for (int i = 0; i < messageParameters.length; i++) {
+                filteredMessageParameters[i] = StringEscapeUtils.escapeHtml(messageParameters[i]);
+            }
+            messageParameters = filteredMessageParameters;
         }
 
         // add error to list
         ErrorMessage errorMessage = new ErrorMessage(messageKey, messageParameters);
         // check if this error has already been added to the list
-        if ( !errorList.contains( errorMessage ) ) {
+        if (!errorList.contains(errorMessage)) {
             errorList.add(errorMessage);
         }
 
@@ -218,11 +218,11 @@ public class MessageMap implements Serializable {
      * If any error messages with the key targetKey exist in this ErrorMap for the named property, those ErrorMessages will be
      * replaced with a new ErrorMessage with the given replaceKey and replaceParameters.
      *
-     * @param propertyName name of the property where existing error will be replaced
-     * @param targetKey error key of message to be replaced
-     * @paran replaceKey error key which will replace targetKey
+     * @param propertyName      name of the property where existing error will be replaced
+     * @param targetKey         error key of message to be replaced
      * @param replaceParameters zero or more string parameters for the replacement error message
      * @return true if the replacement occurred
+     * @paran replaceKey error key which will replace targetKey
      */
     public boolean replaceError(String propertyName, String targetKey, String replaceKey, String... replaceParameters) {
         return replaceError(propertyName, targetKey, true, replaceKey, replaceParameters);
@@ -233,12 +233,11 @@ public class MessageMap implements Serializable {
      * replaced with a new ErrorMessage with the given replaceKey and replaceParameters. The targetKey and replaceKey will be
      * prepended with the current errorPath, if any.
      *
-     *
-     * @param propertyName name of the property where existing error will be replaced
-     * @param targetKey error key of message to be replaced
-     * @paran replaceKey error key which will replace targetKey
+     * @param propertyName      name of the property where existing error will be replaced
+     * @param targetKey         error key of message to be replaced
      * @param replaceParameters zero or more string parameters for the replacement error message
      * @return true if the replacement occurred
+     * @paran replaceKey error key which will replace targetKey
      */
     public boolean replaceErrorWithoutFullErrorPath(String propertyName, String targetKey, String replaceKey, String... replaceParameters) {
         return replaceError(propertyName, targetKey, false, replaceKey, replaceParameters);
@@ -249,8 +248,8 @@ public class MessageMap implements Serializable {
      * If any error messages with the key targetKey exist in this ErrorMap for the named property, those ErrorMessages will be
      * replaced with a new ErrorMessage with the given replaceKey and replaceParameters.
      *
-     * @param propertyName name of the property to add error under
-     * @param targetKey resource key used to retrieve the error text
+     * @param propertyName      name of the property to add error under
+     * @param targetKey         resource key used to retrieve the error text
      * @param withFullErrorPath true if you want the whole parent error path appended, false otherwise
      * @param replaceParameters zero or more string parameters for the displayed error message
      * @return true if the replacement occurred
@@ -303,7 +302,7 @@ public class MessageMap implements Serializable {
 
         List<ErrorMessage> fieldMessages = errorMessages.get(fieldName);
         if (fieldMessages != null) {
-            for (Iterator<ErrorMessage> i = fieldMessages.iterator(); !found && i.hasNext();) {
+            for (Iterator<ErrorMessage> i = fieldMessages.iterator(); !found && i.hasNext(); ) {
                 ErrorMessage errorMessage = i.next();
                 found = errorMessage.getErrorKey().equals(errorKey);
             }
@@ -337,10 +336,10 @@ public class MessageMap implements Serializable {
         ErrorMessage foundMessage = null;
 
         if (!hasNoErrors()) {
-            for (Iterator<Map.Entry<String, AutoPopulatingList<ErrorMessage>>> i = getAllPropertiesAndErrors().iterator(); (foundMessage == null) && i.hasNext();) {
-            	Map.Entry<String, AutoPopulatingList<ErrorMessage>> e = i.next();
+            for (Iterator<Map.Entry<String, AutoPopulatingList<ErrorMessage>>> i = getAllPropertiesAndErrors().iterator(); (foundMessage == null) && i.hasNext(); ) {
+                Map.Entry<String, AutoPopulatingList<ErrorMessage>> e = i.next();
                 AutoPopulatingList<ErrorMessage> entryErrorList = e.getValue();
-                for (Iterator<ErrorMessage> j = entryErrorList.iterator(); j.hasNext();) {
+                for (Iterator<ErrorMessage> j = entryErrorList.iterator(); j.hasNext(); ) {
                     ErrorMessage em = j.next();
                     if (messageKey.equals(em.getErrorKey())) {
                         foundMessage = em;
@@ -355,7 +354,7 @@ public class MessageMap implements Serializable {
 
     private int getMessageCount(Map<String, AutoPopulatingList<ErrorMessage>> messageMap) {
         int messageCount = 0;
-        for (Iterator<String> iter = messageMap.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = messageMap.keySet().iterator(); iter.hasNext(); ) {
             String errorKey = iter.next();
             List<ErrorMessage> errors = messageMap.get(errorKey);
             messageCount += errors.size();
@@ -370,7 +369,7 @@ public class MessageMap implements Serializable {
      * @return returns an int for the total number of errors
      */
     public int getErrorCount() {
-    	return getMessageCount(errorMessages);
+        return getMessageCount(errorMessages);
     }
 
     /**
@@ -379,7 +378,7 @@ public class MessageMap implements Serializable {
      * @return returns an int for the total number of warnings
      */
     public int getWarningCount() {
-    	return getMessageCount(warningMessages);
+        return getMessageCount(warningMessages);
     }
 
     /**
@@ -388,7 +387,7 @@ public class MessageMap implements Serializable {
      * @return returns an int for the total number of info
      */
     public int getInfoCount() {
-    	return getMessageCount(infoMessages);
+        return getMessageCount(infoMessages);
     }
 
     /**
@@ -438,9 +437,9 @@ public class MessageMap implements Serializable {
      * This is what's prepended to the beginning of the key. This is built by iterating over all of the entries in the errorPath
      * list and concatenating them together with a "."
      *
-     * @return String Returns the keyPath.
      * @param propertyName
      * @param prependFullErrorPath
+     * @return String Returns the keyPath.
      */
     public String getKeyPath(String propertyName, boolean prependFullErrorPath) {
         String keyPath = "";
@@ -451,9 +450,8 @@ public class MessageMap implements Serializable {
 
         if (!errorPath.isEmpty() && prependFullErrorPath) {
             keyPath = StringUtils.join(errorPath.iterator(), ".");
-            keyPath += (keyPath!=null && keyPath.endsWith("."))?propertyName:"." + propertyName;
-        }
-        else {
+            keyPath += (keyPath != null && keyPath.endsWith(".")) ? propertyName : "." + propertyName;
+        } else {
             keyPath = propertyName;
         }
 
@@ -466,7 +464,7 @@ public class MessageMap implements Serializable {
     public List<String> getPropertiesWithErrors() {
         List<String> properties = new ArrayList<String>();
 
-        for (Iterator<String> iter = errorMessages.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = errorMessages.keySet().iterator(); iter.hasNext(); ) {
             properties.add(iter.next());
         }
 
@@ -490,11 +488,11 @@ public class MessageMap implements Serializable {
     }
 
     public void clearErrorMessages() {
-    	errorMessages.clear();
+        errorMessages.clear();
     }
 
     public boolean doesPropertyHaveError(String key) {
-    	return errorMessages.containsKey(key);
+        return errorMessages.containsKey(key);
     }
 
     /**
@@ -508,17 +506,16 @@ public class MessageMap implements Serializable {
             String s = patterns[i];
             if (s.endsWith("*")) {
                 wildcardPatterns.add(s.substring(0, s.length() - 1));
-            }
-            else {
+            } else {
                 simplePatterns.add(s);
             }
         }
-        for (Iterator<String> keys = errorMessages.keySet().iterator(); keys.hasNext();) {
+        for (Iterator<String> keys = errorMessages.keySet().iterator(); keys.hasNext(); ) {
             String key = keys.next();
             if (simplePatterns.contains(key)) {
                 return true;
             }
-            for (Iterator<String> wildcardIterator = wildcardPatterns.iterator(); wildcardIterator.hasNext();) {
+            for (Iterator<String> wildcardIterator = wildcardPatterns.iterator(); wildcardIterator.hasNext(); ) {
                 String wildcard = wildcardIterator.next();
                 if (key.startsWith(wildcard)) {
                     return true;
@@ -529,163 +526,163 @@ public class MessageMap implements Serializable {
     }
 
     public Set<Map.Entry<String, AutoPopulatingList<ErrorMessage>>> getAllPropertiesAndErrors() {
-    	return errorMessages.entrySet();
+        return errorMessages.entrySet();
     }
 
     public AutoPopulatingList<ErrorMessage> getErrorMessagesForProperty(String propertyName) {
-    	return errorMessages.get(propertyName);
+        return errorMessages.get(propertyName);
     }
 
     public AutoPopulatingList<ErrorMessage> getWarningMessagesForProperty(String propertyName) {
-    	return warningMessages.get(propertyName);
+        return warningMessages.get(propertyName);
     }
 
     public AutoPopulatingList<ErrorMessage> getInfoMessagesForProperty(String propertyName) {
-    	return infoMessages.get(propertyName);
+        return infoMessages.get(propertyName);
     }
 
-	/**
-	 * Gets a list of lists that represent errors that matched by the
-	 * propertyName passed in (multiple lists because the wildcard can match
-	 * multiple keys). If wildcard is true, the propertyName ends with a
-	 * wildcard character. Otherwise, it will only match on the single key and
-	 * return a list with one list
-	 *
-	 * @param propertyName
-	 * @param allowWildcard
-	 * @return
-	 */
-	public List<AutoPopulatingList<ErrorMessage>> getErrorMessagesForProperty(
-			String propertyName, boolean allowWildcard) {
-		List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
-		if (allowWildcard) {
-			boolean wildcard = false;
-			if (propertyName.endsWith("*")) {
-				wildcard = true;
-				propertyName = propertyName.substring(0,
-						propertyName.length() - 1);
-			}
-			for (Iterator<String> keys = errorMessages.keySet().iterator(); keys
-					.hasNext();) {
-				String key = keys.next();
-				if (!wildcard && propertyName.equals(key)) {
-					foundMessages.add(errorMessages.get(key));
-					break;
-				} else if (wildcard && key.startsWith(propertyName)) {
-					foundMessages.add(errorMessages.get(key));
-				}
-			}
-		} else {
-			foundMessages.add(getErrorMessagesForProperty(propertyName));
-		}
+    /**
+     * Gets a list of lists that represent errors that matched by the
+     * propertyName passed in (multiple lists because the wildcard can match
+     * multiple keys). If wildcard is true, the propertyName ends with a
+     * wildcard character. Otherwise, it will only match on the single key and
+     * return a list with one list
+     *
+     * @param propertyName
+     * @param allowWildcard
+     * @return
+     */
+    public List<AutoPopulatingList<ErrorMessage>> getErrorMessagesForProperty(
+        String propertyName, boolean allowWildcard) {
+        List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
+        if (allowWildcard) {
+            boolean wildcard = false;
+            if (propertyName.endsWith("*")) {
+                wildcard = true;
+                propertyName = propertyName.substring(0,
+                    propertyName.length() - 1);
+            }
+            for (Iterator<String> keys = errorMessages.keySet().iterator(); keys
+                .hasNext(); ) {
+                String key = keys.next();
+                if (!wildcard && propertyName.equals(key)) {
+                    foundMessages.add(errorMessages.get(key));
+                    break;
+                } else if (wildcard && key.startsWith(propertyName)) {
+                    foundMessages.add(errorMessages.get(key));
+                }
+            }
+        } else {
+            foundMessages.add(getErrorMessagesForProperty(propertyName));
+        }
 
-		return foundMessages;
-	}
+        return foundMessages;
+    }
 
-	/**
-	 * Gets a list of lists that represent warnings that matched by the
-	 * propertyName passed in (multiple lists because the wildcard can match
-	 * multiple keys). If wildcard is true, the propertyName ends with a
-	 * wildcard character. Otherwise, it will only match on the single key and
-	 * return a list with one list.
-	 *
-	 * @param propertyName
-	 * @param allowWildcard
-	 * @return
-	 */
-	public List<AutoPopulatingList<ErrorMessage>> getWarningMessagesForProperty(
-			String propertyName, boolean allowWildcard) {
-		List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
-		if (allowWildcard) {
-			boolean wildcard = false;
-			if (propertyName.endsWith("*")) {
-				wildcard = true;
-				propertyName = propertyName.substring(0,
-						propertyName.length() - 1);
-			}
-			for (Iterator<String> keys = warningMessages.keySet().iterator(); keys
-					.hasNext();) {
-				String key = keys.next();
-				if (!wildcard && propertyName.equals(key)) {
-					foundMessages.add(warningMessages.get(key));
-					break;
-				} else if (wildcard && key.startsWith(propertyName)) {
-					foundMessages.add(warningMessages.get(key));
-				}
-			}
-		} else {
-			foundMessages.add(getWarningMessagesForProperty(propertyName));
-		}
+    /**
+     * Gets a list of lists that represent warnings that matched by the
+     * propertyName passed in (multiple lists because the wildcard can match
+     * multiple keys). If wildcard is true, the propertyName ends with a
+     * wildcard character. Otherwise, it will only match on the single key and
+     * return a list with one list.
+     *
+     * @param propertyName
+     * @param allowWildcard
+     * @return
+     */
+    public List<AutoPopulatingList<ErrorMessage>> getWarningMessagesForProperty(
+        String propertyName, boolean allowWildcard) {
+        List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
+        if (allowWildcard) {
+            boolean wildcard = false;
+            if (propertyName.endsWith("*")) {
+                wildcard = true;
+                propertyName = propertyName.substring(0,
+                    propertyName.length() - 1);
+            }
+            for (Iterator<String> keys = warningMessages.keySet().iterator(); keys
+                .hasNext(); ) {
+                String key = keys.next();
+                if (!wildcard && propertyName.equals(key)) {
+                    foundMessages.add(warningMessages.get(key));
+                    break;
+                } else if (wildcard && key.startsWith(propertyName)) {
+                    foundMessages.add(warningMessages.get(key));
+                }
+            }
+        } else {
+            foundMessages.add(getWarningMessagesForProperty(propertyName));
+        }
 
-		return foundMessages;
-	}
+        return foundMessages;
+    }
 
-	/**
-	 * Gets a list of lists that represent info messages that matched by the
-	 * propertyName passed in (multiple lists because the wildcard can match
-	 * multiple keys). If wildcard is true, the propertyName ends with a
-	 * wildcard character. If it is false, it will only match on the single key
-	 * and return a list with one list.
-	 *
-	 * @param propertyName
-	 * @param allowWildcard
-	 * @return
-	 */
-	public List<AutoPopulatingList<ErrorMessage>> getInfoMessagesForProperty(
-			String propertyName, boolean allowWildcard) {
-		List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
-		if (allowWildcard) {
-			boolean wildcard = false;
-			if (propertyName.endsWith("*")) {
-				wildcard = true;
-				propertyName = propertyName.substring(0,
-						propertyName.length() - 1);
-			}
-			for (Iterator<String> keys = infoMessages.keySet().iterator(); keys
-					.hasNext();) {
-				String key = keys.next();
-				if (!wildcard && propertyName.equals(key)) {
-					foundMessages.add(infoMessages.get(key));
-					break;
-				} else if (wildcard && key.startsWith(propertyName)) {
-					foundMessages.add(infoMessages.get(key));
-				}
-			}
-		} else {
-			foundMessages.add(getInfoMessagesForProperty(propertyName));
-		}
+    /**
+     * Gets a list of lists that represent info messages that matched by the
+     * propertyName passed in (multiple lists because the wildcard can match
+     * multiple keys). If wildcard is true, the propertyName ends with a
+     * wildcard character. If it is false, it will only match on the single key
+     * and return a list with one list.
+     *
+     * @param propertyName
+     * @param allowWildcard
+     * @return
+     */
+    public List<AutoPopulatingList<ErrorMessage>> getInfoMessagesForProperty(
+        String propertyName, boolean allowWildcard) {
+        List<AutoPopulatingList<ErrorMessage>> foundMessages = new ArrayList<AutoPopulatingList<ErrorMessage>>();
+        if (allowWildcard) {
+            boolean wildcard = false;
+            if (propertyName.endsWith("*")) {
+                wildcard = true;
+                propertyName = propertyName.substring(0,
+                    propertyName.length() - 1);
+            }
+            for (Iterator<String> keys = infoMessages.keySet().iterator(); keys
+                .hasNext(); ) {
+                String key = keys.next();
+                if (!wildcard && propertyName.equals(key)) {
+                    foundMessages.add(infoMessages.get(key));
+                    break;
+                } else if (wildcard && key.startsWith(propertyName)) {
+                    foundMessages.add(infoMessages.get(key));
+                }
+            }
+        } else {
+            foundMessages.add(getInfoMessagesForProperty(propertyName));
+        }
 
-		return foundMessages;
-	}
+        return foundMessages;
+    }
 
     public boolean hasErrors() {
-    	return !errorMessages.isEmpty();
+        return !errorMessages.isEmpty();
     }
 
     public boolean hasNoErrors() {
-    	return errorMessages.isEmpty();
+        return errorMessages.isEmpty();
     }
 
     public boolean hasWarnings() {
-    	return !warningMessages.isEmpty();
+        return !warningMessages.isEmpty();
     }
 
     public boolean hasNoWarnings() {
-    	return warningMessages.isEmpty();
+        return warningMessages.isEmpty();
     }
 
     public boolean hasInfo() {
-    	return !infoMessages.isEmpty();
+        return !infoMessages.isEmpty();
     }
 
     public boolean hasNoInfo() {
-    	return infoMessages.isEmpty();
+        return infoMessages.isEmpty();
     }
 
     public boolean hasMessages() {
         if (!errorMessages.isEmpty()
-                || !warningMessages.isEmpty()
-                || !infoMessages.isEmpty()) {
+            || !warningMessages.isEmpty()
+            || !infoMessages.isEmpty()) {
             return true;
         }
         return false;
@@ -693,39 +690,39 @@ public class MessageMap implements Serializable {
 
     public boolean hasNoMessages() {
         if (errorMessages.isEmpty()
-                && warningMessages.isEmpty()
-                && infoMessages.isEmpty()) {
+            && warningMessages.isEmpty()
+            && infoMessages.isEmpty()) {
             return true;
         }
         return false;
     }
 
     public Set<String> getAllPropertiesWithErrors() {
-    	return errorMessages.keySet();
+        return errorMessages.keySet();
     }
 
     public Set<String> getAllPropertiesWithWarnings() {
-    	return warningMessages.keySet();
+        return warningMessages.keySet();
     }
 
     public Set<String> getAllPropertiesWithInfo() {
-    	return infoMessages.keySet();
+        return infoMessages.keySet();
     }
 
     public AutoPopulatingList<ErrorMessage> removeAllErrorMessagesForProperty(String property) {
-    	return errorMessages.remove(property);
+        return errorMessages.remove(property);
     }
 
     public AutoPopulatingList<ErrorMessage> removeAllWarningMessagesForProperty(String property) {
-    	return warningMessages.remove(property);
+        return warningMessages.remove(property);
     }
 
     public AutoPopulatingList<ErrorMessage> removeAllInfoMessagesForProperty(String property) {
-    	return infoMessages.remove(property);
+        return infoMessages.remove(property);
     }
 
     public int getNumberOfPropertiesWithErrors() {
-    	return errorMessages.size();
+        return errorMessages.size();
     }
 
     public Map<String, AutoPopulatingList<ErrorMessage>> getErrorMessages() {

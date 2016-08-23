@@ -31,15 +31,15 @@ import java.util.List;
 public interface LetterOfCreditFundWebService {
 
 
-	public List<LetterOfCreditFundDto> findMatchingFund(@WebParam(name = "fundCode") String fundCode,
-														@WebParam(name = "description") String description);
+    public List<LetterOfCreditFundDto> findMatchingFund(@WebParam(name = "fundCode") String fundCode,
+                                                        @WebParam(name = "description") String description);
 
-	public List<LetterOfCreditFundDto> allLocFunds();
+    public List<LetterOfCreditFundDto> allLocFunds();
 
 
-	public List<LetterOfCreditFundGroupDto> findMatchingFundGroup(@WebParam(name = "groupCode") String groupCode, @WebParam(name = "description") String description);
+    public List<LetterOfCreditFundGroupDto> findMatchingFundGroup(@WebParam(name = "groupCode") String groupCode, @WebParam(name = "description") String description);
 
-	public List<LetterOfCreditFundGroupDto> allLocFundGroups();
+    public List<LetterOfCreditFundGroupDto> allLocFundGroups();
 
 
 }

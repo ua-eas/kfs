@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.dataaccess;
 
+import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
+import org.kuali.kfs.sys.dataaccess.GeneralLedgerPendingEntryDao;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
-import org.kuali.kfs.sys.dataaccess.GeneralLedgerPendingEntryDao;
 
 /**
  * LaborLedgerPendingEntryDao DAO Interface.
@@ -34,10 +34,10 @@ public interface LaborLedgerPendingEntryDao extends GeneralLedgerPendingEntryDao
     /**
      * This method retrieves all pending ledger entries with the given search criteria
      *
-     * @param fieldValues the input fields and values
-     * @param isApproved the flag that indicates whether the pending entries are approved or don't care
-     * @param currentFYPeriod current FY period code
-     * @param currentFY current fiscal year
+     * @param fieldValues             the input fields and values
+     * @param isApproved              the flag that indicates whether the pending entries are approved or don't care
+     * @param currentFYPeriod         current FY period code
+     * @param currentFY               current fiscal year
      * @param encumbranceBalanceTypes a list of encumbrance balance types
      * @return all pending ledger entries that may belong to encumbrance table
      */
@@ -46,7 +46,7 @@ public interface LaborLedgerPendingEntryDao extends GeneralLedgerPendingEntryDao
     /**
      * This method retrieves all pending ledger entries with the given search criteria
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param businessObject
      * @return all pending ledger entries that may belong to pendingentry table
      */

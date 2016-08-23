@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PREQInvoice;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.Date;
+
 public enum PaymentRequestInvoiceTabFixture {
 
-    WITH_POID_WITH_DATE_WITH_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), NO_POID_WITH_DATE_WITH_NUMBER_WITH_AMOUNT(null, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), WITH_POID_NO_DATE_WITH_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, null, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), WITH_POID_WITH_DATE_NO_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, null, PREQInvoice.AMOUNT), WITH_POID_WITH_DATE_WITH_NUMBER_NO_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, null)
-
-    ;
+    WITH_POID_WITH_DATE_WITH_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), NO_POID_WITH_DATE_WITH_NUMBER_WITH_AMOUNT(null, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), WITH_POID_NO_DATE_WITH_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, null, PREQInvoice.INVOICE_NUMBER, PREQInvoice.AMOUNT), WITH_POID_WITH_DATE_NO_NUMBER_WITH_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, null, PREQInvoice.AMOUNT), WITH_POID_WITH_DATE_WITH_NUMBER_NO_AMOUNT(PREQInvoice.PO_ID, PREQInvoice.INVOICE_DATE, PREQInvoice.INVOICE_NUMBER, null);
 
     private Integer po_id;
     private Date invoice_date;

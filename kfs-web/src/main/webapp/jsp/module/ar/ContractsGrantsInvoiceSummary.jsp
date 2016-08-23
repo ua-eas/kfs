@@ -16,16 +16,16 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page headerTitle="Contracts & Grants Invoice Summary"
-	transactionalDocument="false" showDocumentInfo="false"
-	htmlFormAction="arContractsGrantsInvoiceSummary"
-	docTitle="Contracts & Grants Invoice Summary">
+          transactionalDocument="false" showDocumentInfo="false"
+          htmlFormAction="arContractsGrantsInvoiceSummary"
+          docTitle="Contracts & Grants Invoice Summary">
 
-	<div class="main-panel">
-		<c:if test="${KualiForm.awardInvoiced}">
-			<div class="center" style="margin:30px 0;">
+    <div class="main-panel">
+        <c:if test="${KualiForm.awardInvoiced}">
+            <div class="center" style="margin:30px 0;">
                 <html:submit
                         styleClass="btn btn-default"
                         property="methodToCall.cancel"
@@ -33,11 +33,11 @@
                         alt="return"
                         value="Return"/>
             </div>
-		</c:if>
+        </c:if>
 
-		<c:if test="${!KualiForm.awardInvoiced}">
-			<ar:documentSummaryResults lookupResultsProperty="contractsGrantsInvoiceLookupResults" lookupResultTitleProperties="agencyNumber;agencyFullName">
-				<ar:contractsGrantsInvoiceSummaryResultContent/>
+        <c:if test="${!KualiForm.awardInvoiced}">
+            <ar:documentSummaryResults lookupResultsProperty="contractsGrantsInvoiceLookupResults" lookupResultTitleProperties="agencyNumber;agencyFullName">
+                <ar:contractsGrantsInvoiceSummaryResultContent/>
                 <div class="center" style="padding: 10px 0 20px 0;">
                     <html:submit
                             styleClass="btn btn-default"
@@ -52,7 +52,7 @@
                             alt="cancel"
                             value="Cancel"/>
                 </div>
-			</ar:documentSummaryResults>
-		</c:if>
-	</div>
+            </ar:documentSummaryResults>
+        </c:if>
+    </div>
 </kul:page>

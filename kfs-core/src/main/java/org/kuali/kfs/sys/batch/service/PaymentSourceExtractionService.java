@@ -21,9 +21,7 @@ package org.kuali.kfs.sys.batch.service;
 import org.kuali.kfs.sys.document.PaymentSource;
 
 /**
- *
  * This service interface defines the methods that a PaymentSourceExtractionService implementation must provide.
- *
  */
 public interface PaymentSourceExtractionService {
 
@@ -41,6 +39,7 @@ public interface PaymentSourceExtractionService {
 
     /**
      * Creates a batch payment for a single disbursement voucher
+     *
      * @param disbursementVoucher the voucher to immediately extract
      */
     public abstract void extractSingleImmediatePayment(PaymentSource paymentSource);

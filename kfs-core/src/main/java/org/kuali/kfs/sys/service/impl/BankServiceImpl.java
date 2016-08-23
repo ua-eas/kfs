@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Default implementation of the <code>BankService</code> interface.
@@ -51,9 +51,9 @@ public class BankServiceImpl implements BankService {
      * @see org.kuali.kfs.fp.service.BankService#getByPrimaryId(java.lang.String)
      */
     @Override
-    @Cacheable(value=Bank.CACHE_NAME, key="'bankCode='+#p0")
+    @Cacheable(value = Bank.CACHE_NAME, key = "'bankCode='+#p0")
     public Bank getByPrimaryId(String bankCode) {
-        if ( StringUtils.isBlank(bankCode) ) {
+        if (StringUtils.isBlank(bankCode)) {
             return null;
         }
         return businessObjectService.findBySinglePrimaryKey(Bank.class, bankCode);
@@ -63,10 +63,10 @@ public class BankServiceImpl implements BankService {
      * @see org.kuali.kfs.sys.service.BankService#getDefaultBankByDocType(java.lang.String)
      */
     @Override
-    @Cacheable(value=Bank.CACHE_NAME, key="'DefaultByDocType-'+#p0")
+    @Cacheable(value = Bank.CACHE_NAME, key = "'DefaultByDocType-'+#p0")
     public Bank getDefaultBankByDocType(String documentTypeCode) {
         if (parameterService.parameterExists(Bank.class, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE)) {
-            List<String> parmValues = new ArrayList<String>( parameterService.getSubParameterValuesAsString(Bank.class, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE, documentTypeCode) );
+            List<String> parmValues = new ArrayList<String>(parameterService.getSubParameterValuesAsString(Bank.class, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE, documentTypeCode));
 
             if (parmValues != null && !parmValues.isEmpty()) {
                 String defaultBankCode = parmValues.get(0);
@@ -74,7 +74,7 @@ public class BankServiceImpl implements BankService {
                 Bank defaultBank = getByPrimaryId(defaultBankCode);
 
                 // check active status, if not return continuation bank if active
-                if ( defaultBank != null && !defaultBank.isActive() && defaultBank.getContinuationBank() != null && defaultBank.getContinuationBank().isActive()) {
+                if (defaultBank != null && !defaultBank.isActive() && defaultBank.getContinuationBank() != null && defaultBank.getContinuationBank().isActive()) {
                     return defaultBank.getContinuationBank();
                 }
 
@@ -89,7 +89,7 @@ public class BankServiceImpl implements BankService {
      * @see org.kuali.kfs.sys.service.BankService#getDefaultBankByDocType(java.lang.Class)
      */
     @Override
-    @Cacheable(value=Bank.CACHE_NAME, key="'DefaultByDocClass-'+#p0")
+    @Cacheable(value = Bank.CACHE_NAME, key = "'DefaultByDocClass-'+#p0")
     public Bank getDefaultBankByDocType(Class<?> documentClass) {
         String documentTypeCode = dataDictionaryService.getDocumentTypeNameByClass(documentClass);
 
@@ -103,7 +103,7 @@ public class BankServiceImpl implements BankService {
      * @see org.kuali.kfs.sys.service.BankService#isBankSpecificationEnabled()
      */
     @Override
-    @Cacheable(value=Bank.CACHE_NAME, key="'isBankSpecificationEnabled'")
+    @Cacheable(value = Bank.CACHE_NAME, key = "'isBankSpecificationEnabled'")
     public boolean isBankSpecificationEnabled() {
         return parameterService.getParameterValueAsBoolean(Bank.class, KFSParameterKeyConstants.ENABLE_BANK_SPECIFICATION_IND);
     }
@@ -112,7 +112,7 @@ public class BankServiceImpl implements BankService {
      * @see org.kuali.kfs.sys.service.BankService#isBankSpecificationEnabledForDocument(java.lang.Class)
      */
     @Override
-    @Cacheable(value=Bank.CACHE_NAME, key="'isBankSpecificationEnabled'+#p0")
+    @Cacheable(value = Bank.CACHE_NAME, key = "'isBankSpecificationEnabled'+#p0")
     public boolean isBankSpecificationEnabledForDocument(Class<?> documentClass) {
         String documentTypeCode = dataDictionaryService.getDocumentTypeNameByClass(documentClass);
         if (ArrayUtils.contains(PERMANENT_BANK_SPECIFICATION_ENABLED_DOCUMENT_TYPES, documentTypeCode)) {

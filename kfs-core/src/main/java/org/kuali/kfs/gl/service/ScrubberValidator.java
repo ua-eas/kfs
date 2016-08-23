@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
+
+import java.util.List;
 
 /**
  * An interface that declares methods that would be needed to validate origin entries and transactions run through the scrubber
@@ -34,8 +34,8 @@ public interface ScrubberValidator {
     /**
      * Validate a transaction in the scrubber
      *
-     * @param originEntry Input transaction (never changed)
-     * @param scrubbedEntry Output transaction (scrubbed version of input transaction)
+     * @param originEntry       Input transaction (never changed)
+     * @param scrubbedEntry     Output transaction (scrubbed version of input transaction)
      * @param universityRunDate Date of scrubber run
      * @return List of Message objects based for warnings or errors that happened when validating the transaction
      */
@@ -51,7 +51,7 @@ public interface ScrubberValidator {
     /**
      * Performs logic to determine whether an account is expired
      *
-     * @param account Account to validate
+     * @param account           Account to validate
      * @param universityRunDate Run date of process
      * @return true if account is expired, false if not
      */

@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent automated clearing house for disbursement voucher.
@@ -62,7 +62,7 @@ public class DisbursementVoucherAutomatedClearingHouse extends PersistableBusine
      * Sets the disbursementVoucherAutomatedClearingHouseProfileNumber attribute.
      *
      * @param disbursementVoucherAutomatedClearingHouseProfileNumber The disbursementVoucherAutomatedClearingHouseProfileNumber to
-     *        set.
+     *                                                               set.
      */
     public void setDisbursementVoucherAutomatedClearingHouseProfileNumber(String disbursementVoucherAutomatedClearingHouseProfileNumber) {
         this.disbursementVoucherAutomatedClearingHouseProfileNumber = disbursementVoucherAutomatedClearingHouseProfileNumber;

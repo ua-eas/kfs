@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.KFSConstants.EMPTY_STRING;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -38,9 +39,8 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseCons
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.KFSConstants.EMPTY_STRING;
 
 /**
  * This is the business object that represents the NonCheckDisbursementDocument in Kuali. The "Non-Check Disbursement" document is
@@ -123,12 +123,12 @@ public class NonCheckDisbursementDocument extends AccountingDocumentBase impleme
      * amount.
      *
      * @param transactionalDocument The document the accounting line being checked is located in.
-     * @param accountingLine The accounting line being analyzed.
+     * @param accountingLine        The accounting line being analyzed.
      * @return True if the accounting line given is a debit accounting line, false otherwise.
      * @throws IllegalStateException Thrown if accounting line attributes are invalid.
      * @see IsDebitUtils#isDebitConsideringNothingPositiveOnly(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) throws IllegalStateException {
@@ -144,10 +144,10 @@ public class NonCheckDisbursementDocument extends AccountingDocumentBase impleme
      * properly.
      *
      * @param financialDocument The document which contains the general ledger pending entry being modified.
-     * @param accountingLine The accounting line the explicit entry was generated from.
-     * @param explicitEntry The explicit entry being updated.
+     * @param accountingLine    The accounting line the explicit entry was generated from.
+     * @param explicitEntry     The explicit entry being updated.
      * @see FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(FinancialDocument, AccountingLine,
-     *      GeneralLedgerPendingEntry)
+     * GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
@@ -203,7 +203,7 @@ public class NonCheckDisbursementDocument extends AccountingDocumentBase impleme
      * using information from the <code>{@link AccountingLine}</code>. Format is "01-12345: blah blah blah".
      *
      * @param financialDocument The document the description will be pulled from, if the accounting line description is blank.
-     * @param line The accounting line that will be used for populating the transaction ledger entry description.
+     * @param line              The accounting line that will be used for populating the transaction ledger entry description.
      * @return The description to be applied to the transaction ledger entry.
      */
     protected String buildTransactionLedgerEntryDescriptionUsingRefOriginAndRefDocNumber(GeneralLedgerPendingEntrySourceDetail postable) {
@@ -216,8 +216,7 @@ public class NonCheckDisbursementDocument extends AccountingDocumentBase impleme
 
         if (StringUtils.isNotBlank(postable.getFinancialDocumentLineDescription())) {
             description += ": " + postable.getFinancialDocumentLineDescription();
-        }
-        else {
+        } else {
             description += ": " + getDocumentHeader().getDocumentDescription();
         }
 

@@ -44,10 +44,11 @@ public class ResourceLoaderUtil {
 
     /**
      * Parses the path name from a resource's description
+     *
      * @param resource a resource which hides a path from us
      * @return the path name if we could parse it out
      */
-    public static  String parseResourcePathFromUrl(Resource resource) throws IOException {
+    public static String parseResourcePathFromUrl(Resource resource) throws IOException {
         final URL resourceUrl = resource.getURL();
         if (ResourceUtils.isJarURL(resourceUrl)) {
             final Matcher resourceUrlPathMatcher = resourceJarUrlPattern.matcher(resourceUrl.getPath());

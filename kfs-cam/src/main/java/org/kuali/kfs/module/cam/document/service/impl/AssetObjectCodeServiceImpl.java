@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cam.businessobject.AssetObjectCode;
 import org.kuali.kfs.module.cam.document.service.AssetObjectCodeService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AssetObjectCodeServiceImpl implements AssetObjectCodeService {
     UniversityDateService universityDateService;
@@ -33,7 +33,7 @@ public class AssetObjectCodeServiceImpl implements AssetObjectCodeService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetObjectCodeService#findAssetObjectCode(java.lang.String,
-     *      org.kuali.kfs.module.cam.businessobject.AssetPayment)
+     * org.kuali.kfs.module.cam.businessobject.AssetPayment)
      */
     public AssetObjectCode findAssetObjectCode(String chartOfAccountsCode, String financialObjectSubTypeCode) {
         Map<String, Object> pkKeys = new HashMap<String, Object>();

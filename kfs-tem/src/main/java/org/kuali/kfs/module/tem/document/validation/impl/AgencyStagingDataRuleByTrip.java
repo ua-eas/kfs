@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.DI_CD;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.LODGING_NUMBER;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.TRIP_ID;
-
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.tem.TemKeyConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
-import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService;
-import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
-import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
-import org.kuali.kfs.module.tem.document.service.AgencyStagingDataRuleHelper;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
+import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService;
+import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
+import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
+import org.kuali.kfs.module.tem.document.service.AgencyStagingDataRuleHelper;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.DI_CD;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.LODGING_NUMBER;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.TRIP_ID;
 
 /**
  * Business rules validation for the Travel Agency Audit and Correction using the IU method of
@@ -84,15 +84,15 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
 
         //validate accounting line before it's added to the document
         if (collectionName.equals(TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO)) {
-            TripAccountingInformation accountingLine = (TripAccountingInformation)line;
+            TripAccountingInformation accountingLine = (TripAccountingInformation) line;
 
             Map<String, ErrorMessage> errors = getExpenseImportByTripService().validateAccountingInfoLine(accountingLine);
 
             if (!errors.isEmpty()) {
-                for(String errorProperty : errors.keySet()) {
+                for (String errorProperty : errors.keySet()) {
                     ErrorMessage error = errors.get(errorProperty);
                     if (ObjectUtils.isNotNull(error)) {
-                        putFieldError(ADD_LINE_ERROR_PREFIX + ACCOUNTING_INFO +"."+ errorProperty, error.getErrorKey(), error.getMessageParameters());
+                        putFieldError(ADD_LINE_ERROR_PREFIX + ACCOUNTING_INFO + "." + errorProperty, error.getErrorKey(), error.getMessageParameters());
                     }
                 }
                 result &= false;
@@ -104,6 +104,7 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
 
     /**
      * Gets the expenseImportByTripService attribute.
+     *
      * @return Returns the expenseImportByTripService.
      */
     public ExpenseImportByTripService getExpenseImportByTripService() {
@@ -112,6 +113,7 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
 
     /**
      * Sets the expenseImportByTripService attribute value.
+     *
      * @param expenseImportByTripService The expenseImportByTripService to set.
      */
     public void setExpenseImportByTripService(final ExpenseImportByTripService expenseImportByTripService) {
@@ -119,15 +121,13 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
     }
 
     /**
-     *
      * This method is a convenience method to add a property-specific error to the global errors list. This method makes sure that
      * the correct prefix is added to the property name so that it will display correctly on maintenance documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as errored in
-     *        the UI.
-     * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
+     * @param propertyName    - Property name of the element that is associated with the error. Used to mark the field as errored in
+     *                        the UI.
+     * @param errorConstant   - Error Constant that can be mapped to a resource for the actual text message.
      * @param errorParameters - list of parameters to include in the error message
-     *
      */
     protected void putFieldError(String propertyName, String errorConstant, String... errorParameters) {
         if (!errorAlreadyExists(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant)) {
@@ -136,22 +136,19 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
     }
 
     /**
-     *
      * Convenience method to determine whether the field already has the message indicated.
-     *
+     * <p>
      * This is useful if you want to suppress duplicate error messages on the same field.
      *
-     * @param propertyName - propertyName you want to test on
+     * @param propertyName  - propertyName you want to test on
      * @param errorConstant - errorConstant you want to test
      * @return returns True if the propertyName indicated already has the errorConstant indicated, false otherwise
-     *
      */
     protected boolean errorAlreadyExists(String propertyName, String errorConstant) {
 
         if (GlobalVariables.getMessageMap().fieldHasMessage(propertyName, errorConstant)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -171,23 +168,22 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
 
             List<ErrorMessage> errors = getExpenseImportByTripService().validateMissingAccountingInfo(data);
 
-            if(!errors.isEmpty()) {
-                for(ErrorMessage error : errors) {
+            if (!errors.isEmpty()) {
+                for (ErrorMessage error : errors) {
                     putFieldError(ACCOUNTING_INFO, error.getErrorKey(), error.getMessageParameters());
                 }
                 result &= false;
-            }
-            else {
+            } else {
 
                 int i = 0;
-                for(TripAccountingInformation account : data.getTripAccountingInformation()) {
-                    Map<String,ErrorMessage> errorMap = getExpenseImportByTripService().validateAccountingInfoLine(account);
+                for (TripAccountingInformation account : data.getTripAccountingInformation()) {
+                    Map<String, ErrorMessage> errorMap = getExpenseImportByTripService().validateAccountingInfoLine(account);
 
                     if (!errorMap.isEmpty()) {
-                        for(String errorProperty : errorMap.keySet()) {
+                        for (String errorProperty : errorMap.keySet()) {
                             ErrorMessage error = errorMap.get(errorProperty);
                             if (ObjectUtils.isNotNull(error)) {
-                                putFieldError(ACCOUNTING_INFO +"["+i+"]."+ errorProperty, error.getErrorKey(), error.getMessageParameters());
+                                putFieldError(ACCOUNTING_INFO + "[" + i + "]." + errorProperty, error.getErrorKey(), error.getMessageParameters());
                                 result &= false;
                             }
                         }
@@ -197,7 +193,7 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
                 }
             }
 
-            if(!getExpenseImportByTripService().validateTripId(data).isEmpty()) {
+            if (!getExpenseImportByTripService().validateTripId(data).isEmpty()) {
                 putFieldError(TRIP_ID, TemKeyConstants.MESSAGE_AGENCY_DATA_INVALID_TRIP_ID);
                 result &= false;
             }
@@ -212,13 +208,12 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
                 errors = getExpenseImportByTripService().validateDuplicateData(data);
                 if (!errors.isEmpty()) {
                     if (isErrorListContainsErrorKey(errors, TemKeyConstants.MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS) ||
-                            isErrorListContainsErrorKey(errors, TemKeyConstants.MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING)) {
+                        isErrorListContainsErrorKey(errors, TemKeyConstants.MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING)) {
                         result &= false;
-                    }
-                    else {
+                    } else {
 
                         putFieldError(TRIP_ID, TemKeyConstants.MESSAGE_AGENCY_DATA_TRIP_DUPLICATE_RECORD, data.getTripId(), data.getAgency(),
-                                data.getTransactionPostingDate().toString(), data.getTripExpenseAmount().toString(), data.getItineraryDataString());
+                            data.getTransactionPostingDate().toString(), data.getTripExpenseAmount().toString(), data.getItineraryDataString());
                         result &= false;
                     }
                 }
@@ -234,7 +229,7 @@ public class AgencyStagingDataRuleByTrip implements AgencyStagingDataRuleHelper 
     }
 
     protected boolean isErrorListContainsErrorKey(List<ErrorMessage> errors, String errorKey) {
-        for(ErrorMessage error : errors) {
+        for (ErrorMessage error : errors) {
             if (error.getErrorKey().equals(errorKey)) {
                 return true;
             }

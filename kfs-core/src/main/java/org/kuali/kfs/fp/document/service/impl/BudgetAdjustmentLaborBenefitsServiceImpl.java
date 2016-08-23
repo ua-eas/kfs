@@ -18,22 +18,17 @@
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.fp.document.service.BudgetAdjustmentLaborBenefitsService;
 import org.kuali.kfs.integration.ld.LaborLedgerBenefitsCalculation;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectBenefit;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -42,9 +37,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the default implementation of the methods defined by the BudgetAdjustmentLaborBenefitsService. These service performs
@@ -73,15 +73,14 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
          * each benefit record, create an accounting line with properties set from the original line, but substituted with the
          * benefit object code and calculated current and base amount.
          */
-        for (Iterator iter = accountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
 
             // check if the line was previousely generated benefit line, if so delete and skip
             if (line.isFringeBenefitIndicator()) {
                 if (line.isSourceAccountingLine()) {
                     budgetDocument.getSourceAccountingLines().remove(line);
-                }
-                else {
+                } else {
                     budgetDocument.getTargetAccountingLines().remove(line);
                 }
                 continue;
@@ -92,8 +91,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
             for (BudgetAdjustmentAccountingLine benefitLine : benefitLines) {
                 if (benefitLine.isSourceAccountingLine()) {
                     budgetDocument.addSourceAccountingLine((SourceAccountingLine) benefitLine);
-                }
-                else {
+                } else {
                     budgetDocument.addTargetAccountingLine((TargetAccountingLine) benefitLine);
                 }
             }
@@ -116,8 +114,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
                     BudgetAdjustmentAccountingLine benefitLine = null;
                     if (line.isSourceAccountingLine()) {
                         benefitLine = (BudgetAdjustmentAccountingLine) document.getSourceAccountingLineClass().newInstance();
-                    }
-                    else {
+                    } else {
                         benefitLine = (BudgetAdjustmentAccountingLine) document.getTargetAccountingLineClass().newInstance();
                     }
 
@@ -133,8 +130,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
                     // make sure the parameter exists
                     if (SpringContext.getBean(ParameterService.class).parameterExists(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE)) {
                         laborBenefitsRateCategoryCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE);
-                    }
-                    else {
+                    } else {
                         laborBenefitsRateCategoryCode = "";
                     }
                     // make sure the system parameter exists
@@ -148,8 +144,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
 
                             if (StringUtils.isBlank(line.getSubAccount().getSubAccountNumber())) {
                                 laborBenefitsRateCategoryCode = lookupAccount.getLaborBenefitRateCategoryCode();
-                            }
-                            else {
+                            } else {
                                 laborBenefitsRateCategoryCode = SpringContext.getBean(LaborModuleService.class).getBenefitRateCategoryCode(line.getChartOfAccountsCode(), line.getAccountNumber(), line.getSubAccount().getSubAccountNumber());
                             }
 
@@ -158,8 +153,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
                                 // make sure the parameter exists
                                 if (SpringContext.getBean(ParameterService.class).parameterExists(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE)) {
                                     laborBenefitsRateCategoryCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(Account.class, KFSParameterKeyConstants.LdParameterConstants.DEFAULT_BENEFIT_RATE_CATEGORY_CODE);
-                                }
-                                else {
+                                } else {
                                     laborBenefitsRateCategoryCode = "";
                                 }
                             }
@@ -175,8 +169,7 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
 
                     if (benefitsCalculation != null) {
                         LOG.info("Found benefits calculation for " + beneCalc);
-                    }
-                    else {
+                    } else {
                         LOG.info("Couldn't locate a benefits calculation for " + beneCalc);
                     }
                     if ((benefitsCalculation != null) && benefitsCalculation.isActive()) {
@@ -213,14 +206,12 @@ public class BudgetAdjustmentLaborBenefitsServiceImpl implements BudgetAdjustmen
                     }
                 }
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             // it's doubtful this catch block or the catch block below are ever accessible, as accounting lines should already have
             // been generated
             // for the document. But we can still make it somebody else's problem
             throw new RuntimeException(ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             // with some luck we'll pass the buck now sez some other dev "This sucks!" Get your Runtime on!
             // but really...we'll never make it this far. I promise.
             throw new RuntimeException(iae);

@@ -25,30 +25,29 @@ import org.kuali.kfs.vnd.fixture.VendorCommodityCodeFixture;
 public enum PurchaseOrderDocumentWithCommodityCodeFixture {
 
     PO_VALID_ACTIVE_COMMODITY_CODE(
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_ITEM_BASIC_ACTIVE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_ITEM_BASIC_ACTIVE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
     ),
     PO_VALID_INACTIVE_COMMODITY_CODE(
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_ITEM_BASIC_INACTIVE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_ITEM_BASIC_INACTIVE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
     ),
     PO_NON_EXISTENCE_COMMODITY_CODE(
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_ITEM_NON_EXISTENCE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_ITEM_NON_EXISTENCE_COMMODITY_CODE} // purchaseOrderItemMultiFixtures
     ),
     PO_VALID_ACTIVE_COMMODITY_CODE_WITH_VENDOR_COMMODITY_CODE(
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_ITEM_BASIC_ACTIVE_COMMODITY_CODE } , // purchaseOrderItemMultiFixtures
-            VendorCommodityCodeFixture.DEFAULT_VENDOR_COMMODITY_CODE_ACTIVE),
-    ;
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_ITEM_BASIC_ACTIVE_COMMODITY_CODE}, // purchaseOrderItemMultiFixtures
+        VendorCommodityCodeFixture.DEFAULT_VENDOR_COMMODITY_CODE_ACTIVE),;
 
     private PurchaseOrderItemFixture[] purchaseOrderItemFixtures;
     private VendorCommodityCodeFixture vendorCommodityCodeFixture;
 
     private PurchaseOrderDocumentWithCommodityCodeFixture(
-            PurchaseOrderItemFixture[] purchaseOrderItemFixtures) {
+        PurchaseOrderItemFixture[] purchaseOrderItemFixtures) {
         this.purchaseOrderItemFixtures = purchaseOrderItemFixtures;
     }
 
     private PurchaseOrderDocumentWithCommodityCodeFixture(
-            PurchaseOrderItemFixture[] purchaseOrderItemFixtures,
-            VendorCommodityCodeFixture vendorCommodityCodeFixture) {
+        PurchaseOrderItemFixture[] purchaseOrderItemFixtures,
+        VendorCommodityCodeFixture vendorCommodityCodeFixture) {
         this.purchaseOrderItemFixtures = purchaseOrderItemFixtures;
         this.vendorCommodityCodeFixture = vendorCommodityCodeFixture;
     }

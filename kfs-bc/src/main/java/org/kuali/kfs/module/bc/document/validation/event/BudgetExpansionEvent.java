@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
-import org.kuali.kfs.module.bc.document.validation.BudgetExpansionRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
+import org.kuali.kfs.module.bc.document.validation.BudgetExpansionRule;
 
 /**
  * Base class for expansion rule events.

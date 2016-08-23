@@ -24,33 +24,30 @@ import javax.servlet.jsp.JspException;
 
 /**
  * This is a description of what this class does - bhargavp don't forget to fill this in.
- *
- *
- *
  */
 public class KNSHiddenTag extends HiddenTag {
 
-	protected boolean renderHiddenField = true;
+    protected boolean renderHiddenField = true;
 
-	@Override
+    @Override
     public int doStartTag() throws JspException {
-		int returnVal = SKIP_BODY;
-		if(renderHiddenField)
-			returnVal = super.doStartTag();
-		return returnVal;
-	}
+        int returnVal = SKIP_BODY;
+        if (renderHiddenField)
+            returnVal = super.doStartTag();
+        return returnVal;
+    }
 
-	/**
-	 * @return the renderHiddenField
-	 */
-	public boolean isRenderHiddenField() {
-		return this.renderHiddenField;
-	}
+    /**
+     * @return the renderHiddenField
+     */
+    public boolean isRenderHiddenField() {
+        return this.renderHiddenField;
+    }
 
-	/**
-	 * @param renderHiddenField the renderHiddenField to set
-	 */
-	public void setRenderHiddenField(boolean renderHiddenField) {
-		this.renderHiddenField = renderHiddenField;
-	}
+    /**
+     * @param renderHiddenField the renderHiddenField to set
+     */
+    public void setRenderHiddenField(boolean renderHiddenField) {
+        this.renderHiddenField = renderHiddenField;
+    }
 }

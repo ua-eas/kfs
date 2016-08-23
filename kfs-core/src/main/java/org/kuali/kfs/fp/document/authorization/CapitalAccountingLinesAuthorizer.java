@@ -31,6 +31,7 @@ public interface CapitalAccountingLinesAuthorizer {
     /**
      * This method bypasses the capital accounting lines readOnly check in this class and
      * calls the super determineEditPermissionOnField
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField(org.kuali.kfs.sys.document.AccountingDocument, org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String, java.lang.String, boolean)
      */
     public boolean determineEditPermissionOnFieldBypassCapitalCheck(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage);

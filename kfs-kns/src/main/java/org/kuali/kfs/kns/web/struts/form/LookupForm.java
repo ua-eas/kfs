@@ -20,16 +20,16 @@ package org.kuali.kfs.kns.web.struts.form;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.rice.core.api.util.Truth;
-import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.util.Truth;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -69,67 +69,67 @@ public class LookupForm extends KualiForm {
     private String docNum;
     private String htmlDataType;
     private String lookupObjectId;
-	private boolean lookupCriteriaEnabled = true;
+    private boolean lookupCriteriaEnabled = true;
     private boolean supplementalActionsEnabled = false;
     private boolean actionUrlsExist = false;
     private boolean ddExtraButton = false;
-	private boolean headerBarEnabled = true;
-	private boolean disableSearchButtons = false;
+    private boolean headerBarEnabled = true;
+    private boolean disableSearchButtons = false;
     private String isAdvancedSearch;
 
     /**
      * @see KualiForm#addRequiredNonEditableProperties()
      */
-    public void addRequiredNonEditableProperties(){
-    	super.addRequiredNonEditableProperties();
-    	registerRequiredNonEditableProperty(KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME);
-    	registerRequiredNonEditableProperty(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
-    	registerRequiredNonEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
-    	registerRequiredNonEditableProperty(KRADConstants.DOC_FORM_KEY);
-    	registerRequiredNonEditableProperty(KRADConstants.REFRESH_CALLER);
-    	registerRequiredNonEditableProperty(KRADConstants.DOC_NUM);
-    	registerRequiredNonEditableProperty(KRADConstants.REFERENCES_TO_REFRESH);
-    	registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
-    	registerRequiredNonEditableProperty(KRADConstants.CONVERSION_FIELDS_PARAMETER);
-    	registerRequiredNonEditableProperty(KRADConstants.FIELDS_CONVERSION_PARAMETER);
-    	registerRequiredNonEditableProperty(KRADConstants.HIDE_LOOKUP_RETURN_LINK);
-    	registerRequiredNonEditableProperty(KRADConstants.MULTIPLE_VALUE);
-    	registerRequiredNonEditableProperty(KRADConstants.BACK_LOCATION);
-    	registerRequiredNonEditableProperty(KRADConstants.LOOKUP_ANCHOR);
-    	registerRequiredNonEditableProperty("searchUsingOnlyPrimaryKeyValues");
-    	registerRequiredNonEditableProperty(KRADConstants.MULTIPLE_VALUE_LOOKUP_PREVIOUSLY_SELECTED_OBJ_IDS_PARAM);
-    	registerRequiredNonEditableProperty(KRADConstants.TableRenderConstants.VIEWED_PAGE_NUMBER);
+    public void addRequiredNonEditableProperties() {
+        super.addRequiredNonEditableProperties();
+        registerRequiredNonEditableProperty(KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME);
+        registerRequiredNonEditableProperty(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
+        registerRequiredNonEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
+        registerRequiredNonEditableProperty(KRADConstants.DOC_FORM_KEY);
+        registerRequiredNonEditableProperty(KRADConstants.REFRESH_CALLER);
+        registerRequiredNonEditableProperty(KRADConstants.DOC_NUM);
+        registerRequiredNonEditableProperty(KRADConstants.REFERENCES_TO_REFRESH);
+        registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
+        registerRequiredNonEditableProperty(KRADConstants.CONVERSION_FIELDS_PARAMETER);
+        registerRequiredNonEditableProperty(KRADConstants.FIELDS_CONVERSION_PARAMETER);
+        registerRequiredNonEditableProperty(KRADConstants.HIDE_LOOKUP_RETURN_LINK);
+        registerRequiredNonEditableProperty(KRADConstants.MULTIPLE_VALUE);
+        registerRequiredNonEditableProperty(KRADConstants.BACK_LOCATION);
+        registerRequiredNonEditableProperty(KRADConstants.LOOKUP_ANCHOR);
+        registerRequiredNonEditableProperty("searchUsingOnlyPrimaryKeyValues");
+        registerRequiredNonEditableProperty(KRADConstants.MULTIPLE_VALUE_LOOKUP_PREVIOUSLY_SELECTED_OBJ_IDS_PARAM);
+        registerRequiredNonEditableProperty(KRADConstants.TableRenderConstants.VIEWED_PAGE_NUMBER);
     }
 
     /**
-	 * @return the htmlDataType
-	 */
-	public String getHtmlDataType() {
-		return this.htmlDataType;
-	}
+     * @return the htmlDataType
+     */
+    public String getHtmlDataType() {
+        return this.htmlDataType;
+    }
 
-	/**
-	 * @param htmlDataType the htmlDataType to set
-	 */
-	public void setHtmlDataType(String htmlDataType) {
-		this.htmlDataType = htmlDataType;
-	}
+    /**
+     * @param htmlDataType the htmlDataType to set
+     */
+    public void setHtmlDataType(String htmlDataType) {
+        this.htmlDataType = htmlDataType;
+    }
 
-	/**
-	 * @return the docNum
-	 */
-	public String getDocNum() {
-		return this.docNum;
-	}
+    /**
+     * @return the docNum
+     */
+    public String getDocNum() {
+        return this.docNum;
+    }
 
-	/**
-	 * @param docNum the docNum to set
-	 */
-	public void setDocNum(String docNum) {
-		this.docNum = docNum;
-	}
+    /**
+     * @param docNum the docNum to set
+     */
+    public void setDocNum(String docNum) {
+        this.docNum = docNum;
+    }
 
-	/**
+    /**
      * Whether the results contain at least one row that is returnable.
      */
     private boolean hasReturnableRow;
@@ -160,9 +160,9 @@ public class LookupForm extends KualiForm {
             if (StringUtils.isBlank(getParameter(request, KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME)) && StringUtils.isBlank(getLookupableImplServiceName())) {
                 // get the business object class for the lookup
                 String localBusinessObjectClassName = getParameter(request, KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
-                if ( ExternalizableBusinessObjectUtils.isExternalizableBusinessObjectInterface(localBusinessObjectClassName) ) {
-                	Class localBusinessObjectClass = Class.forName(localBusinessObjectClassName);
-                	localBusinessObjectClassName = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(localBusinessObjectClass).getExternalizableBusinessObjectImplementation(localBusinessObjectClass).getName();
+                if (ExternalizableBusinessObjectUtils.isExternalizableBusinessObjectInterface(localBusinessObjectClassName)) {
+                    Class localBusinessObjectClass = Class.forName(localBusinessObjectClassName);
+                    localBusinessObjectClassName = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(localBusinessObjectClass).getExternalizableBusinessObjectImplementation(localBusinessObjectClass).getName();
                 }
                 setBusinessObjectClassName(localBusinessObjectClassName);
                 if (StringUtils.isBlank(localBusinessObjectClassName)) {
@@ -186,7 +186,7 @@ public class LookupForm extends KualiForm {
                 throw new RuntimeException("Lookup impl not found for lookup impl name " + getLookupableImplServiceName());
             }
 
-			// set parameters on lookupable, add Advanced Search parameter
+            // set parameters on lookupable, add Advanced Search parameter
             Map<String, String[]> parameters = new TreeMap<String, String[]>();
             parameters.putAll(requestParameters);
             parameters.put(KRADConstants.ADVANCED_SEARCH_FIELD, new String[]{isAdvancedSearch});
@@ -204,14 +204,13 @@ public class LookupForm extends KualiForm {
             // check the doc form key is empty before setting so we don't override a restored lookup form
             if (request.getAttribute(KRADConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
                 setFormKey((String) request.getAttribute(KRADConstants.DOC_FORM_KEY));
-            }
-            else if (getParameter(request, KRADConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
+            } else if (getParameter(request, KRADConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
                 setFormKey(getParameter(request, KRADConstants.DOC_FORM_KEY));
             }
 
             if (getParameter(request, KRADConstants.DOC_NUM) != null) {
                 setDocNum(getParameter(request, KRADConstants.DOC_NUM));
-           }
+            }
 
             String returnLocation = getParameter(request, "returnLocation");
             if (StringUtils.isNotBlank(returnLocation)) {
@@ -223,8 +222,8 @@ public class LookupForm extends KualiForm {
                 setConversionFields(getParameter(request, "conversionFields"));
             }
             if (getParameter(request, KRADConstants.EXTRA_BUTTON_SOURCE) != null) {
-            	//these are not sourced from the DD/Lookupable
-            	ddExtraButton=false;
+                //these are not sourced from the DD/Lookupable
+                ddExtraButton = false;
                 setExtraButtonSource(getParameter(request, KRADConstants.EXTRA_BUTTON_SOURCE));
             }
             if (getParameter(request, KRADConstants.EXTRA_BUTTON_PARAMS) != null) {
@@ -234,8 +233,7 @@ public class LookupForm extends KualiForm {
             if (value != null) {
                 if ("YES".equals(value.toUpperCase())) {
                     setMultipleValues(true);
-                }
-                else {
+                } else {
                     setMultipleValues(new Boolean(getParameter(request, "multipleValues")).booleanValue());
                 }
             }
@@ -264,10 +262,10 @@ public class LookupForm extends KualiForm {
             Map<String, String> formFields = getFields();
             Class boClass = Class.forName(getBusinessObjectClassName());
 
-            for (Iterator iter = localLookupable.getRows().iterator(); iter.hasNext();) {
+            for (Iterator iter = localLookupable.getRows().iterator(); iter.hasNext(); ) {
                 Row row = (Row) iter.next();
 
-                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                     Field field = (Field) iterator.next();
 
                     // check whether form already has value for field
@@ -277,27 +275,27 @@ public class LookupForm extends KualiForm {
 
                     // override values with request
                     if (getParameter(request, field.getPropertyName()) != null) {
-                    	if(!Field.MULTI_VALUE_FIELD_TYPES.contains(field.getFieldType())) {
-                    		field.setPropertyValue(getParameter(request, field.getPropertyName()).trim());
-                    	} else {
-                    		//multi value, set to values
-                    		field.setPropertyValues(getParameterValues(request, field.getPropertyName()));
-                    	}
+                        if (!Field.MULTI_VALUE_FIELD_TYPES.contains(field.getFieldType())) {
+                            field.setPropertyValue(getParameter(request, field.getPropertyName()).trim());
+                        } else {
+                            //multi value, set to values
+                            field.setPropertyValues(getParameterValues(request, field.getPropertyName()));
+                        }
                     }
 
-            		field.setPropertyValue(org.kuali.kfs.krad.lookup.LookupUtils
-                            .forceUppercase(boClass, field.getPropertyName(), field.getPropertyValue()));
-                	fieldValues.put(field.getPropertyName(), field.getPropertyValue());
-                	//LOG.info("field name/value added was: " + field.getPropertyName() + field.getPropertyValue());
-                	localLookupable.applyFieldAuthorizationsFromNestedLookups(field);
+                    field.setPropertyValue(org.kuali.kfs.krad.lookup.LookupUtils
+                        .forceUppercase(boClass, field.getPropertyName(), field.getPropertyValue()));
+                    fieldValues.put(field.getPropertyName(), field.getPropertyValue());
+                    //LOG.info("field name/value added was: " + field.getPropertyName() + field.getPropertyValue());
+                    localLookupable.applyFieldAuthorizationsFromNestedLookups(field);
                 }
             }
 
             if (localLookupable.checkForAdditionalFields(fieldValues)) {
-                for (Iterator iter = localLookupable.getRows().iterator(); iter.hasNext();) {
+                for (Iterator iter = localLookupable.getRows().iterator(); iter.hasNext(); ) {
                     Row row = (Row) iter.next();
 
-                    for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+                    for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                         Field field = (Field) iterator.next();
 
                         // check whether form already has value for field
@@ -307,12 +305,12 @@ public class LookupForm extends KualiForm {
 
                         // override values with request
                         if (getParameter(request, field.getPropertyName()) != null) {
-                        	if(!Field.MULTI_VALUE_FIELD_TYPES.contains(field.getFieldType())) {
-                        		field.setPropertyValue(getParameter(request, field.getPropertyName()).trim());
-                        	} else {
-                        		//multi value, set to values
-                        		field.setPropertyValues(getParameterValues(request, field.getPropertyName()));
-                        	}
+                            if (!Field.MULTI_VALUE_FIELD_TYPES.contains(field.getFieldType())) {
+                                field.setPropertyValue(getParameter(request, field.getPropertyName()).trim());
+                            } else {
+                                //multi value, set to values
+                                field.setPropertyValues(getParameterValues(request, field.getPropertyName()));
+                            }
                         }
                         fieldValues.put(field.getPropertyName(), field.getPropertyValue());
                     }
@@ -321,8 +319,8 @@ public class LookupForm extends KualiForm {
             }
             fieldValues.put(KRADConstants.DOC_FORM_KEY, this.getFormKey());
             fieldValues.put(KRADConstants.BACK_LOCATION, this.getBackLocation());
-            if(this.getDocNum() != null){
-            	fieldValues.put(KRADConstants.DOC_NUM, this.getDocNum());
+            if (this.getDocNum() != null) {
+                fieldValues.put(KRADConstants.DOC_NUM, this.getDocNum());
             }
             if (StringUtils.isNotBlank(getReferencesToRefresh())) {
                 fieldValues.put(KRADConstants.REFERENCES_TO_REFRESH, this.getReferencesToRefresh());
@@ -332,27 +330,26 @@ public class LookupForm extends KualiForm {
 
             setFieldConversions(LookupUtils.translateFieldConversions(this.conversionFields));
             localLookupable.setFieldConversions(getFieldConversions());
-            if(StringUtils.isNotEmpty(localLookupable.getExtraButtonSource())) {
-            	setExtraButtonSource(localLookupable.getExtraButtonSource());
-            	//also set the boolean so the jsp can use an action button
-            	ddExtraButton=true;
+            if (StringUtils.isNotEmpty(localLookupable.getExtraButtonSource())) {
+                setExtraButtonSource(localLookupable.getExtraButtonSource());
+                //also set the boolean so the jsp can use an action button
+                ddExtraButton = true;
             }
-            if(StringUtils.isNotEmpty(localLookupable.getExtraButtonParams())) {
-            	setExtraButtonParams(localLookupable.getExtraButtonParams());
+            if (StringUtils.isNotEmpty(localLookupable.getExtraButtonParams())) {
+                setExtraButtonParams(localLookupable.getExtraButtonParams());
             }
             setLookupable(localLookupable);
             setFieldsForLookup(fieldValues);
 
             // if showMaintenanceLinks is not already true, only show maintenance links if the lookup was called from the portal (or index.html for the generated applications)
             if (!isShowMaintenanceLinks()) {
-            	if (StringUtils.contains(getBackLocation(), "/"+ KRADConstants.PORTAL_ACTION)
-            			|| StringUtils.contains(getBackLocation(), "/index.html")
-                        || StringUtils.contains(getBackLocation(), "/index.jsp")) {
-            		showMaintenanceLinks = true;
-            	}
+                if (StringUtils.contains(getBackLocation(), "/" + KRADConstants.PORTAL_ACTION)
+                    || StringUtils.contains(getBackLocation(), "/index.html")
+                    || StringUtils.contains(getBackLocation(), "/index.jsp")) {
+                    showMaintenanceLinks = true;
+                }
             }
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             LOG.error("Business Object class " + getBusinessObjectClassName() + " not found");
             throw new RuntimeException("Business Object class " + getBusinessObjectClassName() + " not found", e);
         }
@@ -499,7 +496,7 @@ public class LookupForm extends KualiForm {
 
     // TODO: remove these once DD changes have been made
     public void setExtraButtonParams(String extraButtonParams) {
-        extraButtons.get(0).setExtraButtonParams( extraButtonParams );
+        extraButtons.get(0).setExtraButtonParams(extraButtonParams);
     }
 
     // TODO: remove these once DD changes have been made
@@ -509,12 +506,11 @@ public class LookupForm extends KualiForm {
 
     // TODO: remove these once DD changes have been made
     public void setExtraButtonSource(String extraButtonSource) {
-        extraButtons.get(0).setExtraButtonSource( extraButtonSource );
+        extraButtons.get(0).setExtraButtonSource(extraButtonSource);
     }
 
 
     /**
-     *
      * @return whether this form returns multiple values
      */
     public boolean isMultipleValues() {
@@ -522,7 +518,6 @@ public class LookupForm extends KualiForm {
     }
 
     /**
-     *
      * @param multipleValues - specify whether this form returns multiple values (i.e. a Collection)
      */
     public void setMultipleValues(boolean multipleValues) {
@@ -539,6 +534,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Gets the fieldsForLookup attribute.
+     *
      * @return Returns the fieldsForLookup.
      */
     public Map getFieldsForLookup() {
@@ -547,6 +543,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Sets the fieldsForLookup attribute value.
+     *
      * @param fieldsForLookup The fieldsForLookup to set.
      */
     public void setFieldsForLookup(Map fieldsForLookup) {
@@ -555,6 +552,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Gets the readOnlyFields attribute.
+     *
      * @return Returns the readOnlyFields.
      */
     public String getReadOnlyFields() {
@@ -563,6 +561,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Sets the readOnlyFields attribute value.
+     *
      * @param readOnlyFields The readOnlyFields to set.
      */
     public void setReadOnlyFields(String readOnlyFields) {
@@ -571,6 +570,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Gets the readOnlyFieldsList attribute.
+     *
      * @return Returns the readOnlyFieldsList.
      */
     public List getReadOnlyFieldsList() {
@@ -579,6 +579,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Sets the readOnlyFieldsList attribute value.
+     *
      * @param readOnlyFieldsList The readOnlyFieldsList to set.
      */
     public void setReadOnlyFieldsList(List readOnlyFieldsList) {
@@ -611,6 +612,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Gets the showMaintenanceLinks attribute.
+     *
      * @return Returns the showMaintenanceLinks.
      */
     public boolean isShowMaintenanceLinks() {
@@ -619,6 +621,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Sets the showMaintenanceLinks attribute value.
+     *
      * @param showMaintenanceLinks The showMaintenanceLinks to set.
      */
     public void setShowMaintenanceLinks(boolean showMaintenanceLinks) {
@@ -643,96 +646,96 @@ public class LookupForm extends KualiForm {
         this.hasReturnableRow = hasReturnableRow;
     }
 
-	/**
-	 * @return the lookupObjectId
-	 */
-	public String getLookupObjectId() {
-		return this.lookupObjectId;
-	}
+    /**
+     * @return the lookupObjectId
+     */
+    public String getLookupObjectId() {
+        return this.lookupObjectId;
+    }
 
-	/**
-	 * @param lookupObjectId the lookupObjectId to set
-	 */
-	public void setLookupObjectId(String lookupObjectId) {
-		this.lookupObjectId = lookupObjectId;
-	}
+    /**
+     * @param lookupObjectId the lookupObjectId to set
+     */
+    public void setLookupObjectId(String lookupObjectId) {
+        this.lookupObjectId = lookupObjectId;
+    }
 
-	/**
-	 * @return the lookupCriteriaEnabled
-	 */
-	public boolean isLookupCriteriaEnabled() {
-		return this.lookupCriteriaEnabled;
-	}
+    /**
+     * @return the lookupCriteriaEnabled
+     */
+    public boolean isLookupCriteriaEnabled() {
+        return this.lookupCriteriaEnabled;
+    }
 
-	/**
-	 * @param lookupCriteriaEnabled the lookupCriteriaEnabled to set
-	 */
-	public void setLookupCriteriaEnabled(boolean lookupCriteriaEnabled) {
-		this.lookupCriteriaEnabled = lookupCriteriaEnabled;
-	}
+    /**
+     * @param lookupCriteriaEnabled the lookupCriteriaEnabled to set
+     */
+    public void setLookupCriteriaEnabled(boolean lookupCriteriaEnabled) {
+        this.lookupCriteriaEnabled = lookupCriteriaEnabled;
+    }
 
-	/**
-	 * @return the supplementalActionsEnabled
-	 */
-	public boolean isSupplementalActionsEnabled() {
-		return this.supplementalActionsEnabled;
-	}
+    /**
+     * @return the supplementalActionsEnabled
+     */
+    public boolean isSupplementalActionsEnabled() {
+        return this.supplementalActionsEnabled;
+    }
 
-	/**
-	 * @param supplementalActionsEnabled the supplementalActionsEnabled to set
-	 */
-	public void setSupplementalActionsEnabled(boolean supplementalActionsEnabled) {
-		this.supplementalActionsEnabled = supplementalActionsEnabled;
-	}
+    /**
+     * @param supplementalActionsEnabled the supplementalActionsEnabled to set
+     */
+    public void setSupplementalActionsEnabled(boolean supplementalActionsEnabled) {
+        this.supplementalActionsEnabled = supplementalActionsEnabled;
+    }
 
 
-	/**
-	 * @param actionUrlsExist the actionUrlsExist to set
-	 */
-	public void setActionUrlsExist(boolean actionUrlsExist) {
-		this.actionUrlsExist = actionUrlsExist;
-	}
+    /**
+     * @param actionUrlsExist the actionUrlsExist to set
+     */
+    public void setActionUrlsExist(boolean actionUrlsExist) {
+        this.actionUrlsExist = actionUrlsExist;
+    }
 
-	/**
-	 * @return the actionUrlsExist
-	 */
-	public boolean isActionUrlsExist() {
-		return actionUrlsExist;
-	}
+    /**
+     * @return the actionUrlsExist
+     */
+    public boolean isActionUrlsExist() {
+        return actionUrlsExist;
+    }
 
-	/**
-	 * @return the ddExtraButton
-	 */
-	public boolean isDdExtraButton() {
-		return this.ddExtraButton;
-	}
+    /**
+     * @return the ddExtraButton
+     */
+    public boolean isDdExtraButton() {
+        return this.ddExtraButton;
+    }
 
-	/**
-	 * @param ddExtraButton the ddExtraButton to set
-	 */
-	public void setDdExtraButton(boolean ddExtraButton) {
-		this.ddExtraButton = ddExtraButton;
-	}
+    /**
+     * @param ddExtraButton the ddExtraButton to set
+     */
+    public void setDdExtraButton(boolean ddExtraButton) {
+        this.ddExtraButton = ddExtraButton;
+    }
 
-	public boolean isHeaderBarEnabled() {
-		return headerBarEnabled;
-	}
+    public boolean isHeaderBarEnabled() {
+        return headerBarEnabled;
+    }
 
-	public void setHeaderBarEnabled(boolean headerBarEnabled) {
-		this.headerBarEnabled = headerBarEnabled;
-	}
+    public void setHeaderBarEnabled(boolean headerBarEnabled) {
+        this.headerBarEnabled = headerBarEnabled;
+    }
 
-	public boolean isDisableSearchButtons() {
-		return this.disableSearchButtons;
-	}
+    public boolean isDisableSearchButtons() {
+        return this.disableSearchButtons;
+    }
 
-	public void setDisableSearchButtons(boolean disableSearchButtons) {
-		this.disableSearchButtons = disableSearchButtons;
-	}
+    public void setDisableSearchButtons(boolean disableSearchButtons) {
+        this.disableSearchButtons = disableSearchButtons;
+    }
 
     /**
      * Retrieves the String value for the isAdvancedSearch property.
-     *
+     * <p>
      * <p>
      * The isAdvancedSearch property is also used as a http request parameter. The property name must
      * match <code>KRADConstants.ADVANCED_SEARCH_FIELD</code> for the button setup and javascript toggling of the value
@@ -754,21 +757,21 @@ public class LookupForm extends KualiForm {
         this.isAdvancedSearch = advancedSearch;
     }
 
-	/**
-	 * Determines whether the search/clear buttons should be rendering based on the form property
-	 * and what is configured in the data dictionary for the lookup
-	 *
-	 * @return boolean true if the buttons should be rendered, false if they should not be
-	 */
-	public boolean getRenderSearchButtons() {
-		boolean renderSearchButtons = true;
+    /**
+     * Determines whether the search/clear buttons should be rendering based on the form property
+     * and what is configured in the data dictionary for the lookup
+     *
+     * @return boolean true if the buttons should be rendered, false if they should not be
+     */
+    public boolean getRenderSearchButtons() {
+        boolean renderSearchButtons = true;
 
-		if (disableSearchButtons
-				|| KNSServiceLocator.getBusinessObjectDictionaryService().disableSearchButtonsInLookup(
-						getLookupable().getBusinessObjectClass())) {
-			renderSearchButtons = false;
-		}
+        if (disableSearchButtons
+            || KNSServiceLocator.getBusinessObjectDictionaryService().disableSearchButtonsInLookup(
+            getLookupable().getBusinessObjectClass())) {
+            renderSearchButtons = false;
+        }
 
-		return renderSearchButtons;
-	}
+        return renderSearchButtons;
+    }
 }

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.bc;
 
+import org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionRequestImportAction;
+import org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeAction;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSConstants.ParameterValues;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionRequestImportAction;
-import org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeAction;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 
 public class BCConstants {
     public static final String BUDGET_CONSTRUCTION_NAMESPACE = "KFS-BC";
@@ -227,18 +227,18 @@ public class BCConstants {
 
     private static ArrayList<String[]> buildMonthlyProperties() {
         ArrayList<String[]> monthlyProperties = new ArrayList<String[]>(12);
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_1_LINE_AMOUNT, KFSConstants.MONTH1 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_2_LINE_AMOUNT, KFSConstants.MONTH2 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_3_LINE_AMOUNT, KFSConstants.MONTH3 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_4_LINE_AMOUNT, KFSConstants.MONTH4 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_5_LINE_AMOUNT, KFSConstants.MONTH5 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_6_LINE_AMOUNT, KFSConstants.MONTH6 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_7_LINE_AMOUNT, KFSConstants.MONTH7 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_8_LINE_AMOUNT, KFSConstants.MONTH8 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_9_LINE_AMOUNT, KFSConstants.MONTH9 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_10_LINE_AMOUNT, KFSConstants.MONTH10 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_11_LINE_AMOUNT, KFSConstants.MONTH11 }));
-        monthlyProperties.add((new String[] { KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_12_LINE_AMOUNT, KFSConstants.MONTH12 }));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_1_LINE_AMOUNT, KFSConstants.MONTH1}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_2_LINE_AMOUNT, KFSConstants.MONTH2}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_3_LINE_AMOUNT, KFSConstants.MONTH3}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_4_LINE_AMOUNT, KFSConstants.MONTH4}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_5_LINE_AMOUNT, KFSConstants.MONTH5}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_6_LINE_AMOUNT, KFSConstants.MONTH6}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_7_LINE_AMOUNT, KFSConstants.MONTH7}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_8_LINE_AMOUNT, KFSConstants.MONTH8}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_9_LINE_AMOUNT, KFSConstants.MONTH9}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_10_LINE_AMOUNT, KFSConstants.MONTH10}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_11_LINE_AMOUNT, KFSConstants.MONTH11}));
+        monthlyProperties.add((new String[]{KFSPropertyConstants.FINANCIAL_DOCUMENT_MONTH_12_LINE_AMOUNT, KFSConstants.MONTH12}));
         return monthlyProperties;
     }
 
@@ -321,7 +321,7 @@ public class BCConstants {
     }
 
     public final static String BC_BO_CLASSPATH = "org.kuali.kfs.module.bc.businessobject";
-    public final static String REQUEST_BENEFITS_BO = BC_BO_CLASSPATH+".RequestBenefits";
+    public final static String REQUEST_BENEFITS_BO = BC_BO_CLASSPATH + ".RequestBenefits";
 
     public enum RequestImportFileType {
         MONTHLY("MONTHLY"), ANNUAL("ANNUAL");
@@ -379,7 +379,7 @@ public class BCConstants {
     // budget construction request move data validation error codes
     public enum RequestImportErrorCode {
         DATA_VALIDATION_NO_BUDGETED_ACCOUNT_SUB_ACCOUNT_ERROR_CODE("ACSA", "Error: No budgeted account/sub-account found"), DATA_VALIDATION_ACCOUNT_CLOSED_ERROR_CODE("CLAC", "Error: Account is closed"), DATA_VALIDATION_ACCOUNT_EXPIRED_ERROR_CODE("EXAC", "Error: Account is expired"), DATA_VALIDATION_SUB_ACCOUNT_INVALID_ERROR_CODE("NOSA", "Error: Sub-account is invalid"), DATA_VALIDATION_SUB_ACCOUNT_INACTIVE_ERROR_CODE("INSA", "Error: Sub-account is inactive"), DATA_VALIDATION_OBJECT_TYPE_NULL_ERROR_CODE("NOOB", "Error: Null object code"), DATA_VALIDATION_OBJECT_TYPE_INVALID_ERROR_CODE("NOOB", "Error: Invalid object code"), DATA_VALIDATION_OBJECT_CODE_INACTIVE_ERROR_CODE("INOB", "Error: Inactive object code"), DATA_VALIDATION_SUB_OBJECT_INACTIVE_ERROR_CODE("INSO", "Error: Inactive sub-object code"), DATA_VALIDATION_SUB_OBJECT_INVALID_ERROR_CODE("NOSO", "Error: Invalid sub-object code"), DATA_VALIDATION_NO_WAGE_ACCOUNT_ERROR_CODE("CMPA", "Error: Wage object in no wages account"), DATA_VALIDATION_COMPENSATION_OBJECT_CODE_ERROR_CODE("COMP", "Error: Compensation object code"), UPDATE_ERROR_CODE_MONTHLY_BUDGET_DELETED(
-                "MNTH", "Warning: Monthly budget deleted"), UPDATE_ERROR_CODE_BUDGET_ACCOUNT_LOCKED("LOCK", "Error: Budgeted account locked"), UPDATE_ERROR_CODE_NO_ACCESS_TO_BUDGET_ACCOUNT("ACCE", "Error: No update access to budgeted account");
+            "MNTH", "Warning: Monthly budget deleted"), UPDATE_ERROR_CODE_BUDGET_ACCOUNT_LOCKED("LOCK", "Error: Budgeted account locked"), UPDATE_ERROR_CODE_NO_ACCESS_TO_BUDGET_ACCOUNT("ACCE", "Error: No update access to budgeted account");
 
         private String errorCode;
         private String message;
@@ -441,7 +441,6 @@ public class BCConstants {
     public static final String REFRESH_INCUMBENT_BUTTON_NAME = "tinybutton-sync.gif";
     public static final String MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING = "organizationSalarySettingReturning";
     public static final String MAPPING_LOST_SESSION_RETURNING = "lostSessionReturning";
-
 
 
     public enum LockStatus {
@@ -509,10 +508,9 @@ public class BCConstants {
     public final static Integer AVERAGE_REPORTING_TREE_SIZE = 4;
 
     /**
-     *  value indicating that a CSF row is Active
+     * value indicating that a CSF row is Active
      */
     public final static String ACTIVE_CSF_DELETE_CODE = "-";
-
 
 
     /**
@@ -531,6 +529,7 @@ public class BCConstants {
 
         /**
          * Gets the durationCode attribute.
+         *
          * @return Returns the durationCode.
          */
         public String getDurationCode() {
@@ -539,6 +538,7 @@ public class BCConstants {
 
         /**
          * Gets the durationDescription attribute.
+         *
          * @return Returns the durationDescription.
          */
         public String getDurationDescription() {

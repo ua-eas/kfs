@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.workflow;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -39,7 +35,11 @@ import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValue;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValues;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomizer {
 
@@ -56,7 +56,7 @@ public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomize
         List<DocumentSearchResultValue.Builder> customResultValueBuilders = new ArrayList<DocumentSearchResultValue.Builder>();
 
         boolean isAuthorizedToViewPurapDocId = false;
-        if ( defaultResults.size() > 0 ) {
+        if (defaultResults.size() > 0) {
             for (DocumentAttribute documentAttribute : defaultResults.get(0).getDocumentAttributes()) {
                 if (KFSPropertyConstants.PURAP_DOC_ID.equals(documentAttribute.getName())) {
                     isAuthorizedToViewPurapDocId = isAuthorizedToViewPurapDocId(documentSearchCriteria.getDocSearchUserId());
@@ -69,7 +69,7 @@ public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomize
 
             for (DocumentAttribute documentAttribute : result.getDocumentAttributes()) {
                 if (KFSPropertyConstants.PURAP_DOC_ID.equals(documentAttribute.getName())) {
-                    if (!isAuthorizedToViewPurapDocId && !document.getStatus().getCategory().equals(DocumentStatusCategory.SUCCESSFUL) ) {
+                    if (!isAuthorizedToViewPurapDocId && !document.getStatus().getCategory().equals(DocumentStatusCategory.SUCCESSFUL)) {
                         DocumentAttributeString.Builder builder = DocumentAttributeString.Builder.create(KFSPropertyConstants.PURAP_DOC_ID);
                         builder.setValue("********");
                         custAttrBuilders.add(builder);
@@ -90,7 +90,7 @@ public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomize
     public boolean isCustomizeResultsEnabled(String documentTypeName) {
         // do not mask the purapDocumentIdentifier field if the document is not PO or POSP..
         if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_DOCUMENT.equalsIgnoreCase(documentTypeName)
-                || PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_SPLIT_DOCUMENT.equalsIgnoreCase(documentTypeName)) {
+            || PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_SPLIT_DOCUMENT.equalsIgnoreCase(documentTypeName)) {
             return true;
         }
         return super.isCustomizeResultsEnabled(documentTypeName);
@@ -103,7 +103,7 @@ public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomize
             return false;
         }
 
-      //  String principalId = GlobalVariables.getUserSession().getPerson().getPrincipalId();
+        //  String principalId = GlobalVariables.getUserSession().getPerson().getPrincipalId();
         String namespaceCode = KFSConstants.CoreModuleNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.FULL_UNMASK_FIELD;
 

@@ -31,9 +31,9 @@ public interface BatchMaintenanceDao {
     /**
      * This method checks if all payments in this batch have open status.
      *
-     * @param batchId the batch id
+     * @param batchId       the batch id
      * @param batchPayments a list of payments for the given batch
-     * @param statusList a list of payment statuses
+     * @param statusList    a list of payment statuses
      * @return true if all payments have open status, false otherwise
      */
     public boolean doBatchPaymentsHaveOpenStatus(Integer batchId, List batchPayments, List statusList);
@@ -43,7 +43,7 @@ public interface BatchMaintenanceDao {
      *
      * @param batchId
      * @param batchPayments a list of payments for the given batch
-     * @param statusList a list of payment statuses
+     * @param statusList    a list of payment statuses
      * @return true if all payments have held status, false otherwise
      */
     public boolean doBatchPaymentsHaveHeldStatus(Integer batchId, List batchPayments, List statusList);

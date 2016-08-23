@@ -38,7 +38,8 @@
   directive.  If you wish to process the actual exception that caused the
   problem, it is passed to the error page as a request attribute under key
   ]]>
-        org.apache.struts.action.EXCEPTION.</description>
+        org.apache.struts.action.EXCEPTION.
+    </description>
     <tag>
         <name>base</name>
         <tag-class>org.apache.strutsel.taglib.html.ELBaseTag</tag-class>
@@ -5533,7 +5534,7 @@
     <tag>
         <name>param</name>
         <tag-class>org.apache.strutsel.taglib.html.ELParamTag</tag-class>
-                <description>
+        <description>
             <![CDATA[
                 <p>Adds a parameter to the following tags:
                     <ol>
@@ -5546,7 +5547,7 @@
                     <dl><dt><b>Since:</b></dt>
                     <dd>Struts 1.3.6</dd></dl>
                 ]]>
-                </description>
+        </description>
         <attribute>
             <name>name</name>
             <required>true</required>

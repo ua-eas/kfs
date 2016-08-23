@@ -21,7 +21,7 @@ package org.kuali.kfs.module.bc.document.dataaccess;
 public interface BudgetConstructionLevelSummaryReportDao {
 
     /**
-     *  cleans Level Summary table.
+     * cleans Level Summary table.
      *
      * @param principalName--the user requesting the report
      * @return
@@ -29,11 +29,11 @@ public interface BudgetConstructionLevelSummaryReportDao {
     public void cleanReportsLevelSummaryTable(String principalName);
 
     /**
-     *  updates Level Summary table.
+     * updates Level Summary table.
      *
      * @param principalName--the user requesting the report
-     * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
+     * @param expenditureINList  a SQL IN list containing the budget construction expenditure object types
+     * @param revenueINList      a SQL IN list containing the budget construction revenue object types
      */
     public void updateReportsLevelSummaryTable(String principalName, String expenditureINList, String revenueINList);
 

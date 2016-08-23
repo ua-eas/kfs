@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.text.MessageFormat;
-
 import org.kuali.kfs.fp.document.NonCheckDisbursementDocument;
 import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
@@ -29,8 +29,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
+
+import java.text.MessageFormat;
 
 /**
  * Performs warning checks and prompts for NonCheckDisbursement.
@@ -61,13 +61,13 @@ public class NonCheckDisbursementDocumentPreRules extends PromptBeforeValidation
         BankService bankService = SpringContext.getBean(BankService.class);
 
         // if bank specification is not enabled, no need to validate bank
-        if ( bankService.isBankSpecificationEnabled() ) {
+        if (bankService.isBankSpecificationEnabled()) {
             Bank bank = bankService.getByPrimaryId(nonCheckDocument.getFinancialDocumentBankCode());
 
             // if bank is inactive and continuation is active, prompt user to use continuation bank
-            if ( bank != null  && !bank.isActive() ) {
+            if (bank != null && !bank.isActive()) {
                 Bank continuationBank = bankService.getByPrimaryId(bank.getContinuationBankCode());
-                if ( continuationBank != null && continuationBank.isActive() ) {
+                if (continuationBank != null && continuationBank.isActive()) {
                     String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.QUESTION_BANK_INACTIVE);
                     questionText = MessageFormat.format(questionText, bank.getBankCode(), continuationBank.getBankCode());
 

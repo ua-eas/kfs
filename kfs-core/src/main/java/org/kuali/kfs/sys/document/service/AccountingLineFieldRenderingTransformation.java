@@ -18,22 +18,23 @@
  */
 package org.kuali.kfs.sys.document.service;
 
-import java.util.Map;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+
+import java.util.Map;
 
 /**
  * An interface that represents a transformation on a single field; they can be grouped
  * together and run at one time by FieldChangingAccountingLineRenderTransformImpl.
  */
 public interface AccountingLineFieldRenderingTransformation {
-   /**
+    /**
      * Performs a transformation on the field
-     * @param accountingLine the accounting line that is being rendered
-     * @param field the field to transform
-     * @param fieldDefinition the accounting line definition of the accounting line being rendered
+     *
+     * @param accountingLine    the accounting line that is being rendered
+     * @param field             the field to transform
+     * @param fieldDefinition   the accounting line definition of the accounting line being rendered
      * @param unconvertedValues a map of unconverted values
      */
     public abstract void transformField(AccountingLine accountingLine, Field field, MaintainableFieldDefinition fieldDefinition, Map unconvertedValues);

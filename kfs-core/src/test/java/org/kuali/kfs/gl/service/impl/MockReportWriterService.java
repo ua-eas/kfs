@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.DocumentNumberAwareReportWriterService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
 
 /**
  * A class which pretends to be a good report writer service, but really does nothing

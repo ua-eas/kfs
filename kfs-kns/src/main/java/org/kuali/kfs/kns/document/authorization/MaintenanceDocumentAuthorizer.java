@@ -23,7 +23,7 @@ import org.kuali.kfs.kns.bo.authorization.InquiryOrMaintenanceDocumentAuthorizer
 import java.util.Set;
 
 public interface MaintenanceDocumentAuthorizer extends InquiryOrMaintenanceDocumentAuthorizer,
-        org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer {
+    org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer {
 
-	public Set<String> getSecurePotentiallyReadOnlySectionIds();
+    public Set<String> getSecurePotentiallyReadOnlySectionIds();
 }

@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.IcrEncumbranceService;
 import org.kuali.kfs.gl.dataaccess.IcrEncumbranceDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Transactional
@@ -61,11 +61,11 @@ public class IcrEncumbranceServiceImpl implements IcrEncumbranceService {
         String costShareSubAccountType = KFSConstants.SubAccountType.COST_SHARE;
 
         //Get ICR Cost Types to exclude
-        Collection<String> icrCostTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.INDIRECT_COST_TYPES_PARAMETER) );
+        Collection<String> icrCostTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.INDIRECT_COST_TYPES_PARAMETER));
 
         //Get ICR Encumbrance Origination Code and Balance Types
         String icrEncumbOriginCode = parameterService.getParameterValueAsString(KFSConstants.CoreModuleNamespaces.GL, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_FEED_PARM_TYP, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_ORIGIN_CODE_PARM_NM);
-        Collection<String> icrEncumbBalanceTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(KFSConstants.CoreModuleNamespaces.GL, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_FEED_PARM_TYP, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_BALANCE_TYPE_PARM_NM) );
+        Collection<String> icrEncumbBalanceTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(KFSConstants.CoreModuleNamespaces.GL, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_FEED_PARM_TYP, GeneralLedgerConstants.PosterService.ICR_ENCUMBRANCE_BALANCE_TYPE_PARM_NM));
         if (StringUtils.isBlank(icrEncumbOriginCode) || icrEncumbBalanceTypes.isEmpty()) {
             throw new RuntimeException("ICR Encumbrance Origin Code or Balance Types parameter was blank, cannot create encumbrances without the configured Origin Code and Balance Types");
         }
@@ -77,21 +77,18 @@ public class IcrEncumbranceServiceImpl implements IcrEncumbranceService {
             BufferedWriter fw = new BufferedWriter(new FileWriter(encumbranceFeedFile));
             try {
                 icrEncumbranceDao.buildIcrEncumbranceFeed(currentFiscalYear, currentFiscalPeriod, icrEncumbOriginCode, icrEncumbBalanceTypes, icrCostTypes, expenseObjectTypes, costShareSubAccountType, fw);
-            }
-            finally {
+            } finally {
                 if (fw != null) {
                     fw.flush();
                     fw.close();
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             try {
                 if (encumbranceFeedFile != null) {
                     encumbranceFeedFile.delete();
                 }
-            }
-            catch (Exception ee) {
+            } catch (Exception ee) {
                 LOG.error("Failed to delete even though process failed" + encumbranceFeedFile);
             }
             throw new RuntimeException("Error, see the stack trace.", ex);

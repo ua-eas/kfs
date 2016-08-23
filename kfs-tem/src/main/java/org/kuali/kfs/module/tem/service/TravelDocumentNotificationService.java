@@ -29,7 +29,7 @@ public interface TravelDocumentNotificationService {
     /**
      * send notification when the status of the given travel document is changed
      *
-     * @param travelDocument the given travel document
+     * @param travelDocument  the given travel document
      * @param statusChangeDTO the given document status change
      */
     void sendNotificationOnChange(TravelDocument travelDocument, DocumentRouteStatusChange statusChangeDTO);

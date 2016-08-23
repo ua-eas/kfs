@@ -19,31 +19,24 @@
 package org.kuali.kfs.module.tem.batch;
 
 
-
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.TemProfileExportService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class TemProfileExportStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TemProfileExportStep.class);
     protected TemProfileExportService temProfileExportService;
 
-	@Override
-	public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
-	    temProfileExportService.exportProfile();
-		return false;
-	}
+    @Override
+    public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
+        temProfileExportService.exportProfile();
+        return false;
+    }
 
     public void setTemProfileExportService(TemProfileExportService temProfileExportService) {
         this.temProfileExportService = temProfileExportService;
     }
-
-
-
-
-
-
 
 
 }

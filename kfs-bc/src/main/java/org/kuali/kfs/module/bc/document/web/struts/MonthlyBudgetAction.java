@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
@@ -42,11 +41,11 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MonthlyBudgetAction extends BudgetExpansionAction {
@@ -56,7 +55,7 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
      * added for testing - remove if not needed
      *
      * @see org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -124,8 +123,7 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
             budgetConstructionMonthly.setFinancialObjectTypeCode(monthlyBudgetForm.getFinancialObjectTypeCode());
             budgetConstructionMonthly.refreshReferenceObject("pendingBudgetConstructionGeneralLedger");
             monthlyBudgetForm.setMonthlyPersisted(false);
-        }
-        else {
+        } else {
             monthlyBudgetForm.setMonthlyPersisted(true);
         }
         monthlyBudgetForm.setBudgetConstructionMonthly(budgetConstructionMonthly);
@@ -161,20 +159,19 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
             // or this is a non-salary detail line and overriding any difference needs to be confirmed
             KualiInteger monthTotalAmount = budgetConstructionMonthly.getFinancialDocumentMonthTotalLineAmount();
             KualiInteger pbglRequestAmount = budgetConstructionMonthly.getPendingBudgetConstructionGeneralLedger().getAccountLineAnnualBalanceAmount();
-            if (!monthTotalAmount.equals(pbglRequestAmount)){
+            if (!monthTotalAmount.equals(pbglRequestAmount)) {
 
                 // total is different than annual
                 Object question = request.getParameter(KFSConstants.QUESTION_INST_ATTRIBUTE_NAME);
                 ConfigurationService kualiConfiguration = SpringContext.getBean(ConfigurationService.class);
-                if (question == null || !(KFSConstants.CONFIRMATION_QUESTION.equals(question))){
+                if (question == null || !(KFSConstants.CONFIRMATION_QUESTION.equals(question))) {
                     // ask question if not already asked
                     String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(BCKeyConstants.QUESTION_CONFIRM_MONTHLY_OVERRIDE);
                     questionText = StringUtils.replace(questionText, "{0}", pbglRequestAmount.toString());
                     questionText = StringUtils.replace(questionText, "{1}", monthTotalAmount.toString());
 
                     return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.CONFIRMATION_QUESTION, questionText, KFSConstants.CONFIRMATION_QUESTION, BCConstants.MAPPING_SAVE, "");
-                }
-                else {
+                } else {
                     Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                     if ((KFSConstants.CONFIRMATION_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
 
@@ -184,8 +181,7 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
                         monthlyBudgetForm.setMonthlyPersisted(true);
                     }
                 }
-            }
-            else {
+            } else {
                 // total is same as annual do the save with no confirmation
                 SpringContext.getBean(BudgetDocumentService.class).saveMonthlyBudget(monthlyBudgetForm, budgetConstructionMonthly);
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.MESSAGE_SAVED);
@@ -210,8 +206,7 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
             if (question == null) {
                 // ask question if not already asked
                 return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.DOCUMENT_SAVE_BEFORE_CLOSE_QUESTION, kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_SAVE_BEFORE_CLOSE), KFSConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_CLOSE, "");
-            }
-            else {
+            } else {
                 Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if ((KFSConstants.CONFIRMATION_QUESTION.equals(question)) || ((KFSConstants.DOCUMENT_SAVE_BEFORE_CLOSE_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked))) {
 
@@ -291,8 +286,7 @@ public class MonthlyBudgetAction extends BudgetExpansionAction {
             if (question == null) {
                 // ask question if not already asked
                 return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.DOCUMENT_DELETE_QUESTION, kualiConfiguration.getPropertyValueAsString(BCKeyConstants.QUESTION_DELETE), KFSConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_CLOSE, "");
-            }
-            else {
+            } else {
                 Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if ((KFSConstants.DOCUMENT_DELETE_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
 

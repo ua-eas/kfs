@@ -33,6 +33,6 @@ public class DocumentRuleBase extends org.kuali.kfs.krad.rules.DocumentRuleBase 
     // Lazy init holder class, see Effective Java #71
     private static class LazyServicesHolder {
         static final DictionaryValidationService dictionaryValidationService =
-                KNSServiceLocator.getKNSDictionaryValidationService();
+            KNSServiceLocator.getKNSDictionaryValidationService();
     }
 }

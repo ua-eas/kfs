@@ -36,8 +36,6 @@ import java.util.Set;
 
 /**
  * Holds field indexes of a <code>View</code> instance for retrieval
- *
- *
  */
 public class ViewIndex implements Serializable {
     private static final long serialVersionUID = 4700818801272201371L;
@@ -68,13 +66,13 @@ public class ViewIndex implements Serializable {
     /**
      * Walks through the View tree and indexes all components found. All components
      * are indexed by their IDs with the special indexing done for certain components
-     *
+     * <p>
      * <p>
      * <code>DataField</code> instances are indexed by the attribute path.
      * This is useful for retrieving the InputField based on the incoming
      * request parameter
      * </p>
-     *
+     * <p>
      * <p>
      * <code>CollectionGroup</code> instances are indexed by the collection
      * path. This is useful for retrieving the CollectionGroup based on the
@@ -96,11 +94,11 @@ public class ViewIndex implements Serializable {
      * is of type <code>DataField</code> or <code>CollectionGroup</code> an
      * entry is created in the corresponding indexes for those types as well. Then
      * the #indexComponent method is called for each of the component's children
-     *
+     * <p>
      * <p>
      * If the component is already contained in the indexes, it will be replaced
      * </p>
-     *
+     * <p>
      * <p>
      * Special processing is done for DataField instances to register their property editor which will
      * be used for form binding
@@ -149,8 +147,8 @@ public class ViewIndex implements Serializable {
             if (component != null) {
                 // if component has a refresh condition we need to keep it
                 if (StringUtils.isNotBlank(component.getProgressiveRender()) || StringUtils.isNotBlank(
-                        component.getConditionalRefresh()) || StringUtils.isNotBlank(
-                        component.getRefreshWhenChanged()) || component.isRefreshedByAction()) {
+                    component.getConditionalRefresh()) || StringUtils.isNotBlank(
+                    component.getRefreshWhenChanged()) || component.isRefreshedByAction()) {
                     holdFactoryIds.add(component.getFactoryId());
                     holdIds.add(component.getId());
                 }
@@ -263,7 +261,7 @@ public class ViewIndex implements Serializable {
      *
      * @param collectionPath - full path of the collection (from the form)
      * @return CollectionGroup instance for the collection path or Null if not
-     *         found
+     * found
      */
     public CollectionGroup getCollectionGroupByPath(String collectionPath) {
         return collectionsIndex.get(collectionPath);
@@ -271,21 +269,21 @@ public class ViewIndex implements Serializable {
 
     /**
      * Preserves initial state of components needed for doing component refreshes
-     *
+     * <p>
      * <p>
      * Some components, such as those that are nested or created in code cannot be requested from the
      * spring factory to get new instances. For these a copy of the component in its initial state is
      * set in this map which will be used when doing component refreshes (which requires running just that
      * component's lifecycle)
      * </p>
-     *
+     * <p>
      * <p>
      * Map entries are added during the perform initialize phase from {@link ViewHelperService}
      * </p>
      *
      * @return Map<String, Component> - map with key giving the factory id for the component and the value the
-     *         component
-     *         instance
+     * component
+     * instance
      */
     public Map<String, Component> getInitialComponentStates() {
         return initialComponentStates;
@@ -293,7 +291,7 @@ public class ViewIndex implements Serializable {
 
     /**
      * Adds a copy of the given component instance to the map of initial component states keyed
-     *
+     * <p>
      * <p>
      * Component is only added if its factory id is not set yet (which would happen if it had a spring bean id
      * and we can get the state from Spring). Once added the factory id will be set to the component id
@@ -320,7 +318,7 @@ public class ViewIndex implements Serializable {
     /**
      * Maintains configuration of properties that have been configured for the view (if render was set to
      * true) and there corresponding PropertyEdtior (if configured)
-     *
+     * <p>
      * <p>
      * Information is pulled out of the View during the lifecycle so it can be used when a form post is done
      * from the View. Note if a field is secure, it will be placed in the {@link #getSecureFieldPropertyEditors()} map
@@ -345,7 +343,7 @@ public class ViewIndex implements Serializable {
     /**
      * Maintains configuration of secure properties that have been configured for the view (if render was set to
      * true) and there corresponding PropertyEdtior (if configured)
-     *
+     * <p>
      * <p>
      * Information is pulled out of the View during the lifecycle so it can be used when a form post is done
      * from the View. Note if a field is non-secure, it will be placed in the {@link #getFieldPropertyEditors()} map

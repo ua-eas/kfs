@@ -23,8 +23,6 @@ import org.kuali.kfs.krad.bo.Attachment;
 
 /**
  * The data access interface for NOte objects.
- *
- *
  */
 public interface AttachmentDao {
 

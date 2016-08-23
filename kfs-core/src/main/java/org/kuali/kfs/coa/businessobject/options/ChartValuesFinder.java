@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class returns list of chart key value pairs.
@@ -43,7 +43,7 @@ public class ChartValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         Collection<Chart> chartCodes = SpringContext.getBean(ChartService.class).getAllActiveCharts();
 
-        List<KeyValue> chartKeyLabels = new ArrayList<KeyValue>(chartCodes.size()+1);
+        List<KeyValue> chartKeyLabels = new ArrayList<KeyValue>(chartCodes.size() + 1);
         chartKeyLabels.add(new ConcreteKeyValue("", ""));
         for (Chart chart : chartCodes) {
             chartKeyLabels.add(new ConcreteKeyValue(chart.getChartOfAccountsCode(), chart.getCodeAndDescription()));

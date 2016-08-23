@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -29,12 +26,15 @@ import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.dataaccess.A21SubAccountDao;
 import org.kuali.kfs.coa.service.A21SubAccountService;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is the default implementation of the A21SubAccountService
@@ -59,7 +59,7 @@ public class A21SubAccountServiceImpl implements A21SubAccountService {
 
     /**
      * @see org.kuali.kfs.coa.service.A21SubAccountService#buildCgIcrAccount(java.lang.String, java.lang.String, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public A21SubAccount buildCgIcrAccount(String chartOfAccountsCode, String accountNumber, String subAccountNumber, String subAccountTypeCode) {
         if (StringUtils.isEmpty(chartOfAccountsCode) || StringUtils.isEmpty(accountNumber) || StringUtils.equals(subAccountTypeCode, KFSConstants.SubAccountType.COST_SHARE)) {
@@ -77,7 +77,7 @@ public class A21SubAccountServiceImpl implements A21SubAccountService {
 
     /**
      * @see org.kuali.kfs.coa.service.A21SubAccountService#populateCgIcrAccount(org.kuali.kfs.coa.businessobject.A21SubAccount,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public void populateCgIcrAccount(A21SubAccount a21SubAccount, String chartOfAccountsCode, String accountNumber) {
         Account account = accountService.getByPrimaryIdWithCaching(chartOfAccountsCode, accountNumber);
@@ -88,11 +88,11 @@ public class A21SubAccountServiceImpl implements A21SubAccountService {
             a21SubAccount.setFinancialIcrSeriesIdentifier(StringUtils.defaultString(account.getFinancialIcrSeriesIdentifier()));
 
             //deactivate old ICR lists
-            for (A21IndirectCostRecoveryAccount a21Icr : a21SubAccount.getA21IndirectCostRecoveryAccounts()){
+            for (A21IndirectCostRecoveryAccount a21Icr : a21SubAccount.getA21IndirectCostRecoveryAccounts()) {
                 a21Icr.setActive(false);
             }
             //add new lists from account
-            for (IndirectCostRecoveryAccount icrAccount : account.getActiveIndirectCostRecoveryAccounts()){
+            for (IndirectCostRecoveryAccount icrAccount : account.getActiveIndirectCostRecoveryAccounts()) {
                 a21SubAccount.getA21IndirectCostRecoveryAccounts().add(A21IndirectCostRecoveryAccount.copyICRAccount(icrAccount));
             }
             a21SubAccount.setIndirectCostRecoveryTypeCode(account.getAcctIndirectCostRcvyTypeCd());

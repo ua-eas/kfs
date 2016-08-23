@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
@@ -49,15 +49,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class TravelAuthorizationForm extends TravelFormBase implements TravelAuthorizationMvcWrapperBean{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TravelAuthorizationForm extends TravelFormBase implements TravelAuthorizationMvcWrapperBean {
     private TravelerDetailEmergencyContact newEmergencyContactLine;
     private TravelerDetail newTraveler;
     private boolean canCloseTA;
@@ -98,11 +96,11 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
     public void setDistribution(final List<AccountingDistribution> distribution) {
         super.setDistribution(distribution);
 
-        TravelDocument travelDocument = (TravelDocument)getDocument();
+        TravelDocument travelDocument = (TravelDocument) getDocument();
 
         //TA doc - always deselected the expense type (ENCUMBRANCE) so it does not get distributed automatically
-        for (AccountingDistribution accountdistribution : this.distribution){
-            if (accountdistribution.getCardType().equals(travelDocument.getDefaultCardTypeCode())){
+        for (AccountingDistribution accountdistribution : this.distribution) {
+            if (accountdistribution.getCardType().equals(travelDocument.getDefaultCardTypeCode())) {
                 accountdistribution.setSelected(Boolean.FALSE);
                 accountdistribution.setDisabled(Boolean.TRUE);
             }
@@ -116,16 +114,17 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
         boolean display = super.isDisplayAccountingLines();
 
         TravelAuthorizationDocument document = (TravelAuthorizationDocument) getTravelDocument();
-        display = document.isTripGenerateEncumbrance()  ; // trips which do not generate encumbrances won't have accounting lines
+        display = document.isTripGenerateEncumbrance(); // trips which do not generate encumbrances won't have accounting lines
         return display;
 
     }
+
     /**
      * Display imported expense related tab base on Travel Authorization document base on system parameter
      *
      * @return
      */
-    public boolean isDisplayImportedExpenseRelatedTab(){
+    public boolean isDisplayImportedExpenseRelatedTab() {
         boolean display = getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TravelAuthorizationParameters.DISPLAY_IMPORTED_EXPENSE_IND);
         return display;
     }
@@ -134,7 +133,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelFormBase#getPerDiemLabel()
      */
     @Override
-    public String getPerDiemLabel(){
+    public String getPerDiemLabel() {
         return TemConstants.ENCUMBRANCE_PREFIX + super.getPerDiemLabel();
     }
 
@@ -142,7 +141,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelFormBase#getExpenseLabel()
      */
     @Override
-    public String getExpenseLabel(){
+    public String getExpenseLabel() {
         return TemConstants.ENCUMBRANCE_PREFIX + StringUtils.substringAfter(super.getExpenseLabel(), " ");
     }
 
@@ -150,7 +149,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelFormBase#getExpenseTabLabel()
      */
     @Override
-    public String getExpenseTabLabel(){
+    public String getExpenseTabLabel() {
         return TemConstants.GENERAL_EXPENSES_LABEL;
     }
 
@@ -189,6 +188,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Sets new accounting line associated with travel advance
+     *
      * @param newTravelAdvanceAccountingLine new accounting line associated with travel advance
      */
     public void setNewAdvanceAccountingLine(TemSourceAccountingLine newTravelAdvanceAccountingLine) {
@@ -369,6 +369,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Gets the policyURL attribute.
+     *
      * @return Returns the policyURL.
      */
     public String getPolicyURL() {
@@ -388,6 +389,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
     /**
      * Sets whether the travel advances for the rest of the trip (ie, not this document's travel advance, but other completed advances related to this trip)
      * should be shown
+     *
      * @param showTravelAdvancesForTrip true if travel advances for trip should be shown, false otherwise
      */
     public void setShowTravelAdvancesForTrip(boolean showTravelAdvancesForTrip) {
@@ -396,6 +398,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Gets the waitingOnTraveler attribute.
+     *
      * @return Returns the waitingOnTraveler.
      */
     public boolean isWaitingOnTraveler() {
@@ -404,6 +407,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Sets the waitingOnTraveler attribute value.
+     *
      * @param waitingOnTraveler The waitingOnTraveler to set.
      */
     public void setWaitingOnTraveler(boolean waitingOnTraveler) {
@@ -412,6 +416,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Gets the showCorporateCardTotal attribute.
+     *
      * @return Returns the showCorporateCardTotal.
      */
     public boolean getShowCorporateCardTotal() {
@@ -423,6 +428,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Gets the showPolicy attribute.
+     *
      * @return Returns the showPolicy.
      */
     public boolean isShowPolicy() {
@@ -431,6 +437,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Sets the showPolicy attribute value.
+     *
      * @param showPolicy The showPolicy to set.
      */
     public void setShowPolicy(boolean showPolicy) {
@@ -458,6 +465,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Sets the form file for advance accounting line uploads
+     *
      * @param advanceFile a file of accounting lines to associate with paying for a travel advance
      */
     public void setAdvanceAccountingFile(FormFile advanceFile) {
@@ -466,6 +474,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
     /**
      * Retrieves the advance accounting lines total in a currency format with commas.
+     *
      * @return the currency formatted total
      */
     public String getCurrencyFormattedAdvanceTotal() {
@@ -483,7 +492,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
     public boolean isDefaultTravelAdvanceTab() {
         if (getTravelDocument() != null && getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
 
-            if( TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS.equals(getTravelDocument().getAppDocStatus()) ||
+            if (TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS.equals(getTravelDocument().getAppDocStatus()) ||
                 TemConstants.TravelAuthorizationStatusCodeKeys.AWAIT_TRVLR.equals(getTravelDocument().getAppDocStatus()) ||
                 TemConstants.TravelAuthorizationStatusCodeKeys.AWAIT_FISCAL.equals(getTravelDocument().getAppDocStatus()) ||
                 TemConstants.TravelAuthorizationStatusCodeKeys.AWAIT_TRVL_MGR.equals(getTravelDocument().getAppDocStatus())) {
@@ -492,16 +501,17 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
 
         }
 
-       return false;
+        return false;
     }
 
     /**
      * Overridden to pull the object code from the trip type if possible
+     *
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelFormBase#createNewSourceAccountingLine(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     protected SourceAccountingLine createNewSourceAccountingLine(AccountingDocument financialDocument) {
-        TemSourceAccountingLine accountingLine = (TemSourceAccountingLine)super.createNewSourceAccountingLine(financialDocument);
+        TemSourceAccountingLine accountingLine = (TemSourceAccountingLine) super.createNewSourceAccountingLine(financialDocument);
         TravelDocumentBase travelDoc = (TravelDocumentBase) financialDocument;
         travelDoc.refreshReferenceObject(TemPropertyConstants.TRIP_TYPE);
         if (ObjectUtils.isNotNull(travelDoc.getTripType())) {
@@ -514,12 +524,12 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
     @Override
     public void populateHeaderFields(WorkflowDocument workflowDocument) {
         super.populateHeaderFields(workflowDocument);
-       boolean vendorPaymentAllowedBeforeFinal = getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND);
+        boolean vendorPaymentAllowedBeforeFinal = getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND);
         String travelDocumentIdentifier = getTravelDocument().getTravelDocumentIdentifier();
         String organizationDocumentNumber = getTravelDocument().getDocumentHeader().getOrganizationDocumentNumber();
-        TravelAuthorizationDocument document = (TravelAuthorizationDocument)getTravelDocument();
+        TravelAuthorizationDocument document = (TravelAuthorizationDocument) getTravelDocument();
 
-        if(document.maskTravelDocumentIdentifierAndOrganizationDocNumber()) {
+        if (document.maskTravelDocumentIdentifierAndOrganizationDocNumber()) {
 
             DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
             if (ObjectUtils.isNotNull(travelDocumentIdentifier)) {
@@ -528,7 +538,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
                 for (int i = 0; i < strLength; i++) {
                     travelDocumentIdentifier = travelDocumentIdentifier.concat("*");
                 }
-           }
+            }
 
             if (ObjectUtils.isNotNull(organizationDocumentNumber)) {
                 organizationDocumentNumber = "";
@@ -537,7 +547,7 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
                 for (int i = 0; i < strLength; i++) {
                     organizationDocumentNumber = organizationDocumentNumber.concat("*");
                 }
-           }
+            }
 
             for (HeaderField headerField : getDocInfo()) {
                 String ddAttributeEntryName = headerField.getDdAttributeEntryName();
@@ -550,7 +560,6 @@ public class TravelAuthorizationForm extends TravelFormBase implements TravelAut
                 }
             }
         }
-
 
 
     }

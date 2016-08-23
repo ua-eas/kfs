@@ -20,6 +20,10 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
@@ -27,14 +31,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 
 
 /**
@@ -48,6 +46,7 @@ public class AccountingLineObjectCodeRestrictionValidation extends GenericValida
     private ParameterService parameterService;
     private DataDictionaryService dataDictionaryService;
     private ParameterEvaluatorService parameterEvaluatorService;
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
@@ -58,28 +57,28 @@ public class AccountingLineObjectCodeRestrictionValidation extends GenericValida
         ObjectCode objectCode = accountingLineForValidation.getObjectCode();
         Account account = accountingLineForValidation.getAccount();
 
-        if (ObjectUtils.isNotNull(objectCode) && ObjectUtils.isNotNull(account)){
+        if (ObjectUtils.isNotNull(objectCode) && ObjectUtils.isNotNull(account)) {
 
-            String objectTypeCode =  objectCode.getFinancialObjectTypeCode();
+            String objectTypeCode = objectCode.getFinancialObjectTypeCode();
             String subFundGroupCode = account.getSubFundGroupCode();
 
 
-            if(parameterService.parameterExists(accountingDocumentForValidation.getDocumentClassForAccountingLineValueAllowedValidation(),
-                    KFSParameterKeyConstants.InvalidSubFundsByObjCdParameterConstant.INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE)){
+            if (parameterService.parameterExists(accountingDocumentForValidation.getDocumentClassForAccountingLineValueAllowedValidation(),
+                KFSParameterKeyConstants.InvalidSubFundsByObjCdParameterConstant.INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE)) {
 
                 ParameterEvaluator incomeObjectEvaluator = parameterEvaluatorService.getParameterEvaluator(accountingDocumentForValidation.getDocumentClassForAccountingLineValueAllowedValidation(),
                     KFSParameterKeyConstants.InvalidSubFundsByObjCdParameterConstant.INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE,
                     objectTypeCode, subFundGroupCode);
 
-                if(!incomeObjectEvaluator.evaluationSucceeds()){
+                if (!incomeObjectEvaluator.evaluationSucceeds()) {
 
-                   String documentLabel = dataDictionaryService.getDocumentLabelByClass(accountingDocumentForValidation.getClass());
+                    String documentLabel = dataDictionaryService.getDocumentLabelByClass(accountingDocumentForValidation.getClass());
 
-                   GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS,
-                            KFSKeyConstants.ERROR_INVALID_INCOME_OBJCODE_SUB_FUND,documentLabel,accountingLineForValidation.getAccountKey());
+                    GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS,
+                        KFSKeyConstants.ERROR_INVALID_INCOME_OBJCODE_SUB_FUND, documentLabel, accountingLineForValidation.getAccountKey());
 
-                   LOG.error(GlobalVariables.getMessageMap().getErrorMessages());
-                   return false;
+                    LOG.error(GlobalVariables.getMessageMap().getErrorMessages());
+                    return false;
                 }
             }
         }

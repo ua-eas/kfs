@@ -18,7 +18,8 @@
  */
 package org.kuali.kfs.coreservice.api.style;
 
-import java.util.List;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -27,9 +28,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
+import java.util.List;
 
 /**
  * Service for interacting with {@link Style} data. This service primarily
@@ -40,50 +39,46 @@ import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface StyleRepositoryService {
 
-	/**
-	 * Returns the style with the given name.  If no style with the given name
-	 * can be found, this method will return null.
-	 *
-	 * @param styleName the name of the style to retrieve, must not be null or
-	 * blank
-	 *
-	 * @return the style with the given name, or null if no style with the given
-	 * name could be found
-	 *
-	 * @throws RiceIllegalArgumentException if the given styleName is null or blank
-	 */
-	@WebMethod(operationName = "getStyle")
-	@WebResult(name = "style")
-	Style getStyle(@WebParam(name = "styleName") String styleName) throws RiceIllegalArgumentException;
+    /**
+     * Returns the style with the given name.  If no style with the given name
+     * can be found, this method will return null.
+     *
+     * @param styleName the name of the style to retrieve, must not be null or
+     *                  blank
+     * @return the style with the given name, or null if no style with the given
+     * name could be found
+     * @throws RiceIllegalArgumentException if the given styleName is null or blank
+     */
+    @WebMethod(operationName = "getStyle")
+    @WebResult(name = "style")
+    Style getStyle(@WebParam(name = "styleName") String styleName) throws RiceIllegalArgumentException;
 
-	/**
-	 * Creates or updates the Style represented by the given record.  If the
-	 * id on the style is not null, then it will update the existing
-	 * style record which has that id.  Otherwise it will create a new style in
-	 * the repository.
-	 *
-	 * <p>When updating an existing style, the caller needs to ensure that the
-	 * id, versionNumber, and objectId values are set on the given Style
-	 * object.
-	 *
-	 * @param style the style data to create or update in the repository
-	 *
-	 * @return the style with the given name, or null if no style with the given
-	 * name could be found
-	 *
-	 * @throws RiceIllegalArgumentException if the given style is null
-	 */
-	@WebMethod(operationName = "saveStyle")
-	void saveStyle(@WebParam(name = "style") Style style) throws RiceIllegalArgumentException;
+    /**
+     * Creates or updates the Style represented by the given record.  If the
+     * id on the style is not null, then it will update the existing
+     * style record which has that id.  Otherwise it will create a new style in
+     * the repository.
+     * <p>
+     * <p>When updating an existing style, the caller needs to ensure that the
+     * id, versionNumber, and objectId values are set on the given Style
+     * object.
+     *
+     * @param style the style data to create or update in the repository
+     * @return the style with the given name, or null if no style with the given
+     * name could be found
+     * @throws RiceIllegalArgumentException if the given style is null
+     */
+    @WebMethod(operationName = "saveStyle")
+    void saveStyle(@WebParam(name = "style") Style style) throws RiceIllegalArgumentException;
 
-	/**
-	 * Returns a list of the names for all active styles in the repository. If
-	 * there are no active styles, this list will be empty.  It will never
-	 * return null.
-	 *
-	 * @return the list of names for all active styles
-	 */
-	@WebMethod(operationName="getStyleNames")
+    /**
+     * Returns a list of the names for all active styles in the repository. If
+     * there are no active styles, this list will be empty.  It will never
+     * return null.
+     *
+     * @return the list of names for all active styles
+     */
+    @WebMethod(operationName = "getStyleNames")
     @XmlElementWrapper(name = "names", required = true)
     @XmlElement(name = "name", required = false)
     @WebResult(name = "styleNames")

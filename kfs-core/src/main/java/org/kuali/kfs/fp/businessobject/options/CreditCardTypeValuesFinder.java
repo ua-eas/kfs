@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CreditCardType;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class...
@@ -42,10 +42,10 @@ public class CreditCardTypeValuesFinder extends KeyValuesBase {
         // get a list of all CreditCardTypes
         List<CreditCardType> codes = (List<CreditCardType>) SpringContext.getBean(KeyValuesService.class).findAll(CreditCardType.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( codes == null ) {
+        if (codes == null) {
             codes = new ArrayList<CreditCardType>(0);
         } else {
-            codes = new ArrayList<CreditCardType>( codes );
+            codes = new ArrayList<CreditCardType>(codes);
         }
 
         // sort using comparator
@@ -56,7 +56,7 @@ public class CreditCardTypeValuesFinder extends KeyValuesBase {
         labels.add(new ConcreteKeyValue("", "")); // blank first entry
 
         for (CreditCardType creditCardType : codes) {
-            if(creditCardType.isActive()) {
+            if (creditCardType.isActive()) {
                 labels.add(new ConcreteKeyValue(creditCardType.getFinancialDocumentCreditCardTypeCode(), creditCardType.getFinancialDocumentCreditCardTypeCode() + "-" + creditCardType.getFinancialDocumentCreditCardCompanyName()));
             }
         }

@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.ArrangerFields;
@@ -28,7 +29,6 @@ import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class TravelArrangerResignsValidation extends GenericValidation {
     protected TemProfileService temProfileService;
@@ -36,17 +36,17 @@ public class TravelArrangerResignsValidation extends GenericValidation {
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
-        TravelArrangerDocument document = (TravelArrangerDocument)event.getDocument();
+        TravelArrangerDocument document = (TravelArrangerDocument) event.getDocument();
 
-        if(document.getResign()) {
-            if(document.getTaInd() || document.getTrInd() || document.getPrimaryInd()) {
+        if (document.getResign()) {
+            if (document.getTaInd() || document.getTrInd() || document.getPrimaryInd()) {
                 GlobalVariables.getMessageMap().putError(ArrangerFields.RESIGN, TemKeyConstants.ERROR_TTA_ARRGR_RESIGN);
                 success = false;
             }
 
             if (getTemProfileService().isProfileNonEmploye(document.getProfile())) {
                 if (!isAnyActiveArrangersBesidesResigner(document.getProfile(), document.getArrangerId())) {
-                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT+"."+TemPropertyConstants.RESIGN, TemKeyConstants.ERROR_TEM_PROFILE_NONEMPLOYEE_MUST_HAVE_ACTIVE_ARRANGER);
+                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT + "." + TemPropertyConstants.RESIGN, TemKeyConstants.ERROR_TEM_PROFILE_NONEMPLOYEE_MUST_HAVE_ACTIVE_ARRANGER);
                     success = false;
                 }
             }
@@ -57,7 +57,8 @@ public class TravelArrangerResignsValidation extends GenericValidation {
 
     /**
      * Determines if there are any active arrangers on the given profile besides the current arranger
-     * @param profile the profile to check
+     *
+     * @param profile    the profile to check
      * @param arrangerId the arranger to ignore
      * @return true if there are active arrangers besides the resigner; false otherwise
      */

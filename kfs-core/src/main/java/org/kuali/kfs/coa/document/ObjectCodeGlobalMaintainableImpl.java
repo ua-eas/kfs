@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ObjectCodeGlobal;
 import org.kuali.kfs.coa.businessobject.ObjectCodeGlobalDetail;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubObjectTrickleDownInactivationService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides some specific functionality for the {@link ObjectCodeGlobal} maintenance document refresh - sets the current
@@ -204,7 +204,7 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
 
     protected String buildObjectCodeCachingKey(ObjectCode objectCode) {
         return objectCode.getUniversityFiscalYear() + KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getChartOfAccountsCode() +
-                KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getFinancialObjectCode();
+            KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getFinancialObjectCode();
     }
 
     protected Map<String, Boolean> buildObjectCodeActiveStatusCache(ObjectCodeGlobal objectCodeGlobal) {

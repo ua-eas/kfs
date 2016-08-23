@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgReasonStatisticsReport;
@@ -39,9 +34,14 @@ import org.kuali.kfs.module.bc.report.BudgetConstructionReportHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -58,7 +58,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonStatisticsReportService#updateReasonStatisticsReport(java.lang.String,
-     *      java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     public void updateReasonStatisticsReport(String principalName, Integer universityFiscalYear, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
         boolean applyAThreshold = budgetConstructionReportThresholdSettings.isUseThreshold();
@@ -66,8 +66,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         KualiDecimal thresholdPercent = budgetConstructionReportThresholdSettings.getThresholdPercent();
         if (applyAThreshold) {
             budgetConstructionReasonStatisticsReportDao.updateReasonStatisticsReportsWithAThreshold(principalName, universityFiscalYear - 1, selectOnlyGreaterThanOrEqualToThreshold, thresholdPercent);
-        }
-        else {
+        } else {
             budgetConstructionReasonStatisticsReportDao.updateReasonStatisticsReportsWithoutAThreshold(principalName, universityFiscalYear - 1);
         }
 
@@ -75,7 +74,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonStatisticsReportService#buildReports(java.lang.Integer,
-     *      java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     public Collection<BudgetConstructionOrgReasonStatisticsReport> buildReports(Integer universityFiscalYear, String principalId, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
         Collection<BudgetConstructionOrgReasonStatisticsReport> reportSet = new ArrayList<BudgetConstructionOrgReasonStatisticsReport>();
@@ -132,16 +131,14 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         orgReasonStatisticsReportEntry.setOrganizationCode(salaryTotalEntry.getOrganizationCode());
         if (orgName == null) {
             orgReasonStatisticsReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setOrganizationName(orgName);
         }
         // set ChartCode and Desc
         if (chart == null) {
             orgReasonStatisticsReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
             orgReasonStatisticsReportEntry.setChartOfAccountsCode(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setChartOfAccountsCode(chart.getChartOfAccountsCode());
             orgReasonStatisticsReportEntry.setChartOfAccountDescription(chart.getFinChartOfAccountDescription());
         }
@@ -151,12 +148,10 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         if (budgetConstructionReportThresholdSettings.isUseThreshold()) {
             if (budgetConstructionReportThresholdSettings.isUseGreaterThanOperator()) {
                 orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_GREATER + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
-            }
-            else {
+            } else {
                 orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_LESS + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
             }
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.SELECTED_REASONS + reasonCodes);
         }
 

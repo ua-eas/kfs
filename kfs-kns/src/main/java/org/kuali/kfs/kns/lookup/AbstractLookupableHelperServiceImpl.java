@@ -19,6 +19,8 @@
 package org.kuali.kfs.kns.lookup;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.document.authorization.FieldRestriction;
 import org.kuali.kfs.kns.inquiry.Inquirable;
@@ -37,20 +39,6 @@ import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.core.api.config.property.ConfigContext;
-import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.core.api.util.cache.CopiedObject;
-import org.kuali.rice.core.api.util.type.TypeUtils;
-import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
@@ -66,6 +54,18 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.core.api.search.SearchOperator;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.core.api.util.cache.CopiedObject;
+import org.kuali.rice.core.api.util.type.TypeUtils;
+import org.kuali.rice.core.web.format.DateFormatter;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.security.GeneralSecurityException;
 import java.sql.Date;
@@ -198,14 +198,13 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      */
     public BusinessObjectDictionaryService getBusinessObjectDictionaryService() {
         return businessObjectDictionaryService != null ? businessObjectDictionaryService : KNSServiceLocator
-                .getBusinessObjectDictionaryService();
+            .getBusinessObjectDictionaryService();
     }
 
     /**
      * Sets the businessObjectDictionaryService attribute value.
      *
-     * @param businessObjectDictionaryService
-     *         The businessObjectDictionaryService to set.
+     * @param businessObjectDictionaryService The businessObjectDictionaryService to set.
      */
     public void setBusinessObjectDictionaryService(BusinessObjectDictionaryService businessObjectDictionaryService) {
         this.businessObjectDictionaryService = businessObjectDictionaryService;
@@ -218,7 +217,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      */
     public BusinessObjectMetaDataService getBusinessObjectMetaDataService() {
         return businessObjectMetaDataService != null ? businessObjectMetaDataService : KNSServiceLocator
-                .getBusinessObjectMetaDataService();
+            .getBusinessObjectMetaDataService();
     }
 
     /**
@@ -237,7 +236,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      */
     protected PersistenceStructureService getPersistenceStructureService() {
         return persistenceStructureService != null ? persistenceStructureService : KRADServiceLocator
-                .getPersistenceStructureService();
+            .getPersistenceStructureService();
     }
 
     /**
@@ -509,13 +508,13 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     protected Properties getParametersFromPrimaryKey(BusinessObject businessObject, List pkNames) {
         Properties parameters = new Properties();
-        for (Iterator iter = pkNames.iterator(); iter.hasNext();) {
+        for (Iterator iter = pkNames.iterator(); iter.hasNext(); ) {
             String fieldNm = (String) iter.next();
 
             // If we cannot find the attribute in the data dictionary, then we cannot determine whether it should be encrypted
             if (getDataDictionaryService().getAttributeDefinition(businessObjectClass.getName(), fieldNm) == null) {
                 String errorMessage = "The field " + fieldNm + " could not be found in the data dictionary for class "
-                        + businessObjectClass.getName() + ", and thus it could not be determined whether it is a secure field.";
+                    + businessObjectClass.getName() + ", and thus it could not be determined whether it is a secure field.";
 
                 if (ConfigContext.getCurrentContextConfig().getBooleanProperty(KNSConstants.EXCEPTION_ON_MISSING_FIELD_CONVERSION_ATTRIBUTE, false)) {
                     throw new RuntimeException(errorMessage);
@@ -561,9 +560,9 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      */
     protected String getActionUrlTitleText(BusinessObject businessObject, String displayText, List pkNames, BusinessObjectRestrictions businessObjectRestrictions) {
         String prependTitleText = displayText + " "
-                + getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(getBusinessObjectClass().getName()).getObjectLabel()
-                + " "
-                + this.getKualiConfigurationService().getPropertyValueAsString(TITLE_ACTION_URL_PREPENDTEXT_PROPERTY);
+            + getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(getBusinessObjectClass().getName()).getObjectLabel()
+            + " "
+            + this.getKualiConfigurationService().getPropertyValueAsString(TITLE_ACTION_URL_PREPENDTEXT_PROPERTY);
         return HtmlData.getTitleText(prependTitleText, businessObject, pkNames, businessObjectRestrictions);
     }
 
@@ -680,7 +679,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
                 if (!businessObjectClass.isInterface()) {
                     try {
                         column.setFormatter(ObjectUtils.getFormatterWithDataDictionary(getBusinessObjectClass()
-                                .newInstance(), attributeName));
+                            .newInstance(), attributeName));
                     } catch (InstantiationException e) {
                         LOG.info("Unable to get new instance of business object class: " + businessObjectClass.getName(), e);
                         // just swallow exception and leave formatter blank
@@ -691,13 +690,13 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
                 }
 
                 String alternateDisplayPropertyName = getBusinessObjectDictionaryService()
-                        .getLookupFieldAlternateDisplayAttributeName(getBusinessObjectClass(), attributeName);
+                    .getLookupFieldAlternateDisplayAttributeName(getBusinessObjectClass(), attributeName);
                 if (StringUtils.isNotBlank(alternateDisplayPropertyName)) {
                     column.setAlternateDisplayPropertyName(alternateDisplayPropertyName);
                 }
 
                 String additionalDisplayPropertyName = getBusinessObjectDictionaryService()
-                        .getLookupFieldAdditionalDisplayAttributeName(getBusinessObjectClass(), attributeName);
+                    .getLookupFieldAdditionalDisplayAttributeName(getBusinessObjectClass(), attributeName);
                 if (StringUtils.isNotBlank(additionalDisplayPropertyName)) {
                     column.setAdditionalDisplayPropertyName(additionalDisplayPropertyName);
                 } else {
@@ -725,7 +724,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
             if (RESULTS_DEFAULT_MAX_COLUMN_LENGTH == null) {
                 try {
                     RESULTS_DEFAULT_MAX_COLUMN_LENGTH = Integer.valueOf(getParameterService().getParameterValueAsString(
-                            KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.LOOKUP_PARM_DETAIL_TYPE, KRADConstants.RESULTS_DEFAULT_MAX_COLUMN_LENGTH));
+                        KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.LOOKUP_PARM_DETAIL_TYPE, KRADConstants.RESULTS_DEFAULT_MAX_COLUMN_LENGTH));
                 } catch (NumberFormatException ex) {
                     LOG.error("Lookup field max length parameter not found and unable to parse default set in system parameters (RESULTS_DEFAULT_MAX_COLUMN_LENGTH).");
                 }
@@ -764,7 +763,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
     final public HtmlData getReturnUrl(BusinessObject businessObject, Map fieldConversions, String lookupImpl, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
         String href = getReturnHref(businessObject, fieldConversions, lookupImpl, returnKeys);
         String returnUrlAnchorLabel =
-                this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
+            this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
         HtmlData.AnchorHtmlData anchor = new HtmlData.AnchorHtmlData(href, HtmlData.getTitleText(returnUrlAnchorLabel, businessObject, returnKeys, businessObjectRestrictions));
         anchor.setDisplayText(returnUrlAnchorLabel);
         return anchor;
@@ -782,7 +781,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
     final protected String getReturnHref(BusinessObject businessObject, Map fieldConversions, String lookupImpl, List returnKeys) {
         if (StringUtils.isNotBlank(backLocation)) {
             return UrlFactory.parameterizeUrl(backLocation, getParameters(
-                    businessObject, fieldConversions, lookupImpl, returnKeys));
+                businessObject, fieldConversions, lookupImpl, returnKeys));
         }
         return "";
     }
@@ -792,7 +791,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      */
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
         Properties parameters = getParameters(
-                businessObject, lookupForm.getFieldConversions(), lookupForm.getLookupableImplServiceName(), returnKeys);
+            businessObject, lookupForm.getFieldConversions(), lookupForm.getLookupableImplServiceName(), returnKeys);
         if (StringUtils.isEmpty(lookupForm.getHtmlDataType()) || HtmlData.ANCHOR_HTML_DATA_TYPE.equals(lookupForm.getHtmlDataType()))
             return getReturnAnchorHtmlData(businessObject, parameters, lookupForm, returnKeys, businessObjectRestrictions);
         else
@@ -801,13 +800,13 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     protected HtmlData getReturnInputHtmlData(BusinessObject businessObject, Properties parameters, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
         String returnUrlAnchorLabel =
-                this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
+            this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
         String name = KRADConstants.MULTIPLE_VALUE_LOOKUP_SELECTED_OBJ_ID_PARAM_PREFIX + lookupForm.getLookupObjectId();
         HtmlData.InputHtmlData input = new HtmlData.InputHtmlData(name, HtmlData.InputHtmlData.CHECKBOX_INPUT_TYPE);
         input.setTitle(HtmlData.getTitleText(returnUrlAnchorLabel, businessObject, returnKeys, businessObjectRestrictions));
         if (((MultipleValueLookupForm) lookupForm).getCompositeObjectIdMap() == null ||
-                ((MultipleValueLookupForm) lookupForm).getCompositeObjectIdMap().get(
-                        ((PersistableBusinessObject) businessObject).getObjectId()) == null) {
+            ((MultipleValueLookupForm) lookupForm).getCompositeObjectIdMap().get(
+                ((PersistableBusinessObject) businessObject).getObjectId()) == null) {
             input.setChecked("");
         } else {
             input.setChecked(HtmlData.InputHtmlData.CHECKBOX_CHECKED_VALUE);
@@ -818,10 +817,10 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     protected HtmlData getReturnAnchorHtmlData(BusinessObject businessObject, Properties parameters, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
         String returnUrlAnchorLabel =
-                this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
+            this.getKualiConfigurationService().getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
         HtmlData.AnchorHtmlData anchor = new HtmlData.AnchorHtmlData(
-                getReturnHref(parameters, lookupForm, returnKeys),
-                HtmlData.getTitleText(returnUrlAnchorLabel, businessObject, returnKeys, businessObjectRestrictions));
+            getReturnHref(parameters, lookupForm, returnKeys),
+            HtmlData.getTitleText(returnUrlAnchorLabel, businessObject, returnKeys, businessObjectRestrictions));
         anchor.setDisplayText(returnUrlAnchorLabel);
         return anchor;
     }
@@ -867,7 +866,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
             // If we cannot find the attribute in the data dictionary, then we cannot determine whether it should be encrypted
             if (getDataDictionaryService().getAttributeDefinition(businessObjectClass.getName(), fieldNm) == null) {
                 String errorMessage = "The field " + fieldNm + " could not be found in the data dictionary for class "
-                        + businessObjectClass.getName() + ", and thus it could not be determined whether it is a secure field.";
+                    + businessObjectClass.getName() + ", and thus it could not be determined whether it is a secure field.";
 
                 if (ConfigContext.getCurrentContextConfig().getBooleanProperty(KNSConstants.EXCEPTION_ON_MISSING_FIELD_CONVERSION_ATTRIBUTE, false)) {
                     throw new RuntimeException(errorMessage);
@@ -982,7 +981,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
         if (lookupFieldAttributeList == null) {
             throw new RuntimeException("Lookup not defined for business object " + getBusinessObjectClass());
         }
-        for (Iterator iter = lookupFieldAttributeList.iterator(); iter.hasNext();) {
+        for (Iterator iter = lookupFieldAttributeList.iterator(); iter.hasNext(); ) {
             String attributeName = (String) iter.next();
             if (fieldValues.containsKey(attributeName)) {
                 // get label of attribute for message
@@ -1060,7 +1059,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
         List<String> lookupFieldAttributeList = null;
         if (getBusinessObjectMetaDataService().isLookupable(getBusinessObjectClass())) {
             lookupFieldAttributeList = getBusinessObjectMetaDataService().getLookupableFieldNames(
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         }
         if (lookupFieldAttributeList == null) {
             throw new RuntimeException("Lookup not defined for business object " + getBusinessObjectClass());
@@ -1070,7 +1069,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
         List fields = new ArrayList();
         try {
             fields = FieldUtils.createAndPopulateFieldsForLookup(lookupFieldAttributeList, getReadOnlyFieldsList(),
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         } catch (InstantiationException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
         } catch (IllegalAccessException e) {
@@ -1155,7 +1154,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
             }
 
             BusinessObjectRestrictions businessObjectRestrictions = getBusinessObjectAuthorizationService()
-                    .getLookupResultRestrictions(element, user);
+                .getLookupResultRestrictions(element, user);
 
             HtmlData returnUrl = getReturnUrl(element, lookupForm, returnKeys, businessObjectRestrictions);
             String actionUrls = getActionUrls(element, pkNames, businessObjectRestrictions);
@@ -1165,7 +1164,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
             }
 
             List<Column> columns = getColumns();
-            for (Iterator iterator = columns.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = columns.iterator(); iterator.hasNext(); ) {
                 Column col = (Column) iterator.next();
 
                 String propValue = ObjectUtils.getFormattedPropertyValue(element, col.getPropertyName(), col.getFormatter());
@@ -1176,20 +1175,20 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
                 String propValueBeforePotientalMasking = propValue;
                 propValue = maskValueIfNecessary(element.getClass(), col.getPropertyName(), propValue,
-                        businessObjectRestrictions);
+                    businessObjectRestrictions);
                 col.setPropertyValue(propValue);
 
                 // if property value is masked, don't display additional or alternate properties, or allow totals
                 if (StringUtils.equals(propValueBeforePotientalMasking, propValue)) {
                     if (StringUtils.isNotBlank(col.getAlternateDisplayPropertyName())) {
                         String alternatePropertyValue = ObjectUtils.getFormattedPropertyValue(element, col
-                                .getAlternateDisplayPropertyName(), null);
+                            .getAlternateDisplayPropertyName(), null);
                         col.setPropertyValue(alternatePropertyValue);
                     }
 
                     if (StringUtils.isNotBlank(col.getAdditionalDisplayPropertyName())) {
                         String additionalPropertyValue = ObjectUtils.getFormattedPropertyValue(element, col
-                                .getAdditionalDisplayPropertyName(), null);
+                            .getAdditionalDisplayPropertyName(), null);
                         col.setPropertyValue(col.getPropertyValue() + " *-* " + additionalPropertyValue);
                     }
                 } else {
@@ -1251,12 +1250,11 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
         } catch (Exception e) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + propertyName + "' "
-                    + " on an instance of '" + element.getClass().getName() + "'.", e);
+                + " on an instance of '" + element.getClass().getName() + "'.", e);
         }
 
         return propClass;
     }
-
 
 
     protected String maskValueIfNecessary(Class businessObjectClass, String propertyName, String propertyValue, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -1281,7 +1279,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     protected SequenceAccessorService getSequenceAccessorService() {
         return sequenceAccessorService != null ? sequenceAccessorService : KRADServiceLocator
-                .getSequenceAccessorService();
+            .getSequenceAccessorService();
     }
 
     public void setSequenceAccessorService(SequenceAccessorService sequenceAccessorService) {
@@ -1336,9 +1334,9 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      * @see LookupableHelperService#performClear()
      */
     public void performClear(LookupForm lookupForm) {
-        for (Iterator iter = this.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (field.isSecure()) {
                     field.setSecure(false);
@@ -1417,31 +1415,31 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
                     String decryptedValue = "";
                     try {
                         String cipherText = StringUtils.removeEnd(field.getPropertyValue(), EncryptionService.ENCRYPTION_POST_PREFIX);
-                        if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                        if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                             decryptedValue = getEncryptionService().decrypt(cipherText);
                         }
                     } catch (GeneralSecurityException e) {
                         throw new RuntimeException("Error decrypting value for business object " + businessObjectClass + " attribute " + field.getPropertyName(), e);
                     }
                     if (attributeSecurity.isMask() && !boAuthzService.canFullyUnmaskField(user,
-                            businessObjectClass, field.getPropertyName(), null)) {
+                        businessObjectClass, field.getPropertyName(), null)) {
                         MaskFormatter maskFormatter = attributeSecurity.getMaskFormatter();
                         field.setEncryptedValue(field.getPropertyValue());
                         field.setDisplayMaskValue(maskFormatter.maskValue(decryptedValue));
                         field.setSecure(true);
                     } else if (attributeSecurity.isPartialMask() && !boAuthzService.canPartiallyUnmaskField(user,
-                            businessObjectClass, field.getPropertyName(), null)) {
+                        businessObjectClass, field.getPropertyName(), null)) {
                         MaskFormatter maskFormatter = attributeSecurity.getPartialMaskFormatter();
                         field.setEncryptedValue(field.getPropertyValue());
                         field.setDisplayMaskValue(maskFormatter.maskValue(decryptedValue));
                         field.setSecure(true);
                     } else {
                         field.setPropertyValue(org.kuali.kfs.krad.lookup.LookupUtils
-                                .forceUppercase(businessObjectClass, field.getPropertyName(), decryptedValue));
+                            .forceUppercase(businessObjectClass, field.getPropertyName(), decryptedValue));
                     }
                 } else {
                     throw new RuntimeException("Field " + field.getPersonNameAttributeName() + " was encrypted on " + businessObjectClass.getName() +
-                            " lookup was encrypted when it should not have been encrypted according to the data dictionary.");
+                        " lookup was encrypted when it should not have been encrypted according to the data dictionary.");
                 }
             }
         } else {
@@ -1467,9 +1465,9 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
         Set<String> requiredFields = getConditionallyRequiredPropertyNames();
         Set<String> hiddenFields = getConditionallyHiddenPropertyNames();
 
-        for (Iterator iter = this.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
 
                 if (readOnlyFields != null && readOnlyFields.contains(field.getPropertyName())) {
@@ -1489,8 +1487,8 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     /**
      * @return Set of property names that should be set as read only based on the current search
-     *         contents, note request parms containing search field values can be retrieved with
-     *         {@link #getParameters()}
+     * contents, note request parms containing search field values can be retrieved with
+     * {@link #getParameters()}
      */
     public Set<String> getConditionallyReadOnlyPropertyNames() {
         return new HashSet<String>();
@@ -1498,8 +1496,8 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     /**
      * @return Set of property names that should be set as required based on the current search
-     *         contents, note request parms containing search field values can be retrieved with
-     *         {@link #getParameters()}
+     * contents, note request parms containing search field values can be retrieved with
+     * {@link #getParameters()}
      */
     public Set<String> getConditionallyRequiredPropertyNames() {
         return new HashSet<String>();
@@ -1507,8 +1505,8 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
 
     /**
      * @return Set of property names that should be set as hidden based on the current search
-     *         contents, note request parms containing search field values can be retrieved with
-     *         {@link #getParameters()}
+     * contents, note request parms containing search field values can be retrieved with
+     * {@link #getParameters()}
      */
     public Set<String> getConditionallyHiddenPropertyNames() {
         return new HashSet<String>();
@@ -1525,9 +1523,9 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
         String currentValue = null;
 
         boolean fieldFound = false;
-        for (Iterator iter = this.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
 
                 if (StringUtils.equalsIgnoreCase(propertyName, field.getPropertyName())) {

@@ -364,6 +364,7 @@ public class BudgetConstructionOrgReasonSummaryReport {
 
     /**
      * Gets the chartOfAccountsCode attribute.
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -372,6 +373,7 @@ public class BudgetConstructionOrgReasonSummaryReport {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {

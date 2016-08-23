@@ -298,6 +298,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     /**
      * Gets the profilePrincipalId attribute.
+     *
      * @return Returns the profilePrincipalId.
      */
     public Integer getProfilePrincipalId() {
@@ -306,6 +307,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     /**
      * Sets the profilePrincipalId attribute value.
+     *
      * @param profilePrincipalId The profilePrincipalId to set.
      */
     public void setProfilePrincipalId(Integer profilePrincipalId) {

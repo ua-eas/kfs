@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl;
 import org.kuali.kfs.gl.batch.service.impl.BalancingServiceImplTestBase;
@@ -29,6 +25,8 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.dataaccess.LedgerBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.LaborBalancingStep;
 import org.kuali.kfs.module.ld.businessobject.LaborBalanceHistory;
@@ -37,11 +35,12 @@ import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -56,7 +55,7 @@ public class LaborBalancingServiceImplTest extends BalancingServiceImplTestBase 
     @Override
     protected void setUp() throws Exception {
         balancingService = (BalancingServiceBaseImpl<Entry, Balance>) TestUtils.getUnproxiedService("laborBalancingService");
-        ledgerEntryHistoryBalancingDao =  (LedgerEntryHistoryBalancingDao) SpringContext.getService("laborLedgerEntryHistoryDao");
+        ledgerEntryHistoryBalancingDao = (LedgerEntryHistoryBalancingDao) SpringContext.getService("laborLedgerEntryHistoryDao");
         ledgerBalancingDao = (LedgerBalancingDao) SpringContext.getService("laborBalancingDao");
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
 
@@ -194,8 +193,7 @@ public class LaborBalancingServiceImplTest extends BalancingServiceImplTestBase 
             // Rename the file because that's what happens before the balancing job runs
             Step laborFileRenameStep = BatchSpringContext.getStep("laborFileRenameStep");
             assertTrue("laborFileRenameStep should have succeeded", laborFileRenameStep.execute(getClass().getName(), dateTimeService.getCurrentDate()));
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             assertTrue("laborPosterStep or laborFileRenameStep failed: " + e.getMessage(), true);
         }
     }
@@ -207,25 +205,25 @@ public class LaborBalancingServiceImplTest extends BalancingServiceImplTestBase 
     protected String[] getInputTransactions() {
         // These inputTransactions are missing an initial 4 character FY string. It is added in setUp to test Balancing skipping old entries. Also, first 4
         // of the following array are in error intentionally.
-        return new String[] {
-                "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90D2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47D2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77D2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----5760---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----5772---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----5625---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90D2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5760---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47D2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5772---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77D2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5625---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5760---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5772---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5625---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----5625---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                "BL1031400-----5760---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                "BL1031400-----5760---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200906000000000010                                                      ",
-                CHART_OF_ACCOUNTS_CODE + "1031400-----" + FINANCIAL_OBJECT_CODE + "---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200905000000000010                                                      ",
-                CHART_OF_ACCOUNTS_CODE + "1031400-----" + FINANCIAL_OBJECT_CODE + "---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+        return new String[]{
+            "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90D2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47D2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77D2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----    ---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----5760---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----5772---A2EX05BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----5625---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90D2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5760---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47D2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5772---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77D2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5625---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5760---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5772---A2EX06BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5625---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----5625---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       619.90C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            "BL1031400-----5760---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            "BL1031400-----5760---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       276.47C2009-02-05                                                                     0.00     200906000000000010                                                      ",
+            CHART_OF_ACCOUNTS_CODE + "1031400-----" + FINANCIAL_OBJECT_CODE + "---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200905000000000010                                                      ",
+            CHART_OF_ACCOUNTS_CODE + "1031400-----" + FINANCIAL_OBJECT_CODE + "---A2EX08BT  01LP2837509     88888------------------TEST DESCRIPTION                                       448.77C2009-02-05                                                                     0.00     200906000000000010                                                      ",
         };
     }
 }

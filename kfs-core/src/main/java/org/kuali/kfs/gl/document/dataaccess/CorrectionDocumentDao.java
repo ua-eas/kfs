@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.document.dataaccess;
 
+import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
+
 import java.sql.Date;
 import java.util.Collection;
-
-import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 
 /**
  * A DAO interface that declares methods...or, in this case, a method...for CorrectionDocuments to interact

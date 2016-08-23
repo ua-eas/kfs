@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
@@ -31,13 +28,16 @@ import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.module.tem.util.ExpenseUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.KualiRuleService;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class RemoveActualExpenseDetailEvent implements Observer {
 
     public static Logger LOG = Logger.getLogger(RemoveActualExpenseDetailEvent.class);
 
-    private static final int WRAPPER_ARG_IDX       = 0;
+    private static final int WRAPPER_ARG_IDX = 0;
     private static final int SELECTED_LINE_ARG_IDX = 1;
     private static final int SELECTED_DETAIL_LINE_ARG_IDX = 2;
 
@@ -64,7 +64,7 @@ public class RemoveActualExpenseDetailEvent implements Observer {
 
         KualiDecimal detailTotal = line.getTotalDetailExpenseAmount();
 
-        if (detailTotal.isLessThan(line.getExpenseAmount())){
+        if (detailTotal.isLessThan(line.getExpenseAmount())) {
             KualiDecimal remainderExpense = line.getExpenseAmount().subtract(detailTotal);
             KualiDecimal remainderConverted = line.getConvertedAmount().subtract(new KualiDecimal(detailTotal.bigDecimalValue().multiply(line.getCurrencyRate())));
 
@@ -80,7 +80,6 @@ public class RemoveActualExpenseDetailEvent implements Observer {
         document.getDisabledProperties().clear();
 
     }
-
 
 
     /**

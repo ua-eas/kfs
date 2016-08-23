@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class AddNodeHandler extends AbstractNodeChangeHandler implements DocumentStoreChangeHandler {
 
@@ -39,9 +38,9 @@ public class AddNodeHandler extends AbstractNodeChangeHandler implements Documen
     public void makeChange(JsonNode change) {
         LOG.debug("makeChange() started");
 
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-        verifyKeyExistence(change,VALUE);
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change, QUERY);
+        verifyKeyExistence(change, VALUE);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
         DBObject nodeToAdd = (DBObject) JSON.parse(change.get(VALUE).toString());

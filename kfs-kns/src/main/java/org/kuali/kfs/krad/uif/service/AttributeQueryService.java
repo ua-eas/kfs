@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.krad.uif.service;
 
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.field.AttributeQueryResult;
+import org.kuali.kfs.krad.uif.view.View;
 
 import java.util.Map;
 
 /**
  * Provides methods for executing <code>AttributeQuery</code> instances
  * and preparing the <code>AttributeQueryResult</code> with the result of the query
- *
- *
  */
 public interface AttributeQueryService {
 
@@ -37,14 +35,14 @@ public interface AttributeQueryService {
      * attribute query or as arguments to the query method. The fieldTerm parameter gives the current value
      * of the field that should be matched on. The query is expected to return a list of values to suggest
      *
-     * @param view - view instance for which the field belongs
-     * @param fieldId - id for the attribute field to perform the query for
-     * @param fieldTerm - the partial value of the query field to match
+     * @param view            - view instance for which the field belongs
+     * @param fieldId         - id for the attribute field to perform the query for
+     * @param fieldTerm       - the partial value of the query field to match
      * @param queryParameters - map of key/value pairs that are parameters to the query
      * @return AttributeQueryResult instance populated with the List<String> data field of result data
      */
     public AttributeQueryResult performFieldSuggestQuery(View view, String fieldId, String fieldTerm,
-            Map<String, String> queryParameters);
+                                                         Map<String, String> queryParameters);
 
     /**
      * Executes the <code>AttributeQuery</code> associated with the field given by the id. The given Map of key/value
@@ -52,8 +50,8 @@ public interface AttributeQueryService {
      * The query is expected to return a Map of field name/value pairs (unlike the suggest query which just returns
      * values for one field)
      *
-     * @param view - view instance for which the field belongs
-     * @param fieldId - id for the attribute field to perform the query for
+     * @param view            - view instance for which the field belongs
+     * @param fieldId         - id for the attribute field to perform the query for
      * @param queryParameters - map of key/value pairs that are parameters to the query
      * @return AttributeQueryResult instance populated with the Map<String, String> of result field data
      */

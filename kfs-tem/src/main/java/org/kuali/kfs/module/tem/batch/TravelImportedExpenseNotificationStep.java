@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.TravelImportedExpenseNotificationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class TravelImportedExpenseNotificationStep extends AbstractStep {
 
@@ -39,6 +39,7 @@ public class TravelImportedExpenseNotificationStep extends AbstractStep {
 
     /**
      * Gets the travelImportedExpenseNotificationService attribute.
+     *
      * @return Returns the travelImportedExpenseNotificationService.
      */
     public TravelImportedExpenseNotificationService getTravelImportedExpenseNotificationService() {
@@ -47,6 +48,7 @@ public class TravelImportedExpenseNotificationStep extends AbstractStep {
 
     /**
      * Sets the travelImportedExpenseNotificationService attribute value.
+     *
      * @param travelImportedExpenseNotificationService The travelImportedExpenseNotificationService to set.
      */
     public void setTravelImportedExpenseNotificationService(TravelImportedExpenseNotificationService travelImportedExpenseNotificationService) {

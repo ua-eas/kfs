@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.keyvalues;
 
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +32,13 @@ public class ModuleValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBa
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> keyValues = new ArrayList<KeyValue>();
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue("", ""));
         //keyValues.add(getKeyValue(RiceConstants.CROSS_MODULE_CODE, RiceConstants.CROSS_MODULE_NAME));
         for (ModuleService moduleService : KRADServiceLocatorWeb.getKualiModuleService().getInstalledModuleServices()) {
             keyValues.add(getKeyValue(moduleService.getModuleConfiguration().getNamespaceCode(),
-            		KRADServiceLocatorWeb.getKualiModuleService().getNamespaceName(moduleService.getModuleConfiguration().getNamespaceCode())));
+                KRADServiceLocatorWeb.getKualiModuleService().getNamespaceName(moduleService.getModuleConfiguration().getNamespaceCode())));
         }
         return keyValues;
     }

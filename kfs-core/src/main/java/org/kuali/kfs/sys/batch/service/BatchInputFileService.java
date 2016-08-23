@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.io.InputStream;
-import java.util.List;
-
+import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * Interface defining methods to manage batch input files.
@@ -34,7 +34,7 @@ public interface BatchInputFileService {
      * Unmarshalls the file contents to an Object using the digestor and digestor rules file specified in the batch input type.
      *
      * @param batchInputFileType - batch input file type for the file to parse
-     * @param fileByteContent - byte contents of file to parse
+     * @param fileByteContent    - byte contents of file to parse
      * @return - Object built from the file contents based on its xml unmarshalling rules
      */
     public Object parse(BatchInputFileType batchInputFileType, byte[] fileByteContent);
@@ -43,7 +43,7 @@ public interface BatchInputFileService {
      * Using the input type object parses and validates the file contents by calling validate on the batch input type. If there were
      * validation errors, GlobalVariables.errorMap will contain the error messages.
      *
-     * @param inputType - instance of a BatchInputFileType
+     * @param inputType    - instance of a BatchInputFileType
      * @param parsedObject - the Object built from parsing xml contents
      * @return boolean - true if validation was successful, false if there were errors
      */
@@ -52,11 +52,11 @@ public interface BatchInputFileService {
     /**
      * Stores the inputstream as a file on the server, identified by the given user file name.
      *
-     * @param user - user who is requesting the save
-     * @param inputType - instance of a BatchInputFileType
+     * @param user               - user who is requesting the save
+     * @param inputType          - instance of a BatchInputFileType
      * @param fileUserIdentifier - file identifier specified by user
-     * @param fileContents - contents of the uploaded file
-     * @param parsedObject - object parsed from the input file
+     * @param fileContents       - contents of the uploaded file
+     * @param parsedObject       - object parsed from the input file
      * @return String - name of file that was saved, or null if errors were enountered
      * @throws FileStorageException - if errors were encountered while attempting to write the file
      */

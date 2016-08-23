@@ -30,7 +30,6 @@ public interface ContractsAndGrantsBillingService {
      * This sections will be ignored on the maintenance/inquiry screens if CGB is disabled.
      *
      * @return list of CGB Agency section ids
-     *
      */
     public List<String> getAgencyContractsGrantsBillingSectionIds();
 
@@ -39,7 +38,6 @@ public interface ContractsAndGrantsBillingService {
      * This sections will be ignored on the maintenance/inquiry screens if CGB is disabled.
      *
      * @return list of CGB Award section ids
-     *
      */
     public List<String> getAwardContractsGrantsBillingSectionIds();
 

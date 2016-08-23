@@ -22,40 +22,37 @@ package org.kuali.kfs.krad.bo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kuali.kfs.krad.bo.LookupResults;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * This is a description of what this class does - chang don't forget to fill this in.
- *
- *
- *
  */
 public class LookupResultsTest {
 
-	 LookupResults lookupResults;
-	@Before
-	public void setUp() throws Exception {
-		 lookupResults = new  LookupResults();
-	}
+    LookupResults lookupResults;
 
-	/**
-	 * This method ...
-	 *
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		 lookupResults = null;
-	}
+    @Before
+    public void setUp() throws Exception {
+        lookupResults = new LookupResults();
+    }
 
-	@Test
-	public void testSerializedLookupResults(){
-		String serializedLookupResults = "SerializedLookupResults";
-		lookupResults.setSerializedLookupResults(serializedLookupResults);
-		assertEquals("Testing SerializedLookupResults in LookupResults",serializedLookupResults,lookupResults.getSerializedLookupResults());
-	}
+    /**
+     * This method ...
+     *
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        lookupResults = null;
+    }
+
+    @Test
+    public void testSerializedLookupResults() {
+        String serializedLookupResults = "SerializedLookupResults";
+        lookupResults.setSerializedLookupResults(serializedLookupResults);
+        assertEquals("Testing SerializedLookupResults in LookupResults", serializedLookupResults, lookupResults.getSerializedLookupResults());
+    }
 
 
 }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.dataaccess;
 
-import java.util.Map;
-
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.apache.ojb.broker.PersistenceBrokerFactory;
 import org.apache.ojb.broker.accesslayer.RowReaderDefaultImpl;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
+
+import java.util.Map;
 
 /**
  * (Inspired by example posted at http://nagoya.apache.org/eyebrowse/ReadMsg?listName=ojb-user@db.apache.org&msgId=749837) This
@@ -38,7 +38,9 @@ import org.apache.ojb.broker.metadata.ClassDescriptor;
  */
 public abstract class PolymorphicMultiColumnDiscriminator extends RowReaderDefaultImpl {
 
-    /** Column(s) that distinguish the parent class */
+    /**
+     * Column(s) that distinguish the parent class
+     */
     private String[] column = null;
 
     public PolymorphicMultiColumnDiscriminator(ClassDescriptor cld) {
@@ -84,12 +86,10 @@ public abstract class PolymorphicMultiColumnDiscriminator extends RowReaderDefau
             broker.close();
             if (result == null) {
                 return getClassDescriptor();
-            }
-            else {
+            } else {
                 return result;
             }
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
             broker.close();
             throw e;
         }

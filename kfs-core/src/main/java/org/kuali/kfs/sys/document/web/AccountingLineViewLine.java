@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLineDefinition;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLineDefinition;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * Represents a single table row to be rendered as part of an accounting line view.
@@ -36,13 +36,16 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * Gets the definition attribute.
+     *
      * @return Returns the definition.
      */
     public AccountingLineViewLineDefinition getDefinition() {
         return definition;
     }
+
     /**
      * Sets the definition attribute value.
+     *
      * @param definition The definition to set.
      */
     public void setDefinition(AccountingLineViewLineDefinition definition) {
@@ -55,15 +58,19 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public String getName() {
         return definition.getElementName();
     }
+
     /**
      * Gets the elements attribute.
+     *
      * @return Returns the elements.
      */
     public List<RenderableElement> getElements() {
         return elements;
     }
+
     /**
      * Sets the elements attribute value.
+     *
      * @param elements The elements to set.
      */
     public void setElements(List<RenderableElement> fields) {
@@ -72,6 +79,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * Gets the number of actual rows requested (1)
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElement#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -80,6 +88,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * Determines the max requested row count in the line.
+     *
      * @return the number of rows to create for this line
      */
     protected int getMaxRequestedRowCount() {
@@ -95,17 +104,18 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerRow, AccountingLineTableRow row) {
-       for (RenderableElement element : elements) {
-           if (element instanceof TableJoining) {
-               ((TableJoining)element).joinRow(headerRow, row);
-           } else {
-               headerRow.addCell(createTableCellForNonTableJoining(element));
-           }
-       }
+        for (RenderableElement element : elements) {
+            if (element instanceof TableJoining) {
+                ((TableJoining) element).joinRow(headerRow, row);
+            } else {
+                headerRow.addCell(createTableCellForNonTableJoining(element));
+            }
+        }
     }
 
     /**
      * Creates a table cell to wrap the given rendering element
+     *
      * @param element the element to wrap
      * @return a table cell wrapping that element
      */
@@ -118,6 +128,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * Always throws an exception - a line may only join a table through a parent lines element
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -126,6 +137,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * This element should be padded out
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#stretchToFillLine()
      */
     public boolean shouldStretchToFillLine() {
@@ -138,7 +150,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void readOnlyize() {
         for (RenderableElement element : elements) {
             if (element instanceof ReadOnlyable) {
-                ((ReadOnlyable)element).readOnlyize();
+                ((ReadOnlyable) element).readOnlyize();
             }
         }
     }
@@ -148,7 +160,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
      */
     public boolean isReadOnly() {
         for (RenderableElement element : elements) {
-            if (element instanceof ReadOnlyable && !((ReadOnlyable)element).isReadOnly()) {
+            if (element instanceof ReadOnlyable && !((ReadOnlyable) element).isReadOnly()) {
                 return false;
             }
         }
@@ -175,10 +187,10 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         Set<RenderableElement> elementsToRemove = new HashSet<RenderableElement>();
         for (RenderableElement element : elements) {
             if (element instanceof TableJoining) {
-                if (unviewableBlocks.contains(((TableJoining)element).getName())) {
+                if (unviewableBlocks.contains(((TableJoining) element).getName())) {
                     elementsToRemove.add(element);
                 } else {
-                    ((TableJoining)element).removeUnviewableBlocks(unviewableBlocks);
+                    ((TableJoining) element).removeUnviewableBlocks(unviewableBlocks);
                 }
             }
         }
@@ -187,12 +199,13 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
 
     /**
      * Shuffles responsibility on to any TableJoining children
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
     public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {
         for (RenderableElement element : elements) {
             if (element instanceof TableJoining) {
-                ((TableJoining)element).readOnlyizeReadOnlyBlocks(readOnlyBlocks);
+                ((TableJoining) element).readOnlyizeReadOnlyBlocks(readOnlyBlocks);
             }
         }
     }
@@ -203,21 +216,22 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
         for (RenderableElement element : elements) {
             if (element instanceof TableJoining) {
-                ((TableJoining)element).performFieldTransformations(fieldTransformations, accountingLine, unconvertedValues);
+                ((TableJoining) element).performFieldTransformations(fieldTransformations, accountingLine, unconvertedValues);
             }
         }
     }
 
     /**
      * Finds the number of table cells this line expects to take up
+     *
      * @return the number of displayed table cells this line expects to render as
      */
     public int getDisplayingFieldWidth() {
         int count = 0;
         for (RenderableElement element : elements) {
             if (!element.isHidden()) {
-                if (element instanceof AccountingLineViewField && ((AccountingLineViewField)element).getColSpanOverride() > 1) {
-                    count += ((AccountingLineViewField)element).getColSpanOverride();
+                if (element instanceof AccountingLineViewField && ((AccountingLineViewField) element).getColSpanOverride() > 1) {
+                    count += ((AccountingLineViewField) element).getColSpanOverride();
                 } else {
                     count += 1;
                 }
@@ -232,7 +246,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void setEditable() {
         for (RenderableElement element : elements) {
             if (element instanceof ReadOnlyable) {
-                ((ReadOnlyable)element).setEditable();
+                ((ReadOnlyable) element).setEditable();
             }
         }
     }
@@ -243,7 +257,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void setEditableBlocks(Set<String> editableBlocks) {
         for (RenderableElement element : elements) {
             if (element instanceof TableJoining) {
-                ((TableJoining)element).setEditableBlocks(editableBlocks);
+                ((TableJoining) element).setEditableBlocks(editableBlocks);
             }
         }
     }

@@ -42,7 +42,7 @@ public abstract class B2BShoppingCartBase {
         this.statusText = statusText;
     }
 
-    public boolean isSuccess(){
+    public boolean isSuccess() {
         return SUCCESS_STATUS_CODE.equals(getStatusCode());
     }
 

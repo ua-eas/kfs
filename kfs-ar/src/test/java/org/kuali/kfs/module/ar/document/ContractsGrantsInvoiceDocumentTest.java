@@ -365,7 +365,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -393,7 +393,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -422,7 +422,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -434,8 +434,8 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
 
     private void refreshAccounts(ContractsAndGrantsBillingAward award) {
         List<ContractsAndGrantsBillingAwardAccount> awardAccounts = award.getActiveAwardAccounts();
-        for (ContractsAndGrantsBillingAwardAccount awardAccount: awardAccounts) {
-            ((AwardAccount)awardAccount).refreshReferenceObject("account");
+        for (ContractsAndGrantsBillingAwardAccount awardAccount : awardAccounts) {
+            ((AwardAccount) awardAccount).refreshReferenceObject("account");
         }
     }
 
@@ -451,10 +451,10 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
 
         Map<String, Object> map = new ReflectionMap(cinvDoc);
         assertEquals("80075", map.get(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER));
-        assertEquals("MILE", map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL+"." + ArPropertyConstants.BILLING_FREQUENCY_CODE));
-        assertEquals("9000000", map.get("accountDetails[0]."+KFSPropertyConstants.ACCOUNT_NUMBER));
+        assertEquals("MILE", map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArPropertyConstants.BILLING_FREQUENCY_CODE));
+        assertEquals("9000000", map.get("accountDetails[0]." + KFSPropertyConstants.ACCOUNT_NUMBER));
         assertNull(map.get("zebra"));
-        assertNull(map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL+".zebra"));
-        assertNull(map.get("accountDetails[2]."+KFSPropertyConstants.ACCOUNT_NUMBER));
+        assertNull(map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL + ".zebra"));
+        assertNull(map.get("accountDetails[2]." + KFSPropertyConstants.ACCOUNT_NUMBER));
     }
 }

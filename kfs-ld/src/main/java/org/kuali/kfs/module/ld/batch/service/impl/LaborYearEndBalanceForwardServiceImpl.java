@@ -18,26 +18,12 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import static org.kuali.kfs.module.ld.LaborConstants.DestinationNames.LEDGER_BALANCE;
-import static org.kuali.kfs.module.ld.LaborConstants.DestinationNames.ORIGN_ENTRY;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.report.PosterOutputSummaryReport;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborConstants.YearEnd;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
@@ -59,9 +45,23 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.ld.LaborConstants.DestinationNames.LEDGER_BALANCE;
+import static org.kuali.kfs.module.ld.LaborConstants.DestinationNames.ORIGN_ENTRY;
 
 /**
  * Labor Ledger Year End Inception to Date Beginning Balance process moves the Year-to-Date Total plus the Contracts and Grants
@@ -102,7 +102,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * @see org.kuali.kfs.module.ld.batch.service.LaborYearEndBalanceForwardService#forwardBalance(java.lang.Integer,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public void forwardBalance(Integer fiscalYear, Integer newFiscalYear) {
         SystemOptions options = optionsService.getOptions(fiscalYear);
@@ -123,8 +123,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
         try {
             balanceForwardsPs = new PrintStream(balanceForwardsFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("balanceForwardsFile Files doesn't exist " + balanceForwardsFileName);
         }
 
@@ -146,7 +145,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
         }
 
         this.fillStatisticsReportWriter(reportSummary);
-        fillParametersReportWriter(runDate, fiscalYear, fundGroupCodes, subFundGroupCodes, getOriginationCode() , processableBalanceTypeCodes, processableObjectTypeCodes, getDocumentTypeCode());
+        fillParametersReportWriter(runDate, fiscalYear, fundGroupCodes, subFundGroupCodes, getOriginationCode(), processableBalanceTypeCodes, processableObjectTypeCodes, getDocumentTypeCode());
         posterOutputSummaryReport.writeReport(laborBalanceForwardReportWriterService);
 
         balanceForwardsPs.close();
@@ -161,8 +160,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
         if (!doneFile.exists()) {
             try {
                 doneFile.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException();
             }
         }
@@ -172,10 +170,10 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
      * post the qualified balances into origin entry table for the further labor ledger processing
      *
      * @param balanceIterator the given ledger balances that will be carried forward
-     * @param newFiscalYear the new fiscal year
-     * @param validGroup the group that the posted transaction belongs to
-     * @param errorMap the map that records the error messages
-     * @param runDate the date the transaction is posted
+     * @param newFiscalYear   the new fiscal year
+     * @param validGroup      the group that the posted transaction belongs to
+     * @param errorMap        the map that records the error messages
+     * @param runDate         the date the transaction is posted
      * @return the number of qualified balances
      */
     protected int postSelectedBalancesAsOriginEntries(Iterator<LedgerBalanceForYearEndBalanceForward> balanceIterator, Integer newFiscalYear, PrintStream balanceForwardsPs, Date runDate, PosterOutputSummaryReport posterOutputSummaryReport, Map<String, Integer> reportSummary) {
@@ -204,8 +202,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
                 posterOutputSummaryReport.summarize((OriginEntryInformation) laborOriginEntry);
                 this.updateReportSummary(reportSummary, LEDGER_BALANCE, KFSConstants.OperationType.SELECT);
                 this.updateReportSummary(reportSummary, LEDGER_BALANCE, KFSConstants.OperationType.INSERT);
-            }
-            else if (errors != null && !errors.isEmpty()) {
+            } else if (errors != null && !errors.isEmpty()) {
                 ObjectUtil.buildObject(laborOriginEntry, balance);
 
                 laborBalanceForwardReportWriterService.writeError(laborOriginEntry, errors);
@@ -220,7 +217,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
      * determine if the given balance is qualified to be carried forward to new fiscal year
      *
      * @param balance the given ledger balance that could be carried forward
-     * @param errors the error list that is updated if the given balacne is not qualified for carry forward
+     * @param errors  the error list that is updated if the given balacne is not qualified for carry forward
      * @return true if the balance is qualified; otherwise, false
      */
     protected boolean validateBalance(LedgerBalanceForYearEndBalanceForward balance, List<Message> errors) {
@@ -231,10 +228,10 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
     /**
      * post the qualified balance into origin entry table for the further labor ledger processing
      *
-     * @param balance the given ledger balance that will be carried forward
+     * @param balance       the given ledger balance that will be carried forward
      * @param newFiscalYear the new fiscal year
-     * @param validGroup the group that the posted transaction belongs to
-     * @param postingDate the date the transaction is posted
+     * @param validGroup    the group that the posted transaction belongs to
+     * @param postingDate   the date the transaction is posted
      */
     protected void postAsOriginEntry(LedgerBalanceForYearEndBalanceForward balance, LaborOriginEntry originEntry, PrintStream balanceForwardsPs, Date postingDate) {
         try {
@@ -265,12 +262,10 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
             try {
                 balanceForwardsPs.printf("%s\n", originEntry.getLine());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e.toString());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error(e);
         }
     }
@@ -340,14 +335,15 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Report out which significant parameters were used in this report.
-     * @param runDate the date when this job was run
-     * @param closingYear the fiscal year closed by this job
-     * @param processedFundGroups the fund groups processed by this job
-     * @param processedSubFundGroups the sub-fund groups processed by this job
-     * @param originationCode the origination code of the posted entries
+     *
+     * @param runDate                   the date when this job was run
+     * @param closingYear               the fiscal year closed by this job
+     * @param processedFundGroups       the fund groups processed by this job
+     * @param processedSubFundGroups    the sub-fund groups processed by this job
+     * @param originationCode           the origination code of the posted entries
      * @param processedBalanceTypeCodes the balance type codes processed by this job
-     * @param processedObjectTypeCodes the object type codes processed by this job
-     * @param documentTypeCode the document type code of posted entries
+     * @param processedObjectTypeCodes  the object type codes processed by this job
+     * @param documentTypeCode          the document type code of posted entries
      */
     protected void fillParametersReportWriter(Date runDate, Integer closingYear, Collection<String> processedFundGroups, Collection<String> processedSubFundGroups, String originationCode, Collection<String> processedBalanceTypeCodes, Collection<String> processedObjectTypeCodes, String documentTypeCode) {
         laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM, runDate.toString());
@@ -355,8 +351,8 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
         laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborConstants.YearEnd.FUND_GROUP_PROCESSED, StringUtils.join(processedFundGroups, ", "));
         laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborConstants.YearEnd.SUB_FUND_GROUP_PROCESSED, StringUtils.join(processedSubFundGroups, ", "));
         laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborConstants.YearEnd.ORIGINATION_CODE, originationCode);
-        laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborYearEndBalanceForwardServiceImpl.PROCESSED_BALANCE_TYPES_LABEL, StringUtils.join(processedBalanceTypeCodes, ", " ));
-        laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborYearEndBalanceForwardServiceImpl.PROCESSED_OBJECT_TYPES_LABEL, StringUtils.join(processedObjectTypeCodes, ", " ));
+        laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborYearEndBalanceForwardServiceImpl.PROCESSED_BALANCE_TYPES_LABEL, StringUtils.join(processedBalanceTypeCodes, ", "));
+        laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", LaborYearEndBalanceForwardServiceImpl.PROCESSED_OBJECT_TYPES_LABEL, StringUtils.join(processedObjectTypeCodes, ", "));
         laborBalanceForwardReportWriterService.writeParameterLine("%32s %10s", GeneralLedgerConstants.ANNUAL_CLOSING_DOCUMENT_TYPE, documentTypeCode);
         laborBalanceForwardReportWriterService.pageBreak();
     }
@@ -368,8 +364,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
         if (reportSummary.containsKey(key)) {
             Integer count = reportSummary.get(key);
             reportSummary.put(key, count + 1);
-        }
-        else {
+        } else {
             reportSummary.put(key, 1);
         }
     }

@@ -19,23 +19,23 @@
 <!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://directwebremoting.org/schema/dwr30.dtd">
 
 <dwr>
-	<init>
-		<creator id="spring" class="org.kuali.kfs.kns.web.servlet.dwr.GlobalResourceDelegatingSpringCreator"/>
-	</init>
-	<allow>
-	   	<convert converter="bean" match="org.kuali.kfs.vnd.businessobject.CommodityCode">
-	   		<param name="include" value="purchasingCommodityCode,commodityDescription" />
-	   	</convert>
-	    <create creator="spring" javascript="CommodityCodeService">
-	    	<param name="beanName" value="commodityCodeService" />
-	    	<include method="getByPrimaryId" />
-	    </create>
-	   	<convert converter="bean" match="org.kuali.kfs.vnd.businessobject.VendorDetail">
-	   		<param name="include" value="vendorNumber,vendorName,vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" />
-	   	</convert>
-	    <create creator="spring" javascript="VendorService">
-	    	<param name="beanName" value="vendorService" />
-	    	<include method="getByVendorNumber" />
-	    </create>
-	</allow>
+    <init>
+        <creator id="spring" class="org.kuali.kfs.kns.web.servlet.dwr.GlobalResourceDelegatingSpringCreator"/>
+    </init>
+    <allow>
+        <convert converter="bean" match="org.kuali.kfs.vnd.businessobject.CommodityCode">
+            <param name="include" value="purchasingCommodityCode,commodityDescription"/>
+        </convert>
+        <create creator="spring" javascript="CommodityCodeService">
+            <param name="beanName" value="commodityCodeService"/>
+            <include method="getByPrimaryId"/>
+        </create>
+        <convert converter="bean" match="org.kuali.kfs.vnd.businessobject.VendorDetail">
+            <param name="include" value="vendorNumber,vendorName,vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier"/>
+        </convert>
+        <create creator="spring" javascript="VendorService">
+            <param name="beanName" value="vendorService"/>
+            <include method="getByVendorNumber"/>
+        </create>
+    </allow>
 </dwr>

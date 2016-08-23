@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableModuleService {
 
@@ -39,24 +39,28 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
 
     @Override
     public ElectronicPaymentClaimingDocumentGenerationStrategy getAccountsReceivablePaymentClaimingStrategy() {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return new ElectronicPaymentClaimingDocumentGenerationStrategy() {
             @Override
             public boolean userMayUseToClaim(Person claimingUser) {
                 return false;
             }
+
             @Override
             public String createDocumentFromElectronicPayments(List<ElectronicPaymentClaim> electronicPayments, Person user) {
                 return null;
             }
+
             @Override
             public String getClaimingDocumentWorkflowDocumentType() {
                 return null;
             }
+
             @Override
             public String getDocumentLabel() {
                 return "AR NoOp Module Service";
             }
+
             @Override
             public boolean isDocumentReferenceValid(String referenceDocumentNumber) {
                 return false;
@@ -104,7 +108,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public AccountsReceivableCustomerInvoice getOpenCustomerInvoice(String customerInvoiceDocumentNumber) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
@@ -113,7 +117,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public Map<String, KualiDecimal> getCustomerInvoiceOpenAmount(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceBillingDateFrom) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
@@ -122,7 +126,7 @@ public class AccountsReceivableModuleServiceNoOp implements AccountsReceivableMo
      */
     @Override
     public Collection<? extends AccountsReceivableCustomerInvoice> getOpenCustomerInvoices(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceBillingDateFrom) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 

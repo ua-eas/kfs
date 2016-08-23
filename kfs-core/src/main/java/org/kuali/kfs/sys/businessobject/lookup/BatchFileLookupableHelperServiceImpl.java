@@ -18,6 +18,28 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
+import org.apache.commons.io.DirectoryWalker;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.filefilter.AbstractFileFilter;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.batch.BatchFile;
+import org.kuali.kfs.sys.batch.BatchFileUtils;
+import org.kuali.kfs.sys.batch.service.BatchFileAdminAuthorizationService;
+import org.kuali.kfs.sys.util.KfsDateUtils;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,28 +49,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.io.DirectoryWalker;
-import org.apache.commons.io.IOCase;
-import org.apache.commons.io.filefilter.AbstractFileFilter;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.batch.BatchFile;
-import org.kuali.kfs.sys.batch.BatchFileUtils;
-import org.kuali.kfs.sys.batch.service.BatchFileAdminAuthorizationService;
-import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
 
 public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     protected DateTimeService dateTimeService;
@@ -94,8 +94,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
             IOFileFilter subFilter = new SubDirectoryFileFilter(selectedFile);
             if (fileFilter == null) {
                 fileFilter = subFilter;
-            }
-            else {
+            } else {
                 fileFilter = FileFilterUtils.orFileFilter(fileFilter, subFilter);
             }
         }
@@ -130,8 +129,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
                 Date toDate = dateTimeService.convertToDate(dates[1]);
                 return new LastModifiedDateFileFilter(fromDate, toDate);
             }
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Can't parse date", e);
         }
         throw new RuntimeException("Unable to perform search using last modified date " + lastModifiedDatePattern);
@@ -150,9 +148,10 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
         }
         return directories;
     }
+
     /**
      * KRAD Conversion: gets rows after customizing the field values
-     *
+     * <p>
      * No use of data dictionary
      */
     protected String[] getSelectedPaths() {
@@ -228,8 +227,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
                 for (File rootDirectory : rootDirectories) {
                     walk(rootDirectory, null);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException("Error performing lookup", e);
             }
         }
@@ -308,6 +306,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
 
     /**
      * Sets the batchFileAdminAuthorizationService attribute value.
+     *
      * @param batchFileAdminAuthorizationService The batchFileAdminAuthorizationService to set.
      */
     public void setBatchFileAdminAuthorizationService(BatchFileAdminAuthorizationService batchFileAdminAuthorizationService) {

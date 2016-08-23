@@ -18,21 +18,12 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseType;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine;
@@ -51,12 +42,22 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Accounting Distribution Service Implementation
  */
+
 /**
  * This class...
  */
@@ -71,14 +72,14 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
 
     @SuppressWarnings("deprecation")
     @Override
-    public List<TemSourceAccountingLine> distributionToSouceAccountingLines(List<TemDistributionAccountingLine> distributionAccountingLines, List<AccountingDistribution> accountingDistributionList, KualiDecimal sourceAccountingLinesTotal, KualiDecimal expenseLimit){
+    public List<TemSourceAccountingLine> distributionToSouceAccountingLines(List<TemDistributionAccountingLine> distributionAccountingLines, List<AccountingDistribution> accountingDistributionList, KualiDecimal sourceAccountingLinesTotal, KualiDecimal expenseLimit) {
         List<TemSourceAccountingLine> sourceAccountingList = new ArrayList<TemSourceAccountingLine>();
         Map<String, AccountingDistribution> distributionMap = new HashMap<String, AccountingDistribution>();
         KualiDecimal total = KualiDecimal.ZERO;
         int distributionTargetCount = 0;
         boolean useExpenseLimit = false;
-        for (AccountingDistribution accountDistribution: accountingDistributionList){
-            if (accountDistribution.getSelected()){
+        for (AccountingDistribution accountDistribution : accountingDistributionList) {
+            if (accountDistribution.getSelected()) {
                 total = total.add(accountDistribution.getRemainingAmount());
                 distributionTargetCount += 1;
             }
@@ -97,28 +98,26 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
         }
 
         if (total.isGreaterThan(KualiDecimal.ZERO)) {
-            for (AccountingDistribution accountingDistribution : accountingDistributionList){
+            for (AccountingDistribution accountingDistribution : accountingDistributionList) {
                 List<TemSourceAccountingLine> tempSourceAccountingList = new ArrayList<TemSourceAccountingLine>();
-                if (accountingDistribution.getSelected()){
-                    for (TemDistributionAccountingLine accountingLine : distributionAccountingLines){
+                if (accountingDistribution.getSelected()) {
+                    for (TemDistributionAccountingLine accountingLine : distributionAccountingLines) {
                         TemSourceAccountingLine newLine = new TemSourceAccountingLine();
                         try {
                             BeanUtils.copyProperties(newLine, accountingLine);
-                        }
-                        catch (IllegalAccessException ex) {
+                        } catch (IllegalAccessException ex) {
                             ex.printStackTrace();
-                        }
-                        catch (InvocationTargetException ex) {
+                        } catch (InvocationTargetException ex) {
                             ex.printStackTrace();
                         }
                         BigDecimal distributionAmount = (distributionTargetCount > 1) ? accountingDistribution.getRemainingAmount().bigDecimalValue() : total.bigDecimalValue();
                         BigDecimal product = accountingLine.getAccountLinePercent().multiply(distributionAmount);
-                        product = product.divide(new BigDecimal(100),5,RoundingMode.HALF_UP);
-                        BigDecimal lineAmount = product.divide(total.bigDecimalValue(),5,RoundingMode.HALF_UP);
+                        product = product.divide(new BigDecimal(100), 5, RoundingMode.HALF_UP);
+                        BigDecimal lineAmount = product.divide(total.bigDecimalValue(), 5, RoundingMode.HALF_UP);
 
                         newLine.setAmount(new KualiDecimal(product));
                         newLine.setCardType(accountingDistribution.getCardType());
-                        Map<String,Object> fieldValues = new HashMap<String,Object>();
+                        Map<String, Object> fieldValues = new HashMap<String, Object>();
                         fieldValues.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, accountingDistribution.getObjectCode());
                         fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, newLine.getChartOfAccountsCode());
                         fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear());
@@ -130,7 +129,7 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
                     if (useExpenseLimit) {
                         sourceAccountingList.addAll(tempSourceAccountingList); //we just adjusted the accounting lines for the expense...let's not readjust
                     } else {
-                        sourceAccountingList.addAll(adjustValues(tempSourceAccountingList,accountingDistribution.getRemainingAmount()));
+                        sourceAccountingList.addAll(adjustValues(tempSourceAccountingList, accountingDistribution.getRemainingAmount()));
                     }
                 }
             }
@@ -154,8 +153,7 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
         KualiDecimal remainderAmount = total.subtract(totalAmount);
         if (remainderAmount.isPositive()) {
             line.setAmount(line.getAmount().subtract(remainderAmount));
-        }
-        else if (remainderAmount.isNegative()) {
+        } else if (remainderAmount.isNegative()) {
             line.setAmount(line.getAmount().add(remainderAmount));
         }
 
@@ -186,13 +184,13 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
         List<AccountingDistribution> documentDistribution = new ArrayList<AccountingDistribution>();
         Map<String, AccountingDistribution> distributionMap = new HashMap<String, AccountingDistribution>();
 
-        for (ExpenseType expense : EnumSet.allOf(ExpenseType.class)){
+        for (ExpenseType expense : EnumSet.allOf(ExpenseType.class)) {
             Map<String, AccountingDistribution> newDistributionMap = getTravelExpenseService().getExpenseServiceByType(expense).getAccountingDistribution(travelDocument);
             addMergeDistributionMap(distributionMap, newDistributionMap);
         }
         subtractMergeDistributionMap(distributionMap, accountingLinesToDistributionMap(travelDocument));
 
-        for (String distribution : distributionMap.keySet()){
+        for (String distribution : distributionMap.keySet()) {
             if (!distributionMap.get(distribution).getSubTotal().equals(KualiDecimal.ZERO)) {  // don't include distributions of 0.00
                 documentDistribution.add(distributionMap.get(distribution));
             }
@@ -209,8 +207,7 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
             String key = accountingLine.getObjectCode().getCode() + "-" + accountingLine.getCardType();
             if (distributionMap.containsKey(key)) {
                 distributionMap.get(key).setSubTotal(distributionMap.get(key).getSubTotal().add(accountingLine.getAmount()));
-            }
-            else {
+            } else {
                 distribution = new AccountingDistribution();
                 distribution.setObjectCode(accountingLine.getObjectCode().getCode());
                 distribution.setSubTotal(accountingLine.getAmount());
@@ -226,8 +223,7 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
             if (destinationMap.containsKey(key)) {
                 destinationMap.get(key).setSubTotal(destinationMap.get(key).getSubTotal().add(originMap.get(key).getSubTotal()));
                 destinationMap.get(key).setRemainingAmount(destinationMap.get(key).getRemainingAmount().add(originMap.get(key).getRemainingAmount()));
-            }
-            else {
+            } else {
                 destinationMap.put(key, originMap.get(key));
             }
         }
@@ -247,11 +243,11 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
         final String parameterValue = getParameterService().getParameterValueAsString(TravelReimbursementDocument.class, paramName);
         String paramSearchStr = "";
         TravelerDetail traveler = travelDocument.getTraveler();
-        if(traveler != null){
+        if (traveler != null) {
             paramSearchStr += traveler.getTravelerTypeCode() + "=";
         }
         TripType tripType = travelDocument.getTripType();
-        if(tripType != null){
+        if (tripType != null) {
             paramSearchStr += tripType.getCode() + "=";
         }
 
@@ -304,20 +300,20 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
     }
 
     @Override
-    public KualiDecimal getTotalAmount(List<TemDistributionAccountingLine> lines){
+    public KualiDecimal getTotalAmount(List<TemDistributionAccountingLine> lines) {
         KualiDecimal total = KualiDecimal.ZERO;
 
-        for(TemDistributionAccountingLine line : lines){
+        for (TemDistributionAccountingLine line : lines) {
             total = total.add(line.getAmount());
         }
         return total;
     }
 
     @Override
-    public BigDecimal getTotalPercent(List<TemDistributionAccountingLine> lines){
+    public BigDecimal getTotalPercent(List<TemDistributionAccountingLine> lines) {
         BigDecimal total = new BigDecimal(0);
 
-        for(TemDistributionAccountingLine line : lines){
+        for (TemDistributionAccountingLine line : lines) {
             total = total.add(line.getAccountLinePercent());
         }
         return total;
@@ -327,23 +323,23 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
      * @see org.kuali.kfs.module.tem.service.AccountingDistributionService#calculateAccountingLineDistributionPercent(java.util.List)
      */
     @Override
-    public Map<AccountingLineDistributionKey, KualiDecimal> calculateAccountingLineDistributionPercent(List<SourceAccountingLine> accountingLine){
+    public Map<AccountingLineDistributionKey, KualiDecimal> calculateAccountingLineDistributionPercent(List<SourceAccountingLine> accountingLine) {
         Map<AccountingLineDistributionKey, KualiDecimal> distributionMap = new HashMap<AccountingLineDistributionKey, KualiDecimal>();
 
         //calculate the total from the accounting line
         KualiDecimal total = KualiDecimal.ZERO;
-        for (SourceAccountingLine sourceLine : accountingLine){
+        for (SourceAccountingLine sourceLine : accountingLine) {
             total = total.add(sourceLine.getAmount());
         }
 
         //calculate the distribution on each of the accounting line distribution keys
         AccountingLineDistributionKey key;
         KualiDecimal factor;
-        for (SourceAccountingLine sourceLine : accountingLine){
+        for (SourceAccountingLine sourceLine : accountingLine) {
             key = new AccountingLineDistributionKey(sourceLine);
 
             factor = sourceLine.getAmount().divide(total);
-            if (distributionMap.containsKey(key)){
+            if (distributionMap.containsKey(key)) {
                 //accumulate the stored percentage to the calculated; though this is probably very unlikely
                 factor = distributionMap.get(key).add(factor);
             }
@@ -406,7 +402,7 @@ public class AccountingDistributionServiceImpl implements AccountingDistribution
         this.businessObjectService = businessObjectService;
     }
 
-    public TravelExpenseService getTravelExpenseService(){
+    public TravelExpenseService getTravelExpenseService() {
         return SpringContext.getBean(TravelExpenseService.class);
     }
 

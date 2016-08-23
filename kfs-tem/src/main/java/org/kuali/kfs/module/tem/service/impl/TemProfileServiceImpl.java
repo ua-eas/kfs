@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TemProfileProperties;
@@ -39,8 +35,12 @@ import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TemProfileServiceImpl implements TemProfileService {
 
@@ -52,7 +52,7 @@ public class TemProfileServiceImpl implements TemProfileService {
      */
     @Override
     public TemProfile findTemProfileByPrincipalId(String principalId) {
-        Map<String,String> criteria = new HashMap<String,String>(1);
+        Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemProfileProperties.PRINCIPAL_ID, principalId);
         return findTemProfile(criteria);
     }
@@ -62,7 +62,7 @@ public class TemProfileServiceImpl implements TemProfileService {
      */
     @Override
     public TemProfile findTemProfileById(Integer profileId) {
-        Map<String,String> criteria = new HashMap<String,String>(1);
+        Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemProfileProperties.PROFILE_ID, String.valueOf(profileId));
         return findTemProfile(criteria);
     }
@@ -73,7 +73,7 @@ public class TemProfileServiceImpl implements TemProfileService {
     @Override
     public TemProfile findTemProfile(Map<String, String> criteria) {
         Collection<TemProfile> profiles = getBusinessObjectService().findMatching(TemProfile.class, criteria);
-        if(ObjectUtils.isNotNull(profiles) && profiles.size() > 0) {
+        if (ObjectUtils.isNotNull(profiles) && profiles.size() > 0) {
             return profiles.iterator().next();
         }
         return null;
@@ -85,8 +85,8 @@ public class TemProfileServiceImpl implements TemProfileService {
     @Override
     public TemProfileAddress getAddressFromProfile(TemProfile profile, TemProfileAddress defaultAddress) {
 
-        if(ObjectUtils.isNull(defaultAddress)) {
-        	defaultAddress = new TemProfileAddress();
+        if (ObjectUtils.isNull(defaultAddress)) {
+            defaultAddress = new TemProfileAddress();
         }
 
         if (!StringUtils.isEmpty(profile.getPrincipalId())) {
@@ -112,44 +112,44 @@ public class TemProfileServiceImpl implements TemProfileService {
         return defaultAddress;
     }
 
-	/**
-	 * @see org.kuali.kfs.module.tem.service.TemProfileService#getAllActiveTemProfile()
-	 */
-	@Override
-	public List<TemProfile> getAllActiveTemProfile() {
-		Map<String,Object> criteria = new HashMap<String,Object>(3);
+    /**
+     * @see org.kuali.kfs.module.tem.service.TemProfileService#getAllActiveTemProfile()
+     */
+    @Override
+    public List<TemProfile> getAllActiveTemProfile() {
+        Map<String, Object> criteria = new HashMap<String, Object>(3);
         criteria.put(KFSPropertyConstants.ACTIVE, true);
-		List<TemProfile> profiles = (List<TemProfile>) getBusinessObjectService().findMatching(TemProfile.class, criteria);
-		return profiles;
-	}
+        List<TemProfile> profiles = (List<TemProfile>) getBusinessObjectService().findMatching(TemProfile.class, criteria);
+        return profiles;
+    }
 
-	/**
-	 * @see org.kuali.kfs.module.tem.service.TemProfileService#updateACHAccountInfo(org.kuali.kfs.module.tem.businessobject.TemProfile)
-	 */
-	@Override
-    public void updateACHAccountInfo(TemProfile profile){
+    /**
+     * @see org.kuali.kfs.module.tem.service.TemProfileService#updateACHAccountInfo(org.kuali.kfs.module.tem.businessobject.TemProfile)
+     */
+    @Override
+    public void updateACHAccountInfo(TemProfile profile) {
 
-	    //set defaults
+        //set defaults
         profile.setAchSignUp("No");
         profile.setAchTransactionType("None");
 
         if (TemConstants.EMP_TRAVELER_TYP_CD.equals(profile.getTravelerTypeCode()) &&
-                profile.getEmployeeId() != null) {
+            profile.getEmployeeId() != null) {
             Map<String, Object> fieldValues = new HashMap<String, Object>();
             fieldValues.put(KFSPropertyConstants.PAYEE_ID_NUMBER, profile.getEmployeeId());
             List<PayeeACHAccount> accounts = (List<PayeeACHAccount>) getBusinessObjectService().findMatching(PayeeACHAccount.class, fieldValues);
 
             //if there are any ACH accounts matching the employee Id lookup, use the first one for display
-            if (!accounts.isEmpty()){
+            if (!accounts.isEmpty()) {
                 profile.setAchSignUp("Yes");
                 profile.setAchTransactionType(accounts.get(0).getAchTransactionType());
             }
         }
-	}
+    }
 
-	/**
-	 * @see org.kuali.kfs.module.tem.service.TemProfileService#isProfileNonEmploye(org.kuali.kfs.module.tem.businessobject.TemProfile)
-	 */
+    /**
+     * @see org.kuali.kfs.module.tem.service.TemProfileService#isProfileNonEmploye(org.kuali.kfs.module.tem.businessobject.TemProfile)
+     */
     @Override
     public boolean isProfileNonEmploye(TemProfile profile) {
         return !StringUtils.isBlank(profile.getTravelerTypeCode()) && profile.getTravelerTypeCode().equals(TemConstants.NONEMP_TRAVELER_TYP_CD);
@@ -173,7 +173,7 @@ public class TemProfileServiceImpl implements TemProfileService {
      */
     @Override
     public TemProfile findTemProfileByEmployeeId(String employeeId) {
-        final Map<String,String> criteria = new HashMap<String,String>(1);
+        final Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemProfileProperties.EMPLOYEE_ID, employeeId);
         return findTemProfile(criteria);
     }
@@ -183,13 +183,14 @@ public class TemProfileServiceImpl implements TemProfileService {
      */
     @Override
     public TemProfile findTemProfileByCustomerNumber(String customerNumber) {
-        final Map<String,String> criteria = new HashMap<String,String>(1);
+        final Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemProfileProperties.CUSTOMER_NUMBER, customerNumber);
         return findTemProfile(criteria);
     }
 
     /**
      * Easily overridable to add more values
+     *
      * @see org.kuali.kfs.module.tem.service.TemProfileService#getGenderKeyValues()
      */
     @Override
@@ -202,6 +203,7 @@ public class TemProfileServiceImpl implements TemProfileService {
 
     /**
      * Checks the business object service to see if the profile account exists
+     *
      * @see org.kuali.kfs.module.tem.service.TemProfileService#doesProfileAccountExist(org.kuali.kfs.module.tem.businessobject.TemProfileAccount, org.kuali.kfs.module.tem.businessobject.TemProfile)
      */
     @Override
@@ -227,6 +229,7 @@ public class TemProfileServiceImpl implements TemProfileService {
 
     /**
      * Gets the personService attribute.
+     *
      * @return Returns the personService.
      */
     public PersonService getPersonService() {
@@ -235,6 +238,7 @@ public class TemProfileServiceImpl implements TemProfileService {
 
     /**
      * Sets the personService attribute value.
+     *
      * @param personService The personService to set.
      */
     public void setPersonService(PersonService personService) {
@@ -243,6 +247,7 @@ public class TemProfileServiceImpl implements TemProfileService {
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -251,6 +256,7 @@ public class TemProfileServiceImpl implements TemProfileService {
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

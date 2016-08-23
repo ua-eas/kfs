@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.gl.businessobject.EntryHistory;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 /**
  * An OJB implementation of LedgerEntryHistoryBalancingDao
@@ -45,7 +45,7 @@ public class EntryHistoryDaoOjb extends PlatformAwareDaoBaseOjb implements Ledge
         criteria.addGreaterOrEqualThan(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, year);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(EntryHistory.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSPropertyConstants.ROW_COUNT  + ")"});
+        reportQuery.setAttributes(new String[]{"sum(" + KFSPropertyConstants.ROW_COUNT + ")"});
 
         Iterator<Object[]> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);
         Object[] returnResult = TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);

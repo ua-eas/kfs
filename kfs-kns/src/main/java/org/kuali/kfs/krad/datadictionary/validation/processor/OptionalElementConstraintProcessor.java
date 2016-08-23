@@ -27,12 +27,12 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
  */
 public abstract class OptionalElementConstraintProcessor<C extends Constraint> implements ConstraintProcessor<Object, C> {
 
-	/**
-	 * @see ConstraintProcessor#isOptional()
-	 */
-	@Override
-	public boolean isOptional() {
-		return true;
-	}
+    /**
+     * @see ConstraintProcessor#isOptional()
+     */
+    @Override
+    public boolean isOptional() {
+        return true;
+    }
 
 }

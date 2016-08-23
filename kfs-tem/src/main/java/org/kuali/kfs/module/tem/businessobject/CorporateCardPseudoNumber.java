@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class CorporateCardPseudoNumber extends PersistableBusinessObjectBase {
 
@@ -29,6 +29,7 @@ public class CorporateCardPseudoNumber extends PersistableBusinessObjectBase {
     public Integer getNumber() {
         return number;
     }
+
     public void setNumber(Integer number) {
         this.number = number;
     }

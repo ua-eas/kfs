@@ -22,7 +22,7 @@ import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoad;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
 
-public interface ElectronicInvoiceHelperService extends InitiateDirectory{
+public interface ElectronicInvoiceHelperService extends InitiateDirectory {
 
     public ElectronicInvoiceLoad loadElectronicInvoices();
 

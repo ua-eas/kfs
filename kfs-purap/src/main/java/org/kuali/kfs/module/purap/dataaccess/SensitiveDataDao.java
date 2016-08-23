@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.module.purap.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveDataAssignment;
+
+import java.util.List;
 
 public interface SensitiveDataDao {
 
     /**
      * Gets all sensitive data entries assigned to the specified purchase order.
+     *
      * @param poId the ID of the specified purchase order
      * @return a list of sensitive data entries assigned to the PO
      */
@@ -34,6 +35,7 @@ public interface SensitiveDataDao {
 
     /**
      * Gets all sensitive data entries assigned to the specified purchase order.
+     *
      * @param reqId the ID of the requisition that's associated with the purchase order
      * @return a list of sensitive data entries assigned to the PO
      */
@@ -41,12 +43,14 @@ public interface SensitiveDataDao {
 
     /**
      * Deletes all sensitive data entries assigned to the specified purchase order.
+     *
      * @param poId the ID of the PO
      */
     public void deletePurchaseOrderSensitiveDatas(Integer poId);
 
     /**
      * Gets the latest sensitive data assignment for the specified purchase order.
+     *
      * @param poId the ID of the specified PO
      * @return the latest sensitive data assignment for the PO
      */

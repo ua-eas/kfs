@@ -19,8 +19,8 @@
 package org.kuali.kfs.krad.rules.rule.event;
 
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.RouteDocumentRule;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.RouteDocumentRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,6 @@ import java.util.List;
 /**
  * This class represents the route event that is part of an eDoc in Kuali. This could be triggered when a user presses the route
  * button for a given document or it could happen when another piece of code calls the route method in the document service.
- *
- *
  */
 public final class RouteDocumentEvent extends KualiDocumentEventBase {
     /**

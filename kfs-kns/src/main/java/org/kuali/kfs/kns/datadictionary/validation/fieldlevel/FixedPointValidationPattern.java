@@ -18,14 +18,12 @@
  */
 package org.kuali.kfs.kns.datadictionary.validation.fieldlevel;
 
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 /**
  * Validation pattern for matching fixed point numbers, optionally matching negative numbers
- *
- *
  */
 public class FixedPointValidationPattern extends FieldLevelValidationPattern {
     public static final String PATTERN_TYPE_PRECISION = "fixedPoint.precision";
@@ -83,8 +81,8 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
      * @see ValidationPattern#getRegexString()
      */
     @Override
-	protected String getRegexString() {
-    	final StringBuilder regex = new StringBuilder();
+    protected String getRegexString() {
+        final StringBuilder regex = new StringBuilder();
 
         if (allowNegative) {
             regex.append("-?");
@@ -103,7 +101,7 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
      * @see FieldLevelValidationPattern#getPatternTypeName()
      */
     @Override
-	protected String getPatternTypeName() {
+    protected String getPatternTypeName() {
         return "fixedPoint";
     }
 
@@ -112,7 +110,7 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
      * @see ValidationPattern#buildExportMap(java.lang.String)
      */
     @Override
-	public ExportMap buildExportMap(String exportKey) {
+    public ExportMap buildExportMap(String exportKey) {
         ExportMap exportMap = super.buildExportMap(exportKey);
 
         if (allowNegative) {
@@ -124,40 +122,40 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
         return exportMap;
     }
 
-	/**
-	 * @see FieldLevelValidationPattern#getValidationErrorMessageKey()
-	 */
-	@Override
-	public String getValidationErrorMessageKey() {
-		StringBuilder buf = new StringBuilder();
-		buf.append("error.format.").append(getClass().getName());
-		if (allowNegative) {
-			buf.append(".allowNegative");
-		}
-		return buf.toString();
-	}
+    /**
+     * @see FieldLevelValidationPattern#getValidationErrorMessageKey()
+     */
+    @Override
+    public String getValidationErrorMessageKey() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("error.format.").append(getClass().getName());
+        if (allowNegative) {
+            buf.append(".allowNegative");
+        }
+        return buf.toString();
+    }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see ValidationPattern#getValidationErrorMessageParameters(java.lang.String)
-	 */
-	@Override
-	public String[] getValidationErrorMessageParameters(String attributeLabel) {
-		return new String[] {attributeLabel, String.valueOf(precision), String.valueOf(scale)};
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see ValidationPattern#getValidationErrorMessageParameters(java.lang.String)
+     */
+    @Override
+    public String[] getValidationErrorMessageParameters(String attributeLabel) {
+        return new String[]{attributeLabel, String.valueOf(precision), String.valueOf(scale)};
+    }
 
-	@Override
-	public void completeValidation() throws ValidationPatternException {
-		super.completeValidation();
+    @Override
+    public void completeValidation() throws ValidationPatternException {
+        super.completeValidation();
 
-    	final boolean valid =
-    		(getPrecision() >= 1) &&
-    		(getScale() >= 0) &&
-    		(getPrecision() >= getScale());
+        final boolean valid =
+            (getPrecision() >= 1) &&
+                (getScale() >= 0) &&
+                (getPrecision() >= getScale());
 
-    	if (!valid) {
-    		throw new ValidationPatternException("The precision must be >= 1.  The scale must be >= 0.  The precision must be >= scale. Precision: " + getPrecision() + " Scale: " + getScale());
-    	}
-	}
+        if (!valid) {
+            throw new ValidationPatternException("The precision must be >= 1.  The scale must be >= 0.  The precision must be >= scale. Precision: " + getPrecision() + " Scale: " + getScale());
+        }
+    }
 }

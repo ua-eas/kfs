@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.service.ReportAggregatorService;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,10 +31,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.service.ReportAggregatorService;
-
 public class ReportAggregatorServiceTextImpl implements ReportAggregatorService {
     protected String newLineCharacter;
 
@@ -39,8 +39,7 @@ public class ReportAggregatorServiceTextImpl implements ReportAggregatorService 
         int pageNumber = 1;
         try {
             aggregateReportWriter = new PrintWriter(new FileWriter(outputFile));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Error opening output file.", e);
         }
         for (int i = 0; i < files.size(); i++) {
@@ -68,8 +67,7 @@ public class ReportAggregatorServiceTextImpl implements ReportAggregatorService 
             }
             reader.close();
             return currentPageNumber;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Error reading or writing file", e);
         }
     }
@@ -81,6 +79,7 @@ public class ReportAggregatorServiceTextImpl implements ReportAggregatorService 
 
     /**
      * Sets the newLineCharacter attribute value.
+     *
      * @param newLineCharacter The newLineCharacter to set.
      */
     public void setNewLineCharacter(String newLineCharacter) {

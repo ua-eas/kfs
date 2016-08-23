@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.businessobject.HomeOrigination;
 import org.kuali.kfs.sys.service.HomeOriginationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
 
 public class HomeOriginationServiceImpl implements HomeOriginationService {
@@ -30,7 +30,7 @@ public class HomeOriginationServiceImpl implements HomeOriginationService {
      * Retrieves a HomeOrigination object. Currently, there is only a single, unique HomeOriginationCode record in the database.
      */
     @Override
-    @Cacheable(value=HomeOrigination.CACHE_NAME, key="'{getHomeOrigination}'")
+    @Cacheable(value = HomeOrigination.CACHE_NAME, key = "'{getHomeOrigination}'")
     public HomeOrigination getHomeOrigination() {
         // no, I'm not doing null checking - if this is missing, we have other problems
         return businessObjectService.findAll(HomeOrigination.class).iterator().next();

@@ -18,30 +18,31 @@
  */
 package org.kuali.kfs.pdp.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.pdp.PdpPropertyConstants;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.pdp.PdpConstants.PayeeIdTypeCodes;
+import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Set;
 
 public class PayeeACHAccountMaintenanceDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
     /**
      * Adds the payeeEmailAddress field as readOnly if payee type is Employee or Entity.
+     *
      * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase#getConditionallyReadOnlyPropertyNames(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public Set<String> getConditionallyReadOnlyPropertyNames(MaintenanceDocument document) {
         Set<String> readOnlyPropertyNames = super.getConditionallyReadOnlyPropertyNames(document);
 
-        PayeeACHAccount payeeAccount = (PayeeACHAccount)document.getNewMaintainableObject().getBusinessObject();
+        PayeeACHAccount payeeAccount = (PayeeACHAccount) document.getNewMaintainableObject().getBusinessObject();
         String payeeIdTypeCode = payeeAccount.getPayeeIdentifierTypeCode();
 
         // make name and email address readOnly if payee type is Employee or Entity
         if (StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.EMPLOYEE) ||
-                StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.ENTITY)) {
+            StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.ENTITY)) {
             readOnlyPropertyNames.add(PdpPropertyConstants.PAYEE_NAME);
             readOnlyPropertyNames.add(PdpPropertyConstants.PAYEE_EMAIL_ADDRESS);
         }

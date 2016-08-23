@@ -55,7 +55,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
     /**
      * This method uses the values provided to build and populate a cover sheet associated with a given DisbursementVoucher.
      *
-     * @param document The DisbursementVoucher the cover sheet will be populated from.
+     * @param document     The DisbursementVoucher the cover sheet will be populated from.
      * @param outputStream The stream the cover sheet file will be written to.
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
      */
@@ -132,12 +132,10 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
                 stamper.setFormFlattening(true);
                 stamper.close();
-            }
-            catch (DocumentException e) {
+            } catch (DocumentException e) {
                 LOG.error("Error creating coversheet for: " + docNumber + ". ::" + e);
                 throw e;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("Error creating coversheet for: " + docNumber + ". ::" + e);
                 throw e;
             }
@@ -151,7 +149,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
     public boolean isCoverSheetPrintable(DisbursementVoucherDocument document) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
-        if(ObjectUtils.isNull(workflowDocument)){
+        if (ObjectUtils.isNull(workflowDocument)) {
             return false;
         }
 
@@ -168,8 +166,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
         String address = "";
         try {
             address = ((PaymentDocumentationLocation) businessObjectService.findBySinglePrimaryKey(PaymentDocumentationLocation.class, docLocCd)).getPaymentDocumentationLocationAddress();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             // ignored
         }
 

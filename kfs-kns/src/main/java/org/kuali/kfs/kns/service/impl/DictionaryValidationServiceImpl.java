@@ -20,23 +20,23 @@ package org.kuali.kfs.kns.service.impl;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.core.api.util.type.TypeUtils;
-import org.kuali.rice.core.framework.persistence.jdbc.sql.SQLUtils;
-import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.core.api.util.type.TypeUtils;
+import org.kuali.rice.core.framework.persistence.jdbc.sql.SQLUtils;
+import org.kuali.rice.core.web.format.DateFormatter;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 @Deprecated
 public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.impl.DictionaryValidationServiceImpl implements DictionaryValidationService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(
-            DictionaryValidationServiceImpl.class);
+        DictionaryValidationServiceImpl.class);
 
     /**
      * @see org.kuali.kfs.krad.service.DictionaryValidationService#validateDocumentAndUpdatableReferencesRecursively(Document, int, boolean, boolean)
@@ -57,13 +57,13 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
     @Override
     @Deprecated
     public void validateDocumentAndUpdatableReferencesRecursively(Document document, int maxDepth,
-            boolean validateRequired, boolean chompLastLetterSFromCollectionName) {
+                                                                  boolean validateRequired, boolean chompLastLetterSFromCollectionName) {
         // Use the KNS validation code here -- this overrides the behavior in the krad version which calls validate(...)
         validateBusinessObject(document, validateRequired);
 
         if (maxDepth > 0) {
             validateUpdatabableReferencesRecursively(document, maxDepth - 1, validateRequired,
-                    chompLastLetterSFromCollectionName, newIdentitySet());
+                chompLastLetterSFromCollectionName, newIdentitySet());
         }
     }
 
@@ -79,12 +79,12 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
 
         // call method to recursively find business objects and validate
         validateBusinessObjectsFromDescriptors(document, PropertyUtils.getPropertyDescriptors(document.getClass()),
-                depth);
+            depth);
     }
 
     /**
-     * @see DictionaryValidationService#validateDocument(Document)
      * @param document - document to validate
+     * @see DictionaryValidationService#validateDocument(Document)
      * @deprecated since 2.1.2
      */
     @Deprecated
@@ -110,7 +110,7 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
         try {
             // validate the primitive attributes of the bo
             validatePrimitivesFromDescriptors(businessObject.getClass().getName(), businessObject,
-                    PropertyUtils.getPropertyDescriptors(businessObject.getClass()), "", validateRequired);
+                PropertyUtils.getPropertyDescriptors(businessObject.getClass()), "", validateRequired);
         } catch (RuntimeException e) {
             LOG.error(String.format("Exception while validating %s", businessObject.getClass().getName()), e);
             throw e;
@@ -124,31 +124,31 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
     @Override
     public void validateBusinessObjectOnMaintenanceDocument(BusinessObject businessObject, String docTypeName) {
         MaintenanceDocumentEntry entry =
-                KNSServiceLocator.getMaintenanceDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
+            KNSServiceLocator.getMaintenanceDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
         for (MaintainableSectionDefinition sectionDefinition : entry.getMaintainableSections()) {
             validateBusinessObjectOnMaintenanceDocumentHelper(businessObject, sectionDefinition.getMaintainableItems(),
-                    "");
+                "");
         }
     }
 
     protected void validateBusinessObjectOnMaintenanceDocumentHelper(BusinessObject businessObject,
-            List<? extends MaintainableItemDefinition> itemDefinitions, String errorPrefix) {
+                                                                     List<? extends MaintainableItemDefinition> itemDefinitions, String errorPrefix) {
         for (MaintainableItemDefinition itemDefinition : itemDefinitions) {
             if (itemDefinition instanceof MaintainableFieldDefinition) {
                 if (getDataDictionaryService().isAttributeDefined(businessObject.getClass(),
-                        itemDefinition.getName())) {
+                    itemDefinition.getName())) {
                     Object value = ObjectUtils.getPropertyValue(businessObject, itemDefinition.getName());
                     if (value != null && StringUtils.isNotBlank(value.toString())) {
                         Class propertyType = ObjectUtils.getPropertyType(businessObject, itemDefinition.getName(),
-                                persistenceStructureService);
+                            persistenceStructureService);
                         if (TypeUtils.isStringClass(propertyType) ||
-                                TypeUtils.isIntegralClass(propertyType) ||
-                                TypeUtils.isDecimalClass(propertyType) ||
-                                TypeUtils.isTemporalClass(propertyType)) {
+                            TypeUtils.isIntegralClass(propertyType) ||
+                            TypeUtils.isDecimalClass(propertyType) ||
+                            TypeUtils.isTemporalClass(propertyType)) {
                             // check value format against dictionary
                             if (!TypeUtils.isTemporalClass(propertyType)) {
                                 validateAttributeFormat(businessObject.getClass().getName(), itemDefinition.getName(),
-                                        value.toString(), errorPrefix + itemDefinition.getName());
+                                    value.toString(), errorPrefix + itemDefinition.getName());
                             }
                         }
                     }
@@ -167,7 +167,7 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
      */
     @Deprecated
     protected void validatePrimitivesFromDescriptors(String entryName, Object object,
-            PropertyDescriptor[] propertyDescriptors, String errorPrefix, boolean validateRequired) {
+                                                     PropertyDescriptor[] propertyDescriptors, String errorPrefix, boolean validateRequired) {
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
             validatePrimitiveFromDescriptor(entryName, object, propertyDescriptor, errorPrefix, validateRequired);
         }
@@ -184,27 +184,27 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
     @Override
     @Deprecated
     public void validatePrimitiveFromDescriptor(String entryName, Object object, PropertyDescriptor propertyDescriptor,
-            String errorPrefix, boolean validateRequired) {
+                                                String errorPrefix, boolean validateRequired) {
         // validate the primitive attributes if defined in the dictionary
         if (null != propertyDescriptor && getDataDictionaryService().isAttributeDefined(entryName,
-                propertyDescriptor.getName())) {
+            propertyDescriptor.getName())) {
             Object value = ObjectUtils.getPropertyValue(object, propertyDescriptor.getName());
             Class propertyType = propertyDescriptor.getPropertyType();
 
             if (TypeUtils.isStringClass(propertyType) ||
-                    TypeUtils.isIntegralClass(propertyType) ||
-                    TypeUtils.isDecimalClass(propertyType) ||
-                    TypeUtils.isTemporalClass(propertyType)) {
+                TypeUtils.isIntegralClass(propertyType) ||
+                TypeUtils.isDecimalClass(propertyType) ||
+                TypeUtils.isTemporalClass(propertyType)) {
 
                 // check value format against dictionary
                 if (value != null && StringUtils.isNotBlank(value.toString())) {
                     if (!TypeUtils.isTemporalClass(propertyType)) {
                         validateAttributeFormat(entryName, propertyDescriptor.getName(), value.toString(),
-                                errorPrefix + propertyDescriptor.getName());
+                            errorPrefix + propertyDescriptor.getName());
                     }
                 } else if (validateRequired) {
                     validateAttributeRequired(entryName, propertyDescriptor.getName(), value, Boolean.FALSE,
-                            errorPrefix + propertyDescriptor.getName());
+                        errorPrefix + propertyDescriptor.getName());
                 }
             }
         }
@@ -212,20 +212,20 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
 
     /**
      * @see DictionaryValidationService#validateAttributeFormat(String, String, String, String)
-     *      objectClassName is the docTypeName
+     * objectClassName is the docTypeName
      * @deprecated since 1.1
      */
     @Override
     @Deprecated
     public void validateAttributeFormat(String objectClassName, String attributeName, String attributeInValue,
-            String errorKey) {
+                                        String errorKey) {
         // Retrieve the field's data type, or set to the string data type if an exception occurs when retrieving the class or the DD entry.
         String attributeDataType = null;
         try {
             attributeDataType = getWorkflowAttributePropertyResolutionService().determineFieldDataType(
-                    (Class<? extends BusinessObject>) Class.forName(
-                            getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry(objectClassName)
-                                    .getFullClassName()), attributeName);
+                (Class<? extends BusinessObject>) Class.forName(
+                    getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry(objectClassName)
+                        .getFullClassName()), attributeName);
         } catch (ClassNotFoundException e) {
             attributeDataType = KRADConstants.DATA_TYPE_STRING;
         } catch (NullPointerException e) {
@@ -245,13 +245,13 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
     @Override
     @Deprecated
     public void validateAttributeFormat(String objectClassName, String attributeName, String attributeInValue,
-            String attributeDataType, String errorKey) {
+                                        String attributeDataType, String errorKey) {
         boolean checkDateBounds = false; // this is used so we can check date bounds
         Class<?> formatterClass = null;
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("(bo, attributeName, attributeValue) = (" + objectClassName + "," + attributeName + "," +
-                    attributeInValue + ")");
+                attributeInValue + ")");
         }
 
         /*
@@ -276,25 +276,25 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
                 Integer minLength = getDataDictionaryService().getAttributeMinLength(objectClassName, attributeName);
                 if ((minLength != null) && (minLength.intValue() > attributeValue.length())) {
                     String errorLabel = getDataDictionaryService().getAttributeErrorLabel(objectClassName,
-                            attributeName);
+                        attributeName);
                     GlobalVariables.getMessageMap().putError(errorKey, RiceKeyConstants.ERROR_MIN_LENGTH,
-                            new String[]{errorLabel, minLength.toString()});
+                        new String[]{errorLabel, minLength.toString()});
                     return;
                 }
                 Integer maxLength = getDataDictionaryService().getAttributeMaxLength(objectClassName, attributeName);
                 if ((maxLength != null) && (maxLength.intValue() < attributeValue.length())) {
                     String errorLabel = getDataDictionaryService().getAttributeErrorLabel(objectClassName,
-                            attributeName);
+                        attributeName);
                     GlobalVariables.getMessageMap().putError(errorKey, RiceKeyConstants.ERROR_MAX_LENGTH,
-                            new String[]{errorLabel, maxLength.toString()});
+                        new String[]{errorLabel, maxLength.toString()});
                     return;
                 }
                 Pattern validationExpression = getDataDictionaryService().getAttributeValidatingExpression(
-                        objectClassName, attributeName);
+                    objectClassName, attributeName);
                 if (validationExpression != null && !validationExpression.pattern().equals(".*")) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("(bo, attributeName, validationExpression) = (" + objectClassName + "," +
-                                attributeName + "," + validationExpression + ")");
+                            attributeName + "," + validationExpression + ")");
                     }
 
                     if (!validationExpression.matcher(attributeValue).matches()) {
@@ -302,7 +302,7 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
                         if (formatterClass == null) {
                             // this is just a cache check... all dates ranges get called twice
                             formatterClass = getDataDictionaryService().getAttributeFormatter(objectClassName,
-                                    attributeName);
+                                attributeName);
                         }
 
                         if (formatterClass != null) {
@@ -315,17 +315,17 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
                                 if (DateFormatter.class.isAssignableFrom(formatterClass)) {
                                     String[] values = attributeInValue.split("\\.\\."); // is it a range
                                     if (values.length == 2 &&
-                                            attributeValues.size() == 2) { // make sure it's not like a .. b | c
+                                        attributeValues.size() == 2) { // make sure it's not like a .. b | c
                                         checkDateBounds = true; // now we need to check that a <= b
                                         if (attributeValues.indexOf(attributeValue) ==
-                                                0) { // only care about lower bound
+                                            0) { // only care about lower bound
                                             errorKeyPrefix = KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX;
                                         }
                                     }
                                 }
 
                                 Method validatorMethod = formatterClass.getDeclaredMethod(VALIDATE_METHOD,
-                                        new Class<?>[]{String.class});
+                                    new Class<?>[]{String.class});
                                 Object o = validatorMethod.invoke(formatterClass.newInstance(), attributeValue);
                                 if (o instanceof Boolean) {
                                     isError = !((Boolean) o).booleanValue();
@@ -341,37 +341,37 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
                             if (isError) {
                                 checkDateBounds = false; // it's already invalid, no need to check date bounds
                                 String errorMessageKey =
-                                        getDataDictionaryService().getAttributeValidatingErrorMessageKey(
-                                                objectClassName, attributeName);
+                                    getDataDictionaryService().getAttributeValidatingErrorMessageKey(
+                                        objectClassName, attributeName);
                                 String[] errorMessageParameters =
-                                        getDataDictionaryService().getAttributeValidatingErrorMessageParameters(
-                                                objectClassName, attributeName);
+                                    getDataDictionaryService().getAttributeValidatingErrorMessageParameters(
+                                        objectClassName, attributeName);
                                 GlobalVariables.getMessageMap().putError(errorKeyPrefix + errorKey, errorMessageKey,
-                                        errorMessageParameters);
+                                    errorMessageParameters);
                             }
                         } else {
                             // if it fails the default validation and has no formatter class then it's still a std failure.
                             String errorMessageKey = getDataDictionaryService().getAttributeValidatingErrorMessageKey(
-                                    objectClassName, attributeName);
+                                objectClassName, attributeName);
                             String[] errorMessageParameters =
-                                    getDataDictionaryService().getAttributeValidatingErrorMessageParameters(
-                                            objectClassName, attributeName);
+                                getDataDictionaryService().getAttributeValidatingErrorMessageParameters(
+                                    objectClassName, attributeName);
                             GlobalVariables.getMessageMap().putError(errorKey, errorMessageKey, errorMessageParameters);
                         }
                     }
                 }
                 /*BigDecimal*/
                 String exclusiveMin = getDataDictionaryService().getAttributeExclusiveMin(objectClassName,
-                        attributeName);
+                    attributeName);
                 if (exclusiveMin != null) {
                     try {
                         BigDecimal exclusiveMinBigDecimal = new BigDecimal(exclusiveMin);
                         if (exclusiveMinBigDecimal.compareTo(new BigDecimal(attributeValue)) >= 0) {
                             String errorLabel = getDataDictionaryService().getAttributeErrorLabel(objectClassName,
-                                    attributeName);
+                                attributeName);
                             GlobalVariables.getMessageMap().putError(errorKey, RiceKeyConstants.ERROR_EXCLUSIVE_MIN,
-                                    // todo: Formatter for currency?
-                                    new String[]{errorLabel, exclusiveMin.toString()});
+                                // todo: Formatter for currency?
+                                new String[]{errorLabel, exclusiveMin.toString()});
                             return;
                         }
                     } catch (NumberFormatException e) {
@@ -380,16 +380,16 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
                 }
                 /*BigDecimal*/
                 String inclusiveMax = getDataDictionaryService().getAttributeInclusiveMax(objectClassName,
-                        attributeName);
+                    attributeName);
                 if (inclusiveMax != null) {
                     try {
                         BigDecimal inclusiveMaxBigDecimal = new BigDecimal(inclusiveMax);
                         if (inclusiveMaxBigDecimal.compareTo(new BigDecimal(attributeValue)) < 0) {
                             String errorLabel = getDataDictionaryService().getAttributeErrorLabel(objectClassName,
-                                    attributeName);
+                                attributeName);
                             GlobalVariables.getMessageMap().putError(errorKey, RiceKeyConstants.ERROR_INCLUSIVE_MAX,
-                                    // todo: Formatter for currency?
-                                    new String[]{errorLabel, inclusiveMax.toString()});
+                                // todo: Formatter for currency?
+                                new String[]{errorLabel, inclusiveMax.toString()});
                             return;
                         }
                     } catch (NumberFormatException e) {
@@ -409,24 +409,24 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
             } catch (Exception ex) {
                 // this shouldn't happen because the tests passed above.
                 String errorMessageKey = getDataDictionaryService().getAttributeValidatingErrorMessageKey(
-                        objectClassName, attributeName);
+                    objectClassName, attributeName);
                 String[] errorMessageParameters =
-                        getDataDictionaryService().getAttributeValidatingErrorMessageParameters(objectClassName,
-                                attributeName);
+                    getDataDictionaryService().getAttributeValidatingErrorMessageParameters(objectClassName,
+                        attributeName);
                 GlobalVariables.getMessageMap().putError(
-                        KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + errorKey, errorMessageKey,
-                        errorMessageParameters);
+                    KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + errorKey, errorMessageKey,
+                    errorMessageParameters);
             }
 
             if (lVal != null && lVal.compareTo(uVal) > 0) { // check the bounds
                 String errorMessageKey = getDataDictionaryService().getAttributeValidatingErrorMessageKey(
-                        objectClassName, attributeName);
+                    objectClassName, attributeName);
                 String[] errorMessageParameters =
-                        getDataDictionaryService().getAttributeValidatingErrorMessageParameters(objectClassName,
-                                attributeName);
+                    getDataDictionaryService().getAttributeValidatingErrorMessageParameters(objectClassName,
+                        attributeName);
                 GlobalVariables.getMessageMap().putError(
-                        KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + errorKey, errorMessageKey + ".range",
-                        errorMessageParameters);
+                    KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + errorKey, errorMessageKey + ".range",
+                    errorMessageParameters);
             }
         }
     }
@@ -436,13 +436,13 @@ public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.
     @Override
     @Deprecated
     public void validateAttributeRequired(String objectClassName, String attributeName, Object attributeValue,
-            Boolean forMaintenance, String errorKey) {
+                                          Boolean forMaintenance, String errorKey) {
         // check if field is a required field for the business object
         if (attributeValue == null || (attributeValue instanceof String && StringUtils.isBlank(
-                (String) attributeValue))) {
+            (String) attributeValue))) {
             Boolean required = getDataDictionaryService().isAttributeRequired(objectClassName, attributeName);
             ControlDefinition controlDef = getDataDictionaryService().getAttributeControlDefinition(objectClassName,
-                    attributeName);
+                attributeName);
 
             if (required != null && required.booleanValue() && !(controlDef != null && controlDef.isHidden())) {
 

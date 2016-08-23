@@ -18,20 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.batch.AssetBarcodeInventoryInputFileType;
 import org.kuali.kfs.module.cam.batch.service.AssetBarcodeInventoryInputFileService;
@@ -46,32 +40,35 @@ import org.kuali.kfs.sys.web.struts.KualiBatchInputFileSetAction;
 import org.kuali.kfs.sys.web.struts.KualiBatchInputFileSetForm;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
- *
  * Action class for the CAMS Barcode Inventory upload.
  */
 public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSetAction {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetBarCodeInventoryInputFileAction.class);
 
     /**
-     *
      * @see org.kuali.kfs.sys.web.struts.KualiBatchInputFileSetAction#save(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     *
+     * <p>
      * Overridden because I needed to validate the file type is correct.
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BatchUpload batchUpload = ((AssetBarCodeInventoryInputFileForm) form).getBatchUpload();
-        AssetBarcodeInventoryInputFileType batchType = (AssetBarcodeInventoryInputFileType)retrieveBatchInputFileSetTypeImpl(batchUpload.getBatchInputTypeName());
+        AssetBarcodeInventoryInputFileType batchType = (AssetBarcodeInventoryInputFileType) retrieveBatchInputFileSetTypeImpl(batchUpload.getBatchInputTypeName());
 
         Map<String, FormFile> uploadedFiles = ((KualiBatchInputFileSetForm) form).getUploadedFiles();
 
-        String fileTypeExtension = ((AssetBarcodeInventoryInputFileType)batchType).getFileExtension();
+        String fileTypeExtension = ((AssetBarcodeInventoryInputFileType) batchType).getFileExtension();
         String fileName = uploadedFiles.get(fileTypeExtension.substring(1)).getFileName();
 
         //Validating the file type is the correct one before saving.
@@ -86,7 +83,7 @@ public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSet
 
         boolean requiredValuesForFilesMissing = false;
         if (StringUtils.isBlank(batchUpload.getFileUserIdentifer())) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SET_IDENTIFIER_SELECTED, new String[] {});
+            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SET_IDENTIFIER_SELECTED, new String[]{});
             requiredValuesForFilesMissing = true;
         }
 
@@ -94,7 +91,6 @@ public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSet
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_NO_DESCRIPTION);
             requiredValuesForFilesMissing = true;
         }
-
 
 
         AssetBarcodeInventoryInputFileService batchInputFileSetService = SpringContext.getBean(AssetBarcodeInventoryInputFileService.class);
@@ -109,10 +105,9 @@ public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSet
         for (String fileType : uploadedFiles.keySet()) {
             FormFile uploadedFile = uploadedFiles.get(fileType);
             if (uploadedFile == null || uploadedFile.getInputStream() == null || uploadedFile.getInputStream().available() == 0) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SELECTED_SAVE_FOR_FILE_TYPE, new String[] { batchType.getFileTypeDescription().get(fileType) });
+                GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_NO_FILE_SELECTED_SAVE_FOR_FILE_TYPE, new String[]{batchType.getFileTypeDescription().get(fileType)});
                 requiredValuesForFilesMissing = true;
-            }
-            else {
+            } else {
                 typeToStreamMap.put(fileType, uploadedFile.getInputStream());
             }
         }
@@ -123,14 +118,12 @@ public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSet
 
         try {
             //Map<String, String> typeToSavedFileNames =  batchInputFileSetService.save(GlobalVariables.getUserSession().getPerson(), batchType, batchUpload.getFileUserIdentifer(), typeToStreamMap, ((AssetBarCodeInventoryInputFileForm) form).isSupressDoneFileCreation(),uploadDescription);
-            Map<String, String> typeToSavedFileNames =  batchInputFileSetService.save(GlobalVariables.getUserSession().getPerson(), batchType, batchUpload.getFileUserIdentifer(), typeToStreamMap, ((AssetBarCodeInventoryInputFileForm) form));
-        }
-        catch (FileStorageException e) {
+            Map<String, String> typeToSavedFileNames = batchInputFileSetService.save(GlobalVariables.getUserSession().getPerson(), batchType, batchUpload.getFileUserIdentifer(), typeToStreamMap, ((AssetBarCodeInventoryInputFileForm) form));
+        } catch (FileStorageException e) {
             LOG.error("Error occured while trying to save file set (probably tried to save a file that already exists).", e);
-            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_SAVE_ERROR, new String[] { e.getMessage() });
+            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_SAVE_ERROR, new String[]{e.getMessage()});
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             LOG.error("Error occured while trying to validate file set.", e);
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_VALIDATION_ERROR);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -142,11 +135,9 @@ public class AssetBarCodeInventoryInputFileAction extends KualiBatchInputFileSet
     }
 
     /**
-     *
      * Builds list of filenames that the user has permission to manage, and populates the form member. Throws an exception if the
      * batch file set type is not active. Sets the title key from the batch input type. This method must be called before the action
      * handler to ensure proper authorization.
-     *
      */
     @Override
     public void setupForm(KualiBatchInputFileSetForm form) {

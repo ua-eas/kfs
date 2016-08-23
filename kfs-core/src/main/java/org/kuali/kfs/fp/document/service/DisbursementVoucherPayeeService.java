@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.Map;
-
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
 
 /**
  * define a set of service methods related to disbursement payee
@@ -91,6 +91,7 @@ public interface DisbursementVoucherPayeeService {
 
     /**
      * get the ownership type code if the given payee is a vendor
+     *
      * @param payee the given payee
      * @return the ownership type code if the given payee is a vendor; otherwise, return null
      */

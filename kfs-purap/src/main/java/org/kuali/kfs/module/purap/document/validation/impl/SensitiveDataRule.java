@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Validates the SensitiveData maintenance document.
@@ -41,7 +41,6 @@ public class SensitiveDataRule extends MaintenanceDocumentRuleBase {
      *
      * @param document The document being routed.
      * @return True if all the business rules pass, false otherwise.
-     *
      * @see MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -58,8 +57,8 @@ public class SensitiveDataRule extends MaintenanceDocumentRuleBase {
     }
 
     protected boolean validateInactivationBlocking() {
-        SensitiveData oldSensitiveData = (SensitiveData)getOldBo();
-        SensitiveData newSensitiveData = (SensitiveData)getNewBo();
+        SensitiveData oldSensitiveData = (SensitiveData) getOldBo();
+        SensitiveData newSensitiveData = (SensitiveData) getNewBo();
         if (oldSensitiveData.isActive() && !newSensitiveData.isActive()) {
             if (hasABlockingRecord(newSensitiveData.getSensitiveDataCode())) {
                 String documentLabel = "SensitiveData"; //SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByClass(newSensitiveData.getClass());

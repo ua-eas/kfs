@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
+import java.util.Map;
 
 public class ChartRoleTypeServiceImpl extends RoleTypeServiceBase {
 
@@ -30,9 +30,9 @@ public class ChartRoleTypeServiceImpl extends RoleTypeServiceBase {
      * @see org.kuali.rice.kim.service.support.impl.KimTypeInfoServiceBase#performMatch(org.kuali.rice.kim.bo.types.dto.AttributeSet, org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    public boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    public boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         return StringUtils.equals(qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE),
-                roleQualifier.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE));
+            roleQualifier.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE));
     }
 
 }

@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument;
 import org.kuali.kfs.module.purap.document.validation.PurapRuleTestBase;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderAmendmentDocumentFixture;
@@ -30,7 +27,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.sys.document.validation.impl.CompositeValidation;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 @ConfigureContext(session = parke)
 public class PurchaseOrderAmendmentRuleTest extends PurapRuleTestBase {
@@ -54,29 +54,28 @@ public class PurchaseOrderAmendmentRuleTest extends PurapRuleTestBase {
         poAmend.prepareForSave();
         try {
             AccountingDocumentTestUtils.saveDocument(poAmend, SpringContext.getBean(DocumentService.class));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Problems saving PO: " + e);
         }
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public void testAmendmentValidate_Open() {
         poAmendment = (PurchaseOrderAmendmentDocument) PurchaseOrderAmendmentDocumentFixture.PO_AMEND_STATUS_OPEN.createPurchaseOrderAmendmentDocument();
         savePO(poAmendment);
 
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderAmendment-routeDocumentValidation");
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderAmendment-routeDocumentValidation");
 
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", poAmendment)) );
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", poAmendment)));
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public void testAmendmentValidate_NoItem() {
         poAmendment = (PurchaseOrderAmendmentDocument) PurchaseOrderAmendmentDocumentFixture.PO_AMEND_STATUS_OPEN.createPurchaseOrderAmendmentDocument();
         poAmendment.deleteItem(0);
         savePO(poAmendment);
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderAmendment-routeDocumentValidation");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", poAmendment)) );
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderAmendment-routeDocumentValidation");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", poAmendment)));
     }
 }
 

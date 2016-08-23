@@ -18,12 +18,15 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
@@ -32,15 +35,12 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
@@ -87,9 +87,9 @@ public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
         // get the documentAuthorizer for this document
         MaintenanceDocumentAuthorizer documentAuthorizer = (MaintenanceDocumentAuthorizer) getDocumentHelperService().getDocumentAuthorizer(document);
         success = documentAuthorizer.isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        if (!success){
+        if (!success) {
             putFieldError(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, ArKeyConstants.InvoiceItemCode.ERROR_INVALID_CHART_OF_ACCOUNTS_CODE);
-            putFieldError(KFSPropertyConstants.ORGANIZATION_CODE,ArKeyConstants.InvoiceItemCode.ERROR_INVALID_ORGANIZATION_CODE );
+            putFieldError(KFSPropertyConstants.ORGANIZATION_CODE, ArKeyConstants.InvoiceItemCode.ERROR_INVALID_ORGANIZATION_CODE);
             success = false;
         }
         return success;
@@ -106,7 +106,7 @@ public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNotNull(itemDefaultPrice)) {
             validEntry = itemDefaultPrice.compareTo(BigDecimal.ZERO) == 1;
             if (!validEntry) {
-                putFieldError("itemDefaultPrice",ArKeyConstants.InvoiceItemCode.NONPOSITIVE_ITEM_DEFAULT_PRICE, "Item Default Price" );
+                putFieldError("itemDefaultPrice", ArKeyConstants.InvoiceItemCode.NONPOSITIVE_ITEM_DEFAULT_PRICE, "Item Default Price");
             }
         }
         return validEntry;
@@ -119,7 +119,7 @@ public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
 
         if (ObjectUtils.isNotNull(itemDefaultQuantity)) {
             if (itemDefaultQuantity.floatValue() <= 0) {
-                putFieldError("itemDefaultQuantity",ArKeyConstants.InvoiceItemCode.NONPOSITIVE_ITEM_DEFAULT_QUANTITY, "Item Default Quantity" );
+                putFieldError("itemDefaultQuantity", ArKeyConstants.InvoiceItemCode.NONPOSITIVE_ITEM_DEFAULT_QUANTITY, "Item Default Quantity");
                 validEntry = false;
             }
         }
@@ -142,8 +142,8 @@ public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
         criteria.put("organizationCode", customerInvoiceItemCode.getOrganizationCode());
 
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
-        if( businessObjectService.countMatching(OrganizationOptions.class, criteria) == 0) {
-            putFieldError("organizationCode",ArKeyConstants.InvoiceItemCode.ORG_OPTIONS_DOES_NOT_EXIST_FOR_CHART_AND_ORG, new String[]{customerInvoiceItemCode.getChartOfAccountsCode(),customerInvoiceItemCode.getOrganizationCode()});
+        if (businessObjectService.countMatching(OrganizationOptions.class, criteria) == 0) {
+            putFieldError("organizationCode", ArKeyConstants.InvoiceItemCode.ORG_OPTIONS_DOES_NOT_EXIST_FOR_CHART_AND_ORG, new String[]{customerInvoiceItemCode.getChartOfAccountsCode(), customerInvoiceItemCode.getOrganizationCode()});
             isValid = false;
         }
 
@@ -151,39 +151,38 @@ public class CustomerInvoiceItemCodeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-    *
-    * This method checks to see if the customer invoice item object code is not restricted by the two parameters
-    *
-    * namespace: KFS-AR
-    * component: Customer Invoice
-    * parameter: OBJECT_CONSOLIDATIONS, OBJECT_LEVELS
-    *
-    * @return true if it is an income object
-    */
-      protected boolean isCustomerInvoiceItemCodeObjectValid(CustomerInvoiceItemCode customerInvoiceItemCode) {
-       boolean success = true;
+     * This method checks to see if the customer invoice item object code is not restricted by the two parameters
+     * <p>
+     * namespace: KFS-AR
+     * component: Customer Invoice
+     * parameter: OBJECT_CONSOLIDATIONS, OBJECT_LEVELS
+     *
+     * @return true if it is an income object
+     */
+    protected boolean isCustomerInvoiceItemCodeObjectValid(CustomerInvoiceItemCode customerInvoiceItemCode) {
+        boolean success = true;
 
-           Integer universityFiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
-           ObjectCode defaultInvoiceItemCodeObject = customerInvoiceItemCode.getDefaultInvoiceFinancialObject();
+        Integer universityFiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
+        ObjectCode defaultInvoiceItemCodeObject = customerInvoiceItemCode.getDefaultInvoiceFinancialObject();
 
-           if (ObjectUtils.isNotNull(universityFiscalYear) && ObjectUtils.isNotNull(defaultInvoiceItemCodeObject)) {
-               ParameterService parameterSerivce = SpringContext.getBean(ParameterService.class);
+        if (ObjectUtils.isNotNull(universityFiscalYear) && ObjectUtils.isNotNull(defaultInvoiceItemCodeObject)) {
+            ParameterService parameterSerivce = SpringContext.getBean(ParameterService.class);
 
-               Collection<String> restrictedObjectConsolidations = parameterSerivce.getParameterValuesAsString(CustomerInvoiceDocument.class, ArConstants.OBJECT_CONSOLIDATIONS);
-               Collection<String> restrictedObjectLevels = parameterSerivce.getParameterValuesAsString(CustomerInvoiceDocument.class, ArConstants.OBJECT_LEVELS);
+            Collection<String> restrictedObjectConsolidations = parameterSerivce.getParameterValuesAsString(CustomerInvoiceDocument.class, ArConstants.OBJECT_CONSOLIDATIONS);
+            Collection<String> restrictedObjectLevels = parameterSerivce.getParameterValuesAsString(CustomerInvoiceDocument.class, ArConstants.OBJECT_LEVELS);
 
-               //first check consolidation is not in the restricted
-               if (restrictedObjectConsolidations.contains(defaultInvoiceItemCodeObject.getFinancialObjectLevel().getFinancialConsolidationObjectCode())){
-                   putFieldError("defaultInvoiceFinancialObjectCode", ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_INVOICE_FINANCIAL_OBJECT_CODE_INVALID_RESTRICTED,
-                           new String[]{defaultInvoiceItemCodeObject.getCode(), "Object Consolidation", restrictedObjectConsolidations.toString()});
-                   success = false;
-               }else if (restrictedObjectLevels.contains(defaultInvoiceItemCodeObject.getFinancialObjectLevelCode())){
-                   putFieldError("defaultInvoiceFinancialObjectCode", ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_INVOICE_FINANCIAL_OBJECT_CODE_INVALID_RESTRICTED,
-                           new String[]{defaultInvoiceItemCodeObject.getCode(), "Object Level", restrictedObjectLevels.toString()});
-                   success = false;
-               }
-           }
+            //first check consolidation is not in the restricted
+            if (restrictedObjectConsolidations.contains(defaultInvoiceItemCodeObject.getFinancialObjectLevel().getFinancialConsolidationObjectCode())) {
+                putFieldError("defaultInvoiceFinancialObjectCode", ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_INVOICE_FINANCIAL_OBJECT_CODE_INVALID_RESTRICTED,
+                    new String[]{defaultInvoiceItemCodeObject.getCode(), "Object Consolidation", restrictedObjectConsolidations.toString()});
+                success = false;
+            } else if (restrictedObjectLevels.contains(defaultInvoiceItemCodeObject.getFinancialObjectLevelCode())) {
+                putFieldError("defaultInvoiceFinancialObjectCode", ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_INVOICE_FINANCIAL_OBJECT_CODE_INVALID_RESTRICTED,
+                    new String[]{defaultInvoiceItemCodeObject.getCode(), "Object Level", restrictedObjectLevels.toString()});
+                success = false;
+            }
+        }
 
-       return success;
-   }
+        return success;
+    }
 }

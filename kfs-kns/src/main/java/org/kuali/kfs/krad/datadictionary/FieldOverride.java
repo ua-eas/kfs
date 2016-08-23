@@ -20,16 +20,15 @@ package org.kuali.kfs.krad.datadictionary;
 
 /**
  * Performs overrides on properties of fields in a Data Dictionary bean.
- *
- *
- *
  */
 public interface FieldOverride {
-	/**
+    /**
      * Return the property name to perform the override.
+     *
      * @return
      */
     public String getPropertyName();
+
     /**
      * perform the override.
      *

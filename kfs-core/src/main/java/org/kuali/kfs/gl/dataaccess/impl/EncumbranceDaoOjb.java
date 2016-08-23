@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -42,6 +35,13 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An OJB implementation of the EncumbranceDao
@@ -106,7 +106,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
      * Returns an Iterator of all encumbrances that need to be closed for the fiscal year and specified charts
      *
      * @param fiscalYear a fiscal year to find encumbrances for
-     * @param charts charts to find encumbrances for
+     * @param charts     charts to find encumbrances for
      * @return an Iterator of encumbrances to close
      * @see org.kuali.kfs.gl.dataaccess.EncumbranceDao#getEncumbrancesToClose(java.lang.Integer, java.util.List)
      */
@@ -132,7 +132,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
      * Purges the database of all those encumbrances with the given chart and year
      *
      * @param chartOfAccountsCode the chart of accounts code purged encumbrances will have
-     * @param year the university fiscal year purged encumbrances will have
+     * @param year                the university fiscal year purged encumbrances will have
      * @see org.kuali.kfs.gl.dataaccess.EncumbranceDao#purgeYearByChart(java.lang.String, int)
      */
     @Override
@@ -171,7 +171,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
      * sub object code, and balance type code, and summarize the encumbrance amount and the encumbrance close amount.
      *
      * @param documentTypeCode the given document type code
-     * @param included indicate if all encumbrances with the given document type are included in the results or not
+     * @param included         indicate if all encumbrances with the given document type are included in the results or not
      * @return an Iterator of arrays of java.lang.Objects holding summarization data about qualifying encumbrances
      * @see org.kuali.kfs.gl.dataaccess.EncumbranceDao#getSummarizedEncumbrances(String, boolean)
      */
@@ -181,8 +181,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
 
         if (included) {
             criteria.addEqualTo(KFSPropertyConstants.ENCUMBRANCE_DOCUMENT_TYPE_CODE, documentTypeCode);
-        }
-        else {
+        } else {
             criteria.addNotEqualTo(KFSPropertyConstants.ENCUMBRANCE_DOCUMENT_TYPE_CODE, documentTypeCode);
         }
 
@@ -222,7 +221,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
      * where the sum(ACCOUNT_LINE_ENCUMBRANCE_AMOUNT  - sum(ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT ) != 0
      * and returns true if there are any results.
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues             the input fields and values
      * @param includeZeroEncumbrances
      * @return true if there any open encumbrances when summarized by balance type
      * @see org.kuali.kfs.gl.dataaccess.EncumbranceDao#hasSummarizedOpenEncumbranceRecords(java.util.Map)
@@ -234,7 +233,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
         // For PE - For all records on this account: sum (ACCOUNT_LINE_ENCUMBRANCE_AMOUNT ) - sum (ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT) <> 0
         Criteria criteria = OJBUtility.buildCriteriaFromMap(fieldValues, new Encumbrance());
         SystemOptions options = SpringContext.getBean(OptionsService.class).getCurrentYearOptions();
-        criteria.addIn(KFSPropertyConstants.BALANCE_TYPE_CODE, Arrays.asList(new String[] { options.getPreencumbranceFinBalTypeCd() }));
+        criteria.addIn(KFSPropertyConstants.BALANCE_TYPE_CODE, Arrays.asList(new String[]{options.getPreencumbranceFinBalTypeCd()}));
 
         if (!includeZeroEncumbrances) {
             Criteria nonZeroEncumbranceCriteria = new Criteria();
@@ -246,21 +245,21 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
         ReportQueryByCriteria query = QueryFactory.newReportQuery(Encumbrance.class, criteria);
 
         // set the selection attributes
-        query.setAttributes(new String[] {KFSPropertyConstants.BALANCE_TYPE_CODE,
-                "sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + ") - sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT + ")"} );
+        query.setAttributes(new String[]{KFSPropertyConstants.BALANCE_TYPE_CODE,
+            "sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + ") - sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT + ")"});
 
         // add the group criteria into the selection statement
-        query.addGroupBy(new String[] {KFSPropertyConstants.BALANCE_TYPE_CODE} );
+        query.addGroupBy(new String[]{KFSPropertyConstants.BALANCE_TYPE_CODE});
 
         // set the having clause
-        Criteria having = new Criteria ();
-        having.addNotEqualTo("sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + ") - sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT + ")", new Integer (0));
+        Criteria having = new Criteria();
+        having.addNotEqualTo("sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + ") - sum(" + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT + ")", new Integer(0));
         query.setHavingCriteria(having);
         Iterator searchResultsIterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
 
         // For EX & IE - For any record on this account: acln_encum_amt - acln_encum_cls_amt <> 0
         Criteria criteria2 = OJBUtility.buildCriteriaFromMap(fieldValues, new Encumbrance());
-        criteria2.addIn(KFSPropertyConstants.BALANCE_TYPE_CODE, Arrays.asList(new String[] { options.getExtrnlEncumFinBalanceTypCd(), options.getIntrnlEncumFinBalanceTypCd() }));
+        criteria2.addIn(KFSPropertyConstants.BALANCE_TYPE_CODE, Arrays.asList(new String[]{options.getExtrnlEncumFinBalanceTypCd(), options.getIntrnlEncumFinBalanceTypCd()}));
 
         if (!includeZeroEncumbrances) {
             Criteria nonZeroEncumbranceCriteria = new Criteria();
@@ -271,8 +270,8 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
         ReportQueryByCriteria query2 = QueryFactory.newReportQuery(Encumbrance.class, criteria2);
 
         // set the selection attributes
-        query2.setAttributes(new String[] {KFSPropertyConstants.BALANCE_TYPE_CODE,
-                GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + " - " + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT} );
+        query2.setAttributes(new String[]{KFSPropertyConstants.BALANCE_TYPE_CODE,
+            GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT + " - " + GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT});
 
         Iterator searchResultsIterator2 = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query2);
 
@@ -297,7 +296,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
     /**
      * build the query for encumbrance search
      *
-     * @param fieldValues a Map of values to use as keys for the query
+     * @param fieldValues             a Map of values to use as keys for the query
      * @param includeZeroEncumbrances should the query include encumbrances which have zeroed out?
      * @return an OJB query
      */
@@ -379,6 +378,7 @@ public class EncumbranceDaoOjb extends PlatformAwareDaoBaseOjb implements Encumb
 
     /**
      * Injects an implementation of BalanceTypeDao
+     *
      * @param balanceTypeDao the implementation of BalanceTypeDao to inject
      */
     public void setBalanceTypeDao(BalanceTypeDao balanceTypeDao) {

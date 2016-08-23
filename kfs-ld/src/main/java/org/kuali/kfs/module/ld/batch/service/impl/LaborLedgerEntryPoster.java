@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.sql.Date;
-
 import org.kuali.kfs.gl.batch.service.PostTransaction;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.module.ld.LaborConstants;
@@ -29,6 +27,8 @@ import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
 
 /**
  * The class is used to post a transaction to labor ledger entry table
@@ -50,8 +50,7 @@ public class LaborLedgerEntryPoster implements PostTransaction {
             ledgerEntry.setTransactionLedgerEntrySequenceNumber(getLaborAccountingCycleCachingService().getMaxLaborSequenceNumber(ledgerEntry) + 1);
             ledgerEntry.setTransactionPostingDate(new Date(postDate.getTime()));
             getLaborAccountingCycleCachingService().insertLedgerEntry(ledgerEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -67,6 +66,7 @@ public class LaborLedgerEntryPoster implements PostTransaction {
 
     /**
      * Gets the laborAccountingCycleCachingService attribute.
+     *
      * @return Returns the laborAccountingCycleCachingService.
      */
     public LaborAccountingCycleCachingService getLaborAccountingCycleCachingService() {
@@ -75,6 +75,7 @@ public class LaborLedgerEntryPoster implements PostTransaction {
 
     /**
      * Sets the laborAccountingCycleCachingService attribute value.
+     *
      * @param laborAccountingCycleCachingService The laborAccountingCycleCachingService to set.
      */
     public void setLaborAccountingCycleCachingService(LaborAccountingCycleCachingService laborAccountingCycleCachingService) {

@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import org.kuali.kfs.gl.batch.service.VerifyTransaction;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryService;
 import org.kuali.kfs.module.ld.testdata.LaborTestDataPropertyConstants;
@@ -33,8 +30,11 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 @ConfigureContext
 public class LaborPosterTransactionValidatorTest extends KualiTestBase {
@@ -61,7 +61,7 @@ public class LaborPosterTransactionValidatorTest extends KualiTestBase {
         fieldNames = properties.getProperty("fieldNames");
         deliminator = properties.getProperty("deliminator");
 
-        laborPosterTransactionValidator = SpringContext.getBean(VerifyTransaction.class,"laborPosterTransactionValidator");
+        laborPosterTransactionValidator = SpringContext.getBean(VerifyTransaction.class, "laborPosterTransactionValidator");
         laborOriginEntryService = SpringContext.getBean(LaborOriginEntryService.class);
         originEntryGroupService = SpringContext.getBean(LaborOriginEntryGroupService.class);
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);

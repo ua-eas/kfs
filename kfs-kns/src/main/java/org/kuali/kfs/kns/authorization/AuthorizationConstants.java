@@ -29,12 +29,12 @@ public final class AuthorizationConstants {
         public static final String VIEW_ONLY = "viewOnly";
         public static final String FULL_ENTRY = "fullEntry";
 
-    	private EditMode() {
-    		throw new UnsupportedOperationException("do not call");
-    	}
+        private EditMode() {
+            throw new UnsupportedOperationException("do not call");
+        }
     }
 
-	private AuthorizationConstants() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private AuthorizationConstants() {
+        throw new UnsupportedOperationException("do not call");
+    }
 }

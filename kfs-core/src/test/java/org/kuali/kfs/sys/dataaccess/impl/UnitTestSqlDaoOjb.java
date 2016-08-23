@@ -18,6 +18,9 @@
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
+import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -25,9 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 /**
  * NOTE: Do NOT use this code in production. It is only there for testing purposes.
@@ -49,17 +49,14 @@ public class UnitTestSqlDaoOjb extends PlatformAwareDaoBaseOjb implements UnitTe
             Connection c = getPersistenceBroker(true).serviceConnectionManager().getConnection();
             stmt = c.createStatement();
             return stmt.executeUpdate(sql);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unable to execute: " + sql, e);
-        }
-        finally {
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Unable to close connection: " + sql, e);
             }
         }
@@ -90,17 +87,14 @@ public class UnitTestSqlDaoOjb extends PlatformAwareDaoBaseOjb implements UnitTe
                 result.add(row);
             }
             return result;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unable to execute: " + sql, e);
-        }
-        finally {
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Unable to close connection: " + sql, e);
             }
         }

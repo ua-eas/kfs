@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.module.tem.businessobject.TemProfile;
 
 
 public interface CardApplicationDocument {

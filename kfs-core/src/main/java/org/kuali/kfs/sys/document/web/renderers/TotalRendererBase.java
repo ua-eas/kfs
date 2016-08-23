@@ -32,6 +32,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Gets the cellCount attribute.
+     *
      * @return Returns the cellCount.
      */
     public int getCellCount() {
@@ -40,6 +41,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Sets the cellCount attribute value.
+     *
      * @param cellCount The cellCount to set.
      */
     public void setCellCount(int cellCount) {
@@ -48,6 +50,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Gets the representedCellPropertyName attribute.
+     *
      * @return Returns the representedCellPropertyName.
      */
     public String getRepresentedCellPropertyName() {
@@ -56,6 +59,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Sets the representedCellPropertyName attribute value.
+     *
      * @param representedCellPropertyName The representedCellPropertyName to set.
      */
     public void setRepresentedCellPropertyName(String representedCellPropertyName) {
@@ -64,6 +68,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Gets the columnNumberOfRepresentedCell attribute.
+     *
      * @return Returns the columnNumberOfRepresentedCell.
      */
     public int getColumnNumberOfRepresentedCell() {
@@ -72,6 +77,7 @@ public abstract class TotalRendererBase implements Renderer, CellCountCurious, R
 
     /**
      * Sets the columnNumberOfRepresentedCell attribute value.
+     *
      * @param columnNumberOfRepresentedCell The columnNumberOfRepresentedCell to set.
      */
     public void setColumnNumberOfRepresentedCell(int columnNumberOfRepresentedCell) {

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.List;
 
 /**
  * Bulk Receiving View Business Object.

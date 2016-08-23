@@ -19,34 +19,34 @@
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.dao.SequenceAccessorDao;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class SequenceAccessorServiceImpl implements SequenceAccessorService {
     private SequenceAccessorDao sequenceAccessorDao;
 
-	public Long getNextAvailableSequenceNumber(String sequenceName,
-			Class<? extends BusinessObject> clazz) {
-    	if (StringUtils.isBlank(sequenceName)) {
-    		throw new RuntimeException("Sequence name cannot be blank.");
-    	}
-    	return sequenceAccessorDao.getNextAvailableSequenceNumber(sequenceName, clazz);
-	}
+    public Long getNextAvailableSequenceNumber(String sequenceName,
+                                               Class<? extends BusinessObject> clazz) {
+        if (StringUtils.isBlank(sequenceName)) {
+            throw new RuntimeException("Sequence name cannot be blank.");
+        }
+        return sequenceAccessorDao.getNextAvailableSequenceNumber(sequenceName, clazz);
+    }
 
     /**
      * @see SequenceAccessorService#getNextAvailableSequenceNumber(java.lang.String)
      */
     public Long getNextAvailableSequenceNumber(String sequenceName) {
-    	if (StringUtils.isBlank(sequenceName)) {
-    		throw new RuntimeException("Sequence name cannot be blank.");
-    	}
-    	return sequenceAccessorDao.getNextAvailableSequenceNumber(sequenceName);
+        if (StringUtils.isBlank(sequenceName)) {
+            throw new RuntimeException("Sequence name cannot be blank.");
+        }
+        return sequenceAccessorDao.getNextAvailableSequenceNumber(sequenceName);
     }
 
     public void setSequenceAccessorDao(SequenceAccessorDao sequenceAccessorDao) {
-    	this.sequenceAccessorDao = sequenceAccessorDao;
+        this.sequenceAccessorDao = sequenceAccessorDao;
     }
 }

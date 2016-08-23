@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.fp.service.PopulateProcurementCardDefaultIdsService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Step which populates all procurement card default records which don't have ids with id's

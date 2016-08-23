@@ -20,11 +20,11 @@ package org.kuali.kfs.coa.service.impl;
 
 import org.kuali.kfs.coa.businessobject.ResponsibilityCenter;
 import org.kuali.kfs.coa.service.ResponsibilityCenterService;
-import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.service.NonTransactional;
 
 @NonTransactional
-public class ResponsibilityCenterServiceImpl implements ResponsibilityCenterService{
+public class ResponsibilityCenterServiceImpl implements ResponsibilityCenterService {
 
     private BusinessObjectService businessObjectService;
 
@@ -41,6 +41,7 @@ public class ResponsibilityCenterServiceImpl implements ResponsibilityCenterServ
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

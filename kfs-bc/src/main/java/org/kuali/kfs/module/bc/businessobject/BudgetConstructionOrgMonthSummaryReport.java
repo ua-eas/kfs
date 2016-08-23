@@ -209,7 +209,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
         this.fundGroupCode = fundGroupCode;
     }
 
-      /**
+    /**
      * Gets the organizationCode
      *
      * @return Returns the organizationCode.

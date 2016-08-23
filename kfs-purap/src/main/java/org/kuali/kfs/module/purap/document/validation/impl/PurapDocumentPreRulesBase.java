@@ -19,10 +19,14 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -31,12 +35,8 @@ import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBase {
 
@@ -46,9 +46,9 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
 
     @Override
     public boolean doPrompts(Document document) {
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)document;
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) document;
 
-        boolean preRulesValid=true;
+        boolean preRulesValid = true;
 
         //refresh accounts in each item....
         List<PurApItem> items = purapDocument.getItems();
@@ -71,7 +71,7 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
         boolean proceed = true;
 
         //check appropriate status first if not in an appropriate status return true
-        if(!checkCAMSWarningStatus(purapDocument)) {
+        if (!checkCAMSWarningStatus(purapDocument)) {
             return true;
         }
 
@@ -80,12 +80,12 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
             if (!SpringContext.getBean(CapitalAssetBuilderModuleService.class).warningObjectLevelCapital(purapDocument)) {
                 proceed &= false;
                 questionText.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(
-                        PurapKeyConstants.REQ_QUESTION_FIX_CAPITAL_ASSET_WARNINGS));
+                    PurapKeyConstants.REQ_QUESTION_FIX_CAPITAL_ASSET_WARNINGS));
 
-                MessageList warnings =  KNSGlobalVariables.getMessageList();
-                if ( !warnings.isEmpty() ) {
+                MessageList warnings = KNSGlobalVariables.getMessageList();
+                if (!warnings.isEmpty()) {
                     questionText.append("[p]");
-                    for ( ErrorMessage warning :  warnings ) {
+                    for (ErrorMessage warning : warnings) {
                         // the following two lines should be used but org.kuali.rice.krad.util.ErrorMessage (line 83) has a bug
                         //questionText.append(warning);
                         //questionText.append("[br]");

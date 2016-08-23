@@ -18,30 +18,27 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
-import org.kuali.rice.kim.api.group.Group;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentAdHocService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.rice.kim.api.group.Group;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Implementation for {@link DocumentAdHocService}.
- *
- *
- *
  */
 public class DocumentAdHocServiceImpl implements DocumentAdHocService {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addAdHocs(Document document) {
+    /**
+     * {@inheritDoc}
+     */
+    public void addAdHocs(Document document) {
         /* Instead of reading the doc header to see if doc is in saved status
          * its probably easier and faster to just do this all the time and
          * store a null when appropriate.
@@ -66,10 +63,10 @@ public class DocumentAdHocServiceImpl implements DocumentAdHocService {
         }
         document.setAdHocRoutePersons(adHocRoutePersons);
         document.setAdHocRouteWorkgroups(adHocRouteWorkgroups);
-	}
+    }
 
     protected BusinessObjectService getBusinessObjectService() {
-    	return KRADServiceLocator.getBusinessObjectService();
+        return KRADServiceLocator.getBusinessObjectService();
     }
 
 }

@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.batch.service.DailyReportService;
@@ -33,6 +28,11 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Transactional
 public class DailyReportServiceImpl implements DailyReportService {
@@ -75,7 +75,7 @@ public class DailyReportServiceImpl implements DailyReportService {
 
         for (DailyReport dailyReport : data) {
             if (!first
-                    && this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()) != this.paymentGroupService.getSortGroupId(dailyReport.getPaymentGroup())) {
+                && this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()) != this.paymentGroupService.getSortGroupId(dailyReport.getPaymentGroup())) {
                 // Clause is for if the sort group changed which means we print a sortTotal. Unless this is the first element we print, then this doesn't apply
 
                 firstSortTotal = true;
@@ -105,7 +105,7 @@ public class DailyReportServiceImpl implements DailyReportService {
 
             // Set the sortTotal title if it hasn't been set yet. There are two scenarios this happens for: Only 1 element in list or we just reset dailyReportSortTotal
             if (StringUtils.isEmpty(dailyReportSortTotal.getSortOrder())) {
-                String newTotalForSubtitle = MessageFormat.format(DAILY_REPORT_SORT_TOTAL_PROPERTY_STRING, new Object[] { this.paymentGroupService.getSortGroupName(this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup())) });
+                String newTotalForSubtitle = MessageFormat.format(DAILY_REPORT_SORT_TOTAL_PROPERTY_STRING, new Object[]{this.paymentGroupService.getSortGroupName(this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()))});
                 dailyReportSortTotal.setSortOrder(newTotalForSubtitle);
             }
         }

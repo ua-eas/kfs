@@ -29,8 +29,6 @@ import java.util.List;
  * This class represents the approve event that is part of an eDoc in Kuali. This could be triggered when a user presses the approve
  * button for a given document enroute or it could happen when another piece of code calls the approve method in the document
  * service.
- *
- *
  */
 public class ApproveDocumentEvent extends KualiDocumentEventBase {
     /**

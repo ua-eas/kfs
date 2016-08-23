@@ -37,12 +37,12 @@ import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.core.framework.config.module.ModuleConfigurer;
 import org.kuali.rice.core.framework.config.module.WebModuleConfiguration;
 
-import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -61,10 +61,10 @@ public class KualiActionServlet extends ActionServlet {
      * Overridden to remove the ConvertUtils.deregister() command that caused problems
      * with the concurrent data dictionary load.  (KULRNE-4405)
      *
-     * @exception ServletException if we cannot initialize these resources
+     * @throws ServletException if we cannot initialize these resources
      */
     @Override
-	protected void initOther() throws ServletException {
+    protected void initOther() throws ServletException {
 
         String value = null;
         value = getServletConfig().getInitParameter("config");
@@ -105,10 +105,10 @@ public class KualiActionServlet extends ActionServlet {
 
     @Override
     public ServletConfig getServletConfig() {
-        if ( serverConfigOverride == null ) {
+        if (serverConfigOverride == null) {
             ServletConfig sConfig = super.getServletConfig();
 
-            if ( sConfig == null ) {
+            if (sConfig == null) {
                 return null;
             }
             serverConfigOverride = new KualiActionServletConfig(sConfig);
@@ -118,85 +118,86 @@ public class KualiActionServlet extends ActionServlet {
 
     /**
      * A custom ServletConfig implementation which dynamically includes web content based on the installed modules in the RiceConfigurer object.
-     *   Accomplishes this by implementing custom
+     * Accomplishes this by implementing custom
      * {@link #getInitParameter(String)} and {@link #getInitParameterNames()} methods.
      */
     private class KualiActionServletConfig implements ServletConfig {
 
         private ServletConfig wrapped;
-        private Map<String,String> initParameters = new HashMap<String, String>();
+        private Map<String, String> initParameters = new HashMap<String, String>();
 
         public KualiActionServletConfig(ServletConfig wrapped) {
             this.wrapped = wrapped;
             // copy out all the init parameters so they can be augmented
             @SuppressWarnings("unchecked")
-			final Enumeration<String> initParameterNames = wrapped.getInitParameterNames();
-            while ( initParameterNames.hasMoreElements() ) {
+            final Enumeration<String> initParameterNames = wrapped.getInitParameterNames();
+            while (initParameterNames.hasMoreElements()) {
                 String paramName = initParameterNames.nextElement();
-                initParameters.put( paramName, wrapped.getInitParameter(paramName) );
+                initParameters.put(paramName, wrapped.getInitParameter(paramName));
             }
             // loop over the installed modules, adding their struts configuration to the servlet
             // if they have a web interface
-			final Collection<ModuleConfigurer> riceModules = ModuleConfigurer.getCurrentContextConfigurers();
+            final Collection<ModuleConfigurer> riceModules = ModuleConfigurer.getCurrentContextConfigurers();
 
-            if ( LOG.isInfoEnabled() ) {
-            	LOG.info( "Configuring init parameters of the KualiActionServlet from riceModules: " + riceModules );
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Configuring init parameters of the KualiActionServlet from riceModules: " + riceModules);
             }
-            for ( ModuleConfigurer module : riceModules ) {
+            for (ModuleConfigurer module : riceModules) {
                 // only install the web configuration if the module has web content
                 // and it is running in a "local" mode
                 // in "embedded" or "remote" modes, the UIs are hosted on a central server
-                if ( module.shouldRenderWebInterface() ) {
+                if (module.shouldRenderWebInterface()) {
                     WebModuleConfiguration webModuleConfiguration = module.getWebModuleConfiguration();
                     if (webModuleConfiguration == null) {
                         throw new ConfigurationException("Attempting to load WebModuleConfiguration for module '" + module.getModuleName() + "' but no configuration was provided!");
                     }
-                	if ( LOG.isInfoEnabled() ) {
-                		LOG.info( "Configuring Web Content for Module: " + webModuleConfiguration.getModuleName()
-                				+ " / " + webModuleConfiguration.getWebModuleStrutsConfigName()
-                				+ " / " + webModuleConfiguration.getWebModuleStrutsConfigurationFiles()
-                				+ " / Base URL: " + webModuleConfiguration.getWebModuleBaseUrl() );
-                	}
-                    if ( !initParameters.containsKey( webModuleConfiguration.getWebModuleStrutsConfigName() ) ) {
-                        initParameters.put( webModuleConfiguration.getWebModuleStrutsConfigName(), webModuleConfiguration.getWebModuleStrutsConfigurationFiles() );
+                    if (LOG.isInfoEnabled()) {
+                        LOG.info("Configuring Web Content for Module: " + webModuleConfiguration.getModuleName()
+                            + " / " + webModuleConfiguration.getWebModuleStrutsConfigName()
+                            + " / " + webModuleConfiguration.getWebModuleStrutsConfigurationFiles()
+                            + " / Base URL: " + webModuleConfiguration.getWebModuleBaseUrl());
+                    }
+                    if (!initParameters.containsKey(webModuleConfiguration.getWebModuleStrutsConfigName())) {
+                        initParameters.put(webModuleConfiguration.getWebModuleStrutsConfigName(), webModuleConfiguration.getWebModuleStrutsConfigurationFiles());
                     }
                 }
             }
         }
 
         @Override
-		public String getInitParameter(String name) {
+        public String getInitParameter(String name) {
             return initParameters.get(name);
         }
 
         @Override
-		@SuppressWarnings("unchecked")
-		public Enumeration<String> getInitParameterNames() {
-            return new IteratorEnumeration( initParameters.keySet().iterator() );
+        @SuppressWarnings("unchecked")
+        public Enumeration<String> getInitParameterNames() {
+            return new IteratorEnumeration(initParameters.keySet().iterator());
         }
 
         @Override
-		public ServletContext getServletContext() {
+        public ServletContext getServletContext() {
             return wrapped.getServletContext();
         }
+
         @Override
-		public String getServletName() {
+        public String getServletName() {
             return wrapped.getServletName();
         }
     }
 
     /**
-     *  KULRICE-8176: KFS Notes/Attachments Tab Functionality for Note Text Error - Visible/Special characters, spaces, or tabs
+     * KULRICE-8176: KFS Notes/Attachments Tab Functionality for Note Text Error - Visible/Special characters, spaces, or tabs
      *
      * @see org.apache.struts.action.ActionServlet#process(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-     @Override
-     protected void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-         if (StringUtils.isNotBlank(parameterEncoding)) {
-                 request.setCharacterEncoding(parameterEncoding);
-                 response.setCharacterEncoding(parameterEncoding);
-         }
+    @Override
+    protected void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (StringUtils.isNotBlank(parameterEncoding)) {
+            request.setCharacterEncoding(parameterEncoding);
+            response.setCharacterEncoding(parameterEncoding);
+        }
 
-         super.process(request, response);
-     }
+        super.process(request, response);
+    }
 }

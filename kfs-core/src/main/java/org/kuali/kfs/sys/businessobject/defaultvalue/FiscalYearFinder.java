@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.businessobject.defaultvalue;
 
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Returns the current fiscal year.

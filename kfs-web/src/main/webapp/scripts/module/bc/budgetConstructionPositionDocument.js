@@ -16,25 +16,25 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function updateBCPositionFTE( bcPositionField ) {
-	// we want the base label
-    var elPrefix = findElPrefix( bcPositionField.name );
-	var positionStandardHoursDefault = getElementValue( elPrefix + ".positionStandardHoursDefault" );
-	var iuNormalWorkMonths = getElementValue( elPrefix + ".iuNormalWorkMonths" );
-	var iuPayMonths = getElementValue( elPrefix + ".iuPayMonths" );
-	var positionFTEFieldName = elPrefix + ".positionFullTimeEquivalency";
+function updateBCPositionFTE(bcPositionField) {
+    // we want the base label
+    var elPrefix = findElPrefix(bcPositionField.name);
+    var positionStandardHoursDefault = getElementValue(elPrefix + ".positionStandardHoursDefault");
+    var iuNormalWorkMonths = getElementValue(elPrefix + ".iuNormalWorkMonths");
+    var iuPayMonths = getElementValue(elPrefix + ".iuPayMonths");
+    var positionFTEFieldName = elPrefix + ".positionFullTimeEquivalency";
 
-	if ( positionStandardHoursDefault != "" && iuNormalWorkMonths != "" && iuPayMonths != "" ) {
-		var dwrReply = {
-			callback:function( responseText ) {
-				setRecipientValue( positionFTEFieldName, responseText );
-			},
-			errorHandler:function( errorMessage ) {
-				window.status = errorMessage;
-			}
-		};
-		BudgetConstructionPosition.getCalculatedBCPositionFTE( positionStandardHoursDefault, iuNormalWorkMonths, iuPayMonths, dwrReply );
-	} else {
-		clearRecipients( positionFTEFieldName );
-	}
+    if (positionStandardHoursDefault != "" && iuNormalWorkMonths != "" && iuPayMonths != "") {
+        var dwrReply = {
+            callback: function (responseText) {
+                setRecipientValue(positionFTEFieldName, responseText);
+            },
+            errorHandler: function (errorMessage) {
+                window.status = errorMessage;
+            }
+        };
+        BudgetConstructionPosition.getCalculatedBCPositionFTE(positionStandardHoursDefault, iuNormalWorkMonths, iuPayMonths, dwrReply);
+    } else {
+        clearRecipients(positionFTEFieldName);
+    }
 }

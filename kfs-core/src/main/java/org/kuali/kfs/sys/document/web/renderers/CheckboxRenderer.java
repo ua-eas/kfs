@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.kuali.kfs.kns.web.taglib.html.KNSCheckboxTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.kns.web.taglib.html.KNSCheckboxTag;
 
 /**
  * Renders a field as a checkbox control
@@ -31,7 +31,6 @@ public class CheckboxRenderer extends FieldRendererBase {
     private KNSCheckboxTag checkboxTag = new KNSCheckboxTag();
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRendererBase#clear()
      */
     @Override
@@ -48,7 +47,6 @@ public class CheckboxRenderer extends FieldRendererBase {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -60,8 +58,9 @@ public class CheckboxRenderer extends FieldRendererBase {
 
     /**
      * Renders the checkbox portion of this checkbox tag
-     * @param pageContext the page context to render to
-     * @param parentTag the parent tag requesting all this rendering
+     *
+     * @param pageContext    the page context to render to
+     * @param parentTag      the parent tag requesting all this rendering
      * @param propertyPrefix the property from the form to the business object
      */
     protected void renderCheckboxTag(PageContext pageContext, Tag parentTag) throws JspException {
@@ -81,6 +80,7 @@ public class CheckboxRenderer extends FieldRendererBase {
 
     /**
      * I'm not really into quick finders
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

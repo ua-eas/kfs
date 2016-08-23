@@ -26,8 +26,8 @@ import org.kuali.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceIm
  */
 public class BudgetAdjustmentAccountingLineRuleHelperServiceImpl extends AccountingLineRuleHelperServiceImpl {
 
-  @Override
-  public boolean hasRequiredOverrides(AccountingLine line, String overrideCode) {
-      return hasAccountRequiredOverrides(line, overrideCode);
-  }
+    @Override
+    public boolean hasRequiredOverrides(AccountingLine line, String overrideCode) {
+        return hasAccountRequiredOverrides(line, overrideCode);
+    }
 }

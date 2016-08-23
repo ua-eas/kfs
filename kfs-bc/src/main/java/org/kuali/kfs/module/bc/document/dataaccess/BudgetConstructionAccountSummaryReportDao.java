@@ -32,7 +32,7 @@ public interface BudgetConstructionAccountSummaryReportDao {
      * updates acount summary table.
      *
      * @param principalName
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
+     * @param revenueINList     a SQL IN list containing the budget construction revenue object types
      * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
      */
     public void updateReportsAccountSummaryTable(String principalName, String revenueINList, String expenditureINList);
@@ -41,7 +41,7 @@ public interface BudgetConstructionAccountSummaryReportDao {
      * updates acount summary table when users choose consolidation.
      *
      * @param principalName
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
+     * @param revenueINList     a SQL IN list containing the budget construction revenue object types
      * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
      */
     public void updateReportsAccountSummaryTableWithConsolidation(String principalName, String revenueINList, String expenditureINList);
@@ -50,7 +50,7 @@ public interface BudgetConstructionAccountSummaryReportDao {
      * updates acount summary table for SubFundSummaryReport.
      *
      * @param principalName
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
+     * @param revenueINList     a SQL IN list containing the budget construction revenue object types
      * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
      */
     public void updateSubFundSummaryReport(String principalName, String revenueINList, String expenditureINList);

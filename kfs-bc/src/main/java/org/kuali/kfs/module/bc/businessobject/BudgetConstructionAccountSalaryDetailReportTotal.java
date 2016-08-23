@@ -22,7 +22,7 @@ package org.kuali.kfs.module.bc.businessobject;
 import java.math.BigDecimal;
 
 
-public class BudgetConstructionAccountSalaryDetailReportTotal{
+public class BudgetConstructionAccountSalaryDetailReportTotal {
 
     // total
     private String totalDescription;
@@ -34,7 +34,6 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     private BigDecimal totalPercentChange;
 
     private PendingBudgetConstructionAppointmentFunding pendingBudgetConstructionAppointmentFunding;
-
 
 
     /**
@@ -57,13 +56,9 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalDescription(String totalDescription) {
         this.totalDescription = totalDescription;
     }
-
-
 
 
     public Integer getTotalBaseAmount() {
@@ -71,13 +66,9 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalBaseAmount(Integer totalBaseAmount) {
         this.totalBaseAmount = totalBaseAmount;
     }
-
-
 
 
     public BigDecimal getTotalBaseFte() {
@@ -85,13 +76,9 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalBaseFte(BigDecimal totalBaseFte) {
         this.totalBaseFte = totalBaseFte;
     }
-
-
 
 
     public Integer getTotalRequestAmount() {
@@ -99,13 +86,9 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalRequestAmount(Integer totalRequestAmount) {
         this.totalRequestAmount = totalRequestAmount;
     }
-
-
 
 
     public BigDecimal getTotalRequestFte() {
@@ -113,13 +96,9 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalRequestFte(BigDecimal totalRequestFte) {
         this.totalRequestFte = totalRequestFte;
     }
-
-
 
 
     public Integer getTotalAmountChange() {
@@ -127,20 +106,14 @@ public class BudgetConstructionAccountSalaryDetailReportTotal{
     }
 
 
-
-
     public void setTotalAmountChange(Integer totalAmountChange) {
         this.totalAmountChange = totalAmountChange;
     }
 
 
-
-
     public BigDecimal getTotalPercentChange() {
         return totalPercentChange;
     }
-
-
 
 
     public void setTotalPercentChange(BigDecimal totalPercentChange) {

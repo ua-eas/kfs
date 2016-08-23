@@ -19,14 +19,11 @@
 package org.kuali.kfs.krad.rules.rule.event;
 
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.DocumentAuditRule;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.DocumentAuditRule;
 
 /**
  * Event class for document audit
- *
- *
- *
  */
 public class DocumentAuditEvent extends KualiDocumentEventBase {
 

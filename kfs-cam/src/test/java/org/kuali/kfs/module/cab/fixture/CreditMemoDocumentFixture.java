@@ -18,22 +18,19 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.purap.PurapConstants.CreditMemoStatuses;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum CreditMemoDocumentFixture {
 
     REC1 {
-
-
         @Override
         public VendorCreditMemoDocument newRecord() {
             VendorCreditMemoDocument obj = new VendorCreditMemoDocument();
@@ -66,8 +63,11 @@ public enum CreditMemoDocumentFixture {
             obj.setUseTaxIndicator(true);
             obj.setDocumentHeader(FinancialSystemDocumentHeaderFixture.CM1.newRecord());
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract VendorCreditMemoDocument newRecord();
 
     public static void setUpData() {

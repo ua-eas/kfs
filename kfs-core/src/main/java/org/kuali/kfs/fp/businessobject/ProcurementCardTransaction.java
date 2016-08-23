@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.apache.commons.beanutils.converters.SqlDateConverter;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.apache.commons.beanutils.converters.SqlDateConverter;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class is used to represent a procurement card transaction business object.
@@ -155,8 +155,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setFinancialDocumentTotalAmount(String financialDocumentTotalAmount) {
         if (StringUtils.isNotBlank(financialDocumentTotalAmount)) {
             this.financialDocumentTotalAmount = new KualiDecimal(financialDocumentTotalAmount);
-        }
-        else {
+        } else {
             this.financialDocumentTotalAmount = KualiDecimal.ZERO;
         }
     }
@@ -513,8 +512,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionOriginalCurrencyAmount(String transactionOriginalCurrencyAmount) {
         if (StringUtils.isNotBlank(transactionOriginalCurrencyAmount)) {
             this.transactionOriginalCurrencyAmount = new KualiDecimal(transactionOriginalCurrencyAmount);
-        }
-        else {
+        } else {
             this.transactionOriginalCurrencyAmount = KualiDecimal.ZERO;
         }
     }
@@ -546,8 +544,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionCurrencyExchangeRate(String transactionCurrencyExchangeRate) {
         if (StringUtils.isNotBlank(transactionCurrencyExchangeRate)) {
             this.transactionCurrencyExchangeRate = new BigDecimal(transactionCurrencyExchangeRate);
-        }
-        else {
+        } else {
             this.transactionCurrencyExchangeRate = new BigDecimal(0);
         }
     }
@@ -579,8 +576,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionSettlementAmount(String transactionSettlementAmount) {
         if (StringUtils.isNotBlank(transactionSettlementAmount)) {
             this.transactionSettlementAmount = new KualiDecimal(transactionSettlementAmount);
-        }
-        else {
+        } else {
             this.transactionSettlementAmount = KualiDecimal.ZERO;
         }
     }
@@ -612,8 +608,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionSalesTaxAmount(String transactionSalesTaxAmount) {
         if (StringUtils.isNotBlank(transactionSalesTaxAmount)) {
             this.transactionSalesTaxAmount = new KualiDecimal(transactionSalesTaxAmount);
-        }
-        else {
+        } else {
             this.transactionSalesTaxAmount = KualiDecimal.ZERO;
         }
     }
@@ -645,8 +640,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionTaxExemptIndicator(String transactionTaxExemptIndicator) {
         if (KFSConstants.ACTIVE_INDICATOR.equals(transactionTaxExemptIndicator)) {
             this.transactionTaxExemptIndicator = true;
-        }
-        else {
+        } else {
             this.transactionTaxExemptIndicator = false;
         }
     }
@@ -678,8 +672,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setTransactionPurchaseIdentifierIndicator(String transactionPurchaseIdentifierIndicator) {
         if (KFSConstants.ACTIVE_INDICATOR.equals(transactionPurchaseIdentifierIndicator)) {
             this.transactionPurchaseIdentifierIndicator = true;
-        }
-        else {
+        } else {
             this.transactionPurchaseIdentifierIndicator = false;
         }
     }
@@ -1072,8 +1065,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setCardLimit(String cardLimit) {
         if (StringUtils.isNotBlank(cardLimit)) {
             this.cardLimit = new KualiDecimal(cardLimit);
-        }
-        else {
+        } else {
             this.cardLimit = KualiDecimal.ZERO;
         }
     }
@@ -1105,8 +1097,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setCardCycleAmountLimit(String cardCycleAmountLimit) {
         if (StringUtils.isNotBlank(cardCycleAmountLimit)) {
             this.cardCycleAmountLimit = new KualiDecimal(cardCycleAmountLimit);
-        }
-        else {
+        } else {
             this.cardCycleAmountLimit = KualiDecimal.ZERO;
         }
     }
@@ -1138,8 +1129,7 @@ public class ProcurementCardTransaction extends PersistableBusinessObjectBase {
     public void setCardCycleVolumeLimit(String cardCycleVolumeLimit) {
         if (StringUtils.isNotBlank(cardCycleVolumeLimit)) {
             this.cardCycleVolumeLimit = new KualiDecimal(cardCycleVolumeLimit);
-        }
-        else {
+        } else {
             this.cardCycleVolumeLimit = KualiDecimal.ZERO;
         }
     }

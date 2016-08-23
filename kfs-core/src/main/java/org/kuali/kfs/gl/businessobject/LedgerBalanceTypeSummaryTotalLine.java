@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.text.MessageFormat;
-
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.text.MessageFormat;
 
 /**
  * Holds summary information for the Ledger report
@@ -32,6 +32,7 @@ public class LedgerBalanceTypeSummaryTotalLine extends LedgerSummaryTotalLine {
 
     /**
      * Constructs a LedgerBalanceTypeSummaryTotalLine
+     *
      * @param balanceType the balance type summarized by this total line summarizer
      */
     public LedgerBalanceTypeSummaryTotalLine(String balanceType) {
@@ -40,6 +41,7 @@ public class LedgerBalanceTypeSummaryTotalLine extends LedgerSummaryTotalLine {
 
     /**
      * Gets the balanceType attribute.
+     *
      * @return Returns the balanceType.
      */
     public String getFinancialBalanceTypeCode() {

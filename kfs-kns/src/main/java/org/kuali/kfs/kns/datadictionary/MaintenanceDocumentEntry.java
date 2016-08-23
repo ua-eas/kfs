@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.kns.datadictionary;
 
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.document.authorization.DocumentPresentationController;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.rule.PromptBeforeValidation;
+import org.kuali.kfs.kns.rules.MaintenanceDocumentRule;
 import org.kuali.kfs.kns.web.derivedvaluesetter.DerivedValuesSetter;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.exception.DuplicateEntryException;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.kns.rules.MaintenanceDocumentRule;
 import org.kuali.kfs.krad.rules.MaintenanceDocumentRuleBase;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -46,7 +46,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
     protected List<String> lockingKeys = new ArrayList<String>();
 
     protected Map<String, MaintainableSectionDefinition> maintainableSectionMap =
-            new LinkedHashMap<String, MaintainableSectionDefinition>();
+        new LinkedHashMap<String, MaintainableSectionDefinition>();
 
     protected boolean allowsNewOrCopy = true;
     protected String additionalSectionsFile;
@@ -73,7 +73,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
         documentPresentationControllerClass = MaintenanceDocumentPresentationControllerBase.class;
     }
 
-     /**
+    /**
      * @return Returns the preRulesCheckClass.
      */
     public Class<? extends PromptBeforeValidation> getPromptBeforeValidationClass() {
@@ -85,8 +85,8 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
      * class which determines whether the user should be asked any questions prior to running validation.
      *
      * @see KualiDocumentActionBase#promptBeforeValidation(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse, String)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse, String)
      */
     public void setPromptBeforeValidationClass(Class<? extends PromptBeforeValidation> preRulesCheckClass) {
         this.promptBeforeValidationClass = preRulesCheckClass;
@@ -135,7 +135,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
 
     /**
      * @return List of all lockingKey fieldNames associated with this LookupDefinition, in the order in which they were
-     *         added
+     * added
      */
     public List<String> getLockingKeyFieldNames() {
         return lockingKeys;
@@ -165,10 +165,10 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
      * @see DocumentEntry#completeValidation()
      */
     public void completeValidation() {
-        if ( !MaintenanceDocumentRule.class.isAssignableFrom( getBusinessRulesClass() ) ) {
-           throw new DataDictionaryException( "ERROR: Business rules class for KNS Maintenance document entry " +
-                   getBusinessRulesClass().getName() + " does not implement the expected " +
-                   MaintenanceDocumentRule.class.getName() + " interface.");
+        if (!MaintenanceDocumentRule.class.isAssignableFrom(getBusinessRulesClass())) {
+            throw new DataDictionaryException("ERROR: Business rules class for KNS Maintenance document entry " +
+                getBusinessRulesClass().getName() + " does not implement the expected " +
+                MaintenanceDocumentRule.class.getName() + " interface.");
         }
         super.completeValidation();
 
@@ -221,7 +221,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
     /**
      * The maintainableSections elements allows the maintenance document to
      * be presented in sections.  Each section can have a different title.
-     *
+     * <p>
      * JSTL: maintainbleSections is a Map whichis accessed by a key
      * of "maintainableSections".  This map contains entries with the
      * following keys:
@@ -242,8 +242,8 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
             String sectionTitle = maintainableSectionDefinition.getTitle();
             if (maintainableSectionMap.containsKey(sectionTitle)) {
                 throw new DuplicateEntryException(
-                        "section '" + sectionTitle + "' already defined for maintenanceDocument '" +
-                                getDocumentTypeName() + "'");
+                    "section '" + sectionTitle + "' already defined for maintenanceDocument '" +
+                        getDocumentTypeName() + "'");
             }
 
             maintainableSectionMap.put(sectionTitle, maintainableSectionDefinition);
@@ -313,7 +313,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
      */
     @Override
     public Class<? extends DocumentPresentationController> getDocumentPresentationControllerClass() {
-        return (Class<? extends DocumentPresentationController>)  super.getDocumentPresentationControllerClass();
+        return (Class<? extends DocumentPresentationController>) super.getDocumentPresentationControllerClass();
     }
 
     public List<HeaderNavigation> getHeaderNavigationList() {
@@ -364,7 +364,7 @@ public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.
     }
 
     public void afterPropertiesSet() throws Exception {
-        if ( getBusinessRulesClass() == null || getBusinessRulesClass().equals(MaintenanceDocumentRuleBase.class) ) {
+        if (getBusinessRulesClass() == null || getBusinessRulesClass().equals(MaintenanceDocumentRuleBase.class)) {
             setBusinessRulesClass(org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase.class);
         }
         super.afterPropertiesSet();

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.batch.businessobject.PerDiemForLoad;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
+
+import java.util.List;
 
 /**
  * define the service methods that load federal per diem records from a file
@@ -38,7 +38,7 @@ public interface PerDiemLoadService {
     /**
      * create and populate per diem table according to a specified input file type
      *
-     * @param fileName the absolute file name
+     * @param fileName      the absolute file name
      * @param inputFileType the specified input file type
      * @return true if successfully create and populate per diem table from a specified input file type
      */

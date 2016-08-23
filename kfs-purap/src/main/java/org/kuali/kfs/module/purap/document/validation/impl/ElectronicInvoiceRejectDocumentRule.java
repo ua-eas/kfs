@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.module.purap.service.ElectronicInvoiceHelperService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 /**
  * Business rule(s) applicable to Payment Request documents.
@@ -46,7 +46,7 @@ public class ElectronicInvoiceRejectDocumentRule extends DocumentRuleBase {
         return processBusinessRules(document);
     }
 
-    protected boolean processBusinessRules(Document document){
+    protected boolean processBusinessRules(Document document) {
         boolean isValid = true;
 
         ElectronicInvoiceRejectDocument eirDocument = (ElectronicInvoiceRejectDocument) document;
@@ -57,9 +57,9 @@ public class ElectronicInvoiceRejectDocumentRule extends DocumentRuleBase {
             isValid = false;
         }
 
-        if (!eirDocument.isDocumentCreationInProgress()){
+        if (!eirDocument.isDocumentCreationInProgress()) {
             isValid = isValid && SpringContext.getBean(ElectronicInvoiceHelperService.class).doMatchingProcess(eirDocument);
-            if (isValid){
+            if (isValid) {
                 SpringContext.getBean(ElectronicInvoiceHelperService.class).createPaymentRequest(eirDocument);
             }
         }

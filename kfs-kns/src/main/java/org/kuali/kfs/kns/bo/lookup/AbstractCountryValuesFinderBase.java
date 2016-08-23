@@ -19,9 +19,9 @@
 package org.kuali.kfs.kns.bo.lookup;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.services.LocationApiServiceLocator;
 

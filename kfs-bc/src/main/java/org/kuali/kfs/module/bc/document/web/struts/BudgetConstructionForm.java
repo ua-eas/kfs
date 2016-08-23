@@ -18,16 +18,13 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BCKeyLabelPair;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
@@ -44,10 +41,12 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class BudgetConstructionForm extends FinancialSystemTransactionalDocumentFormBase {
@@ -146,8 +145,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
                 populateRevenueLine(bcDoc, this.getNewRevenueLine());
 
-            }
-            else {
+            } else {
                 this.populatePBGLLine(this.getNewRevenueLine());
             }
 
@@ -161,8 +159,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
                 populateExpenditureLine(bcDoc, this.getNewExpenditureLine());
 
-            }
-            else {
+            } else {
                 this.populatePBGLLine(this.getNewExpenditureLine());
             }
 
@@ -253,13 +250,11 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
                                     }
                                 }
                             }
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             // any exception just leaves an empty pullup list
                         }
                     }
-                }
-                else {
+                } else {
                     pushdownLevelKeyLabels.clear();
 
                     // start at current doc level and add all that are below current level
@@ -269,8 +264,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
                         if (level.getOrganizationLevelCode() == 0) {
                             // push list level zero case needs special desc
                             pushdownLevelKeyLabels.add(new BCKeyLabelPair(level.getOrganizationLevelCode().toString(), level.getOrganizationLevelCode().toString() + ":" + level.getOrganizationChartOfAccountsCode() + "-" + level.getOrganizationCode() + " " + "Fiscal Officer Access Level"));
-                        }
-                        else {
+                        } else {
                             pushdownLevelKeyLabels.add(new BCKeyLabelPair(level.getOrganizationLevelCode().toString(), level.getOrganizationLevelCode().toString() + ":" + level.getOrganizationChartOfAccountsCode() + "-" + level.getOrganizationCode() + " " + level.getOrganization().getOrganizationName()));
                         }
                     }
@@ -441,8 +435,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
         // KFSMI-7828 object type is now reset from object code table in BudgetConstructionAction.insertPBGLLine()
         if (isRevenue) {
             line.setFinancialObjectTypeCode(optionsService.getOptions(tdoc.getUniversityFiscalYear()).getFinObjectTypeIncomecashCode());
-        }
-        else {
+        } else {
             line.setFinancialObjectTypeCode(optionsService.getOptions(tdoc.getUniversityFiscalYear()).getFinObjTypeExpenditureexpCd());
         }
 
@@ -956,10 +949,11 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the revenueObjectTypeCodesLookup attribute.
+     *
      * @return Returns the revenueObjectTypeCodesLookup.
      */
     public static String getRevenueObjectTypeCodesLookup() {
-        if ( revenueObjectTypeCodesLookup == null ) {
+        if (revenueObjectTypeCodesLookup == null) {
             revenueObjectTypeCodesLookup = SpringContext.getBean(BudgetParameterService.class).getLookupObjectTypes(true);
         }
         return revenueObjectTypeCodesLookup;
@@ -967,10 +961,11 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the expenditureObjectTypeCodesLookup attribute.
+     *
      * @return Returns the expenditureObjectTypeCodesLookup.
      */
     public static String getExpenditureObjectTypeCodesLookup() {
-        if ( expenditureObjectTypeCodesLookup == null ) {
+        if (expenditureObjectTypeCodesLookup == null) {
             expenditureObjectTypeCodesLookup = SpringContext.getBean(BudgetParameterService.class).getLookupObjectTypes(false);
         }
         return expenditureObjectTypeCodesLookup;

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.batch.service.LockboxService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.Date;
 
 public class LockboxStep extends AbstractStep {
 

@@ -22,8 +22,6 @@ import java.util.Map;
 
 /**
  * Invoked to authorize actions requested on data objects (such as edit or view)
- *
- *
  */
 public interface DataObjectAuthorizer {
 
@@ -50,7 +48,7 @@ public interface DataObjectAuthorizer {
      * @return boolean true if the user is authorized, false if not
      */
     public boolean isAuthorizedByTemplate(Object dataObject, String namespaceCode, String permissionTemplateName,
-            String principalId);
+                                          String principalId);
 
     /**
      * Determines whether the user identified by the given principal ID has the given permission in the context
@@ -65,7 +63,7 @@ public interface DataObjectAuthorizer {
      * @return boolean true if the user is authorized, false if not
      */
     public boolean isAuthorized(Object dataObject, String namespaceCode, String permissionName, String principalId,
-            Map<String, String> additionalPermissionDetails, Map<String, String> additionalRoleQualifiers);
+                                Map<String, String> additionalPermissionDetails, Map<String, String> additionalRoleQualifiers);
 
     /**
      * Determines whether the user identified by the given principal ID has been granted a permission of the given
@@ -81,7 +79,7 @@ public interface DataObjectAuthorizer {
      * @return boolean true if the user is authorized, false if not
      */
     public boolean isAuthorizedByTemplate(Object dataObject, String namespaceCode, String permissionTemplateName,
-            String principalId, Map<String, String> additionalPermissionDetails,
-            Map<String, String> additionalRoleQualifiers);
+                                          String principalId, Map<String, String> additionalPermissionDetails,
+                                          Map<String, String> additionalRoleQualifiers);
 
 }

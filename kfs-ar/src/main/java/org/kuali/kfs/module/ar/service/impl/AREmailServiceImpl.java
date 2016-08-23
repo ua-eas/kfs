@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.mail.MessagingException;
-import javax.mail.Session;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Attachment;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.impl.MailServiceImpl;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -52,17 +51,17 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.Attachment;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.impl.MailServiceImpl;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -112,13 +111,14 @@ public class AREmailServiceImpl implements AREmailService {
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
+
     /**
      * This method is used to send emails to the agency
      *
      * @param invoices
      */
     @Override
-    public boolean sendInvoicesViaEmail(Collection<ContractsGrantsInvoiceDocument> invoices) throws InvalidAddressException, MessagingException  {
+    public boolean sendInvoicesViaEmail(Collection<ContractsGrantsInvoiceDocument> invoices) throws InvalidAddressException, MessagingException {
         LOG.debug("sendInvoicesViaEmail() starting.");
 
         boolean success = true;
@@ -142,8 +142,7 @@ public class AREmailServiceImpl implements AREmailService {
                         String recipients = invoiceAddressDetail.getCustomerEmailAddress();
                         if (StringUtils.isNotEmpty(recipients)) {
                             message.getToAddresses().add(recipients);
-                        }
-                        else {
+                        } else {
                             LOG.warn("No recipients indicated.");
                         }
 
@@ -163,8 +162,7 @@ public class AREmailServiceImpl implements AREmailService {
                         if (ObjectUtils.isNotNull(attachment)) {
                             try {
                                 message.setContent(IOUtils.toByteArray(attachment.getAttachmentContents()));
-                            }
-                            catch (IOException ex) {
+                            } catch (IOException ex) {
                                 LOG.error("Error setting attachment contents", ex);
                                 throw new RuntimeException(ex);
                             }
@@ -190,8 +188,8 @@ public class AREmailServiceImpl implements AREmailService {
         String subject = kualiConfigurationService.getPropertyValueAsString(ArKeyConstants.CGINVOICE_EMAIL_SUBJECT);
 
         return MessageFormat.format(subject, invoice.getInvoiceGeneralDetail().getAward().getProposal().getGrantNumber(),
-                invoice.getInvoiceGeneralDetail().getProposalNumber(),
-                invoice.getDocumentNumber());
+            invoice.getInvoiceGeneralDetail().getProposalNumber(),
+            invoice.getDocumentNumber());
     }
 
     protected String getMessageBody(ContractsGrantsInvoiceDocument invoice, CustomerAddress customerAddress) {
@@ -208,24 +206,24 @@ public class AREmailServiceImpl implements AREmailService {
         }
 
         return MessageFormat.format(message, customerAddress.getCustomer().getCustomerName(),
-                customerAddress.getCustomerAddressName(),
-                invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getName(),
-                invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getProjectTitle(),
-                department,
-                invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getPhoneNumber(),
-                invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getEmailAddress());
+            customerAddress.getCustomerAddressName(),
+            invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getName(),
+            invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getProjectTitle(),
+            department,
+            invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getPhoneNumber(),
+            invoice.getInvoiceGeneralDetail().getAward().getAwardPrimaryFundManager().getFundManager().getEmailAddress());
     }
 
     /**
      * Setup properties to handle mail messages in a non-production environment as appropriate.
-     *
+     * <p>
      * NOTE: We should be setting up configuration properties for these values, and once that is done
      * this method can be removed.
      */
     public void setupMailServiceForNonProductionInstance() {
         if (!ConfigContext.getCurrentContextConfig().isProductionEnvironment()) {
-            ((MailServiceImpl)mailService).setRealNotificationsEnabled(false);
-            ((MailServiceImpl)mailService).setNonProductionNotificationMailingList(mailService.getBatchMailingList());
+            ((MailServiceImpl) mailService).setRealNotificationsEnabled(false);
+            ((MailServiceImpl) mailService).setNonProductionNotificationMailingList(mailService.getBatchMailingList());
         }
     }
 
@@ -303,14 +301,13 @@ public class AREmailServiceImpl implements AREmailService {
         body.append("\n\n");
 
         messageKey = kualiConfigurationService.getPropertyValueAsString(ArKeyConstants.MESSAGE_CG_UPCOMING_MILESTONES_EMAIL_LINE_2);
-        body.append(MessageFormat.format(messageKey, new Object[] { null }) + "\n\n");
+        body.append(MessageFormat.format(messageKey, new Object[]{null}) + "\n\n");
 
         message.setMessage(body.toString());
 
         try {
             mailService.sendMessage(message);
-        }
-        catch (InvalidAddressException | MessagingException ex) {
+        } catch (InvalidAddressException | MessagingException ex) {
             LOG.error("Problems sending milestones e-mail", ex);
             throw new RuntimeException("Problems sending milestones e-mail", ex);
         }

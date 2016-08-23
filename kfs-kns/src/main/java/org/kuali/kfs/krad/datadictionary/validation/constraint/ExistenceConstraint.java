@@ -22,11 +22,10 @@ package org.kuali.kfs.krad.datadictionary.validation.constraint;
  * An existence constraint is a constraint that requires (or does not require) that some non-empty value exist for this constrained
  * object or field.
  *
- *
  * @since 1.1
  */
 public interface ExistenceConstraint extends Constraint {
 
-	public Boolean isRequired();
+    public Boolean isRequired();
 
 }

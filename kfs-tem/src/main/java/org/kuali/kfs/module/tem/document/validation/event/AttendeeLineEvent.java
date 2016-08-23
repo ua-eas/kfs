@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
-import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.tem.businessobject.Attendee;
 
-public interface AttendeeLineEvent<E extends Attendee> extends KualiDocumentEvent{
+public interface AttendeeLineEvent<E extends Attendee> extends KualiDocumentEvent {
 
     /**
-     *
      * This method returns the other travel expense object associated with this event
+     *
      * @return group traveler
      */
     public E getAttendee();

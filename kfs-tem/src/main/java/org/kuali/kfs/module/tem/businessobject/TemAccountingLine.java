@@ -25,12 +25,14 @@ public interface TemAccountingLine {
 
     /**
      * Gets the cardType attribute.
+     *
      * @return Returns the cardType.
      */
     public String getCardType();
 
     /**
      * Sets the cardType attribute value.
+     *
      * @param cardType The cardType to set.
      */
     public void setCardType(String cardType);

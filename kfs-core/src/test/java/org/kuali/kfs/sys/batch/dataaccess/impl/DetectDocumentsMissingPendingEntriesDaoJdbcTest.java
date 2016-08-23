@@ -35,12 +35,12 @@ public class DetectDocumentsMissingPendingEntriesDaoJdbcTest {
         final String sql = detectDocumentsMissingPendingEntriesDaoJdbc.buildQuery(mockDocumentTypes);
 
         final String expectedSql = "select distinct fs_doc_header_t.fdoc_nbr as doc_hdr_nbr, fs_doc_header_t.fdoc_typ_nm" +
-                " from fs_doc_header_t left join gl_pending_entry_t" +
-                " on fs_doc_header_t.fdoc_nbr = gl_pending_entry_t.fdoc_nbr" +
-                " where fs_doc_header_t.fdoc_prcssd_dt is not null" +
-                " and fs_doc_header_t.fdoc_prcssd_dt > ?" +
-                " and fs_doc_header_t.FDOC_TYP_NM in (?, ?)" +
-                " and gl_pending_entry_t.fdoc_nbr is null";
+            " from fs_doc_header_t left join gl_pending_entry_t" +
+            " on fs_doc_header_t.fdoc_nbr = gl_pending_entry_t.fdoc_nbr" +
+            " where fs_doc_header_t.fdoc_prcssd_dt is not null" +
+            " and fs_doc_header_t.fdoc_prcssd_dt > ?" +
+            " and fs_doc_header_t.FDOC_TYP_NM in (?, ?)" +
+            " and gl_pending_entry_t.fdoc_nbr is null";
         final String scrubbedWhitespaceSql = sql.replaceAll("\\s\\s*", " ");
         Assert.assertEquals(expectedSql.toLowerCase(), scrubbedWhitespaceSql.toLowerCase());
     }
@@ -56,12 +56,12 @@ public class DetectDocumentsMissingPendingEntriesDaoJdbcTest {
         final String sql = detectDocumentsMissingPendingEntriesDaoJdbc.buildQuery(mockDocumentTypes);
 
         final String expectedSql = "select distinct fs_doc_header_t.fdoc_nbr as doc_hdr_nbr, fs_doc_header_t.fdoc_typ_nm" +
-                " from fs_doc_header_t left join gl_pending_entry_t" +
-                " on fs_doc_header_t.fdoc_nbr = gl_pending_entry_t.fdoc_nbr" +
-                " where fs_doc_header_t.fdoc_prcssd_dt is not null" +
-                " and fs_doc_header_t.fdoc_prcssd_dt > ?" +
-                " and fs_doc_header_t.FDOC_TYP_NM in (?, ?, ?, ?)" +
-                " and gl_pending_entry_t.fdoc_nbr is null";
+            " from fs_doc_header_t left join gl_pending_entry_t" +
+            " on fs_doc_header_t.fdoc_nbr = gl_pending_entry_t.fdoc_nbr" +
+            " where fs_doc_header_t.fdoc_prcssd_dt is not null" +
+            " and fs_doc_header_t.fdoc_prcssd_dt > ?" +
+            " and fs_doc_header_t.FDOC_TYP_NM in (?, ?, ?, ?)" +
+            " and gl_pending_entry_t.fdoc_nbr is null";
         final String scrubbedWhitespaceSql = sql.replaceAll("\\s\\s*", " ");
         Assert.assertEquals(expectedSql.toLowerCase(), scrubbedWhitespaceSql.toLowerCase());
     }

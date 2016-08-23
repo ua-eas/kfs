@@ -30,7 +30,7 @@ public class OrganizationRemitToCityNameValueFinder extends SystemInformationVal
      */
     public String getValue() {
 
-        return (systemInformation != null)? systemInformation.getOrganizationRemitToCityName() : "";
+        return (systemInformation != null) ? systemInformation.getOrganizationRemitToCityName() : "";
     }
 
 }

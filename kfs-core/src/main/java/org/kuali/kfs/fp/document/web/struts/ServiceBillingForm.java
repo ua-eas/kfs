@@ -23,7 +23,7 @@ import org.kuali.kfs.fp.document.CapitalAssetEditable;
 /**
  * This class is the action form for Service Billing.
  */
-public class ServiceBillingForm extends InternalBillingForm implements CapitalAssetEditable{
+public class ServiceBillingForm extends InternalBillingForm implements CapitalAssetEditable {
     public ServiceBillingForm() {
         super();
     }

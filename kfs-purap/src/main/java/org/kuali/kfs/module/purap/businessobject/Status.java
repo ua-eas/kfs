@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Status Business Object.
  */
-public class Status extends PersistableBusinessObjectBase implements Comparator<Status>{
+public class Status extends PersistableBusinessObjectBase implements Comparator<Status> {
 
     private String statusCode;
     private String statusDescription;

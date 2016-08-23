@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.businessobject.TemSourceAccountingLine;
@@ -44,10 +40,14 @@ import org.kuali.kfs.sys.document.service.PaymentSourceHelperService;
 import org.kuali.kfs.sys.document.validation.event.AccountingDocumentSaveWithNoLedgerEntryGenerationEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class to help PDP extraction of Reimbursable travel & entertainment documents - namely, the Travel Reimbursement,
@@ -64,7 +64,6 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
     protected ParameterService parameterService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#retrievePaymentSourcesByCampus(boolean)
      */
     @Override
@@ -92,6 +91,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Retrieves all the TravelReimbursement, TravelRelocation, and TravelEntertainment documents paid by check at approved status in one convenient call
+     *
      * @param immediatesOnly true if only those documents marked for immediate payment should be retrieved, false if all qualifying documents should be retrieved
      * @return all of the documents to process in a list
      */
@@ -105,6 +105,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Cancels the reimbursable travel & entertainment document
+     *
      * @see org.kuali.kfs.module.tem.document.service.ReimbursableDocumentPaymentService#cancelReimbursableDocument(org.kuali.kfs.module.tem.document.TEMReimbursementDocument, java.sql.Date)
      */
     @Override
@@ -116,8 +117,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
                 reimbursableDoc.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.CANCELLED);
                 // save the document
                 getDocumentService().saveDocument(reimbursableDoc, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + reimbursableDoc.getDocumentNumber() + " " + we);
                 throw new RuntimeException(we);
             }
@@ -126,6 +126,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * True if the entry has a doc type of TRCA, TRWF, ENCA, ENWF, RECA, or REWF - the TR/ENT/RELO payment types
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldRollBackPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
@@ -135,6 +136,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Creates a payment group for the reimbursable travel & entertainment document
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#createPaymentGroup(org.kuali.rice.krad.document.Document, java.sql.Date)
      */
     @Override
@@ -155,7 +157,8 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Builds the PaymentDetail for the given reimbursable travel & entertainment document
-     * @param document the reimbursable travel & entertainment document to create a payment for
+     *
+     * @param document       the reimbursable travel & entertainment document to create a payment for
      * @param processRunDate the date when the extraction is occurring
      * @return a PaymentDetail to add to the PaymentGroup
      */
@@ -180,6 +183,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
     /**
      * Determines the accounting lines to use for the payment account details.  It filters to the out of pocket expense accounting lines.  It then checks if the total of those lines equals the amount to pay out;
      * if they don't, it redistributes the accounting lines by the true payment amount
+     *
      * @param document the document to find the reimbursable accounting lines for
      * @return a List of reimbursable accounting lines to build payment accounting details for
      */
@@ -195,6 +199,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Filters the given List of TemSourceAccountingLine objects, returning a List of only those which are out of pocket
+     *
      * @param sourceAccountingLines the source source accounting line List from the document
      * @return the List of those accounting lines which are out of pocket
      */
@@ -210,7 +215,8 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Determines if the PDP amount is different than what would be paid out if the out of pocket accounting lines were used directly
-     * @param document the reimbursement document we're building accounting details for
+     *
+     * @param document                   the reimbursement document we're building accounting details for
      * @param outOfPocketAccountingLines the out of pocket accounting lines from that document
      * @return true if the amounts were different and therefore only the payment travel should be reimbursed; false if we can just use the accounting lines
      */
@@ -221,6 +227,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileUnit()
      */
     @Override
@@ -231,6 +238,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileSubUnit()
      */
     @Override
@@ -241,6 +249,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Marks the extract date on the travel payment associated with the document
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsExtracted(org.kuali.rice.krad.document.Document, java.sql.Date)
      */
     @Override
@@ -249,8 +258,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
             document.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.Payments.EXTRACTED);
             document.getTravelPayment().setExtractDate(sqlProcessRunDate);
             getDocumentService().saveDocument(document, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Could not save TEMReimbursementDocument document #" + document.getDocumentNumber() + ": " + we);
             throw new RuntimeException(we);
         }
@@ -258,6 +266,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Returns the travel payment check total amount
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getPaymentAmount(org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -267,6 +276,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_FROM_EMAIL_ADDRESS parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEMailFromAddress()
      */
     @Override
@@ -276,6 +286,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_TO_EMAIL_ADDRESSES parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEmailToAddresses()
      */
     @Override
@@ -287,6 +298,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Sets the canceled date on the TravelPayment
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#markAsPaid(java.sql.Date)
      */
     @Override
@@ -294,8 +306,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
         try {
             doc.getTravelPayment().setPaidDate(processDate);
             getDocumentService().saveDocument(doc, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + doc.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -303,6 +314,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Resets the extraction date and paid date to null; resets the document's financial status code to approved
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#resetFromExtraction()
      */
     @Override
@@ -312,8 +324,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
             doc.getTravelPayment().setPaidDate(null);
             doc.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
             getDocumentService().saveDocument(doc, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + doc.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -321,6 +332,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Defers to the document to find out which
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getAchCheckDocumentType(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -330,6 +342,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Handles ENCA, RECA, and TRCA
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#handlesAchCheckDocumentType(java.lang.String)
      */
     @Override
@@ -339,6 +352,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Determines if the payment would be 0 - if it's greater than that, it should be extracted
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldExtractPayment(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -355,6 +369,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Sets the implementation of the DocumentService for this service to use
+     *
      * @param parameterService an implementation of DocumentService
      */
     public void setDocumentService(DocumentService documentService) {
@@ -370,6 +385,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Sets the implementation of the PaymentSourceHelperService for this service to use
+     *
      * @param parameterService an implementation of PaymentSourceHelperService
      */
     public void setPaymentSourceHelperService(PaymentSourceHelperService paymentSourceHelperService) {
@@ -385,6 +401,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Sets the implementation of the DAO for TravelDocuments for this service to use
+     *
      * @param parameterService an implementation of the data access object for travel documents
      */
     public void setTravelDocumentDao(TravelDocumentDao travelDocumentDao) {
@@ -400,6 +417,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Sets the implementation of the TravelPaymentsHelperService for this service to use
+     *
      * @param travelPaymentsHelperService an implementation of the TravelPaymentsHelperService
      */
     public void setTravelPaymentsHelperService(TravelPaymentsHelperService travelPaymentsHelperService) {
@@ -415,6 +433,7 @@ public class ReimbursableDocumentExtractionHelperServiceImpl implements PaymentS
 
     /**
      * Injects an implementation of the ParameterService
+     *
      * @param parameterService the implementation of the ParameterService
      */
     public void setParameterService(ParameterService parameterService) {

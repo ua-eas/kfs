@@ -230,7 +230,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         LOG.debug("generateEntriesModifyPaymentRequest() Combine positive/negative entries");
         glEntries.putAll(actualsPositive);
 
-        for (Iterator<SourceAccountingLine> iter = actualsNegative.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<SourceAccountingLine> iter = actualsNegative.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine key = iter.next();
 
             KualiDecimal amt;
@@ -245,7 +245,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }
 
         List<SummaryAccount> summaryAccounts = new ArrayList<>();
-        for (Iterator<SourceAccountingLine> iter = glEntries.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<SourceAccountingLine> iter = glEntries.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine account = iter.next();
             KualiDecimal amount = glEntries.get(account);
             if (KualiDecimal.ZERO.compareTo(amount) != 0) {
@@ -297,10 +297,10 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Creates the general ledger entries for Payment Request actions.
      *
-     * @param preq Payment Request document to create entries
-     * @param encumbrances List of encumbrance accounts if applies
+     * @param preq            Payment Request document to create entries
+     * @param encumbrances    List of encumbrance accounts if applies
      * @param accountingLines List of preq accounts to create entries
-     * @param processType Type of process (create, modify, cancel)
+     * @param processType     Type of process (create, modify, cancel)
      * @return Boolean returned indicating whether entry creation succeeded
      */
     protected boolean generateEntriesPaymentRequest(PaymentRequestDocument preq, List encumbrances, List summaryAccounts, String processType) {
@@ -329,7 +329,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             }
 
             preq.setGenerateEncumbranceEntries(true);
-            for (Iterator iter = encumbrances.iterator(); iter.hasNext();) {
+            for (Iterator iter = encumbrances.iterator(); iter.hasNext(); ) {
                 AccountingLine accountingLine = (AccountingLine) iter.next();
                 preq.generateGeneralLedgerPendingEntries(accountingLine, sequenceHelper);
                 sequenceHelper.increment(); // increment for the next line
@@ -348,7 +348,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 preq.setDebitCreditCodeForGLEntries(KFSConstants.GL_CREDIT_CODE);
             }
 
-            for (Iterator iter = summaryAccounts.iterator(); iter.hasNext();) {
+            for (Iterator iter = summaryAccounts.iterator(); iter.hasNext(); ) {
                 SummaryAccount summaryAccount = (SummaryAccount) iter.next();
                 preq.generateGeneralLedgerPendingEntries(summaryAccount.getAccount(), sequenceHelper);
                 sequenceHelper.increment(); // increment for the next line
@@ -394,7 +394,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Creates the general ledger entries for Credit Memo actions.
      *
-     * @param cm Credit Memo document to create entries
+     * @param cm       Credit Memo document to create entries
      * @param isCancel Indicates if request is a cancel or create
      * @return Boolean returned indicating whether entry creation succeeded
      */
@@ -428,7 +428,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                     // the map so Debits on negatives = a credit
                     cm.setDebitCreditCodeForGLEntries(KFSConstants.GL_DEBIT_CODE);
 
-                    for (Iterator iter = encumbrances.iterator(); iter.hasNext();) {
+                    for (Iterator iter = encumbrances.iterator(); iter.hasNext(); ) {
                         AccountingLine accountingLine = (AccountingLine) iter.next();
                         if (accountingLine.getAmount().compareTo(KualiDecimal.ZERO) != 0) {
                             cm.generateGeneralLedgerPendingEntries(accountingLine, sequenceHelper);
@@ -452,7 +452,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 cm.setDebitCreditCodeForGLEntries(KFSConstants.GL_DEBIT_CODE);
             }
 
-            for (Iterator iter = summaryAccounts.iterator(); iter.hasNext();) {
+            for (Iterator iter = summaryAccounts.iterator(); iter.hasNext(); ) {
                 SummaryAccount summaryAccount = (SummaryAccount) iter.next();
                 cm.generateGeneralLedgerPendingEntries(summaryAccount.getAccount(), sequenceHelper);
                 sequenceHelper.increment(); // increment for the next line
@@ -491,7 +491,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         LOG.debug("generateEntriesApproveAmendPurchaseOrder() started");
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
 
             // if invoice fields are null (as would be for new items), set fields to zero
@@ -503,7 +503,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 item.setItemOutstandingEncumberedQuantity(KualiDecimal.ZERO);
                 item.setItemOutstandingEncumberedAmount(KualiDecimal.ZERO);
 
-                for (Iterator iter = item.getSourceAccountingLines().iterator(); iter.hasNext();) {
+                for (Iterator iter = item.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
                     PurchaseOrderAccount account = (PurchaseOrderAccount) iter.next();
                     account.setItemAccountOutstandingEncumbranceAmount(KualiDecimal.ZERO);
                     account.setAlternateAmountForGLEntryCreation(KualiDecimal.ZERO);
@@ -533,7 +533,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                     }
                 }
 
-                for (Iterator iter = item.getSourceAccountingLines().iterator(); iter.hasNext();) {
+                for (Iterator iter = item.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
                     PurchaseOrderAccount account = (PurchaseOrderAccount) iter.next();
                     BigDecimal percent = new BigDecimal(account.getAccountLinePercent().toString());
                     percent = percent.divide(new BigDecimal("100"), 3, BigDecimal.ROUND_HALF_UP);
@@ -555,19 +555,19 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         Map combination = new HashMap();
 
         // Add amounts from the new PO
-        for (Iterator iter = newAccounts.iterator(); iter.hasNext();) {
+        for (Iterator iter = newAccounts.iterator(); iter.hasNext(); ) {
             SourceAccountingLine newAccount = (SourceAccountingLine) iter.next();
             combination.put(newAccount, newAccount.getAmount());
         }
 
         LOG.info("generateEntriesApproveAmendPurchaseOrder() combination after the add");
-        for (Iterator iter = combination.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = combination.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine element = (SourceAccountingLine) iter.next();
             LOG.info("generateEntriesApproveAmendPurchaseOrder() " + element + " = " + ((KualiDecimal) combination.get(element)).floatValue());
         }
 
         // Subtract the amounts from the old PO
-        for (Iterator iter = oldAccounts.iterator(); iter.hasNext();) {
+        for (Iterator iter = oldAccounts.iterator(); iter.hasNext(); ) {
             SourceAccountingLine oldAccount = (SourceAccountingLine) iter.next();
             if (combination.containsKey(oldAccount)) {
                 KualiDecimal amount = (KualiDecimal) combination.get(oldAccount);
@@ -579,13 +579,13 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }
 
         LOG.debug("generateEntriesApproveAmendPurchaseOrder() combination after the subtract");
-        for (Iterator iter = combination.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = combination.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine element = (SourceAccountingLine) iter.next();
             LOG.info("generateEntriesApproveAmendPurchaseOrder() " + element + " = " + ((KualiDecimal) combination.get(element)).floatValue());
         }
 
         List<SourceAccountingLine> encumbranceAccounts = new ArrayList();
-        for (Iterator iter = combination.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = combination.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine account = (SourceAccountingLine) iter.next();
             KualiDecimal amount = (KualiDecimal) combination.get(account);
             if (KualiDecimal.ZERO.compareTo(amount) != 0) {
@@ -608,7 +608,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         LOG.debug("generateEntriesClosePurchaseOrder() started");
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
 
             String logItmNbr = "Item # " + item.getItemLineNumber();
@@ -628,7 +628,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 // Sort accounts
                 Collections.sort((List) item.getSourceAccountingLines());
 
-                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext();) {
+                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext(); ) {
                     PurchaseOrderAccount acct = (PurchaseOrderAccount) iterAcct.next();
                     if (!acct.isEmpty()) {
                         KualiDecimal acctAmount = itemAmount.multiply(new KualiDecimal(acct.getAccountLinePercent().toString())).divide(PurapConstants.HUNDRED);
@@ -662,7 +662,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
             if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
                 item.setItemOutstandingEncumberedQuantity(KualiDecimal.ZERO);
@@ -700,7 +700,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         LOG.debug("generateEntriesReopenPurchaseOrder() started");
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
             if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
                 item.getItemQuantity().subtract(item.getItemInvoicedTotalQuantity());
@@ -717,7 +717,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }// endfor
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
 
             String logItmNbr = "Item # " + item.getItemLineNumber();
@@ -742,7 +742,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 // Sort accounts
                 Collections.sort((List) item.getSourceAccountingLines());
 
-                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext();) {
+                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext(); ) {
                     PurchaseOrderAccount acct = (PurchaseOrderAccount) iterAcct.next();
                     if (!acct.isEmpty()) {
                         KualiDecimal acctAmount = itemAmount.multiply(new KualiDecimal(acct.getAccountLinePercent().toString())).divide(PurapConstants.HUNDRED);
@@ -785,7 +785,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         LOG.debug("generateEntriesVoidPurchaseOrder() started");
 
         // Set outstanding encumbered quantity/amount on items
-        for (Iterator items = po.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = po.getItems().iterator(); items.hasNext(); ) {
             PurchaseOrderItem item = (PurchaseOrderItem) items.next();
 
             String logItmNbr = "Item # " + item.getItemLineNumber();
@@ -806,7 +806,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 // Sort accounts
                 Collections.sort((List) item.getSourceAccountingLines());
 
-                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext();) {
+                for (Iterator iterAcct = item.getSourceAccountingLines().iterator(); iterAcct.hasNext(); ) {
                     PurchaseOrderAccount acct = (PurchaseOrderAccount) iterAcct.next();
                     if (!acct.isEmpty()) {
                         KualiDecimal acctAmount = itemAmount.multiply(new KualiDecimal(acct.getAccountLinePercent().toString())).divide(PurapConstants.HUNDRED);
@@ -852,7 +852,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         PurchaseOrderDocument po = purchaseOrderService.getCurrentPurchaseOrder(preq.getPurchaseOrderIdentifier());
 
         // Get each item one by one
-        for (Iterator items = preq.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = preq.getItems().iterator(); items.hasNext(); ) {
             PaymentRequestItem preqItem = (PaymentRequestItem) items.next();
             PurchaseOrderItem poItem = getPoItem(po, preqItem.getItemLineNumber(), preqItem.getItemType());
 
@@ -867,7 +867,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 LOG.debug("relieveEncumbrance() " + logItmNbr + " No encumbrances required because po item is null");
             } else {
                 KualiDecimal preqItemTotalAmount = preqItem.getTotalAmount();
-                if ( preqItemTotalAmount == null) {
+                if (preqItemTotalAmount == null) {
                     preqItemTotalAmount = KualiDecimal.ZERO;
                 }
                 if (KualiDecimal.ZERO.compareTo(preqItemTotalAmount) == 0) {
@@ -996,7 +996,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                     // make the list of accounts for the disencumbrance entry
                     PurchaseOrderAccount lastAccount = null;
                     KualiDecimal accountTotal = KualiDecimal.ZERO;
-                    for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext();) {
+                    for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext(); ) {
                         PurchaseOrderAccount account = (PurchaseOrderAccount) accountIter.next();
                         if (!account.isEmpty()) {
                             KualiDecimal encumbranceAmount = null;
@@ -1053,7 +1053,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }// endfor
 
         List<SourceAccountingLine> encumbranceAccounts = new ArrayList();
-        for (Iterator iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine acctString = (SourceAccountingLine) iter.next();
             KualiDecimal amount = (KualiDecimal) encumbranceAccountMap.get(acctString);
             if (amount.doubleValue() != 0) {
@@ -1080,7 +1080,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         Map encumbranceAccountMap = new HashMap();
 
         // Get each item one by one
-        for (Iterator items = preq.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = preq.getItems().iterator(); items.hasNext(); ) {
             PaymentRequestItem payRequestItem = (PaymentRequestItem) items.next();
             PurchaseOrderItem poItem = getPoItem(po, payRequestItem.getItemLineNumber(), payRequestItem.getItemType());
 
@@ -1158,7 +1158,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 // Sort accounts
                 Collections.sort((List) poItem.getSourceAccountingLines());
 
-                for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext();) {
+                for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext(); ) {
                     PurchaseOrderAccount account = (PurchaseOrderAccount) accountIter.next();
                     if (!account.isEmpty()) {
                         SourceAccountingLine acctString = account.generateSourceAccountingLine();
@@ -1204,7 +1204,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         businessObjectService.save(po);
 
         List<SourceAccountingLine> encumbranceAccounts = new ArrayList<>();
-        for (Iterator<SourceAccountingLine> iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<SourceAccountingLine> iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine acctString = iter.next();
             KualiDecimal amount = (KualiDecimal) encumbranceAccountMap.get(acctString);
             if (amount.doubleValue() != 0) {
@@ -1241,7 +1241,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         Map encumbranceAccountMap = new HashMap();
 
         // Get each item one by one
-        for (Iterator items = cm.getItems().iterator(); items.hasNext();) {
+        for (Iterator items = cm.getItems().iterator(); items.hasNext(); ) {
             CreditMemoItem cmItem = (CreditMemoItem) items.next();
             PurchaseOrderItem poItem = getPoItem(po, cmItem.getItemLineNumber(), cmItem.getItemType());
 
@@ -1327,7 +1327,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 PurchaseOrderAccount lastAccount = null;
                 KualiDecimal accountTotal = KualiDecimal.ZERO;
 
-                for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext();) {
+                for (Iterator accountIter = poItem.getSourceAccountingLines().iterator(); accountIter.hasNext(); ) {
                     PurchaseOrderAccount account = (PurchaseOrderAccount) accountIter.next();
                     if (!account.isEmpty()) {
                         KualiDecimal encumbranceAmount = null;
@@ -1372,7 +1372,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         }
 
         List<SourceAccountingLine> encumbranceAccounts = new ArrayList();
-        for (Iterator iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext(); ) {
             SourceAccountingLine acctString = (SourceAccountingLine) iter.next();
             KualiDecimal amount = (KualiDecimal) encumbranceAccountMap.get(acctString);
             if (amount.doubleValue() != 0) {
@@ -1399,7 +1399,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Save the given accounts for the given document.
      *
-     * @param sourceLines Accounts to be saved
+     * @param sourceLines             Accounts to be saved
      * @param purapDocumentIdentifier Purap document id for accounts
      */
     protected void saveAccountsPayableSummaryAccounts(List<SummaryAccount> summaryAccounts, Integer purapDocumentIdentifier, String docType) {
@@ -1415,14 +1415,14 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Find item in PO based on given parameters. Must send either the line # or item type.
      *
-     * @param po Purchase Order containing list of items
-     * @param nbr Line # of desired item (could be null)
+     * @param po       Purchase Order containing list of items
+     * @param nbr      Line # of desired item (could be null)
      * @param itemType Item type of desired item
      * @return PurcahseOrderItem found matching given criteria
      */
     protected PurchaseOrderItem getPoItem(PurchaseOrderDocument po, Integer nbr, ItemType itemType) {
         LOG.debug("getPoItem() started");
-        for (Iterator iter = po.getItems().iterator(); iter.hasNext();) {
+        for (Iterator iter = po.getItems().iterator(); iter.hasNext(); ) {
             PurchaseOrderItem element = (PurchaseOrderItem) iter.next();
             if (itemType.isLineItemIndicator()) {
                 if (ObjectUtils.isNotNull(nbr) && ObjectUtils.isNotNull(element.getItemLineNumber()) && (nbr.compareTo(element.getItemLineNumber()) == 0)) {
@@ -1454,8 +1454,8 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     /**
      * Calculate quantity change for creating Credit Memo entries
      *
-     * @param cancel Boolean indicating whether entries are for creation or cancellation of credit memo
-     * @param poItem Purchase Order Item
+     * @param cancel     Boolean indicating whether entries are for creation or cancellation of credit memo
+     * @param poItem     Purchase Order Item
      * @param cmQuantity Quantity on credit memo item
      * @return Calculated change
      */

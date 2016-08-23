@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.document.dataaccess;
 
+import org.kuali.kfs.fp.businessobject.TravelMileageRate;
+
 import java.sql.Date;
 import java.util.Collection;
-
-import org.kuali.kfs.fp.businessobject.TravelMileageRate;
 
 
 /**

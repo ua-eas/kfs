@@ -22,12 +22,10 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.ExistenceConstrai
 
 /**
  * Validation capability to constrain a value to be required or not required to be non-empty.
- *
- *
  */
 public interface ExistenceConstrainable extends Constrainable, ExistenceConstraint {
 
-	// To match up with legacy code for AttributeDefinition, the existence constraint isRequired() member is a field
-	// on the definition, making the capability a sub-interface of the constraint
+    // To match up with legacy code for AttributeDefinition, the existence constraint isRequired() member is a field
+    // on the definition, making the capability a sub-interface of the constraint
 
 }

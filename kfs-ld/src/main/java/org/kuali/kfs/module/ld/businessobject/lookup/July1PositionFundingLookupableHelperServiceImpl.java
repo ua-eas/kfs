@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.module.ld.businessobject.July1PositionFunding;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.inquiry.July1PositionFundingInquirableImpl;
@@ -32,12 +31,13 @@ import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquira
 import org.kuali.kfs.module.ld.dataaccess.LaborDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The July1PositionFundingLookupableHelperServiceImpl class is the front-end for all July 1 funds balance inquiry processing.
@@ -88,6 +88,7 @@ public class July1PositionFundingLookupableHelperServiceImpl extends AbstractLoo
 
     /**
      * Gets the laborDao attribute.
+     *
      * @return Returns the laborDao.
      */
     public LaborDao getLaborDao() {
@@ -96,6 +97,7 @@ public class July1PositionFundingLookupableHelperServiceImpl extends AbstractLoo
 
     /**
      * Sets the laborDao attribute value.
+     *
      * @param laborDao The laborDao to set.
      */
     public void setLaborDao(LaborDao laborDao) {

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.businessobject.RelocationReason;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class RelocationReasonCodeValuesFinder extends KeyValuesBase {
     protected static volatile KeyValuesService keyValuesService;
@@ -43,7 +43,7 @@ public class RelocationReasonCodeValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue(KFSConstants.EMPTY_STRING, KFSConstants.EMPTY_STRING));
         for (RelocationReason reason : codes) {
-            if(reason.isActive()) {
+            if (reason.isActive()) {
                 labels.add(new ConcreteKeyValue(reason.getReloReasonCode(), reason.getReloReasonName()));
             }
         }

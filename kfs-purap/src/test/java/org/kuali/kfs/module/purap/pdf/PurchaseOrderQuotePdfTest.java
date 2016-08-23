@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.pdf;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
@@ -30,11 +31,7 @@ import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.location.api.country.CountryService;
-import org.kuali.rice.location.framework.country.CountryEbo;
-import org.kuali.rice.location.impl.country.CountryBo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;

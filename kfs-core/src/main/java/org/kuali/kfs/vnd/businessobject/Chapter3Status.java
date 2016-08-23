@@ -19,14 +19,15 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 public class Chapter3Status extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String vendorChapter3StatusCode;
     private String vendorChapter3StatusDescription;
     private boolean active;
+
     /**
      * Gets the vendorChapter3StatusCode attribute.
      *
@@ -36,6 +37,7 @@ public class Chapter3Status extends PersistableBusinessObjectBase implements Mut
     public String getVendorChapter3StatusCode() {
         return vendorChapter3StatusCode;
     }
+
     /**
      * Sets the vendorChapter3StatusCode attribute.
      *
@@ -44,6 +46,7 @@ public class Chapter3Status extends PersistableBusinessObjectBase implements Mut
     public void setVendorChapter3StatusCode(String vendorChapter3StatusCode) {
         this.vendorChapter3StatusCode = vendorChapter3StatusCode;
     }
+
     /**
      * Gets the vendorChapter3StatusDescription attribute.
      *
@@ -53,6 +56,7 @@ public class Chapter3Status extends PersistableBusinessObjectBase implements Mut
     public String getVendorChapter3StatusDescription() {
         return vendorChapter3StatusDescription;
     }
+
     /**
      * Sets the vendorChapter3StatusDescription attribute.
      *
@@ -61,6 +65,7 @@ public class Chapter3Status extends PersistableBusinessObjectBase implements Mut
     public void setVendorChapter3StatusDescription(String vendorChapter3StatusDescription) {
         this.vendorChapter3StatusDescription = vendorChapter3StatusDescription;
     }
+
     /**
      * Gets the active attribute.
      *
@@ -71,6 +76,7 @@ public class Chapter3Status extends PersistableBusinessObjectBase implements Mut
     public boolean isActive() {
         return active;
     }
+
     /**
      * Sets the active attribute.
      *

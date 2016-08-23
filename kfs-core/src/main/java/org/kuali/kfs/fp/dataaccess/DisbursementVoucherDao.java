@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+
+import java.util.Collection;
 
 public interface DisbursementVoucherDao {
 

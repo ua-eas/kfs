@@ -60,7 +60,6 @@ public class RequisitionItem extends PurchasingItemBase {
     }
 
 
-
     /**
      * @see org.kuali.kfs.module.purap.businessobject.PurchasingItemBase#getAccountingLineClass()
      */

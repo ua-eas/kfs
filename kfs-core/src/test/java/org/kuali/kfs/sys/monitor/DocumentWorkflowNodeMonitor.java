@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.sys.monitor;
 
-import java.util.Iterator;
-import java.util.Set;
-
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 /**
  * Watches the workflow document and indicates valueChanged when either the status or the current node changes.

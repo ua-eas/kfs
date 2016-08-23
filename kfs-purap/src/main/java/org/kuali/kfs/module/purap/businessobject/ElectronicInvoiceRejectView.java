@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.List;
 
 /**
  * Electronic invoice View Business Object.
@@ -38,6 +38,7 @@ public class ElectronicInvoiceRejectView extends AbstractRelatedView {
 
     /**
      * Gets the paymentRequestIdentifier attribute.
+     *
      * @return Returns the paymentRequestIdentifier.
      */
     public Integer getPaymentRequestIdentifier() {
@@ -46,6 +47,7 @@ public class ElectronicInvoiceRejectView extends AbstractRelatedView {
 
     /**
      * Sets the paymentRequestIdentifier attribute value.
+     *
      * @param paymentRequestIdentifier The paymentRequestIdentifier to set.
      */
     public void setPaymentRequestIdentifier(Integer paymentRequestIdentifier) {
@@ -86,6 +88,7 @@ public class ElectronicInvoiceRejectView extends AbstractRelatedView {
     public String getDocumentTypeName() {
         return KFSConstants.FinancialDocumentTypeCodes.ELECTRONIC_INVOICE_REJECT;
     }
+
     /**
      * @see org.kuali.kfs.module.purap.businessobject.AbstractRelatedView#getUrl()
      */

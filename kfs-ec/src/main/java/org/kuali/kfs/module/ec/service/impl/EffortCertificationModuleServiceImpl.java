@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ec.EffortCertificationModuleService;
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
 import org.kuali.kfs.module.ec.EffortConstants;
@@ -30,8 +26,12 @@ import org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao
 import org.kuali.kfs.module.ec.service.EffortCertificationReportDefinitionService;
 import org.kuali.kfs.module.ec.util.AccountingPeriodMonth;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @see org.kuali.kfs.integration.service.EffortCertificationService
@@ -41,7 +41,7 @@ public class EffortCertificationModuleServiceImpl implements EffortCertification
 
     /**
      * @see org.kuali.kfs.integration.service.EffortCertificationService#findReportDefinitionsForPeriod(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public List<EffortCertificationReport> findReportDefinitionsForPeriod(Integer fiscalYear, String periodCode, String positionObjectGroupCode) {
         List<EffortCertificationReport> effortCertificationReports = this.getEffortCertificationReportDefinitionDao().getAllByYearAndPositionCode(fiscalYear, positionObjectGroupCode);
@@ -60,7 +60,7 @@ public class EffortCertificationModuleServiceImpl implements EffortCertification
 
     /**
      * @see org.kuali.kfs.integration.service.EffortCertificationService#isEmployeeWithOpenCertification(java.util.List,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public EffortCertificationReport isEmployeeWithOpenCertification(List<EffortCertificationReport> effortCertificationReports, String emplid) {
         for (EffortCertificationReport report : effortCertificationReports) {

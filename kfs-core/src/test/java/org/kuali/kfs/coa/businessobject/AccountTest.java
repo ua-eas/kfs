@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
 
 /**
  * This class...
@@ -50,16 +50,15 @@ public class AccountTest extends KualiTestBase {
         Timestamp timestamp;
         try {
             timestamp = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(timestampString);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             assertNull("Timestamp String was not parseable", e);
             return null;
         }
         return timestamp;
     }
 
-    private Date getDate(String dateString){
-        return new Date (getTimestamp(dateString).getTime());
+    private Date getDate(String dateString) {
+        return new Date(getTimestamp(dateString).getTime());
     }
 
     // since all the tests are doing the same thing, this is centralized

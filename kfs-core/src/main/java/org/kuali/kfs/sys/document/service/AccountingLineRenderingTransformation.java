@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.TableJoining;
+
+import java.util.List;
 
 /**
  * An interface that describes the methods used by a service that transforms AccountingLineViewRenderableElements
@@ -30,7 +30,8 @@ public interface AccountingLineRenderingTransformation {
 
     /**
      * Transforms the given tree of elements into the transformed tree of elements
-     * @param elements a List of renderable elements to transform
+     *
+     * @param elements       a List of renderable elements to transform
      * @param accountingLine the accounting line that will be rendered
      */
     public abstract void transformElements(List<TableJoining> elements, AccountingLine accountingLine);

@@ -22,13 +22,10 @@
  */
 package org.kuali.kfs.pdp.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants.PaymentStatusCodes;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
@@ -36,8 +33,10 @@ import org.kuali.kfs.pdp.businessobject.PaymentStatus;
 import org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements BatchMaintenanceDao {
@@ -56,7 +55,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
      * @param batchId Integer value of batch id of payments to search.
      * @return boolean true = all payments are 'OPEN'; false = all payments are not 'OPEN'
      * @see org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao#doBatchPaymentsHaveOpenStatus(java.lang.Integer, java.util.List,
-     *      java.util.List)
+     * java.util.List)
      */
     public boolean doBatchPaymentsHaveOpenStatus(Integer batchId, List batchPayments, List statusList) {
         LOG.debug("doBatchPaymentsHaveOpenStatus() enter method.");
@@ -66,7 +65,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
             return false;
         }
 
-        for (Iterator i = statusList.iterator(); i.hasNext();) {
+        for (Iterator i = statusList.iterator(); i.hasNext(); ) {
             PaymentStatus element = (PaymentStatus) i.next();
             if (!(element.getCode().equals(PaymentStatusCodes.OPEN))) {
                 codeList.add(element.getCode());
@@ -78,7 +77,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
         crit.addIn(PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE, codeList);
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(PaymentGroup.class, crit);
-        q.setAttributes(new String[] { PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE });
+        q.setAttributes(new String[]{PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE});
         q.addGroupBy(PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE);
 
         Iterator i = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
@@ -86,8 +85,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
             LOG.debug("doBatchPaymentsHaveOpenStatus() Not all payment groups have status 'OPEN'.");
             TransactionalServiceUtils.exhaustIterator(i);
             return false;
-        }
-        else {
+        } else {
             LOG.debug("doBatchPaymentsHaveOpenStatus() All payment groups have status 'OPEN'.");
             return true;
         }
@@ -102,7 +100,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
      * @param batchId Integer value of batch id of payments to search.
      * @return boolean true = all payments are 'HELD'; false = all payments are not 'HELD'
      * @see org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao#doBatchPaymentsHaveHeldStatus(java.lang.Integer, java.util.List,
-     *      java.util.List)
+     * java.util.List)
      */
     public boolean doBatchPaymentsHaveHeldStatus(Integer batchId, List batchPayments, List statusList) {
         LOG.debug("doBatchPaymentsHaveHeldStatus() enter method.");
@@ -113,7 +111,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
 
         List codeList = new ArrayList();
 
-        for (Iterator i = statusList.iterator(); i.hasNext();) {
+        for (Iterator i = statusList.iterator(); i.hasNext(); ) {
             PaymentStatus element = (PaymentStatus) i.next();
             if (!(element.getCode().equals(PaymentStatusCodes.HELD_CD))) {
                 codeList.add(element.getCode());
@@ -125,7 +123,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
         crit.addIn(PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE, codeList);
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(PaymentGroup.class, crit);
-        q.setAttributes(new String[] { PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE });
+        q.setAttributes(new String[]{PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE});
         q.addGroupBy(PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PAYMENT_STATUS_CODE);
 
         Iterator i = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
@@ -133,8 +131,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
             LOG.debug("doBatchPaymentsHaveHeldStatus() Not all payment groups have status 'HELD'.");
             TransactionalServiceUtils.exhaustIterator(i);
             return false;
-        }
-        else {
+        } else {
             LOG.debug("doBatchPaymentsHaveHeldStatus() All payment groups have status 'HELD'.");
             return true;
         }

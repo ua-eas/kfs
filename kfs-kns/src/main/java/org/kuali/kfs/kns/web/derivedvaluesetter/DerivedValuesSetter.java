@@ -24,10 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public interface DerivedValuesSetter {
-	public void setDerivedValues(KualiForm form, HttpServletRequest request);
+    public void setDerivedValues(KualiForm form, HttpServletRequest request);
 }

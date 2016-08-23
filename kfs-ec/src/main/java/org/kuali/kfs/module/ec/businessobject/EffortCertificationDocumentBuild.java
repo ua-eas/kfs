@@ -19,16 +19,16 @@
 
 package org.kuali.kfs.module.ec.businessobject;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
+import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
 
 /**
  * Business Object for the Effort Certification Document Build Table.
  */
-@COMPONENT(component="EffortCertificationDocumentBuild")
+@COMPONENT(component = "EffortCertificationDocumentBuild")
 public class EffortCertificationDocumentBuild extends EffortCertificationDocument {
     protected Long effortCertificationBuildNumber;
 

@@ -59,6 +59,7 @@ public interface LaborLedgerPositionObjectGroup extends ExternalizableBusinessOb
 
     /**
      * This method makes up for some sillyness in DataDictionary
+     *
      * @return
      */
     abstract boolean getActive();

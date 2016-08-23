@@ -21,11 +21,10 @@ package org.kuali.kfs.krad.datadictionary.validation.capability;
 /**
  * Validation capability
  *
- *
  * @since 1.1
  */
 public interface HierarchicallyConstrainable extends Constrainable {
 
-	public String getChildEntryName();
+    public String getChildEntryName();
 
 }

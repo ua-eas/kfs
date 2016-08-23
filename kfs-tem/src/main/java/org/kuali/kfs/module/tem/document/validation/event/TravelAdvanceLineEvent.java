@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
-import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 
 public interface TravelAdvanceLineEvent extends KualiDocumentEvent {
 
     /**
-     *
      * This method returns the travel advance object associated with this event
+     *
      * @return travel advance
      */
     public TravelAdvance getTravelAdvance();

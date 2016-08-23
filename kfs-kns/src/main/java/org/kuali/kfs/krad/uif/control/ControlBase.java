@@ -24,14 +24,12 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
 /**
  * Base class for all <code>Control</code> implementations
  *
- *
- *
  * @see Control
  */
 public abstract class ControlBase extends ComponentBase implements Control {
-	private static final long serialVersionUID = -7898244978136312663L;
+    private static final long serialVersionUID = -7898244978136312663L;
 
-	private int tabIndex;
+    private int tabIndex;
 
     private boolean disabled;
     private String disabledReason;
@@ -42,27 +40,27 @@ public abstract class ControlBase extends ComponentBase implements Control {
         disabled = false;
     }
 
-	/**
-	 * @see Component#getComponentTypeName()
-	 */
-	@Override
-	public final String getComponentTypeName() {
-		return "control";
-	}
+    /**
+     * @see Component#getComponentTypeName()
+     */
+    @Override
+    public final String getComponentTypeName() {
+        return "control";
+    }
 
     /**
      * @see Control#getTabIndex()
      */
-	public int getTabIndex() {
-		return this.tabIndex;
-	}
+    public int getTabIndex() {
+        return this.tabIndex;
+    }
 
     /**
      * @see Control#setTabIndex(int)
      */
-	public void setTabIndex(int tabIndex) {
-		this.tabIndex = tabIndex;
-	}
+    public void setTabIndex(int tabIndex) {
+        this.tabIndex = tabIndex;
+    }
 
     /**
      * @see Control#isDisabled()

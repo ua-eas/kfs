@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.vnd.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.vnd.VendorParameterConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.service.PhoneNumberService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhoneNumberServiceImpl implements PhoneNumberService {
 
@@ -60,8 +60,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         // if ( formattedNumber.length() != VendorConstants.GENERIC_DEFAULT_PHONE_NUM_DIGITS ) {
         if (formattedNumber.length() != defaultPhoneNumberDigits) {
             return unformattedNumber;
-        }
-        else {
+        } else {
             return formattedNumber.substring(0, 3) + "-" + formattedNumber.substring(3, 6) + "-" + formattedNumber.substring(6, 10);
         }
     }
@@ -91,9 +90,9 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
      */
     protected String[] parseFormats() {
         if (ObjectUtils.isNull(phoneNumberFormats)) {
-            phoneNumberFormats = new ArrayList<String>( parameterService.getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.PHONE_NUMBER_FORMATS) );
+            phoneNumberFormats = new ArrayList<String>(parameterService.getParameterValuesAsString(VendorDetail.class, VendorParameterConstants.PHONE_NUMBER_FORMATS));
         }
-        return phoneNumberFormats.toArray(new String[] {});
+        return phoneNumberFormats.toArray(new String[]{});
     }
 
     /**

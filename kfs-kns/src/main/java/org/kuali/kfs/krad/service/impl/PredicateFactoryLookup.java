@@ -28,48 +28,51 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.kuali.rice.core.api.criteria.PredicateFactory.*;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.and;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equalIgnoreCase;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.isNull;
 
 /**
  * Contains methods used in the predicate factory related to the lookup framework.
  * ***************************************************************************************************************
  * FIXME: issues to talk to the group about.
  * http://kuali.org/rice/documentation/1.0.3/UG_Global/Documents/lookupwildcards.htm
- *
+ * <p>
  * 1) Should we support isNotNull, isNull, as wildcards?  Then do we still translate
  * null values into isNull predicates.  I believe the lookup framework right now
  * barfs on null values but that is a guess.
- *
+ * <p>
  * 2) We need to support case insensitivity in the old lookup framework.  Right now the lookup
  * framework looks at Data dictionary entries.  This can still be configured in the DD
  * but should be placed in the lookup criteria. We could have a "flag" section on a
  * lookup sequence like foo.bar=(?i)ba*|bing
- *
+ * <p>
  * This would translate to
- *
+ * <p>
  * or(like("foo.bar", "ba*"), equalsIgnoreCase("foo.bar", "bing"))
- *
+ * <p>
  * Btw.  My flag format was stolen from regex but we could use anything really.
  * http://download.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#CASE_INSENSITIVE
- *
+ * <p>
  * I'm currently supporting this.
- *
+ * <p>
  * 3) In the above example, I used a case insensitive flag but Like doesn't support case
  * insensitive.  Should it?
- *
+ * <p>
  * 4) Do we need to support escaping in the lookup framework & criteria api.  Right now the
  * lookup framework looks at Data dictionary entries.  This can still be configured in the DD
  * but should be placed in the lookup criteria.  Escaping is tricky and I worry if we support
  * it in the criteria api then it will make the criteria service much harder to make custom
  * implementations.  To me it seems it's better to make escaping behavior undefined.
- *
+ * <p>
  * If we do support an escape character then we should probably also support a flag to treat
  * escape chars as literal like (?l) (that doesn't exist in java regex)
- *
+ * <p>
  * http://download.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#LITERAL
- *
+ * <p>
  * 5) Maybe we should just support what is in the {@link org.kuali.rice.core.framework.logic.SearchOperator} class
- *
+ * <p>
  * 6) Maybe the predicate class could have a toLookupString, toLookupMap() methods on them to translate
  * to various formats of criteria?  Or maybe this factory method & related methods should get placed into
  * krad or somewhere else?
@@ -86,26 +89,26 @@ class PredicateFactoryLookup {
     /**
      * This take a criteria map that is commonly used in krad-based
      * applications and transforms it to a predicate.
-     *
+     * <p>
      * The incoming map takes the form of the following possibilities:
-     *
+     * <p>
      * <ul>
      * <li>propertyPath=value</li>
      * <li>propertyPath=criteriaSequence</li>
      * </ul>
-     *
+     * <p>
      * <p>
      * The values in the map can either be a String or a Collection<Object>.
      * A String value is directly parsed into predicates.  If a collection
      * is found it is recursively parsed into predicates where each entry in the Collection
      * is anded together.
      * </p>
-     *
+     * <p>
      * <p>
      * Note: that the Collection can contain other collections or strings
      * but eventually must resolve to a string value or string criteria sequence.
      * </p>
-     *
+     * <p>
      * a simple example of a propertyPath=value:
      * <pre>
      * foo.bar=baz
@@ -114,7 +117,7 @@ class PredicateFactoryLookup {
      * <pre>
      * equals("foo.bar", "baz")
      * </pre>
-     *
+     * <p>
      * a simple example of a propertyPath=criteriaSequence
      * <pre>
      * foo.bar=ba*|bing
@@ -123,7 +126,7 @@ class PredicateFactoryLookup {
      * <pre>
      * or(like("foo.bar", "ba*"), equals("foo.bar", "bing"))
      * </pre>
-     *
+     * <p>
      * a compound example of a of a propertyPath=criteriaSequence
      * <pre>
      * foo.bar=[ba*,bing]      * note: [] shows a collection literal
@@ -132,25 +135,25 @@ class PredicateFactoryLookup {
      * <pre>
      * and(like("foo.bar", "ba*"), equals("foo.bar", "bing"))
      * </pre>
-     *
+     * <p>
      * <p>
      * Related to null values:  Null values will be translated to isNull predicates.
      * </p>
-     *
+     * <p>
      * The criteria string may also contain flags similar to regex flags.  The current
      * supported flags are:
-     *
+     * <p>
      * <ul>
-     *     <li>(?i) case insensitive</li>
+     * <li>(?i) case insensitive</li>
      * </ul>
-     *
+     * <p>
      * To use the 'i' and 'm' flags prepend them to the criteria value, for example:
-     *
+     * <p>
      * (?im)foo
-     *
+     * <p>
      * Only the first flag sequence will be honored.  All others will be treated as literals.
      *
-     * @param the root class to build the predicate on.  Cannot be null.
+     * @param the      root class to build the predicate on.  Cannot be null.
      * @param criteria the crtieria map.  Cannot be null or empty.
      * @throws IllegalArgumentException if clazz is null or criteria is null or empty
      */
@@ -182,7 +185,7 @@ class PredicateFactoryLookup {
             final String flagStr = getFlagsStr((String) value);
             final String strValue = removeFlag((String) value, flagStr);
             return containsOperator(strValue) ? createFromComplexCriteriaValue(clazz, key, strValue, flagStr) :
-                    createFromSimpleCriteriaValue(clazz, key, strValue, flagStr);
+                createFromSimpleCriteriaValue(clazz, key, strValue, flagStr);
         } else if (value instanceof Collection) {
             final List<Predicate> ps = new ArrayList<Predicate>();
             for (Object v : (Collection<?>) value) {
@@ -192,19 +195,19 @@ class PredicateFactoryLookup {
             return and(ps.toArray(new Predicate[]{}));
         } else {
             throw new IllegalArgumentException(
-                    "criteria map contained a value that was non supported :" + value.getClass().getName());
+                "criteria map contained a value that was non supported :" + value.getClass().getName());
         }
     }
 
     private static Predicate createFromComplexCriteriaValue(Class<?> clazz, final String key, final String strValue,
-            final String flagStr) {
+                                                            final String flagStr) {
         final boolean caseInsensitive = isCaseInsensitive(flagStr);
 
         return null;
     }
 
     private static Predicate createFromSimpleCriteriaValue(Class<?> clazz, final String key, final String strValue,
-            final String flagStr) {
+                                                           final String flagStr) {
         final boolean caseInsensitive = isCaseInsensitive(flagStr);
         return caseInsensitive ? equalIgnoreCase(key, strValue) : equal(key, strValue);
     }

@@ -21,17 +21,17 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-The link element is used to render an HTML link control.
-*/
+ * The link element is used to render an HTML link control.
+ */
 @Deprecated
 public class LinkControlDefinition extends ControlDefinitionBase {
-	 private static final long serialVersionUID = -7568912421829207545L;
+    private static final long serialVersionUID = -7568912421829207545L;
 
-	 protected String styleClass;
-	 protected String target;
-	 protected String hrefText;
+    protected String styleClass;
+    protected String target;
+    protected String hrefText;
 
-	public LinkControlDefinition() {
+    public LinkControlDefinition() {
     }
 
     /**
@@ -48,46 +48,46 @@ public class LinkControlDefinition extends ControlDefinitionBase {
         return this.getClass().getName();
     }
 
-	 /**
-	 * @return the styleClass
-	 */
-	public String getStyleClass() {
-		return this.styleClass;
-	}
+    /**
+     * @return the styleClass
+     */
+    public String getStyleClass() {
+        return this.styleClass;
+    }
 
-	/**
-	 * @param styleClass the styleClass to set
-	 */
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
+    /**
+     * @param styleClass the styleClass to set
+     */
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
 
-	/**
-	 * @return the target
-	 */
-	public String getTarget() {
-		return this.target;
-	}
+    /**
+     * @return the target
+     */
+    public String getTarget() {
+        return this.target;
+    }
 
-	/**
-	 * @param target the target to set
-	 */
-	public void setTarget(String target) {
-		this.target = target;
-	}
+    /**
+     * @param target the target to set
+     */
+    public void setTarget(String target) {
+        this.target = target;
+    }
 
-	   /**
-	 * @return the hrefText
-	 */
-	public String getHrefText() {
-		return this.hrefText;
-	}
+    /**
+     * @return the hrefText
+     */
+    public String getHrefText() {
+        return this.hrefText;
+    }
 
-	/**
-	 * @param hrefText the hrefText to set
-	 */
-	public void setHrefText(String hrefText) {
-		this.hrefText = hrefText;
-	}
+    /**
+     * @param hrefText the hrefText to set
+     */
+    public void setHrefText(String hrefText) {
+        this.hrefText = hrefText;
+    }
 
 }

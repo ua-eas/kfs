@@ -26,7 +26,7 @@ import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 
 public enum CreditMemoAccountingLineFixture {
     BASIC_CM_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.LINE2 // AccountingLineFixture
+        AccountingLineFixture.LINE2 // AccountingLineFixture
     );
 
 

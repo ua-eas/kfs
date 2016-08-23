@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_TRVL_ADV_T")
@@ -72,13 +71,14 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
      * @return the trip id for the travel document this is associated with.  We know this breaks normalization, but it will make it much easier for
      * travel reimbursement to find all related travel advances
      */
-    @Column(name="TRVL_ID")
+    @Column(name = "TRVL_ID")
     public String getTravelDocumentIdentifier() {
         return travelDocumentIdentifier;
     }
 
     /**
      * Sets the trip id for the travel document this advance is associated with
+     *
      * @param travelDocumentIdentifier the travel document identifier/travel id/trip id
      */
     public void setTravelDocumentIdentifier(String travelDocumentIdentifier) {
@@ -107,13 +107,13 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the amountDue attribute.
+     *
      * @return Returns the amountDue.
      */
     public KualiDecimal getAmountDue() {
-        if (arInvoiceDocNumber != null){
-            amountDue = getTravelDocumentService().getAmountDueFromInvoice(arInvoiceDocNumber,this.getTravelAdvanceRequested());
-        }
-        else{
+        if (arInvoiceDocNumber != null) {
+            amountDue = getTravelDocumentService().getAmountDueFromInvoice(arInvoiceDocNumber, this.getTravelAdvanceRequested());
+        } else {
             amountDue = this.getTravelAdvanceRequested();
         }
         return amountDue;
@@ -183,6 +183,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the advancePaymentReasonCode attribute.
+     *
      * @return Returns the advancePaymentReasonCode.
      */
     public String getAdvancePaymentReasonCode() {
@@ -191,6 +192,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the advancePaymentReasonCode attribute value.
+     *
      * @param advancePaymentReasonCode The advancePaymentReasonCode to set.
      */
     public void setAdvancePaymentReasonCode(String advancePaymentReasonCode) {
@@ -199,6 +201,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the advancePaymentReason attribute.
+     *
      * @return Returns the advancePaymentReason.
      */
     public AdvancePaymentReason getAdvancePaymentReason() {
@@ -207,6 +210,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the advancePaymentReason attribute value.
+     *
      * @param advancePaymentReason The advancePaymentReason to set.
      */
     public void setAdvancePaymentReason(AdvancePaymentReason advancePaymentReason) {
@@ -215,6 +219,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the travelAdvancePolicy attribute.
+     *
      * @return Returns the travelAdvancePolicy.
      */
     public boolean getTravelAdvancePolicy() {
@@ -223,6 +228,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the travelAdvancePolicy attribute value.
+     *
      * @param travelAdvancePolicy The travelAdvancePolicy to set.
      */
     public void setTravelAdvancePolicy(boolean travelAdvancePolicy) {
@@ -231,6 +237,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the additionalJustification attribute.
+     *
      * @return Returns the additionalJustification.
      */
     public String getAdditionalJustification() {
@@ -239,6 +246,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the additionalJustification attribute value.
+     *
      * @param additionalJustification The additionalJustification to set.
      */
     public void setAdditionalJustification(String additionalJustification) {
@@ -256,6 +264,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the taxRamificationNotificationDate attribute.
+     *
      * @return Returns the taxRamificationNotificationDate.
      */
     @Column(name = "TAX_RAM_NTF_DT")
@@ -265,6 +274,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the taxRamificationNotificationDate attribute value.
+     *
      * @param taxRamificationNotificationDate The taxRamificationNotificationDate to set.
      */
     public void setTaxRamificationNotificationDate(Date taxRamificationNotificationDate) {
@@ -273,6 +283,7 @@ public class TravelAdvance extends PersistableBusinessObjectBase {
 
     /**
      * Determines if any user-writable fields on the advance have been filled in
+     *
      * @return true if any user-writable field on the advance has been written to; false otherwise
      */
     public boolean isAtLeastPartiallyFilledIn() {

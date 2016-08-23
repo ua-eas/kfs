@@ -22,21 +22,19 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
+import org.kuali.kfs.krad.uif.field.AttributeQuery;
 import org.kuali.kfs.krad.uif.field.InputField;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.field.AttributeQuery;
 
 /**
  * Widget that provides dynamic select options to the user as they
  * are entering the value (also known as auto-complete)
- *
+ * <p>
  * <p>
  * Widget is backed by an <code>AttributeQuery</code> that provides
  * the configuration for executing a query server side that will retrieve
  * the valid option values.
  * </p>
- *
- *
  */
 public class Suggest extends WidgetBase {
     private static final long serialVersionUID = 7373706855319347225L;
@@ -50,14 +48,14 @@ public class Suggest extends WidgetBase {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Adjusts the query field mappings on the query based on the binding configuration of the field</li>
      * <li>TODO: determine query if render is true and query is not set</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {

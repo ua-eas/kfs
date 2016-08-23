@@ -18,18 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * Emergency Contact
- *
  */
 public abstract class EmergencyContact extends PersistableBusinessObjectBase {
 
@@ -43,7 +41,7 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
     private String emailAddress;
 
     @Id
-    @Column(name="id",nullable=false)
+    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -52,7 +50,7 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
         this.id = id;
     }
 
-    @Column(name="cont_rel_typ_cd",length=3,nullable=false)
+    @Column(name = "cont_rel_typ_cd", length = 3, nullable = false)
     public String getContactRelationTypeCode() {
         return contactRelationTypeCode;
     }
@@ -62,7 +60,7 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
     }
 
     @ManyToOne
-    @JoinColumn(name="cont_rel_typ_cd")
+    @JoinColumn(name = "cont_rel_typ_cd")
     public ContactRelationType getContactRelationType() {
         return contactRelationType;
     }
@@ -71,7 +69,7 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
         this.contactRelationType = contactRelationType;
     }
 
-    @Column(name="cont_nm",length=40,nullable=false)
+    @Column(name = "cont_nm", length = 40, nullable = false)
     public String getContactName() {
         return contactName;
     }
@@ -82,15 +80,17 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
 
     /**
      * Gets the emailAddress attribute.
+     *
      * @return Returns the emailAddress.
      */
-    @Column(name="email_addr",length=50,nullable=true)
+    @Column(name = "email_addr", length = 50, nullable = true)
     public String getEmailAddress() {
         return emailAddress;
     }
 
     /**
      * Sets the emailAddress attribute value.
+     *
      * @param emailAddress The emailAddress to set.
      */
     public void setEmailAddress(String emailAddress) {
@@ -99,15 +99,17 @@ public abstract class EmergencyContact extends PersistableBusinessObjectBase {
 
     /**
      * Gets the phoneNumber attribute.
+     *
      * @return Returns the phoneNumber.
      */
-    @Column(name="phone_nbr",length=20,nullable=true)
+    @Column(name = "phone_nbr", length = 20, nullable = true)
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
      * Sets the phoneNumber attribute value.
+     *
      * @param phoneNumber The phoneNumber to set.
      */
     public void setPhoneNumber(String phoneNumber) {

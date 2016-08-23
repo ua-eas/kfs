@@ -18,10 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.rule.AddCollectionLineRule;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteListVendor;
@@ -29,11 +30,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.VendorUtils;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.rule.AddCollectionLineRule;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Business rule(s) applicable to Purchase Order Contract Language maintenance document.
@@ -79,7 +79,7 @@ public class PurchaseOrderQuoteListRule extends MaintenanceDocumentRuleBase impl
         LOG.info("validateVendor called");
         boolean success = true;
 
-        PurchaseOrderQuoteList newBo = (PurchaseOrderQuoteList)super.getNewBo();
+        PurchaseOrderQuoteList newBo = (PurchaseOrderQuoteList) super.getNewBo();
         if (newBo.getQuoteListVendors() == null || newBo.getQuoteListVendors().size() == 0) {
             success = false;
             putFieldError("add.quoteListVendors.vendorDetail.vendorNumber", PurapKeyConstants.ERROR_PURCHASE_ORDER_QUOTE_LIST_NO_VENDOR);
@@ -98,7 +98,7 @@ public class PurchaseOrderQuoteListRule extends MaintenanceDocumentRuleBase impl
      */
     @Override
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
-        PurchaseOrderQuoteListVendor vendor = (PurchaseOrderQuoteListVendor)line;
+        PurchaseOrderQuoteListVendor vendor = (PurchaseOrderQuoteListVendor) line;
         // We have to check whether a vendor with the name entered really existed
         // and have to set the vendor detail with what we find in the database.
         Map fieldValues = new HashMap();

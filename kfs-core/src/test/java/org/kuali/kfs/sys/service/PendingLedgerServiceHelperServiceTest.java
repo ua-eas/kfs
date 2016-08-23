@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+
+import java.util.List;
 
 /**
  * A test that covers PendingLedgerService
@@ -32,6 +32,7 @@ public class PendingLedgerServiceHelperServiceTest extends AbstractGeneralLedger
 
     /**
      * Tests that PendingLedgerService is successfully saving and retrieving entries
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testSave() throws Exception {

@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PaymentRequestAccountRevisionFixture {
 
     REC1 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -48,10 +47,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -67,10 +67,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -86,10 +87,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC4 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -105,10 +107,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC5 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -124,10 +127,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC6 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -143,10 +147,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC7 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -162,10 +167,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC8 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -181,10 +187,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC9 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -200,10 +207,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC10 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -219,10 +227,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC11 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -238,10 +247,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC12 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -257,10 +267,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC13 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -276,10 +287,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC14 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -295,10 +307,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC15 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -314,10 +327,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     },
     REC16 {
-
         @Override
         public PaymentRequestAccountRevision newRecord() {
             PaymentRequestAccountRevision obj = new PaymentRequestAccountRevision();
@@ -333,8 +347,11 @@ public enum PaymentRequestAccountRevisionFixture {
             obj.setPostingYear(2009);
             obj.setPostingPeriodCode("01");
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PaymentRequestAccountRevision newRecord();
 
     public static void setUpData() {

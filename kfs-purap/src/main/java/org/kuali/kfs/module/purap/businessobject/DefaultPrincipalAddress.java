@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.businessobject.Building;
+
+import java.util.LinkedHashMap;
 
 public class DefaultPrincipalAddress extends PersistableBusinessObjectBase {
 
-    private  String principalId;
-    private  String campusCode;
-    private  String buildingCode;
-    private  String buildingRoomNumber;
+    private String principalId;
+    private String campusCode;
+    private String buildingCode;
+    private String buildingRoomNumber;
 
     private Building building;
 
@@ -96,10 +96,10 @@ public class DefaultPrincipalAddress extends PersistableBusinessObjectBase {
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-            LinkedHashMap m = new LinkedHashMap();
-            m.put("principalId", this.principalId);
-            return m;
-        }
+        LinkedHashMap m = new LinkedHashMap();
+        m.put("principalId", this.principalId);
+        return m;
+    }
 
 
     public Building getBuilding() {

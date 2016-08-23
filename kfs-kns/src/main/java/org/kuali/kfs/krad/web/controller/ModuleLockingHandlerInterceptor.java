@@ -18,28 +18,25 @@
  */
 package org.kuali.kfs.krad.web.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * TODO jawbenne don't forget to fill this in.
- *
- *
  */
 public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
@@ -87,7 +84,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndview)
-            throws Exception {
+        throws Exception {
         // do nothing
     }
 
@@ -98,7 +95,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(isModuleLocked(request)) {
+        if (isModuleLocked(request)) {
             response.sendRedirect(this.getModuleLockedMapping() + "?" + ModuleLockedController.MODULE_PARAMETER + "=" + getModuleService(request).getModuleConfiguration().getNamespaceCode());
         }
         return true;
@@ -106,11 +103,11 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     private ModuleService getModuleService(HttpServletRequest request) {
         String boClass = request.getParameter(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
-        if(StringUtils.isBlank(boClass)) {
-            boClass= request.getParameter(KRADConstants.DATA_OBJECT_CLASS_ATTRIBUTE);
+        if (StringUtils.isBlank(boClass)) {
+            boClass = request.getParameter(KRADConstants.DATA_OBJECT_CLASS_ATTRIBUTE);
         }
         ModuleService moduleService = null;
-        if(StringUtils.isNotBlank(boClass)) {
+        if (StringUtils.isNotBlank(boClass)) {
             try {
                 moduleService = getKualiModuleService().getResponsibleModuleService(Class.forName(boClass));
             } catch (ClassNotFoundException classNotFoundException) {
@@ -124,13 +121,13 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     protected boolean isModuleLocked(HttpServletRequest request) {
         ModuleService moduleService = getModuleService(request);
-        if(moduleService != null && moduleService.isLocked()) {
+        if (moduleService != null && moduleService.isLocked()) {
             String principalId = GlobalVariables.getUserSession().getPrincipalId();
             String namespaceCode = KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE;
             String permissionName = KimConstants.PermissionNames.ACCESS_LOCKED_MODULE;
             Map<String, String> permissionDetails = new HashMap<String, String>();
             Map<String, String> qualification = new HashMap<String, String>();
-            if(!KimApiServiceLocator.getPermissionService().isAuthorized(principalId, namespaceCode, permissionName, qualification)) {
+            if (!KimApiServiceLocator.getPermissionService().isAuthorized(principalId, namespaceCode, permissionName, qualification)) {
                 return true;
             }
         }
@@ -138,7 +135,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
     }
 
     protected KualiModuleService getKualiModuleService() {
-        if ( kualiModuleService == null ) {
+        if (kualiModuleService == null) {
             kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();
         }
         return kualiModuleService;

@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PODocumentsStrings;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -29,7 +27,9 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -42,20 +42,19 @@ public class PurchaseOrderSplitValidation extends GenericValidation {
     /**
      * Applies rules for validation of the Split of PO and PO child documents
      *
-     * @param document  A PurchaseOrderDocument (or one of its children)
-     * @return      True if all relevant validation rules are passed.
+     * @param document A PurchaseOrderDocument (or one of its children)
+     * @return True if all relevant validation rules are passed.
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PurchaseOrderDocument po = (PurchaseOrderDocument)event.getDocument();
-        HashMap<String, List<PurchaseOrderItem>> categorizedItems = purchaseOrderService.categorizeItemsForSplit((List<PurchaseOrderItem>)po.getItems());
+        PurchaseOrderDocument po = (PurchaseOrderDocument) event.getDocument();
+        HashMap<String, List<PurchaseOrderItem>> categorizedItems = purchaseOrderService.categorizeItemsForSplit((List<PurchaseOrderItem>) po.getItems());
         List<PurchaseOrderItem> movingPOItems = categorizedItems.get(PODocumentsStrings.ITEMS_MOVING_TO_SPLIT);
         List<PurchaseOrderItem> remainingPOLineItems = categorizedItems.get(PODocumentsStrings.LINE_ITEMS_REMAINING);
         if (movingPOItems.isEmpty()) {
             GlobalVariables.getMessageMap().putError(PurapConstants.SPLIT_PURCHASE_ORDER_TAB_ERRORS, PurapKeyConstants.ERROR_PURCHASE_ORDER_SPLIT_ONE_ITEM_MUST_MOVE);
             valid &= false;
-        }
-        else if (remainingPOLineItems.isEmpty()) {
+        } else if (remainingPOLineItems.isEmpty()) {
             GlobalVariables.getMessageMap().putError(PurapConstants.SPLIT_PURCHASE_ORDER_TAB_ERRORS, PurapKeyConstants.ERROR_PURCHASE_ORDER_SPLIT_ONE_ITEM_MUST_REMAIN);
             valid &= false;
         }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 
 public class PurchasingAccountsPayableNewIndividualItemValidation extends GenericValidation {
 
@@ -43,8 +43,9 @@ public class PurchasingAccountsPayableNewIndividualItemValidation extends Generi
     }
 
     protected String getDocumentTypeLabel(String documentTypeName) {
-            return SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(documentTypeName).getLabel();
+        return SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(documentTypeName).getLabel();
     }
+
     public ParameterService getParameterService() {
         return parameterService;
     }

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_DIFFERENT_CHARTS;
-
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_DIFFERENT_CHARTS;
 
 /**
  * Validates that all accounting lines on the document use only one chart among them all.
@@ -38,6 +38,7 @@ public class AuxiliaryVoucherSingleChartUsedValidation extends GenericValidation
     /**
      * Iterates <code>{@link AccountingLine}</code> instances in a given <code>{@link FinancialDocument}</code> instance and
      * compares them to see if they are all in the same Chart.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,11 +51,10 @@ public class AuxiliaryVoucherSingleChartUsedValidation extends GenericValidation
         for (AccountingLine line : lines) {
             if (index == 0) {
                 baseChartCode = line.getChartOfAccountsCode();
-            }
-            else {
+            } else {
                 String currentChartCode = line.getChartOfAccountsCode();
                 if (!currentChartCode.equals(baseChartCode)) {
-                    GlobalVariables.getMessageMap().putError(ACCOUNTING_LINE_ERRORS, ERROR_DIFFERENT_CHARTS, new String[] {});
+                    GlobalVariables.getMessageMap().putError(ACCOUNTING_LINE_ERRORS, ERROR_DIFFERENT_CHARTS, new String[]{});
                     return false;
                 }
             }
@@ -65,6 +65,7 @@ public class AuxiliaryVoucherSingleChartUsedValidation extends GenericValidation
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -73,6 +74,7 @@ public class AuxiliaryVoucherSingleChartUsedValidation extends GenericValidation
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {

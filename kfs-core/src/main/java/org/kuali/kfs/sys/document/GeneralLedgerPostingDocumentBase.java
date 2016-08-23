@@ -18,11 +18,13 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -31,11 +33,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base implementation for a general ledger posting document.
@@ -90,8 +90,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
         if (documentPerformsSufficientFundsCheck()) {
             SufficientFundsService sufficientFundsService = SpringContext.getBean(SufficientFundsService.class);
             return sufficientFundsService.checkSufficientFunds(this);
-        }
-        else {
+        } else {
             return new ArrayList<SufficientFundsItem>();
         }
     }
@@ -180,7 +179,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
             List<SufficientFundsItem> sfItems = checkSufficientFunds();
             if (!sfItems.isEmpty()) {
                 for (SufficientFundsItem sfItem : sfItems) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.SufficientFunds.ERROR_INSUFFICIENT_FUNDS, new String[] { sfItem.getAccount().getChartOfAccountsCode(), sfItem.getAccount().getAccountNumber(), StringUtils.isNotBlank(sfItem.getSufficientFundsObjectCode()) ? sfItem.getSufficientFundsObjectCode() : KFSConstants.NOT_AVAILABLE_STRING, sfItem.getAccountSufficientFundsCode() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.SufficientFunds.ERROR_INSUFFICIENT_FUNDS, new String[]{sfItem.getAccount().getChartOfAccountsCode(), sfItem.getAccount().getAccountNumber(), StringUtils.isNotBlank(sfItem.getSufficientFundsObjectCode()) ? sfItem.getSufficientFundsObjectCode() : KFSConstants.NOT_AVAILABLE_STRING, sfItem.getAccountSufficientFundsCode()});
                 }
                 throw new ValidationException("Insufficient Funds on this Document:");
             }
@@ -189,6 +188,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
 
     /**
      * Adds a GeneralLedgerPendingEntry to this document's list of pending entries
+     *
      * @param pendingEntry a pending entry to add
      */
     public void addPendingEntry(GeneralLedgerPendingEntry pendingEntry) {

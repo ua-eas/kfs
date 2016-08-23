@@ -38,7 +38,7 @@ public class CriteriaLookupServiceImpl implements CriteriaLookupService {
 
     @Override
     public <T> GenericQueryResults<T> lookup(Class<T> queryClass, QueryByCriteria criteria,
-            LookupCustomizer<T> customizer) {
+                                             LookupCustomizer<T> customizer) {
         return criteriaLookupDao.lookup(queryClass, criteria, customizer);
     }
 }

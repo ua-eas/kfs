@@ -35,7 +35,7 @@ public class Section implements java.io.Serializable {
     String extraButtonSource;
     boolean hidden = false;
     boolean readOnly = false;
-    String helpUrl="";
+    String helpUrl = "";
 
     boolean defaultOpen = true;
 
@@ -155,6 +155,7 @@ public class Section implements java.io.Serializable {
 
     /**
      * Gets the containedCollectionNames attribute.
+     *
      * @return Returns the containedCollectionNames.
      */
     public List<String> getContainedCollectionNames() {
@@ -163,6 +164,7 @@ public class Section implements java.io.Serializable {
 
     /**
      * Sets the containedCollectionNames attribute value.
+     *
      * @param containedCollectionNames The containedCollectionNames to set.
      */
     public void setContainedCollectionNames(List<String> containedCollectionNames) {
@@ -199,8 +201,8 @@ public class Section implements java.io.Serializable {
             }
             if (rowFields.size() == 1) {
                 int i = 1;
-                while (i < rows.size() &&(Field.SUB_SECTION_SEPARATOR.equals(firstElement.getFieldType()) ||
-                                          Field.HIDDEN.equals(firstElement.getFieldType()))) {
+                while (i < rows.size() && (Field.SUB_SECTION_SEPARATOR.equals(firstElement.getFieldType()) ||
+                    Field.HIDDEN.equals(firstElement.getFieldType()))) {
                     Row aRow = rows.get(i);
                     rowFields = aRow.getFields();
                     firstElement = rowFields.get(0);
@@ -208,15 +210,14 @@ public class Section implements java.io.Serializable {
                 }
             }
             int cnt = 0;
-            for (Field element : rowFields ) {
+            for (Field element : rowFields) {
                 // all fields except image type have a label and control cell
                 if (!Field.IMAGE_SUBMIT.equals(element.getFieldType())) {
                     cnt += 2;
                 }
             }
             return cnt;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -237,40 +238,40 @@ public class Section implements java.io.Serializable {
         this.hidden = hidden;
     }
 
-	/**
-	 * @return the readOnly
-	 */
-	public boolean isReadOnly() {
-		return this.readOnly;
-	}
+    /**
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
 
-	/**
-	 * @param readOnly the readOnly to set
-	 */
-	public void setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
-	}
+    /**
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
 
-	/**
-	 * @return whether the section should be open by default when rendered
-	 */
-	public boolean isDefaultOpen() {
-		return this.defaultOpen;
-	}
+    /**
+     * @return whether the section should be open by default when rendered
+     */
+    public boolean isDefaultOpen() {
+        return this.defaultOpen;
+    }
 
-	/**
-	 * @param defaultOpen the defaultOpen to set
-	 */
-	public void setDefaultOpen(boolean defaultOpen) {
-		this.defaultOpen = defaultOpen;
-	}
+    /**
+     * @param defaultOpen the defaultOpen to set
+     */
+    public void setDefaultOpen(boolean defaultOpen) {
+        this.defaultOpen = defaultOpen;
+    }
 
-	public String getHelpUrl() {
-		return helpUrl;
-	}
+    public String getHelpUrl() {
+        return helpUrl;
+    }
 
-	public void setHelpUrl(String helpUrl) {
-		this.helpUrl = helpUrl;
-	}
+    public void setHelpUrl(String helpUrl) {
+        this.helpUrl = helpUrl;
+    }
 
 }

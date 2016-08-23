@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.krad.service.AttachmentService;
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.Calendar;
 import java.util.Date;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.service.AttachmentService;
 
 
 /**

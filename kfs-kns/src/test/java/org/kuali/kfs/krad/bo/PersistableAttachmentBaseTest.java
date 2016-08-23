@@ -22,51 +22,47 @@ package org.kuali.kfs.krad.bo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kuali.kfs.krad.bo.PersistableAttachmentBase;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * This is a description of what this class does - chang don't forget to fill this in.
- *
- *
- *
  */
 public class PersistableAttachmentBaseTest {
 
-	PersistableAttachmentBase persistableAttachmentBase;
+    PersistableAttachmentBase persistableAttachmentBase;
 
-	@Before
-	public void setUp() throws Exception {
-		persistableAttachmentBase = new PersistableAttachmentBase();
-	}
+    @Before
+    public void setUp() throws Exception {
+        persistableAttachmentBase = new PersistableAttachmentBase();
+    }
 
-	/**
-	 * This method ...
-	 *
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	persistableAttachmentBase = null;
-	}
+    /**
+     * This method ...
+     *
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        persistableAttachmentBase = null;
+    }
 
-	@Test
-	public void testAttachmentContent(){
-		byte[] dummyByte = "dummy string".getBytes();
-		persistableAttachmentBase.setAttachmentContent(dummyByte);
-		assertEquals("Testing AttachmentContent in PersistableAttachmentBase.",dummyByte,persistableAttachmentBase.getAttachmentContent());
-	}
+    @Test
+    public void testAttachmentContent() {
+        byte[] dummyByte = "dummy string".getBytes();
+        persistableAttachmentBase.setAttachmentContent(dummyByte);
+        assertEquals("Testing AttachmentContent in PersistableAttachmentBase.", dummyByte, persistableAttachmentBase.getAttachmentContent());
+    }
 
-	@Test
-	public void testFileName(){
-		persistableAttachmentBase.setFileName("FileName");
-		assertEquals("Testing FileName in PersistableAttachmentBase.","FileName",persistableAttachmentBase.getFileName());
-	}
+    @Test
+    public void testFileName() {
+        persistableAttachmentBase.setFileName("FileName");
+        assertEquals("Testing FileName in PersistableAttachmentBase.", "FileName", persistableAttachmentBase.getFileName());
+    }
 
-	@Test
-	public void testContentType(){
-		persistableAttachmentBase.setContentType("contentType");
-		assertEquals("Testing FileName in PersistableAttachmentBase.","contentType",persistableAttachmentBase.getContentType());
-	}
+    @Test
+    public void testContentType() {
+        persistableAttachmentBase.setContentType("contentType");
+        assertEquals("Testing FileName in PersistableAttachmentBase.", "contentType", persistableAttachmentBase.getContentType());
+    }
 }

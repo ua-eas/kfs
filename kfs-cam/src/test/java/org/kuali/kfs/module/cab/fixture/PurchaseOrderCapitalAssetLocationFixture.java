@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetLocation;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PurchaseOrderCapitalAssetLocationFixture {
 
@@ -41,7 +41,9 @@ public enum PurchaseOrderCapitalAssetLocationFixture {
             obj.setBuildingCode("BL001");
             obj.setBuildingRoomNumber("009");
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
         @Override
@@ -57,8 +59,11 @@ public enum PurchaseOrderCapitalAssetLocationFixture {
             obj.setCapitalAssetStateCode("MI");
             obj.setCapitalAssetPostalCode("44555");
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PurchaseOrderCapitalAssetLocation newRecord();
 
     public static void setUpData() {

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.document;
 
+import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 
 /**
  * class which defines behavior common for capital accounting lines.
  */
- public class CapitalAccountingLinesDocumentBase extends CapitalAssetInformationDocumentBase {
+public class CapitalAccountingLinesDocumentBase extends CapitalAssetInformationDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CapitalAccountingLinesDocumentBase.class);
 
     //transient objects
@@ -47,7 +47,7 @@ import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
      * @return Returns the capitalAccountingLines
      */
     public List<CapitalAccountingLines> getCapitalAccountingLines() {
-        if ( capitalAccountingLines == null ) {
+        if (capitalAccountingLines == null) {
             capitalAccountingLines = new ArrayList<CapitalAccountingLines>();
         }
         return capitalAccountingLines;

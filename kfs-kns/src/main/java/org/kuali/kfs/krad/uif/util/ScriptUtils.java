@@ -27,15 +27,13 @@ import java.util.Set;
 
 /**
  * Utility class for generating JavaScript
- *
- *
  */
 public class ScriptUtils {
 
     /**
      * Translates an Object to a String for representing the given Object as
      * a JavaScript value
-     *
+     * <p>
      * <p>
      * Handles null, List, Map, and Set collections, along with non quoting for numeric and
      * boolean types. Complex types are treated as a String value using toString
@@ -91,7 +89,7 @@ public class ScriptUtils {
 
             Class<?> valueClass = value.getClass();
             if (TypeUtils.isBooleanClass(valueClass) || TypeUtils.isDecimalClass(valueClass) || TypeUtils
-                    .isIntegralClass(valueClass)) {
+                .isIntegralClass(valueClass)) {
                 quoteValue = false;
             }
 
@@ -113,6 +111,7 @@ public class ScriptUtils {
     /**
      * Escapes the ' character present in collection names so it can be properly used in js without causing
      * javascript errors due to an early completion of a ' string.
+     *
      * @param name
      * @return
      */

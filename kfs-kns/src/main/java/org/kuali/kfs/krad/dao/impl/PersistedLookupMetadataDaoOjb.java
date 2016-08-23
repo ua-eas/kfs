@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.krad.dao.impl;
 
-import java.sql.Timestamp;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.krad.bo.LookupResults;
-import org.kuali.kfs.krad.dao.PersistedLookupMetadataDao;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.bo.SelectedObjectIds;
+import org.kuali.kfs.krad.dao.PersistedLookupMetadataDao;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Timestamp;
 
 public class PersistedLookupMetadataDaoOjb extends PlatformAwareDaoBaseOjb implements PersistedLookupMetadataDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersistedLookupMetadataDaoOjb.class);

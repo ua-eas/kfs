@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sec.identity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Type service for Access Security Permissions that restrict based on property name and namespace
@@ -32,16 +32,12 @@ import org.kuali.rice.kim.api.permission.Permission;
 public class SecurityAttributeNamespacePermissionTypeServiceImpl extends SecurityAttributePermissionTypeServiceImpl {
 
 
-
-
-
-
     /**
      * @see org.kuali.rice.kns.kim.permission.PermissionTypeServiceBase#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
-    protected List<Permission> performPermissionMatches(Map<String,String> requestedDetails, List<Permission> permissionsList) {
+    protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
         List<Permission> matchingPermissions = new ArrayList<Permission>();
 
         for (Permission kpi : permissionsList) {

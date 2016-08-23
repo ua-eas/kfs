@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.List;
 
 /**
  * Requisition View Business Object.
@@ -29,6 +29,7 @@ import org.kuali.kfs.krad.bo.Note;
 public class LineItemReceivingView extends AbstractRelatedView {
     private Integer purchaseOrderIdentifier;
     private boolean deliveryBuildingOtherIndicator;
+
     public boolean isDeliveryBuildingOtherIndicator() {
         return deliveryBuildingOtherIndicator;
     }
@@ -36,6 +37,7 @@ public class LineItemReceivingView extends AbstractRelatedView {
     public void setDeliveryBuildingOtherIndicator(boolean deliveryBuildingOtherIndicator) {
         this.deliveryBuildingOtherIndicator = deliveryBuildingOtherIndicator;
     }
+
     public Integer getPurchaseOrderIdentifier() {
         return purchaseOrderIdentifier;
     }

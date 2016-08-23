@@ -18,18 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.validation.impl;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -38,11 +26,24 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
-import org.kuali.kfs.module.bc.BCKeyConstants;
-import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.BCConstants.AccountSalarySettingOnlyCause;
 import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
+import org.kuali.kfs.module.bc.BCKeyConstants;
+import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
@@ -63,19 +64,18 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.api.util.type.TypeUtils;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBase implements AddBudgetConstructionDocumentRule<BudgetConstructionDocument>, AddPendingBudgetGeneralLedgerLineRule<BudgetConstructionDocument, PendingBudgetConstructionGeneralLedger>, DeletePendingBudgetGeneralLedgerLineRule<BudgetConstructionDocument, PendingBudgetConstructionGeneralLedger>, DeleteMonthlySpreadRule<BudgetConstructionDocument>, SaveMonthlyBudgetRule<BudgetConstructionDocument, BudgetConstructionMonthly> {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BudgetConstructionDocumentRules.class);
@@ -218,7 +218,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         int currentErrorCount;
 
         // refresh only the doc refs we need
-        List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[] { KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT }));
+        List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[]{KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT}));
         SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(budgetConstructionDocument, refreshFields);
 
         errors.addToErrorPath(KRADConstants.DOCUMENT_PROPERTY_NAME);
@@ -226,8 +226,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         if (monthSpreadDeleteType == MonthSpreadDeleteType.REVENUE) {
             doRevMonthRICheck = false;
             doExpMonthRICheck = true;
-        }
-        else {
+        } else {
             if (monthSpreadDeleteType == MonthSpreadDeleteType.EXPENDITURE) {
                 doRevMonthRICheck = true;
                 doExpMonthRICheck = false;
@@ -273,7 +272,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         if (isValid) {
 
             // refresh only the doc refs we need
-            List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[] { KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT }));
+            List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[]{KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT}));
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(budgetConstructionDocument, refreshFields);
             // budgetConstructionDocument.getSubAccount().refreshReferenceObject(KFSPropertyConstants.A21_SUB_ACCOUNT);
 
@@ -312,8 +311,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         // no delete allowed if base exists, the delete button shouldn't even exist in this case, but checking anyway
         if (pendingBudgetConstructionGeneralLedger.getFinancialBeginningBalanceLineAmount().isZero()) {
             isValid &= true;
-        }
-        else {
+        } else {
             isValid &= false;
             String pkeyVal = pendingBudgetConstructionGeneralLedger.getFinancialObjectCode() + "," + pendingBudgetConstructionGeneralLedger.getFinancialSubObjectCode();
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_LINE_ANNUAL_BALANCE_AMOUNT, BCKeyConstants.ERROR_NO_DELETE_ALLOWED_WITH_BASE, pkeyVal);
@@ -360,7 +358,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.SaveMonthlyBudgetRule#processSaveMonthlyBudgetRules(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly)
+     * org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly)
      */
     @Override
     public boolean processSaveMonthlyBudgetRules(BudgetConstructionDocument budgetConstructionDocument, BudgetConstructionMonthly budgetConstructionMonthly) {
@@ -393,7 +391,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
             ObjectCode objectCode = budgetConstructionMonthly.getFinancialObject();
             isValid &= isValidObjectCode(objectCode, budgetConstructionMonthly.getFinancialObjectCode(), dd, KFSPropertyConstants.FINANCIAL_OBJECT_CODE);
 
-            if (StringUtils.isNotBlank(budgetConstructionMonthly.getFinancialSubObjectCode()) && !budgetConstructionMonthly.getFinancialSubObjectCode().equalsIgnoreCase(KFSConstants.getDashFinancialSubObjectCode())){
+            if (StringUtils.isNotBlank(budgetConstructionMonthly.getFinancialSubObjectCode()) && !budgetConstructionMonthly.getFinancialSubObjectCode().equalsIgnoreCase(KFSConstants.getDashFinancialSubObjectCode())) {
                 SubObjectCode subObjectCode = budgetConstructionMonthly.getFinancialSubObject();
                 isValid &= isValidSubObjectCode(subObjectCode, budgetConstructionMonthly.getFinancialSubObjectCode(), dd, KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE);
             }
@@ -432,8 +430,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                     errors.putError(BCPropertyConstants.FINANCIAL_DOCUMENT_MONTH1_LINE_AMOUNT, BCKeyConstants.ERROR_MONTHLY_TOTAL_ZERO);
                 }
             }
-        }
-        else {
+        } else {
             LOG.info("business rule checks failed in processSaveMonthlyBudgetRules in BudgetConstructionDocumentRules");
         }
 
@@ -463,8 +460,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         if (isRevenue) {
             pendingBudgetConstructionGeneralLedgerLines = budgetConstructionDocument.getPendingBudgetConstructionGeneralLedgerRevenueLines();
             linesErrorPath = BCPropertyConstants.PENDING_BUDGET_CONSTRUCTION_GENERAL_LEDGER_REVENUE_LINES;
-        }
-        else {
+        } else {
             pendingBudgetConstructionGeneralLedgerLines = budgetConstructionDocument.getPendingBudgetConstructionGeneralLedgerExpenditureLines();
             linesErrorPath = BCPropertyConstants.PENDING_BUDGET_CONSTRUCTION_GENERAL_LEDGER_EXPENDITURE_LINES;
         }
@@ -637,8 +633,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                 // line must use matching revenue object type
                 isValid &= isObjectTypeAllowed(revenueObjectTypesParamValues, pendingBudgetConstructionGeneralLedger, errors, isRevenue, isAdd);
 
-            }
-            else {
+            } else {
                 // expenditure specific checks
 
                 // line must use matching expenditure object type
@@ -683,8 +678,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         // message
         if (isAdd) {
             valid &= isValidObjectCode(objectCode, pendingBudgetConstructionGeneralLedger.getFinancialObjectCode(), dd, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME);
-        }
-        else {
+        } else {
             valid &= isValidObjectCode(objectCode, pendingBudgetConstructionGeneralLedger.getFinancialObjectCode(), dd, TARGET_ERROR_PROPERTY_NAME);
         }
 
@@ -696,8 +690,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
             // error message
             if (isAdd) {
                 valid &= isValidSubObjectCode(subObjectCode, pendingBudgetConstructionGeneralLedger.getFinancialSubObjectCode(), dd, KFSConstants.FINANCIAL_SUB_OBJECT_CODE_PROPERTY_NAME);
-            }
-            else {
+            } else {
                 valid &= isValidSubObjectCode(subObjectCode, pendingBudgetConstructionGeneralLedger.getFinancialSubObjectCode(), dd, TARGET_ERROR_PROPERTY_NAME);
             }
         }
@@ -718,14 +711,11 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
         try {
             PropertyDescriptor attributeDescriptor = PropertyUtils.getPropertyDescriptor(object, attributeName);
             validatePrimitiveFromDescriptor(object.getClass().getName(), object, attributeDescriptor, "", true);
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new InfrastructureException("unable to find propertyDescriptor for property '" + attributeName + "'", e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new InfrastructureException("unable to access propertyDescriptor for property '" + attributeName + "'", e);
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             throw new InfrastructureException("unable to invoke methods for property '" + attributeName + "'", e);
         }
     }
@@ -751,10 +741,10 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                 // check value format against dictionary
                 if (value != null && StringUtils.isNotBlank(value.toString())) {
                     if (!TypeUtils.isTemporalClass(propertyType)) {
-                        SpringContext.getBean(DictionaryValidationService.class).validate( object, entryName, propertyDescriptor.getName(), false);
+                        SpringContext.getBean(DictionaryValidationService.class).validate(object, entryName, propertyDescriptor.getName(), false);
                     }
                 } else if (validateRequired) {
-                    SpringContext.getBean(DictionaryValidationService.class).validate( object, entryName, propertyDescriptor.getName(), true);
+                    SpringContext.getBean(DictionaryValidationService.class).validate(object, entryName, propertyDescriptor.getName(), true);
                 }
             }
         }
@@ -770,20 +760,17 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                 String targetErrorProperty;
                 if (isAdd) {
                     targetErrorProperty = KFSPropertyConstants.FINANCIAL_OBJECT_CODE;
-                }
-                else {
+                } else {
                     targetErrorProperty = TARGET_ERROR_PROPERTY_NAME;
                 }
 
                 if (isRevenue) {
-                    this.putError(errors, targetErrorProperty, BCKeyConstants.ERROR_BUDGET_OBJECT_TYPE_INVALID_REVENUE, isAdd, accountingLine.getFinancialObjectCode(),accountingLine.getFinancialObject().getFinancialObjectTypeCode());
-                }
-                else {
-                    this.putError(errors, targetErrorProperty, BCKeyConstants.ERROR_BUDGET_OBJECT_TYPE_INVALID_EXPENSE, isAdd, accountingLine.getFinancialObjectCode(),accountingLine.getFinancialObject().getFinancialObjectTypeCode());
+                    this.putError(errors, targetErrorProperty, BCKeyConstants.ERROR_BUDGET_OBJECT_TYPE_INVALID_REVENUE, isAdd, accountingLine.getFinancialObjectCode(), accountingLine.getFinancialObject().getFinancialObjectTypeCode());
+                } else {
+                    this.putError(errors, targetErrorProperty, BCKeyConstants.ERROR_BUDGET_OBJECT_TYPE_INVALID_EXPENSE, isAdd, accountingLine.getFinancialObjectCode(), accountingLine.getFinancialObject().getFinancialObjectTypeCode());
                 }
             }
-        }
-        else {
+        } else {
             isAllowed = false;
         }
 
@@ -799,8 +786,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
 
                 this.putError(errors, KFSPropertyConstants.FINANCIAL_OBJECT_CODE, KFSKeyConstants.ERROR_DOCUMENT_INCORRECT_OBJ_CODE_WITH_BUDGET_AGGREGATION, isAdd, accountingLine.getFinancialObjectCode(), accountingLine.getFinancialObject().getFinancialBudgetAggregationCd());
             }
-        }
-        else {
+        } else {
             isAllowed = false;
         }
 
@@ -813,8 +799,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
 
         if (isRevenue) {
             existingLines = budgetConstructionDocument.getPendingBudgetConstructionGeneralLedgerRevenueLines();
-        }
-        else {
+        } else {
             existingLines = budgetConstructionDocument.getPendingBudgetConstructionGeneralLedgerExpenditureLines();
         }
 
@@ -848,8 +833,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                     this.putError(errors, KFSPropertyConstants.FINANCIAL_OBJECT_CODE, BCKeyConstants.ERROR_FRINGE_BENEFIT_OBJECT_NOT_ALLOWED, isAdd, accountingLine.getFinancialObjectCode());
                 }
             }
-        }
-        else {
+        } else {
             isAllowed = false;
         }
 
@@ -878,8 +862,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
                 }
             }
 
-        }
-        else {
+        } else {
             // missing system parameter
             this.putError(errors, KFSPropertyConstants.FINANCIAL_OBJECT_CODE, BCKeyConstants.ERROR_SALARY_SETTING_OBJECT_ONLY_NO_PARAMETER, isAdd, budgetConstructionDocument.getAccount().getSubFundGroup().getFundGroupCode() + "," + budgetConstructionDocument.getAccount().getSubFundGroup().getSubFundGroupCode());
             isAllowed = false;
@@ -934,12 +917,10 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
             if (isAdd) {
                 if (isDocumentAdd) {
                     isAllowed &= this.isValidSubAccount(subAccount, budgetConstructionDocument.getSubAccountNumber(), dd, KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
-                }
-                else {
+                } else {
                     isAllowed &= this.isValidSubAccount(subAccount, budgetConstructionDocument.getSubAccountNumber(), dd, propertyName);
                 }
-            }
-            else {
+            } else {
                 isAllowed &= this.isValidSubAccount(subAccount, budgetConstructionDocument.getSubAccountNumber(), dd, TARGET_ERROR_PROPERTY_NAME);
             }
 
@@ -1063,8 +1044,7 @@ public class BudgetConstructionDocumentRules extends TransactionalDocumentRuleBa
 
         if (isAdd) {
             errors.putError(propertyName, errorKey, errorParameters);
-        }
-        else {
+        } else {
             errors.putError(TARGET_ERROR_PROPERTY_NAME, errorKey, errorParameters);
         }
 

@@ -27,12 +27,14 @@ public interface PurchasingAccountsPayableSensitiveData extends ExternalizableBu
 
     /**
      * Gets the code for this sensitive data
+     *
      * @return the code for this sensitive data
      */
     public String getSensitiveDataCode();
 
     /**
      * Gets the description for this sensitive data
+     *
      * @return the description for this sensitive data
      */
     public String getSensitiveDataDescription();

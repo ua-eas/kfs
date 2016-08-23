@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem.document.web.struts;
 
 
 public interface QuestionHandler<D> {
-    public <T> T handleResponse(final Inquisitive<D,?> asker) throws Exception;
+    public <T> T handleResponse(final Inquisitive<D, ?> asker) throws Exception;
 
-    public <T> T askQuestion(final Inquisitive<D,?> asker) throws Exception;
+    public <T> T askQuestion(final Inquisitive<D, ?> asker) throws Exception;
 }

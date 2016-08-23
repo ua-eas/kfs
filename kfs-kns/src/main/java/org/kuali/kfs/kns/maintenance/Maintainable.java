@@ -20,9 +20,9 @@ package org.kuali.kfs.kns.maintenance;
 
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentRestrictions;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.lookup.SelectiveReferenceRefresher;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -70,7 +70,7 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
 
     @Deprecated
     public void addMultipleValueLookupResults(MaintenanceDocument document, String collectionName,
-            Collection<PersistableBusinessObject> rawValues, boolean needsBlank, PersistableBusinessObject bo);
+                                              Collection<PersistableBusinessObject> rawValues, boolean needsBlank, PersistableBusinessObject bo);
 
     @Deprecated
     public List<String> getDuplicateIdentifierFieldsFromDataDictionary(String docTypeName, String collectionName);
@@ -80,12 +80,12 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
 
     @Deprecated
     public boolean hasBusinessObjectExisted(BusinessObject bo, List<String> existingIdentifierList,
-            List<String> duplicateIdentifierFields);
+                                            List<String> duplicateIdentifierFields);
 
     /**
      * Blanks out or sets the default of any value specified as restricted
      * within the {@link MaintenanceDocumentRestrictions} instance.
-     *
+     * <p>
      * This method should only be called if this maintainable represents the new
      * maintainable of the maintenance document.
      *
@@ -117,7 +117,7 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
      * display.
      *
      * @param collectionName - name of the collection (or sub-collection) to check inactive
-     * record display setting
+     *                       record display setting
      * @return true if inactive records should be displayed, false otherwise
      */
     @Deprecated
@@ -135,9 +135,9 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
      * displayed for the given collection name.
      *
      * @param collectionName - name of the collection (or sub-collection) to set inactive
-     * record display setting
-     * @param showInactive - true to display inactive, false to not display inactive
-     * records
+     *                       record display setting
+     * @param showInactive   - true to display inactive, false to not display inactive
+     *                       records
      */
     @Deprecated
     public void setShowInactiveRecords(String collectionName, boolean showInactive);
@@ -150,7 +150,7 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
      */
     @Deprecated
     public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues,
-            MaintenanceDocument maintenanceDocument, String methodToCall);
+                                                          MaintenanceDocument maintenanceDocument, String methodToCall);
 
     /**
      * Gets the holder for the "add line" for a collection on the business
@@ -203,8 +203,8 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
      * the maintenance object.
      *
      * @param oldMaintainable - If this is the new maintainable, the old is passed in for
-     * reference. If it is the old maintainable, then null will be
-     * passed in
+     *                        reference. If it is the old maintainable, then null will be
+     *                        passed in
      * @return
      */
     @Deprecated
@@ -219,7 +219,7 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
      */
     @Deprecated
     public Map populateBusinessObject(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument,
-            String methodToCall);
+                                      String methodToCall);
 
     /**
      * Returns a string that will be displayed as title on the maintenance
@@ -229,17 +229,17 @@ public interface Maintainable extends org.kuali.kfs.krad.maintenance.Maintainabl
     public String getMaintainableTitle();
 
     public void setupNewFromExisting(MaintenanceDocument document,
-            Map<String, String[]> parameters);
+                                     Map<String, String[]> parameters);
 
     public void processAfterCopy(MaintenanceDocument document,
-            Map<String, String[]> requestParameters);
+                                 Map<String, String[]> requestParameters);
 
     public void processAfterEdit(MaintenanceDocument document,
-            Map<String, String[]> requestParameters);
+                                 Map<String, String[]> requestParameters);
 
     public void processAfterNew(MaintenanceDocument document,
-            Map<String, String[]> requestParameters);
+                                Map<String, String[]> requestParameters);
 
     public void processAfterPost(MaintenanceDocument document,
-            Map<String, String[]> requestParameters);
+                                 Map<String, String[]> requestParameters);
 }

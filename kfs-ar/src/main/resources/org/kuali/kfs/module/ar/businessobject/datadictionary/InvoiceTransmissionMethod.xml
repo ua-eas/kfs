@@ -18,131 +18,130 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="InvoiceTransmissionMethod" parent="InvoiceTransmissionMethod-parentBean" />
+    <bean id="InvoiceTransmissionMethod" parent="InvoiceTransmissionMethod-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod" />
-		<property name="inquiryDefinition">
-			<ref bean="InvoiceTransmissionMethod-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="InvoiceTransmissionMethod-lookupDefinition" />
-		</property>
-		<property name="titleAttribute" value="invoiceTransmissionMethodCode" />
-		<property name="objectLabel" value="Method of Invoice Transmission" />
-		<property name="attributes">
-			<list>
-				<ref bean="InvoiceTransmissionMethod-invoiceTransmissionMethodCode" />
-				<ref bean="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription" />
-				<ref bean="InvoiceTransmissionMethod-active" />
-			</list>
-		</property>
-	</bean>
+    <bean id="InvoiceTransmissionMethod-parentBean" abstract="true"
+          parent="BusinessObjectEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod"/>
+        <property name="inquiryDefinition">
+            <ref bean="InvoiceTransmissionMethod-inquiryDefinition"/>
+        </property>
+        <property name="lookupDefinition">
+            <ref bean="InvoiceTransmissionMethod-lookupDefinition"/>
+        </property>
+        <property name="titleAttribute" value="invoiceTransmissionMethodCode"/>
+        <property name="objectLabel" value="Method of Invoice Transmission"/>
+        <property name="attributes">
+            <list>
+                <ref bean="InvoiceTransmissionMethod-invoiceTransmissionMethodCode"/>
+                <ref bean="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription"/>
+                <ref bean="InvoiceTransmissionMethod-active"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodCode" parent="InvoiceTransmissionMethod-invoiceTransmissionMethodCode-parentBean" />
+    <bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodCode" parent="InvoiceTransmissionMethod-invoiceTransmissionMethodCode-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodCode-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="invoiceTransmissionMethodCode" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Method of Invoice Transmission Code" />
-		<property name="shortLabel" value="Code" />
-		<property name="maxLength" value="10" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterValidation" />
-		</property>
-		<property name="required" value="true" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="12" />
-		</property>
-	</bean>
-	<bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription"
-		parent="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription-parentBean" />
+    <bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodCode-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="invoiceTransmissionMethodCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Method of Invoice Transmission Code"/>
+        <property name="shortLabel" value="Code"/>
+        <property name="maxLength" value="10"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterValidation"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="12"/>
+        </property>
+    </bean>
+    <bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription"
+          parent="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription-parentBean"
-		abstract="true" parent="AttributeDefinition">
-		<property name="name" value="invoiceTransmissionMethodDescription" />
-		<property name="forceUppercase" value="false" />
-		<property name="label" value="Method of Invoice Transmission Description" />
-		<property name="shortLabel" value="Description" />
-		<property name="maxLength" value="45" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="required" value="true" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="47" />
-		</property>
-	</bean>
+    <bean id="InvoiceTransmissionMethod-invoiceTransmissionMethodDescription-parentBean"
+          abstract="true" parent="AttributeDefinition">
+        <property name="name" value="invoiceTransmissionMethodDescription"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Method of Invoice Transmission Description"/>
+        <property name="shortLabel" value="Description"/>
+        <property name="maxLength" value="45"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="47"/>
+        </property>
+    </bean>
 
-	<bean id="InvoiceTransmissionMethod-active" parent="InvoiceTransmissionMethod-active-parentBean" />
+    <bean id="InvoiceTransmissionMethod-active" parent="InvoiceTransmissionMethod-active-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-active-parentBean" abstract="true"
-		parent="GenericAttributes-activeIndicator">
-		<property name="name" value="active" />
-	</bean>
+    <bean id="InvoiceTransmissionMethod-active-parentBean" abstract="true"
+          parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+    </bean>
 
-	<!-- Business Object Inquiry Definition -->
+    <!-- Business Object Inquiry Definition -->
 
-	<bean id="InvoiceTransmissionMethod-inquiryDefinition" parent="InvoiceTransmissionMethod-inquiryDefinition-parentBean" />
+    <bean id="InvoiceTransmissionMethod-inquiryDefinition" parent="InvoiceTransmissionMethod-inquiryDefinition-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-inquiryDefinition-parentBean"
-		abstract="true" parent="InquiryDefinition">
-		<property name="title" value="Method of Invoice Transmission Inquiry" />
-		<property name="inquirySections">
-			<list>
-  				<ref bean="InvoiceTransmissionMethod-inquirySectionDefinition" />
-			</list>
-		</property>
-	</bean>
+    <bean id="InvoiceTransmissionMethod-inquiryDefinition-parentBean"
+          abstract="true" parent="InquiryDefinition">
+        <property name="title" value="Method of Invoice Transmission Inquiry"/>
+        <property name="inquirySections">
+            <list>
+                <ref bean="InvoiceTransmissionMethod-inquirySectionDefinition"/>
+            </list>
+        </property>
+    </bean>
 
-  	<bean id="InvoiceTransmissionMethod-inquirySectionDefinition" parent="InvoiceTransmissionMethod-inquirySectionDefinition-parentBean" />
-  	<bean id="InvoiceTransmissionMethod-inquirySectionDefinition-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="" />
-		<property name="numberOfColumns" value="1" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+    <bean id="InvoiceTransmissionMethod-inquirySectionDefinition" parent="InvoiceTransmissionMethod-inquirySectionDefinition-parentBean"/>
+    <bean id="InvoiceTransmissionMethod-inquirySectionDefinition-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value=""/>
+        <property name="numberOfColumns" value="1"/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="InvoiceTransmissionMethod-lookupDefinition" parent="InvoiceTransmissionMethod-lookupDefinition-parentBean" />
+    <bean id="InvoiceTransmissionMethod-lookupDefinition" parent="InvoiceTransmissionMethod-lookupDefinition-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethod-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Method of Invoice Transmission Lookup" />
+    <bean id="InvoiceTransmissionMethod-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Method of Invoice Transmission Lookup"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode" />
-				<bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodCode"/>
+                <bean parent="FieldDefinition" p:attributeName="invoiceTransmissionMethodDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 </beans>

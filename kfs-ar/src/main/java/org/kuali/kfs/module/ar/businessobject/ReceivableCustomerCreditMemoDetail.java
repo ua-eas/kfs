@@ -29,51 +29,51 @@ public class ReceivableCustomerCreditMemoDetail extends CustomerCreditMemoDetail
     private CustomerCreditMemoDocument poster;
     private boolean isUsingReceivableFAU;
 
-    public ReceivableCustomerCreditMemoDetail(CustomerCreditMemoDetail postable, CustomerCreditMemoDocument poster){
+    public ReceivableCustomerCreditMemoDetail(CustomerCreditMemoDetail postable, CustomerCreditMemoDocument poster) {
         this.poster = poster;
         this.postable = postable;
         this.postable.refreshNonUpdateableReferences();
     }
 
     @Override
-     public Account getAccount() {
+    public Account getAccount() {
         return postable.getAccount();
-     }
+    }
 
     @Override
-     public String getAccountNumber() {
+    public String getAccountNumber() {
         return postable.getAccountNumber();
-     }
+    }
 
     @Override
-     public KualiDecimal getAmount() {
-         return postable.getCreditMemoItemTotalAmount();
-     }
+    public KualiDecimal getAmount() {
+        return postable.getCreditMemoItemTotalAmount();
+    }
 
     @Override
-     public String getChartOfAccountsCode() {
+    public String getChartOfAccountsCode() {
         return postable.getChartOfAccountsCode();
-     }
+    }
 
     @Override
-     public String getDocumentNumber() {
-         return postable.getDocumentNumber();
-     }
+    public String getDocumentNumber() {
+        return postable.getDocumentNumber();
+    }
 
     @Override
-     public String getFinancialDocumentLineDescription() {
-         return postable.getFinancialDocumentLineDescription();
-     }
+    public String getFinancialDocumentLineDescription() {
+        return postable.getFinancialDocumentLineDescription();
+    }
 
     @Override
-     public String getFinancialObjectCode() {
+    public String getFinancialObjectCode() {
         return postable.getAccountsReceivableObjectCode();
-     }
+    }
 
     @Override
-     public ObjectCode getObjectCode() {
+    public ObjectCode getObjectCode() {
         return postable.getAccountsReceivableObject();
-     }
+    }
 
     @Override
     public String getFinancialSubObjectCode() {
@@ -81,18 +81,18 @@ public class ReceivableCustomerCreditMemoDetail extends CustomerCreditMemoDetail
     }
 
     @Override
-     public String getOrganizationReferenceId() {
+    public String getOrganizationReferenceId() {
         return postable.getOrganizationReferenceId();
-     }
+    }
 
     @Override
-     public String getProjectCode() {
+    public String getProjectCode() {
         return postable.getProjectCode();
-     }
+    }
 
     @Override
-     public String getSubAccountNumber() {
+    public String getSubAccountNumber() {
         return postable.getSubAccountNumber();
-     }
+    }
 
 }

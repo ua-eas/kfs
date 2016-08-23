@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.valuefinder.ValueFinder;
 public class InstitutionNameValueFinder extends SystemInformationValueFinderBase implements ValueFinder {
 
     public String getValue() {
-        return (systemInformation != null)? systemInformation.getOrganizationCheckPayableToName() : "";
+        return (systemInformation != null) ? systemInformation.getOrganizationCheckPayableToName() : "";
     }
 
 }

@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
@@ -34,6 +25,12 @@ import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferAccountingLine;
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferSourceAccountingLine;
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
@@ -58,13 +55,16 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.AdHocRoutePerson;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * To implement the services related to the effort certification document
@@ -103,9 +103,8 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
             EffortCertificationDocument effortCertificationDocument = (EffortCertificationDocument) documentService.getNewDocument(EffortConstants.EffortDocumentTypes.EFFORT_CERTIFICATION_DOCUMENT);
             populateEffortCertificationDocument(effortCertificationDocument, effortCertificationDocumentBuild);
             documentService.routeDocument(effortCertificationDocument, KFSConstants.EMPTY_STRING, null);
-        }
-        catch (WorkflowException we) {
-            LOG.error( "Unable to route ECD document: " + effortCertificationDocumentBuild, we);
+        } catch (WorkflowException we) {
+            LOG.error("Unable to route ECD document: " + effortCertificationDocumentBuild, we);
             throw new RuntimeException("Unable to route ECD document: " + effortCertificationDocumentBuild, we);
         }
 
@@ -114,7 +113,7 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
 
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationDocumentService#populateEffortCertificationDocument(org.kuali.kfs.module.ec.document.EffortCertificationDocument,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild)
      */
 
     @Override
@@ -176,9 +175,8 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
 
         try {
             laborModuleService.createAndBlankApproveSalaryExpenseTransferDocument(description, explanation, annotation, adHocRecipients, sourceAccoutingLines, targetAccoutingLines);
-        }
-        catch (WorkflowException we) {
-            LOG.error( "Error while routing SET document created from ECD: " + effortCertificationDocument, we);
+        } catch (WorkflowException we) {
+            LOG.error("Error while routing SET document created from ECD: " + effortCertificationDocument, we);
             throw new RuntimeException("Error while routing SET document created from ECD: " + effortCertificationDocument, we);
         }
         return true;
@@ -199,20 +197,20 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
                 continue;
             }
             boolean isNewLine = detailLine.isNewLineIndicator();
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info( "EC Detail Line has been changed: " + detailLine );
+            if (LOG.isInfoEnabled()) {
+                LOG.info("EC Detail Line has been changed: " + detailLine);
             }
 
             Account account = detailLine.getAccount();
             Person fiscalOfficer = account.getAccountFiscalOfficerUser();
-            if ( fiscalOfficer != null && StringUtils.isNotBlank(fiscalOfficer.getPrincipalName())) {
+            if (fiscalOfficer != null && StringUtils.isNotBlank(fiscalOfficer.getPrincipalName())) {
                 // KULEFR-206
                 // String actionRequestOfOfficer = this.getActionRequest(routeLevelName, KFSConstants.RouteLevelNames.ACCOUNT);
                 AdHocRoutePerson adHocRoutePerson = buildAdHocRouteRecipient(fiscalOfficer.getPrincipalName(), ActionRequestType.APPROVE);
 
                 addAdHocRoutePerson(effortCertificationDocument.getAdHocRoutePersons(), priorApprovers, adHocRoutePerson, isNewLine);
             } else {
-                LOG.warn( "Unable to obtain a fiscal officer for the detail line's account: " + account.getChartOfAccountsCode() + "-" + account.getAccountNumber() );
+                LOG.warn("Unable to obtain a fiscal officer for the detail line's account: " + account.getChartOfAccountsCode() + "-" + account.getAccountNumber());
             }
 
             Person projectDirector = contractsAndGrantsModuleService.getProjectDirectorForAccount(account);
@@ -232,8 +230,8 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
      * add the given ad hoc route person in the list if the person is one of prior approvers and is not in the list
      *
      * @param adHocRoutePersonList Collection of adhoc route persons
-     * @param priorApprovers Set of prior approvers
-     * @param adHocRoutePerson person to adhoc route to
+     * @param priorApprovers       Set of prior approvers
+     * @param adHocRoutePerson     person to adhoc route to
      */
     protected void addAdHocRoutePerson(Collection<AdHocRoutePerson> adHocRoutePersonList, Set<Person> priorApprovers, AdHocRoutePerson adHocRoutePerson) {
         addAdHocRoutePerson(adHocRoutePersonList, priorApprovers, adHocRoutePerson, false);
@@ -243,9 +241,9 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
      * add the given ad hoc route person in the list if the person is one of prior approvers, or the change was a new line, and the person is not in the list
      *
      * @param adHocRoutePersonList Collection of adhoc route persons
-     * @param priorApprovers Set of prior approvers
-     * @param adHocRoutePerson person to adhoc route to
-     * @param isNewLine whether the change was a new line
+     * @param priorApprovers       Set of prior approvers
+     * @param adHocRoutePerson     person to adhoc route to
+     * @param isNewLine            whether the change was a new line
      */
     protected void addAdHocRoutePerson(Collection<AdHocRoutePerson> adHocRoutePersonList, Set<Person> priorApprovers, AdHocRoutePerson adHocRoutePerson, boolean isNewLine) {
         boolean canBeAdded = false;
@@ -311,7 +309,7 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
     /**
      * build an adhoc route recipient from the given person user id and action request
      *
-     * @param personUserId the given person user id
+     * @param personUserId  the given person user id
      * @param actionRequest the given action request
      * @return an adhoc route recipient built from the given information
      */
@@ -389,10 +387,10 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
     /**
      * add a new accounting line into the given accounting line list. The accounting line is generated from the given detail line
      *
-     * @param accountingLines a list of accounting lines
-     * @param clazz the specified class of the accounting line
+     * @param accountingLines             a list of accounting lines
+     * @param clazz                       the specified class of the accounting line
      * @param effortCertificationDocument the given effort certification document that contains the given detail line
-     * @param detailLine the given detail line that is used to generate an accounting line
+     * @param detailLine                  the given detail line that is used to generate an accounting line
      */
     protected void addAccountingLineIntoList(List<LaborLedgerExpenseTransferAccountingLine> accountingLineList, LaborLedgerExpenseTransferAccountingLine accountingLine, EffortCertificationDocument effortCertificationDocument, EffortCertificationDetail detailLine) {
         accountingLine.setSequenceNumber(accountingLineList.size() + 1);
@@ -405,8 +403,8 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
      * populate an accounting line from the given detail line
      *
      * @param effortCertificationDocument the given effort certification document that contains the given detail line
-     * @param detailLine the given detail line
-     * @param accountingLine the accounting line needed to be populated
+     * @param detailLine                  the given detail line
+     * @param accountingLine              the accounting line needed to be populated
      */
     protected void populateAccountingLine(EffortCertificationDocument effortCertificationDocument, EffortCertificationDetail detailLine, LaborLedgerExpenseTransferAccountingLine accountingLine) {
         accountingLine.setChartOfAccountsCode(detailLine.getChartOfAccountsCode());
@@ -488,6 +486,7 @@ public class EffortCertificationDocumentServiceImpl implements EffortCertificati
 
     /**
      * Sets the contractsAndGrantsModuleService attribute value.
+     *
      * @param contractsAndGrantsModuleService The contractsAndGrantsModuleService to set.
      */
     public void setContractsAndGrantsModuleService(ContractsAndGrantsModuleService contractsAndGrantsModuleService) {

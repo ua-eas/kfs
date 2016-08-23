@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.document.web.renderers.LabelRenderer;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.document.web.renderers.LabelRenderer;
 
 /**
  * A class which represents a renderable header label for an input
@@ -39,6 +39,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Constructs a FieldHeaderLabel, forcing an implementation of HeaderLabelPopulating to be passed in
+     *
      * @param headerLabelPopulator the populator who will populate this label when the time has come
      */
     public FieldHeaderLabel(HeaderLabelPopulating headerLabelPopulator) {
@@ -47,6 +48,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the attributeEntryForHelp attribute.
+     *
      * @return Returns the attributeEntryForHelp.
      */
     public String getAttributeEntryForHelp() {
@@ -55,6 +57,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the attributeEntryForHelp attribute value.
+     *
      * @param attributeEntryForHelp The attributeEntryForHelp to set.
      */
     public void setAttributeEntryForHelp(String attributeEntryForHelp) {
@@ -63,6 +66,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the fullClassNameForHelp attribute.
+     *
      * @return Returns the fullClassNameForHelp.
      */
     public String getFullClassNameForHelp() {
@@ -71,6 +75,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the fullClassNameForHelp attribute value.
+     *
      * @param fullClassNameForHelp The fullClassNameForHelp to set.
      */
     public void setFullClassNameForHelp(String fullClassNameForHelp) {
@@ -79,6 +84,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the label attribute.
+     *
      * @return Returns the label.
      */
     public String getLabel() {
@@ -87,6 +93,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the label attribute value.
+     *
      * @param label The label to set.
      */
     public void setLabel(String label) {
@@ -95,6 +102,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the labelFor attribute.
+     *
      * @return Returns the labelFor.
      */
     public String getLabelFor() {
@@ -103,6 +111,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the labelFor attribute value.
+     *
      * @param labelFor The labelFor to set.
      */
     public void setLabelFor(String labelFor) {
@@ -111,6 +120,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the readOnly attribute.
+     *
      * @return Returns the readOnly.
      */
     public boolean isReadOnly() {
@@ -119,6 +129,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the readOnly attribute value.
+     *
      * @param readOnly The readOnly to set.
      */
     public void setReadOnly(boolean readOnly) {
@@ -127,6 +138,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Gets the required attribute.
+     *
      * @return Returns the required.
      */
     public boolean isRequired() {
@@ -135,6 +147,7 @@ public class FieldHeaderLabel extends HeaderLabel {
 
     /**
      * Sets the required attribute value.
+     *
      * @param required The required to set.
      */
     public void setRequired(boolean required) {

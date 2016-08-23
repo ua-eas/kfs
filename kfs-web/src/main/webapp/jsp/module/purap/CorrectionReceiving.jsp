@@ -16,33 +16,33 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-    documentTypeName="CorrectionReceivingDocument"
-    htmlFormAction="purapCorrectionReceiving" renderMultipart="true"
-    showTabButtons="true">
+                  documentTypeName="CorrectionReceivingDocument"
+                  htmlFormAction="purapCorrectionReceiving" renderMultipart="true"
+                  showTabButtons="true">
 
-   <c:set var="fullEntryMode" value="${ KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+    <c:set var="fullEntryMode" value="${ KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
-    <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<purap:receivingVendor documentAttributes="${DataDictionary.CorrectionReceivingDocument.attributes}" />
+    <purap:receivingVendor documentAttributes="${DataDictionary.CorrectionReceivingDocument.attributes}"/>
 
-	<purap:receivingCorrectionItems itemAttributes="${DataDictionary.CorrectionReceivingItem.attributes}" />
+    <purap:receivingCorrectionItems itemAttributes="${DataDictionary.CorrectionReceivingItem.attributes}"/>
 
     <purap:delivery
-		documentAttributes="${DataDictionary.CorrectionReceivingDocument.attributes}"
-		deliveryReadOnly="true" />
+            documentAttributes="${DataDictionary.CorrectionReceivingDocument.attributes}"
+            deliveryReadOnly="true"/>
 
-    <purap:relatedDocuments documentAttributes="${DataDictionary.RelatedDocuments.attributes}" />
+    <purap:relatedDocuments documentAttributes="${DataDictionary.RelatedDocuments.attributes}"/>
 
-	<kul:notes />
+    <kul:notes/>
 
-    <kul:routeLog />
+    <kul:routeLog/>
 
-    <kul:superUserActions />
+    <kul:superUserActions/>
 
-  	<sys:documentControls transactionalDocument="true"  />
+    <sys:documentControls transactionalDocument="true"/>
 
 </kul:documentPage>

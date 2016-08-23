@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Summarizes Pending Entry data for the GLPE pending entry report.
@@ -36,50 +36,64 @@ public class LedgerSummaryTotalLine extends TransientBusinessObjectBase {
     private int creditCount = 0;
     private KualiDecimal budgetAmount = KualiDecimal.ZERO;
     private int budgetCount = 0;
+
     /**
      * Gets the recordCount attribute.
+     *
      * @return Returns the recordCount.
      */
     public int getRecordCount() {
         return debitCount + creditCount + budgetCount;
     }
+
     /**
      * Gets the debitAmount attribute.
+     *
      * @return Returns the debitAmount.
      */
     public KualiDecimal getDebitAmount() {
         return debitAmount;
     }
+
     /**
      * Gets the debitCount attribute.
+     *
      * @return Returns the debitCount.
      */
     public int getDebitCount() {
         return debitCount;
     }
+
     /**
      * Gets the creditAmount attribute.
+     *
      * @return Returns the creditAmount.
      */
     public KualiDecimal getCreditAmount() {
         return creditAmount;
     }
+
     /**
      * Gets the creditCount attribute.
+     *
      * @return Returns the creditCount.
      */
     public int getCreditCount() {
         return creditCount;
     }
+
     /**
      * Gets the budgetAmount attribute.
+     *
      * @return Returns the budgetAmount.
      */
     public KualiDecimal getBudgetAmount() {
         return budgetAmount;
     }
+
     /**
      * Gets the budgetCount attribute.
+     *
      * @return Returns the budgetCount.
      */
     public int getBudgetCount() {
@@ -88,6 +102,7 @@ public class LedgerSummaryTotalLine extends TransientBusinessObjectBase {
 
     /**
      * Adds a debit amount to the current debit total
+     *
      * @param debitAmount the debit amount to add to the debit total
      */
     public void addDebitAmount(KualiDecimal debitAmount) {
@@ -97,6 +112,7 @@ public class LedgerSummaryTotalLine extends TransientBusinessObjectBase {
 
     /**
      * Adds a credit amount to current credit total
+     *
      * @param creditAmount the amount to add to the credit total
      */
     public void addCreditAmount(KualiDecimal creditAmount) {
@@ -106,6 +122,7 @@ public class LedgerSummaryTotalLine extends TransientBusinessObjectBase {
 
     /**
      * Adds a budget amount to current budget total
+     *
      * @param budgetAmount the amount to add to the budget total
      */
     public void addBudgetAmount(KualiDecimal budgetAmount) {

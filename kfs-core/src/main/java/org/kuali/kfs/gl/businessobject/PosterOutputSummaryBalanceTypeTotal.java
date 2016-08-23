@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.text.MessageFormat;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.text.MessageFormat;
+import java.util.LinkedHashMap;
 
 /**
  * Represents a poster output summary line which holds values for a specific balance type
@@ -33,6 +33,7 @@ public class PosterOutputSummaryBalanceTypeTotal extends PosterOutputSummaryTota
 
     /**
      * Constructs a PosterOutputSummaryBalanceTypeTotal
+     *
      * @param balanceTypeCode the balance type code totalled by this totaller
      */
     public PosterOutputSummaryBalanceTypeTotal(String balanceTypeCode) {
@@ -49,12 +50,13 @@ public class PosterOutputSummaryBalanceTypeTotal extends PosterOutputSummaryTota
 
     /**
      * Returns the summary for this total line
+     *
      * @see org.kuali.kfs.gl.businessobject.PosterOutputSummaryTotal#getSummary()
      */
 
     public String getSummary() {
         final String message = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(getSummaryMessageName());
-        return MessageFormat.format(message, (Object[])getSummaryMessageParameters());
+        return MessageFormat.format(message, (Object[]) getSummaryMessageParameters());
     }
 
     /**
@@ -68,22 +70,23 @@ public class PosterOutputSummaryBalanceTypeTotal extends PosterOutputSummaryTota
      * @return the values that should be formatted into the message
      */
     protected String[] getSummaryMessageParameters() {
-        return new String[] { getBalanceTypeCode() };
+        return new String[]{getBalanceTypeCode()};
     }
 
     /**
      * A map of the "keys" of this transient business object
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     @Override
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pks = new LinkedHashMap<String, Object>();
-        pks.put("balanceTypeCode",this.getBalanceTypeCode());
-        pks.put("objectTypeCode",this.getObjectTypeCode());
-        pks.put("creditAmount",this.getCreditAmount());
-        pks.put("debitAmount",this.getDebitAmount());
-        pks.put("budgetAmount",this.getBudgetAmount());
-        pks.put("netAmount",this.getNetAmount());
+        pks.put("balanceTypeCode", this.getBalanceTypeCode());
+        pks.put("objectTypeCode", this.getObjectTypeCode());
+        pks.put("creditAmount", this.getCreditAmount());
+        pks.put("debitAmount", this.getDebitAmount());
+        pks.put("budgetAmount", this.getBudgetAmount());
+        pks.put("netAmount", this.getNetAmount());
         return pks;
     }
 }

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.coreservice.impl.component;
 
-import org.kuali.kfs.coreservice.impl.component.ComponentSetBo;
-
 /**
  * A Data Access Object which handles data operations related to the tracking of component sets
  * which have been published to the component system.

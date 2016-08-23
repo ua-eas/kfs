@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ar.document.PaymentApplicationDocument;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Presentation Controller for Payment Application.
@@ -47,18 +47,17 @@ public class PaymentApplicationDocumentPresentationController extends FinancialS
         // KULAR-452
         if (paymentApplicationDocument.hasCashControlDocument()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
+
     @Override
     public boolean canEdit(Document document) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (workflowDocument.isEnroute()) {
             return false;
-        }
-        else {
+        } else {
             return super.canEdit(document);
         }
     }

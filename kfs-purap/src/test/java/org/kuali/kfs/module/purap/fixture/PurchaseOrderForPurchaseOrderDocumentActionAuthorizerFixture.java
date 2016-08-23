@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+
+import java.sql.Timestamp;
 
 public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
     PO_VALID_RETRANSMIT(
@@ -56,7 +56,7 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         false, //purchaseOrderAutomaticIndicator
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
     ),
-    PO_VALID_VOID_PENDING_PRINT (
+    PO_VALID_VOID_PENDING_PRINT(
         PurapConstants.PurchaseOrderStatuses.APPDOC_PENDING_PRINT, //statusCode
         new Timestamp(System.currentTimeMillis()), //purchaseOrderLastTransmitTimestamp
         true, //purchaseOrderCurrentIndicator
@@ -64,7 +64,7 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         false, //purchaseOrderAutomaticIndicator
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
     ),
-    PO_VALID_VOID_OPEN_NO_PREQ (
+    PO_VALID_VOID_OPEN_NO_PREQ(
         PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN, //statusCode
         new Timestamp(System.currentTimeMillis()), //purchaseOrderLastTransmitTimestamp
         true, //purchaseOrderCurrentIndicator
@@ -72,15 +72,14 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         false, //purchaseOrderAutomaticIndicator
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
     ),
-    PO_VALID_REMOVE_HOLD (
+    PO_VALID_REMOVE_HOLD(
         PurapConstants.PurchaseOrderStatuses.APPDOC_PAYMENT_HOLD, //statusCode
         new Timestamp(System.currentTimeMillis()), //purchaseOrderLastTransmitTimestamp
         true, //purchaseOrderCurrentIndicator
         false, //pendingActionIndicator
         false, //purchaseOrderAutomaticIndicator
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
-    )
-    ;
+    );
 
     private String statusCode;
     private Timestamp purchaseOrderLastTransmitTimestamp;
@@ -90,12 +89,12 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
     private String transmissionMethodCode;
 
     private PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture(
-            String statusCode,
-            Timestamp purchaseOrderLastTransmitTimestamp,
-            boolean purchaseOrderCurrentIndicator,
-            boolean pendingActionIndicator,
-            boolean purchaseOrderAutomaticIndicator,
-            String transmissionMethodCode) {
+        String statusCode,
+        Timestamp purchaseOrderLastTransmitTimestamp,
+        boolean purchaseOrderCurrentIndicator,
+        boolean pendingActionIndicator,
+        boolean purchaseOrderAutomaticIndicator,
+        String transmissionMethodCode) {
         this.statusCode = statusCode;
         this.purchaseOrderLastTransmitTimestamp = purchaseOrderLastTransmitTimestamp;
         this.purchaseOrderCurrentIndicator = purchaseOrderCurrentIndicator;

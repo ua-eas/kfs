@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 @Entity
-@Table(name="TEM_PER_DIEM_REGION_T")
+@Table(name = "TEM_PER_DIEM_REGION_T")
 public class TemRegion extends PersistableBusinessObjectBase implements MutableInactivatable, Comparable<TemRegion> {
 
     private String regionCode;
@@ -34,7 +34,7 @@ public class TemRegion extends PersistableBusinessObjectBase implements MutableI
     private String tripTypeCode;
 
 
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     private Boolean active = Boolean.TRUE;
 
     private TripType tripType;
@@ -129,10 +129,9 @@ public class TemRegion extends PersistableBusinessObjectBase implements MutableI
     @Override
     public int compareTo(TemRegion o) {
         TemRegion country = o;
-        if (this.getRegionName() != null && country.getRegionName() != null){
+        if (this.getRegionName() != null && country.getRegionName() != null) {
             return this.getRegionName().compareTo(country.getRegionName());
-        }
-        else{
+        } else {
             return 0;
         }
     }
@@ -142,8 +141,8 @@ public class TemRegion extends PersistableBusinessObjectBase implements MutableI
         boolean equal = false;
         if (obj != null) {
             if (this.getClass().equals(obj.getClass())) {
-                TemRegion region = (TemRegion)obj;
-                equal =  this.regionCode.equals(region.getRegionCode());
+                TemRegion region = (TemRegion) obj;
+                equal = this.regionCode.equals(region.getRegionCode());
             }
         }
         return equal;

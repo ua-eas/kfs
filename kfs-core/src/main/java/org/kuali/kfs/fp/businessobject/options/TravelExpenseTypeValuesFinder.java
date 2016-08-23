@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.TravelExpenseTypeCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class returns list of travel expense type category value pairs.
@@ -42,7 +42,7 @@ public class TravelExpenseTypeValuesFinder extends KeyValuesBase {
         keyValues.add(new ConcreteKeyValue("", ""));
         for (TravelExpenseTypeCode element : boList) {
             if (!element.isPrepaidExpense()) {
-                if(element.isActive()) {
+                if (element.isActive()) {
                     keyValues.add(new ConcreteKeyValue(element.getCode(), element.getCodeAndDescription()));
                 }
             }

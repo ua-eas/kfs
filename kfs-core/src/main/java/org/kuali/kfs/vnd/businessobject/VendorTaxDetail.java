@@ -21,7 +21,6 @@ package org.kuali.kfs.vnd.businessobject;
 
 /**
  * Version of VendorDetail used specifically for lookups including Tax ID.
- *
  */
 public class VendorTaxDetail extends VendorDetail {
 

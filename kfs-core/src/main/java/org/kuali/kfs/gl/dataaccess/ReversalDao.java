@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * An interface that declares the methods needed for reversal services to interact with the database

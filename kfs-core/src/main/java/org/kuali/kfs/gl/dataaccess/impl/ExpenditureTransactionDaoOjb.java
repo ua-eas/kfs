@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.Iterator;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -30,6 +28,8 @@ import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.dataaccess.ExpenditureTransactionDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Iterator;
 
 /**
  * The OJB implmentation of ExpenditureTransactionDao
@@ -69,8 +69,7 @@ public class ExpenditureTransactionDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isBlank(t.getOrganizationReferenceId())) {
             crit.addEqualTo(KFSPropertyConstants.ORGANIZATION_REFERENCE_ID, GeneralLedgerConstants.getDashOrganizationReferenceId());
-        }
-        else {
+        } else {
             crit.addEqualTo(KFSPropertyConstants.ORGANIZATION_REFERENCE_ID, t.getOrganizationReferenceId());
         }
 
@@ -92,8 +91,7 @@ public class ExpenditureTransactionDaoOjb extends PlatformAwareDaoBaseOjb implem
 
             QueryByCriteria qbc = QueryFactory.newQuery(ExpenditureTransaction.class, crit);
             return getPersistenceBrokerTemplate().getIteratorByQuery(qbc);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -119,7 +117,7 @@ public class ExpenditureTransactionDaoOjb extends PlatformAwareDaoBaseOjb implem
      */
     public void deleteAllExpenditureTransactions() {
         LOG.debug("deleteAllExpenditureTransactions() started");
-        try{
+        try {
             Iterator<ExpenditureTransaction> i = getAllExpenditureTransactions();
             while (i.hasNext()) {
                 ExpenditureTransaction et = i.next();
@@ -128,8 +126,7 @@ public class ExpenditureTransactionDaoOjb extends PlatformAwareDaoBaseOjb implem
                 }
                 delete(et);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

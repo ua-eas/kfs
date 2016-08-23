@@ -18,19 +18,17 @@
  */
 package org.kuali.kfs.krad.workflow.attribute;
 
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.InvocationHandler;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.web.format.BooleanFormatter;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.InvocationHandler;
-
-import org.kuali.rice.core.web.format.BooleanFormatter;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 /**
  * This class provides access to the properties of business objects returned as search results by the WorkflowLookupableImpl.
- *
  *
  * @see org.kuali.rice.kew.attribute.WorkflowLookupableImpl
  * @deprecated This will go away once workflow supports simple url integration for custom attribute lookups.
@@ -55,7 +53,7 @@ public class WorkflowLookupableInvocationHandler implements InvocationHandler {
      * Constructs a WorkflowLookupableInvocationHandler.java.
      *
      * @param proxiedBusinessObject The BusinessObject that this instance is providing access to.
-     * @param returnUrl The returnUrl String for selection of a result from the UI
+     * @param returnUrl             The returnUrl String for selection of a result from the UI
      */
     public WorkflowLookupableInvocationHandler(BusinessObject proxiedBusinessObject, String returnUrl, ClassLoader classLoader) {
         this.proxiedBusinessObject = proxiedBusinessObject;
@@ -69,8 +67,7 @@ public class WorkflowLookupableInvocationHandler implements InvocationHandler {
      * for the UI, using the BooleanFormatter.
      *
      * @see net.sf.cglib.proxy.InvocationHandler#invoke(java.lang.Object proxy, java.lang.reflect.Method method, java.lang.Object[]
-     *      args)
-     *
+     * args)
      */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         ClassLoader oldClassloader = Thread.currentThread().getContextClassLoader();
@@ -78,30 +75,24 @@ public class WorkflowLookupableInvocationHandler implements InvocationHandler {
             Thread.currentThread().setContextClassLoader(classLoader);
             if ("getReturnUrl".equals(method.getName())) {
                 return returnUrl;
-            }
-            else if ("getWorkflowLookupableResult".equals(method.getName())) {
-                return Enhancer.create(HashMap.class, new Class[] { WorkflowLookupableResult.class }, this);
-            }
-            else if ("get".equals(method.getName())) {
+            } else if ("getWorkflowLookupableResult".equals(method.getName())) {
+                return Enhancer.create(HashMap.class, new Class[]{WorkflowLookupableResult.class}, this);
+            } else if ("get".equals(method.getName())) {
                 Object propertyValue = ObjectUtils.getNestedValue(proxiedBusinessObject, args[0].toString());
                 if (propertyValue instanceof BusinessObject) {
                     return Enhancer.create(propertyValue.getClass(), new WorkflowLookupableInvocationHandler((BusinessObject) propertyValue, classLoader));
-                }
-                else {
+                } else {
                     if (propertyValue instanceof Boolean) {
                         return new BooleanFormatter().format(propertyValue);
                     }
                     return propertyValue;
                 }
-            }
-            else {
+            } else {
                 return method.invoke(proxiedBusinessObject, args);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw (e.getCause() != null ? e.getCause() : e);
-        }
-        finally {
+        } finally {
             Thread.currentThread().setContextClassLoader(oldClassloader);
         }
     }

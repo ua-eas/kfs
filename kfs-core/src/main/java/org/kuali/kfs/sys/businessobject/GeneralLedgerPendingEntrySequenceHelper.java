@@ -21,8 +21,6 @@ package org.kuali.kfs.sys.businessobject;
 /**
  * This class is a helper class which will allows us to pass control in and out of the processGeneralLedgerPendingEntry() method by
  * reference. This was necessary since you can't increment an Integer object without breaking reference.
- *
- *
  */
 public class GeneralLedgerPendingEntrySequenceHelper {
     private int sequenceCounter;

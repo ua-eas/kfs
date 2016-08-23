@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.module.purap.document.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.purap.businessobject.ReceivingAddress;
+
+import java.util.Collection;
 
 /**
  * Receiving Address DAO Interface.
@@ -32,7 +32,7 @@ public interface ReceivingAddressDao {
      * Finds all of the active receiving addresses with the specified chart/org code.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - collection of receiving addresses found.
      */
     public Collection<ReceivingAddress> findActiveByChartOrg(String chartCode, String orgCode);
@@ -41,7 +41,7 @@ public interface ReceivingAddressDao {
      * Finds all of the active default receiving addresses with the specified chart/org code.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - collection of receiving addresses found.
      */
     public Collection<ReceivingAddress> findDefaultByChartOrg(String chartCode, String orgCode);
@@ -50,7 +50,7 @@ public interface ReceivingAddressDao {
      * Counts the number of the active receiving addresses with the specified chart/org code.
      *
      * @param chartCode - chart of accounts code.
-     * @param orgCode - organization code.
+     * @param orgCode   - organization code.
      * @return - number of receiving addresses found.
      */
     public int countActiveByChartOrg(String chartCode, String orgCode);

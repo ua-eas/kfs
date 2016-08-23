@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.List;
+import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.List;
 
 
 public interface TemExpense {
@@ -201,12 +200,14 @@ public interface TemExpense {
 
     /**
      * Gets the expenseDetails attribute.
+     *
      * @return Returns the expenseDetails.
      */
     public List<? extends TemExpense> getExpenseDetails();
 
     /**
      * Sets the expenseDetails attribute value.
+     *
      * @param expenseDetails The expenseDetails to set.
      */
     public void setExpenseDetails(List<TemExpense> expenseDetails);
@@ -247,9 +248,10 @@ public interface TemExpense {
 
     /**
      * Requests that this expense refresh its expense type object code (and, by implication, expenseTypeObjectCodeId) based on the values passed in
+     *
      * @param documentTypeName the document type name of the document owning this expense
      * @param travelerTypeCode the traveler type code of the traveler associated with the document which owns this expense
-     * @param tripCode the trip type code associated with teh document which owns this expense
+     * @param tripCode         the trip type code associated with teh document which owns this expense
      */
     public void refreshExpenseTypeObjectCode(String documentTypeName, String travelerTypeCode, String tripTypeCode);
 }

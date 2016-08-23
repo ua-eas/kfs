@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -35,6 +28,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public class BudgetConstructionOrganizationReportsDaoOjb extends PlatformAwareDaoBaseOjb implements BudgetConstructionOrganizationReportsDao {
 
     /**
@@ -42,7 +42,7 @@ public class BudgetConstructionOrganizationReportsDaoOjb extends PlatformAwareDa
      */
     public Collection getBySearchCriteria(Class cls, Map searchCriteria) {
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -56,7 +56,7 @@ public class BudgetConstructionOrganizationReportsDaoOjb extends PlatformAwareDa
      */
     public Collection getBySearchCriteriaWithOrderByList(Class cls, Map searchCriteria, List<String> list) {
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -70,7 +70,7 @@ public class BudgetConstructionOrganizationReportsDaoOjb extends PlatformAwareDa
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionOrganizationReportsDao#getActiveChildOrgs(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List getActiveChildOrgs(String chartOfAccountsCode, String organizationCode) {
         List orgs = new ArrayList();
@@ -111,15 +111,14 @@ public class BudgetConstructionOrganizationReportsDaoOjb extends PlatformAwareDa
 
         criteria.addExists(childExistsQuery);
 
-        String[] queryAttr = { KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE };
+        String[] queryAttr = {KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE};
 
         ReportQueryByCriteria query = new ReportQueryByCriteria(BudgetConstructionOrganizationReports.class, queryAttr, criteria, true);
         Iterator rowsReturned = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         if (rowsReturned.hasNext()) {
             TransactionalServiceUtils.exhaustIterator(rowsReturned);
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly;
-import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
-import org.kuali.kfs.module.bc.document.validation.SaveMonthlyBudgetRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly;
+import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
+import org.kuali.kfs.module.bc.document.validation.SaveMonthlyBudgetRule;
 
 /**
  * Defines the save monthly budget event for the monthly budget screen.
@@ -33,7 +33,7 @@ public class SaveMonthlyBudgetEvent extends KualiDocumentEventBase {
     private BudgetConstructionDocument budgetConstructionDocument;
     private BudgetConstructionMonthly budgetConstructionMonthly;
 
-    public SaveMonthlyBudgetEvent (String errorPathPrefix, Document document, BudgetConstructionMonthly budgetConstructionMonthly){
+    public SaveMonthlyBudgetEvent(String errorPathPrefix, Document document, BudgetConstructionMonthly budgetConstructionMonthly) {
         super("", errorPathPrefix, document);
         this.budgetConstructionDocument = (BudgetConstructionDocument) document;
         this.budgetConstructionMonthly = budgetConstructionMonthly;
@@ -57,6 +57,7 @@ public class SaveMonthlyBudgetEvent extends KualiDocumentEventBase {
 
     /**
      * Gets the budgetConstructionDocument attribute.
+     *
      * @return Returns the budgetConstructionDocument.
      */
     public BudgetConstructionDocument getBudgetConstructionDocument() {
@@ -65,6 +66,7 @@ public class SaveMonthlyBudgetEvent extends KualiDocumentEventBase {
 
     /**
      * Sets the budgetConstructionDocument attribute value.
+     *
      * @param budgetConstructionDocument The budgetConstructionDocument to set.
      */
     public void setBudgetConstructionDocument(BudgetConstructionDocument budgetConstructionDocument) {
@@ -73,6 +75,7 @@ public class SaveMonthlyBudgetEvent extends KualiDocumentEventBase {
 
     /**
      * Gets the budgetConstructionMonthly attribute.
+     *
      * @return Returns the budgetConstructionMonthly.
      */
     public BudgetConstructionMonthly getBudgetConstructionMonthly() {
@@ -81,6 +84,7 @@ public class SaveMonthlyBudgetEvent extends KualiDocumentEventBase {
 
     /**
      * Sets the budgetConstructionMonthly attribute value.
+     *
      * @param budgetConstructionMonthly The budgetConstructionMonthly to set.
      */
     public void setBudgetConstructionMonthly(BudgetConstructionMonthly budgetConstructionMonthly) {

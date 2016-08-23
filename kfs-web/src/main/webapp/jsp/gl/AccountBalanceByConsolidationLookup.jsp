@@ -96,34 +96,34 @@
                     <c:set var="offset" value="0"/>
                     <a id="search-results"></a>
                     <div class="main-panel search-results">
-                    <display:table class="datatable-100" name="${reqSearchResults}" id="row"
-                                   export="true" pagesize="100" offset="${offset}"
-                                   requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
-                        <c:forEach items="${row.columns}" var="column" varStatus="status">
+                        <display:table class="datatable-100" name="${reqSearchResults}" id="row"
+                                       export="true" pagesize="100" offset="${offset}"
+                                       requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
+                            <c:forEach items="${row.columns}" var="column" varStatus="status">
 
-                            <c:if test="${!empty column.columnAnchor.title}">
-                                <c:set var="title" value="${column.columnAnchor.title}"/>
-                            </c:if>
-                            <c:if test="${empty column.columnAnchor.title}">
-                                <c:set var="title" value="${column.propertyValue}"/>
-                            </c:if>
+                                <c:if test="${!empty column.columnAnchor.title}">
+                                    <c:set var="title" value="${column.columnAnchor.title}"/>
+                                </c:if>
+                                <c:if test="${empty column.columnAnchor.title}">
+                                    <c:set var="title" value="${column.propertyValue}"/>
+                                </c:if>
 
-                            <display:column
-                                    class="${(column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter') ? 'numbercell' : 'inofocell'}"
-                                    title="${column.columnTitle}" comparator="${column.comparator}"
-                                    sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
-                                <c:choose>
-                                    <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
-                                        <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${title}" />"
-                                           target="blank"><c:out value="${column.propertyValue}"/></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:out value="${column.propertyValue}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </display:column>
-                        </c:forEach>
-                    </display:table></div>
+                                <display:column
+                                        class="${(column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter') ? 'numbercell' : 'inofocell'}"
+                                        title="${column.columnTitle}" comparator="${column.comparator}"
+                                        sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
+                                    <c:choose>
+                                        <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
+                                            <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${title}" />"
+                                               target="blank"><c:out value="${column.propertyValue}"/></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:out value="${column.propertyValue}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </display:column>
+                            </c:forEach>
+                        </display:table></div>
 
                     <c:if test="${not empty totalsTable}">
                         <table class="datatable-80" id="row" align="center">

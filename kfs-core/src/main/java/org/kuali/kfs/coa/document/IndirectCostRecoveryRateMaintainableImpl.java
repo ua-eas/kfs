@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMaintainable {
     private static final Logger LOG = Logger.getLogger(IndirectCostRecoveryRateMaintainableImpl.class);
@@ -40,6 +40,7 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
 
     /**
      * Hook for quantity and setting asset numbers.
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#addNewLineToCollection(java.lang.String)
      */
     @Override
@@ -49,16 +50,16 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
         IndirectCostRecoveryRateDetail addLine = (IndirectCostRecoveryRateDetail) newCollectionLines.get(collectionName);
         List<IndirectCostRecoveryRateDetail> maintCollection = (List<IndirectCostRecoveryRateDetail>) ObjectUtils.getPropertyValue(getBusinessObject(), collectionName);
 
-        if(StringUtils.isBlank(addLine.getSubAccountNumber()) || StringUtils.containsOnly(addLine.getSubAccountNumber(), "-")) {
+        if (StringUtils.isBlank(addLine.getSubAccountNumber()) || StringUtils.containsOnly(addLine.getSubAccountNumber(), "-")) {
             addLine.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
         }
-        if(StringUtils.isBlank(addLine.getFinancialSubObjectCode()) || StringUtils.containsOnly(addLine.getFinancialSubObjectCode(), "-")) {
+        if (StringUtils.isBlank(addLine.getFinancialSubObjectCode()) || StringUtils.containsOnly(addLine.getFinancialSubObjectCode(), "-")) {
             addLine.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
         }
 
         Integer icrEntryNumberMax = 0;
-        for(IndirectCostRecoveryRateDetail item : maintCollection) {
-            if(icrEntryNumberMax < item.getAwardIndrCostRcvyEntryNbr()) {
+        for (IndirectCostRecoveryRateDetail item : maintCollection) {
+            if (icrEntryNumberMax < item.getAwardIndrCostRcvyEntryNbr()) {
                 icrEntryNumberMax = item.getAwardIndrCostRcvyEntryNbr();
             }
         }
@@ -72,7 +73,7 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
 
     /**
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#populateChartOfAccountsCodeFields()
-     *
+     * <p>
      * Special treatment is needed to populate the chart code from the account number field in IndirectCostRecoveryRateDetails,
      * as the potential reference account doesn't exist in the collection due to wild cards, which also needs special handling.
      */
@@ -84,7 +85,7 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
         PersistableBusinessObject bo = getBusinessObject();
         AccountService acctService = SpringContext.getBean(AccountService.class);
         PersistableBusinessObject newAccount = getNewCollectionLine(KFSPropertyConstants.INDIRECT_COST_RECOVERY_RATE_DETAILS);
-        String accountNumber = (String)ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
+        String accountNumber = (String) ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
         String coaCode = null;
 
         // if accountNumber is wild card, populate chart code with the same wild card
@@ -103,8 +104,7 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
         // populate chart code field
         try {
             ObjectUtils.setObjectProperty(newAccount, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, coaCode);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Error in setting property value for " + KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
         }
     }

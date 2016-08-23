@@ -26,7 +26,7 @@ public interface PredeterminedBillingScheduleMaintenanceService {
      * Has the Bill been copied to an Invoice Bill on an invoice doc?
      *
      * @param proposalNumber proposal number to check
-     * @param billId billId to check
+     * @param billId         billId to check
      * @return true if the Bill has been copied, false if otherwise
      */
     public boolean hasBillBeenCopiedToInvoice(String proposalNumber, String billId);

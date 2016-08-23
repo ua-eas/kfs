@@ -18,7 +18,11 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.Serializable;
+import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
+import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
+import org.kuali.rice.kim.api.permission.PermissionContract;
+import org.kuali.rice.kim.api.role.RoleContract;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,12 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
-import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
-import org.kuali.rice.kim.api.permission.PermissionContract;
-import org.kuali.rice.kim.api.role.RoleContract;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import java.io.Serializable;
 
 
 /**
@@ -45,23 +44,24 @@ public abstract class RolePermissionXmlDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="permissionId")
+    @XmlElement(name = "permissionId")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String permissionId;
 
-    @XmlElement(name="permissionName")
+    @XmlElement(name = "permissionName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair permissionNameAndNamespace;
 
     /**
      * Constructs an empty RolePermissionXmlDTO instance.
      */
-    public RolePermissionXmlDTO() {}
+    public RolePermissionXmlDTO() {
+    }
 
     /**
      * Constructs a RolePermissionXmlDTO that gets populated from the given KIM permission.
      *
-     * @param permission The permission that this DTO should obtain its data from.
+     * @param permission  The permission that this DTO should obtain its data from.
      * @param populateIds If true, the permission ID will get populated; otherwise, it will remain null.
      */
     public RolePermissionXmlDTO(PermissionContract permission, boolean populateIds) {
@@ -134,18 +134,18 @@ public abstract class RolePermissionXmlDTO implements Serializable {
      * This class represents a &lt;rolePermission&gt; element that is not a descendant of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="StandaloneRolePermissionType", propOrder={
-            "roleId", "roleNameAndNamespace", "permissionId", "permissionNameAndNamespace"
+    @XmlType(name = "StandaloneRolePermissionType", propOrder = {
+        "roleId", "roleNameAndNamespace", "permissionId", "permissionNameAndNamespace"
     })
     public static class OutsideOfRole extends RolePermissionXmlDTO {
 
         private static final long serialVersionUID = 1L;
 
-        @XmlElement(name="roleId")
+        @XmlElement(name = "roleId")
         @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
         private String roleId;
 
-        @XmlElement(name="roleName")
+        @XmlElement(name = "roleName")
         @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
         private NameAndNamespacePair roleNameAndNamespace;
 
@@ -219,8 +219,8 @@ public abstract class RolePermissionXmlDTO implements Serializable {
      * This class represents a &lt;rolePermission&gt; element that is a descendant of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="RolePermissionType", propOrder={
-            "permissionId", "permissionNameAndNamespace"
+    @XmlType(name = "RolePermissionType", propOrder = {
+        "permissionId", "permissionNameAndNamespace"
     })
     public static class WithinRole extends RolePermissionXmlDTO {
 
@@ -239,7 +239,7 @@ public abstract class RolePermissionXmlDTO implements Serializable {
 
         void beforeUnmarshal(Unmarshaller unmarshaller, Object parent) {
             if (parent instanceof RolePermissionsXmlDTO) {
-                this.roleId = ((RolePermissionXmlDTO)parent).getRoleId();
+                this.roleId = ((RolePermissionXmlDTO) parent).getRoleId();
             }
         }
 

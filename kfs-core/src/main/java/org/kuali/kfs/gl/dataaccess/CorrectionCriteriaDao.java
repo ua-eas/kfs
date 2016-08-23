@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.CorrectionCriteria;
+
+import java.util.List;
 
 /**
  * A DAO interface that
@@ -37,7 +37,7 @@ public interface CorrectionCriteriaDao {
     /**
      * Returns a list of all the correction criteria associated with the given GLCP document and correction group
      *
-     * @param documentNumber the GLCP document number of correction criteria to find
+     * @param documentNumber            the GLCP document number of correction criteria to find
      * @param correctionGroupLineNumber the correction group of correction criteria to find
      * @return a List of collection criteria
      */

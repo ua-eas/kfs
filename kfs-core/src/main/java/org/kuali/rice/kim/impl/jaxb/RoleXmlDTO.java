@@ -18,8 +18,11 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.Serializable;
-import java.util.Set;
+import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
+import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
+import org.kuali.rice.core.util.jaxb.StringTrimmingAdapter;
+import org.kuali.rice.kim.api.jaxb.NameAndNamespacePairToKimTypeIdAdapter;
+import org.kuali.rice.kim.api.role.RoleContract;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,19 +30,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
-import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
-import org.kuali.rice.core.util.jaxb.StringTrimmingAdapter;
-import org.kuali.rice.kim.api.jaxb.NameAndNamespacePairToKimTypeIdAdapter;
-import org.kuali.rice.kim.api.role.RoleContract;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * This class represents a &lt;role&gt; XML element.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="RoleType", propOrder={
-        "roleNameAndNamespace", "kimTypeId", "roleDescription", "active", "roleMembers", "rolePermissions"
+@XmlType(name = "RoleType", propOrder = {
+    "roleNameAndNamespace", "kimTypeId", "roleDescription", "active", "roleMembers", "rolePermissions"
 })
 public class RoleXmlDTO implements Serializable {
 
@@ -48,25 +47,25 @@ public class RoleXmlDTO implements Serializable {
     @XmlTransient
     private String roleId;
 
-    @XmlElement(name="roleName")
+    @XmlElement(name = "roleName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair roleNameAndNamespace;
 
-    @XmlElement(name="kimTypeName")
+    @XmlElement(name = "kimTypeName")
     @XmlJavaTypeAdapter(NameAndNamespacePairToKimTypeIdAdapter.class)
     private String kimTypeId;
 
-    @XmlElement(name="description")
+    @XmlElement(name = "description")
     @XmlJavaTypeAdapter(StringTrimmingAdapter.class)
     private String roleDescription;
 
-    @XmlElement(name="active")
+    @XmlElement(name = "active")
     private Boolean active;
 
-    @XmlElement(name="roleMembers")
+    @XmlElement(name = "roleMembers")
     private RoleMembersXmlDTO.WithinRole roleMembers;
 
-    @XmlElement(name="rolePermissions")
+    @XmlElement(name = "rolePermissions")
     private RolePermissionsXmlDTO.WithinRole rolePermissions;
 
     @XmlTransient

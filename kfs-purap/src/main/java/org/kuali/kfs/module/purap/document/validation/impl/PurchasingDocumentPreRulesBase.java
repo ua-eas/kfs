@@ -20,6 +20,7 @@ package org.kuali.kfs.module.purap.document.validation.impl;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItemBase;
@@ -27,15 +28,14 @@ import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.PurchasingDocumentBase;
 import org.kuali.kfs.module.purap.document.web.struts.PurchasingFormBase;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.document.Document;
 
-public abstract class PurchasingDocumentPreRulesBase extends PurapDocumentPreRulesBase{
+public abstract class PurchasingDocumentPreRulesBase extends PurapDocumentPreRulesBase {
 
     @Override
     public boolean doPrompts(Document document) {
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)document;
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) document;
 
-        boolean preRulesValid=super.doPrompts(document);
+        boolean preRulesValid = super.doPrompts(document);
 
         if (StringUtils.isBlank(event.getQuestionContext()) || StringUtils.equals(question, PurapConstants.FIX_CAPITAL_ASSET_WARNINGS)) {
             preRulesValid &= confirmFixCapitalAssetWarningConditions(purapDocument);
@@ -44,13 +44,13 @@ public abstract class PurchasingDocumentPreRulesBase extends PurapDocumentPreRul
         return preRulesValid;
     }
 
-    protected boolean checkForTaxRecalculation(PurchasingAccountsPayableDocument purapDocument){
+    protected boolean checkForTaxRecalculation(PurchasingAccountsPayableDocument purapDocument) {
 
-        String initialZipCode = ((PurchasingFormBase)form).getInitialZipCode();
-        if (StringUtils.isNotEmpty(initialZipCode) && !StringUtils.equals(initialZipCode,((PurchasingDocumentBase)purapDocument).getDeliveryPostalCode())){
+        String initialZipCode = ((PurchasingFormBase) form).getInitialZipCode();
+        if (StringUtils.isNotEmpty(initialZipCode) && !StringUtils.equals(initialZipCode, ((PurchasingDocumentBase) purapDocument).getDeliveryPostalCode())) {
             for (PurApItem purApItem : purapDocument.getItems()) {
-                PurchasingItemBase item = (PurchasingItemBase)purApItem;
-                if (item.getItemTaxAmount() != null){
+                PurchasingItemBase item = (PurchasingItemBase) purApItem;
+                if (item.getItemTaxAmount() != null) {
 
                     StringBuffer questionTextBuffer = new StringBuffer("");
                     questionTextBuffer.append(PurapConstants.TAX_RECALCULATION_QUESTION);

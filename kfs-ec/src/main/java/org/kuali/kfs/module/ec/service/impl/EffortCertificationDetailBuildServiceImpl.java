@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
@@ -31,8 +28,11 @@ import org.kuali.kfs.module.ec.service.EffortCertificationDetailBuildService;
 import org.kuali.kfs.module.ec.util.LedgerBalanceConsolidationHelper;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class provides the facilities that can generate detail line (build) for effort certification from the given labor ledger
@@ -44,7 +44,7 @@ public class EffortCertificationDetailBuildServiceImpl implements EffortCertific
 
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationDetailBuildService#generateDetailBuild(java.lang.Integer,
-     *      org.kuali.kfs.module.ld.businessobject.LedgerBalance, org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
+     * org.kuali.kfs.module.ld.businessobject.LedgerBalance, org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
     public EffortCertificationDetailBuild generateDetailBuild(Integer postingYear, LaborLedgerBalance ledgerBalance, EffortCertificationReportDefinition reportDefinition) {
         EffortCertificationDetailBuild detailLine = new EffortCertificationDetailBuild();
@@ -73,9 +73,9 @@ public class EffortCertificationDetailBuildServiceImpl implements EffortCertific
     /**
      * populate the cost share related fields in the given detail line
      *
-     * @param detailLine the given detail line
+     * @param detailLine    the given detail line
      * @param ledgerBalance the given ledger balance
-     * @param parameters the given parameters setup in the calling client
+     * @param parameters    the given parameters setup in the calling client
      */
     protected void populateCostShareRelatedFields(EffortCertificationDetailBuild detailLine, LaborLedgerBalance ledgerBalance) {
         List<String> expenseSubAccountTypeCodes = EffortConstants.ELIGIBLE_EXPENSE_SUB_ACCOUNT_TYPE_CODES;
@@ -89,14 +89,12 @@ public class EffortCertificationDetailBuildServiceImpl implements EffortCertific
             detailLine.setSourceChartOfAccountsCode(EffortConstants.DASH_CHART_OF_ACCOUNTS_CODE);
             detailLine.setSourceAccountNumber(EffortConstants.DASH_ACCOUNT_NUMBER);
             detailLine.setCostShareSourceSubAccountNumber(null);
-        }
-        else if (costShareSubAccountTypeCodes.contains(subAccountTypeCode)) {
+        } else if (costShareSubAccountTypeCodes.contains(subAccountTypeCode)) {
             detailLine.setSubAccountNumber(ledgerBalance.getSubAccountNumber());
             detailLine.setSourceChartOfAccountsCode(A21SubAccount.getCostShareChartOfAccountCode());
             detailLine.setSourceAccountNumber(A21SubAccount.getCostShareSourceAccountNumber());
             detailLine.setCostShareSourceSubAccountNumber(A21SubAccount.getCostShareSourceSubAccountNumber());
-        }
-        else {
+        } else {
             detailLine.setSubAccountNumber(ledgerBalance.getSubAccountNumber());
             detailLine.setSourceChartOfAccountsCode(EffortConstants.DASH_CHART_OF_ACCOUNTS_CODE);
             detailLine.setSourceAccountNumber(EffortConstants.DASH_ACCOUNT_NUMBER);
@@ -116,8 +114,7 @@ public class EffortCertificationDetailBuildServiceImpl implements EffortCertific
             if (ObjectUtils.isNotNull(ledgerBalance.getSubAccount())) {
                 a21SubAccount = ledgerBalance.getSubAccount().getA21SubAccount();
             }
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             LOG.debug(npe);
         }
         return a21SubAccount;

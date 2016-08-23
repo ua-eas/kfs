@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.Calendar;
-import java.util.HashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.OffsetAccount;
 import org.kuali.kfs.gl.businessobject.FlexibleAccountUpdateable;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.exception.InvalidFlexibleOffsetException;
 import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * This is the default implementation of the FlexibleOffsetAccountService interface.
@@ -51,11 +51,10 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
      * This method uses the parameters provided to retrieve an OffsetAccount instance if the flexible offset account flag is
      * enabled.
      *
-     * @param chartOfAccountsCode The chart code used to retrieve the flexible offset account.
-     * @param accountNumber The account number of the flexible offset account being retrieved.
+     * @param chartOfAccountsCode       The chart code used to retrieve the flexible offset account.
+     * @param accountNumber             The account number of the flexible offset account being retrieved.
      * @param financialOffsetObjectCode The offset object code used to retrieve the offset account.
      * @return A flexible offset account based on the parameters provided, or null if offsets are not enabled.
-     *
      * @see FlexibleOffsetAccountService#getByPrimaryIdIfEnabled
      */
     public OffsetAccount getByPrimaryIdIfEnabled(String chartOfAccountsCode, String accountNumber, String financialOffsetObjectCode) {
@@ -64,7 +63,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
         if (!getEnabled()) {
             return null;
         }
-        HashMap<String,Object> keys = new HashMap();
+        HashMap<String, Object> keys = new HashMap();
         keys.put("chartOfAccountsCode", chartOfAccountsCode);
         keys.put("accountNumber", accountNumber);
         keys.put("financialOffsetObjectCode", financialOffsetObjectCode);
@@ -75,7 +74,6 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
      * This method queries the parameter table to retrieve the value of the flexible offset flag and returns the resulting value.
      *
      * @return True if flexible offsets are enabled, false otherwise.
-     *
      * @see FlexibleOffsetAccountService#getEnabled
      */
     public boolean getEnabled() {
@@ -89,7 +87,6 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
      *
      * @param originEntry The origin entry to be updated with offset account details.
      * @return False if the flexible offset flag is false, if there is no corresponding flexbile offset account, true otherwise.
-     *
      * @see org.kuali.kfs.sys.service.FlexibleOffsetAccountService#updateOffset(org.kuali.kfs.gl.businessobject.OriginEntryFull)
      */
     public boolean updateOffset(FlexibleAccountUpdateable transaction) {
@@ -153,7 +150,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
      * This method determines if an account has expired.  An account has expired if the expiration year of the account is
      * less than the run date year or if the date of expiration occurred before the run date provided.
      *
-     * @param account The account to be examined.
+     * @param account     The account to be examined.
      * @param runCalendar The date the expiration date is tested against.
      * @return True if the account has expired, false otherwise.
      */
@@ -172,6 +169,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * Sets the local dateTimeService attribute.
+     *
      * @param dateTimeService The DateTimeService instance to be set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -180,6 +178,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * Sets the local accountService attribute.
+     *
      * @param accountService The AccountService instance to be set.
      */
     public void setAccountService(AccountService accountService) {
@@ -188,6 +187,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * Sets the local objectCodeService attribute.
+     *
      * @param objectCodeService The ObjectCodeService instance to be set.
      */
     public void setObjectCodeService(ObjectCodeService objectCodeService) {
@@ -196,6 +196,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * Sets the local businessObjectService attribute.
+     *
      * @param businessObjectService The BusinessObjectService instance to be set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -204,6 +205,7 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * Sets the local parameterService attribute.
+     *
      * @param parameterService The ParameterService instance to be set.
      */
     public void setParameterService(ParameterService parameterService) {

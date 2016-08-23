@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.batch.service.InvoiceRecurrenceService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class InvoiceRecurrenceStep extends AbstractStep {
 

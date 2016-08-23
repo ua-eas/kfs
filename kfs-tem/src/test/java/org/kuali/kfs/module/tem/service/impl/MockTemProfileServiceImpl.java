@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAccount;
@@ -29,6 +26,9 @@ import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
+import java.util.Map;
 
 public class MockTemProfileServiceImpl implements TemProfileService {
 
@@ -94,7 +94,9 @@ public class MockTemProfileServiceImpl implements TemProfileService {
         this.dateTimeService = dateTimeService;
     }
 
-/** methods which have not been changed for testing **/
+    /**
+     * methods which have not been changed for testing
+     **/
 
     @Override
     public TemProfileAddress createTemProfileAddressFromPerson(Person person, Integer profileId, TemProfileAddress defaultAddress) {

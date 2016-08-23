@@ -18,18 +18,7 @@
  */
 package org.kuali.kfs.module.tem.report;
 
-import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
-import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
-import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
-
-import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import net.sf.jasperreports.engine.JRDataSource;
-
 import org.kuali.kfs.module.tem.report.annotations.ColumnHeader;
 import org.kuali.kfs.module.tem.report.annotations.Crosstab;
 import org.kuali.kfs.module.tem.report.annotations.DetailSection;
@@ -42,10 +31,20 @@ import org.kuali.kfs.module.tem.report.annotations.TitleStyle;
 import org.kuali.kfs.sys.report.ReportInfoHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
+import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
+import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
+
 @JasperReport
 @ReportStyle("standard")
 @TitleStyle("standard")
-public class EntertainmentHostCertificationReport extends ReportInfoHolder{
+public class EntertainmentHostCertificationReport extends ReportInfoHolder {
     private String documentId;
     private String eventId;
     private String eventTitle;
@@ -71,85 +70,84 @@ public class EntertainmentHostCertificationReport extends ReportInfoHolder{
     private JRDataSource actualExpenses;
 
 
-    public EntertainmentHostCertificationReport(){
+    public EntertainmentHostCertificationReport() {
         setReportTemplateClassPath(TEMPLATE_CLASSPATH);
         setReportFileName("EntertainmentHostCertification" + PDF_FILE_EXTENSION);
         setReportTemplateName("EntertainmentHostCertification.jrxml");
     }
 
     /**
-     *
      * This method...
+     *
      * @param argDocumentId
      */
-    public void setDocumentId(String argDocumentId){
+    public void setDocumentId(String argDocumentId) {
         documentId = argDocumentId;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getDocumentId(){
+    public String getDocumentId() {
         return documentId;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argEventId
      */
-    public void setEventId(String argEventId){
+    public void setEventId(String argEventId) {
         eventId = argEventId;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getEventId(){
+    public String getEventId() {
         return eventId;
     }
 
 
     /**
-     *
      * This method...
+     *
      * @param argEndDate
      */
-    public void setEndDate(Date argEndDate){
+    public void setEndDate(Date argEndDate) {
         endDate = argEndDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public Date getEndDate(){
+    public Date getEndDate() {
         return endDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argTotalExpense
      */
-    public void setTotalExpense(KualiDecimal argTotalExpense){
+    public void setTotalExpense(KualiDecimal argTotalExpense) {
         totalExpense = argTotalExpense;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public KualiDecimal getTotalExpense(){
+    public KualiDecimal getTotalExpense() {
         return totalExpense;
     }
-
 
 
     /**
@@ -238,8 +236,7 @@ public class EntertainmentHostCertificationReport extends ReportInfoHolder{
             this.name = name;
             if (amount != null) {
                 this.amount = amount.bigDecimalValue();
-            }
-            else {
+            } else {
                 this.amount = KualiDecimal.ZERO.bigDecimalValue();
             }
             this.date = date;
@@ -323,7 +320,6 @@ public class EntertainmentHostCertificationReport extends ReportInfoHolder{
     public void setEntertainmentHostName(String entertainmentHostName) {
         this.entertainmentHostName = entertainmentHostName;
     }
-
 
 
     public String getEmployeeName() {

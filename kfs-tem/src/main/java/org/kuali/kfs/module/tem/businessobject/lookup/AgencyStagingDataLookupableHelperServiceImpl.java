@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
@@ -32,13 +32,13 @@ import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class AgencyStagingDataLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -58,21 +58,21 @@ public class AgencyStagingDataLookupableHelperServiceImpl extends KualiLookupabl
 
             agencyData = (List<AgencyStagingData>) super.getSearchResults(fieldValues);
 
-            if(StringUtils.isNotBlank(searchAccount) || StringUtils.isNotBlank(searchSubAccount)) {
+            if (StringUtils.isNotBlank(searchAccount) || StringUtils.isNotBlank(searchSubAccount)) {
                 //loop through and find any records that have matching account and subaccount
                 List<AgencyStagingData> temp = new ArrayList<AgencyStagingData>();
-                for(AgencyStagingData agency: agencyData) {
-                    for (TripAccountingInformation acctgInfo: agency.getTripAccountingInformation() ) {
+                for (AgencyStagingData agency : agencyData) {
+                    for (TripAccountingInformation acctgInfo : agency.getTripAccountingInformation()) {
                         String acct = acctgInfo.getTripAccountNumber();
                         String subAcct = acctgInfo.getTripSubAccountNumber();
-                        if(StringUtils.isNotBlank(searchAccount) && StringUtils.isNotBlank(acct) && acct.equals(searchAccount)) {
-                            if(StringUtils.isNotBlank(searchSubAccount) && StringUtils.isNotBlank(subAcct) && subAcct.equals(searchSubAccount)) {
+                        if (StringUtils.isNotBlank(searchAccount) && StringUtils.isNotBlank(acct) && acct.equals(searchAccount)) {
+                            if (StringUtils.isNotBlank(searchSubAccount) && StringUtils.isNotBlank(subAcct) && subAcct.equals(searchSubAccount)) {
                                 temp.add(agency);
-                            } else if(searchSubAccount == null) {
+                            } else if (searchSubAccount == null) {
                                 temp.add(agency);
                             }
 
-                        } else if(StringUtils.isNotBlank(searchSubAccount) && StringUtils.isNotBlank(subAcct) && subAcct.equals(searchSubAccount)) {
+                        } else if (StringUtils.isNotBlank(searchSubAccount) && StringUtils.isNotBlank(subAcct) && subAcct.equals(searchSubAccount)) {
                             temp.add(agency);
                         }
                     }
@@ -105,12 +105,12 @@ public class AgencyStagingDataLookupableHelperServiceImpl extends KualiLookupabl
         AgencyStagingData agencyStagingData = (AgencyStagingData) bo;
         boolean isTravelManager = isUserTravelManager();
         // For matched records or if user is not travel manager edit and delete link will not be displayed .
-        if (agencyStagingData.getMoveToHistoryIndicator()||!isTravelManager) {
+        if (agencyStagingData.getMoveToHistoryIndicator() || !isTravelManager) {
             // clear 'edit' and delete links
             anchorHtmlDataList.clear();
         }
 
-        if(isTravelManager) {
+        if (isTravelManager) {
             anchorHtmlDataList.add(getViewUrl(agencyStagingData));
 
 
@@ -119,17 +119,15 @@ public class AgencyStagingDataLookupableHelperServiceImpl extends KualiLookupabl
     }
 
     /**
-     *
      * @return
      */
     private boolean isUserTravelManager() {
         Person currentUser = GlobalVariables.getUserSession().getPerson();
-        boolean isTravelManager= SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser);
+        boolean isTravelManager = SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser);
         return isTravelManager;
     }
 
     /**
-     *
      * @param agencyStagingData
      * @return
      */
@@ -150,7 +148,7 @@ public class AgencyStagingDataLookupableHelperServiceImpl extends KualiLookupabl
     @SuppressWarnings("rawtypes")
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
-        if(isUserTravelManager()) {
+        if (isUserTravelManager()) {
             lookupForm.setSuppressActions(false);
         } else {
             lookupForm.setSuppressActions(true);

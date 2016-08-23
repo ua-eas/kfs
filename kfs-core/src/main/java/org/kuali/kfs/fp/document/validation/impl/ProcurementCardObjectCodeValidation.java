@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -34,9 +34,9 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Validates that an accounting line does not have a capital object object code
@@ -47,6 +47,7 @@ public class ProcurementCardObjectCodeValidation extends GenericValidation {
     /**
      * Validates that an accounting line does not have a capital object object code
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -73,7 +74,7 @@ public class ProcurementCardObjectCodeValidation extends GenericValidation {
         String mccRestriction = "";
         ProcurementCardTargetAccountingLine line = (ProcurementCardTargetAccountingLine) accountingLine;
         List pcTransactions = pcDocument.getTransactionEntries();
-        for (Iterator iter = pcTransactions.iterator(); iter.hasNext();) {
+        for (Iterator iter = pcTransactions.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
             if (transactionEntry.getFinancialDocumentTransactionLineNumber().equals(line.getFinancialDocumentTransactionLineNumber())) {
                 mccRestriction = transactionEntry.getProcurementCardVendor().getTransactionMerchantCategoryCode();
@@ -101,6 +102,7 @@ public class ProcurementCardObjectCodeValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -109,6 +111,7 @@ public class ProcurementCardObjectCodeValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

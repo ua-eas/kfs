@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
+import org.kuali.kfs.gl.batch.service.BatchSortService;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,8 +30,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.kuali.kfs.gl.batch.service.BatchSortService;
-
 /**
  * This class...
  */
@@ -37,14 +37,13 @@ public class BatchSortServiceImpl implements BatchSortService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BatchSortServiceImpl.class);
 
     @Override
-    public void sortTextFileWithFields(String inputFileName, String outputFileName, Comparator comparator){
+    public void sortTextFileWithFields(String inputFileName, String outputFileName, Comparator comparator) {
         FileReader inputFile = null;
         PrintStream outputFileStream = null;
         try {
             inputFile = new FileReader(inputFileName);
             outputFileStream = new PrintStream(outputFileName);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -66,7 +65,7 @@ public class BatchSortServiceImpl implements BatchSortService {
 
         Collections.sort(lineList, comparator);
 
-        for (String line: lineList){
+        for (String line : lineList) {
             outputFileStream.printf("%s\n", line);
         }
         outputFileStream.close();

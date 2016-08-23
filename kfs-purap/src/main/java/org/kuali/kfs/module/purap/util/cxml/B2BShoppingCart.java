@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.util.cxml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.purap.businessobject.B2BShoppingCartItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class B2BShoppingCart extends B2BShoppingCartBase {
 
@@ -38,22 +38,22 @@ public class B2BShoppingCart extends B2BShoppingCartBase {
     private List<B2BShoppingCartItem> itemsList;
 
 
-    public void addShoppingCartItem(B2BShoppingCartItem item){
-        if (itemsList == null){
+    public void addShoppingCartItem(B2BShoppingCartItem item) {
+        if (itemsList == null) {
             itemsList = new ArrayList<B2BShoppingCartItem>();
         }
         itemsList.add(item);
     }
 
-    public B2BShoppingCartItem[] getShoppingCartItems(){
-        if (itemsList != null){
+    public B2BShoppingCartItem[] getShoppingCartItems() {
+        if (itemsList != null) {
             B2BShoppingCartItem[] tempItems = new B2BShoppingCartItem[itemsList.size()];
             return itemsList.toArray(tempItems);
         }
         return null;
     }
 
-    public List getItems(){
+    public List getItems() {
         return itemsList;
     }
 
@@ -97,18 +97,18 @@ public class B2BShoppingCart extends B2BShoppingCartBase {
         this.messageStatusText = messageStatusText;
     }
 
-    public String toString(){
+    public String toString() {
 
         ToStringBuilder toString = new ToStringBuilder(this);
 
-        toString.append("messageStatusCode",getMessageStatusCode());
-        toString.append("messageStatusText",getMessageStatusText());
-        toString.append("statusCode",getStatusCode());
-        toString.append("statusText",getStatusText());
-        toString.append("buyerCookieText",getBuyerCookieText());
-        toString.append("totalAmount",getTotal());
-        toString.append("CXMLHeader",getCxmlHeader());
-        toString.append("Items",itemsList);
+        toString.append("messageStatusCode", getMessageStatusCode());
+        toString.append("messageStatusText", getMessageStatusText());
+        toString.append("statusCode", getStatusCode());
+        toString.append("statusText", getStatusText());
+        toString.append("buyerCookieText", getBuyerCookieText());
+        toString.append("totalAmount", getTotal());
+        toString.append("CXMLHeader", getCxmlHeader());
+        toString.append("Items", itemsList);
 
         return toString.toString();
     }

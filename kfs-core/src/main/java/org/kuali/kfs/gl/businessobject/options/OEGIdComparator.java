@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+
+import java.util.Comparator;
 
 /**
  * A comparator for origin entry groups, based on their group IDs

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.BeginEndDates;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.RecurringPaymentTypes;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 public enum RecurringPaymentBeginEndDatesFixture {
 
     REQ_RIGHT_ORDER(BeginEndDates.REQ, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, RecurringPaymentTypes.FIXD), REQ_WRONG_ORDER(BeginEndDates.REQ, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, RecurringPaymentTypes.FIXD), REQ_SEQUENTIAL_NEXT_FY(BeginEndDates.REQ, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), REQ_NON_SEQUENTIAL_NEXT_FY(BeginEndDates.REQ, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), PO_RIGHT_ORDER(BeginEndDates.PO, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, RecurringPaymentTypes.FIXD), PO_WRONG_ORDER(BeginEndDates.PO, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, RecurringPaymentTypes.FIXD), PO_SEQUENTIAL_NEXT_FY(BeginEndDates.PO, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), PO_NON_SEQUENTIAL_NEXT_FY(BeginEndDates.PO, BeginEndDates.LAST_DATE,
-            BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD);
+        BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD);
 
     PurchasingDocument document;
     Date beginDate;

@@ -18,167 +18,167 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	<bean id="ContractsGrantsInvoiceLookupResult" parent="ContractsGrantsInvoiceLookupResult-parentBean" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="ContractsGrantsInvoiceLookupResult" parent="ContractsGrantsInvoiceLookupResult-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceLookupResult" />
-		<property name="objectLabel" value="Contracts &amp; Grants Invoice Lookup Result" />
-		<property name="lookupDefinition">
-			<ref bean="ContractsGrantsInvoiceLookupResult-lookupDefinition" />
-		</property>
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsInvoiceLookupResult-proposalNumber" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-agencyNumber" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-accountNumber" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-customerNumber" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-agencyFullName" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-agencyReportingName" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-awardTotal" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-awardBeginningDate" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-awardEndingDate" />
-				<ref bean="ContractsGrantsInvoiceLookupResult-awardBillingFrequency" />
-			</list>
-		</property>
-		<property name="relationships">
-			<list>
-				<bean parent="RelationshipDefinition" p:objectAttributeName="agency">
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="agencyNumber" p:targetName="agencyNumber" />
-						</list>
-					</property>
-				</bean>
-				<bean parent="RelationshipDefinition" p:objectAttributeName="customer">
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="customerNumber" p:targetName="customerNumber" />
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceLookupResult"/>
+        <property name="objectLabel" value="Contracts &amp; Grants Invoice Lookup Result"/>
+        <property name="lookupDefinition">
+            <ref bean="ContractsGrantsInvoiceLookupResult-lookupDefinition"/>
+        </property>
+        <property name="attributes">
+            <list>
+                <ref bean="ContractsGrantsInvoiceLookupResult-proposalNumber"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-agencyNumber"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-accountNumber"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-customerNumber"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-agencyFullName"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-agencyReportingName"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-awardTotal"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-awardBeginningDate"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-awardEndingDate"/>
+                <ref bean="ContractsGrantsInvoiceLookupResult-awardBillingFrequency"/>
+            </list>
+        </property>
+        <property name="relationships">
+            <list>
+                <bean parent="RelationshipDefinition" p:objectAttributeName="agency">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="agencyNumber" p:targetName="agencyNumber"/>
+                        </list>
+                    </property>
+                </bean>
+                <bean parent="RelationshipDefinition" p:objectAttributeName="customer">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="customerNumber" p:targetName="customerNumber"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="ContractsGrantsInvoiceLookupResult-proposalNumber" parent="ContractsGrantsInvoiceLookupResult-proposalNumber-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-proposalNumber-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAward" p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber"/>
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-proposalNumber" parent="ContractsGrantsInvoiceLookupResult-proposalNumber-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-proposalNumber-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAward" p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyNumber" parent="ContractsGrantsInvoiceLookupResult-agencyNumber-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyNumber-parentBean" abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="agencyNumber">
-		<property name="name" value="agencyNumber" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyNumber" parent="ContractsGrantsInvoiceLookupResult-agencyNumber-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyNumber-parentBean" abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="agencyNumber">
+        <property name="name" value="agencyNumber"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-accountNumber" parent="ContractsGrantsInvoiceLookupResult-accountNumber-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="9"/>
-    	</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-accountNumber" parent="ContractsGrantsInvoiceLookupResult-accountNumber-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="9"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyFullName" parent="ContractsGrantsInvoiceLookupResult-agencyFullName-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyFullName-parentBean" abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="fullName">
-		<property name="name" value="agencyFullName" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyFullName" parent="ContractsGrantsInvoiceLookupResult-agencyFullName-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyFullName-parentBean" abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="fullName">
+        <property name="name" value="agencyFullName"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyReportingName" parent="ContractsGrantsInvoiceLookupResult-agencyReportingName-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-agencyReportingName-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="agencyReportingName" />
-		<property name="label" value="Agency Reporting Name" />
-		<property name="shortLabel" value="ReportingNm" />
-		<property name="maxLength" value="30" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="required" value="false" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="32" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyReportingName" parent="ContractsGrantsInvoiceLookupResult-agencyReportingName-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-agencyReportingName-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="agencyReportingName"/>
+        <property name="label" value="Agency Reporting Name"/>
+        <property name="shortLabel" value="ReportingNm"/>
+        <property name="maxLength" value="30"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="required" value="false"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="32"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-customerNumber" parent="ContractsGrantsInvoiceLookupResult-customerNumber-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber" />
+    <bean id="ContractsGrantsInvoiceLookupResult-customerNumber" parent="ContractsGrantsInvoiceLookupResult-customerNumber-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber"/>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-awardBeginningDate" parent="ContractsGrantsInvoiceLookupResult-awardBeginningDate-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-awardBeginningDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-		<property name="name" value="awardBeginningDate" />
-		<property name="label" value="Start Date" />
-		<property name="shortLabel" value="Start" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardBeginningDate" parent="ContractsGrantsInvoiceLookupResult-awardBeginningDate-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardBeginningDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="name" value="awardBeginningDate"/>
+        <property name="label" value="Start Date"/>
+        <property name="shortLabel" value="Start"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-awardEndingDate" parent="ContractsGrantsInvoiceLookupResult-awardEndingDate-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-awardEndingDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-		<property name="name" value="awardEndingDate" />
-		<property name="label" value="Stop Date" />
-		<property name="shortLabel" value="Stop" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardEndingDate" parent="ContractsGrantsInvoiceLookupResult-awardEndingDate-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardEndingDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="name" value="awardEndingDate"/>
+        <property name="label" value="Stop Date"/>
+        <property name="shortLabel" value="Stop"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-awardTotal" parent="ContractsGrantsInvoiceLookupResult-awardTotal-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-awardTotal-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="awardTotal" />
-		<property name="label" value="Total Amount" />
-		<property name="shortLabel" value="Total" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardTotal" parent="ContractsGrantsInvoiceLookupResult-awardTotal-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardTotal-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="awardTotal"/>
+        <property name="label" value="Total Amount"/>
+        <property name="shortLabel" value="Total"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-awardBillingFrequency" parent="ContractsGrantsInvoiceLookupResult-awardBillingFrequency-parentBean" />
-	<bean id="ContractsGrantsInvoiceLookupResult-awardBillingFrequency-parentBean" abstract="true" parent="InvoiceGeneralDetail-billingFrequencyCode">
-		<property name="name" value="awardBillingFrequency" />
-		<property name="label" value="Billing Frequency" />
-		<property name="shortLabel" value="Billing Frequency" />
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.RestrictedBillingFrequencyValuesFinder"
-				p:includeKeyInLabel="false" />
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardBillingFrequency" parent="ContractsGrantsInvoiceLookupResult-awardBillingFrequency-parentBean"/>
+    <bean id="ContractsGrantsInvoiceLookupResult-awardBillingFrequency-parentBean" abstract="true" parent="InvoiceGeneralDetail-billingFrequencyCode">
+        <property name="name" value="awardBillingFrequency"/>
+        <property name="label" value="Billing Frequency"/>
+        <property name="shortLabel" value="Billing Frequency"/>
+        <property name="control">
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.RestrictedBillingFrequencyValuesFinder"
+                  p:includeKeyInLabel="false"/>
+        </property>
+    </bean>
 
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="ContractsGrantsInvoiceLookupResult-lookupDefinition" parent="ContractsGrantsInvoiceLookupResult-lookupDefinition-parentBean" />
+    <bean id="ContractsGrantsInvoiceLookupResult-lookupDefinition" parent="ContractsGrantsInvoiceLookupResult-lookupDefinition-parentBean"/>
 
-	<bean id="ContractsGrantsInvoiceLookupResult-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
-		<property name="title" value="Contracts &amp; Grants Invoice Lookup" />
-		<property name="lookupableID" value="contractsGrantsInvoiceLookupResultLookupable" />
+    <bean id="ContractsGrantsInvoiceLookupResult-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+        <property name="title" value="Contracts &amp; Grants Invoice Lookup"/>
+        <property name="lookupableID" value="contractsGrantsInvoiceLookupResultLookupable"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-				<property name="attributeNames">
-					<list>
-						<value>agencyNumber</value>
-					</list>
-				</property>
-			</bean>
-		</property>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+                <property name="attributeNames">
+                    <list>
+                        <value>agencyNumber</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
 
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="agencyNumber" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="accountNumber" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardBeginningDate" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardEndingDate" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardBillingFrequency" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardTotal" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="agencyNumber" />
-				<bean parent="FieldDefinition" p:attributeName="customerNumber" />
-				<bean parent="FieldDefinition" p:attributeName="agencyReportingName" />
-				<bean parent="FieldDefinition" p:attributeName="agencyFullName" />
-			</list>
-		</property>
-	</bean>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="agencyNumber"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="accountNumber"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="awardBeginningDate"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="awardEndingDate"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="awardBillingFrequency"/>
+                <bean parent="FieldDefinition" p:required="false" p:attributeName="awardTotal"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="agencyNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="customerNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="agencyReportingName"/>
+                <bean parent="FieldDefinition" p:attributeName="agencyFullName"/>
+            </list>
+        </property>
+    </bean>
 </beans>

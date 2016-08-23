@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
@@ -34,8 +32,10 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Validates that an accounting document does not have any pending
@@ -48,6 +48,7 @@ public class SalaryExpenseTransferPendingLegerEntryValidation extends GenericVal
      * Validates that the accounting lines in the accounting document does not have
      * any pending labor ledger entries with the same emplID, periodCode, accountNumber, objectCode
      * <strong>Expects an accounting document as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -57,7 +58,7 @@ public class SalaryExpenseTransferPendingLegerEntryValidation extends GenericVal
         AccountingDocument accountingDocument = (AccountingDocument) documentForValidation;
 
         result = !hasPendingLedgerEntry(accountingDocument);
-        return result ;
+        return result;
     }
 
     /**
@@ -67,7 +68,7 @@ public class SalaryExpenseTransferPendingLegerEntryValidation extends GenericVal
      * @return True if the given accounting documents amounts by object code are unchanged, false otherwise.
      */
     protected boolean hasPendingLedgerEntry(AccountingDocument accountingDocument) {
-        boolean entriesExist = false ;
+        boolean entriesExist = false;
 
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) accountingDocument;
         List<ExpenseTransferAccountingLine> sourceAccountingLines = expenseTransferDocument.getSourceAccountingLines();
@@ -91,11 +92,12 @@ public class SalaryExpenseTransferPendingLegerEntryValidation extends GenericVal
                 return true;
             }
         }
-        return entriesExist ;
+        return entriesExist;
     }
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -104,6 +106,7 @@ public class SalaryExpenseTransferPendingLegerEntryValidation extends GenericVal
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

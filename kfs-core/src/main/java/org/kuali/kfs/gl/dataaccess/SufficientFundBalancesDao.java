@@ -28,8 +28,8 @@ public interface SufficientFundBalancesDao {
      * Fetches sufficient fund balances based on given keys of fiscal year, chart code, and object code
      *
      * @param universityFiscalYear the university fiscal year of sufficient fund balances to find
-     * @param chartOfAccountsCode the chart of accounts code of sufficient fund balances to find
-     * @param financialObjectCode the object code of sufficient fund balances to find
+     * @param chartOfAccountsCode  the chart of accounts code of sufficient fund balances to find
+     * @param financialObjectCode  the object code of sufficient fund balances to find
      * @return a Collection of sufficient fund balances, qualified by the parameter values
      */
     public Collection getByObjectCode(Integer universityFiscalYear, String chartOfAccountsCode, String financialObjectCode);
@@ -38,8 +38,8 @@ public interface SufficientFundBalancesDao {
      * Deletes sufficient fund balances associated with a given year, chart, and account number
      *
      * @param universityFiscalYear the university fiscal year of sufficient fund balances to delete
-     * @param chartOfAccountsCode the chart code of sufficient fund balances to delete
-     * @param accountNumber the account number of sufficient fund balances to delete
+     * @param chartOfAccountsCode  the chart code of sufficient fund balances to delete
+     * @param accountNumber        the account number of sufficient fund balances to delete
      * @return the number of records deleted
      */
     public int deleteByAccountNumber(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber);

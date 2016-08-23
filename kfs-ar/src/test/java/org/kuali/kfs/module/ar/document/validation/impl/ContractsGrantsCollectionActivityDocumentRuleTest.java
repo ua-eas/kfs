@@ -45,7 +45,6 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
     private final static String ACTIVITY_CODE = "LSTS";
 
     /**
-     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -57,7 +56,6 @@ public class ContractsGrantsCollectionActivityDocumentRuleTest extends KualiTest
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.util.PurApDateFormatUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ElectronicInvoiceHelperServiceFixture {
 
@@ -31,36 +31,36 @@ public class ElectronicInvoiceHelperServiceFixture {
     private static String invoiceDate;
     private static String itemQty;
 
-    public static String getCorruptedCXML(String vendorDUNS,String poNbr){
+    public static String getCorruptedCXML(String vendorDUNS, String poNbr) {
         vendorDUNSNumber = vendorDUNS;
         poNumber = poNbr;
         //Adding some text at the end of a valid cxml
         return getXMLChunk().concat("TestForCorruptedXML");
     }
 
-    public static String getCXMLForPaymentDocCreation(String vendorDuns,String poNbr){
+    public static String getCXMLForPaymentDocCreation(String vendorDuns, String poNbr) {
         vendorDUNSNumber = vendorDuns;
         poNumber = poNbr;
         itemQty = "1";
         return getXMLChunk();
     }
 
-    public static String getCXMLForRejectDocCreation(String vendorDUNS,String poNbr){
+    public static String getCXMLForRejectDocCreation(String vendorDUNS, String poNbr) {
         vendorDUNSNumber = vendorDUNS;
         poNumber = poNbr;
         itemQty = "100";
         return getXMLChunk();
     }
 
-    private static String getXMLChunk(){
+    private static String getXMLChunk() {
 
         StringBuffer xmlChunk = new StringBuffer();
 
         xmlChunk.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         xmlChunk.append("<!DOCTYPE cXML SYSTEM \"http://xml.cxml.org/schemas/cXML/1.2.009/InvoiceDetail.dtd\">\n");
         xmlChunk.append("<cXML payloadID=\"irrelevant\" xml:lang=\"en-US\" timestamp=").
-                        append(getCXMLDate(true)).append("\n").
-                        append(" version=\"1.2.014\">");
+            append(getCXMLDate(true)).append("\n").
+            append(" version=\"1.2.014\">");
 
         xmlChunk.append(getHeaderXMLChunk());
         xmlChunk.append(getRequestXMLChunk());
@@ -70,7 +70,7 @@ public class ElectronicInvoiceHelperServiceFixture {
         return xmlChunk.toString();
     }
 
-    private static StringBuffer getHeaderXMLChunk(){
+    private static StringBuffer getHeaderXMLChunk() {
 
         StringBuffer header = new StringBuffer();
 
@@ -101,13 +101,13 @@ public class ElectronicInvoiceHelperServiceFixture {
         return header;
     }
 
-    private static StringBuffer getRequestXMLChunk(){
+    private static StringBuffer getRequestXMLChunk() {
 
         StringBuffer request = new StringBuffer();
 
         request.append("<Request deploymentMode=\"production\">");
         request.append("<InvoiceDetailRequest>");
-        request.append("<InvoiceDetailRequestHeader invoiceID=\"LDR3496\" purpose=\"standard\" invoiceDate=" + getCXMLDate(true) +">");
+        request.append("<InvoiceDetailRequestHeader invoiceID=\"LDR3496\" purpose=\"standard\" invoiceDate=" + getCXMLDate(true) + ">");
         request.append("<InvoiceDetailHeaderIndicator/>");
         request.append("<InvoiceDetailLineIndicator/>");
         request.append("<InvoicePartner>");
@@ -154,7 +154,7 @@ public class ElectronicInvoiceHelperServiceFixture {
 
     }
 
-    public static StringBuffer getInvoiceOrderXMLChunk(){
+    public static StringBuffer getInvoiceOrderXMLChunk() {
 
         StringBuffer order = new StringBuffer();
 
@@ -175,7 +175,7 @@ public class ElectronicInvoiceHelperServiceFixture {
         return order;
     }
 
-    public static StringBuffer getInvoiceSummaryXMLChunk(){
+    public static StringBuffer getInvoiceSummaryXMLChunk() {
 
         StringBuffer summary = new StringBuffer();
 
@@ -200,7 +200,7 @@ public class ElectronicInvoiceHelperServiceFixture {
         return summary;
     }
 
-    private static String getCXMLDate(boolean includeTime){
+    private static String getCXMLDate(boolean includeTime) {
 
         StringBuffer dateString = new StringBuffer();
 
@@ -209,7 +209,7 @@ public class ElectronicInvoiceHelperServiceFixture {
         SimpleDateFormat time = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_TIME_FORMAT);
 
         dateString.append("\"" + date.format(d)).append("T");
-        if (includeTime){
+        if (includeTime) {
             dateString.append(time.format(d)).append("-05:00");
         }
 

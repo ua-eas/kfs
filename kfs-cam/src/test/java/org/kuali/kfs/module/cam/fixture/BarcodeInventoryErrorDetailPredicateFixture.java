@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
+import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
-import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public enum BarcodeInventoryErrorDetailPredicateFixture {
     DATA();
@@ -33,37 +33,37 @@ public enum BarcodeInventoryErrorDetailPredicateFixture {
     private BusinessObjectService businessObjectService;
     private int testDataPos;
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/barcode_inventory_predicate.properties";
         properties = new Properties();
         try {
             properties.load(BarcodeInventoryErrorDetailPredicateFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
 
-    static String TEST_RECORD="testRecord";
-    static String RESULT="result";
-    static String DOCUMENT="document";
-    static String BCIE="bcie";
-    static String FIELD_NAMES="fieldNames";
-    static String NUM_OF_REC="numOfRecords";
-    static String DELIMINATOR="deliminator";
+    static String TEST_RECORD = "testRecord";
+    static String RESULT = "result";
+    static String DOCUMENT = "document";
+    static String BCIE = "bcie";
+    static String FIELD_NAMES = "fieldNames";
+    static String NUM_OF_REC = "numOfRecords";
+    static String DELIMINATOR = "deliminator";
 
     private BarcodeInventoryErrorDetailPredicateFixture() {
     }
 
     public List<BarcodeInventoryErrorDetail> getBarcodeInventoryDetail() {
-        Integer numOfRecords = new Integer(properties.getProperty(BCIE+"."+NUM_OF_REC));
+        Integer numOfRecords = new Integer(properties.getProperty(BCIE + "." + NUM_OF_REC));
         List<BarcodeInventoryErrorDetail> details = new ArrayList<BarcodeInventoryErrorDetail>();
 
         String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(BCIE+"."+FIELD_NAMES);
+        String fieldNames = properties.getProperty(BCIE + "." + FIELD_NAMES);
 
-        for(int i=1;i<=numOfRecords.intValue();i++) {
-            String propertyKey = BCIE+"."+TEST_RECORD + i;
+        for (int i = 1; i <= numOfRecords.intValue(); i++) {
+            String propertyKey = BCIE + "." + TEST_RECORD + i;
             details.add(CamsFixture.DATA_POPULATOR.buildTestDataObject(BarcodeInventoryErrorDetail.class, properties, propertyKey, fieldNames, deliminator));
         }
         return details;
@@ -71,14 +71,14 @@ public enum BarcodeInventoryErrorDetailPredicateFixture {
 
 
     public List<BarcodeInventoryErrorDetail> getExpectedResults() {
-        Integer numOfRecords = new Integer(properties.getProperty(BCIE+"."+NUM_OF_REC));
+        Integer numOfRecords = new Integer(properties.getProperty(BCIE + "." + NUM_OF_REC));
         List<BarcodeInventoryErrorDetail> details = new ArrayList<BarcodeInventoryErrorDetail>();
 
         String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(BCIE+"."+FIELD_NAMES);
+        String fieldNames = properties.getProperty(BCIE + "." + FIELD_NAMES);
 
-        for(int i=1;i<=numOfRecords.intValue();i++) {
-            String propertyKey = RESULT+"."+TEST_RECORD + i;
+        for (int i = 1; i <= numOfRecords.intValue(); i++) {
+            String propertyKey = RESULT + "." + TEST_RECORD + i;
             details.add(CamsFixture.DATA_POPULATOR.buildTestDataObject(BarcodeInventoryErrorDetail.class, properties, propertyKey, fieldNames, deliminator));
         }
         return details;
@@ -89,9 +89,9 @@ public enum BarcodeInventoryErrorDetailPredicateFixture {
         BarcodeInventoryErrorDocument barcodeInventoryErrorDocument;
 
         String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(DOCUMENT+"."+FIELD_NAMES);
+        String fieldNames = properties.getProperty(DOCUMENT + "." + FIELD_NAMES);
 
-        String propertyKey = DOCUMENT+"."+TEST_RECORD+"1";
+        String propertyKey = DOCUMENT + "." + TEST_RECORD + "1";
         barcodeInventoryErrorDocument = CamsFixture.DATA_POPULATOR.buildTestDataObject(BarcodeInventoryErrorDocument.class, properties, propertyKey, fieldNames, deliminator);
 
         return barcodeInventoryErrorDocument;

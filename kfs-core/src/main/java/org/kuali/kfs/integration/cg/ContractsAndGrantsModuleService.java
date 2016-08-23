@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface ContractsAndGrantsModuleService {
 
@@ -30,7 +30,7 @@ public interface ContractsAndGrantsModuleService {
      * This method returns the Project Director for an account given a chart code and account number.
      *
      * @param chartOfAccountsCode chart code used to determine the Project Director
-     * @param accountNumber account number used to determine the Project Director
+     * @param accountNumber       account number used to determine the Project Director
      * @return project director for the account
      */
     public Person getProjectDirectorForAccount(String chartOfAccountsCode, String accountNumber);
@@ -46,11 +46,11 @@ public interface ContractsAndGrantsModuleService {
     /**
      * determine if the given account is awarded by a federal agency
      *
-     * @param chartOfAccountsCode the given account's chart of accounts code
-     * @param accountNumber the given account's account number
+     * @param chartOfAccountsCode    the given account's chart of accounts code
+     * @param accountNumber          the given account's account number
      * @param federalAgencyTypeCodes the given federal agency type code
      * @return true if the given account is funded by a federal agency or associated with federal pass through indicator; otherwise,
-     *         false
+     * false
      */
     public boolean isAwardedByFederalAgency(String chartOfAccountsCode, String accountNumber, Collection<String> federalAgencyTypeCodes);
 

@@ -34,39 +34,41 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
 
     protected void parseEmbeddedPropertyElements(Element element, BeanDefinitionBuilder bean) {
         NodeList children = element.getChildNodes();
-        for ( int i = 0; i < children.getLength(); i++ ) {
+        for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            if ( child.getLocalName() != null && child.getLocalName().equals("property") ) {
-                Element propertyElement = (Element)child;
+            if (child.getLocalName() != null && child.getLocalName().equals("property")) {
+                Element propertyElement = (Element) child;
                 String propName = propertyElement.getAttribute("name");
                 String propValue = propertyElement.getAttribute("value");
-                if ( propValue != null ) {
+                if (propValue != null) {
                     bean.addPropertyValue(propName, propValue);
-                } else if ( propertyElement.getAttribute("ref") != null ) {
-                    bean.addPropertyReference(propName, propertyElement.getAttribute("ref") );
+                } else if (propertyElement.getAttribute("ref") != null) {
+                    bean.addPropertyReference(propName, propertyElement.getAttribute("ref"));
                 }
             }
         }
     }
 
-    protected void handleAbstractAttribute( Element element, BeanDefinitionBuilder bean) {
+    protected void handleAbstractAttribute(Element element, BeanDefinitionBuilder bean) {
         String abstractStr = element.getAttribute("abstract");
 
-        if ( StringUtils.hasText(abstractStr) ) {
-            bean.setAbstract( Boolean.valueOf(abstractStr) );
+        if (StringUtils.hasText(abstractStr)) {
+            bean.setAbstract(Boolean.valueOf(abstractStr));
         }
     }
 
     /* The below copied from AbstractSingleBeanDefinitionParser and modified to allow for parent beans to be handled. */
+
     /**
      * Creates a {@link BeanDefinitionBuilder} instance for the
      * {@link #getBeanClass bean Class} and passes it to the
      * {@link #doParse} strategy method.
-     * @param element the element that is to be parsed into a single BeanDefinition
+     *
+     * @param element       the element that is to be parsed into a single BeanDefinition
      * @param parserContext the object encapsulating the current state of the parsing process
      * @return the BeanDefinition resulting from the parsing of the supplied {@link Element}
      * @throws IllegalStateException if the bean {@link Class} returned from
-     * {@link #getBeanClass(org.w3c.dom.Element)} is <code>null</code>
+     *                               {@link #getBeanClass(org.w3c.dom.Element)} is <code>null</code>
      * @see #doParse
      */
     @SuppressWarnings("unchecked")
@@ -75,16 +77,16 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
 
         String parent = element.getAttribute("parent");
         String beanClass = element.getAttribute("class");
-        if ( StringUtils.hasText(beanClass) ) {
+        if (StringUtils.hasText(beanClass)) {
             try {
                 builder = BeanDefinitionBuilder.rootBeanDefinition(Class.forName(beanClass));
             } catch (Exception ex) {
-                LOG.fatal( "Unable to resolve class given in class element of a " + element.getLocalName() + " element with id " + element.getAttribute("id"), ex );
+                LOG.fatal("Unable to resolve class given in class element of a " + element.getLocalName() + " element with id " + element.getAttribute("id"), ex);
                 throw new RuntimeException(ex);
             }
-        } else  if ( StringUtils.hasText(parent)) {
+        } else if (StringUtils.hasText(parent)) {
             builder = BeanDefinitionBuilder.childBeanDefinition(parent);
-        } else if ( getBeanClass(element) != null ) {
+        } else if (getBeanClass(element) != null) {
             builder = BeanDefinitionBuilder.rootBeanDefinition(getBeanClass(element));
         } else {
             builder = BeanDefinitionBuilder.childBeanDefinition(getBaseBeanTypeParent(element));
@@ -107,16 +109,17 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
      * {@link BeanDefinitionBuilder} as required.
      * <p>The default implementation delegates to the <code>doParse</code>
      * version without ParserContext argument.
-     * @param element the XML element being parsed
+     *
+     * @param element       the XML element being parsed
      * @param parserContext the object encapsulating the current state of the parsing process
-     * @param builder used to define the <code>BeanDefinition</code>
+     * @param builder       used to define the <code>BeanDefinition</code>
      * @see #doParse(Element, BeanDefinitionBuilder)
      */
     protected abstract void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder);
 
-    protected abstract String getBaseBeanTypeParent( Element element );
+    protected abstract String getBaseBeanTypeParent(Element element);
 
-    protected Class getBeanClass( Element element ) {
+    protected Class getBeanClass(Element element) {
         return null;
     }
 }

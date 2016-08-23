@@ -21,8 +21,8 @@ package org.kuali.kfs.module.purap.util;
 import java.beans.Beans;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+
 /**
- *
  * This class is setup to allow an argument to a created ArrayList (it could be a
  * possible extension to the other ArrayList
  */
@@ -33,8 +33,8 @@ public class PurApArrayList extends ArrayList {
     private final Object[] arguments;
 
     /**
-     *
      * Default Constructor
+     *
      * @param listObjectType the class
      */
     public PurApArrayList(Class listObjectType) {
@@ -42,10 +42,10 @@ public class PurApArrayList extends ArrayList {
     }
 
     /**
-     *
      * Constructor
-     * @param listObjectType the object type
-     * @param methodClasses classes
+     *
+     * @param listObjectType  the object type
+     * @param methodClasses   classes
      * @param methodArguments arguments
      */
     public PurApArrayList(Class listObjectType, Class[] methodClasses, Object[] methodArguments) {
@@ -63,34 +63,25 @@ public class PurApArrayList extends ArrayList {
             try {
 
                 Object listObj = listObjectType.newInstance();
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
+                throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
             }
-            catch (IllegalAccessException e) {
-                throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-        }
-        else {
+        } else {
             try {
                 listObjectType.getConstructor(methodClasses).newInstance(methodArguments);
-            }
-            catch (SecurityException e) {
+            } catch (SecurityException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-            catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
-            }
-            catch (InvocationTargetException e) {
+            } catch (InvocationTargetException e) {
                 throw new RuntimeException("unable to get instance of class" + listObjectType.getName());
             }
             assignArgumentClasses = methodClasses;
@@ -137,6 +128,7 @@ public class PurApArrayList extends ArrayList {
 
     /**
      * Adds new instances of type listObjectType to the arraylist until the size of the list is greater than the index required.
+     *
      * @param index the index to grow to
      */
     private void growArray(int index) {
@@ -149,27 +141,20 @@ public class PurApArrayList extends ArrayList {
             try {
                 if (this.arguments == null && this.argumentClasses == null) {
                     super.add(listObjectType.newInstance());
-                }
-                else {
+                } else {
                     super.add(listObjectType.getConstructor(argumentClasses).newInstance(arguments));
                 }
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
-            }
-            catch (SecurityException e) {
+            } catch (SecurityException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
-            }
-            catch (InvocationTargetException e) {
+            } catch (InvocationTargetException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
-            }
-            catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException e) {
                 throw new RuntimeException("Cannot get new instance of class " + listObjectType.getName());
             }
         }

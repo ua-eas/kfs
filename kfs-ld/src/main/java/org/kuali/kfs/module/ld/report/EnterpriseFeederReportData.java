@@ -24,90 +24,90 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  * Keeps track of statistics for the enterprise feeder job
  */
 public class EnterpriseFeederReportData {
-	private int numberOfRecordsRead = 0;
-	private int numberOfBalanceTypeActualsRead = 0;
-	private int numberOfBalanceTypeEncumbranceRead = 0;
-	private int numberOfFringeActualsGenerated = 0;
-	private int numberOfFringeEncumbrancesGenerated = 0;
-	private int numberOfErrorEncountered = 0;
+    private int numberOfRecordsRead = 0;
+    private int numberOfBalanceTypeActualsRead = 0;
+    private int numberOfBalanceTypeEncumbranceRead = 0;
+    private int numberOfFringeActualsGenerated = 0;
+    private int numberOfFringeEncumbrancesGenerated = 0;
+    private int numberOfErrorEncountered = 0;
 
-	private int numberOfRecordsWritten = 0;
-	private KualiDecimal totalAmountRead = KualiDecimal.ZERO;
-	private KualiDecimal totalAmountWritten = KualiDecimal.ZERO;
+    private int numberOfRecordsWritten = 0;
+    private KualiDecimal totalAmountRead = KualiDecimal.ZERO;
+    private KualiDecimal totalAmountWritten = KualiDecimal.ZERO;
 
-	public EnterpriseFeederReportData() {
-	}
+    public EnterpriseFeederReportData() {
+    }
 
-	public int getNumberOfRecordsRead() {
-		return numberOfRecordsRead;
-	}
+    public int getNumberOfRecordsRead() {
+        return numberOfRecordsRead;
+    }
 
-	public int getNumberOfBalanceTypeActualsRead() {
-		return numberOfBalanceTypeActualsRead;
-	}
+    public int getNumberOfBalanceTypeActualsRead() {
+        return numberOfBalanceTypeActualsRead;
+    }
 
-	public int getNumberOfBalanceTypeEncumbranceRead() {
-		return numberOfBalanceTypeEncumbranceRead;
-	}
+    public int getNumberOfBalanceTypeEncumbranceRead() {
+        return numberOfBalanceTypeEncumbranceRead;
+    }
 
-	public int getNumberOfFringeActualsGenerated() {
-		return numberOfFringeActualsGenerated;
-	}
+    public int getNumberOfFringeActualsGenerated() {
+        return numberOfFringeActualsGenerated;
+    }
 
-	public int getNumberOfFringeEncumbrancesGenerated() {
-		return numberOfFringeEncumbrancesGenerated;
-	}
+    public int getNumberOfFringeEncumbrancesGenerated() {
+        return numberOfFringeEncumbrancesGenerated;
+    }
 
-	public int getNumberOfErrorEncountered() {
-		return numberOfErrorEncountered;
-	}
+    public int getNumberOfErrorEncountered() {
+        return numberOfErrorEncountered;
+    }
 
-	public int getNumberOfRecordsWritten() {
-		return numberOfRecordsWritten;
-	}
+    public int getNumberOfRecordsWritten() {
+        return numberOfRecordsWritten;
+    }
 
-	public KualiDecimal getTotalAmountRead() {
-		return totalAmountRead;
-	}
+    public KualiDecimal getTotalAmountRead() {
+        return totalAmountRead;
+    }
 
-	public KualiDecimal getTotalAmountWritten() {
-		return totalAmountWritten;
-	}
+    public KualiDecimal getTotalAmountWritten() {
+        return totalAmountWritten;
+    }
 
-	public void addToTotalAmountRead(KualiDecimal amount) {
-		totalAmountRead = totalAmountRead.add(amount);
-	}
+    public void addToTotalAmountRead(KualiDecimal amount) {
+        totalAmountRead = totalAmountRead.add(amount);
+    }
 
-	public void addToTotalAmountWritten(KualiDecimal amount) {
-		totalAmountWritten = totalAmountWritten.add(amount);
-	}
+    public void addToTotalAmountWritten(KualiDecimal amount) {
+        totalAmountWritten = totalAmountWritten.add(amount);
+    }
 
-	public void incrementNumberOfRecordsWritten() {
-		numberOfRecordsWritten++;
-	}
+    public void incrementNumberOfRecordsWritten() {
+        numberOfRecordsWritten++;
+    }
 
-	public void incrementNumberOfRecordsRead() {
-		numberOfRecordsRead++;
-	}
+    public void incrementNumberOfRecordsRead() {
+        numberOfRecordsRead++;
+    }
 
-	public void incrementNumberOfBalanceTypeActualsRead() {
-		numberOfBalanceTypeActualsRead++;
-	}
+    public void incrementNumberOfBalanceTypeActualsRead() {
+        numberOfBalanceTypeActualsRead++;
+    }
 
-	public void incrementNumberOfBalanceTypeEncumbranceRead() {
-		numberOfBalanceTypeEncumbranceRead++;
-	}
+    public void incrementNumberOfBalanceTypeEncumbranceRead() {
+        numberOfBalanceTypeEncumbranceRead++;
+    }
 
-	public void incrementNumberOfFringeActualsGenerated() {
-		numberOfFringeActualsGenerated++;
-	}
+    public void incrementNumberOfFringeActualsGenerated() {
+        numberOfFringeActualsGenerated++;
+    }
 
-	public void incrementNumberOfFringeEncumbrancesGenerated() {
-		numberOfFringeEncumbrancesGenerated++;
-	}
+    public void incrementNumberOfFringeEncumbrancesGenerated() {
+        numberOfFringeEncumbrancesGenerated++;
+    }
 
-	public void incrementNumberOfErrorEncountered() {
-		numberOfErrorEncountered++;
-	}
+    public void incrementNumberOfErrorEncountered() {
+        numberOfErrorEncountered++;
+    }
 
 }

@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.ar.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Rules for the Predetermined Billing Schedule maintenance document.

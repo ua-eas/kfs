@@ -39,7 +39,6 @@ public class BudgetConstructionOrgPositionFundingDetailReportTotal {
     private Integer personSortCode;
 
 
-
     /**
      * Default constructor.
      */
@@ -127,7 +126,6 @@ public class BudgetConstructionOrgPositionFundingDetailReportTotal {
     public void setTotalPersonPositionCsfFteQuantity(BigDecimal totalPersonPositionCsfFteQuantity) {
         this.totalPersonPositionCsfFteQuantity = totalPersonPositionCsfFteQuantity;
     }
-
 
 
 }

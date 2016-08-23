@@ -25,9 +25,10 @@ public class FixedWidthFlatFileRegexSpecification extends AbstractRegexSpecifica
 
     /**
      * Parses the given line into the given object to parse into
+     *
      * @param parseSpecification the specification of the parsing
-     * @param lineToParse the line to parse into the object
-     * @param parseIntoObject the object to parse into
+     * @param lineToParse        the line to parse into the object
+     * @param parseIntoObject    the object to parse into
      */
     public void parseLineIntoObject(FlatFileObjectSpecification parseSpecification, String lineToParse, Object parseIntoObject, int lineNumber) {
         // loop through the properties to format and set the property values

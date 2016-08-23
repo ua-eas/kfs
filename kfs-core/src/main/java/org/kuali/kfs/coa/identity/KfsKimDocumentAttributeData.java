@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.io.Serializable;
+import org.kuali.rice.kim.api.common.attribute.KimAttribute;
 
 import javax.persistence.Transient;
-
-import org.kuali.rice.kim.api.common.attribute.KimAttribute;
+import java.io.Serializable;
 
 public class KfsKimDocumentAttributeData implements Serializable {
 
@@ -108,6 +107,7 @@ public class KfsKimDocumentAttributeData implements Serializable {
 
     /**
      * Gets the memberId attribute.
+     *
      * @return Returns the memberId.
      */
     public String getMemberId() {
@@ -116,6 +116,7 @@ public class KfsKimDocumentAttributeData implements Serializable {
 
     /**
      * Sets the memberId attribute value.
+     *
      * @param memberId The memberId to set.
      */
     public void setMemberId(String memberId) {

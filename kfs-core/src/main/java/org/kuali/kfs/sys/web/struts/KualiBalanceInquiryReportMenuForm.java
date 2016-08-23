@@ -347,6 +347,7 @@ public class KualiBalanceInquiryReportMenuForm extends KualiForm {
 
     /**
      * Gets the universityFiscalYear attribute.
+     *
      * @return Returns the universityFiscalYear.
      */
     public String getUniversityFiscalYear() {
@@ -355,6 +356,7 @@ public class KualiBalanceInquiryReportMenuForm extends KualiForm {
 
     /**
      * Sets the universityFiscalYear attribute value.
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(String universityFiscalYear) {

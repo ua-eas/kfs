@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.module.tem.document.TaxableRamificationDocument;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -32,12 +33,11 @@ import org.kuali.kfs.sys.DynamicCollectionComparator.SortOrder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TaxableRamificationAction extends FinancialSystemTransactionalDocumentActionBase {
     private final static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TaxableRamificationAction.class);
@@ -75,8 +75,7 @@ public class TaxableRamificationAction extends FinancialSystemTransactionalDocum
 
                 taxRamificationForm.setRelatedDocuments(relatedDocuments);
             }
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error("Failed to get related documents" + ex);
 
             throw new RuntimeException("Failed to get related documents", ex);
@@ -86,7 +85,7 @@ public class TaxableRamificationAction extends FinancialSystemTransactionalDocum
     /**
      * add the related travel authorization document to the related document list
      */
-    protected void addTravelAuthorizationDocumentToRelated(Map<String, List<Document>> relatedDocuments, TravelAdvance travelAdvance) throws WorkflowException{
+    protected void addTravelAuthorizationDocumentToRelated(Map<String, List<Document>> relatedDocuments, TravelAdvance travelAdvance) throws WorkflowException {
         String travelDocumentNumber = travelAdvance.getDocumentNumber();
 
         Document travelAuthorizationDocument = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(travelDocumentNumber);
@@ -104,11 +103,11 @@ public class TaxableRamificationAction extends FinancialSystemTransactionalDocum
     }
 
     /**
-     *  refresh the related document notes
+     * refresh the related document notes
      */
     protected void refreshRelatedDocumentNotes(TaxableRamificationForm taxRamificationForm) {
         Map<String, List<Document>> relatedDocuments = taxRamificationForm.getRelatedDocuments();
-        if (ObjectUtils.isNull(relatedDocuments)  || relatedDocuments.isEmpty()) {
+        if (ObjectUtils.isNull(relatedDocuments) || relatedDocuments.isEmpty()) {
             return;
         }
 

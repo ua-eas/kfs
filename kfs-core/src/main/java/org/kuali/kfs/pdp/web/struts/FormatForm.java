@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatProcessSummary;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Struts Action Form for Format Checks/ACH
@@ -54,7 +53,7 @@ public class FormatForm extends KualiForm {
         customers = new ArrayList<CustomerProfile>();
         ranges = new ArrayList<DisbursementNumberRange>();
 
-         this.setFormatterType("range.lastAssignedDisbNbr", DisbursementNumberFormatter.class);
+        this.setFormatterType("range.lastAssignedDisbNbr", DisbursementNumberFormatter.class);
     }
 
     /**
@@ -137,7 +136,7 @@ public class FormatForm extends KualiForm {
     /**
      * This method sets a customer profile.
      *
-     * @param key the index of the value
+     * @param key   the index of the value
      * @param value the new value
      */
     public void setCustomer(int key, CustomerProfile value) {

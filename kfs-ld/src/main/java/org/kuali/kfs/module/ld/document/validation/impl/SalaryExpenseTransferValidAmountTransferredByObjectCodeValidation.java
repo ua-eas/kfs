@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSConstants;
@@ -34,10 +33,11 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Validates that an accounting document's balances by object codes are unchanged
@@ -56,7 +56,7 @@ public class SalaryExpenseTransferValidAmountTransferredByObjectCodeValidation e
         WorkflowDocument workflowDocument = expenseTransferDocument.getDocumentHeader().getWorkflowDocument();
 
         // check if user is allowed to edit the object code.
-        if(this.hasEditPermissionOnObjectCode(expenseTransferDocument, workflowDocument)) {
+        if (this.hasEditPermissionOnObjectCode(expenseTransferDocument, workflowDocument)) {
             return true;
         }
 
@@ -67,8 +67,7 @@ public class SalaryExpenseTransferValidAmountTransferredByObjectCodeValidation e
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, LaborKeyConstants.ERROR_TRANSFER_AMOUNT_BY_OBJECT_APPROVAL_CHANGE);
                 isValid = false;
             }
-        }
-        else {
+        } else {
             if (!expenseTransferDocument.getUnbalancedObjectCodes().isEmpty()) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, LaborKeyConstants.ERROR_TRANSFER_AMOUNT_NOT_BALANCED_BY_OBJECT);
                 isValid = false;
@@ -111,8 +110,7 @@ public class SalaryExpenseTransferValidAmountTransferredByObjectCodeValidation e
             if (currentObjectCodes != null) {
                 isUnchanged = false;
             }
-        }
-        else {
+        } else {
             if (!initiatedObjectCodes.equals(currentObjectCodes)) {
                 isUnchanged = false;
             }

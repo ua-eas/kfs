@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
@@ -31,8 +29,10 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.document.WorkflowDocumentService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends GenericValidation {
 
@@ -58,7 +58,7 @@ public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends 
             return true;
 
         String userId = GlobalVariables.getUserSession().getPrincipalId();
-        for(CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
+        for (CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
             workflowDocument = WorkflowDocumentFactory.loadDocument(userId, customerCreditMemoDocument.getDocumentNumber());
             if (!(workflowDocument.isApproved() || workflowDocument.isProcessed() || workflowDocument.isCanceled() || workflowDocument.isDisapproved())) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT_ONE_CRM_IN_ROUTE_PER_INVOICE);

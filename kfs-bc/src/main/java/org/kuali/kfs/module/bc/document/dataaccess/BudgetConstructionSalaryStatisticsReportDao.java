@@ -21,7 +21,7 @@ package org.kuali.kfs.module.bc.document.dataaccess;
 public interface BudgetConstructionSalaryStatisticsReportDao {
 
     /**
-     *  cleans Salary Statistics table.
+     * cleans Salary Statistics table.
      *
      * @param principalName
      * @return
@@ -29,7 +29,7 @@ public interface BudgetConstructionSalaryStatisticsReportDao {
     public void cleanReportsSalaryStatisticsTable(String principalName);
 
     /**
-     *  updates Salary Statistics table.
+     * updates Salary Statistics table.
      *
      * @param principalName
      * @return

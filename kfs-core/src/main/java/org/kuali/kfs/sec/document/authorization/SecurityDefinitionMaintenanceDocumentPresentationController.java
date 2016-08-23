@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sec.document.authorization;
 
-import java.util.Set;
-
-import org.kuali.kfs.sec.SecPropertyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.sec.SecPropertyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.Set;
 
 
 /**

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.sql.Date;
-
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.dataaccess.CollectorDetailDao;
 import org.kuali.kfs.gl.service.CollectorDetailService;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
 
 /**
  * The base implementation of CollectorDetailService
@@ -40,7 +40,7 @@ public class CollectorDetailServiceImpl implements CollectorDetailService {
      * Purge the sufficient funds balance table by year/chart
      *
      * @param chart chart of CollectorDetails to purge
-     * @param year year of CollectorDetails to purage
+     * @param year  year of CollectorDetails to purage
      * @see org.kuali.kfs.gl.service.CollectorDetailService#purgeYearByChart(java.lang.String, int)
      */
     public void purgeYearByChart(String chartOfAccountsCode, int universityFiscalYear) {

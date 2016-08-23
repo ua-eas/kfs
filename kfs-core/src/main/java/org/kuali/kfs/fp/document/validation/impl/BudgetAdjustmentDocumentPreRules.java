@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.fp.document.service.BudgetAdjustmentLaborBenefitsService;
 import org.kuali.kfs.fp.document.web.struts.BudgetAdjustmentForm;
 import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -32,10 +33,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Checks warnings and prompt conditions for ba document.
@@ -47,8 +47,8 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
     /**
      * Execute pre-rules for BudgetAdjustmentDocument
      *
-     * @document document with pre-rules being applied
      * @return true if pre-rules fire without problem
+     * @document document with pre-rules being applied
      * @see org.kuali.rice.kns.rules.PromptBeforeValidationBase#doRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -74,7 +74,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
     protected boolean askLaborBenefitsGeneration(BudgetAdjustmentDocument budgetDocument) {
         // before prompting, check the document contains one or more labor object codes
         final boolean hasLaborObjectCodes = SpringContext.getBean(BudgetAdjustmentLaborBenefitsService.class).hasLaborObjectCodes(budgetDocument);
-        final boolean canEdit = ((BudgetAdjustmentForm)form).getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
+        final boolean canEdit = ((BudgetAdjustmentForm) form).getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
         final boolean canGenerateLaborBenefitsByRouteStatusResult = canGenerateLaborBenefitsByRouteStatus(budgetDocument);
         if (canEdit && hasLaborObjectCodes && canGenerateLaborBenefitsByRouteStatusResult) {
             final String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.QUESTION_GENERATE_LABOR_BENEFIT_LINES);
@@ -106,6 +106,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
 
     /**
      * Based on the routing status of the document, determines if labor benefits can be generated on the document
+     *
      * @param budgetAdjustmentDocument the budget adjustment document that labor benefits would be generated on
      * @return true if labor benefits can be generated, false otherwise
      */

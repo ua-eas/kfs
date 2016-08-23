@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.uif;
 
 /**
  * General constants used within the User Interface Framework
- *
- *
  */
 public class UifConstants {
     public static final String CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME = "methodToCall";
@@ -168,7 +166,7 @@ public class UifConstants {
         public static final String PERCENT = "kuali_percent";
         public static final String CURRENCY = "kuali_currency";
         public static final String TIMESTAMP = "kuali_timestamp";
-         public static final String FALSE = "false";
+        public static final String FALSE = "false";
 
         public static final int ADD_ROW_DEFAULT_INDEX = 0;
     }

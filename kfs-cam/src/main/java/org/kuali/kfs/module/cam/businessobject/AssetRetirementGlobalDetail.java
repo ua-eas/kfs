@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
+import java.util.LinkedHashMap;
 
 
 public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase {

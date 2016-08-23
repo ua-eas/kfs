@@ -47,23 +47,23 @@ public class YearEndTransferOfFundsDocument extends TransferOfFundsDocument impl
      * YearEndDocumentUtil matching method to perform year end specific customization activities.
      *
      * @param accountingDocument The accounting document containing the general ledger pending entries being customized.
-     * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
-     * @param explicitEntry The explicit general ledger pending entry to be customized.
-     *
+     * @param accountingLine     The accounting line the explicit general ledger pending entry was generated from.
+     * @param explicitEntry      The explicit general ledger pending entry to be customized.
      * @see org.kuali.kfs.fp.document.validation.impl.TransferOfFundsDocumentRule#customizeExplicitGeneralLedgerPendingEntry(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      * @see YearEndDocumentUtil#customizeExplicitGeneralLedgerPendingEntry(TransactionalDocument, AccountingLine,
-     *      GeneralLedgerPendingEntry)
+     * GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
         super.customizeExplicitGeneralLedgerPendingEntry(postable, explicitEntry);
-        AccountingLine accountingLine = (AccountingLine)postable;
+        AccountingLine accountingLine = (AccountingLine) postable;
         SpringContext.getBean(YearEndPendingEntryService.class).customizeExplicitGeneralLedgerPendingEntry(this, accountingLine, explicitEntry);
     }
 
     /**
      * Overridden to populate object code from last year's offset definition
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#customizeOffsetGeneralLedgerPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override

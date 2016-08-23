@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCConstants.OrgSelControlOption;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
@@ -30,9 +29,10 @@ import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationReportsService;
 import org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class implements the BudgetOrganizationTreeService interface
@@ -53,7 +53,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#buildPullup(java.lang.String, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public void buildPullup(String principalName, String chartOfAccountsCode, String organizationCode) {
         cleanPullup(principalName);
@@ -82,20 +82,19 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
             // getActiveChildOrgs does not return orgs that report to themselves
             List childOrgs = budgetConstructionOrganizationReportsService.getActiveChildOrgs(bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode());
             if (childOrgs.size() > 0) {
-                for (Iterator iter = childOrgs.iterator(); iter.hasNext();) {
+                for (Iterator iter = childOrgs.iterator(); iter.hasNext(); ) {
                     BudgetConstructionOrganizationReports bcOrg = (BudgetConstructionOrganizationReports) iter.next();
                     buildSubTree(principalName, bcOrg, curLevel);
                 }
             }
-        }
-        else {
+        } else {
             LOG.warn(String.format("\n%s/%s reports to organization more than maxlevel of %d", bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), MAXLEVEL));
         }
     }
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#buildPullupSql(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public void buildPullupSql(String principalName, String chartOfAccountsCode, String organizationCode) {
         cleanPullup(principalName);
@@ -133,7 +132,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#getPullupChildOrgs(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public List<BudgetConstructionPullup> getPullupChildOrgs(String principalId, String chartOfAccountsCode, String organizationCode) {
 

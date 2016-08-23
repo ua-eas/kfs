@@ -18,17 +18,7 @@
  */
 package org.kuali.kfs.module.tem.report;
 
-import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
-import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
-import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
-
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-
 import net.sf.jasperreports.engine.JRDataSource;
-
 import org.kuali.kfs.module.tem.report.annotations.ColumnHeader;
 import org.kuali.kfs.module.tem.report.annotations.Crosstab;
 import org.kuali.kfs.module.tem.report.annotations.JasperReport;
@@ -40,6 +30,15 @@ import org.kuali.kfs.module.tem.report.annotations.Summary;
 import org.kuali.kfs.module.tem.report.annotations.TitleStyle;
 import org.kuali.kfs.sys.report.ReportInfoHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+
+import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
+import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
+import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
 
 @JasperReport
 @ReportStyle("standard")
@@ -285,8 +284,7 @@ public class SummaryByDayReport extends ReportInfoHolder {
             this.name = name;
             if (amount != null) {
                 this.amount = amount.bigDecimalValue();
-            }
-            else {
+            } else {
                 this.amount = KualiDecimal.ZERO.bigDecimalValue();
             }
             this.date = date;

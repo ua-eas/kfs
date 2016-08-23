@@ -19,8 +19,8 @@
 package org.kuali.kfs.krad.uif.container;
 
 import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,6 @@ import java.util.List;
 /**
  * Collection filter that removes inactive lines from a collection whose line types
  * implement the <code>Inactivatable</code> interface
- *
- *
  */
 public class ActiveCollectionFilter implements CollectionFilter {
     private static final long serialVersionUID = 3273495753269940272L;
@@ -44,7 +42,7 @@ public class ActiveCollectionFilter implements CollectionFilter {
     public List<Integer> filter(View view, Object model, CollectionGroup collectionGroup) {
         // get the collection for this group from the model
         List<Object> modelCollection =
-                ObjectPropertyUtils.getPropertyValue(model, collectionGroup.getBindingInfo().getBindingPath());
+            ObjectPropertyUtils.getPropertyValue(model, collectionGroup.getBindingInfo().getBindingPath());
 
         // iterate through and add only active indexes
         List<Integer> showIndexes = new ArrayList<Integer>();

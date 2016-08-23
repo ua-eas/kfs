@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.pdp.businessobject.defaultvalue;
 
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Returns the next ACH Account identifier available.
@@ -44,6 +44,6 @@ public class NextCustomerProfileIdFinder implements ValueFinder {
     public static Long getLongValue() {
         SequenceAccessorService sas = SpringContext.getBean(SequenceAccessorService.class);
         return sas.getNextAvailableSequenceNumber(
-                PdpConstants.PDP_CUST_ID_SEQUENCE_NAME, CustomerProfile.class);
+            PdpConstants.PDP_CUST_ID_SEQUENCE_NAME, CustomerProfile.class);
     }
 }

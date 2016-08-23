@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.sys.datatools.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,11 +30,6 @@ import org.kuali.kfs.sys.datatools.liquimongo.change.AddNodeHandler;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class AddNodeHandlerTest {
 
@@ -74,9 +73,9 @@ public class AddNodeHandlerTest {
         EasyMock.replay(mongoTemplate);
 
         String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
-                + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
-                + "\"value\": { \"label\" : \"Label5\"}  }";
+            + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
+            + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
+            + "\"value\": { \"label\" : \"Label5\"}  }";
 
         addNodeHandler.setMongoTemplate(mongoTemplate);
 

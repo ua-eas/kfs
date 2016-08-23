@@ -18,15 +18,13 @@
  */
 package org.kuali.kfs.kns.datadictionary.validation.charlevel;
 
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Pattern for matching alpha characters
- *
- *
  */
 public class AlphaValidationPattern extends CharacterLevelValidationPattern {
     protected boolean allowWhitespace = false;
@@ -73,11 +71,11 @@ public class AlphaValidationPattern extends CharacterLevelValidationPattern {
         }
     }
 
-	@Override
-	protected String getValidationErrorMessageKeyOptions() {
-		if (getAllowWhitespace()) {
-			return ".allowWhitespace";
-		}
-		return KRADConstants.EMPTY_STRING;
-	}
+    @Override
+    protected String getValidationErrorMessageKeyOptions() {
+        if (getAllowWhitespace()) {
+            return ".allowWhitespace";
+        }
+        return KRADConstants.EMPTY_STRING;
+    }
 }

@@ -21,7 +21,6 @@ package org.kuali.kfs.integration.ar;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-
 public interface AccountsReceivableCustomerType extends ExternalizableBusinessObject {
 
     public String getCustomerTypeCode();

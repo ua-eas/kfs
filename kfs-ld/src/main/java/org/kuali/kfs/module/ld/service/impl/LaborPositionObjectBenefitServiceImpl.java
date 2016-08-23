@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit;
+import org.kuali.kfs.module.ld.service.LaborPositionObjectBenefitService;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit;
-import org.kuali.kfs.module.ld.service.LaborPositionObjectBenefitService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * This class provides its clients with access to labor position object benefit entries in the backend data store.
@@ -37,7 +37,7 @@ public class LaborPositionObjectBenefitServiceImpl implements LaborPositionObjec
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborPositionObjectBenefitService#getPositionObjectBenefits(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public Collection<PositionObjectBenefit> getPositionObjectBenefits(Integer universityFiscalYear, String chartOfAccountsCode, String financialObjectCode) {
 

@@ -17,8 +17,8 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="isYearEnd" value="true" scope="request"/>
 
-<jsp:forward page="SalaryExpenseTransfer.jsp" />
+<jsp:forward page="SalaryExpenseTransfer.jsp"/>

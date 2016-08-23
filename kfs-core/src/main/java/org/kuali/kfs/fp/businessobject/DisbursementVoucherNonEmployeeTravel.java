@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class is used to represent a non-employee trip for a disbursement voucher .
@@ -704,8 +704,7 @@ public class DisbursementVoucherNonEmployeeTravel extends PersistableBusinessObj
     public void setPerDiemStartDateTime(String perDiemStartDateTime) {
         try {
             this.dvPerdiemStartDttmStamp = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(perDiemStartDateTime);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             this.dvPerdiemStartDttmStamp = null;
         }
     }
@@ -727,8 +726,7 @@ public class DisbursementVoucherNonEmployeeTravel extends PersistableBusinessObj
     public void setPerDiemEndDateTime(String perDiemEndDateTime) {
         try {
             this.dvPerdiemEndDttmStamp = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(perDiemEndDateTime);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             this.dvPerdiemEndDttmStamp = null;
         }
     }
@@ -741,7 +739,7 @@ public class DisbursementVoucherNonEmployeeTravel extends PersistableBusinessObj
     public KualiDecimal getTotalPrePaidAmount() {
         KualiDecimal totalPrePaidAmount = KualiDecimal.ZERO;
         if (dvPrePaidEmployeeExpenses != null) {
-            for (Iterator iter = dvPrePaidEmployeeExpenses.iterator(); iter.hasNext();) {
+            for (Iterator iter = dvPrePaidEmployeeExpenses.iterator(); iter.hasNext(); ) {
                 DisbursementVoucherNonEmployeeExpense element = (DisbursementVoucherNonEmployeeExpense) iter.next();
                 if (ObjectUtils.isNotNull(element.getDisbVchrExpenseAmount())) {
                     totalPrePaidAmount = totalPrePaidAmount.add(element.getDisbVchrExpenseAmount());
@@ -760,7 +758,7 @@ public class DisbursementVoucherNonEmployeeTravel extends PersistableBusinessObj
     public KualiDecimal getTotalExpenseAmount() {
         KualiDecimal totalExpenseAmount = KualiDecimal.ZERO;
         if (dvNonEmployeeExpenses != null) {
-            for (Iterator iter = dvNonEmployeeExpenses.iterator(); iter.hasNext();) {
+            for (Iterator iter = dvNonEmployeeExpenses.iterator(); iter.hasNext(); ) {
                 DisbursementVoucherNonEmployeeExpense element = (DisbursementVoucherNonEmployeeExpense) iter.next();
                 if (ObjectUtils.isNotNull(element.getDisbVchrExpenseAmount())) {
                     totalExpenseAmount = totalExpenseAmount.add(element.getDisbVchrExpenseAmount());

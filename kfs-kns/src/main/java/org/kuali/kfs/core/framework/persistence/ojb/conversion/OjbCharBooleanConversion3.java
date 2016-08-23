@@ -18,13 +18,13 @@
  */
 /**
  * Copyright 2005-2015 The Kuali Foundation
- *
+ * <p>
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.opensource.org/licenses/ecl2.php
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
  */
 public class OjbCharBooleanConversion3 implements FieldConversion {
 
-	/**
+    /**
      * This handles checking any incoming String value and converts them
      * to the appropriate Boolean value.
      * @see FieldConversion#javaToSql(Object)
@@ -54,8 +54,7 @@ public class OjbCharBooleanConversion3 implements FieldConversion {
         if (source instanceof String) {
             if ("Y".equals(source)) {
                 return Boolean.TRUE;
-            }
-            else if ("N".equals(source)) {
+            } else if ("N".equals(source)) {
                 return Boolean.FALSE;
             }
         }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode;
 import org.kuali.kfs.module.bc.service.BudgetConstructionAppointmentFundingReasonCodeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * implements the service methods defined in BudgetConstructionAppointmentFundingReasonCodeService
@@ -41,11 +41,12 @@ public class BudgetConstructionAppointmentFundingReasonCodeServiceImpl implement
         Map<String, Object> primaryKeys = new HashMap<String, Object>();
         primaryKeys.put(BCPropertyConstants.APPOINTMENT_FUNDING_REASON_CODE, reasonCode);
 
-        return (BudgetConstructionAppointmentFundingReasonCode)businessObjectService.findByPrimaryKey(BudgetConstructionAppointmentFundingReasonCode.class, primaryKeys);
+        return (BudgetConstructionAppointmentFundingReasonCode) businessObjectService.findByPrimaryKey(BudgetConstructionAppointmentFundingReasonCode.class, primaryKeys);
     }
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

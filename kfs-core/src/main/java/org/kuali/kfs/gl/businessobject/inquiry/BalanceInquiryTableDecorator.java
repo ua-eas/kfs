@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.gl.businessobject.inquiry;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.jsp.PageContext;
-
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
+
+import javax.servlet.jsp.PageContext;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A decorator meant to help display balance inquiry information for the displaytag tag library.
@@ -42,7 +41,7 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
      *
      * @return the String to display as the first row in the table
      * @see org.displaytag.decorator.TableDecorator#startRow()
-     *
+     * <p>
      * KRAD Conversion: Inquirable customizes the first row with columns.
      * No use of data dictionary here.
      */
@@ -61,7 +60,7 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
             List columns = row.getColumns();
             int columnCount = 0;
             numOfNonMonthField = columns.size() - numOfMonthField;
-            for (Iterator i = columns.iterator(); i.hasNext() && columnCount++ < numOfNonMonthField;) {
+            for (Iterator i = columns.iterator(); i.hasNext() && columnCount++ < numOfNonMonthField; ) {
                 Column column = (Column) i.next();
 
                 if (rowCounter > 0) {
@@ -78,9 +77,10 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
 
     /**
      * Generates the last row of the displayed table...which displays some kind of footer...
+     *
      * @return a String representing the last row of the table
      * @see org.displaytag.decorator.TableDecorator#finishRow()
-     *
+     * <p>
      * KRAD Conversion: Inquirable customizes the last row with columns.
      * No use of data dictionary here.
      */

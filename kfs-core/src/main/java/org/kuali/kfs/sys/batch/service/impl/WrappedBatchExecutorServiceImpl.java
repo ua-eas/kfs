@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public class WrappedBatchExecutorServiceImpl implements WrappedBatchExecutorService {
     private static final Logger LOG = Logger.getLogger(WrappedBatchExecutorServiceImpl.class);
@@ -36,13 +36,11 @@ public class WrappedBatchExecutorServiceImpl implements WrappedBatchExecutorServ
                 wrappingBatchService.initialize();
             }
             continueJob = customBatchExecutor.execute();
-        }
-        finally {
+        } finally {
             for (WrappingBatchService wrappingBatchService : wrappingBatchServices) {
                 try {
                     wrappingBatchService.destroy();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("Caught exception while destroying service: " + wrappingBatchService.getClass(), e);
                 }
             }

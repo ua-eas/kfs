@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.report;
 
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.KFSConstants;
 
 /**
  * Defines a data holder class for all Contracts & Grants Reports. *

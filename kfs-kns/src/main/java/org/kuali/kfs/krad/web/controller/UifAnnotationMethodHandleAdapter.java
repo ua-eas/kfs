@@ -27,14 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Overloaded in order to hook in the UIF Binder classes
- *
- *
  */
 public class UifAnnotationMethodHandleAdapter extends AnnotationMethodHandlerAdapter {
 
     @Override
     protected ServletRequestDataBinder createBinder(HttpServletRequest request, Object target,
-            String objectName) throws Exception {
+                                                    String objectName) throws Exception {
         if (target != null) {
             // only override for UifFormBase models so that non KRAD spring MVC
             // can be used in same dispatcher servlet.

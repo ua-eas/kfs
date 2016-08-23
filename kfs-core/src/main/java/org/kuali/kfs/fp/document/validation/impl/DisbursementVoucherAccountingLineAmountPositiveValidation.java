@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService;
@@ -27,7 +26,8 @@ import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAmountPositiveValidation;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.List;
 
 
 public class DisbursementVoucherAccountingLineAmountPositiveValidation extends AccountingLineAmountPositiveValidation {
@@ -65,11 +65,12 @@ public class DisbursementVoucherAccountingLineAmountPositiveValidation extends A
 
 
     /**
-    * Sets the parameterService attribute value.
-    * @param parameterService The parameterService to set.
-    */
-   public void setParameterService(ParameterService parameterService) {
-       this.parameterService = parameterService;
+     * Sets the parameterService attribute value.
+     *
+     * @param parameterService The parameterService to set.
+     */
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
 
-   }
+    }
 }

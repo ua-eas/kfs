@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.pdp.PdpPropertyConstants;
+import org.kuali.kfs.pdp.businessobject.ACHBank;
+import org.kuali.kfs.pdp.service.AchBankService;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.pdp.PdpPropertyConstants;
-import org.kuali.kfs.pdp.businessobject.ACHBank;
-import org.kuali.kfs.pdp.service.AchBankService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class AchBankServiceImpl implements AchBankService {
@@ -68,21 +68,17 @@ public class AchBankServiceImpl implements AchBankService {
                     this.businessObjectService.save(ab);
                 }
             }
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             LOG.error("reloadTable() File Not Found: " + filename, fnfe);
             return false;
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             LOG.error("reloadTable() Problem reading file:  " + filename, ie);
             return false;
-        }
-        finally {
+        } finally {
             if (inputStream != null) {
                 try {
                     inputStream.close();
-                }
-                catch (IOException ie) {
+                } catch (IOException ie) {
                     // Not much we can do now
                 }
             }

@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sec.SecPropertyConstants;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 /**

@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.batch.service.CustomerLoadService;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 import org.kuali.kfs.module.ar.batch.vo.CustomerLoadVOGenerator;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.util.AutoPopulatingList;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerLoadBusinessRulesTest extends KualiTestBase {
@@ -68,10 +68,8 @@ public class CustomerLoadBusinessRulesTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method is used during debugging to dump the contents of the error map, including the key names. It is not used by the
      * application in normal circumstances at all.
-     *
      */
     private void showMessageMap() {
 
@@ -87,8 +85,7 @@ public class CustomerLoadBusinessRulesTest extends KualiTestBase {
 
                 if (errorMessage.getMessageParameters() == null) {
                     LOG.error("[" + errorMapKey + "] " + errorMessage.getErrorKey());
-                }
-                else {
+                } else {
                     LOG.error("[" + errorMapKey + "] " + errorMessage.getErrorKey() + " == " + parseStringArray(errorMessage.getMessageParameters()));
                 }
             }

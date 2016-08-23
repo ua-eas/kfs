@@ -18,8 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.Set;
-
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
@@ -29,9 +30,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Set;
 
 /**
  * Business pre-rules applicable to Salary Expense Transfer documents
@@ -60,7 +60,7 @@ public class SalaryExpenseTransferDocumentPreRules extends PromptBeforeValidatio
      *
      * @param stDocument
      * @return false if Error Certification Statement isn't approved; true if Error Certification Statement is approved, and by
-     *         default
+     * default
      */
     protected boolean errorCertStmtApproved(SalaryExpenseTransferDocument stDocument) {
         boolean fiscalOfficerNode = checkRouteLevel(stDocument);
@@ -92,7 +92,7 @@ public class SalaryExpenseTransferDocumentPreRules extends PromptBeforeValidatio
      *
      * @param stDocument
      * @return true if there is a transaction that contains the sub fund in the parameter and the original transaction is older than
-     *         the number of fiscal periods in the parameter; false otherwise
+     * the number of fiscal periods in the parameter; false otherwise
      */
     protected boolean checkTargetLines(SalaryExpenseTransferDocument stDocument) {
         Integer initialPeriodsFromParameter = null;

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.vnd.businessobject.lookup;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.vnd.VendorConstants;
 import org.kuali.kfs.vnd.businessobject.VendorContact;
 import org.kuali.kfs.vnd.businessobject.VendorContactPhoneNumber;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class VendorContactLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
 
@@ -55,11 +55,9 @@ public class VendorContactLookupableHelperServiceImpl extends AbstractLookupable
                 String extension = phoneNumber.getVendorPhoneExtensionNumber();
                 if (phoneNumber.getVendorPhoneType().getVendorPhoneTypeCode().equals(VendorConstants.PhoneTypes.PHONE) && StringUtils.isEmpty(vendorContact.getPhoneNumberForLookup())) {
                     vendorContact.setPhoneNumberForLookup(phoneNumber.getVendorPhoneNumber() + ((StringUtils.isNotEmpty(extension)) ? " x " + extension : null));
-                }
-                else if (phoneNumber.getVendorPhoneType().getVendorPhoneTypeCode().equals(VendorConstants.PhoneTypes.FAX) && StringUtils.isBlank(vendorContact.getFaxForLookup())) {
+                } else if (phoneNumber.getVendorPhoneType().getVendorPhoneTypeCode().equals(VendorConstants.PhoneTypes.FAX) && StringUtils.isBlank(vendorContact.getFaxForLookup())) {
                     vendorContact.setFaxForLookup(phoneNumber.getVendorPhoneNumber() + ((StringUtils.isNotEmpty(extension)) ? " x " + extension : KFSConstants.EMPTY_STRING));
-                }
-                else if (phoneNumber.getVendorPhoneType().getVendorPhoneTypeCode().equals(VendorConstants.PhoneTypes.TOLL_FREE) && StringUtils.isBlank(vendorContact.getTollFreeForLookup())) {
+                } else if (phoneNumber.getVendorPhoneType().getVendorPhoneTypeCode().equals(VendorConstants.PhoneTypes.TOLL_FREE) && StringUtils.isBlank(vendorContact.getTollFreeForLookup())) {
                     vendorContact.setTollFreeForLookup(phoneNumber.getVendorPhoneNumber() + ((StringUtils.isNotEmpty(extension)) ? " x " + extension : KFSConstants.EMPTY_STRING));
                 }
             }

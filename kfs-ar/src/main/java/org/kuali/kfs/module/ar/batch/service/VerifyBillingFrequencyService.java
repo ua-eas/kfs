@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ar.batch.service;
 
-import java.sql.Date;
-import java.util.ArrayList;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
@@ -51,7 +48,7 @@ public interface VerifyBillingFrequencyService {
     /**
      * This method returns the start and end date of previous billing period.
      *
-     * @param award ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
+     * @param award      ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
      * @param currPeriod accounting period used for calculations (typically the current period)
      * @return Date array containing start date and end date of previous billing period
      */

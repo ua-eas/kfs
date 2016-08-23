@@ -31,6 +31,7 @@ public interface ComponentContract extends Versioned, GloballyUnique, Inactivata
 
     /**
      * This is the name value for the component.  It cannot be null or a blank string.
+     *
      * @return name
      */
     String getName();

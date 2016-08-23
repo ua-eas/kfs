@@ -48,7 +48,7 @@ import java.util.Set;
 
 /**
  * Post processes the bean factory to handle UIF property expressions and IDs on inner beans
- *
+ * <p>
  * <p>
  * Conditional logic can be implemented with the UIF dictionary by means of property expressions. These are
  * expressions that follow SPEL and can be given as the value for a property using the @{} placeholder. Since such
@@ -57,13 +57,11 @@ import java.util.Set;
  * configuration containing the expression. The expressions are then evaluated during the view apply model phase and
  * the result is set as the value for the corresponding property.
  * </p>
- *
+ * <p>
  * <p>
  * Spring will not register inner beans with IDs so that the bean definition can be retrieved through the factory,
  * therefore this post processor adds them as top level registered beans
  * </p>
- *
- *
  */
 public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     private static final Log LOG = LogFactory.getLog(UifBeanFactoryPostProcessor.class);
@@ -94,18 +92,18 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     /**
      * If the bean class is type Component, LayoutManager, or BindingInfo, iterate through configured property values
      * and check for expressions
-     *
+     * <p>
      * <p>
      * If a expression is found for a property, it is added to the 'propertyExpressions' map and then the original
      * property value is removed to prevent binding errors (when converting to a non string type)
      * </p>
      *
-     * @param beanName - name of the bean in the factory (only set for top level beans, not nested)
+     * @param beanName       - name of the bean in the factory (only set for top level beans, not nested)
      * @param beanDefinition - bean definition to process for expressions
-     * @param beanFactory - bean factory being processed
+     * @param beanFactory    - bean factory being processed
      */
     protected void processBeanDefinition(String beanName, BeanDefinition beanDefinition,
-            ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
+                                         ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
         Class<?> beanClass = getBeanClass(beanDefinition, beanFactory);
         if ((beanClass == null) || !Configurable.class.isAssignableFrom(beanClass)) {
             return;
@@ -126,7 +124,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
         Map<String, String> propertyExpressions = new ManagedMap<String, String>();
         Map<String, String> parentPropertyExpressions = getPropertyExpressionsFromParent(beanDefinition.getParentName(),
-                beanFactory, processedBeanNames);
+            beanFactory, processedBeanNames);
         boolean parentExpressionsExist = !parentPropertyExpressions.isEmpty();
 
         // process expressions on property values
@@ -142,7 +140,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
             } else {
                 // process nested objects
                 Object newValue = processPropertyValue(pv.getName(), pv.getValue(), parentPropertyExpressions,
-                        propertyExpressions, beanFactory, processedBeanNames);
+                    propertyExpressions, beanFactory, processedBeanNames);
                 pvs.removePropertyValue(pv.getName());
                 pvs.addPropertyValue(pv.getName(), newValue);
             }
@@ -171,7 +169,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
         // if bean name is given and factory does not have it registered we need to add it (inner beans that
         // were given an id)
         if (StringUtils.isNotBlank(beanName) && !StringUtils.contains(beanName, "$") && !StringUtils.contains(beanName,
-                "#") && !beanFactory.containsBean(beanName)) {
+            "#") && !beanFactory.containsBean(beanName)) {
             ((BeanDefinitionRegistry) beanFactory).registerBeanDefinition(beanName, beanDefinition);
         }
 
@@ -181,7 +179,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     }
 
     protected void removeParentExpressionsOnNested(String propertyName, MutablePropertyValues pvs,
-            String parentBeanName, ConfigurableListableBeanFactory beanFactory) {
+                                                   String parentBeanName, ConfigurableListableBeanFactory beanFactory) {
         BeanDefinition parentBeanDefinition = beanFactory.getMergedBeanDefinition(parentBeanName);
 
         // TODO: this only handles one level of nesting
@@ -200,7 +198,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
             // if property name from parent matches and is a bean definition, check for property expressions map
             if (isNameMatch && ((pv.getValue() instanceof BeanDefinition) || (pv
-                    .getValue() instanceof BeanDefinitionHolder))) {
+                .getValue() instanceof BeanDefinitionHolder))) {
                 BeanDefinition propertyBeanDefinition;
                 if (pv.getValue() instanceof BeanDefinition) {
                     propertyBeanDefinition = (BeanDefinition) pv.getValue();
@@ -211,7 +209,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
                 MutablePropertyValues nestedPvs = propertyBeanDefinition.getPropertyValues();
                 if (nestedPvs.contains(UifPropertyPaths.PROPERTY_EXPRESSIONS)) {
                     PropertyValue propertyExpressionsPV = nestedPvs.getPropertyValue(
-                            UifPropertyPaths.PROPERTY_EXPRESSIONS);
+                        UifPropertyPaths.PROPERTY_EXPRESSIONS);
                     if (propertyExpressionsPV != null) {
                         Object value = propertyExpressionsPV.getValue();
                         if ((value != null) && (value instanceof ManagedMap)) {
@@ -225,7 +223,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
                                 BeanDefinition copiedBeanDefinition = new GenericBeanDefinition(propertyBeanDefinition);
                                 copiedBeanDefinition.getPropertyValues().add(UifPropertyPaths.PROPERTY_EXPRESSIONS,
-                                        copiedPropertyExpressions);
+                                    copiedPropertyExpressions);
 
                                 pvs.add(pv.getName(), copiedBeanDefinition);
                             }
@@ -242,7 +240,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
      * a class until one is found
      *
      * @param beanDefinition - bean definition to get class for
-     * @param beanFactory - bean factory that contains the bean definition
+     * @param beanFactory    - bean factory that contains the bean definition
      * @return Class<?> class configured for the bean definition, or null
      */
     protected Class<?> getBeanClass(BeanDefinition beanDefinition, ConfigurableListableBeanFactory beanFactory) {
@@ -267,13 +265,13 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
      * Retrieves the property expressions map set on the bean with given name. If the bean has not been processed
      * by the bean factory post processor, that is done before retrieving the map
      *
-     * @param parentBeanName - name of the parent bean to retrieve map for (if empty a new map will be returned)
-     * @param beanFactory - bean factory to retrieve bean definition from
+     * @param parentBeanName     - name of the parent bean to retrieve map for (if empty a new map will be returned)
+     * @param beanFactory        - bean factory to retrieve bean definition from
      * @param processedBeanNames - set of bean names that have been processed so far
      * @return Map<String, String> property expressions map from parent or new instance
      */
     protected Map<String, String> getPropertyExpressionsFromParent(String parentBeanName,
-            ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
+                                                                   ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
         Map<String, String> propertyExpressions = new HashMap<String, String>();
         if (StringUtils.isBlank(parentBeanName) || !beanFactory.containsBeanDefinition(parentBeanName)) {
             return propertyExpressions;
@@ -281,7 +279,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
         if (!processedBeanNames.contains(parentBeanName)) {
             processBeanDefinition(parentBeanName, beanFactory.getBeanDefinition(parentBeanName), beanFactory,
-                    processedBeanNames);
+                processedBeanNames);
         }
 
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition(parentBeanName);
@@ -311,7 +309,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
             String strValue = getStringValue(propertyValue);
             if (strValue != null) {
                 String elPlaceholder = StringUtils.substringBetween(strValue, UifConstants.EL_PLACEHOLDER_PREFIX,
-                        UifConstants.EL_PLACEHOLDER_SUFFIX);
+                    UifConstants.EL_PLACEHOLDER_SUFFIX);
                 if (StringUtils.isNotBlank(elPlaceholder)) {
                     return true;
                 }
@@ -325,18 +323,18 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
      * Processes the given property name/value pair for complex objects, such as bean definitions or collections,
      * which if found will be processed for contained property expression values
      *
-     * @param propertyName - name of the property whose value is being processed
-     * @param propertyValue - value to check
+     * @param propertyName              - name of the property whose value is being processed
+     * @param propertyValue             - value to check
      * @param parentPropertyExpressions - map that holds property expressions for the parent bean definition, used for
-     * merging
-     * @param propertyExpressions - map that holds property expressions for the bean definition being processed
-     * @param beanFactory - bean factory that contains the bean definition being processed
-     * @param processedBeanNames - set of bean names that have been processed so far
+     *                                  merging
+     * @param propertyExpressions       - map that holds property expressions for the bean definition being processed
+     * @param beanFactory               - bean factory that contains the bean definition being processed
+     * @param processedBeanNames        - set of bean names that have been processed so far
      * @return Object new value to set for property
      */
     protected Object processPropertyValue(String propertyName, Object propertyValue,
-            Map<String, String> parentPropertyExpressions, Map<String, String> propertyExpressions,
-            ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
+                                          Map<String, String> parentPropertyExpressions, Map<String, String> propertyExpressions,
+                                          ConfigurableListableBeanFactory beanFactory, Set<String> processedBeanNames) {
         if (propertyValue == null) {
             return null;
         }
@@ -362,16 +360,16 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
         // recurse into collections
         if (propertyValue instanceof Object[]) {
             visitArray(propertyName, parentPropertyExpressions, propertyExpressions, (Object[]) propertyValue,
-                    beanFactory, processedBeanNames);
+                beanFactory, processedBeanNames);
         } else if (propertyValue instanceof List) {
             visitList(propertyName, parentPropertyExpressions, propertyExpressions, (List) propertyValue, beanFactory,
-                    processedBeanNames);
+                processedBeanNames);
         } else if (propertyValue instanceof Set) {
             visitSet(propertyName, parentPropertyExpressions, propertyExpressions, (Set) propertyValue, beanFactory,
-                    processedBeanNames);
+                processedBeanNames);
         } else if (propertyValue instanceof Map) {
             visitMap(propertyName, parentPropertyExpressions, propertyExpressions, (Map) propertyValue, beanFactory,
-                    processedBeanNames);
+                processedBeanNames);
         }
 
         // others (primitive) just return value as is
@@ -381,7 +379,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     /**
      * Removes entries from the given expressions map whose key starts with the given prefix
      *
-     * @param propertyNamePrefix - prefix to search for and remove
+     * @param propertyNamePrefix  - prefix to search for and remove
      * @param propertyExpressions - map of property expressions to filter
      */
     protected void removeExpressionsByPrefix(String propertyNamePrefix, Map<String, String> propertyExpressions) {
@@ -415,8 +413,8 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @SuppressWarnings("unchecked")
     protected void visitArray(String propertyName, Map<String, String> parentPropertyExpressions,
-            Map<String, String> propertyExpressions, Object[] arrayVal, ConfigurableListableBeanFactory beanFactory,
-            Set<String> processedBeanNames) {
+                              Map<String, String> propertyExpressions, Object[] arrayVal, ConfigurableListableBeanFactory beanFactory,
+                              Set<String> processedBeanNames) {
         for (int i = 0; i < arrayVal.length; i++) {
             Object elem = arrayVal[i];
             String elemPropertyName = propertyName + "[" + i + "]";
@@ -427,7 +425,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
                 arrayVal[i] = null;
             } else {
                 Object newElem = processPropertyValue(elemPropertyName, elem, parentPropertyExpressions,
-                        propertyExpressions, beanFactory, processedBeanNames);
+                    propertyExpressions, beanFactory, processedBeanNames);
                 arrayVal[i] = newElem;
             }
 
@@ -439,8 +437,8 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @SuppressWarnings("unchecked")
     protected void visitList(String propertyName, Map<String, String> parentPropertyExpressions,
-            Map<String, String> propertyExpressions, List listVal, ConfigurableListableBeanFactory beanFactory,
-            Set<String> processedBeanNames) {
+                             Map<String, String> propertyExpressions, List listVal, ConfigurableListableBeanFactory beanFactory,
+                             Set<String> processedBeanNames) {
         List newList = new ArrayList();
 
         for (int i = 0; i < listVal.size(); i++) {
@@ -453,7 +451,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
                 newList.add(i, null);
             } else {
                 Object newElem = processPropertyValue(elemPropertyName, elem, parentPropertyExpressions,
-                        propertyExpressions, beanFactory, processedBeanNames);
+                    propertyExpressions, beanFactory, processedBeanNames);
                 newList.add(i, newElem);
             }
 
@@ -485,14 +483,14 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @SuppressWarnings("unchecked")
     protected void visitSet(String propertyName, Map<String, String> parentPropertyExpressions,
-            Map<String, String> propertyExpressions, Set setVal, ConfigurableListableBeanFactory beanFactory,
-            Set<String> processedBeanNames) {
+                            Map<String, String> propertyExpressions, Set setVal, ConfigurableListableBeanFactory beanFactory,
+                            Set<String> processedBeanNames) {
         Set newContent = new LinkedHashSet();
 
         // TODO: this is not handled correctly
         for (Object elem : setVal) {
             Object newElem = processPropertyValue(propertyName, elem, parentPropertyExpressions, propertyExpressions,
-                    beanFactory, processedBeanNames);
+                beanFactory, processedBeanNames);
             newContent.add(newElem);
         }
 
@@ -502,8 +500,8 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @SuppressWarnings("unchecked")
     protected void visitMap(String propertyName, Map<String, String> parentPropertyExpressions,
-            Map<String, String> propertyExpressions, Map<?, ?> mapVal, ConfigurableListableBeanFactory beanFactory,
-            Set<String> processedBeanNames) {
+                            Map<String, String> propertyExpressions, Map<?, ?> mapVal, ConfigurableListableBeanFactory beanFactory,
+                            Set<String> processedBeanNames) {
         Map newContent = new LinkedHashMap();
 
         boolean isMergeEnabled = false;
@@ -524,7 +522,7 @@ public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
                 newContent.put(key, null);
             } else {
                 Object newElem = processPropertyValue(elemPropertyName, val, parentPropertyExpressions,
-                        propertyExpressions, beanFactory, processedBeanNames);
+                    propertyExpressions, beanFactory, processedBeanNames);
                 newContent.put(key, newElem);
             }
 

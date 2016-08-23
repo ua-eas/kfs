@@ -20,24 +20,22 @@ package org.kuali.kfs.kns.util;
 
 /**
  * This class provides utilities to support the rendering of tables in Kuali without using display tag.
- *
+ * <p>
  * Normally, displaytag handles the rendering of Kuali tables on various screens, but
  * there are situations where displaytag is inadequate for the task (e.g. multiple value lookups).
  * In particular, display tag does not handle POSTing of forms when switching between pages and sorting.
- *
  */
 public final class TableRenderUtil {
 
-	private TableRenderUtil() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private TableRenderUtil() {
+        throw new UnsupportedOperationException("do not call");
+    }
 
     /**
      * Returns the minimum number of pages needed to display a result set of the given page
      *
-     * @param resultSize number of results
+     * @param resultSize     number of results
      * @param maxRowsPerPage maximum number of rows
-     *
      * @return
      */
     public static int computeTotalNumberOfPages(int resultSize, int maxRowsPerPage) {
@@ -52,8 +50,8 @@ public final class TableRenderUtil {
     /**
      * This method computes the list index of the first row of the given page
      *
-     * @param pageNumber first page is index 0
-     * @param resultSize the size of the list being rendered
+     * @param pageNumber     first page is index 0
+     * @param resultSize     the size of the list being rendered
      * @param maxRowsPerPage max number of rows on a page
      * @return the index in the result list of the first row of the given page
      */
@@ -67,8 +65,8 @@ public final class TableRenderUtil {
     /**
      * This method computes the index of the last row of the given page
      *
-     * @param pageNumber first page is index 0
-     * @param resultSize the size of the list being rendered
+     * @param pageNumber     first page is index 0
+     * @param resultSize     the size of the list being rendered
      * @param maxRowsPerPage max number of rows on a page
      * @return the index in the result list of the last row of the given page
      */
@@ -82,5 +80,5 @@ public final class TableRenderUtil {
         }
         // partial page
         return resultSize - 1;
-   }
+    }
 }

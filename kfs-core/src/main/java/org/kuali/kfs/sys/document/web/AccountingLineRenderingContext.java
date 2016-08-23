@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * A contract for classes which wish to provide information about an accounting line which is being rendered
@@ -47,36 +47,42 @@ public interface AccountingLineRenderingContext extends RenderableElement {
 
     /**
      * Tells callers if fields should render help or not
+     *
      * @return true if fields should render help, false otherwise
      */
     public abstract boolean fieldsShouldRenderHelp();
 
     /**
      * Tells callers if dynamic field labels should even be rendered
+     *
      * @return true if dynamic field labels can be labeled, false if they should not be labeled.
      */
     public abstract boolean fieldsCanRenderDynamicLabels();
 
     /**
      * Reports whether the tag to be rendered by this rendering context is "new" - ie, not added yet to the accounting group, but living on the form somewhere - or not
+     *
      * @return true if the line is new, false otherwise
      */
     public abstract boolean isNewLine();
 
     /**
      * If this is a new line, returns null; if it is a line in a collection, returns the line number within that collection
+     *
      * @return the current line count
      */
     public abstract Integer getCurrentLineCount();
 
     /**
      * Returns all the field names for the given accounting line, prefixed by the accounting line property path
+     *
      * @return a list of properly prefixed field names
      */
     public abstract List<String> getFieldNamesForAccountingLine();
 
     /**
      * Returns a Map of all values from the request which were unconverted to actuall business objects
+     *
      * @return the Map of unconverted values
      */
     public abstract Map getUnconvertedValues();
@@ -93,6 +99,7 @@ public interface AccountingLineRenderingContext extends RenderableElement {
 
     /**
      * Returns the tab state for the given tab key on the current form
+     *
      * @param tabKey the tab key to get the state of
      * @return the state (either "OPEN" or "CLOSED")
      */
@@ -125,6 +132,7 @@ public interface AccountingLineRenderingContext extends RenderableElement {
 
     /**
      * Determines whether a field is modifyable or not
+     *
      * @param fieldName the simple name (that is, the name does not include the collection property) of the field
      * @return true if the field can be modified, false if the field can only be read
      */
@@ -132,12 +140,14 @@ public interface AccountingLineRenderingContext extends RenderableElement {
 
     /**
      * Determines whether the accounting line is - as a whole line - editable or not
+     *
      * @return true if the line - as a whole line - is editable, false if nothing on the line can be edited
      */
     public abstract boolean isEditableLine();
 
     /**
      * Determines whether this line should be allowed to be deleted
+     *
      * @return true if it should be allowed to be deleted, false otherwise
      */
     public abstract boolean allowDelete();
@@ -154,6 +164,7 @@ public interface AccountingLineRenderingContext extends RenderableElement {
 
     /**
      * Gets the rows attribute.
+     *
      * @return Returns the rows.
      */
     public List<AccountingLineTableRow> getRows();

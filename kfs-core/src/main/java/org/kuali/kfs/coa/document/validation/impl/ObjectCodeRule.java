@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.coa.businessobject.BudgetAggregationCode;
@@ -36,16 +30,22 @@ import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ObjectConsService;
 import org.kuali.kfs.coa.service.ObjectLevelService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class implements the business rules for {@link ObjectCode}
@@ -61,7 +61,6 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     protected Map reportsTo;
 
     /**
-     *
      * Constructs a ObjectCodeRule
      * Pseudo-injects some services as well as fills out the reports to chart hierarchy
      */
@@ -84,6 +83,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectCodeRule#processObjectCodeRules(ObjectCode)}</li>
      * </ul>
      * It does not fail if rules fail
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -97,8 +97,8 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
         success &= processObjectCodeRules((ObjectCode) maintainableObject);
 
         if (isObjectCodeInactivating(document)) {
-            success &= checkForBlockingOffsetDefinitions((ObjectCode)maintainableObject);
-            success &= checkForBlockingIndirectCostRecoveryExclusionAccounts((ObjectCode)maintainableObject);
+            success &= checkForBlockingOffsetDefinitions((ObjectCode) maintainableObject);
+            success &= checkForBlockingIndirectCostRecoveryExclusionAccounts((ObjectCode) maintainableObject);
         }
 
         return success;
@@ -110,6 +110,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
      * <ul>
      * <li>{@link ObjectCodeRule#processObjectCodeRules(ObjectCode)}</li>
      * </ul>
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -122,15 +123,14 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
         success &= processObjectCodeRules((ObjectCode) maintainableObject);
 
         if (isObjectCodeInactivating(document)) {
-            success &= checkForBlockingOffsetDefinitions((ObjectCode)maintainableObject);
-            success &= checkForBlockingIndirectCostRecoveryExclusionAccounts((ObjectCode)maintainableObject);
+            success &= checkForBlockingOffsetDefinitions((ObjectCode) maintainableObject);
+            success &= checkForBlockingIndirectCostRecoveryExclusionAccounts((ObjectCode) maintainableObject);
         }
 
         return success;
     }
 
     /**
-     *
      * This checks the following rules:
      * <ul>
      * <li>object code valid</li>
@@ -139,6 +139,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
      * <li>then checks to make sure that this object code hasn't already been entered in the consolidation and level table</li>
      * <li>finally checks to make sure that the next year object code (if filled out) isn't already in there and that this object code has a valid fiscal year</li>
      * </ul>
+     *
      * @param objectCode
      * @return
      */
@@ -170,7 +171,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
             calculatedReportsToChartCode = (String) reportsTo.get(chartCode);
 
             if (!verifyReportsToChartCode(year, chartCode, objectCode.getFinancialObjectCode(), calculatedReportsToChartCode, reportsToObjectCode)) {
-                this.putFieldError("reportsToFinancialObjectCode", KFSKeyConstants.ERROR_DOCUMENT_REPORTS_TO_OBJCODE_ILLEGAL, new String[] { reportsToObjectCode, calculatedReportsToChartCode });
+                this.putFieldError("reportsToFinancialObjectCode", KFSKeyConstants.ERROR_DOCUMENT_REPORTS_TO_OBJCODE_ILLEGAL, new String[]{reportsToObjectCode, calculatedReportsToChartCode});
                 result = false;
             }
         }
@@ -237,8 +238,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
                 objLevel.getFinancialObjectLevelCode(); // this might throw an Exception when proxying is in effect
                 return false;
             }
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
             // intentionally ignore the Exception
         }
 
@@ -246,8 +246,8 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This Check whether newly added object code already exists in Consolidation table
+     *
      * @param chartCode
      * @param objectCode
      * @return false if this object code already exists in the object consolidation table
@@ -259,16 +259,15 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
                 objectCons.getFinConsolidationObjectCode(); // this might throw an Exception when proxying is in effect
                 return false;
             }
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
             // intentionally ignore the Exception
         }
         return true;
     }
 
     /**
-     *
      * This checks to see if the next year object code already exists in the next fiscal year
+     *
      * @param year
      * @param chartCode
      * @param objCode
@@ -280,16 +279,15 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
             if (objectCode != null) {
                 return false;
             }
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
             // intentionally ignore the Exception
         }
         return true;
     }
 
     /**
-     *
      * This checks to make sure the fiscal year they are trying to assign is valid
+     *
      * @param year
      * @return true if this is a valid year
      */
@@ -306,7 +304,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     /**
      * This method is a null-safe wrapper around Set.contains().
      *
-     * @param set - methods returns false if the Set is null
+     * @param set   - methods returns false if the Set is null
      * @param value to seek
      * @return true iff Set exists and contains given value
      */
@@ -318,8 +316,8 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method is a null-safe wrapper around Set.contains()
+     *
      * @param set
      * @param value
      * @return true if this value is not contained in the Set or Set is null
@@ -350,8 +348,8 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks to see if the object code already exists in the system
+     *
      * @param year
      * @param chart
      * @param objectCode
@@ -362,11 +360,11 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This method checks When the value of reportsToChartCode does not have an institutional exception, the Reports to Object
      * (rpts_to_fin_obj_cd) fiscal year, and chart code must exist in the object code table
      * if the chart and object are the same, then skip the check
      * this assumes that the validity of the reports-to object code has already been tested (and corrected if necessary)
+     *
      * @param year
      * @param chart
      * @param objectCode
@@ -392,13 +390,14 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the given maintenance document constitutes an inactivation of the object code it is maintaining
+     *
      * @param maintenanceDocument the maintenance document maintaining an object code
      * @return true if the document is inactivating the object code, false otherwise
      */
     protected boolean isObjectCodeInactivating(MaintenanceDocument maintenanceDocument) {
         if (maintenanceDocument.isEdit() && maintenanceDocument.getOldMaintainableObject() != null && maintenanceDocument.getOldMaintainableObject().getBusinessObject() != null) {
-            final ObjectCode oldObjectCode = (ObjectCode)maintenanceDocument.getOldMaintainableObject().getBusinessObject();
-            final ObjectCode newObjectCode = (ObjectCode)maintenanceDocument.getNewMaintainableObject().getBusinessObject();
+            final ObjectCode oldObjectCode = (ObjectCode) maintenanceDocument.getOldMaintainableObject().getBusinessObject();
+            final ObjectCode newObjectCode = (ObjectCode) maintenanceDocument.getNewMaintainableObject().getBusinessObject();
 
             return oldObjectCode.isActive() && !newObjectCode.isActive();
         }
@@ -407,6 +406,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Checks that no offset definitions are dependent on the given object code if it is inactivated
+     *
      * @param objectCode the object code trying to inactivate
      * @return true if no offset definitions rely on the object code, false otherwise; this method also inserts error statements
      */
@@ -421,7 +421,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
 
         final int matchingCount = businessObjectService.countMatching(OffsetDefinition.class, keys);
         if (matchingCount > 0) {
-            GlobalVariables.getMessageMap().putErrorForSectionId("Edit Object Code",KFSKeyConstants.ERROR_DOCUMENT_OBJECTMAINT_INACTIVATION_BLOCKING,new String[] {(objectCode.getUniversityFiscalYear() != null ? objectCode.getUniversityFiscalYear().toString() : ""), objectCode.getChartOfAccountsCode(), objectCode.getFinancialObjectCode(), Integer.toString(matchingCount), OffsetDefinition.class.getName()});
+            GlobalVariables.getMessageMap().putErrorForSectionId("Edit Object Code", KFSKeyConstants.ERROR_DOCUMENT_OBJECTMAINT_INACTIVATION_BLOCKING, new String[]{(objectCode.getUniversityFiscalYear() != null ? objectCode.getUniversityFiscalYear().toString() : ""), objectCode.getChartOfAccountsCode(), objectCode.getFinancialObjectCode(), Integer.toString(matchingCount), OffsetDefinition.class.getName()});
             result = false;
         }
         return result;
@@ -429,6 +429,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Checks that no ICR Exclusion by Account records are dependent on the given object code if it is inactivated
+     *
      * @param objectCode the object code trying to inactivate
      * @return if no ICR Exclusion by Account records rely on the object code, false otherwise; this method also inserts error statements
      */
@@ -445,7 +446,7 @@ public class ObjectCodeRule extends MaintenanceDocumentRuleBase {
 
             final int matchingCount = businessObjectService.countMatching(IndirectCostRecoveryExclusionAccount.class, keys);
             if (matchingCount > 0) {
-                GlobalVariables.getMessageMap().putErrorForSectionId("Edit Object Code",KFSKeyConstants.ERROR_DOCUMENT_OBJECTMAINT_INACTIVATION_BLOCKING,new String[] {(objectCode.getUniversityFiscalYear() != null ? objectCode.getUniversityFiscalYear().toString() : ""), objectCode.getChartOfAccountsCode(), objectCode.getFinancialObjectCode(), Integer.toString(matchingCount), IndirectCostRecoveryExclusionAccount.class.getName()});
+                GlobalVariables.getMessageMap().putErrorForSectionId("Edit Object Code", KFSKeyConstants.ERROR_DOCUMENT_OBJECTMAINT_INACTIVATION_BLOCKING, new String[]{(objectCode.getUniversityFiscalYear() != null ? objectCode.getUniversityFiscalYear().toString() : ""), objectCode.getChartOfAccountsCode(), objectCode.getFinancialObjectCode(), Integer.toString(matchingCount), IndirectCostRecoveryExclusionAccount.class.getName()});
                 result = false;
             }
         }

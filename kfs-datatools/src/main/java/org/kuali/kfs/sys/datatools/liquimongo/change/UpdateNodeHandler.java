@@ -18,22 +18,11 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import java.io.IOException;
-import java.util.Date;
-
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class UpdateNodeHandler extends AbstractNodeChangeHandler implements DocumentStoreChangeHandler {
 
@@ -49,10 +38,10 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
     public void makeChange(JsonNode change) {
         LOG.debug("makeChange() started");
 
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-        verifyKeyExistence(change,PATH);
-        verifyKeyExistence(change,VALUE);
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change, QUERY);
+        verifyKeyExistence(change, PATH);
+        verifyKeyExistence(change, VALUE);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
         Object newValue = JSON.parse(change.get(VALUE).toString());

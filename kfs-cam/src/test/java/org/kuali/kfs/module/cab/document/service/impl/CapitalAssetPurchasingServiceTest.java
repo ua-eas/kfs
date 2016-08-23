@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItem;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
@@ -29,8 +31,6 @@ import org.kuali.kfs.module.purap.fixture.RequisitionItemFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CapitalAssetPurchasingServiceTest extends KualiTestBase {
         SpringContext.getBean(PurchasingService.class).setupCapitalAssetItems(requisition);
         List<PurchasingCapitalAssetItem> afterFirstCall = requisition.getPurchasingCapitalAssetItems();
 
-        RequisitionItem item2 = (RequisitionItem)ObjectUtils.deepCopy(requisition.getItem(0));
+        RequisitionItem item2 = (RequisitionItem) ObjectUtils.deepCopy(requisition.getItem(0));
         item2.setItemIdentifier(null);
         requisition.addItem(item2);
 
@@ -81,8 +81,8 @@ public class CapitalAssetPurchasingServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(requisition);
-        } catch ( ValidationException ex ) {
-            fail( "Validation error when saving document without validation: " + dumpMessageMapErrors() );
+        } catch (ValidationException ex) {
+            fail("Validation error when saving document without validation: " + dumpMessageMapErrors());
         }
         assertEquals(1, afterDeletion.size());
 

@@ -58,14 +58,14 @@ public class AttachmentMailServiceImplTest {
         mailService.sendMessage(getTestMailMessage());
 
         MailMessage mm = mockMailer.mailMessage;
-        Assert.assertEquals(mm.getFromAddress(),FROM_ADDRESS);
-        Assert.assertEquals(mm.getSubject(),"ID URL: " + EMAIL_SUBJECT);
-        Assert.assertEquals(mm.getMessage(),EMAIL_BODY);
-        Assert.assertEquals(mm.getToAddresses().size(),2);
+        Assert.assertEquals(mm.getFromAddress(), FROM_ADDRESS);
+        Assert.assertEquals(mm.getSubject(), "ID URL: " + EMAIL_SUBJECT);
+        Assert.assertEquals(mm.getMessage(), EMAIL_BODY);
+        Assert.assertEquals(mm.getToAddresses().size(), 2);
         Assert.assertTrue(mm.getToAddresses().contains("to1@email.com"));
         Assert.assertTrue(mm.getToAddresses().contains("to2@email.com"));
-        Assert.assertEquals(mm.getBccAddresses().size(),2);
-        Assert.assertEquals(mm.getCcAddresses().size(),2);
+        Assert.assertEquals(mm.getBccAddresses().size(), 2);
+        Assert.assertEquals(mm.getCcAddresses().size(), 2);
     }
 
     @Test
@@ -87,13 +87,13 @@ public class AttachmentMailServiceImplTest {
         mailService.sendMessage(getTestMailMessage());
 
         MailMessage mm = mockMailer.mailMessage;
-        Assert.assertEquals(mm.getFromAddress(),FROM_ADDRESS);
-        Assert.assertEquals(mm.getSubject(),"ID URL: " + EMAIL_SUBJECT);
-        Assert.assertEquals(mm.getMessage(),"Email To: [to2@email.com, to1@email.com]\nEmail CC: [cc1@email.com, cc2@email.com]\nEmail BCC: [bcc2@email.com, bcc1@email.com]\n\nBODY");
-        Assert.assertEquals(mm.getToAddresses().size(),1);
+        Assert.assertEquals(mm.getFromAddress(), FROM_ADDRESS);
+        Assert.assertEquals(mm.getSubject(), "ID URL: " + EMAIL_SUBJECT);
+        Assert.assertEquals(mm.getMessage(), "Email To: [to2@email.com, to1@email.com]\nEmail CC: [cc1@email.com, cc2@email.com]\nEmail BCC: [bcc2@email.com, bcc1@email.com]\n\nBODY");
+        Assert.assertEquals(mm.getToAddresses().size(), 1);
         Assert.assertTrue(mm.getToAddresses().contains(NON_PROD_BATCH_ADDRESS));
-        Assert.assertEquals(mm.getBccAddresses().size(),0);
-        Assert.assertEquals(mm.getCcAddresses().size(),0);
+        Assert.assertEquals(mm.getBccAddresses().size(), 0);
+        Assert.assertEquals(mm.getCcAddresses().size(), 0);
     }
 
     public AttachmentMailMessage getTestMailMessage() {

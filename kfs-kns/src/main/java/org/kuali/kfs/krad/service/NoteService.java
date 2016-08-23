@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * This service provides various operations related to {@link Note} objects.
- *
- *
  */
 public interface NoteService {
 
@@ -66,7 +64,7 @@ public interface NoteService {
      * @param note the note to save
      * @return the saved note
      * @throws IllegalArgumentException if the specified note is null
-     * @throws IllegalStateException if the given note's remoteObjectId is not valid
+     * @throws IllegalStateException    if the given note's remoteObjectId is not valid
      */
     public Note save(Note note);
 
@@ -83,7 +81,7 @@ public interface NoteService {
      * the specified PersistableBusinessObject and Person.
      *
      * @param noteToCopy the note to copy
-     * @param bo the business object to associate the Note with
+     * @param bo         the business object to associate the Note with
      * @return a copy of the given note which
      */
     public Note createNote(Note noteToCopy, PersistableBusinessObject bo, String authorPrincipalId);

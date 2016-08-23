@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.document.Document;
+
+import java.util.LinkedHashMap;
 
 /**
  * Describes a Final Billed Indicator Entry.
@@ -115,7 +115,7 @@ public class FinalBilledIndicatorEntry extends PersistableBusinessObjectBase {
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap<String, Object> toStringMap = new LinkedHashMap<String ,Object>();
+        LinkedHashMap<String, Object> toStringMap = new LinkedHashMap<String, Object>();
         toStringMap.put("id", id);
         toStringMap.put("invoiceDocumentNumber", invoiceDocumentNumber);
         toStringMap.put("documentId", documentId);

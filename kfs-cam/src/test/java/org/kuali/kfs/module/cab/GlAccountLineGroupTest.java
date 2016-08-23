@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cab;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.businessobject.GlAccountLineGroup;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 public class GlAccountLineGroupTest extends KualiTestBase {
 
@@ -67,8 +67,7 @@ public class GlAccountLineGroupTest extends KualiTestBase {
         for (Entry entry : sourceEntries) {
             if (KFSConstants.GL_CREDIT_CODE.equals(entry.getTransactionDebitCreditCode())) {
                 srcAmount = srcAmount.add(entry.getTransactionLedgerEntryAmount().negated());
-            }
-            else {
+            } else {
                 srcAmount = srcAmount.add(entry.getTransactionLedgerEntryAmount());
             }
         }

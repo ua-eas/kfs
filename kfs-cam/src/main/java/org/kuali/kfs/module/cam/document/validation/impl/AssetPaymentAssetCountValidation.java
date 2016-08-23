@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.document.AssetPaymentDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 /**
@@ -42,7 +42,7 @@ public class AssetPaymentAssetCountValidation extends GenericValidation {
 
         //IF no assets found in document, then....
         if (assetPaymentDocument.getAssetPaymentAssetDetail().size() == 0) {
-            GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID,CamsKeyConstants.Payment.ERROR_NON_ASSETS_IN_DOCUMENT);
+            GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID, CamsKeyConstants.Payment.ERROR_NON_ASSETS_IN_DOCUMENT);
             valid = false;
         }
 

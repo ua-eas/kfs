@@ -70,16 +70,14 @@ public class NumericValueComparator implements Serializable, Comparator {
         KualiDecimal k1 = null;
         try {
             k1 = new KualiDecimal(numericCompare1);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             k1 = KualiDecimal.ZERO;
         }
 
         KualiDecimal k2 = null;
         try {
             k2 = new KualiDecimal(numericCompare2);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             k2 = KualiDecimal.ZERO;
         }
 

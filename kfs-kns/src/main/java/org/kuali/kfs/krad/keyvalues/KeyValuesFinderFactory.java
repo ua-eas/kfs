@@ -29,7 +29,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-/** a factory for creating key-values finders. */
+/**
+ * a factory for creating key-values finders.
+ */
 public final class KeyValuesFinderFactory {
     private KeyValuesFinderFactory() {
         throw new UnsupportedOperationException("do not call");

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+
+import java.util.List;
 
 /**
  * Implementations of this interface are used to store a list of origin entries to be used by the GLCP. These persisted entries are
@@ -44,7 +44,7 @@ public interface GlCorrectionProcessOriginEntryService {
      * then they will be overridden.
      *
      * @param glcpSearchResuiltsSequenceNumber a sequence number
-     * @param allEntries a list of origin entries
+     * @param allEntries                       a list of origin entries
      * @throws Exception thrown if anything goes wrong
      */
     public void persistAllEntries(String glcpSearchResuiltsSequenceNumber, List<OriginEntryFull> allEntries) throws Exception;

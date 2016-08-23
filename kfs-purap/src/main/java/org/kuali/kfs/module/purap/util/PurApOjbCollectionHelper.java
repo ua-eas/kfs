@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.OjbCollectionAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Helper object to deal with persisting collections.
@@ -80,8 +80,7 @@ public class PurApOjbCollectionHelper {
                     cleanse(template, origSource, list);
 
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -123,8 +122,7 @@ public class PurApOjbCollectionHelper {
                     cleanse(template, origSource, list);
 
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -133,7 +131,7 @@ public class PurApOjbCollectionHelper {
     /**
      * This method deletes unwanted objects from the database as well as from the given input List
      *
-     * @param origSource - list containing unwanted business objects
+     * @param origSource    - list containing unwanted business objects
      * @param unwantedItems - business objects to be permanently removed
      * @param template
      */
@@ -151,7 +149,7 @@ public class PurApOjbCollectionHelper {
      * This method identifies items in the first List that are not contained in the second List. It is similar to the (optional)
      * java.util.List retainAll method.
      *
-     * @param fromList list from the database
+     * @param fromList    list from the database
      * @param controlList list from the object
      * @return true iff one or more items were removed
      */
@@ -165,8 +163,7 @@ public class PurApOjbCollectionHelper {
             PersistableBusinessObject line = (PersistableBusinessObject) PurApObjectUtils.retrieveObjectWithIdentitcalKey(controlList, copyLine);
             if (ObjectUtils.isNull(line)) {
                 toRemove.add(copyLine);
-            }
-            else { // since we're not deleting try to recurse on this element
+            } else { // since we're not deleting try to recurse on this element
                 processCollectionsRecurse(template, line, copyLine, depth);
             }
         }

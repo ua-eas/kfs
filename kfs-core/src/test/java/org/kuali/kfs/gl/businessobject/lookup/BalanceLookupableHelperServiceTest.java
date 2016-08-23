@@ -18,14 +18,10 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -33,7 +29,11 @@ import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains the test cases that can be applied to the method in BalanceLookupableImpl class.
@@ -45,6 +45,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Sets up the services needed to test balance lookups
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#setUp()
      */
     @Override
@@ -58,6 +59,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Covers the search results returned by BalanceLookupableHelperService
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#testGetSearchResults()
      */
@@ -250,8 +252,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
             // test if the acculated amount is greater than or equal to the monthly amount
             assertTrue(testDataGenerator.getMessageValue("incorrectAmount"), accumulatedMonth2Amount.isGreaterEqual(month2Amount));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -296,6 +297,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Returns the lookup fields to test in the search results
+     *
      * @param isExtended true if extended fields should be included, false if they should not be included
      * @return a List of field names to check
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#getLookupFields(boolean)
@@ -330,8 +332,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
     protected void insertNewRecord(Balance balance) {
         try {
             SpringContext.getBean(BusinessObjectService.class).save(balance);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

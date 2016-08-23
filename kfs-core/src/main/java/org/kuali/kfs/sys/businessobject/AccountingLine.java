@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -29,9 +27,11 @@ import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.fp.businessobject.SalesTax;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+
+import java.util.Map;
 
 /**
  * An AccountLine contains all the accounting items typically necessary to create a pending entry to the G/L. All transaction
@@ -345,8 +345,8 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     boolean getAccountExpiredOverride();
 
     /**
-     * @see #getAccountExpiredOverride()
      * @param b the accountExpiredOverride to set
+     * @see #getAccountExpiredOverride()
      */
     public void setAccountExpiredOverride(boolean b);
 
@@ -359,8 +359,8 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     public boolean getAccountExpiredOverrideNeeded();
 
     /**
-     * @see #getAccountExpiredOverrideNeeded()
      * @param b the accountExpiredOverrideNeeded to set
+     * @see #getAccountExpiredOverrideNeeded()
      */
     public void setAccountExpiredOverrideNeeded(boolean b);
 
@@ -373,8 +373,8 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     public boolean isObjectBudgetOverride();
 
     /**
-     * @see #isObjectBudgetOverride()
      * @param b the objectBudgetOverride to set
+     * @see #isObjectBudgetOverride()
      */
     public void setObjectBudgetOverride(boolean b);
 
@@ -387,8 +387,8 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     public boolean isObjectBudgetOverrideNeeded();
 
     /**
-     * @see #isObjectBudgetOverrideNeeded()
      * @param b the objectBudgetOverride to set
+     * @see #isObjectBudgetOverrideNeeded()
      */
     public void setObjectBudgetOverrideNeeded(boolean b);
 

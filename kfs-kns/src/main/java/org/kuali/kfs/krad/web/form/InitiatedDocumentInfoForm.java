@@ -24,8 +24,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  * Controller for <code>MaintenanceView</code> screens which operate on
  * <code>MaintenanceDocument</code> instances
- *
- *
  */
 public class InitiatedDocumentInfoForm extends UifFormBase {
 

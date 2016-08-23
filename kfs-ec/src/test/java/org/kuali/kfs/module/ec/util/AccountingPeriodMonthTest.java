@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ec.util;
 
+import junit.framework.TestCase;
+
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
-
-import junit.framework.TestCase;
 
 public class AccountingPeriodMonthTest extends TestCase {
 
@@ -74,8 +74,7 @@ public class AccountingPeriodMonthTest extends TestCase {
         try {
             this.assertAccountingPeriodsWithinYear(year, AccountingPeriodMonth.MONTH9, AccountingPeriodMonth.MONTH5);
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
         }
     }
 
@@ -97,8 +96,7 @@ public class AccountingPeriodMonthTest extends TestCase {
         try {
             this.assertAccountingPeriodsAcrossYears(endYear, AccountingPeriodMonth.MONTH5, beginYear, AccountingPeriodMonth.MONTH4);
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
         }
     }
 
@@ -117,8 +115,7 @@ public class AccountingPeriodMonthTest extends TestCase {
         try {
             this.assertAccountingPeriodsWithinRange(AccountingPeriodMonth.MONTH9, AccountingPeriodMonth.MONTH5);
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
         }
     }
 

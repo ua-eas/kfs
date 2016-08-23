@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.module.bc.BCConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Holds properties necessary for expansion screen handling.

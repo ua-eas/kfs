@@ -18,32 +18,30 @@
  */
 package org.kuali.kfs.krad.uif.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifConstants.ViewStatus;
-import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.service.ViewHelperService;
 import org.kuali.kfs.krad.uif.service.ViewService;
 import org.kuali.kfs.krad.uif.service.ViewTypeService;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.web.form.UifFormBase;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of <code>ViewService</code>
- *
+ * <p>
  * <p>
  * Provides methods for retrieving View instances and carrying out the View
  * lifecycle methods. Interacts with the configured <code>ViewHelperService</code>
  * during the view lifecycle
  * </p>
- *
- *
  */
 public class ViewServiceImpl implements ViewService {
     private static final Logger LOG = Logger.getLogger(ViewServiceImpl.class);
@@ -80,7 +78,7 @@ public class ViewServiceImpl implements ViewService {
      * based on its type and index
      *
      * @see ViewService#getViewByType(UifConstants.ViewType,
-     *      java.util.Map<java.lang.String,java.lang.String>)
+     * java.util.Map<java.lang.String,java.lang.String>)
      */
     public View getViewByType(ViewType viewType, Map<String, String> parameters) {
         ViewTypeService typeService = getViewTypeService(viewType);
@@ -129,11 +127,11 @@ public class ViewServiceImpl implements ViewService {
      * to perform setup based on its configuration. In addition helper service methods are invoked to
      * perform custom initialization
      *
-     * @param view - view instance to initialize
-     * @param model - object instance containing the view data
+     * @param view       - view instance to initialize
+     * @param model      - object instance containing the view data
      * @param parameters - Map of key values pairs that provide configuration for the <code>View</code>, this
-     * is generally comes from the request and can be the request parameter Map itself. Any parameters
-     * not valid for the View will be filtered out
+     *                   is generally comes from the request and can be the request parameter Map itself. Any parameters
+     *                   not valid for the View will be filtered out
      */
     protected void performViewLifecycle(View view, Object model, Map<String, String> parameters) {
         // get the configured helper service for the view

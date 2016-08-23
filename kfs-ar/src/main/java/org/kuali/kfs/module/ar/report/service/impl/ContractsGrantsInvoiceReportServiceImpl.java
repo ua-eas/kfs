@@ -19,29 +19,36 @@
 package org.kuali.kfs.module.ar.report.service.impl;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import au.com.bytecode.opencsv.CSVWriter;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.AcroFields;
+import com.lowagie.text.pdf.PdfCopyFields;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -67,33 +74,24 @@ import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-import au.com.bytecode.opencsv.CSVWriter;
-
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfCopyFields;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfStamper;
-import com.lowagie.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements the methods for report generation services for Contracts & Grants.
@@ -174,7 +172,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             table.setLockedWidth(true);
 
             // relative col widths in proportions - 1/11
-            float[] widths = new float[] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+            float[] widths = new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
             table.setWidths(widths);
             table.setHorizontalAlignment(0);
             addAwardHeaders(table);
@@ -201,7 +199,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                     newTable.setLockedWidth(true);
 
                     // relative col widths in proportions - 1/8
-                    float[] newWidths = new float[] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+                    float[] newWidths = new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
                     newTable.setWidths(newWidths);
                     newTable.setHorizontalAlignment(0);
                     addAccountsHeaders(newTable);
@@ -228,8 +226,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                 document.add(table);
             }
             document.close();
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("problem during ContractsGrantsInvoiceReportServiceImpl.generateInvoiceInPdf()", e);
         }
     }
@@ -271,7 +268,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
     /**
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsInvoiceReportService#generateFederalFinancialForm(org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward,
-     *      java.lang.String, java.lang.String, java.lang.String, org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency)
+     * java.lang.String, java.lang.String, java.lang.String, org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency)
      */
     @Override
     public File generateFederalFinancialForm(ContractsAndGrantsBillingAward award, String period, String year, String formType, ContractsAndGrantsBillingAgency agency) {
@@ -286,16 +283,14 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                 FileOutputStream fos = new FileOutputStream(file);
                 stampPdfFormValues425(award, period, year, fos, replacementList);
                 return file;
-            }
-            else if (formType.equals(ArConstants.FEDERAL_FORM_425A) && ObjectUtils.isNotNull(agency)) {
+            } else if (formType.equals(ArConstants.FEDERAL_FORM_425A) && ObjectUtils.isNotNull(agency)) {
                 String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, ArConstants.FEDERAL_FUND_425A_REPORT_ABBREVIATION) + KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
                 File file = new File(fullReportFileName);
                 FileOutputStream fos = new FileOutputStream(file);
                 stampPdfFormValues425A(agency, period, year, fos, replacementList);
                 return file;
             }
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             throw new RuntimeException("Cannot find pdf to stamp for federal financial form", ex);
         }
         return null;
@@ -306,19 +301,19 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      * @return
      */
     protected KualiDecimal getCashReceipts(ContractsAndGrantsBillingAward award) {
-    	KualiDecimal cashReceipt = KualiDecimal.ZERO;
-        Map<String,String> fieldValues = new HashMap<String,String>();
-        if (ObjectUtils.isNotNull(award) && ObjectUtils.isNotNull(award.getProposalNumber())){
+        KualiDecimal cashReceipt = KualiDecimal.ZERO;
+        Map<String, String> fieldValues = new HashMap<String, String>();
+        if (ObjectUtils.isNotNull(award) && ObjectUtils.isNotNull(award.getProposalNumber())) {
             fieldValues.put(KFSPropertyConstants.PROPOSAL_NUMBER, award.getProposalNumber().toString());
         }
         List<ContractsGrantsInvoiceDocument> list = (List<ContractsGrantsInvoiceDocument>) contractsGrantsInvoiceDocumentService.retrieveAllCGInvoicesByCriteria(fieldValues);
         if (!CollectionUtils.isEmpty(list)) {
-            for(ContractsGrantsInvoiceDocument invoice: list){
+            for (ContractsGrantsInvoiceDocument invoice : list) {
                 Map primaryKeys = new HashMap<String, Object>();
                 primaryKeys.put(ArPropertyConstants.CustomerInvoiceDocumentFields.FINANCIAL_DOCUMENT_REF_INVOICE_NUMBER, invoice.getDocumentNumber());
-                List<InvoicePaidApplied> ipas = (List<InvoicePaidApplied>)businessObjectService.findMatching(InvoicePaidApplied.class, primaryKeys);
-                if(ObjectUtils.isNotNull(ipas)) {
-                    for(InvoicePaidApplied ipa : ipas) {
+                List<InvoicePaidApplied> ipas = (List<InvoicePaidApplied>) businessObjectService.findMatching(InvoicePaidApplied.class, primaryKeys);
+                if (ObjectUtils.isNotNull(ipas)) {
+                    for (InvoicePaidApplied ipa : ipas) {
                         cashReceipt = cashReceipt.add(ipa.getInvoiceItemAppliedAmount());
                     }
                 }
@@ -385,7 +380,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
         contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.FEDERAL_AGENCY, award.getAgency().getFullName());
         contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.FEDERAL_GRANT_NUMBER, award.getAwardDocumentNumber());
-        if(CollectionUtils.isNotEmpty(award.getActiveAwardAccounts())){
+        if (CollectionUtils.isNotEmpty(award.getActiveAwardAccounts())) {
             contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.RECIPIENT_ACCOUNT_NUMBER, award.getActiveAwardAccounts().get(0).getAccountNumber());
         }
         if (ObjectUtils.isNotNull(award.getAwardBeginningDate())) {
@@ -438,24 +433,25 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
     /**
      * Concatenates the address from an AR System Information object into a single String
+     *
      * @param sysInfo the System Information business object to concatenate the address of
      * @return the concatenated address
      */
     protected String concatenateAddressFromSystemInformation(final SystemInformation sysInfo) {
         String address = sysInfo.getOrganizationRemitToAddressName();
-        if(!StringUtils.isBlank(sysInfo.getOrganizationRemitToLine1StreetAddress())) {
+        if (!StringUtils.isBlank(sysInfo.getOrganizationRemitToLine1StreetAddress())) {
             address += ", " + sysInfo.getOrganizationRemitToLine1StreetAddress();
         }
-        if(!StringUtils.isBlank(sysInfo.getOrganizationRemitToLine2StreetAddress())) {
+        if (!StringUtils.isBlank(sysInfo.getOrganizationRemitToLine2StreetAddress())) {
             address += ", " + sysInfo.getOrganizationRemitToLine2StreetAddress();
         }
-        if(!StringUtils.isBlank(sysInfo.getOrganizationRemitToCityName())) {
+        if (!StringUtils.isBlank(sysInfo.getOrganizationRemitToCityName())) {
             address += ", " + sysInfo.getOrganizationRemitToCityName();
         }
-        if(!StringUtils.isBlank(sysInfo.getOrganizationRemitToStateCode())) {
+        if (!StringUtils.isBlank(sysInfo.getOrganizationRemitToStateCode())) {
             address += " " + sysInfo.getOrganizationRemitToStateCode();
         }
-        if(!StringUtils.isBlank(sysInfo.getOrganizationRemitToZipCode())) {
+        if (!StringUtils.isBlank(sysInfo.getOrganizationRemitToZipCode())) {
             address += "-" + sysInfo.getOrganizationRemitToZipCode();
         }
         return address;
@@ -463,8 +459,9 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
     /**
      * Retrieves an AR System Information object for an award
+     *
      * @param award the award to retrieve an associated System Information for
-     * @param year the year of the System Information object to retrieve
+     * @param year  the year of the System Information object to retrieve
      * @return the System Information object, or null if nothing is found
      */
     protected SystemInformation retrieveSystemInformationForAward(ContractsAndGrantsBillingAward award, String year) {
@@ -494,7 +491,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
         Map primaryKeys = new HashMap<String, Object>();
         primaryKeys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, year);
-        if (CollectionUtils.isNotEmpty(awards)){
+        if (CollectionUtils.isNotEmpty(awards)) {
             primaryKeys.put(KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD, awards.get(0).getPrimaryAwardOrganization().getChartOfAccountsCode());
             primaryKeys.put(KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE, awards.get(0).getPrimaryAwardOrganization().getOrganizationCode());
         }
@@ -525,7 +522,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.CASH, KFSConstants.OptionLabels.YES);
         }
         if (ArConstants.BASIS_OF_ACCOUNTING_ACCRUAL.equals(accountingBasis)) {
-            contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.ACCRUAL,KFSConstants.OptionLabels.YES);
+            contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.ACCRUAL, KFSConstants.OptionLabels.YES);
         }
         contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.DATE_REPORT_SUBMITTED, getDateTimeService().toDateString(new Date(new java.util.Date().getTime())));
         KualiDecimal totalCashControl = KualiDecimal.ZERO;
@@ -560,14 +557,11 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
         java.util.Date endDate = null;
         if (ArConstants.QUARTER1.equals(reportingPeriod)) {
             endDate = ArConstants.BillingQuarterLastDays.FIRST_QUARTER.getDateForYear(yearAsInt);
-        }
-        else if (ArConstants.QUARTER2.equals(reportingPeriod) || ArConstants.SEMI_ANNUAL.equals(reportingPeriod)) {
+        } else if (ArConstants.QUARTER2.equals(reportingPeriod) || ArConstants.SEMI_ANNUAL.equals(reportingPeriod)) {
             endDate = ArConstants.BillingQuarterLastDays.SECOND_QUARTER.getDateForYear(yearAsInt);
-        }
-        else if (ArConstants.QUARTER3.equals(reportingPeriod)) {
+        } else if (ArConstants.QUARTER3.equals(reportingPeriod)) {
             endDate = ArConstants.BillingQuarterLastDays.THIRD_QUARTER.getDateForYear(yearAsInt);
-        }
-        else {
+        } else {
             endDate = ArConstants.BillingQuarterLastDays.FOURTH_QUARTER.getDateForYear(yearAsInt);
         }
         return getDateTimeService().toDateString(endDate);
@@ -576,10 +570,10 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
     /**
      * Use iText <code>{@link PdfStamper}</code> to stamp information into field values on a PDF Form Template.
      *
-     * @param award The award the values will be pulled from.
+     * @param award           The award the values will be pulled from.
      * @param reportingPeriod
      * @param year
-     * @param returnStream The output stream the federal form will be written to.
+     * @param returnStream    The output stream the federal form will be written to.
      */
     protected void stampPdfFormValues425(ContractsAndGrantsBillingAward award, String reportingPeriod, String year, OutputStream returnStream, Map<String, String> replacementList) {
         String reportTemplateName = ArConstants.FF_425_TEMPLATE_NM + KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
@@ -590,8 +584,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             URL template = new URL(federalReportTemplatePath + reportTemplateName);
             final byte[] pdfBytes = PdfFormFillerUtil.populateTemplate(template.openStream(), replacementList);
             returnStream.write(pdfBytes);
-        }
-        catch (IOException | DocumentException ex) {
+        } catch (IOException | DocumentException ex) {
             throw new RuntimeException("Troubles stamping the old 425!", ex);
         }
     }
@@ -599,10 +592,10 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
     /**
      * Use iText <code>{@link PdfStamper}</code> to stamp information into field values on a PDF Form Template.
      *
-     * @param agency The award the values will be pulled from.
+     * @param agency          The award the values will be pulled from.
      * @param reportingPeriod
      * @param year
-     * @param returnStream The output stream the federal form will be written to.
+     * @param returnStream    The output stream the federal form will be written to.
      */
     protected void stampPdfFormValues425A(ContractsAndGrantsBillingAgency agency, String reportingPeriod, String year, OutputStream returnStream, Map<String, String> replacementList) {
         String federalReportTemplatePath = configService.getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_HELP_URL_KEY);
@@ -632,16 +625,16 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                 }
                 // generate replacement list for FF425
                 List<KualiDecimal> list = populateListByAgency(awardsList, reportingPeriod, year, agency);
-                if (CollectionUtils.isNotEmpty(list)){
+                if (CollectionUtils.isNotEmpty(list)) {
                     sumCashControl = sumCashControl.add(list.get(0));
-                    if (list.size() > 1){
+                    if (list.size() > 1) {
                         sumCumExp = sumCumExp.add(list.get(1));
                     }
                 }
 
                 // populate form with document values
                 contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.PAGE_NUMBER, org.apache.commons.lang.ObjectUtils.toString(pageNumber + 1));
-                if (pageNumber == totalPages){
+                if (pageNumber == totalPages) {
                     contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.TOTAL, contractsGrantsBillingUtilityService.formatForCurrency(sumCashControl));
                     contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.CASH_RECEIPTS, contractsGrantsBillingUtilityService.formatForCurrency(sumCashControl));
                     contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.CASH_DISBURSEMENTS, contractsGrantsBillingUtilityService.formatForCurrency(sumCumExp));
@@ -657,34 +650,32 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             copy.addDocument(new PdfReader(renameFieldsIn(federal425TemplateUrl, replacementList)));
             // Close the PdfCopyFields object
             copy.close();
-        }
-        catch (DocumentException | IOException ex) {
+        } catch (DocumentException | IOException ex) {
             throw new RuntimeException("Tried to stamp the 425A, but couldn't do it.  Just...just couldn't do it.", ex);
         }
     }
 
     /**
-    *
-    * @param template the path to the original form
-    * @param list the replacement list
-    * @return
-    * @throws IOException
-    * @throws DocumentException
-    */
-   protected byte[] renameFieldsIn(String template, Map<String, String> list) throws IOException, DocumentException {
-       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-       // Create the stamper
-       PdfStamper stamper = new PdfStamper(new PdfReader(template), baos);
-       // Get the fields
-       AcroFields fields = stamper.getAcroFields();
-       // Loop over the fields
-       for (String field : list.keySet()) {
-           fields.setField(field, list.get(field));
-       }
-       // close the stamper
-       stamper.close();
-       return baos.toByteArray();
-   }
+     * @param template the path to the original form
+     * @param list     the replacement list
+     * @return
+     * @throws IOException
+     * @throws DocumentException
+     */
+    protected byte[] renameFieldsIn(String template, Map<String, String> list) throws IOException, DocumentException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // Create the stamper
+        PdfStamper stamper = new PdfStamper(new PdfReader(template), baos);
+        // Get the fields
+        AcroFields fields = stamper.getAcroFields();
+        // Loop over the fields
+        for (String field : list.keySet()) {
+            fields.setField(field, list.get(field));
+        }
+        // close the stamper
+        stamper.close();
+        return baos.toByteArray();
+    }
 
     /**
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsInvoiceReportService#generateListOfInvoicesPdfToPrint(java.util.Collection)
@@ -805,13 +796,14 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
     /**
      * Generates a PDF paragraph for a given Address
-     * @param name the name that this envelope is being sent to
+     *
+     * @param name         the name that this envelope is being sent to
      * @param line1Address the first line of the address
      * @param line2Address the second line of the address
-     * @param cityName the name of the city to send this to
-     * @param stateCode the code of the state or presumably province to send this to
-     * @param postalCode the postal code/zip code to send the enveleope to
-     * @param font the font to write in
+     * @param cityName     the name of the city to send this to
+     * @param stateCode    the code of the state or presumably province to send this to
+     * @param postalCode   the postal code/zip code to send the enveleope to
+     * @param font         the font to write in
      * @return a PDF Paragraph for the address
      */
     protected Paragraph generateAddressParagraph(String name, String line1Address, String line2Address, String cityName, String stateCode, String postalCode, Font font) {
@@ -847,16 +839,16 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(baos));
         try {
-            csvWriter.writeNext(new String[] {getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.PROPOSAL_NUMBER),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.AWARD_DOCUMENT_NUMBER),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_DESCRIPTION),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_NUMBER),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_EXPIRATION_DATE),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.AWARD_BUDGET_AMOUNT),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.CLAIM_ON_CASH_BALANCE),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.AMOUNT_TO_DRAW),
-                    getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.FUNDS_NOT_DRAWN)});
+            csvWriter.writeNext(new String[]{getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.PROPOSAL_NUMBER),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.AWARD_DOCUMENT_NUMBER),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_DESCRIPTION),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_NUMBER),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, KFSPropertyConstants.ACCOUNT_EXPIRATION_DATE),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.AWARD_BUDGET_AMOUNT),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.CLAIM_ON_CASH_BALANCE),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.AMOUNT_TO_DRAW),
+                getDataDictionaryService().getAttributeLabel(ContractsGrantsLetterOfCreditReviewDetail.class, ArPropertyConstants.FUNDS_NOT_DRAWN)});
 
             if (CollectionUtils.isNotEmpty(LOCDocument.getHeaderReviewDetails()) && CollectionUtils.isNotEmpty(LOCDocument.getAccountReviewDetails())) {
                 for (ContractsGrantsLetterOfCreditReviewDetail item : LOCDocument.getHeaderReviewDetails()) {
@@ -865,10 +857,10 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
                     for (ContractsGrantsLetterOfCreditReviewDetail newItem : LOCDocument.getAccountReviewDetails()) {
                         final String accountExpirationDate = ObjectUtils.isNull(newItem.getAccountExpirationDate()) ?
-                                KFSConstants.EMPTY_STRING :
-                                getDateTimeService().toDateString(newItem.getAccountExpirationDate());
+                            KFSConstants.EMPTY_STRING :
+                            getDateTimeService().toDateString(newItem.getAccountExpirationDate());
                         if (org.apache.commons.lang.ObjectUtils.equals(item.getProposalNumber(), newItem.getProposalNumber())) {
-                            csvWriter.writeNext(new String[] { proposalNumber,
+                            csvWriter.writeNext(new String[]{proposalNumber,
                                 awardDocumentNumber,
                                 newItem.getAccountDescription(),
                                 newItem.getChartOfAccountsCode(),
@@ -877,18 +869,16 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                                 contractsGrantsBillingUtilityService.formatForCurrency(newItem.getAwardBudgetAmount()),
                                 contractsGrantsBillingUtilityService.formatForCurrency(newItem.getClaimOnCashBalance()),
                                 contractsGrantsBillingUtilityService.formatForCurrency(newItem.getAmountToDraw()),
-                                contractsGrantsBillingUtilityService.formatForCurrency(newItem.getFundsNotDrawn()) });
+                                contractsGrantsBillingUtilityService.formatForCurrency(newItem.getFundsNotDrawn())});
                         }
                     }
                 }
             }
-        }
-        finally {
+        } finally {
             if (csvWriter != null) {
                 try {
                     csvWriter.close();
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     csvWriter = null;
                     throw new RuntimeException("problem during ContractsGrantsInvoiceReportServiceImpl.generateCSVToExport()", ex);
                 }
@@ -916,11 +906,11 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             List<ContractsAndGrantsBillingAward> list = (List<ContractsAndGrantsBillingAward>) entry.getValue();
 
             // Get data from first award for agency data
-            if (CollectionUtils.isNotEmpty(list)){
+            if (CollectionUtils.isNotEmpty(list)) {
                 ContractsAndGrantsBillingAgency agency = list.get(0).getAgency();
                 contractsGrantsInvoiceLookupResult = new ContractsGrantsInvoiceLookupResult();
 
-                if (ObjectUtils.isNotNull(agency)){
+                if (ObjectUtils.isNotNull(agency)) {
                     contractsGrantsInvoiceLookupResult.setAgencyNumber(agency.getAgencyNumber());
                     contractsGrantsInvoiceLookupResult.setAgencyReportingName(agency.getReportingName());
                     contractsGrantsInvoiceLookupResult.setAgencyFullName(agency.getFullName());
@@ -937,6 +927,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
 
     /**
      * This helper method returns a map of a list of awards by agency
+     *
      * @param awards
      * @return a Map of the given CGB Awards, keyed by the agency number
      */
@@ -948,8 +939,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                 String agencyNumber = award.getAgencyNumber();
                 if (awardsByAgency.containsKey(agencyNumber)) {
                     awardsByAgency.get(agencyNumber).add(award);
-                }
-                else {
+                } else {
                     List<ContractsAndGrantsBillingAward> awardsByAgencyNumber = new ArrayList<ContractsAndGrantsBillingAward>();
                     awardsByAgencyNumber.add(award);
                     awardsByAgency.put(agencyNumber, awardsByAgencyNumber);

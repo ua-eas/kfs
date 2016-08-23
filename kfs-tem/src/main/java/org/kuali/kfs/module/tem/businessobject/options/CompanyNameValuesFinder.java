@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class returns list of travel expense company value pairs.
@@ -45,7 +45,7 @@ public class CompanyNameValuesFinder extends KeyValuesBase {
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue(KFSConstants.EMPTY_STRING, KFSConstants.EMPTY_STRING));
         for (TravelCompanyCode element : boList) {
-            if(element.isActive()) {
+            if (element.isActive()) {
                 keyValues.add(new ConcreteKeyValue(element.getName(), element.getName()));
             }
         }

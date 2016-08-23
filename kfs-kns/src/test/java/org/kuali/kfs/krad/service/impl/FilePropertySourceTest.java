@@ -20,7 +20,6 @@ package org.kuali.kfs.krad.service.impl;
 
 import org.junit.Test;
 import org.kuali.kfs.krad.exception.PropertiesException;
-import org.kuali.kfs.krad.service.impl.ConfigurationServiceImpl;
 
 import static org.junit.Assert.assertTrue;
 
@@ -29,59 +28,59 @@ import static org.junit.Assert.assertTrue;
  */
 public class FilePropertySourceTest {
 
-    @Test public void testLoadProperties_defaultFileName() {
+    @Test
+    public void testLoadProperties_defaultFileName() {
         ConfigurationServiceImpl.FilePropertySource fps = new ConfigurationServiceImpl.FilePropertySource();
 
         boolean failedAsExpected = false;
         try {
             fps.loadProperties();
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
         assertTrue(failedAsExpected);
     }
 
-    @Test public void testLoadProperties_invalidFileName() {
+    @Test
+    public void testLoadProperties_invalidFileName() {
         ConfigurationServiceImpl.FilePropertySource fps = new ConfigurationServiceImpl.FilePropertySource();
         fps.setFileName("      ");
 
         boolean failedAsExpected = false;
         try {
             fps.loadProperties();
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             failedAsExpected = true;
         }
 
         assertTrue(failedAsExpected);
     }
 
-    @Test public void testLoadProperties_unknownFileName() {
+    @Test
+    public void testLoadProperties_unknownFileName() {
         ConfigurationServiceImpl.FilePropertySource fps = new ConfigurationServiceImpl.FilePropertySource();
         fps.setFileName("unknown");
 
         boolean failedAsExpected = false;
         try {
             fps.loadProperties();
-        }
-        catch (PropertiesException e) {
+        } catch (PropertiesException e) {
             failedAsExpected = true;
         }
 
         assertTrue(failedAsExpected);
     }
 
-    @Test public void testLoadProperties_knownFileName_noSuffix() {
+    @Test
+    public void testLoadProperties_knownFileName_noSuffix() {
         ConfigurationServiceImpl.FilePropertySource fps = new ConfigurationServiceImpl.FilePropertySource();
         fps.setFileName("configuration");
 
         boolean failedAsExpected = false;
         try {
             fps.loadProperties();
-        }
-        catch (PropertiesException e) {
+        } catch (PropertiesException e) {
             failedAsExpected = true;
         }
 

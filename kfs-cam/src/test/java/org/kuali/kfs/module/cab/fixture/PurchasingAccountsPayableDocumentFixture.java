@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
+import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
+import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 
 public enum PurchasingAccountsPayableDocumentFixture {
     REC1 {
@@ -62,13 +62,13 @@ public enum PurchasingAccountsPayableDocumentFixture {
 
         if (itemIterator.hasNext()) {
             PurchasingAccountsPayableDocument document1 = REC1.newRecord();
-            PurchasingAccountsPayableItemAsset item1 = (PurchasingAccountsPayableItemAsset)itemIterator.next();
+            PurchasingAccountsPayableItemAsset item1 = (PurchasingAccountsPayableItemAsset) itemIterator.next();
             item1.setPurchasingAccountsPayableDocument(document1);
             item1.setDocumentNumber(document1.getDocumentNumber());
             document1.getPurchasingAccountsPayableItemAssets().add(item1);
 
             if (itemIterator.hasNext()) {
-                PurchasingAccountsPayableItemAsset item2 = (PurchasingAccountsPayableItemAsset)itemIterator.next();
+                PurchasingAccountsPayableItemAsset item2 = (PurchasingAccountsPayableItemAsset) itemIterator.next();
                 item2.setPurchasingAccountsPayableDocument(document1);
                 item2.setDocumentNumber(document1.getDocumentNumber());
                 document1.getPurchasingAccountsPayableItemAssets().add(item2);
@@ -79,7 +79,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
 
         if (itemIterator.hasNext()) {
             PurchasingAccountsPayableDocument document2 = REC2.newRecord();
-            PurchasingAccountsPayableItemAsset item3 = (PurchasingAccountsPayableItemAsset)itemIterator.next();
+            PurchasingAccountsPayableItemAsset item3 = (PurchasingAccountsPayableItemAsset) itemIterator.next();
             item3.setPurchasingAccountsPayableDocument(document2);
             item3.setDocumentNumber(document2.getDocumentNumber());
             document2.getPurchasingAccountsPayableItemAssets().add(item3);
@@ -88,7 +88,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
 
         if (itemIterator.hasNext()) {
             PurchasingAccountsPayableDocument document3 = REC3.newRecord();
-            PurchasingAccountsPayableItemAsset item4 = (PurchasingAccountsPayableItemAsset)itemIterator.next();
+            PurchasingAccountsPayableItemAsset item4 = (PurchasingAccountsPayableItemAsset) itemIterator.next();
             item4.setPurchasingAccountsPayableDocument(document3);
             item4.setDocumentNumber(document3.getDocumentNumber());
             document3.getPurchasingAccountsPayableItemAssets().add(item4);

@@ -18,17 +18,6 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
 import org.kuali.rice.core.util.jaxb.NameAndNamespacePairValidatingAdapter;
 import org.kuali.rice.core.util.jaxb.StringTrimmingAdapter;
@@ -36,12 +25,22 @@ import org.kuali.rice.kim.api.jaxb.NameAndNamespacePairToPermTemplateIdAdapter;
 import org.kuali.rice.kim.api.jaxb.PermissionDetailListAdapter;
 import org.kuali.rice.kim.api.permission.PermissionContract;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class represents a &lt;permission&gt; XML element.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="PermissionType", propOrder={
-        "permissionNameAndNamespace", "permissionTemplateId", "permissionDescription", "active", "permissionDetails"
+@XmlType(name = "PermissionType", propOrder = {
+    "permissionNameAndNamespace", "permissionTemplateId", "permissionDescription", "active", "permissionDetails"
 })
 public class PermissionXmlDTO implements Serializable {
 
@@ -50,22 +49,22 @@ public class PermissionXmlDTO implements Serializable {
     @XmlTransient
     private String permissionId;
 
-    @XmlElement(name="permissionName")
+    @XmlElement(name = "permissionName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair permissionNameAndNamespace;
 
-    @XmlElement(name="templateName")
+    @XmlElement(name = "templateName")
     @XmlJavaTypeAdapter(NameAndNamespacePairToPermTemplateIdAdapter.class)
     private String permissionTemplateId;
 
-    @XmlElement(name="description")
+    @XmlElement(name = "description")
     @XmlJavaTypeAdapter(StringTrimmingAdapter.class)
     private String permissionDescription;
 
-    @XmlElement(name="active")
+    @XmlElement(name = "active")
     private Boolean active;
 
-    @XmlElement(name="permissionDetails")
+    @XmlElement(name = "permissionDetails")
     @XmlJavaTypeAdapter(PermissionDetailListAdapter.class)
     private Map<String, String> permissionDetails;
 
@@ -79,7 +78,7 @@ public class PermissionXmlDTO implements Serializable {
         this.permissionDescription = permission.getDescription();
         this.active = Boolean.valueOf(permission.isActive());
         this.permissionDetails = (permission.getAttributes() != null) ?
-                new HashMap<String, String>(permission.getAttributes()) : new HashMap<String, String>();
+            new HashMap<String, String>(permission.getAttributes()) : new HashMap<String, String>();
     }
 
     /**

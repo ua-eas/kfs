@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-
 import org.kuali.kfs.integration.cg.dto.AccountCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.AccountParametersDTO;
 import org.kuali.kfs.module.external.kc.KcConstants;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
 @WebService(name = KcConstants.AccountCreationService.WEB_SERVICE_NAME,
-            targetNamespace = KcConstants.KFS_NAMESPACE_URI)
+    targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL,
-             parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface AccountCreationService {
 
     public AccountCreationStatusDTO createAccount(
-            @WebParam(name="accountParametersDTO")AccountParametersDTO accountParametersDTO);
+        @WebParam(name = "accountParametersDTO") AccountParametersDTO accountParametersDTO);
 
     public boolean isValidAccount(
-            @WebParam(name="accountNumber")  String accountNumber);
+        @WebParam(name = "accountNumber") String accountNumber);
 
     public boolean isValidChartAccount(
-            @WebParam(name="chartOfAccountCode") String chartOfAccountsCode, @WebParam(name="accountNumber")  String accountNumber);
+        @WebParam(name = "chartOfAccountCode") String chartOfAccountsCode, @WebParam(name = "accountNumber") String accountNumber);
 
     public boolean isValidChartCode(
-            @WebParam(name="chartOfAccountsCode")  String chartOfAccountsCode);
+        @WebParam(name = "chartOfAccountsCode") String chartOfAccountsCode);
 
     public boolean accountsCanCrossCharts();
 

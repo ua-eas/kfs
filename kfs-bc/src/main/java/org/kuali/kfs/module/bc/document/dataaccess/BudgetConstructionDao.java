@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionFundingLock;
@@ -30,6 +27,9 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -143,7 +143,7 @@ public interface BudgetConstructionDao {
      * Retrieves all <code>PendingBudgetConstructionAppointmentFunding</code> records for the given position key.
      *
      * @param universityFiscalYear budget fiscal year, primary key field for position record
-     * @param positionNumber position number, primary key field for position record
+     * @param positionNumber       position number, primary key field for position record
      * @return List of PendingBudgetConstructionAppointmentFunding objects
      */
     public List<PendingBudgetConstructionAppointmentFunding> getAllFundingForPosition(Integer universityFiscalYear, String positionNumber);

@@ -19,20 +19,19 @@
 package org.kuali.kfs.kns.datadictionary;
 
 /**
-                  The inquirySubSectionHeader allows a separator containing text to
-                  separate groups of fields.  The name attribute is the displayed text.
-
-                  DD:   See InquirySubSectionHeaderDefinition.
-                  JSTL: inquirySubSectionHeader appears in the inquiryFields map as:
-                      * key = "attributeName"
-                      * value = name of inquirySubSectionHeader
- *
+ * The inquirySubSectionHeader allows a separator containing text to
+ * separate groups of fields.  The name attribute is the displayed text.
+ * <p>
+ * DD:   See InquirySubSectionHeaderDefinition.
+ * JSTL: inquirySubSectionHeader appears in the inquiryFields map as:
+ * key = "attributeName"
+ * value = name of inquirySubSectionHeader
  */
 @Deprecated
 public class InquirySubSectionHeaderDefinition extends FieldDefinition implements SubSectionHeaderDefinitionI {
     private static final long serialVersionUID = -4979343188029630857L;
 
-	public String getName() {
+    public String getName() {
         return getAttributeName();
     }
 

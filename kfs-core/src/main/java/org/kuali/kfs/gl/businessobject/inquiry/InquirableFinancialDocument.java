@@ -38,7 +38,7 @@ public class InquirableFinancialDocument {
      *
      * @param transaction the business object that implements Transaction interface
      * @return the url of inquirable financial document for the given transaction if the document is inquirable; otherwise, return
-     *         empty string
+     * empty string
      */
     public String getInquirableDocumentUrl(Transaction transaction) {
         if (transaction == null) {
@@ -55,7 +55,7 @@ public class InquirableFinancialDocument {
      * Creates the url for a document drill down
      *
      * @param originCode the originatino code of the document
-     * @param docNumber the document number of the document to drill down on
+     * @param docNumber  the document number of the document to drill down on
      * @return the URL for the drill down
      */
     private String getUrl(String originCode, String docNumber) {
@@ -70,7 +70,7 @@ public class InquirableFinancialDocument {
      *
      * @param encumbrance the encumrbance record
      * @return the url of inquirable financial document for the given encumbrance if the document is inquirable; otherwise, return
-     *         empty string
+     * empty string
      */
     public String getInquirableDocumentUrl(Encumbrance encumbrance) {
         if (encumbrance == null) {

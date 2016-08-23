@@ -16,37 +16,37 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="field"
-	classname="org.kuali.kfs.krad.uif.field.LinkField" />
+                    classname="org.kuali.kfs.krad.uif.field.LinkField"/>
 <tiles:useAttribute name="body"/>
 
 <%--
     Standard HTML Link
  --%>
 
-<krad:attributeBuilder component="${field}" />
+<krad:attributeBuilder component="${field}"/>
 
 <krad:span component="${field}">
 
-  <krad:fieldLabel field="${field}">
+    <krad:fieldLabel field="${field}">
 
-    <c:if test="${(field.lightBox != null)}">
-      <krad:template component="${field.lightBox}" componentId="${field.id}"/>
-    </c:if>
+        <c:if test="${(field.lightBox != null)}">
+            <krad:template component="${field.lightBox}" componentId="${field.id}"/>
+        </c:if>
 
-    <c:if test="${field.skipInTabOrder}">
-      <c:set var="tabindex" value="tabindex=-1"/>
-    </c:if>
+        <c:if test="${field.skipInTabOrder}">
+            <c:set var="tabindex" value="tabindex=-1"/>
+        </c:if>
 
-    <c:if test="${empty fn:trim(body)}">
-      <c:set var="body" value="${field.linkLabel}"/>
-    </c:if>
+        <c:if test="${empty fn:trim(body)}">
+            <c:set var="body" value="${field.linkLabel}"/>
+        </c:if>
 
-    <a id="${field.id}" href="${field.hrefText}" target="${field.target}" title="${field.title}"
-      ${style} ${styleClass} ${tabindex} >${body}</a>
+        <a id="${field.id}" href="${field.hrefText}" target="${field.target}" title="${field.title}"
+            ${style} ${styleClass} ${tabindex} >${body}</a>
 
-  </krad:fieldLabel>
+    </krad:fieldLabel>
 
 </krad:span>

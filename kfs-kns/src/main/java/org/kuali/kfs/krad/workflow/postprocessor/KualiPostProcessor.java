@@ -35,26 +35,23 @@ import java.util.List;
 
 
 /**
- *
  * This class is the public entry point by which workflow communicates status changes,
  * level changes, and other useful changes.
- *
+ * <p>
  * Note that this class delegates all of these activities to the PostProcessorService,
  * which does the actual work.  This is done to ensure proper transaction scoping, and
  * to resolve some issues present otherwise.
- *
+ * <p>
  * Because of this, its important to understand that a transaction will be started at
  * the PostProcessorService method call, so any work that needs to be done within the
  * same transaction needs to happen inside that service implementation, rather than
  * in here.
- *
  */
 public class KualiPostProcessor implements PostProcessor {
 
     private static Logger LOG = Logger.getLogger(KualiPostProcessor.class);
 
     /**
-     *
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doRouteStatusChange(org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange)
      */
     @Override
@@ -79,7 +76,6 @@ public class KualiPostProcessor implements PostProcessor {
     }
 
     /**
-     *
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doDeleteRouteHeader(org.kuali.rice.kew.framework.postprocessor.DeleteEvent)
      */
     @Override
@@ -88,7 +84,6 @@ public class KualiPostProcessor implements PostProcessor {
     }
 
     /**
-     *
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doRouteLevelChange(org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange)
      */
     @Override
@@ -116,8 +111,8 @@ public class KualiPostProcessor implements PostProcessor {
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#getDocumentIdsToLock(org.kuali.rice.kew.framework.postprocessor.DocumentLockingEvent)
      */
     @Override
-	public List<String> getDocumentIdsToLock(DocumentLockingEvent documentLockingEvent) throws Exception {
-		return KRADServiceLocatorInternal.getPostProcessorService().getDocumentIdsToLock(documentLockingEvent);
-	}
+    public List<String> getDocumentIdsToLock(DocumentLockingEvent documentLockingEvent) throws Exception {
+        return KRADServiceLocatorInternal.getPostProcessorService().getDocumentIdsToLock(documentLockingEvent);
+    }
 
 }

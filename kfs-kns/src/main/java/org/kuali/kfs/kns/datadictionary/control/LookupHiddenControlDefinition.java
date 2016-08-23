@@ -22,15 +22,15 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
- *  The lookupHidden control element creates a field with a magnifying
-                        glass, but no value showing.  This can be used to do a lookup to
-                        return a value which will appear in another field.
+ * The lookupHidden control element creates a field with a magnifying
+ * glass, but no value showing.  This can be used to do a lookup to
+ * return a value which will appear in another field.
  */
 @Deprecated
 public class LookupHiddenControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = -2145156789968831921L;
 
-	public LookupHiddenControlDefinition() {
+    public LookupHiddenControlDefinition() {
     }
 
     /**

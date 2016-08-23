@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching 5- and 9-digit zipcodes
- *
- *
  */
 public class ZipcodeValidationPattern extends FieldLevelValidationPattern {
     /**

@@ -18,7 +18,10 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.InternalBillingDocument;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -27,9 +30,6 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates that an accounting line does not have a capital object object code
@@ -41,6 +41,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
     /**
      * Validates that an accounting line does not have a capital object object code
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,7 +51,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
         SpringContext.getBean(DictionaryValidationService.class).validateBusinessObject(accountingLineForValidation);
 
         // Don't bother running other validations if the accounting line isn't valid
-        if(GlobalVariables.getMessageMap().getNumberOfPropertiesWithErrors() < 1) {
+        if (GlobalVariables.getMessageMap().getNumberOfPropertiesWithErrors() < 1) {
             if (accountingLineForValidation.isSourceAccountingLine() && isCapitalObject(accountingLineForValidation)) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, KFSKeyConstants.ERROR_DOCUMENT_IB_CAPITAL_OBJECT_IN_INCOME_SECTION);
                 result = false;
@@ -77,6 +78,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -85,6 +87,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -93,6 +96,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -101,6 +105,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

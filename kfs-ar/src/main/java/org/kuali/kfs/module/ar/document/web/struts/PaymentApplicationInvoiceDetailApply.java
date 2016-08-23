@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.io.Serializable;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
 
 public class PaymentApplicationInvoiceDetailApply implements Serializable {
 
@@ -51,7 +51,7 @@ public class PaymentApplicationInvoiceDetailApply implements Serializable {
 
     public InvoicePaidApplied generatePaidApplied() {
         InvoicePaidApplied paidApplied = new InvoicePaidApplied(payAppDocNumber, invoiceDetail.getDocumentNumber(),
-                invoiceDetail.getSequenceNumber(), amountApplied, DEFAULT_PAID_APPLIED_ITEM_NUMBER);
+            invoiceDetail.getSequenceNumber(), amountApplied, DEFAULT_PAID_APPLIED_ITEM_NUMBER);
         return paidApplied;
     }
 
@@ -67,8 +67,7 @@ public class PaymentApplicationInvoiceDetailApply implements Serializable {
         this.amountAppliedOldValue = this.amountApplied;
         if (amountApplied == null) {
             this.amountApplied = KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             this.amountApplied = amountApplied;
         }
     }

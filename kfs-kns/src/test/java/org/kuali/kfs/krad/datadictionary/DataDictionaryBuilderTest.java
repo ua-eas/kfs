@@ -28,8 +28,6 @@ import static org.junit.Assert.fail;
 
 /**
  * This class is used to test the DataDictionaryBuilder.
- *
- *
  */
 
 public class DataDictionaryBuilderTest {
@@ -37,112 +35,112 @@ public class DataDictionaryBuilderTest {
 
     static final String PACKAGE_CORE_BO = "org/kuali/rice/krad/bo/datadictionary/";
 
-	static final String PACKAGE_CORE_DOCUMENT = "org/kuali/rice/krad/document/datadictionary/";
+    static final String PACKAGE_CORE_DOCUMENT = "org/kuali/rice/krad/document/datadictionary/";
 
-	static final String PACKAGE_KFS = "org/kuali/kfs/datadictionary/";
+    static final String PACKAGE_KFS = "org/kuali/kfs/datadictionary/";
 
-	static final String PACKAGE_CHART = "org/kuali/module/chart/datadictionary/";
+    static final String PACKAGE_CHART = "org/kuali/module/chart/datadictionary/";
 
-	static final String PACKAGE_CG = "org/kuali/module/cg/datadictionary/";
+    static final String PACKAGE_CG = "org/kuali/module/cg/datadictionary/";
 
-	static final String PACKAGE_KRA_BUDGET = "org/kuali/module/kra/budget/datadictionary/";
+    static final String PACKAGE_KRA_BUDGET = "org/kuali/module/kra/budget/datadictionary/";
 
-	static final String PACKAGE_KRA_ROUTINGFORM = "org/kuali/module/kra/routingform/datadictionary/";
+    static final String PACKAGE_KRA_ROUTINGFORM = "org/kuali/module/kra/routingform/datadictionary/";
 
-	static final String TESTPACKAGE_INVALID = "org/kuali/rice/krad/datadictionary/test/invalid/";
+    static final String TESTPACKAGE_INVALID = "org/kuali/rice/krad/datadictionary/test/invalid/";
 
-	DataDictionary dd = null;
+    DataDictionary dd = null;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		dd = new DataDictionary();
-	}
+        dd = new DataDictionary();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		dd = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        dd = null;
+    }
 
-	@Test
-	public final void testDataDictionaryBuilder_source_invalid() throws Exception {
-		boolean failedAsExpected = false;
+    @Test
+    public final void testDataDictionaryBuilder_source_invalid() throws Exception {
+        boolean failedAsExpected = false;
 
-		try {
-			dd.addConfigFileLocation(null);
-		} catch (DataDictionaryException e) {
-			failedAsExpected = true;
-		}
+        try {
+            dd.addConfigFileLocation(null);
+        } catch (DataDictionaryException e) {
+            failedAsExpected = true;
+        }
 
-		assertTrue(failedAsExpected);
-	}
+        assertTrue(failedAsExpected);
+    }
 
-	@Test
-	public final void testDataDictionaryBuilder_source_unknownFile() throws Exception {
-		String INPUT_FILE = TESTPACKAGE_INVALID + "foo.xml";
+    @Test
+    public final void testDataDictionaryBuilder_source_unknownFile() throws Exception {
+        String INPUT_FILE = TESTPACKAGE_INVALID + "foo.xml";
 
-		boolean failedAsExpected = false;
+        boolean failedAsExpected = false;
 
-		try {
-			dd.addConfigFileLocation(INPUT_FILE);
-		} catch (DataDictionaryException e) {
-			failedAsExpected = true;
-		}
+        try {
+            dd.addConfigFileLocation(INPUT_FILE);
+        } catch (DataDictionaryException e) {
+            failedAsExpected = true;
+        }
 
-		assertTrue(failedAsExpected);
-	}
+        assertTrue(failedAsExpected);
+    }
 
-	@Test
-	public final void testDataDictionaryBuilder_source_unknownPackage() throws Exception {
-		String UNKNOWN_PACKAGE = TESTPACKAGE_INVALID + "foo/";
+    @Test
+    public final void testDataDictionaryBuilder_source_unknownPackage() throws Exception {
+        String UNKNOWN_PACKAGE = TESTPACKAGE_INVALID + "foo/";
 
-		boolean failedAsExpected = false;
+        boolean failedAsExpected = false;
 
-		try {
-			dd.addConfigFileLocation(UNKNOWN_PACKAGE);
-		} catch (DataDictionaryException e) {
-			failedAsExpected = true;
-		}
+        try {
+            dd.addConfigFileLocation(UNKNOWN_PACKAGE);
+        } catch (DataDictionaryException e) {
+            failedAsExpected = true;
+        }
 
-		assertTrue(failedAsExpected);
-	}
+        assertTrue(failedAsExpected);
+    }
 
-	@Test
-	public final void testDataDictionaryBuilder_invalidXml() throws Exception {
-		String INPUT_FILE = TESTPACKAGE_INVALID + "InvalidXml.xml";
+    @Test
+    public final void testDataDictionaryBuilder_invalidXml() throws Exception {
+        String INPUT_FILE = TESTPACKAGE_INVALID + "InvalidXml.xml";
 
-		boolean failedAsExpected = false;
+        boolean failedAsExpected = false;
 
-		try {
-			dd.addConfigFileLocation(INPUT_FILE);
-			dd.parseDataDictionaryConfigurationFiles( false );
-		} catch (DataDictionaryException e) {
-			failedAsExpected = true;
-		} catch (Exception e) {
-            LOG.error("Error loading DD files", e);
-		    fail("Data Dictionary file load failed but with wrong exception type '" + e.getClass().getName() + "'");
-		}
-
-		assertTrue(failedAsExpected);
-	}
-
-	@Test
-	public final void testDataDictionaryBuilder_getInvalidDictionary() throws Exception {
-		String INPUT_FILE = TESTPACKAGE_INVALID + "InvalidXml.xml";
-
-		boolean failedAsExpected = false;
-
-		try {
-			dd.addConfigFileLocation(INPUT_FILE);
-			dd.parseDataDictionaryConfigurationFiles( false );
-		} catch (DataDictionaryException e) {
-			failedAsExpected = true;
+        try {
+            dd.addConfigFileLocation(INPUT_FILE);
+            dd.parseDataDictionaryConfigurationFiles(false);
+        } catch (DataDictionaryException e) {
+            failedAsExpected = true;
         } catch (Exception e) {
             LOG.error("Error loading DD files", e);
             fail("Data Dictionary file load failed but with wrong exception type '" + e.getClass().getName() + "'");
-		}
+        }
 
-		assertTrue(failedAsExpected);
-	}
+        assertTrue(failedAsExpected);
+    }
+
+    @Test
+    public final void testDataDictionaryBuilder_getInvalidDictionary() throws Exception {
+        String INPUT_FILE = TESTPACKAGE_INVALID + "InvalidXml.xml";
+
+        boolean failedAsExpected = false;
+
+        try {
+            dd.addConfigFileLocation(INPUT_FILE);
+            dd.parseDataDictionaryConfigurationFiles(false);
+        } catch (DataDictionaryException e) {
+            failedAsExpected = true;
+        } catch (Exception e) {
+            LOG.error("Error loading DD files", e);
+            fail("Data Dictionary file load failed but with wrong exception type '" + e.getClass().getName() + "'");
+        }
+
+        assertTrue(failedAsExpected);
+    }
 
 }

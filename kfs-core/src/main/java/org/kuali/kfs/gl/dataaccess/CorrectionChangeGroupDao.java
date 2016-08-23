@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
+
+import java.util.Collection;
 
 /**
  * a DAO interface that declares methods needed for CorrectionChangeGroups to deal with the database
@@ -45,7 +45,7 @@ public interface CorrectionChangeGroupDao {
     /**
      * Finds a correction change group, based on GLCP document number and the group number
      *
-     * @param documentNumber the document number of the correction change group to retrieve
+     * @param documentNumber              the document number of the correction change group to retrieve
      * @param CorrectionChangeGroupNumber the number of the group to retrieve
      * @return the found CorrectionChangeGroup, or null if not found
      */

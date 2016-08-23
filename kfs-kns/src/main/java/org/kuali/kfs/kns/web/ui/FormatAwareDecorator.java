@@ -27,7 +27,9 @@ import org.kuali.kfs.krad.util.KRADConstants;
 
 import javax.servlet.jsp.PageContext;
 
-/** @see #decorate(Object, PageContext, MediaTypeEnum) */
+/**
+ * @see #decorate(Object, PageContext, MediaTypeEnum)
+ */
 @Deprecated
 public class FormatAwareDecorator implements DisplaytagColumnDecorator {
 
@@ -49,10 +51,10 @@ public class FormatAwareDecorator implements DisplaytagColumnDecorator {
         final String decoratedOutput;
 
         if (isCollection(cellValue)) {
-        	decoratedOutput = createCollectionString(cellValue);
+            decoratedOutput = createCollectionString(cellValue);
         } else {
-        	decoratedOutput = MediaTypeEnum.HTML.equals(mediaType) ? cellValue.toString() : CellComparatorHelper
-                    .getSanitizedStaticValue(cellValue.toString());
+            decoratedOutput = MediaTypeEnum.HTML.equals(mediaType) ? cellValue.toString() : CellComparatorHelper
+                .getSanitizedStaticValue(cellValue.toString());
         }
 
         return StringUtils.isBlank(decoratedOutput) ? getEmptyStringFor(mediaType) : StringUtils.trim(decoratedOutput);
@@ -60,7 +62,7 @@ public class FormatAwareDecorator implements DisplaytagColumnDecorator {
 
     /**
      * Takes a cellValue which is a collection and creates a String representations.
-     *
+     * <p>
      * <p>
      * If a column resulting from lookup contains collection values, each of the collection entry
      * should be printed on one line (i.e. separated by a <br/>). If there is no entry in the
@@ -71,9 +73,9 @@ public class FormatAwareDecorator implements DisplaytagColumnDecorator {
      * @return the string representation of the cell value
      */
     private static String createCollectionString(Object cellValue) {
-    	String decoratedOutput = "";
+        String decoratedOutput = "";
 
-    	String cellContentToBeParsed = cellValue.toString().substring(1, cellValue.toString().indexOf("]"));
+        String cellContentToBeParsed = cellValue.toString().substring(1, cellValue.toString().indexOf("]"));
         if (StringUtils.isNotBlank(cellContentToBeParsed)) {
             String[] parsed = cellContentToBeParsed.split(",");
             for (String elem : parsed) {
@@ -90,7 +92,7 @@ public class FormatAwareDecorator implements DisplaytagColumnDecorator {
      * @return true if a Collection
      */
     private static boolean isCollection(Object cellValue) {
-        return cellValue != null && (cellValue.toString().indexOf("[") == 0 && cellValue.toString().indexOf("]") > 0 && ((cellValue.toString().length() -1) == cellValue.toString().indexOf("]")));
+        return cellValue != null && (cellValue.toString().indexOf("[") == 0 && cellValue.toString().indexOf("]") > 0 && ((cellValue.toString().length() - 1) == cellValue.toString().indexOf("]")));
     }
 
     /**
@@ -100,7 +102,7 @@ public class FormatAwareDecorator implements DisplaytagColumnDecorator {
      * @return the empty string
      */
     private static String getEmptyStringFor(MediaTypeEnum mediaType) {
-    	return MediaTypeEnum.HTML.equals(mediaType) ? "&nbsp" : KRADConstants.EMPTY_STRING;
+        return MediaTypeEnum.HTML.equals(mediaType) ? "&nbsp" : KRADConstants.EMPTY_STRING;
     }
 
 }

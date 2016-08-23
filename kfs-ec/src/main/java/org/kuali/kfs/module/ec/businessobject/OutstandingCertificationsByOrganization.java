@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ec.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.action.ActionItem;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Business object for the outstanding documents by organization report
@@ -81,8 +81,7 @@ public class OutstandingCertificationsByOrganization extends EffortCertification
                     Person person = KimApiServiceLocator.getPersonService().getPerson(actionItem.getPrincipalId());
                     if (StringUtils.isBlank(nextApprovers)) {
                         nextApprovers = person.getName();
-                    }
-                    else {
+                    } else {
                         nextApprovers += "; " + person.getName();
                     }
 

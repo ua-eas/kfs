@@ -19,8 +19,6 @@
 package org.kuali.kfs.krad.bo;
 
 
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtensionBase;
-
 /**
  * Attribute Reference Dummy Business Object
  */
@@ -30,9 +28,7 @@ public class AttributeReferenceElements extends PersistableBusinessObjectExtensi
     private String extendedTextArea;
 
     /**
-     *
      * Constructs a AttributeReferenceDummy.java.
-     *
      */
     public AttributeReferenceElements() {
     }

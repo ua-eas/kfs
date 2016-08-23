@@ -19,12 +19,12 @@
 package org.kuali.kfs.krad.datadictionary.validation.processor;
 
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
 import org.kuali.kfs.krad.datadictionary.validation.constraint.SimpleConstraint;
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
-import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,20 +45,21 @@ public class SimpleConstraintProcessor extends MandatoryElementConstraintProcess
     /**
      * Processes the SimpleConstraint by calling process on the other smaller constraints it represents and
      * putting the results together in ProcessorResult
+     *
      * @return
      * @throws AttributeValidationException
      * @see MandatoryElementConstraintProcessor#process(DictionaryValidationResult,
-     *      Object, Constraint,
-     *      AttributeValueReader)
+     * Object, Constraint,
+     * AttributeValueReader)
      */
     @Override
     public ProcessorResult process(DictionaryValidationResult result, Object value, final SimpleConstraint constraint,
-            AttributeValueReader attributeValueReader) throws AttributeValidationException {
+                                   AttributeValueReader attributeValueReader) throws AttributeValidationException {
 
         ProcessorResult dataTypePR = dataTypeConstraintProcessor.process(result, value, constraint,
-                attributeValueReader);
+            attributeValueReader);
         ProcessorResult existencePR = existenceConstraintProcessor.process(result, value, constraint,
-                attributeValueReader);
+            attributeValueReader);
         ProcessorResult rangePR = rangeConstraintProcessor.process(result, value, constraint, attributeValueReader);
         ProcessorResult lengthPR = lengthConstraintProcessor.process(result, value, constraint, attributeValueReader);
         List<ConstraintValidationResult> cvrList = new ArrayList<ConstraintValidationResult>();

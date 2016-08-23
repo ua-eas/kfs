@@ -22,7 +22,6 @@ package org.kuali.kfs.krad.bo;
 /**
  * Detail objects included as part of globals should implement this interface
  * to facilitate proper storage of data and record locking.
- *
  */
 public interface GlobalBusinessObjectDetail {
 
@@ -30,7 +29,6 @@ public interface GlobalBusinessObjectDetail {
      * Gets the documentNumber attribute.
      *
      * @return Returns the documentNumber
-     *
      */
     String getDocumentNumber();
 
@@ -38,7 +36,6 @@ public interface GlobalBusinessObjectDetail {
      * Sets the documentNumber attribute.
      *
      * @param documentNumber The documentNumber to set.
-     *
      */
     void setDocumentNumber(String documentNumber);
 }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 
 /**
  * This class allows the system to define a custom document base class for

@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.util.Date;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
@@ -28,11 +26,13 @@ import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.util.Date;
 
 /**
  * This class tests the renaming step of generated ICR Encumbrance files.
- *
+ * <p>
  * Additionally, all parts of the ICR Encumbrance functionality are being
  * flexed here, since we have to perform all previous steps to get the
  * files on disk to perform this test.
@@ -58,11 +58,11 @@ public class IcrEncumbranceFileRenameStepTest extends IcrEncumbranceStepTestBase
         this.icrEncumbranceSortStep = SpringContext.getBean(IcrEncumbranceSortStep.class);
         this.posterIcrEncumbranceEntriesStep = SpringContext.getBean(PosterIcrEncumbranceEntriesStep.class);
         this.posterIcrEncumbranceEntriesStep.setParameterService(SpringContext.getBean(ParameterService.class));
-        batchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
 
         // Override spring-gl-test.xml, since all of the other IcrEncumbranceSuite tests use spring-gl.xml
-        fileRenameStep = (FileRenameStep)ProxyUtils.getTargetIfProxied(fileRenameStep);
+        fileRenameStep = (FileRenameStep) ProxyUtils.getTargetIfProxied(fileRenameStep);
         fileRenameStep.setBatchFileDirectoryName(batchFileDirectoryName);
     }
 
@@ -78,7 +78,7 @@ public class IcrEncumbranceFileRenameStepTest extends IcrEncumbranceStepTestBase
      *
      * The rename step simply moves the processed file to a new name with a timestamp/
      */
-    private String getNewFileName(String fileName, String runDateString){
+    private String getNewFileName(String fileName, String runDateString) {
         String regex = "\\" + GeneralLedgerConstants.BatchFileSystem.EXTENSION + "$"; // Match '.data$'
         String newFileName = fileName.replaceAll(regex, ""); // remove extension
         newFileName = newFileName + "." + runDateString + GeneralLedgerConstants.BatchFileSystem.EXTENSION; // put it all together
@@ -108,7 +108,7 @@ public class IcrEncumbranceFileRenameStepTest extends IcrEncumbranceStepTestBase
         posterIcrEncumbranceEntriesStep.execute("testPosterIcrEncumbranceEntriesStep", dateTimeService.getCurrentDate());
 
         // Assert generated files are present
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             File file = new File(fileName);
             assertTrue("A generated file does not exist: " + file.getAbsolutePath(), file.exists());
         }
@@ -118,14 +118,14 @@ public class IcrEncumbranceFileRenameStepTest extends IcrEncumbranceStepTestBase
         fileRenameStep.execute("testIcrEncumbranceFileRenameStep", jobRunDate);
 
         // Assert generated files do not exist, since the step is supposed to rename w/ a timestamp appended
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             File file = new File(fileName);
             assertTrue("A generated file was not renamed: " + file.getAbsolutePath(), !file.exists());
         }
 
         // Assert newly named files are present
         String runDateString = dateTimeService.toDateTimeStringForFilename(jobRunDate);
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
 
             String newFileName = getNewFileName(fileName, runDateString);
             File file = new File(newFileName);

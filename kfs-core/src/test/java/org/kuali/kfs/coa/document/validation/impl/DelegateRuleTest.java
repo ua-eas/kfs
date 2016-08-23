@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapContains;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.util.Calendar;
-
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.sql.Date;
+import java.util.Calendar;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapContains;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class...

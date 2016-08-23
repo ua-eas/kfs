@@ -18,6 +18,16 @@
  */
 package org.kuali.kfs.fp.batch.service.impl;
 
+import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.fp.batch.service.ProcurementCardLoadTransactionsService;
+import org.kuali.kfs.fp.businessobject.ProcurementCardTransaction;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.batch.BatchInputFileType;
+import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
+import org.kuali.kfs.sys.batch.service.BatchInputFileService;
+import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.sys.service.ReportWriterService;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,18 +35,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.NumberUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.kuali.kfs.fp.batch.service.ProcurementCardLoadTransactionsService;
-import org.kuali.kfs.fp.businessobject.ProcurementCardTransaction;
-import org.kuali.kfs.sys.batch.BatchInputFileType;
-import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
-import org.kuali.kfs.sys.batch.service.BatchInputFileService;
-import org.kuali.kfs.sys.exception.ParseException;
-import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * This is the default implementation of the ProcurementCardLoadTransactionsService interface.
@@ -62,8 +60,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
         FileInputStream fileContents;
         try {
             fileContents = new FileInputStream(fileName);
-        }
-        catch (FileNotFoundException e1) {
+        } catch (FileNotFoundException e1) {
             LOG.error("file to parse not found " + fileName, e1);
             throw new RuntimeException("Cannot find the file requested to be parsed " + fileName + " " + e1.getMessage(), e1);
         }
@@ -72,13 +69,11 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
         try {
             byte[] fileByteContent = IOUtils.toByteArray(fileContents);
             pcardTransactions = (Collection) batchInputFileService.parse(procurementCardInputFileType, fileByteContent);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("Error while getting file bytes:  " + e.getMessage(), e);
             reportWriterService.writeFormattedMessageLine("%s cannot be processed. \n\tFile byptes error: %s", fileName, e.getMessage());
             return false;
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             LOG.error("Error parsing xml " + e.getMessage());
             reportWriterService.writeFormattedMessageLine("%s cannot be processed. \n\tXML parsing error: %s", fileName, e.getMessage());
             return false;
@@ -87,7 +82,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
         if (pcardTransactions.isEmpty()) {
             LOG.warn("No PCard transactions in input file " + fileName);
             reportWriterService.writeFormattedMessageLine("%s is processed. No PCard transactios in file. ", fileName);
-        }else{
+        } else {
             loadTransactions((List) pcardTransactions);
             LOG.info("Total transactions loaded: " + String.valueOf(pcardTransactions.size()));
             reportWriterService.writeFormattedMessageLine("%s is processed. %d transaction(s) loaded. ", fileName, pcardTransactions.size());
@@ -114,6 +109,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -122,6 +118,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
 
     /**
      * Sets the batchInputFileService attribute value.
+     *
      * @param batchInputFileService The batchInputFileService to set.
      */
     public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
@@ -130,6 +127,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
 
     /**
      * Sets the procurementCardInputFileType attribute value.
+     *
      * @param procurementCardInputFileType The procurementCardInputFileType to set.
      */
     public void setProcurementCardInputFileType(BatchInputFileType procurementCardInputFileType) {
@@ -141,7 +139,9 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(procurementCardInputFileType.getDirectoryPath()); }};
+        return new ArrayList<String>() {{
+            add(procurementCardInputFileType.getDirectoryPath());
+        }};
     }
 
 }

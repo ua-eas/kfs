@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.module.ld.batch.service.LaborAccountingCycleCachingService;
 import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
 import org.kuali.kfs.module.ld.dataaccess.LaborLedgerEntryDao;
 import org.kuali.kfs.module.ld.service.LaborLedgerEntryService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class implements LaborLedgerEntryService to provide the access to labor ledger entries in data stores.
@@ -39,6 +39,7 @@ public class LaborLedgerEntryServiceImpl implements LaborLedgerEntryService {
 
     private LaborLedgerEntryDao laborLedgerEntryDao;
     private LaborAccountingCycleCachingService laborAccountingCycleCachingService;
+
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerEntryService#save(org.kuali.kfs.module.ld.businessobject.LedgerEntry)
      */

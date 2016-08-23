@@ -18,16 +18,11 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
-
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -37,8 +32,12 @@ import org.kuali.kfs.module.cam.document.service.AssetLocationService;
 import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+
+import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
 
 
 public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActionBase {
@@ -48,7 +47,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
      * This method had to override because equipmentLoanOrReturn information has to be refreshed before display
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -73,9 +72,9 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
     /**
      * This method handles when request is from a work flow document search
      *
-     * @param equipmentLoanOrReturnForm Form
+     * @param equipmentLoanOrReturnForm     Form
      * @param equipmentLoanOrReturnDocument Document
-     * @param service BusinessObjectService
+     * @param service                       BusinessObjectService
      * @return Asset
      */
     protected Asset handleRequestFromWorkflow(EquipmentLoanOrReturnForm equipmentLoanOrReturnForm, EquipmentLoanOrReturnDocument equipmentLoanOrReturnDocument, BusinessObjectService businessObjectService) {
@@ -91,11 +90,11 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
     /**
      * This method handles the request coming from asset lookup screen
      *
-     * @param request Request
-     * @param equipmentLoanOrReturnForm Current form
+     * @param request                       Request
+     * @param equipmentLoanOrReturnForm     Current form
      * @param equipmentLoanOrReturnDocument Document
-     * @param service Business Object Service
-     * @param asset Asset
+     * @param service                       Business Object Service
+     * @param asset                         Asset
      * @return Asset
      */
     protected Asset handleRequestFromLookup(HttpServletRequest request, EquipmentLoanOrReturnForm equipmentLoanOrReturnForm, EquipmentLoanOrReturnDocument equipmentLoanOrReturnDocument, BusinessObjectService businessObjectService, Asset asset) {
@@ -138,7 +137,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
      * This method populate equipmentloanOrReturn document from asset and asset location
      *
      * @param equipmentLoanOrReturnDocument EquipmentLoanOrReturnDocument
-     * @param newAsset Asset
+     * @param newAsset                      Asset
      * @return
      */
     protected void populateEquipmentLoanOrReturnDocument(EquipmentLoanOrReturnDocument equipmentLoanOrReturnDocument, Asset newAsset) {

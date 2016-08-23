@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.ContractManager;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.ContractManager;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
  * Values finder for <code>ContractManager</code>.
@@ -50,7 +50,7 @@ public class ContractManagerValuesFinder extends KeyValuesBase {
         Collection codes = boService.findMatching(ContractManager.class, fieldValues);
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator iter = codes.iterator(); iter.hasNext(); ) {
             ContractManager ContractManager = (ContractManager) iter.next();
             labels.add(new ConcreteKeyValue(ContractManager.getContractManagerCode().toString(), ContractManager.getContractManagerName()));
         }

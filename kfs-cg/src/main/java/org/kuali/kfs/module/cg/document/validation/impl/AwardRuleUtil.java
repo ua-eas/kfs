@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.cg.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cg.businessobject.Award;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cg.businessobject.Award;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Rules for the Award maintenance document.
@@ -39,7 +39,7 @@ public class AwardRuleUtil {
             return false;
         }
         Award result = null;
-        if(ObjectUtils.isNotNull(award.getProposalNumber())) {
+        if (ObjectUtils.isNotNull(award.getProposalNumber())) {
             result = (Award) SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(Award.class, award.getProposalNumber());
         }
 

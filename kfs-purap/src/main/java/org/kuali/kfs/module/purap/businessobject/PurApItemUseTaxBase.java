@@ -19,12 +19,12 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase implements PurApItemUseTax {
 
@@ -121,10 +121,10 @@ public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase 
             return false;
         }
         PurApItemUseTax purapItemUseTax = (PurApItemUseTax) obj;
-        return new EqualsBuilder().append(this.chartOfAccountsCode,purapItemUseTax.getChartOfAccountsCode()).
-        append(this.accountNumber,purapItemUseTax.getAccountNumber()).
-        append(this.getRateCode(),purapItemUseTax.getRateCode()).
-        append(this.financialObjectCode,purapItemUseTax.getFinancialObjectCode()).isEquals();
+        return new EqualsBuilder().append(this.chartOfAccountsCode, purapItemUseTax.getChartOfAccountsCode()).
+            append(this.accountNumber, purapItemUseTax.getAccountNumber()).
+            append(this.getRateCode(), purapItemUseTax.getRateCode()).
+            append(this.financialObjectCode, purapItemUseTax.getFinancialObjectCode()).isEquals();
     }
 
     /**

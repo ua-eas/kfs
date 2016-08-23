@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.document.web.renderers.TableCellRenderer;
+import org.kuali.kfs.sys.document.web.renderers.TableHeaderRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.renderers.TableCellRenderer;
-import org.kuali.kfs.sys.document.web.renderers.TableHeaderRenderer;
-import org.kuali.kfs.kns.web.ui.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class which represents a number of fields held in a table cell.
@@ -44,13 +43,16 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the colSpan attribute.
+     *
      * @return Returns the colSpan.
      */
     public int getColSpan() {
         return colSpan;
     }
+
     /**
      * Sets the colSpan attribute value.
+     *
      * @param colSpan The colSpan to set.
      */
     public void setColSpan(int colSpan) {
@@ -61,13 +63,16 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the rowSpan attribute.
+     *
      * @return Returns the rowSpan.
      */
     public int getRowSpan() {
         return rowSpan;
     }
+
     /**
      * Sets the rowSpan attribute value.
+     *
      * @param rowSpan The rowSpan to set.
      */
     public void setRowSpan(int rowSpan) {
@@ -78,6 +83,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the renderableElement attribute.
+     *
      * @return Returns the renderableElement.
      */
     public List<RenderableElement> getRenderableElement() {
@@ -86,6 +92,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Sets the renderableElement attribute value.
+     *
      * @param renderableElement The renderableElement to set.
      */
     public void setRenderableElement(List<RenderableElement> renderableElement) {
@@ -94,6 +101,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Adds a renderable element to the elements this cell can render
+     *
      * @param element another element to render within this cell
      */
     public void addRenderableElement(RenderableElement element) {
@@ -114,6 +122,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * This is not an action block
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
@@ -135,13 +144,16 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the rendersAsHeader attribute.
+     *
      * @return Returns the rendersAsHeader.
      */
     public boolean isRendersAsHeader() {
         return rendersAsHeader;
     }
+
     /**
      * Sets the rendersAsHeader attribute value.
+     *
      * @param rendersAsHeader The rendersAsHeader to set.
      */
     public void setRendersAsHeader(boolean rendersAsHeader) {
@@ -150,13 +162,16 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the extraStyle attribute.
+     *
      * @return Returns the extraStyle.
      */
     public String getExtraStyle() {
         return extraStyle;
     }
+
     /**
      * Sets the extraStyle attribute value.
+     *
      * @param extraStyle The extraStyle to set.
      */
     public void setExtraStyle(String extraStyle) {
@@ -165,13 +180,16 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the neverEmpty attribute.
+     *
      * @return Returns the neverEmpty.
      */
     public boolean isNeverEmpty() {
         return neverEmpty;
     }
+
     /**
      * Sets the neverEmpty attribute value.
+     *
      * @param neverEmpty The neverEmpty to set.
      */
     public void setNeverEmpty(boolean neverEmpty) {
@@ -180,18 +198,22 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Gets the styleClassOverride attribute.
+     *
      * @return Returns the styleClassOverride.
      */
     public String getStyleClassOverride() {
         return styleClassOverride;
     }
+
     /**
      * Sets the styleClassOverride attribute value.
+     *
      * @param styleClassOverride The styleClassOverride to set.
      */
     public void setStyleClassOverride(String styleClassOverride) {
         this.styleClassOverride = styleClassOverride;
     }
+
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
@@ -211,9 +233,10 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Requests that this cell render all of its children cells
-     * @param pageContext the page context of the rendering
-     * @param parentTag the parent tag requesting all this rendering
-     * @param accountingLine the accounting line getting rendered
+     *
+     * @param pageContext            the page context of the rendering
+     * @param parentTag              the parent tag requesting all this rendering
+     * @param accountingLine         the accounting line getting rendered
      * @param accountingLineProperty the property to get from the form to the accounting line
      * @throws JspException Oh.  Shoot.  Something went...wrong.
      */
@@ -225,6 +248,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Determines if this cell has child elements
+     *
      * @return True if this cell has child elements, false otherwise
      */
     public boolean hasChildElements() {
@@ -233,8 +257,9 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Goes through fields, appending field names
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
      *
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
+     * <p>
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -254,6 +279,7 @@ public class AccountingLineTableCell implements RenderableElement {
 
     /**
      * Determines if this field is safe to remove. If any child elements are instances of FieldTableJoining, then it assumes not
+     *
      * @return true if this cell is safe to remove; false otherwise
      */
     public boolean safeToRemove() {

@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
+import org.kuali.kfs.fp.businessobject.TravelPerDiem;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.fp.businessobject.TravelPerDiem;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * This class returns list of per diem category value pairs.
@@ -47,7 +47,7 @@ public class TravelPerDiemCategoryValuesFinder extends KeyValuesBase {
         List boList = (List) SpringContext.getBean(KeyValuesService.class).findMatching(TravelPerDiem.class, criteria);
         List keyValues = new ArrayList();
         keyValues.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = boList.iterator(); iter.hasNext();) {
+        for (Iterator iter = boList.iterator(); iter.hasNext(); ) {
             TravelPerDiem element = (TravelPerDiem) iter.next();
             keyValues.add(new ConcreteKeyValue(element.getPerDiemCountryName(), element.getPerDiemCountryName()));
         }

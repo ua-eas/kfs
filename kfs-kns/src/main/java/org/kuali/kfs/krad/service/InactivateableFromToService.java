@@ -32,99 +32,83 @@ import java.util.Map;
  */
 public interface InactivateableFromToService {
 
-	/**
-	 * Performs search on given class and criteria and returns only results that active based on the active to/from dates and the current
-	 * date
-	 *
-	 * @param clazz
-	 *            - InactivateableFromTo class to search
-	 * @param fieldValues
-	 *            - Search key values
-	 * @return List of InactivateableFromTo instances that match search criteria and are active
-	 */
-	public List<InactivatableFromTo> findMatchingActive(Class<? extends InactivatableFromTo> clazz, Map fieldValues);
+    /**
+     * Performs search on given class and criteria and returns only results that active based on the active to/from dates and the current
+     * date
+     *
+     * @param clazz       - InactivateableFromTo class to search
+     * @param fieldValues - Search key values
+     * @return List of InactivateableFromTo instances that match search criteria and are active
+     */
+    public List<InactivatableFromTo> findMatchingActive(Class<? extends InactivatableFromTo> clazz, Map fieldValues);
 
-	/**
-	 * Performs search on given class and criteria and returns only results that active based on the active to/from dates and the given
-	 * active as of date
-	 *
-	 * @param clazz
-	 *            - InactivateableFromTo class to search
-	 * @param fieldValues
-	 *            - Search key values
-	 * @param activeAsOfDate
-	 *            - Date to compare to for determining active status
-	 * @return List of InactivateableFromTo instances that match search criteria and are active as of the given date
-	 */
-	public List<InactivatableFromTo> findMatchingActiveAsOfDate(Class<? extends InactivatableFromTo> clazz,
-			Map fieldValues, Date activeAsOfDate);
+    /**
+     * Performs search on given class and criteria and returns only results that active based on the active to/from dates and the given
+     * active as of date
+     *
+     * @param clazz          - InactivateableFromTo class to search
+     * @param fieldValues    - Search key values
+     * @param activeAsOfDate - Date to compare to for determining active status
+     * @return List of InactivateableFromTo instances that match search criteria and are active as of the given date
+     */
+    public List<InactivatableFromTo> findMatchingActiveAsOfDate(Class<? extends InactivatableFromTo> clazz,
+                                                                Map fieldValues, Date activeAsOfDate);
 
-	/**
-	 * Removes instances from the given list that are inactive based on the current date
-	 *
-	 * @param filterList
-	 *            - List of InactivateableFromTo instances to filter
-	 * @return List of InactivateableFromTo instances from the given list that are active as of the current date
-	 */
-	public List<InactivatableFromTo> filterOutNonActive(List<InactivatableFromTo> filterList);
+    /**
+     * Removes instances from the given list that are inactive based on the current date
+     *
+     * @param filterList - List of InactivateableFromTo instances to filter
+     * @return List of InactivateableFromTo instances from the given list that are active as of the current date
+     */
+    public List<InactivatableFromTo> filterOutNonActive(List<InactivatableFromTo> filterList);
 
-	/**
-	 * Removes instances from the given list that are inactive based on the given date
-	 *
-	 * @param filterList
-	 *            - List of InactivateableFromTo instances to filter
-	 * @param activeAsOfDate
-	 *            - Date to compare to for determining active status
-	 * @return List of InactivateableFromTo instances from the given list that are active as of the given date
-	 */
-	public List<InactivatableFromTo> filterOutNonActive(List<InactivatableFromTo> filterList, Date activeAsOfDate);
+    /**
+     * Removes instances from the given list that are inactive based on the given date
+     *
+     * @param filterList     - List of InactivateableFromTo instances to filter
+     * @param activeAsOfDate - Date to compare to for determining active status
+     * @return List of InactivateableFromTo instances from the given list that are active as of the given date
+     */
+    public List<InactivatableFromTo> filterOutNonActive(List<InactivatableFromTo> filterList, Date activeAsOfDate);
 
-	/**
-	 * Performs search on given class and criteria and returns that are active and most current. That is if two records are active the more
-	 * current one will be the one with a later active begin date
-	 *
-	 * @param clazz
-	 *            - InactivateableFromTo class to search
-	 * @param fieldValues
-	 *            - Search key values
-	 * @return List of InactivateableFromTo instances that match search criteria and are current
-	 */
-	public List<InactivatableFromTo> findMatchingCurrent(Class<? extends InactivatableFromTo> clazz,
-			Map fieldValues);
+    /**
+     * Performs search on given class and criteria and returns that are active and most current. That is if two records are active the more
+     * current one will be the one with a later active begin date
+     *
+     * @param clazz       - InactivateableFromTo class to search
+     * @param fieldValues - Search key values
+     * @return List of InactivateableFromTo instances that match search criteria and are current
+     */
+    public List<InactivatableFromTo> findMatchingCurrent(Class<? extends InactivatableFromTo> clazz,
+                                                         Map fieldValues);
 
-	/**
-	 * Performs search on given class and criteria and returns that are active and most current based on the given date. That is if two
-	 * records are active the more current one will be the one with a later active begin date
-	 *
-	 * @param clazz
-	 *            - InactivateableFromTo class to search
-	 * @param fieldValues
-	 *            - Search key values
-	 * @param currentAsOfDate
-	 *            - Date to compare to for determining active and current status
-	 * @return List of InactivateableFromTo instances that match search criteria and are current
-	 */
-	public List<InactivatableFromTo> findMatchingCurrent(Class<? extends InactivatableFromTo> clazz,
-			Map fieldValues, Date currentAsOfDate);
+    /**
+     * Performs search on given class and criteria and returns that are active and most current based on the given date. That is if two
+     * records are active the more current one will be the one with a later active begin date
+     *
+     * @param clazz           - InactivateableFromTo class to search
+     * @param fieldValues     - Search key values
+     * @param currentAsOfDate - Date to compare to for determining active and current status
+     * @return List of InactivateableFromTo instances that match search criteria and are current
+     */
+    public List<InactivatableFromTo> findMatchingCurrent(Class<? extends InactivatableFromTo> clazz,
+                                                         Map fieldValues, Date currentAsOfDate);
 
-	/**
-	 * Removes instances from the given list that are not current based on the current date
-	 *
-	 * @param filterList
-	 *            - List of InactivateableFromTo instances to filter
-	 * @return List of InactivateableFromTo instances from the given list that are current as of the current date
-	 */
-	public List<InactivatableFromTo> filterOutNonCurrent(List<InactivatableFromTo> filterList);
+    /**
+     * Removes instances from the given list that are not current based on the current date
+     *
+     * @param filterList - List of InactivateableFromTo instances to filter
+     * @return List of InactivateableFromTo instances from the given list that are current as of the current date
+     */
+    public List<InactivatableFromTo> filterOutNonCurrent(List<InactivatableFromTo> filterList);
 
-	/**
-	 * Removes instances from the given list that are not current based on the given date
-	 *
-	 * @param filterList
-	 *            - List of InactivateableFromTo instances to filter
-	 * @param currentAsOfDate
-	 *            - Date to compare to for determining active and current status
-	 * @return List of InactivateableFromTo instances from the given list that are current as of the given date
-	 */
-	public List<InactivatableFromTo> filterOutNonCurrent(List<InactivatableFromTo> filterList, Date currentAsOfDate);
+    /**
+     * Removes instances from the given list that are not current based on the given date
+     *
+     * @param filterList      - List of InactivateableFromTo instances to filter
+     * @param currentAsOfDate - Date to compare to for determining active and current status
+     * @return List of InactivateableFromTo instances from the given list that are current as of the given date
+     */
+    public List<InactivatableFromTo> filterOutNonCurrent(List<InactivatableFromTo> filterList, Date currentAsOfDate);
 
 }

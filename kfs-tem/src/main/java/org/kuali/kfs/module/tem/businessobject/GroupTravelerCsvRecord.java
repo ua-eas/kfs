@@ -21,9 +21,8 @@ package org.kuali.kfs.module.tem.businessobject;
 
 /**
  * Interface defining the structure for a CSV flat file record of stuff
- *
  */
-public interface GroupTravelerCsvRecord  {
+public interface GroupTravelerCsvRecord {
     String getGroupTravelerType();
 
     String getName();

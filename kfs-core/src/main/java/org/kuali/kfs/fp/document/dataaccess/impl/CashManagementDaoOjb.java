@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.fp.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -38,6 +32,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 
 public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements CashManagementDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CashManagementDaoOjb.class);
@@ -56,7 +56,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
         criteria.addColumnIsNull("ITM_CLOSED_DT");
 
         QueryByCriteria openItemsQuery = QueryFactory.newQuery(CashieringItemInProcess.class, criteria);
-        return new ArrayList<CashieringItemInProcess>( getPersistenceBrokerTemplate().getCollectionByQuery(openItemsQuery) );
+        return new ArrayList<CashieringItemInProcess>(getPersistenceBrokerTemplate().getCollectionByQuery(openItemsQuery));
     }
 
     /**
@@ -82,7 +82,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * @see org.kuali.kfs.fp.document.dataaccess.CashManagementDao#findCoinDetailByCashieringStatus(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public CoinDetail findCoinDetailByCashieringStatus(String documentNumber, String documentTypeCode, String cashieringStatus) {
         return (CoinDetail) retrieveCashDetail(documentNumber, documentTypeCode, cashieringStatus, CoinDetail.class);
@@ -90,7 +90,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * @see org.kuali.kfs.fp.document.dataaccess.CashManagementDao#findCurrencyDetailByCashieringStatus(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public CurrencyDetail findCurrencyDetailByCashieringStatus(String documentNumber, String documentTypeCode, String cashieringStatus) {
         return (CurrencyDetail) retrieveCashDetail(documentNumber, documentTypeCode, cashieringStatus, CurrencyDetail.class);
@@ -99,7 +99,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
     /**
      * This takes the primary keys for a cash or currency detail record and returns an OJB criteria for it
      *
-     * @param documentNumber document number to retrieve
+     * @param documentNumber   document number to retrieve
      * @param documentTypeCode type code of the document
      * @param cashieringStatus the cashiering status
      * @return a criteria, based on all of the given information
@@ -115,10 +115,10 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
     /**
      * This method retrieves a cash detail from the database
      *
-     * @param documentNumber the document number to retrieve from
+     * @param documentNumber   the document number to retrieve from
      * @param documentTypeCode the document type of the document the cash detail to look up is associated with
      * @param cashieringStatus the cashiering status to look up from
-     * @param detailType the class of the cash detail type we want
+     * @param detailType       the class of the cash detail type we want
      * @return the cash detail type record
      */
     protected Object retrieveCashDetail(String documentNumber, String documentTypeCode, String cashieringStatus, Class detailType) {
@@ -138,7 +138,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
     /**
      * This method creates a criteria to find the cashiering checks associated with a given deposit
      *
-     * @param documentNumber the document number the deposit is associated with
+     * @param documentNumber    the document number the deposit is associated with
      * @param depositLineNumber the line number of the deposit
      * @return a criteria to find those checks
      */
@@ -211,7 +211,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
     public List<CurrencyDetail> getAllCurrencyDetails(String documentNumber) {
         QueryByCriteria allCurrencyDetailsQuery = QueryFactory.newQuery(CurrencyDetail.class, getAllCashDetailCriteria(documentNumber));
         List<CurrencyDetail> result = new ArrayList<CurrencyDetail>();
-        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCurrencyDetailsQuery); iter.hasNext();) {
+        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCurrencyDetailsQuery); iter.hasNext(); ) {
             result.add((CurrencyDetail) iter.next());
         }
         return result;
@@ -226,7 +226,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
     public List<CoinDetail> getAllCoinDetails(String documentNumber) {
         QueryByCriteria allCoinDetailsQuery = QueryFactory.newQuery(CoinDetail.class, getAllCashDetailCriteria(documentNumber));
         List<CoinDetail> result = new ArrayList<CoinDetail>();
-        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCoinDetailsQuery); iter.hasNext();) {
+        for (Iterator iter = getPersistenceBrokerTemplate().getIteratorByQuery(allCoinDetailsQuery); iter.hasNext(); ) {
             result.add((CoinDetail) iter.next());
         }
         return result;
@@ -261,12 +261,10 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
             Iterator allChecksIter = getPersistenceBrokerTemplate().getIteratorByQuery(cmChecksQuery);
             if (allChecksIter.hasNext()) {
                 return new Integer((((Check) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(allChecksIter)).getSequenceId()).intValue() + 1);
-            }
-            else {
+            } else {
                 return new Integer(1);
             }
-        }
-        else {
+        } else {
             return null;
         }
     }

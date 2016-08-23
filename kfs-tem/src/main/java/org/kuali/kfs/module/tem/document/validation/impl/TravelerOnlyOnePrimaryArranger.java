@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.ArrangerFields;
 import org.kuali.kfs.module.tem.document.TravelArrangerDocument;
 import org.kuali.kfs.module.tem.document.service.TravelArrangerDocumentService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TravelerOnlyOnePrimaryArranger extends GenericValidation {
     private TravelArrangerDocumentService arrangerDocumentService;
@@ -33,18 +33,18 @@ public class TravelerOnlyOnePrimaryArranger extends GenericValidation {
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
-        TravelArrangerDocument document = (TravelArrangerDocument)event.getDocument();
+        TravelArrangerDocument document = (TravelArrangerDocument) event.getDocument();
         Integer profileId = document.getProfileId();
         String arrangerId = document.getArrangerId();
 
-        if(!document.getPrimaryInd()) {
+        if (!document.getPrimaryInd()) {
             return success;
         }
-        if(ObjectUtils.isNotNull(profileId)) {
+        if (ObjectUtils.isNotNull(profileId)) {
             document.refreshReferenceObject("profile");
         }
 
-        if(ObjectUtils.isNotNull(arrangerDocumentService.findPrimaryTravelProfileArranger(arrangerId, profileId))) {
+        if (ObjectUtils.isNotNull(arrangerDocumentService.findPrimaryTravelProfileArranger(arrangerId, profileId))) {
             GlobalVariables.getMessageMap().putError(ArrangerFields.PRIMARY_ARRANGER, TemKeyConstants.ERROR_TTA_ARRGR_ONE_PRIMARY);
             return false;
         }
@@ -54,6 +54,7 @@ public class TravelerOnlyOnePrimaryArranger extends GenericValidation {
 
     /**
      * Gets the arrangerDocumentService attribute.
+     *
      * @return Returns the arrangerDocumentService.
      */
     public TravelArrangerDocumentService getArrangerDocumentService() {
@@ -62,6 +63,7 @@ public class TravelerOnlyOnePrimaryArranger extends GenericValidation {
 
     /**
      * Sets the arrangerDocumentService attribute value.
+     *
      * @param arrangerDocumentService The arrangerDocumentService to set.
      */
     public void setArrangerDocumentService(TravelArrangerDocumentService arrangerDocumentService) {

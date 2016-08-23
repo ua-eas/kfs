@@ -18,20 +18,20 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <!DOCTYPE digester-rules
-    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
-    "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+        PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 
 <digester-rules>
 
-	<pattern value="PurchaseOrderMessage/ResponseMessage">
-        <object-create-rule classname="org.kuali.kfs.module.purap.util.cxml.PurchaseOrderResponse" />
+    <pattern value="PurchaseOrderMessage/ResponseMessage">
+        <object-create-rule classname="org.kuali.kfs.module.purap.util.cxml.PurchaseOrderResponse"/>
 
-			<call-method-rule pattern="Status/StatusCode" methodname="setStatusCode" paramcount="0" />
-			<call-method-rule pattern="Status/StatusText" methodname="setStatusText" paramcount="0" />
+        <call-method-rule pattern="Status/StatusCode" methodname="setStatusCode" paramcount="0"/>
+        <call-method-rule pattern="Status/StatusText" methodname="setStatusText" paramcount="0"/>
 
-		    <call-method-rule pattern="Status/Errors/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0" />
-		    <call-method-rule pattern="ObjectErrors/PurchaseOrderLineRef/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0" />
-            <call-method-rule pattern="ObjectErrors/PurchaseOrderRef/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0" />
+        <call-method-rule pattern="Status/Errors/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0"/>
+        <call-method-rule pattern="ObjectErrors/PurchaseOrderLineRef/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0"/>
+        <call-method-rule pattern="ObjectErrors/PurchaseOrderRef/Error/ErrorMessage" methodname="addPOResponseErrorMessage" paramcount="0"/>
 
     </pattern>
 

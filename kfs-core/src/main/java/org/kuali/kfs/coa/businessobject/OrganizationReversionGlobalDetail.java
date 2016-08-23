@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.service.ObjectCodeService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * This is a representation of an Organization Reversion Detail, made specifically for Global Organization Reversions. However, as
@@ -177,6 +177,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the organizationReversionObject attribute.
+     *
      * @return Returns the organizationReversionObject.
      */
     public ObjectCode getOrganizationReversionObject() {
@@ -185,6 +186,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionObject attribute value.
+     *
      * @param organizationReversionObject The organizationReversionObject to set.
      */
     public void setOrganizationReversionObject(ObjectCode organizationReversionObject) {
@@ -207,17 +209,13 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
             if (keyValueObj != null) {
                 keyValue = keyValueObj.toString();
             }
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             LOG.info("Illegal access exception while attempting to read property " + keyName, iae);
-        }
-        catch (InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             LOG.info("Illegal Target Exception while attempting to read property " + keyName, ite);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             LOG.info("There is no such method to read property " + keyName + " in this class.", nsme);
-        }
-        finally {
+        } finally {
             sb.append(keyValue);
         }
         sb.append(KFSConstants.Maintenance.AFTER_VALUE_DELIM);

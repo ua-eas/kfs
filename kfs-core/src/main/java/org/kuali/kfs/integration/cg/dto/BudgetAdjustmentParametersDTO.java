@@ -41,7 +41,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
         protected String projectCode;
         protected String currentAmount;
 
-         /**
+        /**
          * Gets the chart attribute.
          *
          * @return Returns the chart.
@@ -80,6 +80,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
         public String getSubAccount() {
             return subAccount;
         }
+
         public void setSubAccount(String subAccount) {
             this.subAccount = subAccount;
         }
@@ -144,7 +145,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
     }
 
 
-     public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -185,7 +186,7 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
 
 
     public List<Details> getDetails() {
-        if (details == null)  details = new ArrayList<Details>();
+        if (details == null) details = new ArrayList<Details>();
         return details;
     }
 
@@ -195,11 +196,9 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
     }
 
 
-
     public String getOrgDocNumber() {
         return orgDocNumber;
     }
-
 
 
     public void setOrgDocNumber(String orgDocNumber) {
@@ -207,11 +206,9 @@ public class BudgetAdjustmentParametersDTO implements Serializable {
     }
 
 
-
     public String getSponsorType() {
         return sponsorType;
     }
-
 
 
     public void setSponsorType(String sponsorType) {

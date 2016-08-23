@@ -19,20 +19,9 @@
 
 package org.kuali.kfs.sys.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.kns.lookup.LookupResultsServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.web.ui.ResultRow;
@@ -41,7 +30,18 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.SelectedObjectIds;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Used for segemented lookup results
@@ -128,7 +128,7 @@ public class SegmentedLookupResultsServiceImpl extends LookupResultsServiceImpl 
      * not match the criteria used to search.
      *
      * @see org.kuali.rice.kns.lookup.LookupResultsService#retrieveSelectedResultBOs(java.lang.String, java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<PersistableBusinessObject> retrieveSelectedResultBOs(String lookupResultsSequenceNumber, Class boClass, String personId) throws Exception {
         Set<String> setOfSelectedObjIds = retrieveSetOfSelectedObjectIds(lookupResultsSequenceNumber, personId);

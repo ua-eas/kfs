@@ -43,7 +43,7 @@ public class BalancingDaoJdbc extends PlatformAwareDaoBaseJdbc implements Balanc
     protected static final String VER_NBR = "VER_NBR";
     protected static final String ROW_COUNT = "ROW_CNT";
 
-    protected static final String ENTRY_KEY_FIELDS = GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + ", " + GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE + ", " + GeneralLedgerConstants.ColumnNames.OBJECT_CODE + ", " + GeneralLedgerConstants.ColumnNames.BALANCE_TYPE_CODE + ", " + GeneralLedgerConstants.ColumnNames.FISCAL_PERIOD_CODE+ ", " + GeneralLedgerConstants.ColumnNames.DEBIT_CREDIT_CODE;
+    protected static final String ENTRY_KEY_FIELDS = GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + ", " + GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE + ", " + GeneralLedgerConstants.ColumnNames.OBJECT_CODE + ", " + GeneralLedgerConstants.ColumnNames.BALANCE_TYPE_CODE + ", " + GeneralLedgerConstants.ColumnNames.FISCAL_PERIOD_CODE + ", " + GeneralLedgerConstants.ColumnNames.DEBIT_CREDIT_CODE;
 
     protected static final String BALANCE_KEY_FIELDS = GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + ", " + GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE + ", " + GeneralLedgerConstants.ColumnNames.ACCOUNT_NUMBER + ", " + GeneralLedgerConstants.ColumnNames.SUB_ACCOUNT_NUMBER + ", " + GeneralLedgerConstants.ColumnNames.OBJECT_CODE + ", " + GeneralLedgerConstants.ColumnNames.SUB_OBJECT_CODE + ", " + GeneralLedgerConstants.ColumnNames.BALANCE_TYPE_CODE + ", " + GeneralLedgerConstants.ColumnNames.OBJECT_TYPE_CODE;
     protected static final String BALANCE_AMOUNT_FIELDS = GeneralLedgerConstants.ColumnNames.ANNUAL_BALANCE + ", " + GeneralLedgerConstants.ColumnNames.BEGINNING_BALANCE + ", " + GeneralLedgerConstants.ColumnNames.CONTRACT_AND_GRANTS_BEGINNING_BALANCE;
@@ -63,10 +63,10 @@ public class BalancingDaoJdbc extends PlatformAwareDaoBaseJdbc implements Balanc
         String entryHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(EntryHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + entryHistoryTableName + " (" + ENTRY_KEY_FIELDS + ", " + VER_NBR + ", " + GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + ", " + ROW_COUNT + ")"
-        + " SELECT " + ENTRY_KEY_FIELDS + ", 1, sum(" +  GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + "), count(*)"
-        + " FROM " + entryTableName
-        + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear
-        + " GROUP BY " + ENTRY_KEY_FIELDS;
+            + " SELECT " + ENTRY_KEY_FIELDS + ", 1, sum(" + GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT + "), count(*)"
+            + " FROM " + entryTableName
+            + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear
+            + " GROUP BY " + ENTRY_KEY_FIELDS;
 
         LOG.debug(sql);
 
@@ -81,9 +81,9 @@ public class BalancingDaoJdbc extends PlatformAwareDaoBaseJdbc implements Balanc
         String balanceHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(BalanceHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + balanceHistoryTableName + " (" + BALANCE_KEY_FIELDS + ", " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS + ")"
-        + " SELECT " + BALANCE_KEY_FIELDS + ", " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS
-        + " FROM " + balanceTableName
-        + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
+            + " SELECT " + BALANCE_KEY_FIELDS + ", " + BALANCE_AMOUNT_FIELDS + ", " + BALANCE_MONTH_AMOUNT_FIELDS
+            + " FROM " + balanceTableName
+            + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
 
         LOG.debug(sql);
 
@@ -98,9 +98,9 @@ public class BalancingDaoJdbc extends PlatformAwareDaoBaseJdbc implements Balanc
         String accountBalanceHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(AccountBalanceHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + accountBalanceHistoryTableName + " (" + ACCOUNT_BALANCE_KEY_FIELDS + ", " + ACCOUNT_BALANCE_AMOUNT_FIELDS + ")"
-        + " SELECT " + ACCOUNT_BALANCE_KEY_FIELDS + ", " + ACCOUNT_BALANCE_AMOUNT_FIELDS
-        + " FROM " + accountBalanceTableName
-        + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
+            + " SELECT " + ACCOUNT_BALANCE_KEY_FIELDS + ", " + ACCOUNT_BALANCE_AMOUNT_FIELDS
+            + " FROM " + accountBalanceTableName
+            + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
 
         LOG.debug(sql);
 
@@ -115,9 +115,9 @@ public class BalancingDaoJdbc extends PlatformAwareDaoBaseJdbc implements Balanc
         String encumbranceHistoryTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(EncumbranceHistory.class).getFullTableName();
 
         String sql = "INSERT INTO " + encumbranceHistoryTableName + " (" + ENCUMBRANCE_KEY_FIELDS + ", " + ENCUMBRANCE_AMOUNT_FIELDS + ")"
-        + " SELECT " + ENCUMBRANCE_KEY_FIELDS + ", " + ENCUMBRANCE_AMOUNT_FIELDS
-        + " FROM " + encumbranceTableName
-        + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
+            + " SELECT " + ENCUMBRANCE_KEY_FIELDS + ", " + ENCUMBRANCE_AMOUNT_FIELDS
+            + " FROM " + encumbranceTableName
+            + " WHERE " + GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR + " >= " + universityFiscalYear;
 
         LOG.debug(sql);
 

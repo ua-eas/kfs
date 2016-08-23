@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ld.businessobject.BenefitsType;
+
+import java.util.Collection;
 
 public interface LaborBenefitsTypeService {
 

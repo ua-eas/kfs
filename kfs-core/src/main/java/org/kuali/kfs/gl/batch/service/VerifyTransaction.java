@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.Message;
+
+import java.util.List;
 
 /**
  * An interface declaring methods needed by the Poster to ascertain if a transaction is suitable for posting

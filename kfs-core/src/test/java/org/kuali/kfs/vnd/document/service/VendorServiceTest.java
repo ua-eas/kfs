@@ -18,18 +18,6 @@
  */
 package org.kuali.kfs.vnd.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address1;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address2;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address3;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address4;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address5;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address6;
-import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address7;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -38,6 +26,18 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.fixture.VendorAddressFixture;
 import org.kuali.kfs.vnd.fixture.VendorRoutingChangesFixture;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address1;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address2;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address3;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address4;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address5;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address6;
+import static org.kuali.kfs.vnd.fixture.VendorAddressFixture.address7;
 
 @ConfigureContext(session = khuntley)
 public class VendorServiceTest extends KualiTestBase {
@@ -77,32 +77,32 @@ public class VendorServiceTest extends KualiTestBase {
     }
 
     public void testGetVendorDefaultAddress_test1() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address5, address6 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address5, address6});
         testGetVendorDefaultAddress(address6.vendorAddressGeneratedIdentifier, addresses, "PO", "IN");
     }
 
     public void testGetVendorDefaultAddress_test2() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address1, address2 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address1, address2});
         testGetVendorDefaultAddress(address1.vendorAddressGeneratedIdentifier, addresses, "PO", "BL");
     }
 
     public void testGetVendorDefaultAddress_test3() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address1, address2 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address1, address2});
         testGetVendorDefaultAddress(address1.vendorAddressGeneratedIdentifier, addresses, "PO", "");
     }
 
     public void testGetVendorDefaultAddress_test4() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address1, address2 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address1, address2});
         testGetVendorDefaultAddress(null, addresses, "RM", "BL");
     }
 
     public void testGetVendorDefaultAddress_test5() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address1, address2, address3, address4 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address1, address2, address3, address4});
         testGetVendorDefaultAddress(address3.vendorAddressGeneratedIdentifier, addresses, "RM", "BL");
     }
 
     public void testGetVendorDefaultAddress_test6() {
-        addresses = setupAddresses(new VendorAddressFixture[] { address1, address2, address4, address7 });
+        addresses = setupAddresses(new VendorAddressFixture[]{address1, address2, address4, address7});
         testGetVendorDefaultAddress(address7.vendorAddressGeneratedIdentifier, addresses, "RM", "SB");
     }
 

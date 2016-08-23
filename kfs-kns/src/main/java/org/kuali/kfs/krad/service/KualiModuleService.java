@@ -71,7 +71,6 @@ public interface KualiModuleService {
     public List<String> getDataDictionaryPackages();
 
     /**
-     *
      * This method gets namespace name for the given namespace code
      *
      * @param namespaceCode
@@ -88,6 +87,7 @@ public interface KualiModuleService {
     public boolean isBusinessObjectExternal(String boClassName);
 
     String getNamespaceCode(Class<?> documentOrStepClass);
+
     String getComponentCode(Class<?> documentOrStepClass);
 
 }

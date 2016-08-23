@@ -24,209 +24,209 @@
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
 
 
-	<!-- parent bean to make the definitions below easier to read -->
-	<bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
+    <!-- parent bean to make the definitions below easier to read -->
+    <bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true"/>
 
- 	<bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter" />
-	<!-- These are beans we need to export from Rice -->
+    <bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter"/>
+    <!-- These are beans we need to export from Rice -->
 
-	<!-- TODO: sort by rice module -->
+    <!-- TODO: sort by rice module -->
 
-	<!-- CoreServices -->
- 	<bean id="mailSender" p:serviceName="mailSender" parent="grlBeanImporter" />
- 	<bean id="parameterService" p:serviceName="cf.parameterService" parent="grlBeanImporter" />
- 	<bean id="parameterRepositoryService" p:serviceName="cf.parameterRepositoryService" parent="grlBeanImporter" />
-	<!-- Location -->
- 	<bean id="postalCodeService" p:serviceName="postalCodeService" parent="grlBeanImporter" />
- 	<bean id="stateService" p:serviceName="stateService" parent="grlBeanImporter" />
- 	<bean id="countryService" p:serviceName="countryService" parent="grlBeanImporter" />
- 	<bean id="countyService" p:serviceName="countyService" parent="grlBeanImporter" />
- 	<bean id="campusService" p:serviceName="campusService" parent="grlBeanImporter" />
-	<!-- KNS/KRAD -->
-	<bean id="kualiModuleService" p:serviceName="cf.kualiModuleService" parent="grlBeanImporter" />
-	<bean id="dateTimeService" p:serviceName="cf.dateTimeService" parent="grlBeanImporter" />
-	<bean id="mailer" p:serviceName="cf.mailer" parent="grlBeanImporter" />
-	<bean id="mailService" p:serviceName="cf.mailService" parent="grlBeanImporter" />
-	<bean id="configurationService" p:serviceName="cf.kualiConfigurationService" parent="grlBeanImporter" />
-	<alias name="configurationService" alias="kualiConfigurationService" />
-	<bean id="persistenceStructureService" p:serviceName="cf.persistenceStructureService" parent="grlBeanImporter" />
-	<bean id="persistenceStructureServiceOjb" p:serviceName="cf.persistenceStructureServiceOjb" parent="grlBeanImporter" />
-	<bean id="encryptionService" p:serviceName="cf.encryptionService" parent="grlBeanImporter" />
-	<bean id="sequenceAccessorService" p:serviceName="cf.sequenceAccessorService" parent="grlBeanImporter" />
- 	<bean id="dataDictionaryService" p:serviceName="cf.dataDictionaryService" parent="grlBeanImporter" />
- 	<bean id="attachmentService" p:serviceName="cf.attachmentService" parent="grlBeanImporter" />
- 	<bean id="sessionDocumentService" p:serviceName="cf.sessionDocumentService" parent="grlBeanImporter" />
- 	<bean id="noteService" p:serviceName="cf.noteService" parent="grlBeanImporter" />
- 	<bean id="businessObjectService" p:serviceName="cf.businessObjectService" parent="grlBeanImporter" />
- 	<bean id="kualiRuleService" p:serviceName="cf.kualiRuleService" parent="grlBeanImporter" />
- 	<bean id="keyValuesService" p:serviceName="cf.keyValuesService" parent="grlBeanImporter" />
- 	<bean id="businessObjectMetaDataService" p:serviceName="cf.businessObjectMetaDataService" parent="grlBeanImporter" />
- 	<bean id="lookupService" p:serviceName="cf.lookupService" parent="grlBeanImporter" />
- 	<bean id="lookupResultsService" p:serviceName="cf.lookupResultsService" parent="grlBeanImporter" />
- 	<bean id="lookupDao" p:serviceName="cf.lookupDao" parent="grlBeanImporter" />
- 	<bean id="documentAdHocService" p:serviceName="cf.documentAdHocService" parent="grlBeanImporter" />
-	<bean id="maintenanceDocumentService" p:serviceName="cf.maintenanceDocumentService" parent="grlBeanImporter" />
-	<bean id="postProcessorService" p:serviceName="cf.postProcessorService" parent="grlBeanImporter" />
- 	<bean id="dictionaryValidationService" p:serviceName="cf.dictionaryValidationService" parent="grlBeanImporter" />
- 	<bean id="persistenceService" p:serviceName="cf.persistenceService" parent="grlBeanImporter" />
-	<bean id="persistenceServiceOjb" p:serviceName="cf.persistenceServiceOjb" parent="grlBeanImporter"/>
- 	<bean id="businessObjectDictionaryService" p:serviceName="cf.businessObjectDictionaryService" parent="grlBeanImporter" />
- 	<bean id="maintenanceDocumentDictionaryService" p:serviceName="cf.maintenanceDocumentDictionaryService" parent="grlBeanImporter" />
- 	<bean id="documentHeaderService" p:serviceName="cf.documentHeaderService" parent="grlBeanImporter" />
- 	<bean id="documentHeaderDao" p:serviceName="cf.documentHeaderDao" parent="grlBeanImporter" />
- 	<alias name="documentHeaderDao" alias="financialSystemDocumentHeaderDao" />
- 	<bean id="documentService" p:serviceName="cf.documentService" parent="grlBeanImporter" />
- 	<bean id="documentHelperService" p:serviceName="cf.documentHelperService" parent="grlBeanImporter" />
- 	<bean id="transactionalDocumentDictionaryService" p:serviceName="cf.transactionalDocumentDictionaryService" parent="grlBeanImporter" />
- 	<bean id="maintenanceDocumentDao" p:serviceName="cf.maintenanceDocumentDao" parent="grlBeanImporter" />
- 	<bean id="documentDao" p:serviceName="cf.documentDao" parent="grlBeanImporter" />
- 	<bean id="dataObjectMetaDataService" p:serviceName="cf.dataObjectMetaDataService" parent="grlBeanImporter" />
- 	<bean id="documentDictionaryService" p:serviceName="cf.documentDictionaryService" parent="grlBeanImporter" />
- 	<bean id="inquiryViewTypeService" p:serviceName="cf.inquiryViewTypeService" parent="grlBeanImporter" />
- 	<bean id="lookupViewTypeService" p:serviceName="cf.lookupViewTypeService" parent="grlBeanImporter" />
- 	<bean id="workflowDocumentService" p:serviceName="cf.workflowDocumentService" parent="grlBeanImporter" />
-	<bean id="businessObjectAuthorizationService" p:serviceName="cf.businessObjectAuthorizationService" parent="grlBeanImporter" />
-	<bean id="workflowAttributePropertyResolutionService" p:serviceName="cf.workflowAttributePropertyResolutionService" parent="grlBeanImporter" />
-	<!-- KIM -->
- 	<bean id="personService" p:serviceName="personService" parent="grlBeanImporter" />
- 	<bean id="kimRoleService" p:serviceName="kimRoleService" parent="grlBeanImporter" />
- 	<alias name="kimRoleService" alias="roleService" />
- 	<!-- hey! -->
- 	<!-- hey you! -->
- 	<!-- want to know a secret? -->
- 	<!-- specifically, do you want to know the secret of why kimRoleService is aliased as roleService? -->
- 	<!-- so it always injects correctly?  yeah, i thought that too once -->
- 	<!-- but something else is going on here -->
- 	<!-- lean closer to the monitor -->
- 	<!-- when SpringContext.getBean looks for this service, it is handed RoleService.class -->
- 	<!-- and it decides that the bean should be named "roleService" -->
- 	<!-- so if there was no alias, SpringContext would never find this bean -->
- 	<!-- which would suck -->
- 	<!-- that's why we've added aliases for kimPermissionService and kimIdentityService too -->
- 	<!-- we didn't add one for kimGroupService because we kind of doubt anyone is really using that -->
- 	<!-- but it probably needs one -->
- 	<!-- so now you know -->
- 	<!-- keep it a secret! -->
- 	<bean id="kimGroupService" p:serviceName="kimGroupService" parent="grlBeanImporter" />
- 	<bean id="kimPermissionService" p:serviceName="kimPermissionService" parent="grlBeanImporter"/>
- 	<alias name="kimPermissionService" alias="permissionService"/>
- 	<bean id="kimIdentityService" p:serviceName="kimIdentityService" parent="grlBeanImporter"/>
- 	<alias name="kimIdentityService" alias="identityService"/>
+    <!-- CoreServices -->
+    <bean id="mailSender" p:serviceName="mailSender" parent="grlBeanImporter"/>
+    <bean id="parameterService" p:serviceName="cf.parameterService" parent="grlBeanImporter"/>
+    <bean id="parameterRepositoryService" p:serviceName="cf.parameterRepositoryService" parent="grlBeanImporter"/>
+    <!-- Location -->
+    <bean id="postalCodeService" p:serviceName="postalCodeService" parent="grlBeanImporter"/>
+    <bean id="stateService" p:serviceName="stateService" parent="grlBeanImporter"/>
+    <bean id="countryService" p:serviceName="countryService" parent="grlBeanImporter"/>
+    <bean id="countyService" p:serviceName="countyService" parent="grlBeanImporter"/>
+    <bean id="campusService" p:serviceName="campusService" parent="grlBeanImporter"/>
+    <!-- KNS/KRAD -->
+    <bean id="kualiModuleService" p:serviceName="cf.kualiModuleService" parent="grlBeanImporter"/>
+    <bean id="dateTimeService" p:serviceName="cf.dateTimeService" parent="grlBeanImporter"/>
+    <bean id="mailer" p:serviceName="cf.mailer" parent="grlBeanImporter"/>
+    <bean id="mailService" p:serviceName="cf.mailService" parent="grlBeanImporter"/>
+    <bean id="configurationService" p:serviceName="cf.kualiConfigurationService" parent="grlBeanImporter"/>
+    <alias name="configurationService" alias="kualiConfigurationService"/>
+    <bean id="persistenceStructureService" p:serviceName="cf.persistenceStructureService" parent="grlBeanImporter"/>
+    <bean id="persistenceStructureServiceOjb" p:serviceName="cf.persistenceStructureServiceOjb" parent="grlBeanImporter"/>
+    <bean id="encryptionService" p:serviceName="cf.encryptionService" parent="grlBeanImporter"/>
+    <bean id="sequenceAccessorService" p:serviceName="cf.sequenceAccessorService" parent="grlBeanImporter"/>
+    <bean id="dataDictionaryService" p:serviceName="cf.dataDictionaryService" parent="grlBeanImporter"/>
+    <bean id="attachmentService" p:serviceName="cf.attachmentService" parent="grlBeanImporter"/>
+    <bean id="sessionDocumentService" p:serviceName="cf.sessionDocumentService" parent="grlBeanImporter"/>
+    <bean id="noteService" p:serviceName="cf.noteService" parent="grlBeanImporter"/>
+    <bean id="businessObjectService" p:serviceName="cf.businessObjectService" parent="grlBeanImporter"/>
+    <bean id="kualiRuleService" p:serviceName="cf.kualiRuleService" parent="grlBeanImporter"/>
+    <bean id="keyValuesService" p:serviceName="cf.keyValuesService" parent="grlBeanImporter"/>
+    <bean id="businessObjectMetaDataService" p:serviceName="cf.businessObjectMetaDataService" parent="grlBeanImporter"/>
+    <bean id="lookupService" p:serviceName="cf.lookupService" parent="grlBeanImporter"/>
+    <bean id="lookupResultsService" p:serviceName="cf.lookupResultsService" parent="grlBeanImporter"/>
+    <bean id="lookupDao" p:serviceName="cf.lookupDao" parent="grlBeanImporter"/>
+    <bean id="documentAdHocService" p:serviceName="cf.documentAdHocService" parent="grlBeanImporter"/>
+    <bean id="maintenanceDocumentService" p:serviceName="cf.maintenanceDocumentService" parent="grlBeanImporter"/>
+    <bean id="postProcessorService" p:serviceName="cf.postProcessorService" parent="grlBeanImporter"/>
+    <bean id="dictionaryValidationService" p:serviceName="cf.dictionaryValidationService" parent="grlBeanImporter"/>
+    <bean id="persistenceService" p:serviceName="cf.persistenceService" parent="grlBeanImporter"/>
+    <bean id="persistenceServiceOjb" p:serviceName="cf.persistenceServiceOjb" parent="grlBeanImporter"/>
+    <bean id="businessObjectDictionaryService" p:serviceName="cf.businessObjectDictionaryService" parent="grlBeanImporter"/>
+    <bean id="maintenanceDocumentDictionaryService" p:serviceName="cf.maintenanceDocumentDictionaryService" parent="grlBeanImporter"/>
+    <bean id="documentHeaderService" p:serviceName="cf.documentHeaderService" parent="grlBeanImporter"/>
+    <bean id="documentHeaderDao" p:serviceName="cf.documentHeaderDao" parent="grlBeanImporter"/>
+    <alias name="documentHeaderDao" alias="financialSystemDocumentHeaderDao"/>
+    <bean id="documentService" p:serviceName="cf.documentService" parent="grlBeanImporter"/>
+    <bean id="documentHelperService" p:serviceName="cf.documentHelperService" parent="grlBeanImporter"/>
+    <bean id="transactionalDocumentDictionaryService" p:serviceName="cf.transactionalDocumentDictionaryService" parent="grlBeanImporter"/>
+    <bean id="maintenanceDocumentDao" p:serviceName="cf.maintenanceDocumentDao" parent="grlBeanImporter"/>
+    <bean id="documentDao" p:serviceName="cf.documentDao" parent="grlBeanImporter"/>
+    <bean id="dataObjectMetaDataService" p:serviceName="cf.dataObjectMetaDataService" parent="grlBeanImporter"/>
+    <bean id="documentDictionaryService" p:serviceName="cf.documentDictionaryService" parent="grlBeanImporter"/>
+    <bean id="inquiryViewTypeService" p:serviceName="cf.inquiryViewTypeService" parent="grlBeanImporter"/>
+    <bean id="lookupViewTypeService" p:serviceName="cf.lookupViewTypeService" parent="grlBeanImporter"/>
+    <bean id="workflowDocumentService" p:serviceName="cf.workflowDocumentService" parent="grlBeanImporter"/>
+    <bean id="businessObjectAuthorizationService" p:serviceName="cf.businessObjectAuthorizationService" parent="grlBeanImporter"/>
+    <bean id="workflowAttributePropertyResolutionService" p:serviceName="cf.workflowAttributePropertyResolutionService" parent="grlBeanImporter"/>
+    <!-- KIM -->
+    <bean id="personService" p:serviceName="personService" parent="grlBeanImporter"/>
+    <bean id="kimRoleService" p:serviceName="kimRoleService" parent="grlBeanImporter"/>
+    <alias name="kimRoleService" alias="roleService"/>
+    <!-- hey! -->
+    <!-- hey you! -->
+    <!-- want to know a secret? -->
+    <!-- specifically, do you want to know the secret of why kimRoleService is aliased as roleService? -->
+    <!-- so it always injects correctly?  yeah, i thought that too once -->
+    <!-- but something else is going on here -->
+    <!-- lean closer to the monitor -->
+    <!-- when SpringContext.getBean looks for this service, it is handed RoleService.class -->
+    <!-- and it decides that the bean should be named "roleService" -->
+    <!-- so if there was no alias, SpringContext would never find this bean -->
+    <!-- which would suck -->
+    <!-- that's why we've added aliases for kimPermissionService and kimIdentityService too -->
+    <!-- we didn't add one for kimGroupService because we kind of doubt anyone is really using that -->
+    <!-- but it probably needs one -->
+    <!-- so now you know -->
+    <!-- keep it a secret! -->
+    <bean id="kimGroupService" p:serviceName="kimGroupService" parent="grlBeanImporter"/>
+    <bean id="kimPermissionService" p:serviceName="kimPermissionService" parent="grlBeanImporter"/>
+    <alias name="kimPermissionService" alias="permissionService"/>
+    <bean id="kimIdentityService" p:serviceName="kimIdentityService" parent="grlBeanImporter"/>
+    <alias name="kimIdentityService" alias="identityService"/>
 
- 	<!--
- 	<bean id="kimUiDocumentService" p:serviceName="kimUiDocumentService" parent="grlBeanImporter" />
- 	<alias name="kimUiDocumentService" alias="uiDocumentService" />
- 	<bean id="kimPersonLookupable" p:serviceName="kimPersonLookupable" parent="grlBeanImporter" />
- 	 -->
-	<!-- KEW -->
-	<bean id="rice.kew.workflowDocumentService" p:serviceName="rice.kew.workflowDocumentService" parent="grlBeanImporter" />
- 	<bean id="rice.kew.documentTypeService" p:serviceName="rice.kew.documentTypeService" parent="grlBeanImporter" />
- 	<alias name="rice.kew.documentTypeService" alias="documentTypeService" />
- 	<bean id="enActionListEmailService" p:serviceName="enActionListEmailService" parent="grlBeanImporter" />
+    <!--
+    <bean id="kimUiDocumentService" p:serviceName="kimUiDocumentService" parent="grlBeanImporter" />
+    <alias name="kimUiDocumentService" alias="uiDocumentService" />
+    <bean id="kimPersonLookupable" p:serviceName="kimPersonLookupable" parent="grlBeanImporter" />
+     -->
+    <!-- KEW -->
+    <bean id="rice.kew.workflowDocumentService" p:serviceName="rice.kew.workflowDocumentService" parent="grlBeanImporter"/>
+    <bean id="rice.kew.documentTypeService" p:serviceName="rice.kew.documentTypeService" parent="grlBeanImporter"/>
+    <alias name="rice.kew.documentTypeService" alias="documentTypeService"/>
+    <bean id="enActionListEmailService" p:serviceName="enActionListEmailService" parent="grlBeanImporter"/>
 
-	<!-- KSB -->
-	<bean id="rice.ksb.serviceBus" p:serviceName="rice.ksb.serviceBus" parent="grlBeanImporter" />
-
-
-	<!-- beans below here are extended by KFS beans, and so the "parent" relationship does not work and they must be redefined -->
-
-	<bean id="dbPlatform" class="org.kuali.rice.core.BeanHolder">
-		<property name="objectType">
-			<value>${datasource.platform}</value>
-		</property>
-	</bean>
-
-	<bean id="platformAwareDao" abstract="true"
-		class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
-		<property name="jcdAlias" value="kradApplicationDataSource" />
-		<property name="dbPlatform" ref="dbPlatform" />
-	</bean>
-	<bean id="platformAwareDaoJdbc" abstract="true"
-		class="org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc">
-		<property name="dataSource" ref="dataSource" />
-		<property name="dbPlatform" ref="dbPlatform" />
-	</bean>
-
-	<bean id="ricePlatformAwareDao" abstract="true"
-		class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
-		<property name="jcdAlias" value="kimDataSource" />
-		<property name="dbPlatform" ref="dbPlatform" />
-	</bean>
-
-	<bean id="cf.kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
-		<property name="lookupableHelperService" ref="cf.lookupableHelperService" />
-	</bean>
-
-    <bean id="cf.kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
-
-	<bean id="cf.lookupableHelperService"
-		class="org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl"
-		scope="prototype">
-		<property name="persistenceStructureService">
-			<ref bean="persistenceStructureService" />
-		</property>
-		<property name="businessObjectDictionaryService">
-			<ref bean="businessObjectDictionaryService" />
-		</property>
-		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
-		</property>
-		<property name="encryptionService">
-			<ref bean="encryptionService" />
-		</property>
-		<property name="lookupService">
-			<ref bean="lookupService" />
-		</property>
-		<property name="businessObjectMetaDataService">
-			<ref bean="businessObjectMetaDataService" />
-		</property>
-		<property name="sequenceAccessorService">
-			<ref bean="sequenceAccessorService" />
-		</property>
-		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
-		</property>
-		<property name="lookupResultsService">
-			<ref bean="lookupResultsService" />
-		</property>
-	</bean>
+    <!-- KSB -->
+    <bean id="rice.ksb.serviceBus" p:serviceName="rice.ksb.serviceBus" parent="grlBeanImporter"/>
 
 
-	<bean id="cf.kualiMaintainable" class="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"
-		scope="prototype">
-		<property name="persistenceStructureService">
-			<ref bean="persistenceStructureService" />
-		</property>
-		<property name="maintenanceDocumentDictionaryService">
-			<ref bean="maintenanceDocumentDictionaryService" />
-		</property>
-		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
-		</property>
-		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
-		</property>
-		<property name="businessObjectDictionaryService">
-			<ref bean="businessObjectDictionaryService" />
-		</property>
-		<property name="encryptionService">
-			<ref bean="encryptionService" />
-		</property>
-		<property name="businessObjectMetaDataService">
-			<ref bean="businessObjectMetaDataService" />
-		</property>
-		<property name="businessObjectAuthorizationService">
-			<ref bean="businessObjectAuthorizationService" />
-		</property>
-		<property name="maintenanceDocumentService">
-			<ref bean="maintenanceDocumentService" />
-		</property>
-		<property name="documentHelperService">
-			<ref bean="documentHelperService" />
-		</property>
-		<property name="lookupService">
-			<ref bean="lookupService" />
-		</property>
-	</bean>
+    <!-- beans below here are extended by KFS beans, and so the "parent" relationship does not work and they must be redefined -->
+
+    <bean id="dbPlatform" class="org.kuali.rice.core.BeanHolder">
+        <property name="objectType">
+            <value>${datasource.platform}</value>
+        </property>
+    </bean>
+
+    <bean id="platformAwareDao" abstract="true"
+          class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
+        <property name="jcdAlias" value="kradApplicationDataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+    <bean id="platformAwareDaoJdbc" abstract="true"
+          class="org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+
+    <bean id="ricePlatformAwareDao" abstract="true"
+          class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
+        <property name="jcdAlias" value="kimDataSource"/>
+        <property name="dbPlatform" ref="dbPlatform"/>
+    </bean>
+
+    <bean id="cf.kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
+        <property name="lookupableHelperService" ref="cf.lookupableHelperService"/>
+    </bean>
+
+    <bean id="cf.kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype"/>
+
+    <bean id="cf.lookupableHelperService"
+          class="org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl"
+          scope="prototype">
+        <property name="persistenceStructureService">
+            <ref bean="persistenceStructureService"/>
+        </property>
+        <property name="businessObjectDictionaryService">
+            <ref bean="businessObjectDictionaryService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="dataDictionaryService"/>
+        </property>
+        <property name="encryptionService">
+            <ref bean="encryptionService"/>
+        </property>
+        <property name="lookupService">
+            <ref bean="lookupService"/>
+        </property>
+        <property name="businessObjectMetaDataService">
+            <ref bean="businessObjectMetaDataService"/>
+        </property>
+        <property name="sequenceAccessorService">
+            <ref bean="sequenceAccessorService"/>
+        </property>
+        <property name="businessObjectService">
+            <ref bean="businessObjectService"/>
+        </property>
+        <property name="lookupResultsService">
+            <ref bean="lookupResultsService"/>
+        </property>
+    </bean>
+
+
+    <bean id="cf.kualiMaintainable" class="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"
+          scope="prototype">
+        <property name="persistenceStructureService">
+            <ref bean="persistenceStructureService"/>
+        </property>
+        <property name="maintenanceDocumentDictionaryService">
+            <ref bean="maintenanceDocumentDictionaryService"/>
+        </property>
+        <property name="dataDictionaryService">
+            <ref bean="dataDictionaryService"/>
+        </property>
+        <property name="businessObjectService">
+            <ref bean="businessObjectService"/>
+        </property>
+        <property name="businessObjectDictionaryService">
+            <ref bean="businessObjectDictionaryService"/>
+        </property>
+        <property name="encryptionService">
+            <ref bean="encryptionService"/>
+        </property>
+        <property name="businessObjectMetaDataService">
+            <ref bean="businessObjectMetaDataService"/>
+        </property>
+        <property name="businessObjectAuthorizationService">
+            <ref bean="businessObjectAuthorizationService"/>
+        </property>
+        <property name="maintenanceDocumentService">
+            <ref bean="maintenanceDocumentService"/>
+        </property>
+        <property name="documentHelperService">
+            <ref bean="documentHelperService"/>
+        </property>
+        <property name="lookupService">
+            <ref bean="lookupService"/>
+        </property>
+    </bean>
 
 </beans>

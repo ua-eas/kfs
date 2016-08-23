@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.CreditCardDataImportService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 
-public class CreditCardDataStagingToHistoricalStep extends AbstractStep{
+import java.util.Date;
+
+public class CreditCardDataStagingToHistoricalStep extends AbstractStep {
     private CreditCardDataImportService creditCardDataImportService;
 
     @Override
@@ -32,20 +32,20 @@ public class CreditCardDataStagingToHistoricalStep extends AbstractStep{
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public CreditCardDataImportService getCreditCardDataImportService(){
+    public CreditCardDataImportService getCreditCardDataImportService() {
         return this.creditCardDataImportService;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argCreditCardDataImportService
      */
-    public void setCreditCardDataImportService(CreditCardDataImportService argCreditCardDataImportService){
+    public void setCreditCardDataImportService(CreditCardDataImportService argCreditCardDataImportService) {
         this.creditCardDataImportService = argCreditCardDataImportService;
     }
 }

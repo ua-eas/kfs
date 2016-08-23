@@ -30,9 +30,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -44,7 +41,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     private String pathPrefix;
 
     private String getFullPathname(String filename) {
-        if ( ! pathPrefix.endsWith(separator()) ) {
+        if (!pathPrefix.endsWith(separator())) {
             return pathPrefix + separator() + filename;
         } else {
             return pathPrefix + filename;
@@ -57,7 +54,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public void open(String filename,Consumer<FileStorageFile> action) {
+    public void open(String filename, Consumer<FileStorageFile> action) {
         LOG.debug("open() started");
 
         FileStorageFile fsf = null;
@@ -85,8 +82,8 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         try {
             return new FileInputStream(getFullPathname(filename));
         } catch (FileNotFoundException e) {
-            LOG.error("getFileStream() Unable to get file",e);
-            throw new FileStorageException("Unable to get file",e);
+            LOG.error("getFileStream() Unable to get file", e);
+            throw new FileStorageException("Unable to get file", e);
         }
     }
 
@@ -95,28 +92,28 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         LOG.debug("getFileContents() started");
 
         try {
-            return FileUtils.readLines(new File(getFullPathname(filename)),"UTF-8");
+            return FileUtils.readLines(new File(getFullPathname(filename)), "UTF-8");
         } catch (IOException e) {
-            LOG.error("getFileContents() Unable to get file",e);
-            throw new FileStorageException("Unable to get file",e);
+            LOG.error("getFileContents() Unable to get file", e);
+            throw new FileStorageException("Unable to get file", e);
         }
     }
 
-	@Override
-	public long getFileLength(String filename) {
-		LOG.debug("getFileLength() started");
+    @Override
+    public long getFileLength(String filename) {
+        LOG.debug("getFileLength() started");
 
-		return new File(getFullPathname(filename)).length();
-	}
+        return new File(getFullPathname(filename)).length();
+    }
 
     @Override
     public void delete(String filename) {
         LOG.debug("delete() started");
 
-        if ( fileExists(filename) ) {
+        if (fileExists(filename)) {
             File f = new File(getFullPathname(filename));
 
-            if (! f.delete()) {
+            if (!f.delete()) {
                 LOG.error("delete() Unable to delete file");
                 throw new FileStorageException("Unable to delete file");
             }
@@ -130,7 +127,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     public List<String> getFilesMatching(String prefix) {
         LOG.debug("getFilesMatching() started");
 
-        return getFilesMatching(prefix,null);
+        return getFilesMatching(prefix, null);
     }
 
     @Override
@@ -141,7 +138,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         File dir = new File(getFullPathname(prefix));
 
         for (File f : dir.listFiles()) {
-            if ( (extension == null) || (f.getName().toLowerCase().endsWith(extension.toLowerCase())) ) {
+            if ((extension == null) || (f.getName().toLowerCase().endsWith(extension.toLowerCase()))) {
                 matches.add(f.getName());
             }
         }
@@ -153,7 +150,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         LOG.debug("mkdir() started");
 
         File f = new File(getFullPathname(dirname));
-        if ( ! f.mkdir() ) {
+        if (!f.mkdir()) {
             LOG.error("mkdir() Unable to make directory");
             throw new FileStorageException("Unable to make directory");
         }
@@ -163,7 +160,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     public void emptyDirectory(String dirname) {
         LOG.debug("emptyDirectory() started");
 
-        if ( ! directoryExists(dirname) ) {
+        if (!directoryExists(dirname)) {
             LOG.error("emptyDirectory() Unable to empty directory, it does not exist");
             throw new FileStorageException("Unable to empty directory");
         }
@@ -182,9 +179,9 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     public void rmdir(String dirname) {
         LOG.debug("rmdir() started");
 
-        if ( directoryExists(dirname) ) {
+        if (directoryExists(dirname)) {
             File f = new File(getFullPathname(dirname));
-            if ( ! f.delete() ) {
+            if (!f.delete()) {
                 LOG.error("rmdir() Unable to remove directory");
                 throw new FileStorageException("Unable to remove directory");
             }
@@ -208,24 +205,24 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         LOG.debug("createDoneFile() started");
 
         String fullPath = getFullPathname(filename);
-        fullPath = StringUtils.substringBeforeLast(fullPath,".") + ".done";
+        fullPath = StringUtils.substringBeforeLast(fullPath, ".") + ".done";
 
         File f = new File(fullPath);
         try {
-            if ( (! f.exists()) ) {
-                if ( ! f.createNewFile() ) {
+            if ((!f.exists())) {
+                if (!f.createNewFile()) {
                     LOG.error("createDoneFile() Unable to create done file");
                     throw new FileStorageException("Unable to create done file");
                 }
             } else {
-                if ( f.isDirectory() ) {
+                if (f.isDirectory()) {
                     LOG.error("createDoneFile() Unable to create done file, it is a directory");
                     throw new FileStorageException("Unable to create done file, it is a directory");
                 }
             }
         } catch (IOException e) {
-            LOG.error("createDoneFile() Unable to create done file",e);
-            throw new FileStorageException("Unable to create done file",e);
+            LOG.error("createDoneFile() Unable to create done file", e);
+            throw new FileStorageException("Unable to create done file", e);
         }
     }
 
@@ -234,9 +231,9 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         LOG.debug("removeDoneFiles() started");
 
         for (String filename : files) {
-            File f = new File(StringUtils.substringBeforeLast(getFullPathname(filename),".") + ".done");
-            if ( f.exists() ) {
-                if ( ! f.delete() ) {
+            File f = new File(StringUtils.substringBeforeLast(getFullPathname(filename), ".") + ".done");
+            if (f.exists()) {
+                if (!f.delete()) {
                     LOG.error("removeDoneFiles() Unable to delete done file " + f.getAbsolutePath());
                     throw new FileStorageException("Unable to delete done file");
                 }

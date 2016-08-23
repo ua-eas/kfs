@@ -19,8 +19,8 @@
 package org.kuali.kfs.krad.rules.rule.event;
 
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.SendAdHocRequestsRule;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.SendAdHocRequestsRule;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiRuleService;
 
@@ -29,9 +29,6 @@ import java.util.List;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class SendAdHocRequestsEvent extends KualiDocumentEventBase {
 
@@ -49,35 +46,35 @@ public class SendAdHocRequestsEvent extends KualiDocumentEventBase {
     }
 
     public SendAdHocRequestsEvent(String description, String errorPathPrefix, Document document) {
-    	super(description, errorPathPrefix, document);
+        super(description, errorPathPrefix, document);
     }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see KualiDocumentEvent#getRuleInterfaceClass()
-	 */
-	public Class<? extends BusinessRule> getRuleInterfaceClass() {
-		return SendAdHocRequestsRule.class;
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see KualiDocumentEvent#getRuleInterfaceClass()
+     */
+    public Class<? extends BusinessRule> getRuleInterfaceClass() {
+        return SendAdHocRequestsRule.class;
+    }
 
-	/**
-	 * @see KualiDocumentEvent#invokeRuleMethod(BusinessRule)
-	 */
-	public boolean invokeRuleMethod(BusinessRule rule) {
-		return ((SendAdHocRequestsRule) rule).processSendAdHocRequests(document);
-	}
+    /**
+     * @see KualiDocumentEvent#invokeRuleMethod(BusinessRule)
+     */
+    public boolean invokeRuleMethod(BusinessRule rule) {
+        return ((SendAdHocRequestsRule) rule).processSendAdHocRequests(document);
+    }
 
-	/**
-	 * @see KualiDocumentEventBase#generateEvents()
-	 */
-	@Override
-	public List<KualiDocumentEvent> generateEvents() {
-		KualiRuleService ruleService = KRADServiceLocatorWeb.getKualiRuleService();
+    /**
+     * @see KualiDocumentEventBase#generateEvents()
+     */
+    @Override
+    public List<KualiDocumentEvent> generateEvents() {
+        KualiRuleService ruleService = KRADServiceLocatorWeb.getKualiRuleService();
 
-		List<KualiDocumentEvent> events = new ArrayList<KualiDocumentEvent>();
+        List<KualiDocumentEvent> events = new ArrayList<KualiDocumentEvent>();
         events.addAll(ruleService.generateAdHocRoutePersonEvents(getDocument()));
         events.addAll(ruleService.generateAdHocRouteWorkgroupEvents(getDocument()));
         return events;
-	}
+    }
 }

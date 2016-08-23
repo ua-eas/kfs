@@ -20,10 +20,11 @@ package org.kuali.kfs.module.ar.document.validation;
 
 import org.kuali.kfs.krad.document.TransactionalDocument;
 
-public interface GenerateReferenceDocumentRule <F extends TransactionalDocument > {
+public interface GenerateReferenceDocumentRule<F extends TransactionalDocument> {
 
     /**
      * This method is called when a reference document is generated
+     *
      * @param transactionalDocument the cash control document
      * @return true if reference document can be generated, false otherwise
      */

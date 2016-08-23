@@ -19,14 +19,14 @@
 
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Asset Transaction Type Business Object.
  */
-public class AssetLock extends PersistableBusinessObjectBase{
+public class AssetLock extends PersistableBusinessObjectBase {
 
     private String documentNumber;
     private Long capitalAssetNumber;
@@ -60,6 +60,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -68,6 +69,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -76,6 +78,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Gets the capitalAssetNumber attribute.
+     *
      * @return Returns the capitalAssetNumber.
      */
     public Long getCapitalAssetNumber() {
@@ -84,6 +87,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Sets the capitalAssetNumber attribute value.
+     *
      * @param capitalAssetNumber The capitalAssetNumber to set.
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
@@ -92,6 +96,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Gets the lockingInformation attribute.
+     *
      * @return Returns the lockingInformation.
      */
     public String getLockingInformation() {
@@ -100,6 +105,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Sets the lockingInformation attribute value.
+     *
      * @param lockingInformation The lockingInformation to set.
      */
     public void setLockingInformation(String lockingInformation) {
@@ -108,6 +114,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Gets the documentTypeName attribute.
+     *
      * @return Returns the documentTypeName.
      */
     public String getDocumentTypeName() {
@@ -116,6 +123,7 @@ public class AssetLock extends PersistableBusinessObjectBase{
 
     /**
      * Sets the documentTypeName attribute value.
+     *
      * @param documentTypeName The documentTypeName to set.
      */
     public void setDocumentTypeName(String documentTypeName) {

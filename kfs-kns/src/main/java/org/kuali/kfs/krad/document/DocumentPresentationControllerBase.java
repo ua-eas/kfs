@@ -21,9 +21,9 @@ package org.kuali.kfs.krad.document;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.kew.api.WorkflowDocument;
 
 import java.io.Serializable;
 
@@ -41,9 +41,9 @@ public class DocumentPresentationControllerBase implements DocumentPresentationC
         boolean canEdit = false;
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (workflowDocument.isInitiated()
-                || workflowDocument.isSaved()
-                || workflowDocument.isEnroute()
-                || workflowDocument.isException()) {
+            || workflowDocument.isSaved()
+            || workflowDocument.isEnroute()
+            || workflowDocument.isException()) {
             canEdit = true;
         }
 
@@ -98,8 +98,8 @@ public class DocumentPresentationControllerBase implements DocumentPresentationC
     @Override
     public boolean canPerformRouteReport(Document document) {
         return getParameterService().getParameterValueAsBoolean(KRADConstants.KNS_NAMESPACE,
-                KRADConstants.DetailTypes.DOCUMENT_DETAIL_TYPE,
-                KRADConstants.SystemGroupParameterNames.DEFAULT_CAN_PERFORM_ROUTE_REPORT_IND);
+            KRADConstants.DetailTypes.DOCUMENT_DETAIL_TYPE,
+            KRADConstants.SystemGroupParameterNames.DEFAULT_CAN_PERFORM_ROUTE_REPORT_IND);
     }
 
     public boolean canAddAdhocRequests(Document document) {
@@ -110,8 +110,8 @@ public class DocumentPresentationControllerBase implements DocumentPresentationC
         // check system parameter - if Y, use default workflow behavior: allow a user with the permission
         // to perform the blanket approve action at any time
         Boolean allowBlanketApproveNoRequest = getParameterService().getParameterValueAsBoolean(
-                KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.DOCUMENT_DETAIL_TYPE,
-                KRADConstants.SystemGroupParameterNames.ALLOW_ENROUTE_BLANKET_APPROVE_WITHOUT_APPROVAL_REQUEST_IND);
+            KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.DOCUMENT_DETAIL_TYPE,
+            KRADConstants.SystemGroupParameterNames.ALLOW_ENROUTE_BLANKET_APPROVE_WITHOUT_APPROVAL_REQUEST_IND);
         if (allowBlanketApproveNoRequest != null && allowBlanketApproveNoRequest.booleanValue()) {
             return canEdit(document);
         }
@@ -120,7 +120,7 @@ public class DocumentPresentationControllerBase implements DocumentPresentationC
         // (prior to routing)
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (canRoute(document) && StringUtils.equals(workflowDocument.getInitiatorPrincipalId(),
-                GlobalVariables.getUserSession().getPrincipalId())) {
+            GlobalVariables.getUserSession().getPrincipalId())) {
             return true;
         }
 

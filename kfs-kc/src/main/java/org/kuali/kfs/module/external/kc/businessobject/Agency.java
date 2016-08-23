@@ -19,14 +19,14 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kra.external.sponsor.SponsorDTO;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class defines an agency as it is used and referenced within the Contracts & Grants portion of a college or university
@@ -214,8 +214,8 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
      * Sets the reportsToAgency attribute.
      *
      * @param reportsToAgencyNumber The reportsToAgency to set.
-     * @deprecated
      * @todo Why is this deprecated?
+     * @deprecated
      */
     @Deprecated
     public void setReportsToAgency(Agency reportsToAgencyNumber) {
@@ -235,6 +235,7 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
@@ -244,6 +245,7 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override
@@ -251,10 +253,12 @@ public class Agency implements ContractsAndGrantsBillingAgency, MutableInactivat
         this.active = active;
     }
 
-    public void prepareForWorkflow() {}
+    public void prepareForWorkflow() {
+    }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
     @Override
     public String getCustomerNumber() {

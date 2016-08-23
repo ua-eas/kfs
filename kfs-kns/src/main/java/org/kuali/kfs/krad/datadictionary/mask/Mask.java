@@ -21,18 +21,19 @@ package org.kuali.kfs.krad.datadictionary.mask;
 import java.io.Serializable;
 
 /**
-    The displayMask element specifies the type of masking to
-    be used to hide the value from un-authorized users.
-    There are three types of masking.
+ * The displayMask element specifies the type of masking to
+ * be used to hide the value from un-authorized users.
+ * There are three types of masking.
  */
 public class Mask implements Serializable {
     private static final long serialVersionUID = 4035984416568235531L;
 
-	protected MaskFormatter maskFormatter;
+    protected MaskFormatter maskFormatter;
     protected Class<? extends MaskFormatter> maskFormatterClass;
 
     /**
      * Masks a data value with the configured maskFormatter;
+     *
      * @param value of the object
      * @return string value of the masked object
      */
@@ -44,8 +45,7 @@ public class Mask implements Serializable {
                 } catch (Exception e) {
                     throw new RuntimeException("Unable to create instance of mask formatter class: " + maskFormatterClass.getName());
                 }
-            }
-            else {
+            } else {
                 throw new RuntimeException("Mask formatter not set for secure field.");
             }
         }
@@ -63,7 +63,6 @@ public class Mask implements Serializable {
     }
 
     /**
-     *
      * @param maskFormatter instance to be used for masking field values.
      */
     public void setMaskFormatter(MaskFormatter maskFormatter) {
@@ -81,8 +80,8 @@ public class Mask implements Serializable {
 
     /**
      * @param maskFormatterClass element is used when a custom masking
-     * algorithm is desired.  This element specifies the name of a
-     * class that will perform the masking for unauthorized users.
+     *                           algorithm is desired.  This element specifies the name of a
+     *                           class that will perform the masking for unauthorized users.
      */
     public void setMaskFormatterClass(Class<? extends MaskFormatter> maskFormatterClass) {
         this.maskFormatterClass = maskFormatterClass;

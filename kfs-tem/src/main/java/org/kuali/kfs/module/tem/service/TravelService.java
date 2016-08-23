@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Travel Service
@@ -46,8 +46,8 @@ public interface TravelService {
     String validatePhoneNumber(final String countryCode, final String phoneNumber, String error);
 
     /**
-     *
      * This method returns a TemProfile associated with the principalId.
+     *
      * @param principalId
      * @return
      */
@@ -72,6 +72,7 @@ public interface TravelService {
 
     /**
      * Retrieves the parent document type names - up to "TT" - for the document type
+     *
      * @param documentTypeName the document type to find the ancestry of
      * @return the document type names, including TT and the given document type
      */

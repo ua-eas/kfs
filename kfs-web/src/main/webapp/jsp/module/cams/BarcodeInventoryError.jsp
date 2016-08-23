@@ -17,22 +17,22 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <script language="JavaScript" type="text/javascript" src="scripts/module/cams/selectAllCheckbox.js"></script>
-<kul:documentPage showDocumentInfo="true"  htmlFormAction="camsBarcodeInventoryError"  documentTypeName="BarcodeInventoryErrorDocument"
-renderMultipart="true"  showTabButtons="true">
+<kul:documentPage showDocumentInfo="true" htmlFormAction="camsBarcodeInventoryError" documentTypeName="BarcodeInventoryErrorDocument"
+                  renderMultipart="true" showTabButtons="true">
 
- 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
- 	<cams:barcodeInventoryErrorDetails/>
+    <cams:barcodeInventoryErrorDetails/>
 
-    <kul:notes />
+    <kul:notes/>
 
-    <kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-    <kul:routeLog />
+    <kul:routeLog/>
 
-    <kul:superUserActions />
+    <kul:superUserActions/>
 
     <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}"/>
 

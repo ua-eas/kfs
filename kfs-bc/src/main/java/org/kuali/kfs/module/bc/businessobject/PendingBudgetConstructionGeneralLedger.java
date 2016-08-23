@@ -19,12 +19,6 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -34,15 +28,21 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectBenefit;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.bc.util.SalarySettingCalculator;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessObjectBase {
 
@@ -89,6 +89,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the adjustmentAmount attribute.
+     *
      * @return Returns the adjustmentAmount.
      */
     public KualiDecimal getAdjustmentAmount() {
@@ -97,6 +98,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the adjustmentAmount attribute value.
+     *
      * @param adjustmentAmount The adjustmentAmount to set.
      */
     public void setAdjustmentAmount(KualiDecimal adjustmentAmount) {
@@ -631,9 +633,10 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * get the list of primary keys
+     *
      * @return the list of primary keys
      */
-    public static List<String> getPrimaryKeyFields(){
+    public static List<String> getPrimaryKeyFields() {
         List<String> primaryKeyFields = new ArrayList<String>();
         primaryKeyFields.add(KFSPropertyConstants.DOCUMENT_NUMBER);
         primaryKeyFields.add(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR);

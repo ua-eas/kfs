@@ -18,16 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
@@ -40,13 +32,19 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND;
 
 /**
  * Travel Reimbursement Form
- *
  */
 public class TravelReimbursementForm extends TravelFormBase implements TravelReimbursementMvcWrapperBean {
     private List<Serializable> history;
@@ -87,11 +85,11 @@ public class TravelReimbursementForm extends TravelFormBase implements TravelRei
             setEndDate(currentEnd);
         }
 
-   }
+    }
 
     @Override
     public boolean isDefaultOpenPaymentInfoTab() {
-        if(TemConstants.TravelReimbursementStatusCodeKeys.AWAIT_TRVL_MGR.equals(getDocument().getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())) {
+        if (TemConstants.TravelReimbursementStatusCodeKeys.AWAIT_TRVL_MGR.equals(getDocument().getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())) {
             return true;
         }
 
@@ -118,7 +116,7 @@ public class TravelReimbursementForm extends TravelFormBase implements TravelRei
         final Map<String, ExtraButton> buttonsMap = createButtonsMap();
 
         boolean enablePayments = getParameterService().getParameterValueAsBoolean(TravelReimbursementDocument.class, VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND);
-        if (enablePayments && !SpringContext.getBean(TravelDocumentService.class).isUnsuccessful(this.getTravelDocument())){
+        if (enablePayments && !SpringContext.getBean(TravelDocumentService.class).isUnsuccessful(this.getTravelDocument())) {
             if (getTravelReimbursementDocument().canPayDVToVendor()) {
                 extraButtons.add(buttonsMap.get("methodToCall.payDVToVendor"));
             }
@@ -218,16 +216,16 @@ public class TravelReimbursementForm extends TravelFormBase implements TravelRei
      */
     @Override
     public void setEndDate(final Date endDate) {
-        try{
+        try {
             this.endDate = endDate;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Pull the object code for the new line from the distribution, not the trip type
+     *
      * @param financialDocument the financial document which needs a new accounting line
      * @return a new accounting line for the form
      */
@@ -292,6 +290,7 @@ public class TravelReimbursementForm extends TravelFormBase implements TravelRei
 
     /**
      * Sets the travel document identifier to populate from
+     *
      * @param travelDocumentIdentifier the travel document identifier to populate from
      */
     public void setTravelDocumentIdentifier(String travelDocumentIdentifier) {

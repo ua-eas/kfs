@@ -19,14 +19,15 @@
 package org.kuali.kfs.sys.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLabelGenerator {
 
     /**
      * If the objectCode reference on the line is refreshable, returns the object code's name; otherwise returns null
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelFieldName(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelValue(AccountingLine line, String accountingLineProperty) {
@@ -39,6 +40,7 @@ public class ObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLabel
 
     /**
      * Builds the proper call to loadObjectInfo
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelOnBlur(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelOnBlur(AccountingLine line, String accountingLineProperty) {
@@ -46,9 +48,9 @@ public class ObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLabel
         onBlur.append("loadObjectInfo( '");
         onBlur.append(line.getPostingYear());
         onBlur.append("', '");
-        onBlur.append(accountingLineProperty+".objectType.name");
+        onBlur.append(accountingLineProperty + ".objectType.name");
         onBlur.append("', '");
-        onBlur.append(accountingLineProperty+".objectTypeCode");
+        onBlur.append(accountingLineProperty + ".objectTypeCode");
         onBlur.append("', ");
         onBlur.append("this.name, '");
         onBlur.append(getDynamicNameLabelFieldName(line, accountingLineProperty));
@@ -58,10 +60,11 @@ public class ObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLabel
 
     /**
      * Always returns accountingLineProperty+".objectCode.financialObjectCodeName"
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelName(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelFieldName(AccountingLine line, String accountingLineProperty) {
-        return accountingLineProperty+".objectCode.financialObjectCodeName";
+        return accountingLineProperty + ".objectCode.financialObjectCodeName";
     }
 
 }

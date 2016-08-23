@@ -55,7 +55,7 @@ public class DetectDocumentsMissingPendingEntriesStep extends AbstractStep {
     protected java.util.Date calculateEarliestProcessingDate(java.util.Date runDate) {
         java.util.Calendar currentMoment = Calendar.getInstance();
         currentMoment.setTimeInMillis(runDate.getTime());
-        currentMoment.add(Calendar.HOUR, lookbackHours*-1);
+        currentMoment.add(Calendar.HOUR, lookbackHours * -1);
         return currentMoment.getTime();
     }
 

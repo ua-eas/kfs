@@ -19,12 +19,6 @@
 package org.kuali.kfs.sys.document.validation;
 
 import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.KualiMaintainableImpl;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
@@ -34,6 +28,12 @@ import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 
 @ConfigureContext
 public abstract class MaintenanceRuleTestBase extends KualiTestBase {
@@ -67,8 +67,7 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
         MaintenanceDocument document = null;
         try {
             document = (MaintenanceDocument) SpringContext.getBean(DocumentService.class).getNewDocument(SpringContext.getBean(MaintenanceDocumentDictionaryService.class).getDocumentTypeName(newBo.getClass()));
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException(e);
         }
 
@@ -76,8 +75,7 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
         document.getDocumentHeader().setDocumentDescription("test");
         if (null == oldBo) {
             document.setOldMaintainableObject(new KualiMaintainableImpl());
-        }
-        else {
+        } else {
             document.setOldMaintainableObject(new KualiMaintainableImpl(oldBo));
             document.getOldMaintainableObject().setBoClass(oldBo.getClass());
         }
@@ -90,7 +88,7 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
      * This method creates a new instance of the specified ruleClass, injects the businessObject(s). With this method, the
      * oldMaintainable will be set to null.
      *
-     * @param newBo - the populated businessObject for the newMaintainble
+     * @param newBo     - the populated businessObject for the newMaintainble
      * @param ruleClass - the class of rule to instantiate
      * @return a populated and ready-to-test rule, of the specified class
      */
@@ -104,8 +102,8 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
      * and destroyed internally, and is never returned. This method then creates a new instance of the specified ruleClass, injects
      * the businessObject(s).
      *
-     * @param oldBo - the populated businessObject for the oldMaintainable
-     * @param newBo - the populated businessObject for the newMaintainable
+     * @param oldBo     - the populated businessObject for the oldMaintainable
+     * @param newBo     - the populated businessObject for the newMaintainable
      * @param ruleClass - the class of rule to instantiate
      * @return a populated and ready-to-test rule, of the specified class
      */
@@ -120,7 +118,7 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
      * This method creates a new instance of the specified ruleClass, and then injects the maintenanceDocument and associated
      * business objects.
      *
-     * @param maintDoc - the populated MaintenanceDocument instance
+     * @param maintDoc  - the populated MaintenanceDocument instance
      * @param ruleClass - the class of rule to instantiate
      * @return a populated and ready-to-test rule, of the specified class
      */
@@ -129,11 +127,9 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
         MaintenanceDocumentRule rule;
         try {
             rule = (MaintenanceDocumentRule) ruleClass.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
 
@@ -201,7 +197,7 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
      * errorPath.
      *
      * @param fieldName - fieldName as it would be provided when adding the error
-     * @param errorKey - errorKey as it would be provided when adding the error
+     * @param errorKey  - errorKey as it would be provided when adding the error
      */
     protected void assertFieldErrorDoesNotExist(String fieldName, String errorKey) {
         boolean result = doesFieldErrorExist(fieldName, errorKey);
@@ -214,11 +210,11 @@ public abstract class MaintenanceRuleTestBase extends KualiTestBase {
      * errorPath.
      *
      * @param fieldName - fieldName as it would be provided when adding the error
-     * @param errorKey - errorKey as it would be provided when adding the error
+     * @param errorKey  - errorKey as it would be provided when adding the error
      */
     protected void assertFieldErrorExists(String fieldName, String errorKey) {
         boolean result = GlobalVariables.getMessageMap().fieldHasMessage(MaintenanceDocumentRuleBase.MAINTAINABLE_ERROR_PREFIX + fieldName, errorKey);
-        if ( !result ) {
+        if (!result) {
             Logger.getLogger(getClass()).info("Messages in MessageMap: " + GlobalVariables.getMessageMap());
         }
         assertTrue("FieldName (" + fieldName + ") should contain errorKey: " + errorKey, result);

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.Validation;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Simple test to at least validation that all of the validation beans are at least retrievable from
@@ -48,12 +48,12 @@ public class ValidationTest extends KualiTestBase {
             try {
                 final Validation validation = validations.get(validationName);
             } catch (Exception e) {
-                badValidationNames.add(validationName+" "+e.toString());
+                badValidationNames.add(validationName + " " + e.toString());
             }
         }
 
         LOG.info(StringUtils.join(badValidationNames, "\n"));
 
-        assertEquals("Bad validations: "+StringUtils.join(badValidationNames, ","), new Integer(0), new Integer(badValidationNames.size()));
+        assertEquals("Bad validations: " + StringUtils.join(badValidationNames, ","), new Integer(0), new Integer(badValidationNames.size()));
     }
 }

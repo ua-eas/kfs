@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.HistoricalTravelExpense;
 import org.kuali.kfs.module.tem.dataaccess.HistoricalTravelExpenseDao;
 import org.kuali.kfs.module.tem.service.HistoricalTravelExpenseService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Transactional
 public class HistoricalTravelExpenseServiceImpl implements HistoricalTravelExpenseService {
@@ -48,6 +48,7 @@ public class HistoricalTravelExpenseServiceImpl implements HistoricalTravelExpen
 
     /**
      * Gets the historicalTravelExpenseDao attribute.
+     *
      * @return Returns the historicalTravelExpenseDao.
      */
     public HistoricalTravelExpenseDao getHistoricalTravelExpenseDao() {
@@ -56,6 +57,7 @@ public class HistoricalTravelExpenseServiceImpl implements HistoricalTravelExpen
 
     /**
      * Sets the historicalTravelExpenseDao attribute value.
+     *
      * @param historicalTravelExpenseDao The historicalTravelExpenseDao to set.
      */
     public void setHistoricalTravelExpenseDao(HistoricalTravelExpenseDao historicalTravelExpenseDao) {

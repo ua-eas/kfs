@@ -71,9 +71,9 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     /**
      * This method performs the lookup and returns a collection of lookup items
      *
-     * @param lookupForm struts form
+     * @param lookupForm  struts form
      * @param resultTable table to add the result rows to
-     * @param bounded boolean whether the results should be bounded or not
+     * @param bounded     boolean whether the results should be bounded or not
      * @return collection of search results
      */
     @Override
@@ -141,7 +141,7 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
      * build the search result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the search result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {
@@ -174,9 +174,9 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
         Map<String, String> qualificationDetails = new HashMap<String, String>();
 
-        for (Iterator<ContractsGrantsInvoiceLookupResult> searchResultsIterator = searchResultsCollection.iterator(); searchResultsIterator.hasNext();) {
+        for (Iterator<ContractsGrantsInvoiceLookupResult> searchResultsIterator = searchResultsCollection.iterator(); searchResultsIterator.hasNext(); ) {
             ContractsGrantsInvoiceLookupResult contractsGrantsInvoiceLookupResult = searchResultsIterator.next();
-            for (Iterator<ContractsAndGrantsBillingAward> awardIterator = contractsGrantsInvoiceLookupResult.getAwards().iterator(); awardIterator.hasNext();) {
+            for (Iterator<ContractsAndGrantsBillingAward> awardIterator = contractsGrantsInvoiceLookupResult.getAwards().iterator(); awardIterator.hasNext(); ) {
                 ContractsAndGrantsBillingAward award = awardIterator.next();
                 qualificationDetails.put(KFSPropertyConstants.PROPOSAL_NUMBER, award.getProposalNumber().toString());
 
@@ -242,11 +242,9 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
             if (StringUtils.isNotBlank(propValue)) {
                 col.setColumnAnchor(getInquiryUrl(element, col.getPropertyName()));
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Unable to get new instance of formatter class for property " + col.getPropertyName(), ie);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", ex);
         }
         return col;

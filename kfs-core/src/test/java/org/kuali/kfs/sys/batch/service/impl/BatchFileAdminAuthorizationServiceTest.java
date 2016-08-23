@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.io.File;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchFile;
 import org.kuali.kfs.sys.context.KualiTestBase;
@@ -29,13 +27,14 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.io.File;
+import java.util.Map;
 
 /**
  * Class to test implementation of the BatchFileAdminAuthorizationService
- *
  */
-@ConfigureContext(session=UserNameFixture.khuntley)
+@ConfigureContext(session = UserNameFixture.khuntley)
 public class BatchFileAdminAuthorizationServiceTest extends KualiTestBase {
     private BatchFileAdminAuthorizationServiceImpl batchFileAdminAuthorizationService;
     private ConfigurationService kualiConfigurationService;
@@ -63,7 +62,7 @@ public class BatchFileAdminAuthorizationServiceTest extends KualiTestBase {
         String permissionFilePath = permissionDetails.get(KfsKimAttributes.FILE_PATH);
         String expectedFilePath = "staging/sys/batchContainer/placeholder.txt";
 
-        assertEquals( "Wrong filePath was returned", expectedFilePath, permissionFilePath);
+        assertEquals("Wrong filePath was returned", expectedFilePath, permissionFilePath);
     }
 
     private BatchFile getBatchFile() {

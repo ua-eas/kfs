@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.businessobject.defaultvalue;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SystemInformationValueFinderBase {
 
@@ -38,7 +38,7 @@ public class SystemInformationValueFinderBase {
      * Constructs a SystemInformationValueFinderBase.  Sets the SystemInformation BO based on current
      * year, current users chart of account code, and current users organization code
      */
-    public SystemInformationValueFinderBase(){
+    public SystemInformationValueFinderBase() {
 
         ChartOrgHolder chartUser = SpringContext.getBean(FinancialSystemUserService.class).getPrimaryOrganization(GlobalVariables.getUserSession().getPerson(), ArConstants.AR_NAMESPACE_CODE);
 
@@ -46,7 +46,7 @@ public class SystemInformationValueFinderBase {
         criteria.put("universityFiscalYear", SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear());
         criteria.put("processingChartOfAccountCode", chartUser.getChartOfAccountsCode());
         criteria.put("processingOrganizationCode", chartUser.getOrganizationCode());
-        systemInformation = (SystemInformation)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SystemInformation.class, criteria);
+        systemInformation = (SystemInformation) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SystemInformation.class, criteria);
     }
 }
 

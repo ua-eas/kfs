@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.cam.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetLock;
 import org.kuali.kfs.module.cam.dataaccess.CapitalAssetLockDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class CapitalAssetLockDaoOjb extends PlatformAwareDaoBaseOjb implements CapitalAssetLockDao {
 
     public List<String> getLockingDocumentNumbers(Collection capitalAssetNumbers, Collection documentTypeNames, String documentNumber) {
         // build the query criteria
         Criteria criteria = new Criteria();
-        criteria.addIn(CabPropertyConstants.CapitalAssetLock.CAPITAL_ASSET_NUMBER,capitalAssetNumbers);
+        criteria.addIn(CabPropertyConstants.CapitalAssetLock.CAPITAL_ASSET_NUMBER, capitalAssetNumbers);
 
 
         if (documentTypeNames != null && !documentTypeNames.isEmpty()) {
@@ -55,7 +55,7 @@ public class CapitalAssetLockDaoOjb extends PlatformAwareDaoBaseOjb implements C
         List<String> documentNumbers = new ArrayList();
         if (!assetLocks.isEmpty()) {
             for (AssetLock assetLock : assetLocks) {
-                documentNumbers.add( assetLock.getDocumentNumber());
+                documentNumbers.add(assetLock.getDocumentNumber());
             }
         }
         return documentNumbers;

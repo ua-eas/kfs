@@ -34,7 +34,7 @@ public class CoreAuthenticationFilterConfiguration implements AuthConfiguration 
     @Override
     public Long getSecondsToCacheAuthTokenResponse() {
         String value = getConfigurationService().getPropertyValueAsString("core.authentication.filter.secondsToCacheAuthTokenResponse");
-        if (StringUtils.isEmpty(value) ) {
+        if (StringUtils.isEmpty(value)) {
             return 300L;
         } else {
             return Long.parseLong(value);
@@ -42,7 +42,7 @@ public class CoreAuthenticationFilterConfiguration implements AuthConfiguration 
     }
 
     protected ConfigurationService getConfigurationService() {
-        if ( configurationService == null ) {
+        if (configurationService == null) {
             configurationService = SpringContext.getBean(ConfigurationService.class);
         }
         return configurationService;

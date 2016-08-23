@@ -19,17 +19,16 @@
 
 package org.kuali.kfs.module.tem.document.datadictionary;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
+import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 /**
  * Generic BusinessObjectFillingInWorkflowAttributes that are aware of the business object. This makes it so that we can specify
  * attributes per business object if we need to and reduce the amount of repitious code.
- *
  */
 public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.krad.datadictionary.WorkflowAttributes {
     private static final long serialVersionUID = -3426603523049661524L;
@@ -70,6 +69,7 @@ public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.kra
 
         /**
          * Gets the businessObjectClassName attribute.
+         *
          * @return Returns the businessObjectClassName.
          */
         public String getBusinessObjectClassName() {
@@ -78,6 +78,7 @@ public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.kra
 
         /**
          * Sets the businessObjectClassName attribute value.
+         *
          * @param businessObjectClassName The businessObjectClassName to set.
          */
         public void setBusinessObjectClassName(final String businessObjectClassName) {

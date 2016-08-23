@@ -36,6 +36,7 @@ public class TemSourceAccountingLineTotalPercentage {
     public TemSourceAccountingLine getTemSourceAccountingLine() {
         return temSourceAccountingLine;
     }
+
     public BigDecimal getPercentage() {
         return percentage;
     }

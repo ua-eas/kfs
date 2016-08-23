@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.kns.web.struts.form
 
-import org.junit.Test
 import org.apache.struts.mock.MockHttpServletRequest
-import org.kuali.kfs.krad.service.DataObjectAuthorizationService
-
-import static org.junit.Assert.assertTrue
-import static org.junit.Assert.assertFalse
 import org.junit.Before
+import org.junit.Test
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl
+import org.kuali.kfs.kns.lookup.KualiLookupableImpl
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService
+import org.kuali.kfs.krad.bo.BusinessObjectBase
+import org.kuali.kfs.krad.service.DataObjectAuthorizationService
+import org.kuali.kfs.krad.util.KRADConstants
 import org.kuali.rice.core.api.CoreConstants
 import org.kuali.rice.core.api.config.property.ConfigContext
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader
+import org.kuali.rice.core.framework.config.property.SimpleConfig
+import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader
+
 import javax.xml.namespace.QName
 
-import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService
-import org.kuali.kfs.krad.util.KRADConstants
-import org.kuali.kfs.krad.bo.BusinessObjectBase
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService
-import org.kuali.kfs.kns.lookup.KualiLookupableImpl
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl
-import org.kuali.rice.core.framework.config.property.SimpleConfig
+import static org.junit.Assert.assertFalse
+import static org.junit.Assert.assertTrue
 
 /**
  * tests lookup form
@@ -58,35 +58,39 @@ class LookupFormTest {
 
         GlobalResourceLoader.addResourceLoader(new BaseResourceLoader(new QName("Foo", "Bar")) {
             def getService(QName name) {
-                [ "cf.parameterService":
-                    [ getParameterValueAsString: { s0,s1,s2 -> null },
-                      getParameterValueAsBoolean: { s0,s1,s2,s3 -> false }
-                    ] as ParameterService,
-                  "cf.dataObjectAuthorizationService":
-                    [ attributeValueNeedsToBeEncryptedOnFormsAndLinks: {s0,s1 -> false } ] as DataObjectAuthorizationService,
-                  "cf.businessObjectDictionaryService":
-                    [ getLookupableID: { s0 -> null } ] as BusinessObjectDictionaryService,
-                  "cf.kualiLookupable": {
-                      def l = new KualiLookupableImpl() {
-                          void setBusinessObjectClass(Class boClass) {}
-                          List getRows() { [] as List }
-                          String getExtraButtonSource() { null }
-                          String getExtraButtonParams() { null }
-                      }
-                      l.setLookupableHelperService(new KualiLookupableHelperServiceImpl())
-                      return l
-                  }()
+                ["cf.parameterService"               :
+                         [getParameterValueAsString : { s0, s1, s2 -> null },
+                          getParameterValueAsBoolean: { s0, s1, s2, s3 -> false }
+                         ] as ParameterService,
+                 "cf.dataObjectAuthorizationService" :
+                         [attributeValueNeedsToBeEncryptedOnFormsAndLinks: { s0, s1 -> false }] as DataObjectAuthorizationService,
+                 "cf.businessObjectDictionaryService":
+                         [getLookupableID: { s0 -> null }] as BusinessObjectDictionaryService,
+                 "cf.kualiLookupable"                : {
+                     def l = new KualiLookupableImpl() {
+                         void setBusinessObjectClass(Class boClass) {}
+
+                         List getRows() { [] as List }
+
+                         String getExtraButtonSource() { null }
+
+                         String getExtraButtonParams() { null }
+                     }
+                     l.setLookupableHelperService(new KualiLookupableHelperServiceImpl())
+                     return l
+                 }()
                 ][name.getLocalPart()]
             }
         });
     }
 
-    @Test(expected=RuntimeException)
+    @Test(expected = RuntimeException)
     void testFormRequiresBusinessObject() {
         new LookupForm().populate(new MockHttpServletRequest())
     }
 
-    @Test void testFormViewFlags() {
+    @Test
+    void testFormViewFlags() {
         def form = new LookupForm();
         def req = new MockHttpServletRequest();
 

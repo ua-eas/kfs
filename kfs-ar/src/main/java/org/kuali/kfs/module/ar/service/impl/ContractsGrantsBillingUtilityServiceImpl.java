@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.businessobject.Milestone;
@@ -31,8 +29,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Contains Utility methods used by CGB.
@@ -50,7 +50,7 @@ public class ContractsGrantsBillingUtilityServiceImpl implements ContractsGrants
             settings.put(CurrencyFormatter.SHOW_SYMBOL, KFSConstants.Booleans.TRUE);
             CurrencyFormatter currencyFormatter = new CurrencyFormatter();
             currencyFormatter.setSettings(settings);
-            String formattedAmount = (String)currencyFormatter.format(amount);
+            String formattedAmount = (String) currencyFormatter.format(amount);
             return formattedAmount;
         }
         return "";
@@ -118,7 +118,7 @@ public class ContractsGrantsBillingUtilityServiceImpl implements ContractsGrants
         Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         map.put(KFSPropertyConstants.ACTIVE, true);
-        final List<Milestone> milestones = (List<Milestone>)(businessObjectService.findMatching(Milestone.class, map));
+        final List<Milestone> milestones = (List<Milestone>) (businessObjectService.findMatching(Milestone.class, map));
         return milestones;
     }
 

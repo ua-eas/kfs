@@ -28,6 +28,7 @@ public interface AccountingRuleEngineRule {
 
     /**
      * Validates a particular event
+     *
      * @param event the event to validate
      * @return true if validation succeeded and the process requiring validation should continue, false
      * if the validation failed and the process should quit

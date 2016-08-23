@@ -18,23 +18,22 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_PROFILE_ADDR_T")
 public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
-	 * Comment for <code>serialVersionUID</code>
-	 */
-	private static final long serialVersionUID = 7958366500696148370L;
-	private Integer profileId;
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 7958366500696148370L;
+    private Integer profileId;
     private String streetAddressLine1;
     private String streetAddressLine2;
     private String cityName;
@@ -65,9 +64,10 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the temProfileId attribute.
+     *
      * @return Returns the temProfileId.
      */
-    @Column(name = "tem_profile_id", nullable = false, length=19)
+    @Column(name = "tem_profile_id", nullable = false, length = 19)
     public Integer getProfileId() {
         return profileId;
     }
@@ -75,6 +75,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the temProfileId attribute value.
+     *
      * @param temProfileId The temProfileId to set.
      */
     public void setProfileId(Integer profileId) {
@@ -84,6 +85,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the streetAddressLine1 attribute.
+     *
      * @return Returns the streetAddressLine1.
      */
     @Column(name = "addr_line_1", length = 50)
@@ -94,6 +96,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the streetAddressLine1 attribute value.
+     *
      * @param streetAddressLine1 The streetAddressLine1 to set.
      */
     public void setStreetAddressLine1(String streetAddressLine1) {
@@ -103,6 +106,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the streetAddressLine2 attribute.
+     *
      * @return Returns the streetAddressLine2.
      */
     @Column(name = "addr_line_2", length = 50)
@@ -113,6 +117,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the streetAddressLine2 attribute value.
+     *
      * @param streetAddressLine2 The streetAddressLine2 to set.
      */
     public void setStreetAddressLine2(String streetAddressLine2) {
@@ -122,6 +127,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the cityName attribute.
+     *
      * @return Returns the cityName.
      */
     @Column(name = "city_nm", length = 30)
@@ -132,6 +138,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the cityName attribute value.
+     *
      * @param cityName The cityName to set.
      */
     public void setCityName(String cityName) {
@@ -141,6 +148,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the state attribute.
+     *
      * @return Returns the state.
      */
     @Column(name = "state_cd", length = 40)
@@ -151,6 +159,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the state attribute value.
+     *
      * @param state The state to set.
      */
     public void setStateCode(String stateCode) {
@@ -160,6 +169,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the zipCode attribute.
+     *
      * @return Returns the zipCode.
      */
     @Column(name = "zip_cd", length = 40)
@@ -170,6 +180,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the zipCode attribute value.
+     *
      * @param zipCode The zipCode to set.
      */
     public void setZipCode(String zipCode) {
@@ -179,6 +190,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the country attribute.
+     *
      * @return Returns the country.
      */
     @Column(name = "country_cd", length = 40)
@@ -188,6 +200,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the country attribute value.
+     *
      * @param country The country to set.
      */
     public void setCountryCode(String countryCode) {
@@ -197,6 +210,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Gets the profile attribute.
+     *
      * @return Returns the profile.
      */
     public TemProfile getProfile() {
@@ -206,6 +220,7 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
 
     /**
      * Sets the profile attribute value.
+     *
      * @param profile The profile to set.
      */
     public void setProfile(TemProfile profile) {
@@ -213,57 +228,63 @@ public class TemProfileAddress extends PersistableBusinessObjectBase {
     }
 
 
-	/**
-	 * Sets the customerNumber attribute value.
-	 * @param customerNumber The customerNumber to set.
-	 */
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
-	}
+    /**
+     * Sets the customerNumber attribute value.
+     *
+     * @param customerNumber The customerNumber to set.
+     */
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
 
 
-	/**
-	 * Gets the customerNumber attribute.
-	 * @return Returns the customerNumber.
-	 */
-	public String getCustomerNumber() {
-		return customerNumber;
-	}
+    /**
+     * Gets the customerNumber attribute.
+     *
+     * @return Returns the customerNumber.
+     */
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
 
 
-	/**
-	 * Sets the principalId attribute value.
-	 * @param principalId The principalId to set.
-	 */
-	public void setPrincipalId(String principalId) {
-		this.principalId = principalId;
-	}
+    /**
+     * Sets the principalId attribute value.
+     *
+     * @param principalId The principalId to set.
+     */
+    public void setPrincipalId(String principalId) {
+        this.principalId = principalId;
+    }
 
 
-	/**
-	 * Gets the principalId attribute.
-	 * @return Returns the principalId.
-	 */
-	public String getPrincipalId() {
-		return principalId;
-	}
+    /**
+     * Gets the principalId attribute.
+     *
+     * @return Returns the principalId.
+     */
+    public String getPrincipalId() {
+        return principalId;
+    }
 
 
-	/**
-	 * Sets the customerAddressIdentifier attribute value.
-	 * @param customerAddressIdentifier The customerAddressIdentifier to set.
-	 */
-	public void setCustomerAddressIdentifier(Integer customerAddressIdentifier) {
-		this.customerAddressIdentifier = customerAddressIdentifier;
-	}
+    /**
+     * Sets the customerAddressIdentifier attribute value.
+     *
+     * @param customerAddressIdentifier The customerAddressIdentifier to set.
+     */
+    public void setCustomerAddressIdentifier(Integer customerAddressIdentifier) {
+        this.customerAddressIdentifier = customerAddressIdentifier;
+    }
 
 
-	/**
-	 * Gets the customerAddressIdentifier attribute.
-	 * @return Returns the customerAddressIdentifier.
-	 */
-	public Integer getCustomerAddressIdentifier() {
-		return customerAddressIdentifier;
-	}
+    /**
+     * Gets the customerAddressIdentifier attribute.
+     *
+     * @return Returns the customerAddressIdentifier.
+     */
+    public Integer getCustomerAddressIdentifier() {
+        return customerAddressIdentifier;
+    }
 
 }

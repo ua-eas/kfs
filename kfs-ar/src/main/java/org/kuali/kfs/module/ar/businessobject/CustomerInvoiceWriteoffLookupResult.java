@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
-public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObjectBase{
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObjectBase {
 
     private String customerName;
     private String customerNumber;
@@ -41,13 +41,14 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
 
     private Customer customer;
 
-    public CustomerInvoiceWriteoffLookupResult(){
+    public CustomerInvoiceWriteoffLookupResult() {
         customerInvoiceDocuments = new ArrayList<CustomerInvoiceDocument>();
     }
 
     public KualiDecimal getCustomerTotal() {
         return customerTotal;
     }
+
     public void setCustomerTotal(KualiDecimal customerTotal) {
         this.customerTotal = customerTotal;
     }
@@ -55,27 +56,35 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
     public List<CustomerInvoiceDocument> getCustomerInvoiceDocuments() {
         return customerInvoiceDocuments;
     }
+
     public void setCustomerInvoiceDocuments(List<CustomerInvoiceDocument> customerInvoiceDocuments) {
         this.customerInvoiceDocuments = customerInvoiceDocuments;
     }
+
     public void setCustomerTypeCode(String customerTypeCode) {
         this.customerTypeCode = customerTypeCode;
     }
+
     public String getCustomerName() {
         return customerName;
     }
+
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
     public String getCustomerNumber() {
         return customerNumber;
     }
+
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
     }
+
     public String getCustomerTypeCode() {
         return customerTypeCode;
     }
+
     public void setCustomerType(String customerType) {
         this.customerTypeCode = customerType;
     }
@@ -83,6 +92,7 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
     public String getCustomerInvoiceNumber() {
         return customerInvoiceNumber;
     }
+
     public void setCustomerInvoiceNumber(String customerInvoiceNumber) {
         this.customerInvoiceNumber = customerInvoiceNumber;
     }
@@ -90,6 +100,7 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
     public Integer getAge() {
         return age;
     }
+
     public void setAge(Integer age) {
         this.age = age;
     }
@@ -98,10 +109,12 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
     public String getCustomerNote() {
         return customerNote;
     }
+
     public void setCustomerNote(String customerNote) {
         this.customerNote = customerNote;
     }
-    public List<String> getCustomerInvoiceDocumentAttributesForDisplay(){
+
+    public List<String> getCustomerInvoiceDocumentAttributesForDisplay() {
         List<String> customerInvoiceDocumentAttributesForDisplay = new ArrayList<String>();
         customerInvoiceDocumentAttributesForDisplay.add(KFSPropertyConstants.DOCUMENT_NUMBER);
         customerInvoiceDocumentAttributesForDisplay.add(ArPropertyConstants.CustomerInvoiceDocumentFields.AGE);
@@ -118,7 +131,7 @@ public class CustomerInvoiceWriteoffLookupResult extends TransientBusinessObject
         return null;
     }
 
-    public CustomerInvoiceDocument getCustomerInvoiceDocument(int index){
+    public CustomerInvoiceDocument getCustomerInvoiceDocument(int index) {
         return getCustomerInvoiceDocuments().get(index);
     }
 

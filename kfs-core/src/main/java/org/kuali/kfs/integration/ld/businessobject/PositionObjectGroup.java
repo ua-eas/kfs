@@ -100,6 +100,7 @@ public class PositionObjectGroup implements LaborLedgerPositionObjectGroup {
     }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
 }

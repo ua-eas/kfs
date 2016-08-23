@@ -18,11 +18,18 @@
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
@@ -42,15 +49,8 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * To define the rules that may be applied to the effort certification document, a transactional document
@@ -68,7 +68,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
 
     /**
      * @see org.kuali.kfs.module.ec.document.validation.AddDetailLineRule#processAddDetailLineRules(org.kuali.kfs.module.ec.document.EffortCertificationDocument,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
      */
     @Override
     public boolean processAddDetailLineRules(EffortCertificationDocument document, EffortCertificationDetail detailLine) {
@@ -81,7 +81,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
             return false;
         }
 
-        if(!this.processCheckDetailLineAmountRules(document, detailLine)) {
+        if (!this.processCheckDetailLineAmountRules(document, detailLine)) {
             return false;
         }
 
@@ -109,7 +109,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
 
     /**
      * @see org.kuali.kfs.module.ec.document.validation.UpdateDetailLineRule#processUpdateDetailLineRules(org.kuali.kfs.module.ec.document.EffortCertificationDocument,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
      */
     @Override
     public boolean processUpdateDetailLineRules(EffortCertificationDocument document, EffortCertificationDetail detailLine) {
@@ -120,7 +120,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
             return false;
         }
 
-        if(!this.processCheckDetailLineAmountRules(document, detailLine)) {
+        if (!this.processCheckDetailLineAmountRules(document, detailLine)) {
             return false;
         }
 
@@ -177,8 +177,8 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
         if (EffortCertificationDocumentRuleUtil.isEffortPercentChangedFromPersisted(effortCertificationDocument)) {
             List<Note> notes = effortCertificationDocument.getNotes();
             boolean noteHasBeenAdded = false;
-            for(Note note : notes) {
-                if(note.isNewCollectionRecord()) {
+            for (Note note : notes) {
+                if (note.isNewCollectionRecord()) {
                     noteHasBeenAdded = true;
                     break;
                 }
@@ -216,7 +216,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
 
     /**
      * @see org.kuali.kfs.module.ec.document.validation.CheckDetailLineAmountRule#processCheckDetailLineAmountRules(org.kuali.kfs.module.ec.document.EffortCertificationDocument,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail)
      */
     @Override
     public boolean processCheckDetailLineAmountRules(EffortCertificationDocument effortCertificationDocument, EffortCertificationDetail effortCertificationDetail) {
@@ -294,7 +294,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
      *
      * @param detailLine the given effort certification detail line
      * @return true if the attributes in the detail line are valid for the defintions in data dictionary and have valid references;
-     *         otherwise, false
+     * otherwise, false
      */
     protected boolean checkDetailLineAttributes(EffortCertificationDetail detailLine) {
         LOG.debug("checkDetailLine() start");
@@ -320,6 +320,7 @@ public class EffortCertificationDocumentRules extends TransactionalDocumentRuleB
 
     /**
      * determine if the business rule needs to be bypassed. If the given document is in the state of initiation, bypass
+     *
      * @param effortCertificationDocument the given document
      * @return true if the given document is in the state of initiation; otherwise, false
      */

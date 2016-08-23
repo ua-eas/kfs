@@ -19,15 +19,6 @@
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.kfs.krad.uif.control.MultiValueControlBase;
-import org.kuali.kfs.krad.uif.control.TextControl;
-import org.kuali.kfs.krad.uif.util.ComponentUtils;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.data.DataType;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.validation.capability.CaseConstrainable;
 import org.kuali.kfs.krad.datadictionary.validation.capability.LengthConstrainable;
@@ -43,16 +34,25 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.SimpleConstraint;
 import org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.control.UifKeyValuesFinder;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.control.Control;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
+import org.kuali.kfs.krad.uif.control.Control;
+import org.kuali.kfs.krad.uif.control.MultiValueControlBase;
+import org.kuali.kfs.krad.uif.control.TextControl;
+import org.kuali.kfs.krad.uif.control.UifKeyValuesFinder;
 import org.kuali.kfs.krad.uif.util.ClientValidationUtils;
+import org.kuali.kfs.krad.uif.util.ComponentUtils;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.view.ViewModel;
 import org.kuali.kfs.krad.uif.widget.DirectInquiry;
 import org.kuali.kfs.krad.uif.widget.QuickFinder;
 import org.kuali.kfs.krad.uif.widget.Suggest;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.data.DataType;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.type.TypeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ import java.util.List;
 /**
  * Field that encapsulates data input/output captured by an attribute within the
  * application
- *
+ * <p>
  * <p>
  * R
  * The <code>InputField</code> provides the majority of the data input/output
@@ -73,11 +73,9 @@ import java.util.List;
  * due to invalid input or business rule failures. Security can also be
  * configured to restrict who may view the fields value.
  * </p>
- *
- *
  */
 public class InputField extends DataField implements SimpleConstrainable, CaseConstrainable, PrerequisiteConstrainable,
-        MustOccurConstrainable, LengthConstrainable, RangeConstrainable, ValidCharactersConstrainable {
+    MustOccurConstrainable, LengthConstrainable, RangeConstrainable, ValidCharactersConstrainable {
     private static final long serialVersionUID = -3703656713706343840L;
 
     // constraint variables
@@ -119,7 +117,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the ids for the various attribute components</li>
      * <li>Sets up the client side validation for constraints on this field. In
@@ -127,7 +125,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -166,11 +164,11 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
         // if read only do key/value translation if necessary (if alternative and additional properties not set)
         if (isReadOnly()
-                && !fieldOptions.isEmpty()
-                && StringUtils.isBlank(getAlternateDisplayValue())
-                && StringUtils.isBlank(getAdditionalDisplayValue())
-                && StringUtils.isBlank(getAlternateDisplayPropertyName())
-                && StringUtils.isBlank(getAdditionalDisplayPropertyName())) {
+            && !fieldOptions.isEmpty()
+            && StringUtils.isBlank(getAlternateDisplayValue())
+            && StringUtils.isBlank(getAdditionalDisplayValue())
+            && StringUtils.isBlank(getAlternateDisplayPropertyName())
+            && StringUtils.isBlank(getAdditionalDisplayPropertyName())) {
 
             Object fieldValue = ObjectPropertyUtils.getPropertyValue(model, getBindingInfo().getBindingPath());
 
@@ -233,13 +231,14 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Adjust paths on the prerequisite constraint bindings
+     *
      * @param prerequisiteConstraints
      */
     protected void adjustPrerequisiteConstraintBinding(List<PrerequisiteConstraint> prerequisiteConstraints) {
         if (prerequisiteConstraints != null) {
             for (PrerequisiteConstraint prerequisiteConstraint : prerequisiteConstraints) {
                 String propertyName = getBindingInfo().getPropertyAdjustedBindingPath(
-                        prerequisiteConstraint.getPropertyName());
+                    prerequisiteConstraint.getPropertyName());
                 prerequisiteConstraint.setPropertyName(propertyName);
             }
         }
@@ -296,7 +295,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
      * Helper method for suffixing the ids of the fields nested components
      *
      * @param component - component to adjust id for
-     * @param suffix - suffix to append to id
+     * @param suffix    - suffix to append to id
      */
     private void setNestedComponentIdAndSuffix(Component component, String suffix) {
         if (component != null) {
@@ -314,9 +313,9 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
      * already contains a value for a property, the definitions value is not
      * used.
      *
-     * @param view - view instance the field belongs to
+     * @param view                - view instance the field belongs to
      * @param attributeDefinition - AttributeDefinition instance the property values should be
-     * copied from
+     *                            copied from
      */
     public void copyFromAttributeDefinition(View view, AttributeDefinition attributeDefinition) {
         super.copyFromAttributeDefinition(view, attributeDefinition);
@@ -361,7 +360,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
         if (this.dataType == null) {
             setDataType(attributeDefinition.getDataType());
             //Assume date if dataType is still null and using a DatePicker
-            if(this.dataType == null && control instanceof TextControl && ((TextControl) control).getDatePicker() != null) {
+            if (this.dataType == null && control instanceof TextControl && ((TextControl) control).getDatePicker() != null) {
                 setDataType(DataType.DATE);
             }
         }
@@ -413,7 +412,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
     /**
      * <code>Control</code> instance that should be used to input data for the
      * field
-     *
+     * <p>
      * <p>
      * When the field is editable, the control will be rendered so the user can
      * input a value(s). Controls typically are part of a Form and render
@@ -496,7 +495,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Lookup finder widget for the field
-     *
+     * <p>
      * <p>
      * The quickfinder widget places a small icon next to the field that allows
      * the user to bring up a search screen for finding valid field values. The
@@ -523,13 +522,13 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Suggest box widget for the input field
-     *
+     * <p>
      * <p>
      * If enabled (by render flag), as the user inputs data into the
      * fields control a dynamic query is performed to provide the user
      * suggestions on values which they can then select
      * </p>
-     *
+     * <p>
      * <p>
      * Note the Suggest widget is only valid when using a standard TextControl
      * </p>
@@ -551,7 +550,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Instructional text that display an explanation of the field usage
-     *
+     * <p>
      * <p>
      * Text explaining how to use the field, including things like what values should be selected
      * in certain cases and so on (instructions)
@@ -574,7 +573,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Message field that displays instructional text
-     *
+     * <p>
      * <p>
      * This message field can be configured to for adjusting how the instructional text will display. Generally
      * the styleClasses property will be of most interest
@@ -588,7 +587,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Setter for the instructional text message field
-     *
+     * <p>
      * <p>
      * Note this is the setter for the field that will render the instructional text. The actual text can be
      * set on the field but can also be set using {@link #setInstructionalText(String)}
@@ -602,7 +601,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Text that display a restriction on the value a field can hold
-     *
+     * <p>
      * <p>
      * For example when the value must be a valid format (phone number, email), certain length, min/max value and
      * so on this text can be used to indicate the constraint to the user. Generally displays with the control so
@@ -626,7 +625,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Message field that displays constraint text
-     *
+     * <p>
      * <p>
      * This message field can be configured to for adjusting how the constrain text will display. Generally
      * the styleClasses property will be of most interest
@@ -640,7 +639,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Setter for the constraint text message field
-     *
+     * <p>
      * <p>
      * Note this is the setter for the field that will render the constraint text. The actual text can be
      * set on the field but can also be set using {@link #setConstraintText(String)}
@@ -726,7 +725,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Simple constraints for the input field
-     *
+     * <p>
      * <p>
      * A simple constraint which store the values for constraints such as required,
      * min/max length, and min/max value.
@@ -740,7 +739,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Setter for simple constraint
-     *
+     * <p>
      * <p>
      * When a simple constraint is set on this object ALL simple validation
      * constraints set directly will be overridden - recommended to use this or
@@ -755,7 +754,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Maximum number of characters the input field value is allowed to have
-     *
+     * <p>
      * <p>
      * The maximum length determines the maximum allowable length of the value
      * for data entry editing purposes.  The maximum length is inclusive and can
@@ -781,7 +780,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Minimum number of characters the input field value needs to be
-     *
+     * <p>
      * <p>
      * The minimum length determines the minimum required length of the value for
      * data entry editing purposes.  The minimum length is inclusive. The constraint
@@ -830,13 +829,13 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * The exclusive minimum value for numeric or date field.
-     *
+     * <p>
      * <p>
      * The exclusiveMin element determines the minimum allowable value for data
      * entry editing purposes. This constrain is supported for numeric and
      * date fields and to be used in conjunction with the appropriate
      * {@link ValidCharactersConstraint}.
-     *
+     * <p>
      * For numeric constraint the value can be an integer or decimal such as -.001 or 99.
      * </p>
      *
@@ -857,13 +856,13 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * The inclusive maximum value for numeric or date field.
-     *
+     * <p>
      * <p>
      * The inclusiveMax element determines the maximum allowable value for data
      * entry editing purposes. This constrain is supported for numeric and
      * date fields and to be used in conjunction with the appropriate
      * {@link ValidCharactersConstraint}.
-     *
+     * <p>
      * For numeric constraint the value can be an integer or decimal such as -.001 or 99.
      * </p>
      *
@@ -884,7 +883,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * <code>DirectInquiry</code> widget for the field
-     *
+     * <p>
      * <p>
      * The direct inquiry widget will render a button for the field value when
      * that field is editable. It points to the associated inquiry view for the
@@ -912,7 +911,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
     /**
      * Attribute query instance configured for this field to dynamically pull information back for
      * updates other fields or providing messages
-     *
+     * <p>
      * <p>
      * If field attribute query is not null, associated event script will be generated to trigger the
      * query from the UI. This will invoke the <code>AttributeQueryService</code> to
@@ -938,7 +937,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
 
     /**
      * Perform uppercase flag for this field to force input to uppercase.
-     *
+     * <p>
      * <p>
      * It this flag is set to true the 'text-transform' style on the field will be set to 'uppercase'
      * which will automatically change any text input into the field to uppercase.
@@ -962,6 +961,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
     /**
      * Returns the full binding path (the path used in the name attribute of the input).
      * This differs from propertyName in that it uses BindingInfo to determine the path.
+     *
      * @return full binding path name
      */
     @Override
@@ -976,6 +976,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
     /**
      * This does not have to be set, represents the DataType constraint of this field.
      * This is only checked during server side validation.
+     *
      * @param dataType the dataType to set
      */
     public void setDataType(DataType dataType) {
@@ -990,6 +991,7 @@ public class InputField extends DataField implements SimpleConstrainable, CaseCo
      * Gets the DataType of this InputField, note that DataType set to be date
      * when this field is using a date picker with a TextControl and hasnt otherwise been
      * explicitly set.
+     *
      * @return
      */
     public DataType getDataType() {

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.Balance;
+
+import java.util.Iterator;
 
 /**
  * An extension of the Iterator interface that allows for balances to be selected or not

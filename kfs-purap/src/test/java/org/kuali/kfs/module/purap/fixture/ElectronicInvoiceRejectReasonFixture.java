@@ -24,10 +24,10 @@ import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 public enum ElectronicInvoiceRejectReasonFixture {
 
     EIRR_BASIC(
-            null, // invoiceFileName;
-            "TEST", // invoiceRejectReasonTypeCode;
-            "Test Reason Description" // invoiceRejectReasonDescription;
-    ), ;
+        null, // invoiceFileName;
+        "TEST", // invoiceRejectReasonTypeCode;
+        "Test Reason Description" // invoiceRejectReasonDescription;
+    ),;
 
     private String invoiceFileName;
     private String invoiceRejectReasonTypeCode;

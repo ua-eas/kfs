@@ -18,20 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.purap.businessobject.SensitiveData;
-import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.module.purap.identity.PurapKimAttributes;
-import org.kuali.kfs.module.purap.service.SensitiveDataService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.kim.api.identity.Person;
 
 public class PurchaseOrderDocumentAuthorizerBase extends PurchasingAccountsPayableTransactionalDocumentAuthorizerBase {
 

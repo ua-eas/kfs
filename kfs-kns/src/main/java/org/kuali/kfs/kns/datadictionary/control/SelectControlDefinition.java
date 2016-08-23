@@ -22,26 +22,26 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-    The select element will render an HTML select control.
-    The valuesFinderClass will have a getKeyValues() method
-    that returns a list of KeyValue objects.
-
-    An optional script attribute allows java script code to be
-    entered.  This code will be run when the user selects a new
-    value.
+ * The select element will render an HTML select control.
+ * The valuesFinderClass will have a getKeyValues() method
+ * that returns a list of KeyValue objects.
+ * <p>
+ * An optional script attribute allows java script code to be
+ * entered.  This code will be run when the user selects a new
+ * value.
  */
 @Deprecated
 public class SelectControlDefinition extends MultivalueControlDefinitionBase {
     private static final long serialVersionUID = 7176759040882704084L;
 
-	public SelectControlDefinition() {
+    public SelectControlDefinition() {
     }
 
     /**
      * @see ControlDefinition#isSelect()
      */
     @Override
-	public boolean isSelect() {
+    public boolean isSelect() {
         return true;
     }
 
@@ -49,7 +49,7 @@ public class SelectControlDefinition extends MultivalueControlDefinitionBase {
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString() {
+    public String toString() {
         return "SelectControlDefinition";
     }
 

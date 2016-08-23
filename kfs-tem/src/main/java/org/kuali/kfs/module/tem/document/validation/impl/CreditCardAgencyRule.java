@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -26,9 +29,6 @@ import org.kuali.kfs.module.tem.businessobject.CreditCardAgency;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
@@ -36,7 +36,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
         super.processCustomSaveDocumentBusinessRules(document);
 
-        final CreditCardAgency creditCardAgency = (CreditCardAgency)document.getNewMaintainableObject().getBusinessObject();
+        final CreditCardAgency creditCardAgency = (CreditCardAgency) document.getNewMaintainableObject().getBusinessObject();
 
         checkOnlyCorpCardsCanMakePayments(creditCardAgency);
         checkCorporateCardAgencyGotBank(creditCardAgency);
@@ -49,7 +49,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean result = super.processCustomRouteDocumentBusinessRules(document);
 
-        final CreditCardAgency creditCardAgency = (CreditCardAgency)document.getNewMaintainableObject().getBusinessObject();
+        final CreditCardAgency creditCardAgency = (CreditCardAgency) document.getNewMaintainableObject().getBusinessObject();
         result &= checkOnlyCorpCardsCanMakePayments(creditCardAgency);
         result &= checkCorporateCardAgencyGotBank(creditCardAgency);
         result &= checkCorporateCardAgencyHasVendor(creditCardAgency);
@@ -59,6 +59,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the given credit card agency represents the vendor of corporate cards
+     *
      * @param creditCardAgency the credit card agency to check
      * @return true if the agency represents a corporate card vendor, false otherwise
      */
@@ -68,6 +69,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the credit card agency can have payment indicator checked - which is only the case if the agency is a CORP card agency
+     *
      * @param creditCardAgency the credit card agency to check
      * @return true if payment indicator is either not chosen or is allowed for this agency, false and an error otherwise
      */
@@ -81,6 +83,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Checks that if the credit card agency represents a corporate card vendor, that it has a bank code
+     *
      * @param creditCardAgency the credit card agency to check
      * @return true if the rule passed, false otherwise
      */
@@ -89,7 +92,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
         if (isCorporateCardAgency(creditCardAgency) && creditCardAgency.isPaymentIndicator()) {
             if (StringUtils.isBlank(creditCardAgency.getBankCode())) {
-                putFieldError(KFSPropertyConstants.BANK_CODE, TemKeyConstants.ERROR_CREDIT_CARD_AGENCY_CORPORATE_CARD_AGENCY_BANK_REQUIRED, new String[] { bankCodeLabel });
+                putFieldError(KFSPropertyConstants.BANK_CODE, TemKeyConstants.ERROR_CREDIT_CARD_AGENCY_CORPORATE_CARD_AGENCY_BANK_REQUIRED, new String[]{bankCodeLabel});
                 return false;
             }
         }
@@ -98,7 +101,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
                 creditCardAgency.refreshReferenceObject(KFSPropertyConstants.BANK);
             }
             if (ObjectUtils.isNull(creditCardAgency.getBank()) || !creditCardAgency.getBank().isActive()) {
-                putFieldError(KFSPropertyConstants.BANK_CODE, RiceKeyConstants.ERROR_EXISTENCE, new String[] { bankCodeLabel });
+                putFieldError(KFSPropertyConstants.BANK_CODE, RiceKeyConstants.ERROR_EXISTENCE, new String[]{bankCodeLabel});
                 return false;
             }
         }
@@ -107,6 +110,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Verifies that if the given credit card agency represents a corporate card vendor responsible for payments, that a vendor is associated
+     *
      * @param creditCardAgency the credit card agency to check
      * @return true if rule passes, false otherwise
      */
@@ -115,7 +119,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
 
         if (isCorporateCardAgency(creditCardAgency) && creditCardAgency.isPaymentIndicator()) {
             if (creditCardAgency.getVendorHeaderGeneratedIdentifier() == null || creditCardAgency.getVendorDetailAssignedIdentifier() == null) {
-                putFieldError(KFSPropertyConstants.VENDOR_NUMBER, TemKeyConstants.ERROR_CREDIT_CARD_AGENCY_CORPORATE_CARD_VENDOR_NUMBER_REQUIRED, new String[] { vendorNumberLabel });
+                putFieldError(KFSPropertyConstants.VENDOR_NUMBER, TemKeyConstants.ERROR_CREDIT_CARD_AGENCY_CORPORATE_CARD_VENDOR_NUMBER_REQUIRED, new String[]{vendorNumberLabel});
                 return false;
             }
         }
@@ -125,7 +129,7 @@ public class CreditCardAgencyRule extends MaintenanceDocumentRuleBase {
             }
 
             if (ObjectUtils.isNull(creditCardAgency.getVendorDetail()) || !creditCardAgency.getVendorDetail().isActiveIndicator()) {
-                putFieldError(KFSPropertyConstants.VENDOR_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, new String[] { vendorNumberLabel });
+                putFieldError(KFSPropertyConstants.VENDOR_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, new String[]{vendorNumberLabel});
                 return false;
             }
         }

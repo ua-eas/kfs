@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Set;
 
 public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDocumentFormBase {
 
@@ -54,11 +53,11 @@ public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDoc
         //populate document using request
         super.populate(request);
 
-        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument)getDocument();
+        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) getDocument();
         String customerInvoiceNumber = customerInvoiceWriteoffDocument.getFinancialDocumentReferenceInvoiceNumber();
 
         //this will make sure that every action has fully populated invoice
-        if(StringUtils.isNotEmpty(customerInvoiceNumber)){
+        if (StringUtils.isNotEmpty(customerInvoiceNumber)) {
             customerInvoiceWriteoffDocument.refreshReferenceObject("customerInvoiceDocument");
         }
     }
@@ -67,7 +66,7 @@ public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDoc
      * Build additional customer credit memo specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs the creation of extra buttons.
      * No data dictionary is involved here.
      */
@@ -80,7 +79,7 @@ public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDoc
         CustomerInvoiceWriteoffDocument writeoffDoc = (CustomerInvoiceWriteoffDocument) getDocument();
         DocumentHelperService documentHelperService = SpringContext.getBean(DocumentHelperService.class);
         TransactionalDocumentPresentationController presoController =
-                (TransactionalDocumentPresentationController) documentHelperService.getDocumentPresentationController(writeoffDoc);
+            (TransactionalDocumentPresentationController) documentHelperService.getDocumentPresentationController(writeoffDoc);
         Set<String> editModes = presoController.getEditModes(writeoffDoc);
 
         if (editModes.contains(ArAuthorizationConstants.CustomerCreditMemoEditMode.DISPLAY_INIT_TAB)) {
@@ -95,8 +94,8 @@ public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDoc
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
      */
     protected void addExtraButton(String property, String source, String altText) {
 

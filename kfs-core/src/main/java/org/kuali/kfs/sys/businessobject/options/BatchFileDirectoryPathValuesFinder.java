@@ -18,31 +18,30 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
+import org.apache.commons.io.DirectoryWalker;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.sys.batch.BatchFileUtils;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.io.DirectoryWalker;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.batch.BatchFileUtils;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-
 public class BatchFileDirectoryPathValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         List<File> rootDirectories = BatchFileUtils.retrieveBatchFileLookupRootDirectories();
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
 
-        for (File rootDirectory: rootDirectories) {
+        for (File rootDirectory : rootDirectories) {
             SubDirectoryWalker walker = new SubDirectoryWalker(keyValues);
             try {
                 walker.addKeyValues(rootDirectory);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException("IOException caught.", e);
             }
         }
@@ -75,7 +74,7 @@ public class BatchFileDirectoryPathValuesFinder extends KeyValuesBase {
             ConcreteKeyValue entry = new ConcreteKeyValue();
             entry.setKey(BatchFileUtils.pathRelativeToRootDirectory(directory.getAbsolutePath()));
             // use the unicode literal for space....KFSMI-7392 fix
-            entry.setValue( StringUtils.repeat("\u00A0", 4 * this.recursiveDepth) + directory.getName());
+            entry.setValue(StringUtils.repeat("\u00A0", 4 * this.recursiveDepth) + directory.getName());
             keyValues.add(entry);
             this.recursiveDepth++;
         }

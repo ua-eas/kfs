@@ -96,8 +96,8 @@
             <replacement>org.kuali.kfs.kns.bo.lookup.StateValuesFinder</replacement>
         </pattern>
         <pattern>
-        	<match>org\.kuali\.rice\.core\.framework\.persistence\.ojb\.conversion</match>
-        	<replacement>org.kuali.kfs.core.framework.persistence.ojb.conversion</replacement>
+            <match>org\.kuali\.rice\.core\.framework\.persistence\.ojb\.conversion</match>
+            <replacement>org.kuali.kfs.core.framework.persistence.ojb.conversion</replacement>
         </pattern>
     </rule>
 </rules>

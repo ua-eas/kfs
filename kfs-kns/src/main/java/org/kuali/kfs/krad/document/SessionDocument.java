@@ -20,9 +20,6 @@ package org.kuali.kfs.krad.document;
 
 /**
  * This is a marker interface for implementing session in document.
- *
- *
- *
  */
 public interface SessionDocument {
 

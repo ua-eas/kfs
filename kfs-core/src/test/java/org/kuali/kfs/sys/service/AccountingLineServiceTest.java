@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.sys.service;
 
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2_TOF;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -33,8 +29,12 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE2_TOF;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the AccountingLine service.
@@ -129,12 +129,12 @@ public class AccountingLineServiceTest extends KualiTestBase {
         assertTrue(targetLines.size() > 0);
         // delete 'em
         if (sourceLines != null) {
-            for (Iterator i = sourceLines.iterator(); i.hasNext();) {
+            for (Iterator i = sourceLines.iterator(); i.hasNext(); ) {
                 SpringContext.getBean(BusinessObjectService.class).delete((AccountingLine) i.next());
             }
         }
         if (targetLines != null) {
-            for (Iterator i = targetLines.iterator(); i.hasNext();) {
+            for (Iterator i = targetLines.iterator(); i.hasNext(); ) {
                 SpringContext.getBean(BusinessObjectService.class).delete((AccountingLine) i.next());
             }
         }

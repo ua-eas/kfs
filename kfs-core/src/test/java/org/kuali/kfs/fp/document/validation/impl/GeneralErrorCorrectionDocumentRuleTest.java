@@ -18,6 +18,24 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
+import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.DocumentTestUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.service.IsDebitTestUtils;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleTestUtils.testAddAccountingLineRule_ProcessAddAccountingLineBusinessRules;
 import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleTestUtils.testGenerateGeneralLedgerPendingEntriesRule_ProcessGenerateGeneralLedgerPendingEntries;
 import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleTestUtils.testRouteDocumentRule_processRouteDocument;
@@ -38,24 +56,6 @@ import static org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture.EXPECTE
 import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.NEGATIVE;
 import static org.kuali.kfs.sys.service.IsDebitTestUtils.Amount.POSITIVE;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.service.IsDebitTestUtils;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
 
 @ConfigureContext(session = khuntley)
 public class GeneralErrorCorrectionDocumentRuleTest extends KualiTestBase {
@@ -287,17 +287,17 @@ public class GeneralErrorCorrectionDocumentRuleTest extends KualiTestBase {
         assertTrue(IsDebitTestUtils.isDebit(SpringContext.getBean(DataDictionaryService.class), SpringContext.getBean(DataDictionaryService.class), accountingDocument, accountingLine));
     }
 
-  //  public void testIsObjectTypeAllowed_InvalidObjectType() throws Exception {
+    //  public void testIsObjectTypeAllowed_InvalidObjectType() throws Exception {
 //        GeneralErrorCorrectionObjectTypeValidation validation = new GeneralErrorCorrectionObjectTypeValidation();
 //        AccountingDocument accountingDocument = IsDebitTestUtils.getErrorCorrectionDocument(SpringContext.getBean(DocumentService.class), GeneralErrorCorrectionDocument.class);
 //        validation.setAccountingLineForValidation(getInvalidObjectTypeSourceLine());
 //        validation.setParameterService(SpringContext.getBean(ParameterService.class));
 //        assertEquals(false, validation.validate(new AddAccountingLineEvent(null, accountingDocument, getInvalidObjectTypeSourceLine())));
 //        testAddAccountingLineRule_IsObjectTypeAllowed(DOCUMENT_CLASS,  getInvalidObjectTypeSourceLine(), false);
- //       ObjectCode code = getInvalidObjectCodeSourceLine().getObjectCode();
-  //      GeneralErrorCorrectionDocumentRule rule = new GeneralErrorCorrectionDocumentRule();
-  //     assertEquals(false,  rule.isObjectTypeAndObjectSubTypeAllowed(code));
-  //  }
+    //       ObjectCode code = getInvalidObjectCodeSourceLine().getObjectCode();
+    //      GeneralErrorCorrectionDocumentRule rule = new GeneralErrorCorrectionDocumentRule();
+    //     assertEquals(false,  rule.isObjectTypeAndObjectSubTypeAllowed(code));
+    //  }
 
 //    public void testIsObjectTypeAllowed_Valid() throws Exception {
 //        GeneralErrorCorrectionObjectTypeValidation validation = new GeneralErrorCorrectionObjectTypeValidation();
@@ -339,9 +339,9 @@ public class GeneralErrorCorrectionDocumentRuleTest extends KualiTestBase {
 //        //testAddAccountingLine_IsObjectSubTypeAllowed(DOCUMENT_CLASS, getInvalidObjectSubTypeTargetLine(), false);
 //    }
 
-   // public void testIsObjectSubTypeAllowed_ValidSubType() throws Exception {
+    // public void testIsObjectSubTypeAllowed_ValidSubType() throws Exception {
     //    testAddAccountingLine_IsObjectSubTypeAllowed(DOCUMENT_CLASS, getValidObjectSubTypeTargetLine(), true);
-   // }
+    // }
 
     public void testProcessSaveDocument_Valid() throws Exception {
         testSaveDocumentRule_ProcessSaveDocument(createDocument(), true);
@@ -355,8 +355,7 @@ public class GeneralErrorCorrectionDocumentRuleTest extends KualiTestBase {
         try {
             testSaveDocumentRule_ProcessSaveDocument(null, false);
             fail("validated null doc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
         }
     }

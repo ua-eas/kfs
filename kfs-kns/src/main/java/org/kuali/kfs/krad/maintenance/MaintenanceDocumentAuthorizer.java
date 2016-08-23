@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.maintenance;
 
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.rice.kim.api.identity.Person;
 
 
 public interface MaintenanceDocumentAuthorizer extends DocumentAuthorizer {

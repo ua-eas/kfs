@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
@@ -27,6 +25,8 @@ import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.businessobject.VendorShippingSpecialCondition;
 import org.kuali.kfs.vnd.businessobject.VendorSupplierDiversity;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 class VendorTestConstants {
 

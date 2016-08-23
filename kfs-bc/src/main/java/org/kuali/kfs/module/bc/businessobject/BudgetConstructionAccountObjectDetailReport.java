@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
 
 /**
  * Budget Construction Organization Account Summary Report Business Object.
@@ -286,6 +286,7 @@ public class BudgetConstructionAccountObjectDetailReport {
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
     }
+
     public String getTypeFinancialReportSortCode() {
         return typeFinancialReportSortCode;
     }

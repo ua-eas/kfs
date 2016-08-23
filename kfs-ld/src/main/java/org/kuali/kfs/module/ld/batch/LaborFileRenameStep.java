@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ld.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.springframework.util.StopWatch;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A step to run the scrubber process.
@@ -54,7 +54,7 @@ public class LaborFileRenameStep extends AbstractStep {
         fileNameList.add(LaborConstants.BatchFileSystem.POSTER_VALID_OUTPUT_FILE);
         fileNameList.add(LaborConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE);
 
-        for (String fileName : fileNameList){
+        for (String fileName : fileNameList) {
             File file = new File(filePath + fileName + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             if (file.exists()) {
                 String changedFileName = filePath + fileName + "." + getDateTimeService().toDateTimeStringForFilename(jobRunDate);

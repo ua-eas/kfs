@@ -49,8 +49,8 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
         if (ArConstants.BillingFrequencyValues.ANNUALLY.equals(billingFrequency) && accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear() >= accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear()) {
             return false;
         } else if (StringUtils.equals(findPreviousAccountingPeriod(currentDate).getUniversityFiscalPeriodCode(), findPreviousAccountingPeriod(lastBilledDate).getUniversityFiscalPeriodCode()) &&
-                accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear().equals(accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear())) {
-                return false;
+            accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear().equals(accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear())) {
+            return false;
         }
 
         return true;
@@ -71,7 +71,7 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
         Integer currentFiscalYear = currentAccountingPeriod.getUniversityFiscalYear();
         if (previousAccountingPeriodCode == 0) {
             previousAccountingPeriodCode = 12;
-            currentFiscalYear -=1;
+            currentFiscalYear -= 1;
         }
 
         String periodCode;
@@ -89,12 +89,12 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
     protected Integer findPreviousAccountingPeriodCode(Integer currentAccountingPeriodCode) {
         Integer previousAccountingPeriodCode;
         if (ArConstants.BillingFrequencyValues.MONTHLY.equals(billingFrequency) ||
-                ArConstants.BillingFrequencyValues.MILESTONE.equals(billingFrequency) ||
-                ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.equals(billingFrequency)) {
+            ArConstants.BillingFrequencyValues.MILESTONE.equals(billingFrequency) ||
+            ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 1);
         } else if (ArConstants.BillingFrequencyValues.QUARTERLY.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 3);
-        } else if (ArConstants.BillingFrequencyValues.SEMI_ANNUALLY.equals(billingFrequency)){
+        } else if (ArConstants.BillingFrequencyValues.SEMI_ANNUALLY.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 6);
         } else {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 12);

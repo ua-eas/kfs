@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -44,8 +44,8 @@ public class PurchaseOrderAssignSensitiveDataValidation extends GenericValidatio
      * The assignment reason must not be empty;
      * The assigned sensitive data entries must be active and not redundant.
      *
-     * @param document  A PurchaseOrderDocument (or one of its children)
-     * @return      True if all relevant validation rules are passed.
+     * @param document A PurchaseOrderDocument (or one of its children)
+     * @return True if all relevant validation rules are passed.
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
@@ -58,12 +58,11 @@ public class PurchaseOrderAssignSensitiveDataValidation extends GenericValidatio
         }
 
         for (Object sdobj : sensitiveDatasAssigned) {
-            SensitiveData sd = (SensitiveData)sdobj;
+            SensitiveData sd = (SensitiveData) sdobj;
             if (!sd.isActive()) {
                 GlobalVariables.getMessageMap().putError(PurapConstants.ASSIGN_SENSITIVE_DATA_TAB_ERRORS, PurapKeyConstants.ERROR_ASSIGN_SENSITIVE_DATA_INACTIVE, sd.getSensitiveDataDescription());
                 valid = false;
-            }
-            else if (!sdset.add(sd.getSensitiveDataCode())) {
+            } else if (!sdset.add(sd.getSensitiveDataCode())) {
                 GlobalVariables.getMessageMap().putError(PurapConstants.ASSIGN_SENSITIVE_DATA_TAB_ERRORS, PurapKeyConstants.ERROR_ASSIGN_SENSITIVE_DATA_REDUNDANT, sd.getSensitiveDataDescription());
                 valid = false;
             }

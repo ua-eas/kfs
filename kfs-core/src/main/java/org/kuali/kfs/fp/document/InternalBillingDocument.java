@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.InternalBillingItem;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
@@ -33,10 +33,10 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -64,11 +64,11 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
      * This method determines if an accounting line is a debit accounting line by calling IsDebitUtils.isDebitConsideringSection().
      *
      * @param transactionalDocument The document containing the accounting line being analyzed.
-     * @param accountingLine The accounting line being reviewed to determine if it is a debit line or not.
+     * @param accountingLine        The accounting line being reviewed to determine if it is a debit line or not.
      * @return True if the accounting line is a debit accounting line, false otherwise.
      * @see IsDebitUtils#isDebitConsideringSection(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
@@ -115,7 +115,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
      */
     public KualiDecimal getItemTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Iterator iterator = items.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = items.iterator(); iterator.hasNext(); ) {
             total = total.add(((InternalBillingItem) iterator.next()).getTotal());
         }
         return total;

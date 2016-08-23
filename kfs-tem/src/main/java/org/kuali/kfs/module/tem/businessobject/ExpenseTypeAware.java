@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.tem.businessobject;
 
 
-
 /**
  * Aware of expense type codes
  */

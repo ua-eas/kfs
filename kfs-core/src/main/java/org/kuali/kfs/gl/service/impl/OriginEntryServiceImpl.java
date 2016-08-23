@@ -18,20 +18,6 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.impl.OriginEntryFileIterator;
 import org.kuali.kfs.gl.businessobject.LedgerEntryForReporting;
@@ -45,6 +31,20 @@ import org.kuali.kfs.sys.Message;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The base implementation of OriginEntryService
@@ -64,6 +64,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
 
     /**
      * Sets the originEntryGroupService attribute
+     *
      * @param originEntryGroupService the implementation of OriginEntryGroupService to set
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {
@@ -90,6 +91,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
 
     /**
      * Given a collection of group ids, summarize the entries in each group.
+     *
      * @param groupIdList a Collection of the ids of origin entry groups to summarize
      * @return a LedgerEntryHolder with all of the summarized information
      * @see org.kuali.kfs.gl.service.OriginEntryService#getSummaryByGroupId(Collection)
@@ -137,12 +139,10 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setCreditAmount(amount);
             ledgerEntry.setCreditCount(count);
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setDebitAmount(amount);
             ledgerEntry.setDebitCount(count);
-        }
-        else {
+        } else {
             ledgerEntry.setNoDCAmount(amount);
             ledgerEntry.setNoDCCount(count);
         }
@@ -156,7 +156,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
      * method to generate the text for this file.
      *
      * @param entries An iterator of OriginEntries
-     * @param bw an opened, ready-for-output bufferedOutputStream.
+     * @param bw      an opened, ready-for-output bufferedOutputStream.
      * @see org.kuali.kfs.gl.service.OriginEntryService#flatFile(java.util.Iterator, java.io.BufferedOutputStream)
      */
     public void flatFile(Iterator<OriginEntryFull> entries, BufferedOutputStream bw) {
@@ -165,14 +165,13 @@ public class OriginEntryServiceImpl implements OriginEntryService {
                 OriginEntryFull e = entries.next();
                 bw.write((e.getLine() + "\n").getBytes());
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("flatFile() Error writing to file", e);
             throw new RuntimeException("Error writing to file: " + e.getMessage());
         }
     }
 
-    public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<OriginEntryFull> originEntryList) {
+    public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<OriginEntryFull> originEntryList) {
 
         FileReader INPUT_GLE_FILE = null;
         BufferedReader INPUT_GLE_FILE_br;
@@ -187,7 +186,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         //returnErrorList is list of List<Message>
         Map returnMessageMap = getEntriesByBufferedReader(INPUT_GLE_FILE_br, originEntryList);
 
-        try{
+        try {
             INPUT_GLE_FILE_br.close();
             INPUT_GLE_FILE.close();
         } catch (IOException e) {
@@ -208,7 +207,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
                 OriginEntryFull originEntry = new OriginEntryFull();
                 tmperrors = originEntry.setFromTextFileForBatch(line, lineNumber);
                 originEntry.setEntryId(lineNumber);
-                if (tmperrors.size() > 0){
+                if (tmperrors.size() > 0) {
                     returnMessageMap.put(new Integer(lineNumber), tmperrors);
                 } else {
                     originEntryList.add(originEntry);
@@ -244,12 +243,12 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         return output;
     }
 
-    public Integer getGroupCount(String fileNameWithPath){
+    public Integer getGroupCount(String fileNameWithPath) {
         File file = new File(fileNameWithPath);
         Iterator<OriginEntryFull> fileIterator = new OriginEntryFileIterator(file);
         int count = 0;
 
-        while(fileIterator.hasNext()){
+        while (fileIterator.hasNext()) {
             count++;
             fileIterator.next();
         }

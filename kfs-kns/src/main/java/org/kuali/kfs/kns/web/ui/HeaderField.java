@@ -37,8 +37,8 @@ public class HeaderField implements Serializable {
     }
 
     public HeaderField(String id, String ddAttributeEntryName, String displayValue, String nonLookupValue) {
-    	this(ddAttributeEntryName, displayValue, nonLookupValue);
-    	this.id = id;
+        this(ddAttributeEntryName, displayValue, nonLookupValue);
+        this.id = id;
     }
 
     public HeaderField(String ddAttributeEntryName, String displayValue, String nonLookupValue) {
@@ -55,14 +55,14 @@ public class HeaderField implements Serializable {
     }
 
     public String getId() {
-		return this.id;
-	}
+        return this.id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getDdAttributeEntryName() {
+    public String getDdAttributeEntryName() {
         return this.ddAttributeEntryName;
     }
 

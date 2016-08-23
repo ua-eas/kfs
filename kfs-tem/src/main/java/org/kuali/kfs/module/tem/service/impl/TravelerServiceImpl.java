@@ -18,29 +18,19 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.EMP_TRAVELER_TYP_CD;
-import static org.kuali.kfs.module.tem.TemConstants.NONEMP_TRAVELER_TYP_CD;
-import static org.kuali.kfs.module.tem.TemConstants.TemProfileParameters.VALID_KIM_TYPE_AFFILIATION_BY_TRAVER_TYPE;
-import static org.kuali.kfs.module.tem.TemConstants.TemProfileParameters.VALID_TRAVELER_TYPE_BY_CUSTOMER_TYPE;
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_TRAVELER_TYPE_CODES;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrTokenizer;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -61,7 +51,6 @@ import org.kuali.kfs.sys.businessobject.ChartOrgHolderImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.address.EntityAddressContract;
@@ -71,10 +60,21 @@ import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.personal.EntityBioDemographics;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.beans.BeanUtils;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.EMP_TRAVELER_TYP_CD;
+import static org.kuali.kfs.module.tem.TemConstants.NONEMP_TRAVELER_TYP_CD;
+import static org.kuali.kfs.module.tem.TemConstants.TemProfileParameters.VALID_KIM_TYPE_AFFILIATION_BY_TRAVER_TYPE;
+import static org.kuali.kfs.module.tem.TemConstants.TemProfileParameters.VALID_TRAVELER_TYPE_BY_CUSTOMER_TYPE;
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_TRAVELER_TYPE_CODES;
 
 
 public class TravelerServiceImpl implements TravelerService {
@@ -125,11 +125,11 @@ public class TravelerServiceImpl implements TravelerService {
         boolean canInclude = false;
 
         //arrange doc, risk management or user look up self
-        if(isArrangerDoc || isRiskManagement || user.getPrincipalId().equals(profile.getPrincipalId())) {
+        if (isArrangerDoc || isRiskManagement || user.getPrincipalId().equals(profile.getPrincipalId())) {
             return true;
         }
 
-        if(isProfileAdmin || isOrgArranger) {
+        if (isProfileAdmin || isOrgArranger) {
             //pull the org they are responsible for and filter on that
             final String roleName = isOrgArranger ?
                 TemConstants.TEM_ORGANIZATION_PROFILE_ARRANGER :
@@ -138,11 +138,11 @@ public class TravelerServiceImpl implements TravelerService {
         }
 
         //check in arranger details if it does not already have the authority to view the profile
-        if(!canInclude && isAssignedArranger) {
+        if (!canInclude && isAssignedArranger) {
             //pull the arranger's profiles it is responsible for
-            if (ObjectUtils.isNotNull(docType)){
+            if (ObjectUtils.isNotNull(docType)) {
                 canInclude |= getTemRoleService().isTravelDocumentArrangerForProfile(docType, user.getPrincipalId(), profile.getProfileId());
-            }else{
+            } else {
                 // arranger for a non docType specific search, look up without the doctype comparison
                 canInclude |= getTemRoleService().isArrangerForProfile(user.getPrincipalId(), profile.getProfileId());
             }
@@ -153,27 +153,29 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Checks both the organization approver and profile admin roles to see if the given principal can arrange for the role
+     *
      * @param principalId the principal id to check
-     * @param profile the profile to see if the principal can be their arranger
+     * @param profile     the profile to see if the principal can be their arranger
      * @return true if the principal can be an arranger for the profile, false otherwise
      */
     @Override
     public boolean isArrangeeByOrganization(String principalId, TemProfile profile) {
         return isArrangeeByOrganizationByRole(principalId, profile, TemConstants.TEM_ORGANIZATION_PROFILE_ARRANGER) ||
-                isArrangeeByOrganizationByRole(principalId, profile, TemConstants.TEM_PROFILE_ADMIN);
+            isArrangeeByOrganizationByRole(principalId, profile, TemConstants.TEM_PROFILE_ADMIN);
     }
 
     /**
      * Determines if the given principal id represents a user who can arrange trips for the given profile, by the power granted by the given role
+     *
      * @param principalId the principal id to see if they can act as arrangers
-     * @param profile the profile to act as an arranger for
-     * @param roleName the role it is expected the principal should be in
+     * @param profile     the profile to act as an arranger for
+     * @param roleName    the role it is expected the principal should be in
      * @return true if the principal can arrange, false otherwise
      */
     protected boolean isArrangeeByOrganizationByRole(String principalId, TemProfile profile, String roleName) {
         Organization org = profile.getHomeDeptOrg();
         final ChartOrgHolder chartOrg = getOrganizationForUser(principalId, roleName);
-        if(ObjectUtils.isNotNull(chartOrg)) {
+        if (ObjectUtils.isNotNull(chartOrg)) {
             final String roleChartOfAccountsCode = chartOrg.getChartOfAccountsCode();
             final String roleOrganizationCode = chartOrg.getOrganizationCode();
             return isParentOrg(org.getChartOfAccountsCode(), org.getOrganizationCode(), roleChartOfAccountsCode, roleOrganizationCode, true);
@@ -182,12 +184,12 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public void convertTemProfileToTravelerDetail(TemProfile profile, TravelerDetail detail){
-        if(profile != null){
-            if(detail.getId() == null){
+    public void convertTemProfileToTravelerDetail(TemProfile profile, TravelerDetail detail) {
+        if (profile != null) {
+            if (detail.getId() == null) {
                 SequenceAccessorService sas = SpringContext.getBean(SequenceAccessorService.class);
                 long id = sas.getNextAvailableSequenceNumber(TemConstants.TEM_TRAVELER_DETAIL_SEQ_NAME);
-                detail.setId((int)id);
+                detail.setId((int) id);
             }
 
             detail.setFirstName(profile.getFirstName());
@@ -201,8 +203,7 @@ public class TravelerServiceImpl implements TravelerService {
             detail.setPrincipalId(profile.getPrincipalId());
             if (ObjectUtils.isNotNull(profile.getPrincipal())) {
                 detail.setPrincipalName(profile.getPrincipal().getPrincipalName());
-            }
-            else {
+            } else {
                 detail.setPrincipalName(KFSConstants.EMPTY_STRING);
             }
             detail.setCustomer(profile.getCustomer());
@@ -226,9 +227,9 @@ public class TravelerServiceImpl implements TravelerService {
             //reset traveler detail's emergency contact list
             detail.resetEmergencyContacts();
 
-            if (ObjectUtils.isNotNull(profile.getEmergencyContacts())){
+            if (ObjectUtils.isNotNull(profile.getEmergencyContacts())) {
                 int count = 1;
-                for(TemProfileEmergencyContact profileContact : profile.getEmergencyContacts()){
+                for (TemProfileEmergencyContact profileContact : profile.getEmergencyContacts()) {
                     TravelerDetailEmergencyContact contact = new TravelerDetailEmergencyContact(profileContact);
                     contact.setDocumentNumber(detail.getDocumentNumber());
                     contact.setFinancialDocumentLineNumber(count);
@@ -260,14 +261,13 @@ public class TravelerServiceImpl implements TravelerService {
 
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copyTravelerDetailEmergencyContact(java.util.List, java.lang.String)
      */
     @Override
     public List<TravelerDetailEmergencyContact> copyTravelerDetailEmergencyContact(List<TravelerDetailEmergencyContact> emergencyContacts, String documentNumber) {
         List<TravelerDetailEmergencyContact> newEmergencyContacts = new ArrayList<TravelerDetailEmergencyContact>();
         if (emergencyContacts != null) {
-            for (TravelerDetailEmergencyContact emergencyContact : emergencyContacts){
+            for (TravelerDetailEmergencyContact emergencyContact : emergencyContacts) {
                 TravelerDetailEmergencyContact newEmergencyContact = new TravelerDetailEmergencyContact();
                 BeanUtils.copyProperties(emergencyContact, newEmergencyContact);
                 newEmergencyContact.setDocumentNumber(documentNumber);
@@ -379,7 +379,7 @@ public class TravelerServiceImpl implements TravelerService {
             if (ObjectUtils.isNull(addressId) && TemConstants.CUSTOMER_PRIMARY_ADDRESS_TYPE_CODE.equals(address.getCustomerAddressTypeCode())) {
                 return address;
             } else if (address.getCustomerAddressIdentifier().equals(addressId)) {
-            	return address;
+                return address;
             }
         }
         return null;
@@ -387,9 +387,9 @@ public class TravelerServiceImpl implements TravelerService {
 
     @Override
     public TemProfileAddress convertToTemProfileAddressFromCustomer(AccountsReceivableCustomerAddress customerAddress) {
-    	TemProfileAddress retval = new TemProfileAddress();
+        TemProfileAddress retval = new TemProfileAddress();
 
-    	retval.setStreetAddressLine1(customerAddress.getCustomerLine1StreetAddress());
+        retval.setStreetAddressLine1(customerAddress.getCustomerLine1StreetAddress());
         retval.setStreetAddressLine2(customerAddress.getCustomerLine2StreetAddress());
         retval.setStateCode(customerAddress.getCustomerStateCode());
         retval.setZipCode(customerAddress.getCustomerZipCode());
@@ -406,9 +406,9 @@ public class TravelerServiceImpl implements TravelerService {
      */
     @Override
     public TemProfileAddress convertToTemProfileAddressFromKimAddress(final EntityAddressContract address) {
-    	TemProfileAddress retval = new TemProfileAddress();
+        TemProfileAddress retval = new TemProfileAddress();
 
-    	retval.setStreetAddressLine1(address.getLine1());
+        retval.setStreetAddressLine1(address.getLine1());
         retval.setStreetAddressLine2(address.getLine2());
         retval.setStateCode(address.getStateProvinceCode());
         retval.setZipCode(address.getPostalCode());
@@ -420,6 +420,7 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -428,6 +429,7 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(final ParameterService parameterService) {
@@ -436,10 +438,11 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Gets the personService attribute.
+     *
      * @return Returns the personService.
      */
     public PersonService getPersonService() {
-        if ( personService == null ) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;
@@ -447,33 +450,34 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Copies relevant data from {@link TemProfile} to {@link Customer}
+     *
      * @see org.kuali.kfs.module.tem.service.TravelerService#copyTemProfileToCustomer(org.kuali.kfs.module.tem.businessobject.TemProfile, org.kuali.kfs.integration.ar.AccountsReceivableCustomer)
      */
     @Override
     public void copyTemProfileToCustomer(TemProfile profile, AccountsReceivableCustomer customer) {
         String tempName = profile.getFirstName() + " " + (StringUtils.isEmpty(profile.getMiddleName()) ? "" : profile.getMiddleName() + " ") + profile.getLastName();
-        if (tempName.length() > 40){
+        if (tempName.length() > 40) {
             tempName = profile.getFirstName() + " " + profile.getLastName();
-            while (tempName.length() > 40){
-                tempName = tempName.substring(0, tempName.length()-1);
+            while (tempName.length() > 40) {
+                tempName = tempName.substring(0, tempName.length() - 1);
             }
         }
         customer.setCustomerName(tempName);
         customer.setCustomerEmailAddress(profile.getEmailAddress());
         customer.setCustomerPhoneNumber(profile.getPhoneNumber());
         AccountsReceivableCustomerAddress customerAddress = null;
-        if(ObjectUtils.isNotNull(profile.getTemProfileAddress()) && ObjectUtils.isNotNull(profile.getTemProfileAddress().getCustomerAddressIdentifier())) {
-        	customerAddress = getAddressFor(customer, profile.getTemProfileAddress().getCustomerAddressIdentifier());
+        if (ObjectUtils.isNotNull(profile.getTemProfileAddress()) && ObjectUtils.isNotNull(profile.getTemProfileAddress().getCustomerAddressIdentifier())) {
+            customerAddress = getAddressFor(customer, profile.getTemProfileAddress().getCustomerAddressIdentifier());
         } else {
-        	customerAddress = getAddressFor(customer);
+            customerAddress = getAddressFor(customer);
         }
-        if (customerAddress == null){
+        if (customerAddress == null) {
             customerAddress = getAccountsReceivableModuleService().createCustomerAddress();
             customerAddress.setCustomerAddressTypeCode(TemConstants.CUSTOMER_PRIMARY_ADDRESS_TYPE_CODE);
             customerAddress.setCustomerAddressName(tempName);
             customer.setCustomerAddressChangeDate(dateTimeService.getCurrentSqlDate());
         } else {
-        	if (compareAddress(customerAddress, profile)) {
+            if (compareAddress(customerAddress, profile)) {
                 customer.setCustomerAddressChangeDate(dateTimeService.getCurrentSqlDate());
             }
         }
@@ -485,10 +489,10 @@ public class TravelerServiceImpl implements TravelerService {
         customerAddress.setCustomerCountryCode(profile.getTemProfileAddress().getCountryCode());
         customerAddress.setCustomerEmailAddress(profile.getEmailAddress());
 
-        if (customer.getAccountsReceivableCustomerAddresses() == null){
+        if (customer.getAccountsReceivableCustomerAddresses() == null) {
             customer.setAccountsReceivableCustomerAddresses(new ArrayList<AccountsReceivableCustomerAddress>());
         }
-        if (customer.getAccountsReceivableCustomerAddresses().size() == 0){
+        if (customer.getAccountsReceivableCustomerAddresses().size() == 0) {
             List<AccountsReceivableCustomerAddress> customerAddresses = customer.getAccountsReceivableCustomerAddresses();
             customerAddresses.add(customerAddress);
             customer.setAccountsReceivableCustomerAddresses(customerAddresses);
@@ -505,14 +509,14 @@ public class TravelerServiceImpl implements TravelerService {
      */
     @Override
     public void populateTemProfile(TemProfile profile) {
-        if(profile != null){
-            if (!StringUtils.isBlank(profile.getPrincipalId())){
+        if (profile != null) {
+            if (!StringUtils.isBlank(profile.getPrincipalId())) {
                 Person person = getPersonService().getPerson(profile.getPrincipalId());
                 profile.setPrincipal(person);
                 Entity kimEntity = identityManagementService.getEntityByPrincipalId(profile.getPrincipalId());
                 profile.setKimEntityInfo(kimEntity);
                 copyKimDataToTemProfile(profile, profile.getPrincipal(), profile.getKimEntityInfo());
-            } else if (ObjectUtils.isNotNull(profile.getCustomer())){
+            } else if (ObjectUtils.isNotNull(profile.getCustomer())) {
                 copyCustomerToTemProfile(profile, profile.getCustomer());
             }
         }
@@ -524,23 +528,20 @@ public class TravelerServiceImpl implements TravelerService {
     @Override
     public void copyCustomerToTemProfile(TemProfile profile, AccountsReceivableCustomer customer) {
         String[] customerNames = customer.getCustomerName().split(" ");
-        if (customerNames.length == 1){
+        if (customerNames.length == 1) {
             profile.setFirstName(customerNames[0]);
-        }
-        else if (customerNames.length == 2){
+        } else if (customerNames.length == 2) {
             profile.setFirstName(customerNames[0]);
             profile.setLastName(customerNames[1]);
-        }
-        else if (customerNames.length == 3){
+        } else if (customerNames.length == 3) {
             profile.setFirstName(customerNames[0]);
             profile.setMiddleName(customerNames[1]);
             profile.setLastName(customerNames[2]);
-        }
-        else{
+        } else {
             profile.setFirstName(customerNames[0]);
             profile.setMiddleName(customerNames[1]);
             profile.setLastName(customerNames[2]);
-            for (int i=3;i<customerNames.length;i++){
+            for (int i = 3; i < customerNames.length; i++) {
                 profile.setLastName(profile.getLastName() + " " + customerNames[i]);
             }
         }
@@ -548,8 +549,8 @@ public class TravelerServiceImpl implements TravelerService {
         AccountsReceivableCustomerAddress address = customer.getPrimaryAddress();
         TemProfileAddress profileAddress = new TemProfileAddress();
 
-        if(ObjectUtils.isNotNull(profile.getTemProfileAddress())) {
-        	profileAddress = profile.getTemProfileAddress();
+        if (ObjectUtils.isNotNull(profile.getTemProfileAddress())) {
+            profileAddress = profile.getTemProfileAddress();
         }
 
         profileAddress.setProfileId(profile.getProfileId());
@@ -582,8 +583,8 @@ public class TravelerServiceImpl implements TravelerService {
 
         TemProfileAddress profileAddress = new TemProfileAddress();
 
-        if(ObjectUtils.isNotNull(profile.getTemProfileAddress())) {
-        	profileAddress = profile.getTemProfileAddress();
+        if (ObjectUtils.isNotNull(profile.getTemProfileAddress())) {
+            profileAddress = profile.getTemProfileAddress();
         }
 
         profileAddress.setProfileId(profile.getProfileId());
@@ -600,7 +601,7 @@ public class TravelerServiceImpl implements TravelerService {
         profile.setPhoneNumber(principal.getPhoneNumberUnmasked());
 
         String primaryDeptCode[] = principal.getPrimaryDepartmentCode().split("-");
-        if(primaryDeptCode != null && primaryDeptCode.length == 2){
+        if (primaryDeptCode != null && primaryDeptCode.length == 2) {
             profile.setHomeDeptChartOfAccountsCode(primaryDeptCode[0]);
             profile.setHomeDeptOrgCode(primaryDeptCode[1]);
         }
@@ -609,33 +610,30 @@ public class TravelerServiceImpl implements TravelerService {
         profile.setEmployeeId(principal.getEmployeeId());
 
         // Copy kim info to profile
-        if(ObjectUtils.isNotNull(kimEntity)) {
-        if (ObjectUtils.isNotNull(kimEntity.getBioDemographics())) {
+        if (ObjectUtils.isNotNull(kimEntity)) {
+            if (ObjectUtils.isNotNull(kimEntity.getBioDemographics())) {
 
-            String birthDate = kimEntity.getBioDemographics().getBirthDate();
-            java.util.Date parsedBirthDate = new java.util.Date();
-            try {
-                parsedBirthDate = new SimpleDateFormat(EntityBioDemographics.BIRTH_DATE_FORMAT).parse(birthDate);
-            } catch (ParseException pe) {
-                LOG.error("Error parsing EntityBioDemographics birth date: '" + birthDate + "'", pe);
+                String birthDate = kimEntity.getBioDemographics().getBirthDate();
+                java.util.Date parsedBirthDate = new java.util.Date();
+                try {
+                    parsedBirthDate = new SimpleDateFormat(EntityBioDemographics.BIRTH_DATE_FORMAT).parse(birthDate);
+                } catch (ParseException pe) {
+                    LOG.error("Error parsing EntityBioDemographics birth date: '" + birthDate + "'", pe);
+                }
+                Date dateOfBirth = new Date(parsedBirthDate.getTime());
+                profile.setDateOfBirth(dateOfBirth);
+                profile.setGender(kimEntity.getBioDemographics().getGenderCode());
+
+
             }
-            Date dateOfBirth = new Date(parsedBirthDate.getTime());
-            profile.setDateOfBirth(dateOfBirth);
-            profile.setGender(kimEntity.getBioDemographics().getGenderCode());
-
-
+            List<EntityCitizenship> citizenships = kimEntity.getCitizenships();
+            if (ObjectUtils.isNotNull(citizenships) && citizenships.size() > 0) {
+                profile.setCitizenship(citizenships.get(0).getCountryCode());
+            }
         }
-        List<EntityCitizenship> citizenships = kimEntity.getCitizenships();
-        if (ObjectUtils.isNotNull(citizenships) && citizenships.size() > 0) {
-            profile.setCitizenship(citizenships.get(0).getCountryCode());
-        }
-        }
-
-
 
 
     }
-
 
 
     /**
@@ -648,9 +646,9 @@ public class TravelerServiceImpl implements TravelerService {
         List<String> nonEmpCodes = new ArrayList<String>();
         splitCodes(empCodes, nonEmpCodes, empParams);
 
-        if(empCodes.contains(person.getCustomerTypeCode())) {
+        if (empCodes.contains(person.getCustomerTypeCode())) {
             return true;
-        } else if(nonEmpCodes.contains(person.getCustomerTypeCode())) {
+        } else if (nonEmpCodes.contains(person.getCustomerTypeCode())) {
             return false;
         }
         return false;
@@ -668,10 +666,10 @@ public class TravelerServiceImpl implements TravelerService {
 
         //for KIM we need the affiliation type in the entity
         Entity kimEntity = identityManagementService.getEntityByPrincipalId(person.getPrincipalId());
-        for(EntityAffiliation affiliation: kimEntity.getAffiliations()) {
-            if(empCodes.contains(affiliation.getAffiliationType().getCode())) {
+        for (EntityAffiliation affiliation : kimEntity.getAffiliations()) {
+            if (empCodes.contains(affiliation.getAffiliationType().getCode())) {
                 return true;
-            } else if(nonEmpCodes.contains(affiliation.getAffiliationType().getCode())) {
+            } else if (nonEmpCodes.contains(affiliation.getAffiliationType().getCode())) {
                 return false;
             }
         }
@@ -680,59 +678,59 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     private void splitCodes(List<String> empCodes, List<String> nonEmpCodes, List<String> empParams) {
-        for(String param: empParams) {
-            String [] splitParams = param.split("=");
+        for (String param : empParams) {
+            String[] splitParams = param.split("=");
             String typeCode = splitParams[1];
-            if(typeCode.equals(TemConstants.EMP_TRAVELER_TYP_CD)) {
+            if (typeCode.equals(TemConstants.EMP_TRAVELER_TYP_CD)) {
                 empCodes.add(splitParams[0]);
-            } else if(typeCode.equals(TemConstants.NONEMP_TRAVELER_TYP_CD)) {
+            } else if (typeCode.equals(TemConstants.NONEMP_TRAVELER_TYP_CD)) {
                 nonEmpCodes.add(splitParams[0]);
             }
         }
     }
 
     private boolean compareAddress(AccountsReceivableCustomerAddress customerAddress, TemProfile temProfile) {
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine1StreetAddress(), temProfile.getTemProfileAddress().getStreetAddressLine1())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine2StreetAddress(), temProfile.getTemProfileAddress().getStreetAddressLine2())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCityName(), temProfile.getTemProfileAddress().getCityName())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerStateCode(), temProfile.getTemProfileAddress().getStateCode())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerZipCode(), temProfile.getTemProfileAddress().getZipCode())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCountryCode(), temProfile.getTemProfileAddress().getCountryCode())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerEmailAddress(), temProfile.getEmailAddress())) {
-    		return true;
-    	}
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine1StreetAddress(), temProfile.getTemProfileAddress().getStreetAddressLine1())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine2StreetAddress(), temProfile.getTemProfileAddress().getStreetAddressLine2())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCityName(), temProfile.getTemProfileAddress().getCityName())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerStateCode(), temProfile.getTemProfileAddress().getStateCode())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerZipCode(), temProfile.getTemProfileAddress().getZipCode())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCountryCode(), temProfile.getTemProfileAddress().getCountryCode())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerEmailAddress(), temProfile.getEmailAddress())) {
+            return true;
+        }
 
         return false;
     }
 
     @Override
     public boolean isParentOrg(String chartCode, String orgCode, String roleChartCode, String roleOrgCode, boolean descendHierarchy) {
-        if ( StringUtils.isBlank(chartCode) || StringUtils.isBlank(orgCode) ) {
+        if (StringUtils.isBlank(chartCode) || StringUtils.isBlank(orgCode)) {
             LOG.debug("No chart/org qualifications passed into isParentOrg()");
             return false;
         }
         if (ObjectUtils.isNull(roleChartCode) && ObjectUtils.isNull(roleOrgCode)) {
-            LOG.debug("Call to "+this.getClass().getName()+" with no organization role qualifiers; both chart and organization code are null.  Please ensure that qualification data has organization information for this role.");
+            LOG.debug("Call to " + this.getClass().getName() + " with no organization role qualifiers; both chart and organization code are null.  Please ensure that qualification data has organization information for this role.");
             return false;
         }
         if (ObjectUtils.isNull(roleOrgCode)) {
             return roleChartCode.equals(chartCode)
-                    || (descendHierarchy && chartService.isParentChart(chartCode, roleChartCode));
+                || (descendHierarchy && chartService.isParentChart(chartCode, roleChartCode));
         }
         final boolean parentOrg = (roleChartCode.equals(chartCode) && roleOrgCode.equals(orgCode))
-                || (descendHierarchy && organizationService.isParentOrganization(chartCode, orgCode, roleChartCode, roleOrgCode));
+            || (descendHierarchy && organizationService.isParentOrganization(chartCode, orgCode, roleChartCode, roleOrgCode));
         return parentOrg;
     }
 
@@ -740,17 +738,19 @@ public class TravelerServiceImpl implements TravelerService {
         if (principalId == null) {
             return null;
         }
-        Map<String,String> qualification = new HashMap<String,String>(1);
+        Map<String, String> qualification = new HashMap<String, String>(1);
         qualification.put(TemOrganizationHierarchyRoleTypeService.PERFORM_QUALIFIER_MATCH, "false");
-        List<Map<String,String>> roleQualifiers = getRoleService().getRoleQualifersForPrincipalByNamespaceAndRolename(principalId, TemConstants.PARAM_NAMESPACE, roleName, qualification);
+        List<Map<String, String>> roleQualifiers = getRoleService().getRoleQualifersForPrincipalByNamespaceAndRolename(principalId, TemConstants.PARAM_NAMESPACE, roleName, qualification);
         if ((roleQualifiers != null) && !roleQualifiers.isEmpty()) {
             final ChartOrgHolder chartOrg = new ChartOrgHolderImpl(roleQualifiers.get(0).get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), roleQualifiers.get(0).get(KfsKimAttributes.ORGANIZATION_CODE));
             return chartOrg;
         }
         return null;
     }
+
     /**
      * Gets the identityManagementService attribute.
+     *
      * @return Returns the identityManagementService.
      */
     public IdentityManagementService getIdentityManagementService() {
@@ -759,43 +759,48 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Sets the identityManagementService attribute value.
+     *
      * @param identityManagementService The identityManagementService to set.
      */
     public void setIdentityManagementService(IdentityManagementService identityManagementService) {
         this.identityManagementService = identityManagementService;
     }
 
-	/**
-	 * Gets the businessObjectService attribute.
-	 * @return Returns the businessObjectService.
-	 */
-	public BusinessObjectService getBusinessObjectService() {
-		return businessObjectService;
-	}
+    /**
+     * Gets the businessObjectService attribute.
+     *
+     * @return Returns the businessObjectService.
+     */
+    public BusinessObjectService getBusinessObjectService() {
+        return businessObjectService;
+    }
 
-	/**
-	 * Sets the businessObjectService attribute value.
-	 * @param businessObjectService The businessObjectService to set.
-	 */
-	public void setBusinessObjectService(BusinessObjectService businessObjectService) {
-		this.businessObjectService = businessObjectService;
-	}
+    /**
+     * Sets the businessObjectService attribute value.
+     *
+     * @param businessObjectService The businessObjectService to set.
+     */
+    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+        this.businessObjectService = businessObjectService;
+    }
 
-	/**
-	 * Sets the dateTimeService attribute value.
-	 * @param dateTimeService The dateTimeService to set.
-	 */
-	public void setDateTimeService(DateTimeService dateTimeService) {
-		this.dateTimeService = dateTimeService;
-	}
+    /**
+     * Sets the dateTimeService attribute value.
+     *
+     * @param dateTimeService The dateTimeService to set.
+     */
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
 
-	/**
-	 * Gets the dateTimeService attribute.
-	 * @return Returns the dateTimeService.
-	 */
-	public DateTimeService getDateTimeService() {
-		return dateTimeService;
-	}
+    /**
+     * Gets the dateTimeService attribute.
+     *
+     * @return Returns the dateTimeService.
+     */
+    public DateTimeService getDateTimeService() {
+        return dateTimeService;
+    }
 
     public TemRoleService getTemRoleService() {
         return temRoleService;
@@ -823,6 +828,7 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Gets the roleManagementService attribute.
+     *
      * @return Returns the roleManagementService.
      */
     public RoleService getRoleService() {
@@ -831,6 +837,7 @@ public class TravelerServiceImpl implements TravelerService {
 
     /**
      * Sets the roleManagementService attribute value.
+     *
      * @param roleManagementService The roleManagementService to set.
      */
     public void setRoleService(RoleService roleService) {

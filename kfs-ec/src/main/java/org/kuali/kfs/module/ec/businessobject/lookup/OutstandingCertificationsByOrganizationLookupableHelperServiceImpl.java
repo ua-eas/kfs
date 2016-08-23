@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ec.businessobject.lookup;
 
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * Searches for documents that are not approved.
@@ -43,7 +43,7 @@ public class OutstandingCertificationsByOrganizationLookupableHelperServiceImpl 
         // remove the duplicate effort documents
         Set<? extends BusinessObject> searchResultSet = new HashSet<BusinessObject>(super.getSearchResults(fieldValues));
 
-        return new ArrayList<BusinessObject> (searchResultSet);
+        return new ArrayList<BusinessObject>(searchResultSet);
     }
 
     /**

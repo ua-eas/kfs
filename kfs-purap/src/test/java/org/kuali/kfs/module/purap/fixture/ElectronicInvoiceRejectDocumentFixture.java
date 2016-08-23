@@ -18,183 +18,182 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public enum ElectronicInvoiceRejectDocumentFixture {
 
     EIR_ONLY_REQUIRED_FIELDS(
-            new Timestamp(new java.util.Date().getTime()), // invoiceProcessTimestamp
-            Boolean.FALSE, // fileHeaderTypeIndicator
-            Boolean.FALSE, // fileInformationOnlyIndicator
-            Boolean.FALSE, // fileTaxInLineIndicator
-            Boolean.FALSE, // fileSpecHandlingInLineIndicator
-            Boolean.FALSE, // fileShippingInLineIndicator
-            Boolean.FALSE, // fileDiscountInLineIndicator
-            "nullfile.xml", // invoiceFileName
-            "123456789", // vendorDunsNumber
-            1000, // vendorHeaderID
-            0, // vendorDetailID
-            "2008-07-11", // invoiceFileDate
-            "35106833", // invoiceFileNumber
-            "standard", // filePurposeId
-            "new", // fileOperationId
-            null, // deploymentMode
-            "446665", // referenceOrderId
-            "446665", // referenceDocumentRefPayloadId
-            null, // referenceDocumentRefText
-            null, // masterAgreementReferenceId
-            null, // masterAgreementReferenceDate
-            null, // masterAgreementInfoId
-            null, // masterAgreementInfoDate
-            "446665", // invoiceOrderId
-            "2008-07-11", // invoiceOrderDate
-            "37625311", // supplierOrderInfoId
-            null, // invoiceShipDate
-            "Biology, Lynch Lab, A. Seyfert", // shipToAddressName
-            "BLBI", // shipToAddressType
-            "1001 E 3rd St", // shipToAddressLine1
-            "Room #A108", // shipToAddressLine2
-            null, // shipToAddressLine3
-            "Bloomington", // shipToAddressCityName
-            "IN", // shipToAddressStateCode
-            "47405-7005", // shipToAddressPostalCode
-            "US", // shipToAddressCountryCode
-            null, // shipToAddressCountryName
-            "IN UNIV BLOOMINGTON", // billToAddressName
-            null, // billToAddressType
-            "PO BOX 4095", // billToAddressLine1
-            "FINANCIAL MGMT SERVICES", // billToAddressLine2
-            null, // billToAddressLine3
-            "BLOOMINGTON", // billToAddressCityName
-            "IN", // billToAddressStateCode
-            "47402", // billToAddressPostalCode
-            "US", // billToAddressCountryCode
-            null, // billToAddressCountryName
-            "VWR INTERNATIONAL", // remitToAddressName
-            null, // remitToAddressType
-            "P. O. BOX 640169", // remitToAddressLine1
-            null, // remitToAddressLine2
-            null, // remitToAddressLine3
-            "PITTSBURGH", // remitToAddressCityName
-            "PA", // remitToAddressStateCode
-            "15264-0169", // remitToAddressPostalCode
-            "US", // remitToAddressCountryCode
-            null, // remitToAddressCountryName
-            null, // invoiceCustomerNumber
-            null, // invoicePurchaseOrderId
-            null, // purchaseOrderId
-            null, // purchaseOrderDeliveryCampusCode
-            "USD", // invoiceSubTotalAmountCurrency
-            null, // invoiceSpecialHandlingAmountCurrency
-            null, // invoiceSpecialHandlingDescription
-            null, // invoiceShippingAmountCurrency
-            null, // invoiceShippingDescription
-            "USD", // invoiceTaxAmountCurrency
-            null, // invoiceTaxDescription
-            "USD", // invoiceGrossAmountCurrency
-            "USD", // invoiceDiscountAmountCurrency
-            "USD", // invoiceNetAmountCurrency
-            new BigDecimal("1821.00"), // invoiceSubTotalAmount
-            new BigDecimal("1"), // invoiceSpecialHandlingAmount
-            new BigDecimal("2"), // invoiceShippingAmount
-            new BigDecimal("0"), // invoiceTaxAmount
-            new BigDecimal("1821.00"), // invoiceGrossAmount
-            new BigDecimal("1.00"), // invoiceDiscountAmount
-            new BigDecimal("1821.00"), // invoiceNetAmount
-            new ElectronicInvoiceRejectItemFixture[] {ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
-            new ElectronicInvoiceRejectReasonFixture[] {}
+        new Timestamp(new java.util.Date().getTime()), // invoiceProcessTimestamp
+        Boolean.FALSE, // fileHeaderTypeIndicator
+        Boolean.FALSE, // fileInformationOnlyIndicator
+        Boolean.FALSE, // fileTaxInLineIndicator
+        Boolean.FALSE, // fileSpecHandlingInLineIndicator
+        Boolean.FALSE, // fileShippingInLineIndicator
+        Boolean.FALSE, // fileDiscountInLineIndicator
+        "nullfile.xml", // invoiceFileName
+        "123456789", // vendorDunsNumber
+        1000, // vendorHeaderID
+        0, // vendorDetailID
+        "2008-07-11", // invoiceFileDate
+        "35106833", // invoiceFileNumber
+        "standard", // filePurposeId
+        "new", // fileOperationId
+        null, // deploymentMode
+        "446665", // referenceOrderId
+        "446665", // referenceDocumentRefPayloadId
+        null, // referenceDocumentRefText
+        null, // masterAgreementReferenceId
+        null, // masterAgreementReferenceDate
+        null, // masterAgreementInfoId
+        null, // masterAgreementInfoDate
+        "446665", // invoiceOrderId
+        "2008-07-11", // invoiceOrderDate
+        "37625311", // supplierOrderInfoId
+        null, // invoiceShipDate
+        "Biology, Lynch Lab, A. Seyfert", // shipToAddressName
+        "BLBI", // shipToAddressType
+        "1001 E 3rd St", // shipToAddressLine1
+        "Room #A108", // shipToAddressLine2
+        null, // shipToAddressLine3
+        "Bloomington", // shipToAddressCityName
+        "IN", // shipToAddressStateCode
+        "47405-7005", // shipToAddressPostalCode
+        "US", // shipToAddressCountryCode
+        null, // shipToAddressCountryName
+        "IN UNIV BLOOMINGTON", // billToAddressName
+        null, // billToAddressType
+        "PO BOX 4095", // billToAddressLine1
+        "FINANCIAL MGMT SERVICES", // billToAddressLine2
+        null, // billToAddressLine3
+        "BLOOMINGTON", // billToAddressCityName
+        "IN", // billToAddressStateCode
+        "47402", // billToAddressPostalCode
+        "US", // billToAddressCountryCode
+        null, // billToAddressCountryName
+        "VWR INTERNATIONAL", // remitToAddressName
+        null, // remitToAddressType
+        "P. O. BOX 640169", // remitToAddressLine1
+        null, // remitToAddressLine2
+        null, // remitToAddressLine3
+        "PITTSBURGH", // remitToAddressCityName
+        "PA", // remitToAddressStateCode
+        "15264-0169", // remitToAddressPostalCode
+        "US", // remitToAddressCountryCode
+        null, // remitToAddressCountryName
+        null, // invoiceCustomerNumber
+        null, // invoicePurchaseOrderId
+        null, // purchaseOrderId
+        null, // purchaseOrderDeliveryCampusCode
+        "USD", // invoiceSubTotalAmountCurrency
+        null, // invoiceSpecialHandlingAmountCurrency
+        null, // invoiceSpecialHandlingDescription
+        null, // invoiceShippingAmountCurrency
+        null, // invoiceShippingDescription
+        "USD", // invoiceTaxAmountCurrency
+        null, // invoiceTaxDescription
+        "USD", // invoiceGrossAmountCurrency
+        "USD", // invoiceDiscountAmountCurrency
+        "USD", // invoiceNetAmountCurrency
+        new BigDecimal("1821.00"), // invoiceSubTotalAmount
+        new BigDecimal("1"), // invoiceSpecialHandlingAmount
+        new BigDecimal("2"), // invoiceShippingAmount
+        new BigDecimal("0"), // invoiceTaxAmount
+        new BigDecimal("1821.00"), // invoiceGrossAmount
+        new BigDecimal("1.00"), // invoiceDiscountAmount
+        new BigDecimal("1821.00"), // invoiceNetAmount
+        new ElectronicInvoiceRejectItemFixture[]{ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
+        new ElectronicInvoiceRejectReasonFixture[]{}
     ),
     EIR_MATCHING(
-            new Timestamp(new java.util.Date().getTime()), // invoiceProcessTimestamp
-            Boolean.FALSE, // fileHeaderTypeIndicator
-            Boolean.FALSE, // fileInformationOnlyIndicator
-            Boolean.FALSE, // fileTaxInLineIndicator
-            Boolean.FALSE, // fileSpecHandlingInLineIndicator
-            Boolean.FALSE, // fileShippingInLineIndicator
-            Boolean.FALSE, // fileDiscountInLineIndicator
-            "nullfile.xml", // invoiceFileName
-            "002254837", // vendorDunsNumber
-            1001, // vendorHeaderID
-            0, // vendorDetailID
-            "2008-07-11", // invoiceFileDate
-            "35106833", // invoiceFileNumber
-            "standard", // filePurposeId
-            "new", // fileOperationId
-            null, // deploymentMode
-            "446665", // referenceOrderId
-            "446665", // referenceDocumentRefPayloadId
-            null, // referenceDocumentRefText
-            null, // masterAgreementReferenceId
-            null, // masterAgreementReferenceDate
-            null, // masterAgreementInfoId
-            null, // masterAgreementInfoDate
-            "446665", // invoiceOrderId
-            "2008-07-11", // invoiceOrderDate
-            "37625311", // supplierOrderInfoId
-            null, // invoiceShipDate
-            "Biology, Lynch Lab, A. Seyfert", // shipToAddressName
-            "BLBI", // shipToAddressType
-            "1001 E 3rd St", // shipToAddressLine1
-            "Room #A108", // shipToAddressLine2
-            null, // shipToAddressLine3
-            "Bloomington", // shipToAddressCityName
-            "IN", // shipToAddressStateCode
-            "47405-7005", // shipToAddressPostalCode
-            "US", // shipToAddressCountryCode
-            null, // shipToAddressCountryName
-            "IN UNIV BLOOMINGTON", // billToAddressName
-            null, // billToAddressType
-            "PO BOX 4095", // billToAddressLine1
-            "FINANCIAL MGMT SERVICES", // billToAddressLine2
-            null, // billToAddressLine3
-            "BLOOMINGTON", // billToAddressCityName
-            "IN", // billToAddressStateCode
-            "47402", // billToAddressPostalCode
-            "US", // billToAddressCountryCode
-            null, // billToAddressCountryName
-            "VWR INTERNATIONAL", // remitToAddressName
-            null, // remitToAddressType
-            "P. O. BOX 640169", // remitToAddressLine1
-            null, // remitToAddressLine2
-            null, // remitToAddressLine3
-            "PITTSBURGH", // remitToAddressCityName
-            "PA", // remitToAddressStateCode
-            "15264-0169", // remitToAddressPostalCode
-            "US", // remitToAddressCountryCode
-            null, // remitToAddressCountryName
-            null, // invoiceCustomerNumber
-            null, // invoicePurchaseOrderId
-            null, // purchaseOrderId
-            null, // purchaseOrderDeliveryCampusCode
-            "USD", // invoiceSubTotalAmountCurrency
-            null, // invoiceSpecialHandlingAmountCurrency
-            null, // invoiceSpecialHandlingDescription
-            null, // invoiceShippingAmountCurrency
-            null, // invoiceShippingDescription
-            "USD", // invoiceTaxAmountCurrency
-            null, // invoiceTaxDescription
-            "USD", // invoiceGrossAmountCurrency
-            "USD", // invoiceDiscountAmountCurrency
-            "USD", // invoiceNetAmountCurrency
-            new BigDecimal("1821.00"), // invoiceSubTotalAmount
-            new BigDecimal("1"), // invoiceSpecialHandlingAmount
-            new BigDecimal("2"), // invoiceShippingAmount
-            new BigDecimal("0"), // invoiceTaxAmount
-            new BigDecimal("1821.00"), // invoiceGrossAmount
-            new BigDecimal("1.00"), // invoiceDiscountAmount
-            new BigDecimal("1821.00"), // invoiceNetAmount
-            new ElectronicInvoiceRejectItemFixture[] {ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
-            new ElectronicInvoiceRejectReasonFixture[] {}
-    ),
-    ;
+        new Timestamp(new java.util.Date().getTime()), // invoiceProcessTimestamp
+        Boolean.FALSE, // fileHeaderTypeIndicator
+        Boolean.FALSE, // fileInformationOnlyIndicator
+        Boolean.FALSE, // fileTaxInLineIndicator
+        Boolean.FALSE, // fileSpecHandlingInLineIndicator
+        Boolean.FALSE, // fileShippingInLineIndicator
+        Boolean.FALSE, // fileDiscountInLineIndicator
+        "nullfile.xml", // invoiceFileName
+        "002254837", // vendorDunsNumber
+        1001, // vendorHeaderID
+        0, // vendorDetailID
+        "2008-07-11", // invoiceFileDate
+        "35106833", // invoiceFileNumber
+        "standard", // filePurposeId
+        "new", // fileOperationId
+        null, // deploymentMode
+        "446665", // referenceOrderId
+        "446665", // referenceDocumentRefPayloadId
+        null, // referenceDocumentRefText
+        null, // masterAgreementReferenceId
+        null, // masterAgreementReferenceDate
+        null, // masterAgreementInfoId
+        null, // masterAgreementInfoDate
+        "446665", // invoiceOrderId
+        "2008-07-11", // invoiceOrderDate
+        "37625311", // supplierOrderInfoId
+        null, // invoiceShipDate
+        "Biology, Lynch Lab, A. Seyfert", // shipToAddressName
+        "BLBI", // shipToAddressType
+        "1001 E 3rd St", // shipToAddressLine1
+        "Room #A108", // shipToAddressLine2
+        null, // shipToAddressLine3
+        "Bloomington", // shipToAddressCityName
+        "IN", // shipToAddressStateCode
+        "47405-7005", // shipToAddressPostalCode
+        "US", // shipToAddressCountryCode
+        null, // shipToAddressCountryName
+        "IN UNIV BLOOMINGTON", // billToAddressName
+        null, // billToAddressType
+        "PO BOX 4095", // billToAddressLine1
+        "FINANCIAL MGMT SERVICES", // billToAddressLine2
+        null, // billToAddressLine3
+        "BLOOMINGTON", // billToAddressCityName
+        "IN", // billToAddressStateCode
+        "47402", // billToAddressPostalCode
+        "US", // billToAddressCountryCode
+        null, // billToAddressCountryName
+        "VWR INTERNATIONAL", // remitToAddressName
+        null, // remitToAddressType
+        "P. O. BOX 640169", // remitToAddressLine1
+        null, // remitToAddressLine2
+        null, // remitToAddressLine3
+        "PITTSBURGH", // remitToAddressCityName
+        "PA", // remitToAddressStateCode
+        "15264-0169", // remitToAddressPostalCode
+        "US", // remitToAddressCountryCode
+        null, // remitToAddressCountryName
+        null, // invoiceCustomerNumber
+        null, // invoicePurchaseOrderId
+        null, // purchaseOrderId
+        null, // purchaseOrderDeliveryCampusCode
+        "USD", // invoiceSubTotalAmountCurrency
+        null, // invoiceSpecialHandlingAmountCurrency
+        null, // invoiceSpecialHandlingDescription
+        null, // invoiceShippingAmountCurrency
+        null, // invoiceShippingDescription
+        "USD", // invoiceTaxAmountCurrency
+        null, // invoiceTaxDescription
+        "USD", // invoiceGrossAmountCurrency
+        "USD", // invoiceDiscountAmountCurrency
+        "USD", // invoiceNetAmountCurrency
+        new BigDecimal("1821.00"), // invoiceSubTotalAmount
+        new BigDecimal("1"), // invoiceSpecialHandlingAmount
+        new BigDecimal("2"), // invoiceShippingAmount
+        new BigDecimal("0"), // invoiceTaxAmount
+        new BigDecimal("1821.00"), // invoiceGrossAmount
+        new BigDecimal("1.00"), // invoiceDiscountAmount
+        new BigDecimal("1821.00"), // invoiceNetAmount
+        new ElectronicInvoiceRejectItemFixture[]{ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
+        new ElectronicInvoiceRejectReasonFixture[]{}
+    ),;
 
     public Integer purapDocumentIdentifier;
     public Integer accountsPayablePurchasingDocumentLinkIdentifier;
@@ -286,16 +285,16 @@ public enum ElectronicInvoiceRejectDocumentFixture {
     public ElectronicInvoiceRejectReasonFixture[] invoiceRejectReasonFixtures;
 
     private ElectronicInvoiceRejectDocumentFixture(Timestamp invoiceProcessTimestamp, Boolean invoiceFileHeaderTypeIndicator, Boolean invoiceFileInformationOnlyIndicator, Boolean invoiceFileTaxInLineIndicator, Boolean invoiceFileSpecialHandlingInLineIndicator, Boolean invoiceFileShippingInLineIndicator, Boolean invoiceFileDiscountInLineIndicator, String invoiceFileName, String vendorDunsNumber,
-            Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String invoiceFileDate, String invoiceFileNumber, String invoiceFilePurposeIdentifier, String invoiceFileOperationIdentifier, String invoiceFileDeploymentModeValue, String invoiceOrderReferenceOrderIdentifier, String invoiceOrderReferenceDocumentReferencePayloadIdentifier, String invoiceOrderReferenceDocumentReferenceText,
-            String invoiceOrderMasterAgreementReferenceIdentifier, String invoiceOrderMasterAgreementReferenceDate, String invoiceOrderMasterAgreementInformationIdentifier, String invoiceOrderMasterAgreementInformationDate, String invoiceOrderPurchaseOrderIdentifier, String invoiceOrderPurchaseOrderDate, String invoiceOrderSupplierOrderInformationIdentifier, String invoiceShipDate,
-            String invoiceShipToAddressName, String invoiceShipToAddressType, String invoiceShipToAddressLine1, String invoiceShipToAddressLine2, String invoiceShipToAddressLine3, String invoiceShipToAddressCityName, String invoiceShipToAddressStateCode, String invoiceShipToAddressPostalCode, String invoiceShipToAddressCountryCode, String invoiceShipToAddressCountryName,
-            String invoiceBillToAddressName, String invoiceBillToAddressType, String invoiceBillToAddressLine1, String invoiceBillToAddressLine2, String invoiceBillToAddressLine3, String invoiceBillToAddressCityName, String invoiceBillToAddressStateCode, String invoiceBillToAddressPostalCode, String invoiceBillToAddressCountryCode, String invoiceBillToAddressCountryName,
-            String invoiceRemitToAddressName, String invoiceRemitToAddressType, String invoiceRemitToAddressLine1, String invoiceRemitToAddressLine2, String invoiceRemitToAddressLine3, String invoiceRemitToAddressCityName, String invoiceRemitToAddressStateCode, String invoiceRemitToAddressPostalCode, String invoiceRemitToAddressCountryCode, String invoiceRemitToAddressCountryName,
-            String invoiceCustomerNumber, String invoicePurchaseOrderNumber, Integer purchaseOrderIdentifier, String purchaseOrderDeliveryCampusCode, String invoiceItemSubTotalCurrencyCode, String invoiceItemSpecialHandlingCurrencyCode,
-            String invoiceItemSpecialHandlingDescription, String invoiceItemShippingCurrencyCode, String invoiceItemShippingDescription, String invoiceItemTaxCurrencyCode, String invoiceItemTaxDescription, String invoiceItemGrossCurrencyCode, String invoiceItemDiscountCurrencyCode, String invoiceItemNetCurrencyCode,
-            BigDecimal invoiceItemSubTotalAmount, BigDecimal invoiceItemSpecialHandlingAmount, BigDecimal invoiceItemShippingAmount, BigDecimal invoiceItemTaxAmount, BigDecimal invoiceItemGrossAmount, BigDecimal invoiceItemDiscountAmount, BigDecimal invoiceItemNetAmount,
-            ElectronicInvoiceRejectItemFixture[] invoiceRejectItemFixtures,
-            ElectronicInvoiceRejectReasonFixture[] invoiceRejectReasonFixtures) {
+                                                   Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String invoiceFileDate, String invoiceFileNumber, String invoiceFilePurposeIdentifier, String invoiceFileOperationIdentifier, String invoiceFileDeploymentModeValue, String invoiceOrderReferenceOrderIdentifier, String invoiceOrderReferenceDocumentReferencePayloadIdentifier, String invoiceOrderReferenceDocumentReferenceText,
+                                                   String invoiceOrderMasterAgreementReferenceIdentifier, String invoiceOrderMasterAgreementReferenceDate, String invoiceOrderMasterAgreementInformationIdentifier, String invoiceOrderMasterAgreementInformationDate, String invoiceOrderPurchaseOrderIdentifier, String invoiceOrderPurchaseOrderDate, String invoiceOrderSupplierOrderInformationIdentifier, String invoiceShipDate,
+                                                   String invoiceShipToAddressName, String invoiceShipToAddressType, String invoiceShipToAddressLine1, String invoiceShipToAddressLine2, String invoiceShipToAddressLine3, String invoiceShipToAddressCityName, String invoiceShipToAddressStateCode, String invoiceShipToAddressPostalCode, String invoiceShipToAddressCountryCode, String invoiceShipToAddressCountryName,
+                                                   String invoiceBillToAddressName, String invoiceBillToAddressType, String invoiceBillToAddressLine1, String invoiceBillToAddressLine2, String invoiceBillToAddressLine3, String invoiceBillToAddressCityName, String invoiceBillToAddressStateCode, String invoiceBillToAddressPostalCode, String invoiceBillToAddressCountryCode, String invoiceBillToAddressCountryName,
+                                                   String invoiceRemitToAddressName, String invoiceRemitToAddressType, String invoiceRemitToAddressLine1, String invoiceRemitToAddressLine2, String invoiceRemitToAddressLine3, String invoiceRemitToAddressCityName, String invoiceRemitToAddressStateCode, String invoiceRemitToAddressPostalCode, String invoiceRemitToAddressCountryCode, String invoiceRemitToAddressCountryName,
+                                                   String invoiceCustomerNumber, String invoicePurchaseOrderNumber, Integer purchaseOrderIdentifier, String purchaseOrderDeliveryCampusCode, String invoiceItemSubTotalCurrencyCode, String invoiceItemSpecialHandlingCurrencyCode,
+                                                   String invoiceItemSpecialHandlingDescription, String invoiceItemShippingCurrencyCode, String invoiceItemShippingDescription, String invoiceItemTaxCurrencyCode, String invoiceItemTaxDescription, String invoiceItemGrossCurrencyCode, String invoiceItemDiscountCurrencyCode, String invoiceItemNetCurrencyCode,
+                                                   BigDecimal invoiceItemSubTotalAmount, BigDecimal invoiceItemSpecialHandlingAmount, BigDecimal invoiceItemShippingAmount, BigDecimal invoiceItemTaxAmount, BigDecimal invoiceItemGrossAmount, BigDecimal invoiceItemDiscountAmount, BigDecimal invoiceItemNetAmount,
+                                                   ElectronicInvoiceRejectItemFixture[] invoiceRejectItemFixtures,
+                                                   ElectronicInvoiceRejectReasonFixture[] invoiceRejectReasonFixtures) {
 
         this.invoiceProcessTimestamp = invoiceProcessTimestamp;
         this.invoiceFileHeaderTypeIndicator = invoiceFileHeaderTypeIndicator;
@@ -309,7 +308,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         this.vendorDunsNumber = vendorDunsNumber;
         this.vendorHeaderGeneratedIdentifier = vendorHeaderGeneratedIdentifier;
         this.vendorDetailAssignedIdentifier = vendorDetailAssignedIdentifier;
-        this.invoiceFileDate= invoiceFileDate;
+        this.invoiceFileDate = invoiceFileDate;
         this.invoiceFileNumber = invoiceFileNumber;
         this.invoiceFilePurposeIdentifier = invoiceFilePurposeIdentifier;
         this.invoiceFileOperationIdentifier = invoiceFileOperationIdentifier;
@@ -388,8 +387,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         ElectronicInvoiceRejectDocument doc = null;
         try {
             doc = (ElectronicInvoiceRejectDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), ElectronicInvoiceRejectDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 

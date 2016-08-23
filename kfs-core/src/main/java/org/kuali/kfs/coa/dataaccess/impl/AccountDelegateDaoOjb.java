@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.Iterator;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.dataaccess.AccountDelegateDao;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.util.Iterator;
 
 /**
  * This class is the OJB implementation of the AccountDelegateDao.
@@ -93,8 +93,8 @@ public class AccountDelegateDaoOjb extends PlatformAwareDaoBaseOjb implements Ac
     /**
      * Determines if any non-closed accounts exist where the principal id is an account delegate
      *
-     * @param principalId the principal id to check
-     * @param primary whether to check primary delegations (if true) or secondary delegations (if false)
+     * @param principalId    the principal id to check
+     * @param primary        whether to check primary delegations (if true) or secondary delegations (if false)
      * @param currentSqlDate current sql date
      * @return true if the principal has an account delegation
      */
@@ -107,7 +107,7 @@ public class AccountDelegateDaoOjb extends PlatformAwareDaoBaseOjb implements Ac
         criteria.addLessOrEqualThan("accountDelegateStartDate", currentSqlDate);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(AccountDelegate.class, criteria);
-        reportQuery.setAttributes(new String[] { "count(*)" });
+        reportQuery.setAttributes(new String[]{"count(*)"});
 
         int resultCount = 0;
         // TODO: getReportQueryIteratorByQuery can be changed to getCount...

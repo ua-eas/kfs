@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class ApproveLineItemReceivingStep extends AbstractStep {
 

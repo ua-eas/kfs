@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
@@ -30,7 +26,11 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class PurchasingActionBaseTest extends KualiTestBase {
@@ -49,28 +49,28 @@ public class PurchasingActionBaseTest extends KualiTestBase {
     public void testPurchaseOrderRequiresCalculateSalesTaxDisabled() {
         PurchasingActionBase purchasingActionBase = new PurchasingActionBase();
         PurchasingFormBase purForm = setupPurchasingFormBase(false);
-        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND,"N");
+        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND, "N");
         assertTrue(purchasingActionBase.requiresCalculate(purForm));
     }
 
     public void testPurchaseOrderRequiresCalculateSalesTaxEnabled() {
         PurchasingActionBase purchasingActionBase = new PurchasingActionBase();
         PurchasingFormBase purForm = setupPurchasingFormBase(false);
-        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND,"Y");
+        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND, "Y");
         assertTrue(purchasingActionBase.requiresCalculate(purForm));
     }
 
     public void testRequisitionRequiresCalculateSalesTaxDisabled() {
         PurchasingActionBase purchasingActionBase = new PurchasingActionBase();
         PurchasingFormBase purForm = setupPurchasingFormBase(true);
-        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND,"N");
+        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND, "N");
         assertTrue(purchasingActionBase.requiresCalculate(purForm));
     }
 
     public void testRequisitionRequiresCalculateSalesTaxEnabled() {
         PurchasingActionBase purchasingActionBase = new PurchasingActionBase();
         PurchasingFormBase purForm = setupPurchasingFormBase(true);
-        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND,"Y");
+        TestUtils.setSystemParameter(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND, "Y");
         assertTrue(purchasingActionBase.requiresCalculate(purForm));
     }
 

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+
+import java.util.List;
 
 /**
  * PurApAccounting DAO Interface.

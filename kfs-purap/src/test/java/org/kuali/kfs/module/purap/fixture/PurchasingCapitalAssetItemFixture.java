@@ -22,18 +22,17 @@ import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 
 public enum PurchasingCapitalAssetItemFixture {
 
-    ASSET_ITEM_BASIC (
-            new Integer(1), //itemIdentifier
-            "CO", //capitalAssetTransactionTypeCode
-            null  //capitalAssetSystemIdentifier
-            ),
-            ;
+    ASSET_ITEM_BASIC(
+        new Integer(1), //itemIdentifier
+        "CO", //capitalAssetTransactionTypeCode
+        null  //capitalAssetSystemIdentifier
+    ),;
 
     private Integer itemIdentifier;
     private String capitalAssetTransactionTypeCode;
     private Integer capitalAssetSystemIdentifier;
 
-    private PurchasingCapitalAssetItemFixture (Integer itemIdentifier, String capitalAssetTransactionTypeCode, Integer capitalAssetSystemIdentifier) {
+    private PurchasingCapitalAssetItemFixture(Integer itemIdentifier, String capitalAssetTransactionTypeCode, Integer capitalAssetSystemIdentifier) {
         this.itemIdentifier = itemIdentifier;
         this.capitalAssetTransactionTypeCode = capitalAssetTransactionTypeCode;
         this.capitalAssetSystemIdentifier = capitalAssetSystemIdentifier;
@@ -43,11 +42,9 @@ public enum PurchasingCapitalAssetItemFixture {
         PurchasingCapitalAssetItem assetItem = null;
         try {
             assetItem = (PurchasingCapitalAssetItem) clazz.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("asset item creation failed. class = " + clazz);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("asset item creation failed. class = " + clazz);
         }
 

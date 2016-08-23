@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.TaxableRamificationNotificationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class TaxableRamificationNotificationStep extends AbstractStep {
 

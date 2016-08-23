@@ -47,13 +47,13 @@ public enum AssetDepreciationServiceFixture {
     DATA();
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/depreciation_service.properties";
         properties = new Properties();
         try {
             properties.load(ClassLoader.getSystemResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
@@ -180,7 +180,7 @@ public enum AssetDepreciationServiceFixture {
     }
 
     private Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV(List<Asset> assets,
-            List<AssetPayment> assetPayments) {
+                                                                          List<AssetPayment> assetPayments) {
         Map<Long, KualiDecimal> result = new HashMap<>();
         for (Asset asset : assets) {
             if (asset.getPrimaryDepreciationMethodCode().equals("SV")) {

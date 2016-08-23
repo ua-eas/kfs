@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
 
 /**
  * Interface for services which want to build AR Contracts & Grants Billing reports
@@ -32,7 +32,7 @@ public interface ContractsGrantsReportDataBuilderService {
     /**
      * Builds a new ContractsGrantsReportDataHolder object for a set of details.
      *
-     * @param displayList the set of looked-up data to build a report from
+     * @param displayList      the set of looked-up data to build a report from
      * @param sortPropertyName the name of the property to sort everything by
      * @return a ContractsGrantsReportDataHolder for a class
      */

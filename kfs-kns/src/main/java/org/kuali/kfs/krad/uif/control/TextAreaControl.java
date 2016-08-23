@@ -27,8 +27,6 @@ import org.kuali.kfs.krad.uif.view.View;
 /**
  * Represents a HTML TextArea control. Generally used for values that are very
  * large (such as a description)
- *
- *
  */
 public class TextAreaControl extends ControlBase {
     private static final long serialVersionUID = -4664558047325456844L;
@@ -47,13 +45,13 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Defaults maxLength, minLength (if not set) to maxLength of parent field</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -99,7 +97,7 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * Maximum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, max length of field will be used</p>
      *
      * @return int max number of characters
@@ -119,7 +117,7 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * Minimum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, min length of field will be used</p>
      *
      * @return int max number of characters

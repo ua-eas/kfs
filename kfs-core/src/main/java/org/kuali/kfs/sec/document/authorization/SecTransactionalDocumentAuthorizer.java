@@ -18,10 +18,11 @@
  */
 package org.kuali.kfs.sec.document.authorization;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.businessobject.AccessSecurityRestrictionInfo;
@@ -30,13 +31,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -48,7 +48,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
     private static AccessSecurityService accessSecurityService;
 
     protected AccessSecurityService getAccessSecurityService() {
-        if ( accessSecurityService == null ) {
+        if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;
@@ -130,7 +130,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
             boolean hasViewRestrictions = false;
 
             AccountingDocument accountingDocument = (AccountingDocument) document;
-            for (Iterator iterator = accountingDocument.getSourceAccountingLines().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = accountingDocument.getSourceAccountingLines().iterator(); iterator.hasNext(); ) {
                 AccountingLine line = (AccountingLine) iterator.next();
                 if (!getAccessSecurityService().canViewDocumentAccountingLine(accountingDocument, line, user)) {
                     hasViewRestrictions = true;
@@ -139,7 +139,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
             }
 
             if (!hasViewRestrictions) {
-                for (Iterator iterator = accountingDocument.getTargetAccountingLines().iterator(); iterator.hasNext();) {
+                for (Iterator iterator = accountingDocument.getTargetAccountingLines().iterator(); iterator.hasNext(); ) {
                     AccountingLine line = (AccountingLine) iterator.next();
                     if (!getAccessSecurityService().canViewDocumentAccountingLine(accountingDocument, line, user)) {
                         hasViewRestrictions = true;
@@ -188,6 +188,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
     public boolean isAuthorizedByTemplate(BusinessObject businessObject, String namespaceCode, String permissionTemplateName, String principalId, Map<String, String> additionalPermissionDetails, Map<String, String> additionalRoleQualifiers) {
         return documentAuthorizer.isAuthorizedByTemplate(businessObject, namespaceCode, permissionTemplateName, principalId, additionalPermissionDetails, additionalRoleQualifiers);
     }
+
     @Override
     public boolean isAuthorizedByTemplate(Object dataObject, String namespaceCode, String permissionTemplateName, String principalId, Map<String, String> additionalPermissionDetails, Map<String, String> additionalRoleQualifiers) {
         return documentAuthorizer.isAuthorizedByTemplate(dataObject, namespaceCode, permissionTemplateName, principalId, additionalPermissionDetails, additionalRoleQualifiers);

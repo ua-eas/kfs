@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.businessobject.format;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.BigDecimalFormatter;
+
+import java.math.BigDecimal;
 
 /**
  * This class is used to format value to Kuali Decimal objects.
@@ -33,7 +33,7 @@ public class KualiDecimalFormatter extends BigDecimalFormatter {
      */
     @Override
     protected Object convertToObject(String target) {
-        BigDecimal value = (BigDecimal)super.convertToObject(target);
+        BigDecimal value = (BigDecimal) super.convertToObject(target);
         return new KualiDecimal(value);
     }
 }

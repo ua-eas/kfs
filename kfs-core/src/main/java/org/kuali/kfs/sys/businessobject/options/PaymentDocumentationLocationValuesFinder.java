@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.PaymentDocumentationLocation;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class returns list of documentation location value pairs.
@@ -42,7 +42,7 @@ public class PaymentDocumentationLocationValuesFinder extends KeyValuesBase {
         List<PaymentDocumentationLocation> boList = (List<PaymentDocumentationLocation>) SpringContext.getBean(KeyValuesService.class).findAllOrderBy(PaymentDocumentationLocation.class, KFSPropertyConstants.PAYMENT_DOCUMENTATION_LOCATION_NAME, true);
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
         for (PaymentDocumentationLocation element : boList) {
-            if(element.isActive()) {
+            if (element.isActive()) {
                 keyValues.add(new ConcreteKeyValue(element.getPaymentDocumentationLocationCode(), element.getPaymentDocumentationLocationCode() + " - " + element.getPaymentDocumentationLocationName()));
             }
         }

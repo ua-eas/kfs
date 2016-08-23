@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
 import org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Maintainable class for Dunning Campaign.

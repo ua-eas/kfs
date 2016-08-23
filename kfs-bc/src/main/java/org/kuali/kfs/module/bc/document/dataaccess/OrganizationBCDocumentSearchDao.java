@@ -36,10 +36,10 @@ public interface OrganizationBCDocumentSearchDao {
      * Populates BudgetConstructionAccountSelect with accounts that are above the user's current point of view
      * and returns the number of rows inserted (which equates to number of accounts above).
      *
-     * @param principalName user who we are building the list for
+     * @param principalName        user who we are building the list for
      * @param universityFiscalYear budget year for records to look at
-     * @param chartOfAccountsCode chart code of user's current point of view
-     * @param organizationCode organization code of user's current point of view
+     * @param chartOfAccountsCode  chart code of user's current point of view
+     * @param organizationCode     organization code of user's current point of view
      * @return int number of rows inserted
      */
     public int buildBudgetedAccountsAbovePointsOfView(String principalName, Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode);
@@ -48,7 +48,7 @@ public interface OrganizationBCDocumentSearchDao {
      * Populates BudgetConstructionAccountSelect with accounts that the given user is a manager or delegate for. Returns the number of rows
      * inserted.
      *
-     * @param principalName manager or delegate universal identifier
+     * @param principalName        manager or delegate universal identifier
      * @param universityFiscalYear budget fiscal year
      */
     public int buildAccountManagerDelegateList(String principalName, Integer universityFiscalYear);

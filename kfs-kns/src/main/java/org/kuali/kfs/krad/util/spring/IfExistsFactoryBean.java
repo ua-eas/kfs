@@ -23,12 +23,8 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
 
-
 /**
  * This is a description of what this class does - jjhanso don't forget to fill this in.
- *
- *
- *
  */
 public class IfExistsFactoryBean extends AbstractFactoryBean implements BeanFactoryAware {
     private BeanFactory beanFactory;
@@ -54,7 +50,7 @@ public class IfExistsFactoryBean extends AbstractFactoryBean implements BeanFact
      */
     @Override
     public Class getObjectType() {
-       return null;
+        return null;
     }
 
     public BeanFactory getBeanFactory() {

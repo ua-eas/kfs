@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sec.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.kfs.sec.SecKeyConstants;
-import org.kuali.kfs.sec.businessobject.SecurityDefinition;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sec.SecKeyConstants;
+import org.kuali.kfs.sec.businessobject.SecurityDefinition;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -107,7 +107,7 @@ public class SecurityDefinitionRule extends MaintenanceDocumentRuleBase {
      * For new or copy action verifies the name given for the definition is not being used by another definition
      *
      * @param securityDefinition SecurityDefinition with name to check
-     * @param errorKeyPrefix String errorPrefix to use if any errors are found
+     * @param errorKeyPrefix     String errorPrefix to use if any errors are found
      * @return boolean true if name exists, false if not
      */
     protected boolean verifyDefinitionNameIsUnique(SecurityDefinition securityDefinition, String errorKeyPrefix) {

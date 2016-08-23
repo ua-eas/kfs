@@ -18,49 +18,49 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceRejectItem;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+
+import java.math.BigDecimal;
 
 public enum ElectronicInvoiceRejectItemFixture {
 
     EIRI_BASIC(
-            1, // invoiceItemLineNumber;
-            new BigDecimal(1), // invoiceItemQuantity;
-            "BG", // invoiceItemUnitOfMeasureCode;
-            "1212", // invoiceItemCatalogNumber;
+        1, // invoiceItemLineNumber;
+        new BigDecimal(1), // invoiceItemQuantity;
+        "BG", // invoiceItemUnitOfMeasureCode;
+        "1212", // invoiceItemCatalogNumber;
 
-            "USD", // invoiceItemUnitPriceCurrencyCode;
-            "USD", // invoiceItemSubTotalCurrencyCode;
-            "USD", // invoiceItemSpecialHandlingCurrencyCode;
-            "USD", // invoiceItemShippingCurrencyCode;
-            "Freight", // invoiceItemShippingDescription;
-            "USD", // invoiceItemTaxCurrencyCode;
-            "AZ State Tax", // invoiceItemTaxDescription;
-            "USD", // invoiceItemGrossCurrencyCode;
-            "USD", // invoiceItemDiscountCurrencyCode;
-            "USD", // invoiceItemNetCurrencyCode;
+        "USD", // invoiceItemUnitPriceCurrencyCode;
+        "USD", // invoiceItemSubTotalCurrencyCode;
+        "USD", // invoiceItemSpecialHandlingCurrencyCode;
+        "USD", // invoiceItemShippingCurrencyCode;
+        "Freight", // invoiceItemShippingDescription;
+        "USD", // invoiceItemTaxCurrencyCode;
+        "AZ State Tax", // invoiceItemTaxDescription;
+        "USD", // invoiceItemGrossCurrencyCode;
+        "USD", // invoiceItemDiscountCurrencyCode;
+        "USD", // invoiceItemNetCurrencyCode;
 
-            new BigDecimal(1.00), // invoiceItemUnitPrice;
-            new BigDecimal(1.00), // invoiceItemSubTotalAmount;
-            new BigDecimal(1.00), // invoiceItemSpecialHandlingAmount;
-            new BigDecimal(1.00), // invoiceItemShippingAmount;
-            new BigDecimal(1.00), // invoiceItemTaxAmount;
-            new BigDecimal(1.00), // invoiceItemGrossAmount;
-            new BigDecimal(1.00), // invoiceItemDiscountAmount;
-            new BigDecimal(1.00), // invoiceItemNetAmount;
+        new BigDecimal(1.00), // invoiceItemUnitPrice;
+        new BigDecimal(1.00), // invoiceItemSubTotalAmount;
+        new BigDecimal(1.00), // invoiceItemSpecialHandlingAmount;
+        new BigDecimal(1.00), // invoiceItemShippingAmount;
+        new BigDecimal(1.00), // invoiceItemTaxAmount;
+        new BigDecimal(1.00), // invoiceItemGrossAmount;
+        new BigDecimal(1.00), // invoiceItemDiscountAmount;
+        new BigDecimal(1.00), // invoiceItemNetAmount;
 
-            1, // invoiceReferenceItemLineNumber;
-            null, // invoiceReferenceItemSerialNumber;
-            null, // invoiceReferenceItemSupplierPartIdentifier;
-            null, // invoiceReferenceItemSupplierPartAuxiliaryIdentifier;
-            "Test Description", // invoiceReferenceItemDescription;
-            null, // invoiceReferenceItemManufacturerPartIdentifier;
-            null, // invoiceReferenceItemManufacturerName;
-            null, // invoiceReferenceItemCountryCode;
-            null // invoiceReferenceItemCountryName;
-     ), ;
+        1, // invoiceReferenceItemLineNumber;
+        null, // invoiceReferenceItemSerialNumber;
+        null, // invoiceReferenceItemSupplierPartIdentifier;
+        null, // invoiceReferenceItemSupplierPartAuxiliaryIdentifier;
+        "Test Description", // invoiceReferenceItemDescription;
+        null, // invoiceReferenceItemManufacturerPartIdentifier;
+        null, // invoiceReferenceItemManufacturerName;
+        null, // invoiceReferenceItemCountryCode;
+        null // invoiceReferenceItemCountryName;
+    ),;
 
     private Integer invoiceItemLineNumber;
     private BigDecimal invoiceItemQuantity;
@@ -98,14 +98,14 @@ public enum ElectronicInvoiceRejectItemFixture {
     private String invoiceReferenceItemCountryName;
 
     private ElectronicInvoiceRejectItemFixture(Integer invoiceItemLineNumber,
-            BigDecimal invoiceItemQuantity, String invoiceItemUnitOfMeasureCode, String invoiceItemCatalogNumber, String invoiceItemUnitPriceCurrencyCode,
-            String invoiceItemSubTotalCurrencyCode, String invoiceItemSpecialHandlingCurrencyCode, String invoiceItemShippingCurrencyCode,
-            String invoiceItemShippingDescription, String invoiceItemTaxCurrencyCode, String invoiceItemTaxDescription, String invoiceItemGrossCurrencyCode,
-            String invoiceItemDiscountCurrencyCode, String invoiceItemNetCurrencyCode, BigDecimal invoiceItemUnitPrice, BigDecimal invoiceItemSubTotalAmount, BigDecimal invoiceItemSpecialHandlingAmount, BigDecimal invoiceItemShippingAmount,
-            BigDecimal invoiceItemTaxAmount, BigDecimal invoiceItemGrossAmount, BigDecimal invoiceItemDiscountAmount, BigDecimal invoiceItemNetAmount,
-            Integer invoiceReferenceItemLineNumber, String invoiceReferenceItemSerialNumber, String invoiceReferenceItemSupplierPartIdentifier,
-            String invoiceReferenceItemSupplierPartAuxiliaryIdentifier, String invoiceReferenceItemDescription, String invoiceReferenceItemManufacturerPartIdentifier,
-            String invoiceReferenceItemManufacturerName, String invoiceReferenceItemCountryCode, String invoiceReferenceItemCountryName) {
+                                               BigDecimal invoiceItemQuantity, String invoiceItemUnitOfMeasureCode, String invoiceItemCatalogNumber, String invoiceItemUnitPriceCurrencyCode,
+                                               String invoiceItemSubTotalCurrencyCode, String invoiceItemSpecialHandlingCurrencyCode, String invoiceItemShippingCurrencyCode,
+                                               String invoiceItemShippingDescription, String invoiceItemTaxCurrencyCode, String invoiceItemTaxDescription, String invoiceItemGrossCurrencyCode,
+                                               String invoiceItemDiscountCurrencyCode, String invoiceItemNetCurrencyCode, BigDecimal invoiceItemUnitPrice, BigDecimal invoiceItemSubTotalAmount, BigDecimal invoiceItemSpecialHandlingAmount, BigDecimal invoiceItemShippingAmount,
+                                               BigDecimal invoiceItemTaxAmount, BigDecimal invoiceItemGrossAmount, BigDecimal invoiceItemDiscountAmount, BigDecimal invoiceItemNetAmount,
+                                               Integer invoiceReferenceItemLineNumber, String invoiceReferenceItemSerialNumber, String invoiceReferenceItemSupplierPartIdentifier,
+                                               String invoiceReferenceItemSupplierPartAuxiliaryIdentifier, String invoiceReferenceItemDescription, String invoiceReferenceItemManufacturerPartIdentifier,
+                                               String invoiceReferenceItemManufacturerName, String invoiceReferenceItemCountryCode, String invoiceReferenceItemCountryName) {
 
         this.invoiceItemLineNumber = invoiceItemLineNumber;
         this.invoiceItemQuantity = invoiceItemQuantity;

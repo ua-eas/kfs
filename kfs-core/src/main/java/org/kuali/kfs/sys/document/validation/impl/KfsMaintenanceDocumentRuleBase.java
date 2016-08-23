@@ -23,6 +23,5 @@ import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 public class KfsMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
 
 
-
 }
 

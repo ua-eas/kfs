@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.LinkedHashMap;
 
 public class PaymentNoteText extends TimestampedBusinessObjectBase {
 
@@ -43,9 +43,9 @@ public class PaymentNoteText extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return Returns the paymentNoteId.
      * @hibernate.id column="PMT_NTE_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_NTE_ID_SEQ"
-     * @return Returns the paymentNoteId.
      */
     public KualiInteger getId() {
         return id;

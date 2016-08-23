@@ -24,8 +24,8 @@ import org.kuali.rice.krad.bo.BusinessObject;
  * This class may be used by the SequenceAccessorService implementation to get the next number for a given sequence.
  */
 public interface SequenceAccessorDao {
-	public Long getNextAvailableSequenceNumber(String sequenceName,
-			Class<? extends BusinessObject> clazz);
+    public Long getNextAvailableSequenceNumber(String sequenceName,
+                                               Class<? extends BusinessObject> clazz);
 
     public Long getNextAvailableSequenceNumber(String sequenceName);
 }

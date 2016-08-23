@@ -18,23 +18,23 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <transactions xmlns="http://www.kuali.org/kfs/fp/procurementCard"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.kuali.org/kfs/fp/procurementCard @externalizable.static.content.url@/xsd/fp/procurementCard.xsd" >
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.kuali.org/kfs/fp/procurementCard @externalizable.static.content.url@/xsd/fp/procurementCard.xsd">
 
-	<transaction>
-		<transactionCreditCardNumber>99991111200</transactionCreditCardNumber>
-		<financialDocumentTotalAmount>11.55</financialDocumentTotalAmount>
-		<transactionDebitCreditCode>D</transactionDebitCreditCode>
-		<chartOfAccountsCode>AA</chartOfAccountsCode>
-		<accountNumber>9999999</accountNumber>
-		<financialObjectCode>9999</financialObjectCode>
-		<transactionCycleStartDate>2006-02-20</transactionCycleStartDate>
-		<transactionCycleEndDate>2006-02-20</transactionCycleEndDate>
-		<cardHolderName>Molecular Structure Center</cardHolderName>
-		<transactionDate>2006-02-17</transactionDate>
-		<transactionReferenceNumber>554173460487304813890</transactionReferenceNumber>
-		<transactionMerchantCategoryCode>7622</transactionMerchantCategoryCode>
-		<transactionPostingDate>2006-02-17</transactionPostingDate>
-		<vendorName>STANSIFER RADIO CO</vendorName>
-	</transaction>
+    <transaction>
+        <transactionCreditCardNumber>99991111200</transactionCreditCardNumber>
+        <financialDocumentTotalAmount>11.55</financialDocumentTotalAmount>
+        <transactionDebitCreditCode>D</transactionDebitCreditCode>
+        <chartOfAccountsCode>AA</chartOfAccountsCode>
+        <accountNumber>9999999</accountNumber>
+        <financialObjectCode>9999</financialObjectCode>
+        <transactionCycleStartDate>2006-02-20</transactionCycleStartDate>
+        <transactionCycleEndDate>2006-02-20</transactionCycleEndDate>
+        <cardHolderName>Molecular Structure Center</cardHolderName>
+        <transactionDate>2006-02-17</transactionDate>
+        <transactionReferenceNumber>554173460487304813890</transactionReferenceNumber>
+        <transactionMerchantCategoryCode>7622</transactionMerchantCategoryCode>
+        <transactionPostingDate>2006-02-17</transactionPostingDate>
+        <vendorName>STANSIFER RADIO CO</vendorName>
+    </transaction>
 </transactions>

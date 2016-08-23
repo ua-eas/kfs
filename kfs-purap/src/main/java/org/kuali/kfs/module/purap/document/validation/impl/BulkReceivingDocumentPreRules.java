@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.BulkReceivingService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
 
-public class BulkReceivingDocumentPreRules extends PromptBeforeValidationBase{
+import java.util.HashMap;
+import java.util.Iterator;
+
+public class BulkReceivingDocumentPreRules extends PromptBeforeValidationBase {
 
     public boolean doPrompts(Document document) {
 
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)document;
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) document;
 
         HashMap<String, String> duplicateMessages = SpringContext.getBean(BulkReceivingService.class).bulkReceivingDuplicateMessages(bulkReceivingDocument);
 
         if (duplicateMessages != null && !duplicateMessages.isEmpty()) {
             Iterator iterator = duplicateMessages.values().iterator();
             StringBuffer msg = new StringBuffer();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 msg.append(iterator.next());
             }
             boolean proceed = super.askOrAnalyzeYesNoQuestion(PurapConstants.BulkReceivingDocumentStrings.DUPLICATE_BULK_RECEIVING_DOCUMENT_QUESTION, msg.toString());

@@ -17,16 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.service;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 
 import org.kuali.kfs.module.external.kc.KcConstants;
 
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
 
 @WebService(name = KcConstants.RiceApplicationConfigurationService.WEB_SERVICE_NAME,
-            targetNamespace = KcConstants.KFS_NAMESPACE_URI)
+    targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL,
-             parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 
 public interface KcRiceApplicationConfigurationService {
     /**

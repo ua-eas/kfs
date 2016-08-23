@@ -364,7 +364,6 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
     }
 
 
-
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }

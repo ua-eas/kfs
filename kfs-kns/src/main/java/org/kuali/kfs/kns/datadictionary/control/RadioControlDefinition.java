@@ -22,22 +22,22 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-                        The radio element will render an HTML radio control.
-                        The valuesFinderClass will have a getKeyValues() method
-                        that returns a list of KeyValue objects.
+ * The radio element will render an HTML radio control.
+ * The valuesFinderClass will have a getKeyValues() method
+ * that returns a list of KeyValue objects.
  */
 @Deprecated
 public class RadioControlDefinition extends MultivalueControlDefinitionBase {
     private static final long serialVersionUID = -7578183583825935850L;
 
-	public RadioControlDefinition() {
+    public RadioControlDefinition() {
     }
 
     /**
      * @see ControlDefinition#isRadio()
      */
     @Override
-	public boolean isRadio() {
+    public boolean isRadio() {
         return true;
     }
 
@@ -45,7 +45,7 @@ public class RadioControlDefinition extends MultivalueControlDefinitionBase {
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString() {
+    public String toString() {
         return "RadioControlDefinition";
     }
 }

@@ -25,6 +25,7 @@ public interface ElementNamable {
 
     /**
      * Returns the name(s) of this table joining element; some table joining elements are compound
+     *
      * @return the names of this table joining element
      */
     public abstract String getName();

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.service.TravelEncumbranceService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.springframework.util.StopWatch;
+
+import java.util.Date;
 
 public class TemReleaseHeldEncumbranceStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TemReleaseHeldEncumbranceStep.class);
@@ -33,14 +33,14 @@ public class TemReleaseHeldEncumbranceStep extends AbstractStep {
      * and puts it in the 'A' (Approved) status then calls the nightly out service to copy the
      * new approved pending entries.
      *
-     * @param jobName the name of the job that this step is being run as part of
+     * @param jobName    the name of the job that this step is being run as part of
      * @param jobRunDate the time/date the job is run
      * @return that the job completed successfully
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
      */
-	@Override
+    @Override
     public boolean execute(String jobName, Date jobRunDate) {
-		StopWatch stopWatch = new StopWatch();
+        StopWatch stopWatch = new StopWatch();
         stopWatch.start("TemReleaseHeldEncumbranceStep");
 
         getTravelEncumbranceService().releaseHeldEncumbrances();

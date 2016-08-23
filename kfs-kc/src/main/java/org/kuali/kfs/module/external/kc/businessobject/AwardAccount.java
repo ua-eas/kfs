@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kra.external.award.AwardAccountDTO;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kra.external.award.AwardAccountDTO;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class represents an association between an award and an account. It's like a reference to the account from the award. This
@@ -220,7 +220,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param projectDirector The projectDirector to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setProjectDirector(Person projectDirector) {

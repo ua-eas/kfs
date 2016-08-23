@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLines;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data dictionary definition for a group of multiple lines to render.  This also renders blocks - though each block will be rendered as a line with an embedded table
@@ -38,6 +38,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     /**
      * Validates that:
      * 1) there is at least one child line
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -48,6 +49,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Gets the lines attribute.
+     *
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingDefinition> getLines() {
@@ -56,6 +58,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Sets the lines attribute value.
+     *
      * @param lines The lines to set.
      */
     public void setLines(List<AccountingLineViewLineFillingDefinition> lines) {
@@ -64,6 +67,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Gets the elementName attribute.
+     *
      * @return Returns the elementName.
      */
     public String getElementName() {
@@ -72,6 +76,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Sets the elementName attribute value.
+     *
      * @param elementName The elementName to set.
      */
     public void setElementName(String elementName) {
@@ -90,6 +95,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
 
     /**
      * Generates layout elements for all the child lines of this lines definition
+     *
      * @return a List with the line elements for all child lines of this element definition
      */
     protected List<AccountingLineViewLineFillingElement> getLayoutElementsForLines(Class<? extends AccountingLine> accountingLineClass) {

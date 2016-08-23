@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.integration.cam.businessobject.Asset;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
@@ -34,11 +35,10 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Performs warning checks and prompts for capital accounting lines object sub type matching
@@ -86,7 +86,7 @@ public class CapitalAccountingLinesPreRules extends PromptBeforeValidationBase {
         List<String> objectSubTypeList = new ArrayList<String>();
         List<String> validObjectSubTypes = new ArrayList<String>();
 
-        subTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, KFSParameterKeyConstants.CamParameterConstants.OBJECT_SUB_TYPE_GROUPS) );
+        subTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, KFSParameterKeyConstants.CamParameterConstants.OBJECT_SUB_TYPE_GROUPS));
 
         for (String subType : subTypes) {
             validObjectSubTypes = Arrays.asList(StringUtils.split(subType, ","));
@@ -118,6 +118,7 @@ public class CapitalAccountingLinesPreRules extends PromptBeforeValidationBase {
 
     /**
      * Finds the accounting line that matches the capital accounting line.
+     *
      * @param capitalAccountLine
      * @return accounting line
      */
@@ -126,9 +127,9 @@ public class CapitalAccountingLinesPreRules extends PromptBeforeValidationBase {
 
         for (AccountingLine line : accountingLines) {
             if (capitalAccountingLine.getChartOfAccountsCode().equals(line.getChartOfAccountsCode()) &&
-                    capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
-                    capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
-                    capitalAccountingLine.getLineType().equalsIgnoreCase(line instanceof SourceAccountingLine ? KFSConstants.SOURCE : KFSConstants.TARGET)) {
+                capitalAccountingLine.getAccountNumber().equals(line.getAccountNumber()) &&
+                capitalAccountingLine.getFinancialObjectCode().equals(line.getFinancialObjectCode()) &&
+                capitalAccountingLine.getLineType().equalsIgnoreCase(line instanceof SourceAccountingLine ? KFSConstants.SOURCE : KFSConstants.TARGET)) {
                 return line;
             }
         }

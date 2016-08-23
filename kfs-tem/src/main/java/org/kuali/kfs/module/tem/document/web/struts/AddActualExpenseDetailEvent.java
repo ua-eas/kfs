@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINES;
-
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
@@ -37,8 +34,11 @@ import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.module.tem.util.ExpenseUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINES;
 
 public class AddActualExpenseDetailEvent implements Observer {
 
@@ -46,7 +46,7 @@ public class AddActualExpenseDetailEvent implements Observer {
 
     protected volatile TravelExpenseService travelExpenseService;
 
-    private static final int WRAPPER_ARG_IDX       = 0;
+    private static final int WRAPPER_ARG_IDX = 0;
     private static final int SELECTED_LINE_ARG_IDX = 1;
 
     @SuppressWarnings("null")
@@ -68,7 +68,7 @@ public class AddActualExpenseDetailEvent implements Observer {
         final ActualExpense newActualExpenseLine = wrapper.getNewActualExpenseLines().get(index);
         ActualExpense line = document.getActualExpenses().get(index);
 
-        if(newActualExpenseLine != null){
+        if (newActualExpenseLine != null) {
             if (StringUtils.isBlank(newActualExpenseLine.getExpenseTypeCode())) {
                 newActualExpenseLine.setExpenseTypeCode(line.getExpenseTypeCode());
             }
@@ -89,10 +89,10 @@ public class AddActualExpenseDetailEvent implements Observer {
         boolean rulePassed = true;
 
         // check any business rules
-        rulePassed &= getRuleService().applyRules(new AddActualExpenseDetailLineEvent<ActualExpense>(NEW_ACTUAL_EXPENSE_LINES + "["+index + "]", document, line, newActualExpenseLine));
+        rulePassed &= getRuleService().applyRules(new AddActualExpenseDetailLineEvent<ActualExpense>(NEW_ACTUAL_EXPENSE_LINES + "[" + index + "]", document, line, newActualExpenseLine));
 
-        if (rulePassed){
-            if(newActualExpenseLine != null && line != null){
+        if (rulePassed) {
+            if (newActualExpenseLine != null && line != null) {
                 newActualExpenseLine.setExpenseLineTypeCode(null);
                 if (newActualExpenseLine.getExpenseTypeObjectCodeId() == null || newActualExpenseLine.getExpenseTypeObjectCodeId().equals(new Long(0L))) {
                     newActualExpenseLine.setExpenseTypeObjectCode(null); // there's no vaule but the jsp layer does not handle the null-wrapping proxy that well
@@ -104,17 +104,16 @@ public class AddActualExpenseDetailEvent implements Observer {
             KualiDecimal detailTotal = line.getTotalDetailExpenseAmount();
 
             ActualExpense newExpense = getTravelExpenseService().createNewDetailForActualExpense(line);
-            if (detailTotal.isLessEqual(line.getExpenseAmount())){
+            if (detailTotal.isLessEqual(line.getExpenseAmount())) {
                 KualiDecimal remainderExpense = line.getExpenseAmount().subtract(detailTotal);
                 KualiDecimal remainderConverted = line.getConvertedAmount().subtract(new KualiDecimal(detailTotal.bigDecimalValue().multiply(line.getCurrencyRate())));
                 newExpense.setExpenseAmount(remainderExpense);
                 newExpense.setConvertedAmount(remainderConverted);
-            }
-            else{
+            } else {
                 newExpense.setExpenseAmount(KualiDecimal.ZERO);
             }
-            wrapper.getNewActualExpenseLines().add(index,newExpense);
-            wrapper.getNewActualExpenseLines().remove(index+1);
+            wrapper.getNewActualExpenseLines().add(index, newExpense);
+            wrapper.getNewActualExpenseLines().remove(index + 1);
 
             ExpenseUtils.calculateMileage(document, document.getActualExpenses());
 

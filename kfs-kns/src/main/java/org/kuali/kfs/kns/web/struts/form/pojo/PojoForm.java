@@ -55,11 +55,9 @@ public interface PojoForm {
     Set<String> getEditableProperties();
 
     /**
-     *
      * This method adds the required property names, that are not directly editable by user on the html page, to a list, regardless of the context
      * in which they appear.  Request parameter names corresponding to these properties
      * will be populated into the form.
-     *
      */
     void addRequiredNonEditableProperties();
 
@@ -79,30 +77,31 @@ public interface PojoForm {
 
 
     /**
-	 * Returns whether a request parameter should be populated as a property of the form, assuming that the request parameter name
-	 * corresponds to a property on the form.  This method makes no determination whether the request parameter is a property of the form, but rather
-	 * from a security perspective, whether the framework should attempt to set the form property with the same name as the request parameter.
-	 *
-	 * @param requestParameterName the name of the request parameter
-	 * @param request the HTTP request
-	 * @return whether the parameter should be
-	 */
-	public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request);
+     * Returns whether a request parameter should be populated as a property of the form, assuming that the request parameter name
+     * corresponds to a property on the form.  This method makes no determination whether the request parameter is a property of the form, but rather
+     * from a security perspective, whether the framework should attempt to set the form property with the same name as the request parameter.
+     *
+     * @param requestParameterName the name of the request parameter
+     * @param request              the HTTP request
+     * @return whether the parameter should be
+     */
+    public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request);
 
-	/**
-	 * Returns a set of methodToCalls for which the system will bypass the session.  The return value of this method may depend ONLY upon the
-	 * type of the class implementing it.  Each instance of an implementation of this interface
-	 * must return the same result.  More formally, for 2 instances of this interfaces a1 and a2, if a1.getClass().equals(a2.getClass()), then
-	 * a1.getMethodToCallsToBypassSessionRetrievalForGETRequests().equals(a2.getMethodToCallsToBypassSessionRetrievalForGETRequests())
-	 *
-	 * NOTE: read Javadoc of {@link PojoFormBase#getMethodToCallsToBypassSessionRetrievalForGETRequests()} for important implementation details.
-	 *
-	 * @return
-	 */
-	public Set<String> getMethodToCallsToBypassSessionRetrievalForGETRequests();
+    /**
+     * Returns a set of methodToCalls for which the system will bypass the session.  The return value of this method may depend ONLY upon the
+     * type of the class implementing it.  Each instance of an implementation of this interface
+     * must return the same result.  More formally, for 2 instances of this interfaces a1 and a2, if a1.getClass().equals(a2.getClass()), then
+     * a1.getMethodToCallsToBypassSessionRetrievalForGETRequests().equals(a2.getMethodToCallsToBypassSessionRetrievalForGETRequests())
+     * <p>
+     * NOTE: read Javadoc of {@link PojoFormBase#getMethodToCallsToBypassSessionRetrievalForGETRequests()} for important implementation details.
+     *
+     * @return
+     */
+    public Set<String> getMethodToCallsToBypassSessionRetrievalForGETRequests();
 
-	/**
+    /**
      * Sets the editable properties guid for this form
+     *
      * @param guid the key to the editable properties for this form
      */
     public abstract void setPopulateEditablePropertiesGuid(String guid);

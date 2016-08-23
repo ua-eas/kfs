@@ -30,7 +30,7 @@ public class EffortCertificationReportDefinitionFiscalYearMakerImpl extends Fisc
 
     /**
      * @see org.kuali.kfs.coa.dataaccess.impl.FiscalYearMakerImpl#changeForNewYear(java.lang.Integer,
-     *      org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public void changeForNewYear(Integer baseFiscalYear, FiscalYearBasedBusinessObject currentRecord) {

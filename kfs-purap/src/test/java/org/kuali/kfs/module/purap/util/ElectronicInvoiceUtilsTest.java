@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.KualiTestBase;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
-@ConfigureContext(session = khuntley, shouldCommitTransactions=false)
+@ConfigureContext(session = khuntley, shouldCommitTransactions = false)
 public class ElectronicInvoiceUtilsTest extends KualiTestBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceUtilsTest.class);
 
@@ -38,7 +38,7 @@ public class ElectronicInvoiceUtilsTest extends KualiTestBase {
         super.tearDown();
     }
 
-    public void testGetDate() throws Exception{
+    public void testGetDate() throws Exception {
         //TestCase 1 - cdw.xml
         String invoiceDate = "2008-08-11T00:00:00-06:00";
         Date formattedDate = ElectronicInvoiceUtils.getDate(invoiceDate);
@@ -92,8 +92,7 @@ public class ElectronicInvoiceUtilsTest extends KualiTestBase {
         System.out.println(d2.compareTo(d1) < 0);
         if (d2.compareTo(d1) < 0) {
             System.out.println("D2 greater");
-        }
-        else {
+        } else {
             System.out.println("D1 greater");
         }
 

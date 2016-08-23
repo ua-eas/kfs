@@ -18,23 +18,14 @@
  */
 package org.kuali.kfs.krad.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.krad.web.form.DocumentFormBase;
-import org.kuali.kfs.krad.web.form.InitiatedDocumentInfoForm;
-import org.kuali.kfs.krad.web.form.MaintenanceForm;
-import org.kuali.kfs.krad.web.form.UifFormBase;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.kfs.krad.bo.PersistableAttachment;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.MaintenanceUtils;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
@@ -43,19 +34,25 @@ import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.web.form.DocumentFormBase;
+import org.kuali.kfs.krad.web.form.InitiatedDocumentInfoForm;
+import org.kuali.kfs.krad.web.form.MaintenanceForm;
+import org.kuali.kfs.krad.web.form.UifFormBase;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kew.api.KewApiConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
 /**
  * Controller for <code>MaintenanceView</code> screens which operate on
  * <code>MaintenanceDocument</code> instances
- *
- *
  */
 @Controller
 @RequestMapping(value = "/maintenance")
@@ -76,7 +73,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
     @Override
     @RequestMapping(params = "methodToCall=docHandler")
     public ModelAndView docHandler(@ModelAttribute("KualiForm") DocumentFormBase formBase, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // TODO getting double view if we call base, not sure how to handle
         // so pasting in superclass code
@@ -107,9 +104,9 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
         // * end copy/paste from the base
 
         if (KewApiConstants.ACTIONLIST_COMMAND.equals(form.getCommand()) ||
-                KewApiConstants.DOCSEARCH_COMMAND.equals(form.getCommand()) ||
-                KewApiConstants.SUPERUSER_COMMAND.equals(form.getCommand()) ||
-                KewApiConstants.HELPDESK_ACTIONLIST_COMMAND.equals(form.getCommand()) && form.getDocId() != null) {
+            KewApiConstants.DOCSEARCH_COMMAND.equals(form.getCommand()) ||
+            KewApiConstants.SUPERUSER_COMMAND.equals(form.getCommand()) ||
+            KewApiConstants.HELPDESK_ACTIONLIST_COMMAND.equals(form.getCommand()) && form.getDocId() != null) {
             // TODO: set state in view
             // form.setReadOnly(true);
             form.setMaintenanceAction((form.getDocument()).getNewMaintainableObject().getMaintenanceAction());
@@ -118,7 +115,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
             Maintainable tmpMaintainable = form.getDocument().getNewMaintainableObject();
             if (tmpMaintainable.getDataObject() instanceof PersistableAttachment) {
                 PersistableAttachment bo = (PersistableAttachment) getBusinessObjectService()
-                        .retrieve((PersistableBusinessObject) tmpMaintainable.getDataObject());
+                    .retrieve((PersistableBusinessObject) tmpMaintainable.getDataObject());
                 if (bo != null) {
                     request.setAttribute("fileName", bo.getFileName());
                 }
@@ -141,7 +138,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
     @RequestMapping(params = "methodToCall=" + KRADConstants.Maintenance.METHOD_TO_CALL_NEW)
     @Override
     public ModelAndView start(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
         MaintenanceForm maintenanceForm = (MaintenanceForm) form;
 
         setupMaintenance(maintenanceForm, request, KRADConstants.MAINTENANCE_NEW_ACTION);
@@ -155,7 +152,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
      */
     @RequestMapping(params = "methodToCall=" + KRADConstants.Maintenance.METHOD_TO_CALL_EDIT)
     public ModelAndView maintenanceEdit(@ModelAttribute("KualiForm") MaintenanceForm form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         setupMaintenance(form, request, KRADConstants.MAINTENANCE_EDIT_ACTION);
 
@@ -168,7 +165,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
      */
     @RequestMapping(params = "methodToCall=" + KRADConstants.Maintenance.METHOD_TO_CALL_COPY)
     public ModelAndView maintenanceCopy(@ModelAttribute("KualiForm") MaintenanceForm form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         setupMaintenance(form, request, KRADConstants.MAINTENANCE_COPY_ACTION);
 
@@ -181,7 +178,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
      */
     @RequestMapping(params = "methodToCall=" + KRADConstants.Maintenance.METHOD_TO_CALL_NEW_WITH_EXISTING)
     public ModelAndView maintenanceNewWithExisting(@ModelAttribute("KualiForm") MaintenanceForm form,
-            BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                                   BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         setupMaintenance(form, request, KRADConstants.MAINTENANCE_NEWWITHEXISTING_ACTION);
 
@@ -190,17 +187,17 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
 
     /**
      * Sets up the <code>MaintenanceDocument</code> on initial get request
-     *
+     * <p>
      * <p>
      * First step is to create a new document instance based on the query
      * parameters (document type name or object class name). Then call the
      * <code>Maintainable</code> to do setup on the object being maintained.
      * </p>
      *
-     * @param form - <code>MaintenanceForm</code> instance
-     * @param request - HTTP request object
+     * @param form              - <code>MaintenanceForm</code> instance
+     * @param request           - HTTP request object
      * @param maintenanceAction - the maintenance action (new, new from existing, edit, copy)
-     * being request
+     *                          being request
      * @throws Exception
      */
     protected void setupMaintenance(MaintenanceForm form, HttpServletRequest request, String maintenanceAction) {
@@ -209,8 +206,8 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
         // create a new document object, if required
         if (document == null) {
             document = getMaintenanceDocumentService()
-                    .setupNewMaintenanceDocument(form.getDataObjectClassName(), form.getDocTypeName(),
-                            maintenanceAction);
+                .setupNewMaintenanceDocument(form.getDataObjectClassName(), form.getDocTypeName(),
+                    maintenanceAction);
 
             form.setDocument(document);
             form.setDocTypeName(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
@@ -232,7 +229,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
         // document
         // TODO: should be in the view as permission
         DocumentEntry entry = KRADServiceLocatorWeb.getDocumentDictionaryService()
-                .getMaintenanceDocumentEntry(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+            .getMaintenanceDocumentEntry(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
         document.setDisplayTopicFieldInNotes(entry.getDisplayTopicFieldInNotes());
     }
 
@@ -240,12 +237,12 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
      * Override route to retrieve the maintenance object if it is an attachment
      *
      * @see DocumentControllerBase.route
-     *      (DocumentFormBase, HttpServletRequest, HttpServletResponse)
+     * (DocumentFormBase, HttpServletRequest, HttpServletResponse)
      */
     @Override
     @RequestMapping(params = "methodToCall=route")
     public ModelAndView route(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
 
         ModelAndView modelAndView;
 
@@ -254,7 +251,7 @@ public class MaintenanceDocumentController extends DocumentControllerBase {
         MaintenanceDocument document = (MaintenanceDocument) form.getDocument();
         if (document.getNewMaintainableObject().getDataObject() instanceof PersistableAttachment) {
             PersistableAttachment bo = (PersistableAttachment) getBusinessObjectService()
-                    .retrieve((PersistableBusinessObject) document.getNewMaintainableObject().getDataObject());
+                .retrieve((PersistableBusinessObject) document.getNewMaintainableObject().getDataObject());
             request.setAttribute("fileName", bo.getFileName());
         }
 

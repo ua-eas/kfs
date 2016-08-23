@@ -21,9 +21,9 @@ package org.kuali.kfs.coa.service.impl;
 
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.service.ProjectCodeService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
 
 /**
@@ -34,12 +34,11 @@ import org.springframework.cache.annotation.Cacheable;
 @NonTransactional
 public class ProjectCodeServiceImpl implements ProjectCodeService {
     /**
-     *
      * @see org.kuali.kfs.coa.service.ProjectCodeService#getByPrimaryId(java.lang.String)
      */
     @Override
     //   KFSMI-2612
-    @Cacheable(value=ProjectCode.CACHE_NAME, key="'projectCode='+#p0")
+    @Cacheable(value = ProjectCode.CACHE_NAME, key = "'projectCode='+#p0")
     public ProjectCode getByPrimaryId(String projectCode) {
         return SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(ProjectCode.class, projectCode);
     }

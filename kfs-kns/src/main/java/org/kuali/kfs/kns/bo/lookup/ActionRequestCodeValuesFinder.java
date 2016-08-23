@@ -32,6 +32,7 @@ import java.util.List;
  */
 public class ActionRequestCodeValuesFinder extends KeyValuesBase {
     private static final List<KeyValue> ACTION_REQUEST_CODES;
+
     static {
         final List<KeyValue> temp = new ArrayList<KeyValue>();
         for (String actionRequestCode : KewApiConstants.ACTION_REQUEST_CODES.keySet()) {

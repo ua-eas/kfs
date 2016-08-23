@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * This step will call a service method to autoapprove any documents that have been in route passed a certain number of days.
@@ -34,11 +34,10 @@ public class ProcurementCardAutoApproveDocumentsStep extends AbstractStep {
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     public boolean execute(String jobName, Date jobRunDate) {
-     // TODO: put a temporary delay in here to workaround locking exception happening with Pcard approve and indexing
+        // TODO: put a temporary delay in here to workaround locking exception happening with Pcard approve and indexing
         try {
             Thread.sleep(300000);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 

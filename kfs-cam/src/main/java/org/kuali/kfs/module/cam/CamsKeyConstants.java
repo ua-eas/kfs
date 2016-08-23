@@ -156,7 +156,7 @@ public class CamsKeyConstants {
         public static final String ERROR_ASSET_AUTHORIZATION = "error.asset.authorization";
 
         public static final String WARNING_ASSET_NOT_CHANGED = "warning.asset.not.changed";
-}
+    }
 
     public static class BarcodeInventory {
         public static final String TITLE_BAR_CODE_INVENTORY = "message.upload.title.barCodeInventory";
@@ -243,7 +243,7 @@ public class CamsKeyConstants {
         public static final String ERROR_INVALID_BOOKVALUE_AMOUNT = "error.asset.bookValue.amount.not.valid";
 
         // for use with Asset Edit
-        public static final String LAST_INVENTORY_DATE_UPDATE_NOTE_TEXT= "note.last.inventory.date.updated";
+        public static final String LAST_INVENTORY_DATE_UPDATE_NOTE_TEXT = "note.last.inventory.date.updated";
 
         public static final String ERROR_OWNER_INVALID = "error.owner.invalid";
         public static final String ERROR_ACQUISITION_TYPE_CODE_INVALID = "error.acquisition.type.code.invalid";
@@ -277,8 +277,8 @@ public class CamsKeyConstants {
         public static final String ERROR_PRE_TAG_DETAIL_EXCESS = "error.pre.tag.detail.excess";
     }
 
-	public static class AssetPaymentAllocation {
-		public static final String ERROR_PERCENT_NOT_100 = "error.asset.payment.allocation.percent";
-		public static final String ERROR_AMOUNT_NOT_EQUAL = "error.asset.payment.allocation.not.equal";
-	}
+    public static class AssetPaymentAllocation {
+        public static final String ERROR_PERCENT_NOT_100 = "error.asset.payment.allocation.percent";
+        public static final String ERROR_AMOUNT_NOT_EQUAL = "error.asset.payment.allocation.not.equal";
+    }
 }

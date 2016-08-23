@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
+
+import java.util.List;
 
 /**
  * Defines methods that must be implemented by classes providing a RequisitionService.

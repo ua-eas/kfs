@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -39,10 +38,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static org.kuali.kfs.module.cam.CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
 
 public class AssetTransferAction extends FinancialSystemTransactionalDocumentActionBase {
     protected static final Logger LOG = Logger.getLogger(AssetTransferAction.class);
@@ -51,7 +51,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
      * This method had to override because asset information has to be refreshed before display
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -83,9 +83,9 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
     /**
      * This method handles when request is from a work flow document search
      *
-     * @param assetTransferForm Form
+     * @param assetTransferForm     Form
      * @param assetTransferDocument Document
-     * @param service BusinessObjectService
+     * @param service               BusinessObjectService
      * @return Asset
      */
     protected void handleRequestFromWorkflow(AssetTransferForm assetTransferForm, AssetTransferDocument assetTransferDocument) {
@@ -96,8 +96,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
             Person person = personService.getPerson(assetTransferDocument.getRepresentativeUniversalIdentifier());
             if (person != null) {
                 assetTransferDocument.setAssetRepresentative(person);
-            }
-            else {
+            } else {
                 LOG.error("org.kuali.rice.kim.api.identity.PersonService returned null for uuid " + assetTransferDocument.getRepresentativeUniversalIdentifier());
             }
         }
@@ -106,11 +105,11 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
     /**
      * This method handles the request coming from asset lookup screen
      *
-     * @param request Request
-     * @param assetTransferForm Current form
+     * @param request               Request
+     * @param assetTransferForm     Current form
      * @param assetTransferDocument Document
-     * @param service Business Object Service
-     * @param asset Asset
+     * @param service               Business Object Service
+     * @param asset                 Asset
      * @return Asset
      */
     protected void handleRequestFromLookup(HttpServletRequest request, AssetTransferForm assetTransferForm, AssetTransferDocument assetTransferDocument) {
@@ -127,7 +126,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
      * Since the organization fields are view only we need to make sure they are in sync with the data entry fields.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.fp.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.service.CashDrawerService;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Override of KualiLookupableHelperServiceImpl to prevent the editing and copying of Cash Drawers.  Also to
@@ -43,19 +43,19 @@ public class CashDrawerLookupableHelperServiceImpl extends KualiLookupableHelper
 
     /**
      * Return an empty list - you can't edit or copy cash drawers.
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject, java.util.List)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         List<HtmlData> htmlDataList = new ArrayList<HtmlData>();
-        if (StringUtils.isNotBlank(getMaintenanceDocumentTypeName()) && allowsMaintenanceEditAction(businessObject) && isEditOfCashDrawerAuthorized((CashDrawer)businessObject) && ((CashDrawer)businessObject).isClosed()) {
+        if (StringUtils.isNotBlank(getMaintenanceDocumentTypeName()) && allowsMaintenanceEditAction(businessObject) && isEditOfCashDrawerAuthorized((CashDrawer) businessObject) && ((CashDrawer) businessObject).isClosed()) {
             htmlDataList.add(getUrlData(businessObject, KRADConstants.MAINTENANCE_EDIT_METHOD_TO_CALL, pkNames));
         }
         return htmlDataList;
     }
 
     /**
-     *
      * @param cashDrawer
      * @return
      */
@@ -68,6 +68,7 @@ public class CashDrawerLookupableHelperServiceImpl extends KualiLookupableHelper
     /**
      * Overridden to see if the current user already has a cash drawer created associated with their campus - if
      * there is a cash drawer already, then no new or copy is allowed
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#allowsMaintenanceNewOrCopyAction()
      */
     @Override

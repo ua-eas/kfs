@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * There are sometimes line elements which have fewer cells than other line elements within
@@ -34,6 +34,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Constructs a PlaceHoldingLayoutElement, setting the colspan for the element
+     *
      * @param colSpan the colspan to set
      */
     public PlaceHoldingLayoutElement(int colSpan) {
@@ -42,6 +43,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Returns a header with a non-breaking space
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoiningWithHeader#createHeaderLabel()
      */
     public HeaderLabel createHeaderLabel() {
@@ -50,6 +52,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * The point of this thing is to show up
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoiningWithHeader#isHidden()
      */
     public boolean isHidden() {
@@ -58,6 +61,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Returns an empty String
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
@@ -66,6 +70,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * This only requests one row, not that it really matters.
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -74,6 +79,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Joins the given row and header
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerLabelRow, AccountingLineTableRow row) {
@@ -87,6 +93,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * This will likely never be called
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -97,6 +104,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Creates a place holding label cell
+     *
      * @param rowSpan the row span the cell should be
      * @return a table cell holding a place holding label cell
      */
@@ -110,6 +118,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Returns an empty table cell, colspan cells wide
+     *
      * @param rowSpan the number of rows this cell should span
      * @return an empty accounting line table cell that will fill up the space
      */
@@ -122,30 +131,39 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * No fields to transform
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
-    public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {}
+    public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
+    }
 
     /**
      * This doesn't have any child blocks
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeAllActionBlocks()
      */
-    public void removeAllActionBlocks() {}
+    public void removeAllActionBlocks() {
+    }
 
     /**
      * This will never remove child blocks
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks(java.util.Set)
      */
-    public void removeUnviewableBlocks(Set<String> unviewableBlocks) {}
+    public void removeUnviewableBlocks(Set<String> unviewableBlocks) {
+    }
 
     /**
      * This will never read onlyize anything
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
-    public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {}
+    public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {
+    }
 
     /**
      * Gets the colSpan attribute.
+     *
      * @return Returns the colSpan.
      */
     public int getColSpan() {
@@ -154,6 +172,7 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
 
     /**
      * Sets the colSpan attribute value.
+     *
      * @param colSpan The colSpan to set.
      */
     public void setColSpan(int colSpan) {
@@ -163,5 +182,6 @@ public class PlaceHoldingLayoutElement implements TableJoiningWithHeader {
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#setEditableBlocks(java.util.Set)
      */
-    public void setEditableBlocks(Set<String> editableBlocks) {}
+    public void setEditableBlocks(Set<String> editableBlocks) {
+    }
 }

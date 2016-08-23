@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.accesslayer.QueryCustomizerDefaultImpl;
 import org.apache.ojb.broker.metadata.CollectionDescriptor;
@@ -28,6 +25,9 @@ import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public class OjbQueryCustomizer extends QueryCustomizerDefaultImpl {
     // used to AND in additional criteria on a collection
@@ -41,16 +41,14 @@ public class OjbQueryCustomizer extends QueryCustomizerDefaultImpl {
         Field field = null;
         try {
             field = this.getClass().getSuperclass().getDeclaredField("m_attributeList");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         field.setAccessible(true);
         Map<String, String> m_attributeList = null;
         try {
             m_attributeList = (Map) field.get(this);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -65,8 +63,7 @@ public class OjbQueryCustomizer extends QueryCustomizerDefaultImpl {
             // since OJB won't use have multiple query-customizers per collection-descriptor.
             if (this.getAttribute(key).startsWith(FIELD_PREFIX)) {
                 criteria.addEqualTo(key, ObjectUtils.getPropertyValue(arg0, this.getAttribute(key).substring(FIELD_PREFIX.length())));
-            }
-            else {
+            } else {
                 criteria.addEqualTo(key, this.getAttribute(key));
             }
         }

@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SufficientFundsTestFixtures {
-    public static Account getTestAccount(String chartOfAccountsCode, String accountNumber, String accountSufficientFundsCode,boolean pendingAcctSufficientFundsIndicator) {
+    public static Account getTestAccount(String chartOfAccountsCode, String accountNumber, String accountSufficientFundsCode, boolean pendingAcctSufficientFundsIndicator) {
         Account a = new Account();
         a.setChartOfAccountsCode(chartOfAccountsCode);
         a.setAccountNumber(accountNumber);
@@ -67,11 +67,11 @@ public class SufficientFundsTestFixtures {
         return oc;
     }
 
-    public static SystemOptions getTestSystemOptions(int year,boolean budgetCheckingOptionsCode) {
-        return getTestSystemOptions(year,budgetCheckingOptionsCode,false);
+    public static SystemOptions getTestSystemOptions(int year, boolean budgetCheckingOptionsCode) {
+        return getTestSystemOptions(year, budgetCheckingOptionsCode, false);
     }
 
-    public static SystemOptions getTestSystemOptions(int year,boolean budgetCheckingOptionsCode,boolean financialBeginBalanceLoadInd) {
+    public static SystemOptions getTestSystemOptions(int year, boolean budgetCheckingOptionsCode, boolean financialBeginBalanceLoadInd) {
         SystemOptions so = new SystemOptions();
         so.setUniversityFiscalYear(year);
         so.setBudgetCheckingOptionsCode(budgetCheckingOptionsCode);
@@ -80,7 +80,7 @@ public class SufficientFundsTestFixtures {
         return so;
     }
 
-    public static Map<String,Object> getTestSufficientFundRebuildKeys(String chart,String account) {
+    public static Map<String, Object> getTestSufficientFundRebuildKeys(String chart, String account) {
         Map<String, Object> keys = new HashMap<>();
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chart);
         keys.put(KFSPropertyConstants.ACCOUNT_NUMBER_FINANCIAL_OBJECT_CODE, account);
@@ -99,11 +99,11 @@ public class SufficientFundsTestFixtures {
         return b;
     }
 
-    public static Map<String,Object> getTestSufficientFundBalancesKeys(String chart,String account) {
-        return getTestSufficientFundBalancesKeys(2017,chart,account,"    ");
+    public static Map<String, Object> getTestSufficientFundBalancesKeys(String chart, String account) {
+        return getTestSufficientFundBalancesKeys(2017, chart, account, "    ");
     }
 
-    public static Map<String,Object> getTestSufficientFundBalancesKeys(int year,String chart,String account,String objectCode) {
+    public static Map<String, Object> getTestSufficientFundBalancesKeys(int year, String chart, String account, String objectCode) {
         Map<String, Object> keys = new HashMap<>();
         keys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, year);
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chart);
@@ -118,11 +118,11 @@ public class SufficientFundsTestFixtures {
         return objectTypes;
     }
 
-    public static GeneralLedgerPendingEntry getTestGeneralLedgerPendingEntry(String chartOfAccountsCode, String accountNumber, String objectCode, String accountSufficientFundsCode,KualiDecimal amount) {
-        return getTestGeneralLedgerPendingEntry(chartOfAccountsCode,accountNumber,objectCode,accountSufficientFundsCode,amount,true,"AC");
+    public static GeneralLedgerPendingEntry getTestGeneralLedgerPendingEntry(String chartOfAccountsCode, String accountNumber, String objectCode, String accountSufficientFundsCode, KualiDecimal amount) {
+        return getTestGeneralLedgerPendingEntry(chartOfAccountsCode, accountNumber, objectCode, accountSufficientFundsCode, amount, true, "AC");
     }
 
-    public static GeneralLedgerPendingEntry getTestGeneralLedgerPendingEntry(String chartOfAccountsCode, String accountNumber, String objectCode, String accountSufficientFundsCode,KualiDecimal amount,boolean pendingAcctSufficientFundsIndicator,String balanceTypeCode) {
+    public static GeneralLedgerPendingEntry getTestGeneralLedgerPendingEntry(String chartOfAccountsCode, String accountNumber, String objectCode, String accountSufficientFundsCode, KualiDecimal amount, boolean pendingAcctSufficientFundsIndicator, String balanceTypeCode) {
         GeneralLedgerPendingEntry glpe = new GeneralLedgerPendingEntry() {
             @Override
             public void refreshNonUpdateableReferences() {
@@ -141,7 +141,7 @@ public class SufficientFundsTestFixtures {
 
         glpe.setAccountNumber(accountNumber);
         glpe.setChartOfAccountsCode(chartOfAccountsCode);
-        glpe.setAccount(getTestAccount(chartOfAccountsCode,accountNumber,accountSufficientFundsCode,pendingAcctSufficientFundsIndicator));
+        glpe.setAccount(getTestAccount(chartOfAccountsCode, accountNumber, accountSufficientFundsCode, pendingAcctSufficientFundsIndicator));
         glpe.setDocumentNumber("DOC12345");
 
         ObjectType ot = new ObjectType();

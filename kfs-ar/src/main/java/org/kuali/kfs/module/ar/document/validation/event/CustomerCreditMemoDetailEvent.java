@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 
 
 public interface CustomerCreditMemoDetailEvent extends KualiDocumentEvent {
     /**
      * This method returns a customer invoice detail
+     *
      * @return
      */
     public CustomerCreditMemoDetail getCustomerCreditMemoDetail();

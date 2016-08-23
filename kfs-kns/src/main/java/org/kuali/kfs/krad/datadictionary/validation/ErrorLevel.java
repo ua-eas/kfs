@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.datadictionary.validation;
 
 /**
  * Enum inherited from the Kuali Student project to track error levels in validation.
- *
- *
  */
 public enum ErrorLevel {
     NOCONSTRAINT(-2), INAPPLICABLE(-1), OK(0), WARN(1), ERROR(2);
@@ -37,10 +35,11 @@ public enum ErrorLevel {
     }
 
     public static ErrorLevel min(ErrorLevel e1, ErrorLevel e2) {
-    	return e1.ordinal() < e2.ordinal() ? e1 : e2;
+        return e1.ordinal() < e2.ordinal() ? e1 : e2;
     }
+
     public static ErrorLevel max(ErrorLevel e1, ErrorLevel e2) {
-    	return e1.ordinal() > e2.ordinal() ? e1 : e2;
+        return e1.ordinal() > e2.ordinal() ? e1 : e2;
     }
 
 }

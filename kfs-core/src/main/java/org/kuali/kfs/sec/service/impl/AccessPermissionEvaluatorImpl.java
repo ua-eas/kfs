@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sec.service.impl;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessPermissionEvaluator;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
 
 
 /**
@@ -74,8 +74,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
 
         if ((allowConstraint && notOperator) || (!allowConstraint && !notOperator)) {
             allowed = !match;
-        }
-        else {
+        } else {
             allowed = match;
         }
 
@@ -86,7 +85,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
      * Determines whether two values match performing an equal, greater than, or less than check and also considering wildcards
      *
      * @param matchValue String value to match, can contain the * wildcard
-     * @param value String value to compare
+     * @param value      String value to compare
      * @return boolean true if values match, false otherwise
      */
     protected boolean isMatch(String matchValue, String value) {
@@ -101,8 +100,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
         if (performEqualMatch) {
             if (performWildcardMatch) {
                 match = value.startsWith(matchValue);
-            }
-            else {
+            } else {
                 match = value.equals(matchValue);
             }
         }
@@ -127,7 +125,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
         }
 
         if (SecConstants.SecurityDefinitionOperatorCodes.EQUAL.equals(operatorCode) || SecConstants.SecurityDefinitionOperatorCodes.NOT_EQUAL.equals(operatorCode) || SecConstants.SecurityDefinitionOperatorCodes.LESS_THAN_EQUAL.equals(operatorCode)
-                || SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN_EQUAL.equals(operatorCode)) {
+            || SecConstants.SecurityDefinitionOperatorCodes.GREATER_THAN_EQUAL.equals(operatorCode)) {
             performEqualMatch = true;
         }
 
@@ -152,8 +150,7 @@ public class AccessPermissionEvaluatorImpl implements AccessPermissionEvaluator 
     protected void setMatchValues() {
         if (StringUtils.contains(propertyValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER)) {
             matchValues = StringUtils.split(propertyValue, SecConstants.SecurityValueSpecialCharacters.MULTI_VALUE_SEPERATION_CHARACTER);
-        }
-        else {
+        } else {
             matchValues = new String[1];
             matchValues[0] = propertyValue;
         }

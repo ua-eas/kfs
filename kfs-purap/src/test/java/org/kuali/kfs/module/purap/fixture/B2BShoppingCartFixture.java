@@ -18,32 +18,31 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
+import org.kuali.kfs.module.purap.util.cxml.B2BShoppingCart;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.module.purap.util.cxml.B2BShoppingCart;
 
 /**
  * Fixture class for B2BShoppingCart.
  */
 public enum B2BShoppingCartFixture {
 
-    B2B_CART_USING_VENDOR_ID (
-            "200", // messageStatusCode
-            "Success", // messageStatusText
-            "parke", // buyerCookieText
-            "500.00", // totalAmount
-            B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_ID // itemFixture
+    B2B_CART_USING_VENDOR_ID(
+        "200", // messageStatusCode
+        "Success", // messageStatusText
+        "parke", // buyerCookieText
+        "500.00", // totalAmount
+        B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_ID // itemFixture
     ),
 
-    B2B_CART_USING_VENDOR_DUNS (
-            "200", // messageStatusCode
-            "Success", // messageStatusText
-            "parke", // buyerCookieText
-            "500.00", // totalAmount
-            B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_DUNS // itemFixture
-    ),
-    ;
+    B2B_CART_USING_VENDOR_DUNS(
+        "200", // messageStatusCode
+        "Success", // messageStatusText
+        "parke", // buyerCookieText
+        "500.00", // totalAmount
+        B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_DUNS // itemFixture
+    ),;
 
     public String messageStatusCode;
     public String messageStatusText;
@@ -53,6 +52,7 @@ public enum B2BShoppingCartFixture {
 
     /**
      * Constructs a B2BShoppingCartFixture with only one item.
+     *
      * @param messageStatusCode
      * @param messageStatusText
      * @param buyerCookieText
@@ -60,11 +60,11 @@ public enum B2BShoppingCartFixture {
      * @param itemFixture
      */
     private B2BShoppingCartFixture(
-            String messageStatusCode,
-            String messageStatusText,
-            String buyerCookieText,
-            String totalAmount,
-            B2BShoppingCartItemFixture itemFixture
+        String messageStatusCode,
+        String messageStatusText,
+        String buyerCookieText,
+        String totalAmount,
+        B2BShoppingCartItemFixture itemFixture
     ) {
         this.messageStatusCode = messageStatusCode;
         this.messageStatusText = messageStatusText;

@@ -18,20 +18,22 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -86,24 +88,22 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @NonTransactional
 public class PurapServiceImpl implements PurapService {
@@ -172,7 +172,7 @@ public class PurapServiceImpl implements PurapService {
         try {
             //save requisition routing data
             List<RequisitionView> reqViews = getRelatedViews(RequisitionView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<RequisitionView> iterator = reqViews.iterator(); iterator.hasNext();) {
+            for (Iterator<RequisitionView> iterator = reqViews.iterator(); iterator.hasNext(); ) {
                 RequisitionView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -180,7 +180,7 @@ public class PurapServiceImpl implements PurapService {
 
             //save purchase order routing data
             List<PurchaseOrderView> poViews = getRelatedViews(PurchaseOrderView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<PurchaseOrderView> iterator = poViews.iterator(); iterator.hasNext();) {
+            for (Iterator<PurchaseOrderView> iterator = poViews.iterator(); iterator.hasNext(); ) {
                 PurchaseOrderView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -188,7 +188,7 @@ public class PurapServiceImpl implements PurapService {
 
             //save payment request routing data
             List<PaymentRequestView> preqViews = getRelatedViews(PaymentRequestView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<PaymentRequestView> iterator = preqViews.iterator(); iterator.hasNext();) {
+            for (Iterator<PaymentRequestView> iterator = preqViews.iterator(); iterator.hasNext(); ) {
                 PaymentRequestView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -196,7 +196,7 @@ public class PurapServiceImpl implements PurapService {
 
             //save credit memo routing data
             List<CreditMemoView> cmViews = getRelatedViews(CreditMemoView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<CreditMemoView> iterator = cmViews.iterator(); iterator.hasNext();) {
+            for (Iterator<CreditMemoView> iterator = cmViews.iterator(); iterator.hasNext(); ) {
                 CreditMemoView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -204,7 +204,7 @@ public class PurapServiceImpl implements PurapService {
 
             //save line item receiving routing data
             List<LineItemReceivingView> lineViews = getRelatedViews(LineItemReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<LineItemReceivingView> iterator = lineViews.iterator(); iterator.hasNext();) {
+            for (Iterator<LineItemReceivingView> iterator = lineViews.iterator(); iterator.hasNext(); ) {
                 LineItemReceivingView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -212,7 +212,7 @@ public class PurapServiceImpl implements PurapService {
 
             //save correction receiving routing data
             List<CorrectionReceivingView> corrViews = getRelatedViews(CorrectionReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<CorrectionReceivingView> iterator = corrViews.iterator(); iterator.hasNext();) {
+            for (Iterator<CorrectionReceivingView> iterator = corrViews.iterator(); iterator.hasNext(); ) {
                 CorrectionReceivingView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
@@ -220,13 +220,12 @@ public class PurapServiceImpl implements PurapService {
 
             //save bulk receiving routing data
             List<BulkReceivingView> bulkViews = getRelatedViews(BulkReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-            for (Iterator<BulkReceivingView> iterator = bulkViews.iterator(); iterator.hasNext();) {
+            for (Iterator<BulkReceivingView> iterator = bulkViews.iterator(); iterator.hasNext(); ) {
                 BulkReceivingView view = iterator.next();
                 Document doc = documentService.getByDocumentHeaderId(view.getDocumentNumber());
                 doc.getDocumentHeader().getWorkflowDocument().saveDocumentData();
             }
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new InfrastructureException("unable to save routing data for related docs", e);
         }
 
@@ -242,49 +241,49 @@ public class PurapServiceImpl implements PurapService {
 
         //get requisition views
         List<RequisitionView> reqViews = getRelatedViews(RequisitionView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<RequisitionView> iterator = reqViews.iterator(); iterator.hasNext();) {
+        for (Iterator<RequisitionView> iterator = reqViews.iterator(); iterator.hasNext(); ) {
             RequisitionView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get purchase order views
         List<PurchaseOrderView> poViews = getRelatedViews(PurchaseOrderView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<PurchaseOrderView> iterator = poViews.iterator(); iterator.hasNext();) {
+        for (Iterator<PurchaseOrderView> iterator = poViews.iterator(); iterator.hasNext(); ) {
             PurchaseOrderView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get payment request views
         List<PaymentRequestView> preqViews = getRelatedViews(PaymentRequestView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<PaymentRequestView> iterator = preqViews.iterator(); iterator.hasNext();) {
+        for (Iterator<PaymentRequestView> iterator = preqViews.iterator(); iterator.hasNext(); ) {
             PaymentRequestView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get credit memo views
         List<CreditMemoView> cmViews = getRelatedViews(CreditMemoView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<CreditMemoView> iterator = cmViews.iterator(); iterator.hasNext();) {
+        for (Iterator<CreditMemoView> iterator = cmViews.iterator(); iterator.hasNext(); ) {
             CreditMemoView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get line item receiving views
         List<LineItemReceivingView> lineViews = getRelatedViews(LineItemReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<LineItemReceivingView> iterator = lineViews.iterator(); iterator.hasNext();) {
+        for (Iterator<LineItemReceivingView> iterator = lineViews.iterator(); iterator.hasNext(); ) {
             LineItemReceivingView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get correction receiving views
         List<CorrectionReceivingView> corrViews = getRelatedViews(CorrectionReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<CorrectionReceivingView> iterator = corrViews.iterator(); iterator.hasNext();) {
+        for (Iterator<CorrectionReceivingView> iterator = corrViews.iterator(); iterator.hasNext(); ) {
             CorrectionReceivingView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
 
         //get bulk receiving views
         List<BulkReceivingView> bulkViews = getRelatedViews(BulkReceivingView.class, accountsPayablePurchasingDocumentLinkIdentifier);
-        for (Iterator<BulkReceivingView> iterator = bulkViews.iterator(); iterator.hasNext();) {
+        for (Iterator<BulkReceivingView> iterator = bulkViews.iterator(); iterator.hasNext(); ) {
             BulkReceivingView view = iterator.next();
             documentIdList.add(view.getDocumentNumber());
         }
@@ -339,8 +338,7 @@ public class PurapServiceImpl implements PurapService {
                 try {
                     if (i > 0) {
                         lastFound = existingItemTypes.lastIndexOf(itemTypes[i - 1]) + 1;
-                    }
-                    else {
+                    } else {
                         lastFound = existingItemTypes.size();
                     }
                     PurApItem newItem = (PurApItem) itemClass.newInstance();
@@ -348,8 +346,7 @@ public class PurapServiceImpl implements PurapService {
                     newItem.setPurapDocument(document);
                     existingItems.add(lastFound, newItem);
                     existingItemTypes.add(itemTypes[i]);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // do something
                 }
             }
@@ -428,16 +425,15 @@ public class PurapServiceImpl implements PurapService {
         String documentType = dataDictionaryService.getDocumentTypeNameByClass(document.getClass());
 
         try {
-            return parameterService.getParameterValuesAsString(Class.forName(PurapConstants.PURAP_DETAIL_TYPE_CODE_MAP.get(documentType)), PurapConstants.BELOW_THE_LINES_PARAMETER).toArray(new String[] {});
-        }
-        catch (ClassNotFoundException e) {
+            return parameterService.getParameterValuesAsString(Class.forName(PurapConstants.PURAP_DETAIL_TYPE_CODE_MAP.get(documentType)), PurapConstants.BELOW_THE_LINES_PARAMETER).toArray(new String[]{});
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException("The getBelowTheLineForDocument method of PurapServiceImpl was unable to resolve the document class for type: " + PurapConstants.PURAP_DETAIL_TYPE_CODE_MAP.get(documentType), e);
         }
     }
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.PurapService#getBelowTheLineByType(org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument,
-     *      org.kuali.kfs.module.purap.businessobject.ItemType)
+     * org.kuali.kfs.module.purap.businessobject.ItemType)
      */
     @Override
     public PurApItem getBelowTheLineByType(PurchasingAccountsPayableDocument document, ItemType iT) {
@@ -564,8 +560,7 @@ public class PurapServiceImpl implements PurapService {
         boolean value = false;
         if (purapDocument instanceof PaymentRequestDocument) {
             value = PurapConstants.PaymentRequestStatuses.STATUS_ORDER.isFullDocumentEntryCompleted(purapDocument.getApplicationDocumentStatus());
-        }
-        else if (purapDocument instanceof VendorCreditMemoDocument) {
+        } else if (purapDocument instanceof VendorCreditMemoDocument) {
             value = PurapConstants.CreditMemoStatuses.STATUS_ORDER.isFullDocumentEntryCompleted(purapDocument.getApplicationDocumentStatus());
         }
         return value;
@@ -607,8 +602,7 @@ public class PurapServiceImpl implements PurapService {
                 processCloseReopenPo((AccountsPayableDocumentBase) purapDocument, PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_CLOSE_DOCUMENT);
             }
 
-        }
-        else if (purapDocument instanceof VendorCreditMemoDocument) {
+        } else if (purapDocument instanceof VendorCreditMemoDocument) {
             VendorCreditMemoDocument creditMemo = (VendorCreditMemoDocument) purapDocument;
 
             if (creditMemo.isReopenPurchaseOrderIndicator() && PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(creditMemo.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
@@ -617,8 +611,7 @@ public class PurapServiceImpl implements PurapService {
                 processCloseReopenPo((AccountsPayableDocumentBase) purapDocument, PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT);
             }
 
-        }
-        else {
+        } else {
             throw new RuntimeException("Attempted to perform full entry logic for unhandled document type '" + purapDocument.getClass().getName() + "'");
         }
 
@@ -628,7 +621,7 @@ public class PurapServiceImpl implements PurapService {
      * Remove items that have not been "entered" which means no data has been added to them so no more processing needs to continue
      * on these items.
      *
-     * @param apDocument  AccountsPayableDocument which contains list of items to be reviewed
+     * @param apDocument AccountsPayableDocument which contains list of items to be reviewed
      */
     @Override
     public void deleteUnenteredItems(PurapItemOperations document) {
@@ -646,7 +639,7 @@ public class PurapServiceImpl implements PurapService {
     /**
      * Actual method that will close or reopen a po.
      *
-     * @param apDocument  AccountsPayableDocument
+     * @param apDocument AccountsPayableDocument
      * @param docType
      */
     @SuppressWarnings("unchecked")
@@ -659,12 +652,10 @@ public class PurapServiceImpl implements PurapService {
         if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_CLOSE_DOCUMENT.equals(docType)) {
             action = "closed";
             newStatus = PurchaseOrderStatuses.APPDOC_PENDING_CLOSE;
-        }
-        else if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT.equals(docType)) {
+        } else if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT.equals(docType)) {
             action = "reopened";
             newStatus = PurchaseOrderStatuses.APPDOC_PENDING_REOPEN;
-        }
-        else {
+        } else {
             String errorMessage = "Method processCloseReopenPo called using ID + '" + apDocument.getPurapDocumentIdentifier() + "' and invalid doc type '" + docType + "'";
             LOG.error(errorMessage);
             throw new RuntimeException(errorMessage);
@@ -690,23 +681,22 @@ public class PurapServiceImpl implements PurapService {
             String userName = apDocument.getLastActionPerformedByPersonName();
             StringBuffer poNote = new StringBuffer("");
             poNote.append("PO was closed manually by ");
-            poNote.append( userName );
+            poNote.append(userName);
             poNote.append(" in approving PREQ with ID ");
             poNote.append(apDocument.getDocumentNumber());
 
             //save the note to the purchase order
-            try{
+            try {
                 Note noteObj = documentService.createNoteFromDocument(apDocument.getPurchaseOrderDocument(), poNote.toString());
                 noteObj.setNoteTypeCode(apDocument.getPurchaseOrderDocument().getNoteType().getCode());
                 apDocument.getPurchaseOrderDocument().addNote(noteObj);
                 noteService.save(noteObj);
-            }catch(Exception e){
+            } catch (Exception e) {
                 String errorMessage = "Error creating and saving close note for purchase order with document service";
                 LOG.error("processCloseReopenPo() " + errorMessage, e);
                 throw new RuntimeException(errorMessage, e);
             }
-        }
-        else if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT.equals(docType)) {
+        } else if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT.equals(docType)) {
             apDocument.setReopenPurchaseOrderIndicator(false);
         }
 
@@ -757,8 +747,7 @@ public class PurapServiceImpl implements PurapService {
         try {
             GlobalVariables.setUserSession(new UserSession(requiredPersonPersonUserId));
             return logicToRun.runLogic(objects);
-        }
-        finally {
+        } finally {
             GlobalVariables.setUserSession(actualUserSession);
         }
     }
@@ -786,13 +775,11 @@ public class PurapServiceImpl implements PurapService {
             final DocumentAttributeIndexingQueue documentAttributeIndexingQueue = KewApiServiceLocator.getDocumentAttributeIndexingQueue();
 
             documentAttributeIndexingQueue.indexDocument(document.getDocumentNumber());
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             String errorMsg = "Workflow error saving document # " + document.getDocumentHeader().getDocumentNumber() + " " + we.getMessage();
             LOG.error(errorMsg, we);
             throw new RuntimeException(errorMsg, we);
-        }
-        catch (NumberFormatException ne) {
+        } catch (NumberFormatException ne) {
             String errorMsg = "Invalid document number format for document # " + document.getDocumentHeader().getDocumentNumber() + " " + ne.getMessage();
             LOG.error(errorMsg, ne);
             throw new RuntimeException(errorMsg, ne);
@@ -825,7 +812,7 @@ public class PurapServiceImpl implements PurapService {
         int diffTodayClosing = dateTimeService.dateDiff(today, closingDate, false);
 
         if (ObjectUtils.isNotNull(closingDate) && ObjectUtils.isNotNull(today) && ObjectUtils.isNotNull(allowEncumberNext)) {
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("allowEncumberNextFiscalYear() today = " + dateTimeService.toDateString(today) + "; encumber next FY range = " + allowEncumberNext + " - " + dateTimeService.toDateTimeString(today));
             }
 
@@ -867,13 +854,12 @@ public class PurapServiceImpl implements PurapService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.PurapService#clearTax(org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument)
      */
     @Override
-    public void clearTax(PurchasingAccountsPayableDocument purapDocument, boolean useTax){
+    public void clearTax(PurchasingAccountsPayableDocument purapDocument, boolean useTax) {
         for (PurApItem item : purapDocument.getItems()) {
-            if(useTax) {
+            if (useTax) {
                 item.getUseTaxItems().clear();
             } else {
                 item.setItemTaxAmount(null);
@@ -884,7 +870,7 @@ public class PurapServiceImpl implements PurapService {
     @Override
     public void updateUseTaxIndicator(PurchasingAccountsPayableDocument purapDocument, boolean newUseTaxIndicatorValue) {
         boolean currentUseTaxIndicator = purapDocument.isUseTaxIndicator();
-        if(currentUseTaxIndicator!=newUseTaxIndicatorValue) {
+        if (currentUseTaxIndicator != newUseTaxIndicatorValue) {
             //i.e. if the indicator changed clear out the tax
             clearTax(purapDocument, currentUseTaxIndicator);
         }
@@ -895,53 +881,53 @@ public class PurapServiceImpl implements PurapService {
      * @see org.kuali.kfs.module.purap.document.service.PurapService#calculateTax(org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument)
      */
     @Override
-    public void calculateTax(PurchasingAccountsPayableDocument purapDocument){
+    public void calculateTax(PurchasingAccountsPayableDocument purapDocument) {
 
-          boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
-          boolean useTaxIndicator = purapDocument.isUseTaxIndicator();
-          String deliveryState = getDeliveryState(purapDocument);
-          String deliveryPostalCode = getDeliveryPostalCode(purapDocument);
-          Date transactionTaxDate = purapDocument.getTransactionTaxDate();
+        boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
+        boolean useTaxIndicator = purapDocument.isUseTaxIndicator();
+        String deliveryState = getDeliveryState(purapDocument);
+        String deliveryPostalCode = getDeliveryPostalCode(purapDocument);
+        Date transactionTaxDate = purapDocument.getTransactionTaxDate();
 
-          //calculate if sales tax enabled for purap
-          if( salesTaxInd || useTaxIndicator ){
-              //iterate over items and calculate tax if taxable
-              for(PurApItem item : purapDocument.getItems()){
-                  if( isTaxable(useTaxIndicator, deliveryState, item) ){
-                      calculateItemTax(useTaxIndicator, deliveryPostalCode, transactionTaxDate, item, item.getUseTaxClass(), purapDocument);
-                  }
-              }
-          }
-      }
+        //calculate if sales tax enabled for purap
+        if (salesTaxInd || useTaxIndicator) {
+            //iterate over items and calculate tax if taxable
+            for (PurApItem item : purapDocument.getItems()) {
+                if (isTaxable(useTaxIndicator, deliveryState, item)) {
+                    calculateItemTax(useTaxIndicator, deliveryPostalCode, transactionTaxDate, item, item.getUseTaxClass(), purapDocument);
+                }
+            }
+        }
+    }
 
-      @Override
-    public String getDeliveryState(PurchasingAccountsPayableDocument purapDocument){
-          if (purapDocument instanceof PurchasingDocument){
-              PurchasingDocument document = (PurchasingDocument)purapDocument;
-              return document.getDeliveryStateCode();
-          }else if (purapDocument instanceof AccountsPayableDocument){
-              AccountsPayableDocument document = (AccountsPayableDocument)purapDocument;
-              if (document.getPurchaseOrderDocument() == null){
-                  throw new RuntimeException("PurchaseOrder document does not exists");
-              }
-              return document.getPurchaseOrderDocument().getDeliveryStateCode();
-          }
-          return null;
-      }
+    @Override
+    public String getDeliveryState(PurchasingAccountsPayableDocument purapDocument) {
+        if (purapDocument instanceof PurchasingDocument) {
+            PurchasingDocument document = (PurchasingDocument) purapDocument;
+            return document.getDeliveryStateCode();
+        } else if (purapDocument instanceof AccountsPayableDocument) {
+            AccountsPayableDocument document = (AccountsPayableDocument) purapDocument;
+            if (document.getPurchaseOrderDocument() == null) {
+                throw new RuntimeException("PurchaseOrder document does not exists");
+            }
+            return document.getPurchaseOrderDocument().getDeliveryStateCode();
+        }
+        return null;
+    }
 
-      protected String getDeliveryPostalCode(PurchasingAccountsPayableDocument purapDocument){
-          if (purapDocument instanceof PurchasingDocument){
-              PurchasingDocument document = (PurchasingDocument)purapDocument;
-              return document.getDeliveryPostalCode();
-          }else if (purapDocument instanceof AccountsPayableDocument){
-              AccountsPayableDocument docBase = (AccountsPayableDocument)purapDocument;
-              if (docBase.getPurchaseOrderDocument() == null){
-                  throw new RuntimeException("PurchaseOrder document does not exists");
-              }
-              return docBase.getPurchaseOrderDocument().getDeliveryPostalCode();
-          }
-          return null;
-      }
+    protected String getDeliveryPostalCode(PurchasingAccountsPayableDocument purapDocument) {
+        if (purapDocument instanceof PurchasingDocument) {
+            PurchasingDocument document = (PurchasingDocument) purapDocument;
+            return document.getDeliveryPostalCode();
+        } else if (purapDocument instanceof AccountsPayableDocument) {
+            AccountsPayableDocument docBase = (AccountsPayableDocument) purapDocument;
+            if (docBase.getPurchaseOrderDocument() == null) {
+                throw new RuntimeException("PurchaseOrder document does not exists");
+            }
+            return docBase.getPurchaseOrderDocument().getDeliveryPostalCode();
+        }
+        return null;
+    }
 
     /**
      * Determines if the item is taxable based on a decision tree.
@@ -952,14 +938,14 @@ public class PurapServiceImpl implements PurapService {
      * @return
      */
     @Override
-    public boolean isTaxable(boolean useTaxIndicator, String deliveryState, PurApItem item){
+    public boolean isTaxable(boolean useTaxIndicator, String deliveryState, PurApItem item) {
 
         boolean taxable = false;
 
-        if(item.getItemType().isTaxableIndicator() &&
-           ((ObjectUtils.isNull(item.getItemTaxAmount()) && useTaxIndicator == false) || useTaxIndicator) &&
-           (doesCommodityAllowCallToTaxService(item)) &&
-           (doesAccountAllowCallToTaxService(deliveryState, item)) ){
+        if (item.getItemType().isTaxableIndicator() &&
+            ((ObjectUtils.isNull(item.getItemTaxAmount()) && useTaxIndicator == false) || useTaxIndicator) &&
+            (doesCommodityAllowCallToTaxService(item)) &&
+            (doesAccountAllowCallToTaxService(deliveryState, item))) {
 
             taxable = true;
         }
@@ -967,17 +953,16 @@ public class PurapServiceImpl implements PurapService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.PurapService#isTaxableForSummary(boolean, java.lang.String, org.kuali.kfs.module.purap.businessobject.PurApItem)
      */
     @Override
-    public boolean isTaxableForSummary(boolean useTaxIndicator, String deliveryState, PurApItem item){
+    public boolean isTaxableForSummary(boolean useTaxIndicator, String deliveryState, PurApItem item) {
 
         boolean taxable = false;
 
-        if(item.getItemType().isTaxableIndicator() &&
-           (doesCommodityAllowCallToTaxService(item)) &&
-           (doesAccountAllowCallToTaxService(deliveryState, item)) ){
+        if (item.getItemType().isTaxableIndicator() &&
+            (doesCommodityAllowCallToTaxService(item)) &&
+            (doesAccountAllowCallToTaxService(deliveryState, item))) {
 
             taxable = true;
         }
@@ -1017,12 +1002,12 @@ public class PurapServiceImpl implements PurapService {
         return callService;
     }
 
-    protected boolean isCommodityCodeTaxable(CommodityCode commodityCode){
+    protected boolean isCommodityCodeTaxable(CommodityCode commodityCode) {
         boolean isTaxable = true;
 
-        if(ObjectUtils.isNotNull(commodityCode)){
+        if (ObjectUtils.isNotNull(commodityCode)) {
 
-            if(commodityCode.isSalesTaxIndicator() == false){
+            if (commodityCode.isSalesTaxIndicator() == false) {
                 //not taxable, so don't call service
                 isTaxable = false;
             }//if true we want to call service
@@ -1053,7 +1038,7 @@ public class PurapServiceImpl implements PurapService {
         boolean deliveryStateTaxable = isDeliveryStateTaxable(deliveryState);
 
         for (PurApAccountingLine acctLine : item.getSourceAccountingLines()) {
-            if(isAccountingLineTaxable(acctLine, deliveryStateTaxable)){
+            if (isAccountingLineTaxable(acctLine, deliveryStateTaxable)) {
                 callService = true;
                 break;
             }
@@ -1066,14 +1051,13 @@ public class PurapServiceImpl implements PurapService {
      * @see org.kuali.kfs.module.purap.document.service.PurapService#isAccountingLineTaxable(org.kuali.kfs.module.purap.businessobject.PurApAccountingLine, boolean)
      */
     @Override
-    public boolean isAccountingLineTaxable(PurApAccountingLine acctLine, boolean deliveryStateTaxable){
+    public boolean isAccountingLineTaxable(PurApAccountingLine acctLine, boolean deliveryStateTaxable) {
         boolean isTaxable = false;
         String parameterSuffix = null;
 
         if (deliveryStateTaxable) {
             parameterSuffix = TaxParameters.FOR_TAXABLE_STATES_SUFFIX;
-        }
-        else {
+        } else {
             parameterSuffix = TaxParameters.FOR_NON_TAXABLE_STATES_SUFFIX;
         }
 
@@ -1093,7 +1077,7 @@ public class PurapServiceImpl implements PurapService {
      * @param acctLine
      * @return
      */
-    protected boolean isAccountTaxable(String parameterSuffix, PurApAccountingLine acctLine){
+    protected boolean isAccountTaxable(String parameterSuffix, PurApAccountingLine acctLine) {
 
         boolean isAccountTaxable = false;
         String fundParam = TaxParameters.TAXABLE_FUND_GROUPS_PREFIX + parameterSuffix;
@@ -1101,17 +1085,17 @@ public class PurapServiceImpl implements PurapService {
         ParameterEvaluator fundParamEval = null;
         ParameterEvaluator subFundParamEval = null;
 
-        if (ObjectUtils.isNull(acctLine.getAccount().getSubFundGroup())){
+        if (ObjectUtils.isNull(acctLine.getAccount().getSubFundGroup())) {
             acctLine.refreshNonUpdateableReferences();
         }
 
         fundParamEval = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(KfsParameterConstants.PURCHASING_DOCUMENT.class, fundParam, acctLine.getAccount().getSubFundGroup().getFundGroupCode());
         subFundParamEval = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(KfsParameterConstants.PURCHASING_DOCUMENT.class, subFundParam, acctLine.getAccount().getSubFundGroupCode());
 
-        if( (isAllowedFound(fundParamEval) && (isAllowedFound(subFundParamEval) || isAllowedNotFound(subFundParamEval) || isDeniedNotFound(subFundParamEval))) ||
+        if ((isAllowedFound(fundParamEval) && (isAllowedFound(subFundParamEval) || isAllowedNotFound(subFundParamEval) || isDeniedNotFound(subFundParamEval))) ||
             (isAllowedNotFound(fundParamEval) && isAllowedFound(subFundParamEval)) ||
             (isDeniedFound(fundParamEval) && isAllowedFound(subFundParamEval)) ||
-            (isDeniedNotFound(fundParamEval) && (isAllowedFound(subFundParamEval) || isAllowedNotFound(subFundParamEval) || isDeniedNotFound(subFundParamEval))) ){
+            (isDeniedNotFound(fundParamEval) && (isAllowedFound(subFundParamEval) || isAllowedNotFound(subFundParamEval) || isDeniedNotFound(subFundParamEval)))) {
 
             isAccountTaxable = true;
         }
@@ -1127,7 +1111,7 @@ public class PurapServiceImpl implements PurapService {
      * @param acctLine
      * @return
      */
-    protected boolean isObjectCodeTaxable(String parameterSuffix, PurApAccountingLine acctLine){
+    protected boolean isObjectCodeTaxable(String parameterSuffix, PurApAccountingLine acctLine) {
 
         boolean isObjectCodeTaxable = false;
         String levelParam = TaxParameters.TAXABLE_OBJECT_LEVELS_PREFIX + parameterSuffix;
@@ -1141,10 +1125,10 @@ public class PurapServiceImpl implements PurapService {
         levelParamEval = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(KfsParameterConstants.PURCHASING_DOCUMENT.class, levelParam, acctLine.getObjectCode().getFinancialObjectLevelCode());
         consolidationParamEval = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(KfsParameterConstants.PURCHASING_DOCUMENT.class, consolidationParam, acctLine.getObjectCode().getFinancialObjectLevel().getFinancialConsolidationObjectCode());
 
-        if( (isAllowedFound(levelParamEval) && (isAllowedFound(consolidationParamEval) || isAllowedNotFound(consolidationParamEval) || isDeniedNotFound(consolidationParamEval))) ||
+        if ((isAllowedFound(levelParamEval) && (isAllowedFound(consolidationParamEval) || isAllowedNotFound(consolidationParamEval) || isDeniedNotFound(consolidationParamEval))) ||
             (isAllowedNotFound(levelParamEval) && isAllowedFound(consolidationParamEval)) ||
             (isDeniedFound(levelParamEval) && isAllowedFound(consolidationParamEval)) ||
-            (isDeniedNotFound(levelParamEval) && (isAllowedFound(consolidationParamEval) || isAllowedNotFound(consolidationParamEval) || isDeniedNotFound(consolidationParamEval))) ){
+            (isDeniedNotFound(levelParamEval) && (isAllowedFound(consolidationParamEval) || isAllowedNotFound(consolidationParamEval) || isDeniedNotFound(consolidationParamEval)))) {
 
             isObjectCodeTaxable = true;
         }
@@ -1225,13 +1209,13 @@ public class PurapServiceImpl implements PurapService {
      */
     @SuppressWarnings("unchecked")
     protected void calculateItemTax(boolean useTaxIndicator,
-                                  String deliveryPostalCode,
-                                  Date transactionTaxDate,
-                                  PurApItem item,
-                                  Class itemUseTaxClass,
-                                  PurchasingAccountsPayableDocument purapDocument){
+                                    String deliveryPostalCode,
+                                    Date transactionTaxDate,
+                                    PurApItem item,
+                                    Class itemUseTaxClass,
+                                    PurchasingAccountsPayableDocument purapDocument) {
 
-        if (!useTaxIndicator){
+        if (!useTaxIndicator) {
             if (!StringUtils.equals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE) &&
                 !StringUtils.equals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE)) {
                 KualiDecimal taxAmount = taxService.getTotalSalesTaxAmount(transactionTaxDate, deliveryPostalCode, item.getExtendedPrice());
@@ -1240,16 +1224,16 @@ public class PurapServiceImpl implements PurapService {
         } else {
             KualiDecimal extendedPrice = item.getExtendedPrice();
 
-            if(StringUtils.equals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE)){
-               KualiDecimal taxablePrice = getFullDiscountTaxablePrice(extendedPrice, purapDocument);
-               extendedPrice = taxablePrice;
+            if (StringUtils.equals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE)) {
+                KualiDecimal taxablePrice = getFullDiscountTaxablePrice(extendedPrice, purapDocument);
+                extendedPrice = taxablePrice;
             }
             List<TaxDetail> taxDetails = taxService.getUseTaxDetails(transactionTaxDate, deliveryPostalCode, extendedPrice);
             List<PurApItemUseTax> newUseTaxItems = new ArrayList<PurApItemUseTax>();
-            if (taxDetails != null){
+            if (taxDetails != null) {
                 for (TaxDetail taxDetail : taxDetails) {
                     try {
-                        PurApItemUseTax useTaxitem = (PurApItemUseTax)itemUseTaxClass.newInstance();
+                        PurApItemUseTax useTaxitem = (PurApItemUseTax) itemUseTaxClass.newInstance();
                         useTaxitem.setChartOfAccountsCode(taxDetail.getChartOfAccountsCode());
                         useTaxitem.setFinancialObjectCode(taxDetail.getFinancialObjectCode());
                         useTaxitem.setAccountNumber(taxDetail.getAccountNumber());
@@ -1257,8 +1241,7 @@ public class PurapServiceImpl implements PurapService {
                         useTaxitem.setRateCode(taxDetail.getRateCode());
                         useTaxitem.setTaxAmount(taxDetail.getTaxAmount());
                         newUseTaxItems.add(useTaxitem);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         /**
                          * Shallow.. This never happen - InstantiationException/IllegalAccessException
                          * To be safe, throw a runtime exception
@@ -1271,7 +1254,7 @@ public class PurapServiceImpl implements PurapService {
         }
     }
 
-    public KualiDecimal getFullDiscountTaxablePrice(KualiDecimal extendedPrice, PurchasingAccountsPayableDocument purapDocument){
+    public KualiDecimal getFullDiscountTaxablePrice(KualiDecimal extendedPrice, PurchasingAccountsPayableDocument purapDocument) {
         KualiDecimal taxablePrice = KualiDecimal.ZERO;
         KualiDecimal taxableLineItemPrice = KualiDecimal.ZERO;
         KualiDecimal totalLineItemPrice = KualiDecimal.ZERO;
@@ -1280,13 +1263,13 @@ public class PurapServiceImpl implements PurapService {
 
         // iterate over items and calculate tax if taxable
         for (PurApItem item : purapDocument.getItems()) {
-            if (item.getItemType().isLineItemIndicator()){
+            if (item.getItemType().isLineItemIndicator()) {
                 //only when extended price exists
-                if(ObjectUtils.isNotNull(item.getExtendedPrice())){
-                    if(isTaxable(useTaxIndicator, deliveryState, item)){
+                if (ObjectUtils.isNotNull(item.getExtendedPrice())) {
+                    if (isTaxable(useTaxIndicator, deliveryState, item)) {
                         taxableLineItemPrice = taxableLineItemPrice.add(item.getExtendedPrice());
                         totalLineItemPrice = totalLineItemPrice.add(item.getExtendedPrice());
-                    }else{
+                    } else {
                         totalLineItemPrice = totalLineItemPrice.add(item.getExtendedPrice());
                     }
                 }
@@ -1294,7 +1277,7 @@ public class PurapServiceImpl implements PurapService {
         }
 
         //check nonzero so no divide by zero errors, and make sure extended price is not null
-        if(totalLineItemPrice.isNonZero() && ObjectUtils.isNotNull(extendedPrice)) {
+        if (totalLineItemPrice.isNonZero() && ObjectUtils.isNotNull(extendedPrice)) {
             taxablePrice = taxableLineItemPrice.divide(totalLineItemPrice).multiply(extendedPrice);
         }
 
@@ -1304,7 +1287,7 @@ public class PurapServiceImpl implements PurapService {
     @Override
     public void prorateForTradeInAndFullOrderDiscount(PurchasingAccountsPayableDocument purDoc) {
 
-        if (purDoc instanceof VendorCreditMemoDocument){
+        if (purDoc instanceof VendorCreditMemoDocument) {
             throw new RuntimeException("This method not applicable for VCM documents");
         }
 
@@ -1321,8 +1304,7 @@ public class PurapServiceImpl implements PurapService {
         for (PurApItem item : purDoc.getItems()) {
             if (item.getItemTypeCode().equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE)) {
                 fullOrderDiscount = item;
-            }
-            else if (item.getItemTypeCode().equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE)) {
+            } else if (item.getItemTypeCode().equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE)) {
                 tradeIn = item;
             }
         }
@@ -1342,10 +1324,10 @@ public class PurapServiceImpl implements PurapService {
             purapAccountingService.updateAccountAmounts(purDoc);
 
             //calculate tax
-            boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean( KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
+            boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
             boolean useTaxIndicator = purDoc.isUseTaxIndicator();
 
-            if(salesTaxInd == true && (ObjectUtils.isNull(fullOrderDiscount.getItemTaxAmount()) && useTaxIndicator == false)){
+            if (salesTaxInd == true && (ObjectUtils.isNull(fullOrderDiscount.getItemTaxAmount()) && useTaxIndicator == false)) {
                 KualiDecimal discountAmount = fullOrderDiscount.getExtendedPrice();
                 KualiDecimal discountTaxAmount = discountAmount.divide(totalAmount).multiply(totalTaxAmount);
 
@@ -1374,9 +1356,9 @@ public class PurapServiceImpl implements PurapService {
 
                 fullOrderDiscount.setSourceAccountingLines(distributedAccounts);
             }
-        } else if(fullOrderDiscount != null &&
-                 (fullOrderDiscount.getExtendedPrice() == null || fullOrderDiscount.getExtendedPrice().isZero())) {
-           fullOrderDiscount.getSourceAccountingLines().clear();
+        } else if (fullOrderDiscount != null &&
+            (fullOrderDiscount.getExtendedPrice() == null || fullOrderDiscount.getExtendedPrice().isZero())) {
+            fullOrderDiscount.getSourceAccountingLines().clear();
         }
 
         // If tradeIn is not null or zero get proration list for all non misc items and set (if not empty?)
@@ -1392,23 +1374,23 @@ public class PurapServiceImpl implements PurapService {
             //Before generating the summary, lets replace the object code in a cloned accounts collection sothat we can
             //consolidate all the modified object codes during summary generation.
             List<PurApItem> clonedTradeInItems = new ArrayList<PurApItem>();
-            Collection<String> objectSubTypesRequiringQty = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.OBJECT_SUB_TYPES_REQUIRING_QUANTITY) );
-            Collection<String> purchasingObjectSubTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString( KfsParameterConstants.CAPITAL_ASSET_BUILDER_DOCUMENT.class, PurapParameterConstants.PURCHASING_OBJECT_SUB_TYPES) );
+            Collection<String> objectSubTypesRequiringQty = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.OBJECT_SUB_TYPES_REQUIRING_QUANTITY));
+            Collection<String> purchasingObjectSubTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_DOCUMENT.class, PurapParameterConstants.PURCHASING_OBJECT_SUB_TYPES));
 
-             String tradeInCapitalObjectCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", "TRADE_IN_OBJECT_CODE_FOR_CAPITAL_ASSET");
-             String tradeInCapitalLeaseObjCd = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", "TRADE_IN_OBJECT_CODE_FOR_CAPITAL_LEASE");
+            String tradeInCapitalObjectCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", "TRADE_IN_OBJECT_CODE_FOR_CAPITAL_ASSET");
+            String tradeInCapitalLeaseObjCd = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", "TRADE_IN_OBJECT_CODE_FOR_CAPITAL_LEASE");
 
-            for(PurApItem item : purDoc.getTradeInItems()){
-               PurApItem cloneItem = (PurApItem)ObjectUtils.deepCopy(item);
-               List<PurApAccountingLine> sourceAccountingLines = cloneItem.getSourceAccountingLines();
-               for(PurApAccountingLine accountingLine : sourceAccountingLines){
-                  if(objectSubTypesRequiringQty.contains(accountingLine.getObjectCode().getFinancialObjectSubTypeCode())){
-                         accountingLine.setFinancialObjectCode(tradeInCapitalObjectCode);
-                  }else if(purchasingObjectSubTypes.contains(accountingLine.getObjectCode().getFinancialObjectSubTypeCode())){
+            for (PurApItem item : purDoc.getTradeInItems()) {
+                PurApItem cloneItem = (PurApItem) ObjectUtils.deepCopy(item);
+                List<PurApAccountingLine> sourceAccountingLines = cloneItem.getSourceAccountingLines();
+                for (PurApAccountingLine accountingLine : sourceAccountingLines) {
+                    if (objectSubTypesRequiringQty.contains(accountingLine.getObjectCode().getFinancialObjectSubTypeCode())) {
+                        accountingLine.setFinancialObjectCode(tradeInCapitalObjectCode);
+                    } else if (purchasingObjectSubTypes.contains(accountingLine.getObjectCode().getFinancialObjectSubTypeCode())) {
                         accountingLine.setFinancialObjectCode(tradeInCapitalLeaseObjCd);
-                  }
-               }
-               clonedTradeInItems.add(cloneItem);
+                    }
+                }
+                clonedTradeInItems.add(cloneItem);
             }
 
 
@@ -1417,8 +1399,7 @@ public class PurapServiceImpl implements PurapService {
                 if (purDoc.shouldGiveErrorForEmptyAccountsProration()) {
                     GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_SUMMARY_ACCOUNTS_LIST_EMPTY, "trade in");
                 }
-            }
-            else {
+            } else {
                 distributedAccounts = purapAccountingService.generateAccountDistributionForProration(summaryAccounts, totalAmount, 2, tradeIn.getAccountingLineClass());
                 for (PurApAccountingLine distributedAccount : distributedAccounts) {
                     BigDecimal percent = distributedAccount.getAccountLinePercent();
@@ -1439,14 +1420,13 @@ public class PurapServiceImpl implements PurapService {
     }
 
     @Override
-    public void clearAllTaxes(PurchasingAccountsPayableDocument purapDoc){
-        if (purapDoc.getItems() != null){
+    public void clearAllTaxes(PurchasingAccountsPayableDocument purapDoc) {
+        if (purapDoc.getItems() != null) {
             for (int i = 0; i < purapDoc.getItems().size(); i++) {
                 PurApItem item = purapDoc.getItems().get(i);
                 if (purapDoc.isUseTaxIndicator()) {
                     item.setUseTaxItems(new ArrayList<PurApItemUseTax>());
-                }
-                else {
+                } else {
                     item.setItemTaxAmount(null);
                 }
             }
@@ -1457,7 +1437,7 @@ public class PurapServiceImpl implements PurapService {
      * Determines if the item type specified conflict with the Account tax policy.
      *
      * @param purchasingDocument purchasing document to check
-     * @param item item to check if in conflict with tax policy
+     * @param item               item to check if in conflict with tax policy
      * @return true if item is in conflict, false otherwise
      */
     @Override
@@ -1465,15 +1445,15 @@ public class PurapServiceImpl implements PurapService {
         boolean conflict = false;
 
         String deliveryState = getDeliveryState(purchasingDocument);
-        if (item.getItemType().isLineItemIndicator() ) {
-            if ( item.getItemType().isTaxableIndicator() ) {
-                if ( isTaxDisabledForVendor(purchasingDocument)) {
+        if (item.getItemType().isLineItemIndicator()) {
+            if (item.getItemType().isTaxableIndicator()) {
+                if (isTaxDisabledForVendor(purchasingDocument)) {
                     conflict = true;
                 }
             }
             // only check account tax policy if accounting line exists
-            if ( !item.getSourceAccountingLines().isEmpty() ) {
-                if ( !doesAccountAllowCallToTaxService(deliveryState, item)  ) {
+            if (!item.getSourceAccountingLines().isEmpty()) {
+                if (!doesAccountAllowCallToTaxService(deliveryState, item)) {
                     conflict = true;
                 }
             }
@@ -1483,10 +1463,11 @@ public class PurapServiceImpl implements PurapService {
 
     /**
      * Determines if tax is disabled for vendor, in default always returns false
+     *
      * @param purapDocument the PurchasingDocument with a vendor to check
      * @return true if tax is disabled, false if it is not - in foundation KFS, tax is never disabled
      */
-    protected boolean isTaxDisabledForVendor( PurchasingDocument purapDocument ) {
+    protected boolean isTaxDisabledForVendor(PurchasingDocument purapDocument) {
         return false;
     }
 

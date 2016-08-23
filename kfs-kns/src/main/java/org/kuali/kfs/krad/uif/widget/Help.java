@@ -21,14 +21,12 @@ package org.kuali.kfs.krad.uif.widget;
 /**
  * This is a description of what this class does - jkneal don't forget to fill
  * this in.
- *
- *
  */
 public class Help extends WidgetBase {
-	private static final long serialVersionUID = -1514436681476297241L;
+    private static final long serialVersionUID = -1514436681476297241L;
 
-	public Help() {
+    public Help() {
 
-	}
+    }
 
 }

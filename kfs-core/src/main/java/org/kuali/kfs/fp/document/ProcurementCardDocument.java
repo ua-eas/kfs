@@ -19,16 +19,15 @@
 
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.ProcurementCardHolder;
 import org.kuali.kfs.fp.businessobject.ProcurementCardSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
@@ -39,9 +38,10 @@ import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This is the Procurement Card Document Class. The procurement cards distributes expenses from clearing accounts. It is a two-sided
@@ -106,7 +106,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
     public void removeTargetAccountingLine(int index) {
         ProcurementCardTargetAccountingLine line = (ProcurementCardTargetAccountingLine) getTargetAccountingLines().get(index);
 
-        for (Iterator iter = transactionEntries.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactionEntries.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
             if (transactionEntry.getFinancialDocumentTransactionLineNumber().equals(line.getFinancialDocumentTransactionLineNumber())) {
                 transactionEntry.getTargetAccountingLines().remove(line);
@@ -126,7 +126,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
 
         line.setSequenceNumber(this.getNextSourceLineNumber());
 
-        for (Iterator iter = transactionEntries.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactionEntries.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
             if (transactionEntry.getFinancialDocumentTransactionLineNumber().equals(line.getFinancialDocumentTransactionLineNumber())) {
                 transactionEntry.getSourceAccountingLines().add(line);
@@ -147,7 +147,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
 
         line.setSequenceNumber(this.getNextTargetLineNumber());
 
-        for (Iterator iter = transactionEntries.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactionEntries.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
             if (transactionEntry.getFinancialDocumentTransactionLineNumber().equals(line.getFinancialDocumentTransactionLineNumber())) {
                 transactionEntry.getTargetAccountingLines().add(line);
@@ -166,9 +166,9 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
     public List getSourceAccountingLines() {
         List sourceAccountingLines = new ArrayList();
 
-        for (Iterator iter = transactionEntries.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactionEntries.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
-            for (Iterator iterator = transactionEntry.getSourceAccountingLines().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = transactionEntry.getSourceAccountingLines().iterator(); iterator.hasNext(); ) {
                 SourceAccountingLine sourceLine = (SourceAccountingLine) iterator.next();
                 sourceAccountingLines.add(sourceLine);
             }
@@ -186,9 +186,9 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
     public List getTargetAccountingLines() {
         List targetAccountingLines = new ArrayList();
 
-        for (Iterator iter = transactionEntries.iterator(); iter.hasNext();) {
+        for (Iterator iter = transactionEntries.iterator(); iter.hasNext(); ) {
             ProcurementCardTransactionDetail transactionEntry = (ProcurementCardTransactionDetail) iter.next();
-            for (Iterator iterator = transactionEntry.getTargetAccountingLines().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = transactionEntry.getTargetAccountingLines().iterator(); iterator.hasNext(); ) {
                 TargetAccountingLine targetLine = (TargetAccountingLine) iterator.next();
                 targetAccountingLines.add(targetLine);
             }
@@ -229,14 +229,14 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
      * On procurement card documents, positive source amounts are credits, negative source amounts are debits.
      *
      * @param transactionalDocument The document the accounting line being checked is located in.
-     * @param accountingLine The accounting line being analyzed.
+     * @param accountingLine        The accounting line being analyzed.
      * @return True if the accounting line given is a debit accounting line, false otherwise.
      * @throws Throws an IllegalStateException if one of the following rules are violated: the accounting line amount is zero or the
-     *         accounting line is not an expense or income accounting line.
+     *                accounting line is not an expense or income accounting line.
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#isDebit(FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase.IsDebitUtils#isDebitConsideringSection(AccountingDocumentRuleBase,
-     *      AccountingDocument, AccountingLine)
+     * AccountingDocument, AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) throws IllegalStateException {
@@ -275,7 +275,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
      */
     @Override
     public boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
-        if (StringUtils.equals(nodeName, KFSConstants.FinancialProcessingWorkflowConstants.IS_DOCUMENT_AUTO_APPROVED)){
+        if (StringUtils.equals(nodeName, KFSConstants.FinancialProcessingWorkflowConstants.IS_DOCUMENT_AUTO_APPROVED)) {
             return isAutoApprovedIndicator();
         }
         throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
@@ -286,8 +286,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
      *
      * @param value- the new value to set
      */
-    public void setAutoApprovedIndicator(boolean value)
-    {
+    public void setAutoApprovedIndicator(boolean value) {
         autoApprovedIndicator = value;
     }
 
@@ -296,8 +295,7 @@ public class ProcurementCardDocument extends CapitalAccountingLinesDocumentBase 
      *
      * @return the value of autoApprovedIndicator
      */
-    public boolean isAutoApprovedIndicator()
-    {
+    public boolean isAutoApprovedIndicator() {
         return autoApprovedIndicator;
     }
 

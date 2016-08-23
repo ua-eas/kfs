@@ -19,9 +19,9 @@
 package org.kuali.kfs.fp.businessobject.defaultvalue;
 
 import org.kuali.kfs.fp.document.service.CashReceiptService;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Finds the campus of the currently logged in user and uses that as the campus code
@@ -31,6 +31,7 @@ public class CashDrawerCampusDefaultValueFinder implements ValueFinder {
     /**
      * Uses CashReceiptService#getCashReceiptVerificationUnitForUser to find the current user's
      * cash receipt campus and returns that value as the cash drawer campus.
+     *
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {

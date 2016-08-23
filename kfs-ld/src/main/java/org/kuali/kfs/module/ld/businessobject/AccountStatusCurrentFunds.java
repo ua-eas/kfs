@@ -53,6 +53,7 @@ public class AccountStatusCurrentFunds extends LedgerBalance {
 
     /**
      * Gets the person name.
+     *
      * @return the person name
      */
     public String getName() {

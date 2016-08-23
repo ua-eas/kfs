@@ -20,9 +20,9 @@
 package org.kuali.kfs.vnd.businessobject;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * An association between a <code>Campus</code> and a <code>VendorAddress</code> to indicate that the Address is the default one
@@ -124,8 +124,7 @@ public class VendorDefaultAddress extends PersistableBusinessObjectBase implemen
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorDefaultAddress)) {
 
             return false;
-        }
-        else {
+        } else {
             VendorDefaultAddress vda = (VendorDefaultAddress) toCompare;
 
             return new EqualsBuilder().append(this.getVendorDefaultAddressGeneratedIdentifier(), vda.getVendorDefaultAddressGeneratedIdentifier()).append(this.getVendorAddressGeneratedIdentifier(), vda.getVendorAddressGeneratedIdentifier()).append(this.getVendorCampusCode(), vda.getVendorCampusCode()).isEquals();

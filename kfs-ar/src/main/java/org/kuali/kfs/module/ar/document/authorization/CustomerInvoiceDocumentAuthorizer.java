@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.Map;
 
 public class CustomerInvoiceDocumentAuthorizer extends AccountingDocumentAuthorizerBase {
 

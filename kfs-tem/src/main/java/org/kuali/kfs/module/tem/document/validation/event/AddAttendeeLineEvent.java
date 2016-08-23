@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Event triggered when an {@link OtherExpense} instance or an {@link ActualExpense} instance

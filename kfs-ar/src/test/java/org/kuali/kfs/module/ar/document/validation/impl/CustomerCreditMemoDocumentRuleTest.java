@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -37,8 +34,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
 public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
@@ -49,7 +49,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
     private CustomerCreditMemoDocument document;
 
     @Override
-    protected  void setUp() throws Exception {
+    protected void setUp() throws Exception {
         super.setUp();
         rule = new CustomerCreditMemoDocumentRule();
         document = new CustomerCreditMemoDocument();
@@ -66,47 +66,47 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
      *  This method tests if isQtyOrItemAmountEntered returns an empty string if customer doesn't enter any information
      */
     public void testIsQtyOrItemAmountEntered_EmptyString_True() {
-       CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
+        CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
 
-       assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(""));
+        assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(""));
     }
 
     /*
      *  This method tests if isQtyOrItemAmountEntered returns correct key if customer enteres only quantity
      */
-   public void testIsQtyOrItemAmountEntered_Qty_True() {
-       CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
-       detail.setCreditMemoItemQuantity(new BigDecimal(1));
+    public void testIsQtyOrItemAmountEntered_Qty_True() {
+        CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
+        detail.setCreditMemoItemQuantity(new BigDecimal(1));
 
-       assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_QUANTITY));
+        assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_QUANTITY));
     }
 
     /*
      *  This method tests if isQtyOrItemAmountEntered returns correct key if customer enteres only amount
      */
     public void testIsQtyOrItemAmountEntered_Amount_True() {
-       CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
-       detail.setCreditMemoItemTotalAmount(new KualiDecimal(1));
+        CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
+        detail.setCreditMemoItemTotalAmount(new KualiDecimal(1));
 
-       assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_TOTAL_AMOUNT));
+        assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_TOTAL_AMOUNT));
     }
 
     /*
      *  This method tests if isQtyOrItemAmountEntered returns correct key if customer enteres both amount and quantity
      */
     public void testIsQtyOrItemAmountEntered_Both_True() {
-       CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
+        CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
 
-       detail.setCreditMemoItemTotalAmount(new KualiDecimal(1));
-       detail.setCreditMemoItemQuantity(new BigDecimal(1));
+        detail.setCreditMemoItemTotalAmount(new KualiDecimal(1));
+        detail.setCreditMemoItemQuantity(new BigDecimal(1));
 
-       assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.BOTH_QUANTITY_AND_ITEM_TOTAL_AMOUNT_ENTERED));
+        assertTrue(rule.isQtyOrItemAmountEntered(detail).equals(ArConstants.CustomerCreditMemoConstants.BOTH_QUANTITY_AND_ITEM_TOTAL_AMOUNT_ENTERED));
     }
 
     /*
      *  This method tests if isValueGreaterThanZero returns true if passed a valid value
      */
-   public void testIsValueGreaterThanZero_True() {
+    public void testIsValueGreaterThanZero_True() {
         assertTrue(rule.isValueGreaterThanZero(BigDecimal.ONE));
     }
 
@@ -134,7 +134,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
     /*
      *  This method tests if isCustomerCreditMemoItemAmountLessThanEqualToInvoiceOpenItemAmount returns true if passed correct values (invoiceOpenItemAmount = creditMemoItemAmount)
      */
-   public void testIsCustomerCreditMemoItemAmountGreaterThanInvoiceOpenItemAmount_Equal_True() {
+    public void testIsCustomerCreditMemoItemAmountGreaterThanInvoiceOpenItemAmount_Equal_True() {
         CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
         detail.setInvoiceOpenItemAmount(new KualiDecimal(2));
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(2));
@@ -145,7 +145,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
     /*
      *  This method tests if isCustomerCreditMemoItemAmountLessThanEqualToInvoiceOpenItemAmount returns true if passed correct values (creditMemoItemAmount < invoiceOpenItemAmount)
      */
-   public void testIsCustomerCreditMemoItemAmountGreaterThanInvoiceOpenItemAmount_Less_True() {
+    public void testIsCustomerCreditMemoItemAmountGreaterThanInvoiceOpenItemAmount_Less_True() {
         CustomerCreditMemoDetail detail = new CustomerCreditMemoDetail();
         detail.setInvoiceOpenItemAmount(new KualiDecimal(2));
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(1));
@@ -208,7 +208,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(4));
         detail.setCreditMemoItemQuantity(new BigDecimal(2));
 
-        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail,new BigDecimal(2)));
+        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail, new BigDecimal(2)));
     }
 
     /*
@@ -219,7 +219,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(50));
         detail.setCreditMemoItemQuantity(new BigDecimal(10)); // should be 5
 
-        assertFalse(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail,new BigDecimal(10)));
+        assertFalse(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail, new BigDecimal(10)));
     }
 
     public void testCheckIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid_JustAboveAllowedDeviation() {
@@ -227,7 +227,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(50));
         detail.setCreditMemoItemQuantity(new BigDecimal(5.6)); // should be 5
 
-        assertFalse(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail,new BigDecimal(10)));
+        assertFalse(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail, new BigDecimal(10)));
     }
 
     public void testCheckIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid_ExactlyAllowedDeviation() {
@@ -235,7 +235,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(50));
         detail.setCreditMemoItemQuantity(new BigDecimal(5.5)); // should be 5
 
-        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail,new BigDecimal(10)));
+        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail, new BigDecimal(10)));
     }
 
     public void testCheckIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid_JustBelowAllowedDeviation() {
@@ -243,7 +243,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         detail.setCreditMemoItemTotalAmount(new KualiDecimal(50));
         detail.setCreditMemoItemQuantity(new BigDecimal(5.4)); // should be 5
 
-        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail,new BigDecimal(10)));
+        assertTrue(rule.checkIfCustomerCreditMemoQtyAndCustomerCreditMemoItemAmountValid(detail, new BigDecimal(10)));
     }
 
     /*
@@ -260,7 +260,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
 
         String documentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER,
             new CustomerInvoiceDetailFixture[]
-            {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
+                {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
             null);
 
         assertTrue(rule.checkIfInvoiceNumberIsFinal(documentNumber));
@@ -272,7 +272,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
     public void testCheckIfThereIsNoAnotherCRMInRouteForTheInvoice_True() throws WorkflowException {
         String documentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER,
             new CustomerInvoiceDetailFixture[]
-            {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
+                {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
             null);
         assertTrue(rule.checkIfThereIsNoAnotherCRMInRouteForTheInvoice(documentNumber));
     }
@@ -287,7 +287,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         // create a new invoice
         CustomerInvoiceDocument invoice = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocumentAndReturnIt(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER,
             new CustomerInvoiceDetailFixture[]
-            {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
+                {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
             null);
 
         // create a new credit memo for the invoice and save it
@@ -297,7 +297,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
 
         try {
             Document savedDocument = SpringContext.getBean(DocumentService.class).routeDocument(document, "Routing from Unit Test", null);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOG.error(e.getMessage());
         }
         assertFalse(rule.checkIfThereIsNoAnotherCRMInRouteForTheInvoice(invoiceNumber));
@@ -309,7 +309,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
      * @param customer invoice document
      * @return
      */
-    public CustomerCreditMemoDocument createCustomerCreditMemoDocument(CustomerInvoiceDocument invoice){
+    public CustomerCreditMemoDocument createCustomerCreditMemoDocument(CustomerInvoiceDocument invoice) {
 
         CustomerCreditMemoDetail customerCreditMemoDetail;
         CustomerCreditMemoDocument customerCreditMemoDocument = null;
@@ -321,8 +321,7 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         try {
             // the document header is created and set here
             customerCreditMemoDocument = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), CustomerCreditMemoDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 
@@ -335,24 +334,24 @@ public class CustomerCreditMemoDocumentRuleTest extends KualiTestBase {
         }
 
         for (CustomerInvoiceDetail customerInvoiceDetail : customerInvoiceDetails) {
-                customerCreditMemoDetail = new CustomerCreditMemoDetail();
-                customerCreditMemoDetail.setDocumentNumber(customerCreditMemoDocument.getDocumentNumber());
+            customerCreditMemoDetail = new CustomerCreditMemoDetail();
+            customerCreditMemoDetail.setDocumentNumber(customerCreditMemoDocument.getDocumentNumber());
 
-                invItemTaxAmount = customerInvoiceDetail.getInvoiceItemTaxAmount();
-                if (invItemTaxAmount == null) {
-                    invItemTaxAmount = KualiDecimal.ZERO;
-                }
-                customerCreditMemoDetail.setCreditMemoItemTaxAmount(invItemTaxAmount.divide(new KualiDecimal(2)));
+            invItemTaxAmount = customerInvoiceDetail.getInvoiceItemTaxAmount();
+            if (invItemTaxAmount == null) {
+                invItemTaxAmount = KualiDecimal.ZERO;
+            }
+            customerCreditMemoDetail.setCreditMemoItemTaxAmount(invItemTaxAmount.divide(new KualiDecimal(2)));
 
-                customerCreditMemoDetail.setReferenceInvoiceItemNumber(customerInvoiceDetail.getSequenceNumber());
-                itemQuantity = customerInvoiceDetail.getInvoiceItemQuantity().divide(new BigDecimal(2));
-                customerCreditMemoDetail.setCreditMemoItemQuantity(itemQuantity);
+            customerCreditMemoDetail.setReferenceInvoiceItemNumber(customerInvoiceDetail.getSequenceNumber());
+            itemQuantity = customerInvoiceDetail.getInvoiceItemQuantity().divide(new BigDecimal(2));
+            customerCreditMemoDetail.setCreditMemoItemQuantity(itemQuantity);
 
-                itemAmount = customerInvoiceDetail.getAmount().divide(new KualiDecimal(2));
-                customerCreditMemoDetail.setCreditMemoItemTotalAmount(itemAmount);
-                customerCreditMemoDetail.setFinancialDocumentReferenceInvoiceNumber(invoice.getDocumentNumber());
-                customerCreditMemoDetail.setCustomerInvoiceDetail(customerInvoiceDetail);
-                customerCreditMemoDocument.getCreditMemoDetails().add(customerCreditMemoDetail);
+            itemAmount = customerInvoiceDetail.getAmount().divide(new KualiDecimal(2));
+            customerCreditMemoDetail.setCreditMemoItemTotalAmount(itemAmount);
+            customerCreditMemoDetail.setFinancialDocumentReferenceInvoiceNumber(invoice.getDocumentNumber());
+            customerCreditMemoDetail.setCustomerInvoiceDetail(customerInvoiceDetail);
+            customerCreditMemoDocument.getCreditMemoDetails().add(customerCreditMemoDetail);
         }
         return customerCreditMemoDocument;
     }

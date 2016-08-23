@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
+import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.tem.businessobject.MileageRate;
+import org.kuali.kfs.module.tem.document.service.CachingMileageRateService;
+import org.kuali.kfs.module.tem.document.service.MileageRateService;
+import org.kuali.kfs.sys.util.KfsDateUtils;
+
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.time.DateUtils;
-import org.kuali.kfs.module.tem.businessobject.MileageRate;
-import org.kuali.kfs.module.tem.document.service.CachingMileageRateService;
-import org.kuali.kfs.module.tem.document.service.MileageRateService;
-import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public class MileageRateServiceImpl implements MileageRateService {
     private CachingMileageRateService cachingMileageRateService;
@@ -37,18 +37,18 @@ public class MileageRateServiceImpl implements MileageRateService {
 
     @Override
     public MileageRate getMileageRateByExpenseTypeCode(MileageRate mileageRate) {
-       final Date fromDate = mileageRate.getActiveFromDate();
-       final Date toDate = mileageRate.getActiveToDate();
-       Map<String,Object> criteria = new HashMap<String,Object>();
-       criteria.put("expenseTypeCode", mileageRate.getExpenseTypeCode());
-       List<MileageRate>  mileageRates = (List<MileageRate>) businessObjectService.findMatching(MileageRate.class, criteria);
-       for (MileageRate rate : mileageRates) {
-           if(!(rate.getId().equals(mileageRate.getId())) && (DateUtils.truncatedCompareTo(fromDate, rate.getActiveToDate(), Calendar.DATE) <= 0  && DateUtils.truncatedCompareTo(toDate, rate.getActiveFromDate() , Calendar.DATE) >= 0)) {
-               return rate;
-           }
-       }
+        final Date fromDate = mileageRate.getActiveFromDate();
+        final Date toDate = mileageRate.getActiveToDate();
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put("expenseTypeCode", mileageRate.getExpenseTypeCode());
+        List<MileageRate> mileageRates = (List<MileageRate>) businessObjectService.findMatching(MileageRate.class, criteria);
+        for (MileageRate rate : mileageRates) {
+            if (!(rate.getId().equals(mileageRate.getId())) && (DateUtils.truncatedCompareTo(fromDate, rate.getActiveToDate(), Calendar.DATE) <= 0 && DateUtils.truncatedCompareTo(toDate, rate.getActiveFromDate(), Calendar.DATE) >= 0)) {
+                return rate;
+            }
+        }
 
-       return null;
+        return null;
     }
 
     @Override

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.businessobject.Milestone;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -50,14 +50,16 @@ public interface ContractsGrantsBillingUtilityService {
 
     /**
      * Places a value into a Map, but if that value is null, it places an empty String into the Map instead
-     * @param map the Map to place the key into
-     * @param key the key
+     *
+     * @param map   the Map to place the key into
+     * @param key   the key
      * @param value the value
      */
-    public void putValueOrEmptyString(Map<String,String> map, String key, String value);
+    public void putValueOrEmptyString(Map<String, String> map, String key, String value);
 
     /**
      * Retrieves all active bills associated with the given proposal number
+     *
      * @param proposalNumber the proposal number to lookup active bills for
      * @return a List of active bills, or an empty List of naught could be found
      */
@@ -65,6 +67,7 @@ public interface ContractsGrantsBillingUtilityService {
 
     /**
      * Retrieves all active milestones associated with the given proposal number
+     *
      * @param proposalNumber the proposal number to retrieve milestones for
      * @return a List of active milestones, or an empty List if BusinessObjectService couldn't turn any up
      */

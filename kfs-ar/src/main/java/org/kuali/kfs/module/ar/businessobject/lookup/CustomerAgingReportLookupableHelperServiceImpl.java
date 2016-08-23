@@ -18,18 +18,20 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAgingReportDetail;
@@ -45,20 +47,18 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 import org.springframework.beans.factory.InitializingBean;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl implements InitializingBean {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerAgingReportLookupableHelperServiceImpl.class);
@@ -99,10 +99,10 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
      *
      * @param fieldValues - Map containing prop name keys and search values
      * @return a List of found business objects
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the results by adding to
      * search results from list of CustomerAgingReportDetail records.
-     *
+     * <p>
      * Fields are in data dictionary for bo CustomerAgingReportDetail.
      */
     @Override
@@ -128,10 +128,9 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
         Date today = getDateTimeService().getCurrentDate();
         try {
             reportRunDate = getDateTimeService().convertToDate(fieldValues.get(ArPropertyConstants.CustomerAgingReportFields.REPORT_RUN_DATE));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             reportRunDate = today;
-            LOG.error("problem during CustomerAgingReportLookupableHelperServiceImpl.getSearchResults()",e);
+            LOG.error("problem during CustomerAgingReportLookupableHelperServiceImpl.getSearchResults()", e);
         }
         Date cutoffdate30 = DateUtils.addDays(reportRunDate, -30);
         Date cutoffdate31 = DateUtils.addDays(reportRunDate, -31);
@@ -194,8 +193,7 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
             KualiDecimal writeOffAmt = getCustomerAgingReportService().findWriteOffAmountByCustomerNumber(detail.getCustomerNumber());
             if (ObjectUtils.isNotNull(writeOffAmt)) {
                 totalWriteOffs = totalWriteOffs.add(writeOffAmt);
-            }
-            else {
+            } else {
                 writeOffAmt = KualiDecimal.ZERO;
             }
             detail.setTotalWriteOff(writeOffAmt);
@@ -259,10 +257,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
      * @param kualiLookupable
      * @param resultTable
      * @param bounded
-     * @return
-     *
-     * KRAD Conversion: Lookupable performs customization of the display results.
-     *
+     * @return KRAD Conversion: Lookupable performs customization of the display results.
+     * <p>
      * No use of data dictionary.
      */
     @Override
@@ -297,7 +293,7 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
                     // set comparator and formatter based on property type
                     Class propClass = propertyTypes.get(col.getPropertyName());
                     if (propClass == null) {
-                        propClass = ObjectUtils.getPropertyType(element, col.getPropertyName(),    getPersistenceStructureService());
+                        propClass = ObjectUtils.getPropertyType(element, col.getPropertyName(), getPersistenceStructureService());
                         if (propClass != null) {
                             propertyTypes.put(col.getPropertyName(), propClass);
                         }
@@ -400,8 +396,7 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
 
         if (StringUtils.equals(columnTitle, customerNumberLabel)) {
             columnTitle = KFSConstants.CustomerOpenItemReport.ALL_DAYS;
-        }
-        else {
+        } else {
             String startDate = StringUtils.EMPTY;
             String endDate = StringUtils.EMPTY;
 
@@ -420,7 +415,7 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
             } else if (StringUtils.equals(columnTitle, cutoffdateSYSPRplus1orMorelabel)) {
                 endDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -1 - Integer.parseInt(nbrDaysForLastBucket))).toString();
                 columnTitle = Integer.toString((Integer.parseInt(nbrDaysForLastBucket)) + 1) + " days and older";
-            }else {
+            } else {
                 endDate = dateFormatter.format(reportRunDate).toString();
                 columnTitle = KFSConstants.CustomerOpenItemReport.ALL_DAYS;
             }
@@ -533,8 +528,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -554,8 +549,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -575,8 +570,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -596,8 +591,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -617,8 +612,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -638,8 +633,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -659,8 +654,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -680,8 +675,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -701,8 +696,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -722,8 +717,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -743,8 +738,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -764,8 +759,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -785,8 +780,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -806,8 +801,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -827,8 +822,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param agingReportDao
      * @param begin
      * @param end
@@ -848,8 +843,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param knownCustomers
      * @param customer
      * @return
@@ -866,8 +861,8 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
     }
 
     /**
-     *
      * This method...
+     *
      * @param amountMap
      * @param customer
      * @return
@@ -878,6 +873,7 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
 
     /**
      * Sets properties which are parameter based - this is just the easiest place to set their values
+     *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     @Override

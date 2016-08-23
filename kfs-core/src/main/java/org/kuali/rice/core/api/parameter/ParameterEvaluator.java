@@ -28,7 +28,7 @@ public interface ParameterEvaluator extends Serializable {
      * This method determines whether the constrainedValue specified when the ParameterEvaluator was created matches the parameter.
      *
      * @return boolean indicating whether the constrained value adheres to the restriction specified by the combination of the
-     *         parameter constraint and the parameter value
+     * parameter constraint and the parameter value
      */
     public boolean evaluationSucceeds();
 

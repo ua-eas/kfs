@@ -21,16 +21,16 @@ package org.kuali.kfs.kns.rule;
 import org.junit.Test;
 import org.kuali.kfs.kns.rule.event.PromptBeforeValidationEvent;
 import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase.ContextSession;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase.ContextSession;
 
 import static org.junit.Assert.assertEquals;
 
 public class PromptBeforeValidationContinuationBaseTest {
 
     private class TestPreRules extends PromptBeforeValidationBase {
-    	@Override
+        @Override
         public boolean doPrompts(Document document) {
             MaintenanceDocument maintenanceDocument = (MaintenanceDocument) document;
             return false;
@@ -38,7 +38,8 @@ public class PromptBeforeValidationContinuationBaseTest {
 
     }
 
-    @Test public void test() {
+    @Test
+    public void test() {
 
         TestPreRules preRules = new TestPreRules();
 

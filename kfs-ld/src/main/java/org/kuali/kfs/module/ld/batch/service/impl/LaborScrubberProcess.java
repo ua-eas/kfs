@@ -18,22 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang.StringUtils;
@@ -42,8 +26,8 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.ObjectHelper;
 import org.kuali.kfs.gl.batch.BatchSortUtil;
 import org.kuali.kfs.gl.batch.ScrubberStep;
 import org.kuali.kfs.gl.businessobject.DemergerReportData;
@@ -58,6 +42,8 @@ import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.gl.service.PreScrubberService;
 import org.kuali.kfs.gl.service.ScrubberReportData;
 import org.kuali.kfs.gl.service.ScrubberValidator;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.LaborScrubberSortComparator;
 import org.kuali.kfs.module.ld.batch.LaborScrubberStep;
@@ -84,9 +70,22 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * This class has the logic for the scrubber. It is required because the scrubber process needs instance variables. Instance
@@ -238,22 +237,19 @@ public class LaborScrubberProcess {
         try {
             inputEntries = FileUtils.lineIterator(new File(unsortedFile));
             preScrubberReportData = laborPreScrubberService.preprocessOriginEntries(inputEntries, prescrubOutput);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("Error encountered trying to prescrub GLCP/LLCP document", e1);
             throw new RuntimeException("Error encountered trying to prescrub GLCP/LLCP document", e1);
-        }
-        finally {
+        } finally {
             LineIterator.closeQuietly(inputEntries);
         }
         if (preScrubberReportData != null) {
             laborPreScrubberReportWriterService.setDocumentNumber(documentNumber);
-            ((WrappingBatchService)laborPreScrubberReportWriterService).initialize();
+            ((WrappingBatchService) laborPreScrubberReportWriterService).initialize();
             try {
                 new PreScrubberReport().generateReport(preScrubberReportData, laborPreScrubberReportWriterService);
-            }
-            finally {
-                ((WrappingBatchService)laborPreScrubberReportWriterService).destroy();
+            } finally {
+                ((WrappingBatchService) laborPreScrubberReportWriterService).destroy();
             }
         }
         BatchSortUtil.sortTextFileWithFields(prescrubOutput, inputFile, new LaborScrubberSortComparator());
@@ -269,8 +265,7 @@ public class LaborScrubberProcess {
             deleteValidFile.delete();
             deleteErrorFile.delete();
             deleteExpiredFile.delete();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("scrubGroupReportOnly delete output files process Stopped: " + e.getMessage());
             throw new RuntimeException("scrubGroupReportOnly delete output files process Stopped: " + e.getMessage(), e);
         }
@@ -323,12 +318,10 @@ public class LaborScrubberProcess {
             // Run the reports
             if (reportOnlyMode) {
                 generateScrubberTransactionsOnline();
-            }
-            else {
+            } else {
                 generateScrubberBadBalanceTypeListingReport();
             }
-        }
-        finally {
+        } finally {
             ((WrappingBatchService) laborMainReportWriterService).destroy();
             ((WrappingBatchService) laborLedgerReportWriterService).destroy();
             if (reportOnlyMode) {
@@ -390,16 +383,14 @@ public class LaborScrubberProcess {
         PrintStream OUTPUT_EXP_FILE_ps;
         try {
             INPUT_GLE_FILE = new FileReader(inputFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("Unable to find input file: " + inputFile, e);
         }
         try {
             OUTPUT_GLE_FILE_ps = new PrintStream(validFile);
             OUTPUT_ERR_FILE_ps = new PrintStream(errorFile);
             OUTPUT_EXP_FILE_ps = new PrintStream(expiredFile);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Problem opening output files", e);
         }
 
@@ -450,8 +441,7 @@ public class LaborScrubberProcess {
 
                         try {
                             tmperrors.addAll(scrubberValidator.validateTransaction(unscrubbedEntry, scrubbedEntry, universityRunDate, laborIndicator, laborAccountingCycleCachingService));
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             transactionErrors.add(new Message(e.toString() + " occurred for this record.", Message.TYPE_FATAL));
                             saveValidTransaction = false;
                         }
@@ -482,8 +472,7 @@ public class LaborScrubberProcess {
                             if (scrubbedEntryBalanceType.isFinancialOffsetGenerationIndicator() && offsetFiscalPeriods.evaluationSucceeds()) {
                                 if (scrubbedEntry.isDebit()) {
                                     scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().add(transactionAmount));
-                                }
-                                else {
+                                } else {
                                     scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().subtract(transactionAmount));
                                 }
                             }
@@ -502,8 +491,7 @@ public class LaborScrubberProcess {
                             }
 
                             lastEntry = scrubbedEntry;
-                        }
-                        else {
+                        } else {
                             // Error transaction
                             saveErrorTransaction = true;
                             this.laborMainReportWriterService.writeError(unscrubbedEntry, transactionErrors);
@@ -527,8 +515,7 @@ public class LaborScrubberProcess {
                     }
                     currentLine = INPUT_GLE_FILE_br.readLine();
 
-                }
-                catch (IOException ioe) {
+                } catch (IOException ioe) {
                     // catch here again, it should be from postSingleEntryIntoLaborLedger
                     LOG.error("processGroup() stopped due to: " + ioe.getMessage() + " on line number : " + loadedCount, ioe);
                     throw new RuntimeException("processGroup() stopped due to: " + ioe.getMessage() + " on line number : " + loadedCount, ioe);
@@ -547,8 +534,7 @@ public class LaborScrubberProcess {
             this.laborMainReportWriterService.writeStatisticLine("EXPIRED ACCOUNTS FOUND               %,9d", scrubberReport.getNumberOfExpiredAccountsFound());
 
             laborLedgerSummaryReport.writeReport(this.laborLedgerReportWriterService);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             LOG.error("processGroup() stopped due to: " + ioe.getMessage(), ioe);
             throw new RuntimeException("processGroup() stopped due to: " + ioe.getMessage(), ioe);
         }
@@ -556,7 +542,7 @@ public class LaborScrubberProcess {
 
 
     protected boolean isFatal(List<Message> errors) {
-        for (Iterator<Message> iter = errors.iterator(); iter.hasNext();) {
+        for (Iterator<Message> iter = errors.iterator(); iter.hasNext(); ) {
             Message element = iter.next();
             if (element.getType() == Message.TYPE_FATAL) {
                 return true;
@@ -613,8 +599,7 @@ public class LaborScrubberProcess {
         if (StringUtils.isBlank(cutoffTime)) {
             LOG.debug("Cutoff time is blank");
             unsetCutoffTimeForPreviousDay();
-        }
-        else {
+        } else {
             cutoffTime = cutoffTime.trim();
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Cutoff time value found: " + cutoffTime);
@@ -634,9 +619,8 @@ public class LaborScrubberProcess {
                     throw new IllegalArgumentException("Cutoff time must be in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.  In particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59");
                 }
                 setCutoffTimeForPreviousDay(hourInt, minuteInt, secondInt);
-            }
-            catch (Exception e) {
-                throw new IllegalArgumentException("Cutoff time should either be null, or in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.",e);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Cutoff time should either be null, or in the format \"HH:mm:ss\", where HH, mm, ss are defined in the java.text.SimpleDateFormat class.", e);
             }
         }
     }
@@ -762,7 +746,7 @@ public class LaborScrubberProcess {
         runDate = calculateRunDate(dateTimeService.getCurrentDate());
 
         // Without this step, the job fails with Optimistic Lock Exceptions
-      //  persistenceService.clearCache();
+        //  persistenceService.clearCache();
 
         DemergerReportData demergerReport = new DemergerReportData();
 
@@ -776,8 +760,8 @@ public class LaborScrubberProcess {
         // pull the entry with the error and don't demerge anything else.
         //
         Collection<String> demergeDocumentTypes = parameterService.getParameterValuesAsString(
-                LaborScrubberStep.class,
-                LdParameterConstants.DEMERGE_DOCUMENT_TYPES);
+            LaborScrubberStep.class,
+            LdParameterConstants.DEMERGE_DOCUMENT_TYPES);
 
         // Read all the documents from the error group and move all non-generated
         // transactions for these documents from the valid group into the error group
@@ -796,16 +780,14 @@ public class LaborScrubberProcess {
         try {
             INPUT_GLE_FILE = new FileReader(validOutputFilename);
             INPUT_ERR_FILE = new FileReader(errorOutputFilename);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("Unable to open input files", e);
         }
         try {
             OUTPUT_DEMERGER_GLE_FILE_ps = new PrintStream(demergerValidOutputFilename);
             OUTPUT_DEMERGER_ERR_FILE_ps = new PrintStream(demergerErrorOutputFilename);
-        }
-        catch (IOException e) {
-            throw new RuntimeException("Unable to open output files",e);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to open output files", e);
         }
 
         Collection<LaborOriginEntry> validEntryCollection = new ArrayList<LaborOriginEntry>();
@@ -862,14 +844,12 @@ public class LaborScrubberProcess {
                         validRead++;
                         validSaved++;
 
-                    }
-                    else if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) > 0) {
+                    } else if (compareStringFromValidEntry.compareTo(compareStringFromErrorEntry) > 0) {
                         createOutputEntry(currentErrorLine, OUTPUT_DEMERGER_ERR_FILE_ps);
                         currentErrorLine = INPUT_ERR_FILE_br.readLine();
                         errorRead++;
                         errorSaved++;
-                    }
-                    else {
+                    } else {
                         createOutputEntry(currentValidLine, OUTPUT_DEMERGER_ERR_FILE_ps);
                         currentValidLine = INPUT_GLE_FILE_br.readLine();
                         validRead++;
@@ -884,19 +864,16 @@ public class LaborScrubberProcess {
                 errorSaved++;
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("performDemerger() s" + "topped due to: " + e.getMessage(), e);
             throw new RuntimeException("performDemerger() stopped due to: " + e.getMessage(), e);
-        }
-        finally {
+        } finally {
 
             try {
                 if (INPUT_GLE_FILE_br != null) {
                     INPUT_GLE_FILE_br.close();
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("performDemerger() s" + "Failed to close resources due to: " + e.getMessage(), e);
             }
 
@@ -904,8 +881,7 @@ public class LaborScrubberProcess {
                 if (INPUT_ERR_FILE_br != null) {
                     INPUT_ERR_FILE_br.close();
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("performDemerger() s" + "Failed to close resources due to: " + e.getMessage(), e);
             }
 
@@ -930,18 +906,16 @@ public class LaborScrubberProcess {
     protected void createOutputEntry(LaborOriginEntry entry, PrintStream ps) throws IOException {
         try {
             ps.printf("%s\n", entry.getLine());
-        }
-        catch (Exception e) {
-            throw new IOException(e.toString(),e);
+        } catch (Exception e) {
+            throw new IOException(e.toString(), e);
         }
     }
 
     protected void createOutputEntry(String line, PrintStream ps) throws IOException {
         try {
             ps.printf("%s\n", line);
-        }
-        catch (Exception e) {
-            throw new IOException(e.toString(),e);
+        } catch (Exception e) {
+            throw new IOException(e.toString(), e);
         }
     }
 
@@ -964,8 +938,7 @@ public class LaborScrubberProcess {
 
             ((WrappingBatchService) laborGeneratedTransactionsReportWriterService).initialize();
             new TransactionListingReport().generateReport(laborGeneratedTransactionsReportWriterService, generatedTransactions);
-        }
-        finally {
+        } finally {
             ((WrappingBatchService) laborGeneratedTransactionsReportWriterService).destroy();
         }
     }
@@ -985,8 +958,7 @@ public class LaborScrubberProcess {
             ((WrappingBatchService) laborBadBalanceTypeReportWriterService).initialize();
             Iterator<LaborOriginEntry> blankBalanceOriginEntries = new FilteringLaborOriginEntryFileIterator(new File(inputFile), blankBalanceTypeFilter);
             new TransactionListingReport().generateReport(laborBadBalanceTypeReportWriterService, blankBalanceOriginEntries);
-        }
-        finally {
+        } finally {
             ((WrappingBatchService) laborBadBalanceTypeReportWriterService).destroy();
         }
     }
@@ -999,8 +971,7 @@ public class LaborScrubberProcess {
             ((WrappingBatchService) laborErrorListingReportWriterService).initialize();
             Iterator<LaborOriginEntry> removedTransactions = new LaborOriginEntryFileIterator(new File(errorFileName));
             new TransactionListingReport().generateReport(laborErrorListingReportWriterService, removedTransactions);
-        }
-        finally {
+        } finally {
             ((WrappingBatchService) laborErrorListingReportWriterService).destroy();
         }
     }

@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.kuali.kfs.fp.batch.ProcurementCardInputFileType;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.batch.CollectorXmlInputFileType;
 import org.kuali.kfs.gl.batch.MockCollectorBatch;
+import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KualiTestConstants.TestConstants.Data4;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
@@ -36,7 +32,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests the BatchInputFileService. TEST DEPENDENCIES The following are external configurations not setup by the test case that are
@@ -81,7 +81,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
         pcdoBatchInputFileType = SpringContext.getBean(ProcurementCardInputFileType.class);
         collectorBatchInputFileType = SpringContext.getBean(CollectorXmlInputFileType.class);
-        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class,"sampleTest2FlatFileInputFileType");
+        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class, "sampleTest2FlatFileInputFileType");
 
         testFileIdentifier = "junit" + RandomUtils.nextInt();
         validPCDOFileContents = BatchInputFileServiceTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "BatchInputValidPCDO.xml");
@@ -153,7 +153,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
 
     public final void testSaveFileWithNoExtension() throws Exception {
 
-        String savedFileName = batchInputFileService.save(validWorkgroupUser, sampleBatchInputFileType , testFileIdentifier, validPCDOFileContents, new ArrayList());
+        String savedFileName = batchInputFileService.save(validWorkgroupUser, sampleBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
 
         File expectedFile = new File(savedFileName);
         createdTestFiles.add(expectedFile);
@@ -186,8 +186,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.save(invalidWorkgroupUser, pcdoBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
-        }
-        catch (AuthorizationException e) {
+        } catch (AuthorizationException e) {
             failedAsExpected = true;
         }
 
@@ -196,8 +195,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         failedAsExpected = false;
         try {
             batchInputFileService.save(invalidWorkgroupUser, collectorBatchInputFileType, testFileIdentifier, validCollectorFileContents, new MockCollectorBatch());
-        }
-        catch (AuthorizationException e) {
+        } catch (AuthorizationException e) {
             failedAsExpected = true;
         }
 
@@ -221,8 +219,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.save(validWorkgroupUser, pcdoBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
-        }
-        catch (FileStorageException e) {
+        } catch (FileStorageException e) {
             failedAsExpected = true;
         }
 

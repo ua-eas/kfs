@@ -25,7 +25,7 @@ public interface Primaryable {
 
     /**
      * @return whether this BO instance is the primary one within a collection. This is normally exclusive of any other BOs in the
-     *         same collection.
+     * same collection.
      */
     public boolean isPrimary();
 }

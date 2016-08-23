@@ -35,7 +35,7 @@ public class LaborPropertyConstants {
          * @return String[]
          */
         public static String[] codeToArray() {
-            return new String[] { JULY.periodCode, AUGUST.periodCode, SEPTEMBER.periodCode, OCTOBER.periodCode, NOVEMBER.periodCode, DECEMBER.periodCode, JANUARY.periodCode, FEBRUARY.periodCode, MARCH.periodCode, APRIL.periodCode, MAY.periodCode, JUNE.periodCode, YEAR_END.periodCode };
+            return new String[]{JULY.periodCode, AUGUST.periodCode, SEPTEMBER.periodCode, OCTOBER.periodCode, NOVEMBER.periodCode, DECEMBER.periodCode, JANUARY.periodCode, FEBRUARY.periodCode, MARCH.periodCode, APRIL.periodCode, MAY.periodCode, JUNE.periodCode, YEAR_END.periodCode};
         }
 
         /**
@@ -44,14 +44,14 @@ public class LaborPropertyConstants {
          * @return String[]
          */
         public static String[] namesToArray() {
-            return new String[] { JULY.propertyName, AUGUST.propertyName, SEPTEMBER.propertyName, OCTOBER.propertyName, NOVEMBER.propertyName, DECEMBER.propertyName, JANUARY.propertyName, FEBRUARY.propertyName, MARCH.propertyName, APRIL.propertyName, MAY.propertyName, JUNE.propertyName, YEAR_END.propertyName };
+            return new String[]{JULY.propertyName, AUGUST.propertyName, SEPTEMBER.propertyName, OCTOBER.propertyName, NOVEMBER.propertyName, DECEMBER.propertyName, JANUARY.propertyName, FEBRUARY.propertyName, MARCH.propertyName, APRIL.propertyName, MAY.propertyName, JUNE.propertyName, YEAR_END.propertyName};
         }
 
         /**
          * Spew out everything in an array
          */
         public static AccountingPeriodProperties[] toArray() {
-            return new AccountingPeriodProperties[] { JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, YEAR_END };
+            return new AccountingPeriodProperties[]{JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, YEAR_END};
         }
 
         public String periodCode;

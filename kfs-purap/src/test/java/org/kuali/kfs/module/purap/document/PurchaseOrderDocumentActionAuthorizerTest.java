@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
@@ -35,8 +31,12 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * This class is used to test the authorization of the
@@ -79,6 +79,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
 //        assertTrue(auth.canRetransmit());
 //    }
 //
+
     /**
      * Tests that the print retransmit button is displayed when the purchase order
      * is not an APO. It should allow purchasing users (in this case we use parke)
@@ -86,7 +87,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
      *
      * @throws Exception
      */
-    @ConfigureContext(session = parke, shouldCommitTransactions=false)
+    @ConfigureContext(session = parke, shouldCommitTransactions = false)
     public final void DISABLED_502_testValidForPrintingRetransmitNonAPO() throws Exception {
         Map editMode = new HashMap();
         Map documentActions = new HashMap();
@@ -122,7 +123,7 @@ public class PurchaseOrderDocumentActionAuthorizerTest extends KualiTestBase {
      *
      * @throws Exception
      */
-    @ConfigureContext(session = parke, shouldCommitTransactions=false)
+    @ConfigureContext(session = parke, shouldCommitTransactions = false)
     public final void DISABLED_502_testValidForPrintingRetransmitAPO() throws Exception {
         Map editMode = new HashMap();
         Map documentActions = new HashMap();

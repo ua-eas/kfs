@@ -25,8 +25,9 @@ import java.util.List;
  * An encapsulator for validation information associated with a logical file/top level header
  */
 public final class FlatFileTransactionInformation {
-    public enum ResultCode { SUCCESS, FAILURE, ERROR, INCOMPLETE }
-    public enum EntryType { INFO,WARN, ERROR  }
+    public enum ResultCode {SUCCESS, FAILURE, ERROR, INCOMPLETE}
+
+    public enum EntryType {INFO, WARN, ERROR}
 
     private String flatFileDataIdentifier;
     private ResultCode result;
@@ -41,6 +42,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Constructs a FlatFileTransactionInformation
+     *
      * @param flatFileDataIdentifier the identifier for the file the business object this object holds messages for was parsed from
      */
     public FlatFileTransactionInformation(String flatFileDataIdentifier) {
@@ -51,6 +53,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Creates a String representation for the given entry type
+     *
      * @param type the entry type to get a String representation for
      * @return the String representation
      */
@@ -63,6 +66,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Creates a String representation for the given result code
+     *
      * @param type the resultCode to get a String representation for
      * @return the String representation
      */
@@ -89,6 +93,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Sets the resultCode for this transaction information object
+     *
      * @param result the result code to set
      */
     private void setResult(ResultCode result) {
@@ -125,6 +130,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Sets the identifier for the flat file this is associated with
+     *
      * @param flatFileDataIdentifier the identifier for the flat file this is associated with
      */
     public void setFlatFileDataIdentifier(String flatFileDataIdentifier) {
@@ -140,15 +146,17 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Adds a message to the List of messages for this transaction
+     *
      * @param entryType the kind of message being held
-     * @param message the message to hold
+     * @param message   the message to hold
      */
     private void addMessage(EntryType entryType, String message) {
-        this.messages.add(new String[] { getEntryTypeString(entryType), message });
+        this.messages.add(new String[]{getEntryTypeString(entryType), message});
     }
 
     /**
      * Adds an error message for this transaction
+     *
      * @param message the message to explain the error
      */
     public void addErrorMessage(String message) {
@@ -157,6 +165,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Adds an informative message for this transaction
+     *
      * @param message the informative message, hopefully something more explanatory than this javadoc
      */
     public void addInfoMessage(String message) {
@@ -165,6 +174,7 @@ public final class FlatFileTransactionInformation {
 
     /**
      * Adds a warning message for this transaction
+     *
      * @param message the warning message
      */
     public void addWarnMessage(String message) {

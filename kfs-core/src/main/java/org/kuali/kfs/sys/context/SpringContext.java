@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.sys.context;
 
-import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
-import org.kuali.kfs.sys.datatools.liquirelational.LiquiRelational;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.MemoryMonitor;
-import org.kuali.kfs.kns.bo.Step;
-import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.kfs.coreservice.api.component.Component;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.MemoryMonitor;
+import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
+import org.kuali.kfs.sys.datatools.liquirelational.LiquiRelational;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.aop.support.AopUtils;
@@ -77,6 +77,7 @@ public class SpringContext {
     protected static Map<Class<? extends Object>, Map> SINGLETON_BEANS_OF_TYPE_CACHE = new HashMap<Class<? extends Object>, Map>();
     protected static Thread processWatchThread = null;
     protected static MemoryMonitor memoryMonitor;
+
     /**
      * Use this method to retrieve a service which may or may not be implemented locally.  (That is,
      * defined in the main Spring ApplicationContext created by Rice.
@@ -105,44 +106,44 @@ public class SpringContext {
         if (SINGLETON_BEANS_BY_TYPE_CACHE.containsKey(type)) {
             bean = (T) SINGLETON_BEANS_BY_TYPE_CACHE.get(type);
         } else {
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("Bean not already in cache: " + type + " - calling getBeansOfType() ");
             }
             Collection<T> beansOfType = getBeansOfType(type).values();
-            if ( !beansOfType.isEmpty() ) {
+            if (!beansOfType.isEmpty()) {
                 if (beansOfType.size() > 1) {
-                    bean = getBean(type, StringUtils.uncapitalize(type.getSimpleName()) );
+                    bean = getBean(type, StringUtils.uncapitalize(type.getSimpleName()));
                 } else {
                     bean = beansOfType.iterator().next();
                 }
             } else {
                 try {
-                    bean = getBean(type, StringUtils.uncapitalize(type.getSimpleName()) );
-                } catch ( Exception ex ) {
+                    bean = getBean(type, StringUtils.uncapitalize(type.getSimpleName()));
+                } catch (Exception ex) {
                     // do nothing, let fall through
                 }
-                if ( bean == null ) { // unable to find bean - check GRL
+                if (bean == null) { // unable to find bean - check GRL
                     // this is needed in case no beans of the given type exist locally
-                    if ( LOG.isDebugEnabled() ) {
+                    if (LOG.isDebugEnabled()) {
                         LOG.debug("Bean not found in local context: " + type.getName() + " - calling GRL");
                     }
-                    Object remoteServiceBean = getService( StringUtils.uncapitalize(type.getSimpleName()) );
-                    if ( remoteServiceBean != null ) {
-                        if ( type.isAssignableFrom( remoteServiceBean.getClass() ) ) {
-                            bean = (T)remoteServiceBean;
+                    Object remoteServiceBean = getService(StringUtils.uncapitalize(type.getSimpleName()));
+                    if (remoteServiceBean != null) {
+                        if (type.isAssignableFrom(remoteServiceBean.getClass())) {
+                            bean = (T) remoteServiceBean;
                         }
                     }
                 }
             }
-            if ( bean != null ) {
-                synchronized( SINGLETON_TYPES ) {
-                    if (SINGLETON_TYPES.contains(type) || hasSingletonSuperType(type,SINGLETON_TYPES)) {
+            if (bean != null) {
+                synchronized (SINGLETON_TYPES) {
+                    if (SINGLETON_TYPES.contains(type) || hasSingletonSuperType(type, SINGLETON_TYPES)) {
                         SINGLETON_TYPES.add(type);
                         SINGLETON_BEANS_BY_TYPE_CACHE.put(type, bean);
                     }
                 }
             } else {
-                throw new RuntimeException( "Request for non-existent bean.  Unable to find in local context or on the GRL: " + type.getName() );
+                throw new RuntimeException("Request for non-existent bean.  Unable to find in local context or on the GRL: " + type.getName());
             }
         }
         return bean;
@@ -161,20 +162,19 @@ public class SpringContext {
         Map<String, T> beansOfType = null;
         if (SINGLETON_BEANS_OF_TYPE_CACHE.containsKey(type)) {
             beansOfType = SINGLETON_BEANS_OF_TYPE_CACHE.get(type);
-        }
-        else {
-            if ( LOG.isDebugEnabled() ) {
+        } else {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("Bean not already in \"OF_TYPE\" cache: " + type + " - calling getBeansOfType() on Spring context");
             }
             boolean allOfTypeAreSingleton = true;
             beansOfType = applicationContext.getBeansOfType(type);
-            for ( String key : beansOfType.keySet() ) {
-                if ( !applicationContext.isSingleton(key) ) {
+            for (String key : beansOfType.keySet()) {
+                if (!applicationContext.isSingleton(key)) {
                     allOfTypeAreSingleton = false;
                 }
             }
-            if ( allOfTypeAreSingleton ) {
-                synchronized( SINGLETON_TYPES ) {
+            if (allOfTypeAreSingleton) {
+                synchronized (SINGLETON_TYPES) {
                     SINGLETON_TYPES.add(type);
                     SINGLETON_BEANS_OF_TYPE_CACHE.put(type, beansOfType);
                 }
@@ -190,22 +190,21 @@ public class SpringContext {
         } else {
             try {
                 bean = (T) applicationContext.getBean(name);
-                if ( applicationContext.isSingleton(name) ) {
-                    synchronized( SINGLETON_BEANS_BY_NAME_CACHE ) {
+                if (applicationContext.isSingleton(name)) {
+                    synchronized (SINGLETON_BEANS_BY_NAME_CACHE) {
                         SINGLETON_BEANS_BY_NAME_CACHE.put(name, bean);
                     }
                 }
-            }
-            catch (NoSuchBeanDefinitionException nsbde) {
-                if ( LOG.isDebugEnabled() ) {
+            } catch (NoSuchBeanDefinitionException nsbde) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("Bean with name and type not found in local context: " + name + "/" + type.getName() + " - calling GRL");
                 }
-                Object remoteServiceBean = getService( name );
-                if ( remoteServiceBean != null ) {
-                    if ( type.isAssignableFrom( AopUtils.getTargetClass(remoteServiceBean) ) ) {
-                        bean = (T)remoteServiceBean;
+                Object remoteServiceBean = getService(name);
+                if (remoteServiceBean != null) {
+                    if (type.isAssignableFrom(AopUtils.getTargetClass(remoteServiceBean))) {
+                        bean = (T) remoteServiceBean;
                         // assume remote beans are services and thus singletons
-                        synchronized( SINGLETON_BEANS_BY_NAME_CACHE ) {
+                        synchronized (SINGLETON_BEANS_BY_NAME_CACHE) {
                             SINGLETON_BEANS_BY_NAME_CACHE.put(name, bean);
                         }
                     }
@@ -218,7 +217,7 @@ public class SpringContext {
         return bean;
     }
 
-    private static boolean hasSingletonSuperType(Class<? extends Object> type, Set<Class<? extends Object>> knownSingletonTypes ) {
+    private static boolean hasSingletonSuperType(Class<? extends Object> type, Set<Class<? extends Object>> knownSingletonTypes) {
         for (Class<? extends Object> singletonType : knownSingletonTypes) {
             if (singletonType.isAssignableFrom(type)) {
                 return true;
@@ -241,26 +240,26 @@ public class SpringContext {
     }
 
     protected static void close() {
-        if ( processWatchThread != null ) {
-            LOG.info("Shutting down the ProcessWatch thread" );
-            if ( processWatchThread.isAlive() ) {
+        if (processWatchThread != null) {
+            LOG.info("Shutting down the ProcessWatch thread");
+            if (processWatchThread.isAlive()) {
                 processWatchThread.stop();
             }
             processWatchThread = null;
         }
 
         try {
-            if ( isInitialized() && getBean(Scheduler.class) != null ) {
-                if ( getBean(Scheduler.class).isStarted() ) {
-                    LOG.info( "Shutting Down scheduler" );
+            if (isInitialized() && getBean(Scheduler.class) != null) {
+                if (getBean(Scheduler.class).isStarted()) {
+                    LOG.info("Shutting Down scheduler");
                     getBean(Scheduler.class).shutdown();
                 }
             }
         } catch (SchedulerException ex) {
-            LOG.error( "Exception while shutting down the scheduler", ex );
+            LOG.error("Exception while shutting down the scheduler", ex);
         }
-        LOG.info( "Stopping the MemoryMonitor thread" );
-        if ( memoryMonitor != null ) {
+        LOG.info("Stopping the MemoryMonitor thread");
+        if (memoryMonitor != null) {
             memoryMonitor.stop();
         }
     }
@@ -271,25 +270,25 @@ public class SpringContext {
 
     private static void verifyProperInitialization() {
         if (!isInitialized()) {
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "Spring not initialized properly.  Initialization has begun and the application context is null.  Probably spring loaded bean is trying to use SpringContext.getBean() before the application context is initialized.", new IllegalStateException() );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
-            LOG.fatal( "*****************************************************************" );
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("Spring not initialized properly.  Initialization has begun and the application context is null.  Probably spring loaded bean is trying to use SpringContext.getBean() before the application context is initialized.", new IllegalStateException());
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
+            LOG.fatal("*****************************************************************");
             throw new IllegalStateException("Spring not initialized properly.  Initialization has begun and the application context is null.  Probably spring loaded bean is trying to use SpringContext.getBean() before the application context is initialized.");
         }
     }
 
     static void initMemoryMonitor() {
-        if ( NumberUtils.isNumber(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY))) {
+        if (NumberUtils.isNumber(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY))) {
             if (Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY)) > 0) {
-                LOG.info( "Starting up MemoryMonitor thread" );
+                LOG.info("Starting up MemoryMonitor thread");
                 MemoryMonitor.setPercentageUsageThreshold(Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY)));
                 memoryMonitor = new MemoryMonitor("KFS Memory Monitor: Over " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY) + "% Memory Used");
                 memoryMonitor.addListener(new MemoryMonitor.Listener() {
@@ -319,67 +318,67 @@ public class SpringContext {
     }
 
     static void initMonitoringThread() {
-        if ( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean("periodic.thread.dump") ) {
-            final long sleepPeriod = Long.parseLong( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("periodic.thread.dump.seconds") ) * 1000;
-            final File logDir = new File( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString( "logs.directory" ) );
-            final File monitoringLogDir = new File( logDir, "monitoring" );
-            if ( !monitoringLogDir.exists() ) {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean("periodic.thread.dump")) {
+            final long sleepPeriod = Long.parseLong(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("periodic.thread.dump.seconds")) * 1000;
+            final File logDir = new File(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("logs.directory"));
+            final File monitoringLogDir = new File(logDir, "monitoring");
+            if (!monitoringLogDir.exists()) {
                 monitoringLogDir.mkdir();
             }
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info( "Starting the Periodic Thread Dump thread - dumping every " + (sleepPeriod/1000) + " seconds");
-                LOG.info( "Periodic Thread Dump Logs: " + monitoringLogDir.getAbsolutePath() );
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Starting the Periodic Thread Dump thread - dumping every " + (sleepPeriod / 1000) + " seconds");
+                LOG.info("Periodic Thread Dump Logs: " + monitoringLogDir.getAbsolutePath());
             }
-            final DateFormat df = new SimpleDateFormat( "yyyyMMdd" );
-            final DateFormat tf = new SimpleDateFormat( "HH-mm-ss" );
+            final DateFormat df = new SimpleDateFormat("yyyyMMdd");
+            final DateFormat tf = new SimpleDateFormat("HH-mm-ss");
             Runnable processWatch = new Runnable() {
                 @Override
                 public void run() {
-                    while ( true ) {
+                    while (true) {
                         Date now = new Date();
-                        File todaysLogDir = new File( monitoringLogDir, df.format(now) );
-                        if ( !todaysLogDir.exists() ) {
+                        File todaysLogDir = new File(monitoringLogDir, df.format(now));
+                        if (!todaysLogDir.exists()) {
                             todaysLogDir.mkdir();
                         }
-                        File logFile = new File( todaysLogDir, "process-"+tf.format(now)+".log" );
+                        File logFile = new File(todaysLogDir, "process-" + tf.format(now) + ".log");
                         try {
                             createParentDirs(logFile);
-                            BufferedWriter w = new BufferedWriter( new FileWriter( logFile ) );
+                            BufferedWriter w = new BufferedWriter(new FileWriter(logFile));
                             StringBuilder logStatement = new StringBuilder(10240);
-                            logStatement.append("Threads Running at: " ).append( now ).append( "\n\n\n" );
-                            Map<Thread,StackTraceElement[]> threads = Thread.getAllStackTraces();
-                            List<Thread> sortedThreads = new ArrayList<Thread>( threads.keySet() );
-                            Collections.sort( sortedThreads, new Comparator<Thread>() {
+                            logStatement.append("Threads Running at: ").append(now).append("\n\n\n");
+                            Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
+                            List<Thread> sortedThreads = new ArrayList<Thread>(threads.keySet());
+                            Collections.sort(sortedThreads, new Comparator<Thread>() {
                                 @Override
                                 public int compare(Thread o1, Thread o2) {
-                                    return o1.getName().compareTo( o2.getName() );
+                                    return o1.getName().compareTo(o2.getName());
                                 }
                             });
-                            for ( Thread t : sortedThreads ) {
+                            for (Thread t : sortedThreads) {
                                 logStatement.append("\tThread: name=").append(t.getName())
-                                        .append(", id=").append(t.getId())
-                                        .append(", priority=").append(t.getPriority())
-                                        .append(", state=").append(t.getState());
+                                    .append(", id=").append(t.getId())
+                                    .append(", priority=").append(t.getPriority())
+                                    .append(", state=").append(t.getState());
                                 logStatement.append('\n');
-                                for (StackTraceElement stackTraceElement : threads.get(t) ) {
-                                    logStatement.append("\t\t" + stackTraceElement).append( '\n' );
+                                for (StackTraceElement stackTraceElement : threads.get(t)) {
+                                    logStatement.append("\t\t" + stackTraceElement).append('\n');
                                 }
                                 logStatement.append('\n');
                             }
                             w.write(logStatement.toString());
                             w.close();
-                        } catch ( IOException ex ) {
-                            LOG.error( "Unable to write the ProcessWatch output file: " + logFile.getAbsolutePath(), ex );
+                        } catch (IOException ex) {
+                            LOG.error("Unable to write the ProcessWatch output file: " + logFile.getAbsolutePath(), ex);
                         }
                         try {
-                            Thread.sleep( sleepPeriod );
-                        } catch ( InterruptedException ex ) {
-                            LOG.error( "woken up during sleep of the ProcessWatch thread", ex );
+                            Thread.sleep(sleepPeriod);
+                        } catch (InterruptedException ex) {
+                            LOG.error("woken up during sleep of the ProcessWatch thread", ex);
                         }
                     }
                 }
             };
-            processWatchThread = new Thread( processWatch, "ProcessWatch thread" );
+            processWatchThread = new Thread(processWatch, "ProcessWatch thread");
             processWatchThread.setDaemon(true);
             processWatchThread.start();
         }
@@ -394,7 +393,7 @@ public class SpringContext {
                 getBean(Scheduler.class).start();
             } catch (NoSuchBeanDefinitionException e) {
                 LOG.warn("Not initializing the scheduler because there is no scheduler bean");
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 LOG.error("Caught Exception while starting the scheduler", ex);
             }
         }
@@ -411,11 +410,10 @@ public class SpringContext {
                         throw new RuntimeException(trimmedFile + " does not exist and the server was unable to create it.");
                     } else {
                         if (LOG.isInfoEnabled()) {
-                            LOG.info("Created directory: "+ directory);
+                            LOG.info("Created directory: " + directory);
                         }
                     }
-                }
-                else {
+                } else {
                     if (!directory.isDirectory()) {
                         throw new RuntimeException(trimmedFile + " exists but is not a directory.");
                     }
@@ -433,11 +431,11 @@ public class SpringContext {
     }
 
     public static void finishInitializationAfterRiceStartup() {
-        SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader)GlobalResourceLoader.getResourceLoader( new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME") );
+        SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader) GlobalResourceLoader.getResourceLoader(new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME"));
         SpringContext.applicationContext = mainKfsSpringResourceLoader.getContext();
 
-      //  if ( LOG.isTraceEnabled() ) {
-            GlobalResourceLoader.logAllContents();
+        //  if ( LOG.isTraceEnabled() ) {
+        GlobalResourceLoader.logAllContents();
         //}
 
         // KFS addition - republish all components now - until this point, the KFS DD has not been loaded
@@ -472,16 +470,16 @@ public class SpringContext {
     }
 
     public static void publishBatchStepComponents() {
-        Map<String,Step> steps = SpringContext.getBeansOfType(Step.class);
-        List<Component> stepComponents = new ArrayList<Component>( steps.size() );
-        for ( Step step : steps.values() ) {
+        Map<String, Step> steps = SpringContext.getBeansOfType(Step.class);
+        List<Component> stepComponents = new ArrayList<Component>(steps.size());
+        for (Step step : steps.values()) {
             Step unproxiedStep = (Step) ProxyUtils.getTargetIfProxied(step);
             String namespaceCode = KFSConstants.CoreModuleNamespaces.KFS;
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "Building component for step: " + unproxiedStep.getName() + "(" + unproxiedStep.getClass() + ")" );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Building component for step: " + unproxiedStep.getName() + "(" + unproxiedStep.getClass() + ")");
             }
             ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(unproxiedStep.getClass());
-            if ( moduleService != null ) {
+            if (moduleService != null) {
                 namespaceCode = moduleService.getModuleConfiguration().getNamespaceCode();
             }
             Component.Builder component = Component.Builder.create(namespaceCode, unproxiedStep.getClass().getSimpleName(), unproxiedStep.getClass().getSimpleName());

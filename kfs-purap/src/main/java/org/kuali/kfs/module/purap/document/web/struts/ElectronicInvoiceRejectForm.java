@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-import java.util.Properties;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PurchasingPaymentDetail;
@@ -30,10 +31,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Struts Action Form for Electronic Invoice Reject document.
@@ -64,9 +64,9 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
      * Build additional electronic invoice specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs customization of an extra button.
-     *
+     * <p>
      * No data dictionary is involved.
      */
 
@@ -80,12 +80,12 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
         String externalImageURL = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.RICE_EXTERNALIZABLE_IMAGES_URL_KEY);
         String appExternalImageURL = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY);
 
-        if (eirDoc.getDocumentHeader().getWorkflowDocument().isEnroute()){
-          if (eirDoc.isInvoiceResearchIndicator()) {
-              addExtraButton("methodToCall.completeResearch", appExternalImageURL + "buttonsmall_complresearch.gif", "Complete Research");
-          } else {
-              addExtraButton("methodToCall.startResearch", appExternalImageURL + "buttonsmall_research.gif", "Research");
-          }
+        if (eirDoc.getDocumentHeader().getWorkflowDocument().isEnroute()) {
+            if (eirDoc.isInvoiceResearchIndicator()) {
+                addExtraButton("methodToCall.completeResearch", appExternalImageURL + "buttonsmall_complresearch.gif", "Complete Research");
+            } else {
+                addExtraButton("methodToCall.startResearch", appExternalImageURL + "buttonsmall_research.gif", "Research");
+            }
         }
 
         return extraButtons;
@@ -95,11 +95,10 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
-     *
-     * KRAD Conversion: Performs customization of an extra button.
-     *
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
+     *                 <p>
+     *                 KRAD Conversion: Performs customization of an extra button.
      */
     protected void addExtraButton(String property, String source, String altText) {
 
@@ -114,6 +113,7 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
 
     /**
      * This method builds the url for the disbursement info on the purap documents.
+     *
      * @return the disbursement info url
      */
     public String getDisbursementInfoUrl() {

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDetailFixture;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDocumentFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailParentLessThanDiscountValidationTest extends KualiTestBase {
@@ -46,14 +46,14 @@ public class CustomerInvoiceDetailParentLessThanDiscountValidationTest extends K
         super.tearDown();
     }
 
-    public void testParentAmountNotLessThanDiscountAmount_True(){
+    public void testParentAmountNotLessThanDiscountAmount_True() {
         validation.setParentCustomerInvoiceDetail(CustomerInvoiceDetailFixture.BASE_CUSTOMER_INVOICE_DETAIL.createCustomerInvoiceDetail());
         validation.getParentCustomerInvoiceDetail().setDiscountCustomerInvoiceDetail(CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_DISCOUNT_WITH_POSITIVE_AMOUNT.createCustomerInvoiceDetail());
         assertTrue(validation.validate(null));
     }
 
 
-    public void testParentAmountNotGreaterThanParentAmount_False(){
+    public void testParentAmountNotGreaterThanParentAmount_False() {
         validation.setParentCustomerInvoiceDetail(CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_DISCOUNT_WITH_POSITIVE_AMOUNT.createCustomerInvoiceDetail());
         validation.getParentCustomerInvoiceDetail().setDiscountCustomerInvoiceDetail(CustomerInvoiceDetailFixture.BASE_CUSTOMER_INVOICE_DETAIL.createCustomerInvoiceDetail());
         assertFalse(validation.validate(null));

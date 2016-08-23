@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation;
 import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.util.Set;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -55,7 +54,7 @@ public class PurchasingAccountsPayableAccountingLineAccessibleValidation extends
      * @return true if a dummy account identifier should be set on the accounting line, false otherwise
      */
     protected boolean needsDummyAccountIdentifier() {
-        if (((PurApAccountingLine)getAccountingLineForValidation()).getAccountIdentifier() != null) {
+        if (((PurApAccountingLine) getAccountingLineForValidation()).getAccountIdentifier() != null) {
             return false;
         }
 

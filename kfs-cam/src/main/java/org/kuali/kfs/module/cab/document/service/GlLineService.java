@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.module.cab.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface GlLineService {
 
     Collection<GeneralLedgerEntry> findAllGeneralLedgerEntry(String documentNumber);
 
-    Collection<GeneralLedgerEntry> findMatchingGeneralLedgerEntries( Collection<GeneralLedgerEntry> allGLEntries, CapitalAssetAccountsGroupDetails accountingDetails );
+    Collection<GeneralLedgerEntry> findMatchingGeneralLedgerEntries(Collection<GeneralLedgerEntry> allGLEntries, CapitalAssetAccountsGroupDetails accountingDetails);
 
     List<CapitalAssetInformation> findAllCapitalAssetInformation(String documentNumber);
 
     List<CapitalAssetInformation> findCapitalAssetInformationForGLLine(GeneralLedgerEntry entry);
 
-    long findUnprocessedCapitalAssetInformation( String documentNumber );
+    long findUnprocessedCapitalAssetInformation(String documentNumber);
 
     CapitalAssetInformation findCapitalAssetInformation(String documentNumber, Integer capitalAssetLineNumber);
 

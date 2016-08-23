@@ -19,8 +19,8 @@
 package org.kuali.kfs.kns.service;
 
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.UserSession;
+import org.kuali.rice.kew.api.WorkflowDocument;
 
 import java.sql.Timestamp;
 
@@ -66,7 +66,7 @@ public interface SessionDocumentService {
      * @throws
      */
     public KualiDocumentFormBase getDocumentForm(String documentNumber, String docFormKey, UserSession userSession,
-            String ipAddress);
+                                                 String ipAddress);
 
     /**
      * Store KualiDocumentFormBase into session and database.

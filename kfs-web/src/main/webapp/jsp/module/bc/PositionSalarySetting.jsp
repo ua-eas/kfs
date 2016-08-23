@@ -16,19 +16,19 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.sys.context.SpringContext"%>
-<%@ page import="org.kuali.kfs.coa.service.AccountService"%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ page import="org.kuali.kfs.coa.service.AccountService" %>
+<%@ page import="org.kuali.kfs.sys.context.SpringContext" %>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<c:set var="readOnly" value="${KualiForm.viewOnlyEntry || KualiForm.salarySettingClosed}" />
+<c:set var="readOnly" value="${KualiForm.viewOnlyEntry || KualiForm.salarySettingClosed}"/>
 <c:set var="accountsCanCrossCharts"
-	value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>" />
+       value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>"/>
 
 
 <kul:page showDocumentInfo="false" htmlFormAction="budgetPositionSalarySetting" renderMultipart="true"
-	showTabButtons="true" docTitle="${KualiForm.documentTitle}" transactionalDocument="false">
+          showTabButtons="true" docTitle="${KualiForm.documentTitle}" transactionalDocument="false">
 
-    <html:hidden property="mainWindow" />
+    <html:hidden property="mainWindow"/>
 
     <bc:positionSalarySetting readOnly="${readOnly}" accountsCanCrossCharts="${accountsCanCrossCharts}"/>
 
@@ -43,26 +43,26 @@
                         value="Calculate"/>
             </c:if>
 
-	        <html:submit
+            <html:submit
                     styleClass="btn btn-default"
-	        	    property="methodToCall.save"
+                    property="methodToCall.save"
                     title="save"
                     alt="save"
                     value="Save"/>
         </c:if>
 
-	    <html:submit
-       		    styleClass="btn btn-default"
+        <html:submit
+                styleClass="btn btn-default"
                 property="methodToCall.close"
                 title="close"
                 alt="close"
                 value="Close"/>
     </div>
 
-	<%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>
-	<SCRIPT type="text/javascript">
-	  subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";
-	  var kualiForm = document.forms['KualiForm'];
-	  var kualiElements = kualiForm.elements;
-	</SCRIPT>
+    <%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>
+    <SCRIPT type="text/javascript">
+        subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";
+        var kualiForm = document.forms['KualiForm'];
+        var kualiElements = kualiForm.elements;
+    </SCRIPT>
 </kul:page>

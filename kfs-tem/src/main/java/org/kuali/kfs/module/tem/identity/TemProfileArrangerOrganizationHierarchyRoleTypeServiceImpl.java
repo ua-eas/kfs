@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
+import java.util.Map;
 
 
 public class TemProfileArrangerOrganizationHierarchyRoleTypeServiceImpl extends TemProfileOrganizationHierarchyRoleTypeServiceImpl {

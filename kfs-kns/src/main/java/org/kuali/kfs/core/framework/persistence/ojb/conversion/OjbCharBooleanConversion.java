@@ -18,13 +18,13 @@
  */
 /**
  * Copyright 2005-2015 The Kuali Foundation
- *
+ * <p>
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.opensource.org/licenses/ecl2.php
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,8 @@ import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
  * Performs conversion of java boolean fields to and from the database
  */
 public class OjbCharBooleanConversion implements FieldConversion {
-	public static final String DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION = "Y";
-	public static final String DATABASE_BOOLEAN_FALSE_STRING_REPRESENTATION = "N";
+    public static final String DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION = "Y";
+    public static final String DATABASE_BOOLEAN_FALSE_STRING_REPRESENTATION = "N";
 
     /**
      * @see FieldConversion#javaToSql(Object)
@@ -50,16 +50,13 @@ public class OjbCharBooleanConversion implements FieldConversion {
             if (source != null) {
                 Boolean b = (Boolean) source;
                 return b.booleanValue() ? DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION : DATABASE_BOOLEAN_FALSE_STRING_REPRESENTATION;
-            }
-            else {
+            } else {
                 return null;
             }
-        }
-        else if (source instanceof String) {
-            if ("true".equalsIgnoreCase((String)source) || "yes".equalsIgnoreCase((String)source) || "y".equalsIgnoreCase((String)source)) {
+        } else if (source instanceof String) {
+            if ("true".equalsIgnoreCase((String) source) || "yes".equalsIgnoreCase((String) source) || "y".equalsIgnoreCase((String) source)) {
                 return DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION;
-            }
-            else if ("false".equalsIgnoreCase((String)source) || "no".equalsIgnoreCase((String)source) || "n".equalsIgnoreCase((String)source)) {
+            } else if ("false".equalsIgnoreCase((String) source) || "no".equalsIgnoreCase((String) source) || "n".equalsIgnoreCase((String) source)) {
                 return DATABASE_BOOLEAN_FALSE_STRING_REPRESENTATION;
             }
         }
@@ -76,14 +73,12 @@ public class OjbCharBooleanConversion implements FieldConversion {
                     String s = (String) source;
                     String trueValues = DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION + "T1";
                     return trueValues.contains(s);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
             return source;
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
             throw new RuntimeException("I have exploded converting types", t);
         }

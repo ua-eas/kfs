@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BatchFileUtils {
     public static List<File> retrieveBatchFileLookupRootDirectories() {
@@ -109,11 +109,9 @@ public class BatchFileUtils {
                     pathNames.add(new File(resolvePathToAbsolutePath((String) keyValue.getKey())).getAbsolutePath());
                 }
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("can't instiantiate class " + keyValuesFinderClass, e);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("can't instiantiate class " + keyValuesFinderClass, e);
         }
 

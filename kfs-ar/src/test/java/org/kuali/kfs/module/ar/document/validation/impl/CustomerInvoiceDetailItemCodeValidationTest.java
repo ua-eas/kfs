@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailItemCodeValidationTest extends KualiTestBase {
@@ -54,14 +54,14 @@ public class CustomerInvoiceDetailItemCodeValidationTest extends KualiTestBase {
         super.tearDown();
     }
 
-    public void testValidDetailItemCode_True(){
+    public void testValidDetailItemCode_True() {
         validation.setCustomerInvoiceDetail(new CustomerInvoiceDetail());
         validation.getCustomerInvoiceDetail().setInvoiceItemCode(VALID_ITEM_CODE);
         assertTrue(validation.validate(null));
 
     }
 
-    public void testValidDetailItemCode_False(){
+    public void testValidDetailItemCode_False() {
         validation.setCustomerInvoiceDetail(new CustomerInvoiceDetail());
         validation.getCustomerInvoiceDetail().setInvoiceItemCode(INVALID_ITEM_CODE);
         assertFalse(validation.validate(null));

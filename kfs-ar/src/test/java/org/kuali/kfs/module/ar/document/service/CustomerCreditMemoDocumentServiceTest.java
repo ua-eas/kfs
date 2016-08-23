@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDetailFixture;
@@ -32,7 +27,12 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerCreditMemoDocumentServiceTest extends KualiTestBase {
@@ -51,10 +51,10 @@ public class CustomerCreditMemoDocumentServiceTest extends KualiTestBase {
 
 
         String documentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER,
-                new CustomerInvoiceDetailFixture[]
+            new CustomerInvoiceDetailFixture[]
                 {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE,
-                 CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
-                null);
+                    CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
+            null);
 
         document = new CustomerCreditMemoDocument();
         document.setFinancialDocumentReferenceInvoiceNumber(documentNumber);
@@ -100,10 +100,10 @@ public class CustomerCreditMemoDocumentServiceTest extends KualiTestBase {
      */
 
     public void testRecalculateCustomerCreditMemoDocument() {
-        service.recalculateCustomerCreditMemoDocument(document,false);
+        service.recalculateCustomerCreditMemoDocument(document, false);
 
         details = document.getCreditMemoDetails();
-        for (CustomerCreditMemoDetail crmDetail:details) {
+        for (CustomerCreditMemoDetail crmDetail : details) {
             if (crmDetail.getReferenceInvoiceItemNumber().equals(new Integer(1))) {
                 assertTrue(crmDetail.getCreditMemoItemTotalAmount().equals(testAmount));
                 assertTrue(crmDetail.getCreditMemoItemTaxAmount().equals(KualiDecimal.ZERO));

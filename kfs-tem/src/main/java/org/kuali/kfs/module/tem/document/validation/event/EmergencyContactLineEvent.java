@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
-import org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact;
 
-public interface EmergencyContactLineEvent extends KualiDocumentEvent{
+public interface EmergencyContactLineEvent extends KualiDocumentEvent {
 
     /**
-     *
      * This method returns the emergency contact object associated with this event
+     *
      * @return emergency contact
      */
     public TravelerDetailEmergencyContact getEmergencyContact();

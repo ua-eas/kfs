@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.TaxRegion;
+
+import java.util.List;
 
 public class TaxRegionMaintainableImpl extends FinancialSystemMaintainable {
 
@@ -34,7 +34,7 @@ public class TaxRegionMaintainableImpl extends FinancialSystemMaintainable {
      * This method hides particular tax region sections based on tax region type code
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getCoreSections(org.kuali.rice.kns.maintenance.Maintainable)
-     *
+     * <p>
      * KRAD Conversion: Maintainable customizes the hiding/showing of the sections
      * No Use of data dictionary
      */
@@ -45,7 +45,7 @@ public class TaxRegionMaintainableImpl extends FinancialSystemMaintainable {
         TaxRegion taxRegion = (TaxRegion) getBusinessObject();
 
         //have to check if type code is empty, because on the oldMaintainable on a NEW action, none of the old Maintainable BO's values are set
-        if( StringUtils.isNotEmpty( taxRegion.getTaxRegionTypeCode() ) ) {
+        if (StringUtils.isNotEmpty(taxRegion.getTaxRegionTypeCode())) {
             String sectionIdToDisplay = getSectionIdToDisplay(taxRegion.getTaxRegionTypeCode());
             for (Section section : sections) {
                 if (!isMainOrRateSection(section.getSectionId()) && !sectionIdToDisplay.equals(section.getSectionId())) {
@@ -66,14 +66,11 @@ public class TaxRegionMaintainableImpl extends FinancialSystemMaintainable {
     protected String getSectionIdToDisplay(String taxRegionTypeCode) {
         if (KFSConstants.TaxRegionConstants.TAX_REGION_TYPE_CODE_STATE.equals(taxRegionTypeCode)) {
             return KFSConstants.TaxRegionConstants.TAX_REGION_STATES_SECTION_ID;
-        }
-        else if (KFSConstants.TaxRegionConstants.TAX_REGION_TYPE_CODE_COUNTY.equals(taxRegionTypeCode)) {
+        } else if (KFSConstants.TaxRegionConstants.TAX_REGION_TYPE_CODE_COUNTY.equals(taxRegionTypeCode)) {
             return KFSConstants.TaxRegionConstants.TAX_REGION_COUNTIES_SECTION_ID;
-        }
-        else if (KFSConstants.TaxRegionConstants.TAX_REGION_TYPE_CODE_POSTAL_CODE.equals(taxRegionTypeCode)) {
+        } else if (KFSConstants.TaxRegionConstants.TAX_REGION_TYPE_CODE_POSTAL_CODE.equals(taxRegionTypeCode)) {
             return KFSConstants.TaxRegionConstants.TAX_REGION_POSTAL_CODES_SECTION_ID;
-        }
-        else {
+        } else {
             throw new RuntimeException("No section is set up for tax region type code " + taxRegionTypeCode);
         }
     }

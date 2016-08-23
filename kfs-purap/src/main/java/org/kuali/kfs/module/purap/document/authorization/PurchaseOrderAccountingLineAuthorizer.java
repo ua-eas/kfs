@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -35,6 +33,8 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.Set;
+
 /**
  * Accounting line authorizer for Requisition document which allows adding accounting lines at specified nodes
  */
@@ -43,13 +43,14 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
 
     /**
      * Allow new lines to be rendered at NewUnorderedItems node
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#renderNewLine(org.kuali.kfs.sys.document.AccountingDocument, java.lang.String)
      */
     @Override
     public boolean renderNewLine(AccountingDocument accountingDocument, String accountingGroupProperty) {
         WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
 
-        Set <String> currentRouteNodeName = workflowDocument.getCurrentNodeNames();
+        Set<String> currentRouteNodeName = workflowDocument.getCurrentNodeNames();
 
         //  if its in the NEW_UNORDERED_ITEMS node, then allow the new line to be drawn
         if (CollectionUtils.isNotEmpty(currentRouteNodeName) && PurchaseOrderAccountingLineAuthorizer.NEW_UNORDERED_ITEMS_NODE.equals(currentRouteNodeName.toString())) {
@@ -80,10 +81,10 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
 
     @Override
     protected boolean allowAccountingLinesAreEditable(AccountingDocument accountingDocument,
-            AccountingLine accountingLine){
-        PurApAccountingLine purapAccount = (PurApAccountingLine)accountingLine;
-        PurchaseOrderItem poItem = (PurchaseOrderItem)purapAccount.getPurapItem();
-        PurchaseOrderDocument po = (PurchaseOrderDocument)accountingDocument;
+                                                      AccountingLine accountingLine) {
+        PurApAccountingLine purapAccount = (PurApAccountingLine) accountingLine;
+        PurchaseOrderItem poItem = (PurchaseOrderItem) purapAccount.getPurapItem();
+        PurchaseOrderDocument po = (PurchaseOrderDocument) accountingDocument;
 
 
         if (poItem != null && !poItem.getItemType().isAdditionalChargeIndicator()) {
@@ -106,7 +107,7 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
 
     @Override
     public boolean determineEditPermissionOnLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, boolean currentUserIsDocumentInitiator, boolean pageIsEditable) {
-     // the fields in a new line should be always editable
+        // the fields in a new line should be always editable
         if (accountingLine.getSequenceNumber() == null) {
             return true;
         }
@@ -115,20 +116,18 @@ public class PurchaseOrderAccountingLineAuthorizer extends PurapAccountingLineAu
         // the PO status is not In Process.
         WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) accountingDocument).getFinancialSystemDocumentHeader().getWorkflowDocument();
 
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)accountingDocument;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) accountingDocument;
         if (!poDocument.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS) && (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested())) {
             if (PurapConstants.PurchaseOrderDocTypes.PURCHASE_ORDER_AMENDMENT_DOCUMENT.equals(workflowDocument.getDocumentTypeName())) {
-                PurApAccountingLine purapAccount = (PurApAccountingLine)accountingLine;
+                PurApAccountingLine purapAccount = (PurApAccountingLine) accountingLine;
                 purapAccount.refreshReferenceObject("purapItem");
 
-                PurchaseOrderItem item = (PurchaseOrderItem)purapAccount.getPurapItem();
+                PurchaseOrderItem item = (PurchaseOrderItem) purapAccount.getPurapItem();
                 return item.isNewItemForAmendment() || item.getSourceAccountingLines().size() == 0;
-            }
-            else {
+            } else {
                 return currentUserIsDocumentInitiator;
             }
-        }
-        else {
+        } else {
             return true;
         }
     }

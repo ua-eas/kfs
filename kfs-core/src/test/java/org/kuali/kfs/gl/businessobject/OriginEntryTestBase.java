@@ -18,6 +18,22 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.helpers.FileUtils;
+import org.kuali.kfs.coa.businessobject.OffsetDefinition;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
+import org.kuali.kfs.gl.service.OriginEntryService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
+import org.kuali.kfs.sys.service.ConfigurableDateService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,22 +47,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.helpers.FileUtils;
-import org.kuali.kfs.coa.businessobject.OffsetDefinition;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
-import org.kuali.kfs.gl.service.OriginEntryService;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
-import org.kuali.kfs.sys.service.ConfigurableDateService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.PersistenceService;
 
 /**
  * OriginEntryTestBase...the uberpowerful base of a lot of GL tests.  Basically, this class provides
@@ -80,6 +80,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
     /**
      * Sets up this test base; that means getting some services from Spring and reseting the
      * enhancement flags.
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -114,6 +115,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
 
     /**
      * Removes any build batch directory
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -127,10 +129,11 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
 
     /**
      * get the name of the batch directory
+     *
      * @return the name of the batch directory
      */
     protected String getBatchDirectoryName() {
-        return SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory/originEntry";
+        return SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory/originEntry";
     }
 
     /**
@@ -162,7 +165,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
      * Removes any directories added as part of building the batch directory
      */
     protected void removeBatchDirectory(String batchDirectory) {
-        String unbuiltDirectory = batchDirectory.substring(0, batchDirectory.length()-builtDirectory.length());
+        String unbuiltDirectory = batchDirectory.substring(0, batchDirectory.length() - builtDirectory.length());
 
         String pathToUnbuild = new String(batchDirectory);
         while (!unbuiltDirectory.equals(pathToUnbuild)) {
@@ -177,6 +180,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
 
     /**
      * Removes all the files within the given directory
+     *
      * @param dir the directory to delete files from
      */
     protected void clearAllFilesInDirectory(File dir) {
@@ -198,7 +202,8 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
 
         /**
          * Constructs a OriginEntryTestBase.EntryHolder
-         * @param baseFileName the group that the entry to point to is in
+         *
+         * @param baseFileName    the group that the entry to point to is in
          * @param transactionLine the line number of the entry
          */
         public EntryHolder(String baseFileName, String transactionLine) {
@@ -251,9 +256,8 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
                 ps.println(transactions[i]);
             }
             ps.close();
-        }
-        catch (FileNotFoundException fnfe) {
-            throw new RuntimeException("Could not open file "+fullFileName);
+        } catch (FileNotFoundException fnfe) {
+            throw new RuntimeException("Could not open file " + fullFileName);
         }
     }
 
@@ -274,7 +278,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
     /**
      * Deletes all entries in the entry table with the given chart code and account number
      *
-     * @param fin_coa_cd the chart code of entries to delete
+     * @param fin_coa_cd  the chart code of entries to delete
      * @param account_nbr the account number of entries to delete
      */
     protected void clearGlEntryTable(String fin_coa_cd, String account_nbr) {
@@ -323,7 +327,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
      * Check all the entries in the file against the data passed in EntryHolder[]. If any of them are different, assert an
      * error.
      *
-     * @param fileCount the expected number of files
+     * @param fileCount       the expected number of files
      * @param requiredEntries an array of expected String-formatted entries to check against
      */
     protected void assertOriginEntries(int fileCount, EntryHolder[] requiredEntries) {
@@ -344,13 +348,11 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
                 String line = null;
 
                 while ((line = br.readLine()) != null) {
-                    sortedEntryTransactions.add(new EntryHolder(type,line));
+                    sortedEntryTransactions.add(new EntryHolder(type, line));
                 }
-            }
-            catch (FileNotFoundException fnfe) {
+            } catch (FileNotFoundException fnfe) {
                 throw new RuntimeException(fnfe);
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 throw new RuntimeException(ioe);
             }
         }
@@ -365,8 +367,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
                 int groupCompareResult = o1.baseFileName.compareTo(o2.baseFileName);
                 if (groupCompareResult == 0) {
                     return o1.transactionLine.compareTo(o2.transactionLine);
-                }
-                else {
+                } else {
                     return groupCompareResult;
                 }
             }
@@ -413,10 +414,11 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
         }
     }
 
-    protected static Object[] FLEXIBLE_OFFSET_ENABLED_FLAG = { OffsetDefinition.class, KFSConstants.SystemGroupParameterNames.FLEXIBLE_OFFSET_ENABLED_FLAG };
+    protected static Object[] FLEXIBLE_OFFSET_ENABLED_FLAG = {OffsetDefinition.class, KFSConstants.SystemGroupParameterNames.FLEXIBLE_OFFSET_ENABLED_FLAG};
 
     /**
      * Resets the flexible offset and flexible claim on cash parameters, so that processes running as unit tests have consistent behaviors
+     *
      * @throws Exception if the parameters could not be reset for some reason
      */
     protected void resetAllEnhancementFlags() throws Exception {
@@ -427,8 +429,8 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
      * Resets a parameter for the sake of the unit test
      *
      * @param componentClass the module class of the parameter
-     * @param name the name of the parameter to reset
-     * @param value the new value for the parameter
+     * @param name           the name of the parameter to reset
+     * @param value          the new value for the parameter
      * @throws Exception thrown if some vague thing goes wrong
      */
     protected void setApplicationConfigurationFlag(Class<?> componentClass, String name, boolean value) throws Exception {

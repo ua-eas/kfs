@@ -19,10 +19,9 @@
 
 package org.kuali.kfs.module.purap.document;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.PurapWorkflowConstants;
@@ -32,14 +31,15 @@ import org.kuali.kfs.module.purap.document.service.RequisitionService;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ContractManagerAssignmentDocument extends FinancialSystemTransactionalDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractManagerAssignmentDocument.class);
@@ -81,17 +81,16 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         LOG.debug("populateDocumentWithRequisitions() Entering method.");
 
         List<RequisitionDocument> unassignedRequisitions = new ArrayList(SpringContext.getBean(RequisitionService.class).getRequisitionsAwaitingContractManagerAssignment());
-        List<String>documentHeaderIds = new ArrayList();
+        List<String> documentHeaderIds = new ArrayList();
         for (RequisitionDocument req : unassignedRequisitions) {
             documentHeaderIds.add(req.getDocumentNumber());
         }
 
         List<Document> requisitionDocumentsFromDocService = new ArrayList();
         try {
-            if ( documentHeaderIds.size() > 0 )
+            if (documentHeaderIds.size() > 0)
                 requisitionDocumentsFromDocService = SpringContext.getBean(DocumentService.class).getDocumentsByListOfDocumentHeaderIds(RequisitionDocument.class, documentHeaderIds);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             String errorMsg = "Workflow Exception caught: " + we.getLocalizedMessage();
             LOG.error(errorMsg, we);
             throw new RuntimeException(errorMsg, we);
@@ -128,9 +127,8 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
                             currentNodeName = this.getCurrentRouteNodeName(workflowDoc);
                         }
                     }
-                    workflowDoc.adHocToPrincipal( ActionRequestType.FYI, currentNodeName, PurapWorkflowConstants.ContractManagerAssignmentDocument.ASSIGN_CONTRACT_DOC_ERROR_COMPLETING_POST_PROCESSING + failedReqs, workflowDoc.getInitiatorPrincipalId(), "Initiator", true);
-                }
-                catch (WorkflowException e) {
+                    workflowDoc.adHocToPrincipal(ActionRequestType.FYI, currentNodeName, PurapWorkflowConstants.ContractManagerAssignmentDocument.ASSIGN_CONTRACT_DOC_ERROR_COMPLETING_POST_PROCESSING + failedReqs, workflowDoc.getInitiatorPrincipalId(), "Initiator", true);
+                } catch (WorkflowException e) {
                     // do nothing; document should have processed successfully and problem is with sending FYI
                 }
             }
@@ -139,7 +137,6 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
     }
 
     /**
-     *
      * @param wd
      * @return
      * @throws WorkflowException
@@ -148,8 +145,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         Set<String> nodeNames = wd.getCurrentNodeNames();
         if (nodeNames == null || nodeNames.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return nodeNames.iterator().next();
         }
     }
@@ -162,8 +158,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         String title = "";
         if (SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(ContractManagerAssignmentDocument.class, PurapParameterConstants.PURAP_OVERRIDE_ASSIGN_CONTRACT_MGR_DOC_TITLE)) {
             title = PurapWorkflowConstants.ContractManagerAssignmentDocument.WORKFLOW_DOCUMENT_TITLE;
-        }
-        else {
+        } else {
             title = super.getDocumentTitle();
         }
         return title;
@@ -204,11 +199,11 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         return firstItemDescription;
     }
 
-   /**
-    * Gets the firstItemCommodityCode attribute.
-    *
-    * @return Returns the firstItemCommodityCode.
-    */
+    /**
+     * Gets the firstItemCommodityCode attribute.
+     *
+     * @return Returns the firstItemCommodityCode.
+     */
     public String getFirstItemCommodityCode() {
         return firstItemCommodityCode;
     }

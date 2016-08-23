@@ -41,7 +41,7 @@ public interface AccountsPayableDocumentSpecificService {
      * Generates the general ledger entries that need to be created by an AccountsPayableDocument
      * of the specific type of the given AP document.
      *
-     * @param apDoc     An AccountsPayableDocument
+     * @param apDoc An AccountsPayableDocument
      */
     public void generateGLEntriesCreateAccountsPayableDocument(AccountsPayableDocument apDoc);
 }

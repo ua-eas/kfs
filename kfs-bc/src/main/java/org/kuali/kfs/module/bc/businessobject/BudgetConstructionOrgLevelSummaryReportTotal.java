@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
 
 /**
  * Budget Construction Organization Account Summary Report Business Object.
@@ -60,126 +60,167 @@ public class BudgetConstructionOrgLevelSummaryReportTotal {
     public BudgetConstructionLevelSummary getBcls() {
         return bcls;
     }
+
     public void setBcls(BudgetConstructionLevelSummary bcls) {
         this.bcls = bcls;
     }
+
     public KualiInteger getDifferenceAccountLineAnnualBalanceAmount() {
         return differenceAccountLineAnnualBalanceAmount;
     }
+
     public void setDifferenceAccountLineAnnualBalanceAmount(KualiInteger differenceAccountLineAnnualBalanceAmount) {
         this.differenceAccountLineAnnualBalanceAmount = differenceAccountLineAnnualBalanceAmount;
     }
+
     public KualiInteger getDifferenceFinancialBeginningBalanceLineAmount() {
         return differenceFinancialBeginningBalanceLineAmount;
     }
+
     public void setDifferenceFinancialBeginningBalanceLineAmount(KualiInteger differenceFinancialBeginningBalanceLineAmount) {
         this.differenceFinancialBeginningBalanceLineAmount = differenceFinancialBeginningBalanceLineAmount;
     }
+
     public KualiInteger getExpenditureAccountLineAnnualBalanceAmount() {
         return expenditureAccountLineAnnualBalanceAmount;
     }
+
     public void setExpenditureAccountLineAnnualBalanceAmount(KualiInteger expenditureAccountLineAnnualBalanceAmount) {
         this.expenditureAccountLineAnnualBalanceAmount = expenditureAccountLineAnnualBalanceAmount;
     }
+
     public KualiInteger getExpenditureFinancialBeginningBalanceLineAmount() {
         return expenditureFinancialBeginningBalanceLineAmount;
     }
+
     public void setExpenditureFinancialBeginningBalanceLineAmount(KualiInteger expenditureFinancialBeginningBalanceLineAmount) {
         this.expenditureFinancialBeginningBalanceLineAmount = expenditureFinancialBeginningBalanceLineAmount;
     }
+
     public KualiInteger getGrossAccountLineAnnualBalanceAmount() {
         return grossAccountLineAnnualBalanceAmount;
     }
+
     public void setGrossAccountLineAnnualBalanceAmount(KualiInteger grossAccountLineAnnualBalanceAmount) {
         this.grossAccountLineAnnualBalanceAmount = grossAccountLineAnnualBalanceAmount;
     }
+
     public KualiInteger getGrossFinancialBeginningBalanceLineAmount() {
         return grossFinancialBeginningBalanceLineAmount;
     }
+
     public void setGrossFinancialBeginningBalanceLineAmount(KualiInteger grossFinancialBeginningBalanceLineAmount) {
         this.grossFinancialBeginningBalanceLineAmount = grossFinancialBeginningBalanceLineAmount;
     }
+
     public KualiInteger getRevenueAccountLineAnnualBalanceAmount() {
         return revenueAccountLineAnnualBalanceAmount;
     }
+
     public void setRevenueAccountLineAnnualBalanceAmount(KualiInteger revenueAccountLineAnnualBalanceAmount) {
         this.revenueAccountLineAnnualBalanceAmount = revenueAccountLineAnnualBalanceAmount;
     }
+
     public KualiInteger getRevenueFinancialBeginningBalanceLineAmount() {
         return revenueFinancialBeginningBalanceLineAmount;
     }
+
     public void setRevenueFinancialBeginningBalanceLineAmount(KualiInteger revenueFinancialBeginningBalanceLineAmount) {
         this.revenueFinancialBeginningBalanceLineAmount = revenueFinancialBeginningBalanceLineAmount;
     }
+
     public KualiInteger getTotalConsolidationAccountLineAnnualBalanceAmount() {
         return totalConsolidationAccountLineAnnualBalanceAmount;
     }
+
     public void setTotalConsolidationAccountLineAnnualBalanceAmount(KualiInteger totalConsolidationAccountLineAnnualBalanceAmount) {
         this.totalConsolidationAccountLineAnnualBalanceAmount = totalConsolidationAccountLineAnnualBalanceAmount;
     }
+
     public BigDecimal getTotalConsolidationAppointmentRequestedCsfFteQuantity() {
         return totalConsolidationAppointmentRequestedCsfFteQuantity;
     }
+
     public void setTotalConsolidationAppointmentRequestedCsfFteQuantity(BigDecimal totalConsolidationAppointmentRequestedCsfFteQuantity) {
         this.totalConsolidationAppointmentRequestedCsfFteQuantity = totalConsolidationAppointmentRequestedCsfFteQuantity;
     }
+
     public BigDecimal getTotalConsolidationAppointmentRequestedFteQuantity() {
         return totalConsolidationAppointmentRequestedFteQuantity;
     }
+
     public void setTotalConsolidationAppointmentRequestedFteQuantity(BigDecimal totalConsolidationAppointmentRequestedFteQuantity) {
         this.totalConsolidationAppointmentRequestedFteQuantity = totalConsolidationAppointmentRequestedFteQuantity;
     }
+
     public KualiInteger getTotalConsolidationFinancialBeginningBalanceLineAmount() {
         return totalConsolidationFinancialBeginningBalanceLineAmount;
     }
+
     public void setTotalConsolidationFinancialBeginningBalanceLineAmount(KualiInteger totalConsolidationFinancialBeginningBalanceLineAmount) {
         this.totalConsolidationFinancialBeginningBalanceLineAmount = totalConsolidationFinancialBeginningBalanceLineAmount;
     }
+
     public BigDecimal getTotalConsolidationPositionCsfFullTimeEmploymentQuantity() {
         return totalConsolidationPositionCsfFullTimeEmploymentQuantity;
     }
+
     public void setTotalConsolidationPositionCsfFullTimeEmploymentQuantity(BigDecimal totalConsolidationPositionCsfFullTimeEmploymentQuantity) {
         this.totalConsolidationPositionCsfFullTimeEmploymentQuantity = totalConsolidationPositionCsfFullTimeEmploymentQuantity;
     }
+
     public BigDecimal getTotalConsolidationPositionCsfLeaveFteQuantity() {
         return totalConsolidationPositionCsfLeaveFteQuantity;
     }
+
     public void setTotalConsolidationPositionCsfLeaveFteQuantity(BigDecimal totalConsolidationPositionCsfLeaveFteQuantity) {
         this.totalConsolidationPositionCsfLeaveFteQuantity = totalConsolidationPositionCsfLeaveFteQuantity;
     }
+
     public KualiInteger getTypeAccountLineAnnualBalanceAmount() {
         return typeAccountLineAnnualBalanceAmount;
     }
+
     public void setTypeAccountLineAnnualBalanceAmount(KualiInteger typeAccountLineAnnualBalanceAmount) {
         this.typeAccountLineAnnualBalanceAmount = typeAccountLineAnnualBalanceAmount;
     }
+
     public BigDecimal getTypeAppointmentRequestedCsfFteQuantity() {
         return typeAppointmentRequestedCsfFteQuantity;
     }
+
     public void setTypeAppointmentRequestedCsfFteQuantity(BigDecimal typeAppointmentRequestedCsfFteQuantity) {
         this.typeAppointmentRequestedCsfFteQuantity = typeAppointmentRequestedCsfFteQuantity;
     }
+
     public BigDecimal getTypeAppointmentRequestedFteQuantity() {
         return typeAppointmentRequestedFteQuantity;
     }
+
     public void setTypeAppointmentRequestedFteQuantity(BigDecimal typeAppointmentRequestedFteQuantity) {
         this.typeAppointmentRequestedFteQuantity = typeAppointmentRequestedFteQuantity;
     }
+
     public KualiInteger getTypeFinancialBeginningBalanceLineAmount() {
         return typeFinancialBeginningBalanceLineAmount;
     }
+
     public void setTypeFinancialBeginningBalanceLineAmount(KualiInteger typeFinancialBeginningBalanceLineAmount) {
         this.typeFinancialBeginningBalanceLineAmount = typeFinancialBeginningBalanceLineAmount;
     }
+
     public BigDecimal getTypePositionCsfFullTimeEmploymentQuantity() {
         return typePositionCsfFullTimeEmploymentQuantity;
     }
+
     public void setTypePositionCsfFullTimeEmploymentQuantity(BigDecimal typePositionCsfFullTimeEmploymentQuantity) {
         this.typePositionCsfFullTimeEmploymentQuantity = typePositionCsfFullTimeEmploymentQuantity;
     }
+
     public BigDecimal getTypePositionCsfLeaveFteQuantity() {
         return typePositionCsfLeaveFteQuantity;
     }
+
     public void setTypePositionCsfLeaveFteQuantity(BigDecimal typePositionCsfLeaveFteQuantity) {
         this.typePositionCsfLeaveFteQuantity = typePositionCsfLeaveFteQuantity;
     }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.List;
 
 /**
  * A service which helps in the claiming of ElectronicPaymentClaim records
@@ -34,7 +34,7 @@ public interface ElectronicPaymentClaimingService {
     /**
      * Constructs a List of Notes that detail which ElectronicPaymentClaim records have been claimed by a document
      *
-     * @param claims the ElectronicPaymentClaim record that will be claimed by a document
+     * @param claims       the ElectronicPaymentClaim record that will be claimed by a document
      * @param claimingUser the user who's actually claiming ElectronicPaymentClaim records
      * @return a List of Notes that will summarize that claiming.
      */
@@ -53,9 +53,9 @@ public interface ElectronicPaymentClaimingService {
      * implementation, creates a document that will claim; this method should also do the work of "claiming" each of the given
      * ElectronicPaymentClaim records by filling in their referenceFinancialDocumentNumber field.
      *
-     * @param claims the List of ElectronicPaymentClaim records to claim with a document
+     * @param claims                 the List of ElectronicPaymentClaim records to claim with a document
      * @param documentCreationHelper the document helper which will help this method in constructing the claiming document
-     * @param user the Person record of the user who is claiming the given electronic payments
+     * @param user                   the Person record of the user who is claiming the given electronic payments
      * @return the URL to redirect to, so the user can edit the document
      */
     public abstract String createPaymentClaimingDocument(List<ElectronicPaymentClaim> claims, ElectronicPaymentClaimingDocumentGenerationStrategy documentCreationHelper, Person user);
@@ -72,7 +72,7 @@ public interface ElectronicPaymentClaimingService {
      * Sets the referenceFinancialDocumentNumber on each of the payments passed in with the given document number and then saves
      * them.
      *
-     * @param payments a list of payments to claim
+     * @param payments      a list of payments to claim
      * @param docmentNumber the document number of the claiming document
      */
     public abstract void claimElectronicPayments(List<ElectronicPaymentClaim> payments, String documentNumber);
@@ -87,6 +87,7 @@ public interface ElectronicPaymentClaimingService {
 
     /**
      * Determines if the given accounting line represents an electronic payment
+     *
      * @param accountingLine the accounting line to check
      * @return true if the accounting line does represent an electronic payment, false otherwise
      */
@@ -96,8 +97,8 @@ public interface ElectronicPaymentClaimingService {
      * check whether the given user has permission to claim eletronic payment for the given document type defined in the specified
      * namespace
      *
-     * @param user the given user being checked
-     * @param namespaceCode the specified namespace
+     * @param user                     the given user being checked
+     * @param namespaceCode            the specified namespace
      * @param workflowDocumentTypeName the workflow document type name of the document being claimed
      * @return true if the user has permisson to claim electronic payment; otherwise, false
      */

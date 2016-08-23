@@ -18,13 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemWorkflowConstants;
 import org.kuali.kfs.module.tem.batch.TaxableRamificationNotificationStep;
@@ -35,7 +30,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * if the cash advance is not cleared on an expense report, the system will generate a tax ramification document showing all taxable
@@ -225,6 +225,7 @@ public class TaxableRamificationDocument extends FinancialSystemTransactionalDoc
 
     /**
      * Gets the taxableRamificationNotice attribute.
+     *
      * @return Returns the taxableRamificationNotice.
      */
     public String getTaxableRamificationNotice() {
@@ -233,6 +234,7 @@ public class TaxableRamificationDocument extends FinancialSystemTransactionalDoc
 
     /**
      * Sets the taxableRamificationNotice attribute value.
+     *
      * @param taxableRamificationNotice The taxableRamificationNotice to set.
      */
     public void setTaxableRamificationNotice(String taxableRamificationNotice) {
@@ -255,6 +257,7 @@ public class TaxableRamificationDocument extends FinancialSystemTransactionalDoc
     /**
      * Read only method to look up accounting lines associated with the advance.  Couldn't do this in OJB because collection-descriptor
      * assumes the collection is related to your PK.  Because it's stupid.
+     *
      * @return the accounting lines associated with the travel advance associated with this document
      */
     public List<TemSourceAccountingLine> getAdvanceAccountingLines() {

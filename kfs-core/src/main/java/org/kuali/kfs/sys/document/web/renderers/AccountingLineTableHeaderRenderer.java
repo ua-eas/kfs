@@ -59,19 +59,18 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
             out.write(buildDivStart());
 
             String tableClass = null;
-            if ( parentTag instanceof AccountingLinesTag) {
+            if (parentTag instanceof AccountingLinesTag) {
                 List<AccountingLine> sourceLines = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines();
                 List<AccountingLine> targetLines = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines();
                 tableClass = decideTableClass(sourceLines, targetLines);
             }
             out.write(buildTableStart(tableClass));
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
         }
     }
 
-    protected String decideTableClass(List<AccountingLine> sourceLines,List<AccountingLine> targetLines) {
+    protected String decideTableClass(List<AccountingLine> sourceLines, List<AccountingLine> targetLines) {
         String tableClass = null;
         // Find greatest source line #
         int sourceSize = sourceLines.size();
@@ -84,7 +83,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
         // Find greatest target line #
         int targetSize = targetLines.size();
-        if (targetSize >0 && targetLines.get(0) instanceof AccountingLine) {
+        if (targetSize > 0 && targetLines.get(0) instanceof AccountingLine) {
             AccountingLine lastTargetLine = Collections.max(targetLines, Comparator.comparingInt(l -> l.getSequenceNumber() == null ? 0 : l.getSequenceNumber()));
             if (lastTargetLine != null && lastTargetLine.getSequenceNumber() != null) {
                 targetSize = lastTargetLine.getSequenceNumber();
@@ -100,6 +99,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
     /**
      * Builds the beginning of the tab-container div
+     *
      * @return the beginning of the tab-container div in HTML
      */
     protected String buildDivStart() {
@@ -108,6 +108,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
     /**
      * Builds the very start of the table
+     *
      * @return the very start of the table expressed as HTML
      */
     protected String buildTableStart() {
@@ -124,6 +125,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
     /**
      * Gets the cellCount attribute.
+     *
      * @return Returns the cellCount.
      */
     public int getCellCount() {
@@ -132,6 +134,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
     /**
      * Sets the cellCount attribute value.
+     *
      * @param cellCount The cellCount to set.
      */
     public void setCellCount(int cellCount) {

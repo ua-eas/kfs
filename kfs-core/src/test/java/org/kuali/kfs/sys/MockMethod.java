@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys;
 
+import junit.framework.AssertionFailedError;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import junit.framework.AssertionFailedError;
 
 /**
  * This class implements a method for a {@link MockService}.
@@ -37,9 +37,9 @@ public class MockMethod {
     /**
      * Constructs a new instance.
      *
-     * @param name the name of the method to mock
+     * @param name             the name of the method to mock
      * @param noResultFallback the Object on which to actually invoke this method if no mock results are associated, or null if a
-     *        {@link junit.framework.AssertionFailedError} should be thrown in this case instead.
+     *                         {@link junit.framework.AssertionFailedError} should be thrown in this case instead.
      */
     public MockMethod(String name, Object noResultFallback) {
         this.name = name;
@@ -54,8 +54,8 @@ public class MockMethod {
      * Sets a result from this method for the given list of arguments.
      *
      * @param result the result to return for invoking with the given args
-     * @param args the arguments to associate with the given result. The given array is copied, but if the hashCode or equality of
-     *        Objects in this array change, then the invoke method may fail to find the associated result.
+     * @param args   the arguments to associate with the given result. The given array is copied, but if the hashCode or equality of
+     *               Objects in this array change, then the invoke method may fail to find the associated result.
      */
     public void setResult(Object result, Object[] args) {
         argListToResultMap.put(Arrays.asList((Object[]) args.clone()), result);
@@ -72,8 +72,7 @@ public class MockMethod {
         List<Object> key = Arrays.asList(args);
         if (argListToResultMap.containsKey(key)) {
             return argListToResultMap.get(key);
-        }
-        else {
+        } else {
             if (noResultFallback == null) {
                 throw new AssertionFailedError("method " + name + " has no result for " + key);
             }

@@ -22,7 +22,7 @@ import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
-public class PurchasingAccountsPayableLineItemIndicatorBranchingValidation extends BranchingValidation{
+public class PurchasingAccountsPayableLineItemIndicatorBranchingValidation extends BranchingValidation {
 
     protected static final String IS_LINE_ITEM_INDICATOR = "isLineItemIndicator";
     protected static final String IS_NOT_LINE_ITEM_INDICATOR = "isNotLineItemIndicator";

@@ -24,18 +24,18 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public interface PaymentSummaryService {
     /**
      * @param asset Asset that needs Payment Summary Information computed
-     *        <ol>
-     *        Computes following information and sets them to asset object
-     *        <li>Federal contribution amount</li>
-     *        <li>Payments till date</li>
-     *        <li>Total Cost of Asset</li>
-     *        <li>Accumulated Depreciation</li>
-     *        <li>Primary Base Amount</li>
-     *        <li>Book Value</li>
-     *        <li>Previous Year Depreciation</li>
-     *        <li>Year to Date Depreciation</li>
-     *        <li>Current month depreciation</li>
-     *        </ol>
+     *              <ol>
+     *              Computes following information and sets them to asset object
+     *              <li>Federal contribution amount</li>
+     *              <li>Payments till date</li>
+     *              <li>Total Cost of Asset</li>
+     *              <li>Accumulated Depreciation</li>
+     *              <li>Primary Base Amount</li>
+     *              <li>Book Value</li>
+     *              <li>Previous Year Depreciation</li>
+     *              <li>Year to Date Depreciation</li>
+     *              <li>Current month depreciation</li>
+     *              </ol>
      */
     void calculateAndSetPaymentSummary(Asset asset);
 

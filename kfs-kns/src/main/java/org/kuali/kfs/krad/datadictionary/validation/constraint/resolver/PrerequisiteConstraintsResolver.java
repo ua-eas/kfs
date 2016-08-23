@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint.resolver;
 
-import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
 import org.kuali.kfs.krad.datadictionary.validation.capability.PrerequisiteConstrainable;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
 
 import java.util.List;
 
 /**
  * An object that returns the list of prerequisite constraints for a definition implementing the capability {@link PrerequisiteConstrainable}.
- *
- *
  */
 public class PrerequisiteConstraintsResolver<T extends PrerequisiteConstrainable> implements ConstraintResolver<T> {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <C extends Constraint> List<C> resolve(T definition) {
-		return (List<C>) definition.getPrerequisiteConstraints();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public <C extends Constraint> List<C> resolve(T definition) {
+        return (List<C>) definition.getPrerequisiteConstraints();
+    }
 
 }

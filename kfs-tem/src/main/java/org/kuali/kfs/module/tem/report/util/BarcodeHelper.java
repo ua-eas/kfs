@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.report.util;
 
-import java.awt.image.BufferedImage;
-
 import org.krysalis.barcode4j.BarcodeGenerator;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.awt.image.BufferedImage;
 
 public class BarcodeHelper {
     // Bar codes
@@ -40,34 +40,33 @@ public class BarcodeHelper {
     private static final String MIME = "image/gif";
     private static final String BARCODE_GIF = "barcode.gif";
 
-    public BufferedImage generateBarcodeImage(String documentNumber){
+    public BufferedImage generateBarcodeImage(String documentNumber) {
         String barcodeStyle = getParameterService().getParameterValueAsString(TravelReimbursementDocument.class, TemConstants.TravelReimbursementParameters.BARCODE_STYLE);
-        BufferedImage image=null;
+        BufferedImage image = null;
         if (barcodeStyle.equals(BARCODE_39)) {
             Code39Bean bean = new Code39Bean();
             bean.setModuleWidth(UnitConv.in2mm(1.0f / DPI));
             bean.setWideFactor(3);
             bean.doQuietZone(false);
-            image= getBufferedBarcodeImage(documentNumber, bean);
+            image = getBufferedBarcodeImage(documentNumber, bean);
 
-        }else if (barcodeStyle.equals(BARCODE_128)) {
+        } else if (barcodeStyle.equals(BARCODE_128)) {
             Code128Bean bean = new Code128Bean();
             bean.setModuleWidth(UnitConv.in2mm(1.0f / DPI));
             bean.doQuietZone(false);
-            image= getBufferedBarcodeImage(documentNumber, bean);
+            image = getBufferedBarcodeImage(documentNumber, bean);
         }
         return image;
     }
 
-    private synchronized BufferedImage getBufferedBarcodeImage(String documentNumber, BarcodeGenerator bean){
+    private synchronized BufferedImage getBufferedBarcodeImage(String documentNumber, BarcodeGenerator bean) {
         try {
-            BitmapCanvasProvider canvas = new BitmapCanvasProvider(DPI, BufferedImage.TYPE_BYTE_BINARY,false ,0 );
+            BitmapCanvasProvider canvas = new BitmapCanvasProvider(DPI, BufferedImage.TYPE_BYTE_BINARY, false, 0);
             bean.generateBarcode(canvas, documentNumber);
-            BufferedImage image=canvas.getBufferedImage();
+            BufferedImage image = canvas.getBufferedImage();
             canvas.finish();
             return image;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

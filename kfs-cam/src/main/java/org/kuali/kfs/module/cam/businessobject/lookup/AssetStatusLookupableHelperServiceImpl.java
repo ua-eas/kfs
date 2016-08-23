@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetStatus;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrids the base getActionUrls method
@@ -36,13 +36,13 @@ public class AssetStatusLookupableHelperServiceImpl extends KualiLookupableHelpe
 
     @Override
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {
-        List<AssetStatus> assetStatuses = (List<AssetStatus>)super.getSearchResultsHelper(fieldValues, unbounded);
+        List<AssetStatus> assetStatuses = (List<AssetStatus>) super.getSearchResultsHelper(fieldValues, unbounded);
 
         //If the lookup was invoked from a document, then hide Under Construction Asset Status
-        if (StringUtils.isNotBlank(fieldValues.get(KRADConstants.DOC_NUM))){
-            boolean found=false;
-            int pos=-1;
-            for(AssetStatus assetStatus : assetStatuses) {
+        if (StringUtils.isNotBlank(fieldValues.get(KRADConstants.DOC_NUM))) {
+            boolean found = false;
+            int pos = -1;
+            for (AssetStatus assetStatus : assetStatuses) {
                 pos++;
                 if (assetStatus.getInventoryStatusCode().equals(CamsConstants.InventoryStatusCode.CAPITAL_ASSET_UNDER_CONSTRUCTION)) {
                     found = true;

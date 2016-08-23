@@ -32,6 +32,7 @@ public class CgKimAttributes extends KfsKimAttributes {
     public String getResearchRiskTypeCode() {
         return researchRiskTypeCode;
     }
+
     public void setResearchRiskTypeCode(String researchRiskTypeCode) {
         this.researchRiskTypeCode = researchRiskTypeCode;
     }
@@ -39,6 +40,7 @@ public class CgKimAttributes extends KfsKimAttributes {
     public ResearchRiskType getResearchRiskType() {
         return researchRiskType;
     }
+
     public void setResearchRiskType(ResearchRiskType researchRiskType) {
         this.researchRiskType = researchRiskType;
     }

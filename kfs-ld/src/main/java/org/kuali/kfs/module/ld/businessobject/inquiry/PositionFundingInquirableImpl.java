@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ld.businessobject.inquiry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.module.ld.businessobject.PositionFunding;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to generate the URL for the user-defined attributes for the Position Inquiry screen. It is entended the

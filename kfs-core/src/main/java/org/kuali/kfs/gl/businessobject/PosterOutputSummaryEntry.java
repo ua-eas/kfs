@@ -28,10 +28,11 @@ public class PosterOutputSummaryEntry extends PosterOutputSummaryBalanceTypeFisc
 
     /**
      * Constructs a PosterOutputSummaryEntry object
-     * @param balanceTypeCode the balance type code to set
+     *
+     * @param balanceTypeCode      the balance type code to set
      * @param universityFiscalYear the fiscal year to set
-     * @param fiscalPeriodCode the fiscal period code to set
-     * @param fundGroupCode the fund group code to set
+     * @param fiscalPeriodCode     the fiscal period code to set
+     * @param fundGroupCode        the fund group code to set
      */
     public PosterOutputSummaryEntry(String balanceTypeCode, Integer universityFiscalYear, String fiscalPeriodCode, String fundGroupCode) {
         super(balanceTypeCode, universityFiscalYear, fiscalPeriodCode);
@@ -49,14 +50,14 @@ public class PosterOutputSummaryEntry extends PosterOutputSummaryBalanceTypeFisc
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pks = new LinkedHashMap<String, Object>();
         pks.put("universityFiscalYear", this.getUniversityFiscalYear());
-        pks.put("fiscalPeriodCode",this.getFiscalPeriodCode());
-        pks.put("balanceTypeCode",this.getBalanceTypeCode());
-        pks.put("fundGroup",this.getFundGroup());
-        pks.put("objectTypeCode",this.getObjectTypeCode());
-        pks.put("creditAmount",this.getCreditAmount());
-        pks.put("debitAmount",this.getDebitAmount());
-        pks.put("budgetAmount",this.getBudgetAmount());
-        pks.put("netAmount",this.getNetAmount());
+        pks.put("fiscalPeriodCode", this.getFiscalPeriodCode());
+        pks.put("balanceTypeCode", this.getBalanceTypeCode());
+        pks.put("fundGroup", this.getFundGroup());
+        pks.put("objectTypeCode", this.getObjectTypeCode());
+        pks.put("creditAmount", this.getCreditAmount());
+        pks.put("debitAmount", this.getDebitAmount());
+        pks.put("budgetAmount", this.getBudgetAmount());
+        pks.put("netAmount", this.getNetAmount());
         return pks;
     }
 

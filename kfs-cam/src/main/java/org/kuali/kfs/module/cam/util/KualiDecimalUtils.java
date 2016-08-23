@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.util;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
 
 /**
  * Utility class that provides methods to allocate money into a number of targets according to certain policies.
@@ -36,14 +36,14 @@ public class KualiDecimalUtils {
      * 1. This method assumes that the divisor is a positive integer. Validation of the the passed in parameters shall be the caller's responsibility.
      * 2. If the sum can't be evenly divided due to limited accuracy, the last few elements will be adjusted (each by 1c) to reflect the round-up difference.
      *
-     * @param amount the total amount to allocate
+     * @param amount  the total amount to allocate
      * @param divisor the number of targets to allocate to
      * @return an array of allocated amounts
      */
     public static KualiDecimal[] allocateByQuantity(KualiDecimal amount, int divisor) {
 
         if (amount == null || divisor == 0) {
-            return amount == null ? null : new KualiDecimal[] { amount };
+            return amount == null ? null : new KualiDecimal[]{amount};
         }
 
         // calculate evenly divided amount
@@ -73,7 +73,7 @@ public class KualiDecimalUtils {
         KualiDecimal cent = reminderAmount.isPositive() ? new KualiDecimal(0.01) : new KualiDecimal(-0.01);
 
         // compensate the difference by offsetting the last N elements, each by 1c; here N = reminderAmount * 100
-        for (int i = divisor - 1; i >= divisor - n ; i--) {
+        for (int i = divisor - 1; i >= divisor - n; i--) {
             amountsArray[i] = dividedAmount.add(cent);
         }
 
@@ -93,7 +93,7 @@ public class KualiDecimalUtils {
     public static KualiDecimal[] allocateByRatio(KualiDecimal amount, double[] ratios) {
 
         if (ratios == null || ratios.length == 0 || amount == null) {
-            return amount == null ? null : new KualiDecimal[] { amount };
+            return amount == null ? null : new KualiDecimal[]{amount};
         }
 
         // allocate amounts into array according to the ratios
@@ -127,7 +127,7 @@ public class KualiDecimalUtils {
         n = n > ratios.length ? ratios.length : n;
 
         // compensate the difference by offsetting the last N elements, each by 1c; here N = reminderAmount * 100
-        for (int i = ratios.length - 1; i >= ratios.length - n ; i--) {
+        for (int i = ratios.length - 1; i >= ratios.length - n; i--) {
             amountsArray[i] = amountsArray[i].add(cent);
         }
 
@@ -145,8 +145,7 @@ public class KualiDecimalUtils {
     public static KualiDecimal safeMultiply(KualiDecimal value, double multiplier) {
         if (value == null) {
             return value;
-        }
-        else {
+        } else {
             return new KualiDecimal(value.bigDecimalValue().multiply(new BigDecimal(multiplier)));
         }
     }

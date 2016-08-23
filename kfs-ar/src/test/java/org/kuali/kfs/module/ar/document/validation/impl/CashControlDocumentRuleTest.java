@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -35,10 +37,8 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the rules in CashControlDocumentRule
@@ -92,8 +92,8 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
 
         try {
             documentService.saveDocument(doc);
-        } catch ( ValidationException ex ) {
-            fail( "Unable to save document - failed validation: \n" + dumpMessageMapErrors() + "\nDocument: " + doc);
+        } catch (ValidationException ex) {
+            fail("Unable to save document - failed validation: \n" + dumpMessageMapErrors() + "\nDocument: " + doc);
         }
 
         return doc;
@@ -172,11 +172,11 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
     public void testCheckGLPEsCreated_True() throws WorkflowException {
 
         Document tempDocument = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), GeneralErrorCorrectionDocument.class);
-        GeneralLedgerPendingEntry tempEntry =  new GeneralLedgerPendingEntry();
+        GeneralLedgerPendingEntry tempEntry = new GeneralLedgerPendingEntry();
         documentService.saveDocument(tempDocument);
         document.getGeneralLedgerPendingEntries().add(tempEntry);
 
-        assertTrue("GLPE's should have been created: " + dumpMessageMapErrors(),rule.checkGLPEsCreated(document));
+        assertTrue("GLPE's should have been created: " + dumpMessageMapErrors(), rule.checkGLPEsCreated(document));
     }
 
     /**
@@ -231,7 +231,7 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
         document.setCustomerPaymentMediumCode(ArConstants.PaymentMediumCode.CASH);
         document.setReferenceFinancialDocumentNumber(tempDoc.getDocumentNumber());
 
-        assertTrue("Business Rules should not have failed: " + dumpMessageMapErrors(),rule.checkRefDocNumber(document));
+        assertTrue("Business Rules should not have failed: " + dumpMessageMapErrors(), rule.checkRefDocNumber(document));
     }
 
     /**

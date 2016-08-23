@@ -18,7 +18,8 @@
  */
 package org.kuali.kfs.sys.web.filter;
 
-import java.io.IOException;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,9 +29,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.util.KRADConstants;
+import java.io.IOException;
 
 /**
  * A login filter which forwards to a login page that allows for the desired
@@ -38,40 +37,42 @@ import org.kuali.kfs.krad.util.KRADConstants;
  */
 public class DevelopmentLoginFilter implements Filter {
 
-	private String user;
+    private String user;
 
-	public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException {
         user = filterConfig.getInitParameter("loginUser");
         if (user == null) {
             throw new ServletException("loginUser parameter is required");
         }
-      }
+    }
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (request instanceof HttpServletRequest) {
-			HttpServletRequest hsreq = (HttpServletRequest) request;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest hsreq = (HttpServletRequest) request;
 //			UserSession session = null;
 //			if (isUserSessionEstablished(hsreq)) {
 //				session = getUserSession(hsreq);
 //			}
 //			if (session == null) {
-				request = new HttpServletRequestWrapper(hsreq) {
-					public String getRemoteUser() {
-						return user;
-					}
-				};
+            request = new HttpServletRequestWrapper(hsreq) {
+                public String getRemoteUser() {
+                    return user;
+                }
+            };
 //
 //			}
-		}
-		chain.doFilter(request, response);
-	}
+        }
+        chain.doFilter(request, response);
+    }
 
-	public void destroy() {
-	}
-	public static UserSession getUserSession(HttpServletRequest request) {
-		return (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
-	}
-	public static boolean isUserSessionEstablished(HttpServletRequest request) {
-		return (request.getSession(false) != null && request.getSession(false).getAttribute(KRADConstants.USER_SESSION_KEY) != null);
-	}
+    public void destroy() {
+    }
+
+    public static UserSession getUserSession(HttpServletRequest request) {
+        return (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+    }
+
+    public static boolean isUserSessionEstablished(HttpServletRequest request) {
+        return (request.getSession(false) != null && request.getSession(false).getAttribute(KRADConstants.USER_SESSION_KEY) != null);
+    }
 }

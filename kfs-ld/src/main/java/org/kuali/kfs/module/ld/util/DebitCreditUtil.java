@@ -34,9 +34,9 @@ public class DebitCreditUtil {
      * if the amount is positive while the credit code returns if the amount is negative. When isReverse flag is set as true, the
      * credit returns for positive amount and the debit code for negative amount.
      *
-     * @param amount the given amount, which can be either negative or positive number.
+     * @param amount     the given amount, which can be either negative or positive number.
      * @param isReversed a flag that indicates if normal accounting practice is used. False for normal accoutning practice; true for
-     *        reverse.
+     *                   reverse.
      * @return the Debit Credit code based on the given transaction amount and the value of isReversed
      */
     public static String getDebitCreditCode(KualiDecimal amount, boolean isReversed) {
@@ -48,10 +48,10 @@ public class DebitCreditUtil {
      * if the amount is positive while the credit code returns if the amount is negative. When isReverse flag is set as true, the
      * credit returns for positive amount and the debit code for negative amount.
      *
-     * @param amount the given amount, which can be either negative or positive number.
+     * @param amount                 the given amount, which can be either negative or positive number.
      * @param currentDebitCreditCode the current debit credit code
-     * @param isReversed a flag that indicates if normal accounting practice is used. False for normal accoutning practice; true for
-     *        reverse.
+     * @param isReversed             a flag that indicates if normal accounting practice is used. False for normal accoutning practice; true for
+     *                               reverse.
      * @return the Debit Credit code based on the given transaction amount and the value of isReversed
      */
     public static String getDebitCreditCode(KualiDecimal amount, String currentDebitCreditCode, boolean isReversed) {
@@ -59,16 +59,13 @@ public class DebitCreditUtil {
         if (amount.isNegative()) {
             if (KFSConstants.GL_CREDIT_CODE.equals(currentDebitCreditCode)) {
                 debitCreditCode = KFSConstants.GL_DEBIT_CODE;
-            }
-            else {
+            } else {
                 debitCreditCode = KFSConstants.GL_CREDIT_CODE;
             }
-        }
-        else {
+        } else {
             if (KFSConstants.GL_CREDIT_CODE.equals(currentDebitCreditCode)) {
                 debitCreditCode = KFSConstants.GL_CREDIT_CODE;
-            }
-            else {
+            } else {
                 debitCreditCode = KFSConstants.GL_DEBIT_CODE;
             }
         }
@@ -92,20 +89,16 @@ public class DebitCreditUtil {
         if (accountingLine.isSourceAccountingLine()) {
             if (isPositiveAmount) {
                 debitCreditCode = KFSConstants.GL_CREDIT_CODE;
-            }
-            else {
+            } else {
                 debitCreditCode = KFSConstants.GL_DEBIT_CODE;
             }
-        }
-        else if (accountingLine.isTargetAccountingLine()) {
+        } else if (accountingLine.isTargetAccountingLine()) {
             if (isPositiveAmount) {
                 debitCreditCode = KFSConstants.GL_DEBIT_CODE;
-            }
-            else {
+            } else {
                 debitCreditCode = KFSConstants.GL_CREDIT_CODE;
             }
-        }
-        else {
+        } else {
             DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
             throw new IllegalStateException(isDebitUtils.getInvalidLineTypeIllegalArgumentExceptionMessage());
         }
@@ -135,7 +128,7 @@ public class DebitCreditUtil {
      * Determine the actual amount based on Debit Credit code. If the code is credit code, then change the sign of the given amount;
      * otherwise, do nothing
      *
-     * @param amount the given amount, which can be either negative or positive number.
+     * @param amount                 the given amount, which can be either negative or positive number.
      * @param currentDebitCreditCode the current debit credit code
      * @return the actual numeric amount of the given amount
      */
@@ -144,8 +137,7 @@ public class DebitCreditUtil {
 
         if (amount == null) {
             actualAmount = KualiDecimal.ZERO;
-        }
-        else if (KFSConstants.GL_CREDIT_CODE.equals(currentDebitCreditCode)) {
+        } else if (KFSConstants.GL_CREDIT_CODE.equals(currentDebitCreditCode)) {
             actualAmount = actualAmount.multiply(new KualiDecimal(-1));
         }
         return actualAmount;

@@ -19,17 +19,17 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.fp.document.CashManagementDocument;
+import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.fp.document.CashManagementDocument;
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.Bank;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 /**
@@ -65,6 +65,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Gets the bank attribute.
+     *
      * @return Returns the bank.
      */
     public Bank getBank() {
@@ -73,6 +74,7 @@ public class Deposit extends PersistableBusinessObjectBase {
 
     /**
      * Sets the bank attribute value.
+     *
      * @param bank The bank to set.
      */
     public void setBank(Bank bank) {

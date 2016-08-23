@@ -23,8 +23,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * Provides access to sequence numbers.
- *
- *
  */
 public interface SequenceAccessorService {
     /**
@@ -33,8 +31,8 @@ public interface SequenceAccessorService {
      *
      * @return next available sequence number
      */
-	public Long getNextAvailableSequenceNumber(String sequenceName,
-			Class<? extends BusinessObject> clazz);
+    public Long getNextAvailableSequenceNumber(String sequenceName,
+                                               Class<? extends BusinessObject> clazz);
 
     /**
      * This method retrieves the next available sequence number

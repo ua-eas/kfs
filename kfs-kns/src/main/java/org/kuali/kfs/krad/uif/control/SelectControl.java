@@ -22,8 +22,6 @@ package org.kuali.kfs.krad.uif.control;
 /**
  * Represents a HTML Select control. Provides preset options for the User to
  * choose from by a drop down
- *
- *
  */
 public class SelectControl extends MultiValueControlBase implements SizedControl {
     private static final long serialVersionUID = 6443247954759096815L;
@@ -60,7 +58,7 @@ public class SelectControl extends MultiValueControlBase implements SizedControl
      * </p>
      *
      * @return boolean true if multiple values can be selected, false if only
-     *         one value can be selected
+     * one value can be selected
      */
     public boolean isMultiple() {
         return this.multiple;

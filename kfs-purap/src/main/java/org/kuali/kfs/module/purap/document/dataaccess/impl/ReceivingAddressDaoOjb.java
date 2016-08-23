@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -31,6 +29,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
 /**
  * OJB Implementation of ReceivingAddressDao.
  */
@@ -39,14 +39,14 @@ public class ReceivingAddressDaoOjb extends PlatformAwareDaoBaseOjb implements R
     private static Logger LOG = Logger.getLogger(ReceivingAddressDaoOjb.class);
 
     /**
-     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#findActiveByChartOrg(java.lang.String,java.lang.String)
+     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#findActiveByChartOrg(java.lang.String, java.lang.String)
      */
     public Collection<ReceivingAddress> findActiveByChartOrg(String chartCode, String orgCode) {
         LOG.debug("Entering findActiveByChartOrg(String,String)");
 
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
-        if ( orgCode == null )
+        if (orgCode == null)
             criteria.addIsNull(KFSPropertyConstants.ORGANIZATION_CODE);
         else
             criteria.addEqualTo(KFSPropertyConstants.ORGANIZATION_CODE, orgCode);
@@ -59,14 +59,14 @@ public class ReceivingAddressDaoOjb extends PlatformAwareDaoBaseOjb implements R
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#findDefaultByChartOrg(java.lang.String,java.lang.String)
+     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#findDefaultByChartOrg(java.lang.String, java.lang.String)
      */
     public Collection<ReceivingAddress> findDefaultByChartOrg(String chartCode, String orgCode) {
         LOG.debug("Entering findDefaultByChartOrg(String,String)");
 
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
-        if ( orgCode == null )
+        if (orgCode == null)
             criteria.addIsNull(KFSPropertyConstants.ORGANIZATION_CODE);
         else
             criteria.addEqualTo(KFSPropertyConstants.ORGANIZATION_CODE, orgCode);
@@ -80,14 +80,14 @@ public class ReceivingAddressDaoOjb extends PlatformAwareDaoBaseOjb implements R
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#countActiveByChartOrg(java.lang.String,java.lang.String)
+     * @see org.kuali.kfs.module.purap.document.dataaccess.ReceivingAddressDao#countActiveByChartOrg(java.lang.String, java.lang.String)
      */
     public int countActiveByChartOrg(String chartCode, String orgCode) {
         LOG.debug("Entering countActiveByChartOrg(String,String)");
 
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
-        if ( orgCode == null )
+        if (orgCode == null)
             criteria.addIsNull(KFSPropertyConstants.ORGANIZATION_CODE);
         else
             criteria.addEqualTo(KFSPropertyConstants.ORGANIZATION_CODE, orgCode);

@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.fp.batch.service.impl;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.DistributionOfIncomeAndExpenseDocument;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.List;
 
 public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl implements ElectronicPaymentClaimingDocumentGenerationStrategy {
     private static final Logger LOG = Logger.getLogger(DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl.class);
@@ -65,8 +65,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
             addNotesToDocument(document, electronicPayments, user);
             documentService.saveDocument(document);
             electronicPaymentClaimingService.claimElectronicPayments(electronicPayments, document.getDocumentNumber());
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("WorkflowException while creating a DistributionOfIncomeAndExpenseDocument to claim ElectronicPaymentClaim records.", we);
         }
 
@@ -94,16 +93,15 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
      * Creates notes for the claims (using the ElectronicPaymentClaimingService) and then adds them to the document
      *
      * @param claimingDoc the claiming document
-     * @param claims the electronic payments being claimed
-     * @param user the user doing the claiming
+     * @param claims      the electronic payments being claimed
+     * @param user        the user doing the claiming
      */
     protected void addNotesToDocument(DistributionOfIncomeAndExpenseDocument claimingDoc, List<ElectronicPaymentClaim> claims, Person user) {
         for (String noteText : electronicPaymentClaimingService.constructNoteTextsForClaims(claims)) {
             try {
                 Note note = documentService.createNoteFromDocument(claimingDoc, noteText);
                 claimingDoc.addNote(note);
-             }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Exception while attempting to create or add note: ", e);
             }
         }
@@ -112,7 +110,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
     /**
      * Adds an accounting line to the document for each ElectronicPaymentClaim record that is being added
      *
-     * @param document the claiming Distribution of Income and Expense document
+     * @param document           the claiming Distribution of Income and Expense document
      * @param electronicPayments the list of ElectronicPaymentClaim records that are being claimed
      */
     protected void addAccountingLinesToDocument(DistributionOfIncomeAndExpenseDocument document, List<ElectronicPaymentClaim> electronicPayments) {
@@ -131,8 +129,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
         String description = parameterService.getParameterValueAsString(DistributionOfIncomeAndExpenseDocument.class, DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl.DOCUMENT_DESCRIPTION_PARAM_NAME);
         if (description != null) {
             document.getDocumentHeader().setDocumentDescription(description);
-        }
-        else {
+        } else {
             throw new RuntimeException("There is evidently no value for Parameter KFS-FP / Distribution of Income and Expense / " + DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl.DOCUMENT_DESCRIPTION_PARAM_NAME + "; please set a value before claiming Electronic Payments");
         }
     }
@@ -147,9 +144,8 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
         try {
             Class<? extends SourceAccountingLine> accountingLineClass = document.getSourceAccountingLineClass();
             return accountingLineClass.newInstance();
-        }
-        catch (Exception ex) {
-            throw new RuntimeException( "Unable to create source accounting line for document: " + document, ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to create source accounting line for document: " + document, ex);
         }
     }
 
@@ -173,8 +169,8 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
     }
 
     /**
-     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
      * @return the name DistributionOfIncomeAndExpenseDocument workflow document type
+     * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
      */
     public String getClaimingDocumentWorkflowDocumentType() {
         return KFSConstants.FinancialDocumentTypeCodes.DISTRIBUTION_OF_INCOME_AND_EXPENSE;
@@ -210,7 +206,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
         final String documentTypeName = getClaimingDocumentWorkflowDocumentType();
 
         final boolean canClaim = electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, documentTypeName)
-                || electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, null);
+            || electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, null);
 
         return canClaim;
     }
@@ -225,10 +221,9 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
             if (docNumberAsLong > 0L) {
                 valid = documentService.documentExists(referenceDocumentNumber);
             }
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             // the doc # can't be parsed into a Long? Then it ain't no valid!
-            LOG.warn( "Unable to parse referenceDocumentNumber (" + referenceDocumentNumber + ") into a number: " + nfe.getMessage() );
+            LOG.warn("Unable to parse referenceDocumentNumber (" + referenceDocumentNumber + ") into a number: " + nfe.getMessage());
         }
         return valid;
     }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.datadictionary;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Accounting Line Group implementation with special logic to help with advance accounting lines
@@ -29,13 +29,14 @@ public class AdvanceAccountingLineGroupImpl extends DefaultAccountingLineGroupIm
 
     /**
      * Overridden to show totals when advance accounting lines are present
+     *
      * @see org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl#shouldRenderTotals()
      */
     @Override
     public boolean shouldRenderTotals() {
         boolean renderTotals = !accountingDocument.getSourceAccountingLines().isEmpty() || !accountingDocument.getTargetAccountingLines().isEmpty();
         if (accountingDocument instanceof TravelAuthorizationDocument) {
-            final TravelAuthorizationDocument authorization = (TravelAuthorizationDocument)accountingDocument;
+            final TravelAuthorizationDocument authorization = (TravelAuthorizationDocument) accountingDocument;
             renderTotals = renderTotals || (!ObjectUtils.isNull(authorization.getAdvanceAccountingLines()) && !authorization.getAdvanceAccountingLines().isEmpty());
         }
         renderTotals &= groupDefinition.getTotals() != null && groupDefinition.getTotals().size() > 0;

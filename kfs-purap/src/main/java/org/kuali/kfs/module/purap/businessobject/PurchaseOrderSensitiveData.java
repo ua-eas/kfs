@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class PurchaseOrderSensitiveData extends PersistableBusinessObjectBase {
 
-    private  Integer purapDocumentIdentifier;
-    private  Integer requisitionIdentifier;
-    private  String sensitiveDataCode;
+    private Integer purapDocumentIdentifier;
+    private Integer requisitionIdentifier;
+    private String sensitiveDataCode;
 
     private SensitiveData sensitiveData;
 
@@ -49,6 +49,7 @@ public class PurchaseOrderSensitiveData extends PersistableBusinessObjectBase {
     public void setPurapDocumentIdentifier(Integer purapDocumentIdentifier) {
         this.purapDocumentIdentifier = purapDocumentIdentifier;
     }
+
     public Integer getRequisitionIdentifier() {
         return requisitionIdentifier;
     }

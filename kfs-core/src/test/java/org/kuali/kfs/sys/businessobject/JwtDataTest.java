@@ -27,15 +27,15 @@ import java.util.Date;
 public class JwtDataTest {
     @Test
     public void testDateConstructor() {
-        JwtData data = new JwtData("khuntley",100);
+        JwtData data = new JwtData("khuntley", 100);
 
         Calendar issue = Calendar.getInstance();
         issue.setTime(data.getIssuedAt());
 
         Date expire = data.getExpired();
 
-        issue.add(Calendar.SECOND,100);
-        Assert.assertEquals(issue.getTime(),expire);
-        Assert.assertEquals("khuntley",data.getPrincipalName());
+        issue.add(Calendar.SECOND, 100);
+        Assert.assertEquals(issue.getTime(), expire);
+        Assert.assertEquals("khuntley", data.getPrincipalName());
     }
 }

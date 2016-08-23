@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.spring.datadictionary;
 
-import java.util.ArrayList;
-
 import org.kuali.kfs.krad.datadictionary.PrimitiveAttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.SupportAttributeDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -29,6 +27,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
 
 public class RelationshipBeanDefinitionParser extends KualiBeanDefinitionParserBase {
 
@@ -44,10 +44,10 @@ public class RelationshipBeanDefinitionParser extends KualiBeanDefinitionParserB
         String targetClass = element.getAttribute("targetClass");
 
         // now, set on the bean definition
-        if ( StringUtils.hasText(objectAttribute) ) {
+        if (StringUtils.hasText(objectAttribute)) {
             bean.addPropertyValue("objectAttributeName", objectAttribute);
         }
-        if ( StringUtils.hasText(targetClass) ) {
+        if (StringUtils.hasText(targetClass)) {
             bean.addPropertyValue("targetClass", targetClass);
         }
 
@@ -55,12 +55,12 @@ public class RelationshipBeanDefinitionParser extends KualiBeanDefinitionParserB
         ArrayList<PrimitiveAttributeDefinition> pDefs = new ArrayList<PrimitiveAttributeDefinition>();
         ArrayList<SupportAttributeDefinition> sDefs = new ArrayList<SupportAttributeDefinition>();
 
-        for ( int i = 0; i < children.getLength(); i++ ) {
+        for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
             String nodeName = child.getLocalName();
-            if ( nodeName == null ) continue;
+            if (nodeName == null) continue;
 
-            if ( nodeName.equals("primitiveAttribute") ) {
+            if (nodeName.equals("primitiveAttribute")) {
                 NamedNodeMap attributes = child.getAttributes();
                 String source = attributes.getNamedItem("source").getNodeValue();
                 String target = attributes.getNamedItem("target").getNodeValue();
@@ -68,14 +68,14 @@ public class RelationshipBeanDefinitionParser extends KualiBeanDefinitionParserB
                 pad.setSourceName(source);
                 pad.setTargetName(target);
                 pDefs.add(pad);
-            } else if ( nodeName.equals("supportAttribute") ) {
+            } else if (nodeName.equals("supportAttribute")) {
                 NamedNodeMap attributes = child.getAttributes();
                 String source = attributes.getNamedItem("source").getNodeValue();
                 String target = attributes.getNamedItem("target").getNodeValue();
                 boolean identifier = false;
                 String identifierStr = attributes.getNamedItem("identifier").getNodeValue();
-                if ( identifierStr != null ) {
-                    identifier = Boolean.valueOf( identifierStr );
+                if (identifierStr != null) {
+                    identifier = Boolean.valueOf(identifierStr);
                 }
                 SupportAttributeDefinition pad = new SupportAttributeDefinition();
                 pad.setSourceName(source);

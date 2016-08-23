@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cam.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -30,10 +27,12 @@ import org.kuali.kfs.module.cam.document.dataaccess.AssetPaymentDao;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.math.BigDecimal;
+import java.util.Iterator;
+
 public class AssetPaymentDaoOjb extends PlatformAwareDaoBaseOjb implements AssetPaymentDao {
 
     /**
-     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetPaymentDao#getMaxSquenceNumber(java.lang.Long)
      */
     public Integer getMaxSquenceNumber(Long capitalAssetNumber) {
@@ -41,7 +40,7 @@ public class AssetPaymentDaoOjb extends PlatformAwareDaoBaseOjb implements Asset
         criteria.addEqualTo(CamsPropertyConstants.AssetPayment.CAPITAL_ASSET_NUMBER, capitalAssetNumber);
         ReportQueryByCriteria query = QueryFactory.newReportQuery(AssetPayment.class, criteria);
 
-        query.setAttributes(new String[] { "max(" + CamsPropertyConstants.AssetPayment.PAYMENT_SEQ_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + CamsPropertyConstants.AssetPayment.PAYMENT_SEQ_NUMBER + ")"});
         Iterator<?> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxSequenceNumber = Integer.valueOf(0);
 

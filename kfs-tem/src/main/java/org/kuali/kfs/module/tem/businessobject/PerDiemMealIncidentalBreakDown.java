@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 @Entity
-@Table(name="TEM_PER_DIEM_MIE_BREAK_DOWN_T")
+@Table(name = "TEM_PER_DIEM_MIE_BREAK_DOWN_T")
 public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private KualiDecimal mealsAndIncidentals;
@@ -48,7 +47,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
     private Boolean active = Boolean.TRUE;
 
 
-    @Column(name="MEALS_INC",precision=19,scale=2,nullable=false)
+    @Column(name = "MEALS_INC", precision = 19, scale = 2, nullable = false)
     public KualiDecimal getMealsAndIncidentals() {
         return mealsAndIncidentals;
     }
@@ -57,7 +56,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
         this.mealsAndIncidentals = mealsAndIncidentals;
     }
 
-    @Column(name="BKFST",nullable=false)
+    @Column(name = "BKFST", nullable = false)
     public KualiDecimal getBreakfast() {
         return breakfast;
     }
@@ -68,7 +67,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
     }
 
 
-    @Column(name="LUNCH",nullable=false)
+    @Column(name = "LUNCH", nullable = false)
     public KualiDecimal getLunch() {
         return lunch;
     }
@@ -78,7 +77,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
         this.lunch = lunch;
     }
 
-    @Column(name="DIN",nullable=false)
+    @Column(name = "DIN", nullable = false)
     public KualiDecimal getDinner() {
         return dinner;
     }
@@ -88,7 +87,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
         this.dinner = dinner;
     }
 
-    @Column(name="INC",precision=19,scale=2,nullable=false)
+    @Column(name = "INC", precision = 19, scale = 2, nullable = false)
     public KualiDecimal getIncidentals() {
         return incidentals;
     }
@@ -98,7 +97,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
     }
 
     @Override
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     public boolean isActive() {
         return active;
     }
@@ -110,15 +109,17 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
 
     /**
      * Gets the lastUpdateDate attribute.
+     *
      * @return Returns the lastUpdateDate.
      */
-    @Column(name="LAST_UPD_DT")
+    @Column(name = "LAST_UPD_DT")
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
     /**
      * Sets the lastUpdateDate attribute value.
+     *
      * @param lastUpdateDate The lastUpdateDate to set.
      */
     public void setLastUpdateDate(Date lastUpdateDate) {
@@ -152,7 +153,7 @@ public class PerDiemMealIncidentalBreakDown extends PersistableBusinessObjectBas
         return map;
     }
 
-    public DateTimeService getDateTimeService(){
+    public DateTimeService getDateTimeService() {
         return SpringContext.getBean(DateTimeService.class);
     }
 }

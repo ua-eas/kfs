@@ -23,7 +23,7 @@ import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
 
 public class Asset extends AssetBase implements CapitalAssetManagementAsset {
 
-    public Asset(){
+    public Asset() {
         super();
     }
 

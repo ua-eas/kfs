@@ -26,16 +26,16 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class PaymentRequestAccountingLineAccessibleBranchingValidation extends BranchingValidation {
 
-    protected static final String USE_DEFAULT_ACCOUNTING_LINE_ACCESSIBLE="useDefaultAccountingLineAccessible";
+    protected static final String USE_DEFAULT_ACCOUNTING_LINE_ACCESSIBLE = "useDefaultAccountingLineAccessible";
 
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
-        String status = ((PaymentRequestDocument)event.getDocument()).getApplicationDocumentStatus();
+        String status = ((PaymentRequestDocument) event.getDocument()).getApplicationDocumentStatus();
         if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_ACCOUNTS_PAYABLE_REVIEW, status)) {
             return null;
         } else if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW, status)) {
-                return null;
-        } else{
+            return null;
+        } else {
             return USE_DEFAULT_ACCOUNTING_LINE_ACCESSIBLE;
         }
     }

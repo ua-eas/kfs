@@ -22,17 +22,17 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.batch.service.PostTransaction;
 import org.kuali.kfs.gl.batch.service.PosterService;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.businessobject.Transaction;
-import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.service.ReportWriterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * An implementation of PostTransaction that posts the actual entry
@@ -54,9 +54,9 @@ public class PostEntry implements PostTransaction {
     /**
      * Saves the transaction as a new GL Entry
      *
-     * @param t the transaction which is being posted
-     * @param mode the mode the poster is currently running in
-     * @param postDate the date this transaction should post to
+     * @param t                         the transaction which is being posted
+     * @param mode                      the mode the poster is currently running in
+     * @param postDate                  the date this transaction should post to
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return the accomplished post type
      * @see org.kuali.kfs.gl.batch.service.PostTransaction#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)

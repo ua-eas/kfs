@@ -18,22 +18,24 @@
  */
 package org.kuali.kfs.module.purap.pdf;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.ExceptionConverter;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
@@ -48,22 +50,19 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.kfs.vnd.businessobject.ContractManager;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.ExceptionConverter;
-import com.lowagie.text.Font;
-import com.lowagie.text.Image;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  *
@@ -80,15 +79,15 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
      * Overrides the method in PdfPageEventHelper from itext to create and set the headerTable with relevant contents
      * and set its logo image if there is a logoImage to be used.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onOpenDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     @Override
     public void onOpenDocument(PdfWriter writer, Document document) {
         LOG.debug("onOpenDocument() started.");
         try {
-            float[] headerWidths = { 0.20f, 0.60f, 0.20f };
+            float[] headerWidths = {0.20f, 0.60f, 0.20f};
             headerTable = new PdfPTable(headerWidths);
             headerTable.setWidthPercentage(100);
             headerTable.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -101,8 +100,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
                 logo = Image.getInstance(logoImage);
                 logo.scalePercent(3, 3);
                 headerTable.addCell(new Phrase(new Chunk(logo, 0, 0)));
-            }
-            else {
+            } else {
                 // if we don't use images
                 headerTable.addCell(new Phrase(new Chunk("")));
             }
@@ -123,8 +121,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
             tpl = writer.getDirectContent().createTemplate(100, 100);
             // initialization of the font
             helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ExceptionConverter(e);
         }
     }
@@ -144,13 +141,13 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
      * Generates the purchase order quote pdf document based on the data in the given input parameters,
      * creates a pdf writer using the given byteArrayOutputStream then write the pdf document into the writer.
      *
-     * @param po                         The PurchaseOrderDocument to be used to generate the pdf.
-     * @param poqv                       The PurchaseOrderVendorQuote to be used to generate the pdf.
-     * @param campusName                 The campus name to be used to generate the pdf.
-     * @param contractManagerCampusCode  The contract manager campus code to be used to generate the pdf.
-     * @param logoImage                  The logo image file name to be used to generate the pdf.
-     * @param byteArrayOutputStream      The ByteArrayOutputStream to print the pdf to.
-     * @param environment                The current environment used (e.g. DEV if it is a development environment).
+     * @param po                        The PurchaseOrderDocument to be used to generate the pdf.
+     * @param poqv                      The PurchaseOrderVendorQuote to be used to generate the pdf.
+     * @param campusName                The campus name to be used to generate the pdf.
+     * @param contractManagerCampusCode The contract manager campus code to be used to generate the pdf.
+     * @param logoImage                 The logo image file name to be used to generate the pdf.
+     * @param byteArrayOutputStream     The ByteArrayOutputStream to print the pdf to.
+     * @param environment               The current environment used (e.g. DEV if it is a development environment).
      */
     public void generatePOQuotePDF(PurchaseOrderDocument po, PurchaseOrderVendorQuote poqv, String campusName, String contractManagerCampusCode, String logoImage, ByteArrayOutputStream byteArrayOutputStream, String environment) {
         if (LOG.isDebugEnabled()) {
@@ -163,8 +160,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
             Document doc = getDocument(9, 9, 70, 36);
             PdfWriter writer = PdfWriter.getInstance(doc, byteArrayOutputStream);
             this.createPOQuotePdf(po, poqv, campusName, contractManagerCampusCode, logoImage, doc, writer, environment);
-        }
-        catch (DocumentException de) {
+        } catch (DocumentException de) {
             LOG.error(de.getMessage(), de);
             throw new PurError("Document Exception when trying to save a Purchase Order Quote PDF", de);
         }
@@ -174,40 +170,38 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
      * Invokes the createPOQuotePDF method to create a purchase order quote pdf document and saves it into a file
      * which name and location are specified in the pdfParameters.
      *
-     * @param po                         The PurchaseOrderDocument to be used to generate the pdf.
-     * @param poqv                       The PurchaseOrderVendorQuote to be used to generate the pdf.
-     * @param pdfFileLocation            The location to save the pdf file.
-     * @param pdfFilename                The name for the pdf file.
-     * @param campusName                 The campus name to be used to generate the pdf.
-     * @param contractManagerCampusCode  The contract manager campus code to be used to generate the pdf.
-     * @param logoImage                  The logo image file name to be used to generate the pdf.
-     * @param environment                The current environment used (e.g. DEV if it is a development environment).
+     * @param po                        The PurchaseOrderDocument to be used to generate the pdf.
+     * @param poqv                      The PurchaseOrderVendorQuote to be used to generate the pdf.
+     * @param pdfFileLocation           The location to save the pdf file.
+     * @param pdfFilename               The name for the pdf file.
+     * @param campusName                The campus name to be used to generate the pdf.
+     * @param contractManagerCampusCode The contract manager campus code to be used to generate the pdf.
+     * @param logoImage                 The logo image file name to be used to generate the pdf.
+     * @param environment               The current environment used (e.g. DEV if it is a development environment).
      */
-    public void savePOQuotePDF(PurchaseOrderDocument po, PurchaseOrderVendorQuote poqv,PurchaseOrderParameters transmitParameters , String environment) {
+    public void savePOQuotePDF(PurchaseOrderDocument po, PurchaseOrderVendorQuote poqv, PurchaseOrderParameters transmitParameters, String environment) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("savePOQuotePDF() started for po number " + po.getPurapDocumentIdentifier());
         }
 
         try {
-            PurchaseOrderTransmitParameters orderTransmitParameters = (PurchaseOrderTransmitParameters)transmitParameters;
+            PurchaseOrderTransmitParameters orderTransmitParameters = (PurchaseOrderTransmitParameters) transmitParameters;
             CampusParameter deliveryCampus = orderTransmitParameters.getCampusParameter();
-                if (deliveryCampus == null) {
-                    throw new RuntimeException(" delivery campus is null");
-                }
-                String campusName = deliveryCampus.getCampus().getName();
-                if (campusName == null) {
+            if (deliveryCampus == null) {
+                throw new RuntimeException(" delivery campus is null");
+            }
+            String campusName = deliveryCampus.getCampus().getName();
+            if (campusName == null) {
 
-                    throw new RuntimeException("Campus Information is missing - campusName: " + campusName);
-                }
+                throw new RuntimeException("Campus Information is missing - campusName: " + campusName);
+            }
             Document doc = this.getDocument(9, 9, 70, 36);
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(orderTransmitParameters.getPdfFileLocation() + orderTransmitParameters.getPdfFileName()));
-            this.createPOQuotePdf(po, poqv,campusName, orderTransmitParameters.getContractManagerCampusCode(), orderTransmitParameters.getLogoImage(), doc, writer, environment);
-        }
-        catch (DocumentException de) {
+            this.createPOQuotePdf(po, poqv, campusName, orderTransmitParameters.getContractManagerCampusCode(), orderTransmitParameters.getLogoImage(), doc, writer, environment);
+        } catch (DocumentException de) {
             LOG.error(de.getMessage(), de);
             throw new PurError("Document Exception when trying to save a Purchase Order Quote PDF", de);
-        }
-        catch (FileNotFoundException f) {
+        } catch (FileNotFoundException f) {
             LOG.error(f.getMessage(), f);
             throw new PurError("FileNotFound Exception when trying to save a Purchase Order Quote PDF", f);
         }
@@ -216,14 +210,14 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
     /**
      * Create a PDF using the given input parameters.
      *
-     * @param po                         The PurchaseOrderDocument to be used to create the pdf.
-     * @param poqv                       The PurchaseOrderVendorQuote to be used to generate the pdf.
-     * @param campusName                 The campus name to be used to generate the pdf.
-     * @param contractManagerCampusCode  The contract manager campus code to be used to generate the pdf.
-     * @param logoImage                  The logo image file name to be used to generate the pdf.
-     * @param document                   The pdf document whose margins have already been set.
-     * @param writer                     The PdfWriter to write the pdf document into.
-     * @param environment                The current environment used (e.g. DEV if it is a development environment).
+     * @param po                        The PurchaseOrderDocument to be used to create the pdf.
+     * @param poqv                      The PurchaseOrderVendorQuote to be used to generate the pdf.
+     * @param campusName                The campus name to be used to generate the pdf.
+     * @param contractManagerCampusCode The contract manager campus code to be used to generate the pdf.
+     * @param logoImage                 The logo image file name to be used to generate the pdf.
+     * @param document                  The pdf document whose margins have already been set.
+     * @param writer                    The PdfWriter to write the pdf document into.
+     * @param environment               The current environment used (e.g. DEV if it is a development environment).
      * @throws DocumentException
      */
     private void createPOQuotePdf(PurchaseOrderDocument po, PurchaseOrderVendorQuote poqv, String campusName, String contractManagerCampusCode, String logoImage, Document document, PdfWriter writer, String environment) throws DocumentException {
@@ -255,7 +249,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
 
         // ***** Info table (address, vendor, other info) *****
         LOG.debug("createQuotePdf() info table started.");
-        float[] infoWidths = { 0.45f, 0.55f };
+        float[] infoWidths = {0.45f, 0.55f};
         PdfPTable infoTable = new PdfPTable(infoWidths);
         infoTable.setWidthPercentage(100);
         infoTable.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -294,15 +288,13 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
         }
         if (StringUtils.isNotBlank(poqv.getVendorPostalCode())) {
             vendorInfo.append(" " + poqv.getVendorPostalCode() + "\n");
-        }
-        else {
+        } else {
             vendorInfo.append("\n");
         }
 
         if (!KFSConstants.COUNTRY_CODE_UNITED_STATES.equalsIgnoreCase(poqv.getVendorCountryCode()) && poqv.getVendorCountryCode() != null) {
             vendorInfo.append("     " + poqv.getVendorCountry().getName() + "\n\n");
-        }
-        else {
+        } else {
             vendorInfo.append("     \n\n");
         }
 
@@ -318,8 +310,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
         if (poqv.getPurchaseOrderQuoteTransmitTimestamp() != null) {
             try {
                 requestDate = getDateTimeService().convertToSqlDate(poqv.getPurchaseOrderQuoteTransmitTimestamp());
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 throw new RuntimeException("ParseException thrown when trying to convert from Timestamp to SqlDate.", e);
             }
         }
@@ -328,8 +319,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
         p.add(new Chunk("     RESPONSE MUST BE RECEIVED BY: ", ver_8_bold));
         if (po.getPurchaseOrderQuoteDueDate() != null) {
             p.add(new Chunk(sdf.format(po.getPurchaseOrderQuoteDueDate()) + "\n\n", cour_10_normal));
-        }
-        else {
+        } else {
             p.add(new Chunk("N/A\n\n", cour_10_normal));
         }
 
@@ -374,7 +364,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
 
         // ***** Items table *****
         LOG.debug("createQuotePdf() items table started.");
-        float[] itemsWidths = { 0.07f, 0.1f, 0.07f, 0.50f, 0.13f, 0.13f };
+        float[] itemsWidths = {0.07f, 0.1f, 0.07f, 0.50f, 0.13f, 0.13f};
         PdfPTable itemsTable = new PdfPTable(6);
         // itemsTable.setCellsFitPage(false); With this set to true a large cell will
         // skip to the next page. The default Table behaviour seems to be what we want:
@@ -426,8 +416,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
                 String itemLineNumber = new String();
                 if (poi.getItemType().isLineItemIndicator()) {
                     itemLineNumber = poi.getItemLineNumber().toString();
-                }
-                else {
+                } else {
                     itemLineNumber = "";
                 }
                 tableCell = createCell(itemLineNumber, false, false, false, false, Element.ALIGN_CENTER, cour_10_normal);
@@ -463,7 +452,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
         document.add(itemsTable);
 
         LOG.debug("createQuotePdf() vendorFillsIn table started.");
-        float[] vendorFillsInWidths = { 0.50f, 0.50f };
+        float[] vendorFillsInWidths = {0.50f, 0.50f};
         PdfPTable vendorFillsInTable = new PdfPTable(vendorFillsInWidths);
         vendorFillsInTable.setWidthPercentage(100);
         vendorFillsInTable.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -512,8 +501,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
         String purchasingAddressPartial;
         if (po.getAddressToVendorIndicator()) {
             purchasingAddressPartial = po.getReceivingCityName() + ", " + po.getReceivingStateCode() + " " + po.getReceivingPostalCode();
-        }
-        else {
+        } else {
             purchasingAddressPartial = po.getDeliveryCityName() + ", " + po.getDeliveryStateCode() + " " + po.getDeliveryPostalCode();
         }
         p.add(new Chunk(purchasingAddressPartial + "\n", cour_10_normal));
@@ -561,7 +549,7 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
      * Creates and returns a string buffer of the quote language descriptions from the database, ordered by the quote language
      * identifier and appended with carriage returns after each line.
      *
-     * @return  The StringBuffer of the purchase order quote language.
+     * @return The StringBuffer of the purchase order quote language.
      */
     private StringBuffer getPoQuoteLanguage() {
 
@@ -598,14 +586,14 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
      * A helper method to create a PdfPCell. We can specify the content, font, horizontal alignment, border (borderless, no
      * bottom border, no right border, no top border, etc.
      *
-     * @param content              The text content to be displayed in the cell.
-     * @param borderless           boolean true if the cell should be borderless.
-     * @param noBottom             boolean true if the cell should have borderWidthBottom = 0.
-     * @param noRight              boolean true if the cell should have borderWidthRight = 0.
-     * @param noTop                boolean true if the cell should have borderWidthTop = 0.
-     * @param horizontalAlignment  The desired horizontal alignment for the cell.
-     * @param font                 The font type to be used in the cell.
-     * @return                     An instance of PdfPCell which content and attributes were set by the input parameters.
+     * @param content             The text content to be displayed in the cell.
+     * @param borderless          boolean true if the cell should be borderless.
+     * @param noBottom            boolean true if the cell should have borderWidthBottom = 0.
+     * @param noRight             boolean true if the cell should have borderWidthRight = 0.
+     * @param noTop               boolean true if the cell should have borderWidthTop = 0.
+     * @param horizontalAlignment The desired horizontal alignment for the cell.
+     * @param font                The font type to be used in the cell.
+     * @return An instance of PdfPCell which content and attributes were set by the input parameters.
      */
     private PdfPCell createCell(String content, boolean borderless, boolean noBottom, boolean noRight, boolean noTop, int horizontalAlignment, Font font) {
         PdfPCell tableCell = new PdfPCell(new Paragraph(content, font));
@@ -628,9 +616,9 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
     /**
      * Obtains the CampusParameter based on the contract manager's campus code.
      *
-     * @param contractManagerCampusCode  Campus Code of the contract manager.
-     * @return                           The CampusParameter whose delivery campus code matches with the
-     *                                   contract manager's campus code.
+     * @param contractManagerCampusCode Campus Code of the contract manager.
+     * @return The CampusParameter whose delivery campus code matches with the
+     * contract manager's campus code.
      */
     private CampusParameter getCampusParameter(String contractManagerCampusCode) {
         Map<String, Object> criteria = new HashMap<String, Object>();
@@ -643,8 +631,8 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
     /**
      * Creates and returns the full purchasing address given the campus parameter.
      *
-     * @param campusParameter  The CampusParameter object to be used to create the full purchasing address.
-     * @return                 The String containing the full purchasing address.
+     * @param campusParameter The CampusParameter object to be used to create the full purchasing address.
+     * @return The String containing the full purchasing address.
      */
     private String getPurchasingAddressFull(CampusParameter campusParameter) {
         String indent = "     ";
@@ -666,8 +654,8 @@ public class PurchaseOrderQuotePdf extends PurapPdf {
     /**
      * Creates and returns the partial purchasing address given the campus parameter.
      *
-     * @param campusParameter  The CampusParameter object to be used to create the partial purchasing address.
-     * @return                 The String containing the partial purchasing address.
+     * @param campusParameter The CampusParameter object to be used to create the partial purchasing address.
+     * @return The String containing the partial purchasing address.
      */
     private String getPurchasingAddressPartial(CampusParameter campusParameter) {
         StringBuffer purchasingAddressPartial = new StringBuffer();

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
@@ -30,9 +30,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 public class ContractsGrantsSuspendedInvoiceDetailReport extends TransientBusinessObjectBase {
 
@@ -239,7 +239,7 @@ public class ContractsGrantsSuspendedInvoiceDetailReport extends TransientBusine
             if (this.getClass().equals(obj.getClass())) {
                 ContractsGrantsSuspendedInvoiceDetailReport other = (ContractsGrantsSuspendedInvoiceDetailReport) obj;
                 return (StringUtils.equalsIgnoreCase(this.suspensionCategoryCode, other.suspensionCategoryCode) &&
-                        StringUtils.equalsIgnoreCase(this.documentNumber, other.documentNumber));
+                    StringUtils.equalsIgnoreCase(this.documentNumber, other.documentNumber));
             }
         }
         return false;

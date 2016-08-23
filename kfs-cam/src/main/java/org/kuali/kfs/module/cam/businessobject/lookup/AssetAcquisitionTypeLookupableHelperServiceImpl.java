@@ -18,11 +18,16 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
@@ -30,17 +35,12 @@ import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrides the getReturnUrl, setFieldConversions and getActionUrls for {@link OrganizationRoutingModelName}
@@ -59,7 +59,7 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
      * {@link KFSConstants.DISPATCH_REQUEST_PARAMETER}
      *
      * @see org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.Map, java.lang.String)
+     * java.util.Map, java.lang.String)
      */
     @Override
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -69,8 +69,7 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
             // no return URL if we are initializing asset global and the record is inactive
             return getEmptyAnchorHtmlData();
 
-        }
-        else if (assetGlobalService.getNewAcquisitionTypeCode().equalsIgnoreCase(assetAcquisitionType.getAcquisitionTypeCode())) {
+        } else if (assetGlobalService.getNewAcquisitionTypeCode().equalsIgnoreCase(assetAcquisitionType.getAcquisitionTypeCode())) {
             // no return if the user is not authorized to initiate 'New' acquisition type.
             DocumentAuthorizer documentAuthorizer = SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(CamsConstants.DocumentTypeName.ASSET_ADD_GLOBAL);
             boolean isAuthorized = documentAuthorizer.isAuthorized(businessObject, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.USE_ACQUISITION_TYPE_NEW, GlobalVariables.getUserSession().getPerson().getPrincipalId());
@@ -144,14 +143,13 @@ public class AssetAcquisitionTypeLookupableHelperServiceImpl extends KualiLookup
      * Overrides base implementation to remove the action urls if we are initializing the asset retirement reason
      *
      * @see org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      List pkNames)
+     * List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         if (!initializingAssetGlobal) {
             return super.getCustomActionUrls(businessObject, pkNames);
-        }
-        else {
+        } else {
             return super.getEmptyActionUrls();
         }
     }

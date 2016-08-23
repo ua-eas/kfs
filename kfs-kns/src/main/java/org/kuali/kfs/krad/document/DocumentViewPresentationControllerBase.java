@@ -19,9 +19,9 @@
 package org.kuali.kfs.krad.document;
 
 import org.kuali.kfs.krad.uif.view.DocumentView;
-import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.view.ViewModel;
+import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.ViewPresentationControllerBase;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -34,16 +34,14 @@ import java.util.Set;
 /**
  * Implementation of {@link ViewPresentationController} for
  * {@link DocumentView} instances
- *
+ * <p>
  * <p>
  * Adds flags for various document actions like save, route, cancel
  * </p>
- *
+ * <p>
  * <p>
  * By default delegates to the {@link DocumentPresentationController} configured for the document in the data dictionary
  * </p>
- *
- *
  */
 public class DocumentViewPresentationControllerBase extends ViewPresentationControllerBase implements DocumentPresentationController {
     private static final long serialVersionUID = 1461173145806477758L;
@@ -238,7 +236,7 @@ public class DocumentViewPresentationControllerBase extends ViewPresentationCont
     }
 
     public void setDocumentPresentationControllerClass(
-            Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
+        Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
         this.documentPresentationController = ObjectUtils.newInstance(documentPresentationControllerClass);
     }
 }

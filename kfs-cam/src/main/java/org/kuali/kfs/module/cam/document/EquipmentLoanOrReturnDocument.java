@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.document.service.EquipmentLoanOrReturnService;
@@ -36,19 +35,16 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.api.country.CountryService;
-import org.kuali.rice.location.api.postalcode.PostalCodeService;
-import org.kuali.rice.location.api.state.StateService;
-import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalDocumentBase {
@@ -118,22 +114,22 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @return Returns the borrowerCountry
      */
     public CountryEbo getBorrowerCountry() {
-        if ( StringUtils.isBlank(borrowerCountryCode) ) {
+        if (StringUtils.isBlank(borrowerCountryCode)) {
             borrowerCountry = null;
         } else {
-            if ( borrowerCountry == null || !StringUtils.equals( borrowerCountry.getCode(),borrowerCountryCode) ) {
+            if (borrowerCountry == null || !StringUtils.equals(borrowerCountry.getCode(), borrowerCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerCountryCode);
                     borrowerCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
         return borrowerCountry;
-     }
+    }
 
     /**
      * Sets the borrowerCountry attribute.
@@ -150,18 +146,18 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @return Returns the borrowerState
      */
     public StateEbo getBorrowerState() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStateCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStateCode)) {
             borrowerState = null;
         } else {
-            if ( borrowerState == null || !StringUtils.equals( borrowerState.getCode(), borrowerStateCode) || !StringUtils.equals(borrowerState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (borrowerState == null || !StringUtils.equals(borrowerState.getCode(), borrowerStateCode) || !StringUtils.equals(borrowerState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStateCode);
                     borrowerState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -183,17 +179,17 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @return Returns the borrowerStorageCountry
      */
     public CountryEbo getBorrowerStorageCountry() {
-        if ( StringUtils.isBlank(borrowerStorageCountryCode) ) {
+        if (StringUtils.isBlank(borrowerStorageCountryCode)) {
             borrowerStorageCountry = null;
         } else {
-            if ( borrowerStorageCountry == null || !StringUtils.equals( borrowerStorageCountry.getCode(),borrowerStorageCountryCode) ) {
+            if (borrowerStorageCountry == null || !StringUtils.equals(borrowerStorageCountry.getCode(), borrowerStorageCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageCountryCode);
                     borrowerStorageCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -215,18 +211,18 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @return Returns the getBorrowerStorageState
      */
     public StateEbo getBorrowerStorageState() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStorageStateCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStorageStateCode)) {
             borrowerStorageState = null;
         } else {
-            if ( borrowerStorageState == null || !StringUtils.equals( borrowerStorageState.getCountryCode(),borrowerStorageCountryCode) || !StringUtils.equals( borrowerStorageState.getCode(), borrowerStorageStateCode)) {
+            if (borrowerStorageState == null || !StringUtils.equals(borrowerStorageState.getCountryCode(), borrowerStorageCountryCode) || !StringUtils.equals(borrowerStorageState.getCode(), borrowerStorageStateCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerStorageCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageStateCode);
                     borrowerStorageState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -466,18 +462,18 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @return Returns the borrowerPostalZipCode
      */
     public PostalCodeEbo getBorrowerPostalZipCode() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerZipCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerZipCode)) {
             borrowerPostalZipCode = null;
         } else {
-            if ( borrowerPostalZipCode == null || !StringUtils.equals( borrowerPostalZipCode.getCountryCode(),borrowerCountryCode)|| !StringUtils.equals( borrowerPostalZipCode.getCode(), borrowerZipCode)) {
+            if (borrowerPostalZipCode == null || !StringUtils.equals(borrowerPostalZipCode.getCountryCode(), borrowerCountryCode) || !StringUtils.equals(borrowerPostalZipCode.getCode(), borrowerZipCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerZipCode);
                     borrowerPostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -499,18 +495,18 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
      * @param borrowerStoragePostalZipCode The borrowerStoragePostalZipCode to set.
      */
     public PostalCodeEbo getBorrowerStoragePostalZipCode() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStorageZipCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStorageZipCode)) {
             borrowerStoragePostalZipCode = null;
         } else {
-            if (  borrowerStoragePostalZipCode == null || !StringUtils.equals( borrowerStoragePostalZipCode.getCountryCode(),borrowerStorageCountryCode)|| !StringUtils.equals( borrowerStoragePostalZipCode.getCode(), borrowerStorageZipCode)) {
+            if (borrowerStoragePostalZipCode == null || !StringUtils.equals(borrowerStoragePostalZipCode.getCountryCode(), borrowerStorageCountryCode) || !StringUtils.equals(borrowerStoragePostalZipCode.getCode(), borrowerStorageZipCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerStorageCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageZipCode);
                     borrowerStoragePostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -607,8 +603,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
     public Date getLoanDate() {
         if (loanDate != null) {
             return loanDate;
-        }
-        else {
+        } else {
             return SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         }
     }

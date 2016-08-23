@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PurchasingCommodityCodesForDistributionValidation extends GenericValidation {
 
@@ -39,24 +39,23 @@ public class PurchasingCommodityCodesForDistributionValidation extends GenericVa
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         //Find out whether the commodity code has existed in the database
-        Map<String,String> fieldValues = new HashMap<String, String>();
+        Map<String, String> fieldValues = new HashMap<String, String>();
         fieldValues.put(PurapPropertyConstants.ITEM_COMMODITY_CODE, purchasingCommodityCode);
 
-        Collection<CommodityCode> result = (Collection<CommodityCode>)businessObjectService.findMatching(CommodityCode.class, fieldValues);
+        Collection<CommodityCode> result = (Collection<CommodityCode>) businessObjectService.findMatching(CommodityCode.class, fieldValues);
         if (result != null && result.size() > 0) {
-            CommodityCode commodityCode = (CommodityCode)(result.iterator().next());
+            CommodityCode commodityCode = (CommodityCode) (result.iterator().next());
             if (!commodityCode.isActive()) {
                 //This is the case where the commodity code on the item is not active.
                 valid = false;
-                GlobalVariables.getMessageMap().putError(PurapConstants.ACCOUNT_DISTRIBUTION_ERROR_KEY, PurapKeyConstants.PUR_COMMODITY_CODE_INACTIVE, " in distribute commodity code" );
+                GlobalVariables.getMessageMap().putError(PurapConstants.ACCOUNT_DISTRIBUTION_ERROR_KEY, PurapKeyConstants.PUR_COMMODITY_CODE_INACTIVE, " in distribute commodity code");
             }
-        }
-        else {
+        } else {
             //This is the case where the commodity code on the item does not exist in the database.
             valid = false;
             GlobalVariables.getMessageMap().clearErrorPath();
             GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.ITEM_TAB_ERRORS);
-            GlobalVariables.getMessageMap().putError(PurapConstants.ACCOUNT_DISTRIBUTION_ERROR_KEY, PurapKeyConstants.PUR_COMMODITY_CODE_INVALID,  " in distribute commodity code" );
+            GlobalVariables.getMessageMap().putError(PurapConstants.ACCOUNT_DISTRIBUTION_ERROR_KEY, PurapKeyConstants.PUR_COMMODITY_CODE_INVALID, " in distribute commodity code");
         }
         return valid;
     }

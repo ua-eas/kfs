@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.krad.bo;
 
-import org.kuali.kfs.krad.bo.MultipleValueLookupMetadata;
-
-import javax.persistence.FetchType;
 import javax.persistence.Basic;
-import javax.persistence.Lob;
 import javax.persistence.Column;
-import javax.persistence.Table;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="KRNS_LOOKUP_RSLT_T")
+@Table(name = "KRNS_LOOKUP_RSLT_T")
 public class LookupResults extends MultipleValueLookupMetadata {
     @Lob
-	@Basic(fetch=FetchType.LAZY)
-	@Column(name="SERIALZD_RSLTS")
-	private String serializedLookupResults;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "SERIALZD_RSLTS")
+    private String serializedLookupResults;
 
     public String getSerializedLookupResults() {
         return serializedLookupResults;

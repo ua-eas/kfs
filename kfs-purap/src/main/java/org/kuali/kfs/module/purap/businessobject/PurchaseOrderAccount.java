@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Purchase Order Account Business Object.
@@ -96,7 +96,7 @@ public class PurchaseOrderAccount extends PurApAccountingLineBase {
     public void copyFrom(AccountingLine other) {
         super.copyFrom(other);
         if (other instanceof PurchaseOrderAccount) {
-            PurchaseOrderAccount poOther = (PurchaseOrderAccount)other;
+            PurchaseOrderAccount poOther = (PurchaseOrderAccount) other;
             setItemAccountOutstandingEncumbranceAmount(poOther.getItemAccountOutstandingEncumbranceAmount());
         }
     }

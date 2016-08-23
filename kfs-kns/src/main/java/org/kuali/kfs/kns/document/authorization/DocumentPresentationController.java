@@ -23,5 +23,5 @@ import org.kuali.kfs.krad.document.Document;
 import java.util.Set;
 
 public interface DocumentPresentationController extends org.kuali.kfs.krad.document.DocumentPresentationController {
-	public Set<String> getDocumentActions(Document document);
+    public Set<String> getDocumentActions(Document document);
 }

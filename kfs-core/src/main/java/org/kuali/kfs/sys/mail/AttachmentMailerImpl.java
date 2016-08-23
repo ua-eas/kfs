@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.sys.mail;
 
+import org.kuali.rice.core.mail.MailerImpl;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
+
 import javax.activation.DataHandler;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -25,10 +29,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
-
-import org.kuali.rice.core.mail.MailerImpl;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMailMessage;
 
 /**
  * This class extends the Rice MailerImpl to add attachment support.
@@ -65,19 +65,18 @@ public class AttachmentMailerImpl extends MailerImpl implements AttachmentMailer
 
         MimeMailMessage mmm = new MimeMailMessage(mimeMessage);
 
-        mmm.setTo( (String[])message.getToAddresses().toArray(new String[message.getToAddresses().size()]) );
-        mmm.setBcc( (String[])message.getBccAddresses().toArray(new String[message.getBccAddresses().size()]) );
-        mmm.setCc( (String[])message.getCcAddresses().toArray(new String[message.getCcAddresses().size()]) );
+        mmm.setTo((String[]) message.getToAddresses().toArray(new String[message.getToAddresses().size()]));
+        mmm.setBcc((String[]) message.getBccAddresses().toArray(new String[message.getBccAddresses().size()]));
+        mmm.setCc((String[]) message.getCcAddresses().toArray(new String[message.getCcAddresses().size()]));
         mmm.setSubject(message.getSubject());
         mmm.setFrom(message.getFromAddress());
 
         try {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "sendEmail() - Sending message: " + mmm.toString() );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("sendEmail() - Sending message: " + mmm.toString());
             }
             mailSender.send(mmm.getMimeMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("sendEmail() - Error sending email.", e);
             throw new RuntimeException(e);
         }

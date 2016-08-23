@@ -16,15 +16,15 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="tldHeader.jsp"%>
+<%@ include file="tldHeader.jsp" %>
 <kul:page docTitle="Listing of inactivation blockers"
-	htmlFormAction="inactivationBlockers" transactionalDocument="false"
-    headerTitle="${headerTitle}">
+          htmlFormAction="inactivationBlockers" transactionalDocument="false"
+          headerTitle="${headerTitle}">
 
     <c:forEach items="${KualiForm.blockingValues}" var="blockingBO">
-    	<h2><c:out value="${blockingBO.key}" /></h2>
-    	<c:forEach items="${blockingBO.value}" var="blockingRecord">
-    		<c:out value="${blockingRecord}"/><br/>
-    	</c:forEach>
+        <h2><c:out value="${blockingBO.key}"/></h2>
+        <c:forEach items="${blockingBO.value}" var="blockingRecord">
+            <c:out value="${blockingRecord}"/><br/>
+        </c:forEach>
     </c:forEach>
 </kul:page>

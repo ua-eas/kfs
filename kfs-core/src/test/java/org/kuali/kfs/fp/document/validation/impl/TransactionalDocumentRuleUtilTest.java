@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
@@ -33,6 +31,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
 
 /**
  * Class for unit testing the functionality of <code>{@link TransactionalDocumentRuleUtil}</code>
@@ -48,6 +48,7 @@ public class TransactionalDocumentRuleUtilTest extends KualiTestBase {
     // /////////////////////////////////////////////////////////////////////////
     // Fixture Methods Start Here //
     // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Accessor method to </code>errorPropertyName</code>
      *
@@ -125,6 +126,7 @@ public class TransactionalDocumentRuleUtilTest extends KualiTestBase {
     // /////////////////////////////////////////////////////////////////////////
     // Test Methods Start Here //
     // /////////////////////////////////////////////////////////////////////////
+
     /**
      * test the <code>isValidBalanceType()</code> method of <code>{@link TransactionalDocumentRuleUtil}</code>
      *

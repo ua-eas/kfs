@@ -30,58 +30,58 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public abstract class InactivatableFromToImpl extends PersistableBusinessObjectBase implements InactivatableFromTo {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "ACTV_FRM_DT")
-	protected Timestamp activeFromDate;
-	@Column(name = "ACTV_TO_DT")
-	protected Timestamp activeToDate;
-	@Transient
-	protected Timestamp activeAsOfDate;
-	@Transient
-	protected boolean current;
+    @Column(name = "ACTV_FRM_DT")
+    protected Timestamp activeFromDate;
+    @Column(name = "ACTV_TO_DT")
+    protected Timestamp activeToDate;
+    @Transient
+    protected Timestamp activeAsOfDate;
+    @Transient
+    protected boolean current;
 
-	/**
-	 * Returns active if the {@link #getActiveAsOfDate()} (current time used if not set) is between
-	 * the from and to dates. Null dates are considered to indicate an open range.
-	 */
-	public boolean isActive() {
+    /**
+     * Returns active if the {@link #getActiveAsOfDate()} (current time used if not set) is between
+     * the from and to dates. Null dates are considered to indicate an open range.
+     */
+    public boolean isActive() {
         return InactivatableFromToUtils.isActive(new DateTime(activeFromDate), new DateTime(activeToDate), new DateTime(activeAsOfDate));
-	}
+    }
 
-	public void setActive(boolean active) {
-		// do nothing
-	}
+    public void setActive(boolean active) {
+        // do nothing
+    }
 
-	public void setActiveFromDate(Timestamp from) {
-		this.activeFromDate = from;
-	}
+    public void setActiveFromDate(Timestamp from) {
+        this.activeFromDate = from;
+    }
 
-	public void setActiveToDate(Timestamp to) {
-		this.activeToDate = to;
-	}
+    public void setActiveToDate(Timestamp to) {
+        this.activeToDate = to;
+    }
 
-	public Timestamp getActiveFromDate() {
-		return this.activeFromDate;
-	}
+    public Timestamp getActiveFromDate() {
+        return this.activeFromDate;
+    }
 
-	public Timestamp getActiveToDate() {
-		return this.activeToDate;
-	}
+    public Timestamp getActiveToDate() {
+        return this.activeToDate;
+    }
 
-	public Timestamp getActiveAsOfDate() {
-		return this.activeAsOfDate;
-	}
+    public Timestamp getActiveAsOfDate() {
+        return this.activeAsOfDate;
+    }
 
-	public void setActiveAsOfDate(Timestamp activeAsOfDate) {
-		this.activeAsOfDate = activeAsOfDate;
-	}
+    public void setActiveAsOfDate(Timestamp activeAsOfDate) {
+        this.activeAsOfDate = activeAsOfDate;
+    }
 
-	public boolean isCurrent() {
-		return this.current;
-	}
+    public boolean isCurrent() {
+        return this.current;
+    }
 
-	public void setCurrent(boolean current) {
-		this.current = current;
-	}
+    public void setCurrent(boolean current) {
+        this.current = current;
+    }
 }

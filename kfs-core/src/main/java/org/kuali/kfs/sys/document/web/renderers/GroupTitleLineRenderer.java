@@ -141,8 +141,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             this.renderGroupLevelActions(pageContext, parentTag);
 
             pageContext.getOut().write(buildRowEnding());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty in rendering import/group header line", ioe);
         }
     }
@@ -185,8 +184,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             this.renderUploadCell(pageContext, parentTag);
 
             out.write(this.buildGroupActionsColumnEnding());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering group level actions", ioe);
         }
     }
@@ -228,7 +226,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      *
      * @return the String with the HTML for the title cell
      */
-    protected String buildTitleCell() throws JspException{
+    protected String buildTitleCell() throws JspException {
         StringBuilder titleCell = new StringBuilder();
         int colSpan = titleCellSpan;
 
@@ -262,7 +260,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         return titleCell.toString();
     }
 
-    protected String buildBlankCell() throws JspException{
+    protected String buildBlankCell() throws JspException {
         StringBuilder titleCell = new StringBuilder();
         titleCell.append("<th style=\"visibility:hidden;\"></th>");
         return titleCell.toString();
@@ -312,8 +310,9 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
     /**
      * Renders the show/hide button
+     *
      * @param pageContext the page context to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      * @throws JspException thrown under terrible circumstances when the rendering failed and had to be left behind like so much refuse
      */
     protected void renderHideDetails(PageContext pageContext, Tag parentTag) throws JspException {
@@ -328,10 +327,10 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
         showHideTag.setPageContext(pageContext);
         showHideTag.setParent(parentTag);
-        showHideTag.setProperty("methodToCall."+toggle+"Details");
+        showHideTag.setProperty("methodToCall." + toggle + "Details");
         showHideTag.setStyleClass("btn btn-default uppercase");
-        showHideTag.setAlt(toggle+" transaction details");
-        showHideTag.setTitle(toggle+" transaction details");
+        showHideTag.setAlt(toggle + " transaction details");
+        showHideTag.setTitle(toggle + " transaction details");
         showHideTag.setValue(displayToggle + " Details");
 
         showHideTag.doStartTag();
@@ -343,7 +342,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      * (and a likely target for future refactoring)
      *
      * @param pageContext the page contex to render to
-     * @param parentTag the tag that is requesting all the rendering
+     * @param parentTag   the tag that is requesting all the rendering
      * @throws JspException thrown if something goes wrong
      */
     protected void renderUploadCell(PageContext pageContext, Tag parentTag) throws JspException {
@@ -377,8 +376,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
                 String index = StringUtils.substringBetween(getLineCollectionProperty(), "[", "]");
                 if (StringUtils.isNotBlank(index) && getLineCollectionProperty().contains("transactionEntries")) {
                     scriptFileTag.setProperty(StringUtils.substringBeforeLast(getLineCollectionProperty(), ".") + "." + accountingLineGroupDefinition.getImportedLinePropertyPrefix() + "File");
-                }
-                else {
+                } else {
                     scriptFileTag.setProperty(accountingLineGroupDefinition.getImportedLinePropertyPrefix() + "File");
                 }
                 scriptFileTag.doStartTag();
@@ -425,8 +423,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
                 uploadButtonTag.doEndTag();
 
                 out.write("</NOSCRIPT>\n");
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 throw new JspException("Difficulty rendering accounting lines import upload", ioe);
             }
         }
@@ -595,6 +592,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
     /**
      * Sets the canEdit attribute value.
+     *
      * @param canEdit The canEdit to set.
      */
     public void setCanEdit(boolean canEdit) {
@@ -603,6 +601,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
     /**
      * Gets the hideDetails attribute.
+     *
      * @return Returns the hideDetails.
      */
     public boolean getHideDetails() {
@@ -611,6 +610,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
     /**
      * Sets the hideDetails attribute value.
+     *
      * @param hideDetails The hideDetails to set.
      */
     public void setHideDetails(boolean hideDetails) {

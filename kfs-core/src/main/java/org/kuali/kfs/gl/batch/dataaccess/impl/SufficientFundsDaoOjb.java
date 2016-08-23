@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.dataaccess.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -33,6 +30,9 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * An OJB implementation of SufficientFundsDao
@@ -52,11 +52,11 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
      * Calculate the Prior Fiscal Year Budget total
      *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances that will be summarized
-     * @param chartOfAccountCode the chart of accounts code of sufficient fund balance records that will be summarized
-     * @param accountNumber the account number of sufficient fund balances that will be summarized
+     * @param chartOfAccountCode   the chart of accounts code of sufficient fund balance records that will be summarized
+     * @param accountNumber        the account number of sufficient fund balances that will be summarized
      * @return the sum of the prior fiscal year budget
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculateM113PfyrBudget(java.lang.Integer, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public KualiDecimal calculateM113PfyrBudget(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber) {
         Criteria criteria = new Criteria();
@@ -66,7 +66,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
         criteria.addEqualTo(KFSConstants.ACCOUNT_SUFFICIENT_FUNDS_CODE_PROPERTY_NAME, KFSConstants.SF_TYPE_CASH_AT_ACCOUNT);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(SufficientFundBalances.class, criteria);
-        reportQuery.setAttributes(new String[] { KFSConstants.CURRENT_BUDGET_BALANCE_AMOUNT_PROPERTY_NAME });
+        reportQuery.setAttributes(new String[]{KFSConstants.CURRENT_BUDGET_BALANCE_AMOUNT_PROPERTY_NAME});
 
 
         return executeReportQuery(reportQuery);
@@ -76,8 +76,8 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
      * Calculate the prior fiscal year encumbrance total
      *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
+     * @param chartOfAccountsCode  the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber        the account number of sufficient fund balances to summarize
      * @return the prior fiscal year encumbrnace total
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculateM113PfyrEncum(java.lang.Integer, java.lang.String, java.lang.String)
      */
@@ -89,7 +89,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
         criteria.addEqualTo(KFSConstants.ACCOUNT_SUFFICIENT_FUNDS_CODE_PROPERTY_NAME, KFSConstants.SF_TYPE_CASH_AT_ACCOUNT);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(SufficientFundBalances.class, criteria);
-        reportQuery.setAttributes(new String[] { KFSConstants.ACCOUNT_ENCUMBRANCE_AMOUNT_PROPERTY_NAME });
+        reportQuery.setAttributes(new String[]{KFSConstants.ACCOUNT_ENCUMBRANCE_AMOUNT_PROPERTY_NAME});
 
         return executeReportQuery(reportQuery);
     }
@@ -97,14 +97,14 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calculate the prior fiscal year pending actual amount
      *
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
-     * @param specialFinancialObjectCodes this actually doesn't seem to be used
+     * @param universityFiscalYear             the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode              the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber                    the account number of sufficient fund balances to summarize
+     * @param specialFinancialObjectCodes      this actually doesn't seem to be used
      * @param financialObjectCodeForCashInBank the object code for cash in the bank
      * @return the prior fiscal year pending actual amount
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculateM113PendActual(boolean, java.lang.Integer, java.lang.String,
-     *      java.lang.String, List, String)
+     * java.lang.String, List, String)
      */
     public KualiDecimal calculateM113PendActual(boolean financialBeginBalanceLoadInd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, List specialFinancialObjectCodes, String financialObjectCodeForCashInBank) {
         // fp_sasfc:61-2...78-3 m113 calculate pendActual
@@ -120,16 +120,16 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calculates the current pending actual
      *
-     * @param isYearEndDocument should year end documents be included?
+     * @param isYearEndDocument            should year end documents be included?
      * @param actualFinancialBalanceTypeCd the actual balance type code
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
-     * @param acctSufficientFundsFinObjCd the object code for sufficient funds
-     * @param expenditureCodes object codes that represent expenditures
+     * @param universityFiscalYear         the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode          the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber                the account number of sufficient fund balances to summarize
+     * @param acctSufficientFundsFinObjCd  the object code for sufficient funds
+     * @param expenditureCodes             object codes that represent expenditures
      * @return the current pending actual total
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculatePendActual(boolean, java.lang.String, java.lang.Integer,
-     *      java.lang.String, java.lang.String, java.lang.String, List)
+     * java.lang.String, java.lang.String, java.lang.String, List)
      */
     public KualiDecimal calculatePendActual(boolean isYearEndDocument, String actualFinancialBalanceTypeCd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String acctSufficientFundsFinObjCd, List expenditureCodes) {
         KualiDecimal pendActual = calculatePendActual1(isYearEndDocument, actualFinancialBalanceTypeCd, universityFiscalYear, chartOfAccountsCode, accountNumber, acctSufficientFundsFinObjCd, true, expenditureCodes);
@@ -140,16 +140,16 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * calculates the current year pending budget total
      *
-     * @param isYearEndDocument should year end documents be included?
+     * @param isYearEndDocument           should year end documents be included?
      * @param budgetCheckingBalanceTypeCd the budget balance type code
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
+     * @param universityFiscalYear        the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode         the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber               the account number of sufficient fund balances to summarize
      * @param acctSufficientFundsFinObjCd the object code for sufficient funds
-     * @param expenditureCodes object codes that represent expenditures
+     * @param expenditureCodes            object codes that represent expenditures
      * @return calculates the current year pending budget total
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculatePendBudget(boolean, java.lang.String, java.lang.Integer,
-     *      java.lang.String, java.lang.String, java.lang.String, List)
+     * java.lang.String, java.lang.String, java.lang.String, List)
      */
     public KualiDecimal calculatePendBudget(boolean isYearEndDocument, String budgetCheckingBalanceTypeCd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String acctSufficientFundsFinObjCd, List expenditureCodes) {
         Criteria criteria = new Criteria();
@@ -162,13 +162,12 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isYearEndDocument) {
             criteria.addLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
-        }
-        else {
+        } else {
             criteria.addNotLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
         }
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(GeneralLedgerPendingEntry.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        reportQuery.setAttributes(new String[]{"sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
 
         return executeReportQuery(reportQuery);
 
@@ -177,18 +176,18 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calculates the current year pending encumbrance total
      *
-     * @param isYearEndDocument should year end documents be included?
-     * @param extrnlEncumFinBalanceTypCd the external encumbrance balance type
-     * @param intrnlEncumFinBalanceTypCd the internal encumbrance balance type
-     * @param preencumbranceFinBalTypeCd the pre-encumbrance balance type
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
+     * @param isYearEndDocument           should year end documents be included?
+     * @param extrnlEncumFinBalanceTypCd  the external encumbrance balance type
+     * @param intrnlEncumFinBalanceTypCd  the internal encumbrance balance type
+     * @param preencumbranceFinBalTypeCd  the pre-encumbrance balance type
+     * @param universityFiscalYear        the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode         the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber               the account number of sufficient fund balances to summarize
      * @param acctSufficientFundsFinObjCd the object code for sufficient funds
-     * @param expenditureCodes object codes that represent expenditures
+     * @param expenditureCodes            object codes that represent expenditures
      * @return the current year pending encumbrance total
      * @see org.kuali.kfs.gl.batch.dataaccess.SufficientFundsDao#calculatePendEncum(boolean, java.lang.String, java.lang.String,
-     *      java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, List)
+     * java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, List)
      */
     public KualiDecimal calculatePendEncum(boolean isYearEndDocument, String extrnlEncumFinBalanceTypCd, String intrnlEncumFinBalanceTypCd, String preencumbranceFinBalTypeCd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String acctSufficientFundsFinObjCd, List expenditureCodes) {
         KualiDecimal pendEncum = calculatePendEncum1(isYearEndDocument, extrnlEncumFinBalanceTypCd, intrnlEncumFinBalanceTypCd, preencumbranceFinBalTypeCd, universityFiscalYear, chartOfAccountsCode, accountNumber, acctSufficientFundsFinObjCd, true, expenditureCodes);
@@ -199,15 +198,15 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calcluate this part of the encumbrance total
      *
-     * @param isYearEndDocument should year end documents be included?
-     * @param extrnlEncumFinBalanceTypCd the external encumbrance balance type
-     * @param intrnlEncumFinBalanceTypCd the internal encumbrance balance type
-     * @param preencumbranceFinBalTypeCd the pre-encumbrance balance type
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
+     * @param isYearEndDocument           should year end documents be included?
+     * @param extrnlEncumFinBalanceTypCd  the external encumbrance balance type
+     * @param intrnlEncumFinBalanceTypCd  the internal encumbrance balance type
+     * @param preencumbranceFinBalTypeCd  the pre-encumbrance balance type
+     * @param universityFiscalYear        the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode         the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber               the account number of sufficient fund balances to summarize
      * @param acctSufficientFundsFinObjCd the object code for sufficient funds
-     * @param isEqualDebitCode should debits be included in the calculation or not
+     * @param isEqualDebitCode            should debits be included in the calculation or not
      * @return this part of the encumbrance total
      */
     protected KualiDecimal calculatePendEncum1(boolean isYearEndDocument, String extrnlEncumFinBalanceTypCd, String intrnlEncumFinBalanceTypCd, String preencumbranceFinBalTypeCd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String acctSufficientFundsFinObjCd, boolean isEqualDebitCode, List expenditureCodes) {
@@ -232,8 +231,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isEqualDebitCode) {
             criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
-        }
-        else {
+        } else {
             criteria.addNotEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
         }
 
@@ -241,13 +239,12 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isYearEndDocument) {
             criteria.addLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
-        }
-        else {
+        } else {
             criteria.addNotLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
         }
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(GeneralLedgerPendingEntry.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        reportQuery.setAttributes(new String[]{"sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
 
         return executeReportQuery(reportQuery);
 
@@ -257,12 +254,12 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calculate this part of the actual total
      *
-     * @param isYearEndDocument should year end documents be included?
+     * @param isYearEndDocument            should year end documents be included?
      * @param actualFinancialBalanceTypeCd the actual balance type code
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
-     * @param acctSufficientFundsFinObjCd the object code for sufficient funds
+     * @param universityFiscalYear         the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode          the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber                the account number of sufficient fund balances to summarize
+     * @param acctSufficientFundsFinObjCd  the object code for sufficient funds
      * @return this part of the actual total
      */
     protected KualiDecimal calculatePendActual1(boolean isYearEndDocument, String actualFinancialBalanceTypeCd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String acctSufficientFundsFinObjCd, boolean isEqualDebitCode, List expenditureCodes) {
@@ -275,8 +272,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isEqualDebitCode) {
             criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
-        }
-        else {
+        } else {
             criteria.addNotEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
         }
 
@@ -284,13 +280,12 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isYearEndDocument) {
             criteria.addLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
-        }
-        else {
+        } else {
             criteria.addNotLike(KFSConstants.FINANCIAL_DOCUMENT_TYPE_CODE, YEAR_END_DOC_PREFIX);
         }
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(GeneralLedgerPendingEntry.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        reportQuery.setAttributes(new String[]{"sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
         return executeReportQuery(reportQuery);
     }
 
@@ -298,8 +293,8 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
      * calculate part of the actual total
      *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
+     * @param chartOfAccountsCode  the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber        the account number of sufficient fund balances to summarize
      * @return thsi part of the actual total
      */
     protected KualiDecimal calculateM113PendActual1(boolean financialBeginBalanceLoadInd, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, boolean isEqualDebitCode, String financialObjectCodeForCashInBank) {
@@ -308,8 +303,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (financialBeginBalanceLoadInd) {
             criteria.addEqualTo(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, universityFiscalYear);
-        }
-        else {
+        } else {
             Criteria sub1 = new Criteria();
             sub1.addEqualTo(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, universityFiscalYear);
             Criteria sub1_1 = new Criteria();
@@ -324,15 +318,14 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isEqualDebitCode) {
             criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
-        }
-        else {
+        } else {
             criteria.addNotEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
         }
 
         criteria.addNotEqualTo(KFSConstants.DOCUMENT_HEADER_PROPERTY_NAME + "." + KFSConstants.DOCUMENT_HEADER_DOCUMENT_STATUS_CODE_PROPERTY_NAME, KFSConstants.DocumentStatusCodes.CANCELLED);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(GeneralLedgerPendingEntry.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        reportQuery.setAttributes(new String[]{"sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
 
         return executeReportQuery(reportQuery);
     }
@@ -340,10 +333,10 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
     /**
      * Calculate part of the actual total
      *
-     * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
-     * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
-     * @param accountNumber the account number of sufficient fund balances to summarize
-     * @param isEqualDebitCode should this query be returning debits or not?
+     * @param universityFiscalYear        the university fiscal year of sufficient funds balances to summarize
+     * @param chartOfAccountsCode         the chart of accounts code of sufficient funds balances to summarize
+     * @param accountNumber               the account number of sufficient fund balances to summarize
+     * @param isEqualDebitCode            should this query be returning debits or not?
      * @param specialFinancialObjectCodes include only these financial object codes
      * @return this part of the actual total
      */
@@ -353,8 +346,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (financialBeginBalanceLoadInd) {
             criteria.addEqualTo(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, universityFiscalYear);
-        }
-        else {
+        } else {
             Criteria sub1 = new Criteria();
             sub1.addEqualTo(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, universityFiscalYear);
             Criteria sub1_1 = new Criteria();
@@ -369,15 +361,14 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
 
         if (isEqualDebitCode) {
             criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
-        }
-        else {
+        } else {
             criteria.addNotEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE);
         }
 
         criteria.addNotEqualTo(KFSConstants.DOCUMENT_HEADER_PROPERTY_NAME + "." + KFSConstants.DOCUMENT_HEADER_DOCUMENT_STATUS_CODE_PROPERTY_NAME, KFSConstants.DocumentStatusCodes.CANCELLED);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(GeneralLedgerPendingEntry.class, criteria);
-        reportQuery.setAttributes(new String[] { "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        reportQuery.setAttributes(new String[]{"sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
 
         return executeReportQuery(reportQuery);
     }
@@ -386,7 +377,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
      * Purge table by year/chart
      *
      * @param chart the chart of sufficient fund balances to purge
-     * @param year the year of sufficient fund balances to purge
+     * @param year  the year of sufficient fund balances to purge
      */
     public void purgeYearByChart(String chartOfAccountsCode, int year) {
         LOG.debug("purgeYearByChart() started");
@@ -415,8 +406,7 @@ public class SufficientFundsDaoOjb extends PlatformAwareDaoBaseOjb implements Su
         if (iterator.hasNext()) {
             KualiDecimal returnResult = (KualiDecimal) ((Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator))[0];
             return returnResult;
-        }
-        else {
+        } else {
             return KualiDecimal.ZERO;
         }
     }

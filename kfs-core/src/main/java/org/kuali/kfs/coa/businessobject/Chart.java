@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.krad.bo.KualiCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.KualiCode;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 public class Chart extends PersistableBusinessObjectBase implements KualiCode {
@@ -639,7 +639,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
     }
 
     protected static ChartService getChartService() {
-        if ( chartService == null ) {
+        if (chartService == null) {
             chartService = SpringContext.getBean(ChartService.class);
         }
         return chartService;

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.Set;
 
 public class TemAccountingLineAuthorizer extends AccountingLineAuthorizerBase {
     private static Log LOG = LogFactory.getLog(TemAccountingLineAuthorizer.class);

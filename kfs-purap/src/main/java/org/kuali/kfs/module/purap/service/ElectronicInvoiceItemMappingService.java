@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
+
+import java.util.List;
 
 /**
  * This service and its implementation is used by the maintenance page for Electronic Invoice Item Mapping.

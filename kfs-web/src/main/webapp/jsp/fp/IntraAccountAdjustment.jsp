@@ -16,38 +16,38 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="IntraAccountAdjustmentDocument"
-	htmlFormAction="financialIntraAccountAdjustment" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="IntraAccountAdjustmentDocument"
+                  htmlFormAction="financialIntraAccountAdjustment" renderMultipart="true"
+                  showTabButtons="true">
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS},newSourceLine*"
-			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-			<sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
-		</sys-java:accountingLines>
-	</kul:tab>
-
-
-	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-	<fp:capitalAccountingLines readOnly="${readOnly}"/>
-
-	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-	</c:if>
-
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS},newSourceLine*"
+             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
+        <sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
+            <sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
+        </sys-java:accountingLines>
+    </kul:tab>
 
 
-	<gl:generalLedgerPendingEntries />
-	<kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
+    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
+    <fp:capitalAccountingLines readOnly="${readOnly}"/>
+
+    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
+        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
+    </c:if>
+
+    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+
+
+    <gl:generalLedgerPendingEntries/>
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

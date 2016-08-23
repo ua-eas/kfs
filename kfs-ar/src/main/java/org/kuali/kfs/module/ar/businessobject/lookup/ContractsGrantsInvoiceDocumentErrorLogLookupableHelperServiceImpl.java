@@ -56,7 +56,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         return getSearchResultsHelper(
-                org.kuali.kfs.krad.lookup.LookupUtils.forceUppercase(getBusinessObjectClass(), updateFieldValuesForSearchCriteria(fieldValues)), false);
+            org.kuali.kfs.krad.lookup.LookupUtils.forceUppercase(getBusinessObjectClass(), updateFieldValuesForSearchCriteria(fieldValues)), false);
     }
 
 
@@ -68,7 +68,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
     @Override
     public List<? extends BusinessObject> getSearchResultsUnbounded(Map<String, String> fieldValues) {
         return getSearchResultsHelper(
-                org.kuali.kfs.krad.lookup.LookupUtils.forceUppercase(getBusinessObjectClass(), updateFieldValuesForSearchCriteria(fieldValues)), true);
+            org.kuali.kfs.krad.lookup.LookupUtils.forceUppercase(getBusinessObjectClass(), updateFieldValuesForSearchCriteria(fieldValues)), true);
     }
 
     /**
@@ -117,8 +117,8 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
      * Add one day to the error date field.
      *
      * @param newFieldValues Map of field values for search criteria to be modified
-     * @param errorDate String date from original fieldValues
-     * @param index index of date prefix used to get actual date portion of errorDate string
+     * @param errorDate      String date from original fieldValues
+     * @param index          index of date prefix used to get actual date portion of errorDate string
      */
     protected void incrementErrorDate(Map<String, String> newFieldValues, String errorDate, int index) {
         String errorDatePrefix = errorDate.substring(0, index + 2);
@@ -129,7 +129,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
     }
 
     @Override
-    public void validateSearchParameters(Map<String,String> fieldValues) {
+    public void validateSearchParameters(Map<String, String> fieldValues) {
         super.validateSearchParameters(fieldValues);
         String proposalNumber = fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER);
 
@@ -144,12 +144,12 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
         String primaryFundManagerPrincipalId = fieldValues.get(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.PRIMARY_FUND_MANAGER_PRINCIPAL_NAME);
 
         final String awardBeginningDateLabel = lookupPropertyLabel(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_BEGINNING_DATE_TO);
-        validateDate(awardBeginningDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_BEGINNING_DATE_FROM, awardBeginningDateLabel+ArConstants.FROM_SUFFIX);
-        validateDate(awardBeginningDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_BEGINNING_DATE_TO, awardBeginningDateLabel+ArConstants.TO_SUFFIX);
+        validateDate(awardBeginningDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_BEGINNING_DATE_FROM, awardBeginningDateLabel + ArConstants.FROM_SUFFIX);
+        validateDate(awardBeginningDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_BEGINNING_DATE_TO, awardBeginningDateLabel + ArConstants.TO_SUFFIX);
 
         final String awardEndingDateLabel = lookupPropertyLabel(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_ENDING_DATE_TO);
-        validateDate(awardEndingpDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_ENDING_DATE_FROM, awardEndingDateLabel+ArConstants.FROM_SUFFIX);
-        validateDate(awardEndingDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_ENDING_DATE_TO, awardEndingDateLabel+ArConstants.TO_SUFFIX);
+        validateDate(awardEndingpDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_ENDING_DATE_FROM, awardEndingDateLabel + ArConstants.FROM_SUFFIX);
+        validateDate(awardEndingDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_ENDING_DATE_TO, awardEndingDateLabel + ArConstants.TO_SUFFIX);
 
         if (StringUtils.isNotBlank(awardTotalAmount) && !KualiDecimal.isNumeric(awardTotalAmount)) {
             GlobalVariables.getMessageMap().putError(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_TOTAL_AMOUNT, KFSKeyConstants.ERROR_NUMERIC, lookupPropertyLabel(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.AWARD_TOTAL_AMOUNT));
@@ -160,8 +160,8 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
         }
 
         final String errorDateLabel = lookupPropertyLabel(ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.ERROR_DATE_TO);
-        validateDate(errorDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.ERROR_DATE_FROM, errorDateLabel+ArConstants.FROM_SUFFIX);
-        validateDate(errorDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.ERROR_DATE_TO, errorDateLabel+ArConstants.TO_SUFFIX);
+        validateDate(errorDateFromString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.ERROR_DATE_FROM, errorDateLabel + ArConstants.FROM_SUFFIX);
+        validateDate(errorDateToString, ArPropertyConstants.ContractsGrantsInvoiceDocumentErrorLogLookupFields.ERROR_DATE_TO, errorDateLabel + ArConstants.TO_SUFFIX);
 
         if (StringUtils.isNotEmpty(primaryFundManagerPrincipalId)) {
             Person person = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(primaryFundManagerPrincipalId);
@@ -177,6 +177,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
 
     /**
      * Looks up the attribute label for a propery of ContractsGrantsInvoiceDocumentErrorLog
+     *
      * @param propertyName the property name to look up
      * @return the label
      */
@@ -197,8 +198,7 @@ public class ContractsGrantsInvoiceDocumentErrorLogLookupableHelperServiceImpl e
         if (StringUtils.isNotBlank(dateString)) {
             try {
                 dateTimeService.convertToDate(dateString);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 GlobalVariables.getMessageMap().putError(fieldName, KFSKeyConstants.ERROR_DATE_TIME, fieldLabel);
             }
         }

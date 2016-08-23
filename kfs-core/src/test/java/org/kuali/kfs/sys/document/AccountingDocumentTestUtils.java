@@ -18,29 +18,11 @@
  */
 package org.kuali.kfs.sys.document;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertEquality;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertInequality;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.Assert;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
-import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
-import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.sys.monitor.ChangeMonitor;
-import org.kuali.kfs.sys.monitor.DocumentVersionMonitor;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
@@ -53,6 +35,23 @@ import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
+import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
+import org.kuali.kfs.sys.fixture.UserNameFixture;
+import org.kuali.kfs.sys.monitor.ChangeMonitor;
+import org.kuali.kfs.sys.monitor.DocumentVersionMonitor;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.document.DocumentStatus;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertEquality;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertInequality;
 
 public final class AccountingDocumentTestUtils {
     private static final Logger LOG = Logger.getLogger(AccountingDocumentTestUtils.class);
@@ -83,9 +82,9 @@ public final class AccountingDocumentTestUtils {
     public static <T extends AccountingDocument> void testGetNewDocument_byDocumentClass(Class<T> documentClass, DocumentService documentService) throws Exception {
         T document = (T) documentService.getNewDocument(documentClass);
         // verify document was created
-        Assert.assertNotNull("document was null",document);
-        Assert.assertNotNull("document header was null",document.getDocumentHeader());
-        Assert.assertNotNull("document number was null",document.getDocumentHeader().getDocumentNumber());
+        Assert.assertNotNull("document was null", document);
+        Assert.assertNotNull("document header was null", document.getDocumentHeader());
+        Assert.assertNotNull("document number was null", document.getDocumentHeader().getDocumentNumber());
     }
 
     public static void testConvertIntoCopy_copyDisallowed(AccountingDocument document, DataDictionaryService dataDictionaryService) throws Exception {
@@ -99,28 +98,25 @@ public final class AccountingDocumentTestUtils {
             boolean failedAsExpected = false;
             try {
                 ((Copyable) document).toCopy();
-            }
-            catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 failedAsExpected = true;
             }
 
             Assert.assertTrue("copy operation should have failed", failedAsExpected);
-        }
-        finally {
+        } finally {
             d.getDocumentEntry(documentClass.getName()).setAllowsCopy(originalValue);
         }
     }
 
     public static void testConvertIntoErrorCorrection_documentAlreadyCorrected(AccountingDocument document, TransactionalDocumentDictionaryService dictionaryService) throws Exception {
 
-        if (((FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
+        if (((FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
             document.getFinancialSystemDocumentHeader().setCorrectedByDocumentId("1");
 
             boolean failedAsExpected = false;
             try {
                 ((Correctable) document).toErrorCorrection();
-            }
-            catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 failedAsExpected = true;
             }
 
@@ -139,20 +135,18 @@ public final class AccountingDocumentTestUtils {
             boolean failedAsExpected = false;
             try {
                 ((Correctable) document).toErrorCorrection();
-            }
-            catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 failedAsExpected = true;
             }
 
-            Assert.assertTrue("error correction should have failed",failedAsExpected);
-        }
-        finally {
+            Assert.assertTrue("error correction should have failed", failedAsExpected);
+        } finally {
             ((FinancialSystemTransactionalDocumentEntry) d.getDocumentEntry(documentClass.getName())).setAllowsErrorCorrection(originalValue);
         }
     }
 
     public static void testConvertIntoErrorCorrection_invalidYear(AccountingDocument document, TransactionalDocumentDictionaryService dictionaryService, AccountingPeriodService accountingPeriodService) throws Exception {
-        if (((FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
+        if (((FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
             // change to non-current posting year
             Integer postingYear = document.getPostingYear();
             AccountingPeriod accountingPeriod = accountingPeriodService.getByPeriod(document.getAccountingPeriod().getUniversityFiscalPeriodCode(), postingYear - 1);
@@ -165,8 +159,7 @@ public final class AccountingDocumentTestUtils {
             try {
                 ((Correctable) document).toErrorCorrection();
                 Assert.fail("converted into error correction for an invalid year");
-            }
-            catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 failedAsExpected = true;
             }
             Assert.assertTrue(failedAsExpected);
@@ -181,10 +174,10 @@ public final class AccountingDocumentTestUtils {
         document.prepareForSave();
 
         Assert.assertFalse("Document was not in proper status for routing.  Was: " + document.getDocumentHeader().getWorkflowDocument().getStatus(),
-                DocumentStatus.ENROUTE.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
+            DocumentStatus.ENROUTE.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
         routeDocument(document, "saving copy source document", null, documentService);
 
-        WorkflowDocument workflowDocument = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(document.getDocumentNumber(), UserNameFixture.kfs.getPerson() );
+        WorkflowDocument workflowDocument = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(document.getDocumentNumber(), UserNameFixture.kfs.getPerson());
         if (!workflowDocument.isApproved()) {
             WorkflowTestUtils.waitForStatusChange(document.getDocumentNumber(), DocumentStatus.ENROUTE);
         }
@@ -196,7 +189,7 @@ public final class AccountingDocumentTestUtils {
      */
 
     public static void testConvertIntoErrorCorrection(AccountingDocument document, int expectedPrePECount, DocumentService documentService, TransactionalDocumentDictionaryService dictionaryService) throws Exception {
-        if (((FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
+        if (((FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) {
             String documentNumber = document.getDocumentNumber();
             LOG.info("Submitting and blanket approving documentNumber to final to test error correction: " + documentNumber);
             // route the original doc, wait for status change
@@ -361,8 +354,7 @@ public final class AccountingDocumentTestUtils {
     public static void routeDocument(FinancialSystemTransactionalDocument document, String annotation, List<AdHocRouteRecipient> adHocRoutingRecipients, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, adHocRoutingRecipients);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             Assert.fail(e.getMessage() + ", " + dumpMessageMapErrors());
         }
@@ -370,13 +362,13 @@ public final class AccountingDocumentTestUtils {
 
     // helper methods
     public static void blanketApproveDocument(Document document, String annotation, List<AdHocRouteRecipient> adHocRoutingRecipients, DocumentService documentService) throws WorkflowException {
-        LOG.info( "Blanket Approving Document: " + document.getDocumentNumber() + " / " + annotation );
+        LOG.info("Blanket Approving Document: " + document.getDocumentNumber() + " / " + annotation);
         try {
             documentService.blanketApproveDocument(document, annotation, adHocRoutingRecipients);
         } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             Assert.fail(e.getMessage() + ", " + dumpMessageMapErrors());
-            LOG.error( "Blanket Approval failed: " + document, e );
+            LOG.error("Blanket Approval failed: " + document, e);
         }
     }
 
@@ -385,7 +377,7 @@ public final class AccountingDocumentTestUtils {
         documentService.approveDocument(document, "approving test doc", null);
 
         DocumentVersionMonitor vm = new DocumentVersionMonitor(documentService, document.getDocumentNumber(), initialVersion);
-        Assert.assertTrue("Document did not complete routing to the expected status (" + vm + ") within the time limit",ChangeMonitor.waitUntilChange(vm, ROUTE_STATUS_CHANGE_WAIT_TIME_SECONDS, ROUTE_STATUS_CHANGE_INITIAL_WAIT_TIME_SECONDS));
+        Assert.assertTrue("Document did not complete routing to the expected status (" + vm + ") within the time limit", ChangeMonitor.waitUntilChange(vm, ROUTE_STATUS_CHANGE_WAIT_TIME_SECONDS, ROUTE_STATUS_CHANGE_INITIAL_WAIT_TIME_SECONDS));
     }
 
     public static void routeDocument(AccountingDocument document, DocumentService documentService) throws WorkflowException {
@@ -405,8 +397,7 @@ public final class AccountingDocumentTestUtils {
     public static void saveDocument(FinancialSystemTransactionalDocument document, DocumentService documentService) throws WorkflowException {
         try {
             documentService.saveDocument(document);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             Assert.fail("Document save failed with ValidationException: " + e.getMessage() + ", " + dumpMessageMapErrors());
         }
@@ -450,15 +441,15 @@ public final class AccountingDocumentTestUtils {
         }
 
         StringBuilder message = new StringBuilder();
-        for ( String key : GlobalVariables.getMessageMap().getErrorMessages().keySet() ) {
+        for (String key : GlobalVariables.getMessageMap().getErrorMessages().keySet()) {
             List<ErrorMessage> errorList = GlobalVariables.getMessageMap().getErrorMessages().get(key);
 
-            for ( ErrorMessage em : errorList ) {
-                message.append(key).append(" = ").append( em.getErrorKey() );
+            for (ErrorMessage em : errorList) {
+                message.append(key).append(" = ").append(em.getErrorKey());
                 if (em.getMessageParameters() != null) {
-                    message.append( " : " );
+                    message.append(" : ");
                     String delim = "";
-                    for ( String parm : em.getMessageParameters() ) {
+                    for (String parm : em.getMessageParameters()) {
                         message.append(delim).append("'").append(parm).append("'");
                         if ("".equals(delim)) {
                             delim = ", ";
@@ -466,7 +457,7 @@ public final class AccountingDocumentTestUtils {
                     }
                 }
             }
-            message.append( '\n' );
+            message.append('\n');
         }
         return message.toString();
     }

@@ -24,11 +24,10 @@ import org.kuali.rice.core.api.data.DataType;
 /**
  * A data type constraint is one that enforces a specific data type for an object.
  *
- *
  * @since 1.1
  */
 public interface DataTypeConstraint extends Constraint {
 
-	public DataType getDataType();
+    public DataType getDataType();
 
 }

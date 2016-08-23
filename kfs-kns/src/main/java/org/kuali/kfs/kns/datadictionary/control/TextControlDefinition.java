@@ -22,16 +22,16 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-    The text element defines an HTML text control element.
-    The size attribute defines the size of the field.
-    If the datePicker option is entered, then  the user will be able
-    to select a date from a popup calendar.
+ * The text element defines an HTML text control element.
+ * The size attribute defines the size of the field.
+ * If the datePicker option is entered, then  the user will be able
+ * to select a date from a popup calendar.
  */
 @Deprecated
 public class TextControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = 6075633623507085548L;
 
-	public TextControlDefinition() {
+    public TextControlDefinition() {
     }
 
     /**

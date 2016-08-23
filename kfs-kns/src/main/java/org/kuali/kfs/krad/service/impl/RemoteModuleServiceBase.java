@@ -28,7 +28,12 @@ import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.PrimitiveAttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
-import org.kuali.kfs.krad.service.*;
+import org.kuali.kfs.krad.service.BusinessObjectNotLookupableException;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
@@ -42,7 +47,11 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 
 public abstract class RemoteModuleServiceBase implements ModuleService {
@@ -67,15 +76,15 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         }
         for (String prefix : getModuleConfiguration().getPackagePrefixes()) {
             Package pkg = businessObjectClass.getPackage();
-            String name=pkg.getName();
+            String name = pkg.getName();
             if (businessObjectClass.getPackage().getName().startsWith(prefix)) {
                 return true;
             }
         }
         if (ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass)) {
             Class externalizableBusinessObjectInterface =
-                    ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
-                            businessObjectClass);
+                ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
+                    businessObjectClass);
             if (externalizableBusinessObjectInterface != null) {
                 for (String prefix : getModuleConfiguration().getPackagePrefixes()) {
                     if (externalizableBusinessObjectInterface.getPackage().getName().startsWith(prefix)) {
@@ -100,7 +109,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
 
         Object result = map.get(key);
         if (result instanceof String) {
-            return !StringUtils.isBlank((String)result);
+            return !StringUtils.isBlank((String) result);
         }
         return result != null;
     }
@@ -133,7 +142,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         Class boClass = getExternalizableBusinessObjectImplementation(businessObjectInterfaceClass);
 
         return boClass == null ? null : KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary()
-                .getBusinessObjectEntryForConcreteClass(boClass.getName());
+            .getBusinessObjectEntryForConcreteClass(boClass.getName());
     }
 
     /**
@@ -146,10 +155,10 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         // if external business object, replace data object in request with the actual impl object class
         if (ExternalizableBusinessObject.class.isAssignableFrom(inquiryDataObjectClass)) {
             Class implementationClass = getExternalizableBusinessObjectImplementation(inquiryDataObjectClass.asSubclass(
-                    ExternalizableBusinessObject.class));
+                ExternalizableBusinessObject.class));
             if (implementationClass == null) {
                 throw new RuntimeException("Can't find ExternalizableBusinessObject implementation class for "
-                        + inquiryDataObjectClass.getName());
+                    + inquiryDataObjectClass.getName());
             }
 
             parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, implementationClass.getName());
@@ -177,10 +186,10 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         // if external business object, replace data object in request with the actual impl object class
         if (ExternalizableBusinessObject.class.isAssignableFrom(lookupDataObjectClass)) {
             Class implementationClass = getExternalizableBusinessObjectImplementation(lookupDataObjectClass.asSubclass(
-                    ExternalizableBusinessObject.class));
+                ExternalizableBusinessObject.class));
             if (implementationClass == null) {
                 throw new RuntimeException("Can't find ExternalizableBusinessObject implementation class for "
-                        + lookupDataObjectClass.getName());
+                    + lookupDataObjectClass.getName());
             }
 
             parameters.put(UifParameters.DATA_OBJECT_CLASS_NAME, implementationClass.getName());
@@ -221,7 +230,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
 
     @Deprecated
     public String getExternalizableBusinessObjectInquiryUrl(Class inquiryBusinessObjectClass,
-            Map<String, String[]> parameters) {
+                                                            Map<String, String[]> parameters) {
         if (!isExternalizable(inquiryBusinessObjectClass)) {
             return KRADConstants.EMPTY_STRING;
         }
@@ -230,29 +239,29 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         Class implementationClass = getExternalizableBusinessObjectImplementation(inquiryBusinessObjectClass);
         if (implementationClass == null) {
             LOG.error("Can't find ExternalizableBusinessObject implementation class for " + inquiryBusinessObjectClass
-                    .getName());
+                .getName());
             throw new RuntimeException("Can't find ExternalizableBusinessObject implementation class for interface "
-                    + inquiryBusinessObjectClass.getName());
+                + inquiryBusinessObjectClass.getName());
         }
         businessObjectClassAttribute = implementationClass.getName();
         return UrlFactory.parameterizeUrl(getInquiryUrl(inquiryBusinessObjectClass), getUrlParameters(
-                businessObjectClassAttribute, parameters));
+            businessObjectClassAttribute, parameters));
     }
 
     /**
      * This overridden method ...
      *
      * @see ModuleService#getExternalizableBusinessObjectLookupUrl(java.lang.Class,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Deprecated
     @Override
     public String getExternalizableBusinessObjectLookupUrl(Class inquiryBusinessObjectClass,
-            Map<String, String> parameters) {
+                                                           Map<String, String> parameters) {
         Properties urlParameters = new Properties();
 
         String riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                KRADConstants.KUALI_RICE_URL_KEY);
+            KRADConstants.KUALI_RICE_URL_KEY);
         String lookupUrl = riceBaseUrl;
         if (!lookupUrl.endsWith("/")) {
             lookupUrl = lookupUrl + "/";
@@ -274,12 +283,12 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
 
     /**
      * @see ModuleService#getExternalizableBusinessObjectsListForLookup(java.lang.Class,
-     *      java.util.Map, boolean)
+     * java.util.Map, boolean)
      */
     public <T extends ExternalizableBusinessObject> List<T> getExternalizableBusinessObjectsListForLookup(
-            Class<T> externalizableBusinessObjectClass, Map<String, Object> fieldValues, boolean unbounded) {
+        Class<T> externalizableBusinessObjectClass, Map<String, Object> fieldValues, boolean unbounded) {
         Class<? extends ExternalizableBusinessObject> implementationClass =
-                getExternalizableBusinessObjectImplementation(externalizableBusinessObjectClass);
+            getExternalizableBusinessObjectImplementation(externalizableBusinessObjectClass);
         if (isExternalizableBusinessObjectLookupable(implementationClass)) {
             Map<String, String> searchCriteria = new HashMap<String, String>();
             for (Map.Entry<String, Object> fieldValue : fieldValues.entrySet()) {
@@ -290,10 +299,10 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
                 }
             }
             return (List<T>) getLookupService().findCollectionBySearchHelper(implementationClass, searchCriteria,
-                    unbounded);
+                unbounded);
         } else {
             throw new BusinessObjectNotLookupableException(
-                    "External business object is not a Lookupable:  " + implementationClass);
+                "External business object is not a Lookupable:  " + implementationClass);
         }
     }
 
@@ -302,10 +311,10 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
      * and gets the concrete implementation for it
      *
      * @see ModuleService#retrieveExternalizableBusinessObjectIfNecessary(org.kuali.rice.krad.bo.BusinessObject,
-     *      org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
+     * org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
      */
     public <T extends ExternalizableBusinessObject> T retrieveExternalizableBusinessObjectIfNecessary(
-            BusinessObject businessObject, T currentInstanceExternalizableBO, String externalizableRelationshipName) {
+        BusinessObject businessObject, T currentInstanceExternalizableBO, String externalizableRelationshipName) {
 
         if (businessObject == null) {
             return null;
@@ -313,25 +322,25 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         Class clazz;
         try {
             clazz = getExternalizableBusinessObjectImplementation(PropertyUtils.getPropertyType(businessObject,
-                    externalizableRelationshipName));
+                externalizableRelationshipName));
         } catch (Exception iex) {
             LOG.warn("Exception:"
-                    + iex
-                    + " thrown while trying to get property type for property:"
-                    + externalizableRelationshipName
-                    + " from business object:"
-                    + businessObject);
+                + iex
+                + " thrown while trying to get property type for property:"
+                + externalizableRelationshipName
+                + " from business object:"
+                + businessObject);
             return null;
         }
 
         //Get the business object entry for this business object from data dictionary
         //using the class name (without the package) as key
         BusinessObjectEntry entry =
-                KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntries().get(
-                        businessObject.getClass().getSimpleName());
+            KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntries().get(
+                businessObject.getClass().getSimpleName());
         RelationshipDefinition relationshipDefinition = entry.getRelationshipDefinition(externalizableRelationshipName);
         List<PrimitiveAttributeDefinition> primitiveAttributeDefinitions =
-                relationshipDefinition.getPrimitiveAttributes();
+            relationshipDefinition.getPrimitiveAttributes();
 
         Map<String, Object> fieldValuesInEBO = new HashMap<String, Object>();
         Object sourcePropertyValue;
@@ -339,15 +348,15 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         boolean sourceTargetPropertyValuesSame = true;
         for (PrimitiveAttributeDefinition primitiveAttributeDefinition : primitiveAttributeDefinitions) {
             sourcePropertyValue = ObjectUtils.getPropertyValue(businessObject,
-                    primitiveAttributeDefinition.getSourceName());
+                primitiveAttributeDefinition.getSourceName());
             if (currentInstanceExternalizableBO != null) {
                 targetPropertyValue = ObjectUtils.getPropertyValue(currentInstanceExternalizableBO,
-                        primitiveAttributeDefinition.getTargetName());
+                    primitiveAttributeDefinition.getTargetName());
             }
             if (sourcePropertyValue == null) {
                 return null;
             } else if (targetPropertyValue == null || (targetPropertyValue != null && !targetPropertyValue.equals(
-                    sourcePropertyValue))) {
+                sourcePropertyValue))) {
                 sourceTargetPropertyValuesSame = false;
             }
             fieldValuesInEBO.put(primitiveAttributeDefinition.getTargetName(), sourcePropertyValue);
@@ -364,11 +373,11 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
      * and gets the concrete implementation for it
      *
      * @see ModuleService#retrieveExternalizableBusinessObjectIfNecessary(org.kuali.rice.krad.bo.BusinessObject,
-     *      org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
+     * org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
      */
     @Override
     public List<? extends ExternalizableBusinessObject> retrieveExternalizableBusinessObjectsList(
-            BusinessObject businessObject, String externalizableRelationshipName, Class externalizableClazz) {
+        BusinessObject businessObject, String externalizableRelationshipName, Class externalizableClazz) {
 
         if (businessObject == null) {
             return null;
@@ -378,23 +387,23 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         String className = businessObject.getClass().getName();
         String key = className.substring(className.lastIndexOf(".") + 1);
         BusinessObjectEntry entry =
-                KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntries().get(
-                        key);
+            KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntries().get(
+                key);
         RelationshipDefinition relationshipDefinition = entry.getRelationshipDefinition(externalizableRelationshipName);
         List<PrimitiveAttributeDefinition> primitiveAttributeDefinitions =
-                relationshipDefinition.getPrimitiveAttributes();
+            relationshipDefinition.getPrimitiveAttributes();
         Map<String, Object> fieldValuesInEBO = new HashMap<String, Object>();
         Object sourcePropertyValue;
         for (PrimitiveAttributeDefinition primitiveAttributeDefinition : primitiveAttributeDefinitions) {
             sourcePropertyValue = ObjectUtils.getPropertyValue(businessObject,
-                    primitiveAttributeDefinition.getSourceName());
+                primitiveAttributeDefinition.getSourceName());
             if (sourcePropertyValue == null) {
                 return null;
             }
             fieldValuesInEBO.put(primitiveAttributeDefinition.getTargetName(), sourcePropertyValue);
         }
         return getExternalizableBusinessObjectsList(getExternalizableBusinessObjectImplementation(externalizableClazz),
-                fieldValuesInEBO);
+            fieldValuesInEBO);
     }
 
     /**
@@ -402,7 +411,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
      */
     @Override
     public <E extends ExternalizableBusinessObject> Class<E> getExternalizableBusinessObjectImplementation(
-            Class<E> externalizableBusinessObjectInterface) {
+        Class<E> externalizableBusinessObjectInterface) {
         if (getModuleConfiguration() == null) {
             throw new IllegalStateException("Module configuration has not been initialized for the module service.");
         }
@@ -416,22 +425,22 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
             Class<E> implementationClass = ebos.get(externalizableBusinessObjectInterface);
             if (implementationClass == null) {
                 LOG.info("Can't find ExternalizableBusinessObject implementation class for " +
-                        externalizableBusinessObjectInterface.getName());
+                    externalizableBusinessObjectInterface.getName());
 
                 Iterator it = ebos.entrySet().iterator();
                 while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
+                    Map.Entry pair = (Map.Entry) it.next();
                     LOG.info(pair.getKey() + " = " + pair.getValue());
                 }
             }
             int implClassModifiers = implementationClass.getModifiers();
             if (Modifier.isInterface(implClassModifiers) || Modifier.isAbstract(implClassModifiers)) {
                 throw new RuntimeException("Implementation class must be non-abstract class: ebo interface: "
-                        + externalizableBusinessObjectInterface.getName()
-                        + " impl class: "
-                        + implementationClass.getName()
-                        + " module: "
-                        + getModuleConfiguration().getNamespaceCode());
+                    + externalizableBusinessObjectInterface.getName()
+                    + " impl class: "
+                    + implementationClass.getName()
+                    + " module: "
+                    + getModuleConfiguration().getNamespaceCode());
             }
             return implementationClass;
         }
@@ -455,7 +464,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
     @Deprecated
     protected String getInquiryUrl(Class inquiryBusinessObjectClass) {
         String riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                KRADConstants.KUALI_RICE_URL_KEY);
+            KRADConstants.KUALI_RICE_URL_KEY);
         String inquiryUrl = riceBaseUrl;
         if (!inquiryUrl.endsWith("/")) {
             inquiryUrl = inquiryUrl + "/";
@@ -472,11 +481,11 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
             kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();
             if (kualiModuleService == null) {
                 kualiModuleService = ((KualiModuleService) applicationContext.getBean(
-                        KRADServiceLocatorWeb.KUALI_MODULE_SERVICE));
+                    KRADServiceLocatorWeb.KUALI_MODULE_SERVICE));
             }
         } catch (NoSuchBeanDefinitionException ex) {
             kualiModuleService = ((KualiModuleService) applicationContext.getBean(
-                    KRADServiceLocatorWeb.KUALI_MODULE_SERVICE));
+                KRADServiceLocatorWeb.KUALI_MODULE_SERVICE));
         }
         kualiModuleService.getInstalledModuleServices().add(this);
     }
@@ -515,7 +524,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
     }
 
     public DataObjectRelationship getBusinessObjectRelationship(Class boClass, String attributeName,
-            String attributePrefix) {
+                                                                String attributePrefix) {
         return null;
     }
 
@@ -578,7 +587,7 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
             String parameterName = KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_ACTIVE_IND;
             ParameterService parameterService = CoreFrameworkServiceLocator.getParameterService();
             String shouldLockout = parameterService.getParameterValueAsString(namespaceCode, componentCode,
-                    parameterName);
+                parameterName);
             if (StringUtils.isNotBlank(shouldLockout)) {
                 return parameterService.getParameterValueAsBoolean(namespaceCode, componentCode, parameterName);
             }
@@ -600,8 +609,8 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         return false;
     }
 
-	@Override
-	public boolean isExternal(Class boClass) {
-		return false;
-	}
+    @Override
+    public boolean isExternal(Class boClass) {
+        return false;
+    }
 }

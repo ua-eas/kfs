@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -30,12 +25,16 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.kuali.kfs.fp.document.CashManagementDocument;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
 
 
 /**
@@ -53,7 +52,7 @@ public class CashManagementStatusAction extends KualiAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // populate with exception values, if any
@@ -64,7 +63,7 @@ public class CashManagementStatusAction extends KualiAction {
         }
 
         // generate the status message
-        String[] msgParams = { cform.getVerificationUnit(), cform.getControllingDocumentId(), cform.getCurrentDrawerStatus(), cform.getDesiredDrawerStatus() };
+        String[] msgParams = {cform.getVerificationUnit(), cform.getControllingDocumentId(), cform.getCurrentDrawerStatus(), cform.getDesiredDrawerStatus()};
 
         ActionMessage message = new ActionMessage(KFSKeyConstants.CashDrawer.MSG_CASH_DRAWER_ALREADY_OPEN, msgParams);
 

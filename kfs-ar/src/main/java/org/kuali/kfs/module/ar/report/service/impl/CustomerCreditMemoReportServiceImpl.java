@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.CustomerCreditMemoReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerCreditMemoReportDataHolder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -86,7 +85,7 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
         reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
-        File report = new File(fullReportFileName+".pdf");
+        File report = new File(fullReportFileName + ".pdf");
         return report;
     }
 
@@ -110,6 +109,7 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Gets the customerCreditMemoReportInfoNoTax attribute.
+     *
      * @return Returns the customerCreditMemoReportInfoNoTax.
      */
     public ReportInfo getCustomerCreditMemoReportInfoNoTax() {
@@ -118,6 +118,7 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Sets the customerCreditMemoReportInfoNoTax attribute value.
+     *
      * @param customerCreditMemoReportInfoNoTax The customerCreditMemoReportInfoNoTax to set.
      */
     public void setCustomerCreditMemoReportInfoNoTax(ReportInfo customerCreditMemoReportInfoNoTax) {
@@ -126,12 +127,12 @@ public class CustomerCreditMemoReportServiceImpl implements CustomerCreditMemoRe
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-
 
 
 }

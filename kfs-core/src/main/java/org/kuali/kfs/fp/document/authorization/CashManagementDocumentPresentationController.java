@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationController;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationController;
 
 /**
  * Contracts for extra presentation controller methods required by the Cash Management document
@@ -28,6 +28,7 @@ public interface CashManagementDocumentPresentationController extends FinancialS
 
     /**
      * Determines if the cash drawer is allowed to be opened.
+     *
      * @return true if the cash drawer can be opened, false otherwise
      */
     public boolean canOpenCashDrawer(Document document);

@@ -36,8 +36,9 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Constructs a AccountingLineViewColumns
+     *
      * @param definition the data dictionary validation of this columns layout element
-     * @param fields the fields to render within this columns layout element
+     * @param fields     the fields to render within this columns layout element
      */
     public AccountingLineViewColumns(AccountingLineViewColumnsDefinition definition, List<AccountingLineViewField> fields) {
         this.definition = definition;
@@ -46,6 +47,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Returns the name of this element
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
@@ -53,7 +55,6 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -62,6 +63,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * This element should be stretched
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#shouldStretchToFillLine()
      */
     public boolean shouldStretchToFillLine() {
@@ -70,6 +72,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Joins the header row with a line filling cell, which includes within it an inner table that shows all the child fields
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerLabelRow, AccountingLineTableRow row) {
@@ -86,6 +89,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Creates rows for the inner tables for each field inside this columsn definition
+     *
      * @return a List of created AccountingLineTableRows
      */
     protected List<AccountingLineTableRow> createRowsForFields() {
@@ -117,6 +121,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Creates a header cell for for the given field
+     *
      * @param field the field to create a header cell for
      * @return a header cell
      */
@@ -129,6 +134,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Creates the "field" cell for the given field
+     *
      * @param field the field to create a cell for
      * @return the cell withe field in it
      */
@@ -140,6 +146,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Creates an empty cell to pad out the place typically held for a cell
+     *
      * @return an empty table cell that spans two columns
      */
     protected AccountingLineTableCell createPaddingCell() {
@@ -151,6 +158,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * An exception state; line filling elements can only join tables through lines
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -159,6 +167,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Has fields perform the transformations
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map)
      */
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
@@ -172,6 +181,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Removes any child action blocks; surviving blocks are instructed to remove child blocks they have
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeAllActionBlocks()
      */
     public void removeAllActionBlocks() {
@@ -188,6 +198,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Goes through all child fields; removes any fields which match unviewable blocks or otherwise, has the field remove unviewable blocks
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks(java.util.Set)
      */
     public void removeUnviewableBlocks(Set<String> unviewableBlocks) {
@@ -204,6 +215,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Has each field readOnlyize
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
     public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {
@@ -214,6 +226,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Gets the fields attribute.
+     *
      * @return Returns the fields.
      */
     public List<AccountingLineViewField> getFields() {
@@ -222,6 +235,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Sets the fields attribute value.
+     *
      * @param fields The fields to set.
      */
     public void setFields(List<AccountingLineViewField> fields) {
@@ -249,6 +263,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Always returns 1; this will build an inner table in one cell
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#getDisplayingFieldWidth()
      */
     public int getDisplayingFieldWidth() {

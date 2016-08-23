@@ -23,7 +23,7 @@ import org.kuali.rice.core.framework.config.module.WebModuleConfiguration;
 public class KfsWebModuleConfiguration extends WebModuleConfiguration {
 
     public KfsWebModuleConfiguration() {
-        super( "KFS" );
+        super("KFS");
     }
 
     public String getWebModuleStrutsConfigName() {

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -39,13 +39,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * This class defines actions for Batch (cancel, hold, remove hold).
@@ -87,15 +86,14 @@ public class BatchAction extends KualiAction {
      * This method cancels a batch.
      *
      * @param batchIdString a string representing the batch id
-     * @param cancelNote the cancelation note entered by the user
-     * @param user the current user
+     * @param cancelNote    the cancelation note entered by the user
+     * @param user          the current user
      */
     private boolean performCancel(String batchIdString, String cancelNote, Person user) {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.cancelPendingBatch(batchId, cancelNote, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -134,8 +132,7 @@ public class BatchAction extends KualiAction {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.holdPendingBatch(batchId, holdNote, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -173,8 +170,7 @@ public class BatchAction extends KualiAction {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.removeBatchHold(batchId, changeText, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -215,13 +211,11 @@ public class BatchAction extends KualiAction {
         if (question == null) {
             // ask question if not already asked
             return this.performQuestionWithInput(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, caller, batchId);
-        }
-        else {
+        } else {
             Object buttonClicked = request.getParameter(KRADConstants.QUESTION_CLICKED_BUTTON);
             if ((confirmationQuestion.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 actionStatus = false;
-            }
-            else {
+            } else {
                 noteText = reason;
                 int noteTextLength = (reason == null) ? 0 : noteText.length();
                 int noteTextMaxLength = PdpKeyConstants.BatchConstants.Confirmation.NOTE_TEXT_MAX_LENGTH;
@@ -233,8 +227,7 @@ public class BatchAction extends KualiAction {
                         reason = KFSConstants.EMPTY_STRING;
                     }
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, batchId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_EMPTY, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
-                }
-                else if (noteTextLength > noteTextMaxLength) {
+                } else if (noteTextLength > noteTextMaxLength) {
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, batchId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_TOO_LONG, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
                 }
 

@@ -18,18 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.List;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.document.web.renderers.PersistingTagRenderer;
+import org.kuali.kfs.sys.document.web.renderers.StringRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.web.renderers.PersistingTagRenderer;
-import org.kuali.kfs.sys.document.web.renderers.StringRenderer;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.ui.Field;
+import java.util.List;
 
 /**
  * A class to represent the rendering of a sequence number field
@@ -40,6 +37,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * Sequence numbers are always read only
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElementField#isReadOnly()
      */
     public boolean isReadOnly() {
@@ -48,6 +46,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * Returns the name of this sequence number field
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
@@ -56,6 +55,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * Sets the name of this sequence number field
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -92,7 +92,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
             PersistingTagRenderer renderer = new PersistingTagRenderer();
             renderer.setStringToRender(getDisplaySequenceNumber(renderingContext));
             renderer.setValueToPersist(renderingContext.getAccountingLine().getSequenceNumber().toString());
-            renderer.setPersistingProperty(renderingContext.getAccountingLinePropertyPath()+".sequenceNumber");
+            renderer.setPersistingProperty(renderingContext.getAccountingLinePropertyPath() + ".sequenceNumber");
             renderer.render(pageContext, parentTag);
             renderer.clear();
         }
@@ -100,6 +100,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * Given the rendering context, returns what the sequence number of the line to be rendered is
+     *
      * @param renderingContext the rendering context which holds the accounting line
      * @return the sequence number to render (not the one to store as a value)
      */
@@ -116,8 +117,9 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * sequence number is never really related to lookups, so this implementation does nothing
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
      *
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
+     * <p>
      * KRAD Conversion: Customization of adding the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -126,7 +128,9 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
 
     /**
      * Does nothing
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
      */
-    public void populateWithTabIndexIfRequested(int reallyHighIndex) { }
+    public void populateWithTabIndexIfRequested(int reallyHighIndex) {
+    }
 }

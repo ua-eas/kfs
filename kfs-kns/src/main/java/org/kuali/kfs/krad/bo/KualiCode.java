@@ -26,18 +26,18 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
  */
 public interface KualiCode extends MutableInactivatable, Coded {
 
-	/**
-	 * @param code - Setter for the Code.
-	 */
-	public void setCode(String code);
+    /**
+     * @param code - Setter for the Code.
+     */
+    public void setCode(String code);
 
-	/**
-	 * @param name - Setter for the name.
-	 */
-	public void setName(String name);
+    /**
+     * @param name - Setter for the name.
+     */
+    public void setName(String name);
 
-	/**
-	 * @return name value as String
-	 */
-	public String getName();
+    /**
+     * @return name value as String
+     */
+    public String getName();
 }

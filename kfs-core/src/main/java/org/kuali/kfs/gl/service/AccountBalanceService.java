@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.service;
 
+import org.kuali.kfs.gl.businessobject.AccountBalance;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.businessobject.AccountBalance;
 
 /**
  * This interface delcares methods useful for dealing with AccountBalance objects.
@@ -43,7 +43,7 @@ public interface AccountBalanceService {
     /**
      * This method gets the number of the available account balances according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return the number of the available account balances
      */
@@ -52,7 +52,7 @@ public interface AccountBalanceService {
     /**
      * This method finds the available account balances according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return a collection of account balance entries
      */
@@ -62,12 +62,12 @@ public interface AccountBalanceService {
      * This method finds the available account balances according to input fields and values
      *
      * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param chartOfAccountsCode  the chart of accounts code to find account balances for
+     * @param accountNumber        the account number to find account balances for
+     * @param subAccountNumber     the sub account number to find account balances for
+     * @param isCostShareExcluded  should account balances found have cost share information excluded?
+     * @param isConsolidated       should account balances found be consolidated?
+     * @param pendingEntryCode     should pending entries be included in the query?
      * @return a List of qualifying account balance records
      */
     public List findAccountBalanceByConsolidation(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntryCode);
@@ -75,14 +75,14 @@ public interface AccountBalanceService {
     /**
      * This method finds the available account balances according to input fields and values
      *
-     * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
+     * @param universityFiscalYear       the fiscal year account to find account balances for
+     * @param chartOfAccountsCode        the chart of accounts code to find account balances for
+     * @param accountNumber              the account number to find account balances for
+     * @param subAccountNumber           the sub account number to find account balances for
      * @param financialConsolidationCode the consolidation code to find account balances for
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param isCostShareExcluded        should account balances found have cost share information excluded?
+     * @param isConsolidated             should account balances found be consolidated?
+     * @param pendingEntryCode           should pending entries be included in the query?
      * @return a List of qualifying account balance records
      */
     public List findAccountBalanceByLevel(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber, String financialConsolidationObjectCode, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntryCode);
@@ -90,15 +90,15 @@ public interface AccountBalanceService {
     /**
      * This method finds the available account balances according to input fields and values
      *
-     * @param universityFiscalYear the fiscal year account to find account balances for
-     * @param chartOfAccountsCode the chart of accounts code to find account balances for
-     * @param accountNumber the account number to find account balances for
-     * @param subAccountNumber the sub account number to find account balances for
-     * @param financialObjectLevelCode the financial object level code to find account balances for
+     * @param universityFiscalYear       the fiscal year account to find account balances for
+     * @param chartOfAccountsCode        the chart of accounts code to find account balances for
+     * @param accountNumber              the account number to find account balances for
+     * @param subAccountNumber           the sub account number to find account balances for
+     * @param financialObjectLevelCode   the financial object level code to find account balances for
      * @param financialReportingSortCode the reporting sort code to sort account balances by
-     * @param isCostShareExcluded should account balances found have cost share information excluded?
-     * @param isConsolidated should account balances found be consolidated?
-     * @param pendingEntryCode should pending entries be included in the query?
+     * @param isCostShareExcluded        should account balances found have cost share information excluded?
+     * @param isConsolidated             should account balances found be consolidated?
+     * @param pendingEntryCode           should pending entries be included in the query?
      * @return a List of qualifying account balance records
      */
     public List findAccountBalanceByObject(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber, String financialObjectLevelCode, String financialReportingSortCode, boolean isCostShareExcluded, boolean isConsolidated, int pendingEntryCode);
@@ -114,7 +114,7 @@ public interface AccountBalanceService {
      * Purge an entire fiscal year for a single chart.
      *
      * @param chartOfAccountsCode the chart of accounts to purge account balance records from
-     * @param year the fiscal year to purge account balance records of
+     * @param year                the fiscal year to purge account balance records of
      */
     public void purgeYearByChart(String chartOfAccountsCode, int year);
 }

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.service.TravelExpenseTypeService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class returns list of travel expense company value pairs.
@@ -52,7 +52,7 @@ public class TravelExpenseTypeServiceImpl implements TravelExpenseTypeService {
         final List<ConcreteKeyValue> keyValues = new ArrayList<ConcreteKeyValue>();
         keyValues.add(new ConcreteKeyValue("", ""));
         for (TravelCompanyCode element : boList) {
-            if(element.isActive()) {
+            if (element.isActive()) {
                 keyValues.add(new ConcreteKeyValue(element.getName(), element.getName()));
             }
         }

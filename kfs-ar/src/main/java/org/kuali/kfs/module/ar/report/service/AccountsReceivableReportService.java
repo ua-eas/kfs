@@ -19,14 +19,14 @@
 package org.kuali.kfs.module.ar.report.service;
 
 
-import java.io.File;
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.report.util.CustomerStatementResultHolder;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.io.File;
+import java.sql.Date;
+import java.util.List;
 
 /**
  * The interface defines the methods used to generate Customer Invoice PDFs, Customer Credit Memo PDFs
@@ -88,7 +88,7 @@ public interface AccountsReceivableReportService {
      *
      * @param chartCode
      * @param orgCode
-     * @param statementFormat either detailed or summary
+     * @param statementFormat             either detailed or summary
      * @param incldueZeroBalanceCustomers
      * @return List<CustomerStatementResultHolder> statements
      */
@@ -98,7 +98,7 @@ public interface AccountsReceivableReportService {
      * This method generates detailed or summary (depending on format parameter) statement reports for the account.
      *
      * @param accountNumber
-     * @param statementFormat either detailed or summary
+     * @param statementFormat             either detailed or summary
      * @param incldueZeroBalanceCustomers
      * @return List<CustomerStatementResultHolder> statements
      */
@@ -108,7 +108,7 @@ public interface AccountsReceivableReportService {
      * This method generates detailed or summary (depending on format parameter) statement reports for the customer.
      *
      * @param customerNumber
-     * @param statementFormat either detailed or summary
+     * @param statementFormat             either detailed or summary
      * @param incldueZeroBalanceCustomers
      * @return List<CustomerStatementResultHolder> statements
      */

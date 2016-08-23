@@ -17,34 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject.options;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.ar.businessobject.PrintInvoiceOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
-public class PrintInvoiceOptionsValuesFinder extends KeyValuesBase{
+import java.util.ArrayList;
+import java.util.List;
 
-        /**
-         * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
-         */
+public class PrintInvoiceOptionsValuesFinder extends KeyValuesBase {
+
+    /**
+     * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
+     */
     @SuppressWarnings("unchecked")
-        public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
 
-            List<PrintInvoiceOptions> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(PrintInvoiceOptions.class);
-            List<KeyValue> keyValues = new ArrayList();
-            keyValues.add(new ConcreteKeyValue("", ""));
-            for (PrintInvoiceOptions element : boList) {
-                keyValues.add(new ConcreteKeyValue(element.getPrintInvoiceIndicator(), element.getPrintInvoiceDescription()));
-            }
-
-            return keyValues;
-
-//
+        List<PrintInvoiceOptions> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(PrintInvoiceOptions.class);
+        List<KeyValue> keyValues = new ArrayList();
+        keyValues.add(new ConcreteKeyValue("", ""));
+        for (PrintInvoiceOptions element : boList) {
+            keyValues.add(new ConcreteKeyValue(element.getPrintInvoiceIndicator(), element.getPrintInvoiceDescription()));
         }
 
+        return keyValues;
+
+//
     }
+
+}

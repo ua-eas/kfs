@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.fp.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
+import org.kuali.kfs.kns.rule.event.PromptBeforeValidationEvent;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -44,19 +43,13 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 
-
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.kns.rule.event.PromptBeforeValidationEvent;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
-
-
-import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -97,8 +90,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                 for (AccountingLine accountingLine : accountLineList) {
                     setAccountOverride(document, accountingLine.getAccount(), AccountingLineOverride.valueOf(overrideInputComponents).getCode());
                 }
-            }
-            else {
+            } else {
                 // return to document if the user selects No
                 event.setActionForwardName(KFSConstants.MAPPING_BASIC);
                 tabStatesOK = false;
@@ -119,7 +111,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
         accountLinesFromDoc.addAll(document.getSourceAccountingLines());
         accountLinesFromDoc.addAll(document.getTargetAccountingLines());
 
-        for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext(); ) {
             AccountingLine currentLine = (AccountingLine) iter.next();
 
             if (overrideAccount.getChartOfAccountsCode().equals(currentLine.getChartOfAccountsCode()) && overrideAccount.getAccountNumber().equals(currentLine.getAccountNumber())) {
@@ -156,7 +148,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                 Map<String, AccountingLineAuthorizer> authorizerMap = new HashMap<String, AccountingLineAuthorizer>();
 
 
-                for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext();) {
+                for (Iterator iter = accountLinesFromDoc.iterator(); iter.hasNext(); ) {
                     AccountingLine currentLine = (AccountingLine) iter.next();
                     accountKey = currentLine.getChartOfAccountsCode() + "-" + currentLine.getAccountNumber();
                     // if account is a known expired account, skip it.
@@ -218,7 +210,7 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
     protected Map buildAccountingLineMap(List accountingLines) {
         Map lineMap = new HashMap();
 
-        for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+        for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
             AccountingLine accountingLine = (AccountingLine) i.next();
             Integer sequenceNumber = accountingLine.getSequenceNumber();
 

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.businessobject.defaultvalue;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrganizationAccountingDefaultValueFinderBase {
 
@@ -39,15 +39,15 @@ public class OrganizationAccountingDefaultValueFinderBase {
      * year, current users chart of account code, and current users organization code
      */
     @SuppressWarnings("unchecked")
-    public OrganizationAccountingDefaultValueFinderBase(){
-        Integer currentUniversityFiscalYear =  SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
+    public OrganizationAccountingDefaultValueFinderBase() {
+        Integer currentUniversityFiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
         ChartOrgHolder chartUser = SpringContext.getBean(FinancialSystemUserService.class).getPrimaryOrganization(GlobalVariables.getUserSession().getPerson(), ArConstants.AR_NAMESPACE_CODE);
 
         Map criteria = new HashMap();
         criteria.put("universityFiscalYear", currentUniversityFiscalYear);
         criteria.put("chartOfAccountsCode", chartUser.getChartOfAccountsCode());
-        criteria.put("organizationCode",  chartUser.getOrganizationCode());
-        organizationAccountingDefault = (OrganizationAccountingDefault)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(OrganizationAccountingDefault.class, criteria);
+        criteria.put("organizationCode", chartUser.getOrganizationCode());
+        organizationAccountingDefault = (OrganizationAccountingDefault) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(OrganizationAccountingDefault.class, criteria);
     }
 }
 

@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent the documentation location for a disbursement voucher.
@@ -109,6 +109,7 @@ public class PaymentDocumentationLocation extends PersistableBusinessObjectBase 
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -117,6 +118,7 @@ public class PaymentDocumentationLocation extends PersistableBusinessObjectBase 
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

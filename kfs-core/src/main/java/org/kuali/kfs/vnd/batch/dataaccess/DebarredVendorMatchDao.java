@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.vnd.batch.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
+
+import java.util.List;
 
 public interface DebarredVendorMatchDao {
     /**
      * If the exact same match already exists in the Vendor exclude match table, this
      * method will find that match and return
+     *
      * @param match the specified match to compare with.
      * @return the already existing match
      */
@@ -35,12 +36,14 @@ public interface DebarredVendorMatchDao {
     /**
      * This method returns the list of already debarred vendors in the system, but unmatched with
      * EPLS exclude vendors
+     *
      * @return list of already debarred vendors
      */
     public List<VendorDetail> getDebarredVendorsUnmatched();
 
     /**
      * This method returns a particular debarred vendor match, given the debarred vendor id
+     *
      * @param debarred vendor id
      * @return corresponding debarred vendor match
      */

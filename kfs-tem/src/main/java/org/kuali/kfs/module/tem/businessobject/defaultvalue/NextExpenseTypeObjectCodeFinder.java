@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject.defaultvalue;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
 import org.kuali.kfs.sys.businessobject.defaultvalue.SequenceValueFinder;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 public class NextExpenseTypeObjectCodeFinder extends SequenceValueFinder {
     public static final String EXPENSE_TYPE_OBJECT_CODE_SEQUENCE_NAME = "TEM_EXP_TYP_FIN_OJB_CD_ID_SEQ";

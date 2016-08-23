@@ -78,7 +78,7 @@ public class PdpAuthorizationServiceImpl implements PdpAuthorizationService {
     }
 
     public IdentityManagementService getIdentityManagementService() {
-        if ( identityManagementService == null ) {
+        if (identityManagementService == null) {
             identityManagementService = SpringContext.getBean(IdentityManagementService.class);
         }
         return identityManagementService;

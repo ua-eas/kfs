@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.bc.exception;
 
+import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.kfs.krad.exception.AuthorizationException;
 
 /**
  * Handles special Budget Construction Document exception processing to display the reason behind the authorization exception
  * and to also display a link allowing the user to get back to the BC document selection screen.
- *
  */
 public class BudgetConstructionDocumentAuthorizationException extends AuthorizationException {
 
@@ -33,6 +32,7 @@ public class BudgetConstructionDocumentAuthorizationException extends Authorizat
 
     /**
      * Constructs a BudgetConstructionDocumentAuthorizationException.java.
+     *
      * @param userId
      * @param action
      * @param documentId
@@ -49,7 +49,7 @@ public class BudgetConstructionDocumentAuthorizationException extends Authorizat
     @Override
     public String getErrorMessageKey() {
 
-        if (isPickListMode){
+        if (isPickListMode) {
             return RiceKeyConstants.AUTHORIZATION_ERROR_DOCUMENT;
         } else {
             return BCKeyConstants.ERROR_BUDGET_AUTHORIZATION_DOCUMENT;

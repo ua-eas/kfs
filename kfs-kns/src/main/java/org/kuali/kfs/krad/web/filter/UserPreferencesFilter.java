@@ -18,7 +18,14 @@
  */
 package org.kuali.kfs.krad.web.filter;
 
-import java.io.IOException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.preferences.Preferences;
+import org.kuali.rice.kew.api.preferences.PreferencesService;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,25 +35,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.preferences.Preferences;
-import org.kuali.rice.kew.api.preferences.PreferencesService;
-import org.kuali.rice.kew.service.KEWServiceLocator;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.util.KRADUtils;
+import java.io.IOException;
 
 /**
  * This class establishes and initializes the KEW Preferences after a user logs in.
- *
+ * <p>
  * <p>
  * This filter assumes that a UserSession is already established.
  * </p>
- *
- *
  */
 public class UserPreferencesFilter implements Filter {
 

@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
-import org.kuali.kfs.sys.dataaccess.FieldMetaData;
 import org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiEncryptDecryptFieldConversion;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.sys.dataaccess.FieldMetaData;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.jdbc.support.DatabaseMetaDataCallback;
 import org.springframework.jdbc.support.MetaDataAccessException;
+
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaData {
     private static final Logger LOG = Logger.getLogger(FieldMetaDataImpl.class);
@@ -56,19 +56,16 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
         while (workingPropertyName.contains(".")) {
             try {
                 workingBusinessObjectClass = org.apache.ojb.broker.metadata.MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(workingBusinessObjectClass).getObjectReferenceDescriptorByName(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).getItemClass();
-            }
-            catch (Exception e1) {
+            } catch (Exception e1) {
                 LOG.debug(new StringBuffer("Unable to get property type via reference descriptor for property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" of BusinessObject class ").append(workingBusinessObjectClass).toString(), e1);
                 try {
                     workingBusinessObjectClass = org.apache.ojb.broker.metadata.MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(workingBusinessObjectClass).getCollectionDescriptorByName(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).getItemClass();
-                }
-                catch (Exception e2) {
+                } catch (Exception e2) {
                     LOG.debug(new StringBuffer("Unable to get property type via collection descriptor of property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" of BusinessObject class ").append(workingBusinessObjectClass).toString(), e2);
                     BusinessObject businessObject = null;
                     try {
-                        businessObject = (BusinessObject)workingBusinessObjectClass.newInstance();
-                    }
-                    catch (Exception e3) {
+                        businessObject = (BusinessObject) workingBusinessObjectClass.newInstance();
+                    } catch (Exception e3) {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("Unable to instantiate BusinessObject class " + workingBusinessObjectClass, e3);
                         }
@@ -76,8 +73,7 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
                     }
                     try {
                         workingBusinessObjectClass = PropertyUtils.getPropertyType(businessObject, workingPropertyName.substring(0, workingPropertyName.indexOf(".")));
-                    }
-                    catch (Exception e4) {
+                    } catch (Exception e4) {
                         LOG.debug(new StringBuffer("Unable to get type of property ").append(workingPropertyName.substring(0, workingPropertyName.indexOf("."))).append(" for BusinessObject class ").append(workingBusinessObjectClass).toString(), e4);
                         return populateAndReturnNonPersistableInstance();
                     }
@@ -85,8 +81,7 @@ public class FieldMetaDataImpl implements DatabaseMetaDataCallback, FieldMetaDat
             }
             if (workingBusinessObjectClass == null) {
                 return populateAndReturnNonPersistableInstance();
-            }
-            else {
+            } else {
                 workingPropertyName = workingPropertyName.substring(workingPropertyName.indexOf(".") + 1);
             }
         }

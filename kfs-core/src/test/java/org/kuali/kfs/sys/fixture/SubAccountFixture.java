@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.sys.fixture;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.coa.businessobject.A21IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 
+import java.math.BigDecimal;
+
 public enum SubAccountFixture {
     ACTIVE_SUB_ACCOUNT(null, null, null, null, true, null, null, null), INACTIVE_SUB_ACCOUNT(null, null, null, null, false, null, null, null), VALID_SUB_ACCOUNT("BA", "6044900", "ARREC"), INVALID_SUB_ACCOUNT("ZZ", "0000000", "A"), SUB_ACCOUNT_WITH_REPORTS_TO_ORGANIZATION("EA", "2367527", "SOCHR", null, true, "EA", "SACT", null), // another
-                                                                                                                                                                                                                                                                                                                                            // sub
-                                                                                                                                                                                                                                                                                                                                            // acccount
-                                                                                                                                                                                                                                                                                                                                            // value
-                                                                                                                                                                                                                                                                                                                                            // is
-                                                                                                                                                                                                                                                                                                                                            // SOCON
-    SUB_ACCOUNT_WITHOUT_REPORTS_TO_ORGANIZATION("BL", "1031400", "BLDG"), SUB_ACCOUNT_WITH_BAD_CG_FUND_GROUP("BL", "2220090", "12345", "A New SubAccount", true, null, null, null), A21_SUB_ACCOUNT_WITH_BAD_CG_ACCOUNT_TYPE("BL", "4831497", "12345", "A New SubAccount", true, null, null, null, "ZZ", null, null, null, null, false, null, null, null), ;
+    // sub
+    // acccount
+    // value
+    // is
+    // SOCON
+    SUB_ACCOUNT_WITHOUT_REPORTS_TO_ORGANIZATION("BL", "1031400", "BLDG"), SUB_ACCOUNT_WITH_BAD_CG_FUND_GROUP("BL", "2220090", "12345", "A New SubAccount", true, null, null, null), A21_SUB_ACCOUNT_WITH_BAD_CG_ACCOUNT_TYPE("BL", "4831497", "12345", "A New SubAccount", true, null, null, null, "ZZ", null, null, null, null, false, null, null, null),;
 
     private String chartOfAccountsCode;
     private String accountNumber;

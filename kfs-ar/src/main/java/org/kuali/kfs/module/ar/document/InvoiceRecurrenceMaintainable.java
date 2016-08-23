@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.ar.document;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -27,7 +28,6 @@ import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.krad.service.DocumentService;
 
 public class InvoiceRecurrenceMaintainable extends FinancialSystemMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InvoiceRecurrenceMaintainable.class);
@@ -38,29 +38,29 @@ public class InvoiceRecurrenceMaintainable extends FinancialSystemMaintainable {
     @Override
     protected boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
         //  return true if the doc is flipping form Active to Inactive, false otherwise
-        if ( StringUtils.equalsIgnoreCase( INACTIVATING_NODE_NAME, nodeName) ) {
+        if (StringUtils.equalsIgnoreCase(INACTIVATING_NODE_NAME, nodeName)) {
             //  go through some contortions to get the oldMaintainable to compare against
             FinancialSystemMaintenanceDocument maintDoc = getParentMaintDoc();
             // make sure all the needed objects are there
-            if ( maintDoc == null
-                    || maintDoc.getOldMaintainableObject() == null
-                    || maintDoc.getOldMaintainableObject().getBusinessObject() == null ) {
+            if (maintDoc == null
+                || maintDoc.getOldMaintainableObject() == null
+                || maintDoc.getOldMaintainableObject().getBusinessObject() == null) {
                 return false;
             }
-            boolean oldIsActive = ((InvoiceRecurrence)maintDoc.getOldMaintainableObject().getBusinessObject()).isActive();
-            boolean newIsActive = ((InvoiceRecurrence)getBusinessObject()).isActive();
+            boolean oldIsActive = ((InvoiceRecurrence) maintDoc.getOldMaintainableObject().getBusinessObject()).isActive();
+            boolean newIsActive = ((InvoiceRecurrence) getBusinessObject()).isActive();
 
             //  return true if the invoicerecurrence is being deactivated, otherwise return false
             return oldIsActive && !newIsActive;
         }
 
         //  return true if the document was initiated by the SYSTEM_USER, false otherwise
-        if ( StringUtils.equalsIgnoreCase( INITIATED_BY_SYSTEM_USER, nodeName) ) {
+        if (StringUtils.equalsIgnoreCase(INITIATED_BY_SYSTEM_USER, nodeName)) {
             FinancialSystemMaintenanceDocument maintDoc = getParentMaintDoc();
-            if ( maintDoc == null
-                    || maintDoc.getDocumentHeader() == null
-                    || maintDoc.getDocumentHeader().getWorkflowDocument() == null
-                    || StringUtils.isBlank( maintDoc.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId() ) ) {
+            if (maintDoc == null
+                || maintDoc.getDocumentHeader() == null
+                || maintDoc.getDocumentHeader().getWorkflowDocument() == null
+                || StringUtils.isBlank(maintDoc.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId())) {
                 return false;
             }
 
@@ -80,7 +80,7 @@ public class InvoiceRecurrenceMaintainable extends FinancialSystemMaintainable {
         try {
             return (FinancialSystemMaintenanceDocument) documentService.getByDocumentHeaderId(getDocumentNumber());
         } catch (WorkflowException e) {
-            LOG.error( "Unable to retrieve maintenance document for use in split node routing - returning null",e);
+            LOG.error("Unable to retrieve maintenance document for use in split node routing - returning null", e);
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class InvoiceRecurrenceMaintainable extends FinancialSystemMaintainable {
     public void processAfterRetrieve() {
         super.processAfterRetrieve();
         // Need to make sure that the customer invoice object has been loaded on the new object
-        ((InvoiceRecurrence)getBusinessObject()).setCustomerInvoiceDocument( getBusinessObjectService().findBySinglePrimaryKey(CustomerInvoiceDocument.class, ((InvoiceRecurrence)getBusinessObject()).getInvoiceNumber() ));
+        ((InvoiceRecurrence) getBusinessObject()).setCustomerInvoiceDocument(getBusinessObjectService().findBySinglePrimaryKey(CustomerInvoiceDocument.class, ((InvoiceRecurrence) getBusinessObject()).getInvoiceNumber()));
     }
 
 }

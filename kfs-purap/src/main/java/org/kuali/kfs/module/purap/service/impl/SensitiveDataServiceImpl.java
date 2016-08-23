@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveDataAssignment;
@@ -32,7 +27,12 @@ import org.kuali.kfs.module.purap.dataaccess.SensitiveDataDao;
 import org.kuali.kfs.module.purap.document.dataaccess.PurchaseOrderDao;
 import org.kuali.kfs.module.purap.service.SensitiveDataService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SensitiveDataServiceImpl implements SensitiveDataService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SensitiveDataServiceImpl.class);
@@ -59,7 +59,7 @@ public class SensitiveDataServiceImpl implements SensitiveDataService {
         LOG.debug("getSensitiveDataByCode(String) started");
         Map<String, Object> primaryKeys = new HashMap<String, Object>();
         primaryKeys.put("sensitiveDataCode", sensitiveDataCode);
-        return (SensitiveData)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SensitiveData.class, primaryKeys);
+        return (SensitiveData) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SensitiveData.class, primaryKeys);
     }
 
     /**
@@ -70,8 +70,8 @@ public class SensitiveDataServiceImpl implements SensitiveDataService {
 
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         Collection<SensitiveData> sdColl = SpringContext.getBean(BusinessObjectService.class).findAll(SensitiveData.class);
-        for (Object sd: sdColl) {
-            sds.add((SensitiveData)sd);
+        for (Object sd : sdColl) {
+            sds.add((SensitiveData) sd);
         }
 
         return sds;
@@ -146,7 +146,7 @@ public class SensitiveDataServiceImpl implements SensitiveDataService {
         Integer sdaId = getLastSensitiveDataAssignmentId(poId);
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put("sensitiveDataAssignmentIdentifier", sdaId);
-        return (List<SensitiveDataAssignmentDetail>)SpringContext.getBean(BusinessObjectService.class).findMatching(SensitiveDataAssignmentDetail.class, fieldValues);
+        return (List<SensitiveDataAssignmentDetail>) SpringContext.getBean(BusinessObjectService.class).findMatching(SensitiveDataAssignmentDetail.class, fieldValues);
     }
 
     /**

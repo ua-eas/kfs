@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -48,15 +49,14 @@ import org.kuali.kfs.sys.document.validation.event.AccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidation {
     protected TravelDocumentService travelDocumentService;
@@ -71,12 +71,11 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
-        TemSourceAccountingLine line  = null;
-        if (event instanceof UpdateAccountingLineEvent){
-            line = (TemSourceAccountingLine) ((UpdateAccountingLineEvent)event).getUpdatedAccountingLine();
-        }
-        else{
-            line = (TemSourceAccountingLine) ((AccountingLineEvent)event).getAccountingLine();
+        TemSourceAccountingLine line = null;
+        if (event instanceof UpdateAccountingLineEvent) {
+            line = (TemSourceAccountingLine) ((UpdateAccountingLineEvent) event).getUpdatedAccountingLine();
+        } else {
+            line = (TemSourceAccountingLine) ((AccountingLineEvent) event).getAccountingLine();
         }
         List<String> holdErrors = new ArrayList<String>();
         holdErrors.addAll(GlobalVariables.getMessageMap().getErrorPath());
@@ -84,12 +83,12 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
         TravelDocument travelDocument = (TravelDocument) event.getDocument();
 
         final boolean canUpdate = isAtTravelNode(event.getDocument().getDocumentHeader().getWorkflowDocument()) || isAdvancePaymentMethodException(event.getDocument(), line);  // Are we at the travel node?  If so, there's a chance that accounting lines changed; if they did, that
-                            // was a permission granted to the travel manager so we should allow it.  Also, if we're at PaymentMethod and the line is an advance accounting line, that's allowed to
+        // was a permission granted to the travel manager so we should allow it.  Also, if we're at PaymentMethod and the line is an advance accounting line, that's allowed to
 
         boolean valid = true;
         String errorPath = TemPropertyConstants.NEW_SOURCE_ACCTG_LINE;
-        for (TemSourceAccountingLine sourceLine : (List<TemSourceAccountingLine>)travelDocument.getSourceAccountingLines()){
-            if (line.equals(sourceLine)){
+        for (TemSourceAccountingLine sourceLine : (List<TemSourceAccountingLine>) travelDocument.getSourceAccountingLines()) {
+            if (line.equals(sourceLine)) {
                 errorPath = "document." + TemPropertyConstants.SOURCE_ACCOUNTING_LINE + "[" + travelDocument.getSourceAccountingLines().indexOf(line) + "]";
                 break;
             }
@@ -99,10 +98,10 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
         valid = getTravelDocumentService().validateSourceAccountingLines(travelDocument, false);
 
         if ((!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TRAVEL_DOC_APP_DOC_STATUS_INIT))
-                && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS))
-                && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.CHANGE_IN_PROCESS))) {
+            && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS))
+            && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.CHANGE_IN_PROCESS))) {
             if (!line.getAccount().getAccountFiscalOfficerUser().getPrincipalId().equals(currentUser.getPrincipalId())
-                    && !canUpdate) {
+                && !canUpdate) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, TemKeyConstants.ERROR_TA_FISCAL_OFFICER_ACCOUNT, line.getAccountNumber());
                 return false;
             }
@@ -134,45 +133,45 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
             valid &= false;
         }
 
-        if (valid){
-          //Fly America validation
+        if (valid) {
+            //Fly America validation
             TravelDocument document = (TravelDocument) event.getDocument();
             List<TemExpense> allExpenses = new ArrayList<TemExpense>();
             allExpenses.addAll(document.getImportedExpenses());
             allExpenses.addAll(document.getActualExpenses());
-            if (allExpenses.size() > 0){
+            if (allExpenses.size() > 0) {
                 boolean hasAttachment = false;
                 boolean showFlyAmerica = false;
-                for (Note note : document.getNotes()){
-                    if (note.getAttachment() != null){
+                for (Note note : document.getNotes()) {
+                    if (note.getAttachment() != null) {
                         hasAttachment = true;
                         break;
                     }
                 }
                 boolean isCGEnabled = getParameterService().getParameterValueAsBoolean(KFSConstants.CoreModuleNamespaces.CHART, KFSConstants.RouteLevelNames.ACCOUNT, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG);
-                if (isCGEnabled){
-                    for (TemExpense expense : allExpenses){
-                        if (expense.getExpenseTypeCode().equals(TemConstants.ExpenseTypes.AIRFARE)){
-                            Map<String,Object> fieldValues = new HashMap<String, Object>();
-                            fieldValues.put(KRADPropertyConstants.CODE,TemConstants.ExpenseTypes.AIRFARE);
-                            fieldValues.put(KRADPropertyConstants.NAME,expense.getTravelCompanyCodeName());
+                if (isCGEnabled) {
+                    for (TemExpense expense : allExpenses) {
+                        if (expense.getExpenseTypeCode().equals(TemConstants.ExpenseTypes.AIRFARE)) {
+                            Map<String, Object> fieldValues = new HashMap<String, Object>();
+                            fieldValues.put(KRADPropertyConstants.CODE, TemConstants.ExpenseTypes.AIRFARE);
+                            fieldValues.put(KRADPropertyConstants.NAME, expense.getTravelCompanyCodeName());
                             TravelCompanyCode travelCompany = getBusinessObjectService().findByPrimaryKey(TravelCompanyCode.class, fieldValues);
-                            if (travelCompany != null && travelCompany.isForeignCompany()){
+                            if (travelCompany != null && travelCompany.isForeignCompany()) {
                                 String financialObjectCode = expense.getExpenseTypeObjectCode() != null ? expense.getExpenseTypeObjectCode().getFinancialObjectCode() : null;
-                                if (travelDocument instanceof TravelAuthorizationDocument && expense instanceof ActualExpense){
+                                if (travelDocument instanceof TravelAuthorizationDocument && expense instanceof ActualExpense) {
                                     if (document.getTripType() != null) {
                                         financialObjectCode = document.getTripType().getEncumbranceObjCode();
                                     }
                                 }
-                                if (financialObjectCode != null && financialObjectCode.equals(line.getFinancialObjectCode())){
+                                if (financialObjectCode != null && financialObjectCode.equals(line.getFinancialObjectCode())) {
                                     String cg = getParameterService().getParameterValueAsString(KFSConstants.CoreModuleNamespaces.CHART, KFSConstants.RouteLevelNames.ACCOUNT, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE);
-                                    if (line.getAccount() == null){
+                                    if (line.getAccount() == null) {
                                         line.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
                                     }
-                                    if (line.getAccount().getSubFundGroup() == null){
+                                    if (line.getAccount().getSubFundGroup() == null) {
                                         line.refreshReferenceObject(KFSPropertyConstants.SUB_FUND_GROUP);
                                     }
-                                    if (line.getAccount().getSubFundGroup().getFundGroupCode().equals(cg)){
+                                    if (line.getAccount().getSubFundGroup().getFundGroupCode().equals(cg)) {
                                         showFlyAmerica = true;
                                     }
                                 }
@@ -182,10 +181,10 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
                 }
 
                 //Fly America error has been triggered, determine what accounting line to show it on.
-                if (showFlyAmerica && !hasAttachment){
+                if (showFlyAmerica && !hasAttachment) {
                     boolean newLine = true;
-                    for (TemSourceAccountingLine sourceLine : (List<TemSourceAccountingLine>)travelDocument.getSourceAccountingLines()){
-                        if (line.equals(sourceLine)){
+                    for (TemSourceAccountingLine sourceLine : (List<TemSourceAccountingLine>) travelDocument.getSourceAccountingLines()) {
+                        if (line.equals(sourceLine)) {
                             newLine = false;
                         }
                     }
@@ -230,13 +229,14 @@ public class TemAccountingLineAllowedObjectCodeValidation extends GenericValidat
 
     /**
      * Determines if a) the document is at the PaymentMethod route node; and b) the accountingLine is for a travel advance
-     * @param document a travel document
+     *
+     * @param document       a travel document
      * @param accountingLine the accounting line to validate
      * @return true if the advance payment/payment method is correct and accessibility should not be checked; false otherwise
      */
     protected boolean isAdvancePaymentMethodException(Document document, TemSourceAccountingLine accountingLine) {
         return StringUtils.equals(TemConstants.TRAVEL_ADVANCE_ACCOUNTING_LINE_TYPE_CODE, accountingLine.getFinancialDocumentLineTypeCode()) &&
-                document.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains(KFSConstants.RouteLevelNames.PAYMENT_METHOD);
+            document.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains(KFSConstants.RouteLevelNames.PAYMENT_METHOD);
     }
 
     public TravelDocumentService getTravelDocumentService() {

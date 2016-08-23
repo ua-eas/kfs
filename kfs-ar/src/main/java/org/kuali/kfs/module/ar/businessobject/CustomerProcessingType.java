@@ -18,89 +18,83 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class CustomerProcessingType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String customerSpecialProcessingCode;
-	private String customerSpecialProcessingDescription;
-	private boolean active;
+    private String customerSpecialProcessingCode;
+    private String customerSpecialProcessingDescription;
+    private boolean active;
 
-	/**
-	 * Gets the customerSpecialProcessingCode attribute.
-	 *
-	 * @return Returns the customerSpecialProcessingCode
-	 *
-	 */
-	public String getCustomerSpecialProcessingCode() {
-		return customerSpecialProcessingCode;
-	}
+    /**
+     * Gets the customerSpecialProcessingCode attribute.
+     *
+     * @return Returns the customerSpecialProcessingCode
+     */
+    public String getCustomerSpecialProcessingCode() {
+        return customerSpecialProcessingCode;
+    }
 
-	/**
-	 * Sets the customerSpecialProcessingCode attribute.
-	 *
-	 * @param customerSpecialProcessingCode The customerSpecialProcessingCode to set.
-	 *
-	 */
-	public void setCustomerSpecialProcessingCode(String customerSpecialProcessingCode) {
-		this.customerSpecialProcessingCode = customerSpecialProcessingCode;
-	}
+    /**
+     * Sets the customerSpecialProcessingCode attribute.
+     *
+     * @param customerSpecialProcessingCode The customerSpecialProcessingCode to set.
+     */
+    public void setCustomerSpecialProcessingCode(String customerSpecialProcessingCode) {
+        this.customerSpecialProcessingCode = customerSpecialProcessingCode;
+    }
 
 
-	/**
-	 * Gets the customerSpecialProcessingDescription attribute.
-	 *
-	 * @return Returns the customerSpecialProcessingDescription
-	 *
-	 */
-	public String getCustomerSpecialProcessingDescription() {
-		return customerSpecialProcessingDescription;
-	}
+    /**
+     * Gets the customerSpecialProcessingDescription attribute.
+     *
+     * @return Returns the customerSpecialProcessingDescription
+     */
+    public String getCustomerSpecialProcessingDescription() {
+        return customerSpecialProcessingDescription;
+    }
 
-	/**
-	 * Sets the customerSpecialProcessingDescription attribute.
-	 *
-	 * @param customerSpecialProcessingDescription The customerSpecialProcessingDescription to set.
-	 *
-	 */
-	public void setCustomerSpecialProcessingDescription(String customerSpecialProcessingDescription) {
-		this.customerSpecialProcessingDescription = customerSpecialProcessingDescription;
-	}
+    /**
+     * Sets the customerSpecialProcessingDescription attribute.
+     *
+     * @param customerSpecialProcessingDescription The customerSpecialProcessingDescription to set.
+     */
+    public void setCustomerSpecialProcessingDescription(String customerSpecialProcessingDescription) {
+        this.customerSpecialProcessingDescription = customerSpecialProcessingDescription;
+    }
 
 
-	/**
-	 * Gets the active attribute.
-	 *
-	 * @return Returns the active
-	 *
-	 */
-	@Override
+    /**
+     * Gets the active attribute.
+     *
+     * @return Returns the active
+     */
+    @Override
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
-	/**
-	 * Sets the active attribute.
-	 *
-	 * @param active The active to set.
-	 *
-	 */
-	@Override
+    /**
+     * Sets the active attribute.
+     *
+     * @param active The active to set.
+     */
+    @Override
     public void setActive(boolean active) {
-		this.active = active;
-	}
+        this.active = active;
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
     @SuppressWarnings("unchecked")
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("customerSpecialProcessingCode", this.customerSpecialProcessingCode);
-	    return m;
+        return m;
     }
 }

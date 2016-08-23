@@ -18,24 +18,23 @@
  */
 package org.kuali.kfs.module.bc.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.bc.batch.service.GLBudgetLoadService;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class BudgetConstructionGeneralLedgerLoadBatchStep extends AbstractStep {
 
     private GLBudgetLoadService glBudgetLoadService;
 
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
-      // normally, this would be called with no parameter, and would automatically load the fiscal year following the fiscal year of the run date. but, this version uses a parameter to load the fiscal year following a base year.
-      glBudgetLoadService.loadPendingBudgetConstructionGeneralLedger(BudgetParameterFinder.getBaseFiscalYear()+1);
+        // normally, this would be called with no parameter, and would automatically load the fiscal year following the fiscal year of the run date. but, this version uses a parameter to load the fiscal year following a base year.
+        glBudgetLoadService.loadPendingBudgetConstructionGeneralLedger(BudgetParameterFinder.getBaseFiscalYear() + 1);
         return true;
     }
 
-    public void setGLBudgetLoadService(GLBudgetLoadService glBudgetLoadService)
-    {
+    public void setGLBudgetLoadService(GLBudgetLoadService glBudgetLoadService) {
         this.glBudgetLoadService = glBudgetLoadService;
     }
 }

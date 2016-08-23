@@ -21,14 +21,12 @@ package org.kuali.kfs.krad.uif.widget;
 /**
  * Used for rendering a calendar in the UI that can be used to selected dates
  * for field values
- *
- *
  */
 public class DatePicker extends WidgetBase {
-	private static final long serialVersionUID = -659830874214415990L;
+    private static final long serialVersionUID = -659830874214415990L;
 
-	public DatePicker() {
-		super();
-	}
+    public DatePicker() {
+        super();
+    }
 
 }

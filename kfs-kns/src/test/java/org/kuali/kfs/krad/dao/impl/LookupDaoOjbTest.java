@@ -42,7 +42,7 @@ public class LookupDaoOjbTest {
             }
 
             @Override
-            protected int getCount(Class businessObjectClass,Criteria criteria) {
+            protected int getCount(Class businessObjectClass, Criteria criteria) {
                 return 10;
             }
 
@@ -63,33 +63,33 @@ public class LookupDaoOjbTest {
     @Test
     public void testExecuteSearchWithLimit() {
         Criteria criteria = new Criteria();
-        Collection results = lookupDaoOjb.executeSearch(BusinessObject.class,criteria,false);
+        Collection results = lookupDaoOjb.executeSearch(BusinessObject.class, criteria, false);
 
         Assert.assertTrue(results instanceof CollectionIncomplete);
-        CollectionIncomplete ci = (CollectionIncomplete)results;
+        CollectionIncomplete ci = (CollectionIncomplete) results;
 
-        Assert.assertEquals(1,getCriteriaCount(criteria));
-        Assert.assertEquals(2L,ci.size());
-        Assert.assertEquals(10L,ci.getActualSizeIfTruncated().longValue());
+        Assert.assertEquals(1, getCriteriaCount(criteria));
+        Assert.assertEquals(2L, ci.size());
+        Assert.assertEquals(10L, ci.getActualSizeIfTruncated().longValue());
     }
 
     @Test
     public void testExecuteSearchWithNoLimit() {
         Criteria criteria = new Criteria();
-        Collection results = lookupDaoOjb.executeSearch(BusinessObject.class,criteria,true);
+        Collection results = lookupDaoOjb.executeSearch(BusinessObject.class, criteria, true);
 
         Assert.assertTrue(results instanceof CollectionIncomplete);
-        CollectionIncomplete ci = (CollectionIncomplete)results;
+        CollectionIncomplete ci = (CollectionIncomplete) results;
 
-        Assert.assertEquals(0,getCriteriaCount(criteria));
-        Assert.assertEquals(2L,ci.size());
-        Assert.assertEquals(0L,ci.getActualSizeIfTruncated().longValue());
+        Assert.assertEquals(0, getCriteriaCount(criteria));
+        Assert.assertEquals(2L, ci.size());
+        Assert.assertEquals(0L, ci.getActualSizeIfTruncated().longValue());
     }
 
     public int getCriteriaCount(Criteria criteria) {
         int criteriaCount = 0;
         Enumeration e = criteria.getElements();
-        while ( e.hasMoreElements() ) {
+        while (e.hasMoreElements()) {
             e.nextElement();
             criteriaCount++;
         }

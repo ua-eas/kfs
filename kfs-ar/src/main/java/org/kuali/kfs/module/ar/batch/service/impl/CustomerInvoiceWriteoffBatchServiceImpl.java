@@ -18,18 +18,13 @@
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
 
-import java.awt.Color;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lowagie.text.Chunk;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.dom.DocumentImpl;
@@ -57,13 +52,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import java.awt.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceWriteoffBatchService {
@@ -81,7 +80,8 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
     private BatchInputFileType batchInputFileType;
     private String reportsDirectory;
 
-    public CustomerInvoiceWriteoffBatchServiceImpl() {}
+    public CustomerInvoiceWriteoffBatchServiceImpl() {
+    }
 
     @Override
     public boolean loadFiles() {
@@ -112,26 +112,24 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
                     writeFileNameSectionTitle(pdfdoc, inputFileName);
 
                     //  load the file
-            		boolean success = false;
+                    boolean success = false;
                     try {
-                		success = loadFile(inputFileName, pdfdoc);
+                        success = loadFile(inputFileName, pdfdoc);
+                    } catch (Exception e) {
+                        LOG.error("An unhandled error occurred.  " + e.getMessage());
+                        writeInvoiceSectionMessage(pdfdoc, "ERROR - Unhandled exception caught.");
+                        writeInvoiceSectionMessage(pdfdoc, e.getMessage());
                     }
-                    catch (Exception e) {
-                       LOG.error("An unhandled error occurred.  " + e.getMessage());
-                       writeInvoiceSectionMessage(pdfdoc, "ERROR - Unhandled exception caught.");
-                       writeInvoiceSectionMessage(pdfdoc, e.getMessage());
-                    }
-            		result &= success;
+                    result &= success;
 
                     //  handle result
-            		if (success) {
-                		result &= true;
+                    if (success) {
+                        result &= true;
                         writeInvoiceSectionMessage(pdfdoc, "File successfully completed processing.");
                         processedFiles.add(inputFileName);
-                    }
-                    else {
+                    } else {
                         writeInvoiceSectionMessage(pdfdoc, "File failed to process successfully.");
-                		result &= false;
+                        result &= false;
                     }
                 }
             } finally {
@@ -143,8 +141,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
 
             //  remove done files
             removeDoneFiles(processedFiles);
-        }
-        catch (IOException | DocumentException ex) {
+        } catch (IOException | DocumentException ex) {
             throw new RuntimeException("Could not load customer invoice writeoff files", ex);
         }
 
@@ -176,8 +173,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
         Object parsedObject = null;
         try {
             parsedObject = batchInputFileService.parse(batchInputFileType, fileByteContent);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             LOG.error("Error parsing batch file: " + e.getMessage());
             writeInvoiceSectionMessage(pdfdoc, "Error parsing batch file: " + e.getMessage());
             throw new ParseException(e.getMessage());
@@ -200,7 +196,6 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService#createCustomerInvoiceWriteoffDocumentsFromBatchVO(org.kuali.kfs.module.ar.batch.vo.CustomerInvoiceWriteoffBatchVO)
      */
     protected void createCustomerInvoiceWriteoffDocumentsFromBatchVO(CustomerInvoiceWriteoffBatchVO batchVO, com.lowagie.text.Document pdfdoc) {
@@ -246,8 +241,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
             writeoffDocNumber = null;
             try {
                 writeoffDocNumber = getInvoiceWriteoffDocumentService().createCustomerInvoiceWriteoffDocument(invoiceNumber, note);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 succeeded = false;
                 writeInvoiceSectionMessage(pdfdoc, "ERROR - Failed to create and route the Invoice Writeoff Document.");
                 writeInvoiceSectionMessage(pdfdoc, "EXCEPTION DETAILS: " + e.getMessage());
@@ -257,8 +251,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
             if (succeeded) {
                 if (StringUtils.isNotBlank(writeoffDocNumber)) {
                     writeInvoiceSectionMessage(pdfdoc, "SUCCESS - Created new Invoice Writeoff Document #" + writeoffDocNumber);
-                }
-                else {
+                } else {
                     writeInvoiceSectionMessage(pdfdoc, "FAILURE - No error occurred, but a new Invoice Writeoff Document number was not created.  Check the logs.");
                 }
             }
@@ -266,9 +259,8 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
     }
 
     /**
-     *
      * Accepts a file name and returns a byte-array of the file name contents, if possible.
-     *
+     * <p>
      * Throws RuntimeExceptions if FileNotFound or IOExceptions occur.
      *
      * @param fileName String containing valid path & filename (relative or absolute) of file to load.
@@ -280,15 +272,13 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
         byte[] fileByteContent;
         try {
             fileContents = new FileInputStream(fileName);
-        }
-        catch (FileNotFoundException e1) {
+        } catch (FileNotFoundException e1) {
             LOG.error("Batch file not found [" + fileName + "]. " + e1.getMessage());
             throw new RuntimeException("Batch File not found [" + fileName + "]. " + e1.getMessage());
         }
         try {
             fileByteContent = IOUtils.toByteArray(fileContents);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("IO Exception loading: [" + fileName + "]. " + e1.getMessage());
             throw new RuntimeException("IO Exception loading: [" + fileName + "]. " + e1.getMessage());
         }
@@ -302,18 +292,18 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
 
         if (fileNamesToLoad == null) {
             LOG.error("BatchInputFileService.listInputFileNamesWithDoneFile(" +
-                    batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
+                batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
             throw new RuntimeException("BatchInputFileService.listInputFileNamesWithDoneFile(" +
-                    batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
+                batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
         }
 
         //  filenames returned should never be blank/empty/null
         for (String inputFileName : fileNamesToLoad) {
             if (StringUtils.isBlank(inputFileName)) {
                 LOG.error("One of the file names returned as ready to process [" + inputFileName +
-                        "] was blank.  This should not happen, so throwing an error to investigate.");
+                    "] was blank.  This should not happen, so throwing an error to investigate.");
                 throw new RuntimeException("One of the file names returned as ready to process [" + inputFileName +
-                        "] was blank.  This should not happen, so throwing an error to investigate.");
+                    "] was blank.  This should not happen, so throwing an error to investigate.");
             }
         }
 
@@ -365,8 +355,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
@@ -384,8 +373,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
@@ -403,15 +391,13 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
 
         try {
             pdfDoc.add(paragraph);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             LOG.error("iText DocumentException thrown when trying to write content.", e);
             throw new RuntimeException("iText DocumentException thrown when trying to write content.", e);
         }
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.batch.service.CustomerInvoiceWriteoffBatchService#createBatchDrop(org.kuali.kfs.module.ar.batch.vo.CustomerInvoiceWriteoffBatchVO)
      */
     @Override
@@ -440,8 +426,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
         File doneFile = new File(fileNoExtension);
         try {
             doneFile.createNewFile();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Exception while trying to create .done file.", e);
         }
     }
@@ -486,8 +471,7 @@ public class CustomerInvoiceWriteoffBatchServiceImpl implements CustomerInvoiceW
                     fos.close();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Exception while writing customer invoice writeoff xml file.", e);
         }
 

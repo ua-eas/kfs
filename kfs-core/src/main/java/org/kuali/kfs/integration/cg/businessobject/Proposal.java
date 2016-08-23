@@ -507,7 +507,8 @@ public class Proposal implements ContractAndGrantsProposal {
     }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
     @Override
     public ContractsAndGrantsAward getAward() {

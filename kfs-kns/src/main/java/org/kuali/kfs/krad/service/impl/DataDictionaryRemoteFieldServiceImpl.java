@@ -19,7 +19,26 @@
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.service.DataDictionaryRemoteFieldService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DataObjectMetaDataService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.control.CheckboxControl;
+import org.kuali.kfs.krad.uif.control.CheckboxGroupControl;
+import org.kuali.kfs.krad.uif.control.Control;
+import org.kuali.kfs.krad.uif.control.GroupControl;
+import org.kuali.kfs.krad.uif.control.HiddenControl;
+import org.kuali.kfs.krad.uif.control.MultiValueControl;
+import org.kuali.kfs.krad.uif.control.RadioGroupControl;
+import org.kuali.kfs.krad.uif.control.SelectControl;
+import org.kuali.kfs.krad.uif.control.TextAreaControl;
+import org.kuali.kfs.krad.uif.control.TextControl;
+import org.kuali.kfs.krad.uif.control.UserControl;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.workflow.service.WorkflowAttributePropertyResolutionService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.data.DataType;
@@ -37,25 +56,6 @@ import org.kuali.rice.core.api.uif.RemotableTextInput;
 import org.kuali.rice.core.api.uif.RemotableTextarea;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.service.DataDictionaryRemoteFieldService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DataObjectMetaDataService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.control.CheckboxControl;
-import org.kuali.kfs.krad.uif.control.CheckboxGroupControl;
-import org.kuali.kfs.krad.uif.control.Control;
-import org.kuali.kfs.krad.uif.control.GroupControl;
-import org.kuali.kfs.krad.uif.control.HiddenControl;
-import org.kuali.kfs.krad.uif.control.MultiValueControl;
-import org.kuali.kfs.krad.uif.control.RadioGroupControl;
-import org.kuali.kfs.krad.uif.control.SelectControl;
-import org.kuali.kfs.krad.uif.control.TextAreaControl;
-import org.kuali.kfs.krad.uif.control.TextControl;
-import org.kuali.kfs.krad.uif.control.UserControl;
-import org.kuali.kfs.krad.util.KRADConstants;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -64,24 +64,22 @@ import java.util.Map;
 
 /**
  * Implementation of the {@link DataDictionaryRemoteFieldService} service
- *
- *
  */
 public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemoteFieldService {
 
     /**
      * @see DataDictionaryRemoteFieldService#buildRemotableFieldFromAttributeDefinition(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public RemotableAttributeField buildRemotableFieldFromAttributeDefinition(String componentClassName,
-            String attributeName) {
+                                                                              String attributeName) {
         AttributeDefinition baseDefinition;
         Class<?> componentClass;
         // try to resolve the component name - if not possible - try to pull the definition from the app mediation service
         try {
             componentClass = (Class<? extends BusinessObject>) Class.forName(componentClassName);
             baseDefinition = getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry(componentClassName)
-                    .getAttributeDefinition(attributeName);
+                .getAttributeDefinition(attributeName);
         } catch (ClassNotFoundException ex) {
             throw new RiceRuntimeException("Unable to find attribute definition for attribute : " + attributeName);
         }
@@ -95,9 +93,9 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
         definition.setForceUpperCase(baseDefinition.getForceUppercase());
         //set the datatype - needed for successful custom doc searches
         WorkflowAttributePropertyResolutionService propertyResolutionService = KRADServiceLocatorInternal
-                .getWorkflowAttributePropertyResolutionService();
+            .getWorkflowAttributePropertyResolutionService();
         String dataType = propertyResolutionService.determineFieldDataType(
-                (Class<? extends BusinessObject>) componentClass, attributeName);
+            (Class<? extends BusinessObject>) componentClass, attributeName);
         definition.setDataType(DataType.valueOf(dataType.toUpperCase()));
         RemotableAbstractControl.Builder control = createControl(baseDefinition);
         if (control != null) {
@@ -169,14 +167,14 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
         Control control = attr.getControlField();
 
         if ((control instanceof MultiValueControl)
-                && (((MultiValueControl) control).getOptions() != null)
-                && !((MultiValueControl) control).getOptions().isEmpty()) {
+            && (((MultiValueControl) control).getOptions() != null)
+            && !((MultiValueControl) control).getOptions().isEmpty()) {
             List<KeyValue> keyValues = ((MultiValueControl) control).getOptions();
-                    Map<String, String> options = new HashMap<String, String> ();
-                    for (KeyValue keyValue : keyValues) {
-                        options.put(keyValue.getKey(), keyValue.getValue());
-                    }
-                    return options;
+            Map<String, String> options = new HashMap<String, String>();
+            for (KeyValue keyValue : keyValues) {
+                options.put(keyValue.getKey(), keyValue.getValue());
+            }
+            return options;
         } else if (attr.getOptionsFinder() != null) {
             return attr.getOptionsFinder().getKeyLabelMap();
         }
@@ -186,7 +184,7 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
 
     /**
      * Builds a {@link RemotableQuickFinder} instance for the given attribute based on determined relationships
-     *
+     * <p>
      * <p>
      * Uses the {@link DataObjectMetaDataService} to find relationships the given attribute participates in within the
      * given class. If a relationship is not found, the title attribute is also checked to determine if a lookup should
@@ -195,7 +193,7 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
      * </p>
      *
      * @param componentClass - class that attribute belongs to and should be checked for relationships
-     * @param attributeName - name of the attribute to determine quickfinder for
+     * @param attributeName  - name of the attribute to determine quickfinder for
      * @return RemotableQuickFinder.Builder instance for the configured lookup, or null if one could not be found
      */
     protected RemotableQuickFinder.Builder createQuickFinder(Class<?> componentClass, String attributeName) {
@@ -213,7 +211,7 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
         Map<String, String> lookupParameters = new HashMap<String, String>();
 
         DataObjectRelationship relationship = getDataObjectMetaDataService().getDataObjectRelationship(sampleComponent,
-                componentClass, attributeName, "", true, true, false);
+            componentClass, attributeName, "", true, true, false);
         if (relationship != null) {
             lookupClassName = relationship.getRelatedClass().getName();
 
@@ -228,7 +226,7 @@ public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemot
                 String toField = entry.getValue();
 
                 if (relationship.getUserVisibleIdentifierKey() == null || relationship.getUserVisibleIdentifierKey()
-                        .equals(fromField)) {
+                    .equals(fromField)) {
                     lookupParameters.put(fromField, toField);
                 }
             }

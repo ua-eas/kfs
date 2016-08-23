@@ -20,14 +20,12 @@ package org.kuali.kfs.kns.service;
 
 import org.kuali.kfs.kns.inquiry.Inquirable;
 import org.kuali.kfs.kns.lookup.LookupResultsService;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.question.Question;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
 /**
  * Service locator for the KRAD Web module
- *
- *
  */
 public class KNSServiceLocator {
 
@@ -62,7 +60,7 @@ public class KNSServiceLocator {
     }
 
     public static DictionaryValidationService getKNSDictionaryValidationService() {
-	return (DictionaryValidationService) getService(DICTIONARY_VALIDATION_SERVICE);
+        return (DictionaryValidationService) getService(DICTIONARY_VALIDATION_SERVICE);
     }
 
     public static LookupResultsService getLookupResultsService() {
@@ -86,7 +84,7 @@ public class KNSServiceLocator {
     }
 
     public static SessionDocumentService getSessionDocumentService() {
-        return  getService(SESSION_DOCUMENT_SERVICE);
+        return getService(SESSION_DOCUMENT_SERVICE);
     }
 
     public static Lookupable getLookupable(String lookupableName) {

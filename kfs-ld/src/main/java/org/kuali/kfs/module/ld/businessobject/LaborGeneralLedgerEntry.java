@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for Labor General ledger Entry

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate;
 import org.kuali.kfs.module.ar.document.service.DunningLetterService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Value finder class for Dunning Letter Template.
@@ -51,8 +51,7 @@ public class DunningLetterTemplateValuesFinder extends KeyValuesBase {
         for (DunningLetterTemplate element : boList) {
             if (!element.isRestrictUseByChartOrg() && element.isActive()) {
                 keyValues.add(new ConcreteKeyValue(element.getDunningLetterTemplateCode(), element.getDunningLetterTemplateDescription()));
-            }
-            else {
+            } else {
                 if (getDunningLetterService().isValidOrganizationForTemplate(element, currentUser) && element.isActive()) {
                     keyValues.add(new ConcreteKeyValue(element.getDunningLetterTemplateCode(), element.getDunningLetterTemplateDescription()));
                 }

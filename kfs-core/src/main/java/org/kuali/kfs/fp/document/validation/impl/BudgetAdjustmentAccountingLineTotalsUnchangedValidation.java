@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.SOURCE_ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSConstants.TARGET_ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_TOTAL_CHANGED;
-
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineGroupTotalsUnchangedValidation;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.SOURCE_ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSConstants.TARGET_ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_TOTAL_CHANGED;
 
 /**
  * The Budget Adjustment's variation on whether accounting lines have been unchanged or not
@@ -37,18 +37,18 @@ public class BudgetAdjustmentAccountingLineTotalsUnchangedValidation extends Acc
 
     /**
      * Returns true if account line totals remains unchanged from what was entered and what was persisted before; takes into account all adjustment totals
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean isUnchanged = true;
 
         BudgetAdjustmentDocument persistedDocument = (BudgetAdjustmentDocument) retrievePersistedDocument(getAccountingDocumentForValidation());
-        BudgetAdjustmentDocument currentDocument = (BudgetAdjustmentDocument)getAccountingDocumentForValidation();
+        BudgetAdjustmentDocument currentDocument = (BudgetAdjustmentDocument) getAccountingDocumentForValidation();
 
         if (persistedDocument == null) {
             handleNonExistentDocumentWhenApproving(getAccountingDocumentForValidation());
-        }
-        else {
+        } else {
             // retrieve the persisted totals
             KualiDecimal persistedSourceCurrentBudgetTotal = persistedDocument.getSourceCurrentBudgetTotal();
             KualiInteger persistedSourceBaseBudgetTotal = persistedDocument.getSourceBaseBudgetTotal();
@@ -87,15 +87,15 @@ public class BudgetAdjustmentAccountingLineTotalsUnchangedValidation extends Acc
     /**
      * Builds the error message for when totals have changed.
      *
-     * @param propertyName name of property
-     * @param sectionTitle title of section
+     * @param propertyName             name of property
+     * @param sectionTitle             title of section
      * @param persistedSourceLineTotal previously persisted source line total
-     * @param currentSourceLineTotal current entered source line total
+     * @param currentSourceLineTotal   current entered source line total
      */
     protected void buildTotalChangeErrorMessage(String propertyName, String sectionTitle, KualiDecimal persistedSourceLineTotal, KualiDecimal currentSourceLineTotal) {
         String persistedTotal = (String) new CurrencyFormatter().format(persistedSourceLineTotal);
         String currentTotal = (String) new CurrencyFormatter().format(currentSourceLineTotal);
 
-        GlobalVariables.getMessageMap().putError(propertyName, ERROR_DOCUMENT_ACCOUNTING_LINE_TOTAL_CHANGED, new String[] { sectionTitle, persistedTotal, currentTotal });
+        GlobalVariables.getMessageMap().putError(propertyName, ERROR_DOCUMENT_ACCOUNTING_LINE_TOTAL_CHANGED, new String[]{sectionTitle, persistedTotal, currentTotal});
     }
 }

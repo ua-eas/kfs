@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.AgencyServiceFee;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
@@ -29,6 +27,8 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 public interface ImportedExpensePendingEntryService {
 
@@ -48,7 +48,7 @@ public interface ImportedExpensePendingEntryService {
      * @return
      */
     public GeneralLedgerPendingEntry buildGeneralLedgerPendingEntry(AgencyStagingData agencyData, TripAccountingInformation info, GeneralLedgerPendingEntrySequenceHelper sequenceHelper,
-            String chartCode, String objectCode, KualiDecimal amount, String glCredtiDebitCode);
+                                                                    String chartCode, String objectCode, KualiDecimal amount, String glCredtiDebitCode);
 
     /**
      * Build a debit GLPE entry.  Generate additional offset entry if parameter is set
@@ -65,7 +65,7 @@ public interface ImportedExpensePendingEntryService {
 
     /**
      * Build a credit GLPE entry.  Generate additional offset entry if parameter is set
-     *
+     * <p>
      * Credit GLPE uses TEM parameter for agency matching for Account and SubAccount
      *
      * @param agencyData
@@ -81,7 +81,7 @@ public interface ImportedExpensePendingEntryService {
     /**
      * Build a credit GLPE entry for service fee.  Generate additional offset entry if parameter is set
      * Agency Service Fee contains the Accounting information.
-     *
+     * <p>
      * Credit GLPE uses TEM parameter for agency matching for Account and SubAccount
      *
      * @param agencyData
@@ -108,8 +108,9 @@ public interface ImportedExpensePendingEntryService {
 
     /**
      * Generate GLPEs to credit CTS expenses on TEM documents and the debiting offset
-     * @param expense the historical travel expense to build a GLPE for
-     * @param sequenceHelper the sequence number helper for the glpe's
+     *
+     * @param expense                  the historical travel expense to build a GLPE for
+     * @param sequenceHelper           the sequence number helper for the glpe's
      * @param travelDocumentIdentifier the trip id which will act as the organization document number
      * @return a List of pending entries
      */

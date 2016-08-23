@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.integration.tem.TravelEntertainmentMovingTravelDocument;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -41,6 +36,11 @@ import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract Travel Document Base
@@ -67,25 +67,21 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
     String getTravelDocumentIdentifier();
 
     /**
-     *
      * @param travelDocumentIdentifier
      */
     void setTravelDocumentIdentifier(String travelDocumentIdentifier);
 
     /**
-     *
      * @return
      */
     String getAppDocStatus();
 
     /**
-     *
      * @return
      */
     Integer getTravelDocumentLinkIdentifier();
 
     /**
-     *
      * @param travelDocumentLinkIdentifier
      */
     void setTravelDocumentLinkIdentifier(Integer travelDocumentLinkIdentifier);
@@ -251,15 +247,15 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
     public boolean canPassTripIdToAgencySites();
 
     /**
-     *
      * This method provides the same getter call for travel doc and tem profile's profileId.
+     *
      * @return
      */
     public Integer getProfileId();
 
     /**
-     *
      * This method provides additional support to populate profile.
+     *
      * @return
      */
     public void setProfileId(Integer profileId);
@@ -272,9 +268,11 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Sets the temProfile attribute value.
+     *
      * @param temProfile The temProfile to set.
      */
     public void setTemProfile(TemProfile temProfile);
+
     public List<TransportationModeDetail> getTransportationModes();
 
     public void setTransportationModes(List<TransportationModeDetail> transportationModes);
@@ -349,7 +347,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Return the expense type code by Travel Document
-     *
+     * <p>
      * TA document returns EMCUMBRANCE or BLANK (if trip does not have encumbrance)
      * TEMReimbursement document returns OUT OF POCKET
      *
@@ -374,7 +372,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Determine if special circumstances tab should be open
-     *
+     * <p>
      * Rule for default open:
      * 1. Amount provided for expense limit
      * 2. Any of the special circumstances question (with boolean option) is selected
@@ -385,7 +383,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Determine if emergency contact should be open
-     *
+     * <p>
      * 1. International trip and the emergency contact is empty
      *
      * @return
@@ -423,6 +421,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Determines if this document should attempt to refresh the expense type object codes for expenses or not
+     *
      * @return true of expense type object codes on expenses should be refreshed; false otherwise
      */
     public boolean shouldRefreshExpenseTypeObjectCode();
@@ -434,12 +433,14 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Gets the disabledProperties attribute.
+     *
      * @return Returns the disabledProperties.
      */
     public Map<String, String> getDisabledProperties();
 
     /**
      * Determines if the given per diem expense is on the trip begin date
+     *
      * @param perDiemExpense the per diem expense to check
      * @return true if the per diem expense is on the trip begin date, false otherwise
      */
@@ -447,6 +448,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Determines if the given per diem expense is on the trip end date
+     *
      * @param perDiemExpense the per diem expense to check
      * @return true if the per diem expense is on the trip end date, false otherwise
      */
@@ -460,6 +462,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
     /**
      * Applies the expense limit to the given amount - that is, if the expense limit exists and is less than the given amount, the expense limit
      * is returned, otherwise the expense limit
+     *
      * @param the amount to check against the expense limit
      * @return if the expense limit exists and is less than the given amount, returns the expense limit; else returns the given amount
      */
@@ -467,12 +470,14 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Determines if this document's actual expenses are all pre-paid expenses
+     *
      * @return true if all expenses on this document are prepaid, false otherwise
      */
     public boolean hasOnlyPrepaidExpenses();
 
     /**
      * Finds an effective date to look up a mileage rate record
+     *
      * @param expense the expense to find the effective date for
      * @return the effective date for mileage rate records on the expense
      */
@@ -480,6 +485,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Finds an effective date to look up a mileage rate record
+     *
      * @param expense the expense to find the effective date for
      * @return the effective date for mileage rate records on the expense
      */
@@ -487,6 +493,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Finds an effective date to help us look up a per diem record
+     *
      * @param expense per diem expense to find an effective date for
      * @return the effective date to use to look up the right per diem record
      */
@@ -494,6 +501,7 @@ public interface TravelDocument extends AccountingDocument, TravelEntertainmentM
 
     /**
      * Finds an effective date to help us look up a per diem record
+     *
      * @param expenseDate the date when the per diem record would be created
      * @return the effective date to use to look up the right per diem record
      */

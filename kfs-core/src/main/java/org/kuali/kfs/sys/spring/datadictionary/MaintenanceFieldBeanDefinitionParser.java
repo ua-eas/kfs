@@ -42,24 +42,24 @@ public class MaintenanceFieldBeanDefinitionParser extends KualiBeanDefinitionPar
         String javascriptLeaveFieldCallbackFunction = element.getAttribute("javascriptLeaveFieldCallbackFunction");
 
         // now, set on the bean definition
-        if ( StringUtils.hasText(attributeName) ) {
+        if (StringUtils.hasText(attributeName)) {
             bean.addPropertyValue("name", attributeName);
         }
-        if ( StringUtils.hasText(required) ) {
+        if (StringUtils.hasText(required)) {
             bean.addPropertyValue("required", Boolean.parseBoolean(required));
         }
-        if ( StringUtils.hasText(unconditionallyReadOnly) ) {
+        if (StringUtils.hasText(unconditionallyReadOnly)) {
             bean.addPropertyValue("unconditionallyReadOnly", Boolean.parseBoolean(unconditionallyReadOnly));
         }
-        if ( StringUtils.hasText(defaultValue) ) {
+        if (StringUtils.hasText(defaultValue)) {
             bean.addPropertyValue("defaultValue", defaultValue);
-        } else if ( StringUtils.hasText(defaultValueFinderClass) ) {
+        } else if (StringUtils.hasText(defaultValueFinderClass)) {
             bean.addPropertyValue("defaultValueFinderClass", defaultValueFinderClass);
         }
-        if ( StringUtils.hasText(javascriptLeaveFieldFunction) ) {
+        if (StringUtils.hasText(javascriptLeaveFieldFunction)) {
             bean.addPropertyValue("webUILeaveFieldFunction", javascriptLeaveFieldFunction);
         }
-        if ( StringUtils.hasText(javascriptLeaveFieldCallbackFunction) ) {
+        if (StringUtils.hasText(javascriptLeaveFieldCallbackFunction)) {
             bean.addPropertyValue("webUILeaveFieldCallbackFunction", javascriptLeaveFieldCallbackFunction);
         }
 

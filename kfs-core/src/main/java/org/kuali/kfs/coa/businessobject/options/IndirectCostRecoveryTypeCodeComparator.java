@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType;
+
+import java.util.Comparator;
 
 /**
  * This class allows us to compare two {@link ICRTypeCode}

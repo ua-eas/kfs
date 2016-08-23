@@ -18,7 +18,21 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.BALANCE_TYPE_AC_AND_A21;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.businessobject.inquiry.EntryInquirableImpl;
+import org.kuali.kfs.gl.businessobject.inquiry.InquirableFinancialDocument;
+import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
+import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquirableImpl;
+import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -26,21 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.businessobject.inquiry.EntryInquirableImpl;
-import org.kuali.kfs.gl.businessobject.inquiry.InquirableFinancialDocument;
-import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
-import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquirableImpl;
-import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import static org.kuali.kfs.module.ld.LaborConstants.BalanceInquiries.BALANCE_TYPE_AC_AND_A21;
 
 /**
  * The class is the front-end for all Ledger Entry inquiry processing.
@@ -62,8 +62,7 @@ public class LedgerEntryLookupableHelperServiceImpl extends AbstractLookupableHe
                 LedgerEntry entry = (LedgerEntry) businessObject;
                 return new AnchorHtmlData(new InquirableFinancialDocument().getInquirableDocumentUrl(entry), KFSConstants.EMPTY_STRING, "view ledger entry");
             }
-        }
-        else if (KFSPropertyConstants.POSITION_NUMBER.equals(propertyName)) {
+        } else if (KFSPropertyConstants.POSITION_NUMBER.equals(propertyName)) {
             LedgerEntry entry = (LedgerEntry) businessObject;
             AbstractPositionDataDetailsInquirableImpl positionDataDetailsInquirable = new PositionDataDetailsInquirableImpl();
 
@@ -117,7 +116,7 @@ public class LedgerEntryLookupableHelperServiceImpl extends AbstractLookupableHe
      * build the serach result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the serach result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {

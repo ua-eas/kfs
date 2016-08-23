@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.gl.exception.LoadException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,10 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.exception.LoadException;
 
 /**
  * This class lazy loads the origin entries in a flat file. This implementation uses a limited amount of memory because it does not
@@ -47,9 +47,9 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
     /**
      * Constructs a OriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public OriginEntryFileIterator(BufferedReader reader) {
         this(reader, true);
@@ -58,9 +58,9 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
     /**
      * Constructs a OriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public OriginEntryFileIterator(BufferedReader reader, boolean autoCloseReader) {
         if (reader == null) {
@@ -89,8 +89,7 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
             this.autoCloseReader = true;
             nextEntry = null;
             lineNumber = 0;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             LOG.error("File not found for OriginEntryFileIterator! " + file.getAbsolutePath(), e);
             throw new RuntimeException("File not found for OriginEntryFileIterator! " + file.getAbsolutePath());
         }
@@ -103,8 +102,7 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
         if (nextEntry == null) {
             fetchNextEntry();
             return nextEntry != null;
-        }
-        else {
+        } else {
             // we have the next entry loaded
             return true;
         }
@@ -119,8 +117,7 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
             OriginEntryFull temp = nextEntry;
             nextEntry = null;
             return temp;
-        }
-        else {
+        } else {
             // maybe next() is called repeatedly w/o calling hasNext. This is a bad idea, but the
             // interface allows it
             fetchNextEntry();
@@ -154,13 +151,11 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
                 if (autoCloseReader) {
                     reader.close();
                 }
-            }
-            else {
+            } else {
                 nextEntry = new OriginEntryFull();
                 try {
                     nextEntry.setFromTextFileForBatch(line, lineNumber - 1);
-                }
-                catch (LoadException e) {
+                } catch (LoadException e) {
                     // wipe out the next entry so that the next call to hasNext or next will force a new row to be fetched
                     nextEntry = null;
 
@@ -168,8 +163,7 @@ public class OriginEntryFileIterator implements Iterator<OriginEntryFull> {
                     throw e;
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("error in the CorrectionDocumentServiceImpl iterator", e);
             nextEntry = null;
             throw new RuntimeException("error retrieving origin entries");

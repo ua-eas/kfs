@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Map;
 
 /**
  * A special implementation of Maintainable specifically for PurchaseOrderContractLanguage
@@ -40,7 +40,7 @@ public class PurchaseOrderContractLanguageMaintainableImpl extends FinancialSyst
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterCopy()
      */
     @Override
-    public void processAfterCopy( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         PurchaseOrderContractLanguage pocl = (PurchaseOrderContractLanguage) super.getBusinessObject();
         pocl.setContractLanguageCreateDate(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate());
         super.processAfterCopy(document, parameters);

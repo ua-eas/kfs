@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.external.kc.businessobject.Agency;
 import org.kuali.kfs.module.external.kc.businessobject.AgencyAddress;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class SponsorAddressServiceImpl implements ExternalizableBusinessObjectService {
 

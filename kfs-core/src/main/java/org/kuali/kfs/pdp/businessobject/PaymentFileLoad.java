@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Represents the parsed contents of an incoming payment file.
@@ -181,8 +181,7 @@ public class PaymentFileLoad extends TransientBusinessObjectBase {
     public void setCreationDate(String creationDate) {
         try {
             this.creationDate = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(creationDate);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Unable to convert create timestamp value " + creationDate + " :" + e.getMessage(), e);
         }
     }

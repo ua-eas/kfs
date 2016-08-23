@@ -18,18 +18,16 @@
  */
 package org.kuali.kfs.kns.datadictionary.exporter;
 
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryEntryBase;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
 
 /**
  * DocumentEntryMapper
- *
- *
  */
 @Deprecated
 public abstract class DocumentEntryMapper {
@@ -43,7 +41,7 @@ public abstract class DocumentEntryMapper {
      * @return Map containing entries for properties common to all DocumentEntry subclasses
      */
     @SuppressWarnings("unchecked")
-	protected ExportMap mapEntry(KNSDocumentEntry entry) {
+    protected ExportMap mapEntry(KNSDocumentEntry entry) {
         if (entry == null) {
             throw new IllegalArgumentException("invalid (null) entry");
         }

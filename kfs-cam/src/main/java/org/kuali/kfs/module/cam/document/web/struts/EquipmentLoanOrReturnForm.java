@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.module.cam.document.EquipmentLoanOrReturnDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class EquipmentLoanOrReturnForm extends FinancialSystemTransactionalDocumentFormBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EquipmentLoanOrReturnForm.class);

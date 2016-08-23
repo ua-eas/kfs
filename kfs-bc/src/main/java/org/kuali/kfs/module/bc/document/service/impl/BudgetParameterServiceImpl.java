@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.BCConstants.AccountSalarySettingOnlyCause;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.service.BudgetParameterService;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
+
+import java.util.Collection;
 
 /**
  * See BudgetParameterService. This implements value added methods associated with ParameterService that are specific to the budget
@@ -50,8 +50,7 @@ public class BudgetParameterServiceImpl implements BudgetParameterService {
             String subfundGroup = bcDoc.getAccount().getSubFundGroup().getSubFundGroupCode();
             if (salarySettingFundGroupsParamValues.contains(fundGroup) && salarySettingSubFundGroupsParamValues.contains(subfundGroup)) {
                 retVal = AccountSalarySettingOnlyCause.FUND_AND_SUBFUND;
-            }
-            else {
+            } else {
                 if (salarySettingFundGroupsParamValues.contains(fundGroup)) {
                     retVal = AccountSalarySettingOnlyCause.FUND;
                 }
@@ -74,25 +73,23 @@ public class BudgetParameterServiceImpl implements BudgetParameterService {
         Collection<String> objectTypes;
         if (isRevenue) {
             objectTypes = BudgetParameterFinder.getRevenueObjectTypes();
-        }
-        else {
+        } else {
             objectTypes = BudgetParameterFinder.getExpenditureObjectTypes();
         }
 
         if (objectTypes.isEmpty()) {
             // for an empty list, return an empty string
             return "";
-        }
-        else {
+        } else {
             StringBuffer lookupBuilder = new StringBuffer(150);
             boolean isFirst = true;
-            for ( String ot : objectTypes ) {
-                if ( isFirst ) {
+            for (String ot : objectTypes) {
+                if (isFirst) {
                     isFirst = false;
                 } else {
-                    lookupBuilder.append( '|' );
+                    lookupBuilder.append('|');
                 }
-                lookupBuilder.append( ot );
+                lookupBuilder.append(ot);
             }
             return lookupBuilder.toString();
         }

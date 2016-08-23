@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a check in the system. It is a generalized check business object that will be used by the Cash Receipts

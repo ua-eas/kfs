@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
 
 public class CustomerInvoiceDetailUnitPriceValidation extends GenericValidation {
 
@@ -41,8 +41,7 @@ public class CustomerInvoiceDetailUnitPriceValidation extends GenericValidation 
         if (ObjectUtils.isNull(unitPrice) || BigDecimal.ZERO.equals(unitPrice)) {
             GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_UNIT_PRICE, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_UNIT_PRICE_LESS_THAN_OR_EQUAL_TO_ZERO);
             return false;
-        }
-        else {
+        } else {
             // else if unit price is greater than or less than zero
 
             if (customerInvoiceDocument.isInvoiceReversal()) {
@@ -50,13 +49,11 @@ public class CustomerInvoiceDetailUnitPriceValidation extends GenericValidation 
                 if (customerInvoiceDetail.isDiscountLine() && unitPrice.compareTo(BigDecimal.ZERO) == -1) {
                     GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_UNIT_PRICE, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_UNIT_PRICE_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
-                }
-                else if (!customerInvoiceDetail.isDiscountLine() && unitPrice.compareTo(BigDecimal.ZERO) == 1) {
+                } else if (!customerInvoiceDetail.isDiscountLine() && unitPrice.compareTo(BigDecimal.ZERO) == 1) {
                     GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_UNIT_PRICE, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_UNIT_PRICE_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
                 }
-            }
-            else {
+            } else {
                 //No need to check for positive because if the line is a discount and the amount is negative, we will negate the line.
                 if (!customerInvoiceDetail.isDiscountLine() && unitPrice.compareTo(BigDecimal.ZERO) == -1) {
                     GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_ITEM_UNIT_PRICE, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_UNIT_PRICE_LESS_THAN_OR_EQUAL_TO_ZERO);

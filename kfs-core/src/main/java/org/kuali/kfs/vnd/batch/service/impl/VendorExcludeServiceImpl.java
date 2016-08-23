@@ -18,16 +18,10 @@
  */
 package org.kuali.kfs.vnd.batch.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.vnd.batch.dataaccess.DebarredVendorDao;
@@ -37,9 +31,16 @@ import org.kuali.kfs.vnd.businessobject.DebarredVendorDetail;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @Transactional
 public class VendorExcludeServiceImpl implements VendorExcludeService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(VendorExcludeServiceImpl.class);
@@ -60,34 +61,32 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
         List<String> fileNames = batchInputFileService.listInputFileNamesWithDoneFile(batchInputFileType);
         String fileName = null;
         long lastModified = 0;
-        if(fileNames.size() == 0) {
+        if (fileNames.size() == 0) {
             return true;
         }
         File tempFile;
         //Consider the latest file as the files are cumulative
         for (String name : fileNames) {
-            tempFile = new File (name);
-            if(tempFile.lastModified() > lastModified) {
+            tempFile = new File(name);
+            if (tempFile.lastModified() > lastModified) {
                 lastModified = tempFile.lastModified();
                 fileName = name;
             }
         }
         if (fileName == null) {
             LOG.error("BatchInputFileService.listInputFileNamesWithDoneFile(" +
-                    batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
+                batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
             throw new RuntimeException("BatchInputFileService.listInputFileNamesWithDoneFile(" +
-                    batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
+                batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
         }
         byte[] fileByteContent;
-        List debarredVendorList = new ArrayList<DebarredVendorDetail> ();
+        List debarredVendorList = new ArrayList<DebarredVendorDetail>();
         try {
             fileByteContent = IOUtils.toByteArray(new FileInputStream(fileName));
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             LOG.error("File not found [" + fileName + "]. " + ex.getMessage());
             throw new RuntimeException("File not found [" + fileName + "]. " + ex.getMessage());
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             LOG.error("IO Exception loading: [" + fileName + "]. " + ex.getMessage());
             throw new RuntimeException("IO Exception loading: [" + fileName + "]. " + ex.getMessage());
         }
@@ -165,6 +164,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the batchInputFileService attribute.
+     *
      * @return Returns the batchInputFileService.
      */
     public BatchInputFileService getBatchInputFileService() {
@@ -173,6 +173,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the batchInputFileService attribute value.
+     *
      * @param batchInputFileService The batchInputFileService to set.
      */
     public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
@@ -181,6 +182,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -189,6 +191,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -197,6 +200,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -205,6 +209,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -213,6 +218,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the batchInputFileType attribute.
+     *
      * @return Returns the batchInputFileType.
      */
     public BatchInputFileType getBatchInputFileType() {
@@ -221,6 +227,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the batchInputFileType attribute value.
+     *
      * @param batchInputFileType The batchInputFileType to set.
      */
     public void setBatchInputFileType(BatchInputFileType batchInputFileType) {
@@ -229,6 +236,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the vendorExcludeDao attribute.
+     *
      * @return Returns the vendorExcludeDao.
      */
     public DebarredVendorDao getDebarredVendorDao() {
@@ -237,6 +245,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the vendorExcludeDao attribute value.
+     *
      * @param vendorExcludeDao The vendorExcludeDao to set.
      */
     public void setDebarredVendorDao(DebarredVendorDao debarredVendorDao) {
@@ -245,6 +254,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Gets the debarredVendorMatchDao attribute.
+     *
      * @return Returns the debarredVendorMatchDao.
      */
     public DebarredVendorMatchDao getDebarredVendorMatchDao() {
@@ -253,6 +263,7 @@ public class VendorExcludeServiceImpl implements VendorExcludeService {
 
     /**
      * Sets the debarredVendorMatchDao attribute value.
+     *
      * @param debarredVendorMatchDao The debarredVendorMatchDao to set.
      */
     public void setDebarredVendorMatchDao(DebarredVendorMatchDao debarredVendorMatchDao) {

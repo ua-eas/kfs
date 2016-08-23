@@ -18,16 +18,11 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -36,8 +31,10 @@ import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Validates content of a <code>{@link AccountDelegate}</code> maintenance document upon triggering of a approve, save, or route
@@ -58,8 +55,8 @@ public class DelegateRule extends KfsMaintenanceDocumentRuleBase {
      * <li>{@link DelegateRule#checkDelegateUserRules(MaintenanceDocument)}</li>
      * </ul>
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      * @return doesn't fail on save, even if sub-rules fail
+     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -87,8 +84,8 @@ public class DelegateRule extends KfsMaintenanceDocumentRuleBase {
      * <li>{@link DelegateRule#checkDelegateUserRules(MaintenanceDocument)}</li>
      * </ul>
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      * @return fails if sub-rules fail
+     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -174,7 +171,7 @@ public class DelegateRule extends KfsMaintenanceDocumentRuleBase {
         fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, newDelegate.getAccountNumber());
 
         int accountExist = getBoService().countMatching(Account.class, fieldValues);
-        if (accountExist<=0) {
+        if (accountExist <= 0) {
             putFieldError(KFSPropertyConstants.ACCOUNT_NUMBER, KFSKeyConstants.ERROR_EXISTENCE, newDelegate.getAccountNumber());
             success &= false;
         }
@@ -204,7 +201,7 @@ public class DelegateRule extends KfsMaintenanceDocumentRuleBase {
         // do we have a good document type?
         final FinancialSystemDocumentTypeService documentService = SpringContext.getBean(FinancialSystemDocumentTypeService.class);
         if (!documentService.isFinancialSystemDocumentType(newDelegate.getFinancialDocumentTypeCode())) {
-            putFieldError(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[] { newDelegate.getFinancialDocumentTypeCode(), KFSConstants.ROOT_DOCUMENT_TYPE });
+            putFieldError(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE, KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_INVALID_DOC_TYPE, new String[]{newDelegate.getFinancialDocumentTypeCode(), KFSConstants.ROOT_DOCUMENT_TYPE});
             success = false;
         }
 
@@ -297,12 +294,12 @@ public class DelegateRule extends KfsMaintenanceDocumentRuleBase {
         }
 
         // if the document is inactivating an account delegate, don't bother validating the user
-        if (document.getOldMaintainableObject() != null && document.getOldMaintainableObject().getBusinessObject() != null && ((AccountDelegate)document.getOldMaintainableObject().getBusinessObject()).isActive() && !((AccountDelegate)document.getNewMaintainableObject().getBusinessObject()).isActive()) {
+        if (document.getOldMaintainableObject() != null && document.getOldMaintainableObject().getBusinessObject() != null && ((AccountDelegate) document.getOldMaintainableObject().getBusinessObject()).isActive() && !((AccountDelegate) document.getNewMaintainableObject().getBusinessObject()).isActive()) {
             return success;
         }
 
         if (StringUtils.isBlank(accountDelegate.getEntityId()) || !getDocumentHelperService().getDocumentAuthorizer(document).isAuthorized(document, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name, accountDelegate.getPrincipalId())) {
-            super.putFieldError("accountDelegate.principalName", KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[] {accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
+            super.putFieldError("accountDelegate.principalName", KFSKeyConstants.ERROR_USER_MISSING_PERMISSION, new String[]{accountDelegate.getName(), KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.namespace, KFSConstants.PermissionNames.SERVE_AS_FISCAL_OFFICER_DELEGATE.name});
             success = false;
         }
         return success;

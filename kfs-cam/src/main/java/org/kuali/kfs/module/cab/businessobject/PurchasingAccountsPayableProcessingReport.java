@@ -26,6 +26,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Gets the purapDocumentIdentifier attribute.
+     *
      * @return Returns the purapDocumentIdentifier.
      */
     public Integer getPurapDocumentIdentifier() {
@@ -34,6 +35,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Sets the purapDocumentIdentifier attribute value.
+     *
      * @param purapDocumentIdentifier The purapDocumentIdentifier to set.
      */
     public void setPurapDocumentIdentifier(Integer purapDocumentIdentifier) {
@@ -42,6 +44,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Gets the reportAmount attribute.
+     *
      * @return Returns the reportAmount.
      */
     public KualiDecimal getReportAmount() {
@@ -50,6 +53,7 @@ public class PurchasingAccountsPayableProcessingReport extends GeneralLedgerEntr
 
     /**
      * Sets the reportAmount attribute value.
+     *
      * @param reportAmount The reportAmount to set.
      */
     public void setReportAmount(KualiDecimal reportAmount) {

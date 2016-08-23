@@ -37,8 +37,6 @@ import java.util.logging.Logger;
  * begin Kuali Foundation modification
  * This class is the POJO Plugin implementation of the PlugIn interface.
  * end Kuali Foundation modification
- *
- *
  */
 // Kuali Foundation modification: class originally named SL plugin
 public class PojoPlugin implements PlugIn {

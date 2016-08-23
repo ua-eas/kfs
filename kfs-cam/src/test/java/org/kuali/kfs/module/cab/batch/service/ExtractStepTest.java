@@ -18,14 +18,8 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.io.File;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
 import org.kuali.kfs.module.cab.batch.ExtractStep;
@@ -34,12 +28,18 @@ import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount;
 import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class tests the extract step involved in CAB Batch job
@@ -69,6 +69,7 @@ public class ExtractStepTest extends BatchTestBase {
             return null;
         }
     }
+
     private Timestamp beforeRun = null;
 
     private DateTimeService dateTimeService;
@@ -80,7 +81,7 @@ public class ExtractStepTest extends BatchTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         dateTimeService = SpringContext.getBean(DateTimeService.class);
-        extractStep = (ExtractStep) ProxyUtils.getTargetIfProxied( SpringContext.getBean(Step.class,"cabExtractStep") );
+        extractStep = (ExtractStep) ProxyUtils.getTargetIfProxied(SpringContext.getBean(Step.class, "cabExtractStep"));
         beforeRun = dateTimeService.getCurrentTimestamp();
         extractStep.setBatchExtractReportService(new MockBatchExtractReportService());
         boService = SpringContext.getBean(BusinessObjectService.class);
@@ -91,7 +92,8 @@ public class ExtractStepTest extends BatchTestBase {
         super.tearDown();
         extractStep.setBatchExtractReportService(SpringContext.getBean(BatchExtractReportService.class));
     }
-//NO RUN SETUP
+
+    //NO RUN SETUP
     public void testNothing() {
     }
 
@@ -101,43 +103,43 @@ public class ExtractStepTest extends BatchTestBase {
         extractStep.execute("CabBatchExtractJob", dateTimeService.getCurrentDate());
         // Count of GL lines
 
-        Map<String,Object> m = new HashMap<String,Object>();
+        Map<String, Object> m = new HashMap<String, Object>();
         m.put("transactionDate", dateTimeService.getCurrentSqlDate());
-        Collection<GeneralLedgerEntry> gls = boService.findMatching(GeneralLedgerEntry.class,m);
+        Collection<GeneralLedgerEntry> gls = boService.findMatching(GeneralLedgerEntry.class, m);
         assertEquals(13, gls.size());
 
         // Count of purap docs
-        Map<String,String> m2 = new HashMap<String,String>();
-        m2.put("activityStatusCode",  CabConstants.ActivityStatusCode.NEW);
-        Collection<PurchasingAccountsPayableDocument> allCabDocs = boService.findMatching(PurchasingAccountsPayableDocument.class,m2);
+        Map<String, String> m2 = new HashMap<String, String>();
+        m2.put("activityStatusCode", CabConstants.ActivityStatusCode.NEW);
+        Collection<PurchasingAccountsPayableDocument> allCabDocs = boService.findMatching(PurchasingAccountsPayableDocument.class, m2);
         assertEquals(7, allCabDocs.size());
 
         // Count of purap items ---- drill through doc header to get itemAssets and test against qty = 1....
-       //Map<String, Object> keys = new HashMap<String, Object>();
-       //keys.put(CabPropertyConstants.PurchasingAccountsPayableItemAsset.DOCUMENT_NUMBER, cabPurapDoc.getDocumentNumber());
-       //keys.put(CabPropertyConstants.PurchasingAccountsPayableItemAsset.ACCOUNTS_PAYABLE_LINE_ITEM_IDENTIFIER, apItem.getItemIdentifier());
-       //Collection<PurchasingAccountsPayableItemAsset> matchingItems = businessObjectService.findMatching(PurchasingAccountsPayableItemAsset.class, keys);
+        //Map<String, Object> keys = new HashMap<String, Object>();
+        //keys.put(CabPropertyConstants.PurchasingAccountsPayableItemAsset.DOCUMENT_NUMBER, cabPurapDoc.getDocumentNumber());
+        //keys.put(CabPropertyConstants.PurchasingAccountsPayableItemAsset.ACCOUNTS_PAYABLE_LINE_ITEM_IDENTIFIER, apItem.getItemIdentifier());
+        //Collection<PurchasingAccountsPayableItemAsset> matchingItems = businessObjectService.findMatching(PurchasingAccountsPayableItemAsset.class, keys);
 
-        Map<String,Object> m3 = new HashMap<String,Object>();
+        Map<String, Object> m3 = new HashMap<String, Object>();
         m3.put("activityStatusCode", CabConstants.ActivityStatusCode.NEW);
         Collection<PurchasingAccountsPayableItemAsset> allCabItems = boService.findMatching(PurchasingAccountsPayableItemAsset.class, m3);
-        for(PurchasingAccountsPayableItemAsset aci:allCabItems){
+        for (PurchasingAccountsPayableItemAsset aci : allCabItems) {
 
-            System.out.println(aci.isActive()+" - "+aci.getActivityStatusCode());
+            System.out.println(aci.isActive() + " - " + aci.getActivityStatusCode());
         }
-       //assertEquals(14, allCabItems.size());
+        //assertEquals(14, allCabItems.size());
 
         // Count of purap account lines
         Collection<PurchasingAccountsPayableLineAssetAccount> allCabAccts = boService.findAll(PurchasingAccountsPayableLineAssetAccount.class);
-       //for(PurchasingAccountsPayableLineAssetAccount aca:allCabAccts){
+        //for(PurchasingAccountsPayableLineAssetAccount aca:allCabAccts){
 
-       //     System.out.println(aca.isActive()+" - "+aca.getGeneralLedgerEntry().getTransactionDate());
-       // }
-       //assertEquals(17, allCabAccts.size());
+        //     System.out.println(aca.isActive()+" - "+aca.getGeneralLedgerEntry().getTransactionDate());
+        // }
+        //assertEquals(17, allCabAccts.size());
 
         // assert the extract date value
         SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyyy");
         assertEquals(fmt.format(currentSqlDate), findCabExtractTimeParam().getValue().substring(0, 10));
     }
- // END NO RUN SETUP
+    // END NO RUN SETUP
 }

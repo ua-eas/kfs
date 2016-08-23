@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 public class AddGroupTravelLineEvent extends AttributedDocumentEventBase implements GroupTravelLineEvent {
 

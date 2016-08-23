@@ -26,6 +26,7 @@ public class RTextStyle {
 
     /**
      * Gets the bold property.
+     *
      * @return Returns the bold.
      */
     public boolean getBold() {
@@ -34,6 +35,7 @@ public class RTextStyle {
 
     /**
      * Gets the bold property.
+     *
      * @return Returns the bold.
      */
     public boolean isBold() {
@@ -42,6 +44,7 @@ public class RTextStyle {
 
     /**
      * Sets the bold property value.
+     *
      * @param bold The bold to set.
      */
     public void setBold(final boolean bold) {
@@ -50,6 +53,7 @@ public class RTextStyle {
 
     /**
      * Gets the italic property.
+     *
      * @return Returns the italic.
      */
     public boolean getItalic() {
@@ -58,6 +62,7 @@ public class RTextStyle {
 
     /**
      * Gets the italic property.
+     *
      * @return Returns the italic.
      */
     public boolean isItalic() {
@@ -66,6 +71,7 @@ public class RTextStyle {
 
     /**
      * Sets the italic property value.
+     *
      * @param italic The italic to set.
      */
     public void setItalic(final boolean italic) {
@@ -74,6 +80,7 @@ public class RTextStyle {
 
     /**
      * Gets the fontName property.
+     *
      * @return Returns the fontName.
      */
     public String getFontName() {
@@ -82,6 +89,7 @@ public class RTextStyle {
 
     /**
      * Sets the fontName property value.
+     *
      * @param fontName The fontName to set.
      */
     public void setFontName(final String fontName) {
@@ -91,6 +99,7 @@ public class RTextStyle {
 
     /**
      * Gets the fontSize property.
+     *
      * @return Returns the fontSize.
      */
     public Integer getFontSize() {
@@ -99,6 +108,7 @@ public class RTextStyle {
 
     /**
      * Sets the fontSize property value.
+     *
      * @param fontSize The fontSize to set.
      */
     public void setFontSize(final Integer fontSize) {

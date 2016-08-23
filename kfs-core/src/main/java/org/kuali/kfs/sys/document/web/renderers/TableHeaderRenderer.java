@@ -26,6 +26,7 @@ public class TableHeaderRenderer extends TableCellRenderer {
 
     /**
      * Returns "th" instead of "td"
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.TableCellRenderer#getTagName()
      */
     @Override
@@ -35,6 +36,7 @@ public class TableHeaderRenderer extends TableCellRenderer {
 
     /**
      * Header cells shouldn't vertically align towards the top of the cell
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.TableCellRenderer#verticallyAlignTowardsTop()
      */
     @Override

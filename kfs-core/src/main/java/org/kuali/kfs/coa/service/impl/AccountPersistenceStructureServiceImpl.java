@@ -18,6 +18,16 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.impl.PersistenceStructureServiceImpl;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,16 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.impl.PersistenceStructureServiceImpl;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.springframework.beans.factory.InitializingBean;
 
 public class AccountPersistenceStructureServiceImpl extends PersistenceStructureServiceImpl implements AccountPersistenceStructureService, InitializingBean {
 
@@ -72,10 +72,9 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
     public boolean isAccountRelatedClass(Class clazz) {
         List<String> pks = listPrimaryKeyFieldNames(clazz);
 
-        if (pks.contains(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE) && pks.contains(KFSPropertyConstants.ACCOUNT_NUMBER )) {
+        if (pks.contains(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE) && pks.contains(KFSPropertyConstants.ACCOUNT_NUMBER)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -92,7 +91,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         Iterator<Map.Entry<String, Class>> collObjs = listCollectionObjectTypes(bo).entrySet().iterator();
 
         while (collObjs.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)collObjs.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) collObjs.next();
             String accountCollName = entry.getKey();
             Class accountCollType = entry.getValue();
 
@@ -118,7 +117,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         Iterator<Map.Entry<String, Class>> collObjs = listCollectionObjectTypes(bo).entrySet().iterator();
 
         while (collObjs.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)collObjs.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) collObjs.next();
             String accountCollName = entry.getKey();
             Class accountCollType = entry.getValue();
 
@@ -143,7 +142,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
 
         while (refObjs.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
 
@@ -165,7 +164,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
                 // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
                 // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName))
                     continue;
 
                 // exclude non-maintainable account field
@@ -188,7 +187,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
 
         while (refObjs.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
 
@@ -210,7 +209,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
                 // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
                 // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName))
                     continue;
 
                 // if this relationship is specifically exempted then exempt it
@@ -238,7 +237,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
 
         while (refObjs.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
 
@@ -260,7 +259,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
                 // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
                 // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName))
                     continue;
 
                 // if this relationship is specifically exempted then exempt it
@@ -282,7 +281,8 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         return accountChartPairs;
     }
 
-    public Set<String> listChartOfAccountsCodeNames(PersistableBusinessObject bo) {;
+    public Set<String> listChartOfAccountsCodeNames(PersistableBusinessObject bo) {
+        ;
         return listChartCodeAccountNumberPairs(bo).keySet();
     }
 
@@ -307,7 +307,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
     @SuppressWarnings("rawtypes")
     @Override
     public Map<String, Class> listReferenceObjectFields(PersistableBusinessObject bo) {
-        if ( isPersistable(bo.getClass() ) ) {
+        if (isPersistable(bo.getClass())) {
             return super.listReferenceObjectFields(bo);
         }
         return Collections.emptyMap();
@@ -316,9 +316,10 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
     /**
      * Determines if the relationship to an Account or Account-like business object, with keys of chartOfAccountsCodePropertyName and accountNumberPropertyName,
      * is exempted from accounts cannot cross charts roles
-     * @param relationshipOwningClass the business object which possibly has an exempted relationship to Account
+     *
+     * @param relationshipOwningClass         the business object which possibly has an exempted relationship to Account
      * @param chartOfAccountsCodePropertyName the property name of the relationshipOwningClass which represents the chart of accounts code part of the foreign key
-     * @param accountNumberPropertyName the property name of the relationshipOwningClass which represents the account number part of the foreign key
+     * @param accountNumberPropertyName       the property name of the relationshipOwningClass which represents the account number part of the foreign key
      * @return true if the relationship is exempted, false otherwise
      */
     public boolean isExemptedFromAccountsCannotCrossChartsRules(Class<?> relationshipOwningClass, String chartOfAccountsCodePropertyName, String accountNumberPropertyName) {
@@ -335,6 +336,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
 
     /**
      * Sets the list of classes and relationships which are exempted from the accounts can't cross charts rules
+     *
      * @param accountReferencePersistenceExemptions the list of classes and relationships which are exempted from the accounts can't cross charts rules
      */
     public void setAccountReferencePersistenceExemptions(List<AccountReferencePersistenceExemption> accountReferencePersistenceExemptions) {
@@ -343,6 +345,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
 
     /**
      * Implemented to build the AccountReferencePersistenceExemptionsMap from the AccoutnReferencePersistenceExemptions List after intialization
+     *
      * @throws Exception well, we're not going to throw an exception
      */
     @Override

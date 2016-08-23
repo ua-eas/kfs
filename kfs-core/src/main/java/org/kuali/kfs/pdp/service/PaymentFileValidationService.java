@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.pdp.service;
 
-import java.util.List;
-
-import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
 import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
+
+import java.util.List;
 
 /**
  * Defines validation methods on a payment file.
@@ -32,7 +32,7 @@ public interface PaymentFileValidationService {
      * Performs validations that stop the loading of a payment file.
      *
      * @param paymentFile parsed payment file object
-     * @param errorMap map of errors encountered
+     * @param errorMap    map of errors encountered
      */
     public void doHardEdits(PaymentFileLoad paymentFile, MessageMap errorMap);
 

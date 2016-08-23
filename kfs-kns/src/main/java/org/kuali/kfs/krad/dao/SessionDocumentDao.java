@@ -22,7 +22,6 @@ import java.sql.Timestamp;
 
 /**
  * This is the data access interface for SessionDocumentService objects.
- *
  */
 public interface SessionDocumentDao {
 

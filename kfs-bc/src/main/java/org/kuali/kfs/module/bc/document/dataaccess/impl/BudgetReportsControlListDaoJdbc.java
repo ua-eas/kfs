@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.List;
-import java.util.UUID;
-
 import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectPick;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReasonCodePick;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionSubFundPick;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetReportsControlListDao;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * JCBC implementation of BudgetReportsControlListDaoJdbc
@@ -211,7 +211,7 @@ public class BudgetReportsControlListDaoJdbc extends BudgetConstructionDaoJdbcBa
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetReportsControlListDao#updateReportControlList(java.lang.String, java.lang.Integer,
-     *      java.lang.String, java.lang.String, org.kuali.kfs.module.bc.BCConstants.Report.BuildMode)
+     * java.lang.String, java.lang.String, org.kuali.kfs.module.bc.BCConstants.Report.BuildMode)
      */
     @Override
     public void updateReportControlList(String principalName, Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode, BuildMode buildMode) {

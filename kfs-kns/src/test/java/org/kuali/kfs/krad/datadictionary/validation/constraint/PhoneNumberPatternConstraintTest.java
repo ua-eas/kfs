@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,10 +31,13 @@ import org.kuali.kfs.krad.datadictionary.validation.processor.ValidCharactersCon
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. empty value check. (failure) {@link #testValueInvalidPhoneNumberEmpty()}
  * 2. value with valid phone number. (success) {@link #testValueValidPhoneNumber()}
  * 3. value with invalid phone number. (failure) {@link #testValueInvalidPhoneNumber()}
@@ -47,156 +47,153 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 7. value with invalid phone number. (failure) {@link #testValueInvalidPhoneNumber4()}
  * 8. value with invalid phone number. (failure) {@link #testValueInvalidPhoneNumber5()}
  * 9. value with invalid phone number. (failure) {@link #testValueInvalidPhoneNumber6()}
- *
- *
- *
  */
 public class PhoneNumberPatternConstraintTest {
 
-	private final String PATTERN_CONSTRAINT = "validationPatternRegex.phoneNumber";
+    private final String PATTERN_CONSTRAINT = "validationPatternRegex.phoneNumber";
 
-	private AttributeDefinition contactPhoneDefinition;
+    private AttributeDefinition contactPhoneDefinition;
 
-	private BusinessObjectEntry addressEntry;
-	private DictionaryValidationResult dictionaryValidationResult;
+    private BusinessObjectEntry addressEntry;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private Employee validPhoneEmployee = new Employee();
-	private Employee invalidPhoneEmployeeEmpty = new Employee();
-	private Employee invalidPhoneEmployee = new Employee();
-	private Employee invalidPhoneEmployee1 = new Employee();
-	private Employee invalidPhoneEmployee2 = new Employee();
-	private Employee invalidPhoneEmployee3 = new Employee();
-	private Employee invalidPhoneEmployee4 = new Employee();
-	private Employee invalidPhoneEmployee5 = new Employee();
-	private Employee invalidPhoneEmployee6 = new Employee();
+    private Employee validPhoneEmployee = new Employee();
+    private Employee invalidPhoneEmployeeEmpty = new Employee();
+    private Employee invalidPhoneEmployee = new Employee();
+    private Employee invalidPhoneEmployee1 = new Employee();
+    private Employee invalidPhoneEmployee2 = new Employee();
+    private Employee invalidPhoneEmployee3 = new Employee();
+    private Employee invalidPhoneEmployee4 = new Employee();
+    private Employee invalidPhoneEmployee5 = new Employee();
+    private Employee invalidPhoneEmployee6 = new Employee();
 
-	private ConfigurationBasedRegexPatternConstraint contactPhoneNumberPatternConstraint;
+    private ConfigurationBasedRegexPatternConstraint contactPhoneNumberPatternConstraint;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
+        String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		addressEntry = new BusinessObjectEntry();
+        addressEntry = new BusinessObjectEntry();
 
-		List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
+        List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
 
-		validPhoneEmployee.setContactPhone("056-012-1200");
-		invalidPhoneEmployeeEmpty.setContactPhone("");
-		invalidPhoneEmployee.setContactPhone("09712248474");
-		invalidPhoneEmployee1.setContactPhone("+19712248474");
-		invalidPhoneEmployee2.setContactPhone("+1-972-232-3333");
-		invalidPhoneEmployee3.setContactPhone("+1-(972)-23334444");
-		invalidPhoneEmployee4.setContactPhone("+1-(972)-1223444 xtn.222");
-		invalidPhoneEmployee5.setContactPhone("+1 056 012 1200");
-		invalidPhoneEmployee6.setContactPhone("056\\-012\\-1200");
+        validPhoneEmployee.setContactPhone("056-012-1200");
+        invalidPhoneEmployeeEmpty.setContactPhone("");
+        invalidPhoneEmployee.setContactPhone("09712248474");
+        invalidPhoneEmployee1.setContactPhone("+19712248474");
+        invalidPhoneEmployee2.setContactPhone("+1-972-232-3333");
+        invalidPhoneEmployee3.setContactPhone("+1-(972)-23334444");
+        invalidPhoneEmployee4.setContactPhone("+1-(972)-1223444 xtn.222");
+        invalidPhoneEmployee5.setContactPhone("+1 056 012 1200");
+        invalidPhoneEmployee6.setContactPhone("056\\-012\\-1200");
 
-		contactPhoneNumberPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
-		contactPhoneNumberPatternConstraint.setValue(regex);
+        contactPhoneNumberPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
+        contactPhoneNumberPatternConstraint.setValue(regex);
 
-		contactPhoneDefinition = new AttributeDefinition();
-		contactPhoneDefinition.setName("contactPhone");
-		contactPhoneDefinition.setValidCharactersConstraint(contactPhoneNumberPatternConstraint);
-		attributes.add(contactPhoneDefinition);
+        contactPhoneDefinition = new AttributeDefinition();
+        contactPhoneDefinition.setName("contactPhone");
+        contactPhoneDefinition.setValidCharactersConstraint(contactPhoneNumberPatternConstraint);
+        attributes.add(contactPhoneDefinition);
 
-		addressEntry.setAttributes(attributes);
-	}
+        addressEntry.setAttributes(attributes);
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumberEmpty() {
-		ConstraintValidationResult result = process(invalidPhoneEmployeeEmpty, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumberEmpty() {
+        ConstraintValidationResult result = process(invalidPhoneEmployeeEmpty, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidPhoneNumber() {
-		ConstraintValidationResult result = process(validPhoneEmployee, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidPhoneNumber() {
+        ConstraintValidationResult result = process(validPhoneEmployee, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
 
-	@Test
-	public void testValueInvalidPhoneNumber() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber1() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee1, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber1() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee1, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber2() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee2, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber2() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee2, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber3() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee3, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber3() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee3, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber4() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee4, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber4() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee4, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber5() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee5, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber5() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee5, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidPhoneNumber6() {
-		ConstraintValidationResult result = process(invalidPhoneEmployee6, "contactPhone", contactPhoneNumberPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPhoneNumber6() {
+        ConstraintValidationResult result = process(invalidPhoneEmployee6, "contactPhone", contactPhoneNumberPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
-		attributeValueReader.setAttributeName(attributeName);
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
+        attributeValueReader.setAttributeName(attributeName);
 
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 
 }

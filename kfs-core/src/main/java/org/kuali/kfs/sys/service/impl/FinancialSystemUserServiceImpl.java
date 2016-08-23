@@ -18,18 +18,13 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.identity.FinancialSystemUserRoleTypeServiceImpl;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
@@ -40,7 +35,12 @@ import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FinancialSystemUserServiceImpl implements FinancialSystemUserService {
 
@@ -79,7 +79,7 @@ public class FinancialSystemUserServiceImpl implements FinancialSystemUserServic
 
     /**
      * @see org.kuali.kfs.sys.service.FinancialSystemUserService#getPrimaryOrganization(org.kuali.rice.kim.api.identity.Person,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public ChartOrgHolder getPrimaryOrganization(Person person, String namespaceCode) {
@@ -95,7 +95,7 @@ public class FinancialSystemUserServiceImpl implements FinancialSystemUserServic
 
     /**
      * @see org.kuali.kfs.sys.service.FinancialSystemUserService#getOrganizationByNamespaceCode(org.kuali.rice.kim.api.identity.Person,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public ChartOrgHolder getPrimaryOrganization(String principalId, String namespaceCode) {

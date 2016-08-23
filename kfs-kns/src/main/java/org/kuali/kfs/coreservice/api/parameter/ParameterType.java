@@ -18,8 +18,11 @@
  */
 package org.kuali.kfs.coreservice.api.parameter;
 
-import java.io.Serializable;
-import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
+import org.kuali.rice.core.api.mo.ModelBuilder;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,16 +30,12 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
-import org.kuali.rice.core.api.mo.ModelBuilder;
-import org.w3c.dom.Element;
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * An immutable representation of a {@link ParameterTypeContract}.
- *
+ * <p>
  * <p>To construct an instance of a ParameterType, use the {@link ParameterType.Builder} class.
  *
  * @see ParameterTypeContract
@@ -54,9 +53,9 @@ import org.w3c.dom.Element;
 })
 public final class ParameterType extends AbstractDataTransferObject implements ParameterTypeContract {
 
-	private static final long serialVersionUID = -6775774408849087013L;
+    private static final long serialVersionUID = -6775774408849087013L;
 
-	@XmlElement(name = Elements.CODE, required = true)
+    @XmlElement(name = Elements.CODE, required = true)
     private final String code;
 
     @XmlElement(name = Elements.NAME, required = false)
@@ -69,7 +68,7 @@ public final class ParameterType extends AbstractDataTransferObject implements P
     private final Long versionNumber;
 
     @XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
-	private final String objectId;
+    private final String objectId;
 
     @SuppressWarnings("unused")
     @XmlAnyElement
@@ -79,19 +78,19 @@ public final class ParameterType extends AbstractDataTransferObject implements P
      * This constructor should never be called.  It is only present for use during JAXB unmarshalling.
      */
     private ParameterType() {
-    	this.code = null;
-    	this.name = null;
-    	this.active = false;
+        this.code = null;
+        this.name = null;
+        this.active = false;
         this.versionNumber = null;
         this.objectId = null;
     }
 
-	/**
-	 * Constructs a ParameterType from the given builder.  This constructor is private and should only
-	 * ever be invoked from the builder.
-	 *
-	 * @param builder the Builder from which to construct the parameter type
-	 */
+    /**
+     * Constructs a ParameterType from the given builder.  This constructor is private and should only
+     * ever be invoked from the builder.
+     *
+     * @param builder the Builder from which to construct the parameter type
+     */
     private ParameterType(Builder builder) {
         code = builder.getCode();
         name = builder.getName();
@@ -102,45 +101,45 @@ public final class ParameterType extends AbstractDataTransferObject implements P
 
     @Override
     public String getCode() {
-		return code;
-	}
+        return code;
+    }
 
     @Override
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     @Override
-	public boolean isActive() {
-		return active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
     @Override
-	public Long getVersionNumber() {
-		return versionNumber;
-	}
+    public Long getVersionNumber() {
+        return versionNumber;
+    }
 
     @Override
- 	public String getObjectId() {
- 		return objectId;
- 	}
+    public String getObjectId() {
+        return objectId;
+    }
 
-	/**
+    /**
      * This builder is used to construct instances of ParameterType.  It enforces the constraints of the {@link ParameterTypeContract}.
      */
     public static class Builder implements ParameterTypeContract, ModelBuilder, Serializable {
 
-		private static final long serialVersionUID = -301010359438027432L;
+        private static final long serialVersionUID = -301010359438027432L;
 
-		private String code;
+        private String code;
         private String name;
         private boolean active;
         private Long versionNumber;
         private String objectId;
 
-		/**
-		 * Private constructor for creating a builder with all of it's required attributes.
-		 */
+        /**
+         * Private constructor for creating a builder with all of it's required attributes.
+         */
         private Builder(String code) {
             setCode(code);
         }
@@ -165,7 +164,7 @@ public final class ParameterType extends AbstractDataTransferObject implements P
          * @return an instance of the builder populated with data from the contract
          */
         public static Builder create(ParameterTypeContract contract) {
-            Builder builder =  new Builder(contract.getCode());
+            Builder builder = new Builder(contract.getCode());
             builder.setName(contract.getName());
             builder.setActive(contract.isActive());
             builder.setVersionNumber(contract.getVersionNumber());
@@ -173,12 +172,12 @@ public final class ParameterType extends AbstractDataTransferObject implements P
             return builder;
         }
 
-		/**
-		 * Sets the value of the code on this builder to the given value.
-		 *
-		 * @param code the code value to set, must not be null or blank
-		 * @throws IllegalArgumentException if the code is null or blank
-		 */
+        /**
+         * Sets the value of the code on this builder to the given value.
+         *
+         * @param code the code value to set, must not be null or blank
+         * @throws IllegalArgumentException if the code is null or blank
+         */
         public void setCode(String code) {
             if (StringUtils.isBlank(code)) {
                 throw new IllegalArgumentException("code is blank");
@@ -186,36 +185,36 @@ public final class ParameterType extends AbstractDataTransferObject implements P
             this.code = code;
         }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
 
-		public void setActive(boolean active) {
-			this.active = active;
-		}
+        public void setActive(boolean active) {
+            this.active = active;
+        }
 
         public void setVersionNumber(Long versionNumber) {
             this.versionNumber = versionNumber;
         }
 
         public void setObjectId(String objectId) {
-        	this.objectId = objectId;
+            this.objectId = objectId;
         }
 
-		@Override
-		public String getCode() {
-			return code;
-		}
+        @Override
+        public String getCode() {
+            return code;
+        }
 
-		@Override
-		public String getName() {
-			return name;
-		}
+        @Override
+        public String getName() {
+            return name;
+        }
 
-		@Override
-		public boolean isActive() {
-			return active;
-		}
+        @Override
+        public boolean isActive() {
+            return active;
+        }
 
         @Override
         public Long getVersionNumber() {
@@ -223,15 +222,15 @@ public final class ParameterType extends AbstractDataTransferObject implements P
         }
 
         @Override
-    	public String getObjectId() {
-    		return objectId;
-    	}
+        public String getObjectId() {
+            return objectId;
+        }
 
-		/**
-		 * Builds an instance of a ParameterType based on the current state of the builder.
-		 *
-		 * @return the fully-constructed ParameterType
-		 */
+        /**
+         * Builds an instance of a ParameterType based on the current state of the builder.
+         *
+         * @return the fully-constructed ParameterType
+         */
         @Override
         public ParameterType build() {
             return new ParameterType(this);
@@ -239,22 +238,22 @@ public final class ParameterType extends AbstractDataTransferObject implements P
 
     }
 
-	/**
-	 * Defines some internal constants used on this class.
-	 */
-	static class Constants {
-		final static String ROOT_ELEMENT_NAME = "parameterType";
-		final static String TYPE_NAME = "ParameterTypeType";
-	}
+    /**
+     * Defines some internal constants used on this class.
+     */
+    static class Constants {
+        final static String ROOT_ELEMENT_NAME = "parameterType";
+        final static String TYPE_NAME = "ParameterTypeType";
+    }
 
-	/**
-	 * A private class which exposes constants which define the XML element names to use
-	 * when this object is marshalled to XML.
-	 */
-	static class Elements {
-		final static String CODE = "code";
-		final static String NAME = "name";
-		final static String ACTIVE = "active";
-	}
+    /**
+     * A private class which exposes constants which define the XML element names to use
+     * when this object is marshalled to XML.
+     */
+    static class Elements {
+        final static String CODE = "code";
+        final static String NAME = "name";
+        final static String ACTIVE = "active";
+    }
 
 }

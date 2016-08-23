@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching (non-local) email addresses
- *
- *
  */
 public class EmailAddressValidationPattern extends FieldLevelValidationPattern {
 

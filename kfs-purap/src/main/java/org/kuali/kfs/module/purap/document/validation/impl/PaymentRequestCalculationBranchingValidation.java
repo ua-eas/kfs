@@ -27,10 +27,10 @@ public class PaymentRequestCalculationBranchingValidation extends BranchingValid
 
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
-        PaymentRequestDocument preq = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument preq = (PaymentRequestDocument) event.getDocument();
         if (PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW.equals(preq.getApplicationDocumentStatus())) {
             return "awaitingTaxReview";
-        }else{
+        } else {
             return "notAwaitingTaxReview";
         }
     }

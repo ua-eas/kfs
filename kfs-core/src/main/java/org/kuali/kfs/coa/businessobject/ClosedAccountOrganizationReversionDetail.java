@@ -29,6 +29,7 @@ public class ClosedAccountOrganizationReversionDetail implements OrganizationRev
 
     /**
      * Constructs a ClosedAccountOrganizationReversionDetail.java.
+     *
      * @param organizationReversionDetail the decorated organization reversion detail
      */
     protected ClosedAccountOrganizationReversionDetail(OrganizationReversionCategoryInfo organizationReversionDetail) {
@@ -37,6 +38,7 @@ public class ClosedAccountOrganizationReversionDetail implements OrganizationRev
 
     /**
      * Always returns R2
+     *
      * @see org.kuali.kfs.coa.businessobject.OrganizationReversionCategoryInfo#getOrganizationReversionCode()
      */
     public String getOrganizationReversionCode() {
@@ -44,7 +46,6 @@ public class ClosedAccountOrganizationReversionDetail implements OrganizationRev
     }
 
     /**
-     *
      * @see org.kuali.kfs.coa.businessobject.OrganizationReversionCategoryInfo#getOrganizationReversionObjectCode()
      */
     public String getOrganizationReversionObjectCode() {

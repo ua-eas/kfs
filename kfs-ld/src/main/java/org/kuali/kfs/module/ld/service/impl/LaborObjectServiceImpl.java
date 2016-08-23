@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.businessobject.LaborObject;
 import org.kuali.kfs.module.ld.dataaccess.LaborObjectDao;
 import org.kuali.kfs.module.ld.service.LaborObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This interface provides its clients with access to labor object in the backend data store.
@@ -47,6 +47,7 @@ public class LaborObjectServiceImpl implements LaborObjectService {
 
     /**
      * Sets the laborObjectDao attribute value.
+     *
      * @param laborObjectDao The laborObjectDao to set.
      */
     public void setLaborObjectDao(LaborObjectDao laborObjectDao) {

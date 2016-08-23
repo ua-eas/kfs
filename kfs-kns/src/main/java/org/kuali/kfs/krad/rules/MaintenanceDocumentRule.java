@@ -27,15 +27,13 @@ import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
 
 /**
  * Rule event interface for implementing business rules against a <code>MaintenanceDocument</code>
- *
- *
  */
 public interface MaintenanceDocumentRule {
 
     /**
      * Runs all business rules needed prior to saving. This includes both common rules for all maintenance documents,
      * plus class-specific business rules.
-     *
+     * <p>
      * Will only return false if it fails the isValidForSave() test. Otherwise, it will always return positive
      * regardless of the outcome of the business rules. However, any error messages resulting from the business rules
      * will still be populated, for display to the consumer of this service.
@@ -47,7 +45,7 @@ public interface MaintenanceDocumentRule {
     /**
      * Runs all business rules needed prior to routing. This includes both common rules for all maintenance documents,
      * plus class-specific business rules.
-     *
+     * <p>
      * Will return false if any business rule fails, or if the document is in an invalid state, and not routable (see
      * isDocumentValidForRouting()).
      *
@@ -58,7 +56,7 @@ public interface MaintenanceDocumentRule {
     /**
      * Runs all business rules needed prior to approving. This includes both common rules for all maintenance documents,
      * plus class-specific business rules.
-     *
+     * <p>
      * Will return false if any business rule fails, or if the document is in an invalid state, and not approvable (see
      * isDocumentValidForApproving()).
      *
@@ -69,7 +67,7 @@ public interface MaintenanceDocumentRule {
     /**
      * Sets the convenience objects like newAccount and oldAccount, so you have short and easy handles to the new and
      * old objects contained in the maintenance document.
-     *
+     * <p>
      * It also calls the BusinessObjectBase.refresh(), which will attempt to load all sub-objects from the DB by their
      * primary keys, if available.
      *
@@ -79,7 +77,7 @@ public interface MaintenanceDocumentRule {
 
     /**
      * Should always be overriden if a subclass is created.
-     *
+     * <p>
      * The goal for this is to cast the oldBo and newBo into the correct types of the subclass.
      */
     public void setupConvenienceObjects();

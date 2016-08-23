@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
@@ -44,6 +41,9 @@ import org.kuali.kfs.vnd.businessobject.PurchaseOrderCostSource;
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -489,7 +489,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
      */
     public void loadReceivingAddress();
 
-    public boolean isReceivingDocumentRequiredIndicator() ;
+    public boolean isReceivingDocumentRequiredIndicator();
 
     public void setReceivingDocumentRequiredIndicator(boolean receivingDocumentRequiredIndicator);
 

@@ -22,14 +22,14 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-    The hidden element will cause the attribute to not
-    be displayed.
+ * The hidden element will cause the attribute to not
+ * be displayed.
  */
 @Deprecated
 public class HiddenControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = -557648224354274301L;
 
-	public HiddenControlDefinition() {
+    public HiddenControlDefinition() {
     }
 
     /**

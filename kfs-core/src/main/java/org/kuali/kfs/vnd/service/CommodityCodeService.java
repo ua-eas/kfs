@@ -27,9 +27,9 @@ public interface CommodityCodeService {
     /**
      * Retrieves a commodity code object by its primary key - the purchasing commodity code.
      *
-     * @param  purchasingCommodityCode
+     * @param purchasingCommodityCode
      * @return CommodityCode the commodity code object which has the purchasingCommodityCode
-     *         in the input parameter to match its the primary key.
+     * in the input parameter to match its the primary key.
      */
     public CommodityCode getByPrimaryId(String purchasingCommodityCode);
 
@@ -40,7 +40,6 @@ public interface CommodityCodeService {
      * will return true. If no matching found then this method returns false.
      *
      * @param wildCardCommodityCode The string containing wild card character to be queried to the database.
-     *
      * @return boolean true if the wildcardCommodityCode exists in the database.
      */
     public boolean wildCardCommodityCodeExists(String wildCardCommodityCode);

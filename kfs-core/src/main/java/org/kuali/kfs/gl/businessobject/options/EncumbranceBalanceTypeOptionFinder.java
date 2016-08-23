@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An implementation of ValueFinder that returns all balance types, but which defaults to external encumbrance

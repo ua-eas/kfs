@@ -18,79 +18,79 @@
  */
 package org.kuali.kfs.kns.document.authorization;
 
+import org.kuali.kfs.kns.web.ui.Field;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.kuali.kfs.kns.web.ui.Field;
-
 public class MaintenanceDocumentRestrictionsBase extends InquiryOrMaintenanceDocumentRestrictionsBase implements MaintenanceDocumentRestrictions {
-	private Set<String> readOnlyFields;
-	private Set<String> readOnlySectionIds;
+    private Set<String> readOnlyFields;
+    private Set<String> readOnlySectionIds;
 
-	public MaintenanceDocumentRestrictionsBase() {
-	}
+    public MaintenanceDocumentRestrictionsBase() {
+    }
 
-	public void addReadOnlyField(String fieldName) {
-		readOnlyFields.add(fieldName);
-	}
+    public void addReadOnlyField(String fieldName) {
+        readOnlyFields.add(fieldName);
+    }
 
-	public void addReadOnlySectionId(String sectionId) {
-		readOnlySectionIds.add(sectionId);
-	}
+    public void addReadOnlySectionId(String sectionId) {
+        readOnlySectionIds.add(sectionId);
+    }
 
-	public Set<String> getReadOnlySectionIds() {
-		return readOnlySectionIds;
-	}
+    public Set<String> getReadOnlySectionIds() {
+        return readOnlySectionIds;
+    }
 
-	@Override
-	public FieldRestriction getFieldRestriction(String fieldName) {
-		FieldRestriction fieldRestriction = super
-				.getFieldRestriction(fieldName);
-		if (fieldRestriction == null && isReadOnlyField(fieldName)) {
-			fieldRestriction = new FieldRestriction(fieldName, Field.READONLY);
-		}
-		// TODO: next block could probably be removed since the superclass would return null for a read-only field
-		if (Field.EDITABLE
-				.equals(fieldRestriction.getKualiFieldDisplayFlag())
-				&& isReadOnlyField(fieldName)) {
-			fieldRestriction = new FieldRestriction(fieldName,
-					Field.READONLY);
-		}
-		return fieldRestriction;
-	}
+    @Override
+    public FieldRestriction getFieldRestriction(String fieldName) {
+        FieldRestriction fieldRestriction = super
+            .getFieldRestriction(fieldName);
+        if (fieldRestriction == null && isReadOnlyField(fieldName)) {
+            fieldRestriction = new FieldRestriction(fieldName, Field.READONLY);
+        }
+        // TODO: next block could probably be removed since the superclass would return null for a read-only field
+        if (Field.EDITABLE
+            .equals(fieldRestriction.getKualiFieldDisplayFlag())
+            && isReadOnlyField(fieldName)) {
+            fieldRestriction = new FieldRestriction(fieldName,
+                Field.READONLY);
+        }
+        return fieldRestriction;
+    }
 
-	@Override
-	public void clearAllRestrictions() {
-		super.clearAllRestrictions();
-		readOnlyFields = new HashSet<String>();
-		readOnlySectionIds = new HashSet<String>();
-	}
+    @Override
+    public void clearAllRestrictions() {
+        super.clearAllRestrictions();
+        readOnlyFields = new HashSet<String>();
+        readOnlySectionIds = new HashSet<String>();
+    }
 
-	protected boolean isReadOnlyField(String fieldName) {
-		String normalizedFieldName = normalizeFieldName(fieldName);
-		return readOnlyFields.contains(normalizedFieldName);
-	}
+    protected boolean isReadOnlyField(String fieldName) {
+        String normalizedFieldName = normalizeFieldName(fieldName);
+        return readOnlyFields.contains(normalizedFieldName);
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.authorization.InquiryOrMaintenanceDocumentRestrictionsBase#hasAnyFieldRestrictions()
-	 */
-	@Override
-	public boolean hasAnyFieldRestrictions() {
-		return super.hasAnyFieldRestrictions() || !readOnlyFields.isEmpty();
-	}
+    /**
+     * @see org.kuali.rice.krad.authorization.InquiryOrMaintenanceDocumentRestrictionsBase#hasAnyFieldRestrictions()
+     */
+    @Override
+    public boolean hasAnyFieldRestrictions() {
+        return super.hasAnyFieldRestrictions() || !readOnlyFields.isEmpty();
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.authorization.InquiryOrMaintenanceDocumentRestrictionsBase#hasRestriction(java.lang.String)
-	 */
-	@Override
-	public boolean hasRestriction(String fieldName) {
-		return super.hasRestriction(fieldName) || isReadOnlyField(fieldName);
-	}
+    /**
+     * @see org.kuali.rice.krad.authorization.InquiryOrMaintenanceDocumentRestrictionsBase#hasRestriction(java.lang.String)
+     */
+    @Override
+    public boolean hasRestriction(String fieldName) {
+        return super.hasRestriction(fieldName) || isReadOnlyField(fieldName);
+    }
 
-	/**
-	 * @see MaintenanceDocumentRestrictions#isReadOnlySectionId(java.lang.String)
-	 */
-	public boolean isReadOnlySectionId(String sectionId) {
-		return readOnlySectionIds.contains(sectionId);
-	}
+    /**
+     * @see MaintenanceDocumentRestrictions#isReadOnlySectionId(java.lang.String)
+     */
+    public boolean isReadOnlySectionId(String sectionId) {
+        return readOnlySectionIds.contains(sectionId);
+    }
 }

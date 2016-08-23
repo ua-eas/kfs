@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
+import org.kuali.kfs.module.ar.report.util.CustomerInvoiceReportDataHolder;
+
 import java.io.File;
 import java.util.Date;
-
-import org.kuali.kfs.module.ar.report.util.CustomerInvoiceReportDataHolder;
 
 /**
  * Customer Invoice Report generation related method.
@@ -32,7 +32,7 @@ public interface CustomerInvoiceReportService {
      * This method generates a Customer Invoice report PDF with the given report data and runDate
      *
      * @param reportDataHolder the given report data holder
-     * @param runDate the datetime of the report generation
+     * @param runDate          the datetime of the report generation
      * @return report PDF
      */
     public File generateReport(CustomerInvoiceReportDataHolder reportDataHolder, Date runDate);

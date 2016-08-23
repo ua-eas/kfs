@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
  * This class should be used in the development environment to run the batch container, execute one or more steps, then shut down the batch container.
  */
 public class BatchStepLauncher implements Runnable {
-    private static final String LOG_PREFIX = BatchStepLauncher.class.getName() +": ";
+    private static final String LOG_PREFIX = BatchStepLauncher.class.getName() + ": ";
     private static final String batchContainerStep = "batchContainerStep";
 
     private static BatchStepTriggerParameters batchStepTriggerParms;
@@ -33,7 +33,7 @@ public class BatchStepLauncher implements Runnable {
     /**
      * This class validates the arguments, adds a shutdown hook to Runtime to clean up BatchContainer's semaphore, starts the batch container,
      * and executes steps using the BatchStepTrigger.
-     *
+     * <p>
      * The BatchStepTrigger will exit the system using calls to System.exit(). This will cause this Launcher class to exit immediately without executing any further
      * methods. Therefore the batch container cannot be shut down using the iu.stopBatchContainerStep which nicely cleans up its own semaphore. The shutdown hook has been
      * added in order for this cleanup to occur.
@@ -65,7 +65,7 @@ public class BatchStepLauncher implements Runnable {
     public void run() {
         String[] args = new String[2];
         args[0] = batchContainerStep;
-        args[1] = (batchStepTriggerParms != null ? batchStepTriggerParms.getJobName(): "unknown");
+        args[1] = (batchStepTriggerParms != null ? batchStepTriggerParms.getJobName() : "unknown");
 
         BatchStepRunner.main(args);
     }
@@ -104,8 +104,7 @@ public class BatchStepLauncher implements Runnable {
             logToOut("waiting for the batch container to start up");
             try {
                 Thread.sleep(batchStepTriggerParms.getSleepInterval());
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException("BatchStepLauncher encountered interrupt exception while trying to wait for the batch container to start up", e);
             }
         }

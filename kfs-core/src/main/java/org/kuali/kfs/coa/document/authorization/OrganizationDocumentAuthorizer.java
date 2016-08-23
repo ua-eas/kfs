@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -32,10 +32,10 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Document Authorizer for the Organization document.
@@ -84,9 +84,9 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
         String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.MODIFY_FIELD;
 
-        Map<String,String> roleQualifiers = new HashMap<String,String>();
+        Map<String, String> roleQualifiers = new HashMap<String, String>();
 
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.COMPONENT_NAME, Organization.class.getSimpleName());
         permissionDetails.put(KimConstants.AttributeConstants.PROPERTY_NAME, KFSPropertyConstants.ORGANIZATION_PLANT_ACCOUNT_NUMBER);
 
@@ -96,8 +96,7 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
             if (LOG.isDebugEnabled()) {
                 LOG.debug("User '" + user.getPrincipalName() + "' has no access to the Plant Chart.");
             }
-        }
-        else {
+        } else {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("User '" + user.getPrincipalName() + "' has access to the Plant fields.");
             }
@@ -112,15 +111,14 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
         super.addRoleQualification(dataObject, attributes);
 
         if (dataObject instanceof MaintenanceDocument) {
-            MaintenanceDocument maintDoc = (MaintenanceDocument)dataObject;
-            if ( maintDoc.getNewMaintainableObject() != null ) {
+            MaintenanceDocument maintDoc = (MaintenanceDocument) dataObject;
+            if (maintDoc.getNewMaintainableObject() != null) {
                 Organization newOrg = (Organization) maintDoc.getNewMaintainableObject().getBusinessObject();
                 if (!StringUtils.isBlank(newOrg.getChartOfAccountsCode())) {
                     attributes.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, newOrg.getChartOfAccountsCode());
                 }
             }
-        }
-        else if (dataObject instanceof Organization) {
+        } else if (dataObject instanceof Organization) {
             Organization newOrg = (Organization) dataObject;
             if (!StringUtils.isBlank(newOrg.getChartOfAccountsCode())) {
                 attributes.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, newOrg.getChartOfAccountsCode());

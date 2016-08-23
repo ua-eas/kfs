@@ -26,7 +26,7 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class PurchaseOrderAmendmentProcessAccountValidation extends BranchingValidation {
 
-    protected final String PROCESS_ACCOUNT_VALIDATION="processAccountValidation";
+    protected final String PROCESS_ACCOUNT_VALIDATION = "processAccountValidation";
     protected PurApItem itemForValidation;
 
     /**
@@ -36,17 +36,15 @@ public class PurchaseOrderAmendmentProcessAccountValidation extends BranchingVal
      * we should just return true so that the account won't be validated, because if
      * the items contain accounts that aren't editable, it doesn't make sense to give
      * the user account validation errors.
-     *
      */
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
-        PurchaseOrderDocument document = (PurchaseOrderDocument)event.getDocument();
+        PurchaseOrderDocument document = (PurchaseOrderDocument) event.getDocument();
         PurchaseOrderItem itemLine = (PurchaseOrderItem) getItemForValidation();
-        if (itemLine.isItemActiveIndicator() && (! (document.getContainsUnpaidPaymentRequestsOrCreditMemos() && itemLine.getItemInvoicedTotalAmount() != null))) {
+        if (itemLine.isItemActiveIndicator() && (!(document.getContainsUnpaidPaymentRequestsOrCreditMemos() && itemLine.getItemInvoicedTotalAmount() != null))) {
             //This means the accounts on the item are editable, so we'll call super's processAccountValidation.
             return PROCESS_ACCOUNT_VALIDATION;
-        }
-        else {
+        } else {
             //This means the accounts on the item are not editable, so we'll return true so that it won't do any further validations on the accounts.
             return null;
         }

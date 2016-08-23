@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.batch.vo;
 
+import org.apache.commons.beanutils.PropertyUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
-
 public class CustomerLoadVOGenerator {
 
     public static final CustomerDigesterVO generateCustomerVO(Map<String, String> customerFields, Map<String, String> address) {
-        List<Map<String,String>> addresses = new ArrayList<Map<String,String>>();
+        List<Map<String, String>> addresses = new ArrayList<Map<String, String>>();
         addresses.add(address);
         return generateCustomerVO(customerFields, addresses);
     }
@@ -42,8 +42,7 @@ public class CustomerLoadVOGenerator {
             propertyValue = customerFields.get(propertyName);
             try {
                 PropertyUtils.setSimpleProperty(customerVO, propertyName, propertyValue);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Exception trying to set property [" + propertyName + "] to value [" + propertyValue + "]", e);
             }
         }
@@ -54,8 +53,7 @@ public class CustomerLoadVOGenerator {
                 propertyValue = addressFields.get(propertyName);
                 try {
                     PropertyUtils.setSimpleProperty(addressVO, propertyName, propertyValue);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Exception trying to set property [" + propertyName + "] to value [" + propertyValue + "]", e);
                 }
             }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase implements GeneralLedgerPendingEntrySourceDetail {
     private String accountNumber;
@@ -263,7 +263,6 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
     public void setAccumulatedDepreciation(boolean accumulatedDepreciation) {
         this.accumulatedDepreciation = accumulatedDepreciation;
     }
-
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {

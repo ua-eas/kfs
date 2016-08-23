@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
 
 /**
  * Defines a rule which gets invoked immediately before a document gets approved.
- *
- *
  */
 public interface ApproveDocumentRule extends BusinessRule {
     /**

@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
 import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
+
+import java.util.Set;
 
 public class FinancialSystemMaintenanceDocumentPresentationControllerBase extends MaintenanceDocumentPresentationControllerBase {
     private static ParameterEvaluatorService parameterEvaluatorService;
 
     /**
      * the following three methods still accept the deprecated class as argument in order to bridge the gap between old and new maintenance API
-     *
+     * <p>
      * This is just workaround solution. The better solution would be to replace old API with new one.
      */
     @Override

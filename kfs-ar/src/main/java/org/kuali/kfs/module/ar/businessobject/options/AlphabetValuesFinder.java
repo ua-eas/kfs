@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines the values finder class that lists the letters in the alphabet.
  */
 public class AlphabetValuesFinder extends EnumValuesFinder {
 
-    public enum Alphabet { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z }
+    public enum Alphabet {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
 
     public AlphabetValuesFinder() {
         super(Alphabet.class);

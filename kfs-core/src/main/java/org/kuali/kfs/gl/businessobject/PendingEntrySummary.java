@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * An OriginEntryInformation wrapper which helpfully summarizes data for the pending entry report
@@ -43,7 +43,7 @@ public class PendingEntrySummary extends TransientBusinessObjectBase {
      * @return the document number of the wrapped entry - even if suppressed
      */
     public String getConstantDocumentNumber() {
-        return StringUtils.join(new String[] { originEntry.getFinancialSystemOriginationCode(),originEntry.getDocumentNumber()}, '-');
+        return StringUtils.join(new String[]{originEntry.getFinancialSystemOriginationCode(), originEntry.getDocumentNumber()}, '-');
     }
 
     /**
@@ -151,6 +151,7 @@ public class PendingEntrySummary extends TransientBusinessObjectBase {
 
     /**
      * Sets the suppress attribute value.
+     *
      * @param suppress The suppress to set.
      */
     public void suppressCommonFields(boolean suppress) {
@@ -161,6 +162,6 @@ public class PendingEntrySummary extends TransientBusinessObjectBase {
      * @return a String representation of suppressable fields
      */
     public String getSuppressableFieldsAsKey() {
-        return StringUtils.join(new String[] {originEntry.getFinancialDocumentTypeCode(),originEntry.getFinancialSystemOriginationCode(),originEntry.getDocumentNumber(),originEntry.getFinancialBalanceTypeCode()}, ':');
+        return StringUtils.join(new String[]{originEntry.getFinancialDocumentTypeCode(), originEntry.getFinancialSystemOriginationCode(), originEntry.getDocumentNumber(), originEntry.getFinancialBalanceTypeCode()}, ':');
     }
 }

@@ -22,7 +22,7 @@ package org.kuali.kfs.module.bc.businessobject;
 import java.math.BigDecimal;
 
 
-public class BudgetConstructionAccountSalaryDetailReport{
+public class BudgetConstructionAccountSalaryDetailReport {
 
     // Header parts
     private String fiscalYear;
@@ -89,8 +89,6 @@ public class BudgetConstructionAccountSalaryDetailReport{
     private BigDecimal totalPercentChange;
 
 
-
-
     /**
      * Default constructor.
      */
@@ -99,13 +97,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFiscalYear() {
         return fiscalYear;
     }
-
-
 
 
     public void setFiscalYear(String fiscalYear) {
@@ -113,13 +107,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
-
-
 
 
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -127,13 +117,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getChartOfAccountDescription() {
         return chartOfAccountDescription;
     }
-
-
 
 
     public void setChartOfAccountDescription(String chartOfAccountDescription) {
@@ -141,13 +127,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getOrganizationCode() {
         return organizationCode;
     }
-
-
 
 
     public void setOrganizationCode(String organizationCode) {
@@ -155,13 +137,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getOrganizationName() {
         return organizationName;
     }
-
-
 
 
     public void setOrganizationName(String organizationName) {
@@ -169,13 +147,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFundGroupCode() {
         return fundGroupCode;
     }
-
-
 
 
     public void setFundGroupCode(String fundGroupCode) {
@@ -183,13 +157,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFundGroupName() {
         return fundGroupName;
     }
-
-
 
 
     public void setFundGroupName(String fundGroupName) {
@@ -197,13 +167,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getAccountNumber() {
         return accountNumber;
     }
-
-
 
 
     public void setAccountNumber(String accountNumber) {
@@ -211,13 +177,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getSubAccountNumber() {
         return subAccountNumber;
     }
-
-
 
 
     public void setSubAccountNumber(String subAccountNumber) {
@@ -225,13 +187,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getAccountName() {
         return accountName;
     }
-
-
 
 
     public void setAccountName(String accountName) {
@@ -239,13 +197,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getSubAccountName() {
         return subAccountName;
     }
-
-
 
 
     public void setSubAccountName(String subAccountName) {
@@ -253,13 +207,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFinancialObjectCode() {
         return financialObjectCode;
     }
-
-
 
 
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -267,13 +217,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFinancialObjectCodeName() {
         return financialObjectCodeName;
     }
-
-
 
 
     public void setFinancialObjectCodeName(String financialObjectCodeName) {
@@ -281,13 +227,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getName() {
         return name;
     }
-
-
 
 
     public void setName(String name) {
@@ -295,13 +237,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getDeleteBox() {
         return deleteBox;
     }
-
-
 
 
     public void setDeleteBox(String deleteBox) {
@@ -309,13 +247,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getFinancialSubObjectCode() {
         return financialSubObjectCode;
     }
-
-
 
 
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -323,13 +257,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getIuClassificationLevel() {
         return iuClassificationLevel;
     }
-
-
 
 
     public void setIuClassificationLevel(String iuClassificationLevel) {
@@ -337,13 +267,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getAdministrativePost() {
         return administrativePost;
     }
-
-
 
 
     public void setAdministrativePost(String administrativePost) {
@@ -351,13 +277,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getPositionNumber() {
         return positionNumber;
     }
-
-
 
 
     public void setPositionNumber(String positionNumber) {
@@ -365,13 +287,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getPositionSalaryPlanDefault() {
         return positionSalaryPlanDefault;
     }
-
-
 
 
     public void setPositionSalaryPlanDefault(String positionSalaryPlanDefault) {
@@ -379,13 +297,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getPositionGradeDefault() {
         return positionGradeDefault;
     }
-
-
 
 
     public void setPositionGradeDefault(String positionGradeDefault) {
@@ -393,13 +307,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getNormalWorkMonthsAndiuPayMonths() {
         return normalWorkMonthsAndiuPayMonths;
     }
-
-
 
 
     public void setNormalWorkMonthsAndiuPayMonths(String normalWorkMonthsAndiuPayMonths) {
@@ -407,13 +317,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getPositionCsfAmount() {
         return positionCsfAmount;
     }
-
-
 
 
     public void setPositionCsfAmount(Integer positionCsfAmount) {
@@ -421,13 +327,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getPositionCsfFullTimeEmploymentQuantity() {
         return positionCsfFullTimeEmploymentQuantity;
     }
-
-
 
 
     public void setPositionCsfFullTimeEmploymentQuantity(BigDecimal positionCsfFullTimeEmploymentQuantity) {
@@ -435,13 +337,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getPositionCsfFundingStatusCode() {
         return positionCsfFundingStatusCode;
     }
-
-
 
 
     public void setPositionCsfFundingStatusCode(String positionCsfFundingStatusCode) {
@@ -449,13 +347,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getAppointmentFundingMonth() {
         return appointmentFundingMonth;
     }
-
-
 
 
     public void setAppointmentFundingMonth(Integer appointmentFundingMonth) {
@@ -463,13 +357,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getAppointmentRequestedPayRate() {
         return appointmentRequestedPayRate;
     }
-
-
 
 
     public void setAppointmentRequestedPayRate(BigDecimal appointmentRequestedPayRate) {
@@ -477,13 +367,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getAppointmentRequestedAmount() {
         return appointmentRequestedAmount;
     }
-
-
 
 
     public void setAppointmentRequestedAmount(Integer appointmentRequestedAmount) {
@@ -491,13 +377,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getAppointmentRequestedFteQuantity() {
         return appointmentRequestedFteQuantity;
     }
-
-
 
 
     public void setAppointmentRequestedFteQuantity(BigDecimal appointmentRequestedFteQuantity) {
@@ -505,13 +387,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getAppointmentRequestedCsfAmount() {
         return appointmentRequestedCsfAmount;
     }
-
-
 
 
     public void setAppointmentRequestedCsfAmount(Integer appointmentRequestedCsfAmount) {
@@ -519,13 +397,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getAppointmentFundingDurationCode() {
         return appointmentFundingDurationCode;
     }
-
-
 
 
     public void setAppointmentFundingDurationCode(String appointmentFundingDurationCode) {
@@ -533,13 +407,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getAppointmentTotalIntendedAmount() {
         return appointmentTotalIntendedAmount;
     }
-
-
 
 
     public void setAppointmentTotalIntendedAmount(Integer appointmentTotalIntendedAmount) {
@@ -547,13 +417,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getAppointmentTotalIntendedFteQuantity() {
         return appointmentTotalIntendedFteQuantity;
     }
-
-
 
 
     public void setAppointmentTotalIntendedFteQuantity(BigDecimal appointmentTotalIntendedFteQuantity) {
@@ -561,13 +427,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getAmountChange() {
         return amountChange;
     }
-
-
 
 
     public void setAmountChange(Integer amountChange) {
@@ -575,13 +437,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getPercentChange() {
         return percentChange;
     }
-
-
 
 
     public void setPercentChange(BigDecimal percentChange) {
@@ -589,13 +447,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public String getTotalDescription() {
         return totalDescription;
     }
-
-
 
 
     public void setTotalDescription(String totalDescription) {
@@ -603,13 +457,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getTotalBaseAmount() {
         return totalBaseAmount;
     }
-
-
 
 
     public void setTotalBaseAmount(Integer totalBaseAmount) {
@@ -617,13 +467,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getTotalBaseFte() {
         return totalBaseFte;
     }
-
-
 
 
     public void setTotalBaseFte(BigDecimal totalBaseFte) {
@@ -631,13 +477,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getTotalRequestAmount() {
         return totalRequestAmount;
     }
-
-
 
 
     public void setTotalRequestAmount(Integer totalRequestAmount) {
@@ -645,13 +487,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getTotalRequestFte() {
         return totalRequestFte;
     }
-
-
 
 
     public void setTotalRequestFte(BigDecimal totalRequestFte) {
@@ -659,13 +497,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public Integer getTotalAmountChange() {
         return totalAmountChange;
     }
-
-
 
 
     public void setTotalAmountChange(Integer totalAmountChange) {
@@ -673,13 +507,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     public BigDecimal getTotalPercentChange() {
         return totalPercentChange;
     }
-
-
 
 
     public void setTotalPercentChange(BigDecimal totalPercentChange) {
@@ -687,10 +517,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Gets the csfTimePercent attribute.
+     *
      * @return Returns the csfTimePercent.
      */
     public BigDecimal getCsfTimePercent() {
@@ -698,10 +527,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Sets the csfTimePercent attribute value.
+     *
      * @param csfTimePercent The csfTimePercent to set.
      */
     public void setCsfTimePercent(BigDecimal csfTimePercent) {
@@ -709,10 +537,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Gets the appointmentRequestedTimePercent attribute.
+     *
      * @return Returns the appointmentRequestedTimePercent.
      */
     public BigDecimal getAppointmentRequestedTimePercent() {
@@ -720,10 +547,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Sets the appointmentRequestedTimePercent attribute value.
+     *
      * @param appointmentRequestedTimePercent The appointmentRequestedTimePercent to set.
      */
     public void setAppointmentRequestedTimePercent(BigDecimal appointmentRequestedTimePercent) {
@@ -731,10 +557,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Gets the appointmentRequestedCsfTimePercent attribute.
+     *
      * @return Returns the appointmentRequestedCsfTimePercent.
      */
     public BigDecimal getAppointmentRequestedCsfTimePercent() {
@@ -742,10 +567,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Sets the appointmentRequestedCsfTimePercent attribute value.
+     *
      * @param appointmentRequestedCsfTimePercent The appointmentRequestedCsfTimePercent to set.
      */
     public void setAppointmentRequestedCsfTimePercent(BigDecimal appointmentRequestedCsfTimePercent) {
@@ -753,10 +577,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Gets the appointmentRequestedCsfFteQuantity attribute.
+     *
      * @return Returns the appointmentRequestedCsfFteQuantity.
      */
     public BigDecimal getAppointmentRequestedCsfFteQuantity() {
@@ -764,10 +587,9 @@ public class BudgetConstructionAccountSalaryDetailReport{
     }
 
 
-
-
     /**
      * Sets the appointmentRequestedCsfFteQuantity attribute value.
+     *
      * @param appointmentRequestedCsfFteQuantity The appointmentRequestedCsfFteQuantity to set.
      */
     public void setAppointmentRequestedCsfFteQuantity(BigDecimal appointmentRequestedCsfFteQuantity) {

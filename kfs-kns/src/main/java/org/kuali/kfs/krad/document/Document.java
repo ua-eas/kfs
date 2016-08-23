@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.krad.document;
 
-import org.kuali.rice.kew.api.action.ActionType;
-import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -34,17 +29,18 @@ import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.util.NoteType;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
 import org.kuali.kfs.krad.workflow.KualiDocumentXmlMaterializer;
+import org.kuali.rice.kew.api.action.ActionType;
+import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * This is the Document interface. All entities that are regarded as "eDocs" in the system, including Maintenance documents and
  * Transaction Processing documents should implement this interface as it defines methods that are necessary to interact with the
  * underlying frameworks and components (i.e. notes, attachments, workflow, etc).
- *
- *
  */
 public interface Document extends PersistableBusinessObject {
 
@@ -110,6 +106,7 @@ public interface Document extends PersistableBusinessObject {
 
     /**
      * method to integrate with workflow where we will be able to perform logic after an action taken being performed on a document
+     *
      * @since 2.1
      */
     public void afterActionTaken(ActionType performed, ActionTakenEvent event);
@@ -219,9 +216,8 @@ public interface Document extends PersistableBusinessObject {
      */
     public List<KualiDocumentEvent> generateSaveEvents();
 
-   /**
+    /**
      * Handle the doRouteStatusChange event from the post processor
-     *
      */
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent);
 
@@ -238,7 +234,7 @@ public interface Document extends PersistableBusinessObject {
      * In general, this method should never return null.  However, it is permissible that it will return a
      * business object which has not been persisted yet (and therefore does not have it's unique object id
      * established).  This is only valid in cases where the note type is {@link NoteType#BUSINESS_OBJECT}.
-     *
+     * <p>
      * In these cases it's the responsibility for implementers of the Document interface to handle storing transient
      * copies of the document notes (in XML or otherwise) until the underlying note target has been persisted and can be attached
      * to the document's notes via it's object id.
@@ -262,11 +258,11 @@ public interface Document extends PersistableBusinessObject {
     public List<Note> getNotes();
 
     /**
-	 * Sets the document's list of notes to the given list.
-	 *
-	 * @param notes the list of notes to set on the document, must be non-null
-	 */
-	public void setNotes(List<Note> notes);
+     * Sets the document's list of notes to the given list.
+     *
+     * @param notes the list of notes to set on the document, must be non-null
+     */
+    public void setNotes(List<Note> notes);
 
     /**
      * Retrieves the note at the given index.
@@ -292,12 +288,12 @@ public interface Document extends PersistableBusinessObject {
      * @return the list of method names of an action that should clear locks for the current user
      */
     public List<String> getLockClearningMethodNames();
+
     /**
      * Returns an evaluator object that determines whether a given property relative to the root object ({@link #wrapDocumentWithMetadataForXmlSerialization()}
      * is serializable during the document serialization process.
      *
      * @return a fully initialized evaluator object, ready to be used for workflow routing
-     *
      * @see DocumentSerializerService
      * @see #wrapDocumentWithMetadataForXmlSerialization()
      */
@@ -309,7 +305,6 @@ public interface Document extends PersistableBusinessObject {
      * is serializable during the document serialization process.
      *
      * @return a fully initialized evaluator object, ready to be used for workflow routing
-     *
      * @see DocumentSerializerService
      * @see #wrapDocumentWithMetadataForXmlSerialization()
      */
@@ -318,7 +313,7 @@ public interface Document extends PersistableBusinessObject {
     /**
      * This method will return the root object to be serialized for workflow routing.  If necessary, this method will wrap this document object with a wrapper (i.e. contains a reference back to this document).  This
      * wrapper may also contain references to additional objects that provide metadata useful to the workflow engine.
-     *
+     * <p>
      * If no wrappers are necessary, then this object may return "this"
      *
      * @return a wrapper object (most likely containing a reference to "this"), or "this" itself.

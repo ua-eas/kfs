@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents a unit of work for the organization reversion
@@ -72,6 +72,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Set category amounts
+     *
      * @param cats list of organization reversion categories
      */
     public void setCategories(List<OrganizationReversionCategory> cats) {
@@ -83,8 +84,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the actual amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addActualAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -93,8 +95,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the budget amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addBudgetAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -103,8 +106,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the encumbrance amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addEncumbranceAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -113,8 +117,9 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method adds to the carry forward amount for a specific category code
+     *
      * @param categoryCode category code
-     * @param amount amount
+     * @param amount       amount
      */
     public void addCarryForwardAmount(String categoryCode, KualiDecimal amount) {
         OrgReversionUnitOfWorkCategoryAmount ca = amounts.get(categoryCode);
@@ -130,7 +135,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
         totalCash = KualiDecimal.ZERO;
         totalReversion = KualiDecimal.ZERO;
 
-        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext();) {
+        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext(); ) {
             OrgReversionUnitOfWorkCategoryAmount element = iter.next();
             element.setActual(KualiDecimal.ZERO);
             element.setBudget(KualiDecimal.ZERO);
@@ -152,6 +157,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * This method returns true if this unit of work's chart of accounts code, account number, and sub account number match the passed in parameter values
+     *
      * @param chart
      * @param acct
      * @param subAcct
@@ -163,6 +169,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     /**
      * Return true of this unit of work has the same chart of accounts code, account number, and sub account number as the passed in balance
+     *
      * @param balance
      * @return
      */
@@ -172,7 +179,7 @@ public class OrgReversionUnitOfWork extends PersistableBusinessObjectBase {
 
     public KualiDecimal getTotalAccountAvailable() {
         KualiDecimal amount = KualiDecimal.ZERO;
-        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext();) {
+        for (Iterator<OrgReversionUnitOfWorkCategoryAmount> iter = amounts.values().iterator(); iter.hasNext(); ) {
             OrgReversionUnitOfWorkCategoryAmount element = iter.next();
             amount = amount.add(element.getAvailable());
         }

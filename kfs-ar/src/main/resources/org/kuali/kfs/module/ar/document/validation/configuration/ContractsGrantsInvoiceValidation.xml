@@ -18,54 +18,54 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsInvoice-routeDocumentValidation"
-		parent="ContractsGrantsInvoice-routeDocumentValidation-parentBean"
-		scope="prototype" />
+    <bean id="ContractsGrantsInvoice-routeDocumentValidation"
+          parent="ContractsGrantsInvoice-routeDocumentValidation-parentBean"
+          scope="prototype"/>
 
-	<bean id="ContractsGrantsInvoice-routeDocumentValidation-parentBean"
-		parent="CompositeValidation" scope="prototype" abstract="true">
-		<property name="validations">
-			<list>
-				<bean parent="ContractsGrantsInvoice-documentValidation" scope="prototype">
-					<property name="parameterProperties">
-						<list>
-							<bean parent="validationFieldConversion">
-								<property name="sourceEventProperty" value="document" />
-								<property name="targetValidationProperty" value="contractsGrantsInvoiceDocument" />
-							</bean>
-						</list>
-					</property>
-				</bean>
-				<bean parent="ContractsGrantsInvoice-invoiceDetailAccountObjectCode-financialObjectCodesValidation" scope="prototype"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoice-routeDocumentValidation-parentBean"
+          parent="CompositeValidation" scope="prototype" abstract="true">
+        <property name="validations">
+            <list>
+                <bean parent="ContractsGrantsInvoice-documentValidation" scope="prototype">
+                    <property name="parameterProperties">
+                        <list>
+                            <bean parent="validationFieldConversion">
+                                <property name="sourceEventProperty" value="document"/>
+                                <property name="targetValidationProperty" value="contractsGrantsInvoiceDocument"/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+                <bean parent="ContractsGrantsInvoice-invoiceDetailAccountObjectCode-financialObjectCodesValidation" scope="prototype"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsInvoice-saveDocumentValidation"
-		parent="ContractsGrantsInvoice-saveDocumentValidation-parentBean"
-		scope="prototype" />
+    <bean id="ContractsGrantsInvoice-saveDocumentValidation"
+          parent="ContractsGrantsInvoice-saveDocumentValidation-parentBean"
+          scope="prototype"/>
 
-	<bean id="ContractsGrantsInvoice-saveDocumentValidation-parentBean"
-		parent="CompositeValidation" scope="prototype" abstract="true">
-		<property name="validations">
-			<list>
-				<bean parent="ContractsGrantsInvoice-documentValidation" scope="prototype">
-					<property name="parameterProperties">
-						<list>
-							<bean parent="validationFieldConversion">
-								<property name="sourceEventProperty" value="document" />
-								<property name="targetValidationProperty" value="contractsGrantsInvoiceDocument" />
-							</bean>
-						</list>
-					</property>
-				</bean>
-				<bean parent="ContractsGrantsInvoice-invoiceDetailAccountObjectCode-financialObjectCodesValidation" scope="prototype"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="ContractsGrantsInvoice-saveDocumentValidation-parentBean"
+          parent="CompositeValidation" scope="prototype" abstract="true">
+        <property name="validations">
+            <list>
+                <bean parent="ContractsGrantsInvoice-documentValidation" scope="prototype">
+                    <property name="parameterProperties">
+                        <list>
+                            <bean parent="validationFieldConversion">
+                                <property name="sourceEventProperty" value="document"/>
+                                <property name="targetValidationProperty" value="contractsGrantsInvoiceDocument"/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+                <bean parent="ContractsGrantsInvoice-invoiceDetailAccountObjectCode-financialObjectCodesValidation" scope="prototype"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

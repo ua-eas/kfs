@@ -19,14 +19,14 @@
 
 package org.kuali.kfs.module.purap.document;
 
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 /**
  * Purchase Order Payment Hold Document
@@ -81,13 +81,13 @@ public class PurchaseOrderPaymentHoldDocument extends PurchaseOrderDocument {
                 // for app doc status
                 updateAndSaveAppDocStatus(PurapConstants.PurchaseOrderStatuses.APPDOC_CANCELLED);
             }
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
     }
+
     @Override
     protected boolean shouldAdhocFyi() {
         return false;
-      }
+    }
 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess;
 
+import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
+
 import java.util.Collection;
 import java.util.List;
-
-import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
 
 public interface NonAppliedHoldingDao {
 

@@ -37,19 +37,19 @@ public interface NamespaceService {
 
     /**
      * Gets a {@link Namespace} from a namespace code.
-     *
      * <p>
-     *   This method will return null if the namespace does not exist.
+     * <p>
+     * This method will return null if the namespace does not exist.
      * </p>
      *
      * @param code the code to retrieve the namespace by. cannot be blank.
      * @return a {@link Namespace} or null
      * @throws RiceIllegalArgumentException if the code is blank
      */
-    @WebMethod(operationName="getNamespace")
+    @WebMethod(operationName = "getNamespace")
     @WebResult(name = "namespace")
-    @Cacheable(value= Namespace.Cache.NAME, key="'key=' + #p0")
-	Namespace getNamespace(@WebParam(name = "code") String code) throws RiceIllegalArgumentException;
+    @Cacheable(value = Namespace.Cache.NAME, key = "'key=' + #p0")
+    Namespace getNamespace(@WebParam(name = "code") String code) throws RiceIllegalArgumentException;
 
     /**
      * Returns all Namespaces.
@@ -60,6 +60,6 @@ public interface NamespaceService {
     @WebResult(name = "namespaces")
     @XmlElementWrapper(name = "namespaces", required = true)
     @XmlElement(name = "namespace", required = false)
-    @Cacheable(value=Namespace.Cache.NAME, key="'all'")
+    @Cacheable(value = Namespace.Cache.NAME, key = "'all'")
     List<Namespace> findAllNamespaces();
 }

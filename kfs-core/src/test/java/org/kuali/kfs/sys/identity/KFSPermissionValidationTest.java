@@ -18,42 +18,42 @@
  */
 package org.kuali.kfs.sys.identity;
 
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.fixture.UserNameFixture;
+import org.kuali.rice.kim.api.identity.Person;
 
 @ConfigureContext
 public class KFSPermissionValidationTest extends KualiTestBase {
 
 
-    @ConfigureContext(session=UserNameFixture.day)
+    @ConfigureContext(session = UserNameFixture.day)
     public void testChartPermission_1() throws Exception {
         DocumentAuthorizer auth = new MaintenanceDocumentAuthorizerBase();
         Person user = GlobalVariables.getUserSession().getPerson();
         String documentTypeName = "PVEN";
         assertTrue(
-                GlobalVariables.getUserSession().getPrincipalName() + " should be able to initiate " + documentTypeName,
-                auth.canInitiate( documentTypeName, user)
-                );
+            GlobalVariables.getUserSession().getPrincipalName() + " should be able to initiate " + documentTypeName,
+            auth.canInitiate(documentTypeName, user)
+        );
         Document doc = SpringContext.getBean(DocumentService.class).getNewDocument(documentTypeName);
         assertTrue(
-                "Initiator should be able to open the document",
-                auth.canOpen(doc, user)
-                );
+            "Initiator should be able to open the document",
+            auth.canOpen(doc, user)
+        );
 
         documentTypeName = "GOBJ";
 
         assertFalse(
-                GlobalVariables.getUserSession().getPrincipalName() + " should not be able to initiate " + documentTypeName,
-                auth.canInitiate( documentTypeName, GlobalVariables.getUserSession().getPerson())
-                );
+            GlobalVariables.getUserSession().getPrincipalName() + " should not be able to initiate " + documentTypeName,
+            auth.canInitiate(documentTypeName, GlobalVariables.getUserSession().getPerson())
+        );
     }
 
 }

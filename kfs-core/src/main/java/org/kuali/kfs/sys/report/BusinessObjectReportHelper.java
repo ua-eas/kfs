@@ -18,14 +18,10 @@
  */
 package org.kuali.kfs.sys.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.BigDecimalFormatter;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
@@ -34,9 +30,13 @@ import org.kuali.rice.core.web.format.IntegerFormatter;
 import org.kuali.rice.core.web.format.KualiIntegerCurrencyFormatter;
 import org.kuali.rice.core.web.format.LongFormatter;
 import org.kuali.rice.core.web.format.PercentageFormatter;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class for business objects to assist formatting them for error reporting. Utilizes spring injection for modularization and
@@ -69,7 +69,7 @@ public class BusinessObjectReportHelper {
     public List<Object> getValues(BusinessObject businessObject) {
         List<Object> keys = new ArrayList<Object>();
 
-        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext();) {
+        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext(); ) {
             String propertyName = propertyNames.next();
             keys.add(retrievePropertyValue(businessObject, propertyName));
         }
@@ -87,8 +87,7 @@ public class BusinessObjectReportHelper {
     protected Object retrievePropertyValue(BusinessObject businessObject, String propertyName) {
         try {
             return PropertyUtils.getProperty(businessObject, propertyName);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Failed getting propertyName=" + propertyName + " from businessObjecName=" + businessObject.getClass().getName(), e);
         }
     }
@@ -125,7 +124,7 @@ public class BusinessObjectReportHelper {
     public List<Object> getBlankValues(BusinessObject businessObject) {
         List<Object> keys = new ArrayList<Object>();
 
-        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext();) {
+        for (Iterator<String> propertyNames = orderedPropertyNameToHeaderLabelMap.keySet().iterator(); propertyNames.hasNext(); ) {
             String propertyName = propertyNames.next();
 
             keys.add("");
@@ -138,8 +137,8 @@ public class BusinessObjectReportHelper {
      * Returns multiple lines of what represent a table header. The last line in this list is the format of the table cells.
      *
      * @param maximumPageWidth maximum before line is out of bounds. Used to fill message to the end of this range. Note that if
-     *        there isn't at least maximumPageWidth characters available it will go minimumMessageLength out of bounds. It is up to
-     *        the calling class to handle that
+     *                         there isn't at least maximumPageWidth characters available it will go minimumMessageLength out of bounds. It is up to
+     *                         the calling class to handle that
      * @return table header. Last element is the format of the table cells.
      */
     public List<String> getTableHeader(int maximumPageWidth) {
@@ -147,14 +146,13 @@ public class BusinessObjectReportHelper {
         String messageFormat = StringUtils.EMPTY;
 
         // Construct the header based on orderedPropertyNameToHeaderLabelMap. It will pick the longest of label or DD size
-        for (Iterator<Map.Entry<String, String>> entries = orderedPropertyNameToHeaderLabelMap.entrySet().iterator(); entries.hasNext();) {
+        for (Iterator<Map.Entry<String, String>> entries = orderedPropertyNameToHeaderLabelMap.entrySet().iterator(); entries.hasNext(); ) {
             Map.Entry<String, String> entry = entries.next();
 
             int longest;
             try {
                 longest = retrievePropertyValueMaximumLength(dataDictionaryBusinessObjectClass, entry.getKey());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Failed getting propertyName=" + entry.getKey() + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
             }
             if (entry.getValue().length() > longest) {
@@ -220,7 +218,7 @@ public class BusinessObjectReportHelper {
      * "EMPTY_CELL" entry is an empty string.
      *
      * @param businessObject for which to return the values
-     * @param allowColspan indicate whether colspan definition can be applied
+     * @param allowColspan   indicate whether colspan definition can be applied
      * @return the values being put into the table cells
      */
     public List<String> getTableCellValues(BusinessObject businessObject, boolean allowColspan) {
@@ -231,17 +229,15 @@ public class BusinessObjectReportHelper {
 
             if (attributeName.startsWith(KFSConstants.ReportConstants.EMPTY_CELL_ENTRY_KEY_PREFIX)) {
                 tableCellValues.add(StringUtils.EMPTY);
-            }
-            else {
+            } else {
                 try {
                     Object propertyValue = retrievePropertyValue(businessObject, attributeName);
 
                     if (ObjectUtils.isNotNull(propertyValue)) {
                         Formatter formatter = Formatter.getFormatter(propertyValue.getClass());
-                        if(ObjectUtils.isNotNull(formatter) && ObjectUtils.isNotNull(propertyValue)) {
+                        if (ObjectUtils.isNotNull(formatter) && ObjectUtils.isNotNull(propertyValue)) {
                             propertyValue = formatter.format(propertyValue);
-                        }
-                        else {
+                        } else {
                             propertyValue = StringUtils.EMPTY;
                         }
                     } else {
@@ -249,14 +245,13 @@ public class BusinessObjectReportHelper {
                     }
 
                     tableCellValues.add(propertyValue.toString());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + entry.getKey() + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
         }
 
-        if(allowColspan) {
+        if (allowColspan) {
             this.applyColspanOnCellValues(tableCellValues);
         }
 
@@ -266,17 +261,16 @@ public class BusinessObjectReportHelper {
     /**
      * get the format string for all cells in a table row. Colspan definition will be applied if allowColspan is true
      *
-     * @param allowColspan indicate whether colspan definition can be applied
+     * @param allowColspan        indicate whether colspan definition can be applied
      * @param allowRightAlignment indicate whether the right alignment can be applied
-     * @param separatorLine the separation line for better look
-     *
+     * @param separatorLine       the separation line for better look
      * @return the format string for all cells in a table row
      */
     public String getTableCellFormat(boolean allowColspan, boolean allowRightAlignment, String separatorLine) {
         List<Integer> cellWidthList = this.getTableCellWidth();
         List<String> cellAlignmentList = this.getTableCellAlignment();
 
-        if(allowColspan) {
+        if (allowColspan) {
             this.applyColspanOnCellWidth(cellWidthList);
         }
 
@@ -290,20 +284,20 @@ public class BusinessObjectReportHelper {
             for (int columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
                 int index = columnCount * rowIndex + columnIndex;
 
-                if(index >= numberOfCell) {
+                if (index >= numberOfCell) {
                     break;
                 }
 
                 int width = cellWidthList.get(index);
                 String alignment = (allowRightAlignment && cellAlignmentList.get(index).equals(RIGHT_ALIGNMENT)) ? StringUtils.EMPTY : "-";
-                if(width > 0) {
+                if (width > 0) {
                     // following translates to %<alignment><width>.<precision>s where the precision for Strings forces a maxLength
                     singleRowFormat = singleRowFormat.append("%").append(alignment).append(width).append("." + width).append("s ");
                 }
             }
 
             tableCellFormat = tableCellFormat.append(singleRowFormat).append(LINE_BREAK);
-            if(StringUtils.isNotBlank(separatorLine)) {
+            if (StringUtils.isNotBlank(separatorLine)) {
                 tableCellFormat = tableCellFormat.append(separatorLine).append(LINE_BREAK);
             }
         }
@@ -313,6 +307,7 @@ public class BusinessObjectReportHelper {
 
     /**
      * get the separator line
+     *
      * @param cellWidthList the given cell width list
      * @return the separator line
      */
@@ -333,7 +328,7 @@ public class BusinessObjectReportHelper {
      * @param the default width of the table cells
      */
     public void applyColspanOnCellWidth(List<Integer> cellWidthList) {
-        if(ObjectUtils.isNull(columnSpanDefinition)) {
+        if (ObjectUtils.isNull(columnSpanDefinition)) {
             return;
         }
 
@@ -362,7 +357,7 @@ public class BusinessObjectReportHelper {
      * @param the default values of the table cells
      */
     public void applyColspanOnCellValues(List<String> cellValues) {
-        if(ObjectUtils.isNull(columnSpanDefinition)) {
+        if (ObjectUtils.isNull(columnSpanDefinition)) {
             return;
         }
 
@@ -384,8 +379,8 @@ public class BusinessObjectReportHelper {
         }
 
         int originalLength = cellValues.size();
-        for(int index = originalLength -1; index>=0; index-- ) {
-            if(StringUtils.equals(cellValues.get(index), REMOVE_ME)) {
+        for (int index = originalLength - 1; index >= 0; index--) {
+            if (StringUtils.equals(cellValues.get(index), REMOVE_ME)) {
                 cellValues.remove(index);
             }
         }
@@ -395,7 +390,7 @@ public class BusinessObjectReportHelper {
      * get the values that can be fed into a predefined table. If the values are not enought to occupy the table cells, a number of empty values are provided.
      *
      * @param businessObject the given business object whose property values will be collected
-     * @param allowColspan indicate whether colspan definition can be applied
+     * @param allowColspan   indicate whether colspan definition can be applied
      * @return
      */
     public List<String> getTableCellValuesPaddingWithEmptyCell(BusinessObject businessObject, boolean allowColspan) {
@@ -422,8 +417,7 @@ public class BusinessObjectReportHelper {
             if (!attributeName.startsWith(KFSConstants.ReportConstants.EMPTY_CELL_ENTRY_KEY_PREFIX)) {
                 try {
                     cellWidth = retrievePropertyValueMaximumLength(dataDictionaryBusinessObjectClass, attributeName);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + attributeName + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
@@ -487,8 +481,7 @@ public class BusinessObjectReportHelper {
                     Class<? extends Formatter> formatterClass = this.retrievePropertyFormatterClass(dataDictionaryBusinessObjectClass, attributeName);
 
                     isNumber = numberFormatters.contains(formatterClass);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("Failed getting propertyName=" + attributeName + " from businessObjecName=" + dataDictionaryBusinessObjectClass.getName(), e);
                 }
             }
@@ -517,7 +510,7 @@ public class BusinessObjectReportHelper {
      *
      * @return the formatter classes defined for numbers
      */
-    protected List<Class<? extends Formatter>> getNumberFormatters(){
+    protected List<Class<? extends Formatter>> getNumberFormatters() {
         List<Class<? extends Formatter>> numberFormatters = new ArrayList<Class<? extends Formatter>>();
 
         numberFormatters.add(BigDecimalFormatter.class);

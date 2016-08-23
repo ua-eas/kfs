@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.authorization.FinancialProcessingAccountingLineAuthorizer;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -30,9 +28,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
+import java.util.Set;
 
 public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProcessingAccountingLineAuthorizer {
 
@@ -52,7 +51,7 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.businessobject.AccountingLine,
-     *      java.lang.String, java.lang.Integer, java.lang.String)
+     * java.lang.String, java.lang.Integer, java.lang.String)
      */
     @Override
     protected Map<String, AccountingLineViewAction> getActionMap(AccountingLineRenderingContext accountingLineRenderingContext, String accountingLinePropertyName, Integer accountingLineIndex, String groupTitle) {
@@ -63,8 +62,7 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
         // show the Refresh button on the New Line Actions
         if (isNewLine(accountingLineIndex)) {
             actionMap.put(REFRESH_METHOD_NAME, new AccountingLineViewAction(REFRESH_METHOD_NAME, REFRESH_LABEL, ICON_BUTTON_STYLE, REFRESH_BUTTON_LABEL, REFRESH_BUTTON_ICON));
-        }
-        else {
+        } else {
             // always add the Recalculate button if its in edit mode
             String groupName = super.getActionInfixForExtantAccountingLine(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName);
             String methodName = methodName(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, accountingLineIndex, RECALCULATE_METHOD_NAME);
@@ -111,14 +109,14 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
      * 2. invoice item description and amount editable for recurring invoices
      *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineFieldModifyability(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.document.web.AccountingLineViewField, java.util.Map)
+     * org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.document.web.AccountingLineViewField, java.util.Map)
      */
     @Override
     public boolean determineEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage) {
         boolean canModify = super.determineEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
 
         if (canModify) {
-            boolean discountLineFlag = ((CustomerInvoiceDetail)accountingLine).isDiscountLine();
+            boolean discountLineFlag = ((CustomerInvoiceDetail) accountingLine).isDiscountLine();
             if (discountLineFlag) {
                 if (StringUtils.equals(fieldName, getChartPropertyName()) || StringUtils.equals(fieldName, getAccountNumberPropertyName()))
                     canModify = false;

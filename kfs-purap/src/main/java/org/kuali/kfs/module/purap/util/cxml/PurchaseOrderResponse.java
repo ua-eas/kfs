@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.util.cxml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurchaseOrderResponse extends B2BShoppingCartBase {
 
     private List errors = new ArrayList();
 
-    public void addPOResponseErrorMessage(String errorText){
-        if (StringUtils.isNotEmpty(errorText)){
+    public void addPOResponseErrorMessage(String errorText) {
+        if (StringUtils.isNotEmpty(errorText)) {
             errors.add(errorText);
         }
     }
@@ -38,18 +38,18 @@ public class PurchaseOrderResponse extends B2BShoppingCartBase {
 
         if (!isSuccess()) {
             return errors;
-        }else{
+        } else {
             return null;
         }
     }
 
-    public String toString(){
+    public String toString() {
 
         ToStringBuilder toString = new ToStringBuilder(this);
-        toString.append("StatusCode",getStatusCode());
-        toString.append("StatusText",getStatusText());
-        toString.append("isSuccess",isSuccess());
-        toString.append("Errors",getPOResponseErrorMessages());
+        toString.append("StatusCode", getStatusCode());
+        toString.append("StatusText", getStatusText());
+        toString.append("isSuccess", isSuccess());
+        toString.append("Errors", getPOResponseErrorMessages());
 
         return toString.toString();
     }

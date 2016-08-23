@@ -20,4 +20,5 @@ package org.kuali.kfs.module.tem.document.web.struts;
 
 import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
 
-public class TravelArrangerForm extends KualiTransactionalDocumentFormBase {}
+public class TravelArrangerForm extends KualiTransactionalDocumentFormBase {
+}

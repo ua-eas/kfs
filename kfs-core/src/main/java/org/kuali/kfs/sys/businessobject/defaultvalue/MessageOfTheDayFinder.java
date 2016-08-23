@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.businessobject.defaultvalue;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.MessageOfTheDay;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Collection;
 
 public class MessageOfTheDayFinder implements ValueFinder {
-//    public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/MessageOfTheDayFinder";
+    //    public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/MessageOfTheDayFinder";
 //
 //    @Cacheable(value=CACHE_NAME)
     @Override
@@ -37,8 +37,8 @@ public class MessageOfTheDayFinder implements ValueFinder {
             if (collection != null && !collection.isEmpty()) {
                 return collection.iterator().next().getFinancialSystemMessageOfTheDayText();
             }
-        } catch ( Exception ex ) {
-            Logger.getLogger(getClass()).error("Unable to retrieve the message of the day",ex);
+        } catch (Exception ex) {
+            Logger.getLogger(getClass()).error("Unable to retrieve the message of the day", ex);
         }
         return "unable to retrieve message of the day";
     }

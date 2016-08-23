@@ -40,8 +40,8 @@ public class UploadParserException extends RuntimeException {
     /**
      * Constructs an UploadParserException instance.
      *
-     * @param message error message
-     * @param errorKey key to an error message
+     * @param message         error message
+     * @param errorKey        key to an error message
      * @param errorParameters error message parameters
      */
     public UploadParserException(String message, String errorKey, String... errorParameters) {

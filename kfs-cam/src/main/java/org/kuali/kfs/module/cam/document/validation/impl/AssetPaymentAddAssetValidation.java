@@ -18,25 +18,22 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentAssetDetail;
 import org.kuali.kfs.module.cam.document.service.AssetPaymentService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- *
  * This class validates if asset# typed in the asset textbox isn't blank, and validate its wasn't already added in the collection
- *
  */
 public class AssetPaymentAddAssetValidation extends GenericValidation {
     private AssetPaymentService assetPaymentService;
     private AssetPaymentAssetDetail assetPaymentAssetDetailForValidation;
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {

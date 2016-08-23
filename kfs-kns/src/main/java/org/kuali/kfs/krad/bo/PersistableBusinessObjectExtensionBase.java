@@ -22,7 +22,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class PersistableBusinessObjectExtensionBase extends
-		PersistableBusinessObjectBase implements
-		PersistableBusinessObjectExtension {
+    PersistableBusinessObjectBase implements
+    PersistableBusinessObjectExtension {
 
 }

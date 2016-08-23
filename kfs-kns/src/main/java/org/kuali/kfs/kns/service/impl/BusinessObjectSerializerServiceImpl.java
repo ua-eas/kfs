@@ -36,20 +36,19 @@ public class BusinessObjectSerializerServiceImpl extends org.kuali.kfs.krad.serv
 
         String docTypeName = getDocumentDictionaryService().getMaintenanceDocumentTypeName(businessObject.getClass());
         MaintenanceDocumentEntry maintenanceDocumentEntry =
-                getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
+            getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
 
         if (maintenanceDocumentEntry instanceof org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) {
             List<MaintainableSectionDefinition> maintainableSectionDefinitions =
-                    ((org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) maintenanceDocumentEntry).getMaintainableSections();
+                ((org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) maintenanceDocumentEntry).getMaintainableSections();
             if (CollectionUtils.isEmpty(maintainableSectionDefinitions)) {
                 evaluator = new AlwaysTruePropertySerializibilityEvaluator();
             } else {
                 evaluator = new MaintenanceDocumentPropertySerializibilityEvaluator();
                 evaluator.initializeEvaluatorForDataObject(businessObject);
             }
-        }
-        else {
-           evaluator = new AlwaysTruePropertySerializibilityEvaluator();
+        } else {
+            evaluator = new AlwaysTruePropertySerializibilityEvaluator();
         }
 
         return evaluator;

@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -36,16 +37,14 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants.PersonExternalIdentifierTypes;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.List;
 
 public class DisbursementVoucherVendorInformationValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPaymentReasonValidation.class);
@@ -68,7 +67,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
         if (!payeeDetail.isVendor()) {
 
             String initiator = document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
-            final Entity entity= SpringContext.getBean(IdentityManagementService.class).getEntityByPrincipalId(initiator);
+            final Entity entity = SpringContext.getBean(IdentityManagementService.class).getEntityByPrincipalId(initiator);
             // KFSCNTRB-1718- Don't assume that an initiator is an employee.
             List<EntityEmployment> employmentInformation = entity.getEmploymentInformation();
             if (employmentInformation != null && employmentInformation.size() > 0) {
@@ -79,7 +78,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                     isValid = false;
                     MessageMap errors = GlobalVariables.getMessageMap();
                     errors.addToErrorPath(KFSPropertyConstants.DOCUMENT);
-                    String[] errorName = { "Payee ID " + employeeId, " Originator has the same ID ", "name" };
+                    String[] errorName = {"Payee ID " + employeeId, " Originator has the same ID ", "name"};
                     errors.putError(DV_PAYEE_ID_NUMBER_PROPERTY_PATH, KFSKeyConstants.ERROR_DV_VENDOR_NAME_PERSON_NAME_CONFUSION, errorName);
                 }
             }
@@ -124,9 +123,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                     }
 
                 }
-            }
-
-            else if (isEmployeeSSN(vendor.getVendorHeader().getVendorTaxNumber())) {
+            } else if (isEmployeeSSN(vendor.getVendorHeader().getVendorTaxNumber())) {
                 // check param setting for paid outside payroll check
                 boolean performPaidOutsidePayrollInd = parameterService.getParameterValueAsBoolean(DisbursementVoucherDocument.class, DisbursementVoucherConstants.CHECK_EMPLOYEE_PAID_OUTSIDE_PAYROLL_PARM_NM);
 
@@ -148,7 +145,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
     /**
      * Retrieves the VendorDetail object from the vendor id number.
      *
-     * @param vendorIdNumber vendor ID number
+     * @param vendorIdNumber       vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
      */
@@ -202,6 +199,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -210,6 +208,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

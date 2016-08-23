@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.List;
-
 import org.junit.Test;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseImportTypes;
@@ -37,11 +38,10 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class ExpenseImportByTripServiceTest extends KualiTestBase {
@@ -69,7 +69,6 @@ public class ExpenseImportByTripServiceTest extends KualiTestBase {
 
 
     /**
-     *
      * This method tests {@link ExpenseImportByTripService#validateAccountingInfo(TemProfile, AgencyStagingData)}
      */
     @Test
@@ -105,7 +104,6 @@ public class ExpenseImportByTripServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests {@link ExpenseImportByTripService#validateTripId(AgencyStagingData)}
      */
     @Test
@@ -120,7 +118,6 @@ public class ExpenseImportByTripServiceTest extends KualiTestBase {
 
 
     /**
-     *
      * This method tests {@link ExpenseImportByTripService#isDuplicate(AgencyStagingData)}
      */
     @Test
@@ -141,7 +138,6 @@ public class ExpenseImportByTripServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests {@link ExpenseImportByTripService#areMandatoryFieldsPresent(AgencyStagingData)}
      */
     @Test
@@ -231,7 +227,7 @@ public class ExpenseImportByTripServiceTest extends KualiTestBase {
     protected TravelAuthorizationDocument createTA() {
         TravelAuthorizationDocument ta = null;
         try {
-            ta = (TravelAuthorizationDocument)documentService.getNewDocument(TravelAuthorizationDocument.class);
+            ta = (TravelAuthorizationDocument) documentService.getNewDocument(TravelAuthorizationDocument.class);
             ta.getDocumentHeader().setDocumentDescription("testing");
             ta.setTravelDocumentIdentifier(TRIP_ID);
             ta.setTripTypeCode("IN");

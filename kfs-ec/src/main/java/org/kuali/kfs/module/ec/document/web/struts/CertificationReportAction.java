@@ -18,20 +18,17 @@
  */
 package org.kuali.kfs.module.ec.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortConstants.EffortCertificationEditMode;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
@@ -53,12 +50,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class handles Actions for EffortCertification document approval.
@@ -124,8 +123,7 @@ public class CertificationReportAction extends EffortCertificationAction {
             this.resetPersistedFields(workingDetailLine);
             detailLines.add(workingDetailLine);
             certificationReportForm.setNewDetailLine(certificationReportForm.createNewDetailLine());
-        }
-        else {
+        } else {
             EffortCertificationDetailLineOverride.processForOutput(newDetailLine);
         }
 
@@ -179,7 +177,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -197,7 +195,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -329,7 +327,7 @@ public class CertificationReportAction extends EffortCertificationAction {
      * find the detail lines belonging to the given group from the given detail lines
      *
      * @param detailLines the given detail lines
-     * @param groupId the given group id
+     * @param groupId     the given group id
      * @return the detail lines belonging to the given group
      */
     protected List<EffortCertificationDetail> findDetailLinesInGroup(List<EffortCertificationDetail> detailLines, String groupId) {
@@ -440,8 +438,8 @@ public class CertificationReportAction extends EffortCertificationAction {
     /**
      * update detail line group with the the information in the given detail line
      *
-     * @param detailLineGroup the given detail line group
-     * @param detailLine the given detail line
+     * @param detailLineGroup    the given detail line group
+     * @param detailLine         the given detail line
      * @param totalPayrollAmount the total payroll amount of the document associating with the detail line group
      */
     protected void updateDetailLineGroup(DetailLineGroup detailLineGroup, EffortCertificationDetail detailLine, KualiDecimal totalPayrollAmount) {
@@ -460,8 +458,7 @@ public class CertificationReportAction extends EffortCertificationAction {
     protected void toggleSortOrder(CertificationReportForm certificationReportForm) {
         if (SortOrder.ASC.name().equals(certificationReportForm.getSortOrder())) {
             certificationReportForm.setSortOrder(SortOrder.DESC.name());
-        }
-        else {
+        } else {
             certificationReportForm.setSortOrder(SortOrder.ASC.name());
         }
     }
@@ -534,7 +531,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#approve(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -562,6 +559,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * Do one additional check on Use Transactional for Summary Tab
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase#populateAuthorizationFields(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -573,7 +571,7 @@ public class CertificationReportAction extends EffortCertificationAction {
         CertificationReportForm certificationReportForm = (CertificationReportForm) formBase;
 
         //get document authorizer
-        EffortCertificationDocumentAuthorizer certReportDocAuthorizer = (EffortCertificationDocumentAuthorizer)SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(EffortConstants.EffortDocumentTypes.EFFORT_CERTIFICATION_DOCUMENT);
+        EffortCertificationDocumentAuthorizer certReportDocAuthorizer = (EffortCertificationDocumentAuthorizer) SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(EffortConstants.EffortDocumentTypes.EFFORT_CERTIFICATION_DOCUMENT);
 
         //grab document
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) formBase;
@@ -594,22 +592,22 @@ public class CertificationReportAction extends EffortCertificationAction {
         String proposalNumber = getPropsalNumberForProjectDirector(currentPrincipalId, summarizedDetailLines);
 
         //set proposal number if found
-        if (StringUtils.isNotBlank(proposalNumber)){
+        if (StringUtils.isNotBlank(proposalNumber)) {
             additionalRoleQualifiers.put(KFSPropertyConstants.PROPOSAL, proposalNumber);
 
             //re-check summary permission
             if (certReportDocAuthorizer.doPermissionExistsByTemplate(
-                    effortDocument,
-                    KRADConstants.KNS_NAMESPACE,
-                    KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
-                    additionalPermissionDetails)
-                    && !certReportDocAuthorizer.isAuthorizedByTemplate(
-                            effortDocument,
-                            KRADConstants.KNS_NAMESPACE,
-                            KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
-                            currentPrincipalId,
-                            additionalPermissionDetails,
-                            additionalRoleQualifiers)) {
+                effortDocument,
+                KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
+                additionalPermissionDetails)
+                && !certReportDocAuthorizer.isAuthorizedByTemplate(
+                effortDocument,
+                KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
+                currentPrincipalId,
+                additionalPermissionDetails,
+                additionalRoleQualifiers)) {
 
                 formBase.getEditingMode().put(EffortCertificationEditMode.SUMMARY_TAB_ENTRY, KRADConstants.KUALI_DEFAULT_TRUE_VALUE);
             }
@@ -622,7 +620,7 @@ public class CertificationReportAction extends EffortCertificationAction {
      * @param projectDirectorId
      * @return
      */
-    protected String getPropsalNumberForProjectDirector(String projectDirectorId, List<EffortCertificationDetail> summarizedDetailLines){
+    protected String getPropsalNumberForProjectDirector(String projectDirectorId, List<EffortCertificationDetail> summarizedDetailLines) {
 
         String proposalNumber = null;
         String chartOfAccountsCode = null;
@@ -632,21 +630,21 @@ public class CertificationReportAction extends EffortCertificationAction {
             proposalNumber = SpringContext.getBean(ContractsAndGrantsModuleService.class).getProposalNumberForAccountAndProjectDirector(line.getChartOfAccountsCode(), line.getAccountNumber(), projectDirectorId);
 
             //if found a proposal number, break and return
-            if( StringUtils.isNotEmpty(proposalNumber)) break;
+            if (StringUtils.isNotEmpty(proposalNumber)) break;
         }
 
         return proposalNumber;
     }
 
-    protected List<EffortCertificationDetail> createSummarizedDetailLines(CertificationReportForm certificationReportForm){
+    protected List<EffortCertificationDetail> createSummarizedDetailLines(CertificationReportForm certificationReportForm) {
 
         List<EffortCertificationDetail> summarizedDetailLines = new ArrayList<EffortCertificationDetail>();
         Map<String, DetailLineGroup> detailLineGroupMap = null;
 
         summarizedDetailLines = certificationReportForm.getSummarizedDetailLines();
 
-        if(ObjectUtils.isNull(summarizedDetailLines) || summarizedDetailLines.isEmpty()){
-            if(ObjectUtils.isNotNull(certificationReportForm.getDetailLines()) && !certificationReportForm.getDetailLines().isEmpty()){
+        if (ObjectUtils.isNull(summarizedDetailLines) || summarizedDetailLines.isEmpty()) {
+            if (ObjectUtils.isNotNull(certificationReportForm.getDetailLines()) && !certificationReportForm.getDetailLines().isEmpty()) {
                 summarizedDetailLines = certificationReportForm.getDetailLines();
             }
         }
@@ -661,11 +659,11 @@ public class CertificationReportAction extends EffortCertificationAction {
      * @param summaryDetail
      * @return
      */
-    protected Map<String,String> convertSummarizedDetailToChartAccountMap(List<EffortCertificationDetail> summaryDetail){
+    protected Map<String, String> convertSummarizedDetailToChartAccountMap(List<EffortCertificationDetail> summaryDetail) {
 
-        Map<String,String> chartAccountMap = new HashMap<String,String>();
+        Map<String, String> chartAccountMap = new HashMap<String, String>();
 
-        for(EffortCertificationDetail line: summaryDetail){
+        for (EffortCertificationDetail line : summaryDetail) {
             chartAccountMap.put(line.getChartOfAccountsCode(), line.getAccountNumber());
         }
 

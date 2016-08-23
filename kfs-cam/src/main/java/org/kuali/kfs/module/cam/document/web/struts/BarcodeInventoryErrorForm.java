@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
- *
  * Action form for the asset barcode inventory error document
  */
 public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocumentFormBase {
@@ -39,7 +37,6 @@ public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocum
     protected HashMap barcodeInventoryStatuses;
 
     /**
-     *
      * Constructs a BarcodeInventoryErrorForm.java.
      */
     public BarcodeInventoryErrorForm() {
@@ -58,7 +55,7 @@ public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocum
     }
 
     /**
-     *  @returns BCIE document
+     * @returns BCIE document
      */
     public BarcodeInventoryErrorDocument getBarcodeInventoryErrorDocument() {
         return (BarcodeInventoryErrorDocument) getDocument();
@@ -66,6 +63,7 @@ public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocum
 
     /**
      * Get rowCheckbox
+     *
      * @return String
      */
     public int[] getRowCheckbox() {
@@ -74,6 +72,7 @@ public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocum
 
     /**
      * Set rowCheckbox
+     *
      * @param <code>String</code>
      */
     public void setRowCheckbox(int r[]) {
@@ -91,7 +90,6 @@ public class BarcodeInventoryErrorForm extends FinancialSystemTransactionalDocum
     }
 
     /**
-     *
      * Reset the BCIE document checkboxes.
      */
     public void resetCheckBoxes() {

@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.module.cam.util;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -33,6 +25,14 @@ import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * This class is a calculator which will distribute the amounts and balance them by ratio. Inputs received are
@@ -71,11 +71,11 @@ public class AssetSeparatePaymentDistributor {
     /**
      * Constructs a AssetSeparatePaymentDistributor.java.
      *
-     * @param sourceAsset Source Asset
-     * @param sourcePayments Source Payments
+     * @param sourceAsset     Source Asset
+     * @param sourcePayments  Source Payments
      * @param maxPaymentSeqNo Current max of payment number used by source Asset
-     * @param assetGlobal AssetGlobal Document performing the separate action
-     * @param newAssets List of new assets to be created for this separate request document
+     * @param assetGlobal     AssetGlobal Document performing the separate action
+     * @param newAssets       List of new assets to be created for this separate request document
      */
     public AssetSeparatePaymentDistributor(Asset sourceAsset, List<AssetPayment> sourcePayments, Integer maxPaymentSeqNo, AssetGlobal assetGlobal, List<Asset> newAssets) {
         super();
@@ -136,7 +136,7 @@ public class AssetSeparatePaymentDistributor {
                 ObjectValueUtils.copySimpleProperties(assetPayment, remainingPayment);
                 this.remainingPayments.add(remainingPayment);
 
-                applyRatioToPaymentAmounts(assetPayment, new AssetPayment[] { separatePayment, remainingPayment }, new double[] { separateRatio, retainRatio });
+                applyRatioToPaymentAmounts(assetPayment, new AssetPayment[]{separatePayment, remainingPayment}, new double[]{separateRatio, retainRatio});
             }
         }
 
@@ -153,8 +153,7 @@ public class AssetSeparatePaymentDistributor {
             ObjectValueUtils.copySimpleProperties(separatePayment, offsetPayment);
             try {
                 negatePaymentAmounts(offsetPayment);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException();
             }
             offsetPayment.setDocumentNumber(assetGlobal.getDocumentNumber());
@@ -240,9 +239,9 @@ public class AssetSeparatePaymentDistributor {
     /**
      * Utility method which can take one payment and distribute its amount by ratio to the target payments
      *
-     * @param source Source Payment
+     * @param source  Source Payment
      * @param targets Target Payment
-     * @param ratios Ratio to be applied for each target
+     * @param ratios  Ratio to be applied for each target
      */
     private void applyRatioToPaymentAmounts(AssetPayment source, AssetPayment[] targets, double[] ratios) {
         try {
@@ -261,8 +260,7 @@ public class AssetSeparatePaymentDistributor {
                     }
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -271,7 +269,7 @@ public class AssetSeparatePaymentDistributor {
     /**
      * Utility method which can compute the difference between source amount and consumed amounts, then will adjust the last amount
      *
-     * @param source Source payments
+     * @param source       Source payments
      * @param consumedList Consumed Payments
      */
     private void applyBalanceToPaymentAmounts(AssetPayment source, List<AssetPayment> consumedList) {
@@ -297,8 +295,7 @@ public class AssetSeparatePaymentDistributor {
                     }
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -322,8 +319,7 @@ public class AssetSeparatePaymentDistributor {
 
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -372,8 +368,7 @@ public class AssetSeparatePaymentDistributor {
                     }
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return ytdAmount;

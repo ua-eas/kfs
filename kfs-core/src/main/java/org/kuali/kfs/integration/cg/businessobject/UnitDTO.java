@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.integration.cg.businessobject;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.List;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsUnit;
+import org.kuali.kfs.krad.bo.BusinessObjectBase;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
 
-import org.kuali.kfs.integration.cg.ContractsAndGrantsUnit;
-import org.kuali.kfs.krad.bo.BusinessObjectBase;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "unitDTO", propOrder = {
     "organizationId",
@@ -90,7 +90,8 @@ public class UnitDTO extends BusinessObjectBase implements ContractsAndGrantsUni
         this.unitAdministrators = unitAdministrators;
     }
 
-    public void refresh() {}
+    public void refresh() {
+    }
 
     /**
      * @see org.kuali.kfs.krad.bo.BusinessObjectBase#toStringMapper()

@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PurchaseOrderEditMode;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -34,18 +32,20 @@ import org.kuali.kfs.module.purap.util.PurApItemUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.List;
+import java.util.Set;
 
 public class PurchaseOrderAmendmentDocumentPresentationController extends PurchaseOrderDocumentPresentationController {
 
     @Override
     public boolean canEdit(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
         // po amend docs in CGIP status are only editable when in Initiated or Saved status
         if (PurchaseOrderStatuses.APPDOC_CHANGE_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus())) {
             WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
 
-            if (!workflowDocument.isInitiated() && !workflowDocument.isSaved()  && !workflowDocument.isCompletionRequested()) {
+            if (!workflowDocument.isInitiated() && !workflowDocument.isSaved() && !workflowDocument.isCompletionRequested()) {
                 return false;
             }
         }
@@ -55,7 +55,7 @@ public class PurchaseOrderAmendmentDocumentPresentationController extends Purcha
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (PurchaseOrderStatuses.APPDOC_CHANGE_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus())) {
             WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
@@ -73,28 +73,27 @@ public class PurchaseOrderAmendmentDocumentPresentationController extends Purcha
         }
 
         boolean showDisableRemoveAccounts = true;
-        PurchaseOrderAmendmentDocument purchaseOrderAmendmentDocument = (PurchaseOrderAmendmentDocument)document;
+        PurchaseOrderAmendmentDocument purchaseOrderAmendmentDocument = (PurchaseOrderAmendmentDocument) document;
         List<PurApItem> aboveTheLinePOItems = PurApItemUtils.getAboveTheLineOnly(purchaseOrderAmendmentDocument.getItems());
-        PurchaseOrderDocument po = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument po = (PurchaseOrderDocument) document;
         boolean containsUnpaidPaymentRequestsOrCreditMemos = po.getContainsUnpaidPaymentRequestsOrCreditMemos();
         ItemLoop:
         for (PurApItem poItem : aboveTheLinePOItems) {
             boolean acctLinesEditable = allowAccountingLinesAreEditable((PurchaseOrderItem) poItem, containsUnpaidPaymentRequestsOrCreditMemos);
-            for(PurApAccountingLine poAccoutingLine : poItem.getSourceAccountingLines()){
-                if(!acctLinesEditable){
+            for (PurApAccountingLine poAccoutingLine : poItem.getSourceAccountingLines()) {
+                if (!acctLinesEditable) {
                     showDisableRemoveAccounts = false;
                     break ItemLoop;
                 }
             }
         }
 
-        if(!showDisableRemoveAccounts){
+        if (!showDisableRemoveAccounts) {
             editModes.add(PurchaseOrderEditMode.DISABLE_REMOVE_ACCTS);
         }
 
         return editModes;
     }
-
 
 
     protected boolean allowAccountingLinesAreEditable(PurchaseOrderItem poItem, boolean containsUnpaidPaymentRequestsOrCreditMemos) {
@@ -120,8 +119,8 @@ public class PurchaseOrderAmendmentDocumentPresentationController extends Purcha
     @Override
     public boolean canReload(Document document) {
         //  show the reload button if the doc is anything but processed or final
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
         WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
-        return (workflowDocument.isSaved() || workflowDocument.isEnroute()) ;
+        return (workflowDocument.isSaved() || workflowDocument.isEnroute());
     }
 }

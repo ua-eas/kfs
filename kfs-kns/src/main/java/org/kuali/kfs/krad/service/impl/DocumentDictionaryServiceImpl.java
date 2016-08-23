@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
@@ -32,20 +27,23 @@ import org.kuali.kfs.krad.document.DocumentAuthorizer;
 import org.kuali.kfs.krad.document.DocumentAuthorizerBase;
 import org.kuali.kfs.krad.document.DocumentPresentationController;
 import org.kuali.kfs.krad.document.DocumentPresentationControllerBase;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Implementation of <code>DocumentDictionaryService</code> which reads configuration
  * from the data dictionary
- *
- *
  */
 public class DocumentDictionaryServiceImpl implements DocumentDictionaryService {
     private DataDictionaryService dataDictionaryService;
@@ -188,7 +186,7 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
             MaintenanceDocument maintenanceDocument = (MaintenanceDocument) document;
             if (maintenanceDocument.getNewMaintainableObject() != null) {
                 entry = getMaintenanceDocumentEntry(
-                        maintenanceDocument.getNewMaintainableObject().getDataObjectClass());
+                    maintenanceDocument.getNewMaintainableObject().getDataObjectClass());
             }
         } else {
             entry = getDocumentEntry(document);
@@ -234,7 +232,7 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
 
     /**
      * @see DocumentDictionaryService#getDocumentEntryByClass(java.lang.Class<? extends
-     *      Document >)
+     * Document >)
      */
     @Override
     public DocumentEntry getDocumentEntryByClass(Class<? extends Document> documentClass) {
@@ -315,7 +313,7 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
     @Override
     public Boolean getAllowsRecordDeletion(MaintenanceDocument document) {
         return document != null ?
-                this.getAllowsRecordDeletion(document.getNewMaintainableObject().getDataObjectClass()) : Boolean.FALSE;
+            this.getAllowsRecordDeletion(document.getNewMaintainableObject().getDataObjectClass()) : Boolean.FALSE;
     }
 
     /**
@@ -377,10 +375,10 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
             }
         } catch (Exception e) {
             throw new RuntimeException("unable to instantiate documentAuthorizer '"
-                    + documentAuthorizerClass.getName()
-                    + "' for doctype '"
-                    + documentType
-                    + "'", e);
+                + documentAuthorizerClass.getName()
+                + "' for doctype '"
+                + documentType
+                + "'", e);
         }
 
         return documentAuthorizer;
@@ -421,7 +419,7 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
         }
 
         Class<? extends DocumentPresentationController> documentPresentationControllerClass =
-                documentEntry.getDocumentPresentationControllerClass();
+            documentEntry.getDocumentPresentationControllerClass();
 
         DocumentPresentationController documentPresentationController = null;
         try {
@@ -434,10 +432,10 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
             }
         } catch (Exception e) {
             throw new RuntimeException("unable to instantiate documentAuthorizer '"
-                    + documentPresentationControllerClass.getName()
-                    + "' for doctype '"
-                    + documentType
-                    + "'", e);
+                + documentPresentationControllerClass.getName()
+                + "' for doctype '"
+                + documentType
+                + "'", e);
         }
 
         return documentPresentationController;
@@ -474,7 +472,7 @@ public class DocumentDictionaryServiceImpl implements DocumentDictionaryService 
         }
 
         MaintenanceDocumentEntry entry =
-                getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass);
+            getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass);
         return entry;
     }
 

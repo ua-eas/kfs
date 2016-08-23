@@ -37,10 +37,12 @@ public class ScrubberServiceImpl implements ScrubberService {
     private ScrubberProcess demergerScrubberProcess;
 
     protected static final String COLLECTOR_SCRUBBER_PROCESS_BEAN_NAME = "batchScrubberProcess";
+
     /**
      * This process will call the scrubber in a read only mode. It will scrub a single group, won't create any output in origin
      * entry. It will create a the scrubber report
-     * @param group the origin entry group to scrub for report
+     *
+     * @param group          the origin entry group to scrub for report
      * @param documentNumber the id of documents which generated origin entries that should be scrubbed
      * @see org.kuali.kfs.gl.service.ScrubberService#scrubGroupReportOnly(org.kuali.kfs.gl.businessobject.OriginEntryGroup)
      */
@@ -52,6 +54,7 @@ public class ScrubberServiceImpl implements ScrubberService {
 
     /**
      * Scrubs all of the entries in all origin entry groups that are up for scrubbing
+     *
      * @see org.kuali.kfs.gl.service.ScrubberService#scrubEntries()
      */
     public void scrubEntries() {
@@ -63,9 +66,9 @@ public class ScrubberServiceImpl implements ScrubberService {
     /**
      * Scrubs data read in by the Collector
      *
-     * @param batch the data read by the Collector
-     * @param collectorReportData statistics about
-     * @param overrideOriginEntryService the implementation of origin entry service to use for this specific Collector scrub
+     * @param batch                           the data read by the Collector
+     * @param collectorReportData             statistics about
+     * @param overrideOriginEntryService      the implementation of origin entry service to use for this specific Collector scrub
      * @param overrideOriginEntryGroupService the implementation of origin entry group service to use for this specific Collector scrub
      * @return the status returned by the Scrubber
      * @see org.kuali.kfs.gl.service.ScrubberService#scrubCollectorBatch(org.kuali.kfs.gl.batch.CollectorBatch, org.kuali.kfs.gl.report.CollectorReportData, org.kuali.kfs.gl.service.OriginEntryService, org.kuali.kfs.gl.service.OriginEntryGroupService)
@@ -77,13 +80,14 @@ public class ScrubberServiceImpl implements ScrubberService {
 
     public void performDemerger() {
         LOG.debug("performDemerger() started");
-            //new ScrubberProcessImpl(flexibleOffsetAccountService, accountingCycleCachingService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, generatedCostShareOriginEntryObjectCodeOverride, runDateService, batchFileDirectoryName, null, null, null, null, demergerReportWriterService, demergerRemovedTransactionsListingReportWriterService, null);
+        //new ScrubberProcessImpl(flexibleOffsetAccountService, accountingCycleCachingService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, generatedCostShareOriginEntryObjectCodeOverride, runDateService, batchFileDirectoryName, null, null, null, null, demergerReportWriterService, demergerRemovedTransactionsListingReportWriterService, null);
         demergerScrubberProcess.performDemerger();
     }
 
 
     /**
      * Sets the reportOnlyScrubberProcess attribute value.
+     *
      * @param reportOnlyScrubberProcess The reportOnlyScrubberProcess to set.
      */
     public void setReportOnlyScrubberProcess(ScrubberProcess reportOnlyScrubberProcess) {
@@ -92,6 +96,7 @@ public class ScrubberServiceImpl implements ScrubberService {
 
     /**
      * Sets the scrubberProcess attribute value.
+     *
      * @param scrubberProcess The scrubberProcess to set.
      */
     public void setScrubberProcess(ScrubberProcess scrubberProcess) {
@@ -100,6 +105,7 @@ public class ScrubberServiceImpl implements ScrubberService {
 
     /**
      * Sets the demergerScrubberProcess attribute value.
+     *
      * @param demergerScrubberProcess The demergerScrubberProcess to set.
      */
     public void setDemergerScrubberProcess(ScrubberProcess demergerScrubberProcess) {

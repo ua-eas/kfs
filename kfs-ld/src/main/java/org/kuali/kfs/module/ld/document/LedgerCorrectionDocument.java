@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.module.ld.batch.LaborCorrectionProcessScrubberStep;
 import org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
+
+import java.util.Date;
 
 /**
  * labor Document class for the Labor Ledger Correction Process.
@@ -66,14 +66,14 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
         }
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Document: " + statusChangeEvent.getDocumentId() + " -- Status is: " + getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode());
         }
         // End of super.super code
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             String docId = getDocumentNumber();
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info( "Document " + docId + " moving to Processed Status - starting final processing");
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Document " + docId + " moving to Processed Status - starting final processing");
             }
             // this code is performed asynchronously
             // First, save the origin entries to the origin entry table
@@ -89,15 +89,15 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
                 String dataFileName = doc.getCorrectionInputFileName();
                 String doneFileName = dataFileName.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
                 originEntryGroupService.deleteFile(doneFileName);
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info( "Document " + docId + " : deleted done file to remove from processing: " + doneFileName );
+                if (LOG.isInfoEnabled()) {
+                    LOG.info("Document " + docId + " : deleted done file to remove from processing: " + doneFileName);
                 }
 
             } else if (LaborCorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType)
-                    || LaborCorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
+                || LaborCorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
 
-                synchronized ( LaborCorrectionDocumentService.class ) {
-                    if ( !checkForExistingOutputDocument( docId ) ) {
+                synchronized (LaborCorrectionDocumentService.class) {
+                    if (!checkForExistingOutputDocument(docId)) {
 
                         Date today = SpringContext.getBean(DateTimeService.class).getCurrentDate();
 
@@ -105,14 +105,14 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
                         if (!doc.getCorrectionFileDelete()) {
                             outputFileName = laborCorrectionDocumentService.createOutputFileForProcessing(docId, today);
                         } else {
-                            if ( LOG.isInfoEnabled() ) {
-                                LOG.info( "Document " + docId + " : set to delete output file - no file will be created" );
+                            if (LOG.isInfoEnabled()) {
+                                LOG.info("Document " + docId + " : set to delete output file - no file will be created");
                             }
                         }
                         doc.setCorrectionOutputFileName(outputFileName);
 
-                        if ( LOG.isInfoEnabled() ) {
-                            LOG.info( "Document " + docId + " : about to run scrubber -- output file: " + outputFileName );
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info("Document " + docId + " : about to run scrubber -- output file: " + outputFileName);
                         }
                         Step step = BatchSpringContext.getStep(LaborCorrectionProcessScrubberStep.STEP_NAME);
                         LaborCorrectionProcessScrubberStep correctionStep = (LaborCorrectionProcessScrubberStep) ProxyUtils.getTargetIfProxied(step);
@@ -124,21 +124,21 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
                             throw new RuntimeException("LLCP scrubber encountered error:", e);
                         }
                         correctionStep.setDocumentId(null);
-                        if ( LOG.isInfoEnabled() ) {
-                            LOG.info( "Document " + docId + " : completed scrubber run -- generating reports" );
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info("Document " + docId + " : completed scrubber run -- generating reports");
                         }
 
                         laborCorrectionDocumentService.generateCorrectionReport(this);
                         laborCorrectionDocumentService.aggregateCorrectionDocumentReports(this);
                     } else {
-                        LOG.warn( "Attempt to re-process final LLCP operations for document: " + docId + "  File with that document number already exists." );
+                        LOG.warn("Attempt to re-process final LLCP operations for document: " + docId + "  File with that document number already exists.");
                     }
                 }
             } else {
                 LOG.error("LLCP doc " + docId + " has an unknown correction type code: " + correctionType);
             }
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info( "Document " + docId + " moving to Processed Status - completed final processing");
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Document " + docId + " moving to Processed Status - completed final processing");
             }
         }
     }

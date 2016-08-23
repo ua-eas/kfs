@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.InternalBillingItem;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.InternalBillingDocument;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is the action form for Internal Billing.
  */
-public class InternalBillingForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable{
+public class InternalBillingForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable {
     protected static final long serialVersionUID = 1L;
     protected InternalBillingItem newItem;
 

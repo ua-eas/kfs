@@ -28,27 +28,24 @@ import javax.servlet.jsp.JspException;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class KNSELImageTag extends ELImageTag {
-	/**
-	 * @see org.apache.struts.taglib.html.SubmitTag#doEndTag()
-	 */
-	@Override
-	public int doEndTag() throws JspException {
-		int returnVal = super.doEndTag();
+    /**
+     * @see org.apache.struts.taglib.html.SubmitTag#doEndTag()
+     */
+    @Override
+    public int doEndTag() throws JspException {
+        int returnVal = super.doEndTag();
         if (!getDisabled() && !getReadonly()) {
-        	String name = prepareName();
-        	if (StringUtils.isNotBlank(name)) {
-	        	ActionForm form = WebUtils.getKualiForm(pageContext);
-	            if(form!=null && form instanceof PojoForm) {
-	            	((PojoForm) form).registerEditableProperty(name);
-	            }
-        	}
+            String name = prepareName();
+            if (StringUtils.isNotBlank(name)) {
+                ActionForm form = WebUtils.getKualiForm(pageContext);
+                if (form != null && form instanceof PojoForm) {
+                    ((PojoForm) form).registerEditableProperty(name);
+                }
+            }
         }
-		return returnVal;
-	}
+        return returnVal;
+    }
 
 }

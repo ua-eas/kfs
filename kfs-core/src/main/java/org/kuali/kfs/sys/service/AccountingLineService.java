@@ -36,9 +36,10 @@ public interface AccountingLineService {
 
     /**
      * Retrieves a list of accounting lines for a document, specified by the given document id, of a given line type
-     * @param clazz the class of the AccountingLine to return
+     *
+     * @param clazz            the class of the AccountingLine to return
      * @param documentHeaderId the document number of the document the accounting lines are associated with
-     * @param lineType the line type code of the accounting lines to retrieve
+     * @param lineType         the line type code of the accounting lines to retrieve
      * @return a List of matching accounting lines
      */
     public List getByDocumentHeaderIdAndLineType(Class clazz, String documentHeaderId, String lineType);

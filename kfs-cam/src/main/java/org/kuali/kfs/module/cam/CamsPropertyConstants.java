@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.cam;
 
 
-
 /**
  * Constants for cams business object property names.
  */
@@ -122,7 +121,7 @@ public class CamsPropertyConstants {
         public static final String SUB_ACCOUNT_NUMBER = "subAccountNumber";
         public static final String OBJECT_CODE = "financialObjectCode";
         public static final String FINANCIAL_OBJECT = "financialObject";
-        public static final String OBJECT_CODE_CURRENT ="objectCodeCurrent";
+        public static final String OBJECT_CODE_CURRENT = "objectCodeCurrent";
         public static final String SUB_OBJECT_CODE = "financialSubObjectCode";
         public static final String OBJECT_TYPE_CODE = "financialObject.financialObjectTypeCode";
         public static final String PROJECT_CODE = "projectCode";
@@ -406,10 +405,10 @@ public class CamsPropertyConstants {
     }
 
     public static class AssetPaymentAllocation {
-    	public static final String ASSET_DISTRIBUTION_BY_AMOUNT_CODE = "1";
-    	public static final String ASSET_DISTRIBUTION_EVENLY_CODE = "2";
-    	public static final String ASSET_DISTRIBUTION_BY_TOTAL_COST_CODE = "3";
-    	public static final String ASSET_DISTRIBUTION_BY_PERCENTAGE_CODE = "4";
-    	public static final String ASSET_DISTRIBUTION_DEFAULT_CODE = ASSET_DISTRIBUTION_EVENLY_CODE;
+        public static final String ASSET_DISTRIBUTION_BY_AMOUNT_CODE = "1";
+        public static final String ASSET_DISTRIBUTION_EVENLY_CODE = "2";
+        public static final String ASSET_DISTRIBUTION_BY_TOTAL_COST_CODE = "3";
+        public static final String ASSET_DISTRIBUTION_BY_PERCENTAGE_CODE = "4";
+        public static final String ASSET_DISTRIBUTION_DEFAULT_CODE = ASSET_DISTRIBUTION_EVENLY_CODE;
     }
 }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.TaxRegion;
+
+import java.util.List;
 
 public interface TaxRegionService {
 
@@ -30,7 +30,7 @@ public interface TaxRegionService {
      * @param postalCode
      * @return
      */
-    List<TaxRegion> getSalesTaxRegions( String postalCode );
+    List<TaxRegion> getSalesTaxRegions(String postalCode);
 
     /**
      * This method returns a list of tax regions based on postal code.  This only includes tax regions where
@@ -39,5 +39,5 @@ public interface TaxRegionService {
      * @param postalCode
      * @return
      */
-    List<TaxRegion> getUseTaxRegions( String postalCode );
+    List<TaxRegion> getUseTaxRegions(String postalCode);
 }

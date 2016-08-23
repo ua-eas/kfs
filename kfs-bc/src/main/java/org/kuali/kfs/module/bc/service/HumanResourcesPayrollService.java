@@ -41,9 +41,9 @@ public interface HumanResourcesPayrollService {
      * object.
      *
      * @param universityFiscalYear position fiscal year, part of record key
-     * @param positionNumber position number, part of record key
+     * @param positionNumber       position number, part of record key
      * @return <code>Position</code> object
-     * @exception PositionNotFoundException thrown if no data was found for the position key
+     * @throws PositionNotFoundException thrown if no data was found for the position key
      * @see org.kuali.kfs.module.bc.businessobject.Position
      */
     public Position getPosition(Integer universityFiscalYear, String positionNumber) throws PositionNotFoundException;
@@ -61,9 +61,9 @@ public interface HumanResourcesPayrollService {
     /**
      * determine whether there is an active job for the given emplid on the specified position
      *
-     * @param emplid the given employee id
-     * @param positionNumber the specified position number
-     * @param fiscalYear the given fiscal year
+     * @param emplid                   the given employee id
+     * @param positionNumber           the specified position number
+     * @param fiscalYear               the given fiscal year
      * @param synchronizationCheckType the sync check type
      * @return true there is an active job for the given emplid on the specified position; otherwise, false
      */

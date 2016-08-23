@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Iterator;
 
 /**
  * This class holds information about the sums of a list of origin entries. This information includes
@@ -167,12 +167,10 @@ public class OriginEntryTotals {
             if (KFSConstants.GL_CREDIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
                 creditAmount = creditAmount.add(originEntry.getTransactionLedgerEntryAmount());
                 numCreditEntries++;
-            }
-            else if (KFSConstants.GL_DEBIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
+            } else if (KFSConstants.GL_DEBIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
                 debitAmount = debitAmount.add(originEntry.getTransactionLedgerEntryAmount());
                 numDebitEntries++;
-            }
-            else {
+            } else {
                 otherAmount = otherAmount.add(originEntry.getTransactionLedgerEntryAmount());
                 numOtherEntries++;
                 ;
@@ -190,12 +188,10 @@ public class OriginEntryTotals {
         if (KFSConstants.GL_CREDIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
             creditAmount = creditAmount.add(originEntry.getTransactionLedgerEntryAmount());
             numCreditEntries++;
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(originEntry.getTransactionDebitCreditCode())) {
             debitAmount = debitAmount.add(originEntry.getTransactionLedgerEntryAmount());
             numDebitEntries++;
-        }
-        else {
+        } else {
             otherAmount = otherAmount.add(originEntry.getTransactionLedgerEntryAmount());
             numOtherEntries++;
         }

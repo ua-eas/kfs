@@ -22,10 +22,10 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
+import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
 
 /**
  * This class is used to get the services for PDF generation and other services for Collection Activity Report

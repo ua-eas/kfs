@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.sql.Date;
-
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
 
 /**
  * Integration Interface for Agency Address

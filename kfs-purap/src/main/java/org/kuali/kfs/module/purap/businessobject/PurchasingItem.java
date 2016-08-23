@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-
 /**
  * Purchasing Item Interface.
  */

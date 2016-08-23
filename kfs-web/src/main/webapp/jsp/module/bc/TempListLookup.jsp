@@ -262,7 +262,7 @@
                 </c:if>
 
                 <c:if test="${reqSearchResults != null and empty reqSearchResults}">
-                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                    <div class="search-message"><bean-el:message key="error.no.matching.invoice"/></div>
                 </c:if>
 
                 <c:if test="${reqSearchResultsActualSize>0}">
@@ -310,7 +310,7 @@
                                         <a href="<c:out value="${column.propertyURL}"/>" target="_blank"
                                            title="${column.propertyValue}"><c:out
                                                 value="${fn:substring(column.propertyValue, 0, column.maxLength)}"
-                                                /><c:if
+                                        /><c:if
                                                 test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if></a> &nbsp;
                                     </display:column>
                                 </c:when>

@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 
 public class AccountDelegateModel extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -189,6 +189,7 @@ public class AccountDelegateModel extends PersistableBusinessObjectBase implemen
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -197,6 +198,7 @@ public class AccountDelegateModel extends PersistableBusinessObjectBase implemen
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ec.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
@@ -32,13 +27,17 @@ import org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @see org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao
  */
 public class EffortCertificationReportDefinitionDaoOjb extends PlatformAwareDaoBaseOjb implements EffortCertificationReportDefinitionDao {
 
     /**
-     *
      * @see org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao#getAll()
      */
     public List<EffortCertificationReportDefinition> getAll() {

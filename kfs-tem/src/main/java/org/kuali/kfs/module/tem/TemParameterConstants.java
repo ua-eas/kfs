@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem;
 
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 
 
 public class TemParameterConstants extends KfsParameterConstants {
@@ -47,4 +47,4 @@ public class TemParameterConstants extends KfsParameterConstants {
     public final class TEM_BATCH {
     }
 
-    }
+}

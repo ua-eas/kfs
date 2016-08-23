@@ -26,46 +26,45 @@ import java.util.List;
 /**
  * A case constraint is a constraint that is imposed only when a certain condition is met, for example, if the country attribute value is "USA",
  * then a prerequisite constraint may be imposed that the 'State' attribute is non-null.
- *
+ * <p>
  * This class is a direct copy of one that was in Kuali Student.
- *
  *
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CaseConstraint extends BaseConstraint {
-	@XmlElement
+    @XmlElement
     protected List<WhenConstraint> whenConstraint;
-	@XmlElement
-	protected String propertyName;
-	@XmlElement
-	protected String operator;
-	@XmlElement
-	protected boolean caseSensitive;
+    @XmlElement
+    protected String propertyName;
+    @XmlElement
+    protected String operator;
+    @XmlElement
+    protected boolean caseSensitive;
 
-	public List<WhenConstraint> getWhenConstraint() {
-		return whenConstraint;
-	}
+    public List<WhenConstraint> getWhenConstraint() {
+        return whenConstraint;
+    }
 
-	public void setWhenConstraint(List<WhenConstraint> whenConstraint) {
-		this.whenConstraint = whenConstraint;
-	}
+    public void setWhenConstraint(List<WhenConstraint> whenConstraint) {
+        this.whenConstraint = whenConstraint;
+    }
 
-	public String getPropertyName() {
-		return propertyName;
-	}
+    public String getPropertyName() {
+        return propertyName;
+    }
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
-	}
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
 
-	public String getOperator() {
-		return operator;
-	}
+    public String getOperator() {
+        return operator;
+    }
 
-	public void setOperator(String operator) {
-		this.operator = operator;
-	}
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
 
     public boolean isCaseSensitive() {
         return caseSensitive;

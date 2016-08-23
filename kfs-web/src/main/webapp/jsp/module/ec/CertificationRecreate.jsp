@@ -17,43 +17,43 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<c:set var="documentAttributes"	value="${DataDictionary.EffortCertificationDocument.attributes}" />
-<c:set var="detailAttributes" value="${DataDictionary.EffortCertificationDetail.attributes}" />
+<c:set var="documentAttributes" value="${DataDictionary.EffortCertificationDocument.attributes}"/>
+<c:set var="detailAttributes" value="${DataDictionary.EffortCertificationDetail.attributes}"/>
 
 <c:set var="detailLines" value="${KualiForm.detailLines}"/>
 
 <c:set var="documentTypeName" value="EffortCertificationDocument"/>
 <c:set var="htmlFormAction" value="effortCertificationRecreate"/>
 
-<c:set var="readOnly" value="${empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+<c:set var="readOnly" value="${empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
 <kul:documentPage showDocumentInfo="true" documentTypeName="${documentTypeName}"
-	htmlFormAction="${htmlFormAction}" renderMultipart="true"
-    showTabButtons="true">
+                  htmlFormAction="${htmlFormAction}" renderMultipart="true"
+                  showTabButtons="true">
 
-    <sys:hiddenDocumentFields isFinancialDocument="false" />
+    <sys:hiddenDocumentFields isFinancialDocument="false"/>
 
-    <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
     <c:set var="hiddenFieldNames" value="emplid,universityFiscalYear,effortCertificationReportNumber,effortCertificationDocumentCode,totalOriginalPayrollAmount"/>
-	<c:forTokens var="fieldName" items="${hiddenFieldNames}" delims=",">
-		<input type="hidden" name="document.${fieldName}" id="document.${fieldName}" value="${KualiForm.document[fieldName]}"/>
-	</c:forTokens>
+    <c:forTokens var="fieldName" items="${hiddenFieldNames}" delims=",">
+        <input type="hidden" name="document.${fieldName}" id="document.${fieldName}" value="${KualiForm.document[fieldName]}"/>
+    </c:forTokens>
 
-	<kul:tab tabTitle="Effort Detail" defaultOpen="true"
-		tabErrorKey="${EffortConstants.EFFORT_DETAIL_IMPORT_ERRORS}">
+    <kul:tab tabTitle="Effort Detail" defaultOpen="true"
+             tabErrorKey="${EffortConstants.EFFORT_DETAIL_IMPORT_ERRORS}">
 
-		<div class="tab-container">
-			<h3>Retrieve Data</h3>
-			<ec:detailLineImport readOnly="${readOnly}" attributes="${documentAttributes}" />
-		</div>
+        <div class="tab-container">
+            <h3>Retrieve Data</h3>
+            <ec:detailLineImport readOnly="${readOnly}" attributes="${documentAttributes}"/>
+        </div>
 
-		<kul:errors keyMatch="${EffortConstants.EFFORT_CERTIFICATION_TAB_ERRORS}" displayInDiv="true"/>
+        <kul:errors keyMatch="${EffortConstants.EFFORT_CERTIFICATION_TAB_ERRORS}" displayInDiv="true"/>
 
-		<div class="tab-container">
-			<h3>Effort Detail Lines</h3>
+        <div class="tab-container">
+            <h3>Effort Detail Lines</h3>
 
             <ec:detailLines
                     detailLines="${detailLines}"
@@ -63,12 +63,12 @@
                     hiddenFieldNames="universityFiscalYear,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount,costShareSourceSubAccountNumber,versionNumber"
                     inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
                     fieldInfo="${KualiForm.fieldInfo}"/>
-		</div>
-	</kul:tab>
+        </div>
+    </kul:tab>
 
-    <kul:notes />
-    <kul:adHocRecipients />
-    <kul:routeLog />
-    <kul:superUserActions />
-    <sys:documentControls transactionalDocument="false" />
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <kul:superUserActions/>
+    <sys:documentControls transactionalDocument="false"/>
 </kul:documentPage>

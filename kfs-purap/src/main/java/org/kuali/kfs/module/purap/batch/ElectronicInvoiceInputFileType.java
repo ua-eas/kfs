@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.batch;
 
-import java.io.File;
-
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoice;
 import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
+
+import java.io.File;
 
 /**
  * Batch input type for the electronic invoice job.
@@ -58,11 +58,11 @@ public class ElectronicInvoiceInputFileType extends XmlBatchInputFileTypeBase {
                               Object parsedFileContents,
                               String fileUserIdentifer) {
 
-        if (!(parsedFileContents instanceof ElectronicInvoice)){
+        if (!(parsedFileContents instanceof ElectronicInvoice)) {
             throw new RuntimeException("Invalid object type.");
         }
 
-        String fileName = ((ElectronicInvoice)parsedFileContents).getFileName();
+        String fileName = ((ElectronicInvoice) parsedFileContents).getFileName();
         if (fileName == null) return fileUserIdentifer;
         int whereDot = fileName.lastIndexOf('.');
 
@@ -72,6 +72,7 @@ public class ElectronicInvoiceInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Sets the reportPath attribute value.
+     *
      * @param reportPath The reportPath to set.
      */
     public void setReportPath(String reportPath) {
@@ -80,6 +81,7 @@ public class ElectronicInvoiceInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Sets the reportExtension attribute value.
+     *
      * @param reportExtension The reportExtension to set.
      */
     public void setReportExtension(String reportExtension) {
@@ -88,6 +90,7 @@ public class ElectronicInvoiceInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Sets the fileReportPrefix attribute value.
+     *
      * @param fileReportPrefix The fileReportPrefix to set.
      */
     public void setReportPrefix(String reportPrefix) {

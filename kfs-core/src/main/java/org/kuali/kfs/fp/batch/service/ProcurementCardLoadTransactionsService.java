@@ -22,17 +22,16 @@ import org.kuali.kfs.sys.batch.InitiateDirectory;
 import org.kuali.kfs.sys.service.ReportWriterService;
 
 /**
- *
  * This service interface defines the methods that a ProcurementCardLoadTransactionsService implementation must provide.
- *
+ * <p>
  * Provides methods to load batch files for the procurement card batch job.
  */
-public interface ProcurementCardLoadTransactionsService extends InitiateDirectory{
+public interface ProcurementCardLoadTransactionsService extends InitiateDirectory {
 
     /**
      * Validates and parses the file identified by the given files name. If successful, parsed entries are stored.
      *
-     * @param fileNaem Name of file to be uploaded and processed.
+     * @param fileNaem            Name of file to be uploaded and processed.
      * @param reportWriterService report writing service.
      * @return True if the file load and store was successful, false otherwise.
      */

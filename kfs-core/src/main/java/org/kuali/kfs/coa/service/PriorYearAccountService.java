@@ -21,7 +21,6 @@ package org.kuali.kfs.coa.service;
 import org.kuali.kfs.coa.businessobject.PriorYearAccount;
 
 /**
- *
  * This service interface defines methods necessary for retrieving fully populated PriorYearAccount business objects from the database
  * that are necessary for transaction processing in the application. It also defines a method for populating the account db table with prior year values
  */

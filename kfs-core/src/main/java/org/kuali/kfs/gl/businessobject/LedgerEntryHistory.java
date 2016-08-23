@@ -27,11 +27,18 @@ import org.kuali.rice.krad.bo.BusinessObject;
  */
 public interface LedgerEntryHistory extends BusinessObject {
     public Integer getUniversityFiscalYear();
+
     public String getChartOfAccountsCode();
+
     public String getFinancialObjectCode();
+
     public String getFinancialBalanceTypeCode();
+
     public String getUniversityFiscalPeriodCode();
+
     public String getTransactionDebitCreditCode();
+
     public KualiDecimal getTransactionLedgerEntryAmount();
+
     public Integer getRowCount();
 }

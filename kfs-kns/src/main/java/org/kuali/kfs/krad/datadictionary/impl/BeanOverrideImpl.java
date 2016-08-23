@@ -18,28 +18,24 @@
  */
 package org.kuali.kfs.krad.datadictionary.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.krad.datadictionary.FieldOverride;
 import org.kuali.kfs.krad.datadictionary.BeanOverride;
+import org.kuali.kfs.krad.datadictionary.FieldOverride;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * The base implementation of the BeanOverride interface.
- *
- *
- *
  */
 public class BeanOverrideImpl implements BeanOverride {
-	private static final Logger LOG = Logger.getLogger(BeanOverrideImpl.class);
-	private String beanName;
+    private static final Logger LOG = Logger.getLogger(BeanOverrideImpl.class);
+    private String beanName;
     private List<FieldOverride> fieldOverrides;
 
     /**
-     *
      * @see BeanOverride#getFieldOverrides()
      */
     public List<FieldOverride> getFieldOverrides() {
@@ -51,7 +47,6 @@ public class BeanOverrideImpl implements BeanOverride {
     }
 
     /**
-     *
      * @see BeanOverride#getBeanName()
      */
     public String getBeanName() {
@@ -63,31 +58,21 @@ public class BeanOverrideImpl implements BeanOverride {
     }
 
     /**
-     *
      * @see BeanOverride#performOverride(java.lang.Object)
      */
-    public void performOverride(Object bean)
-    {
-        try
-        {
-            for (FieldOverride fieldOverride: fieldOverrides)
-            {
+    public void performOverride(Object bean) {
+        try {
+            for (FieldOverride fieldOverride : fieldOverrides) {
                 Object property = PropertyUtils.getProperty(bean, fieldOverride.getPropertyName());
                 Object newProperty = fieldOverride.performFieldOverride(bean, property);
                 BeanUtils.setProperty(bean, fieldOverride.getPropertyName(), newProperty);
             }
-        }
-        catch(IllegalAccessException e )
-        {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-        }
-        catch(InvocationTargetException e)
-        {
+        } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
 
-        }
-        catch (NoSuchMethodException e)
-        {
+        } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
     }

@@ -21,9 +21,6 @@ package org.kuali.kfs.krad.datadictionary;
 /**
  * This interface provides read-only metadata about inactivation blocking.  This metadata object is associated with a business object.
  * The source of this information often comes from the data dictionary file.
- *
- *
- *
  */
 public interface InactivationBlockingMetadata {
 
@@ -41,7 +38,6 @@ public interface InactivationBlockingMetadata {
 
     /**
      * The bean name of the service that is responsible for determining whether there are any records that block inactivation
-     *
      */
     public String getInactivationBlockingDetectionServiceBeanName();
 

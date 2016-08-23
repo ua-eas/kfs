@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.LedgerEntryHolder;
 import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * An interface with methods to interact with reversals

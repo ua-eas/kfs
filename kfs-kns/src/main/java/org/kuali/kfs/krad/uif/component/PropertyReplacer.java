@@ -28,43 +28,41 @@ import java.util.Map;
 
 /**
  * Configuration for replacing a property value based on a condition
- *
+ * <p>
  * <p>
  * A <code>Component</code> may be configured with one or more <code>PropertyReplacer</code> instances. Each defines
  * a condition to evaluate during the apply model phase, and if that condition succeeds the property on the component
  * given by {@link #getPropertyName()}, will be replaced with the value given by {@link #getReplacement()}. Conditions
  * are defined using an expression language and may reference any variables available in the component's context.
  * </p>
- *
+ * <p>
  * <p>
  * Property replacers can be used to change out an entire Component or List/Map of Components. For example, based on a
  * condition you might want to display a <code>TextControl</code> or <code>RadioControl</code> for an
  * <code>InputField</code>. You can define the field with a text control, then include a property replacer as
  * follows:
  * <pre>
-        <bean parent="PropertyReplacer" p:propertyName="control"
-              p:condition="field1 eq '10985'" p:replacement-ref="RadioControl"/>
+ * <bean parent="PropertyReplacer" p:propertyName="control"
+ * p:condition="field1 eq '10985'" p:replacement-ref="RadioControl"/>
  *
  * </pre>
- *
+ * <p>
  * Note <code>Component</code> contains a <code>List</code> or property replacers which will be evaluated in the order
  * contained within the list. So in the above example if we wanted to now add a further condition which sets the control
  * to a checkbox, we would just add another property replacer bean.
  * <pre>
  *   <property name="propertyReplacers">
-       <list>
-        <bean parent="PropertyReplacer" p:propertyName="control"
-              p:condition="field1 eq '10985'" p:replacement-ref="RadioControl"/>
-        <bean parent="PropertyReplacer" p:propertyName="control"
-              p:condition="field1 eq '11456'" p:replacement-ref="CheckboxControl"/>
+ * <list>
+ * <bean parent="PropertyReplacer" p:propertyName="control"
+ * p:condition="field1 eq '10985'" p:replacement-ref="RadioControl"/>
+ * <bean parent="PropertyReplacer" p:propertyName="control"
+ * p:condition="field1 eq '11456'" p:replacement-ref="CheckboxControl"/>
  *     </list>
  *   </property>
  * </pre>
- *
+ * <p>
  * Property replacers may be used to substitute primitive properties as well, such as Strings
  * </p>
- *
- *
  */
 public class PropertyReplacer extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -8405429643299461398L;
@@ -79,7 +77,7 @@ public class PropertyReplacer extends ConfigurableBase implements Serializable {
 
     /**
      * Returns a list of nested components
-     *
+     * <p>
      * <p>
      * All nested components will be returned in the list. Current assumption is that
      * <code>PropertyReplacer</code> can only contain a <code>Component</code>, <code>List</code> or
@@ -112,7 +110,7 @@ public class PropertyReplacer extends ConfigurableBase implements Serializable {
     /**
      * Name of the property on the Component the property replacer is associated with that
      * will be set when the condition for the replacer succeeds
-     *
+     * <p>
      * <p>
      * Note the property name must be readable/writable on the component. The property name may
      * be nested, and include Map or List references.
@@ -136,7 +134,7 @@ public class PropertyReplacer extends ConfigurableBase implements Serializable {
     /**
      * Gives the expression that should be evaluated to determine whether or not
      * the property replacement should be made
-     *
+     * <p>
      * <p>
      * Expression follows SPEL and may access any model data along with any variables
      * available in the context for the Component. The expression should evaluate to
@@ -144,7 +142,7 @@ public class PropertyReplacer extends ConfigurableBase implements Serializable {
      * will be set as the value for the associated property on the component. If the resulting
      * boolean is false, no action will take place
      * </p>
-     *
+     * <p>
      * <p>
      * Note the value does not need to contain the expression placeholder @{}
      * </p>
@@ -169,7 +167,7 @@ public class PropertyReplacer extends ConfigurableBase implements Serializable {
     /**
      * Gives the Object that should be used to set the property value if the replacers condition
      * evaluates to true
-     *
+     * <p>
      * <p>
      * Note the configured Object must be valid for the type given by the property on the Component. Standard
      * property editors will be used for setting the property value

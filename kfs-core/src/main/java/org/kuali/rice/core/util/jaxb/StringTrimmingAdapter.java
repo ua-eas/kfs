@@ -18,17 +18,17 @@
  */
 package org.kuali.rice.core.util.jaxb;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.apache.commons.lang.StringUtils;
+
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * An XML adapter that simply performs a null-safe trim on the value to be marshalled or unmarshalled.
- *
+ * <p>
  * <p>Only use this adapter when it is necessary for the remaining whitespace-related characters to
  * remain as-is.
  */
-public class StringTrimmingAdapter extends XmlAdapter<String,String> {
+public class StringTrimmingAdapter extends XmlAdapter<String, String> {
 
     /**
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)

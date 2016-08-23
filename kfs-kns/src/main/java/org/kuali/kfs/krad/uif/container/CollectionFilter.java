@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * Provides filtering on collection data within a <code>CollectionGroup</code>
- *
- *
  */
 public interface CollectionFilter extends Serializable {
 
@@ -35,8 +33,8 @@ public interface CollectionFilter extends Serializable {
      * built. Note the collection should be retrieved from the model and the valid
      * row indexes must be returned in the return list
      *
-     * @param view - view instance for the collection group
-     * @param model - object containing the view data and from which the collection should be pulled/updated
+     * @param view            - view instance for the collection group
+     * @param model           - object containing the view data and from which the collection should be pulled/updated
      * @param collectionGroup - collection group instance containing configuration for the collection
      * @return the list that contains valid row indexes
      */

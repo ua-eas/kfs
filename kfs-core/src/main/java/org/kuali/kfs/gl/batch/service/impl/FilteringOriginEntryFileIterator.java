@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+
 import java.io.BufferedReader;
 import java.io.File;
-
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 
 public class FilteringOriginEntryFileIterator extends OriginEntryFileIterator {
     public static interface OriginEntryFilter {
@@ -33,9 +33,9 @@ public class FilteringOriginEntryFileIterator extends OriginEntryFileIterator {
     /**
      * Constructs a OriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public FilteringOriginEntryFileIterator(BufferedReader reader, OriginEntryFilter filter) {
         super(reader, true);
@@ -45,9 +45,9 @@ public class FilteringOriginEntryFileIterator extends OriginEntryFileIterator {
     /**
      * Constructs a OriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public FilteringOriginEntryFileIterator(BufferedReader reader, boolean autoCloseReader, OriginEntryFilter filter) {
         super(reader, autoCloseReader);

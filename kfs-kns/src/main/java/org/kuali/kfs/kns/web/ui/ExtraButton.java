@@ -30,66 +30,66 @@ import java.io.Serializable;
  */
 @Deprecated
 public class ExtraButton implements Serializable {
-	private String extraButtonSource = "";
+    private String extraButtonSource = "";
 
-	private String extraButtonAltText = "";
+    private String extraButtonAltText = "";
 
-	private String extraButtonParams = "";
+    private String extraButtonParams = "";
 
-	private String extraButtonProperty = "";
+    private String extraButtonProperty = "";
 
-	private String extraButtonOnclick = "";
+    private String extraButtonOnclick = "";
 
-	public String getExtraButtonAltText() {
-		return extraButtonAltText;
-	}
+    public String getExtraButtonAltText() {
+        return extraButtonAltText;
+    }
 
-	public void setExtraButtonAltText(String extraButtonAltText) {
-		this.extraButtonAltText = extraButtonAltText;
-	}
+    public void setExtraButtonAltText(String extraButtonAltText) {
+        this.extraButtonAltText = extraButtonAltText;
+    }
 
-	public String getExtraButtonParams() {
-		return extraButtonParams;
-	}
+    public String getExtraButtonParams() {
+        return extraButtonParams;
+    }
 
-	public void setExtraButtonParams(String extraButtonParams) {
-		this.extraButtonParams = extraButtonParams;
-	}
+    public void setExtraButtonParams(String extraButtonParams) {
+        this.extraButtonParams = extraButtonParams;
+    }
 
-	public String getExtraButtonProperty() {
-		return extraButtonProperty;
-	}
+    public String getExtraButtonProperty() {
+        return extraButtonProperty;
+    }
 
-	public void setExtraButtonProperty(String extraButtonProperty) {
-		this.extraButtonProperty = extraButtonProperty;
-	}
+    public void setExtraButtonProperty(String extraButtonProperty) {
+        this.extraButtonProperty = extraButtonProperty;
+    }
 
-	public String getExtraButtonSource() {
-		return extraButtonSource;
-	}
+    public String getExtraButtonSource() {
+        return extraButtonSource;
+    }
 
-	public String getExtraButtonOnclick() {
-	    return this.extraButtonOnclick;
-	}
+    public String getExtraButtonOnclick() {
+        return this.extraButtonOnclick;
+    }
 
-	public void setExtraButtonOnclick(String extraButtonOnclick) {
-	    this.extraButtonOnclick = extraButtonOnclick;
-	}
+    public void setExtraButtonOnclick(String extraButtonOnclick) {
+        this.extraButtonOnclick = extraButtonOnclick;
+    }
 
-	public void setExtraButtonSource(String extraButtonSource) {
-		if (StringUtils.isNotBlank(extraButtonSource)) {
-			this.extraButtonSource = extraButtonSource
-					.replace(
-							"${kr.externalizable.images.url}",
-							KRADServiceLocator
-									.getKualiConfigurationService()
-									.getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY))
-					.replace(
-							"${externalizable.images.url}",
-							KRADServiceLocator
-									.getKualiConfigurationService()
-									.getPropertyValueAsString(KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY));
-		}
-	}
+    public void setExtraButtonSource(String extraButtonSource) {
+        if (StringUtils.isNotBlank(extraButtonSource)) {
+            this.extraButtonSource = extraButtonSource
+                .replace(
+                    "${kr.externalizable.images.url}",
+                    KRADServiceLocator
+                        .getKualiConfigurationService()
+                        .getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY))
+                .replace(
+                    "${externalizable.images.url}",
+                    KRADServiceLocator
+                        .getKualiConfigurationService()
+                        .getPropertyValueAsString(KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY));
+        }
+    }
 
 }

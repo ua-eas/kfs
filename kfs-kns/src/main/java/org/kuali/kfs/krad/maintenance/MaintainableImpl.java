@@ -20,10 +20,6 @@ package org.kuali.kfs.krad.maintenance;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.metadata.ClassNotPersistenceCapableException;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
@@ -42,6 +38,9 @@ import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.web.form.MaintenanceForm;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -52,8 +51,6 @@ import java.util.Map;
 
 /**
  * Default implementation of the <code>Maintainable</code> interface
- *
- *
  */
 public class MaintainableImpl extends ViewHelperServiceImpl implements Maintainable {
     private static final long serialVersionUID = 9125271369161634992L;
@@ -85,8 +82,8 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
         } catch (ClassNotPersistenceCapableException ex) {
             if (!document.getOldMaintainableObject().isExternalBusinessObject()) {
                 throw new RuntimeException("Data Object Class: "
-                        + getDataObjectClass()
-                        + " is not persistable and is not externalizable - configuration error");
+                    + getDataObjectClass()
+                    + " is not persistable and is not externalizable - configuration error");
             }
             // otherwise, let fall through
         }
@@ -209,15 +206,15 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
 
             // check if field is a secure
             if (getDataObjectAuthorizationService()
-                    .attributeValueNeedsToBeEncryptedOnFormsAndLinks(dataObjectClass, fieldName)) {
+                .attributeValueNeedsToBeEncryptedOnFormsAndLinks(dataObjectClass, fieldName)) {
                 try {
-                    if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                    if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                         fieldValue = getEncryptionService().encrypt(fieldValue);
                     }
                 } catch (GeneralSecurityException e) {
                     LOG.error("Unable to encrypt secure field for locking representation " + e.getMessage());
                     throw new RuntimeException(
-                            "Unable to encrypt secure field for locking representation " + e.getMessage());
+                        "Unable to encrypt secure field for locking representation " + e.getMessage());
                 }
             }
 
@@ -254,7 +251,7 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
             getBusinessObjectService().linkAndSave((PersistableBusinessObject) dataObject);
         } else {
             throw new RuntimeException(
-                    "Cannot save object of type: " + dataObjectClass + " with business object service");
+                "Cannot save object of type: " + dataObjectClass + " with business object service");
         }
     }
 
@@ -272,7 +269,7 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
             dataObject = null;
         } else {
             throw new RuntimeException(
-                    "Cannot delete object of type: " + dataObjectClass + " with business object service");
+                "Cannot delete object of type: " + dataObjectClass + " with business object service");
         }
     }
 
@@ -411,20 +408,20 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
 
     /**
      * In the case of edit maintenance adds a new blank line to the old side
-     *
+     * <p>
      * TODO: should this write some sort of missing message on the old side
      * instead?
      *
      * @see ViewHelperServiceImpl#processAfterAddLine(View,
-     *      CollectionGroup, java.lang.Object,
-     *      java.lang.Object)
+     * CollectionGroup, java.lang.Object,
+     * java.lang.Object)
      */
     @Override
     protected void processAfterAddLine(View view, CollectionGroup collectionGroup, Object model, Object addLine) {
         super.processAfterAddLine(view, collectionGroup, model, addLine);
 
         // Check for maintenance documents in edit but exclude notes
-        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm)model).getMaintenanceAction()) && !(addLine instanceof Note)) {
+        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm) model).getMaintenanceAction()) && !(addLine instanceof Note)) {
             MaintenanceForm maintenanceForm = (MaintenanceForm) model;
             MaintenanceDocument document = maintenanceForm.getDocument();
 
@@ -432,13 +429,13 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
             //KULRICE-7970 support multiple level objects
             String bindingPrefix = collectionGroup.getBindingInfo().getBindByNamePrefix();
             String propertyPath = collectionGroup.getPropertyName();
-            if(bindingPrefix!=""&&bindingPrefix!= null)     {
+            if (bindingPrefix != "" && bindingPrefix != null) {
                 propertyPath = bindingPrefix + "." + propertyPath;
             }
 
             Collection<Object> oldCollection = ObjectPropertyUtils
-                    .getPropertyValue(document.getOldMaintainableObject().getDataObject(),
-                            propertyPath);
+                .getPropertyValue(document.getOldMaintainableObject().getDataObject(),
+                    propertyPath);
 
             try {
                 Object blankLine = collectionGroup.getCollectionObjectClass().newInstance();
@@ -452,24 +449,23 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
     /**
      * In the case of edit maintenance deleted the item on the old side
      *
-     *
      * @see ViewHelperServiceImpl#processAfterDeleteLine(View,
-     *      CollectionGroup, java.lang.Object,  int)
+     * CollectionGroup, java.lang.Object, int)
      */
     @Override
     protected void processAfterDeleteLine(View view, CollectionGroup collectionGroup, Object model, int lineIndex) {
         super.processAfterDeleteLine(view, collectionGroup, model, lineIndex);
 
         // Check for maintenance documents in edit but exclude notes
-        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm)model).getMaintenanceAction())
-                && !collectionGroup.getCollectionObjectClass().getName().equals(Note.class.getName())) {
+        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm) model).getMaintenanceAction())
+            && !collectionGroup.getCollectionObjectClass().getName().equals(Note.class.getName())) {
             MaintenanceForm maintenanceForm = (MaintenanceForm) model;
             MaintenanceDocument document = maintenanceForm.getDocument();
 
             // get the old object's collection
             Collection<Object> oldCollection = ObjectPropertyUtils
-                    .getPropertyValue(document.getOldMaintainableObject().getDataObject(),
-                            collectionGroup.getPropertyName());
+                .getPropertyValue(document.getOldMaintainableObject().getDataObject(),
+                    collectionGroup.getPropertyName());
             try {
                 // Remove the object at lineIndex from the collection
                 oldCollection.remove(oldCollection.toArray()[lineIndex]);

@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="control" classname="org.kuali.kfs.krad.uif.control.TextAreaControl"/>
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.InputField"/>
@@ -32,9 +32,9 @@
                tabindex="${control.tabIndex}" maxLength="${control.maxLength}" minLength="${control.minLength}"/>
 
 <c:if test="${(!empty control.watermarkText)}">
-	<krad:script value="createWatermark('${control.id}', '${control.watermarkText}');" />
+    <krad:script value="createWatermark('${control.id}', '${control.watermarkText}');"/>
 </c:if>
 
 <c:if test="${control.textExpand}">
-	<krad:script value="setupTextPopout('${control.id}', '${field.labelField.labelText}', '${field.instructionalMessageField.messageText}', '${field.constraintMessageField.messageText}', '${ConfigProperties['krad.externalizable.images.url']}');" />
+    <krad:script value="setupTextPopout('${control.id}', '${field.labelField.labelText}', '${field.instructionalMessageField.messageText}', '${field.constraintMessageField.messageText}', '${ConfigProperties['krad.externalizable.images.url']}');"/>
 </c:if>

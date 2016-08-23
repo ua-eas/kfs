@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.vnd.document.authorization;
 
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Set;
 
 public class VendorDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
 
     @Override
     public Set<String> getConditionallyReadOnlySectionIds(MaintenanceDocument document) {
         Set<String> conditionallyReadOnlySectionIds = super.getConditionallyReadOnlySectionIds(document);
-        VendorDetail vendor = (VendorDetail)document.getNewMaintainableObject().getDataObject();
+        VendorDetail vendor = (VendorDetail) document.getNewMaintainableObject().getDataObject();
 
         if (!vendor.isVendorParentIndicator()) {
             // make some sections read only, e.g. supplier diversity cause they're on the header
@@ -48,7 +48,7 @@ public class VendorDocumentPresentationController extends FinancialSystemMainten
     @Override
     public Set<String> getConditionallyReadOnlyPropertyNames(MaintenanceDocument document) {
         Set<String> conditionallyReadonlyPropertyNames = super.getConditionallyReadOnlyPropertyNames(document);
-        VendorDetail vendor = (VendorDetail)document.getNewMaintainableObject().getDataObject();
+        VendorDetail vendor = (VendorDetail) document.getNewMaintainableObject().getDataObject();
 
         if (vendor.isVendorParentIndicator()) {
             // Vendor Parent Indicator should be readOnly if the vendor is a parent.
@@ -56,7 +56,7 @@ public class VendorDocumentPresentationController extends FinancialSystemMainten
 
             // For existing vendors, don't allow vendor type code to be changed if maint table indicates it shouldn't be changed
             if (ObjectUtils.isNotNull(vendor.getVendorHeaderGeneratedIdentifier()) &&
-                    !vendor.getVendorHeader().getVendorType().isVendorTypeChangeAllowedIndicator()) {
+                !vendor.getVendorHeader().getVendorType().isVendorTypeChangeAllowedIndicator()) {
                 conditionallyReadonlyPropertyNames.add(VendorPropertyConstants.VENDOR_TYPE_CODE);
             }
         }
@@ -92,7 +92,7 @@ public class VendorDocumentPresentationController extends FinancialSystemMainten
     public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
         Set<String> conditionallyHiddenPropertyNames = super.getConditionallyHiddenPropertyNames(businessObject);
         MaintenanceDocument document = (MaintenanceDocument) businessObject;
-        VendorDetail vendor = (VendorDetail)document.getNewMaintainableObject().getDataObject();
+        VendorDetail vendor = (VendorDetail) document.getNewMaintainableObject().getDataObject();
         // If the vendor is a parent then the vendor parent name should be hidden.
         if (vendor.isVendorParentIndicator()) {
             conditionallyHiddenPropertyNames.add(VendorPropertyConstants.VENDOR_PARENT_NAME);
@@ -101,4 +101,4 @@ public class VendorDocumentPresentationController extends FinancialSystemMainten
         return conditionallyHiddenPropertyNames;
     }
 
-  }
+}

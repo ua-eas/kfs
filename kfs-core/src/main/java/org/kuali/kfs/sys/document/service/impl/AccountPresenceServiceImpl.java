@@ -26,9 +26,7 @@ import org.kuali.kfs.sys.document.service.AccountPresenceService;
 import org.kuali.kfs.sys.service.NonTransactional;
 
 /**
- *
  * This is the default implementation of the AccountPresenceService interface.
- *
  */
 
 @NonTransactional
@@ -38,10 +36,9 @@ public class AccountPresenceServiceImpl implements AccountPresenceService {
     /**
      * This method determines if an object code has been budgeted for account presence.
      *
-     * @param account The account to be checked for the presence control flag.
+     * @param account    The account to be checked for the presence control flag.
      * @param objectCode The object code being reviewed.
      * @return True if the object code has been budgeted for an account presence, false otherwise.
-     *
      * @see org.kuali.kfs.sys.document.service.AccountPresenceService#isObjectCodeBudgetedForAccountPresence(org.kuali.kfs.coa.businessobject.Account, org.kuali.kfs.coa.businessobject.ObjectCode)
      */
     public boolean isObjectCodeBudgetedForAccountPresence(Account account, ObjectCode objectCode) {

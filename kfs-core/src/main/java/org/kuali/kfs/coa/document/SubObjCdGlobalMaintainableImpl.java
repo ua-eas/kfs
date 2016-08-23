@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobal;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobalDetail;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class provides some specific functionality for the {@link SubObjCdGlobal} maintenance document generateMaintenanceLocks -

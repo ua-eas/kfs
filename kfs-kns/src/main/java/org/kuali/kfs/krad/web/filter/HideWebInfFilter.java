@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.krad.web.filter;
 
-import java.io.IOException;
-import java.util.regex.Pattern;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -29,6 +26,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * A simple filter that 404s any urls to embedded module WEB-INF directories.
@@ -36,16 +35,13 @@ import javax.servlet.http.HttpServletResponse;
  * files may still be accessed directly.  This filter will pre-emptively catch the URL
  * which means that application code cannot actually handle those URLs (for instance,
  * to do its own error handling).
- *
+ * <p>
  * There is probably a better way to do this, e.g. a filter to bean proxy in some spring context,
  * but the sample app doesn't really have a web context of its own to put this in.
- *
- *
- *
  */
 public class HideWebInfFilter implements Filter {
 
-	private static final Pattern WEB_INF_PATTERN = Pattern.compile(".*WEB-INF.*");
+    private static final Pattern WEB_INF_PATTERN = Pattern.compile(".*WEB-INF.*");
 
     /**
      * @see javax.servlet.Filter#destroy()

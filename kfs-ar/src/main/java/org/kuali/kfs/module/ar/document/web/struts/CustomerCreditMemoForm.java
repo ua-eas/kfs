@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Set;
 
 public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocumentFormBase {
 
@@ -55,11 +54,11 @@ public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocument
         //populate document using request
         super.populate(request);
 
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)getDocument();
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) getDocument();
         String customerInvoiceNumber = customerCreditMemoDocument.getFinancialDocumentReferenceInvoiceNumber();
 
         //this will make sure that every action has fully populated invoice
-        if(StringUtils.isNotEmpty(customerInvoiceNumber) /*&& customerCreditMemoDocument.getInvoice() == null*/){
+        if (StringUtils.isNotEmpty(customerInvoiceNumber) /*&& customerCreditMemoDocument.getInvoice() == null*/) {
             customerCreditMemoDocument.refreshReferenceObject("invoice");
         }
     }
@@ -68,7 +67,7 @@ public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocument
      * Build additional customer credit memo specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs the creation of extra buttons.
      * No data dictionary is involved here.
      */
@@ -81,7 +80,7 @@ public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocument
         CustomerCreditMemoDocument creditMemoDoc = (CustomerCreditMemoDocument) getDocument();
         DocumentHelperService docHelperService = SpringContext.getBean(DocumentHelperService.class);
         TransactionalDocumentPresentationController presoController =
-                (TransactionalDocumentPresentationController) docHelperService.getDocumentPresentationController(creditMemoDoc);
+            (TransactionalDocumentPresentationController) docHelperService.getDocumentPresentationController(creditMemoDoc);
         Set<String> editModes = presoController.getEditModes(creditMemoDoc);
 
         //  special buttons for the first 'init' screen
@@ -104,8 +103,8 @@ public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocument
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
      */
     protected void addExtraButton(String property, String source, String altText) {
 

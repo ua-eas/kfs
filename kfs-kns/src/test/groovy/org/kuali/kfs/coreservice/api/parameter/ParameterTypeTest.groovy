@@ -22,8 +22,8 @@ import org.junit.Test
 import org.kuali.kfs.coreservice.test.JAXBAssert
 
 class ParameterTypeTest {
-	private static final Long VERSION_NUMBER = new Integer(1);
-	private static final String OBJECT_ID = UUID.randomUUID();
+    private static final Long VERSION_NUMBER = new Integer(1);
+    private static final String OBJECT_ID = UUID.randomUUID();
     private static final String XML = """
         <parameterType xmlns="http://rice.kuali.org/core/v2_0">
             <code>PC</code>
@@ -36,17 +36,17 @@ class ParameterTypeTest {
 
     private static final String PARAMETER_TYPE_CODE = "PC"
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterType.Builder.create((String) null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_empty() {
         org.kuali.kfs.coreservice.api.parameter.ParameterType.Builder.create("");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_whitespace() {
         org.kuali.kfs.coreservice.api.parameter.ParameterType.Builder.create("  ");
     }
@@ -62,17 +62,17 @@ class ParameterTypeTest {
     }
 
     @Test
-	public void test_Xml_Marshal_Unmarshal() {
-		JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, org.kuali.kfs.coreservice.api.parameter.ParameterType.class)
-	}
+    public void test_Xml_Marshal_Unmarshal() {
+        JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, org.kuali.kfs.coreservice.api.parameter.ParameterType.class)
+    }
 
     private create() {
-		return org.kuali.kfs.coreservice.api.parameter.ParameterType.Builder.create(new org.kuali.kfs.coreservice.api.parameter.ParameterTypeContract() {
-				def String code ="PC"
-				def String name = "Config"
-				def boolean active = true
-                def Long versionNumber = ParameterTypeTest.VERSION_NUMBER
-				def String objectId = ParameterTypeTest.OBJECT_ID
-			}).build()
-	}
+        return org.kuali.kfs.coreservice.api.parameter.ParameterType.Builder.create(new org.kuali.kfs.coreservice.api.parameter.ParameterTypeContract() {
+            def String code = "PC"
+            def String name = "Config"
+            def boolean active = true
+            def Long versionNumber = ParameterTypeTest.VERSION_NUMBER
+            def String objectId = ParameterTypeTest.OBJECT_ID
+        }).build()
+    }
 }

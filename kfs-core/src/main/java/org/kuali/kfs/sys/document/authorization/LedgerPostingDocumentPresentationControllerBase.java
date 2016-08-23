@@ -37,7 +37,7 @@ public class LedgerPostingDocumentPresentationControllerBase extends FinancialSy
         final boolean result = super.canErrorCorrect(document);
         if (result) {
             final Integer currentFiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
-            if (!ObjectUtils.nullSafeEquals(currentFiscalYear, ((LedgerPostingDocument)document).getPostingYear())) {
+            if (!ObjectUtils.nullSafeEquals(currentFiscalYear, ((LedgerPostingDocument) document).getPostingYear())) {
                 return false;
             }
         }

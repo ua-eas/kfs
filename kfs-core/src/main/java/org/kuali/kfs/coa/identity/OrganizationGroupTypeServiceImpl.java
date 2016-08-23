@@ -18,26 +18,27 @@
  */
 package org.kuali.kfs.coa.identity;
 
+import org.kuali.kfs.kns.kim.group.GroupTypeServiceBase;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.kfs.kns.kim.group.GroupTypeServiceBase;
-
 public class OrganizationGroupTypeServiceImpl extends GroupTypeServiceBase {
     protected static final String DOCUMENT_TYPE_NAME = "ORG";
 
-   List<String> workflowRoutingAttributes = new ArrayList<String>(2);
+    List<String> workflowRoutingAttributes = new ArrayList<String>(2);
+
     {
-        workflowRoutingAttributes.add( KfsKimAttributes.CHART_OF_ACCOUNTS_CODE );
-        workflowRoutingAttributes.add( KfsKimAttributes.ORGANIZATION_CODE );
+        workflowRoutingAttributes.add(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
+        workflowRoutingAttributes.add(KfsKimAttributes.ORGANIZATION_CODE);
     }
 
-   @Override
-   public List<String> getWorkflowRoutingAttributes(String routeLevel) {
-       return Collections.unmodifiableList(workflowRoutingAttributes);
-   }
+    @Override
+    public List<String> getWorkflowRoutingAttributes(String routeLevel) {
+        return Collections.unmodifiableList(workflowRoutingAttributes);
+    }
 
     @Override
     public String getWorkflowDocumentTypeName() {

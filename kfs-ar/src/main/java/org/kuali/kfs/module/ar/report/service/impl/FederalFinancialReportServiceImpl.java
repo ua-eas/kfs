@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.FederalFinancialReportService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.Properties;
 
 /**
  * Default implementation of the FederalFinancialReportService
@@ -42,16 +42,13 @@ public class FederalFinancialReportServiceImpl implements FederalFinancialReport
             if (StringUtils.equals(ArConstants.FEDERAL_FORM_425, federalForm)) {
                 if (ObjectUtils.isNull(proposalNumber)) {
                     return PROPOSAL_NUMBER_REQUIRED;
-                }
-                else if (StringUtils.isEmpty(fiscalYear) || StringUtils.isEmpty(reportingPeriod)) {
+                } else if (StringUtils.isEmpty(fiscalYear) || StringUtils.isEmpty(reportingPeriod)) {
                     return FISCAL_YEAR_AND_PERIOD_REQUIRED;
                 }
-            }
-            else if (StringUtils.equals(ArConstants.FEDERAL_FORM_425A, federalForm)) {
+            } else if (StringUtils.equals(ArConstants.FEDERAL_FORM_425A, federalForm)) {
                 if (ObjectUtils.isNull(agencyNumber)) {
                     return AGENCY_REQUIRED;
-                }
-                else if (StringUtils.isEmpty(fiscalYear) || StringUtils.isEmpty(reportingPeriod)) {
+                } else if (StringUtils.isEmpty(fiscalYear) || StringUtils.isEmpty(reportingPeriod)) {
                     return FISCAL_YEAR_AND_PERIOD_REQUIRED;
                 }
             }

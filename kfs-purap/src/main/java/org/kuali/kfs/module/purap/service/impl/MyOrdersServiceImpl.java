@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.purap.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
@@ -27,8 +29,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,9 +42,9 @@ public class MyOrdersServiceImpl implements MyOrdersService {
     protected BusinessObjectService businessObjectService;
 
     protected static final List<String> DOCUMENT_STATUS_CODES = Arrays.asList(DocumentStatus.SAVED.getCode(),
-            DocumentStatus.CANCELED.getCode(), DocumentStatus.DISAPPROVED.getCode(), DocumentStatus.ENROUTE.getCode(),
-            DocumentStatus.EXCEPTION.getCode(), DocumentStatus.FINAL.getCode(), DocumentStatus.INITIATED.getCode(),
-            DocumentStatus.RECALLED.getCode(), DocumentStatus.PROCESSED.getCode());
+        DocumentStatus.CANCELED.getCode(), DocumentStatus.DISAPPROVED.getCode(), DocumentStatus.ENROUTE.getCode(),
+        DocumentStatus.EXCEPTION.getCode(), DocumentStatus.FINAL.getCode(), DocumentStatus.INITIATED.getCode(),
+        DocumentStatus.RECALLED.getCode(), DocumentStatus.PROCESSED.getCode());
 
 
     @Override
@@ -54,16 +54,16 @@ public class MyOrdersServiceImpl implements MyOrdersService {
             return new ArrayList<>();
         }
         List<Map<String, Object>> myOrders = latestRequisitions.stream()
-                .map((FinancialSystemDocumentHeader docHeader) -> retrieveRequisition(docHeader.getDocumentNumber()))
-                .filter((RequisitionDocument req) -> !ObjectUtils.isNull(req))
-                .map((RequisitionDocument req) -> convertDocumentInfoToMap(req))
-                .collect(Collectors.toList());
+            .map((FinancialSystemDocumentHeader docHeader) -> retrieveRequisition(docHeader.getDocumentNumber()))
+            .filter((RequisitionDocument req) -> !ObjectUtils.isNull(req))
+            .map((RequisitionDocument req) -> convertDocumentInfoToMap(req))
+            .collect(Collectors.toList());
         return myOrders;
     }
 
     protected Map<String, Object> convertDocumentInfoToMap(RequisitionDocument req) {
         Map<String, Object> requisitionRepresentation = new ConcurrentHashMap<>();
-        final FinancialSystemDocumentHeader docHeader = (FinancialSystemDocumentHeader)req.getDocumentHeader();
+        final FinancialSystemDocumentHeader docHeader = (FinancialSystemDocumentHeader) req.getDocumentHeader();
         requisitionRepresentation.put(KFSPropertyConstants.DOCUMENT_NUMBER, docHeader.getDocumentNumber());
         requisitionRepresentation.put(PurapPropertyConstants.REQUISITION_IDENTIFIER, req.getPurapDocumentIdentifier());
         if (StringUtils.isNotBlank(req.getVendorName())) {

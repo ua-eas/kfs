@@ -19,19 +19,19 @@
 package org.kuali.kfs.sys.document.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
-import org.kuali.kfs.sys.document.web.AccountingLineViewCurrentBaseAmount;
-import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.util.FieldUtils;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.FieldBridge;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
+import org.kuali.kfs.sys.document.web.AccountingLineViewCurrentBaseAmount;
+import org.kuali.kfs.sys.document.web.TableJoining;
 
 /**
  * The definition for an amount field which reports both current and base amounts
@@ -43,6 +43,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Creates a property initiated AccountingLineViewCurrentBaseAmount element
+     *
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewRenderableElementDefinition#createLayoutElement(java.lang.Class)
      */
     public TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
@@ -61,7 +62,8 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Creates a field for the given AccountingLine class and property name
-     * @param propertyName the name of the property to create a Field for
+     *
+     * @param propertyName        the name of the property to create a Field for
      * @param accountingLineClass the Class of the AccountingLine we're planning on rendering
      * @return an appropriately created Field
      */
@@ -77,6 +79,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Creates an AccountingLineViewFieldDefinition for the given property name
+     *
      * @param propertyName the name of the field property that we're creating a definition for
      * @return an appropriately created AccountingLineViewFieldDefinition
      */
@@ -92,15 +95,15 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
     @Override
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
         if (StringUtils.isBlank(currentAmountPropertyName)) {
-            throw new AttributeValidationException("The currentAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
+            throw new AttributeValidationException("The currentAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for " + rootBusinessObjectClass.getName());
         }
 
         if (StringUtils.isBlank(baseAmountPropertyName)) {
-            throw new AttributeValidationException("The baseAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
+            throw new AttributeValidationException("The baseAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for " + rootBusinessObjectClass.getName());
         }
 
         if (!StringUtils.isBlank(getName())) {
-            throw new AttributeValidationException("please do not specify name on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
+            throw new AttributeValidationException("please do not specify name on the AccountingLineView-CurentBaseAmountField definition for " + rootBusinessObjectClass.getName());
         }
 
         if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getCurrentAmountPropertyName())) {
@@ -118,6 +121,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Gets the baseAmountPropertyName attribute.
+     *
      * @return Returns the baseAmountPropertyName.
      */
     public String getBaseAmountPropertyName() {
@@ -126,6 +130,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Sets the baseAmountPropertyName attribute value.
+     *
      * @param baseAmountPropertyName The baseAmountPropertyName to set.
      */
     public void setBaseAmountPropertyName(String baseAmountPropertyName) {
@@ -134,6 +139,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Gets the currentAmountPropertyName attribute.
+     *
      * @return Returns the currentAmountPropertyName.
      */
     public String getCurrentAmountPropertyName() {
@@ -142,6 +148,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Sets the currentAmountPropertyName attribute value.
+     *
      * @param currentAmountPropertyName The currentAmountPropertyName to set.
      */
     public void setCurrentAmountPropertyName(String currentAmountPropertyName) {
@@ -150,6 +157,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Gets the useShortLabels attribute.
+     *
      * @return Returns the useShortLabels.
      */
     public boolean isUseShortLabels() {
@@ -158,6 +166,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
 
     /**
      * Sets the useShortLabels attribute value.
+     *
      * @param useShortLabels The useShortLabels to set.
      */
     public void setUseShortLabels(boolean useShortLabels) {

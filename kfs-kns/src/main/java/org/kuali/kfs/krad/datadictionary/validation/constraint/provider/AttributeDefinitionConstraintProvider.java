@@ -41,33 +41,31 @@ import java.util.HashMap;
  * An object that looks up constraints for attribute definitions by constraint type. This can either by instantiated by dependency
  * injection, in which case a map of class names to constraint resolvers can be injected, or the default map can be constructed by
  * calling the init() method immediately after instantiation.
- *
- *
  */
 public class AttributeDefinitionConstraintProvider extends BaseConstraintProvider<AttributeDefinition> {
 
-	@Override
-	public void init() {
-		resolverMap = new HashMap<String, ConstraintResolver<AttributeDefinition>>();
-		resolverMap.put(CaseConstraint.class.getName(), new CaseConstraintResolver<AttributeDefinition>());
-		resolverMap.put(ExistenceConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
-		resolverMap.put(DataTypeConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
-		resolverMap.put(LengthConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
-		resolverMap.put(ValidCharactersConstraint.class.getName(), new ValidCharactersConstraintResolver<AttributeDefinition>());
-		resolverMap.put(PrerequisiteConstraint.class.getName(), new PrerequisiteConstraintsResolver<AttributeDefinition>());
-		resolverMap.put(MustOccurConstraint.class.getName(), new MustOccurConstraintsResolver<AttributeDefinition>());
-	}
+    @Override
+    public void init() {
+        resolverMap = new HashMap<String, ConstraintResolver<AttributeDefinition>>();
+        resolverMap.put(CaseConstraint.class.getName(), new CaseConstraintResolver<AttributeDefinition>());
+        resolverMap.put(ExistenceConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
+        resolverMap.put(DataTypeConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
+        resolverMap.put(LengthConstraint.class.getName(), new DefinitionConstraintResolver<AttributeDefinition>());
+        resolverMap.put(ValidCharactersConstraint.class.getName(), new ValidCharactersConstraintResolver<AttributeDefinition>());
+        resolverMap.put(PrerequisiteConstraint.class.getName(), new PrerequisiteConstraintsResolver<AttributeDefinition>());
+        resolverMap.put(MustOccurConstraint.class.getName(), new MustOccurConstraintsResolver<AttributeDefinition>());
+    }
 
-	/**
-	 * @see ConstraintProvider#isSupported(Constrainable)
-	 */
-	@Override
-	public boolean isSupported(Constrainable definition) {
+    /**
+     * @see ConstraintProvider#isSupported(Constrainable)
+     */
+    @Override
+    public boolean isSupported(Constrainable definition) {
 
-		if (definition instanceof AttributeDefinition || definition instanceof InputField)
-			return true;
+        if (definition instanceof AttributeDefinition || definition instanceof InputField)
+            return true;
 
-		return false;
-	}
+        return false;
+    }
 
 }

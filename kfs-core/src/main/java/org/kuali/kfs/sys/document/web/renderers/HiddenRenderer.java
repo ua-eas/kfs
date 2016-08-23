@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.apache.struts.taglib.html.HiddenTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.struts.taglib.html.HiddenTag;
-import org.springframework.web.util.HtmlUtils;
 
 /**
  * Renders a hidden field
@@ -33,6 +32,7 @@ public class HiddenRenderer extends FieldRendererBase {
 
     /**
      * Resets the field on the following values on the tag: the page context, the parent tag, the property, and the value
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     @Override
@@ -46,6 +46,7 @@ public class HiddenRenderer extends FieldRendererBase {
 
     /**
      * Renders the hidden field using a Struts html:hidden tag
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -65,6 +66,7 @@ public class HiddenRenderer extends FieldRendererBase {
 
     /**
      * You can't even see me...you think I got a quickfinder?
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

@@ -84,12 +84,10 @@ public class LedgerEntry {
         if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
             this.creditAmount = amount;
             this.creditCount = count;
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             this.debitAmount = amount;
             this.debitCount = count;
-        }
-        else {
+        } else {
             this.noDCAmount = amount;
             this.noDCCount = count;
         }
@@ -144,12 +142,10 @@ public class LedgerEntry {
         if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setCreditAmount(amount);
             ledgerEntry.setCreditCount(count);
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setDebitAmount(amount);
             ledgerEntry.setDebitCount(count);
-        }
-        else {
+        } else {
             ledgerEntry.setNoDCAmount(amount);
             ledgerEntry.setNoDCCount(count);
         }

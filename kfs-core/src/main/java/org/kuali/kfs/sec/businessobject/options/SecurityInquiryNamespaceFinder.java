@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sec.SecConstants;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Returns list of inquiry namespaces
@@ -33,11 +32,13 @@ import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 public class SecurityInquiryNamespaceFinder extends KeyValuesBase {
 
     protected static final List<KeyValue> OPTIONS = new ArrayList<KeyValue>();
+
     static {
-        OPTIONS.add(new ConcreteKeyValue("",""));
+        OPTIONS.add(new ConcreteKeyValue("", ""));
         OPTIONS.add(new ConcreteKeyValue(KFSConstants.CoreModuleNamespaces.GL, KFSConstants.CoreModuleNamespaces.GL));
         OPTIONS.add(new ConcreteKeyValue(KFSConstants.OptionalModuleNamespaces.LABOR_DISTRIBUTION, KFSConstants.OptionalModuleNamespaces.LABOR_DISTRIBUTION));
     }
+
     /**
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * This class contains common Business Rule functionality for Global Documents.
@@ -61,7 +61,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
      *
      * @param accountGlobalDetails The popualted accountGlobalDocument to test.
      * @return A populated CheckOnlyOneChartResult object. This will contain whether the test succeeded or failed, and if failed,
-     *         what lines the failures occurred on.
+     * what lines the failures occurred on.
      */
     protected CheckOnlyOneChartResult checkOnlyOneChart(List<AccountGlobalDetail> accountGlobalDetails) {
         // if there is not enough information to do the test, then exit happily with no failure
@@ -82,8 +82,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
                     firstChart = account.getChartOfAccountsCode();
                     firstChartLineNumber = compareLineNumber;
                 }
-            }
-            else {
+            } else {
                 if (StringUtils.isNotBlank(account.getChartOfAccountsCode())) {
                     if (!firstChart.equalsIgnoreCase(account.getChartOfAccountsCode())) {
                         return new CheckOnlyOneChartResult(false, firstChartLineNumber, compareLineNumber);

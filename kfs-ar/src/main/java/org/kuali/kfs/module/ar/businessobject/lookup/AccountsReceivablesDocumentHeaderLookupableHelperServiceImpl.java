@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class AccountsReceivablesDocumentHeaderLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     /**
@@ -39,9 +39,9 @@ public class AccountsReceivablesDocumentHeaderLookupableHelperServiceImpl extend
         setReferencesToRefresh(fieldValues.get(KFSConstants.REFERENCES_TO_REFRESH));
 
         // we only want invoices, so let's add that to the fieldValues
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.INV_DOCUMENT_TYPE);
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.INV_DOCUMENT_TYPE);
 
-        List<AccountsReceivableDocumentHeader> searchResults = (List<AccountsReceivableDocumentHeader>)getLookupService().findCollectionBySearchHelper(getBusinessObjectClass(), fieldValues, false);
+        List<AccountsReceivableDocumentHeader> searchResults = (List<AccountsReceivableDocumentHeader>) getLookupService().findCollectionBySearchHelper(getBusinessObjectClass(), fieldValues, false);
 
         return searchResults;
     }

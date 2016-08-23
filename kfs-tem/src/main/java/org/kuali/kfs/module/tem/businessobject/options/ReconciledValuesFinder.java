@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ReconciledValuesFinder extends KeyValuesBase {
 
@@ -36,7 +36,7 @@ public class ReconciledValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         Iterator<String> it = TemConstants.reconciledCodes().keySet().iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             String key = it.next();
             labels.add(new ConcreteKeyValue(key, TemConstants.reconciledCodes().get(key)));
         }

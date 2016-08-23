@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * determine whether the given accounting line has already been in the given document
  *
  * @param accountingDocument the given document
- * @param accountingLine the given accounting line
+ * @param accountingLine     the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferValidAccountValidation extends GenericValidation {
@@ -40,6 +40,7 @@ public class LaborExpenseTransferValidAccountValidation extends GenericValidatio
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -68,7 +69,7 @@ public class LaborExpenseTransferValidAccountValidation extends GenericValidatio
         for (Object sourceAccountingLine : expenseTransferDocument.getSourceAccountingLines()) {
             AccountingLine line = (AccountingLine) sourceAccountingLine;
             if (ObjectUtils.isNull(line.getAccount())) {
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[] { line.getChartOfAccountsCode(), line.getAccountNumber() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[]{line.getChartOfAccountsCode(), line.getAccountNumber()});
                 return false;
             }
         }
@@ -76,7 +77,7 @@ public class LaborExpenseTransferValidAccountValidation extends GenericValidatio
         for (Object targetAccountingLine : expenseTransferDocument.getTargetAccountingLines()) {
             AccountingLine line = (AccountingLine) targetAccountingLine;
             if (ObjectUtils.isNull(line.getAccount())) {
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[] { line.getChartOfAccountsCode(), line.getAccountNumber() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_INVALID_ACCOUNT, new String[]{line.getChartOfAccountsCode(), line.getAccountNumber()});
                 return false;
             }
         }
@@ -85,6 +86,7 @@ public class LaborExpenseTransferValidAccountValidation extends GenericValidatio
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -93,6 +95,7 @@ public class LaborExpenseTransferValidAccountValidation extends GenericValidatio
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

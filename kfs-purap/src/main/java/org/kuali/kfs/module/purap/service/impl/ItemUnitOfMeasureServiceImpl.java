@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.service.ItemUnitOfMeasureService;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -39,7 +39,7 @@ public class ItemUnitOfMeasureServiceImpl implements ItemUnitOfMeasureService {
     public UnitOfMeasure getByPrimaryId(String itemUnitOfMeasureCode) {
         UnitOfMeasure toBeRetrieved = new UnitOfMeasure();
         toBeRetrieved.setItemUnitOfMeasureCode(itemUnitOfMeasureCode.toUpperCase());
-        UnitOfMeasure uom = (UnitOfMeasure)businessObjectService.retrieve( toBeRetrieved );
+        UnitOfMeasure uom = (UnitOfMeasure) businessObjectService.retrieve(toBeRetrieved);
         return uom;
     }
 

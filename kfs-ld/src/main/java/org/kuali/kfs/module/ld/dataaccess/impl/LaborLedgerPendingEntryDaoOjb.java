@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -30,6 +25,11 @@ import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.dataaccess.LaborLedgerPendingEntryDao;
 import org.kuali.kfs.sys.dataaccess.impl.GeneralLedgerPendingEntryDaoOjb;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OJB Implementation of LaborLedgerPendingEntryDao.
@@ -48,7 +48,7 @@ public class LaborLedgerPendingEntryDaoOjb extends GeneralLedgerPendingEntryDaoO
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerPendingEntryDao#findPendingLedgerEntriesForLedgerBalance(java.util.Map,
-     *      boolean)
+     * boolean)
      */
     public Iterator<LaborLedgerPendingEntry> findPendingLedgerEntriesForLedgerBalance(Map fieldValues, boolean isApproved, String currentFYPeriodCode, int currentFY, List<String> encumbranceBalanceTypes) {
         return this.findPendingEntries(fieldValues, isApproved, currentFYPeriodCode, currentFY, encumbranceBalanceTypes).iterator();
@@ -56,18 +56,17 @@ public class LaborLedgerPendingEntryDaoOjb extends GeneralLedgerPendingEntryDaoO
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerPendingEntryDao#hasPendingLaborLedgerEntry(java.util.Map,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     public Collection<LaborLedgerPendingEntry> hasPendingLaborLedgerEntry(Map fieldValues, Object businessObject) {
         LOG.debug("hasPendingLaborLedgerEntry() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iter = fieldValues.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = fieldValues.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             if (element.equals("documentNumber")) {
                 criteria.addNotEqualTo(element, fieldValues.get(element));
-            }
-            else {
+            } else {
                 criteria.addEqualTo(element, fieldValues.get(element));
             }
         }
@@ -95,7 +94,7 @@ public class LaborLedgerPendingEntryDaoOjb extends GeneralLedgerPendingEntryDaoO
 
     /**
      * @see org.kuali.kfs.sys.dataaccess.impl.GeneralLedgerPendingEntryDaoOjb#findPendingEntries(java.util.Map, boolean,
-     *      java.lang.String, int)
+     * java.lang.String, int)
      */
     @Override
     public Collection findPendingEntries(Map fieldValues, boolean isApproved, String currentFiscalPeriodCode, int currentFiscalYear, List<String> encumbranceBalanceTypes) {

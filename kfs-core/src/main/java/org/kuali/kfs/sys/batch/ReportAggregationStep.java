@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportAggregatorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class ReportAggregationStep extends AbstractStep {
     protected String outputFilePath;
@@ -60,7 +60,7 @@ public class ReportAggregationStep extends AbstractStep {
             throw new RuntimeException(inputFilePath + " does not exist or is not a directory.");
         }
         FileFilter filter = FileFilterUtils.andFileFilter(
-                new PrefixFileFilter(inputFilePrefix), new SuffixFileFilter(inputFileSuffix));
+            new PrefixFileFilter(inputFilePrefix), new SuffixFileFilter(inputFileSuffix));
 
         List<File> fileList = Arrays.asList(inputDirectory.listFiles(filter));
 
@@ -71,6 +71,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the outputFilePath attribute value.
+     *
      * @param outputFilePath The outputFilePath to set.
      */
     public void setOutputFilePath(String outputFilePath) {
@@ -79,6 +80,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the outputFilePrefix attribute value.
+     *
      * @param outputFilePrefix The outputFilePrefix to set.
      */
     public void setOutputFilePrefix(String outputFilePrefix) {
@@ -87,6 +89,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the outputFileSuffix attribute value.
+     *
      * @param outputFileSuffix The outputFileSuffix to set.
      */
     public void setOutputFileSuffix(String outputFileSuffix) {
@@ -95,6 +98,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the reportAggregatorService attribute value.
+     *
      * @param reportAggregatorService The reportAggregatorService to set.
      */
     public void setReportAggregatorService(ReportAggregatorService reportAggregatorService) {
@@ -103,6 +107,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the inputFilePath attribute value.
+     *
      * @param inputFilePath The inputFilePath to set.
      */
     public void setInputFilePath(String inputFilePath) {
@@ -111,6 +116,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the inputFilePrefix attribute value.
+     *
      * @param inputFilePrefix The inputFilePrefix to set.
      */
     public void setInputFilePrefix(String inputFilePrefix) {
@@ -119,6 +125,7 @@ public class ReportAggregationStep extends AbstractStep {
 
     /**
      * Sets the inputFileSuffix attribute value.
+     *
      * @param inputFileSuffix The inputFileSuffix to set.
      */
     public void setInputFileSuffix(String inputFileSuffix) {

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.integration.ar;
 
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
-import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Methods which allow core KFS modules to interact with the Accounts Receivable module.
@@ -69,7 +69,7 @@ public interface AccountsReceivableModuleService {
     /**
      * Returns the AccountsReceivableCustomerAddress for the given customer address identifier
      *
-     * @param customerNumber - number of customer for address
+     * @param customerNumber           - number of customer for address
      * @param customerAddressIdentifer - id for the customer address to find
      * @return AccountsReceivableCustomerAddress instance with the customer address information
      */
@@ -96,10 +96,9 @@ public interface AccountsReceivableModuleService {
     /**
      * get the open amount of the customer invoice document with the given search criteria
      *
-     * @param customerTypeCodes the given customer type codes
+     * @param customerTypeCodes  the given customer type codes
      * @param customerInvoiceAge the given customer invoice age
      * @param invoiceDueDateFrom the from date of due date of the invoice
-     *
      * @return a set of the open amounts indexed by the customer invoice numbers
      */
     public Map<String, KualiDecimal> getCustomerInvoiceOpenAmount(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceDueDateFrom);
@@ -107,16 +106,16 @@ public interface AccountsReceivableModuleService {
     /**
      * get the open customer invoice documents with the given search criteria
      *
-     * @param customerTypeCodes the given customer type codes
-     * @param customerInvoiceAge the given customer invoice age
+     * @param customerTypeCodes      the given customer type codes
+     * @param customerInvoiceAge     the given customer invoice age
      * @param invoiceBillingDateFrom the from date of billing date of the invoice
-     *
      * @return a set of the open customer invoices
      */
     public Collection<? extends AccountsReceivableCustomerInvoice> getOpenCustomerInvoices(List<String> customerTypeCodes, Integer customerInvoiceAge, Date invoiceBillingDateFrom);
 
     /**
      * Undoes the actions for any invoices which were created for the given trip id (since KFS TEM uses invoices to handle accounting for travel advances)
+     *
      * @param tripId the id of the trip to remove entries for
      * @organizationOptions the organization options which the trip used
      */
@@ -164,7 +163,7 @@ public interface AccountsReceivableModuleService {
      * This method returns Organization Options for the given chart/org.
      *
      * @param chartOfAccountsCode chart used to retrieve the Organization Options
-     * @param organizationCode org used to retrieve the Organization Options
+     * @param organizationCode    org used to retrieve the Organization Options
      * @return Organziation Options corresponding to the given chart/org.
      */
     public AccountsReceivableOrganizationOptions getOrgOptionsIfExists(String chartOfAccountsCode, String organizationCode);
@@ -204,8 +203,8 @@ public interface AccountsReceivableModuleService {
      * This method returns the System Information corresponding to a given chart/org/fiscal year parameters.
      *
      * @param chartOfAccountsCode chart code used to find System Information
-     * @param organizationCode org code used to find System Information
-     * @param currentFiscalYear fiscal year used to find System Information
+     * @param organizationCode    org code used to find System Information
+     * @param currentFiscalYear   fiscal year used to find System Information
      * @return System Information for given parameters
      */
     public AccountsReceivableSystemInformation getSystemInformationByProcessingChartOrgAndFiscalYear(String chartOfAccountsCode, String organizationCode, Integer currentFiscalYear);
@@ -213,10 +212,9 @@ public interface AccountsReceivableModuleService {
     /**
      * This method returns a Customer Invoice Detail for the given invoice item code, chart and org.
      *
-     * @param invoiceItemCode invoice item code used to search for a Customer Invoice Detail
+     * @param invoiceItemCode     invoice item code used to search for a Customer Invoice Detail
      * @param processingChartCode chart code used to search for a Customer Invoice Detail
-     * @param processingOrgCode org code used to search for a Customer Invoice Detail
-     *
+     * @param processingOrgCode   org code used to search for a Customer Invoice Detail
      * @return Customer Invoice Detail corresponding to the given parameters
      */
     public AccountsReceivableCustomerInvoiceDetail getCustomerInvoiceDetailFromCustomerInvoiceItemCode(String invoiceItemCode, String processingChartCode, String processingOrgCode);
@@ -226,7 +224,6 @@ public interface AccountsReceivableModuleService {
      * the accounts receivable offset are determined.
      *
      * @param customerInvoiceDetail AccountsReceivableCustomerInvoiceDetail used to determine the object code
-     *
      * @return Object Code based on the offset generation parameter and the given customerInvoiceDetail
      */
     public String getAccountsReceivableObjectCodeBasedOnReceivableParameter(AccountsReceivableCustomerInvoiceDetail customerInvoiceDetail);

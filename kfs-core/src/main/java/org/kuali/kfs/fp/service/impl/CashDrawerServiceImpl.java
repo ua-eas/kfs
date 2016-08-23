@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.fp.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -70,8 +70,7 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      *
      * @param campusCode The campus code associated with the cash drawer we wish to retrieve and open.
      * @param documentId The id of the reference document linked to the drawer.
-     * @return  A new instance of the cash drawer in open status.
-     *
+     * @return A new instance of the cash drawer in open status.
      * @see org.kuali.kfs.fp.service.CashDrawerService#openCashDrawer(java.lang.String, java.lang.String)
      */
     @Override
@@ -87,10 +86,9 @@ public class CashDrawerServiceImpl implements CashDrawerService {
     /**
      * Sets the status of the cash drawer provided to open, persists this new state and returns the drawer.
      *
-     * @param drawer An instance of the drawer being opened.
+     * @param drawer     An instance of the drawer being opened.
      * @param documentId The id of the reference document linked to the drawer.
      * @return An instance of the cash drawer with a status of open.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#openCashDrawer(org.kuali.kfs.fp.businessobject.CashDrawer, java.lang.String)
      */
     @Override
@@ -111,8 +109,7 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      *
      * @param campusCode The campus code associated with the cash drawer.
      * @param documentId The reference document id to be set to the cash drawer.
-     *
-     * @see org.kuali.kfs.fp.service.CashDrawerService#lockCashDrawer(java.lang.String,java.lang.String)
+     * @see org.kuali.kfs.fp.service.CashDrawerService#lockCashDrawer(java.lang.String, java.lang.String)
      */
     @Override
     public void lockCashDrawer(String campusCode, String documentId) {
@@ -127,9 +124,8 @@ public class CashDrawerServiceImpl implements CashDrawerService {
     /**
      * Sets the state of the cash drawer provided to locked and persists this new state.
      *
-     * @param drawer The cash drawer to be locked.
+     * @param drawer     The cash drawer to be locked.
      * @param documentId The reference document id to be set to the cash drawer.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#lockCashDrawer(org.kuali.kfs.fp.businessobject.CashDrawer, java.lang.String)
      */
     @Override
@@ -156,8 +152,7 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      *
      * @param campusCode The campus code associated with the cash drawer.
      * @param documentId The reference document id to be set to the cash drawer.
-     *
-     * @see org.kuali.kfs.fp.service.CashDrawerService#unlockCashDrawer(java.lang.String,java.lang.String)
+     * @see org.kuali.kfs.fp.service.CashDrawerService#unlockCashDrawer(java.lang.String, java.lang.String)
      */
     @Override
     public void unlockCashDrawer(String campusCode, String documentId) {
@@ -172,9 +167,8 @@ public class CashDrawerServiceImpl implements CashDrawerService {
     /**
      * Sets the state of the cash drawer provided to open and persists this new state.
      *
-     * @param drawer The cash drawer to be unlocked.
+     * @param drawer     The cash drawer to be unlocked.
      * @param documentId The reference document id to be set to the cash drawer.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#unlockCashDrawer(org.kuali.kfs.fp.businessobject.CashDrawer, java.lang.String)
      */
     @Override
@@ -200,12 +194,11 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      * This method retrieves a cash drawer instance using the campus code provided as a search parameter.  If no drawer can
      * be found for the campus provided and the autocreate flag is set to true, then a new instance of a cash drawer will
      * be generated and returned.  If the autocreate flag is false, then a null value will be returned.
-     *
+     * <p>
      * NOTE: The new instance created if autocreate is set to true is an unpersisted instance.
      *
      * @param campusCode The campus code used to retrieve the cash drawer.
      * @return An instance of a cash drawer matching the value provided.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#findByCampusCode(java.lang.String)
      */
     @Override
@@ -251,7 +244,6 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      *
      * @param drawer The drawer being totaled.
      * @return The sum of all the coin amounts in the drawer.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#getCoinTotal(org.kuali.kfs.fp.businessobject.CashDrawer)
      */
     @Override
@@ -290,7 +282,6 @@ public class CashDrawerServiceImpl implements CashDrawerService {
      *
      * @param drawer The drawer being totaled.
      * @return The sum of all the currency amounts in the drawer.
-     *
      * @see org.kuali.kfs.fp.service.CashDrawerService#getCurrencyTotal(org.kuali.kfs.fp.businessobject.CashDrawer)
      */
     @Override
@@ -326,6 +317,7 @@ public class CashDrawerServiceImpl implements CashDrawerService {
     }
 
     // Spring injection
+
     /**
      * Gets the businessObjectService attribute value.
      *

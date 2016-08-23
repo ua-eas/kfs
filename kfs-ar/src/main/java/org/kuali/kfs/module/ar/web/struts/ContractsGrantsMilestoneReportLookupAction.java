@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsMilestoneReport;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -29,6 +29,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 public class ContractsGrantsMilestoneReportLookupAction extends ContractsGrantsReportLookupAction {
     /**
      * This report does not have a title
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#generateReportTitle(org.kuali.rice.kns.web.struts.form.LookupForm)
      */
     @Override
@@ -38,6 +39,7 @@ public class ContractsGrantsMilestoneReportLookupAction extends ContractsGrantsR
 
     /**
      * Returns "contractsGrantsMilestoneReportBuilderService"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getReportBuilderServiceBeanName()
      */
     @Override
@@ -47,6 +49,7 @@ public class ContractsGrantsMilestoneReportLookupAction extends ContractsGrantsR
 
     /**
      * Returns the sort field for this report's pdf generation, "ContractsGrantsMilestoneReport"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getSortFieldName()
      */
     @Override
@@ -56,6 +59,7 @@ public class ContractsGrantsMilestoneReportLookupAction extends ContractsGrantsR
 
     /**
      * Returns the class of ContractsGrantsMilestoneReport
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getPrintSearchCriteriaClass()
      */
     @Override

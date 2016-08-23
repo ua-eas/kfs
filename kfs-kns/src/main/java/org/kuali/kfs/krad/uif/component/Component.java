@@ -23,8 +23,8 @@ import org.kuali.kfs.krad.uif.field.Field;
 import org.kuali.kfs.krad.uif.modifier.ComponentModifier;
 import org.kuali.kfs.krad.uif.service.ViewHelperService;
 import org.kuali.kfs.krad.uif.util.ComponentFactory;
-import org.kuali.kfs.krad.uif.widget.Widget;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.widget.Widget;
 
 import java.io.Serializable;
 import java.util.List;
@@ -40,14 +40,13 @@ import java.util.Map;
  * <li>Java Class (the Component implementation</li>
  * <li>>JSP Template Renderer</li>
  * </ul>
- *
+ * <p>
  * There are three basic types of components:
  * <ul>
  * <li>Container Components: <code>View</code>, <code>Group</code></li>
  * <li>Field Components: <code>Field</code></li>
  * <li>Widget Components: <code>Widget</code></li>
  * </ul>
- *
  *
  * @see Container
  * @see Field
@@ -57,7 +56,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * The unique id (within a given tree) for the component
-     *
+     * <p>
      * <p>
      * The id will be used by renderers to set the HTML element id. This gives a
      * way to find various elements for scripting. If the id is not given, a
@@ -78,7 +77,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Holds the id for the component that can be used to request new instances of that component from the
      * {@link ComponentFactory}
-     *
+     * <p>
      * <p>
      * During component refreshes the component is reinitialized and the lifecycle is performed again to
      * reflect the component state based on the latest updates (data, other component state). Since the lifecycle
@@ -101,7 +100,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * The name for the component type
-     *
+     * <p>
      * <p>
      * This is used within the rendering layer to pass the component instance
      * into the template. The component instance is exported under the name
@@ -114,7 +113,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * The path to the JSP file that should be called to render the component
-     *
+     * <p>
      * <p>
      * The path should be relative to the web root. An attribute will be
      * available to the component to use under the name given by the method
@@ -122,7 +121,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * additional attributes could be available for use. See the component
      * documentation for more information on such attributes.
      * </p>
-     *
+     * <p>
      * <p>
      * e.g. '/krad/WEB-INF/jsp/tiles/component.jsp'
      * </p>
@@ -157,14 +156,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Should be called to initialize the component
-     *
+     * <p>
      * <p>
      * Where components can set defaults and setup other necessary state. The
      * initialize method should only be called once per component lifecycle and
      * is invoked within the initialize phase of the view lifecylce.
      * </p>
      *
-     * @param view - view instance in which the component belongs
+     * @param view  - view instance in which the component belongs
      * @param model - object instance containing the view data
      * @see ViewHelperService#initializeComponent
      */
@@ -173,15 +172,15 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Called after the initialize phase to perform conditional logic based on
      * the model data
-     *
+     * <p>
      * <p>
      * Where components can perform conditional logic such as dynamically
      * generating new fields or setting field state based on the given data
      * </p>
      *
-     * @param view - view instance to which the component belongs
+     * @param view  - view instance to which the component belongs
      * @param model - Top level object containing the data (could be the form or a
-     * top level business object, dto)
+     *              top level business object, dto)
      */
     public void performApplyModel(View view, Object model, Component parent);
 
@@ -189,8 +188,8 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * The last phase before the view is rendered. Here final preparations can
      * be made based on the updated view state
      *
-     * @param view - view instance that should be finalized for rendering
-     * @param model - top level object containing the data
+     * @param view   - view instance that should be finalized for rendering
+     * @param model  - top level object containing the data
      * @param parent - parent component
      */
     public void performFinalize(View view, Object model, Component parent);
@@ -198,7 +197,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * List of components that are contained within the component and should be sent through
      * the lifecycle
-     *
+     * <p>
      * <p>
      * Used by <code>ViewHelperService</code> for the various lifecycle
      * callbacks
@@ -210,7 +209,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * List of components that are maintained by the component as prototypes for creating other component instances
-     *
+     * <p>
      * <p>
      * Prototypes are held for configuring how a component should be created during the lifecycle. An example of this
      * are the fields in a collection group that are created for each collection record. They only participate in the
@@ -223,7 +222,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * List of components that are contained within the List of <code>PropertyReplacer</code> in component
-     *
+     * <p>
      * <p>
      * Used to get all the nested components in the property replacer's
      * </p>
@@ -235,7 +234,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * <code>ComponentModifier</code> instances that should be invoked to
      * initialize the component
-     *
+     * <p>
      * <p>
      * These provide dynamic initialization behavior for the component and are
      * configured through the components definition. Each initializer will get
@@ -257,14 +256,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates whether the component should be rendered in the UI
-     *
+     * <p>
      * <p>
      * If set to false, the corresponding component template will not be invoked
      * (therefore nothing will be rendered to the UI).
      * </p>
      *
      * @return boolean true if the component should be rendered, false if it
-     *         should not be
+     * should not be
      */
     public boolean isRender();
 
@@ -277,14 +276,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates whether the component should be hidden in the UI
-     *
+     * <p>
      * <p>
      * How the hidden data is maintained depends on the views persistence mode.
      * If the mode is request, the corresponding data will be rendered to the UI
      * but not visible. If the mode is session, the data will not be rendered to
      * the UI but maintained server side.
      * </p>
-     *
+     * <p>
      * <p>
      * For a <code>Container</code> component, the hidden setting will apply to
      * all contained components (making a section hidden makes all fields within
@@ -292,7 +291,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * </p>
      *
      * @return boolean true if the component should be hidden, false if it
-     *         should be visible
+     * should be visible
      */
     public boolean isHidden();
 
@@ -305,13 +304,13 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates whether the component can be edited
-     *
+     * <p>
      * <p>
      * When readOnly the controls and widgets of <code>Field</code> components
      * will not be rendered. If the Field has an underlying value it will be
      * displayed readOnly to the user.
      * </p>
-     *
+     * <p>
      * <p>
      * For a <code>Container</code> component, the readOnly setting will apply
      * to all contained components (making a section readOnly makes all fields
@@ -320,7 +319,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * </p>
      *
      * @return boolean true if the component should be readOnly, false if is
-     *         allows editing
+     * allows editing
      */
     public boolean isReadOnly();
 
@@ -333,7 +332,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates whether the component is required
-     *
+     * <p>
      * <p>
      * At the general component level required means there is some action the
      * user needs to take within the component. For example, within a section it
@@ -343,7 +342,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * </p>
      *
      * @return boolean true if the component is required, false if it is not
-     *         required
+     * required
      */
     public Boolean getRequired();
 
@@ -356,13 +355,13 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * CSS style string to be applied to the component
-     *
+     * <p>
      * <p>
      * Any style override or additions can be specified with this attribute.
      * This is used by the renderer to set the style attribute on the
      * corresponding element.
      * </p>
-     *
+     * <p>
      * <p>
      * e.g. 'color: #000000;text-decoration: underline;'
      * </p>
@@ -380,7 +379,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * CSS style class(s) to be applied to the component
-     *
+     * <p>
      * <p>
      * Declares style classes for the component. Multiple classes are specified
      * with a space delimiter. This is used by the renderer to set the class
@@ -388,7 +387,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * available in the common style sheets or the style sheets specified for
      * the view
      * </p>
-     *
+     * <p>
      * <p>
      * e.g. 'header left'
      * </p>
@@ -421,14 +420,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Number of places the component should take up horizontally in the
      * container
-     *
+     * <p>
      * <p>
      * All components belong to a <code>Container</code> and are placed using a
      * <code>LayoutManager</code>. This property specifies how many places
      * horizontally the component should take up within the container. This is
      * only applicable for table based layout managers. Default is 1
      * </p>
-     *
+     * <p>
      * TODO: this should not be on component interface since it only applies if
      * the layout manager supports it, need some sort of layoutOptions map for
      * field level options that depend on the manager
@@ -446,14 +445,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Number of places the component should take up vertically in the container
-     *
+     * <p>
      * <p>
      * All components belong to a <code>Container</code> and are placed using a
      * <code>LayoutManager</code>. This property specifies how many places
      * vertically the component should take up within the container. This is
      * only applicable for table based layout managers. Default is 1
      * </p>
-     *
+     * <p>
      * TODO: this should not be on component interface since it only applies if
      * the layout manager supports it, need some sort of layoutOptions map for
      * field level options that depend on the manager
@@ -471,7 +470,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Context map for the component
-     *
+     * <p>
      * <p>
      * Any el statements configured for the components properties (e.g.
      * title="@{foo.property}") are evaluated using the el context map. This map
@@ -481,18 +480,18 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * that component. For example, <code>Field</code> instances that are part
      * of a collection line as receive the current line instance
      * </p>
-     *
+     * <p>
      * <p>
      * Context map also provides objects to methods that are invoked for
      * <code>GeneratedField</code> instances
      * </p>
-     *
+     * <p>
      * <p>
      * The Map key gives the name of the variable that can be used within
      * expressions, and the Map value gives the object instance for which
      * expressions containing the variable should evaluate against
      * </p>
-     *
+     * <p>
      * <p>
      * NOTE: Calling getContext().putAll() will skip updating any configured property replacers for the
      * component. Instead you should call #pushAllToContext
@@ -512,7 +511,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Places the given object into the context Map for the component with the
      * given name
-     *
+     * <p>
      * <p>
      * Note this also will push context to property replacers configured on the component.
      * To place multiple objects in the context, you should use #pushAllToContext since that
@@ -521,20 +520,20 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * </p>
      *
      * @param objectName - name the object should be exposed under in the context map
-     * @param object - object instance to place into context
+     * @param object     - object instance to place into context
      */
     public void pushObjectToContext(String objectName, Object object);
 
     /**
      * Places each entry of the given Map into the context for the component
-     *
+     * <p>
      * <p>
      * Note this will call #pushObjectToContext for each entry which will update any configured property
      * replacers as well. This should be used in place of getContext().putAll()
      * </p>
      *
      * @param objects - Map<String, Object> objects to add to context, where the entry key will be the context key
-     * and the entry value will be the context value
+     *                and the entry value will be the context value
      */
     public void pushAllToContext(Map<String, Object> objects);
 
@@ -605,20 +604,20 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Name of the method that should be invoked for finalizing the component
      * configuration (full method name, without parameters or return type)
-     *
+     * <p>
      * <p>
      * Note the method can also be set with the finalizeMethodInvoker
      * targetMethod property. If the method is on the configured
      * <code>ViewHelperService</code>, only this property needs to be configured
      * </p>
-     *
+     * <p>
      * <p>
      * The model backing the view will be passed as the first argument method and then
      * the <code>Component</code> instance as the second argument. If any additional method
      * arguments are declared with the finalizeMethodAdditionalArguments, they will then
      * be passed in the order declared in the list
      * </p>
-     *
+     * <p>
      * <p>
      * If the component is selfRendered, the finalize method can return a string which
      * will be set as the component's renderOutput. The selfRendered indicator will also
@@ -631,7 +630,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * List of Object instances that should be passed as arguments to the finalize method
-     *
+     * <p>
      * <p>
      * These arguments are passed to the finalize method after the standard model and component
      * arguments. They are passed in the order declared in the list
@@ -644,14 +643,14 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * <code>MethodInvokerConfig</code> instance for the method that should be invoked
      * for finalizing the component configuration
-     *
+     * <p>
      * <p>
      * MethodInvoker can be configured to specify the class or object the method
      * should be called on. For static method invocations, the targetClass
      * property can be configured. For object invocations, that targetObject
      * property can be configured
      * </p>
-     *
+     * <p>
      * <p>
      * If the component is selfRendered, the finalize method can return a string which
      * will be set as the component's renderOutput. The selfRendered indicator will also
@@ -665,7 +664,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
     /**
      * Indicates whether the component contains its own render output (through
      * the renderOutput property)
-     *
+     * <p>
      * <p>
      * If self rendered is true, the corresponding template for the component
      * will not be invoked and the renderOutput String will be written to the
@@ -673,7 +672,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
      * </p>
      *
      * @return boolean true if component is self rendered, false if not (renders
-     *         through template)
+     * through template)
      */
     public boolean isSelfRendered();
 
@@ -701,7 +700,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates whether the component should be stored with the session view regardless of configuration
-     *
+     * <p>
      * <p>
      * By default the framework nulls out any components that do not have a refresh condition or are needed for
      * collection processing. This can be a problem if custom application code is written to refresh a component
@@ -820,7 +819,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Indicates the component can be refreshed by an action
-     *
+     * <p>
      * <p>
      * This is set by the framework for configured ajax action buttons, should not be set in
      * configuration
@@ -832,7 +831,7 @@ public interface Component extends Configurable, Serializable, Ordered, ScriptEv
 
     /**
      * Setter for the refresjed by action indicator
-     *
+     * <p>
      * <p>
      * This is set by the framework for configured ajax action buttons, should not be set in
      * configuration

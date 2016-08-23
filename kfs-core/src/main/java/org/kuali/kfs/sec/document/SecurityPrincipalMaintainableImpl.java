@@ -18,8 +18,10 @@
  */
 package org.kuali.kfs.sec.document;
 
-import java.util.HashMap;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sec.businessobject.SecurityDefinition;
 import org.kuali.kfs.sec.businessobject.SecurityModelMember;
 import org.kuali.kfs.sec.businessobject.SecurityPrincipal;
@@ -31,10 +33,8 @@ import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
 
 
 /**
@@ -62,8 +62,7 @@ public class SecurityPrincipalMaintainableImpl extends AbstractSecurityModuleMai
 
                 assignOrUpdatePrincipalMembershipToDefinitionRoles(oldSecurityPrincipal, newSecurityPrincipal, newMaintenanceAction);
                 assignOrUpdatePrincipalModelRoles(newSecurityPrincipal);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 LOG.error("caught exception while handling handleRouteStatusChange -> documentService.getByDocumentHeaderId(" + documentHeader.getDocumentNumber() + "). ", e);
                 throw new RuntimeException("caught exception while handling handleRouteStatusChange -> documentService.getByDocumentHeaderId(" + documentHeader.getDocumentNumber() + "). ", e);
             }
@@ -91,9 +90,9 @@ public class SecurityPrincipalMaintainableImpl extends AbstractSecurityModuleMai
             if (!newMaintenanceAction) {
                 SecurityPrincipalDefinition oldPrincipalDefinition = null;
                 for (SecurityPrincipalDefinition principalDefinition : oldSecurityPrincipal.getPrincipalDefinitions()) {
-                   if ((principalDefinition.getPrincipalDefinitionId() != null) && principalDefinition.getPrincipalDefinitionId().equals(securityPrincipalDefinition.getPrincipalDefinitionId())) {
-                       oldPrincipalDefinition = principalDefinition;
-                   }
+                    if ((principalDefinition.getPrincipalDefinitionId() != null) && principalDefinition.getPrincipalDefinitionId().equals(securityPrincipalDefinition.getPrincipalDefinitionId())) {
+                        oldPrincipalDefinition = principalDefinition;
+                    }
                 }
 
                 if (oldPrincipalDefinition != null) {
@@ -114,8 +113,8 @@ public class SecurityPrincipalMaintainableImpl extends AbstractSecurityModuleMai
 
             // create of update role if membership should be active
             if (membershipActive) {
-                if ( principalMembershipInfo == null ) {
-                    principalMembershipInfo = roleService.assignPrincipalToRole( principalId, definitionRoleInfo.getNamespaceCode(), definitionRoleInfo.getName(), getRoleQualifiersFromSecurityModelDefinition(securityPrincipalDefinition));
+                if (principalMembershipInfo == null) {
+                    principalMembershipInfo = roleService.assignPrincipalToRole(principalId, definitionRoleInfo.getNamespaceCode(), definitionRoleInfo.getName(), getRoleQualifiersFromSecurityModelDefinition(securityPrincipalDefinition));
                 } else {
                     RoleMember.Builder updatedRoleMember = RoleMember.Builder.create(principalMembershipInfo);
                     updatedRoleMember.setAttributes(getRoleQualifiersFromSecurityModelDefinition(securityPrincipalDefinition));

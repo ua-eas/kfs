@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.List;
-
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.List;
 
 public class CustomerInvoiceItemCodeMaintainableImpl extends FinancialSystemMaintainable {
 

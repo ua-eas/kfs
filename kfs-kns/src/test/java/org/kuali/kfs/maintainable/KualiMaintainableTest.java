@@ -56,8 +56,7 @@ public class KualiMaintainableTest {
         boolean failedAsExpected = false;
         try {
             maintainable.getShowInactiveRecords(null);
-        }
-        catch (IllegalArgumentException expected) {
+        } catch (IllegalArgumentException expected) {
             failedAsExpected = true;
         }
 
@@ -108,8 +107,7 @@ public class KualiMaintainableTest {
         boolean failedAsExpected = false;
         try {
             maintainable.setShowInactiveRecords(null, true);
-        }
-        catch (IllegalArgumentException expected) {
+        } catch (IllegalArgumentException expected) {
             failedAsExpected = true;
         }
 

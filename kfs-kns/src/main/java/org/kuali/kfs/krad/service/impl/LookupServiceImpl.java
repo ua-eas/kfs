@@ -19,11 +19,11 @@
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.kfs.krad.service.LookupService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -35,8 +35,6 @@ import java.util.Map;
  * Service implementation for the Lookup structure. It Provides a generic search
  * mechanism against Business Objects. This is the default implementation, that
  * is delivered with Kuali.
- *
- *
  */
 @Transactional
 public class LookupServiceImpl implements LookupService {
@@ -46,7 +44,7 @@ public class LookupServiceImpl implements LookupService {
     private ConfigurationService kualiConfigurationService;
 
     public <T extends Object> Collection<T> findCollectionBySearchUnbounded(Class<T> example,
-            Map<String, String> formProps) {
+                                                                            Map<String, String> formProps) {
         return findCollectionBySearchHelper(example, formProps, true);
     }
 
@@ -60,9 +58,9 @@ public class LookupServiceImpl implements LookupService {
     }
 
     public <T extends Object> Collection<T> findCollectionBySearchHelper(Class<T> example,
-            Map<String, String> formProps, boolean unbounded) {
+                                                                         Map<String, String> formProps, boolean unbounded) {
         return lookupDao.findCollectionBySearchHelper(example, formProps, unbounded,
-                allPrimaryKeyValuesPresentAndNotWildcard(example, formProps));
+            allPrimaryKeyValuesPresentAndNotWildcard(example, formProps));
     }
 
     /**
@@ -90,7 +88,7 @@ public class LookupServiceImpl implements LookupService {
 
     public boolean allPrimaryKeyValuesPresentAndNotWildcard(Class<?> boClass, Map<String, String> formProps) {
         List<String> pkFields = KNSServiceLocator.getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(
-                boClass);
+            boClass);
         Iterator<String> pkIter = pkFields.iterator();
         boolean returnVal = true;
         while (returnVal && pkIter.hasNext()) {

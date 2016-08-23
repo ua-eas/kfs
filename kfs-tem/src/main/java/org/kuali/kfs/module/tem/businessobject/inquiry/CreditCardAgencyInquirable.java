@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.tem.businessobject.inquiry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.businessobject.CreditCardAgency;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Corrects the vendor number
@@ -43,7 +43,7 @@ public class CreditCardAgencyInquirable extends KualiInquirableImpl {
     @Deprecated
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {
         if (StringUtils.equals(attributeName, KFSPropertyConstants.VENDOR_NUMBER)) {
-            CreditCardAgency agency = (CreditCardAgency)businessObject;
+            CreditCardAgency agency = (CreditCardAgency) businessObject;
             if (agency.getVendorHeaderGeneratedIdentifier() != null && agency.getVendorDetailAssignedIdentifier() != null) {
                 Properties params = new Properties();
                 params.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, agency.getVendorHeaderGeneratedIdentifier().toString());

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_TOF_ACCOUNTING_LINES_COUNT_MULTIPLE;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_TOF_ACCOUNTING_LINES_COUNT_MULTIPLE;
 
 /**
  * Validation for Transfer of Funds document that tests the number of document "From" accounting lines against the number of document "To" accounting lines.
@@ -42,22 +42,23 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
     /**
      * This is a helper method that wraps the accounting line count check. This check can be configured by updating the
      * application parameter table that is associated with this check. See the document's specification for details.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         return isAccountingLinesCountValid(accountingDocumentForValidation, KfsParameterConstants.FINANCIAL_PROCESSING_DOCUMENT.class, AccountingDocumentRuleBaseConstants.APPLICATION_PARAMETER.ALLOW_MANY_TO_MANY_TRANSFERS);
     }
 
-   /**
-    * This method checks the number of document "From" accounting lines against the number of document "To" accounting lines.
-    * Transfer transactions with multiple "From" accounting lines and multiple "To" accounting lines are not allowed.
-    * This is to enable better tracking and matching of transfers by account.
-    *
-    * @param tranDoc
-    * @param componentClass component class for parameter retrieval
-    * @param parameterName parameter name for parameter retrieval
-    * @return True if many to many accounting line condition is allowed or no many to many accounting line condition exists; false otherwise.
-    */
+    /**
+     * This method checks the number of document "From" accounting lines against the number of document "To" accounting lines.
+     * Transfer transactions with multiple "From" accounting lines and multiple "To" accounting lines are not allowed.
+     * This is to enable better tracking and matching of transfers by account.
+     *
+     * @param tranDoc
+     * @param componentClass component class for parameter retrieval
+     * @param parameterName  parameter name for parameter retrieval
+     * @return True if many to many accounting line condition is allowed or no many to many accounting line condition exists; false otherwise.
+     */
     protected boolean isAccountingLinesCountValid(AccountingDocument tranDoc, Class componentClass, String parameterName) {
         // don't need to continue of this if there's no parameter
         if (!getParameterService().parameterExists(componentClass, parameterName)) {
@@ -66,7 +67,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
         // don't need to continue if parameter evaluates to true (many to many accounting lines are allowed)
         if (getParameterService().getParameterValueAsBoolean(componentClass, parameterName)) {
-    	    return true;
+            return true;
         }
 
         int sourceNumberOfAccountingLines = tranDoc.getSourceAccountingLines().size();
@@ -76,8 +77,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
         if (ObjectUtils.isNull(accountingLineForValidation.getSequenceNumber())) {
             if (accountingLineForValidation.isSourceAccountingLine()) {
                 sourceNumberOfAccountingLines = sourceNumberOfAccountingLines + 1;
-            }
-            else {
+            } else {
                 targetNumberOfAccountingLines = targetNumberOfAccountingLines + 1;
             }
         }
@@ -95,6 +95,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Returns the name of the accounting line group
+     *
      * @return the name of the accounting line group
      */
     protected String getGroupName() {
@@ -103,6 +104,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -111,6 +113,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -119,6 +122,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -127,6 +131,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -135,6 +140,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -143,6 +149,7 @@ public class TransferOfFundsAccountingLinesCountValidation extends GenericValida
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

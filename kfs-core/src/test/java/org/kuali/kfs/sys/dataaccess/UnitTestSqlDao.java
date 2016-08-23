@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.dataaccess;
 
-import java.util.List;
-
 import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
 
+import java.util.List;
+
 /**
- *
- *         before testing and to read data after testing.
+ * before testing and to read data after testing.
  */
 public interface UnitTestSqlDao {
     /**
@@ -45,7 +44,6 @@ public interface UnitTestSqlDao {
 
     /**
      * Clear the OJB cache
-     *
      */
     public void clearCache();
 

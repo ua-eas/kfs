@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 
 /**
  * Holds help parameters and found text.
- *
- *
  */
 public class KualiHelpForm extends KualiForm {
     private static final long serialVersionUID = 1L;

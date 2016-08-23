@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import URL from 'url';
-import Cookie from 'js-cookie';
+import URL from "url";
+import Cookie from "js-cookie";
 
 export function getKualiSessionId() {
     let kualiCookieRegex = new RegExp("kualiSessionId=([^;]+)");
@@ -47,17 +47,17 @@ function reconstructQueryWithBackdoorId(query, backdoorId) {
             prefixElements.push(key);
         }
     });
-    let reconstructedQuery = "?" + (prefixElements.length > 0 ? prefixElements.join("&") + "&" : "") + "backdoorId=" + backdoorId + (suffixElements.length > 0 ? "&"+suffixElements.join("&") : "");
+    let reconstructedQuery = "?" + (prefixElements.length > 0 ? prefixElements.join("&") + "&" : "") + "backdoorId=" + backdoorId + (suffixElements.length > 0 ? "&" + suffixElements.join("&") : "");
     return reconstructedQuery;
 }
 
 export function buildBackdoorIdAppender(backdoorId) {
     if (!backdoorId || backdoorId.length == 0) {
-        return function(link) {
+        return function (link) {
             return link;
         }
     }
-    return function(link) {
+    return function (link) {
         if (link && link.length > 0) {
             let linkUrl = URL.parse(link, true);
             if (linkUrl.query && Object.keys(linkUrl.query).length > 0) {
@@ -70,7 +70,7 @@ export function buildBackdoorIdAppender(backdoorId) {
 }
 
 export function buildKeyFromLabel(label) {
-    return label.toLowerCase().replace(/\s+/g, "-").replace("&","and");
+    return label.toLowerCase().replace(/\s+/g, "-").replace("&", "and");
 }
 
 export function ajaxCall(call) {
@@ -79,7 +79,7 @@ export function ajaxCall(call) {
         let headers = (Object.keys(call).indexOf('headers') > -1)
             ? call.headers
             : {};
-        headers['Authorization'] = 'bearer '+financialsAuthToken;
+        headers['Authorization'] = 'bearer ' + financialsAuthToken;
         call.headers = headers;
     }
     $.ajax(call);

@@ -15,8 +15,13 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */package org.kuali.kfs.sys.datatools.handler;
+ */
+package org.kuali.kfs.sys.datatools.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,11 +30,6 @@ import org.kuali.kfs.sys.datatools.liquimongo.change.UpdateNodeHandler;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class UpdateNodeHandlerTest {
 
@@ -41,7 +41,7 @@ public class UpdateNodeHandlerTest {
         updateNodeHandler = new UpdateNodeHandler();
         mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
-    
+
     @Test
     public void testHandlesUpdateNodes() throws Exception {
         String testJson = "{ \"changeType\": \"updateNode\",\"collectionName\": \"collection\",\"query\": { } }";
@@ -61,55 +61,55 @@ public class UpdateNodeHandlerTest {
 
         Assert.assertEquals("Should not handle deleteDocument element", false, updateNodeHandler.handlesChange(testNode));
     }
-    
+
     @Test
     public void testMakeChangeUpdateNode() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeUpdate());
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(createSampleDocumentAfterUpdate(), "collection");
         EasyMock.replay(mongoTemplate);
-        
+
         String testJson = "{ \"changeType\": \"updateNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},"
-                + "\"path\": \"$..link[?(@.label=='Label5')]\","
-                + "\"value\": { \"label\" : \"Label6\"}  }"; 
-        
+            + "\"query\": { \"myId\": \"10\"},"
+            + "\"path\": \"$..link[?(@.label=='Label5')]\","
+            + "\"value\": { \"label\" : \"Label6\"}  }";
+
         updateNodeHandler.setMongoTemplate(mongoTemplate);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         updateNodeHandler.makeChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
-    
+
     @Test
     public void testMakeChangeUpdateLabel() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeUpdate());
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(createSampleDocumentAfterUpdate(), "collection");
         EasyMock.replay(mongoTemplate);
-        
+
         String testJson = "{ \"changeType\": \"updateNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},"
-                + "\"path\": \"$..link[?(@.label=='Label5')].label\","
-                + "\"value\": \"Label6\" }"; 
-        
+            + "\"query\": { \"myId\": \"10\"},"
+            + "\"path\": \"$..link[?(@.label=='Label5')].label\","
+            + "\"value\": \"Label6\" }";
+
         updateNodeHandler.setMongoTemplate(mongoTemplate);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         updateNodeHandler.makeChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
-    
+
     private DBObject createSampleDocumentBeforeUpdate() {
         return (DBObject) JSON.parse("{ \"link\": [{\"label\": \"Label1\"}, {\"label\": \"Label5\"}, {\"label\": \"Label2\"}] }");
     }
@@ -117,5 +117,5 @@ public class UpdateNodeHandlerTest {
     private DBObject createSampleDocumentAfterUpdate() {
         return (DBObject) JSON.parse("{ \"link\": [{\"label\": \"Label1\"}, {\"label\": \"Label6\"}, {\"label\": \"Label2\"}] }");
     }
-    
+
 }

@@ -25,4 +25,5 @@ import org.kuali.kfs.sys.batch.PaymentSourceToPdpExtractStep;
  * because we should probably move those parameters somewhere else
  */
 @Deprecated
-public class DvToPdpExtractStep extends PaymentSourceToPdpExtractStep {}
+public class DvToPdpExtractStep extends PaymentSourceToPdpExtractStep {
+}

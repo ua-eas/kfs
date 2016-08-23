@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.pdp.businessobject.defaultvalue;
 
-import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.pdp.PdpConstants;
 
 /**
  * Returns the next ACH Account identifier available.

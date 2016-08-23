@@ -19,20 +19,20 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TripType;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TripTypeRule extends MaintenanceDocumentRuleBase {
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
         super.processCustomSaveDocumentBusinessRules(document);
 
-        final TripType tripType = (TripType)document.getNewMaintainableObject().getBusinessObject();
+        final TripType tripType = (TripType) document.getNewMaintainableObject().getBusinessObject();
         checkBalanceType(tripType);
         checkObjectCode(tripType);
         checkAutoTravelReimbursementLimit(tripType);
@@ -44,7 +44,7 @@ public class TripTypeRule extends MaintenanceDocumentRuleBase {
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean result = super.processCustomRouteDocumentBusinessRules(document);
 
-        final TripType tripType = (TripType)document.getNewMaintainableObject().getBusinessObject();
+        final TripType tripType = (TripType) document.getNewMaintainableObject().getBusinessObject();
         result &= checkBalanceType(tripType);
         result &= checkObjectCode(tripType);
         result &= checkAutoTravelReimbursementLimit(tripType);
@@ -71,8 +71,7 @@ public class TripTypeRule extends MaintenanceDocumentRuleBase {
     protected boolean checkAutoTravelReimbursementLimit(TripType tripType) {
         if (ObjectUtils.isNull(tripType.getAutoTravelReimbursementLimit())) {
             tripType.setAutoTravelReimbursementLimit(KualiDecimal.ZERO);
-        }
-        else if (tripType.getAutoTravelReimbursementLimit().isLessThan(KualiDecimal.ZERO)) {
+        } else if (tripType.getAutoTravelReimbursementLimit().isLessThan(KualiDecimal.ZERO)) {
             putFieldError(TemPropertyConstants.TRIP_TYPE_AUTO_TRAVEL_REIMBURSEMENT_LIMIT, TemKeyConstants.ERROR_TRIP_TYPE_AUTO_TRAVEL_REIMBURSEMENT_LIMIT);
             return false;
         }

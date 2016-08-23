@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.external.kc.document;
 
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Map;
 
 /**
  * This class overrides the saveBusinessObject() method which is called during post process from the KualiPostProcessor so that it
@@ -39,7 +39,7 @@ public class KualiAccountMaintainableImpl extends org.kuali.kfs.coa.document.Kua
         Account account = (Account) this.getBusinessObject();
         ContractsAndGrantsCfda cfda = account.getCfda();
         if (cfda != null) {
-        	return cfda.getCfdaNumber();
+            return cfda.getCfdaNumber();
         }
         return null;
     }
@@ -50,7 +50,7 @@ public class KualiAccountMaintainableImpl extends org.kuali.kfs.coa.document.Kua
     @Override
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         Account account = (Account) this.getBusinessObject();
-        account.setAccountCfdaNumber(lookupAccountCfda( account.getAccountNumber(), account.getAccountCfdaNumber()));
+        account.setAccountCfdaNumber(lookupAccountCfda(account.getAccountNumber(), account.getAccountCfdaNumber()));
         super.processAfterCopy(document, parameters);
     }
 
@@ -60,7 +60,7 @@ public class KualiAccountMaintainableImpl extends org.kuali.kfs.coa.document.Kua
     @Override
     protected Account retrieveExistingAccountFromDB() {
         Account newAccount = (Account) getBusinessObject();
-        newAccount.setAccountCfdaNumber(lookupAccountCfda( newAccount.getAccountNumber(), newAccount.getAccountCfdaNumber()));
+        newAccount.setAccountCfdaNumber(lookupAccountCfda(newAccount.getAccountNumber(), newAccount.getAccountCfdaNumber()));
         return super.retrieveExistingAccountFromDB();
     }
 }

@@ -16,59 +16,58 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-	<c:set var="readOnlyForCorrectionDocument" value="${KualiForm.document.correctionDocument}" />
-	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] || readOnlyForCorrectionDocument}" />
-
+<c:set var="readOnlyForCorrectionDocument" value="${KualiForm.document.correctionDocument}"/>
+<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] || readOnlyForCorrectionDocument}"/>
 
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="CINV"
-	htmlFormAction="arContractsGrantsInvoiceDocument"
-	renderMultipart="true" showTabButtons="true">
+                  documentTypeName="CINV"
+                  htmlFormAction="arContractsGrantsInvoiceDocument"
+                  renderMultipart="true" showTabButtons="true">
 
-	<sys:hiddenDocumentFields />
+    <sys:hiddenDocumentFields/>
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<ar:contractsGrantsInvoiceOrganization
-		documentAttributes="${DataDictionary.ContractsGrantsInvoiceDocument.attributes}"
-		readOnly="${readOnly}" />
+    <ar:contractsGrantsInvoiceOrganization
+            documentAttributes="${DataDictionary.ContractsGrantsInvoiceDocument.attributes}"
+            readOnly="${readOnly}"/>
 
-	<ar:invoiceGeneral readOnly="${readOnly}" />
+    <ar:invoiceGeneral readOnly="${readOnly}"/>
 
-	<c:choose>
-		<c:when test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArIntegrationConstants.BillingFrequencyValues.MILESTONE}">
-			<ar:invoiceMilestones />
-		</c:when>
-		<c:when	test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING}">
-			<ar:invoiceBills />
-		</c:when>
-		<c:otherwise>
-			<ar:invoiceDetails readOnly="${readOnly}"/>
-			<ar:invoiceAccountDetails />
-		</c:otherwise>
-	</c:choose>
+    <c:choose>
+        <c:when test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArIntegrationConstants.BillingFrequencyValues.MILESTONE}">
+            <ar:invoiceMilestones/>
+        </c:when>
+        <c:when test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING}">
+            <ar:invoiceBills/>
+        </c:when>
+        <c:otherwise>
+            <ar:invoiceDetails readOnly="${readOnly}"/>
+            <ar:invoiceAccountDetails/>
+        </c:otherwise>
+    </c:choose>
 
-	<c:if test="${!KualiForm.document.correctionDocument}">
-		<ar:invoiceSuspensionCategories />
-	</c:if>
+    <c:if test="${!KualiForm.document.correctionDocument}">
+        <ar:invoiceSuspensionCategories/>
+    </c:if>
 
-	<c:if test="${!KualiForm.document.correctionDocument && KualiForm.document.invoiceGeneralDetail.billingFrequencyCode != ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT}">
-		<ar:invoiceTransmissionDetails readOnly="${readOnly}"/>
-	</c:if>
+    <c:if test="${!KualiForm.document.correctionDocument && KualiForm.document.invoiceGeneralDetail.billingFrequencyCode != ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT}">
+        <ar:invoiceTransmissionDetails readOnly="${readOnly}"/>
+    </c:if>
 
-	<gl:generalLedgerPendingEntries />
+    <gl:generalLedgerPendingEntries/>
 
-	<kul:notes />
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
+    <sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

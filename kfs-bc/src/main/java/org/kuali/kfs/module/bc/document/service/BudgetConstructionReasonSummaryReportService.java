@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgReasonSummaryReport;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings;
+
+import java.util.Collection;
 
 
 /**
@@ -30,7 +30,6 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdS
 public interface BudgetConstructionReasonSummaryReportService {
 
     public void updateReasonSummaryReport(String principalName, Integer universityFiscalYear, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings);
-
 
 
     public Collection<BudgetConstructionOrgReasonSummaryReport> buildReports(Integer universityFiscalYear, String principalName, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings);

@@ -26,8 +26,6 @@ import org.kuali.kfs.krad.rules.rule.BusinessRule;
 /**
  * This class represents the add AdHocRoutePerson event that is part of an eDoc in Kuali. This is triggered when a user presses the
  * add button for a given adHocRoutePerson.
- *
- *
  */
 public final class AddAdHocRoutePersonEvent extends KualiDocumentEventBase {
     private AdHocRoutePerson adHocRoutePerson;

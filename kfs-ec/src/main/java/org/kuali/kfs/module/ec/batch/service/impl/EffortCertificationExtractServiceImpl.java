@@ -18,19 +18,12 @@
  */
 package org.kuali.kfs.module.ec.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerBalanceForEffortCertification;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortConstants.ExtractProcess;
 import org.kuali.kfs.module.ec.EffortConstants.SystemParameters;
@@ -55,15 +48,22 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This is an implementation of Effort Certification Extract process, which extracts Labor Ledger records of the employees who were
  * paid on a grant or cost shared during the selected reporting period, and generates effort certification build/temporary document.
  * Its major tasks include:
- *
+ * <p>
  * <li>Identify employees who were paid on a grant or cost shared;</li>
  * <li>Select qualified Labor Ledger records for each identified employee;</li>
  * <li>Generate effort certification build document from the selected Labor Ledger records for each employee.</li>
@@ -133,7 +133,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
 
     /**
      * @see org.kuali.kfs.module.ec.batch.service.EffortCertificationExtractService#extract(java.lang.String,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
 
     @Override
@@ -150,7 +150,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
 
     /**
      * @see org.kuali.kfs.module.ec.batch.service.EffortCertificationExtractService#isEmployeesEligibleForEffortCertification(java.lang.String,
-     *      org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
+     * org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition)
      */
 
     @Override
@@ -178,7 +178,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
     /**
      * check if a report has been defined. The combination of fiscal year and report number can determine a report definition.
      *
-     * @param fiscalYear the the given fiscalYear
+     * @param fiscalYear   the the given fiscalYear
      * @param reportNumber the the given report number
      * @return a message if a report has not been defined or its documents have been generated; otherwise, return null
      */
@@ -215,9 +215,9 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
      * generate a document (build) as well as their detail lines for the given employees
      *
      * @param reportDefinition the given report definition
-     * @param employees the given employees
+     * @param employees        the given employees
      * @param reportDataHolder the holder of report data
-     * @param parameters the given system parameters
+     * @param parameters       the given system parameters
      */
     protected void generateDocumentBuild(EffortCertificationReportDefinition reportDefinition, List<String> employees, ExtractProcessReportDataHolder reportDataHolder, Map<String, Collection<String>> parameters) {
         List<String> positionGroupCodes = effortCertificationReportDefinitionService.findPositionObjectGroupCodes(reportDefinition);
@@ -243,11 +243,11 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
     /**
      * extract the qualified labor ledger balance records of the given employee with the given report periods.
      *
-     * @param emplid the given employee id
+     * @param emplid             the given employee id
      * @param positionGroupCodes the specified position group codes
-     * @param reportDefinition the specified report definition
-     * @param parameters the system parameters setup in front
-     * @param reportDataHolder the given holder that contains any information to be written into the working report
+     * @param reportDefinition   the specified report definition
+     * @param parameters         the system parameters setup in front
+     * @param reportDataHolder   the given holder that contains any information to be written into the working report
      * @return the qualified labor ledger balance records of the given employee
      */
     protected List<LaborLedgerBalance> getQualifiedLedgerBalances(String emplid, List<String> positionGroupCodes, EffortCertificationReportDefinition reportDefinition, ExtractProcessReportDataHolder reportDataHolder, Map<String, Collection<String>> parameters) {
@@ -277,7 +277,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
     /**
      * remove the ledger balances without valid account, and nonzero total amount
      *
-     * @param ledgerBalances the given ledger balances
+     * @param ledgerBalances   the given ledger balances
      * @param reportDefinition the given report definition
      * @param reportDataHolder the given holder that contains any information to be written into the working report
      */
@@ -310,11 +310,11 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
      * check all ledger balances of the given employee and see if they can meet certain requirements. If not, the employee would be
      * unqualified for effort reporting
      *
-     * @param emplid the given employee id
-     * @param ledgerBalances the all pre-qualified ledger balances of the employee
+     * @param emplid           the given employee id
+     * @param ledgerBalances   the all pre-qualified ledger balances of the employee
      * @param reportDefinition the specified report definition
      * @param reportDataHolder the given holder that contains any information to be written into the working report
-     * @param parameters the system parameters setup in front
+     * @param parameters       the system parameters setup in front
      * @return true if all ledger balances as whole meet requirements; otherwise, return false
      */
     protected boolean checkEmployeeBasedOnLedgerBalances(String emplid, List<LaborLedgerBalance> ledgerBalances, EffortCertificationReportDefinition reportDefinition, ExtractProcessReportDataHolder reportDataHolder, Map<String, Collection<String>> parameters) {
@@ -359,9 +359,9 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
     /**
      * select the labor ledger balances for the specified employee
      *
-     * @param emplid the given employee id
+     * @param emplid                   the given employee id
      * @param positionObjectGroupCodes the specified position object group codes
-     * @param reportDefinition the specified report definition
+     * @param reportDefinition         the specified report definition
      * @return the labor ledger balances for the specified employee
      */
     protected Collection<LaborLedgerBalance> selectLedgerBalanceForEmployee(String emplid, List<String> positionObjectGroupCodes, EffortCertificationReportDefinition reportDefinition, Map<String, Collection<String>> parameters) {
@@ -387,7 +387,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
     /**
      * consolidate the given labor ledger balances and determine whether they are qualified for effort reporting
      *
-     * @param ledgerBalances the given labor ledger balances
+     * @param ledgerBalances   the given labor ledger balances
      * @param reportDefinition the specified report definition
      * @return a collection of ledger balances if they are qualified; otherwise, return null
      */
@@ -564,6 +564,7 @@ public class EffortCertificationExtractServiceImpl implements EffortCertificatio
 
     /**
      * Sets the kualiModuleService attribute value.
+     *
      * @param kualiModuleService The kualiModuleService to set.
      */
     public void setKualiModuleService(KualiModuleService kualiModuleService) {

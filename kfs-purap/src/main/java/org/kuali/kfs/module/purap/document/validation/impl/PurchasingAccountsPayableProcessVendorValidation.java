@@ -19,12 +19,10 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.PurapPropertyConstants;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.EmailAddressValidationPattern;
 import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
+import org.kuali.kfs.sys.document.validation.GenericValidation;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class PurchasingAccountsPayableProcessVendorValidation extends GenericValidation {
 

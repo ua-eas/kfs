@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ec.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ec.EffortConstants.SystemParameters;
 import org.kuali.kfs.module.ec.batch.EffortCertificationCreateStep;
 import org.kuali.kfs.module.ec.batch.EffortCertificationExtractStep;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A convenient utility that can delegate the calling client to retrieve system parameters of effort certification module.

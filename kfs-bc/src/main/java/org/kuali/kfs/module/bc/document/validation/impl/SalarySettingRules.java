@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionRuleHelperService;
 import org.kuali.kfs.module.bc.document.service.SalarySettingRuleHelperService;
@@ -31,8 +31,8 @@ import org.kuali.kfs.module.bc.document.validation.SalarySettingRule;
 import org.kuali.kfs.module.bc.service.HumanResourcesPayrollService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.List;
 
 /**
  * the rule implementation for the actions of salary setting component
@@ -80,7 +80,7 @@ public class SalarySettingRules implements SalarySettingRule {
         }
 
         // check for active job
-        if (!appointmentFunding.getEmplid().equalsIgnoreCase("VACANT")){
+        if (!appointmentFunding.getEmplid().equalsIgnoreCase("VACANT")) {
             Integer fiscalYear = appointmentFunding.getUniversityFiscalYear();
             String emplid = appointmentFunding.getEmplid();
             String positionNumber = appointmentFunding.getPositionNumber();
@@ -106,7 +106,7 @@ public class SalarySettingRules implements SalarySettingRule {
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.SalarySettingRule#processSaveAppointmentFunding(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public boolean processSaveAppointmentFunding(PendingBudgetConstructionAppointmentFunding appointmentFunding, SynchronizationCheckType synchronizationCheckType) {
         LOG.debug("processSaveAppointmentFunding() start");
@@ -147,7 +147,7 @@ public class SalarySettingRules implements SalarySettingRule {
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.SalarySettingRule#processAddAppointmentFunding(java.util.List,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     public boolean processAddAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> existingAppointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding, SynchronizationCheckType synchronizationCheckType) {
         LOG.debug("processAddAppointmentFunding() start");

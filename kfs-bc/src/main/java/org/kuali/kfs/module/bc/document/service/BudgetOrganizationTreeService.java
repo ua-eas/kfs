@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
+
+import java.util.List;
 
 /**
  * This interface defines methods that manipulate objects used by the Organization Selection screens. Manipulated objects include

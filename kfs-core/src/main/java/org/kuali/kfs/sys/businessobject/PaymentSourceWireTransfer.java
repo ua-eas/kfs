@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a disbursement voucher wire transfer.
@@ -356,7 +356,7 @@ public class PaymentSourceWireTransfer extends PersistableBusinessObjectBase {
      * Sets the automatedClearingHouseProfileNumber attribute.
      *
      * @param automatedClearingHouseProfileNumber The automatedClearingHouseProfileNumber to
-     *        set.
+     *                                            set.
      */
     public void setAutomatedClearingHouseProfileNumber(String disbursementVoucherAutomatedClearingHouseProfileNumber) {
         this.automatedClearingHouseProfileNumber = disbursementVoucherAutomatedClearingHouseProfileNumber;

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.CorrectionReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 public class CorrectionReceivingAction extends ReceivingBaseAction {
@@ -41,23 +41,23 @@ public class CorrectionReceivingAction extends ReceivingBaseAction {
                                     ActionForm form,
                                     HttpServletRequest request,
                                     HttpServletResponse response)
-    throws Exception {
+        throws Exception {
 
-        ActionForward forward = super.docHandler(mapping,form,request,response);
+        ActionForward forward = super.docHandler(mapping, form, request, response);
 
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         String command = kualiDocumentFormBase.getCommand();
 
-        if (StringUtils.equals("initiate",command)) {
-            CorrectionReceivingForm rcf = (CorrectionReceivingForm)form;
-            CorrectionReceivingDocument rcDoc = (CorrectionReceivingDocument)rcf.getDocument();
+        if (StringUtils.equals("initiate", command)) {
+            CorrectionReceivingForm rcf = (CorrectionReceivingForm) form;
+            CorrectionReceivingDocument rcDoc = (CorrectionReceivingDocument) rcf.getDocument();
 
             String noteText = request.getParameter(PurapConstants.CorrectionReceivingDocumentStrings.CORRECTION_RECEIVING_CREATION_NOTE_PARAMETER);
 
-            if (StringUtils.isNotBlank(noteText)){
+            if (StringUtils.isNotBlank(noteText)) {
                 //Document should be saved before adding note to escape from DataIntegrityViolationException
                 SpringContext.getBean(PurapService.class).saveDocumentNoValidation(rcDoc);
-                SpringContext.getBean(ReceivingService.class).addNoteToReceivingDocument(rcDoc,noteText);
+                SpringContext.getBean(ReceivingService.class).addNoteToReceivingDocument(rcDoc, noteText);
             }
 
         }
@@ -68,11 +68,11 @@ public class CorrectionReceivingAction extends ReceivingBaseAction {
     protected void createDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.createDocument(kualiDocumentFormBase);
 
-        CorrectionReceivingForm rcf = (CorrectionReceivingForm)kualiDocumentFormBase;
-        CorrectionReceivingDocument rcDoc = (CorrectionReceivingDocument)rcf.getDocument();
+        CorrectionReceivingForm rcf = (CorrectionReceivingForm) kualiDocumentFormBase;
+        CorrectionReceivingDocument rcDoc = (CorrectionReceivingDocument) rcf.getDocument();
 
         //set identifier from form value
-        rcDoc.setLineItemReceivingDocumentNumber( rcf.getReceivingLineDocId() );
+        rcDoc.setLineItemReceivingDocumentNumber(rcf.getReceivingLineDocId());
 
         rcDoc.initiateDocument();
 

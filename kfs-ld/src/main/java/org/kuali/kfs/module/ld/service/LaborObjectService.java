@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ld.service;
 
+import org.kuali.kfs.module.ld.businessobject.LaborObject;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.LaborObject;
 
 /**
  * This interface provides its clients with access to labor object in the backend data store.
@@ -32,7 +32,7 @@ public interface LaborObjectService {
     /**
      * find all labor object in the given position groups
      *
-     * @param fieldValues the given search search criteria
+     * @param fieldValues        the given search search criteria
      * @param positionGroupCodes the given position group codes
      * @return all labor object codes in the given position groups
      */

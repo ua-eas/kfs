@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class PurchasingUpdateAccountingLineValidation extends GenericValidation {
 
@@ -32,7 +32,7 @@ public class PurchasingUpdateAccountingLineValidation extends GenericValidation 
 
     public boolean validate(AttributedDocumentEvent event) {
         //this is necessary because sometimes this method is called for baseline accounts, should not be needed once baseline is removed
-        if(updatedAccountingLine instanceof PurApAccountingLine) {
+        if (updatedAccountingLine instanceof PurApAccountingLine) {
             return verifyAccountingLinePercent((PurApAccountingLine) updatedAccountingLine);
         }//else
         return true;

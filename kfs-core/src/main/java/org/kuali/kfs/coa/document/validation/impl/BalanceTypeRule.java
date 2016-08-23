@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.mo.common.active.Inactivatable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
 
@@ -41,7 +41,7 @@ public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
     @Override
     public boolean processRouteDocument(Document document) {
         boolean result = super.processRouteDocument(document);
-        result &= checkForBlockingOffsetDefinitions((BalanceType)(((MaintenanceDocument)document).getNewMaintainableObject().getBusinessObject()));
+        result &= checkForBlockingOffsetDefinitions((BalanceType) (((MaintenanceDocument) document).getNewMaintainableObject().getBusinessObject()));
         return result;
     }
 
@@ -51,22 +51,24 @@ public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
     @Override
     public boolean processSaveDocument(Document document) {
         boolean result = super.processSaveDocument(document);
-        result &= checkForBlockingOffsetDefinitions((BalanceType)(((MaintenanceDocument)document).getNewMaintainableObject().getBusinessObject()));
+        result &= checkForBlockingOffsetDefinitions((BalanceType) (((MaintenanceDocument) document).getNewMaintainableObject().getBusinessObject()));
         return result;
     }
 
     /**
      * Determines if the given document is inactivating the balance type being maintained
+     *
      * @param document the maintenance document maintaining a balance type
      * @return true if the document is inactivating that balance type, false otherwise
      */
     protected boolean isInactivating(MaintenanceDocument document) {
         if (!document.isEdit() || document.getOldMaintainableObject() == null) return false;
-        return ((Inactivatable)document.getOldMaintainableObject().getBusinessObject()).isActive() && !((Inactivatable)document.getNewMaintainableObject().getBusinessObject()).isActive();
+        return ((Inactivatable) document.getOldMaintainableObject().getBusinessObject()).isActive() && !((Inactivatable) document.getNewMaintainableObject().getBusinessObject()).isActive();
     }
 
     /**
      * Determines if the inactivating balance type should be blocked by offset definitions
+     *
      * @param balanceType the balance type to check
      * @return true if the balance type shouldn't be blocked by any existing offset definitions, false otherwise
      */
@@ -80,7 +82,7 @@ public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
 
         final int matchingCount = businessObjectService.countMatching(OffsetDefinition.class, keys);
         if (matchingCount > 0) {
-            GlobalVariables.getMessageMap().putErrorForSectionId("Edit Balance Type",KFSKeyConstants.ERROR_DOCUMENT_BALANCETYPMAINT_INACTIVATION_BLOCKING,new String[] {balanceType.getFinancialBalanceTypeCode(), Integer.toString(matchingCount), OffsetDefinition.class.getName()});
+            GlobalVariables.getMessageMap().putErrorForSectionId("Edit Balance Type", KFSKeyConstants.ERROR_DOCUMENT_BALANCETYPMAINT_INACTIVATION_BLOCKING, new String[]{balanceType.getFinancialBalanceTypeCode(), Integer.toString(matchingCount), OffsetDefinition.class.getName()});
             result = false;
         }
         return result;

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.kim;
 
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.impl.permission.PermissionBo;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,8 +30,6 @@ import java.util.Map;
 
 /**
  * Type service for the 'View Edit Mode' KIM type which matches on the id for a UIF view and edit mode
- *
- *
  */
 public class ViewEditModePermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
@@ -49,19 +47,19 @@ public class ViewEditModePermissionTypeServiceImpl extends PermissionTypeService
      * based on view id
      *
      * @param requestedDetails - map of details requested with permission (used for matching)
-     * @param permissionsList - list of permissions to process for matches
+     * @param permissionsList  - list of permissions to process for matches
      * @return List<Permission> list of permissions that match the requested details
      */
     @Override
     protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
-            List<Permission> permissionsList) {
+                                                        List<Permission> permissionsList) {
 
         List<Permission> matchingPermissions = new ArrayList<Permission>();
         for (Permission permission : permissionsList) {
             PermissionBo bo = PermissionBo.from(permission);
 
             if (requestedDetails.get(KimConstants.AttributeConstants.EDIT_MODE).equals(bo.getDetails().get(
-                    KimConstants.AttributeConstants.EDIT_MODE))) {
+                KimConstants.AttributeConstants.EDIT_MODE))) {
                 matchingPermissions.add(permission);
             }
         }

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 /**
  * Base implementation for a ledger posting document.
@@ -47,7 +47,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
      */
     public LedgerPostingDocumentBase() {
         super();
-        if ( SpringContext.isInitialized() ) {
+        if (SpringContext.isInitialized()) {
             createInitialAccountingPeriod();
         }
     }
@@ -67,16 +67,17 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
     /**
      * Finds the accounting period for the current date
+     *
      * @return the current accounting period
      */
     public AccountingPeriod retrieveCurrentAccountingPeriod() {
-    	// CSU 6702 BEGIN
+        // CSU 6702 BEGIN
         try {
-        // CSU 6702 END
+            // CSU 6702 END
             Date date = getDateTimeService().getCurrentSqlDate();
             return getAccountingPeriodService().getByDate(date);
-       	// CSU 6702 BEGIN
-        } catch ( RuntimeException ex ) {
+            // CSU 6702 BEGIN
+        } catch (RuntimeException ex) {
             // catch and ignore - prevent blowup when called before services initialized
             return null;
         }
@@ -126,7 +127,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
     public void setAccountingPeriod(AccountingPeriod accountingPeriod) {
         this.accountingPeriod = accountingPeriod;
 
-        if(ObjectUtils.isNotNull(accountingPeriod)) {
+        if (ObjectUtils.isNotNull(accountingPeriod)) {
             this.setPostingYear(accountingPeriod.getUniversityFiscalYear());
             this.setPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
         }
@@ -134,6 +135,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
     /**
      * If we've copied, we need to update the posting period and year
+     *
      * @see org.kuali.rice.krad.document.DocumentBase#toCopy()
      */
     @Override
@@ -144,6 +146,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
     /**
      * Returns the financial document type code for the given document, using the DataDictionaryService
+     *
      * @return the financial document type code for the given document
      */
     public String getFinancialDocumentTypeCode() {
@@ -152,21 +155,21 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
 
     public static DataDictionaryService getDataDictionaryService() {
-        if ( dataDictionaryService == null ) {
+        if (dataDictionaryService == null) {
             dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
         }
         return dataDictionaryService;
     }
 
     public static DateTimeService getDateTimeService() {
-        if ( dateTimeService == null ) {
+        if (dateTimeService == null) {
             dateTimeService = SpringContext.getBean(DateTimeService.class);
         }
         return dateTimeService;
     }
 
     public static AccountingPeriodService getAccountingPeriodService() {
-        if ( accountingPeriodService == null ) {
+        if (accountingPeriodService == null) {
             accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         }
         return accountingPeriodService;
@@ -174,8 +177,10 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
     // CSU 6702 BEGIN
     // rSmart-jkneal-KFSCSU-199-begin mod for selected accounting period
+
     /**
      * Composite of postingPeriodCode and postingYear
+     *
      * @return Return a composite of postingPeriodCode and postingYear
      */
     public String getAccountingPeriodCompositeString() {
@@ -184,6 +189,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
 
     /**
      * Set accountingPeriod based on incoming paramater.
+     *
      * @param accountingPeriodString in the form of [period][year]
      */
     public void setAccountingPeriodCompositeString(String accountingPeriodString) {

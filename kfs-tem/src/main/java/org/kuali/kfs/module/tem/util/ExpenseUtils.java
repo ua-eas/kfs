@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.module.tem.util;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
@@ -36,16 +32,20 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ExpenseUtils {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ExpenseUtils.class);
 
-    public static List<ImportedExpense> convertHistoricalToImportedExpense(List<HistoricalTravelExpense> historicalTravelExpenses, TravelDocument travelDocument){
+    public static List<ImportedExpense> convertHistoricalToImportedExpense(List<HistoricalTravelExpense> historicalTravelExpenses, TravelDocument travelDocument) {
         List<ImportedExpense> expenses = new ArrayList<ImportedExpense>();
         BusinessObjectService service = SpringContext.getBean(BusinessObjectService.class);
-        for (HistoricalTravelExpense historicalTravelExpense : historicalTravelExpenses){
+        for (HistoricalTravelExpense historicalTravelExpense : historicalTravelExpenses) {
             int i = 0;
             historicalTravelExpense.refreshReferenceObject(TemPropertyConstants.CREDIT_CARD_AGENCY);
             historicalTravelExpense.refreshReferenceObject(TemPropertyConstants.AGENCY_STAGING_DATA);
@@ -87,22 +87,21 @@ public class ExpenseUtils {
         return expenses;
     }
 
-    public static String getDefaultChartCode(TravelDocument document){
+    public static String getDefaultChartCode(TravelDocument document) {
         String defaultChartCode = null;
         if (document.getTemProfile() == null && document.getTemProfileId() != null) {
             Map<String, Object> primaryKeys = new HashMap<String, Object>();
             primaryKeys.put(TemPropertyConstants.TemProfileProperties.PROFILE_ID, document.getTemProfileId().toString());
             TemProfile profile = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(TemProfile.class, primaryKeys);
             defaultChartCode = profile.getDefaultChartCode();
-        }
-        else if (document.getTemProfile() != null) {
+        } else if (document.getTemProfile() != null) {
             defaultChartCode = document.getTemProfile().getDefaultChartCode();
         }
 
         return defaultChartCode;
     }
 
-    public static void assignExpense(Long historicalTravelExpenseId, String tripId, String documentNumber, String documentType, boolean isAssigned){
+    public static void assignExpense(Long historicalTravelExpenseId, String tripId, String documentNumber, String documentType, boolean isAssigned) {
         BusinessObjectService service = SpringContext.getBean(BusinessObjectService.class);
         HistoricalTravelExpense historicalTravelExpense = service.findBySinglePrimaryKey(HistoricalTravelExpense.class, historicalTravelExpenseId);
         historicalTravelExpense.setAssigned(isAssigned);
@@ -112,11 +111,11 @@ public class ExpenseUtils {
         service.save(historicalTravelExpense);
     }
 
-    public static void calculateMileage(TravelDocument travelDocument, List<ActualExpense> actualExpenses){
-        for (ActualExpense actualExpense : actualExpenses){
-            if (!StringUtils.isBlank(actualExpense.getExpenseTypeCode()) && actualExpense.isMileage()){
+    public static void calculateMileage(TravelDocument travelDocument, List<ActualExpense> actualExpenses) {
+        for (ActualExpense actualExpense : actualExpenses) {
+            if (!StringUtils.isBlank(actualExpense.getExpenseTypeCode()) && actualExpense.isMileage()) {
                 KualiDecimal total = KualiDecimal.ZERO;
-                for (TemExpense detail : actualExpense.getExpenseDetails()){
+                for (TemExpense detail : actualExpense.getExpenseDetails()) {
                     ActualExpense detailExpense = (ActualExpense) detail;
                     if (detailExpense.getMileageRate(travelDocument.getEffectiveDateForMileageRate(detailExpense)) != null) {
                         KualiDecimal mileage = new KualiDecimal(new BigDecimal(detailExpense.getMiles()).multiply(detailExpense.getMileageRate(travelDocument.getEffectiveDateForMileageRate(detailExpense)).getRate()));

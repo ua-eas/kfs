@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -30,9 +30,9 @@ import org.kuali.kfs.module.tem.document.service.MileageRateService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * Rules for the mileage rate maintenance document
@@ -41,13 +41,14 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Performs extra checks on the rate and expense type but only ever succeeds
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
         super.processCustomSaveDocumentBusinessRules(document);
 
-        final MileageRate mileageRate = (MileageRate)document.getNewMaintainableObject().getBusinessObject();
+        final MileageRate mileageRate = (MileageRate) document.getNewMaintainableObject().getBusinessObject();
         checkRate(mileageRate);
         checkDuplicateMileageRate(mileageRate);
         checkExpenseType(mileageRate);
@@ -58,13 +59,14 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Performs extra checks on the rate and expense type, which will help determine the result
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean result = super.processCustomRouteDocumentBusinessRules(document);
 
-        final MileageRate mileageRate = (MileageRate)document.getNewMaintainableObject().getBusinessObject();
+        final MileageRate mileageRate = (MileageRate) document.getNewMaintainableObject().getBusinessObject();
         result &= checkRate(mileageRate);
         checkDuplicateMileageRate(mileageRate);
         result &= checkExpenseType(mileageRate);
@@ -75,6 +77,7 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Checks that the rate on the proposed record is positive
+     *
      * @param mileageRate the mileage rate to check
      * @return true if the rate rules were passed, false if errors were found
      */
@@ -91,6 +94,7 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Checks that the expense type on the proposed record has mileage as the metacategory
+     *
      * @param mileageRate the mileage rate to check
      * @return true if the expense type rules were passed, false if errors were found
      */
@@ -99,7 +103,7 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
         if (!StringUtils.isBlank(mileageRate.getExpenseTypeCode())) {
             mileageRate.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
             if (!ObjectUtils.isNull(mileageRate.getExpenseType()) && !TemConstants.ExpenseTypeMetaCategory.MILEAGE.getCode().equals(mileageRate.getExpenseType().getExpenseTypeMetaCategoryCode())) {
-                putFieldError(TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_EXPENSE_TYPE, new String[] { mileageRate.getExpenseTypeCode() });
+                putFieldError(TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_EXPENSE_TYPE, new String[]{mileageRate.getExpenseTypeCode()});
                 success = false;
             }
         }
@@ -112,39 +116,40 @@ public class MileageRateRule extends MaintenanceDocumentRuleBase {
      * @param mileageRate
      * @return true if the overlap rule were passed , false otherwise.
      */
-     protected boolean checkDuplicateMileageRate(MileageRate mileageRate) {
-         mileageRate.getActiveFromDate();
-         mileageRate.getActiveToDate();
-         MileageRate matchedRecord = SpringContext.getBean(MileageRateService.class).getMileageRateByExpenseTypeCode(mileageRate);
-         if(ObjectUtils.isNotNull(matchedRecord)) {
-             String fromDate = SpringContext.getBean(DateTimeService.class).toDateString(matchedRecord.getActiveFromDate());
-             String toDate = SpringContext.getBean(DateTimeService.class).toDateString(matchedRecord.getActiveToDate());
+    protected boolean checkDuplicateMileageRate(MileageRate mileageRate) {
+        mileageRate.getActiveFromDate();
+        mileageRate.getActiveToDate();
+        MileageRate matchedRecord = SpringContext.getBean(MileageRateService.class).getMileageRateByExpenseTypeCode(mileageRate);
+        if (ObjectUtils.isNotNull(matchedRecord)) {
+            String fromDate = SpringContext.getBean(DateTimeService.class).toDateString(matchedRecord.getActiveFromDate());
+            String toDate = SpringContext.getBean(DateTimeService.class).toDateString(matchedRecord.getActiveToDate());
 
-             putFieldError(TemPropertyConstants.ACTIVE_FROM_DATE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_EFFECTIVE_DATE, new String[] { mileageRate.getExpenseTypeCode(),fromDate, toDate });
-             return false;
-         }
+            putFieldError(TemPropertyConstants.ACTIVE_FROM_DATE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_EFFECTIVE_DATE, new String[]{mileageRate.getExpenseTypeCode(), fromDate, toDate});
+            return false;
+        }
 
-         return true;
-     }
+        return true;
+    }
 
-     /**
-      * Verifies that the effective to date on the mileage rate is not set to any day earlier than today
-      * @param mileageRate the mileage rate to check
-      * @return true if the effective date is null or set to today or in the future; false otherwise
-      */
-     protected boolean checkActiveToDate(MileageRate mileageRate) {
-         if (mileageRate.getActiveToDate() == null) {
-             return true;
-         }
-         final DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
-         final Calendar today = dateTimeService.getCurrentCalendar();
-         Calendar activeToDate = Calendar.getInstance();
-         activeToDate.setTimeInMillis(mileageRate.getActiveToDate().getTime());
+    /**
+     * Verifies that the effective to date on the mileage rate is not set to any day earlier than today
+     *
+     * @param mileageRate the mileage rate to check
+     * @return true if the effective date is null or set to today or in the future; false otherwise
+     */
+    protected boolean checkActiveToDate(MileageRate mileageRate) {
+        if (mileageRate.getActiveToDate() == null) {
+            return true;
+        }
+        final DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
+        final Calendar today = dateTimeService.getCurrentCalendar();
+        Calendar activeToDate = Calendar.getInstance();
+        activeToDate.setTimeInMillis(mileageRate.getActiveToDate().getTime());
 
-         if (!KfsDateUtils.isSameDay(today, activeToDate) && activeToDate.compareTo(today) < 0) {
-             putFieldError(TemPropertyConstants.ACTIVE_TO_DATE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_ACTIVE_TO_DATE, new String[] {dateTimeService.toDateString(mileageRate.getActiveToDate())});
-             return false;
-         }
-         return true;
-     }
+        if (!KfsDateUtils.isSameDay(today, activeToDate) && activeToDate.compareTo(today) < 0) {
+            putFieldError(TemPropertyConstants.ACTIVE_TO_DATE, TemKeyConstants.ERROR_DOCUMENT_MILEAGE_RATE_INVALID_ACTIVE_TO_DATE, new String[]{dateTimeService.toDateString(mileageRate.getActiveToDate())});
+            return false;
+        }
+        return true;
+    }
 }

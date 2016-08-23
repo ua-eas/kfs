@@ -26,7 +26,7 @@ import java.util.List;
  * may not necessarily hold all open tags of a document while it is being serialized.  For example, tags enclosing list elements
  * and map entries are not contained within here.  See {@link DocumentSerializerServiceImpl} to determine when this object's state
  * is modified.
- *
+ * <p>
  * This class's manipulators behave much like a stack, but it has random access characteristics like an array.
  */
 public class DocumentSerializationState {
@@ -76,7 +76,6 @@ public class DocumentSerializationState {
 
     /**
      * Removes the last added serialized property
-     *
      */
     public void removeSerializedProperty() {
         pathElements.remove(pathElements.size() - 1);

@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
-import java.sql.Date;
-import java.util.Calendar;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.Calendar;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 public class CustomerInvoiceBothEndDateAndTotalRecurrenceNumberValidation extends GenericValidation {
 
@@ -69,7 +69,7 @@ public class CustomerInvoiceBothEndDateAndTotalRecurrenceNumberValidation extend
             addCounter = 3;
         }
         /* perform this loop while begin_date is less than or equal to end_date */
-        while (!(beginDate.after(endDate))){
+        while (!(beginDate.after(endDate))) {
             beginCalendar.setTime(beginDate);
             beginCalendar.add(Calendar.MONTH, addCounter);
             beginDate = KfsDateUtils.convertToSqlDate(beginCalendar.getTime());

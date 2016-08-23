@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.document.web.renderers.StringRenderer;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.renderers.StringRenderer;
 
 /**
  * A renderable element which renders a literal label
@@ -32,6 +32,7 @@ public class LiteralHeaderLabel extends HeaderLabel {
 
     /**
      * Constructs a LiteralHeaderLabel, forcing the literalLabel to be passed in
+     *
      * @param literalLabel the literal label to render
      */
     public LiteralHeaderLabel(String literalLabel) {
@@ -40,6 +41,7 @@ public class LiteralHeaderLabel extends HeaderLabel {
 
     /**
      * Uses StringRenderer to render the label
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {

@@ -19,14 +19,9 @@
 package org.kuali.kfs.krad.maintenance;
 
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
 
 /**
  * List of business objects that this maintenance document is locking (prevents two documents from being routed trying to update the same object)
@@ -34,23 +29,23 @@ import javax.persistence.Table;
  */
 public class MaintenanceLock extends PersistableBusinessObjectBase {
     private static final long serialVersionUID = 7766326835852387301L;
-	@Id
-    @Column(name="MAINT_LOCK_ID")
+    @Id
+    @Column(name = "MAINT_LOCK_ID")
     private String lockId;
-	@Column(name="MAINT_LOCK_REP_TXT")
-	private String lockingRepresentation;
-    @Column(name="DOC_HDR_ID")
-	private String documentNumber;
+    @Column(name = "MAINT_LOCK_REP_TXT")
+    private String lockingRepresentation;
+    @Column(name = "DOC_HDR_ID")
+    private String documentNumber;
 
     public String getLockId() {
-		return this.lockId;
-	}
+        return this.lockId;
+    }
 
-	public void setLockId(String lockId) {
-		this.lockId = lockId;
-	}
+    public void setLockId(String lockId) {
+        this.lockId = lockId;
+    }
 
-	public String getLockingRepresentation() {
+    public String getLockingRepresentation() {
         return lockingRepresentation;
     }
 

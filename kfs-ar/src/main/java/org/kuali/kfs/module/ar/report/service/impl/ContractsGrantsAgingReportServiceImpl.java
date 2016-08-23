@@ -18,21 +18,15 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -47,11 +41,17 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.LookupService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is used to get the services for PDF generation and other services for CG Aging report.
@@ -79,8 +79,9 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Utility method to lookup matching contracts & grants invoice documents for the given field values
+     *
      * @param fieldValues the field values with criteria to lookup report on
-     * @param begin the begin da
+     * @param begin       the begin da
      * @param end
      * @return
      */
@@ -132,11 +133,11 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
         String awardEndFromDate = (String) fieldValues.get(ArPropertyConstants.ContractsGrantsAgingReportFields.AWARD_END_DATE_FROM);
         String awardEndToDate = (String) fieldValues.get(ArPropertyConstants.ContractsGrantsAgingReportFields.AWARD_END_DATE_TO);
 
-        Map<String,String> fieldValuesForInvoice = new HashMap<String,String>();
+        Map<String, String> fieldValuesForInvoice = new HashMap<String, String>();
         fieldValuesForInvoice.put(ArPropertyConstants.OPEN_INVOICE_IND, KFSConstants.Booleans.TRUE);
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
         //Now to involve reportOption and handle chart and org
-        if(ObjectUtils.isNotNull(reportOption)){
+        if (ObjectUtils.isNotNull(reportOption)) {
             if (reportOption.equalsIgnoreCase(ArConstants.ReportOptionFieldValues.PROCESSING_ORG) && StringUtils.isNotBlank(chartCode) && StringUtils.isNotBlank(orgCode)) {
                 fieldValuesForInvoice.put(ArPropertyConstants.CustomerInvoiceDocumentFields.PROCESSING_ORGANIZATION_CODE, orgCode);
                 fieldValuesForInvoice.put(ArPropertyConstants.CustomerInvoiceDocumentFields.PROCESSING_CHART_OF_ACCOUNT_CODE, chartCode);
@@ -158,8 +159,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
         if (!StringUtils.isBlank(markedAsFinal)) {
             if (markedAsFinal.equalsIgnoreCase(KFSConstants.ParameterValues.YES)) {
                 fieldValuesForInvoice.put(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.FINAL_BILL, KFSConstants.Booleans.TRUE);
-            }
-            else if (markedAsFinal.equalsIgnoreCase(KFSConstants.ParameterValues.NO)) {
+            } else if (markedAsFinal.equalsIgnoreCase(KFSConstants.ParameterValues.NO)) {
                 fieldValuesForInvoice.put(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.FINAL_BILL, KFSConstants.Booleans.FALSE);
             }
         }
@@ -171,14 +171,14 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
         }
 
         if (!StringUtils.isBlank(accountChartOfAccountsCode)) {
-            fieldValuesForInvoice.put(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES+"."+KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, accountChartOfAccountsCode);
+            fieldValuesForInvoice.put(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES + "." + KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, accountChartOfAccountsCode);
         }
         if (!StringUtils.isBlank(accountNumber)) {
-            fieldValuesForInvoice.put(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES+"."+KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
+            fieldValuesForInvoice.put(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES + "." + KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
         }
 
         if (!StringUtils.isBlank(invoiceDateCriteria)) {
-            fieldValuesForInvoice.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_CREATE_DATE, invoiceDateCriteria);
+            fieldValuesForInvoice.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_CREATE_DATE, invoiceDateCriteria);
         }
 
         final String sourceTotalCriteria = getAmountCriteria(invoiceAmountFrom, invoiceAmountTo);
@@ -211,16 +211,17 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Removes contracts & grants invoice documents from the given collection if they do not match the given award ids or if the collector permissions do not allow viewing of the document
+     *
      * @param contractsGrantsInvoiceDocs a Collection of ContractsGrantsInvoiceDocuments
-     * @param collectorPrincipalId the principal name of the collector
-     * @param awardIds a Set of proposal numbers of awards which match given criteria
+     * @param collectorPrincipalId       the principal name of the collector
+     * @param awardIds                   a Set of proposal numbers of awards which match given criteria
      */
     protected void filterContractsGrantsInvoiceDocumentsByAwardAndCollector(Collection<ContractsGrantsInvoiceDocument> contractsGrantsInvoiceDocs, String collectorPrincipalId, Set<String> awardIds) {
         // filter by collector and user performing the search
         Person user = GlobalVariables.getUserSession().getPerson();
 
         if (!CollectionUtils.isEmpty(contractsGrantsInvoiceDocs)) {
-            for (Iterator<ContractsGrantsInvoiceDocument> iter = contractsGrantsInvoiceDocs.iterator(); iter.hasNext();) {
+            for (Iterator<ContractsGrantsInvoiceDocument> iter = contractsGrantsInvoiceDocs.iterator(); iter.hasNext(); ) {
                 ContractsGrantsInvoiceDocument document = iter.next();
                 if (!ObjectUtils.isNull(document.getInvoiceGeneralDetail()) && !ObjectUtils.isNull(document.getInvoiceGeneralDetail().getAward()) && awardIds != null && !awardIds.contains(document.getInvoiceGeneralDetail().getAward().getProposalNumber())) {
                     iter.remove();
@@ -237,6 +238,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Generates a Map keyed by customer number and name from a Collection of ContractsGrantsInvoiceDocuments
+     *
      * @param contractsGrantsInvoiceDocs a Collection of ContractsGrantsInvoiceDocuments to convert into a Map
      * @return a Map of CINV docs, keyed by customer number and name
      */
@@ -251,8 +253,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
                 String key = customerNbr + "-" + customerNm;
                 if (cgMapByCustomer.containsKey(key)) {
                     cgInvoiceDocs = cgMapByCustomer.get(key);
-                }
-                else {
+                } else {
                     cgInvoiceDocs = new ArrayList<ContractsGrantsInvoiceDocument>();
                 }
                 cgInvoiceDocs.add(cgDoc);
@@ -264,10 +265,11 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Generates a Set of proposal ids for awards which match the given criteria
+     *
      * @param awardDocumentNumber the document number of the award
-     * @param awardEndFromDate the award ending date of the award
-     * @param awardEndToDate the award ending date of the award
-     * @param fundManager the principal name of the fund manager
+     * @param awardEndFromDate    the award ending date of the award
+     * @param awardEndToDate      the award ending date of the award
+     * @param fundManager         the principal name of the fund manager
      * @return a Set of Award ids to filter on, or null if no search was actually completed
      */
     protected Set<String> lookupBillingAwards(String awardDocumentNumber, String awardEndFromDate, String awardEndToDate, String fundManager) {
@@ -293,7 +295,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
         Set<String> billingAwardIds = new HashSet<>();
         for (ContractsAndGrantsAward award : awards) {
             if (award instanceof ContractsAndGrantsBillingAward) {
-                final ContractsAndGrantsBillingAward cgbAward = (ContractsAndGrantsBillingAward)award;
+                final ContractsAndGrantsBillingAward cgbAward = (ContractsAndGrantsBillingAward) award;
                 if (ObjectUtils.isNull(cgbAward.getAwardPrimaryFundManager()) || fundManagerIds.isEmpty() || fundManagerIds.contains(cgbAward.getAwardPrimaryFundManager().getPrincipalId())) {
                     billingAwardIds.add(cgbAward.getProposalNumber());
                 }
@@ -304,19 +306,20 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Turns a from amount and to amount into a lookupable criteria
+     *
      * @param fromAmount the lower bound amount
-     * @param toAmount the upper bound amount
+     * @param toAmount   the upper bound amount
      * @return a lookupable criteria
      */
     protected String getAmountCriteria(String fromAmount, String toAmount) {
         if (!StringUtils.isBlank(fromAmount)) {
             if (!StringUtils.isBlank(toAmount)) {
-                return fromAmount+SearchOperator.BETWEEN.op()+toAmount;
+                return fromAmount + SearchOperator.BETWEEN.op() + toAmount;
             } else {
-                return SearchOperator.GREATER_THAN_EQUAL.op()+fromAmount;
+                return SearchOperator.GREATER_THAN_EQUAL.op() + fromAmount;
             }
         } else if (!StringUtils.isBlank(toAmount)) {
-            return SearchOperator.LESS_THAN_EQUAL.op()+toAmount;
+            return SearchOperator.LESS_THAN_EQUAL.op() + toAmount;
         }
         return null;
     }
@@ -342,6 +345,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
     /**
      * Figures out the reportRunDate and then uses filterContractsGrantsAgingReport to look up the right documents
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsAgingReportService#lookupContractsGrantsInvoiceDocumentsForAging(java.util.Map)
      */
     @Override
@@ -351,16 +355,15 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
             String reportRunDateStr = (String) fieldValues.get(ArPropertyConstants.CustomerAgingReportFields.REPORT_RUN_DATE);
 
             java.util.Date reportRunDate = (ObjectUtils.isNull(reportRunDateStr) || reportRunDateStr.isEmpty()) ?
-                                                today :
-                                                getDateTimeService().convertToDate(reportRunDateStr);
+                today :
+                getDateTimeService().convertToDate(reportRunDateStr);
 
             // retrieve filtered data according to the lookup
             List<ContractsGrantsInvoiceDocument> contractsGrantsInvoiceDocuments = retrieveMatchingContractsGrantsInvoiceDocuments(fieldValues, null, new java.sql.Date(reportRunDate.getTime()));
             return contractsGrantsInvoiceDocuments;
 
-        }
-        catch (ParseException ex) {
-            throw new RuntimeException("Could not parse report run date for lookup",ex);
+        } catch (ParseException ex) {
+            throw new RuntimeException("Could not parse report run date for lookup", ex);
         }
     }
 

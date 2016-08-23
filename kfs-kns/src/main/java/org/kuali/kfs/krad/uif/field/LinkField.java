@@ -26,76 +26,74 @@ import org.kuali.kfs.krad.uif.widget.LightBox;
 
 /**
  * Field that encloses a link element
- *
- *
  */
 public class LinkField extends FieldBase {
-	private static final long serialVersionUID = -1908504471910271148L;
+    private static final long serialVersionUID = -1908504471910271148L;
 
-	private String linkLabel;
-	private String target;
-	private String hrefText;
-	private LightBox lightBox;
+    private String linkLabel;
+    private String target;
+    private String hrefText;
+    private LightBox lightBox;
 
-	public LinkField() {
-      super();
-	}
+    public LinkField() {
+        super();
+    }
 
-	/**
-	 * The following initialization is performed:
+    /**
+     * The following initialization is performed:
+     * <p>
+     * <ul>
+     * <li>Set the linkLabel if blank to the Field label</li>
+     * </ul>
      *
-	 * <ul>
-	 * <li>Set the linkLabel if blank to the Field label</li>
-	 * </ul>
-	 *
-	 * @see ComponentBase#performInitialization(View, java.lang.Object)
-	 */
-	@Override
-	public void performInitialization(View view, Object model) {
-		super.performInitialization(view, model);
+     * @see ComponentBase#performInitialization(View, java.lang.Object)
+     */
+    @Override
+    public void performInitialization(View view, Object model) {
+        super.performInitialization(view, model);
 
-		if (StringUtils.isBlank(linkLabel)) {
-			linkLabel = this.getLabel();
-		}
-	}
+        if (StringUtils.isBlank(linkLabel)) {
+            linkLabel = this.getLabel();
+        }
+    }
 
-	public String getLinkLabel() {
-		return this.linkLabel;
-	}
+    public String getLinkLabel() {
+        return this.linkLabel;
+    }
 
-	public void setLinkLabel(String linkLabel) {
-		this.linkLabel = linkLabel;
-	}
+    public void setLinkLabel(String linkLabel) {
+        this.linkLabel = linkLabel;
+    }
 
-	public String getTarget() {
-		return this.target;
-	}
+    public String getTarget() {
+        return this.target;
+    }
 
-	public void setTarget(String target) {
-		this.target = target;
-	}
+    public void setTarget(String target) {
+        this.target = target;
+    }
 
-	public String getHrefText() {
-		return this.hrefText;
-	}
+    public String getHrefText() {
+        return this.hrefText;
+    }
 
-	public void setHrefText(String hrefText) {
-		this.hrefText = hrefText;
-	}
+    public void setHrefText(String hrefText) {
+        this.hrefText = hrefText;
+    }
 
-	/**
-	 * @param lightBox the lightBox to set
-	 */
-	public void setLightBox(LightBox lightBox) {
-		this.lightBox = lightBox;
-	}
+    /**
+     * @param lightBox the lightBox to set
+     */
+    public void setLightBox(LightBox lightBox) {
+        this.lightBox = lightBox;
+    }
 
-	/**
-	 * @return the lightBox
-	 */
-	public LightBox getLightBox() {
-		return lightBox;
-	}
+    /**
+     * @return the lightBox
+     */
+    public LightBox getLightBox() {
+        return lightBox;
+    }
 
     /**
      * @see ScriptEventSupport#getSupportsOnClick()

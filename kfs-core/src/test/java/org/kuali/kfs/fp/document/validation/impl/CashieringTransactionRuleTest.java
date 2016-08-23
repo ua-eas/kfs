@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.businessobject.CashDrawerTest;
 import org.kuali.kfs.fp.businessobject.CashieringItemInProcess;
@@ -41,6 +36,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @ConfigureContext(session = UserNameFixture.twatson)
 public class CashieringTransactionRuleTest extends KualiTestBase {

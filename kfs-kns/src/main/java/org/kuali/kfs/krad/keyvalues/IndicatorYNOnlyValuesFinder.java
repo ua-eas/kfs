@@ -26,8 +26,6 @@ import java.util.List;
 
 /**
  * This class returns list of boolean key value pairs.
- *
- *
  */
 public class IndicatorYNOnlyValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
 
@@ -35,7 +33,7 @@ public class IndicatorYNOnlyValuesFinder extends org.kuali.kfs.krad.keyvalues.Ke
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
         List<KeyValue> activeLabels = new ArrayList<KeyValue>();
         activeLabels.add(new ConcreteKeyValue("Yes", "Yes"));
         activeLabels.add(new ConcreteKeyValue("No", "No"));

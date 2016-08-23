@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.io.Serializable;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
 
 /**
  * Interface to aid voucher documents for handling debit/credit amounts.

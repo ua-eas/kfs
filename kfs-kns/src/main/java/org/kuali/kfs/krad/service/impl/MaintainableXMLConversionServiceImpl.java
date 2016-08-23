@@ -93,12 +93,12 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
     public String transformMaintainableXML(String xml) {
         String maintenanceAction = "<" + MAINTENANCE_ACTION_ELEMENT_NAME + ">" + StringUtils.substringAfter(xml, "<" + MAINTENANCE_ACTION_ELEMENT_NAME + ">");
         xml = StringUtils.substringBefore(xml, "<" + MAINTENANCE_ACTION_ELEMENT_NAME + ">");
-        if(!CollectionUtils.isEmpty(getConversionRuleFiles())) {
+        if (!CollectionUtils.isEmpty(getConversionRuleFiles())) {
             try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
                 Document document = db.parse(new InputSource(new StringReader(xml)));
-                for(Node childNode = document.getFirstChild(); childNode != null;) {
+                for (Node childNode = document.getFirstChild(); childNode != null; ) {
                     Node nextChild = childNode.getNextSibling();
                     transformClassNode(document, childNode);
                     childNode = nextChild;
@@ -132,39 +132,39 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
 
     protected void transformClassNode(Document document, Node node) throws ClassNotFoundException, XPathExpressionException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
         String className = node.getNodeName();
-        if(classNameRuleMap.containsKey(className)) {
+        if (classNameRuleMap.containsKey(className)) {
             String newClassName = classNameRuleMap.get(className);
             document.renameNode(node, null, newClassName);
             className = newClassName;
-        } else if(classRemovals.contains(className)) {
+        } else if (classRemovals.contains(className)) {
             node.getParentNode().removeChild(node);
             return;
-        } else if(!className.contains(".")) {
-        	// Not really a class node.
-        	return;
+        } else if (!className.contains(".")) {
+            // Not really a class node.
+            return;
         }
         Class<?> dataObjectClass = Class.forName(className);
 
-        if(classPropertyRuleMap.containsKey(className)) {
+        if (classPropertyRuleMap.containsKey(className)) {
             transformNode(document, node, dataObjectClass, classPropertyRuleMap.get(className));
         }
         transformNode(document, node, dataObjectClass, classPropertyRuleMap.get("*"));
     }
 
     protected void transformNode(Document document, Node node, Class<?> currentClass, Map<String, String> propertyMappings) throws ClassNotFoundException, XPathExpressionException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
-        if(currentClass != null && classRemovals.contains(currentClass.getName())) {
-        	node.getParentNode().removeChild(node);
-        	return;
+        if (currentClass != null && classRemovals.contains(currentClass.getName())) {
+            node.getParentNode().removeChild(node);
+            return;
         }
-        for(Node childNode = node.getFirstChild(); childNode != null;) {
+        for (Node childNode = node.getFirstChild(); childNode != null; ) {
             Node nextChild = childNode.getNextSibling();
             String propertyName = childNode.getNodeName();
-            if(childNode.hasAttributes()) {
+            if (childNode.hasAttributes()) {
                 XPath xpath = XPathFactory.newInstance().newXPath();
                 Node serializationAttribute = childNode.getAttributes().getNamedItem(SERIALIZATION_ATTRIBUTE);
-                if(serializationAttribute != null && StringUtils.equals(serializationAttribute.getNodeValue(), "custom")) {
+                if (serializationAttribute != null && StringUtils.equals(serializationAttribute.getNodeValue(), "custom")) {
                     Node classAttribute = childNode.getAttributes().getNamedItem(CLASS_ATTRIBUTE);
-                    if(classAttribute != null) {
+                    if (classAttribute != null) {
                         if (StringUtils.equals(classAttribute.getNodeValue(), "org.kuali.rice.kns.util.TypedArrayList")) {
                             ((Element) childNode).removeAttribute(SERIALIZATION_ATTRIBUTE);
                             ((Element) childNode).removeAttribute(CLASS_ATTRIBUTE);
@@ -192,13 +192,13 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                             }
                         }
                     } else {
-                        ((Element)childNode).removeAttribute(SERIALIZATION_ATTRIBUTE);
+                        ((Element) childNode).removeAttribute(SERIALIZATION_ATTRIBUTE);
 
                         XPathExpression mapContentsExpression = xpath.compile("//" + propertyName + "/map/string");
-                        NodeList mapContents = (NodeList)mapContentsExpression.evaluate(childNode, XPathConstants.NODESET);
+                        NodeList mapContents = (NodeList) mapContentsExpression.evaluate(childNode, XPathConstants.NODESET);
                         List<Node> nodesToAdd = new ArrayList<Node>();
-                        if(mapContents.getLength() > 0 && mapContents.getLength() % 2 == 0) {
-                            for(int i = 0; i < mapContents.getLength(); i++) {
+                        if (mapContents.getLength() > 0 && mapContents.getLength() % 2 == 0) {
+                            for (int i = 0; i < mapContents.getLength(); i++) {
                                 Node keyNode = mapContents.item(i);
                                 Node valueNode = mapContents.item(++i);
                                 Node entryNode = document.createElement("entry");
@@ -207,12 +207,12 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                                 nodesToAdd.add(entryNode);
                             }
                         }
-                        for(Node removeNode = childNode.getFirstChild(); removeNode != null;) {
+                        for (Node removeNode = childNode.getFirstChild(); removeNode != null; ) {
                             Node nextRemoveNode = removeNode.getNextSibling();
                             childNode.removeChild(removeNode);
                             removeNode = nextRemoveNode;
                         }
-                        for(Node nodeToAdd : nodesToAdd) {
+                        for (Node nodeToAdd : nodesToAdd) {
                             childNode.appendChild(nodeToAdd);
                         }
                     }
@@ -226,21 +226,21 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                             classAttribute.setNodeValue(classNameRuleMap.get(classAttribute.getNodeValue()));
                         }
                     } else {
-	                    Node definedInAttribute = childNode.getAttributes().getNamedItem(DEFINED_IN_ATTRIBUTE);
-	                    if (definedInAttribute != null) {
-	                    	if (classRemovals.contains(definedInAttribute.getNodeValue())) {
-	                            childNode.getParentNode().removeChild(childNode);
-	                            childNode = null;
-	                        } else if (classNameRuleMap.containsKey(definedInAttribute.getNodeValue())) {
-	                        	definedInAttribute.setNodeValue(classNameRuleMap.get(definedInAttribute.getNodeValue()));
-	                        }
-	                    }
+                        Node definedInAttribute = childNode.getAttributes().getNamedItem(DEFINED_IN_ATTRIBUTE);
+                        if (definedInAttribute != null) {
+                            if (classRemovals.contains(definedInAttribute.getNodeValue())) {
+                                childNode.getParentNode().removeChild(childNode);
+                                childNode = null;
+                            } else if (classNameRuleMap.containsKey(definedInAttribute.getNodeValue())) {
+                                definedInAttribute.setNodeValue(classNameRuleMap.get(definedInAttribute.getNodeValue()));
+                            }
+                        }
                     }
                 }
             }
-            if(childNode != null && propertyMappings != null && propertyMappings.containsKey(propertyName)) {
+            if (childNode != null && propertyMappings != null && propertyMappings.containsKey(propertyName)) {
                 String newPropertyName = propertyMappings.get(propertyName);
-                if(StringUtils.isNotBlank(newPropertyName)) {
+                if (StringUtils.isNotBlank(newPropertyName)) {
                     document.renameNode(childNode, null, newPropertyName);
                     propertyName = newPropertyName;
                 } else {
@@ -251,7 +251,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                     continue;
                 }
             }
-            if(childNode != null && childNode.hasChildNodes()) {
+            if (childNode != null && childNode.hasChildNodes()) {
                 if (!Collection.class.isAssignableFrom(currentClass) && !Map.class.isAssignableFrom(currentClass)) {
                     try {
                         Class<?> propertyClass = convertToExternalizableBusinessObjectImplementationIfNecessary(PropertyUtils.getPropertyType(currentClass.newInstance(), propertyName));
@@ -267,11 +267,11 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
 
                         // Convert java.sql.Date to java.sql.Timestamp or java.util.Date
                         if (propertyClass == Timestamp.class || propertyClass == Date.class) {
-                        	Node firstChild = childNode.getFirstChild();
-                        	String value = firstChild.getNodeValue();
-                        	if (value != null && value.length() == 10) {
-                        		firstChild.setNodeValue(value + " 00:00:00" + (propertyClass == Date.class ? "AM" : ""));
-                        	}
+                            Node firstChild = childNode.getFirstChild();
+                            String value = firstChild.getNodeValue();
+                            if (value != null && value.length() == 10) {
+                                firstChild.setNodeValue(value + " 00:00:00" + (propertyClass == Date.class ? "AM" : ""));
+                            }
                         }
 
                         transformNode(document, childNode, propertyClass, classPropertyRuleMap.get("*"));
@@ -287,15 +287,15 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
     }
 
     protected void setRuleMaps() {
-    	setupConfigurationMaps();
-    	try {
-    		for (String conversionRuleFile : getConversionRuleFiles()) {
-    			loadConversionRuleFile(conversionRuleFile);
-    		}
-    	} catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
-    		e.printStackTrace();
-    		throw new RuntimeException(e);
-    	}
+        setupConfigurationMaps();
+        try {
+            for (String conversionRuleFile : getConversionRuleFiles()) {
+                loadConversionRuleFile(conversionRuleFile);
+            }
+        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     protected void loadConversionRuleFile(String conversionRuleFile) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
@@ -304,12 +304,12 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
 
         Resource resource = null;
         Document doc = null;
-        if(StringUtils.startsWith(conversionRuleFile, "classpath")) {
+        if (StringUtils.startsWith(conversionRuleFile, "classpath")) {
             resource = getApplicationContext().getResource(conversionRuleFile);
         } else {
             resource = new FileSystemResource(conversionRuleFile);
         }
-        if(!resource.exists()) {
+        if (!resource.exists()) {
             doc = db.parse(this.getClass().getResourceAsStream(conversionRuleFile));
         } else {
             doc = db.parse(resource.getInputStream());
@@ -329,14 +329,14 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
         // Get the property changed rules
 
         XPathExpression exprClassProperties = xpath.compile(
-                "//*[@name='maint_doc_changed_class_properties']/pattern");
+            "//*[@name='maint_doc_changed_class_properties']/pattern");
         XPathExpression exprClassPropertiesPatterns = xpath.compile("pattern");
         NodeList propertyClassList = (NodeList) exprClassProperties.evaluate(doc, XPathConstants.NODESET);
         for (int s = 0; s < propertyClassList.getLength(); s++) {
             String classText = xpath.evaluate("class/text()", propertyClassList.item(s));
             Map<String, String> propertyRuleMap = new HashMap<String, String>();
             NodeList classPropertiesPatterns = (NodeList) exprClassPropertiesPatterns.evaluate(
-                    propertyClassList.item(s), XPathConstants.NODESET);
+                propertyClassList.item(s), XPathConstants.NODESET);
             for (int c = 0; c < classPropertiesPatterns.getLength(); c++) {
                 String matchText = xpath.evaluate("match/text()", classPropertiesPatterns.item(c));
                 String replaceText = xpath.evaluate("replacement/text()", classPropertiesPatterns.item(c));
@@ -351,17 +351,17 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
            cannot be converted without significantly more complex logic.
         */
         XPathExpression exprClassRemovals = xpath.compile(
-                "//*[@name='maint_doc_classname_removals']/pattern");
+            "//*[@name='maint_doc_classname_removals']/pattern");
         NodeList classRemovalList = (NodeList) exprClassRemovals.evaluate(doc, XPathConstants.NODESET);
         for (int s = 0; s < classRemovalList.getLength(); s++) {
-        	String matchText = xpath.evaluate("match/text()", classRemovalList.item(s));
-        	classRemovals.add(matchText);
+            String matchText = xpath.evaluate("match/text()", classRemovalList.item(s));
+            classRemovals.add(matchText);
         }
     }
 
     protected void setupConfigurationMaps() {
         classNameRuleMap = new HashMap<String, String>();
-        classPropertyRuleMap = new HashMap<String, Map<String,String>>();
+        classPropertyRuleMap = new HashMap<String, Map<String, String>>();
         classRemovals = new HashSet<String>();
 
         // Pre-populate the class property rules with some defaults which apply to every BO
@@ -374,7 +374,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
     protected Class<?> convertToExternalizableBusinessObjectImplementationIfNecessary(Class<?> currentClass) {
         if (currentClass != null && currentClass.isInterface() && ExternalizableBusinessObject.class.isAssignableFrom(currentClass)) {
             final ModuleService eboOwningModule = getKualiModuleService().getResponsibleModuleService(currentClass);
-            return eboOwningModule.getExternalizableBusinessObjectImplementation((Class<? extends ExternalizableBusinessObject>)currentClass);
+            return eboOwningModule.getExternalizableBusinessObjectImplementation((Class<? extends ExternalizableBusinessObject>) currentClass);
         }
         return currentClass;
     }
@@ -388,10 +388,10 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
         this.applicationContext = applicationContext;
     }
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		setRuleMaps();
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        setRuleMaps();
+    }
 
     public KualiModuleService getKualiModuleService() {
         if (kualiModuleService == null) {

@@ -30,16 +30,16 @@ public class PurchaseOrderAccountingLineAccessibleValidation extends PurchasingA
     /**
      * Validates that the given accounting line is accessible for editing by the current user.
      * <strong>This method expects a document as the first parameter and an accounting line as the second</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
-        PurchaseOrderDocument financialDocument = (PurchaseOrderDocument)event.getDocument();
+        PurchaseOrderDocument financialDocument = (PurchaseOrderDocument) event.getDocument();
 
         if (financialDocument.isDocumentStoppedInRouteNode(PurapConstants.PurchaseOrderStatuses.NODE_CONTRACT_MANAGEMENT)) {
             // DO NOTHING: do not check that user owns acct lines; at this level, approvers can edit all detail on PO
             return true;
-        }
-        else {
+        } else {
 
             return super.validate(event);
         }

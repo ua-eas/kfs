@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetail;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationAmendmentDocument;
@@ -32,8 +32,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
+
+import java.util.List;
 
 @ConfigureContext
 public class TravelAuthorizationServiceTest extends KualiTestBase {
@@ -90,8 +90,7 @@ public class TravelAuthorizationServiceTest extends KualiTestBase {
         try {
             taService.createCustomerInvoice(ta);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
             LOG.warn("NPE.", e);
         }
@@ -111,8 +110,7 @@ public class TravelAuthorizationServiceTest extends KualiTestBase {
         // test getTravelAuthorizationBy for non existent documentNumber
         try {
             ta = taService.getTravelAuthorizationBy("-1");
-        }
-        catch (UnknownDocumentIdException e) {
+        } catch (UnknownDocumentIdException e) {
             assertNull(ta);
         }
     }

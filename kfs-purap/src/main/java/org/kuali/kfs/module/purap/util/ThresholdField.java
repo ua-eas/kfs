@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.util;
 
+import org.apache.commons.lang.enums.Enum;
+import org.kuali.kfs.module.purap.PurapPropertyConstants;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.enums.Enum;
-import org.kuali.kfs.module.purap.PurapPropertyConstants;
 
 public final class ThresholdField extends Enum {
 
@@ -35,8 +35,8 @@ public final class ThresholdField extends Enum {
     public static final ThresholdField COMMODITY_CODE = new ThresholdField(PurapPropertyConstants.ITEM_COMMODITY_CODE);
     public static final ThresholdField VENDOR_HEADER_GENERATED_ID = new ThresholdField(PurapPropertyConstants.VENDOR_HEADER_GENERATED_ID);
     public static final ThresholdField VENDOR_DETAIL_ASSIGNED_ID = new ThresholdField(PurapPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID);
-    public static final ThresholdField VENDOR_NUMBER = new ThresholdField(PurapPropertyConstants.VENDOR_NUMBER,false);
-    public static final ThresholdField ACTIVE = new ThresholdField(PurapPropertyConstants.BO_ACTIVE,true);
+    public static final ThresholdField VENDOR_NUMBER = new ThresholdField(PurapPropertyConstants.VENDOR_NUMBER, false);
+    public static final ThresholdField ACTIVE = new ThresholdField(PurapPropertyConstants.BO_ACTIVE, true);
 
     /**
      * Indicates that a field is available in DB or not
@@ -44,7 +44,7 @@ public final class ThresholdField extends Enum {
     private boolean isPersistedField;
 
     private ThresholdField(String name) {
-        this(name,true);
+        this(name, true);
     }
 
     private ThresholdField(String name,
@@ -54,19 +54,19 @@ public final class ThresholdField extends Enum {
     }
 
     public static ThresholdField getEnum(String thresholdEnum) {
-      return (ThresholdField) getEnum(ThresholdField.class, thresholdEnum);
+        return (ThresholdField) getEnum(ThresholdField.class, thresholdEnum);
     }
 
     public static Map getEnumMap() {
-      return getEnumMap(ThresholdField.class);
+        return getEnumMap(ThresholdField.class);
     }
 
     public static List getEnumList() {
-      return getEnumList(ThresholdField.class);
+        return getEnumList(ThresholdField.class);
     }
 
     public static Iterator iterator() {
-      return iterator(ThresholdField.class);
+        return iterator(ThresholdField.class);
     }
 
     public boolean isPersistedField() {

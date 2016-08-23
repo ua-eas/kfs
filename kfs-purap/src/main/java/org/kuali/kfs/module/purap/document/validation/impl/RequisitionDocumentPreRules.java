@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
-import org.kuali.kfs.krad.document.Document;
+
 /**
  * Business PreRules applicable to Purchasing documents
  */
@@ -33,9 +34,9 @@ public class RequisitionDocumentPreRules extends PurchasingDocumentPreRulesBase 
     public boolean doPrompts(Document document) {
         boolean preRulesOK = super.doPrompts(document);
 
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)document;
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) document;
 
-        if (!purapDocument.isUseTaxIndicator()){
+        if (!purapDocument.isUseTaxIndicator()) {
             preRulesOK &= checkForTaxRecalculation(purapDocument);
         }
 

@@ -19,6 +19,10 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -30,10 +34,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.Set;
 
@@ -44,9 +44,9 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        String status = ((PaymentRequestDocument)event.getDocument()).getApplicationDocumentStatus();
+        String status = ((PaymentRequestDocument) event.getDocument()).getApplicationDocumentStatus();
 
-        AccountingDocument accountingDocument = (AccountingDocument)event.getDocument();
+        AccountingDocument accountingDocument = (AccountingDocument) event.getDocument();
         this.setAccountingDocumentForValidation(accountingDocument);
         this.setDataDictionaryService(SpringContext.getBean(DataDictionaryService.class));
 
@@ -55,16 +55,15 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
             final Set<String> currentNodes = accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
             for (PurApAccountingLine acct : itemForValidation.getSourceAccountingLines()) {
                 this.setAccountingLineForValidation(acct);
-                final boolean lineIsAccessible =  lookupAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(accountingDocument, acct, getAccountingLineCollectionProperty(), GlobalVariables.getUserSession().getPerson(), true, currentNodes);
+                final boolean lineIsAccessible = lookupAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(accountingDocument, acct, getAccountingLineCollectionProperty(), GlobalVariables.getUserSession().getPerson(), true, currentNodes);
                 // if the current logged in user has edit permissions on this line then validate the line..
                 if (lineIsAccessible) {
                     //if amount is null, throw an error.  If amount is zero, check system parameter and determine
                     //if the line can be approved.
-                    if(ObjectUtils.isNull(acct.getAmount())){
+                    if (ObjectUtils.isNull(acct.getAmount())) {
                         GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_AMOUNT_INVALID, itemForValidation.getItemIdentifierString());
                         valid &= false;
-                    }
-                    else {
+                    } else {
                         if (acct.getAmount().isZero()) {
                             if (!canApproveAccountingLinesWithZeroAmount()) {
                                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_AMOUNT_INVALID, itemForValidation.getItemIdentifierString());

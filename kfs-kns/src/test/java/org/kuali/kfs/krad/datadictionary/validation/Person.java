@@ -27,83 +27,95 @@ import java.util.List;
  *
  */
 public class Person {
-	private String firstName;
-	private String lastName;
-	private String middleName;
-	private String gender;
-	private Date birthDate;
-	private List<Address> addresses;
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return this.firstName;
-	}
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return this.lastName;
-	}
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	/**
-	 * @return the middleName
-	 */
-	public String getMiddleName() {
-		return this.middleName;
-	}
-	/**
-	 * @param middleName the middleName to set
-	 */
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-	/**
-	 * @return the gender
-	 */
-	public String getGender() {
-		return this.gender;
-	}
-	/**
-	 * @param gender the gender to set
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	/**
-	 * @return the birthDate
-	 */
-	public Date getBirthDate() {
-		return this.birthDate;
-	}
-	/**
-	 * @param birthDate the birthDate to set
-	 */
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-	/**
-	 * @return the addresses
-	 */
-	public List<Address> getAddresses() {
-		return this.addresses;
-	}
-	/**
-	 * @param addresses the addresses to set
-	 */
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private String gender;
+    private Date birthDate;
+    private List<Address> addresses;
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the middleName
+     */
+    public String getMiddleName() {
+        return this.middleName;
+    }
+
+    /**
+     * @param middleName the middleName to set
+     */
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return this.gender;
+    }
+
+    /**
+     * @param gender the gender to set
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * @return the birthDate
+     */
+    public Date getBirthDate() {
+        return this.birthDate;
+    }
+
+    /**
+     * @param birthDate the birthDate to set
+     */
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    /**
+     * @return the addresses
+     */
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
+
+    /**
+     * @param addresses the addresses to set
+     */
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
 }

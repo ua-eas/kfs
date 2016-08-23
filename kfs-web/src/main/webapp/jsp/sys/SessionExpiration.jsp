@@ -16,15 +16,14 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.krad.util.KRADConstants"%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 
 <kul:page showDocumentInfo="false" docTitleClass="center"
-	headerTitle="Financials - Session Timeout" docTitle="Financials - Session Timeout" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo" openNav="true">
+          headerTitle="Financials - Session Timeout" docTitle="Financials - Session Timeout" renderMultipart="true"
+          transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo" openNav="true">
 
     <div style="margin-top: 10px; text-align: center; font-size: 1.2em;">
-	    <strong>Your session has timed out.</strong><br/>
-	</div>
+        <strong>Your session has timed out.</strong><br/>
+    </div>
 </kul:page>

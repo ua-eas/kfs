@@ -78,5 +78,6 @@ public class BillingFrequency implements AccountsReceivableBillingFrequency, Mut
      * @see org.kuali.rice.krad.bo.BusinessObject#refresh()
      */
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 }

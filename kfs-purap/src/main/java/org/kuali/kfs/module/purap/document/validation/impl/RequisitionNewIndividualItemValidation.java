@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapRuleConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class RequisitionNewIndividualItemValidation extends PurchasingNewIndividualItemValidation {
 
@@ -40,8 +40,7 @@ public class RequisitionNewIndividualItemValidation extends PurchasingNewIndivid
         boolean enableCommodityCode = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(PurapConstants.PURAP_NAMESPACE, "Document", PurapParameterConstants.ENABLE_COMMODITY_CODE_IND);
         if (!enableCommodityCode) {
             return false;
-        }
-        else {
+        } else {
             return super.getParameterService().getParameterValueAsBoolean(RequisitionDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND);
         }
     }

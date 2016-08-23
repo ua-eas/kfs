@@ -34,8 +34,6 @@ import java.text.ParseException;
  * Class is used to format
  * <code>org.kuali.rice.core.api.util.type.KualiDecimal</code> in the local
  * currency
- *
- *
  */
 public class UifCurrencyEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 6692868638156609014L;
@@ -103,10 +101,9 @@ public class UifCurrencyEditor extends PropertyEditorSupport implements Serializ
      * <code>org.kuali.rice.core.api.util.type.KualiDecimal</code> object using the
      * local currency format.
      *
-     * @param text
-     *            the text from the UI to convert
+     * @param text the text from the UI to convert
      * @return the <code>org.kuali.rice.core.api.util.type.KualiDecimal</code>
-     *         object to be set on the bean
+     * object to be set on the bean
      */
     protected Object convertToObject(String text) {
         KualiDecimal value = null;

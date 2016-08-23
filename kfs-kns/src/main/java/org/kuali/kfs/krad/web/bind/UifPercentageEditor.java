@@ -33,16 +33,18 @@ import java.text.ParseException;
 /**
  * PropertyEditor converts between percentage strings and
  * <code>org.kuali.rice.core.api.util.type.KualiPercent</code> objects
- *
- *
  */
 public class UifPercentageEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = -3562156375311932094L;
 
-    /** The default scale for percentage values. */
+    /**
+     * The default scale for percentage values.
+     */
     public final static int PERCENTAGE_SCALE = 2;
 
-    /** The default format for percentage values. */
+    /**
+     * The default format for percentage values.
+     */
     public final static String PERCENTAGE_FORMAT = "#,##0.00";
 
     /**

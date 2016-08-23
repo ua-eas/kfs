@@ -17,44 +17,44 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<c:set var="documentAttributes"	value="${DataDictionary.CorporateCardApplicationDocument.attributes}" />
+<c:set var="documentAttributes" value="${DataDictionary.CorporateCardApplicationDocument.attributes}"/>
 
-<c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" scope="request" />
+<c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" scope="request"/>
 
-<c:set var="fullEntryMode" value="${KualiForm.editingMode['fullEntry']}" scope="request" />
-<c:set var="documentTitle" value="" />
+<c:set var="fullEntryMode" value="${KualiForm.editingMode['fullEntry']}" scope="request"/>
+<c:set var="documentTitle" value=""/>
 <kul:documentPage showDocumentInfo="true"
-    documentTypeName="CorporateCardApplicationDocument"
-    htmlFormAction="temCorporateCardApplication" renderMultipart="true"
-    showTabButtons="true">
-    <sys:documentOverview editingMode="${KualiForm.editingMode}" />
-    <tem:profileTab />
-    <tem:agreementTab property="userAgreement" documentAttribute="${documentAttributes.userAgreement}" text="${KualiForm.document.userAgreementText}" title="User Agreement" enable="${KualiForm.initiator && canEdit}" open="${KualiForm.initiator}" />
-    <tem:agreementTab property="departmentHeadAgreement" documentAttribute="${documentAttributes.departmentHeadAgreement}" text="${KualiForm.document.departmentHeadAgreementText}" title="Department Head Agreement" enable="${KualiForm.fiscalOfficer && canEdit}" open="${KualiForm.fiscalOfficer}" />
-    <c:if test="${KualiForm.appliedToBank }" >
-    <kul:tab tabTitle="Banking Information" defaultOpen="true">
-    <div class="tab-container" align="center">
-		<table cellpadding=0 class="datatable" summary="Banking Information">
-			<tr>
-		    	<td colspan="2" class="tab-subhead">&nbsp;</td>
-		    </tr>
-		    <tr>
-		    	<th scope=row class="bord-l-b">
-		    		<div align="right">
-		    			<kul:htmlAttributeLabel attributeEntry="${documentAttributes.pseudoNumber}"/>
-					</div>
-				</th>
-				<td class="datacell" width="50%">${KualiForm.document.pseudoNumber }</td>
-		    </tr>
-		    </table>
-		   </div>
-	</kul:tab>
-	</c:if>
-    <kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
+                  documentTypeName="CorporateCardApplicationDocument"
+                  htmlFormAction="temCorporateCardApplication" renderMultipart="true"
+                  showTabButtons="true">
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
+    <tem:profileTab/>
+    <tem:agreementTab property="userAgreement" documentAttribute="${documentAttributes.userAgreement}" text="${KualiForm.document.userAgreementText}" title="User Agreement" enable="${KualiForm.initiator && canEdit}" open="${KualiForm.initiator}"/>
+    <tem:agreementTab property="departmentHeadAgreement" documentAttribute="${documentAttributes.departmentHeadAgreement}" text="${KualiForm.document.departmentHeadAgreementText}" title="Department Head Agreement" enable="${KualiForm.fiscalOfficer && canEdit}" open="${KualiForm.fiscalOfficer}"/>
+    <c:if test="${KualiForm.appliedToBank }">
+        <kul:tab tabTitle="Banking Information" defaultOpen="true">
+            <div class="tab-container" align="center">
+                <table cellpadding=0 class="datatable" summary="Banking Information">
+                    <tr>
+                        <td colspan="2" class="tab-subhead">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th scope=row class="bord-l-b">
+                            <div align="right">
+                                <kul:htmlAttributeLabel attributeEntry="${documentAttributes.pseudoNumber}"/>
+                            </div>
+                        </th>
+                        <td class="datacell" width="50%">${KualiForm.document.pseudoNumber }</td>
+                    </tr>
+                </table>
+            </div>
+        </kul:tab>
+    </c:if>
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <kul:superUserActions/>
     <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}"/>
 </kul:documentPage>

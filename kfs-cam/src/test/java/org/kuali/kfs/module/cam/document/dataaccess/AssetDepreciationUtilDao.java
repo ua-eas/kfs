@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.cam.document.dataaccess;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface AssetDepreciationUtilDao {
     public String getMaxDocumentNumber();
@@ -34,8 +34,8 @@ public interface AssetDepreciationUtilDao {
     public void deleteGLPEs();
 
     /**
-     *
      * Deletes any asset number with the same number of the testing asset numbers
+     *
      * @param assetPayments
      */
     public void deleteAssets(List<Asset> assets);

@@ -33,7 +33,6 @@ import java.io.IOException;
  * A filter for processing user logins and creating a {@link UserSession}.
  *
  * @see UserSession
- *
  */
 public class UserLoginFilter extends LoginFilterBase {
 

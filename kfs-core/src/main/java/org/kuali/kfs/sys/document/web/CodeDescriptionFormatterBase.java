@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * This class...
@@ -39,7 +39,7 @@ public abstract class CodeDescriptionFormatterBase implements CodeDescriptionFor
 
     /**
      * @see org.kuali.kfs.sys.document.webCodeDescriptionFormatter#getFormattedStringWithDescriptions(java.util.Set,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public String getFormattedStringWithDescriptions(Set values, String startConjunction, String endConjunction) {
         Map<String, PersistableBusinessObject> valueToBOMap = getValuesToBusinessObjectsMap(values);
@@ -56,8 +56,7 @@ public abstract class CodeDescriptionFormatterBase implements CodeDescriptionFor
 
             PersistableBusinessObject bo = valueToBOMap.get(currValue);
             buf.append(bo == null ? getDefaultDescription() : getDescriptionOfBO(bo));
-        }
-        else {
+        } else {
             buf.append("(none)");
         }
 

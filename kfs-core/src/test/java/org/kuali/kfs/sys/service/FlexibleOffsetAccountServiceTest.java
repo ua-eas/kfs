@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.service;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertSparselyEqualBean;
-import static org.kuali.kfs.sys.fixture.OffsetAccountFixture.OFFSET_ACCOUNT1;
-
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.OffsetAccount;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertSparselyEqualBean;
+import static org.kuali.kfs.sys.fixture.OffsetAccountFixture.OFFSET_ACCOUNT1;
 
 /**
  * This class...

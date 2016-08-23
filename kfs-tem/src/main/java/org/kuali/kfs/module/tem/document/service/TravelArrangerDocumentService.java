@@ -33,6 +33,7 @@ public interface TravelArrangerDocumentService {
 
     /**
      * Determines if the user with the given principal id is an active arranger for any profiles
+     *
      * @param principalId the principal id to check if the user is an arranger for
      * @return true if the given principal id represents a user who arranges for any travel profiles; false otherwise
      */

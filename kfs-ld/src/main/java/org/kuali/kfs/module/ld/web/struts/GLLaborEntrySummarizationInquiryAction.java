@@ -18,25 +18,9 @@
  */
 package org.kuali.kfs.module.ld.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntryGLSummary;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kim.util.KimCommonUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -44,9 +28,22 @@ import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntryGLSummary;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.IdentityManagementService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Action which will perform lookup and presentation of LD entries related to a GL entry
@@ -56,6 +53,7 @@ public class GLLaborEntrySummarizationInquiryAction extends KualiAction {
 
     /**
      * Uses the inquire permission for the labor ledger entry to check if authorized
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#checkAuthorization(org.apache.struts.action.ActionForm, java.lang.String)
      */
     @Override
@@ -65,8 +63,8 @@ public class GLLaborEntrySummarizationInquiryAction extends KualiAction {
         }
     }
 
-    protected Map<String,String> getNamespaceAndComponentSimpleName( Class<? extends Object> clazz) {
-        Map<String,String> attributeSet = new HashMap<String,String>();
+    protected Map<String, String> getNamespaceAndComponentSimpleName(Class<? extends Object> clazz) {
+        Map<String, String> attributeSet = new HashMap<String, String>();
         attributeSet.put(KimConstants.AttributeConstants.NAMESPACE_CODE, getKualiModuleService().getNamespaceCode(clazz));
         attributeSet.put(KimConstants.AttributeConstants.COMPONENT_NAME, getKualiModuleService().getComponentCode(clazz));
         return attributeSet;
@@ -74,6 +72,7 @@ public class GLLaborEntrySummarizationInquiryAction extends KualiAction {
 
     /**
      * Method which performs search for matching LaborEntry records
+     *
      * @param mapping
      * @param form
      * @param request
@@ -85,15 +84,15 @@ public class GLLaborEntrySummarizationInquiryAction extends KualiAction {
     public ActionForward viewResults(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         final BusinessObjectEntry entry = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(LedgerEntryGLSummary.class.getSimpleName());
         final String lookupId = entry.getLookupDefinition().getLookupableID();
-        Lookupable lookupable = (Lookupable)SpringContext.getService(lookupId);
+        Lookupable lookupable = (Lookupable) SpringContext.getService(lookupId);
         lookupable.setBusinessObjectClass(LedgerEntryGLSummary.class);
 
         Collection displayList = new ArrayList();
         List<ResultRow> resultTable = new ArrayList<ResultRow>();
-        displayList = lookupable.performLookup((LookupForm)form, resultTable, true);
+        displayList = lookupable.performLookup((LookupForm) form, resultTable, true);
 
-        ((GLLaborEntrySummarizationInquiryForm)form).setEntries(resultTable);
-        ((GLLaborEntrySummarizationInquiryForm)form).buildInquiryUrls(lookupable.getLookupableHelperService());
+        ((GLLaborEntrySummarizationInquiryForm) form).setEntries(resultTable);
+        ((GLLaborEntrySummarizationInquiryForm) form).buildInquiryUrls(lookupable.getLookupableHelperService());
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 

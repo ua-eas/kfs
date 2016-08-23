@@ -26,6 +26,7 @@ public class CurrencyRenderer extends TextRenderer {
 
     /**
      * Uses the formatted max length, instead of the max length
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.TextRenderer#getFieldMaxLength()
      */
     @Override

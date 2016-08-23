@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.gl.businessobject.OriginEntrySource;
+
+import java.util.Collection;
 
 /**
  * An interface for helping OriginEntrySource objects interact with the database
@@ -38,7 +38,6 @@ public interface OriginEntrySourceDao {
      * Finds an origin entry source record based on its source code
      *
      * @param code the code of the origin entry source record to find
-     * @return an Origin Entry Source record if found, or null if not found
      * @return
      */
     public OriginEntrySource findBySourceCode(String code);

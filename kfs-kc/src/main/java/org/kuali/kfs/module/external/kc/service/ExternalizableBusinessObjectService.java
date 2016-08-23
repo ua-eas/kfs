@@ -18,12 +18,13 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
 import java.util.Collection;
 import java.util.Map;
 
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-
 public interface ExternalizableBusinessObjectService {
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys);
+
     public Collection findMatching(Map fieldValues);
 }

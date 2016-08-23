@@ -21,12 +21,12 @@ package org.kuali.kfs.kns.web.struts.form;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.kim.api.KimConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -37,17 +37,17 @@ import java.util.Map;
  * This class is the base action form for all transactional documents.
  */
 public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
-	private static final Logger LOG = Logger.getLogger(KualiTransactionalDocumentFormBase.class);
+    private static final Logger LOG = Logger.getLogger(KualiTransactionalDocumentFormBase.class);
 
-	private static final long serialVersionUID = 6463383454050206811L;
-	@SuppressWarnings("unchecked")
-	protected Map forcedReadOnlyFields;
+    private static final long serialVersionUID = 6463383454050206811L;
+    @SuppressWarnings("unchecked")
+    protected Map forcedReadOnlyFields;
 
     /**
      * This constructor sets up empty instances for the dependent objects...
      */
     @SuppressWarnings("unchecked")
-	public KualiTransactionalDocumentFormBase() {
+    public KualiTransactionalDocumentFormBase() {
         super();
 
         // create a blank DocumentActionFlags instance, since form-recreation needs it
@@ -55,16 +55,16 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
     }
 
     /**
-	 * @see KualiDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
-	 */
+     * @see KualiDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
+     */
     @SuppressWarnings("unchecked")
-	@Override
-	public void populate(HttpServletRequest request) {
-		super.populate(request);
-		populationSpecialEmptyFields (request);
-	}
+    @Override
+    public void populate(HttpServletRequest request) {
+        super.populate(request);
+        populationSpecialEmptyFields(request);
+    }
 
-	/**
+    /**
      * This method retrieves an instance of the form.
      *
      * @return
@@ -87,7 +87,6 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
      * This method formats the given java.sql.Date as MMM d, yyyy.
      *
      * @param reversalDate
-     *
      * @return String
      */
     protected static String formatReversalDate(java.sql.Date reversalDate) {
@@ -104,7 +103,7 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
      * @return Returns the forcedReadOnlyFields.
      */
     @SuppressWarnings("unchecked")
-	public Map getForcedReadOnlyFields() {
+    public Map getForcedReadOnlyFields() {
         return forcedReadOnlyFields;
     }
 
@@ -114,7 +113,7 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
      * @param forcedReadOnlyFields The forcedReadOnlyFields to set.
      */
     @SuppressWarnings("unchecked")
-	public void setForcedReadOnlyFields(Map forcedReadOnlyFields) {
+    public void setForcedReadOnlyFields(Map forcedReadOnlyFields) {
         this.forcedReadOnlyFields = forcedReadOnlyFields;
     }
 
@@ -125,21 +124,20 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
      * @param request the request to populate
      */
     protected void populateFalseCheckboxes(HttpServletRequest request) {
-    	Map<String, String[]> parameterMap = request.getParameterMap();
-    	if (parameterMap.get("checkboxToReset") != null) {
-    		final String[] checkboxesToReset = request.getParameterValues("checkboxToReset");
-            if(checkboxesToReset != null && checkboxesToReset.length > 0) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (parameterMap.get("checkboxToReset") != null) {
+            final String[] checkboxesToReset = request.getParameterValues("checkboxToReset");
+            if (checkboxesToReset != null && checkboxesToReset.length > 0) {
                 for (int i = 0; i < checkboxesToReset.length; i++) {
                     String propertyName = (String) checkboxesToReset[i];
-                    if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null ) {
-                    	populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_FALSE_STR_VALUE_DISPLAY, parameterMap);
-                    }
-                    else if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on") ) {
-                    	populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_TRUE_STR_VALUE_DISPLAY, parameterMap);
+                    if (!StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null) {
+                        populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_FALSE_STR_VALUE_DISPLAY, parameterMap);
+                    } else if (!StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on")) {
+                        populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_TRUE_STR_VALUE_DISPLAY, parameterMap);
                     }
                 }
             }
-    	}
+        }
     }
 
     /**
@@ -149,55 +147,54 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
      * @param request the request to populate
      */
     protected void populateEmptyMultiSelect(HttpServletRequest request) {
-    	Map<String, String[]> parameterMap = request.getParameterMap();
-    	if (parameterMap.get("multiSelectToReset") != null) {
-    		final String[] multiSelectToReset = request.getParameterValues("multiSelectToReset");
-            if(multiSelectToReset != null && multiSelectToReset.length > 0) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (parameterMap.get("multiSelectToReset") != null) {
+            final String[] multiSelectToReset = request.getParameterValues("multiSelectToReset");
+            if (multiSelectToReset != null && multiSelectToReset.length > 0) {
                 for (int i = 0; i < multiSelectToReset.length; i++) {
                     String propertyName = (String) multiSelectToReset[i];
-                    if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null ) {
-                    	populateForProperty(propertyName, "", parameterMap);
-                    }
-                    else if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on") ) {
-                    	populateForProperty(propertyName, request.getParameter(propertyName), parameterMap);
+                    if (!StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null) {
+                        populateForProperty(propertyName, "", parameterMap);
+                    } else if (!StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on")) {
+                        populateForProperty(propertyName, request.getParameter(propertyName), parameterMap);
                     }
                 }
             }
-    	}
+        }
     }
 
-    protected void populationSpecialEmptyFields (HttpServletRequest request) {
-    	populateFalseCheckboxes(request);
-		populateEmptyMultiSelect(request);
+    protected void populationSpecialEmptyFields(HttpServletRequest request) {
+        populateFalseCheckboxes(request);
+        populateEmptyMultiSelect(request);
     }
 
     @SuppressWarnings("unchecked")
-	protected TransactionalDocument instantiateTransactionalDocumentByDocumentTypeName( String documentTypeName ) {
-    	Class<TransactionalDocument> transDocClass = KNSServiceLocator.getTransactionalDocumentDictionaryService().getDocumentClassByName(documentTypeName);
-    	if ( transDocClass != null ) {
-    		try {
-    			return transDocClass.newInstance();
-    		} catch (Exception ex) {
-				LOG.error( "Unable to instantiate transDocClass: " + transDocClass, ex);
-			}
-    	} else {
-    		LOG.error( "Unable to retrieve transactional document class for type: " + documentTypeName);
-    	}
-    	return null;
+    protected TransactionalDocument instantiateTransactionalDocumentByDocumentTypeName(String documentTypeName) {
+        Class<TransactionalDocument> transDocClass = KNSServiceLocator.getTransactionalDocumentDictionaryService().getDocumentClassByName(documentTypeName);
+        if (transDocClass != null) {
+            try {
+                return transDocClass.newInstance();
+            } catch (Exception ex) {
+                LOG.error("Unable to instantiate transDocClass: " + transDocClass, ex);
+            }
+        } else {
+            LOG.error("Unable to retrieve transactional document class for type: " + documentTypeName);
+        }
+        return null;
     }
 
     /**
-	 * This overridden method ...
-	 *
-	 * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public boolean shouldMethodToCallParameterBeUsed(
-			String methodToCallParameterName,
-			String methodToCallParameterValue, HttpServletRequest request) {
-		if (methodToCallParameterName.startsWith(KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.POST_TEXT_AREA_TO_PARENT)) {
-			return true;
-		}
-		return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
-	}
+     * This overridden method ...
+     *
+     * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public boolean shouldMethodToCallParameterBeUsed(
+        String methodToCallParameterName,
+        String methodToCallParameterValue, HttpServletRequest request) {
+        if (methodToCallParameterName.startsWith(KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.POST_TEXT_AREA_TO_PARENT)) {
+            return true;
+        }
+        return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
+    }
 }

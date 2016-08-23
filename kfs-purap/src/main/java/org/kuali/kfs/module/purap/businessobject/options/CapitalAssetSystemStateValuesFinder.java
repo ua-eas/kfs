@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.purap.businessobject.CapitalAssetSystemState;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Values finder for CapitalAssetSystemStates
@@ -44,7 +44,7 @@ public class CapitalAssetSystemStateValuesFinder extends KeyValuesBase {
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
         for (Object type : types) {
-            CapitalAssetSystemState camsSystemState = (CapitalAssetSystemState)type;
+            CapitalAssetSystemState camsSystemState = (CapitalAssetSystemState) type;
             labels.add(new ConcreteKeyValue(camsSystemState.getCapitalAssetSystemStateCode(), camsSystemState.getCapitalAssetSystemStateDescription()));
         }
 

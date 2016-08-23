@@ -19,12 +19,12 @@
 package org.kuali.kfs.gl.report;
 
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TransactionListingReportBusinessObjectReportHelper extends BusinessObjectReportHelper {
     protected static final int TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH = 31;
@@ -40,7 +40,7 @@ public class TransactionListingReportBusinessObjectReportHelper extends Business
                 // return the debit amount
                 return e.getTransactionLedgerEntryAmount();
             } else if (!KFSConstants.GL_DEBIT_CODE.equals(e.getTransactionDebitCreditCode()) &&
-                    !KFSConstants.GL_CREDIT_CODE.equals(e.getTransactionDebitCreditCode())) {
+                !KFSConstants.GL_CREDIT_CODE.equals(e.getTransactionDebitCreditCode())) {
                 // return the budget amount
                 return e.getTransactionLedgerEntryAmount();
             }
@@ -57,7 +57,7 @@ public class TransactionListingReportBusinessObjectReportHelper extends Business
         if ("transactionLedgerEntryDescription".equals(propertyName) && businessObject instanceof Transaction) {
             Transaction e = (Transaction) businessObject;
             if (ObjectUtils.isNull(e.getTransactionLedgerEntryDescription()) ||
-                    (e.getTransactionLedgerEntryDescription().length() <= TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH)) {
+                (e.getTransactionLedgerEntryDescription().length() <= TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH)) {
                 return e.getTransactionLedgerEntryDescription();
             } else {
                 return e.getTransactionLedgerEntryDescription().substring(0, TRANSACTION_LEDGER_ENTRY_DESCRIPTION_MAX_LENGTH);

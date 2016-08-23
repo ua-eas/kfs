@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.ar.businessobject.defaultvalue;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * This class returns the default value for the invoice template

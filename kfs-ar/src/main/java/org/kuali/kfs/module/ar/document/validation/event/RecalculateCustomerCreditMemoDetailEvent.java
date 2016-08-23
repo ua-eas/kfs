@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
-import org.kuali.kfs.module.ar.document.validation.RecalculateCustomerCreditMemoDetailRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
+import org.kuali.kfs.module.ar.document.validation.RecalculateCustomerCreditMemoDetailRule;
 
 public class RecalculateCustomerCreditMemoDetailEvent extends CustomerCreditMemoDetailEventBase {
 
@@ -40,6 +40,6 @@ public class RecalculateCustomerCreditMemoDetailEvent extends CustomerCreditMemo
 
     @SuppressWarnings("unchecked")
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((RecalculateCustomerCreditMemoDetailRule) rule).processRecalculateCustomerCreditMemoDetailRules((TransactionalDocument)document, customerCreditMemoDetail);
+        return ((RecalculateCustomerCreditMemoDetailRule) rule).processRecalculateCustomerCreditMemoDetailRules((TransactionalDocument) document, customerCreditMemoDetail);
     }
 }

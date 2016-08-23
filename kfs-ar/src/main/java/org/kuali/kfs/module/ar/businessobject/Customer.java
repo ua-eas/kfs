@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
 import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class Customer extends PersistableBusinessObjectBase implements MutableInactivatable, AccountsReceivableCustomer {
@@ -61,20 +61,21 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     private Customer customerParentCompany;
     private CustomerType customerType;
-    private List    boNotes;
+    private List boNotes;
 
     private List<CustomerAddress> customerAddresses;
 
-  private String bankruptcyType;
-  private Date bankruptcyDate;
-  private Date bankruptcyReviewDate;
-  private boolean stopWorkIndicator;
-  private String stopWorkReason;
+    private String bankruptcyType;
+    private Date bankruptcyDate;
+    private Date bankruptcyReviewDate;
+    private boolean stopWorkIndicator;
+    private String stopWorkReason;
 
-  // Invoice Types link
+    // Invoice Types link
 
-  private String customerInvoiceTemplateCode;
-  private InvoiceTemplate customerInvoiceTemplate;
+    private String customerInvoiceTemplateCode;
+    private InvoiceTemplate customerInvoiceTemplate;
+
     /**
      * Default constructor.
      */
@@ -165,6 +166,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Gets the customerTypeDescription attribute.
+     *
      * @return Returns the customerTypeDescription.
      */
     @Override
@@ -244,7 +246,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
     }
 
 
-      /**
+    /**
      * Gets the active attribute.
      *
      * @return Returns the active
@@ -664,7 +666,7 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
     @Override
     public List<AccountsReceivableCustomerAddress> getAccountsReceivableCustomerAddresses() {
         List<AccountsReceivableCustomerAddress> accountsReceivableCustomerAddresses = new ArrayList<AccountsReceivableCustomerAddress>();
-        if (this.customerAddresses != null && !this.customerAddresses.isEmpty()){
+        if (this.customerAddresses != null && !this.customerAddresses.isEmpty()) {
             accountsReceivableCustomerAddresses.addAll(customerAddresses);
         }
 
@@ -673,11 +675,11 @@ public class Customer extends PersistableBusinessObjectBase implements MutableIn
 
     @Override
     public void setAccountsReceivableCustomerAddresses(List<AccountsReceivableCustomerAddress> customerAddresses) {
-        if (this.customerAddresses != null && customerAddresses != null){
+        if (this.customerAddresses != null && customerAddresses != null) {
             this.customerAddresses.clear();
 
-            for (AccountsReceivableCustomerAddress arca : customerAddresses){
-                this.customerAddresses.add((CustomerAddress)arca);
+            for (AccountsReceivableCustomerAddress arca : customerAddresses) {
+                this.customerAddresses.add((CustomerAddress) arca);
             }
         }
     }

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.LinkedHashMap;
 
 
 /**
  * This class represents a point in time snapshot of a Milestone associated with a Contracts & Grants Invoice Document.
  */
-public class InvoiceMilestone extends MilestoneBase  {
+public class InvoiceMilestone extends MilestoneBase {
 
     private String documentNumber;
 

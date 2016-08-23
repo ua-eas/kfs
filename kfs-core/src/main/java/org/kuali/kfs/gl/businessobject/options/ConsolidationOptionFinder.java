@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.Constant;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An implementation of ValueFinder that allows balance inquiries to choose between consolidated results or detailed results
@@ -48,6 +48,7 @@ public class ConsolidationOptionFinder extends KeyValuesBase implements ValueFin
 
     /**
      * Gets the default value for this ValueFinder, in this case CONSOLIDATED
+     *
      * @return a String with the default value for this ValueFinder
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.businessobject.EntertainmentPurpose;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class EntertainmentPurposeValuesFinder extends KeyValuesBase {
     protected static volatile KeyValuesService keyValuesService;
@@ -42,7 +42,7 @@ public class EntertainmentPurposeValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue(KFSConstants.EMPTY_STRING, KFSConstants.EMPTY_STRING));
         for (EntertainmentPurpose purpose : purposes) {
-            if(purpose.isActive()) {
+            if (purpose.isActive()) {
                 labels.add(new ConcreteKeyValue(purpose.getPurposeCode(), purpose.getPurposeName()));
             }
         }

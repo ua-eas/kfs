@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.taglib.html.HiddenTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.taglib.html.HiddenTag;
+import java.io.IOException;
 
 /**
  * Render which displays a field that can't be input directly but could be changed when other fields change.
@@ -63,14 +62,14 @@ public class DynamicReadOnlyRender extends ReadOnlyRenderer {
 
             out.write(buildEndSpan());
             renderShadowInputTag(pageContext, parentTag);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering read only field", ioe);
         }
     }
 
     /**
      * Generates the HTML for the opening span tag to wrap the displayed value
+     *
      * @param propertyPrefix the property path from the form the business object being rendered
      * @return the HTML for the opening span
      */
@@ -84,8 +83,9 @@ public class DynamicReadOnlyRender extends ReadOnlyRenderer {
 
     /**
      * Renders the value of the field in the hidden input tag so it can be read into the data object.
+     *
      * @param pageContext the page context to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      */
     protected void renderShadowInputTag(PageContext pageContext, Tag parentTag) throws JspException {
         shadowInputTag.setPageContext(pageContext);

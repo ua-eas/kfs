@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.businessobject.OriginationCode;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a "message of the day" object.  These messages are displayed on the associated

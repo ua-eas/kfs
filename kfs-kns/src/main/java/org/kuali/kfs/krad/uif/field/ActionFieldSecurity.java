@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.uif.field;
 
 /**
  * Action field security adds the take action flags to the standard component security
- *
- *
  */
 public class ActionFieldSecurity extends FieldSecurity {
     private static final long serialVersionUID = 585138507596582667L;

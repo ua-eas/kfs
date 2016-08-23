@@ -22,11 +22,11 @@ import org.kuali.rice.kim.api.identity.Person;
 
 public interface TravelEntertainmentMovingModuleService {
 
-	public boolean isTEMDocument(String docId);
+    public boolean isTEMDocument(String docId);
 
-	public TravelEntertainmentMovingTravelDocument getTEMDocument(String temDocId);
+    public TravelEntertainmentMovingTravelDocument getTEMDocument(String temDocId);
 
-	public boolean isTemProfileEmployee(TravelEntertainmentMovingTravelDocument document);
+    public boolean isTemProfileEmployee(TravelEntertainmentMovingTravelDocument document);
 
     public boolean isTravelManager(final Person user);
 

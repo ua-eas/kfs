@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.service;
 
+import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
+import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
+
 import java.io.BufferedReader;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
-import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 
 /**
  * Defines methods that must be implemented by classes providing a LaborOriginEntryServiceImpl.
@@ -233,7 +233,6 @@ public interface LaborOriginEntryService {
      * @param groupId
      */
     //public List<LaborOriginEntry> getEntriesByGroupId(Integer groupId);
-
     public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList);
 
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<LaborOriginEntry> originEntryList);
@@ -263,10 +262,10 @@ public interface LaborOriginEntryService {
 
     /**
      * Counts the number of entries in a group
+     *
      * @param the id of an origin entry group
      * @return the count of the entries in that group
      */
     //public Integer getGroupCount(Integer groupId);
-
     public Integer getGroupCount(String fileName);
 }

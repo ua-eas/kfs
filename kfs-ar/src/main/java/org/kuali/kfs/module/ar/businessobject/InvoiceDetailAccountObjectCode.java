@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a invoice detail on the customer invoice document.
@@ -40,9 +40,12 @@ public class InvoiceDetailAccountObjectCode extends PersistableBusinessObjectBas
     private String chartOfAccountsCode;
     private String financialObjectCode;
     private String categoryCode;
-    private KualiDecimal currentExpenditures = KualiDecimal.ZERO;;
-    private KualiDecimal cumulativeExpenditures = KualiDecimal.ZERO;;
-    private KualiDecimal totalBilled = KualiDecimal.ZERO;;
+    private KualiDecimal currentExpenditures = KualiDecimal.ZERO;
+    ;
+    private KualiDecimal cumulativeExpenditures = KualiDecimal.ZERO;
+    ;
+    private KualiDecimal totalBilled = KualiDecimal.ZERO;
+    ;
 
     private Account account;
     private Chart chartOfAccounts;

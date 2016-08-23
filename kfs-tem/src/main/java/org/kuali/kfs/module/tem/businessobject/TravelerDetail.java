@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores the Traveler information for Travel Request/Reimbursement
@@ -38,7 +37,7 @@ public class TravelerDetail extends BaseTemProfile {
     /**
      * Reset emergency contact lists when switching the traveler/tem profile
      */
-    public void resetEmergencyContacts(){
+    public void resetEmergencyContacts() {
         emergencyContacts = new ArrayList<TravelerDetailEmergencyContact>();
     }
 

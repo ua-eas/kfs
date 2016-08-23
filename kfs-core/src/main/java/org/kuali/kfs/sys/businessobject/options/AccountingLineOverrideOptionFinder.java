@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
-
 public class AccountingLineOverrideOptionFinder extends KeyValuesBase implements ValueFinder {
 
     protected static List<KeyValue> LABELS = new ArrayList<KeyValue>();
+
     static {
         LABELS.add(new ConcreteKeyValue(AccountingLineOverride.CODE.BLANK, ""));
         LABELS.add(new ConcreteKeyValue(AccountingLineOverride.CODE.NONE, "NONE"));

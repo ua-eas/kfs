@@ -26,12 +26,10 @@ import java.util.List;
 
 /**
  * Group implementation that supports reordering of the group items
- *
+ * <p>
  * <p>
  * Uses a {@link Reorderer} widget to perform the reordering client side
  * </p>
- *
- *
  */
 public class ReorderingGroup extends Group {
     private static final long serialVersionUID = -9069458348367183223L;

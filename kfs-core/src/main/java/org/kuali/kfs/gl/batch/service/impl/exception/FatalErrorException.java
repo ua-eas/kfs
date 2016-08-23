@@ -20,7 +20,6 @@ package org.kuali.kfs.gl.batch.service.impl.exception;
 
 /**
  * Fatal error exception that is thrown in GL processing
- *
  */
 
 public class FatalErrorException extends Exception {

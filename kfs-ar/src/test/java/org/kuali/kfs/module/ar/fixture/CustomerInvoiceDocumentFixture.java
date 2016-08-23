@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.ar.fixture;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -30,37 +33,34 @@ import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public enum CustomerInvoiceDocumentFixture {
 
     BASE_CIDOC_NO_CUSTOMER(null, // customerNumber
-            "UA", // processingChartOfAccountsCode
-            "VPIT", // processingOrganizationCode
-            null,
-            null, //billByChartOfAccountsCode
-            null //billedByOrganizationCode
+        "UA", // processingChartOfAccountsCode
+        "VPIT", // processingOrganizationCode
+        null,
+        null, //billByChartOfAccountsCode
+        null //billedByOrganizationCode
     ),
 
     BASE_CIDOC_WITH_CUSTOMER("ABB2", // customerNumber
-            "UA", // processingChartOfAccountsCode
-            "VPIT", // processingOrganizationCode
-            null, null, null),
+        "UA", // processingChartOfAccountsCode
+        "VPIT", // processingOrganizationCode
+        null, null, null),
 
     BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO("ABB2", // customerNumber
-            "UA", // processingChartOfAccountsCode
-            "VPIT", // processingOrganizationCode
-            null,
-            "UA", //billByChartOfAccountsCode
-            "VPIT" //billedByOrganizationCode
+        "UA", // processingChartOfAccountsCode
+        "VPIT", // processingOrganizationCode
+        null,
+        "UA", //billByChartOfAccountsCode
+        "VPIT" //billedByOrganizationCode
     ),
 
     REVERSAL_CIDOC("ABB2", // customerNumber
-            "UA", // processingChartOfAccountsCode
-            "VPIT", // processingOrganizationCode
-            "123456", null, null);
+        "UA", // processingChartOfAccountsCode
+        "VPIT", // processingOrganizationCode
+        "123456", null, null);
 
     public String customerNumber;
     public String processingChartOfAccountsCode;
@@ -69,7 +69,7 @@ public enum CustomerInvoiceDocumentFixture {
     public String billByChartOfAccountsCode;
     public String billedByOrganizationCode;
 
-    private CustomerInvoiceDocumentFixture( String customerNumber, String processingChartOfAccountsCode, String processingOrganizationCode, String financialDocumentInErrorNumber, String billByChartOfAccountsCode, String billedByOrganizationCode ){
+    private CustomerInvoiceDocumentFixture(String customerNumber, String processingChartOfAccountsCode, String processingOrganizationCode, String financialDocumentInErrorNumber, String billByChartOfAccountsCode, String billedByOrganizationCode) {
         this.customerNumber = customerNumber;
         this.processingOrganizationCode = processingOrganizationCode;
         this.processingChartOfAccountsCode = processingChartOfAccountsCode;
@@ -87,7 +87,7 @@ public enum CustomerInvoiceDocumentFixture {
      */
     public CustomerInvoiceDocument createCustomerInvoiceDocument(CustomerFixture customerFixture, CustomerInvoiceDetailFixture[] customerInvoiceDetailFixtures) throws WorkflowException {
 
-        CustomerInvoiceDocument customerInvoiceDocument = createCustomerInvoiceDocument( customerInvoiceDetailFixtures );
+        CustomerInvoiceDocument customerInvoiceDocument = createCustomerInvoiceDocument(customerInvoiceDetailFixtures);
         customerInvoiceDocument.getAccountsReceivableDocumentHeader().setCustomerNumber(customerFixture.customerNumber);
         return customerInvoiceDocument;
     }
@@ -104,8 +104,7 @@ public enum CustomerInvoiceDocumentFixture {
         CustomerInvoiceDocument customerInvoiceDocument = null;
         try {
             customerInvoiceDocument = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), CustomerInvoiceDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 
@@ -117,10 +116,10 @@ public enum CustomerInvoiceDocumentFixture {
         SpringContext.getBean(CustomerInvoiceDocumentService.class).setupDefaultValuesForNewCustomerInvoiceDocument(customerInvoiceDocument);
 
         customerInvoiceDocument.getFinancialSystemDocumentHeader().setFinancialDocumentInErrorNumber(financialDocumentInErrorNumber);
-        if( StringUtils.isNotEmpty(billByChartOfAccountsCode)){
+        if (StringUtils.isNotEmpty(billByChartOfAccountsCode)) {
             customerInvoiceDocument.setBillByChartOfAccountCode(billByChartOfAccountsCode);
         }
-        if( StringUtils.isNotEmpty(billedByOrganizationCode)){
+        if (StringUtils.isNotEmpty(billedByOrganizationCode)) {
             customerInvoiceDocument.setBilledByOrganizationCode(billedByOrganizationCode);
         }
 
@@ -132,15 +131,15 @@ public enum CustomerInvoiceDocumentFixture {
         //set AR doc Header
         AccountsReceivableDocumentHeader arDocHeader = null;
 
-        if(ObjectUtils.isNull(customerInvoiceDocument.getAccountsReceivableDocumentHeader())) {
+        if (ObjectUtils.isNull(customerInvoiceDocument.getAccountsReceivableDocumentHeader())) {
             arDocHeader = new AccountsReceivableDocumentHeader();
             customerInvoiceDocument.setAccountsReceivableDocumentHeader(arDocHeader);
         } else {
             arDocHeader = customerInvoiceDocument.getAccountsReceivableDocumentHeader();
         }
         arDocHeader.setCustomerNumber(customerNumber);
-        arDocHeader.setProcessingChartOfAccountCode( processingChartOfAccountsCode );
-        arDocHeader.setProcessingOrganizationCode( processingOrganizationCode );
+        arDocHeader.setProcessingChartOfAccountCode(processingChartOfAccountsCode);
+        arDocHeader.setProcessingOrganizationCode(processingOrganizationCode);
         arDocHeader.setDocumentNumber(customerInvoiceDocument.getDocumentNumber());
         //customerInvoiceDocument.setAccountsReceivableDocumentHeader(arDocHeader);
 
@@ -163,7 +162,7 @@ public enum CustomerInvoiceDocumentFixture {
         AccountsReceivablePendingEntryService accountsReceivablePendingEntryService = SpringContext.getBean(AccountsReceivablePendingEntryService.class);
 
         //associated customer invoice detail fixtures with invoice document
-        if ( customerInvoiceDetailFixtures != null ){
+        if (customerInvoiceDetailFixtures != null) {
             for (CustomerInvoiceDetailFixture customerInvoiceDetailFixture : customerInvoiceDetailFixtures) {
                 CustomerInvoiceDetail detail = customerInvoiceDetailFixture.addTo(customerInvoiceDocument);
                 // FIXME Set the accountsReceivableObjectCode

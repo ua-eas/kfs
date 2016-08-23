@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.ec.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization;
 import org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByReport;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.LookupService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Searches for documents that are not approved.
@@ -58,7 +58,7 @@ public class OutstandingCertificationsByReportLookupableHelperServiceImpl extend
             for (String chartOrg : chartOrgArray) {
                 if (reportNumberCountMap.containsKey(reportNumber)) {
                     HashMap<String, Integer> countForReportNumberByCharOrg = reportNumberCountMap.get(reportNumber);
-                    if (countForReportNumberByCharOrg.containsKey(chartOrg)) countForReportNumberByCharOrg.put(chartOrg, ( countForReportNumberByCharOrg.get(chartOrg) + 1 ) );
+                    if (countForReportNumberByCharOrg.containsKey(chartOrg)) countForReportNumberByCharOrg.put(chartOrg, (countForReportNumberByCharOrg.get(chartOrg) + 1));
                     else countForReportNumberByCharOrg.put(chartOrg, 1);
                 } else {
                     HashMap<String, Integer> countForReportNumberByCharOrg = new HashMap<String, Integer>();
@@ -80,7 +80,7 @@ public class OutstandingCertificationsByReportLookupableHelperServiceImpl extend
                 String[] chartAndOrg = chartOrg.split("-");
 
                 temp.setEffortCertificationReportNumber(reportNumber);
-                temp.setUniversityFiscalYear( Integer.parseInt(fieldValues.get(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME)) );
+                temp.setUniversityFiscalYear(Integer.parseInt(fieldValues.get(KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME)));
                 temp.setChartOfAccountsCode(chartAndOrg[0]);
                 temp.setOrganizationCode(chartAndOrg[1]);
                 temp.setOutstandingCertificationCount(countForReportNumberByCharOrg.get(chartOrg));

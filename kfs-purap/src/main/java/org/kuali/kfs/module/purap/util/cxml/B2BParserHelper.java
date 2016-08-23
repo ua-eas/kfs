@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.module.purap.util.cxml;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.log4j.Logger;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -35,6 +27,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 public class B2BParserHelper {
 
     private static Logger log = Logger.getLogger(B2BParserHelper.class);
@@ -42,7 +41,7 @@ public class B2BParserHelper {
     private DocumentBuilder builder;
     private static B2BParserHelper _this;
 
-    private B2BParserHelper(){
+    private B2BParserHelper() {
 
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setValidating(false); // It's not needed to validate here
@@ -57,84 +56,84 @@ public class B2BParserHelper {
             builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 
             builder = builderFactory.newDocumentBuilder(); // Create the parser
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public static B2BParserHelper getInstance(){
-        if (_this == null){
+    public static B2BParserHelper getInstance() {
+        if (_this == null) {
             _this = new B2BParserHelper();
         }
         return _this;
     }
 
-    public synchronized B2BShoppingCart parseShoppingCartXML(String xmlChunk){
+    public synchronized B2BShoppingCart parseShoppingCartXML(String xmlChunk) {
 
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 
-        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPunchOutOrder");
+        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc, "http://www.kuali.org/kfs/purap/b2bPunchOutOrder");
 
         B2BPunchOutOrderFileType fileType = SpringContext.getBean(B2BPunchOutOrderFileType.class);
 
-        B2BShoppingCart cart = (B2BShoppingCart) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
+        B2BShoppingCart cart = (B2BShoppingCart) SpringContext.getBean(BatchInputFileService.class).parse(fileType, xmlDocAsBytes);
 
         return cart;
 
     }
 
-    public synchronized PunchOutSetupResponse parsePunchOutSetupResponse(String xmlChunk){
+    public synchronized PunchOutSetupResponse parsePunchOutSetupResponse(String xmlChunk) {
 
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 
-        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPunchOutResponse");
+        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc, "http://www.kuali.org/kfs/purap/b2bPunchOutResponse");
 
         PunchOutSetupResponseFileType fileType = SpringContext.getBean(PunchOutSetupResponseFileType.class);
 
-        PunchOutSetupResponse response = (PunchOutSetupResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
+        PunchOutSetupResponse response = (PunchOutSetupResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType, xmlDocAsBytes);
 
         return response;
 
     }
 
-    public synchronized PurchaseOrderResponse parsePurchaseOrderResponse(String xmlChunk){
+    public synchronized PurchaseOrderResponse parsePurchaseOrderResponse(String xmlChunk) {
 
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 
-        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPOResponse");
+        byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc, "http://www.kuali.org/kfs/purap/b2bPOResponse");
 
         B2BPOResponseFileType fileType = SpringContext.getBean(B2BPOResponseFileType.class);
 
-        PurchaseOrderResponse response = (PurchaseOrderResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
+        PurchaseOrderResponse response = (PurchaseOrderResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType, xmlDocAsBytes);
 
         return response;
 
     }
 
     private byte[] addXMLNameSpace(Document xmlDoc,
-                                   String nameSpace){
+                                   String nameSpace) {
 
         Node node = xmlDoc.getDocumentElement();
-        Element element = (Element)node;
+        Element element = (Element) node;
 
         element.setAttribute("xmlns", nameSpace);
 
@@ -142,12 +141,11 @@ public class B2BParserHelper {
         outputFormat.setOmitDocumentType(true);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        XMLSerializer serializer = new XMLSerializer( out,outputFormat );
+        XMLSerializer serializer = new XMLSerializer(out, outputFormat);
         try {
             serializer.asDOMSerializer();
-            serializer.serialize( xmlDoc.getDocumentElement());
-        }
-        catch (IOException e) {
+            serializer.serialize(xmlDoc.getDocumentElement());
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

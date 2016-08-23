@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.coreservice.impl.style;
 
-import java.io.InputStream;
-import java.util.List;
-
 import org.kuali.kfs.coreservice.api.style.Style;
 import org.kuali.rice.core.framework.impex.xml.XmlLoader;
 
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * Parses an inputstream containing XML into Style objects.
- *
  */
 public interface StyleXmlParser extends XmlLoader {
 
-	public List<Style> parseStyles(InputStream inputStream);
+    public List<Style> parseStyles(InputStream inputStream);
 
 }

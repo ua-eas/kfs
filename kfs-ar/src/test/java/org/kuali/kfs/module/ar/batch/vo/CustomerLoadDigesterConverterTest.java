@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.batch.vo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ar.batch.report.CustomerLoadBatchErrors;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class CustomerLoadDigesterConverterTest extends KualiTestBase {
@@ -34,7 +34,7 @@ public class CustomerLoadDigesterConverterTest extends KualiTestBase {
     public void testConvertVOToCustomer_ValidBatchFile() {
 
         //  setup a valid VO to test
-        List<Map<String,String>> addresses = new ArrayList<Map<String,String>>();
+        List<Map<String, String>> addresses = new ArrayList<Map<String, String>>();
         addresses.add(CustomerLoadVOGenerator.getValidAddressVO1());
         CustomerDigesterVO customerVO = CustomerLoadVOGenerator.generateCustomerVO(CustomerLoadVOGenerator.getValidCustomerVO1(), addresses);
 
@@ -45,8 +45,7 @@ public class CustomerLoadDigesterConverterTest extends KualiTestBase {
         Customer customer = null;
         try {
             customer = adapter.convert(customerVO, batchErrors);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             errors = true;
         }
 
@@ -98,7 +97,7 @@ public class CustomerLoadDigesterConverterTest extends KualiTestBase {
     public void testConvertVOToCustomer_InvalidDates() {
 
         //  setup a valid VO to test
-        List<Map<String,String>> addresses = new ArrayList<Map<String,String>>();
+        List<Map<String, String>> addresses = new ArrayList<Map<String, String>>();
         addresses.add(CustomerLoadVOGenerator.getBadAddressVO_InvalidDates_01());
         CustomerDigesterVO customerVO = CustomerLoadVOGenerator.generateCustomerVO(CustomerLoadVOGenerator.getBadCustomerVO_InvalidDates_01(), addresses);
 
@@ -109,8 +108,7 @@ public class CustomerLoadDigesterConverterTest extends KualiTestBase {
         Customer customer = null;
         try {
             customer = adapter.convert(customerVO, batchErrors);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = true;
         }
         assertFalse("No exceptions should have occurred on conversion from VO to BO.", exception);

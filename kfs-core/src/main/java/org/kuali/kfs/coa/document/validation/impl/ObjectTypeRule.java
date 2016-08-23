@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
+import org.kuali.kfs.coa.businessobject.BasicAccountingCategory;
+import org.kuali.kfs.coa.businessobject.ObjectType;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.sys.KFSKeyConstants;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.kfs.coa.businessobject.BasicAccountingCategory;
-import org.kuali.kfs.coa.businessobject.ObjectType;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 /**
- *
  * This class implements the business rules for {@link ObjectType}
  */
 public class ObjectTypeRule extends MaintenanceDocumentRuleBase {
@@ -38,6 +38,7 @@ public class ObjectTypeRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectTypeRule#checkAccountingCategory(MaintenanceDocument)}</li>
      * </ul>
      * This rule does not fail on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -52,6 +53,7 @@ public class ObjectTypeRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectTypeRule#checkAccountingCategory(MaintenanceDocument)}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -62,8 +64,8 @@ public class ObjectTypeRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks that the accounting category exists in the system
+     *
      * @param document
      * @return false if category does not exist
      */
@@ -75,7 +77,7 @@ public class ObjectTypeRule extends MaintenanceDocumentRuleBase {
         BasicAccountingCategory basicAccountingCategory = (BasicAccountingCategory) this.getBoService().findByPrimaryKey(BasicAccountingCategory.class, pkMap);
         if (basicAccountingCategory == null) {
             result = false;
-            putFieldError("basicAccountingCategoryCode", KFSKeyConstants.ERROR_DOCUMENT_OBJTYPE_INVALID_ACCT_CTGRY, new String[] { objectType.getBasicAccountingCategoryCode() });
+            putFieldError("basicAccountingCategoryCode", KFSKeyConstants.ERROR_DOCUMENT_OBJTYPE_INVALID_ACCT_CTGRY, new String[]{objectType.getBasicAccountingCategoryCode()});
         }
         return result;
     }

@@ -38,7 +38,7 @@ public class AttachmentMailServiceImpl extends MailServiceImpl implements Attach
     public void sendMessage(AttachmentMailMessage message) throws InvalidAddressException, MessagingException {
         LOG.debug("sendMessage() started");
 
-        AttachmentMailMessage amm = new AttachmentMailMessage(modifyForNonProduction(message,false));
+        AttachmentMailMessage amm = new AttachmentMailMessage(modifyForNonProduction(message, false));
         amm.setSubject(messageSubject(amm.getSubject()));
 
         attachmentMailer.sendEmail(amm);

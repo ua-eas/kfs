@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.Comparator;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
@@ -32,6 +29,9 @@ import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.service.PosterOutputSummaryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.Comparator;
+import java.util.Map;
+
 /**
  * The default implementation of the PosterOutputSummaryService
  */
@@ -40,6 +40,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
 
     /**
      * Default implementation
+     *
      * @see org.kuali.kfs.gl.service.PosterOutputSummaryService#addOriginEntryAmountToAmountHolder(org.kuali.kfs.gl.businessobject.OriginEntryInformation, org.kuali.kfs.gl.businessobject.PosterOutputSummaryAmountHolder)
      */
     public void addAmountToAmountHolder(OriginEntryInformation originEntry, PosterOutputSummaryAmountHolder amountHolder) {
@@ -52,6 +53,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
 
     /**
      * Default implementation
+     *
      * @see org.kuali.kfs.gl.service.PosterOutputSummaryService#addTransactionAmountToAmountHolder(org.kuali.kfs.gl.businessobject.Transaction, org.kuali.kfs.gl.businessobject.PosterOutputSummaryAmountHolder)
      */
     public void addAmountToAmountHolder(Transaction transaction, PosterOutputSummaryAmountHolder amountHolder) {
@@ -127,18 +129,20 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
 
     /**
      * Builds a map key based on the given information
-     * @param balanceTypeCode the balance type code to put in the key
+     *
+     * @param balanceTypeCode      the balance type code to put in the key
      * @param universityFiscalYear the fiscal year to put in the key
-     * @param fiscalPeriodCode the period code to put in the key
-     * @param subFundGroupCode the sub fund group code to put in the key
+     * @param fiscalPeriodCode     the period code to put in the key
+     * @param subFundGroupCode     the sub fund group code to put in the key
      * @return a key build from the various attributes
      */
     protected String buildKey(String balanceTypeCode, Integer universityFiscalYear, String fiscalPeriodCode, String chartOfAccountsCode, String accountNumber) {
-        return StringUtils.join(new String[] {balanceTypeCode, universityFiscalYear == null ? "" : universityFiscalYear.toString(), fiscalPeriodCode, getFundGroupCodeForAccount(chartOfAccountsCode, accountNumber)}, ':');
+        return StringUtils.join(new String[]{balanceTypeCode, universityFiscalYear == null ? "" : universityFiscalYear.toString(), fiscalPeriodCode, getFundGroupCodeForAccount(chartOfAccountsCode, accountNumber)}, ':');
     }
 
     /**
      * Returns the sub fund group for the given origin entry
+     *
      * @param originEntry the origin entry to find the sub fund group for, from its account
      * @return the sub fund group code related to the account used by this origin entry
      */
@@ -181,6 +185,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
 
     /**
      * Gets the accountingCycleCachingService attribute.
+     *
      * @return Returns the accountingCycleCachingService.
      */
     public AccountingCycleCachingService getAccountingCycleCachingService() {
@@ -189,6 +194,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
 
     /**
      * Sets the accountingCycleCachingService attribute value.
+     *
      * @param accountingCycleCachingService The accountingCycleCachingService to set.
      */
     public void setAccountingCycleCachingService(AccountingCycleCachingService accountingCycleCachingService) {

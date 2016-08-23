@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public enum PurchasingAccountsPayableItemAssetFixture {
     REC1 {
@@ -77,11 +77,11 @@ public enum PurchasingAccountsPayableItemAssetFixture {
     public static List<PurchasingAccountsPayableItemAsset> createPurApItems() {
         List<PurchasingAccountsPayableItemAsset> itemAssets = new ArrayList<PurchasingAccountsPayableItemAsset>();
         List<PurchasingAccountsPayableLineAssetAccount> newAccounts = PurchasingAccountsPayableLineAssetAccountFixture.createPurApAccounts();
-        Iterator iterator =  newAccounts.iterator();
+        Iterator iterator = newAccounts.iterator();
 
         // build four item lines
         if (iterator.hasNext()) {
-            PurchasingAccountsPayableLineAssetAccount newAccount1 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
+            PurchasingAccountsPayableLineAssetAccount newAccount1 = (PurchasingAccountsPayableLineAssetAccount) iterator.next();
             PurchasingAccountsPayableItemAsset newItem1 = REC1.newRecord();
             setAccountByItem(newAccount1, newItem1);
             newItem1.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount1);
@@ -89,7 +89,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             itemAssets.add(newItem1);
         }
         if (iterator.hasNext()) {
-            PurchasingAccountsPayableLineAssetAccount newAccount2 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
+            PurchasingAccountsPayableLineAssetAccount newAccount2 = (PurchasingAccountsPayableLineAssetAccount) iterator.next();
             PurchasingAccountsPayableItemAsset newItem2 = REC1.newRecord();
             setAccountByItem(newAccount2, newItem2);
             newItem2.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount2);
@@ -98,7 +98,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
         }
 
         if (iterator.hasNext()) {
-            PurchasingAccountsPayableLineAssetAccount newAccount3 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
+            PurchasingAccountsPayableLineAssetAccount newAccount3 = (PurchasingAccountsPayableLineAssetAccount) iterator.next();
             PurchasingAccountsPayableItemAsset newItem3 = REC3.newRecord();
             setAccountByItem(newAccount3, newItem3);
             newItem3.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount3);
@@ -108,14 +108,14 @@ public enum PurchasingAccountsPayableItemAssetFixture {
 
         if (iterator.hasNext()) {
             // add the 1st account to this item
-            PurchasingAccountsPayableLineAssetAccount newAccount4 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
+            PurchasingAccountsPayableLineAssetAccount newAccount4 = (PurchasingAccountsPayableLineAssetAccount) iterator.next();
             PurchasingAccountsPayableItemAsset newItem4 = REC4.newRecord();
             setAccountByItem(newAccount4, newItem4);
             newItem4.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount4);
             newAccount4.setPurchasingAccountsPayableItemAsset(newItem4);
             // add the 2nd account to this item
             if (iterator.hasNext()) {
-                PurchasingAccountsPayableLineAssetAccount newAccount5 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
+                PurchasingAccountsPayableLineAssetAccount newAccount5 = (PurchasingAccountsPayableLineAssetAccount) iterator.next();
                 setAccountByItem(newAccount5, newItem4);
                 newItem4.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount5);
                 newAccount5.setPurchasingAccountsPayableItemAsset(newItem4);

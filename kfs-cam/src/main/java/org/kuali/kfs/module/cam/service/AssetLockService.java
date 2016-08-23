@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.module.cam.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.cam.businessobject.AssetLock;
 
+import java.util.List;
+
 public interface AssetLockService {
-	/**
-	 * Adding an indicator to indicate whether or not ignore locking
-	 * info when deleting existing asset locks. This will be used to update
-	 * asset locks if locking info updated as well.
-	 * Check and Lock for AssetLock.
-	 *
-	 * @param locks
-	 *            new asset lock list
-	 * @param ignoreLockingInfoText
-	 *            indicate whether or not to ignore locking information when
-	 *            delete existing asset locks granted to document
-	 * @return
-	 */
+    /**
+     * Adding an indicator to indicate whether or not ignore locking
+     * info when deleting existing asset locks. This will be used to update
+     * asset locks if locking info updated as well.
+     * Check and Lock for AssetLock.
+     *
+     * @param locks                 new asset lock list
+     * @param ignoreLockingInfoText indicate whether or not to ignore locking information when
+     *                              delete existing asset locks granted to document
+     * @return
+     */
     boolean checkAndSetAssetLocks(List<AssetLock> locks, boolean ignoreLockingInfoForDeletion);
 
     /**

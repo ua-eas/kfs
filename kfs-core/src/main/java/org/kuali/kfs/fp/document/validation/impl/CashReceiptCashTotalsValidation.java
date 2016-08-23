@@ -32,6 +32,7 @@ public class CashReceiptCashTotalsValidation extends GenericValidation {
 
     /**
      * Uses the CashReceiptService.areCashAmountsInvalid method to check the cash detail and total amounts.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -40,6 +41,7 @@ public class CashReceiptCashTotalsValidation extends GenericValidation {
 
     /**
      * Gets the cashReceiptDocumentForValidation attribute.
+     *
      * @return Returns the cashReceiptDocumentForValidation.
      */
     public CashReceiptDocument getCashReceiptDocumentForValidation() {
@@ -48,6 +50,7 @@ public class CashReceiptCashTotalsValidation extends GenericValidation {
 
     /**
      * Sets the cashReceiptDocumentForValidation attribute value.
+     *
      * @param cashReceiptDocumentForValidation The cashReceiptDocumentForValidation to set.
      */
     public void setCashReceiptDocumentForValidation(CashReceiptDocument cashReceiptDocumentForValidation) {
@@ -56,6 +59,7 @@ public class CashReceiptCashTotalsValidation extends GenericValidation {
 
     /**
      * Gets the cashReceiptService attribute.
+     *
      * @return Returns the cashReceiptService.
      */
     public CashReceiptService getCashReceiptService() {
@@ -64,6 +68,7 @@ public class CashReceiptCashTotalsValidation extends GenericValidation {
 
     /**
      * Sets the cashReceiptService attribute value.
+     *
      * @param cashReceiptService The cashReceiptService to set.
      */
     public void setCashReceiptService(CashReceiptService cashReceiptService) {

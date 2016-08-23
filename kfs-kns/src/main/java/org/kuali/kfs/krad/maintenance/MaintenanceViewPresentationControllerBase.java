@@ -18,25 +18,23 @@
  */
 package org.kuali.kfs.krad.maintenance;
 
-import org.kuali.kfs.krad.uif.view.MaintenanceView;
-import org.kuali.kfs.krad.uif.view.ViewPresentationController;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.DocumentViewPresentationControllerBase;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.view.MaintenanceView;
+import org.kuali.kfs.krad.uif.view.ViewPresentationController;
+import org.kuali.rice.kew.api.WorkflowDocument;
 
 /**
  * Implementation of {@link ViewPresentationController} for
  * {@link MaintenanceView} instances
- *
- *
  */
 public class MaintenanceViewPresentationControllerBase extends DocumentViewPresentationControllerBase {
 
     public boolean canCreate(Class<?> dataObjectClass) {
         return KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsNewOrCopy(
-                KRADServiceLocatorWeb.getDocumentDictionaryService().getMaintenanceDocumentTypeName(dataObjectClass))
-                .booleanValue();
+            KRADServiceLocatorWeb.getDocumentDictionaryService().getMaintenanceDocumentTypeName(dataObjectClass))
+            .booleanValue();
     }
 
     @Override

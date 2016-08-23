@@ -18,27 +18,29 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
+import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
+import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
-import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
-
 /**
  * This class is used when the offset definition represents the object that is blocking other records from being inactivated.
- *
+ * <p>
  * Normally, only active BO's with the proper primary key values are allowed to inactivate other business objects.  However,
  * OffsetDefinitions do not have an active indicator.  An offset definition that references another BO is allowed to block the inactivation
  * of that BO, without regard to active status, because the OD bo does not have an active status on it.
  */
 public class OffsetDefinitionInactivationBlockingDetectionServiceImpl extends InactivationBlockingDetectionServiceImpl {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OffsetDefinitionInactivationBlockingDetectionServiceImpl.class);
+
     /**
      * Overriding to let blocking records through
+     *
      * @see org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl#listAllBlockerRecords(org.kuali.rice.krad.bo.BusinessObject, org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata)
      */
     public Collection<BusinessObject> listAllBlockerRecords(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
@@ -53,8 +55,8 @@ public class OffsetDefinitionInactivationBlockingDetectionServiceImpl extends In
 
         if (queryMap != null) {
             Collection<? extends BusinessObject> potentialBlockingRecords = businessObjectService.findMatching(
-                    inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
-            for (Iterator<? extends BusinessObject> iterator = potentialBlockingRecords.iterator(); iterator.hasNext();) {
+                inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
+            for (Iterator<? extends BusinessObject> iterator = potentialBlockingRecords.iterator(); iterator.hasNext(); ) {
                 MutableInactivatable businessObject = (MutableInactivatable) iterator.next();
                 blockingRecords.add((BusinessObject) businessObject);
             }
@@ -65,6 +67,7 @@ public class OffsetDefinitionInactivationBlockingDetectionServiceImpl extends In
 
     /**
      * Overriding to say that any record of the same PK is blocking..
+     *
      * @see org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl#hasABlockingRecord(org.kuali.rice.krad.bo.BusinessObject, org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata)
      */
     public boolean hasABlockingRecord(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
@@ -73,7 +76,7 @@ public class OffsetDefinitionInactivationBlockingDetectionServiceImpl extends In
         Map<String, String> queryMap = buildInactivationBlockerQueryMap(blockedBo, inactivationBlockingMetadata);
         if (queryMap != null) {
             Collection<? extends BusinessObject> potentialBlockingRecords = businessObjectService.findMatching(
-                    inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
+                inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
             return !potentialBlockingRecords.isEmpty();
         }
 

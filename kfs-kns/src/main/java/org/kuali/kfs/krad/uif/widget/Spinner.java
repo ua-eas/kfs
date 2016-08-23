@@ -23,14 +23,12 @@ import org.kuali.kfs.krad.uif.view.View;
 
 /**
  * Widget that decorates a control transforming into a spinner
- *
+ * <p>
  * <p>
  * Spinners allow the incrementing or decrementing of the controls value with an arrow up and down icon on
  * the right side of the control. How the value is incremented, min/max values, and so on can be configured
  * through the {@link Component#getComponentOptions()} property
  * </p>
- *
- *
  */
 public class Spinner extends WidgetBase {
     private static final long serialVersionUID = -659830874214415990L;

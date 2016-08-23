@@ -18,6 +18,9 @@
  */
 package org.kuali.kfs.krad.document;
 
+import org.kuali.kfs.krad.bo.DataObjectAuthorizerBase;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -26,9 +29,6 @@ import org.kuali.rice.kew.api.doctype.ProcessDefinition;
 import org.kuali.rice.kew.api.doctype.RoutePath;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.DataObjectAuthorizerBase;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,8 +36,6 @@ import java.util.Map;
 
 /**
  * Default implementation for {@link DocumentAuthorizer} that perform KIM permission checks to authorize the actions
- *
- *
  */
 public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements DocumentAuthorizer {
     private static final long serialVersionUID = -5354518767379472681L;
@@ -50,18 +48,18 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, documentTypeName);
 
         return getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), nameSpaceCode,
-                KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails,
-                Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails,
+            Collections.<String, String>emptyMap());
     }
 
     public boolean canOpen(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.OPEN_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.OPEN_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canEdit(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canAnnotate(Document document, Person user) {
@@ -78,17 +76,17 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
 
     public boolean canSave(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.SAVE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.SAVE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canRoute(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.ROUTE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.ROUTE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canCancel(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CANCEL_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.CANCEL_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canRecall(Document document, Person user) {
@@ -97,7 +95,7 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
 
     public boolean canCopy(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.COPY_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.COPY_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canPerformRouteReport(Document document, Person user) {
@@ -106,7 +104,7 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
 
     public boolean canBlanketApprove(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.BLANKET_APPROVE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.BLANKET_APPROVE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canApprove(Document document, Person user) {
@@ -134,8 +132,8 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         additionalPermissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, actionRequestCode);
 
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.AD_HOC_REVIEW_DOCUMENT, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.AD_HOC_REVIEW_DOCUMENT, user.getPrincipalId(),
+            additionalPermissionDetails, null);
     }
 
     public boolean canAddNoteAttachment(Document document, String attachmentTypeCode, Person user) {
@@ -145,12 +143,12 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         }
 
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.ADD_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.ADD_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, null);
     }
 
     public boolean canDeleteNoteAttachment(Document document, String attachmentTypeCode,
-            String authorUniversalIdentifier, Person user) {
+                                           String authorUniversalIdentifier, Person user) {
         boolean canDeleteNoteAttachment = false;
 
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
@@ -161,15 +159,15 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         // first check permissions that does not restrict on the author
         additionalPermissionDetails.put(KimConstants.AttributeConstants.CREATED_BY_SELF, "false");
         canDeleteNoteAttachment = isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, null);
 
         if (!canDeleteNoteAttachment) {
             // check for permissions restricted by author
             additionalPermissionDetails.put(KimConstants.AttributeConstants.CREATED_BY_SELF, "true");
             canDeleteNoteAttachment = isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                    KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
-                    additionalPermissionDetails, null);
+                KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
+                additionalPermissionDetails, null);
 
             // if permission has been granted user must be the author
             if (canDeleteNoteAttachment && !authorUniversalIdentifier.equals(user.getPrincipalId())) {
@@ -181,15 +179,15 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
     }
 
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, String authorUniversalIdentifier,
-            Person user) {
+                                         Person user) {
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         if (attachmentTypeCode != null) {
             additionalPermissionDetails.put(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE, attachmentTypeCode);
         }
 
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.VIEW_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.VIEW_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, null);
     }
 
     public boolean canSendAdHocRequests(Document document, String actionRequestCd, Person user) {
@@ -199,20 +197,20 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         }
 
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.SEND_AD_HOC_REQUEST, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.SEND_AD_HOC_REQUEST, user.getPrincipalId(),
+            additionalPermissionDetails, null);
     }
 
     public boolean canEditDocumentOverview(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId()) && this.isDocumentInitiator(
-                document, user);
+            KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId()) && this.isDocumentInitiator(
+            document, user);
     }
 
     public boolean canSendAnyTypeAdHocRequests(Document document, Person user) {
         if (canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_FYI_REQ, user)) {
             RoutePath routePath = KewApiServiceLocator.getDocumentTypeService().getRoutePathForDocumentTypeName(
-                    document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+                document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
             ProcessDefinition processDefinition = routePath.getPrimaryProcess();
             if (processDefinition != null) {
                 if (processDefinition.getInitialRouteNode() == null) {
@@ -235,8 +233,8 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
         additionalPermissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, actionRequestCode);
 
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.TAKE_REQUESTED_ACTION, user.getPrincipalId(),
-                additionalPermissionDetails, null);
+            KimConstants.PermissionTemplateNames.TAKE_REQUESTED_ACTION, user.getPrincipalId(),
+            additionalPermissionDetails, null);
     }
 
     @Override
@@ -266,7 +264,7 @@ public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements 
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME, PRE_ROUTING_ROUTE_NAME);
         } else {
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME,
-                    KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
+                KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
         }
 
         attributes.put(KimConstants.AttributeConstants.ROUTE_STATUS_CODE, wd.getStatus().getCode());

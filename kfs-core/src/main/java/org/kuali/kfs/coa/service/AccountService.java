@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -36,7 +36,7 @@ public interface AccountService {
      * Retrieves an Account object based on primary key.
      *
      * @param chartOfAccountsCode - Chart of Accounts Code
-     * @param accountNumber - Account Number
+     * @param accountNumber       - Account Number
      * @return Account
      */
     public Account getByPrimaryId(String chartOfAccountsCode, String accountNumber);
@@ -52,8 +52,8 @@ public interface AccountService {
      * This method retrieves the fiscal officers primary delegate based on the chart, account, and document type specified on the
      * example, along with the total dollar amount
      *
-     * @param delegateExample The object that contains the chart, account, and document type that should be used to query the
-     *        account delegate table
+     * @param delegateExample   The object that contains the chart, account, and document type that should be used to query the
+     *                          account delegate table
      * @param totalDollarAmount The amount that should be compared to the from and to amount on the account delegate table
      * @return The primary delegate for this account, document type, and amount
      */
@@ -63,8 +63,8 @@ public interface AccountService {
      * This method retrieves the fiscal officers secondary delegates based on the chart, account, and document type specified on the
      * example, along with the total dollar amount
      *
-     * @param delegateExample The object that contains the chart, account, and document type that should be used to query the
-     *        account delegate table
+     * @param delegateExample   The object that contains the chart, account, and document type that should be used to query the
+     *                          account delegate table
      * @param totalDollarAmount The amount that should be compared to the from and to amount on the account delegate table
      * @return The primary delegate for this account, document type, and amount
      */
@@ -82,7 +82,7 @@ public interface AccountService {
      * Does the given user have responsibilities on the given account?
      *
      * @param kualiUser the universal user to check responsibilities for
-     * @param account the account to check responsibilities on
+     * @param account   the account to check responsibilities on
      * @return true if user does have responsibilities, false if otherwise
      */
     public boolean hasResponsibilityOnAccount(Person kualiUser, Account account);
@@ -169,7 +169,7 @@ public interface AccountService {
     /**
      * Retrieve the from the parameter if ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND
      * is enabled
-     *
+     * <p>
      * Default to Boolean.FALSE if it cannot be evaluated or parameter is not defined
      *
      * @return
@@ -199,8 +199,8 @@ public interface AccountService {
 
     /**
      * @param account an expired account. If an expired account is passed, it will not be returned, only
-     *    its first continuation that is not expired will be returned or, of course, null.
+     *                its first continuation that is not expired will be returned or, of course, null.
      * @return an unexpired continuation account for the given account, or, if one cannot be found, null
      */
-    public Account getUnexpiredContinuationAccountOrNull(Account account) ;
+    public Account getUnexpiredContinuationAccountOrNull(Account account);
 }

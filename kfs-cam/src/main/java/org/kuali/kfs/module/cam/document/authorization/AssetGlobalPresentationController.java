@@ -18,10 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
@@ -36,12 +38,10 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Presentation Controller for Asset Global Maintenance Documents
@@ -64,8 +64,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
             for (AssetPaymentDetail payment : assetGlobal.getAssetPaymentDetails()) {
                 payment.setNewCollectionRecord(false);
             }
-        }
-        else {
+        } else {
             // conversely allow add during any other case. This is important because the attribute is set on the DD and the DD is
             // only loaded on project startup. Hence setting is important to avoid state related bugs
             maintCollDef.setIncludeAddLine(true);
@@ -99,7 +98,6 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
         }
 
 
-
         return fields;
     }
 
@@ -113,8 +111,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
         if (SpringContext.getBean(AssetGlobalService.class).isAssetSeparate(assetGlobal)) {
             fields.addAll(getAssetGlobalDetailsReadOnlyFields());
             fields.addAll(getAssetGlobalPaymentsReadOnlyFields(assetGlobal));
-        }
-        else if (assetGlobal.isCapitalAssetBuilderOriginIndicator()) {
+        } else if (assetGlobal.isCapitalAssetBuilderOriginIndicator()) {
             // If asset global document is created from CAB, disallow add payment to collection.
             fields.addAll(getAssetGlobalPaymentsReadOnlyFields(assetGlobal));
         }
@@ -278,6 +275,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
     }
 
     // CSU 6702 BEGIN
+
     /**
      * @see org.kuali.kfs.kns.document.authorization.DocumentPresentationControllerBase#getDocumentActions(org.kuali.kfs.kns.document.Document)
      */

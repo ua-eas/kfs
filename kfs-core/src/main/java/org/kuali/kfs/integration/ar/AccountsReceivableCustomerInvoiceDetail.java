@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.math.BigDecimal;
 
 public interface AccountsReceivableCustomerInvoiceDetail extends ExternalizableBusinessObject {
 

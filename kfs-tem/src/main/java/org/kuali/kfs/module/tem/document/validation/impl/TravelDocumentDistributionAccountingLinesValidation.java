@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
@@ -38,9 +36,11 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TravelDocumentDistributionAccountingLinesValidation extends GenericValidation {
     protected DictionaryValidationService dictionaryValidationService;
@@ -54,61 +54,60 @@ public class TravelDocumentDistributionAccountingLinesValidation extends Generic
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
 
-        if (event instanceof AddDistributionAccountingLineValidationEvent){
+        if (event instanceof AddDistributionAccountingLineValidationEvent) {
             AddDistributionAccountingLineValidationEvent distributionEvent = (AddDistributionAccountingLineValidationEvent) event;
             TravelMvcWrapperBean wrapper = distributionEvent.getTravelForm();
             //Check data dictionary validations
             success = getDictionaryValidationService().isBusinessObjectValid(wrapper.getAccountDistributionnewSourceLine(), "");
             TemDistributionAccountingLine line = wrapper.getAccountDistributionnewSourceLine();
             List<TemDistributionAccountingLine> lines = wrapper.getAccountDistributionsourceAccountingLines();
-            if (success){
+            if (success) {
                 //Does account exist?
-                Map<String,String> fieldValues = new HashMap<String, String>();
+                Map<String, String> fieldValues = new HashMap<String, String>();
                 fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, line.getChartOfAccountsCode());
                 fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, line.getAccountNumber());
                 Account account = getBusinessObjectService().findByPrimaryKey(Account.class, fieldValues);
-                if (account == null){
+                if (account == null) {
                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER,
-                            RiceKeyConstants.ERROR_EXISTENCE, "Account Number");
+                        RiceKeyConstants.ERROR_EXISTENCE, "Account Number");
                     return false;
 
                 }
 
-                if (line.getAccountLinePercent() == null){
+                if (line.getAccountLinePercent() == null) {
                     line.setAccountLinePercent(new BigDecimal(0));
                 }
-                if (line.getAmount() == null){
+                if (line.getAmount() == null) {
                     line.setAmount(KualiDecimal.ZERO);
                 }
-                if (line.getAmount().isLessThan(KualiDecimal.ZERO)){
+                if (line.getAmount().isLessThan(KualiDecimal.ZERO)) {
                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.AMOUNT,
-                            TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Amount");
+                        TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Amount");
                     success = false;
                 }
-                if (line.getAccountLinePercent().doubleValue() < 0){
+                if (line.getAccountLinePercent().doubleValue() < 0) {
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.ACCOUNT_LINE_PERCENT,
-                            TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Percent");
+                        TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Percent");
                     success = false;
                 }
-                if (line.getAccountLinePercent().doubleValue() == 0 && line.getAmount().isLessThan(KualiDecimal.ZERO)){
+                if (line.getAccountLinePercent().doubleValue() == 0 && line.getAmount().isLessThan(KualiDecimal.ZERO)) {
                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.AMOUNT,
-                            TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Amount");
+                        TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Amount");
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.ACCOUNT_LINE_PERCENT,
-                            TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Percent");
+                        TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_AMOUNT_OR_PERCENT, "Percent");
                     return false;
                 }
             }
 
-        }
-        else if (event instanceof AssignDistributionAccountingLinesEvent){
+        } else if (event instanceof AssignDistributionAccountingLinesEvent) {
             GlobalVariables.getMessageMap().clearErrorPath();
             AssignDistributionAccountingLinesEvent distributionEvent = (AssignDistributionAccountingLinesEvent) event;
             TravelMvcWrapperBean wrapper = distributionEvent.getTravelForm();
 
             if (!getAccountingDistributionService().getTotalAmount(wrapper.getAccountDistributionsourceAccountingLines()).equals(wrapper.getDistributionRemainingAmount(true))
-                    || getAccountingDistributionService().getTotalPercent(wrapper.getAccountDistributionsourceAccountingLines()).compareTo(new BigDecimal(100)) != 0){
+                || getAccountingDistributionService().getTotalPercent(wrapper.getAccountDistributionsourceAccountingLines()).compareTo(new BigDecimal(100)) != 0) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.ACCOUNT_DISTRIBUTION_SRC_LINES + "[0]." + TemPropertyConstants.ACCOUNT_LINE_PERCENT,
-                        TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_TOTAL, wrapper.getDistributionRemainingAmount(true).toString());
+                    TemKeyConstants.ERROR_TEM_DISTRIBUTION_ACCOUNTING_LINES_TOTAL, wrapper.getDistributionRemainingAmount(true).toString());
                 success = false;
             }
 

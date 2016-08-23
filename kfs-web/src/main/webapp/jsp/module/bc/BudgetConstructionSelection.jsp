@@ -16,36 +16,36 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
-<%@ page import="org.kuali.kfs.sys.context.SpringContext"%>
-<%@ page import="org.kuali.kfs.coa.service.AccountService"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
+<%@ page import="org.kuali.kfs.coa.service.AccountService" %>
+<%@ page import="org.kuali.kfs.sys.context.SpringContext" %>
 
-<c:set var="bcHeaderAttributes" value="${DataDictionary.BudgetConstructionHeader.attributes}" />
-<c:set var="accountAttributes" value="${DataDictionary.Account.attributes}" />
-<c:set var="subFundGroupAttributes" value="${DataDictionary.SubFundGroup.attributes}" />
-<c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}" />
-<c:set var="orgPropString" value="budgetConstructionHeader.account.organization" />
-<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>" />
+<c:set var="bcHeaderAttributes" value="${DataDictionary.BudgetConstructionHeader.attributes}"/>
+<c:set var="accountAttributes" value="${DataDictionary.Account.attributes}"/>
+<c:set var="subFundGroupAttributes" value="${DataDictionary.SubFundGroup.attributes}"/>
+<c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}"/>
+<c:set var="orgPropString" value="budgetConstructionHeader.account.organization"/>
+<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>"/>
 
 <c:if test="${KualiForm.accountReportsExist}">
-	<c:set var="accountRptsAttributes" value="${DataDictionary.BudgetConstructionAccountReports.attributes}" />
-	<c:set var="accountRptsPropString" value="budgetConstructionHeader.budgetConstructionAccountReports" />
-	<c:set var="orgRptsAttributes" value="${DataDictionary.BudgetConstructionOrganizationReports.attributes}" />
-	<c:set var="orgRptsPropString" value="budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports" />
+    <c:set var="accountRptsAttributes" value="${DataDictionary.BudgetConstructionAccountReports.attributes}"/>
+    <c:set var="accountRptsPropString" value="budgetConstructionHeader.budgetConstructionAccountReports"/>
+    <c:set var="orgRptsAttributes" value="${DataDictionary.BudgetConstructionOrganizationReports.attributes}"/>
+    <c:set var="orgRptsPropString" value="budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports"/>
 </c:if>
 
 <%-- hack to get around ojb retrieve problems when account key is bad, don't show the info fields --%>
 <c:catch var="e">
-	<c:set var="showTheDetail" value="${!empty KualiForm.budgetConstructionHeader.account.subFundGroupCode}" scope="page" />
+    <c:set var="showTheDetail" value="${!empty KualiForm.budgetConstructionHeader.account.subFundGroupCode}" scope="page"/>
 </c:catch>
 <c:if test="${e!=null}">
-	<c:set var="showTheDetail" value="false" scope="page" />
+    <c:set var="showTheDetail" value="false" scope="page"/>
 </c:if>
 
 <kul:page
         showDocumentInfo="false"
-	    htmlFormAction="budgetBudgetConstructionSelection"
-	    renderMultipart="true"
+        htmlFormAction="budgetBudgetConstructionSelection"
+        renderMultipart="true"
         docTitle="Budget Construction Selection"
         transactionalDocument="false"
         alternativeHelp="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Fbudgetconstructionselection.htm">
@@ -56,24 +56,24 @@
         <script type='text/javascript' src="dwr/interface/SubAccountService.js"></script>
         <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
         <script language="JavaScript" type="text/javascript" src="scripts/module/bc/objectInfo.js"></script>
-        <c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
+        <c:set var="accountingLineScriptsLoaded" value="true" scope="request"/>
     </c:if>
 
-	<kul:errors
-		keyMatch="${BCConstants.BUDGET_CONSTRUCTION_SELECTION_ERRORS}"
-		errorTitle="Errors found in Search Criteria:" />
-	<c:forEach items="${KualiForm.messages}" var="message">
-	   ${message}
-	</c:forEach>
+    <kul:errors
+            keyMatch="${BCConstants.BUDGET_CONSTRUCTION_SELECTION_ERRORS}"
+            errorTitle="Errors found in Search Criteria:"/>
+    <c:forEach items="${KualiForm.messages}" var="message">
+        ${message}
+    </c:forEach>
 
-	<c:if test="${!empty KualiForm.universityFiscalYear && !KualiForm.sessionInProgressDetected}">
+    <c:if test="${!empty KualiForm.universityFiscalYear && !KualiForm.sessionInProgressDetected}">
         <div class="main-panel">
             <div class="tab-container" align=center>
                 <table align="center" cellpadding="0" cellspacing="0" class="datatable-100 standard">
                     <tr>
                         <th class="grid" align="right" width="10%" colspan="1">
                             <span class="nowrap">BC Fiscal Year:</span>
-                            <html:hidden property="universityFiscalYear" />
+                            <html:hidden property="universityFiscalYear"/>
                         </th>
                         <td class="grid" valign="center" rowspan="1" colspan="1">
                             <span class="nowrap"> ${KualiForm.universityFiscalYear}&nbsp; </span>
@@ -108,32 +108,32 @@
                     <tr class="header">
                         <th class="grid" colspan="2" rowspan="2">&nbsp;</th>
                         <th class="grid" align="center" colspan="1">
-                            <html:hidden property="budgetConstructionHeader.universityFiscalYear" />
-                            <html:hidden property="budgetConstructionHeader.documentNumber" />
+                            <html:hidden property="budgetConstructionHeader.universityFiscalYear"/>
+                            <html:hidden property="budgetConstructionHeader.documentNumber"/>
                             <kul:htmlAttributeLabel
                                     attributeEntry="${bcHeaderAttributes.chartOfAccountsCode}"
                                     labelFor="budgetConstructionHeader.chartOfAccountsCode"
                                     useShortLabel="true"
-                                    noColon="true" />
+                                    noColon="true"/>
                         </th>
                         <th class="grid" align="center" colspan="1">
                             <kul:htmlAttributeLabel
                                     attributeEntry="${bcHeaderAttributes.accountNumber}"
                                     useShortLabel="true"
-                                    noColon="true" />
+                                    noColon="true"/>
                         </th>
                         <th class="grid" align="center" colspan="1">
                             <kul:htmlAttributeLabel
                                     attributeEntry="${bcHeaderAttributes.subAccountNumber}"
                                     useShortLabel="true"
-                                    noColon="true" />
+                                    noColon="true"/>
                         </th>
                         <th class="grid" align="center" colspan="2">Action</th>
                     </tr>
                     <tr>
-                        <%--first cell in row above spans two rows --%>
+                            <%--first cell in row above spans two rows --%>
                         <c:if test="${!accountsCanCrossCharts}">
-                            <html:hidden property="budgetConstructionHeader.chartOfAccountsCode" />
+                            <html:hidden property="budgetConstructionHeader.chartOfAccountsCode"/>
                             <bc:pbglLineDataCell
                                     dataCellCssClass="grid"
                                     accountingLine="budgetConstructionHeader"
@@ -163,7 +163,7 @@
                                     colSpan="1"
                                     lookupOrInquiryKeys="chartOfAccountsCode"
                                     accountingLineValuesMap="${KualiForm.budgetConstructionHeader.valuesMap}"
-                                    anchor="budgetConstructionHeaderAccountAnchor" />
+                                    anchor="budgetConstructionHeaderAccountAnchor"/>
                         </c:if>
                         <c:if test="${accountsCanCrossCharts}">
                             <bc:pbglLineDataCell
@@ -179,7 +179,7 @@
                                     displayHidden="false"
                                     colSpan="1"
                                     accountingLineValuesMap="${KualiForm.budgetConstructionHeader.valuesMap}"
-                                    anchor="budgetConstructionHeaderAnchor" />
+                                    anchor="budgetConstructionHeaderAnchor"/>
                             <bc:pbglLineDataCell
                                     dataCellCssClass="grid"
                                     accountingLine="budgetConstructionHeader"
@@ -195,7 +195,7 @@
                                     colSpan="1"
                                     lookupOrInquiryKeys="chartOfAccountsCode"
                                     accountingLineValuesMap="${KualiForm.budgetConstructionHeader.valuesMap}"
-                                    anchor="budgetConstructionHeaderAccountAnchor" />
+                                    anchor="budgetConstructionHeaderAccountAnchor"/>
                         </c:if>
                         <bc:pbglLineDataCell
                                 dataCellCssClass="grid"
@@ -212,12 +212,12 @@
                                 colSpan="1"
                                 lookupOrInquiryKeys="chartOfAccountsCode,accountNumber"
                                 accountingLineValuesMap="${KualiForm.budgetConstructionHeader.valuesMap}"
-                                anchor="budgetConstructionHeaderSubAccountAnchor" />
+                                anchor="budgetConstructionHeaderSubAccountAnchor"/>
 
-                        <c:set var="refreshTabIndex" value="${KualiForm.currentTabIndex}" />
-                        <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-                        <c:set var="loadTabIndex" value="${KualiForm.currentTabIndex}" />
-                        <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
+                        <c:set var="refreshTabIndex" value="${KualiForm.currentTabIndex}"/>
+                        <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}"/>
+                        <c:set var="loadTabIndex" value="${KualiForm.currentTabIndex}"/>
+                        <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}"/>
 
                         <td class="grid" nowrap colspan="2">
                             <html:submit
@@ -241,16 +241,16 @@
                         <td class="grid" valign="center" rowspan="1" colspan="2">
                             <c:if test="${showTheDetail}">
                                 <kul:htmlControlAttribute
-                                    property="budgetConstructionHeader.account.subFundGroupCode"
-                                    attributeEntry="${accountAttributes.subFundGroupCode}"
-                                    readOnly="true"
-                                    readOnlyBody="true">
+                                        property="budgetConstructionHeader.account.subFundGroupCode"
+                                        attributeEntry="${accountAttributes.subFundGroupCode}"
+                                        readOnly="true"
+                                        readOnlyBody="true">
 
                                     <kul:inquiry
-                                        boClassName="org.kuali.kfs.coa.businessobject.SubFundGroup"
-                                        keyValues="subFundGroupCode=${KualiForm.budgetConstructionHeader.account.subFundGroupCode}"
-                                        render="${!empty KualiForm.budgetConstructionHeader.accountNumber}">
-                                        <html:hidden write="true" property="budgetConstructionHeader.account.subFundGroupCode" />
+                                            boClassName="org.kuali.kfs.coa.businessobject.SubFundGroup"
+                                            keyValues="subFundGroupCode=${KualiForm.budgetConstructionHeader.account.subFundGroupCode}"
+                                            render="${!empty KualiForm.budgetConstructionHeader.accountNumber}">
+                                        <html:hidden write="true" property="budgetConstructionHeader.account.subFundGroupCode"/>
                                     </kul:inquiry>
                                 </kul:htmlControlAttribute>
                             </c:if>
@@ -258,9 +258,9 @@
                         <td class="grid" valign="center" rowspan="1" colspan="3">
                             <c:if test="${showTheDetail}">
                                 <kul:htmlControlAttribute
-                                    property="budgetConstructionHeader.account.subFundGroup.subFundGroupDescription"
-                                    attributeEntry="${subFundGroupAttributes['subFundGroupDescription']}"
-                                    readOnly="true" />
+                                        property="budgetConstructionHeader.account.subFundGroup.subFundGroupDescription"
+                                        attributeEntry="${subFundGroupAttributes['subFundGroupDescription']}"
+                                        readOnly="true"/>
                             </c:if>
                         </td>
                     </tr>
@@ -270,15 +270,15 @@
                         <td class="grid" valign="center" rowspan="1" colspan="1">
                             <c:if test="${showTheDetail}">
                                 <kul:htmlControlAttribute
-                                    property="budgetConstructionHeader.account.organizationCode"
-                                    attributeEntry="${accountAttributes.organizationCode}"
-                                    readOnly="true" readOnlyBody="true">
+                                        property="budgetConstructionHeader.account.organizationCode"
+                                        attributeEntry="${accountAttributes.organizationCode}"
+                                        readOnly="true" readOnlyBody="true">
                                     <kul:inquiry
-                                        boClassName="org.kuali.kfs.coa.businessobject.Organization"
-                                        keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.account.chartOfAccountsCode}&amp;organizationCode=${KualiForm.budgetConstructionHeader.account.organizationCode}"
-                                        render="${!empty KualiForm.budgetConstructionHeader.account.organizationCode}">
+                                            boClassName="org.kuali.kfs.coa.businessobject.Organization"
+                                            keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.account.chartOfAccountsCode}&amp;organizationCode=${KualiForm.budgetConstructionHeader.account.organizationCode}"
+                                            render="${!empty KualiForm.budgetConstructionHeader.account.organizationCode}">
 
-                                        <html:hidden write="true" property="budgetConstructionHeader.account.organizationCode" />
+                                        <html:hidden write="true" property="budgetConstructionHeader.account.organizationCode"/>
                                     </kul:inquiry>
                                 </kul:htmlControlAttribute>
                             </c:if>
@@ -288,7 +288,7 @@
                                 <kul:htmlControlAttribute
                                         property="${orgPropString}.organizationName"
                                         attributeEntry="${orgAttributes.organizationName}"
-                                        readOnly="true" />
+                                        readOnly="true"/>
                             </c:if>
                         </td>
                     </tr>
@@ -306,7 +306,7 @@
                                             keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.account.organization.reportsToChartOfAccountsCode}"
                                             render="${!empty KualiForm.budgetConstructionHeader.account.organization.reportsToChartOfAccountsCode}">
 
-                                        <html:hidden write="true" property="${orgPropString}.reportsToChartOfAccountsCode" />
+                                        <html:hidden write="true" property="${orgPropString}.reportsToChartOfAccountsCode"/>
                                     </kul:inquiry>
                                 </kul:htmlControlAttribute>
                             </c:if>
@@ -324,7 +324,7 @@
                                             keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.account.organization.reportsToChartOfAccountsCode}&amp;organizationCode=${KualiForm.budgetConstructionHeader.account.organization.reportsToOrganizationCode}"
                                             render="${!empty KualiForm.budgetConstructionHeader.account.organization.reportsToOrganizationCode}">
 
-                                        <html:hidden write="true" property="${orgPropString}.reportsToOrganizationCode" />
+                                        <html:hidden write="true" property="${orgPropString}.reportsToOrganizationCode"/>
                                     </kul:inquiry>
                                 </kul:htmlControlAttribute>
                             </c:if>
@@ -334,7 +334,7 @@
                                 <kul:htmlControlAttribute
                                         property="${orgPropString}.reportsToOrganizationCode"
                                         attributeEntry="${orgAttributes.reportsToChartOfAccountsCode}"
-                                        readOnly="true" />
+                                        readOnly="true"/>
                             </c:if>
                         </td>
                     </tr>
@@ -365,7 +365,7 @@
                                                 keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.reportsToChartOfAccountsCode}"
                                                 render="${!empty KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.reportsToChartOfAccountsCode}">
 
-                                            <html:hidden write="true" property="${accountRptsPropString}.reportsToChartOfAccountsCode" />
+                                            <html:hidden write="true" property="${accountRptsPropString}.reportsToChartOfAccountsCode"/>
                                         </kul:inquiry>
                                     </kul:htmlControlAttribute>
                                 </c:if>
@@ -383,7 +383,7 @@
                                                 keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.reportsToChartOfAccountsCode}&amp;organizationCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.reportsToOrganizationCode}"
                                                 render="${!empty KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.reportsToOrganizationCode}">
 
-                                            <html:hidden write="true" property="${accountRptsPropString}.reportsToOrganizationCode" />
+                                            <html:hidden write="true" property="${accountRptsPropString}.reportsToOrganizationCode"/>
                                         </kul:inquiry>
                                     </kul:htmlControlAttribute>
                                 </c:if>
@@ -393,7 +393,7 @@
                                     <kul:htmlControlAttribute
                                             property="${accountRptsPropString}.budgetConstructionOrganizationReports.organization.organizationName"
                                             attributeEntry="${orgAttributes.organizationName}"
-                                            readOnly="true" />
+                                            readOnly="true"/>
                                 </c:if>
                             </td>
                         </tr>
@@ -412,7 +412,7 @@
                                                 keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports.reportsToChartOfAccountsCode}"
                                                 render="${!empty KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports.reportsToChartOfAccountsCode}">
 
-                                            <html:hidden write="true" property="${orgRptsPropString}.reportsToChartOfAccountsCode" />
+                                            <html:hidden write="true" property="${orgRptsPropString}.reportsToChartOfAccountsCode"/>
                                         </kul:inquiry>
                                     </kul:htmlControlAttribute>
                                 </c:if>
@@ -430,7 +430,7 @@
                                                 keyValues="chartOfAccountsCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports.reportsToChartOfAccountsCode}&amp;organizationCode=${KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports.reportsToOrganizationCode}"
                                                 render="${!empty KualiForm.budgetConstructionHeader.budgetConstructionAccountReports.budgetConstructionOrganizationReports.reportsToOrganizationCode}">
 
-                                            <html:hidden write="true" property="${orgRptsPropString}.reportsToOrganizationCode" />
+                                            <html:hidden write="true" property="${orgRptsPropString}.reportsToOrganizationCode"/>
                                         </kul:inquiry>
                                     </kul:htmlControlAttribute>
                                 </c:if>
@@ -440,7 +440,7 @@
                                     <kul:htmlControlAttribute
                                             property="${orgRptsPropString}.reportsToOrganization.organizationName"
                                             attributeEntry="${orgAttributes.organizationName}"
-                                            readOnly="${true}" />
+                                            readOnly="${true}"/>
                                 </c:if>
                             </td>
                         </tr>
@@ -463,7 +463,7 @@
                                             title="Organization Salary Setting"
                                             alt="Organization Salary Setting"
                                             styleClass="btn btn-default"
-                                            value="Org Salary Settings" />
+                                            value="Org Salary Settings"/>
                                 </c:if>
                                 <html:submit
                                         property="methodToCall.performReportDump.anchororgControlsAnchor"
@@ -515,20 +515,20 @@
                 </table>
             </div>
         </div>
-	</c:if>
+    </c:if>
 
-	<div id="globalbuttons" class="globalbuttons">
+    <div id="globalbuttons" class="globalbuttons">
         <html:submit
-		        styleClass="btn btn-default"
+                styleClass="btn btn-default"
                 property="methodToCall.returnToCaller"
-		        title="close"
+                title="close"
                 alt="close"
                 value="Close"/>
     </div>
     <kul:stickyGlobalButtons bodySelector="div#page-content"/>
 
-	<%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>
-	<SCRIPT type="text/javascript">
+    <%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>
+    <SCRIPT type="text/javascript">
         var kualiForm = document.forms['KualiForm'];
         var kualiElements = kualiForm.elements;
     </SCRIPT>

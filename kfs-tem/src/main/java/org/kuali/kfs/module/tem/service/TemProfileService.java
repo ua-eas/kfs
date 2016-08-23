@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAccount;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAddress;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.List;
+import java.util.Map;
+
 public interface TemProfileService {
 
     /**
-     *
      * This method returns a TemProfile associated with the principalId.
+     *
      * @param principalId
      * @return
      */
     public TemProfile findTemProfileByPrincipalId(String principalId);
 
     /**
-     *
      * This method retrieves a KIM user's address if it is a KIM user, or the default address if they are not a KIM user.
+     *
      * @param profile
      * @param defaultAddress
      * @return
@@ -47,8 +47,8 @@ public interface TemProfileService {
     public TemProfileAddress getAddressFromProfile(TemProfile profile, TemProfileAddress defaultAddress);
 
     /**
-     *
      * This method creates a {@link TemProfileAddress} from the KIM Person
+     *
      * @param person
      * @param profileId
      * @param defaultAddress
@@ -57,24 +57,24 @@ public interface TemProfileService {
     public TemProfileAddress createTemProfileAddressFromPerson(Person person, Integer profileId, TemProfileAddress defaultAddress);
 
     /**
-     *
      * This method returns a TemProfile matching the criteria passed in.
+     *
      * @param criteria
      * @return
      */
-    public TemProfile findTemProfile(Map<String,String> criteria);
+    public TemProfile findTemProfile(Map<String, String> criteria);
 
     /**
-     *
      * This method returns a TemProfile from the profileId
+     *
      * @param profileId
      * @return
      */
     public TemProfile findTemProfileById(Integer profileId);
 
     /**
-     *
      * This method returns all active TemProfiles
+     *
      * @return
      */
     public List<TemProfile> getAllActiveTemProfile();
@@ -89,6 +89,7 @@ public interface TemProfileService {
 
     /**
      * Determines if the given profile is a record for a non-employee
+     *
      * @param profile the profile to check
      * @return true if profile is a non-employee, false if the profile is an employee or if it could not be determined
      */
@@ -96,6 +97,7 @@ public interface TemProfileService {
 
     /**
      * Determines if the given profile has any active arrangers
+     *
      * @param profile the profile to check
      * @return true if there are active arrangers associated with the profile, false otherwise
      */
@@ -124,7 +126,8 @@ public interface TemProfileService {
 
     /**
      * Determines if the given profile account already exists in the persistence store
-     * @param account the account to check for the existence of
+     *
+     * @param account     the account to check for the existence of
      * @param skipProfile if not null, any profile accounts with the same id as the given skip profile will be skipped
      * @return true if the profile account does exist, false otherwise
      */

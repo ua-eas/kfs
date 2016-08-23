@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Defines methods to CapitalAccountingLinesSameObjectCodeSubTypeEvent.
  */
 public class CapitalAccountingLinesSameObjectCodeSubTypeEvent extends AttributedDocumentEventBase {
 
-   public CapitalAccountingLinesSameObjectCodeSubTypeEvent(Document document) {
-       this(KFSConstants.EMPTY_STRING, document);
-   }
+    public CapitalAccountingLinesSameObjectCodeSubTypeEvent(Document document) {
+        this(KFSConstants.EMPTY_STRING, document);
+    }
 
     public CapitalAccountingLinesSameObjectCodeSubTypeEvent(String errorPathPrefix, Document document) {
         super("Continue capital assets object subtype checks " + getDocumentId(document), errorPathPrefix, document);

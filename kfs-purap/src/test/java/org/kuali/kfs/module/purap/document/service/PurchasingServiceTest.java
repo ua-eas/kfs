@@ -37,7 +37,7 @@ public class PurchasingServiceTest extends KualiTestBase {
     }
 
     @ConfigureContext(session = khuntley, shouldCommitTransactions = false)
-    public final void testDefaultUseTaxIndicatorValue(){
+    public final void testDefaultUseTaxIndicatorValue() {
 
         RequisitionDocument requisitionDocument = RequisitionDocumentFixture.REQ_TAX.createRequisitionDocument();
         requisitionDocument.refreshReferenceObject("vendorDetail");

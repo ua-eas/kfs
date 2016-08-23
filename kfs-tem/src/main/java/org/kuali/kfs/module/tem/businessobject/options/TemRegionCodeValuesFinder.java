@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemRegion;
@@ -34,8 +29,13 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class TemRegionCodeValuesFinder extends KeyValuesBase {
     protected static volatile KeyValuesService keyValuesService;
@@ -48,7 +48,6 @@ public class TemRegionCodeValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
 
         String tripTypeCode = KFSConstants.EMPTY_STRING;
-
 
 
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
@@ -74,15 +73,14 @@ public class TemRegionCodeValuesFinder extends KeyValuesBase {
         }
 
 
-
         Iterator<TemRegion> it = usRegions.iterator();
 
         String key = KFSConstants.EMPTY_STRING;
-        while (it.hasNext()){
+        while (it.hasNext()) {
             TemRegion temRegion = it.next();
 
             String tempKey = temRegion.getRegionName();
-            if (!tempKey.equals(key)){
+            if (!tempKey.equals(key)) {
                 keyValues.add(new ConcreteKeyValue(temRegion.getRegionCode().toUpperCase(), temRegion.getRegionCode().toUpperCase()));
             }
             key = tempKey;
@@ -92,7 +90,7 @@ public class TemRegionCodeValuesFinder extends KeyValuesBase {
         if (StringUtils.isEmpty(tripTypeCode) || tripTypeCode.equals(TemConstants.TemTripTypes.INTERNATIONAL)) {
 
             fieldValues.put(TemPropertyConstants.TRIP_TYPE_CODE, TemConstants.TemTripTypes.INTERNATIONAL);
-            List<TemRegion> intRegions = (List<TemRegion>)getKeyValuesService().findMatching(TemRegion.class, fieldValues);
+            List<TemRegion> intRegions = (List<TemRegion>) getKeyValuesService().findMatching(TemRegion.class, fieldValues);
             Collections.sort(intRegions);
 
 

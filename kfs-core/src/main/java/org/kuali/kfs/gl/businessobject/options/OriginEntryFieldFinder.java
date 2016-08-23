@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * An extension of KeyValuesBase that
@@ -42,6 +42,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns a list of all field names and display field names for the Origin Entry class
+     *
      * @return a List of key/value pair options
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */
@@ -82,7 +83,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
      * @return the display field name of that field
      */
     public String getFieldDisplayName(String fieldName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getKey().equals(fieldName)) {
                 return klp.getValue();
@@ -98,7 +99,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
      * @return the property field name for that field
      */
     public String getFieldName(String fieldDisplayName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getValue().equals(fieldDisplayName)) {
                 return (String) klp.getKey();
@@ -111,7 +112,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
      * Given a field name and a value, determines if that value is valid for the field
      *
      * @param fieldName the name of a field to inquire on
-     * @param value the value that the field will potentially be set to
+     * @param value     the value that the field will potentially be set to
      * @return true if the value is valid, false if otherwise
      */
     public boolean isValidValue(String fieldName, String value) {
@@ -134,27 +135,22 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
             try {
                 KualiDecimal d = new KualiDecimal(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Integer".equals(fieldType)) {
+        } else if ("Integer".equals(fieldType)) {
             try {
                 Integer d = new Integer(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Date".equals(fieldType)) {
+        } else if ("Date".equals(fieldType)) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date d = df.parse(value);
                 return true;
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 return false;
             }
         }

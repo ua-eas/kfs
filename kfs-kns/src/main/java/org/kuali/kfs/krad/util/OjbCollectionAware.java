@@ -21,6 +21,6 @@ package org.kuali.kfs.krad.util;
 import org.springmodules.orm.ojb.PersistenceBrokerTemplate;
 
 
-public interface OjbCollectionAware /* extends PersistenceBrokerOperations */{
+public interface OjbCollectionAware /* extends PersistenceBrokerOperations */ {
     PersistenceBrokerTemplate getPersistenceBrokerTemplate();
 }

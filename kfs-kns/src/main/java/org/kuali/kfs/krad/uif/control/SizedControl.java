@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.uif.control;
 
 /**
  * Indicates <code>Control</code> types that have a size property
- *
- *
  */
 public interface SizedControl {
 

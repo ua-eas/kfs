@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.Map;
-
 import org.kuali.kfs.gl.OJBUtility;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.dataaccess.EntryDao;
 import org.kuali.kfs.gl.service.EntryService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 /**
  * The base implementation of EntryService
@@ -39,7 +39,7 @@ public class EntryServiceImpl implements EntryService {
      * Purge the entry table by year/chart
      *
      * @param chart chart of entries to purge
-     * @param year fiscal year of entries to purge
+     * @param year  fiscal year of entries to purge
      * @see org.kuali.kfs.gl.service.EntryService#purgeYearByChart(java.lang.String, int)
      */
     public void purgeYearByChart(String chart, int year) {

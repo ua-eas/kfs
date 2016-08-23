@@ -18,31 +18,30 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
-import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class handles specific Actions requests for the BudgetAdjustment.
@@ -60,7 +59,7 @@ public class BudgetAdjustmentAction extends KualiAccountingDocumentActionBase {
 
         // after any accounting line overrides - refresh the total for any amount changes
         BudgetAdjustmentForm baForm = (BudgetAdjustmentForm) form;
-        if (baForm.hasDocumentId() && baForm.getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT)){
+        if (baForm.hasDocumentId() && baForm.getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT)) {
             BudgetAdjustmentDocument baDoc = (BudgetAdjustmentDocument) baForm.getDocument();
             ((FinancialSystemDocumentHeader) baDoc.getDocumentHeader()).setFinancialDocumentTotalAmount(((AmountTotaling) baDoc).getTotalDollarAmount());
         }
@@ -84,7 +83,7 @@ public class BudgetAdjustmentAction extends KualiAccountingDocumentActionBase {
      * Add warning message about copying a document with generated labor benefits.
      *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#copy(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward copy(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -97,16 +96,16 @@ public class BudgetAdjustmentAction extends KualiAccountingDocumentActionBase {
         if (!accountingLines.isEmpty()) {
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(accountingLines, AccountingLineOverride.REFRESH_FIELDS);
 
-            for (Iterator i = accountingLines.iterator(); i.hasNext();) {
+            for (Iterator i = accountingLines.iterator(); i.hasNext(); ) {
                 AccountingLine line = (AccountingLine) i.next();
-                processForOutput(financialDocument,line);
+                processForOutput(financialDocument, line);
             }
         }
     }
 
-    protected void processForOutput(AccountingDocument financialDocument,AccountingLine line) {
+    protected void processForOutput(AccountingDocument financialDocument, AccountingLine line) {
         AccountingLineOverride fromCurrentCode = AccountingLineOverride.valueOf(line.getOverrideCode());
-        AccountingLineOverride needed = AccountingLineOverride.determineNeededOverrides(financialDocument,line);
+        AccountingLineOverride needed = AccountingLineOverride.determineNeededOverrides(financialDocument, line);
         line.setAccountExpiredOverride(fromCurrentCode.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
         line.setAccountExpiredOverrideNeeded(needed.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
         line.setObjectBudgetOverride(false);
@@ -125,7 +124,7 @@ public class BudgetAdjustmentAction extends KualiAccountingDocumentActionBase {
         super.insertAccountingLine(isSource, financialDocumentForm, line);
 
         BudgetAdjustmentDocument baDoc = (BudgetAdjustmentDocument) financialDocumentForm.getDocument();
-        if (!isSource){
+        if (!isSource) {
             ((FinancialSystemDocumentHeader) financialDocumentForm.getDocument().getDocumentHeader()).setFinancialDocumentTotalAmount(((AmountTotaling) baDoc).getTotalDollarAmount());
         }
     }

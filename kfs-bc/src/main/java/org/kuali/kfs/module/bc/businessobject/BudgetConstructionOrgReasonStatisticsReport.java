@@ -48,112 +48,146 @@ public class BudgetConstructionOrgReasonStatisticsReport {
     private BigDecimal percentChange;
 
 
-
     public BigDecimal getAppointmentRequestedFteQuantity() {
         return appointmentRequestedFteQuantity;
     }
+
     public void setAppointmentRequestedFteQuantity(BigDecimal appointmentRequestedFteQuantity) {
         this.appointmentRequestedFteQuantity = appointmentRequestedFteQuantity;
     }
+
     public BigDecimal getAverageAppointmentRequestedAmount() {
         return averageAppointmentRequestedAmount;
     }
+
     public void setAverageAppointmentRequestedAmount(BigDecimal averageAppointmentRequestedAmount) {
         this.averageAppointmentRequestedAmount = averageAppointmentRequestedAmount;
     }
+
     public BigDecimal getAverageChange() {
         return averageChange;
     }
+
     public void setAverageChange(BigDecimal averageChange) {
         this.averageChange = averageChange;
     }
+
     public BigDecimal getAverageCsfAmount() {
         return averageCsfAmount;
     }
+
     public void setAverageCsfAmount(BigDecimal averageCsfAmount) {
         this.averageCsfAmount = averageCsfAmount;
     }
+
     public String getChartOfAccountDescription() {
         return chartOfAccountDescription;
     }
+
     public void setChartOfAccountDescription(String chartOfAccountDescription) {
         this.chartOfAccountDescription = chartOfAccountDescription;
     }
+
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getConsHdr() {
         return consHdr;
     }
+
     public void setConsHdr(String consHdr) {
         this.consHdr = consHdr;
     }
+
     public String getFiscalYear() {
         return fiscalYear;
     }
+
     public void setFiscalYear(String fiscalYear) {
         this.fiscalYear = fiscalYear;
     }
+
     public BigDecimal getInitialRequestedFteQuantity() {
         return initialRequestedFteQuantity;
     }
+
     public void setInitialRequestedFteQuantity(BigDecimal initialRequestedFteQuantity) {
         this.initialRequestedFteQuantity = initialRequestedFteQuantity;
     }
+
     public String getObjectCodes() {
         return objectCodes;
     }
+
     public void setObjectCodes(String objectCodes) {
         this.objectCodes = objectCodes;
     }
+
     public String getOrganizationCode() {
         return organizationCode;
     }
+
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
     }
+
     public String getOrganizationName() {
         return organizationName;
     }
+
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
     }
+
     public BigDecimal getPercentChange() {
         return percentChange;
     }
+
     public void setPercentChange(BigDecimal percentChange) {
         this.percentChange = percentChange;
     }
+
     public Integer getTotalAppointmentRequestedAmount() {
         return totalAppointmentRequestedAmount;
     }
+
     public void setTotalAppointmentRequestedAmount(Integer totalAppointmentRequestedAmount) {
         this.totalAppointmentRequestedAmount = totalAppointmentRequestedAmount;
     }
+
     public Integer getTotalAverageAmount() {
         return totalAverageAmount;
     }
+
     public void setTotalAverageAmount(Integer totalAverageAmount) {
         this.totalAverageAmount = totalAverageAmount;
     }
+
     public Integer getTotalCsfAmount() {
         return totalCsfAmount;
     }
+
     public void setTotalCsfAmount(Integer totalCsfAmount) {
         this.totalCsfAmount = totalCsfAmount;
     }
+
     public Integer getTotalInitialRequestedAmount() {
         return totalInitialRequestedAmount;
     }
+
     public void setTotalInitialRequestedAmount(Integer totalInitialRequestedAmount) {
         this.totalInitialRequestedAmount = totalInitialRequestedAmount;
     }
+
     public String getThresholdOrReason() {
         return thresholdOrReason;
     }
+
     public void setThresholdOrReason(String thresholdOrReason) {
         this.thresholdOrReason = thresholdOrReason;
     }

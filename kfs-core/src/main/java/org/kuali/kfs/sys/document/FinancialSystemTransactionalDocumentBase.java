@@ -18,11 +18,15 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.TransactionalDocumentBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -30,18 +34,14 @@ import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentHeaderDao;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowRuntimeException;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.document.TransactionalDocumentBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is a KFS specific TransactionalDocumentBase class
@@ -55,7 +55,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
     private static transient FinancialSystemDocumentService financialSystemDocumentService;
     private static transient ParameterService parameterService;
 
-    private transient Map<String,Boolean> canEditCache;
+    private transient Map<String, Boolean> canEditCache;
 
     /**
      * Constructs a FinancialSystemTransactionalDocumentBase.java.
@@ -113,6 +113,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
 
     /**
      * Given a DocumentStatus, returns the code for that status.  Allows us a shim to change initiated's into saved's
+     *
      * @param status the status to return a code for
      * @return the code for that stat
      */
@@ -121,8 +122,8 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
         // cause problems.  And since org.kuali.rice.krad.service.impl.PostProcessorServiceImpl#doRouteStatusChange will NOT save the document when the
         // DocStatus is saved, let's simply pre-anticipate that
         final String statusCode = status.equals(DocumentStatus.INITIATED) ?
-                DocumentStatus.SAVED.getCode() :
-                getFinancialSystemDocumentHeader().getWorkflowDocument().getStatus().getCode();
+            DocumentStatus.SAVED.getCode() :
+            getFinancialSystemDocumentHeader().getWorkflowDocument().getStatus().getCode();
         return statusCode;
     }
 
@@ -162,8 +163,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
 
         if (getDocumentHeader().getWorkflowDocument().isCanceled()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.CANCELLED);
-        }
-        else if (getDocumentHeader().getWorkflowDocument().isEnroute()) {
+        } else if (getDocumentHeader().getWorkflowDocument().isEnroute()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.ENROUTE);
         }
         if (getDocumentHeader().getWorkflowDocument().isDisapproved()) {
@@ -173,7 +173,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
             getFinancialSystemDocumentHeader().setProcessedDate(new java.sql.Timestamp(new java.util.Date().getTime()));
         }
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Document: " + statusChangeEvent.getDocumentId() + " -- Status is: " + getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode());
         }
 
@@ -183,6 +183,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
     /**
      * This is the default implementation which, if parameter KFS-SYS / Document / UPDATE_TOTAL_AMOUNT_IN_POST_PROCESSING_IND is on, updates the document
      * and resaves if needed
+     *
      * @see org.kuali.rice.kns.document.DocumentBase#doRouteLevelChange(org.kuali.rice.kew.dto.DocumentRouteLevelChangeDTO)
      */
     @Override
@@ -191,18 +192,18 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
         getFinancialSystemDocumentHeader().setApplicationDocumentStatus(getFinancialSystemDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus());
 
         if (this instanceof AmountTotaling
-                && getDocumentHeader() != null
-                && getParameterService() != null
-                && getBusinessObjectService() != null
-                && getParameterService().parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_DOCUMENT.class, UPDATE_TOTAL_AMOUNT_IN_POST_PROCESSING_PARAMETER_NAME)
-                && getParameterService().getParameterValueAsBoolean(KfsParameterConstants.FINANCIAL_SYSTEM_DOCUMENT.class, UPDATE_TOTAL_AMOUNT_IN_POST_PROCESSING_PARAMETER_NAME)) {
-            final KualiDecimal currentTotal = ((AmountTotaling)this).getTotalDollarAmount();
+            && getDocumentHeader() != null
+            && getParameterService() != null
+            && getBusinessObjectService() != null
+            && getParameterService().parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_DOCUMENT.class, UPDATE_TOTAL_AMOUNT_IN_POST_PROCESSING_PARAMETER_NAME)
+            && getParameterService().getParameterValueAsBoolean(KfsParameterConstants.FINANCIAL_SYSTEM_DOCUMENT.class, UPDATE_TOTAL_AMOUNT_IN_POST_PROCESSING_PARAMETER_NAME)) {
+            final KualiDecimal currentTotal = ((AmountTotaling) this).getTotalDollarAmount();
             if (!currentTotal.equals(getFinancialSystemDocumentHeader().getFinancialDocumentTotalAmount())) {
                 getFinancialSystemDocumentHeader().setFinancialDocumentTotalAmount(currentTotal);
             }
         }
         if (this instanceof AmountTotaling || !StringUtils.isBlank(getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
-            LOG.warn("We're going to save the document header because we've moved from level: "+levelChangeEvent.getOldNodeName() + " to "+levelChangeEvent.getNewNodeName());
+            LOG.warn("We're going to save the document header because we've moved from level: " + levelChangeEvent.getOldNodeName() + " to " + levelChangeEvent.getNewNodeName());
             getBusinessObjectService().save(getFinancialSystemDocumentHeader());
         }
         super.doRouteLevelChange(levelChangeEvent);
@@ -231,17 +232,17 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
 
     @Override
     public boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("No split node logic defined for split node "+nodeName+" on " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("No split node logic defined for split node " + nodeName + " on " + this.getClass().getSimpleName());
     }
 
     /**
      * @return the default implementation of the ParameterService
      */
     protected ParameterService getParameterService() {
-       if (parameterService == null) {
-           parameterService = SpringContext.getBean(ParameterService.class);
-       }
-       return parameterService;
+        if (parameterService == null) {
+            parameterService = SpringContext.getBean(ParameterService.class);
+        }
+        return parameterService;
     }
 
     /**

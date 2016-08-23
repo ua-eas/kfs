@@ -28,23 +28,22 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public enum LineItemReceivingItemFixture {
 
     NORMAL_ITEM_1(
-            new Integer(0), //receivingLineItemIdentifier;
-            "", //documentNumber;
-            new Integer(0), //purchaseOrderIdentifier;
-            new Integer(1), //itemLineNumber;
-            "ITEM", //itemTypeCode;
-            "BX", //itemUnitOfMeasureCode;
-            new KualiDecimal(30), //itemOrderedQuantity;
-            "", //itemCatalogNumber;
-            "red staplers", //itemDescription;
-            new KualiDecimal(30), //itemReceivedTotalQuantity;
-            new KualiDecimal(0), //itemReturnedTotalQuantity;
-            new KualiDecimal(0), //itemDamagedTotalQuantity;
-            "", //itemReasonAddedCode;
-            new KualiDecimal(0), //itemReceivedPriorQuantity;
-            new KualiDecimal(30) //itemReceivedToBeQuantity;
-    )
-    ;
+        new Integer(0), //receivingLineItemIdentifier;
+        "", //documentNumber;
+        new Integer(0), //purchaseOrderIdentifier;
+        new Integer(1), //itemLineNumber;
+        "ITEM", //itemTypeCode;
+        "BX", //itemUnitOfMeasureCode;
+        new KualiDecimal(30), //itemOrderedQuantity;
+        "", //itemCatalogNumber;
+        "red staplers", //itemDescription;
+        new KualiDecimal(30), //itemReceivedTotalQuantity;
+        new KualiDecimal(0), //itemReturnedTotalQuantity;
+        new KualiDecimal(0), //itemDamagedTotalQuantity;
+        "", //itemReasonAddedCode;
+        new KualiDecimal(0), //itemReceivedPriorQuantity;
+        new KualiDecimal(30) //itemReceivedToBeQuantity;
+    );
 
 
     public Integer receivingLineItemIdentifier;
@@ -67,10 +66,10 @@ public enum LineItemReceivingItemFixture {
      * Private Constructor.
      */
     private LineItemReceivingItemFixture(
-            Integer receivingLineItemIdentifier, String documentNumber, Integer purchaseOrderIdentifier, Integer itemLineNumber,
-            String itemTypeCode, String itemUnitOfMeasureCode, KualiDecimal itemOrderedQuantity, String itemCatalogNumber,
-            String itemDescription, KualiDecimal itemReceivedTotalQuantity, KualiDecimal itemReturnedTotalQuantity,
-            KualiDecimal itemDamagedTotalQuantity, String itemReasonAddedCode, KualiDecimal itemReceivedPriorQuantity, KualiDecimal itemReceivedToBeQuantity) {
+        Integer receivingLineItemIdentifier, String documentNumber, Integer purchaseOrderIdentifier, Integer itemLineNumber,
+        String itemTypeCode, String itemUnitOfMeasureCode, KualiDecimal itemOrderedQuantity, String itemCatalogNumber,
+        String itemDescription, KualiDecimal itemReceivedTotalQuantity, KualiDecimal itemReturnedTotalQuantity,
+        KualiDecimal itemDamagedTotalQuantity, String itemReasonAddedCode, KualiDecimal itemReceivedPriorQuantity, KualiDecimal itemReceivedToBeQuantity) {
 
         this.receivingLineItemIdentifier = receivingLineItemIdentifier;
         this.documentNumber = documentNumber;

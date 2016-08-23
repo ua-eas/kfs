@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.country.CountryEbo;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PriorYearOrganization extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -598,17 +598,17 @@ public class PriorYearOrganization extends PersistableBusinessObjectBase impleme
      * @return Returns the organizationPhysicalCampus
      */
     public CampusEbo getOrganizationPhysicalCampus() {
-        if ( StringUtils.isBlank(organizationPhysicalCampusCode) ) {
+        if (StringUtils.isBlank(organizationPhysicalCampusCode)) {
             organizationPhysicalCampus = null;
         } else {
-            if ( organizationPhysicalCampus == null || !StringUtils.equals( organizationPhysicalCampus.getCode(),organizationPhysicalCampusCode) ) {
+            if (organizationPhysicalCampus == null || !StringUtils.equals(organizationPhysicalCampus.getCode(), organizationPhysicalCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationPhysicalCampusCode);
                     organizationPhysicalCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -745,17 +745,17 @@ public class PriorYearOrganization extends PersistableBusinessObjectBase impleme
      * @return Returns the organizationCountry.
      */
     public CountryEbo getOrganizationCountry() {
-        if ( StringUtils.isBlank(organizationCountryCode) ) {
+        if (StringUtils.isBlank(organizationCountryCode)) {
             organizationCountry = null;
         } else {
-            if ( organizationCountry == null || !StringUtils.equals( organizationCountry.getCode(),organizationCountryCode) ) {
+            if (organizationCountry == null || !StringUtils.equals(organizationCountry.getCode(), organizationCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationCountryCode);
                     organizationCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }

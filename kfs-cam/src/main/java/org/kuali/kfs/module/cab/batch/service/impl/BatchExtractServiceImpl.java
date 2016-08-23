@@ -18,23 +18,14 @@
  */
 package org.kuali.kfs.module.cab.batch.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
@@ -73,12 +64,21 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides default implementation of {@link BatchExtractService}
@@ -126,8 +126,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             }
             processLog.setFinishTime(dateTimeService.getCurrentTimestamp());
             processLog.setSuccess(true);
-        }
-        else {
+        } else {
             LOG.warn("****** No records processed during CAB Extract *******");
             processLog.setSuccess(false);
             processLog.setErrorMessage("No GL records were found for CAB processing.");
@@ -300,9 +299,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
         java.util.Date yesterday = DateUtils.add(dateTimeService.getCurrentDate(), Calendar.DAY_OF_MONTH, -1);
         try {
-            lastRunTime = lastRunTS == null ? new Timestamp(yesterday.getTime()) : new Timestamp(DateUtils.parseDate(lastRunTS, new String[] { CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME }).getTime());
-        }
-        catch (ParseException e) {
+            lastRunTime = lastRunTS == null ? new Timestamp(yesterday.getTime()) : new Timestamp(DateUtils.parseDate(lastRunTS, new String[]{CabConstants.DateFormats.MONTH_DAY_YEAR + " " + CabConstants.DateFormats.MILITARY_TIME}).getTime());
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         return lastRunTime;
@@ -318,9 +316,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         String lastRunTS = parameterService.getParameterValueAsString(PreAssetTaggingStep.class, CabConstants.Parameters.LAST_EXTRACT_DATE);
         java.util.Date yesterday = DateUtils.add(dateTimeService.getCurrentDate(), Calendar.DAY_OF_MONTH, -1);
         try {
-            lastRunDt = lastRunTS == null ? new java.sql.Date(yesterday.getTime()) : new java.sql.Date(DateUtils.parseDate(lastRunTS, new String[] { CabConstants.DateFormats.MONTH_DAY_YEAR }).getTime());
-        }
-        catch (ParseException e) {
+            lastRunDt = lastRunTS == null ? new java.sql.Date(yesterday.getTime()) : new java.sql.Date(DateUtils.parseDate(lastRunTS, new String[]{CabConstants.DateFormats.MONTH_DAY_YEAR}).getTime());
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         return lastRunDt;
@@ -338,12 +335,10 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             if (fpLine.getTransactionLedgerEntryAmount() == null || fpLine.getTransactionLedgerEntryAmount().isZero()) {
                 // amount is zero or null
                 processLog.addIgnoredGLEntry(fpLine);
-            }
-            else if (reconciliationService.isDuplicateEntry(fpLine)) {
+            } else if (reconciliationService.isDuplicateEntry(fpLine)) {
                 // GL is duplicate
                 processLog.addDuplicateGLEntry(fpLine);
-            }
-            else {
+            } else {
                 GeneralLedgerEntry glEntry = new GeneralLedgerEntry(fpLine);
                 businessObjectService.save(glEntry);
             }
@@ -459,8 +454,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                         assetAccount = createPurchasingAccountsPayableLineAssetAccount(generalLedgerEntry, cabPurapDoc, purApAccountingLine, itemAsset);
                         assetAcctLines.put(acctLineKey, assetAccount);
                         itemAsset.getPurchasingAccountsPayableLineAssetAccounts().add(assetAccount);
-                    }
-                    else if (!nonZero || hasPositiveAndNegative) {
+                    } else if (!nonZero || hasPositiveAndNegative) {
                         // if amount is zero, means canceled doc, then create a copy and retain the account line
                         KualiDecimal purapAmount = purApAccountingLine.getAmount();
 
@@ -493,8 +487,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
                         // decide if current accounting line should be consolidated into debit or credit entry based on the above criteria
                         boolean isDebitEntry = hasRevisionWithMixedLines ?
-                                (usuallyNegative ?  !isPositive : isPositive) :   // case 2.2
-                                (isPREQ ? isPositive : !isPositive);              // case 1.1/1.2/2.1
+                            (usuallyNegative ? !isPositive : isPositive) :   // case 2.2
+                            (isPREQ ? isPositive : !isPositive);              // case 1.1/1.2/2.1
                         GeneralLedgerEntry currentEntry = isDebitEntry ? debitEntry : creditEntry;
 
                         // during calculation, regard D/C code as a +/- sign in front of the amount
@@ -506,8 +500,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
 
                         assetAccount = createPurchasingAccountsPayableLineAssetAccount(currentEntry, cabPurapDoc, purApAccountingLine, itemAsset);
                         itemAsset.getPurchasingAccountsPayableLineAssetAccounts().add(assetAccount);
-                    }
-                    else if (ObjectUtils.isNotNull(assetAccount)) {
+                    } else if (ObjectUtils.isNotNull(assetAccount)) {
                         // if account line key matches within same GL Entry, combine the amount
                         assetAccount.setItemAccountTotalAmount(assetAccount.getItemAccountTotalAmount().add(purApAccountingLine.getAmount()));
                     }
@@ -549,8 +542,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 if (newApDoc) {
                     purApDocuments.add(cabPurapDoc);
                 }
-            }
-            else {
+            } else {
                 LOG.error("Could not create a valid PurchasingAccountsPayableDocument object for document number " + entry.getDocumentNumber());
             }
         }
@@ -563,10 +555,10 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     private boolean isItemTypeUsuallyOfNegativeAmount(String itemTypeCode) {
         return PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE.equals(itemTypeCode) ||
-        PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE.equals(itemTypeCode) ||
-        //TODO remove the following logic about MISC item when bug in KFSMI-10170 is fixed
-        //MISC is included here temporarily for testing, since it's used as TRDI and ORDS, which don't work due to bug
-        PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(itemTypeCode);
+            PurapConstants.ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE.equals(itemTypeCode) ||
+            //TODO remove the following logic about MISC item when bug in KFSMI-10170 is fixed
+            //MISC is included here temporarily for testing, since it's used as TRDI and ORDS, which don't work due to bug
+            PurapConstants.ItemTypeCodes.ITEM_TYPE_MISC_CODE.equals(itemTypeCode);
     }
 
     /**
@@ -587,15 +579,13 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             PurApItem purapItem = purApAccountingLine.getPurapItem();
             if (isItemTypeUsuallyOfNegativeAmount(purapItem.getItemTypeCode())) {
                 hasItemsUsuallyNegative = true;
-            }
-            else {
+            } else {
                 hasOthers = true;
             }
             // when we hit the same item twice within the matched lines, which share the same account, then we find a revision
             if (itemIdentifiers.contains(purApAccountingLine.getItemIdentifier())) {
                 hasRevision = true;
-            }
-            else {
+            } else {
                 itemIdentifiers.add(purApAccountingLine.getItemIdentifier());
             }
             if (hasRevision && hasItemsUsuallyNegative && hasOthers) {
@@ -643,8 +633,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         PurchaseOrderDocument purApdocument = null;
         if (poDocMap.containsKey(cabPurapDoc.getPurchaseOrderIdentifier())) {
             purApdocument = poDocMap.get(cabPurapDoc.getPurchaseOrderIdentifier());
-        }
-        else {
+        } else {
             purApdocument = purApInfoService.getCurrentDocumentForPurchaseOrderIdentifier(cabPurapDoc.getPurchaseOrderIdentifier());
             poDocMap.put(cabPurapDoc.getPurchaseOrderIdentifier(), purApdocument);
         }
@@ -664,8 +653,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 boolean lockingResult = this.getCapitalAssetManagementModuleService().storeAssetLocks(capitalAssetNumbers, cabPurapDoc.getDocumentNumber(), cabPurapDoc.getDocumentTypeCode(), lockingInformation);
                 // add into cache
                 assetLockMap.put(assetLockKey, lockingResult);
-            }
-            else {
+            } else {
                 // remember the decision...
                 assetLockMap.put(assetLockKey, false);
             }
@@ -735,10 +723,10 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     /**
      * Creates a new instance of PurchasingAccountsPayableLineAssetAccount using values provided from dependent objects
      *
-     * @param generalLedgerEntry General Ledger Entry record
-     * @param cabPurapDoc CAB PurAp Document
+     * @param generalLedgerEntry  General Ledger Entry record
+     * @param cabPurapDoc         CAB PurAp Document
      * @param purApAccountingLine PurAp accounting line
-     * @param itemAsset CAB PurAp Item Asset
+     * @param itemAsset           CAB PurAp Item Asset
      * @return New PurchasingAccountsPayableLineAssetAccount
      */
     protected PurchasingAccountsPayableLineAssetAccount createPurchasingAccountsPayableLineAssetAccount(GeneralLedgerEntry generalLedgerEntry, PurchasingAccountsPayableDocument cabPurapDoc, PurApAccountingLineBase purApAccountingLine, PurchasingAccountsPayableItemAsset itemAsset) {
@@ -749,8 +737,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         assetAccount.setGeneralLedgerAccountIdentifier(generalLedgerEntry.getGeneralLedgerAccountIdentifier());
         if (CabConstants.CM.equals(generalLedgerEntry.getFinancialDocumentTypeCode())) {
             assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount().negated());
-        }
-        else {
+        } else {
             assetAccount.setItemAccountTotalAmount(purApAccountingLine.getAmount());
         }
         assetAccount.setActivityStatusCode(CabConstants.ActivityStatusCode.NEW);
@@ -761,7 +748,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     /**
      * Updates the entries into process log
      *
-     * @param processLog Extract Process Log
+     * @param processLog            Extract Process Log
      * @param reconciliationService Reconciliation Service data
      */
     protected void updateProcessLog(ExtractProcessLog processLog, ReconciliationService reconciliationService) {
@@ -791,7 +778,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      * Creates a new PurchasingAccountsPayableItemAsset using Purchasing Accounts payable item
      *
      * @param cabPurapDoc Cab Purap Document
-     * @param apItem Accounts Payable Item
+     * @param apItem      Accounts Payable Item
      * @return PurchasingAccountsPayableItemAsset
      */
     protected PurchasingAccountsPayableItemAsset createPurchasingAccountsPayableItemAsset(PurchasingAccountsPayableDocument cabPurapDoc, PurApItem apItem) {
@@ -833,15 +820,13 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
             // find PREQ
             apDoc = findPaymentRequestDocument(entry);
-        }
-        else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+        } else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
             // find CM
             apDoc = findCreditMemoDocument(entry);
         }
         if (apDoc == null) {
             LOG.error("A valid Purchasing Document (PREQ or CM) could not be found for this document number " + entry.getDocumentNumber());
-        }
-        else {
+        } else {
             cabPurapDoc = new PurchasingAccountsPayableDocument();
             cabPurapDoc.setDocumentNumber(entry.getDocumentNumber());
             cabPurapDoc.setPurapDocumentIdentifier(apDoc.getPurapDocumentIdentifier());
@@ -857,7 +842,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      * Finds out the active CAB Asset Item matching the line from PurAP.
      *
      * @param cabPurapDoc CAB PurAp document
-     * @param apItem AP Item
+     * @param apItem      AP Item
      * @return PurchasingAccountsPayableItemAsset
      */
     protected PurchasingAccountsPayableItemAsset findMatchingPurapAssetItem(PurchasingAccountsPayableDocument cabPurapDoc, PurApItem apItem) {
@@ -872,16 +857,16 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                     }
                 }
             }
-        }
-        else {
+        } else {
             LOG.error("expecting the CAB AP document not null");
         }
 
         return null;
     }
+
     /**
      * @see org.kuali.kfs.module.cab.batch.service.BatchExtractService#separatePOLines(java.util.List, java.util.List,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     @Override
     @NonTransactional
@@ -889,11 +874,9 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         for (Entry entry : elgibleGLEntries) {
             if (CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
                 purapLines.add(entry);
-            }
-            else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            } else if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 fpLines.add(entry);
-            }
-            else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+            } else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                 Map<String, String> fieldValues = new HashMap<String, String>();
                 fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.DOCUMENT_NUMBER, entry.getDocumentNumber());
                 // check if vendor credit memo, then include as FP line
@@ -901,8 +884,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
                 for (VendorCreditMemoDocument creditMemoDocument : matchingCreditMemos) {
                     if (creditMemoDocument.getPurchaseOrderIdentifier() == null) {
                         fpLines.add(entry);
-                    }
-                    else {
+                    } else {
                         purapLines.add(entry);
                     }
                 }
@@ -974,8 +956,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             // This should pick up all types of POs (Amendments, Voids, etc)
             poDocuments = (List<PurchaseOrderDocument>) SpringContext.getBean(FinancialSystemDocumentService.class).findByApplicationDocumentStatus(
                 PurchaseOrderDocument.class, CabConstants.PO_STATUS_CODE_OPEN);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException(we);
         }
         for (PurchaseOrderDocument poDocument : poDocuments) {

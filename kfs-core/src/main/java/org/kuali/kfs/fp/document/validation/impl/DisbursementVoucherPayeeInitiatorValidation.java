@@ -22,6 +22,8 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -34,10 +36,8 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
-public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidation implements DisbursementVoucherConstants{
+public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPayeeInitiatorValidation.class);
 
     private AccountingDocument accountingDocumentForValidation;
@@ -71,7 +71,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
             }
         }
         // If payee is an employee, then pull payee from employee table
-        else if(payeeDetail.isEmployee()) {
+        else if (payeeDetail.isEmployee()) {
             uuid = payeeDetail.getDisbVchrEmployeeIdNumber();
         }
 
@@ -92,7 +92,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
     /**
      * Retrieves the VendorDetail object from the vendor id number.
      *
-     * @param vendorIdNumber vendor ID number
+     * @param vendorIdNumber       vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
      */
@@ -131,6 +131,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -139,6 +140,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

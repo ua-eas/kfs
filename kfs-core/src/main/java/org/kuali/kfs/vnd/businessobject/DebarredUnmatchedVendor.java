@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.vnd.businessobject;
 
-public class DebarredUnmatchedVendor extends VendorDetail{
+public class DebarredUnmatchedVendor extends VendorDetail {
     private String vendorTypeCode;
 
     /**
      * Gets the vendorTypeCode attribute.
+     *
      * @return Returns the vendorTypeCode.
      */
     public String getVendorTypeCode() {
@@ -31,6 +32,7 @@ public class DebarredUnmatchedVendor extends VendorDetail{
 
     /**
      * Sets the vendorTypeCode attribute value.
+     *
      * @param vendorTypeCode The vendorTypeCode to set.
      */
     public void setVendorTypeCode(String vendorTypeCode) {

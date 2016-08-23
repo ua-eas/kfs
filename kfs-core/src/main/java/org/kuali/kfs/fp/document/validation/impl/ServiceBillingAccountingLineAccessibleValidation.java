@@ -20,6 +20,9 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.authorization.ServiceBillingDocumentAuthorizer;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -33,9 +36,6 @@ import org.kuali.kfs.sys.document.validation.event.DeleteAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -61,13 +61,14 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
     /**
      * Validates that the given accounting line is accessible for editing by the current user.
      * <strong>This method expects a document as the first parameter and an accounting line as the second</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
 
         if (accountingDocumentForValidation instanceof Correctable) {
-            final String errorDocumentNumber = ((FinancialSystemDocumentHeader)accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
+            final String errorDocumentNumber = ((FinancialSystemDocumentHeader) accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
             if (StringUtils.isNotBlank(errorDocumentNumber))
                 return true;
         }
@@ -77,16 +78,16 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
             return true; // all target lines are accessible PreRoute, no matter the account
         }
 
-        final boolean isAccessible = new ServiceBillingDocumentAuthorizer().canModifyAccountingLine(accountingDocumentForValidation, accountingLineForValidation,  currentUser);
+        final boolean isAccessible = new ServiceBillingDocumentAuthorizer().canModifyAccountingLine(accountingDocumentForValidation, accountingLineForValidation, currentUser);
 
         // report errors
         if (!isAccessible) {
             final String principalName = currentUser.getPrincipalName();
 
-            final String[] chartErrorParams = new String[] { getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE), accountingLineForValidation.getChartOfAccountsCode(),  principalName};
+            final String[] chartErrorParams = new String[]{getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE), accountingLineForValidation.getChartOfAccountsCode(), principalName};
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, convertEventToMessage(event), chartErrorParams);
 
-            final String[] accountErrorParams = new String[] { getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.ACCOUNT_NUMBER), accountingLineForValidation.getAccountNumber(), principalName };
+            final String[] accountErrorParams = new String[]{getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.ACCOUNT_NUMBER), accountingLineForValidation.getAccountNumber(), principalName};
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, convertEventToMessage(event), accountErrorParams);
         }
 
@@ -96,6 +97,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Determines what error message should be shown based on the event that required this validation
+     *
      * @param event the event to use to determine the error message
      * @return the key of the error message to display
      */
@@ -113,6 +115,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -121,6 +124,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -129,6 +133,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -137,6 +142,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -145,6 +151,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -153,6 +160,7 @@ public class ServiceBillingAccountingLineAccessibleValidation extends GenericVal
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

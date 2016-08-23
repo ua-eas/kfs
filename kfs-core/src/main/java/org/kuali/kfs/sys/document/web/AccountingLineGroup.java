@@ -20,12 +20,11 @@ package org.kuali.kfs.sys.document.web;
 
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
-import java.util.List;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.Tag;
+import java.util.List;
 
 
 public interface AccountingLineGroup {
@@ -34,12 +33,13 @@ public interface AccountingLineGroup {
      * Renders the whole of this accounting line group
      *
      * @param pageContext the page context to render to
-     * @param parentTag the AccountingLinesTag that is requesting this rendering
+     * @param parentTag   the AccountingLinesTag that is requesting this rendering
      */
     public abstract void renderEverything(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException;
 
     /**
      * Determines if the totals for the accounting line group should be rendered
+     *
      * @return true if the totals should be rendered, false otherwise
      */
     public abstract boolean shouldRenderTotals();
@@ -94,6 +94,7 @@ public interface AccountingLineGroup {
 
     /**
      * Gets the collectionItemPropertyName attribute.
+     *
      * @return Returns the collectionItemPropertyName.
      */
     public abstract String getCollectionItemPropertyName();

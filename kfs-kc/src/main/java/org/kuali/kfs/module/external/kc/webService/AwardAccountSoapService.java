@@ -18,29 +18,29 @@
  */
 package org.kuali.kfs.module.external.kc.webService;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kra.external.award.AwardAccountService;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
-
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kra.external.award.AwardAccountService;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @WebServiceClient(name = KcConstants.AwardAccount.SOAP_SERVICE_NAME,
-                  wsdlLocation = "http://test.kc.kuali.org/kc-trunk/remoting/awardAccountSoapService?wsdl",
-                  targetNamespace = KcConstants.KC_NAMESPACE_URI)
+    wsdlLocation = "http://test.kc.kuali.org/kc-trunk/remoting/awardAccountSoapService?wsdl",
+    targetNamespace = KcConstants.KC_NAMESPACE_URI)
 public class AwardAccountSoapService extends KfsKcSoapService {
 
     public final static QName awardAccountServicePort = new QName(KcConstants.KC_NAMESPACE_URI, KcConstants.AwardAccount.SERVICE_PORT);
+
     static {
         try {
-           getWsdl(KcConstants.AwardAccount.SERVICE);
-         } catch (MalformedURLException e) {
-             LOG.warn("Can not initialize the wsdl");
-         }
+            getWsdl(KcConstants.AwardAccount.SERVICE);
+        } catch (MalformedURLException e) {
+            LOG.warn("Can not initialize the wsdl");
+        }
     }
 
     public AwardAccountSoapService() throws MalformedURLException {
@@ -49,9 +49,7 @@ public class AwardAccountSoapService extends KfsKcSoapService {
 
 
     /**
-     *
-     * @return
-     *     returns AwardAccountService
+     * @return returns AwardAccountService
      */
     @WebEndpoint(name = "awardAccountServicePort")
     public AwardAccountService getAwardAccountServicePort() {
@@ -59,11 +57,8 @@ public class AwardAccountSoapService extends KfsKcSoapService {
     }
 
     /**
-     *
-     * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
-     * @return
-     *     returns AwardAccountService
+     * @param features A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     * @return returns AwardAccountService
      */
     @WebEndpoint(name = "awardAccountServicePort")
     public AwardAccountService getAwardAccountServicePort(WebServiceFeature... features) {

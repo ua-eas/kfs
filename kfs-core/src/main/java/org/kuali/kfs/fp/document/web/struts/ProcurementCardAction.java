@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -35,6 +26,11 @@ import org.apache.struts.upload.FormFile;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -47,11 +43,15 @@ import org.kuali.kfs.sys.document.validation.event.DeleteAccountingLineEvent;
 import org.kuali.kfs.sys.exception.AccountingLineParserException;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * This class handles specific Actions requests for the ProcurementCard.
  */
@@ -61,9 +61,9 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.loadDocument(kualiDocumentFormBase);
-        ProcurementCardDocument procureCardDocument = (ProcurementCardDocument)kualiDocumentFormBase.getDocument();
+        ProcurementCardDocument procureCardDocument = (ProcurementCardDocument) kualiDocumentFormBase.getDocument();
         int transactionsCount = procureCardDocument.getTransactionEntries().size();
-        ProcurementCardForm procurementCardForm = (ProcurementCardForm)kualiDocumentFormBase;
+        ProcurementCardForm procurementCardForm = (ProcurementCardForm) kualiDocumentFormBase;
         procurementCardForm.buildNewTargetAccountingLines(transactionsCount);
     }
 
@@ -90,7 +90,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
      * Override to add the new accounting line to the correct transaction
      *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#insertTargetLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -98,7 +98,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
         ProcurementCardDocument procurementCardDocument = (ProcurementCardDocument) procurementCardForm.getDocument();
 
         int targetContainerIndex = this.getSelectedContainer(request);
-        ProcurementCardTargetAccountingLine line = (ProcurementCardTargetAccountingLine)procurementCardForm.getNewTargetLines().get(targetContainerIndex);
+        ProcurementCardTargetAccountingLine line = (ProcurementCardTargetAccountingLine) procurementCardForm.getNewTargetLines().get(targetContainerIndex);
 
         ProcurementCardTransactionDetail transactionDetail = (ProcurementCardTransactionDetail) procurementCardDocument.getTransactionEntries().get(targetContainerIndex);
         line.setFinancialDocumentTransactionLineNumber(transactionDetail.getFinancialDocumentTransactionLineNumber());
@@ -122,7 +122,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#performBalanceInquiryForTargetLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward performBalanceInquiryForTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -143,7 +143,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
      * at the end.
      *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#insertAccountingLine(boolean,
-     *      org.kuali.module.financial.web.struts.form.KualiFinancialDocumentFormBase, org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.module.financial.web.struts.form.KualiFinancialDocumentFormBase, org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     protected void insertAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, AccountingLine line) {
@@ -171,9 +171,8 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
         // if the rule evaluation passed, let's delete it
         if (rulePassed) {
             deleteAccountingLineFromTransactionContainer(financialDocumentForm, targetContainerIndex, targetIndex);
-        }
-        else {
-            String[] errorParams = new String[] { "target", Integer.toString(targetIndex + 1) };
+        } else {
+            String[] errorParams = new String[]{"target", Integer.toString(targetIndex + 1)};
             GlobalVariables.getMessageMap().putError(errorPath, KFSKeyConstants.ERROR_ACCOUNTINGLINE_DELETERULE_INVALIDACCOUNT, errorParams);
         }
 
@@ -184,7 +183,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
      * Override to remove the accounting line from the correct transaction
      *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#deleteAccountingLine(boolean,
-     *      org.kuali.module.financial.web.struts.form.KualiFinancialDocumentFormBase, int)
+     * org.kuali.module.financial.web.struts.form.KualiFinancialDocumentFormBase, int)
      */
     @Override
     protected void deleteAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, int deleteIndex) {
@@ -196,7 +195,7 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
      * Ensures that ProcurementCardForm.newTargetLines is cleared. Otherwise works like super.reload.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#reload(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward reload(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -230,9 +229,8 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#uploadTargetLines(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward uploadTargetLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -273,14 +271,13 @@ public class ProcurementCardAction extends CapitalAccountingLinesActionBase {
             FormFile targetFile = ((ProcurementCardTransactionDetail) (procurementCardDocument.getTransactionEntries().get(tranasactionIndex))).getTargetFile();
             checkUploadFile(targetFile);
             importedLines = accountingLineParser.importTargetAccountingLines(targetFile.getFileName(), targetFile.getInputStream(), procurementCardDocument);
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             GlobalVariables.getMessageMap().putError(errorPathPrefix, e.getErrorKey(), e.getErrorParameters());
         }
 
         // add line to list for those lines which were successfully imported
         if (importedLines != null) {
-            for (Iterator i = importedLines.iterator(); i.hasNext();) {
+            for (Iterator i = importedLines.iterator(); i.hasNext(); ) {
                 ProcurementCardTargetAccountingLine importedLine = (ProcurementCardTargetAccountingLine) i.next();
                 importedLine.setFinancialDocumentTransactionLineNumber(transactionDetail.getFinancialDocumentTransactionLineNumber());
                 super.insertAccountingLine(false, pcardForm, importedLine);

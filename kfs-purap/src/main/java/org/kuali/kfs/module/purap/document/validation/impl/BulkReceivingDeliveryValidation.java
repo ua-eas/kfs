@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.PostalCodeValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class BulkReceivingDeliveryValidation extends GenericValidation {
 
@@ -32,7 +32,7 @@ public class BulkReceivingDeliveryValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)event.getDocument();
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.BULK_RECEIVING_DELIVERY_TAB_ERRORS);
         valid = postalCodeValidationService.validateAddress(bulkReceivingDocument.getDeliveryCountryCode(), bulkReceivingDocument.getDeliveryStateCode(), bulkReceivingDocument.getDeliveryPostalCode(), PurapPropertyConstants.DELIVERY_STATE_CODE, PurapPropertyConstants.DELIVERY_POSTAL_CODE);

@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants.AccountDistributionMethodCodes;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
@@ -30,7 +31,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -42,26 +42,26 @@ public class PurchaseOrderAmendmentAccountingLineAccessibleValidation extends Pu
     /**
      * Validates that the given accounting line is accessible for editing by the current user.
      * <strong>This method expects a document as the first parameter and an accounting line as the second</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
 
-        if( purapService.isDocumentStoppedInRouteNode((PurchasingAccountsPayableDocument)event.getDocument(), "New Unordered Items") ){
+        if (purapService.isDocumentStoppedInRouteNode((PurchasingAccountsPayableDocument) event.getDocument(), "New Unordered Items")) {
             //DO NOTHING: do not check that user owns acct lines; at this level, they can edit all accounts on PO amendment
             return true;
 
         } else if (SpringContext.getBean(FinancialSystemWorkflowHelperService.class).isAdhocApprovalRequestedForPrincipal(event.getDocument().getDocumentHeader().getWorkflowDocument(), GlobalVariables.getUserSession().getPrincipalId())) {
             return true;
-        }
-        else {
+        } else {
             // KFSCNTRB-1433
             // if it's UpdateAccountingLineEvent and only amount changed due to the proportional distribution, that's ok,
             // since this is the result of item quantity or price change, and the amount change is from re-distributed, not by user.
             if (event instanceof UpdateAccountingLineEvent) {
-                PurchaseOrderAmendmentDocument poa = (PurchaseOrderAmendmentDocument)event.getDocument();
+                PurchaseOrderAmendmentDocument poa = (PurchaseOrderAmendmentDocument) event.getDocument();
                 boolean isProportional = StringUtils.equals(poa.getAccountDistributionMethod(), AccountDistributionMethodCodes.PROPORTIONAL_CODE);
-                boolean onlyAmountChanged = onlyAmountChanged(((UpdateAccountingLineEvent)event).getAccountingLine(), ((UpdateAccountingLineEvent)event).getUpdatedAccountingLine());
+                boolean onlyAmountChanged = onlyAmountChanged(((UpdateAccountingLineEvent) event).getAccountingLine(), ((UpdateAccountingLineEvent) event).getUpdatedAccountingLine());
                 if (isProportional && onlyAmountChanged) {
                     return true;
                 }
@@ -71,14 +71,14 @@ public class PurchaseOrderAmendmentAccountingLineAccessibleValidation extends Pu
             boolean setDummyAccountIdentifier = false;
 
             if (needsDummyAccountIdentifier()) {
-                ((PurApAccountingLine)getAccountingLineForValidation()).setAccountIdentifier(Integer.MAX_VALUE);  // avoid conflicts with any accouting identifier on any other accounting lines in the doc because, you know, you never know...
+                ((PurApAccountingLine) getAccountingLineForValidation()).setAccountIdentifier(Integer.MAX_VALUE);  // avoid conflicts with any accouting identifier on any other accounting lines in the doc because, you know, you never know...
                 setDummyAccountIdentifier = true;
             }
 
             result = super.validate(event);
 
             if (setDummyAccountIdentifier) {
-                ((PurApAccountingLine)getAccountingLineForValidation()).setAccountIdentifier(null);
+                ((PurApAccountingLine) getAccountingLineForValidation()).setAccountIdentifier(null);
             }
 
             return result;

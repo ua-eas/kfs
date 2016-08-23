@@ -18,18 +18,16 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
+import com.lowagie.text.DocumentException;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.kuali.rice.kim.api.identity.Person;
-
-import com.lowagie.text.DocumentException;
-
 /**
  * Describes services related to budget construction request import
- *
  */
 public interface BudgetRequestImportService {
 
@@ -45,7 +43,7 @@ public interface BudgetRequestImportService {
      * @return list of errors encountered during file processing
      * @throws IOException
      */
-    public List processImportFile (InputStream fileImportStream, String principalId, String fieldSeperator, String textDelimiter, String fileType, Integer budgetYear) throws IOException;
+    public List processImportFile(InputStream fileImportStream, String principalId, String fieldSeperator, String textDelimiter, String fileType, Integer budgetYear) throws IOException;
 
     /**
      * Generates the log file
@@ -60,7 +58,6 @@ public interface BudgetRequestImportService {
      * Checks the imported request records for valid data. Sets error codes on invalid records.
      *
      * @return true if no data validation errors were found. false otherwise
-     *
      */
     public List<String> validateData(Integer budgetYear, String principalId);
 

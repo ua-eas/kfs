@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.TestingStep;
+
+import java.util.Date;
 
 /**
  * This step will mark all backup groups in the database so that they will not be scrubbed when the nightly scrubber step runs
@@ -34,7 +34,7 @@ public class MarkScrubbableBackupGroupsAsUnscrubbableStep extends AbstractStep i
     /**
      * Marks all scrubbable backup groups as unscrubbable
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job is being run
      * @return true if the step completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)

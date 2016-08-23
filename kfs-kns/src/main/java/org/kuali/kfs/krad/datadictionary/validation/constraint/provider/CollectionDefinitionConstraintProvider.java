@@ -31,28 +31,26 @@ import java.util.HashMap;
  * An object that looks up constraints for attribute definitions by constraint type. This can either by instantiated by dependency
  * injection, in which case a map of class names to constraint resolvers can be injected, or the default map can be constructed by
  * calling the init() method immediately after instantiation.
- *
- *
  */
 public class CollectionDefinitionConstraintProvider extends BaseConstraintProvider<CollectionDefinition> {
 
-	@Override
-	public void init() {
-		resolverMap = new HashMap<String, ConstraintResolver<CollectionDefinition>>();
-		resolverMap.put(ExistenceConstraint.class.getName(), new DefinitionConstraintResolver<CollectionDefinition>());
-		resolverMap.put(CollectionSizeConstraint.class.getName(), new DefinitionConstraintResolver<CollectionDefinition>());
-	}
+    @Override
+    public void init() {
+        resolverMap = new HashMap<String, ConstraintResolver<CollectionDefinition>>();
+        resolverMap.put(ExistenceConstraint.class.getName(), new DefinitionConstraintResolver<CollectionDefinition>());
+        resolverMap.put(CollectionSizeConstraint.class.getName(), new DefinitionConstraintResolver<CollectionDefinition>());
+    }
 
-	/**
-	 * @see ConstraintProvider#isSupported(Constrainable)
-	 */
-	@Override
-	public boolean isSupported(Constrainable definition) {
+    /**
+     * @see ConstraintProvider#isSupported(Constrainable)
+     */
+    @Override
+    public boolean isSupported(Constrainable definition) {
 
-		if (definition instanceof CollectionDefinition)
-			return true;
+        if (definition instanceof CollectionDefinition)
+            return true;
 
-		return false;
-	}
+        return false;
+    }
 
 }

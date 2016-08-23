@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Date;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -28,8 +28,8 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Date;
 
 public class PurchasingPaymentInfoValidation extends GenericValidation {
 
@@ -38,7 +38,7 @@ public class PurchasingPaymentInfoValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PurchasingDocument purDocument = (PurchasingDocument)event.getDocument();
+        PurchasingDocument purDocument = (PurchasingDocument) event.getDocument();
 
         GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.PAYMENT_INFO_ERRORS);
         valid &= checkBeginDateBeforeEndDate(purDocument);
@@ -46,8 +46,7 @@ public class PurchasingPaymentInfoValidation extends GenericValidation {
             if (ObjectUtils.isNotNull(purDocument.getPurchaseOrderBeginDate()) && ObjectUtils.isNull(purDocument.getPurchaseOrderEndDate())) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_END_DATE, PurapKeyConstants.ERROR_PURCHASE_ORDER_BEGIN_DATE_NO_END_DATE);
                 valid &= false;
-            }
-            else {
+            } else {
                 if (ObjectUtils.isNull(purDocument.getPurchaseOrderBeginDate()) && ObjectUtils.isNotNull(purDocument.getPurchaseOrderEndDate())) {
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_BEGIN_DATE, PurapKeyConstants.ERROR_PURCHASE_ORDER_END_DATE_NO_BEGIN_DATE);
                     valid &= false;
@@ -60,8 +59,7 @@ public class PurchasingPaymentInfoValidation extends GenericValidation {
 
                 valid &= false;
             }
-        }
-        else if (valid && ObjectUtils.isNotNull(purDocument.getRecurringPaymentTypeCode())) {
+        } else if (valid && ObjectUtils.isNotNull(purDocument.getRecurringPaymentTypeCode())) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_BEGIN_DATE, PurapKeyConstants.ERROR_RECURRING_TYPE_NO_DATE);
             valid &= false;
         }
@@ -73,7 +71,7 @@ public class PurchasingPaymentInfoValidation extends GenericValidation {
 
             //if recurring payment begin dates entered, begin date must be > closing date
             if (ObjectUtils.isNotNull(purDocument.getPurchaseOrderBeginDate()) &&
-                   (purDocument.getPurchaseOrderBeginDate().before(closingDate) ||
+                (purDocument.getPurchaseOrderBeginDate().before(closingDate) ||
                     purDocument.getPurchaseOrderBeginDate().equals(closingDate))) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_BEGIN_DATE, PurapKeyConstants.ERROR_NEXT_FY_BEGIN_DATE_INVALID);
                 valid &= false;

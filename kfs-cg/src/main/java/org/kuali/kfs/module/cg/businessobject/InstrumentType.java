@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsInstrumentType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
-* Instrument Types under Contracts & Grants section.
+ * Instrument Types under Contracts & Grants section.
  */
 
 public class InstrumentType extends PersistableBusinessObjectBase implements ContractsAndGrantsInstrumentType, MutableInactivatable {

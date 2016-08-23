@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.web.TableJoining;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data dictionary definition of information about how to render an accounting line.
@@ -35,6 +35,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
     /**
      * Checks that this accounting line view has at least one child renderable element.  Also checks
      * that none of its direct children elements are "line" elements
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -51,6 +52,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Gets the elements attribute.
+     *
      * @return Returns the elements.
      */
     public List<AccountingLineViewRenderableElementDefinition> getElements() {
@@ -59,6 +61,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Sets the elements attribute value.
+     *
      * @param elements The elements to set.
      */
     public void setElements(List<AccountingLineViewRenderableElementDefinition> elements) {
@@ -67,6 +70,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Creates a list of layout elements for this accounting line view
+     *
      * @param accountingLineClass the class of the accounting line to be rendered by this view
      * @return a List of TableJoining layout elements that represent how the accounting line should be rendered
      */

@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PREQDocumentsStrings;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -37,9 +40,6 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.KualiRuleService;
 
 /**
  * Business pre rule(s) applicable to Payment Request documents.
@@ -85,7 +85,6 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
         }
 
 
-
         preRulesOK &= super.doPrompts(document);
         return preRulesOK;
     }
@@ -93,7 +92,7 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
     /**
      * Prompts user to confirm with a Yes or No to a question being asked.
      *
-     * @param questionType - type of question
+     * @param questionType    - type of question
      * @param messageConstant - key to retrieve message
      * @return - true if overriding, false otherwise
      */
@@ -102,8 +101,7 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
         String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(messageConstant);
         if (questionText.contains("{")) {
             questionText = prepareQuestionText(questionType, questionText);
-        }
-        else if (StringUtils.equals(messageConstant, KFSKeyConstants.ERROR_ACCOUNT_EXPIRED) || StringUtils.equals(messageConstant,PurapKeyConstants.WARNING_ITEM_TRADE_IN_AMOUNT_UNUSED)) {
+        } else if (StringUtils.equals(messageConstant, KFSKeyConstants.ERROR_ACCOUNT_EXPIRED) || StringUtils.equals(messageConstant, PurapKeyConstants.WARNING_ITEM_TRADE_IN_AMOUNT_UNUSED)) {
             questionText = questionType;
         }
 
@@ -200,7 +198,7 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
      * @see org.kuali.kfs.module.purap.document.validation.impl.AccountsPayableDocumentPreRulesBase#createInvoiceNoMatchQuestionText(org.kuali.kfs.module.purap.document.AccountsPayableDocument)
      */
     @Override
-    public String createInvoiceNoMatchQuestionText(AccountsPayableDocument accountsPayableDocument){
+    public String createInvoiceNoMatchQuestionText(AccountsPayableDocument accountsPayableDocument) {
 
         String questionText = super.createInvoiceNoMatchQuestionText(accountsPayableDocument);
 
@@ -211,27 +209,28 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
         questionTextBuffer.append(questionText);
 
         questionTextBuffer.append("[br][br][b]Summary Detail Below:[b][br][br][table questionTable]");
-        questionTextBuffer.append("[tr][td left]Vendor Invoice Amount entered on start screen:[/td][td right]" + (String)cf.format(preq.getInitialAmount()) + "[/td][/tr]");
-        questionTextBuffer.append("[tr][td left]Invoice Total Prior to Additional Charges:[/td][td right]" + (String)cf.format(preq.getTotalPreTaxDollarAmountAboveLineItems()) + "[/td][/tr]");
+        questionTextBuffer.append("[tr][td left]Vendor Invoice Amount entered on start screen:[/td][td right]" + (String) cf.format(preq.getInitialAmount()) + "[/td][/tr]");
+        questionTextBuffer.append("[tr][td left]Invoice Total Prior to Additional Charges:[/td][td right]" + (String) cf.format(preq.getTotalPreTaxDollarAmountAboveLineItems()) + "[/td][/tr]");
 
 
         //only add this line if payment request has a discount
-        if( preq.isDiscount() ){
-           questionTextBuffer.append("[tr][td left]Total Before Discount:[/td][td right]" + (String)cf.format(preq.getGrandPreTaxTotalExcludingDiscount()) + "[/td][/tr]");
+        if (preq.isDiscount()) {
+            questionTextBuffer.append("[tr][td left]Total Before Discount:[/td][td right]" + (String) cf.format(preq.getGrandPreTaxTotalExcludingDiscount()) + "[/td][/tr]");
         }
 
         //if sales tax is enabled, show additional summary lines
         boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
-        if(salesTaxInd){
-            questionTextBuffer.append("[tr][td left]Grand Total Prior to Tax:[/td][td right]" + (String)cf.format(preq.getGrandPreTaxTotal()) + "[/td][/tr]");
-            questionTextBuffer.append("[tr][td left]Grand Total Tax:[/td][td right]" + (String)cf.format(preq.getGrandTaxAmount()) + "[/td][/tr]");
+        if (salesTaxInd) {
+            questionTextBuffer.append("[tr][td left]Grand Total Prior to Tax:[/td][td right]" + (String) cf.format(preq.getGrandPreTaxTotal()) + "[/td][/tr]");
+            questionTextBuffer.append("[tr][td left]Grand Total Tax:[/td][td right]" + (String) cf.format(preq.getGrandTaxAmount()) + "[/td][/tr]");
         }
 
-        questionTextBuffer.append("[tr][td left]Grand Total:[/td][td right]" + (String)cf.format(preq.getGrandTotal()) + "[/td][/tr][/table]");
+        questionTextBuffer.append("[tr][td left]Grand Total:[/td][td right]" + (String) cf.format(preq.getGrandTotal()) + "[/td][/tr][/table]");
 
         return questionTextBuffer.toString();
 
     }
+
     @Override
     protected boolean checkCAMSWarningStatus(PurchasingAccountsPayableDocument purapDocument) {
         return PurapConstants.CAMSWarningStatuses.PAYMENT_REQUEST_STATUS_WARNING_NO_CAMS_DATA.contains(purapDocument.getApplicationDocumentStatus());
@@ -247,7 +246,7 @@ public class PaymentRequestDocumentPreRules extends AccountsPayableDocumentPreRu
     protected boolean validateInvoiceTotalsAreMismatched(AccountsPayableDocument accountsPayableDocument) {
         boolean mismatched = false;
         PaymentRequestDocument payReqDoc = (PaymentRequestDocument) accountsPayableDocument;
-        String[] excludeArray = { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] excludeArray = {PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
 
         //  if UseTax is included, then the invoiceInitialAmount should be compared against the
         // total amount NOT INCLUDING tax

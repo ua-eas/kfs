@@ -25,47 +25,47 @@ import java.util.Map;
 
 public class AttributeValidationResult implements Serializable {
 
-	private String attributeName;
-	private Map<String, ConstraintValidationResult> constraintValidationResultMap;
+    private String attributeName;
+    private Map<String, ConstraintValidationResult> constraintValidationResultMap;
 
-	public AttributeValidationResult(String attributeName) {
-		this.attributeName = attributeName;
-		this.constraintValidationResultMap = new LinkedHashMap<String, ConstraintValidationResult>();
-	}
+    public AttributeValidationResult(String attributeName) {
+        this.attributeName = attributeName;
+        this.constraintValidationResultMap = new LinkedHashMap<String, ConstraintValidationResult>();
+    }
 
-	public void addConstraintValidationResult(ConstraintValidationResult constraintValidationResult) {
-		constraintValidationResultMap.put(constraintValidationResult.getConstraintName(), constraintValidationResult);
-	}
+    public void addConstraintValidationResult(ConstraintValidationResult constraintValidationResult) {
+        constraintValidationResultMap.put(constraintValidationResult.getConstraintName(), constraintValidationResult);
+    }
 
-	public Iterator<ConstraintValidationResult> iterator() {
-		return constraintValidationResultMap.values().iterator();
-	}
+    public Iterator<ConstraintValidationResult> iterator() {
+        return constraintValidationResultMap.values().iterator();
+    }
 
-	protected ConstraintValidationResult getConstraintValidationResult(String constraintName) {
-		ConstraintValidationResult constraintValidationResult = constraintValidationResultMap.get(constraintName);
-		if (constraintValidationResult == null) {
-			constraintValidationResult = new ConstraintValidationResult(constraintName);
-			constraintValidationResultMap.put(constraintName, constraintValidationResult);
-		}
-		return constraintValidationResult;
-	}
+    protected ConstraintValidationResult getConstraintValidationResult(String constraintName) {
+        ConstraintValidationResult constraintValidationResult = constraintValidationResultMap.get(constraintName);
+        if (constraintValidationResult == null) {
+            constraintValidationResult = new ConstraintValidationResult(constraintName);
+            constraintValidationResultMap.put(constraintName, constraintValidationResult);
+        }
+        return constraintValidationResult;
+    }
 
-	/**
-	 * @return the attributeName
-	 */
-	public String getAttributeName() {
-		return this.attributeName;
-	}
+    /**
+     * @return the attributeName
+     */
+    public String getAttributeName() {
+        return this.attributeName;
+    }
 
-	/**
-	 * @param attributeName the attributeName to set
-	 */
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
-	}
+    /**
+     * @param attributeName the attributeName to set
+     */
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
+    }
 
 	/*
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 	protected String element;
 

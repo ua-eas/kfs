@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.TemConstants;
@@ -37,6 +30,13 @@ import org.kuali.kfs.sys.batch.BatchInputFileTypeBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.List;
 
 public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
     private static Logger LOG = Logger.getLogger(PerDiemTxtInputFileType.class);
@@ -104,7 +104,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
     @Override
     public boolean validate(Object parsedFileContents) {
         PerDiemLoadValidationService perDiemLoadValidationService = SpringContext.getBean(PerDiemLoadValidationService.class);
-        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>)parsedFileContents;
+        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>) parsedFileContents;
 
         return perDiemLoadValidationService.validate(perDiemList);
     }
@@ -127,6 +127,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -135,6 +136,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -143,6 +145,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Gets the fileNamePrefix attribute.
+     *
      * @return Returns the fileNamePrefix.
      */
     public String getFileNamePrefix() {
@@ -151,6 +154,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Sets the fileNamePrefix attribute value.
+     *
      * @param fileNamePrefix The fileNamePrefix to set.
      */
     public void setFileNamePrefix(String fileNamePrefix) {
@@ -159,6 +163,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Gets the perDiemFileParsingService attribute.
+     *
      * @return Returns the perDiemFileParsingService.
      */
     public PerDiemFileParsingService getPerDiemFileParsingService() {
@@ -167,6 +172,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Sets the perDiemFileParsingService attribute value.
+     *
      * @param perDiemFileParsingService The perDiemFileParsingService to set.
      */
     public void setPerDiemFileParsingService(PerDiemFileParsingService perDiemFileParsingService) {
@@ -175,6 +181,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Gets the deliminator attribute.
+     *
      * @return Returns the deliminator.
      */
     public String getDeliminator() {
@@ -183,6 +190,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Sets the deliminator attribute value.
+     *
      * @param deliminator The deliminator to set.
      */
     public void setDeliminator(String deliminator) {
@@ -191,6 +199,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Gets the perDiemFieldsToPopulate attribute.
+     *
      * @return Returns the perDiemFieldsToPopulate.
      */
     public List<String> getPerDiemFieldsToPopulate() {
@@ -199,6 +208,7 @@ public class PerDiemTxtInputFileType extends BatchInputFileTypeBase {
 
     /**
      * Sets the perDiemFieldsToPopulate attribute value.
+     *
      * @param perDiemFieldsToPopulate The perDiemFieldsToPopulate to set.
      */
     public void setPerDiemFieldsToPopulate(List<String> perDiemFieldsToPopulate) {

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess;
 
-import java.util.Map;
-
 import org.kuali.kfs.module.ar.document.CashControlDocument;
+
+import java.util.Map;
 
 /**
  * Data Access Object for Cash Control Document.

@@ -19,11 +19,11 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.document.CreditCardReceiptDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation which tests that the amount in credit card lines equals the amount in accounting lines
@@ -35,6 +35,7 @@ public class CreditCardReceiptDocumentTotalValidation extends GenericValidation 
     /**
      * For Credit Card Receipt documents, the document is balanced if the sum total of credit card receipts equals the sum total of
      * the accounting lines.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,6 +51,7 @@ public class CreditCardReceiptDocumentTotalValidation extends GenericValidation 
 
     /**
      * Gets the creditCardReceiptDocumentForValidation attribute.
+     *
      * @return Returns the creditCardReceiptDocumentForValidation.
      */
     public CreditCardReceiptDocument getCreditCardReceiptDocumentForValidation() {
@@ -58,6 +60,7 @@ public class CreditCardReceiptDocumentTotalValidation extends GenericValidation 
 
     /**
      * Sets the creditCardReceiptDocumentForValidation attribute value.
+     *
      * @param creditCardReceiptDocumentForValidation The creditCardReceiptDocumentForValidation to set.
      */
     public void setCreditCardReceiptDocumentForValidation(CreditCardReceiptDocument creditCardReceiptDocumentForValidation) {

@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.ec.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business Object for the Effort Certification Report Type Table.
@@ -78,6 +78,7 @@ public class EffortCertificationReportType extends PersistableBusinessObjectBase
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -86,6 +87,7 @@ public class EffortCertificationReportType extends PersistableBusinessObjectBase
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

@@ -26,11 +26,12 @@ public class AccountingLineViewCountedSequenceNumberField extends AccountingLine
 
     /**
      * Returns the line count of this number plus one
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewSequenceNumberField#getDisplaySequenceNumber(org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
      */
     @Override
     protected String getDisplaySequenceNumber(AccountingLineRenderingContext renderingContext) {
-        return new Integer(renderingContext.getCurrentLineCount().intValue()+1).toString();
+        return new Integer(renderingContext.getCurrentLineCount().intValue() + 1).toString();
     }
 
 }

@@ -18,11 +18,16 @@
  */
 package org.kuali.kfs.module.bc.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.InputHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
@@ -37,16 +42,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.InputHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implements custom search routine to find the current budget locks and build up the result List. Set an unlock URL for each lock.
@@ -204,16 +204,16 @@ public class LockMonitorLookupableHelperServiceImpl extends KualiLookupableHelpe
 
         String name = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + BCConstants.TEMP_LIST_UNLOCK_METHOD + ".";
         name +=
-            KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL + StringUtils.replace(lockSummary.getLockType()," ","_") +
-            KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL;
+            KFSConstants.METHOD_TO_CALL_PARM1_LEFT_DEL + StringUtils.replace(lockSummary.getLockType(), " ", "_") +
+                KFSConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL;
         name += KFSConstants.METHOD_TO_CALL_PARM9_LEFT_DEL + lockFields + KFSConstants.METHOD_TO_CALL_PARM9_RIGHT_DEL;
         name +=
             KFSConstants.METHOD_TO_CALL_PARM3_LEFT_DEL + lockSummary.getLockUserId() +
-            KFSConstants.METHOD_TO_CALL_PARM3_RIGHT_DEL;
+                KFSConstants.METHOD_TO_CALL_PARM3_RIGHT_DEL;
         String src = imageDirectory + BCConstants.UNLOCK_BUTTON_NAME;
         String inputType = "image";
         String styleClass = "tinybutton";
-        String border= "0";
+        String border = "0";
 
         List<HtmlData> htmlDataList = new ArrayList<HtmlData>();
         InputHtmlData inputHtmlData = new InputHtmlData(name, inputType, src);
@@ -268,11 +268,11 @@ public class LockMonitorLookupableHelperServiceImpl extends KualiLookupableHelpe
      * around the issue.
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
-        AnchorHtmlData inquiryUrl = (AnchorHtmlData)super.getInquiryUrl(bo, propertyName);
+        AnchorHtmlData inquiryUrl = (AnchorHtmlData) super.getInquiryUrl(bo, propertyName);
         inquiryUrl.setHref(StringUtils.replace(inquiryUrl.getHref(), KRADConstants.INQUIRY_ACTION, KFSConstants.INQUIRY_ACTION));
 
         return inquiryUrl;

@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * This class represents the CreditCardDetail business object, which is a single record on the Credit Card Receipts Document

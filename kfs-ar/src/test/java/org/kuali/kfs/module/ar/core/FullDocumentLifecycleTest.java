@@ -18,6 +18,20 @@
  */
 package org.kuali.kfs.module.ar.core;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+import org.kuali.kfs.module.ar.document.service.CashControlDocumentService;
+import org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.confirmCustomerInvoiceValid;
 import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.createFinalizedInvoiceOneLine;
 import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.createFinalizedInvoiceOneLineDiscounted;
@@ -31,20 +45,6 @@ import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.sevenFifty;
 import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.twelveFifty;
 import static org.kuali.kfs.module.ar.core.ArCoreTestUtils.twoFifty;
 import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
-import org.kuali.kfs.module.ar.document.service.CashControlDocumentService;
-import org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
 public class FullDocumentLifecycleTest extends KualiTestBase {

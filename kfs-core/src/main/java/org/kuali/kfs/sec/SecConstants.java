@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sec;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -30,10 +27,13 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
 import org.kuali.kfs.sec.businessobject.SecurityAttributeMetadata;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -56,6 +56,7 @@ public class SecConstants {
     public final static String ACCESS_ERROR_STRING_REQUEST_KEY = "securityAccessErrorMessage";
 
     public final static Map<String, SecurityAttributeMetadata> SECURITY_ATTRIBUTE_METADATA_MAP = new HashMap<String, SecurityAttributeMetadata>();
+
     static {
         SECURITY_ATTRIBUTE_METADATA_MAP.put(SecurityAttributeNames.ACCOUNT, new SecurityAttributeMetadata(Account.class, KFSPropertyConstants.ACCOUNT_NUMBER));
         SECURITY_ATTRIBUTE_METADATA_MAP.put(SecurityAttributeNames.CHART, new SecurityAttributeMetadata(Chart.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
@@ -70,6 +71,7 @@ public class SecConstants {
     }
 
     public final static Map<String, SecurityAttributeMetadata> ATTRIBUTE_SIMULATION_MAP = new HashMap<String, SecurityAttributeMetadata>();
+
     static {
         ATTRIBUTE_SIMULATION_MAP.put(SecurityAttributeNames.ACCOUNT, new SecurityAttributeMetadata(Account.class, KFSPropertyConstants.ACCOUNT_NUMBER, KFSPropertyConstants.ACCOUNT_NAME));
         ATTRIBUTE_SIMULATION_MAP.put(SecurityAttributeNames.CHART, new SecurityAttributeMetadata(Chart.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSPropertyConstants.FIN_CHART_OF_ACCOUNT_DESCRIPTION));

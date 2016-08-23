@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_ACTUAL;
-
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -32,7 +31,8 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.kfs.krad.document.Copyable;
+
+import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_ACTUAL;
 
 /**
  * The Transfer of Funds (TF) document is used to transfer funds (cash) between accounts. There are two kinds of transfer
@@ -75,14 +75,13 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
      * require setting the balance type code to 'actual'.
      *
      * @param financialDocument The accounting document containing the general ledger pending entries being customized.
-     * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
-     * @param explicitEntry The explicit general ledger pending entry the offset entry is generated for.
-     * @param offsetEntry The offset general ledger pending entry being customized.
+     * @param accountingLine    The accounting line the explicit general ledger pending entry was generated from.
+     * @param explicitEntry     The explicit general ledger pending entry the offset entry is generated for.
+     * @param offsetEntry       The offset general ledger pending entry being customized.
      * @return This method always returns true.
-     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#customizeOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry,
-     *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry,
+     * org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public boolean customizeOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail accountingLine, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
@@ -94,27 +93,24 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
      * Set attributes of an explicit pending entry according to rules specific to TransferOfFundsDocument.
      *
      * @param financialDocument The accounting document containing the general ledger pending entries being customized.
-     * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
-     * @param explicitEntry The explicit general ledger pending entry to be customized.
-     *
+     * @param accountingLine    The accounting line the explicit general ledger pending entry was generated from.
+     * @param explicitEntry     The explicit general ledger pending entry to be customized.
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail generalLedgerPendingEntrySourceDetail, GeneralLedgerPendingEntry explicitEntry) {
-        AccountingLine accountingLine = (AccountingLine)generalLedgerPendingEntrySourceDetail;
+        AccountingLine accountingLine = (AccountingLine) generalLedgerPendingEntrySourceDetail;
         SystemOptions options = SpringContext.getBean(OptionsService.class).getCurrentYearOptions();
 
         explicitEntry.setFinancialBalanceTypeCode(BALANCE_TYPE_ACTUAL);
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         if (isDebitUtils.isExpense(accountingLine)) {
             explicitEntry.setFinancialObjectTypeCode(options.getFinancialObjectTypeTransferExpenseCd());
-        }
-        else {
+        } else {
             if (isDebitUtils.isIncome(accountingLine)) {
                 explicitEntry.setFinancialObjectTypeCode(options.getFinancialObjectTypeTransferIncomeCd());
-            }
-            else {
+            } else {
                 AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
                 explicitEntry.setFinancialObjectTypeCode(accountingDocumentRuleUtil.getObjectCodeTypeCodeWithoutSideEffects(accountingLine));
             }
@@ -129,15 +125,14 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
      * </ol>
      *
      * @param financialDocument The document used to determine if the accounting line is a debit line.
-     * @param accountingLine The accounting line to be analyzed.
+     * @param accountingLine    The accounting line to be analyzed.
      * @return True if the accounting line provided is a debit line, false otherwise.
-     *
      * @see IsDebitUtils#isDebitConsideringNothingPositiveOnly(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
-        AccountingLine accountingLine = (AccountingLine)postable;
+        AccountingLine accountingLine = (AccountingLine) postable;
         // only allow income or expense
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         if (!isDebitUtils.isIncome(accountingLine) && !isDebitUtils.isExpense(accountingLine)) {
@@ -146,11 +141,9 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
         boolean isDebit = false;
         if (accountingLine.isSourceAccountingLine()) {
             isDebit = isDebitUtils.isDebitConsideringNothingPositiveOnly(this, accountingLine);
-        }
-        else if (accountingLine.isTargetAccountingLine()) {
+        } else if (accountingLine.isTargetAccountingLine()) {
             isDebit = !isDebitUtils.isDebitConsideringNothingPositiveOnly(this, accountingLine);
-        }
-        else {
+        } else {
             throw new IllegalStateException(isDebitUtils.getInvalidLineTypeIllegalArgumentExceptionMessage());
         }
 

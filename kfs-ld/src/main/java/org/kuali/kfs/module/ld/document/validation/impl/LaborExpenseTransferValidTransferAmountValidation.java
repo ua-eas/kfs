@@ -18,14 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
@@ -43,9 +39,14 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  * check to ensure totals of accounting lines in source and target sections match by pay FY + pay period
  *
@@ -59,6 +60,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -86,7 +88,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
      *
      * @param accountingDocument the given accounting document
      * @return true if the amount to be tranferred is only up to the amount in ledger balance for a given pay period; otherwise,
-     *         false
+     * false
      */
     protected boolean isValidTransferAmount(Map<String, ExpenseTransferAccountingLine> accountingLineGroupMap) {
         Set<Entry<String, ExpenseTransferAccountingLine>> entrySet = accountingLineGroupMap.entrySet();
@@ -110,6 +112,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
         }
         return true;
     }
+
     /**
      * build the field-value maps throught the given accouting line
      *
@@ -152,7 +155,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
      * Groups the accounting lines by the specified key fields
      *
      * @param accountingLines the given accounting lines that are stored in a list
-     * @param clazz the class type of given accounting lines
+     * @param clazz           the class type of given accounting lines
      * @return the accounting line groups
      */
     protected Map<String, ExpenseTransferAccountingLine> getAccountingLineGroupMap(List<ExpenseTransferAccountingLine> accountingLines, Class clazz) {
@@ -166,14 +169,12 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
                 line = accountingLineGroupMap.get(stringKey);
                 KualiDecimal amount = line.getAmount();
                 line.setAmount(amount.add(accountingLine.getAmount()));
-            }
-            else {
+            } else {
                 try {
                     line = (ExpenseTransferAccountingLine) clazz.newInstance();
                     ObjectUtil.buildObject(line, accountingLine);
                     accountingLineGroupMap.put(stringKey, line);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("Cannot create a new instance of ExpenseTransferAccountingLine" + e);
                 }
             }
@@ -211,7 +212,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
      * get the amount for a given period from a ledger balance that has the given values for specified fileds
      *
      * @param fieldValues the given fields and their values
-     * @param periodCode the given period
+     * @param periodCode  the given period
      * @return the amount for a given period from the qualified ledger balance
      */
     protected KualiDecimal getBalanceAmount(Map<String, Object> fieldValues, String periodCode) {
@@ -240,7 +241,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
         List<LedgerBalance> ledgerBalances = (List<LedgerBalance>) SpringContext.getBean(BusinessObjectService.class).findMatching(LedgerBalance.class, fieldValues);
 
         LedgerBalance summaryBalance = new LedgerBalance();
-        for(LedgerBalance balance : ledgerBalances) {
+        for (LedgerBalance balance : ledgerBalances) {
             ConsolidationUtil.sumLedgerBalances(summaryBalance, balance);
         }
 
@@ -249,6 +250,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -257,6 +259,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.module.bc.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.businessobject.Position;
@@ -31,9 +28,12 @@ import org.kuali.kfs.module.bc.service.BudgetConstructionPositionService;
 import org.kuali.kfs.module.bc.service.HumanResourcesPayrollService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -51,7 +51,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * @see org.kuali.kfs.module.bc.service.BudgetConstructionPositionService#pullNewPositionFromExternal(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Transactional
     public synchronized void pullNewPositionFromExternal(Integer universityFiscalYear, String positionNumber) throws BudgetPositionAlreadyExistsException {
@@ -62,8 +62,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
         BudgetConstructionPosition retrievedPosition = getByPrimaryId(universityFiscalYear.toString(), positionNumber);
         if (retrievedPosition != null) {
             throw new BudgetPositionAlreadyExistsException(universityFiscalYear, positionNumber);
-        }
-        else {
+        } else {
             retrievedPosition = new BudgetConstructionPosition();
         }
 
@@ -76,7 +75,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * @see org.kuali.kfs.module.bc.service.BudgetConstructionPositionService#refreshPositionFromExternal(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public synchronized void refreshPositionFromExternal(Integer universityFiscalYear, String positionNumber) {
@@ -101,7 +100,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
      * true.
      *
      * @param universityFiscalYear budget fiscal year for the position
-     * @param positionNumber position number for the record
+     * @param positionNumber       position number for the record
      */
     protected void updateFundingPositionChangeIndicators(Integer universityFiscalYear, String positionNumber) {
         // retrieve funding records for the position
@@ -122,7 +121,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
     /**
      * Populates a new <code>BudgetConstructionPosition</code> object from a <code>Position</code> object.
      *
-     * @param position object to copy
+     * @param position                   object to copy
      * @param budgetConstructionPosition bc position to populate
      * @return BudgetConstructionPosition populated from <code>Position</code>
      * @see org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition

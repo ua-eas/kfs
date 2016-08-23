@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.module.purap.exception.PurapConfigurationException;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PO;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Fixture class for Purchase Order Document.
@@ -38,317 +37,316 @@ public enum PurchaseOrderDocumentFixture {
     // TODO f2f: fix the REQ id
 
     PO_ONLY_REQUIRED_FIELDS(
-            PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1 }
+        PO.CREATE_DATE, // purchaseOrderCreateDate
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{ // purchaseOrderItemMultiFixtures
+            PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1}
     ),
     PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS(
-            PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1,
-                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_2 }
+        PO.CREATE_DATE, // purchaseOrderCreateDate
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{ // purchaseOrderItemMultiFixtures
+            PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1,
+            PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_2}
     ),
     PO_WITH_VENDOR_CONTRACT(
-            PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_WITH_VENDOR_CONTRACT, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1}
+        PO.CREATE_DATE, // purchaseOrderCreateDate
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_WITH_VENDOR_CONTRACT, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{ // purchaseOrderItemMultiFixtures
+            PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1}
     ),
     PO_APPROVAL_REQUIRED(PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1 } // purchaseOrderItemMultiFixtures
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1} // purchaseOrderItemMultiFixtures
     ),
     CLOSE_PO_WITH_PREQ(PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1 } // purchaseOrderItemMultiFixtures
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1} // purchaseOrderItemMultiFixtures
     ),
     REOPEN_PO_WITH_PREQ(PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1 } // purchaseOrderItemMultiFixtures
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1} // purchaseOrderItemMultiFixtures
     ),
     REQUEST_CANCEL_PREQ(PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1 } // purchaseOrderItemMultiFixtures
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1} // purchaseOrderItemMultiFixtures
     ),
     REQUEST_HOLD_PREQ(PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1 } // purchaseOrderItemMultiFixtures
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS_2, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{PurchaseOrderItemFixture.PO_QTY_APO_ITEM_1} // purchaseOrderItemMultiFixtures
     ),
     PO_FOR_THRESHOLD_CHECK(
-            PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenTimestamp
-            null, // purchaseOrderLastTransmitTimestamp
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionTimestamp
-            PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.PO_ITEM_THRESHOLD_CHECK }
+        PO.CREATE_DATE, // purchaseOrderCreateDate
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenTimestamp
+        null, // purchaseOrderLastTransmitTimestamp
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionTimestamp
+        PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{ // purchaseOrderItemMultiFixtures
+            PurchaseOrderItemFixture.PO_ITEM_THRESHOLD_CHECK}
     ),
     EINVOICE_PO(
-            PO.CREATE_DATE, // purchaseOrderCreateDate
-            PO.REQ_ID, // requisitionIdentifier
-            "LPRC", // purchaseOrderVendorChoiceCode
-            null, // recurringPaymentFrequencyCode
-            null, // recurringPaymentAmount
-            null, // recurringPaymentDate
-            null, // initialPaymentAmount
-            null, // initialPaymentDate
-            null, // finalPaymentAmount
-            null, // finalPaymentDate
-            null, // purchaseOrderInitialOpenDate
-            null, // purchaseOrderLastTransmitDate
-            null, // purchaseOrderQuoteDueDate
-            null, // purchaseOrderQuoteTypeCode
-            null, // purchaseOrderQuoteVendorNoteText
-            false, // purchaseOrderConfirmedIndicator
-            null, // purchaseOrderCommodityDescription
-            null, // purchaseOrderPreviousIdentifier
-            null, // alternateVendorHeaderGeneratedIdentifier
-            null, // alternateVendorDetailAssignedIdentifier
-            null, // newQuoteVendorHeaderGeneratedIdentifier
-            null, // newQuoteVendorDetailAssignedIdentifier
-            null, // alternateVendorName
-            true, // purchaseOrderCurrentIndicator
-            false, // pendingActionIndicator
-            null, // purchaseOrderFirstTransmissionDate
-            PurchasingAccountsPayableDocumentFixture.EINVOICE_PO, // purapDocumentFixture
-            PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
-            new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.EINVOICE_PO_ITEM }
-    ),
-    ;
+        PO.CREATE_DATE, // purchaseOrderCreateDate
+        PO.REQ_ID, // requisitionIdentifier
+        "LPRC", // purchaseOrderVendorChoiceCode
+        null, // recurringPaymentFrequencyCode
+        null, // recurringPaymentAmount
+        null, // recurringPaymentDate
+        null, // initialPaymentAmount
+        null, // initialPaymentDate
+        null, // finalPaymentAmount
+        null, // finalPaymentDate
+        null, // purchaseOrderInitialOpenDate
+        null, // purchaseOrderLastTransmitDate
+        null, // purchaseOrderQuoteDueDate
+        null, // purchaseOrderQuoteTypeCode
+        null, // purchaseOrderQuoteVendorNoteText
+        false, // purchaseOrderConfirmedIndicator
+        null, // purchaseOrderCommodityDescription
+        null, // purchaseOrderPreviousIdentifier
+        null, // alternateVendorHeaderGeneratedIdentifier
+        null, // alternateVendorDetailAssignedIdentifier
+        null, // newQuoteVendorHeaderGeneratedIdentifier
+        null, // newQuoteVendorDetailAssignedIdentifier
+        null, // alternateVendorName
+        true, // purchaseOrderCurrentIndicator
+        false, // pendingActionIndicator
+        null, // purchaseOrderFirstTransmissionDate
+        PurchasingAccountsPayableDocumentFixture.EINVOICE_PO, // purapDocumentFixture
+        PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
+        new PurchaseOrderItemFixture[]{ // purchaseOrderItemMultiFixtures
+            PurchaseOrderItemFixture.EINVOICE_PO_ITEM}
+    ),;
 
     public final Timestamp purchaseOrderCreateDate;
     public final Integer requisitionIdentifier;
@@ -384,7 +382,7 @@ public enum PurchaseOrderDocumentFixture {
      * Private Constructor.
      */
     private PurchaseOrderDocumentFixture(Timestamp purchaseOrderCreateDate, Integer requisitionIdentifier, String purchaseOrderVendorChoiceCode, String recurringPaymentFrequencyCode, KualiDecimal recurringPaymentAmount, Date recurringPaymentDate, KualiDecimal initialPaymentAmount, Date initialPaymentDate, KualiDecimal finalPaymentAmount, Date finalPaymentDate, Timestamp purchaseOrderInitialOpenTimestamp, Timestamp purchaseOrderLastTransmitTimestamp, Date purchaseOrderQuoteDueDate, String purchaseOrderQuoteTypeCode, String purchaseOrderQuoteVendorNoteText, boolean purchaseOrderConfirmedIndicator, String purchaseOrderCommodityDescription, Integer purchaseOrderPreviousIdentifier, Integer alternateVendorHeaderGeneratedIdentifier, Integer alternateVendorDetailAssignedIdentifier, Integer newQuoteVendorHeaderGeneratedIdentifier, Integer newQuoteVendorDetailAssignedIdentifier, String alternateVendorName, boolean purchaseOrderCurrentIndicator, boolean pendingActionIndicator, Timestamp purchaseOrderFirstTransmissionTimestamp,
-            PurchasingAccountsPayableDocumentFixture purapDocumentFixture, PurchasingDocumentFixture purchasingDocumentFixture, PurchaseOrderItemFixture[] purchaseOrderItemFixtures) {
+                                         PurchasingAccountsPayableDocumentFixture purapDocumentFixture, PurchasingDocumentFixture purchasingDocumentFixture, PurchaseOrderItemFixture[] purchaseOrderItemFixtures) {
         this.purchaseOrderCreateDate = purchaseOrderCreateDate;
         this.requisitionIdentifier = requisitionIdentifier;
         this.purchaseOrderVendorChoiceCode = purchaseOrderVendorChoiceCode;

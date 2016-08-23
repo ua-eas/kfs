@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.kns.datadictionary.validation.charlevel;
 
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Pattern for matching any UTF-8 character with whitespace option
- *
  */
-public class UTF8AnyCharacterValidationPattern extends CharacterLevelValidationPattern{
+public class UTF8AnyCharacterValidationPattern extends CharacterLevelValidationPattern {
 
     protected boolean allowWhitespace = false;
 
@@ -46,47 +45,46 @@ public class UTF8AnyCharacterValidationPattern extends CharacterLevelValidationP
         this.allowWhitespace = allowWhitespace;
     }
 
-	/**
-	 * This overridden method ...
-	 *
+    /**
+     * This overridden method ...
+     *
      * @see CharacterLevelValidationPattern#extendExportMap(ExportMap)
-	 */
-	@Override
-	protected String getRegexString() {
-		StringBuffer regexString = new StringBuffer("[");
+     */
+    @Override
+    protected String getRegexString() {
+        StringBuffer regexString = new StringBuffer("[");
 
-		if(!allowWhitespace) {
-        regexString.append("[\\u0000-\\uFFFF&&[^\\p{Space}]]");
+        if (!allowWhitespace) {
+            regexString.append("[\\u0000-\\uFFFF&&[^\\p{Space}]]");
         } else {
             regexString.append("\\u0000-\\uFFFF");
-		}
+        }
 
-		regexString.append("]");
-		return regexString.toString();
-	}
+        regexString.append("]");
+        return regexString.toString();
+    }
 
-	/**
-	 * This overridden method ...
-	 *
+    /**
+     * This overridden method ...
+     *
      * @see ValidationPattern#getRegexString()
-	 */
-	@Override
-	public void extendExportMap(ExportMap exportMap) {
+     */
+    @Override
+    public void extendExportMap(ExportMap exportMap) {
         exportMap.set("type", "broaderAnyCharacter");
 
         if (allowWhitespace) {
             exportMap.set("allowWhitespace", "true");
         }
-	}
+    }
 
 
-
-	@Override
-	protected String getValidationErrorMessageKeyOptions() {
-		if (getAllowWhitespace()) {
-			return ".allowWhitespace";
-		}
-		return KRADConstants.EMPTY_STRING;
-	}
+    @Override
+    protected String getValidationErrorMessageKeyOptions() {
+        if (getAllowWhitespace()) {
+            return ".allowWhitespace";
+        }
+        return KRADConstants.EMPTY_STRING;
+    }
 
 }

@@ -27,10 +27,10 @@ public class DebarredVendorConfirmStatusFormatter extends Formatter {
         if (target == null) {
             return null;
         }
-        String status = (String)target;
+        String status = (String) target;
         if (status.equals(VendorConstants.DEBARRED_VENDOR_UNPROCESSED)) {
             status = VendorConstants.DEBARRED_VENDOR_UNPROCESSED_LABEL;
-        } else if (status.equals(VendorConstants.DEBARRED_VENDOR_CONFIRMED)){
+        } else if (status.equals(VendorConstants.DEBARRED_VENDOR_CONFIRMED)) {
             status = VendorConstants.DEBARRED_VENDOR_CONFIRMED_LABEL;
         } else if (status.equals(VendorConstants.DEBARRED_VENDOR_DENIED)) {
             status = VendorConstants.DEBARRED_VENDOR_DENIED_LABEL;

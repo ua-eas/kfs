@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ec.util;
 
-import static org.kuali.kfs.sys.KFSConstants.CurrencyTypeAmounts.HUNDRED_DOLLAR_AMOUNT;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import static org.kuali.kfs.sys.KFSConstants.CurrencyTypeAmounts.HUNDRED_DOLLAR_AMOUNT;
 
 /**
  * To hold the payroll amount and percent
@@ -39,8 +39,8 @@ public class PayrollAmountHolder {
     /**
      * Constructs a PayrollAmountHolder.java.
      *
-     * @param totalAmount the total payroll amount
-     * @param accumulatedAmount the accumulated payroll amount
+     * @param totalAmount        the total payroll amount
+     * @param accumulatedAmount  the accumulated payroll amount
      * @param accumulatedPercent the accumulated payroll percent
      */
     public PayrollAmountHolder(KualiDecimal totalAmount, KualiDecimal accumulatedAmount, Integer accumulatedPercent) {
@@ -171,7 +171,7 @@ public class PayrollAmountHolder {
      * recalculate the payroll amount based on the given total amount and effort percent
      *
      * @param totalPayrollAmount the given total amount
-     * @param effortPercent the given effort percent
+     * @param effortPercent      the given effort percent
      * @return the payroll amount calculated from the given total amount and effort percent
      */
     public static KualiDecimal recalculatePayrollAmount(KualiDecimal totalPayrollAmount, Integer effortPercent) {
@@ -184,7 +184,7 @@ public class PayrollAmountHolder {
      * recalculate the effort percent based on the given total amount and payroll amount
      *
      * @param totalPayrollAmount the given total amount
-     * @param payrollAmount the given payroll amount
+     * @param payrollAmount      the given payroll amount
      * @return the effort percent calculated from the given total amount and payroll amount
      */
     public static Double recalculateEffortPercent(KualiDecimal totalPayrollAmount, KualiDecimal payrollAmount) {
@@ -197,7 +197,7 @@ public class PayrollAmountHolder {
      * recalculate the effort percent based on the given total amount and payroll amount and return it as of type String
      *
      * @param totalPayrollAmount the given total amount
-     * @param payrollAmount the given payroll amount
+     * @param payrollAmount      the given payroll amount
      * @return the effort percent as String calculated from the given total amount and payroll amount
      */
     public static String recalculateEffortPercentAsString(KualiDecimal totalPayrollAmount, KualiDecimal payrollAmount) {

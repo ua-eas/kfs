@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLineBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.apache.struts.upload.FormFile;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLineBase;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class is used to represent a procurement card transaction detail business object.
@@ -64,6 +64,7 @@ public class ProcurementCardTransactionDetail extends PersistableBusinessObjectB
     private List targetAccountingLines;
 
     protected FormFile targetFile;
+
     /**
      * Default constructor.
      */
@@ -539,7 +540,6 @@ public class ProcurementCardTransactionDetail extends PersistableBusinessObjectB
 
 
     /**
-     *
      * @return
      */
     public FormFile getTargetFile() {
@@ -547,7 +547,6 @@ public class ProcurementCardTransactionDetail extends PersistableBusinessObjectB
     }
 
     /**
-     *
      * @param targetFile
      */
     public void setTargetFile(FormFile targetFile) {

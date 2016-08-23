@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -31,6 +27,10 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.dataaccess.AccountingLineDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the AccountingLineDao interface.
@@ -75,6 +75,7 @@ public class ExpenseTransferAccountingLineDaoOjb extends PlatformAwareDaoBaseOjb
 
     /**
      * Defers to findByDocumentHeaderId
+     *
      * @see org.kuali.kfs.sys.dataaccess.AccountingLineDao#findByDocumentHeaderIdAndLineType(java.lang.Class, java.lang.String, java.lang.String)
      */
     @Override

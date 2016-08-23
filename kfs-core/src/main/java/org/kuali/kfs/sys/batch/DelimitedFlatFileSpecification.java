@@ -30,6 +30,7 @@ public class DelimitedFlatFileSpecification extends AbstractFlatFilePrefixSpecif
 
     /**
      * Splits the line based on the given delimiter and parses into properties
+     *
      * @see org.kuali.kfs.sys.batch.FlatFileSpecification#parseLineIntoObject(FlatFilePrefixObjectSpecification, String, Object)
      */
     @Override
@@ -38,8 +39,7 @@ public class DelimitedFlatFileSpecification extends AbstractFlatFilePrefixSpecif
         for (FlatFilePropertySpecification propertySpecification : parseSpecification.getParseProperties()) {
             try {
                 propertySpecification.setProperty(lineSegments[((DelimitedFlatFilePropertySpecification) propertySpecification).getLineSegmentIndex()], parseIntoObject, lineNumber);
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 LOG.debug("Unable to set property " + propertySpecification.getPropertyName() + " since lineSegmentIndex does not exist for line");
             }
         }
@@ -47,6 +47,7 @@ public class DelimitedFlatFileSpecification extends AbstractFlatFilePrefixSpecif
 
     /**
      * Sets the delimiter to split on
+     *
      * @param delimiter the delimiter to split the substring on
      */
     public void setDelimiter(String delimiter) {

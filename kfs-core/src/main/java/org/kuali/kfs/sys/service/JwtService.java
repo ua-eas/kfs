@@ -52,7 +52,7 @@ public interface JwtService {
      * @param key
      * @return
      */
-    JwtData decodeJwt(String jwt,String key);
+    JwtData decodeJwt(String jwt, String key);
 
     /**
      * Decode a JWT with the application configured signing key

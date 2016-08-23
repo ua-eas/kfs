@@ -34,7 +34,7 @@ public abstract class BusinessObjectBase implements BusinessObject {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         class BusinessObjectToStringBuilder extends ReflectionToStringBuilder {
             private BusinessObjectToStringBuilder(Object object) {
                 super(object);
@@ -46,7 +46,8 @@ public abstract class BusinessObjectBase implements BusinessObject {
                 }
                 return super.accept(field);
             }
-        };
+        }
+        ;
         ReflectionToStringBuilder toStringBuilder = new BusinessObjectToStringBuilder(this);
         return toStringBuilder.toString();
     }

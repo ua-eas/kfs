@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.io.File;
-import java.util.List;
-
 import org.kuali.kfs.gl.batch.service.impl.EnterpriseFeederStatus;
 import org.kuali.kfs.sys.Message;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * This class serves as a wrapper containing references to the feeder status and error messages list. This works around java's
@@ -94,6 +94,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Gets the doneFileName attribute.
+     *
      * @return Returns the doneFileName.
      */
     public String getDoneFileName() {
@@ -102,6 +103,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Gets the reconFileName attribute.
+     *
      * @return Returns the reconFileName.
      */
     public String getReconFileName() {
@@ -110,6 +112,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Gets the dataFileName attribute.
+     *
      * @return Returns the dataFileName.
      */
     public String getDataFileName() {

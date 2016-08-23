@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Carrier Business Object.
  */
-public class Carrier extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class Carrier extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String carrierCode;
     private String carrierDescription;

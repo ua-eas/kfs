@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.document.service.impl;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
@@ -40,8 +40,8 @@ import org.kuali.kfs.sys.service.HomeOriginationService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
+
+import java.sql.Date;
 
 /**
  * Default implementation of the LaborPendingEntryConverterService
@@ -121,7 +121,8 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
     /**
      * Updates the given LLPE for year end documents
-     * @param document the document to check if it is YearEnd
+     *
+     * @param document     the document to check if it is YearEnd
      * @param pendingEntry the pending entry to update
      */
     protected void overrideEntryForYearEndIfNecessary(LaborLedgerPostingDocument document, LaborLedgerPendingEntry pendingEntry) {

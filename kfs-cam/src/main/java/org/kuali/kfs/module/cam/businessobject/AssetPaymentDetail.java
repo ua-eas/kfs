@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -35,6 +31,10 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Accounting line for the asset payment document.
@@ -58,7 +58,6 @@ public class AssetPaymentDetail extends SourceAccountingLine {
     private DocumentTypeEBO expenditureFinancialSystemDocumentTypeCode;
     private OriginationCode expenditureFinancialSystemOrigination;
     private Account account;
-
 
 
     /**
@@ -93,17 +92,17 @@ public class AssetPaymentDetail extends SourceAccountingLine {
     /**
      * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
      */
-    protected LinkedHashMap<String,String> assetPaymentToStringMapper() {
-        LinkedHashMap<String,String> m = new LinkedHashMap<String,String>();
+    protected LinkedHashMap<String, String> assetPaymentToStringMapper() {
+        LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
         m.put("documentNumber", this.getDocumentNumber());
         m.put("sequenceNumber", this.getSequenceNumber() == null ? "" : this.getSequenceNumber().toString());
-        m.put("chartOfAccountsCode",getChartOfAccountsCode());
-        m.put("accountNumber",getAccountNumber());
-        m.put("subAccountNumber",getSubAccountNumber());
-        m.put("financialObjectCode",getFinancialObjectCode());
-        m.put("financialSubObjectCode",getFinancialSubObjectCode());
-        m.put("projectCode",getProjectCode());
-        m.put("postingYear",this.getPostingYear().toString());
+        m.put("chartOfAccountsCode", getChartOfAccountsCode());
+        m.put("accountNumber", getAccountNumber());
+        m.put("subAccountNumber", getSubAccountNumber());
+        m.put("financialObjectCode", getFinancialObjectCode());
+        m.put("financialSubObjectCode", getFinancialSubObjectCode());
+        m.put("projectCode", getProjectCode());
+        m.put("postingYear", this.getPostingYear().toString());
         return m;
     }
 
@@ -112,20 +111,20 @@ public class AssetPaymentDetail extends SourceAccountingLine {
      * <li><b>expenditureFinancialDocumentNumber</b></li>
      * <li><b>expenditureFinancialDocumentTypeCode</b></li>
      * with accounting information for asset payment distribution
-     *
+     * <p>
      * Make sure the full accounting line information is part of the key
      * chartOfAccount, accountNumber, subAccountNumber, objectCode, subObjectCode, projectCode
      *
      * @return
      */
     public String getAssetPaymentDetailKey() {
-        LinkedHashMap<String,String> paymentMap = assetPaymentToStringMapper();
-        paymentMap.put("expenditureFinancialDocumentTypeCode",this.getExpenditureFinancialDocumentTypeCode());
-        paymentMap.put("expenditureFinancialDocumentNumber",this.getExpenditureFinancialDocumentNumber());
+        LinkedHashMap<String, String> paymentMap = assetPaymentToStringMapper();
+        paymentMap.put("expenditureFinancialDocumentTypeCode", this.getExpenditureFinancialDocumentTypeCode());
+        paymentMap.put("expenditureFinancialDocumentNumber", this.getExpenditureFinancialDocumentNumber());
 
         //use SHORT_PREFIX_STYLE so that memory address is not part of the toString output
         ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
-        for (String key : paymentMap.keySet()){
+        for (String key : paymentMap.keySet()) {
             builder.append(key, paymentMap.get(key));
         }
         return paymentMap.toString();
@@ -221,11 +220,11 @@ public class AssetPaymentDetail extends SourceAccountingLine {
     }
 
     public DocumentTypeEBO getExpenditureFinancialSystemDocumentTypeCode() {
-        if ( expenditureFinancialSystemDocumentTypeCode == null || !StringUtils.equals(expenditureFinancialSystemDocumentTypeCode.getName(), expenditureFinancialDocumentTypeCode) ) {
+        if (expenditureFinancialSystemDocumentTypeCode == null || !StringUtils.equals(expenditureFinancialSystemDocumentTypeCode.getName(), expenditureFinancialDocumentTypeCode)) {
             expenditureFinancialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(expenditureFinancialDocumentTypeCode) ) {
+            if (StringUtils.isNotBlank(expenditureFinancialDocumentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(expenditureFinancialDocumentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     expenditureFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -246,7 +245,6 @@ public class AssetPaymentDetail extends SourceAccountingLine {
      * Gets the account attribute.
      *
      * @return Returns the account
-     *
      */
     @Override
     public Account getAccount() {
@@ -277,14 +275,13 @@ public class AssetPaymentDetail extends SourceAccountingLine {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.businessobject.AccountingLineBase#getValuesMap()
      */
     @Override
     public Map getValuesMap() {
         Map simpleValues = super.getValuesMap();
         simpleValues.put(CamsPropertyConstants.AssetPaymentDetail.ORIGINATION_CODE, getExpenditureFinancialSystemOriginationCode());
-        simpleValues.put(CamsPropertyConstants.AssetPaymentDetail.DOCUMENT_POSTING_DATE,getExpenditureFinancialDocumentPostedDate());
+        simpleValues.put(CamsPropertyConstants.AssetPaymentDetail.DOCUMENT_POSTING_DATE, getExpenditureFinancialDocumentPostedDate());
 
         return simpleValues;
     }

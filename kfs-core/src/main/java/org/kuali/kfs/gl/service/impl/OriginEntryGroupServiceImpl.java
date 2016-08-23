@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.service.OriginEntryGroupService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,13 +34,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.service.OriginEntryGroupService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @see org.kuali.kfs.gl.service.OriginEntryGroupService
@@ -65,15 +65,13 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
             for (File eachFile : fileList) {
                 if (newestFile == null) {
                     newestFile = eachFile;
-                }
-                else {
+                } else {
                     if (newestFile.lastModified() < eachFile.lastModified()) {
                         newestFile = eachFile;
                     }
                 }
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -98,8 +96,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         PrintStream backupPs = null;
         try {
             backupPs = new PrintStream(backupFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("backupFile doesn't exist " + backupFile);
         }
 
@@ -127,16 +124,14 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
                     while ((line = inputFileReader.readLine()) != null) {
                         try {
                             ps.printf("%s\n", line);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             throw new IOException(e.toString());
                         }
                     }
                     inputFileReader.close();
                     inputFileReader = null;
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e.toString());
                 }
 
@@ -147,8 +142,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         }
     }
 
-    protected void postProcessDataFile( File dataFile )
-    {
+    protected void postProcessDataFile(File dataFile) {
         // do nothing.  A hook for institution extension.
     }
 
@@ -168,8 +162,7 @@ public class OriginEntryGroupServiceImpl implements OriginEntryGroupService {
         File file = new File(batchFileDirectoryName + File.separator + groupId);
         if (file == null) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }

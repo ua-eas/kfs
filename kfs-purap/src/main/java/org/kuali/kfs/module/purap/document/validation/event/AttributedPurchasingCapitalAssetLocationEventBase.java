@@ -21,12 +21,12 @@ package org.kuali.kfs.module.purap.document.validation.event;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 
 /**
  * Event Base class for Purchasing Item Capital Asset
- *
+ * <p>
  * contains the base methods for item events
  */
 public abstract class AttributedPurchasingCapitalAssetLocationEventBase extends AttributedDocumentEventBase implements AttributedPurchasingCapitalAssetLocationEvent {
@@ -38,10 +38,10 @@ public abstract class AttributedPurchasingCapitalAssetLocationEventBase extends 
     /**
      * Copies the item and calls the super constructor
      *
-     * @param description the description of the event
+     * @param description     the description of the event
      * @param errorPathPrefix the error path
-     * @param document the document the event is being called on
-     * @param location the location that is having the event called on
+     * @param document        the document the event is being called on
+     * @param location        the location that is having the event called on
      */
     public AttributedPurchasingCapitalAssetLocationEventBase(String description, String errorPathPrefix, Document document, CapitalAssetLocation capitalAssetLocation) {
         super(description, errorPathPrefix, document);
@@ -78,8 +78,7 @@ public abstract class AttributedPurchasingCapitalAssetLocationEventBase extends 
         // vary logging detail as needed
         if (capitalAssetLocation == null) {
             logMessage.append("null capital asset location");
-        }
-        else {
+        } else {
             logMessage.append(" capital asset location# ");
             logMessage.append(capitalAssetLocation.getCapitalAssetLocationIdentifier());
         }

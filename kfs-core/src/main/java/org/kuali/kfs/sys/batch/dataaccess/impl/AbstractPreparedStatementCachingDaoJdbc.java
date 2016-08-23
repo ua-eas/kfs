@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,10 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
-import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAwareDaoBaseJdbc implements PreparedStatementCachingDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractPreparedStatementCachingDaoJdbc.class);
@@ -44,8 +44,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
             try {
                 populateStatement(preparedStatement);
                 preparedStatement.executeUpdate();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractUpdatingPreparedStatementCachingDaoJdbc.UpdatingJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
         }
@@ -67,8 +66,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                     }
                 }
                 resultSet.close();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractRetrievingPreparedStatementCachingDaoJdbc.RetrievingJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
             return value;
@@ -91,8 +89,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                     resultList.add(extractResult(resultSet));
                 }
                 resultSet.close();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException("AbstractRetrievingPreparedStatementCachingDaoJdbc.RetrievingListJdbcWrapper encountered exception during getObject method for type: " + type, e);
             }
             return resultList;
@@ -121,8 +118,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
             for (String statementKey : getSql().keySet()) {
                 preparedStatementCache.put(statementKey, getConnection().prepareStatement(getSql().get(statementKey)));
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Caught exception preparing statements in CachingDaoJdbc initialize method", e);
         }
     }
@@ -138,8 +134,7 @@ public abstract class AbstractPreparedStatementCachingDaoJdbc extends PlatformAw
                 preparedStatement.close();
             }
             preparedStatementCache = null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Caught exception closing statements in CachingDaoJdbc destroy method", e);
         }
     }

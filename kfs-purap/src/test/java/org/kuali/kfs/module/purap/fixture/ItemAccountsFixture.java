@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants.ItemTypeCodes;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.ItemsAccounts;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum ItemAccountsFixture {
 
-    WITH_QUANTITY_WITH_PRICE_WITH_ACCOUNT( ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, ItemsAccounts.UNIT_PRICE, ItemsAccounts.PO_ACCOUNT),
-    NULL_QUANTITY_WITH_PRICE_WITH_ACCOUNT( null, ItemsAccounts.ITEM_DESC, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.UNIT_PRICE, ItemsAccounts.PO_ACCOUNT),
-    WITH_QUANTITY_NULL_PRICE_WITH_ACCOUNT( ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, null, ItemsAccounts.PO_ACCOUNT),
-    WITH_QUANTITY_WITH_PRICE_NULL_ACCOUNT( ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, ItemsAccounts.UNIT_PRICE, null),
-    NULL_ITEM_WITH_ACCOUNT( null, null, null, null, null, ItemsAccounts.PO_ACCOUNT),;
+    WITH_QUANTITY_WITH_PRICE_WITH_ACCOUNT(ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, ItemsAccounts.UNIT_PRICE, ItemsAccounts.PO_ACCOUNT),
+    NULL_QUANTITY_WITH_PRICE_WITH_ACCOUNT(null, ItemsAccounts.ITEM_DESC, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.UNIT_PRICE, ItemsAccounts.PO_ACCOUNT),
+    WITH_QUANTITY_NULL_PRICE_WITH_ACCOUNT(ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, null, ItemsAccounts.PO_ACCOUNT),
+    WITH_QUANTITY_WITH_PRICE_NULL_ACCOUNT(ItemsAccounts.QUANTITY, ItemsAccounts.ITEM_UOM, ItemsAccounts.ITEM_CATALOG_NUMBER, ItemsAccounts.ITEM_DESC, ItemsAccounts.UNIT_PRICE, null),
+    NULL_ITEM_WITH_ACCOUNT(null, null, null, null, null, ItemsAccounts.PO_ACCOUNT),;
 
     private PurchaseOrderItem poItem;
     private String itemDescription;
@@ -49,8 +49,8 @@ public enum ItemAccountsFixture {
     private String acctNumber;
 
     private ItemAccountsFixture(KualiDecimal quantity, String unitOfMeasure, String catNbr, String itemDesc, BigDecimal unitPrice, PurchaseOrderAccount acct) {
-        this.poItem = (PurchaseOrderItem)PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1.createPurchaseOrderItem(
-                PurApItemFixture.BASIC_QTY_ITEM_1);
+        this.poItem = (PurchaseOrderItem) PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1.createPurchaseOrderItem(
+            PurApItemFixture.BASIC_QTY_ITEM_1);
         this.quantity = quantity;
         this.unitOfMeasure = unitOfMeasure;
         this.catNbr = catNbr;

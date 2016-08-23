@@ -33,7 +33,11 @@ import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 
 import java.io.ByteArrayOutputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Service implementation class for Contracts & Grants Award Balances Report
@@ -51,7 +55,6 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.cg.report.service.ContractsGrantsAwardBalancesReportService#generateReport(org.kuali.kfs.module.cg.report.ContractsGrantsReportDataHolder, org.kuali.kfs.sys.report.ReportInfo, java.io.ByteArrayOutputStream)
      */
     @Override
@@ -102,7 +105,6 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
     }
 
     /**
-     *
      * @return reportGenerationService
      */
     public ReportGenerationService getReportGenerationService() {
@@ -110,7 +112,6 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
     }
 
     /**
-     *
      * @param reportGenerationService
      */
     public void setReportGenerationService(ReportGenerationService reportGenerationService) {
@@ -118,7 +119,6 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
     }
 
     /**
-     *
      * @return contractsGrantsAwardBalancesReportInfo
      */
     public ReportInfo getContractsGrantsAwardBalancesReportInfo() {
@@ -126,7 +126,6 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
     }
 
     /**
-     *
      * @param contractsGrantsInvoiceReportInfo
      */
     public void setContractsGrantsAwardBalancesReportInfo(ReportInfo contractsGrantsInvoiceReportInfo) {

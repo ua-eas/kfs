@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.bc.businessobject.options;
 
-import static org.kuali.kfs.module.bc.BCConstants.SalaryAdjustmentMeasurement.AMOUNT;
-import static org.kuali.kfs.module.bc.BCConstants.SalaryAdjustmentMeasurement.PERCENT;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import static org.kuali.kfs.module.bc.BCConstants.SalaryAdjustmentMeasurement.AMOUNT;
+import static org.kuali.kfs.module.bc.BCConstants.SalaryAdjustmentMeasurement.PERCENT;
 
 public class SalaryAdjustmentMeasurementValueFinder extends KeyValuesBase {
 

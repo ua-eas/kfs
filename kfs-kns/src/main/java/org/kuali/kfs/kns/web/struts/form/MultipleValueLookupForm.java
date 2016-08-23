@@ -19,8 +19,8 @@
 package org.kuali.kfs.kns.web.struts.form;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.util.PagingBannerUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
 
@@ -32,9 +32,6 @@ import java.util.Set;
 
 /**
  * Form to handle multiple value lookups
- *
- *
- *
  */
 public class MultipleValueLookupForm extends LookupForm {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MultipleValueLookupForm.class);
@@ -47,10 +44,10 @@ public class MultipleValueLookupForm extends LookupForm {
      * @see LookupForm#addRequiredNonEditableProperties()
      */
     @Override
-    public void addRequiredNonEditableProperties(){
-    	super.addRequiredNonEditableProperties();
-    	registerRequiredNonEditableProperty(KRADConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER);
-    	registerRequiredNonEditableProperty(KRADConstants.LOOKED_UP_COLLECTION_NAME);
+    public void addRequiredNonEditableProperties() {
+        super.addRequiredNonEditableProperties();
+        registerRequiredNonEditableProperty(KRADConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER);
+        registerRequiredNonEditableProperty(KRADConstants.LOOKED_UP_COLLECTION_NAME);
     }
 
     /**
@@ -60,7 +57,7 @@ public class MultipleValueLookupForm extends LookupForm {
 
     /**
      * The number of rows that match the query criteria or
-     *  the max results limit size (if applicable), whichever is less
+     * the max results limit size (if applicable), whichever is less
      */
     private int resultsLimitedSize;
 
@@ -110,14 +107,13 @@ public class MultipleValueLookupForm extends LookupForm {
 
         if (StringUtils.isNotBlank(request.getParameter(KRADConstants.TableRenderConstants.VIEWED_PAGE_NUMBER))) {
             setViewedPageNumber(Integer.parseInt(request.getParameter(KRADConstants.TableRenderConstants.VIEWED_PAGE_NUMBER)));
-        }
-        else {
+        } else {
             setViewedPageNumber(0); // first page is page 0
         }
 
         if (KRADConstants.TableRenderConstants.SWITCH_TO_PAGE_METHOD.equals(getMethodToCall())) {
             final String paramPrefix = KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.TableRenderConstants.SWITCH_TO_PAGE_METHOD + ".";
-        	setSwitchToPageNumber(PagingBannerUtils.getNumbericalValueAfterPrefix(paramPrefix, request.getParameterNames()));
+            setSwitchToPageNumber(PagingBannerUtils.getNumbericalValueAfterPrefix(paramPrefix, request.getParameterNames()));
             if (getSwitchToPageNumber() == -1) {
                 throw new RuntimeException("Couldn't find page number");
             }
@@ -126,7 +122,7 @@ public class MultipleValueLookupForm extends LookupForm {
         if (KRADConstants.TableRenderConstants.SORT_METHOD.equals(getMethodToCall())) {
             final String paramPrefix = KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.TableRenderConstants.SORT_METHOD + ".";
             setColumnToSortIndex(
-                    PagingBannerUtils.getNumbericalValueAfterPrefix(paramPrefix, request.getParameterNames()));
+                PagingBannerUtils.getNumbericalValueAfterPrefix(paramPrefix, request.getParameterNames()));
             if (getColumnToSortIndex() == -1) {
                 throw new RuntimeException("Couldn't find column to sort");
             }
@@ -143,9 +139,9 @@ public class MultipleValueLookupForm extends LookupForm {
     }
 
 
-
     /**
      * This method converts the composite object IDs into a String
+     *
      * @return
      */
     public String getCompositeSelectedObjectIds() {
@@ -187,15 +183,14 @@ public class MultipleValueLookupForm extends LookupForm {
      * Iterates through the request params, looks for the parameter representing the method to call in the format like
      * methodToCall.sort.1.(::;true;::).x, and returns the boolean value in the (::; and ;::) delimiters.
      *
-     * @see MultipleValueLookupForm#parseSearchUsingOnlyPrimaryKeyValues(String)
-     *
      * @param request
      * @return
+     * @see MultipleValueLookupForm#parseSearchUsingOnlyPrimaryKeyValues(String)
      */
     protected boolean parseSearchUsingOnlyPrimaryKeyValues(HttpServletRequest request) {
         // the param we're looking for looks like: methodToCall.sort.1.(::;true;::).x , we want to parse out the "true" component
         String paramPrefix = KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + getMethodToCall() + ".";
-        for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+        for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
             String parameterName = (String) i.nextElement();
             if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                 return parseSearchUsingOnlyPrimaryKeyValues(parameterName);
@@ -207,7 +202,7 @@ public class MultipleValueLookupForm extends LookupForm {
 
     /**
      * Parses the method to call parameter passed in as a post parameter
-     *
+     * <p>
      * The parameter should be something like methodToCall.sort.1.(::;true;::).x, this method will return the value
      * between (::; and ;::) as a boolean
      *

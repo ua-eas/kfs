@@ -32,6 +32,10 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -44,10 +48,6 @@ import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHelperService {
     private static Logger LOG = Logger.getLogger(AccountingLineRuleHelperServiceImpl.class);
@@ -159,10 +159,9 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
         if (AccountingLineOverride.needsExpiredAccountOverride(account) && !override.hasComponent(AccountingLineOverride.COMPONENT.EXPIRED_ACCOUNT)) {
             Account continuation = accountService.getUnexpiredContinuationAccountOrNull(account);
             if (continuation == null) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED_NO_CONTINUATION, new String[] { account.getAccountNumber() });
-            }
-            else {
-                GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[] { account.getAccountNumber(), continuation.getChartOfAccountsCode(), continuation.getAccountNumber() });
+                GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED_NO_CONTINUATION, new String[]{account.getAccountNumber()});
+            } else {
+                GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{account.getAccountNumber(), continuation.getChartOfAccountsCode(), continuation.getAccountNumber()});
                 // todo: ... args in JDK 1.5
             }
             retVal = false;
@@ -176,7 +175,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
         AccountingLineOverride override = AccountingLineOverride.valueOf(overrideCode);
         Account account = line.getAccount();
         if (AccountingLineOverride.needsObjectBudgetOverride(account, objectCode) && !override.hasComponent(AccountingLineOverride.COMPONENT.NON_BUDGETED_OBJECT)) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_PRESENCE_NON_BUDGETED_OBJECT_CODE, new String[] { account.getAccountNumber(), objectCode.getFinancialObjectCode() });
+            GlobalVariables.getMessageMap().putError(KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_PRESENCE_NON_BUDGETED_OBJECT_CODE, new String[]{account.getAccountNumber(), objectCode.getFinancialObjectCode()});
             retVal = false;
         }
         return retVal;
@@ -184,6 +183,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Method moved to AccountService, use method there instead. Same logic.
+     *
      * @see org.kuali.kfs.coa.service.AccountService#getUnexpiredContinuationAccountOrNull(org.kuali.kfs.coa.businessobject.Account)
      */
     @Deprecated
@@ -477,7 +477,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
     /**
      * This method will check the reference type code for existence in the system and whether it can actively be used.
      *
-     * @param documentTypeCode the document type name of the reference document type
+     * @param documentTypeCode    the document type name of the reference document type
      * @param referenceType
      * @param accountingLineEntry
      * @return boolean True if the object is valid; false otherwise.
@@ -494,10 +494,10 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
      * Checks for the existence of the given Object. This is doing an OJB-proxy-smart check, so assuming the given Object is not in
      * need of a refresh(), this method adds an ERROR_EXISTENCE to the global error map if the given Object is not in the database.
      *
-     * @param toCheck the Object to check for existence
+     * @param toCheck             the Object to check for existence
      * @param accountingLineEntry to get the property's label for the error message parameter.
-     * @param attributeName the name of the SourceAccountingLine attribute in the DataDictionary accountingLineEntry
-     * @param propertyName the name of the property within the global error path.
+     * @param attributeName       the name of the SourceAccountingLine attribute in the DataDictionary accountingLineEntry
+     * @param propertyName        the name of the property within the global error path.
      * @return whether the given Object exists or not
      */
     protected boolean checkExistence(Object toCheck, org.kuali.kfs.krad.datadictionary.BusinessObjectEntry accountingLineEntry, String attributeName, String propertyName, String errorPropertyIdentifyingName) {
@@ -522,6 +522,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -534,6 +535,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Gets the financialSystemDocumentTypeService attribute.
+     *
      * @return Returns the financialSystemDocumentTypeService.
      */
     public FinancialSystemDocumentTypeService getFinancialSystemDocumentTypeService() {
@@ -542,6 +544,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Sets the financialSystemDocumentTypeService attribute value.
+     *
      * @param financialSystemDocumentTypeService The financialSystemDocumentTypeService to set.
      */
     public void setFinancialSystemDocumentTypeService(FinancialSystemDocumentTypeService financialSystemDocumentTypeService) {
@@ -550,6 +553,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Gets the accountService attribute.
+     *
      * @return Returns the accountService.
      */
     public AccountService getAccountService() {
@@ -558,6 +562,7 @@ public class AccountingLineRuleHelperServiceImpl implements AccountingLineRuleHe
 
     /**
      * Sets the accountService attribute value.
+     *
      * @param accountService The accountService to set.
      */
     public void setAccountService(AccountService accountService) {

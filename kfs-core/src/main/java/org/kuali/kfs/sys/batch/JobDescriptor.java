@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.quartz.JobDetail;
+import org.springframework.beans.factory.BeanNameAware;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.kns.bo.Step;
-import org.quartz.JobDetail;
-import org.springframework.beans.factory.BeanNameAware;
 
 public class JobDescriptor implements BeanNameAware {
     private String name;
@@ -143,6 +143,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Gets the namespaceCode attribute.
+     *
      * @return Returns the namespaceCode.
      */
     public String getNamespaceCode() {
@@ -151,6 +152,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Sets the namespaceCode attribute value.
+     *
      * @param namespaceCode The namespaceCode to set.
      */
     public void setNamespaceCode(String namespaceCode) {

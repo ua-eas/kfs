@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPayRateHolding;
@@ -28,6 +25,9 @@ import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointme
 import org.kuali.kfs.module.bc.document.dataaccess.PayrateImportDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Collection;
+import java.util.List;
 
 public class PayrateImportDaoOjb extends PlatformAwareDaoBaseOjb implements PayrateImportDao {
 
@@ -40,7 +40,7 @@ public class PayrateImportDaoOjb extends PlatformAwareDaoBaseOjb implements Payr
         criteria.addEqualTo(KFSPropertyConstants.POSITION_NUMBER, holdingRecord.getPositionNumber());
         criteria.addEqualTo(KFSPropertyConstants.ACTIVE, "Y");
 
-        List<PendingBudgetConstructionAppointmentFunding> records = (List<PendingBudgetConstructionAppointmentFunding>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(PendingBudgetConstructionAppointmentFunding.class, criteria));
+        List<PendingBudgetConstructionAppointmentFunding> records = (List<PendingBudgetConstructionAppointmentFunding>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(PendingBudgetConstructionAppointmentFunding.class, criteria));
 
         return records;
     }

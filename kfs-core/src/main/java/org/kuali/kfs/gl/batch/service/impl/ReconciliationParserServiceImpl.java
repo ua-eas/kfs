@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.ReconciliationParserService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.StringTokenizer;
+
 /**
  * Format of the reconciliation file:
- *
+ * <p>
  * <pre>
  *  C tableid rowcount ;
  *  S field1 dollaramount ;
  *  S field2 dollaramount ;
  *  E checksum ;
  * </pre>
- *
+ * <p>
  * The character '#' and everything following it on that line is ignored. Whitespace characters are tab and space.<br>
  * <br>
  * A 'C' 'S' or 'E' must be the first character on a line unless the line is entirely whitespace or a comment. The case of these
@@ -65,16 +65,18 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  */
 public class ReconciliationParserServiceImpl implements ReconciliationParserService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FileEnterpriseFeederHelperServiceImpl.class);
+
     private enum ParseState {
         INIT, TABLE_DEF, COLUMN_DEF, CHECKSUM_DEF;
-    };
+    }
 
+    ;
 
 
     /**
      * Parses a reconciliation file
      *
-     * @param reader a source of data from which to build a reconciliation
+     * @param reader  a source of data from which to build a reconciliation
      * @param tableId defined within the reconciliation file; defines which block to parse
      * @return parsed reconciliation data
      * @throws IOException thrown if the file cannot be written for any reason
@@ -84,8 +86,7 @@ public class ReconciliationParserServiceImpl implements ReconciliationParserServ
         BufferedReader bufReader;
         if (reader instanceof BufferedReader) {
             bufReader = (BufferedReader) reader;
-        }
-        else {
+        } else {
             bufReader = new BufferedReader(reader);
         }
 
@@ -174,8 +175,7 @@ public class ReconciliationParserServiceImpl implements ReconciliationParserServ
                 columnReconciliation.setDollarAmount(columnAmount);
                 reconciliationBlock.addColumn(columnReconciliation);
                 linesInBlock++;
-            }
-            else if (command.equalsIgnoreCase(GeneralLedgerConstants.Reconciliation.CHECKSUM_DEF_STRING)) {
+            } else if (command.equalsIgnoreCase(GeneralLedgerConstants.Reconciliation.CHECKSUM_DEF_STRING)) {
                 if (!strTok.hasMoreTokens()) {
                     LOG.error("Cannot find CHECKSUM_DEF_STRING");
                     throw new RuntimeException();
@@ -190,8 +190,7 @@ public class ReconciliationParserServiceImpl implements ReconciliationParserServ
                     throw new RuntimeException();
                 }
                 break;
-            }
-            else {
+            } else {
                 LOG.error("Cannot find any fields");
                 throw new RuntimeException();
             }

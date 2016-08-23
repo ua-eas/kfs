@@ -16,28 +16,28 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <script language="javascript" src="scripts/module/tem/common.js"></script>
 
-<c:set var="fullEntryMode" value="${KualiForm.editingMode['fullEntry']}" scope="request" />
-<c:set var="travelerEntryMode" value="${KualiForm.editingMode['travelerEntry']}" scope="request" />
-<c:set var="documentTitle" value="${'TravelArrangerDocument'}" />
+<c:set var="fullEntryMode" value="${KualiForm.editingMode['fullEntry']}" scope="request"/>
+<c:set var="travelerEntryMode" value="${KualiForm.editingMode['travelerEntry']}" scope="request"/>
+<c:set var="documentTitle" value="${'TravelArrangerDocument'}"/>
 
 <kul:documentPage showDocumentInfo="true"
-    documentTypeName="TravelArrangerDocument"
-    htmlFormAction="temTravelArranger" renderMultipart="true"
-    showTabButtons="true">
+                  documentTypeName="TravelArrangerDocument"
+                  htmlFormAction="temTravelArranger" renderMultipart="true"
+                  showTabButtons="true">
 
-    <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
     <tem-arranger:traveler/>
     <tem-arranger:request/>
 
-    <kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-    <kul:routeLog />
-    <kul:superUserActions />
+    <kul:routeLog/>
+    <kul:superUserActions/>
 
-    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}" />
+    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

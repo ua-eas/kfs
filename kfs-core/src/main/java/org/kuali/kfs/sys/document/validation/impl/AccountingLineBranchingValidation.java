@@ -34,13 +34,14 @@ public class AccountingLineBranchingValidation extends BranchingValidation {
         if (accountingLineForValidation.getSequenceNumber() != null) {
             return IS_OLD_LINE;
         } else if (accountingLineForValidation.getSequenceNumber() == null) {
-           return IS_NEW_LINE;
+            return IS_NEW_LINE;
         }
         return null;
     }
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -49,6 +50,7 @@ public class AccountingLineBranchingValidation extends BranchingValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLine) {

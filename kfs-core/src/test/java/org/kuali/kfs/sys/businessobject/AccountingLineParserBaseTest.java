@@ -18,13 +18,8 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-import java.util.List;
-
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
@@ -32,7 +27,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.exception.AccountingLineParserException;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 /**
  * Test class for testing <code>{@link AccountingLineParserBase}</code>
@@ -56,8 +56,7 @@ public class AccountingLineParserBaseTest extends KualiTestBase {
         try {
             parser.parseSourceAccountingLine(accountingDocument, "BL,4631672, , ,KUL, , , a");
             fail("didn't throw AccountingLineParserException");
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             // good
             assertInvalidPropertyValue(e, " a");
         }
@@ -75,8 +74,7 @@ public class AccountingLineParserBaseTest extends KualiTestBase {
         try {
             parser.parseTargetAccountingLine(accountingDocument, "BL,4631672, , ,KUL, , , , b");
             fail("didn't throw AccountingLineParserException");
-        }
-        catch (AccountingLineParserException e) {
+        } catch (AccountingLineParserException e) {
             // good
             assertInvalidPropertyValue(e, " b");
         }

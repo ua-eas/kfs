@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.module.bc.BCConstants;
@@ -46,6 +39,13 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Service implementation of BudgetConstructionLevelSummaryReportService.
  */
@@ -58,7 +58,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionLevelSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     @Override
     public Collection<BudgetConstructionAccountSalaryDetailReport> buildReports(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
@@ -104,12 +104,10 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
         if (pendingAppointmentFunding.getChartOfAccounts() != null) {
             try {
                 chartOfAccountDescription = pendingAppointmentFunding.getChartOfAccounts().getFinChartOfAccountDescription();
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 chartOfAccountDescription = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION);
             }
-        }
-        else {
+        } else {
             chartOfAccountDescription = BCConstants.Report.CHART + BCConstants.Report.NOT_DEFINED;
         }
 
@@ -118,8 +116,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
         String orgName = null;
         try {
             orgName = pendingAppointmentFunding.getAccount().getOrganization().getOrganizationName();
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
         }
         String accountName = pendingAppointmentFunding.getAccount().getAccountName();
         String fundGroupCode = pendingAppointmentFunding.getAccount().getSubFundGroup().getFundGroupCode();
@@ -127,29 +124,25 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
 
         if (orgName == null) {
             accountSalaryDetailReport.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             accountSalaryDetailReport.setOrganizationName(orgName);
         }
 
         if (fundGroupCode == null) {
             accountSalaryDetailReport.setFundGroupCode(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_CODE));
-        }
-        else {
+        } else {
             accountSalaryDetailReport.setFundGroupCode(fundGroupCode);
         }
 
         if (fundGroupName == null) {
             accountSalaryDetailReport.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             accountSalaryDetailReport.setFundGroupName(fundGroupName);
         }
 
         if (accountName == null) {
             accountSalaryDetailReport.setAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ACCOUNT_DESCRIPTION));
-        }
-        else {
+        } else {
             accountSalaryDetailReport.setAccountName(accountName);
         }
 
@@ -158,8 +151,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
         if (!pendingAppointmentFunding.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
             try {
                 subAccountName = pendingAppointmentFunding.getSubAccount().getSubAccountName();
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 subAccountName = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION);
             }
         }
@@ -223,7 +215,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
 
         // from PendingBudgetConstructionAppointmentFunding
         accountMonthlyDetailReport.setAppointmentFundingMonth(pendingAppointmentFunding.getAppointmentFundingMonth());
-        if (salarySettingService.isHourlyPaidObject(pendingAppointmentFunding.getUniversityFiscalYear(), pendingAppointmentFunding.getChartOfAccountsCode(), pendingAppointmentFunding.getFinancialObjectCode())){
+        if (salarySettingService.isHourlyPaidObject(pendingAppointmentFunding.getUniversityFiscalYear(), pendingAppointmentFunding.getChartOfAccountsCode(), pendingAppointmentFunding.getFinancialObjectCode())) {
             accountMonthlyDetailReport.setAppointmentRequestedPayRate(pendingAppointmentFunding.getAppointmentRequestedPayRate());
         }
 
@@ -243,7 +235,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
         String deleteBox = pendingAppointmentFunding.isAppointmentFundingDeleteIndicator() ? BCConstants.Report.DELETE_MARK : BCConstants.Report.BLANK;
         accountMonthlyDetailReport.setDeleteBox(deleteBox);
 
-        if (pendingAppointmentFunding.getEmplid().equals(BCConstants.Report.VACANT)){
+        if (pendingAppointmentFunding.getEmplid().equals(BCConstants.Report.VACANT)) {
             accountMonthlyDetailReport.setName(BCConstants.Report.VACANT);
         } else {
             int nameLength = intendedIncumbent.getName().length();
@@ -264,12 +256,10 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
                 if (pendingAppointmentFunding.getFinancialObject() != null) {
                     try {
                         objectCodeName = pendingAppointmentFunding.getFinancialObject().getFinancialObjectCodeName();
-                    }
-                    catch (PersistenceBrokerException e) {
+                    } catch (PersistenceBrokerException e) {
                         objectCodeName = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_OBJECT_NAME);
                     }
-                }
-                else {
+                } else {
                     objectCodeName = BCConstants.Report.OBJECT + BCConstants.Report.NOT_DEFINED;
                 }
                 accountMonthlyDetailReport.setTotalDescription(objectCodeName);
@@ -375,6 +365,7 @@ public class BudgetConstructionAccountSalaryDetailReportServiceImpl implements B
 
     /**
      * Sets the salarySettingService attribute value.
+     *
      * @param salarySettingService The salarySettingService to set.
      */
     public void setSalarySettingService(SalarySettingService salarySettingService) {

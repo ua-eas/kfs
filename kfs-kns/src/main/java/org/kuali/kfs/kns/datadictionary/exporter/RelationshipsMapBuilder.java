@@ -25,8 +25,6 @@ import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 
 /**
  * RelationshipsMapBuilder
- *
- *
  */
 @Deprecated
 public class RelationshipsMapBuilder {
@@ -45,7 +43,7 @@ public class RelationshipsMapBuilder {
     public ExportMap buildRelationshipsMap(DataDictionaryEntryBase entry) {
         ExportMap relationshipsMap = new ExportMap("relationships");
 
-        for ( RelationshipDefinition relationship : entry.getRelationships() ) {
+        for (RelationshipDefinition relationship : entry.getRelationships()) {
             relationshipsMap.set(buildRelationshipMap(relationship));
         }
 

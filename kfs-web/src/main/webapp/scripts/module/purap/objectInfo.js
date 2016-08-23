@@ -16,47 +16,49 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function loadItemUnitOfMeasureInfo( itemUnitOfMeasureCodeField, itemUnitOfMeasureDescriptionField ) {
-    var itemUnitOfMeasureCode = dwr.util.getValue( itemUnitOfMeasureCodeField );
+function loadItemUnitOfMeasureInfo(itemUnitOfMeasureCodeField, itemUnitOfMeasureDescriptionField) {
+    var itemUnitOfMeasureCode = dwr.util.getValue(itemUnitOfMeasureCodeField);
     var containerDiv = document.getElementById(itemUnitOfMeasureDescriptionField + divSuffix);
 
     if (itemUnitOfMeasureCode == "") {
-        dwr.util.setValue( containerDiv.id, " " );
+        dwr.util.setValue(containerDiv.id, " ");
     } else {
         var dwrReply = {
-            callback:function(data) {
-            if ( data != null && typeof data == 'object' ) {
-                dwr.util.setValue(containerDiv.id, data.itemUnitOfMeasureDescription, {escapeHtml:true} );
-            } else {
-            	setRecipientValue(containerDiv.id, wrapError("Item of Measure code not found"), true);
-            } },
-            errorHandler:function( errorMessage ) {
-            	setRecipientValue(containerDiv.id, wrapError("Item of Measure code not found"), true);
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    dwr.util.setValue(containerDiv.id, data.itemUnitOfMeasureDescription, {escapeHtml: true});
+                } else {
+                    setRecipientValue(containerDiv.id, wrapError("Item of Measure code not found"), true);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                setRecipientValue(containerDiv.id, wrapError("Item of Measure code not found"), true);
             }
         };
-        ItemUnitOfMeasureService.getByPrimaryId( itemUnitOfMeasureCode, dwrReply );
+        ItemUnitOfMeasureService.getByPrimaryId(itemUnitOfMeasureCode, dwrReply);
     }
 }
 
-function loadCommodityCodeDescription( purCommodityCode, commodityCodeFieldName ) {
-    var purchasingCommodityCode = dwr.util.getValue( purCommodityCode );
+function loadCommodityCodeDescription(purCommodityCode, commodityCodeFieldName) {
+    var purchasingCommodityCode = dwr.util.getValue(purCommodityCode);
     var containerDiv = document.getElementById(commodityCodeFieldName + divSuffix);
 
     if (purchasingCommodityCode == "") {
-        dwr.util.setValue( containerDiv.id, " " );
+        dwr.util.setValue(containerDiv.id, " ");
     } else {
         var dwrReply = {
-            callback:function(data) {
-            if ( data != null && typeof data == 'object' ) {
-                dwr.util.setValue(containerDiv.id, data.commodityDescription, {escapeHtml:true} );
-            } else {
-            	setRecipientValue(containerDiv.id, wrapError("Commodity Code not found"), true);
-            } },
-            errorHandler:function( errorMessage ) {
-            	setRecipientValue(containerDiv.id, wrapError("Commodity Code not found"), true);
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    dwr.util.setValue(containerDiv.id, data.commodityDescription, {escapeHtml: true});
+                } else {
+                    setRecipientValue(containerDiv.id, wrapError("Commodity Code not found"), true);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                setRecipientValue(containerDiv.id, wrapError("Commodity Code not found"), true);
             }
         };
-        PurapCommodityCodeService.getByPrimaryId( purchasingCommodityCode, dwrReply );
+        PurapCommodityCodeService.getByPrimaryId(purchasingCommodityCode, dwrReply);
     }
 }
 

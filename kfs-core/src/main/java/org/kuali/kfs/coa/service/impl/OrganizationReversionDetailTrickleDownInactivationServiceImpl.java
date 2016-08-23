@@ -18,21 +18,12 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionDetail;
 import org.kuali.kfs.coa.service.OrganizationReversionDetailTrickleDownInactivationService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
@@ -41,6 +32,15 @@ import org.kuali.kfs.krad.service.DocumentHeaderService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The default implementation of the OrganizationReversionDetailTrickleDownService
@@ -70,7 +70,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         List<OrganizationReversionDetail> organizationReversionDetailList = new ArrayList<OrganizationReversionDetail>();
         for (Object orgRevDetailAsObject : orgReversionDetails) {
-            organizationReversionDetailList.add((OrganizationReversionDetail)orgRevDetailAsObject);
+            organizationReversionDetailList.add((OrganizationReversionDetail) orgRevDetailAsObject);
         }
         trickleDownInactivations(organizationReversionDetailList, documentNumber);
     }
@@ -93,15 +93,16 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         List<OrganizationReversionDetail> organizationReversionDetailList = new ArrayList<OrganizationReversionDetail>();
         for (Object orgRevDetailAsObject : orgReversionDetails) {
-            organizationReversionDetailList.add((OrganizationReversionDetail)orgRevDetailAsObject);
+            organizationReversionDetailList.add((OrganizationReversionDetail) orgRevDetailAsObject);
         }
         trickleDownActivations(organizationReversionDetailList, documentNumber);
     }
 
     /**
      * The method which actually does the work of inactivating the details
+     *
      * @param organizationReversionDetails the details to inactivate
-     * @param documentNumber the document number which has the inactivations as part of it
+     * @param documentNumber               the document number which has the inactivations as part of it
      * @return an inactivation status object which will help us save notes
      */
     protected void trickleDownInactivations(List<OrganizationReversionDetail> organizationReversionDetails, String documentNumber) {
@@ -114,8 +115,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                     try {
                         businessObjectService.save(detail);
                         status.addOrganizationReversionDetail(detail);
-                    }
-                    catch (RuntimeException re) {
+                    } catch (RuntimeException re) {
                         LOG.error("Unable to trickle-down inactivate sub-account " + detail.toString(), re);
                         status.addErrorPersistingOrganizationReversionDetail(detail);
                     }
@@ -129,8 +129,9 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * The method which actually does the work of activating the details
+     *
      * @param organizationReversionDetails the details to inactivate
-     * @param documentNumber the document number which has the inactivations as part of it
+     * @param documentNumber               the document number which has the inactivations as part of it
      * @return an inactivation status object which will help us save notes
      */
     protected void trickleDownActivations(List<OrganizationReversionDetail> organizationReversionDetails, String documentNumber) {
@@ -143,8 +144,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                     try {
                         businessObjectService.save(detail);
                         status.addOrganizationReversionDetail(detail);
-                    }
-                    catch (RuntimeException re) {
+                    } catch (RuntimeException re) {
                         LOG.error("Unable to trickle-down inactivate sub-account " + detail.toString(), re);
                         status.addErrorPersistingOrganizationReversionDetail(detail);
                     }
@@ -159,6 +159,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     /**
      * Determines whether the given organization reversion detail can be activated: ie, that both its owning OrganizationReversion and its related
      * OrganizationReversionCategory are both active
+     *
      * @param detail the detail to check
      * @return true if the detail can be activated, false otherwise
      */
@@ -195,6 +196,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Adds an organization reversion detail which had a successfully persisted activation to the message list
+         *
          * @param organizationReversionDetail the detail to add to the list
          */
         public void addOrganizationReversionDetail(OrganizationReversionDetail organizationReversionDetail) {
@@ -203,6 +205,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Adds an organization reversion detail which could not successful persist its activation to the error message list
+         *
          * @param organizationReversionDetail the detail to add to the list
          */
         public void addErrorPersistingOrganizationReversionDetail(OrganizationReversionDetail organizationReversionDetail) {
@@ -218,8 +221,9 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Builds a List of Notes out of a list of OrganizationReversionDescriptions
-         * @param messageKey the key of the note text in ApplicationResources.properties
-         * @param noteParent the thing to stick the note on
+         *
+         * @param messageKey                   the key of the note text in ApplicationResources.properties
+         * @param noteParent                   the thing to stick the note on
          * @param organizationReversionDetails the List of OrganizationReversionDetails to make notes about
          * @return a List of Notes
          */
@@ -237,10 +241,11 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Builds a note
-         * @param description a description to put into the message of the note
-         * @param messageKey the key of the note text in ApplicationResources.properties
+         *
+         * @param description  a description to put into the message of the note
+         * @param messageKey   the key of the note text in ApplicationResources.properties
          * @param noteTemplate the template for the note
-         * @param noteParent the thing to stick the note on
+         * @param noteParent   the thing to stick the note on
          * @return the built note
          */
         protected Note buildNote(String description, String messageKey, Note noteTemplate, PersistableBusinessObject noteParent) {
@@ -250,8 +255,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                 final String noteText = MessageFormat.format(noteTextTemplate, description);
                 note = noteService.createNote(noteTemplate, noteParent, GlobalVariables.getUserSession().getPrincipalId());
                 note.setNoteText(noteText);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // noteService.createNote throws *Exception*???
                 // weak!!
                 throw new RuntimeException("Cannot create note", e);
@@ -261,6 +265,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Builds organization reverion detail descriptions to populate notes
+         *
          * @param organizationReversionDetails the list of details to convert to notes
          * @return a List of notes
          */
@@ -292,6 +297,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Beautifully and eloquently describes an organization reversion detail
+         *
          * @param organizationReversionDetail the organization reversion detail to describe
          * @return the funny, heart-breaking, and ultimately inspiring resultant description
          */
@@ -301,9 +307,10 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Saves notes to a document
+         *
          * @param organizationReversionDetails the details to make notes about
-         * @param messageKey the message key of the text of the note
-         * @param documentNumber the document number to write to
+         * @param messageKey                   the message key of the text of the note
+         * @param documentNumber               the document number to write to
          */
         protected void saveAllNotes(List<OrganizationReversionDetail> organizationReversionDetails, String messageKey, String documentNumber) {
             DocumentHeader noteParent = documentHeaderService.getDocumentHeaderById(documentNumber);
@@ -313,6 +320,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Adds all the notes about successful inactivations
+         *
          * @param documentNumber document number to save them to
          */
         public void saveSuccesfullyChangedNotes(String documentNumber) {
@@ -321,6 +329,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Adds all the notes about inactivations which couldn't be saved
+         *
          * @param documentNumber the document number to save them to
          */
         public void saveErrorNotes(String documentNumber) {
@@ -329,6 +338,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Sets the erroredOutOrganizationReversionDetailsMessageKey attribute value.
+         *
          * @param erroredOutOrganizationReversionDetailsMessageKey The erroredOutOrganizationReversionDetailsMessageKey to set.
          */
         public void setErroredOutOrganizationReversionDetailsMessageKey(String erroredOutOrganizationReversionDetailsMessageKey) {
@@ -337,6 +347,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
         /**
          * Sets the successfullyChangedOrganizationReversionDetailsMessageKey attribute value.
+         *
          * @param successfullyChangedOrganizationReversionDetailsMessageKey The successfullyChangedOrganizationReversionDetailsMessageKey to set.
          */
         public void setSuccessfullyChangedOrganizationReversionDetailsMessageKey(String successfullyChangedOrganizationReversionDetailsMessageKey) {
@@ -346,6 +357,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Gets the kualiConfigurationService attribute.
+     *
      * @return Returns the kualiConfigurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -354,6 +366,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Sets the kualiConfigurationService attribute value.
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
@@ -362,6 +375,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Gets the noteService attribute.
+     *
      * @return Returns the noteService.
      */
     public NoteService getNoteService() {
@@ -370,6 +384,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Sets the noteService attribute value.
+     *
      * @param noteService The noteService to set.
      */
     public void setNoteService(NoteService noteService) {
@@ -378,6 +393,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -386,6 +402,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -394,6 +411,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Gets the documentHeaderService attribute.
+     *
      * @return Returns the documentHeaderService.
      */
     public DocumentHeaderService getDocumentHeaderService() {
@@ -402,6 +420,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
 
     /**
      * Sets the documentHeaderService attribute value.
+     *
      * @param documentHeaderService The documentHeaderService to set.
      */
     public void setDocumentHeaderService(DocumentHeaderService documentHeaderService) {

@@ -49,23 +49,21 @@ public class LaborGLScrubberValidatorImpl extends ScrubberValidatorImpl implemen
             if (universityRunDate.getAccountingPeriod().isOpen()) {
                 workingEntry.setUniversityFiscalPeriodCode(universityRunDate.getUniversityFiscalAccountingPeriod());
                 workingEntry.setUniversityFiscalYear(universityRunDate.getUniversityFiscalYear());
-            }
-            else {
+            } else {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_CLOSED, " (year " + universityRunDate.getUniversityFiscalYear() + ", period " + universityRunDate.getUniversityFiscalAccountingPeriod(), Message.TYPE_FATAL);
             }
-        }
-        else {
+        } else {
             AccountingPeriod originEntryAccountingPeriod = accountingCycleCachingService.getAccountingPeriod(originEntry.getUniversityFiscalYear(), originEntry.getUniversityFiscalPeriodCode());
             if (originEntryAccountingPeriod == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_FOUND, periodCode, Message.TYPE_FATAL);
-            }
-            else if (!originEntryAccountingPeriod.isActive() && !originEntry.getFinancialBalanceTypeCode().equals(KFSConstants.BALANCE_TYPE_A21)) {
+            } else if (!originEntryAccountingPeriod.isActive() && !originEntry.getFinancialBalanceTypeCode().equals(KFSConstants.BALANCE_TYPE_A21)) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_ACCOUNTING_PERIOD_NOT_ACTIVE, periodCode, Message.TYPE_FATAL);
             }
 
             workingEntry.setUniversityFiscalPeriodCode(periodCode);
         }
 
-        return null;    }
+        return null;
+    }
 
 }

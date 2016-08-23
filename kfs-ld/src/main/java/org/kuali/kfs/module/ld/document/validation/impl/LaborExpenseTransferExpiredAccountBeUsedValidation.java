@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
-
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
 
 /**
  * determine whether the given accounting line has already been in the given document
  *
  * @param accountingDocument the given document
- * @param accountingLine the given accounting line
+ * @param accountingLine     the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericValidation {
@@ -44,6 +44,7 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
      * Validates that an accounting line whether the expired account in the target accounting line
      * can be used.
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -55,7 +56,7 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
 
         // not allow the duplicate source accounting line in the document
         if (!canExpiredAccountBeUsed) {
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT, KFSKeyConstants.ERROR_ACCOUNT_EXPIRED );
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT, KFSKeyConstants.ERROR_ACCOUNT_EXPIRED);
             return false;
         }
 
@@ -85,6 +86,7 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -93,6 +95,7 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.ObjectUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.ObjectUtils;
 
 /**
  * The comparator can dynamically implement java.util.Comparator and facilitate to sort a given colletion. This implementation is
@@ -46,7 +46,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
     /**
      * private constructs a DynamicCollectionComparator.java.
      *
-     * @param list the given collection that needs to be sorted
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
      */
@@ -65,7 +65,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
     /**
      * sort the given collection ordered by the given field name. Ascending order is used.
      *
-     * @param list the given collection that needs to be sorted
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      */
     public static <C> void sort(List<C> list, String... fieldNames) {
@@ -75,7 +75,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
     /**
      * sort the given collection ordered by the given field name
      *
-     * @param list the given collection that needs to be sorted
+     * @param list      the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
      */
@@ -115,35 +115,28 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
             Object propery0 = PropertyUtils.getProperty(object0, fieldName);
             Object propery1 = PropertyUtils.getProperty(object1, fieldName);
 
-            if(propery0 == null && propery1 == null) {
+            if (propery0 == null && propery1 == null) {
                 comparisonResult = 0;
-            }
-            else if(propery0 == null) {
+            } else if (propery0 == null) {
                 comparisonResult = -1;
-            }
-            else if(propery1 == null) {
+            } else if (propery1 == null) {
                 comparisonResult = 1;
-            }
-            else if (propery0 instanceof Comparable) {
+            } else if (propery0 instanceof Comparable) {
                 Comparable comparable0 = (Comparable) propery0;
                 Comparable comparable1 = (Comparable) propery1;
 
                 comparisonResult = comparable0.compareTo(comparable1);
-            }
-            else {
+            } else {
                 String property0AsString = ObjectUtils.toString(propery0);
                 String property1AsString = ObjectUtils.toString(propery1);
 
                 comparisonResult = property0AsString.compareTo(property1AsString);
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new RuntimeException("unable to compare property: " + fieldName, e);
         }
 

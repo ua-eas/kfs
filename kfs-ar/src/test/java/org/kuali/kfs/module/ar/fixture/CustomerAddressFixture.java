@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
+
+import java.sql.Date;
 
 /**
  * Fixture class for InvoiceAddressDetail

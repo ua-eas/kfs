@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailChartCodeReceivableValidationTest extends KualiTestBase {
@@ -51,17 +51,17 @@ public class CustomerInvoiceDetailChartCodeReceivableValidationTest extends Kual
         super.tearDown();
     }
 
-    public void testDoesChartCodeHaveReceivableObjectCode_True(){
+    public void testDoesChartCodeHaveReceivableObjectCode_True() {
         assertTrue(validation.validate(null));
     }
 
-    public void testDoesChartCodeHaveReceivableObjectCode_False(){
+    public void testDoesChartCodeHaveReceivableObjectCode_False() {
 
         //Blank out receivable object code for chart.
-        Map<String,String> criteria = new HashMap<String,String>();
+        Map<String, String> criteria = new HashMap<String, String>();
         criteria.put("chartOfAccountsCode", VALID_CHART_OF_ACCOUNTS_CODE);
 
-        Chart chart = (Chart)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(Chart.class, criteria);
+        Chart chart = (Chart) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(Chart.class, criteria);
         chart.setFinAccountsReceivableObjCode("");
 
         assertFalse(validation.validate(null));

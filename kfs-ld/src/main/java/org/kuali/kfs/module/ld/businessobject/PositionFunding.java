@@ -20,11 +20,11 @@
 package org.kuali.kfs.module.ld.businessobject;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Labor business object for PositionFunding
@@ -38,7 +38,7 @@ public class PositionFunding extends LaborCalculatedSalaryFoundationTracker {
      * @return Returns the ledgerPerson.
      */
     public Person getLedgerPerson() {
-        if( (ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), getEmplid())) && StringUtils.isNotBlank(getEmplid())) {
+        if ((ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), getEmplid())) && StringUtils.isNotBlank(getEmplid())) {
             ledgerPerson = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(getEmplid());
         }
 

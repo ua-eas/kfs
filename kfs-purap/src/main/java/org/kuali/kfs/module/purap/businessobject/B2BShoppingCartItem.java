@@ -22,10 +22,10 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class B2BShoppingCartItem {
 
@@ -38,9 +38,9 @@ public class B2BShoppingCartItem {
     private String unitOfMeasure;
     private String manufacturerPartID;
     private String manufacturerName;
-    private Map<String,String> classification = new HashMap<String,String>();
-    private Map<String,String> extrinsic = new HashMap<String,String>();
-    private Map<String,String> supplier = new HashMap<String,String>();
+    private Map<String, String> classification = new HashMap<String, String>();
+    private Map<String, String> extrinsic = new HashMap<String, String>();
+    private Map<String, String> supplier = new HashMap<String, String>();
 
     public B2BShoppingCartItem() {
     }
@@ -73,7 +73,7 @@ public class B2BShoppingCartItem {
         extrinsic.put(domain, value);
     }
 
-    public Map<String,String> getExtrinsic() {
+    public Map<String, String> getExtrinsic() {
         return extrinsic;
     }
 
@@ -93,7 +93,7 @@ public class B2BShoppingCartItem {
         supplier.put(domain, value);
     }
 
-    public Map<String,String> getSupplier() {
+    public Map<String, String> getSupplier() {
         return supplier;
     }
 

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.Iterator;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal;
@@ -29,17 +27,18 @@ import org.kuali.kfs.coa.businessobject.options.OrganizationReversionCodeValuesF
 import org.kuali.kfs.coa.document.OrganizationReversionGlobalMaintainableImpl;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.Iterator;
 
 /**
- *
  * This class implements the business rules for {@link OrganizationReversionGlobal}
  */
 public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
@@ -49,7 +48,6 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
     protected ObjectCodeService objectCodeService;
 
     /**
-     *
      * Constructs a OrganizationReversionGlobalRule
      * Pseudo-injects services
      */
@@ -84,6 +82,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * <li>{@link OrganizationReversionGlobalRule#checkSimpleRules(OrganizationReversionGlobal)}</li>
      * </ul>
      * Does not fail on rules failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -98,6 +97,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * <li>{@link OrganizationReversionGlobalRule#checkSimpleRules(OrganizationReversionGlobal)}</li>
      * </ul>
      * Fails on rules failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -111,6 +111,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * <li>{@link OrganizationReversionGlobalRule#checkSimpleRules(OrganizationReversionGlobal)}</li>
      * </ul>
      * Fails on rules failure
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -132,8 +133,9 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * <li>{@link OrganizationReversionGlobalRule#checkOrganizationReversionForOrganizationExists(OrganizationReversionGlobal, OrganizationReversionGlobalOrganization)</li>
      * <li>{@link OrganizationReversionGlobalRule#checkOrganizationIsNotAmongOrgRevOrganizations(OrganizationReversionGlobal, OrganizationReversionGlobalOrganization)</li>
      * </ul>
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     *java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -143,8 +145,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
             OrganizationReversionGlobalDetail detail = (OrganizationReversionGlobalDetail) line;
             success &= checkDetailObjectCodeValidity(globalOrgRev, detail);
             success &= checkDetailObjectReversionCodeValidity(detail);
-        }
-        else if (line instanceof OrganizationReversionGlobalOrganization) {
+        } else if (line instanceof OrganizationReversionGlobalOrganization) {
             OrganizationReversionGlobalOrganization org = (OrganizationReversionGlobalOrganization) line;
             if (!checkEmptyValue(org.getChartOfAccountsCode())) {
                 GlobalVariables.getMessageMap().putError("chartOfAccountsCode", KFSKeyConstants.ERROR_REQUIRED, "Chart of Accounts Code");
@@ -171,6 +172,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * <li>{@link OrganizationReversionGlobalRule#areAllDetailsValid(OrganizationReversionGlobal)}</li>
      * <li>{@link OrganizationReversionGlobalRule#areAllOrganizationsValid(OrganizationReversionGlobal)</li>
      * </ul>
+     *
      * @param globalOrgRev the global organization reversion to check
      * @return true if the new global organization reversion passes all tests, false if it deviates even a tiny little bit
      */
@@ -197,7 +199,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         boolean success = true;
         if ((!StringUtils.isBlank(globalOrgRev.getBudgetReversionChartOfAccountsCode()) && StringUtils.isBlank(globalOrgRev.getBudgetReversionAccountNumber())) || (StringUtils.isBlank(globalOrgRev.getBudgetReversionChartOfAccountsCode()) && !StringUtils.isBlank(globalOrgRev.getBudgetReversionAccountNumber()))) {
             success = false;
-            GlobalVariables.getMessageMap().putError(MAINTAINABLE_ERROR_PREFIX + "budgetReversionChartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_BUDGET_REVERSION_INCOMPLETE, new String[] {});
+            GlobalVariables.getMessageMap().putError(MAINTAINABLE_ERROR_PREFIX + "budgetReversionChartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_BUDGET_REVERSION_INCOMPLETE, new String[]{});
         }
         return success;
     }
@@ -213,7 +215,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         boolean success = true;
         if ((!StringUtils.isBlank(globalOrgRev.getCashReversionFinancialChartOfAccountsCode()) && StringUtils.isBlank(globalOrgRev.getCashReversionAccountNumber())) || (StringUtils.isBlank(globalOrgRev.getCashReversionFinancialChartOfAccountsCode()) && !StringUtils.isBlank(globalOrgRev.getCashReversionAccountNumber()))) {
             success = false;
-            GlobalVariables.getMessageMap().putError(MAINTAINABLE_ERROR_PREFIX + "cashReversionFinancialChartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_CASH_REVERSION_INCOMPLETE, new String[] {});
+            GlobalVariables.getMessageMap().putError(MAINTAINABLE_ERROR_PREFIX + "cashReversionFinancialChartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_CASH_REVERSION_INCOMPLETE, new String[]{});
         }
         return success;
     }
@@ -253,13 +255,12 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         boolean success = true;
         if (StringUtils.isBlank(detail.getOrganizationReversionCategoryCode())) {
             success = false;
-            GlobalVariables.getMessageMap().putError("organizationReversionCategoryCode", KFSKeyConstants.ERROR_REQUIRED, new String[] {});
-        }
-        else {
+            GlobalVariables.getMessageMap().putError("organizationReversionCategoryCode", KFSKeyConstants.ERROR_REQUIRED, new String[]{});
+        } else {
             detail.refreshReferenceObject("organizationReversionCategory");
             if (detail.getOrganizationReversionCategory() == null || !detail.getOrganizationReversionCategory().isActive()) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationReversionCategoryCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORG_REVERSION_CATEGORY, new String[] { detail.getOrganizationReversionCategoryCode() });
+                GlobalVariables.getMessageMap().putError("organizationReversionCategoryCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORG_REVERSION_CATEGORY, new String[]{detail.getOrganizationReversionCategoryCode()});
             }
         }
         return success;
@@ -276,7 +277,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         for (OrganizationReversionGlobalOrganization org : globalOrgRev.getOrganizationReversionGlobalOrganizations()) {
             if (!validObjectCode(globalOrgRev.getUniversityFiscalYear(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode())) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationReversionObjectCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_OBJECT_CODE_INVALID, new String[] { globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode(), org.getChartOfAccountsCode(), org.getOrganizationCode() });
+                GlobalVariables.getMessageMap().putError("organizationReversionObjectCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_OBJECT_CODE_INVALID, new String[]{globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode(), org.getChartOfAccountsCode(), org.getOrganizationCode()});
             }
         }
         return success;
@@ -287,7 +288,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * each of them are compatible with the OrganizationReversionGlobalOrganization specified.
      *
      * @param globalOrgRev the global organization reversion to check
-     * @param org the OrganizationReversionGlobalOrganization with a new chart to check against all of the object codes
+     * @param org          the OrganizationReversionGlobalOrganization with a new chart to check against all of the object codes
      * @return true if there are no conflicts, false if otherwise
      */
     public boolean checkAllObjectCodesForValidity(OrganizationReversionGlobal globalOrgRev, OrganizationReversionGlobalOrganization org) {
@@ -295,7 +296,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         for (OrganizationReversionGlobalDetail detail : globalOrgRev.getOrganizationReversionGlobalDetails()) {
             if (!validObjectCode(globalOrgRev.getUniversityFiscalYear(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode())) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_OBJECT_CODE_INVALID, new String[] { globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode(), org.getChartOfAccountsCode(), org.getOrganizationCode() });
+                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_OBJECT_CODE_INVALID, new String[]{globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), detail.getOrganizationReversionObjectCode(), org.getChartOfAccountsCode(), org.getOrganizationCode()});
             }
         }
         return success;
@@ -305,16 +306,15 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * This method checks if an object code with the given primary key fields exists in the database.
      *
      * @param universityFiscalYear the university fiscal year of the object code
-     * @param chartOfAccountsCode the chart of accounts code of the object code
-     * @param objectCode the object code itself
+     * @param chartOfAccountsCode  the chart of accounts code of the object code
+     * @param objectCode           the object code itself
      * @return true if it exists (or was not filled in to begin with), false if otherwise
      */
     public boolean validObjectCode(Integer universityFiscalYear, String chartOfAccountsCode, String objectCode) {
         if (!StringUtils.isBlank(objectCode) && universityFiscalYear != null && !StringUtils.isBlank(chartOfAccountsCode)) {
             ObjectCode objCode = objectCodeService.getByPrimaryId(universityFiscalYear, chartOfAccountsCode, objectCode);
             return (ObjectUtils.isNotNull(objCode));
-        }
-        else {
+        } else {
             return true; // blank object code? well, it's not required...and thus, it's a valid choice
         }
     }
@@ -341,7 +341,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
             }
             if (!foundInList) {
                 success = false; // we've failed to find the code in the list...FAILED!
-                GlobalVariables.getMessageMap().putError("organizationReversionCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORG_REVERSION_CODE, new String[] { detail.getOrganizationReversionCode() });
+                GlobalVariables.getMessageMap().putError("organizationReversionCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORG_REVERSION_CODE, new String[]{detail.getOrganizationReversionCode()});
             }
         }
         return success;
@@ -358,8 +358,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         boolean success = true;
         if (globalOrgRev.getOrganizationReversionGlobalOrganizations().size() == 0) {
             putFieldError(KFSConstants.MAINTENANCE_ADD_PREFIX + "organizationReversionGlobalOrganizations.organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_NO_ORGANIZATIONS);
-        }
-        else {
+        } else {
             for (int i = 0; i < globalOrgRev.getOrganizationReversionGlobalOrganizations().size(); i++) {
                 OrganizationReversionGlobalOrganization org = globalOrgRev.getOrganizationReversionGlobalOrganizations().get(i);
                 String errorPath = MAINTAINABLE_ERROR_PREFIX + "organizationReversionGlobalOrganizations[" + i + "]";
@@ -379,7 +378,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * organization reversion as a whole.
      *
      * @param globalOrgRev the global organization reversion that is currently being validated.
-     * @param org the OrganizationReversionGlobalOrganization to check
+     * @param org          the OrganizationReversionGlobalOrganization to check
      * @return true if valid, false otherwise
      */
     public boolean checkOrganizationChartValidity(OrganizationReversionGlobalOrganization org) {
@@ -387,15 +386,14 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         if (StringUtils.isBlank(org.getChartOfAccountsCode())) {
             if (!StringUtils.isBlank(org.getOrganizationCode())) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("chartOfAccountsCode", KFSKeyConstants.ERROR_REQUIRED, new String[] {});
+                GlobalVariables.getMessageMap().putError("chartOfAccountsCode", KFSKeyConstants.ERROR_REQUIRED, new String[]{});
             }
-        }
-        else {
+        } else {
             org.setChartOfAccountsCode(org.getChartOfAccountsCode().toUpperCase());
             org.refreshReferenceObject("chartOfAccounts");
             if (org.getChartOfAccounts() == null) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("chartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_CHART, new String[] { org.getChartOfAccountsCode() });
+                GlobalVariables.getMessageMap().putError("chartOfAccountsCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_CHART, new String[]{org.getChartOfAccountsCode()});
             }
         }
         return success;
@@ -412,14 +410,13 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         if (StringUtils.isBlank(org.getOrganizationCode())) {
             if (!StringUtils.isBlank(org.getChartOfAccountsCode())) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_REQUIRED, new String[] {});
+                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_REQUIRED, new String[]{});
             }
-        }
-        else if (!StringUtils.isBlank(org.getChartOfAccountsCode())) {
+        } else if (!StringUtils.isBlank(org.getChartOfAccountsCode())) {
             org.refreshReferenceObject("organization");
             if (org.getOrganization() == null) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORGANIZATION, new String[] { org.getChartOfAccountsCode(), org.getOrganizationCode() });
+                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_INVALID_ORGANIZATION, new String[]{org.getChartOfAccountsCode(), org.getOrganizationCode()});
             }
         }
         return success;
@@ -430,7 +427,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * organization exist.
      *
      * @param globalOrgRev global Organization Reversion to check
-     * @param org organization within that Global Organization Reversion to check specifically
+     * @param org          organization within that Global Organization Reversion to check specifically
      * @return true if organization reversion for organization exists, false if otherwise
      */
     public boolean checkOrganizationReversionForOrganizationExists(OrganizationReversionGlobal globalOrgRev, OrganizationReversionGlobalOrganization org) {
@@ -438,7 +435,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
         if (globalOrgRev.getUniversityFiscalYear() != null) {
             if (organizationReversionService.getByPrimaryId(globalOrgRev.getUniversityFiscalYear(), org.getChartOfAccountsCode(), org.getOrganizationCode()) == null) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_NO_ORG_REVERSION, new String[] { globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), org.getOrganizationCode() });
+                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_NO_ORG_REVERSION, new String[]{globalOrgRev.getUniversityFiscalYear().toString(), org.getChartOfAccountsCode(), org.getOrganizationCode()});
             }
         }
         return success;
@@ -449,7 +446,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
      * line rules; there's no good way to use this method when testing the entire document.
      *
      * @param globalOrgRev the global Organization Reversion to check
-     * @param orgRevOrg the newly adding organization reversion change organization
+     * @param orgRevOrg    the newly adding organization reversion change organization
      * @return true if organization should be added as it is not currently in the collection, false if otherwise
      */
     public boolean checkOrganizationIsNotAmongOrgRevOrganizations(OrganizationReversionGlobal globalOrgRev, OrganizationReversionGlobalOrganization orgRevOrg) {
@@ -459,7 +456,7 @@ public class OrganizationReversionGlobalRule extends GlobalDocumentRuleBase {
             OrganizationReversionGlobalOrganization currOrg = iter.next();
             if (areContainingSameOrganizations(currOrg, orgRevOrg)) {
                 success = false;
-                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_DUPLICATE_ORGS, new String[] { orgRevOrg.getChartOfAccountsCode(), orgRevOrg.getOrganizationCode() });
+                GlobalVariables.getMessageMap().putError("organizationCode", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ORG_REVERSION_DUPLICATE_ORGS, new String[]{orgRevOrg.getChartOfAccountsCode(), orgRevOrg.getOrganizationCode()});
             }
         }
         return success;

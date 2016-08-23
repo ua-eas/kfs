@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 public class AssetPaymentManuallyAddAccountingLineEvent extends AttributedDocumentEventBase {
     private final AccountingLine accountingLine;

@@ -20,13 +20,13 @@ package org.kuali.kfs.module.purap.businessobject;
 
 
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public abstract class PurchasingCapitalAssetLocationBase extends PersistableBusinessObjectBase implements CapitalAssetLocation {
 
@@ -47,7 +47,7 @@ public abstract class PurchasingCapitalAssetLocationBase extends PersistableBusi
 
     public PurchasingCapitalAssetLocationBase() {
         super();
-        if(GlobalVariables.getUserSession()!=null && GlobalVariables.getUserSession().getPerson()!=null){
+        if (GlobalVariables.getUserSession() != null && GlobalVariables.getUserSession().getPerson() != null) {
             Person user = GlobalVariables.getUserSession().getPerson();
             this.campusCode = user.getCampusCode();
         }
@@ -180,12 +180,12 @@ public abstract class PurchasingCapitalAssetLocationBase extends PersistableBusi
 
     @Override
     public void setCampus(CampusParameter campus) {
-    	this.campus = campus;
+        this.campus = campus;
     }
 
     @Override
     public void templateBuilding(Building building) {
-        if(ObjectUtils.isNotNull(building)) {
+        if (ObjectUtils.isNotNull(building)) {
             this.setOffCampusIndicator(false);
             this.setBuildingCode(building.getBuildingCode());
             this.setCampusCode(building.getCampusCode());

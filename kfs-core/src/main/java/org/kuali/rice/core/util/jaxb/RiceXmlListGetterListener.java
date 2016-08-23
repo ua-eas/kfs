@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 /**
  * Helper interface for use with the RiceXmlExportList class.
- *
+ * <p>
  * <p>If semi-"streaming" of child elements is desired during JAXB marshalling, then the parent element
  * assigns an instance of RiceXmlExportList to the appropriate list field/property, and gives the
  * list an implementation of this interface for the list to invoke whenever it needs to create a new
@@ -32,14 +32,14 @@ import java.io.Serializable;
  * @param E The type that the list is expected to return.
  * @param T The type that the list stores internally and passes to the listener for conversion as needed.
  */
-public interface RiceXmlListGetterListener<E,T> extends Serializable {
-        /**
-         * A listener method that converts the given item into the one expected by the list. It is invoked
-         * whenever the associated list's "get" method is called.
-         *
-         * @param nextItem The item to convert.
-         * @param index The index being accessed on the RiceXmlExportList instance.
-         * @return The converted element that the list is expected to return.
-         */
-        public E gettingNextItem(T nextItem, int index);
+public interface RiceXmlListGetterListener<E, T> extends Serializable {
+    /**
+     * A listener method that converts the given item into the one expected by the list. It is invoked
+     * whenever the associated list's "get" method is called.
+     *
+     * @param nextItem The item to convert.
+     * @param index    The index being accessed on the RiceXmlExportList instance.
+     * @return The converted element that the list is expected to return.
+     */
+    public E gettingNextItem(T nextItem, int index);
 }

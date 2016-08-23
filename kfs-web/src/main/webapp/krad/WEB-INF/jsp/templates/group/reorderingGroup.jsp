@@ -22,7 +22,7 @@
 
 <%-- render group --%>
 <tiles:insertTemplate template="group.jsp">
-  <tiles:putAttribute name="group" value="${group}"/>
+    <tiles:putAttribute name="group" value="${group}"/>
 </tiles:insertTemplate>
 
 <%-- render reorderer widget --%>

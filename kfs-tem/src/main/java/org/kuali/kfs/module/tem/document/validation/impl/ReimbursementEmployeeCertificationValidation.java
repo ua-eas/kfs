@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetail;
@@ -27,7 +28,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ReimbursementEmployeeCertificationValidation extends GenericValidation {
 
@@ -37,7 +37,7 @@ public class ReimbursementEmployeeCertificationValidation extends GenericValidat
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
 
-        final TravelReimbursementDocument reimbursement = (TravelReimbursementDocument)event.getDocument();
+        final TravelReimbursementDocument reimbursement = (TravelReimbursementDocument) event.getDocument();
         if (requiresCertification(reimbursement.getTraveler())) {
             if (!reimbursement.getEmployeeCertification()) {
                 GlobalVariables.getMessageMap().addToErrorPath(KFSConstants.DOCUMENT_PROPERTY_NAME);

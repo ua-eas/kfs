@@ -19,12 +19,6 @@
 package org.kuali.kfs.module.tem.document;
 
 
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -36,6 +30,12 @@ import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class CorporateCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
     protected static Logger LOG = Logger.getLogger(CorporateCardApplicationDocument.class);
@@ -46,19 +46,24 @@ public class CorporateCardApplicationDocument extends CardApplicationDocumentBas
     public String getPseudoNumber() {
         return pseudoNumber;
     }
+
     public void setPseudoNumber(String pseudoNumber) {
         this.pseudoNumber = pseudoNumber;
     }
+
     public boolean isDepartmentHeadAgreement() {
         return departmentHeadAgreement;
     }
+
     public void setDepartmentHeadAgreement(boolean departmentHeadAgreement) {
         this.departmentHeadAgreement = departmentHeadAgreement;
     }
+
     @Override
     public String getUserAgreementText() {
         return getConfigurationService().getPropertyValueAsString(TemKeyConstants.CORP_CARD_DOCUMENT_USER_AGREEMENT);
     }
+
     public String getDepartmentHeadAgreementText() {
         return getConfigurationService().getPropertyValueAsString(TemKeyConstants.CORP_CARD_DOCUMENT_DEPT_HEAD_AGREEMENT);
     }
@@ -67,10 +72,10 @@ public class CorporateCardApplicationDocument extends CardApplicationDocumentBas
     @Override
     public void applyToBank() {
         boolean generateNumber = getParameterService().getParameterValueAsBoolean(CorporateCardApplicationDocument.class, TemConstants.GENERATE_CREDIT_CARD_NUMBER_IND);
-        if (generateNumber){
+        if (generateNumber) {
             Long number = getSequenceAccessorService().getNextAvailableSequenceNumber(TemConstants.TEM_CORP_CARD_PSEUDO_NUM_SEQ_NAME);
             String pseudoNumberStr = zeroBuffer(number);
-            CorporateCardPseudoNumber pseudoNumber =  new CorporateCardPseudoNumber();
+            CorporateCardPseudoNumber pseudoNumber = new CorporateCardPseudoNumber();
             getBusinessObjectService().save(pseudoNumber);
             this.setPseudoNumber(pseudoNumberStr);
             getDocumentDao().save(this);
@@ -85,7 +90,7 @@ public class CorporateCardApplicationDocument extends CardApplicationDocumentBas
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         DocumentStatus status = getDocumentHeader().getWorkflowDocument().getStatus();
-        if (status.equals(DocumentStatus.FINAL) || status.equals(DocumentStatus.PROCESSED)){
+        if (status.equals(DocumentStatus.FINAL) || status.equals(DocumentStatus.PROCESSED)) {
             TemProfileAccount profileAccount = new TemProfileAccount();
             profileAccount.setAccountNumber(this.getPseudoNumber());
             Date now = new Date();

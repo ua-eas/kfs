@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Map;
-
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.KimConstants;
+
+import java.util.Map;
 
 /**
  * Overridden to add extra role qualifications
@@ -31,6 +31,7 @@ public class CashDrawerMaintenanceDocumentAuthorizer extends FinancialSystemMain
 
     /**
      * Overridden to add the cash drawer's campus code to the qualification
+     *
      * @see org.kuali.rice.krad.document.authorization.MaintenanceDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.krad.bo.BusinessObject, java.util.Map)
      */
     @Override
@@ -38,7 +39,7 @@ public class CashDrawerMaintenanceDocumentAuthorizer extends FinancialSystemMain
         super.addRoleQualification(dataObject, qualifications);
 
         if (dataObject instanceof CashDrawer) {
-            final CashDrawer cashDrawer = (CashDrawer)dataObject;
+            final CashDrawer cashDrawer = (CashDrawer) dataObject;
             qualifications.put(KimConstants.AttributeConstants.CAMPUS_CODE, cashDrawer.getCampusCode());
         }
     }

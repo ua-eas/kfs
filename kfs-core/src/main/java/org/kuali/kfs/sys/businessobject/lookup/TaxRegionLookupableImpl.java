@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import java.util.Properties;
-
+import org.kuali.kfs.kns.lookup.KualiLookupableImpl;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.businessobject.TaxRegionType;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.lookup.KualiLookupableImpl;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.Properties;
 
 public class TaxRegionLookupableImpl extends KualiLookupableImpl {
 

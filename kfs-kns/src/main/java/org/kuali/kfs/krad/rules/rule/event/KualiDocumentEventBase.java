@@ -37,7 +37,6 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
     protected Document document;
 
     /**
-     *
      * As a general rule, business rule classes should not change the original object. This constructor was created so that
      * PreRulesCheckEvent, a UI level rule checker, can make changes.
      *
@@ -123,7 +122,7 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
      *
      * @param document
      * @return String containing the documentNumber of the given document, or some indication of why the documentNumber isn't
-     *         accessible
+     * accessible
      */
     protected static String getDocumentId(Document document) {
         String docId = "(null document)";
@@ -132,8 +131,7 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
             String documentNumber = document.getDocumentNumber();
             if (StringUtils.isBlank(documentNumber)) {
                 docId = "(blank " + KRADPropertyConstants.DOCUMENT_NUMBER + ")";
-            }
-            else {
+            } else {
                 docId = documentNumber;
             }
         }

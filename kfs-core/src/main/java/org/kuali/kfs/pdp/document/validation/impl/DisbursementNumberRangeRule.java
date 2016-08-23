@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.pdp.document.validation.impl;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Contains Business Rules for the Effort Certification Report Maintenance Document.
@@ -49,7 +49,7 @@ public class DisbursementNumberRangeRule extends MaintenanceDocumentRuleBase {
         KualiInteger beginNumber = disbursementNumberRange.getBeginDisbursementNbr();
         KualiInteger lastAssigned = disbursementNumberRange.getLastAssignedDisbNbr();
         KualiInteger end = disbursementNumberRange.getEndDisbursementNbr();
-        if ( lastAssigned.isLessThan(beginNumber) || lastAssigned.isGreaterThan(end)) {
+        if (lastAssigned.isLessThan(beginNumber) || lastAssigned.isGreaterThan(end)) {
             putFieldError(PdpPropertyConstants.LAST_ASSIGNED_DISBURSEMENT_NUMBER, PdpKeyConstants.DISBURSEMENT_NUMBER_OUT_OF_RANGE);
             isValid = false;
         }

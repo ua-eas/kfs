@@ -18,17 +18,19 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.sql.Date;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 public class CashControlDetailSpec {
 
     static public CashControlDetailSpec specFor(KualiDecimal amount) {
-        return new CashControlDetailSpec("ABB2","9999",new Date(System.currentTimeMillis()),amount);
+        return new CashControlDetailSpec("ABB2", "9999", new Date(System.currentTimeMillis()), amount);
     }
 
-    public CashControlDetailSpec() {}
+    public CashControlDetailSpec() {
+    }
+
     public CashControlDetailSpec(String customerNumber, String customerPaymentMediumIdentifier, Date customerPaymentDate, KualiDecimal financialDocumentLineAmount) {
         this.customerNumber = customerNumber;
         this.customerPaymentMediumIdentifier = customerPaymentMediumIdentifier;

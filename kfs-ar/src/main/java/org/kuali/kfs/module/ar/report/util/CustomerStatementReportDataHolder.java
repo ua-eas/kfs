@@ -43,7 +43,7 @@ public class CustomerStatementReportDataHolder {
      * Constructs a ExtractProcessReportDataHolder.java.
      */
     public CustomerStatementReportDataHolder() {
-      //this(null);
+        //this(null);
 
         this.invoice = new HashMap<String, String>();
         this.customer = new HashMap<String, String>();
@@ -72,6 +72,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Gets the invoice attribute.
+     *
      * @return Returns the invoice.
      */
     public Map<String, String> getInvoice() {
@@ -80,6 +81,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Sets the invoice attribute value.
+     *
      * @param invoice The invoice to set.
      */
     public void setInvoice(Map<String, String> invoice) {
@@ -88,6 +90,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Gets the customer attribute.
+     *
      * @return Returns the customer.
      */
     public Map<String, String> getCustomer() {
@@ -96,6 +99,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Sets the customer attribute value.
+     *
      * @param customer The customer to set.
      */
     public void setCustomer(Map<String, String> customer) {
@@ -104,6 +108,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Gets the sysinfo attribute.
+     *
      * @return Returns the sysinfo.
      */
     public Map<String, String> getSysinfo() {
@@ -112,6 +117,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Sets the sysinfo attribute value.
+     *
      * @param sysinfo The sysinfo to set.
      */
     public void setSysinfo(Map<String, String> sysinfo) {
@@ -120,6 +126,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Gets the reportData attribute.
+     *
      * @return Returns the reportData.
      */
     public Map<String, Object> getReportData() {
@@ -128,7 +135,7 @@ public class CustomerStatementReportDataHolder {
         reportData.put(KEY_OF_CUSTOMER_ENTRY, customer);
         reportData.put(KEY_OF_SYSINFO_ENTRY, sysinfo);
         reportData.put(KEY_OF_DETAILS_ENTRY, details);
-      //  reportData.put(arg0, arg1);
+        //  reportData.put(arg0, arg1);
 
         return reportData;
     }
@@ -136,6 +143,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Sets the reportData attribute value.
+     *
      * @param reportData The reportData to set.
      */
     public void setReportData(Map<String, Object> reportData) {
@@ -152,6 +160,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Gets the details attribute.
+     *
      * @return Returns the details.
      */
     public List<CustomerStatementDetailReportDataHolder> getDetails() {
@@ -160,6 +169,7 @@ public class CustomerStatementReportDataHolder {
 
     /**
      * Sets the details attribute value.
+     *
      * @param details The details to set.
      */
     public void setDetails(List<CustomerStatementDetailReportDataHolder> details) {

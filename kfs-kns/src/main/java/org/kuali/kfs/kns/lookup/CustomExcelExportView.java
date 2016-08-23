@@ -18,33 +18,32 @@
  */
 package org.kuali.kfs.kns.lookup;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import javax.servlet.jsp.JspException;
-
 import org.displaytag.export.ExcelView;
 import org.displaytag.model.TableModel;
 import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.jsp.JspException;
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * This class allows for plugging in custom XML export into the Display Tag library.
  */
 public class CustomExcelExportView extends ExcelView {
 
-	private ExportViewHelper helper;
+    private ExportViewHelper helper;
 
-	@Override
-	public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues) {
-		this.helper = new ExportViewHelper(tableModel);
-		super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
-	}
+    @Override
+    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues) {
+        this.helper = new ExportViewHelper(tableModel);
+        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
+    }
 
-	@Override
-	public void doExport(Writer writer) throws IOException, JspException {
-		if (!helper.attemptCustomExport(writer, KRADConstants.EXCEL_FORMAT)) {
-			super.doExport(writer);
-		}
-	}
+    @Override
+    public void doExport(Writer writer) throws IOException, JspException {
+        if (!helper.attemptCustomExport(writer, KRADConstants.EXCEL_FORMAT)) {
+            super.doExport(writer);
+        }
+    }
 
 }

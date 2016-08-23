@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
 public class BudgetConstructionImportExportAction extends BudgetExpansionAction {
 
@@ -70,8 +70,7 @@ public class BudgetConstructionImportExportAction extends BudgetExpansionAction 
         if (separator.equals(BCConstants.RequestImportFieldSeparator.OTHER.toString())) {
             if (form.getOtherFieldDelimiter() == null) {
                 separator = "";
-            }
-            else {
+            } else {
                 separator = form.getOtherFieldDelimiter();
             }
         }
@@ -100,8 +99,7 @@ public class BudgetConstructionImportExportAction extends BudgetExpansionAction 
         if (delimiter.equals(BCConstants.RequestImportTextFieldDelimiter.OTHER.toString())) {
             if (form.getOtherTextFieldDelimiter() == null) {
                 delimiter = "";
-            }
-            else {
+            } else {
                 delimiter = form.getOtherTextFieldDelimiter();
             }
         }

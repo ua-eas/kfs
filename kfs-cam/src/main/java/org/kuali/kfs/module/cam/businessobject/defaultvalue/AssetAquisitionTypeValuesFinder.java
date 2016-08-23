@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.cam.businessobject.defaultvalue;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssetAquisitionTypeValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         List<AssetAcquisitionType> aquisitionTypes = (List<AssetAcquisitionType>) SpringContext.getBean(KeyValuesService.class).findAll(AssetAcquisitionType.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( aquisitionTypes == null ) {
+        if (aquisitionTypes == null) {
             aquisitionTypes = new ArrayList<AssetAcquisitionType>(0);
         } else {
             aquisitionTypes = new ArrayList<AssetAcquisitionType>(aquisitionTypes);
@@ -42,7 +42,7 @@ public class AssetAquisitionTypeValuesFinder extends KeyValuesBase {
         labels.add(new ConcreteKeyValue("", ""));
 
         for (AssetAcquisitionType acquisitionType : aquisitionTypes) {
-            if(acquisitionType.isActive()) {
+            if (acquisitionType.isActive()) {
                 labels.add(new ConcreteKeyValue(acquisitionType.getAcquisitionTypeCode(), acquisitionType.getAcquisitionTypeName()));
             }
         }

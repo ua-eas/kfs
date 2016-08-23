@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * GenericValidation to check if the required number of accounting lines in a given accounting line group has been met
@@ -44,12 +44,13 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
      * Checks that the number of accounting lines in the accounting line group (named by the accountingLineGroupPropertyName property)
      * is greater than the set minimum number of accounting lines.
      * <strong>This validation expects the document to be sent in as a property.</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
-        List accountingLineGroup = (List)ObjectUtils.getPropertyValue(accountingDocumentForValidation, accountingLineGroupPropertyName);
+        List accountingLineGroup = (List) ObjectUtils.getPropertyValue(accountingDocumentForValidation, accountingLineGroupPropertyName);
         if (accountingLineGroup.size() < minimumNumber) {
-            GlobalVariables.getMessageMap().putError(accountingLineGroupPropertyName, errorMessageName, new String[] { discoverGroupTitle(accountingDocumentForValidation) });
+            GlobalVariables.getMessageMap().putError(accountingLineGroupPropertyName, errorMessageName, new String[]{discoverGroupTitle(accountingDocumentForValidation)});
             return false;
         }
         return true;
@@ -57,6 +58,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Returns the title of the given accounting line group on the document
+     *
      * @return an accounting line group title
      */
     protected String discoverGroupTitle(AccountingDocument document) {
@@ -64,12 +66,10 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
         Method groupTitleMethod = discoverGroupTitleMethod(document);
         if (groupTitleMethod != null) {
             try {
-                title = (String)groupTitleMethod.invoke(document, new Object[0]);
-            }
-            catch (IllegalAccessException iae) {
+                title = (String) groupTitleMethod.invoke(document, new Object[0]);
+            } catch (IllegalAccessException iae) {
                 throw new RuntimeException(iae);
-            }
-            catch (InvocationTargetException ite) {
+            } catch (InvocationTargetException ite) {
                 throw new RuntimeException(ite);
             }
         }
@@ -78,6 +78,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Looks up what should be the method on the AccountingDocument class that returns the group title
+     *
      * @return
      */
     protected Method discoverGroupTitleMethod(AccountingDocument document) {
@@ -85,11 +86,9 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
         try {
             String methodName = new StringBuilder().append("get").append(accountingLineGroupPropertyName.substring(0, 1).toUpperCase()).append(accountingLineGroupPropertyName.substring(1)).append("SectionTitle").toString();
             groupTitleMethod = document.getClass().getMethod(methodName, new Class[0]);
-        }
-        catch (SecurityException se) {
+        } catch (SecurityException se) {
             throw new RuntimeException(se);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             throw new RuntimeException(nsme);
         }
 
@@ -98,6 +97,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineGroupName attribute.
+     *
      * @return Returns the accountingLineGroupName.
      */
     public String getAccountingLineGroupName() {
@@ -106,6 +106,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineGroupName attribute value.
+     *
      * @param accountingLineGroupName The accountingLineGroupName to set.
      */
     public void setAccountingLineGroupName(String accountingLineGroupName) {
@@ -116,6 +117,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Gets the minimumNumber attribute.
+     *
      * @return Returns the minimumNumber.
      */
     public int getMinimumNumber() {
@@ -124,6 +126,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Sets the minimumNumber attribute value.
+     *
      * @param minimumNumber The minimumNumber to set.
      */
     public void setMinimumNumber(int minimumNumber) {
@@ -132,6 +135,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -140,6 +144,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {

@@ -19,13 +19,13 @@
 package org.kuali.kfs.sys.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.ZipcodeValidationPattern;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.PostalCodeValidationService;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.ZipcodeValidationPattern;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
 
@@ -53,8 +53,7 @@ public class PostalCodeValidationServiceImpl implements PostalCodeValidationServ
                 if (StringUtils.isNotBlank(postalCodePropertyConstant)) {
                     GlobalVariables.getMessageMap().putError(postalCodePropertyConstant, KFSKeyConstants.ERROR_US_REQUIRES_ZIP);
                 }
-            }
-            else {
+            } else {
                 ZipcodeValidationPattern zipPattern = new ZipcodeValidationPattern();
                 if (!zipPattern.matches(StringUtils.defaultString(postalCode))) {
                     valid &= false;

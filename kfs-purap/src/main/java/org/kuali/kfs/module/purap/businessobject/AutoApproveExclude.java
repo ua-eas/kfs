@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Auto Approve Exclude Business Object. Defines attributes in maintenance document for excluding payment request from automatic
  * approval.
  */
-public class AutoApproveExclude extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class AutoApproveExclude extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String chartOfAccountsCode;
     private String accountNumber;

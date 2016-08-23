@@ -23,7 +23,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 /**
  * This class represents a G/L Summary object which contains monthly amounts
  */
-public class GlSummary extends Balance{
+public class GlSummary extends Balance {
 
     /**
      * Constructs a GlSummary.java.
@@ -34,6 +34,7 @@ public class GlSummary extends Balance{
 
     /**
      * Constructs a GlSummary.java.
+     *
      * @param data
      */
     public GlSummary(Object[] data) {

@@ -23,7 +23,7 @@ import org.kuali.kfs.integration.ld.LaborLedgerBalanceForEffortCertification;
 /**
  * This class...
  */
-public class LedgerBalanceForEffortCertification extends LedgerBalance implements LaborLedgerBalanceForEffortCertification{
+public class LedgerBalanceForEffortCertification extends LedgerBalance implements LaborLedgerBalanceForEffortCertification {
 
     private String effortCertificationReportNumber;
 

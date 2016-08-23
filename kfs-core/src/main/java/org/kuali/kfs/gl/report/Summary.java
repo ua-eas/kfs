@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.report;
 
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 
 /**
  * This class represents a summary amount used in reporst
@@ -54,6 +54,7 @@ public class Summary implements Comparable {
 
     /**
      * Constructs a Summary.java.
+     *
      * @param sortOrder
      * @param description
      * @param count
@@ -66,6 +67,7 @@ public class Summary implements Comparable {
 
     /**
      * Constructs a Summary.java.
+     *
      * @param sortOrder
      * @param description
      * @param count
@@ -75,15 +77,14 @@ public class Summary implements Comparable {
         this.description = description;
         if (count == null) {
             this.count = 0;
-        }
-        else {
+        } else {
             this.count = count.longValue();
         }
     }
 
     /**
      * Compare this Summary object with another summary object
-     *
+     * <p>
      * (non-Javadoc)
      *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -94,8 +95,7 @@ public class Summary implements Comparable {
             Integer otherSort = new Integer(otherObject.getSortOrder());
             Integer thisSort = new Integer(sortOrder);
             return thisSort.compareTo(otherSort);
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -119,7 +119,7 @@ public class Summary implements Comparable {
     /**
      * Build a report summary list for labor general ledger posting
      *
-     * @param destination description of summary displayed
+     * @param destination   description of summary displayed
      * @param startingOrder order how information is displayed
      * @return a list of summary objects
      */
@@ -134,11 +134,11 @@ public class Summary implements Comparable {
     /**
      * Update the report summary with the given information
      *
-     * @param reportSummary list of summaries
+     * @param reportSummary   list of summaries
      * @param destinationName description of summary displayed
-     * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
-     * @param count count of how many "objects" are affected
-     * @param order order how information is displayed
+     * @param operationType   description of what action is related to the summary (i.e. insert, updated, deleted)
+     * @param count           count of how many "objects" are affected
+     * @param order           order how information is displayed
      */
     public static void updateReportSummary(List<Summary> reportSummary, String destinationName, String operationType, int count, int order) {
         StringBuilder summaryDescription = buildSummaryDescription(destinationName, operationType);
@@ -148,10 +148,10 @@ public class Summary implements Comparable {
     /**
      * Update the report summary with the given information
      *
-     * @param reportSummary list of summaries
+     * @param reportSummary      list of summaries
      * @param summaryDescription description of summary displayed
-     * @param count count of how many "objects" are affected
-     * @param order order how information is displayed
+     * @param count              count of how many "objects" are affected
+     * @param order              order how information is displayed
      */
     public static void updateReportSummary(List<Summary> reportSummary, String summaryDescription, int count, int order) {
         Summary inputSummary = new Summary(order, summaryDescription, count);
@@ -160,8 +160,7 @@ public class Summary implements Comparable {
         if (index >= 0) {
             Summary summary = reportSummary.get(index);
             summary.setCount(summary.getCount() + count);
-        }
-        else {
+        } else {
             reportSummary.add(inputSummary);
         }
     }
@@ -170,7 +169,7 @@ public class Summary implements Comparable {
      * Build the description of summary with the given information
      *
      * @param destinationName description of summary displayed
-     * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
+     * @param operationType   description of what action is related to the summary (i.e. insert, updated, deleted)
      * @return
      */
     public static StringBuilder buildSummaryDescription(String destinationName, String operationType) {

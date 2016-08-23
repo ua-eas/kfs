@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseImportTypes;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.document.service.AgencyStagingDataRuleHelper;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * Business rules validation for the Travel Agency Audit and Correction
@@ -89,6 +89,7 @@ public class AgencyStagingDataRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Gets the validationByTravelerHelper attribute.
+     *
      * @return Returns the validationByTravelerHelper.
      */
     public AgencyStagingDataRuleHelper getValidationByTravelerHelper() {
@@ -97,6 +98,7 @@ public class AgencyStagingDataRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Sets the validationByTravelerHelper attribute value.
+     *
      * @param validationByTravelerHelper The validationByTravelerHelper to set.
      */
     public void setValidationByTravelerHelper(final AgencyStagingDataRuleHelper validationByTravelerHelper) {
@@ -105,6 +107,7 @@ public class AgencyStagingDataRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Gets the validationByTripHelper attribute.
+     *
      * @return Returns the validationByTripHelper.
      */
     public AgencyStagingDataRuleHelper getValidationByTripHelper() {
@@ -113,6 +116,7 @@ public class AgencyStagingDataRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Sets the validationByTripHelper attribute value.
+     *
      * @param validationByTripHelper The validationByTripHelper to set.
      */
     public void setValidationByTripHelper(final AgencyStagingDataRuleHelper validationByTripHelper) {

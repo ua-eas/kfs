@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -29,6 +26,9 @@ import org.kuali.kfs.module.ld.dataaccess.LaborGeneralLedgerEntryDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 /**
  * This is the data access object for labor general ledger entry
@@ -57,7 +57,7 @@ public class LaborGeneralLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_NUMBER, laborGeneralLedgerEntry.getDocumentNumber());
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(LaborGeneralLedgerEntry.class, criteria);
-        query.setAttributes(new String[] { "max(" + KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + KFSPropertyConstants.TRANSACTION_ENTRY_SEQUENCE_NUMBER + ")"});
 
         Iterator iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxSequenceNumber = Integer.valueOf(0);

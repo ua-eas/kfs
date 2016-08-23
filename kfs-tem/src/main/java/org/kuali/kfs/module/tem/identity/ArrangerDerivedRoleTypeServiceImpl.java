@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -34,8 +30,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Check for Arranger Derived Role base on the TEM Profile ID and the Principal
@@ -48,20 +48,20 @@ public class ArrangerDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBa
      * @see org.kuali.rice.kns.kim.role.RoleTypeServiceBase#hasDerivedRole(java.lang.String, java.util.List, java.lang.String, java.lang.String, java.util.Map)
      */
     @Override
-    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String,String> qualification) {
+    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
         //first we need to grab the profileId if it exists
-        if(qualification!=null && !qualification.isEmpty()){
+        if (qualification != null && !qualification.isEmpty()) {
             final String profileId = qualification.get(TemPropertyConstants.TemProfileProperties.PROFILE_ID);
             final String documentType = qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME);
-            if(!StringUtils.isBlank(profileId)) {
+            if (!StringUtils.isBlank(profileId)) {
 
                 final Integer profIdAsInt = new Integer(profileId);
                 final TemProfileArranger arranger = getArrangerDocumentService().findTemProfileArranger(principalId, profIdAsInt);
-                if (arranger != null){
+                if (arranger != null) {
                     if (!StringUtils.isBlank(documentType)) {
-                        if (TravelDocTypes.getAuthorizationDocTypes().contains(documentType)){
+                        if (TravelDocTypes.getAuthorizationDocTypes().contains(documentType)) {
                             return arranger.getTaInd();
-                        } else if (TravelDocTypes.getReimbursementDocTypes().contains(documentType)){
+                        } else if (TravelDocTypes.getReimbursementDocTypes().contains(documentType)) {
                             return arranger.getTrInd();
                         } else if (documentType.equals(TemConstants.TravelDocTypes.TRAVEL_PROFILE_DOCUMENT)) {
                             if (arranger.getPrincipalId().equals(principalId)) {
@@ -87,7 +87,7 @@ public class ArrangerDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBa
 
         //Because workflow (route/save/copy) would not pick up the qualifer from Document Authorizor, but ONLY base on the permission template, we will
         //simply check whether the person is an arranger (not particularly tied to a profile)
-        if(StringUtils.isNotBlank(principalId) && (qualification == null || !qualification.containsKey(TemKimAttributes.PROFILE_ID) || qualification.get(TemKimAttributes.PROFILE_ID) == null)) {
+        if (StringUtils.isNotBlank(principalId) && (qualification == null || !qualification.containsKey(TemKimAttributes.PROFILE_ID) || qualification.get(TemKimAttributes.PROFILE_ID) == null)) {
             Map fieldValues = new HashMap();
             fieldValues.put(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID, principalId);
             fieldValues.put(KFSPropertyConstants.ACTIVE, "Y");
@@ -99,7 +99,7 @@ public class ArrangerDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBa
     }
 
     @Override
-    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String,String> qualification) {
+    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         validateRequiredAttributesAgainstReceived(qualification);
         final List<RoleMembership> members = new ArrayList<RoleMembership>(1);
         return members;
@@ -114,6 +114,7 @@ public class ArrangerDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBa
 
     /**
      * Injects an implementation of TravelArrangerDocumentService
+     *
      * @param arrangerDocumentService the implementation of TravelArrangerDocumentService to utilize
      */
     public void setArrangerDocumentService(TravelArrangerDocumentService arrangerDocumentService) {

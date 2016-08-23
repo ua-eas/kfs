@@ -19,21 +19,21 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.coa.businessobject.SubAccount;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
@@ -297,7 +297,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
     }
 
     public Person getBudgetLockUser() {
-        if (budgetLockUserIdentifier != null){
+        if (budgetLockUserIdentifier != null) {
             budgetLockUser = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).updatePersonIfNecessary(budgetLockUserIdentifier, budgetLockUser);
         }
         return budgetLockUser;
@@ -332,7 +332,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
     }
 
     public Person getBudgetTransactionLockUser() {
-        if (budgetTransactionLockUserIdentifier != null){
+        if (budgetTransactionLockUserIdentifier != null) {
             budgetTransactionLockUser = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).updatePersonIfNecessary(budgetTransactionLockUserIdentifier, budgetTransactionLockUser);
         }
         return budgetTransactionLockUser;

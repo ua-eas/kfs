@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.service;
 
-import java.io.IOException;
-
 import org.kuali.kfs.module.cg.businessobject.CFDA;
 import org.kuali.kfs.module.cg.businessobject.CfdaUpdateResults;
+
+import java.io.IOException;
 
 /**
  * CFDA (Catalog of Federal Domestic Assistance) service methods.

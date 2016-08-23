@@ -19,24 +19,25 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchaseOrderAssignedUserValidation extends GenericValidation {
 
     /**
      * Validation to check that the assigned user exists in the system.
+     *
      * @return boolean false if the assigned user doesn't exist in the system.
      */
     public boolean validate(AttributedDocumentEvent event) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)event.getDocument();
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) event.getDocument();
         MessageMap errorMap = GlobalVariables.getMessageMap();
         errorMap.clearErrorPath();
         errorMap.addToErrorPath(PurapConstants.DETAIL_TAB_ERRORS);

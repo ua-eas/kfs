@@ -18,12 +18,12 @@
  -->
 
 <descriptor-repository version="1.0">
-	<jdbc-connection-descriptor
-		jcd-alias="dataSource"
-		default-connection="false"
-		jdbc-level="3.0"
-		useAutoCommit="0">
-        <attribute attribute-name="jdbc.defaultRowPrefetch" attribute-value="100" />
-		<sequence-manager className="org.kuali.rice.core.framework.persistence.ojb.ConfigurableSequenceManager" />
-	</jdbc-connection-descriptor>
+    <jdbc-connection-descriptor
+            jcd-alias="dataSource"
+            default-connection="false"
+            jdbc-level="3.0"
+            useAutoCommit="0">
+        <attribute attribute-name="jdbc.defaultRowPrefetch" attribute-value="100"/>
+        <sequence-manager className="org.kuali.rice.core.framework.persistence.ojb.ConfigurableSequenceManager"/>
+    </jdbc-connection-descriptor>
 </descriptor-repository>

@@ -31,12 +31,12 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.mapper.Mapper;
 import org.apache.ojb.broker.core.proxy.ListProxyDefaultImpl;
 import org.apache.ojb.broker.core.proxy.ProxyHelper;
-import org.kuali.kfs.krad.util.DateTimeConverter;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.krad.service.SerializerService;
 import org.kuali.kfs.krad.service.XmlObjectSerializerService;
+import org.kuali.kfs.krad.util.DateTimeConverter;
 import org.kuali.kfs.krad.util.documentserializer.AlwaysTruePropertySerializibilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertyType;
@@ -55,7 +55,7 @@ import java.util.List;
  * bean, which was the old way of serializing a document for routing.  If workflowProperties are defined, then this implementation
  * will selectively serialize items.
  */
-public abstract class SerializerServiceBase implements SerializerService  {
+public abstract class SerializerServiceBase implements SerializerService {
 //	private static final Log LOG = LogFactory.getLog(SerializerServiceBase.class);
 
     protected PersistenceService persistenceService;
@@ -70,7 +70,7 @@ public abstract class SerializerServiceBase implements SerializerService  {
         evaluators = new ThreadLocal<PropertySerializabilityEvaluator>();
 
         xstream = new XStream(new ProxyAndStateAwareJavaReflectionProvider());
-        xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider() ));
+        xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider()));
         xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
         xstream.addDefaultImplementation(AutoPopulatingList.class, ListProxyDefaultImpl.class);
         xstream.registerConverter(new AutoPopulatingListConverter(xstream.getMapper()));
@@ -81,6 +81,7 @@ public abstract class SerializerServiceBase implements SerializerService  {
         public ProxyConverter(Mapper mapper, ReflectionProvider reflectionProvider) {
             super(mapper, reflectionProvider);
         }
+
         public boolean canConvert(Class clazz) {
             return clazz.getName().contains("CGLIB") || clazz.getName().equals("org.apache.ojb.broker.core.proxy.ListProxyDefaultImpl");
         }
@@ -89,12 +90,11 @@ public abstract class SerializerServiceBase implements SerializerService  {
             if (obj instanceof ListProxyDefaultImpl) {
                 List copiedList = new ArrayList();
                 List proxiedList = (List) obj;
-                for (Iterator iter = proxiedList.iterator(); iter.hasNext();) {
+                for (Iterator iter = proxiedList.iterator(); iter.hasNext(); ) {
                     copiedList.add(iter.next());
                 }
-                context.convertAnother( copiedList );
-            }
-            else {
+                context.convertAnother(copiedList);
+            } else {
                 super.marshal(getPersistenceService().resolveProxy(obj), writer, context);
             }
         }
@@ -110,7 +110,7 @@ public abstract class SerializerServiceBase implements SerializerService  {
             SerializationState state = serializationStates.get();
             PropertySerializabilityEvaluator evaluator = evaluators.get();
 
-            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext();) {
+            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (!fieldModifiersSupported(field)) {
                     continue;
@@ -176,13 +176,13 @@ public abstract class SerializerServiceBase implements SerializerService  {
 
     public class AutoPopulatingListConverter extends CollectionConverter {
 
-    	public AutoPopulatingListConverter(Mapper mapper){
-    		super(mapper);
-    	}
+        public AutoPopulatingListConverter(Mapper mapper) {
+            super(mapper);
+        }
 
         @Override
-    	public boolean canConvert(Class clazz) {
-    		return clazz.equals(AutoPopulatingList.class);
+        public boolean canConvert(Class clazz) {
+            return clazz.equals(AutoPopulatingList.class);
         }
 
     }

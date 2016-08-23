@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.Map;
-
-import org.kuali.kfs.sys.businessobject.AccountingLineParser;
 import org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry;
+import org.kuali.kfs.sys.businessobject.AccountingLineParser;
+
+import java.util.Map;
 
 /**
  * An extension of the Rice TransactionalDocumentEntry that allows for KFS-centric properties, such as
@@ -37,6 +37,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Gets the validationMap attribute.
+     *
      * @return Returns the validationMap.
      */
     public Map<Class, String> getValidationMap() {
@@ -45,6 +46,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the validationMap attribute value.
+     *
      * @param validationMap The validationMap to set.
      */
     public void setValidationMap(Map<Class, String> validationMap) {
@@ -53,6 +55,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Gets the accountingLineGroups attribute.
+     *
      * @return Returns the accountingLineGroups.
      */
     public Map<String, AccountingLineGroupDefinition> getAccountingLineGroups() {
@@ -61,6 +64,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the accountingLineGroups attribute value.
+     *
      * @param accountingLineGroups The accountingLineGroups to set.
      */
     public void setAccountingLineGroups(Map<String, AccountingLineGroupDefinition> accountingLineGroups) {
@@ -69,6 +73,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Gets the importedLineParserClass attribute.
+     *
      * @return Returns the importedLineParserClass.
      */
     public Class<? extends AccountingLineParser> getImportedLineParserClass() {
@@ -77,6 +82,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the importedLineParserClass attribute value.
+     *
      * @param importedLineParserClass The importedLineParserClass to set.
      */
     public void setImportedLineParserClass(Class<? extends AccountingLineParser> importedLineParser) {
@@ -85,6 +91,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Gets the maxDictionaryValidationDepth attribute.
+     *
      * @return Returns the maxDictionaryValidationDepth.
      */
     public Integer getMaxDictionaryValidationDepth() {
@@ -93,6 +100,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the maxDictionaryValidationDepth attribute value.
+     *
      * @param maxDictionaryValidationDepth The maxDictionaryValidationDepth to set.
      */
     public void setMaxDictionaryValidationDepth(Integer maxDictionaryValidationDepth) {
@@ -100,15 +108,14 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
     }
 
     /**
-        This field contains a value of true or false.
-        If true, then error correction is allowed for the document.
+     * This field contains a value of true or false.
+     * If true, then error correction is allowed for the document.
      */
     public void setAllowsErrorCorrection(boolean allowsErrorCorrection) {
         this.allowsErrorCorrection = allowsErrorCorrection;
     }
 
     /**
-     *
      * @see org.kuali.rice.kns.datadictionary.TransactionalDocumentEntry#getAllowsErrorCorrection()
      */
     public boolean getAllowsErrorCorrection() {
@@ -117,6 +124,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Gets the potentiallySensitive attribute.
+     *
      * @return Returns the potentiallySensitive.
      */
     public boolean isPotentiallySensitive() {
@@ -125,6 +133,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the potentiallySensitive attribute value.
+     *
      * @param potentiallySensitive The potentiallySensitive to set.
      */
     public void setPotentiallySensitive(boolean potentiallySensitive) {

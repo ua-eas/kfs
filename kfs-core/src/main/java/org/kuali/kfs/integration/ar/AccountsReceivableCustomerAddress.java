@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
 
 
 public interface AccountsReceivableCustomerAddress extends ExternalizableBusinessObject {
@@ -88,6 +88,7 @@ public interface AccountsReceivableCustomerAddress extends ExternalizableBusines
     public Integer getCustomerCopiesToPrint();
 
     public Integer getCustomerEnvelopesToPrintQuantity();
+
     @Override
     public void refresh();
 }

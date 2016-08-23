@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.kns.lookup.LookupResultsService;
 
 public class PurgeOldLookupResultsStep extends AbstractStep {
     private LookupResultsService lookupResultsService;
@@ -48,8 +48,7 @@ public class PurgeOldLookupResultsStep extends AbstractStep {
             lookupResultsService.deleteOldLookupResults(expirationDate);
             lookupResultsService.deleteOldSelectedObjectIds(expirationDate);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to purge old lookup results: ", e);
             return false;
         }

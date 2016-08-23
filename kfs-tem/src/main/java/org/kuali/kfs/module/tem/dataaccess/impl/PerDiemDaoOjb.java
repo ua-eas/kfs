@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
+import org.kuali.kfs.krad.util.OjbCollectionAware;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.dataaccess.PerDiemDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.OjbCollectionAware;
+
+import java.util.Collection;
 
 public class PerDiemDaoOjb extends PlatformAwareDaoBaseOjb implements PerDiemDao, OjbCollectionAware {
 

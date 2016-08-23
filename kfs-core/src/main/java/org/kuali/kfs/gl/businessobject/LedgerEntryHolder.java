@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A collection of many LedgerEntry records, which appropriately groups the records
@@ -47,7 +47,7 @@ public class LedgerEntryHolder {
      * add a given ledger entry into the holder. If there exists a ledger entry with the same key, then update the amount and count
      * fields of the ledger entry; otherwise, insert it into the holder.
      *
-     * @param newLedgerEntry the given ledger entry
+     * @param newLedgerEntry  the given ledger entry
      * @param calculateTotals indicate if the subtotals and grand total need to be calculated
      */
     public void insertLedgerEntry(LedgerEntryForReporting newLedgerEntry, boolean calculateTotal) {
@@ -61,8 +61,7 @@ public class LedgerEntryHolder {
 
         if (!ledgerEntries.containsKey(keyOfLedgerEntry)) {
             ledgerEntries.put(keyOfLedgerEntry, newLedgerEntry);
-        }
-        else {
+        } else {
             LedgerEntryForReporting ledgerEntry = (LedgerEntryForReporting) ledgerEntries.get(keyOfLedgerEntry);
             ledgerEntry.add(newLedgerEntry);
         }
@@ -90,8 +89,7 @@ public class LedgerEntryHolder {
         if (!subtotals.containsKey(groupingKey)) {
             ledgerEntry = new LedgerEntryForReporting(null, "", newLedgerEntry.getBalanceType(), SUB_TOTAL);
             subtotals.put(groupingKey, ledgerEntry);
-        }
-        else {
+        } else {
             ledgerEntry = (LedgerEntryForReporting) subtotals.get(groupingKey);
         }
         ledgerEntry.add(newLedgerEntry);

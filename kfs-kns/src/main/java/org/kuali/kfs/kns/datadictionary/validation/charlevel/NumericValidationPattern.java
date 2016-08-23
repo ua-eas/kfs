@@ -18,14 +18,12 @@
  */
 package org.kuali.kfs.kns.datadictionary.validation.charlevel;
 
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 /**
  * Pattern for matching numeric characters
- *
- *
  */
 public class NumericValidationPattern extends CharacterLevelValidationPattern {
     /**

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coreservice.api;
 
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.kfs.coreservice.api.component.ComponentService;
 import org.kuali.kfs.coreservice.api.namespace.NamespaceService;
 import org.kuali.kfs.coreservice.api.parameter.ParameterRepositoryService;
 import org.kuali.kfs.coreservice.api.style.StyleRepositoryService;
 import org.kuali.kfs.coreservice.api.style.StyleService;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
 public class CoreServiceApiServiceLocator {
 
-	public static final String NAMESPACE_SERVICE = "cf.namespaceService";
+    public static final String NAMESPACE_SERVICE = "cf.namespaceService";
     public static final String PARAMETER_REPOSITORY_SERVICE = "cf.parameterRepositoryService";
     public static final String COMPONENT_SERVICE = "componentService";
     public static final String STYLE_REPOSITORY_SERVICE = "cf.styleRepositoryService";
@@ -51,7 +51,7 @@ public class CoreServiceApiServiceLocator {
     }
 
     public static StyleService getStyleService() {
-    	return getService(STYLE_SERVICE);
+        return getService(STYLE_SERVICE);
     }
 
     public static StyleRepositoryService getStyleRepositoryService() {

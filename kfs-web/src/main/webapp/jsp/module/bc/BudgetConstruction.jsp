@@ -16,9 +16,9 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="budgetConstructionAttributes"
-	value="${DataDictionary['BudgetConstructionDocument'].attributes}" />
+       value="${DataDictionary['BudgetConstructionDocument'].attributes}"/>
 
 <c:if test="${KualiForm.pickListClose}">
     <kul:page
@@ -50,23 +50,23 @@
             docTitle="Budget Construction Document"
             transactionalDocument="true">
 
-        <html:hidden property="mainWindow" />
+        <html:hidden property="mainWindow"/>
 
-        <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+        <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
         <c:if test="${!KualiForm.securityNoAccess}">
-            <bc:systemInformation />
+            <bc:systemInformation/>
 
-            <bc:budgetConstructionRevenueLines />
+            <bc:budgetConstructionRevenueLines/>
 
-            <bc:budgetConstructionExpenditureLines />
+            <bc:budgetConstructionExpenditureLines/>
 
-            <kul:notes />
+            <kul:notes/>
         </c:if>
 
-        <kul:routeLog />
+        <kul:routeLog/>
 
-        <sys:documentControls transactionalDocument="false" suppressRoutingControls="true" />
+        <sys:documentControls transactionalDocument="false" suppressRoutingControls="true"/>
 
         <script type="text/javascript">
             subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";

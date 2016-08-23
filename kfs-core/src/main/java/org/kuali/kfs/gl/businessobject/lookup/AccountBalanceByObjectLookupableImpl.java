@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
@@ -29,13 +25,17 @@ import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.gl.businessobject.inquiry.AccountBalanceByObjectInquirableImpl;
 import org.kuali.kfs.gl.businessobject.inquiry.AccountBalanceInquirableImpl;
 import org.kuali.kfs.gl.service.AccountBalanceService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support the account balance by object inquiry screen
@@ -52,7 +52,7 @@ public class AccountBalanceByObjectLookupableImpl extends KualiLookupableImpl {
     /**
      * Returns the inquiry url for a result field.
      *
-     * @param bo the business object instance to build the urls for
+     * @param bo           the business object instance to build the urls for
      * @param propertyName the property which links to an inquirable
      * @return String url to inquiry
      */
@@ -85,8 +85,7 @@ public class AccountBalanceByObjectLookupableImpl extends KualiLookupableImpl {
         int pendingEntryCode = AccountBalanceService.PENDING_NONE;
         if (GeneralLedgerConstants.PendingEntryOptions.APPROVED.equals(pendingEntryOption)) {
             pendingEntryCode = AccountBalanceService.PENDING_APPROVED;
-        }
-        else if (GeneralLedgerConstants.PendingEntryOptions.ALL.equals(pendingEntryOption)) {
+        } else if (GeneralLedgerConstants.PendingEntryOptions.ALL.equals(pendingEntryOption)) {
             pendingEntryCode = AccountBalanceService.PENDING_ALL;
         }
         boolean isConsolidated = Constant.CONSOLIDATION.equals(consolidationOption);
@@ -110,7 +109,7 @@ public class AccountBalanceByObjectLookupableImpl extends KualiLookupableImpl {
         List results = accountBalanceService.findAccountBalanceByObject(universityFiscalYear, chartOfAccountsCode, accountNumber, subAccountNumber, financialObjectLevelCode, financialReportingSortCode, isCostShareExcluded, isConsolidated, pendingEntryCode);
 
         // Put the search related stuff in the objects
-        for (Iterator iter = results.iterator(); iter.hasNext();) {
+        for (Iterator iter = results.iterator(); iter.hasNext(); ) {
             AccountBalance ab = (AccountBalance) iter.next();
 
             TransientBalanceInquiryAttributes dbo = ab.getDummyBusinessObject();

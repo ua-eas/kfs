@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.document.web;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+
+import java.util.List;
 
 
 /**

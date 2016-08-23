@@ -74,23 +74,23 @@ public class CheckSufficientFundsTest {
     public void testNoTransactions() {
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(new ArrayList<>());
 
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testInvalidAccount() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        GeneralLedgerPendingEntry glpe = SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","XXXXXXX","4166",KFSConstants.SF_TYPE_NO_CHECKING,new KualiDecimal("1.00"));
+        GeneralLedgerPendingEntry glpe = SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "XXXXXXX", "4166", KFSConstants.SF_TYPE_NO_CHECKING, new KualiDecimal("1.00"));
         glpe.setAccount(null);
         glpes.add(glpe);
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         replayAll();
 
         try {
@@ -104,182 +104,182 @@ public class CheckSufficientFundsTest {
     @Test
     public void testNoChecking() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_NO_CHECKING,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_NO_CHECKING, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testAccountChecking() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(1,transactions.size());
+        Assert.assertEquals(1, transactions.size());
 
         SufficientFundsItem item = transactions.get(0);
-        Assert.assertEquals(2017,item.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",item.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",item.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("1.00"),item.getAmount());
+        Assert.assertEquals(2017, item.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", item.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", item.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("1.00"), item.getAmount());
     }
 
     @Test
     public void testAccountCheckingZeroDollars() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("0.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("0.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testAccountCheckingBudgetCheckingOptionsCode() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,false));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, false));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testAccountCheckingPendingAcctSufficientFundsIndicator() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00"),false,"AC"));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00"), false, "AC"));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testAccountCheckingTwoSimilarLines() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00")));
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("2.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("2.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(1,transactions.size());
+        Assert.assertEquals(1, transactions.size());
 
         SufficientFundsItem item = transactions.get(0);
-        Assert.assertEquals(2017,item.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",item.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",item.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("3.00"),item.getAmount());
+        Assert.assertEquals(2017, item.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", item.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", item.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("3.00"), item.getAmount());
     }
 
     @Test
     public void testAccountCheckingTwoDifferentLines() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00")));
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("IN","7654321","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("2.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("IN", "7654321", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("2.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX")).times(2);
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("IN","7654321"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("IN","7654321"))).andReturn(new ArrayList());
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("IN", "7654321"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("IN", "7654321"))).andReturn(new ArrayList());
 
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"IN","7654321","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"IN","7654321","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"IN","7654321","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"IN","7654321","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"IN","7654321","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "IN", "7654321", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "IN", "7654321", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "IN", "7654321", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "IN", "7654321", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "IN", "7654321", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(2,transactions.size());
+        Assert.assertEquals(2, transactions.size());
 
         Optional<SufficientFundsItem> oBlItem = transactions.stream().filter(i -> "BL".equals(i.getAccount().getChartOfAccountsCode())).findFirst();
         Assert.assertTrue(oBlItem.isPresent());
@@ -289,199 +289,199 @@ public class CheckSufficientFundsTest {
         Assert.assertTrue(oInItem.isPresent());
         SufficientFundsItem inItem = oInItem.get();
 
-        Assert.assertEquals(2017,blItem.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",blItem.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",blItem.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("1.00"),blItem.getAmount());
+        Assert.assertEquals(2017, blItem.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", blItem.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", blItem.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("1.00"), blItem.getAmount());
 
-        Assert.assertEquals(2017,inItem.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("IN",inItem.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("7654321",inItem.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("2.00"),inItem.getAmount());
+        Assert.assertEquals(2017, inItem.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("IN", inItem.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("7654321", inItem.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("2.00"), inItem.getAmount());
     }
 
     @Test
     public void testCashAtAccountNonCashChecking() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_CASH_AT_ACCOUNT,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_CASH_AT_ACCOUNT, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testBudgetChecking() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","8000",KFSConstants.SF_TYPE_LEVEL,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "8000", KFSConstants.SF_TYPE_LEVEL, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("XX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testRebuild() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","4166",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00")));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "4166", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00")));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(SufficientFundsTestFixtures.getTestSufficientFundRebuildList("BL","1234567","    "));
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(SufficientFundsTestFixtures.getTestSufficientFundRebuildList("BL", "1234567", "    "));
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(1,transactions.size());
+        Assert.assertEquals(1, transactions.size());
 
         SufficientFundsItem item = transactions.get(0);
-        Assert.assertEquals(2017,item.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",item.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",item.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("1.00"),item.getAmount());
+        Assert.assertEquals(2017, item.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", item.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", item.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("1.00"), item.getAmount());
     }
 
     @Test
     public void testBalanceNegative() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","8000",KFSConstants.SF_TYPE_CASH_AT_ACCOUNT,new KualiDecimal("1.00"),true,"CB"));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "8000", KFSConstants.SF_TYPE_CASH_AT_ACCOUNT, new KualiDecimal("1.00"), true, "CB"));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList<>());
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList<>());
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 
     @Test
     public void testBalancePriorYear() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","8000",KFSConstants.SF_TYPE_CASH_AT_ACCOUNT,new KualiDecimal("-1.00"),true,"BB"));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "8000", KFSConstants.SF_TYPE_CASH_AT_ACCOUNT, new KualiDecimal("-1.00"), true, "BB"));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList<>());
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys(2016,"BL","1234567","    "))).andReturn(null);
-        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[] { 2017,2016 }),"BL","1234567",true)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[] { 2017,2016 }),"BL","1234567",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[] { 2017,2016 }),"BL","1234567",true)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[] { 2017,2016 }),"BL","1234567",false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList<>());
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys(2016, "BL", "1234567", "    "))).andReturn(null);
+        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[]{2017, 2016}), "BL", "1234567", true)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[]{2017, 2016}), "BL", "1234567", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[]{2017, 2016}), "BL", "1234567", true)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[]{2017, 2016}), "BL", "1234567", false)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(1,transactions.size());
+        Assert.assertEquals(1, transactions.size());
 
         SufficientFundsItem item = transactions.get(0);
-        Assert.assertEquals(2017,item.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",item.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",item.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("-1.00"),item.getAmount());
+        Assert.assertEquals(2017, item.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", item.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", item.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("-1.00"), item.getAmount());
     }
 
     @Test
     public void testBalancePriorYearBBLoaded() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","8000",KFSConstants.SF_TYPE_CASH_AT_ACCOUNT,new KualiDecimal("-1.00"),true,"BB"));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "8000", KFSConstants.SF_TYPE_CASH_AT_ACCOUNT, new KualiDecimal("-1.00"), true, "BB"));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true,true));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true, true));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(null);
-        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class,SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL","1234567"))).andReturn(new ArrayList<>());
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys(2016,"BL","1234567","    "))).andReturn(null);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(null);
+        EasyMock.expect(businessObjectService.findMatching(SufficientFundRebuild.class, SufficientFundsTestFixtures.getTestSufficientFundRebuildKeys("BL", "1234567"))).andReturn(new ArrayList<>());
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys(2016, "BL", "1234567", "    "))).andReturn(null);
 
-        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[] { 2017 }),"BL","1234567",true)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[] { 2017 }),"BL","1234567",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[] { 2017 }),"BL","1234567",true)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[] { 2017 }),"BL","1234567",false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[]{2017}), "BL", "1234567", true)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getCashSummary(Arrays.asList(new Integer[]{2017}), "BL", "1234567", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[]{2017}), "BL", "1234567", true)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getActualSummary(Arrays.asList(new Integer[]{2017}), "BL", "1234567", false)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(1,transactions.size());
+        Assert.assertEquals(1, transactions.size());
 
         SufficientFundsItem item = transactions.get(0);
-        Assert.assertEquals(2017,item.getYear().getUniversityFiscalYear().intValue());
-        Assert.assertEquals("BL",item.getAccount().getChartOfAccountsCode());
-        Assert.assertEquals("1234567",item.getAccount().getAccountNumber());
-        Assert.assertEquals(new KualiDecimal("-1.00"),item.getAmount());
+        Assert.assertEquals(2017, item.getYear().getUniversityFiscalYear().intValue());
+        Assert.assertEquals("BL", item.getAccount().getChartOfAccountsCode());
+        Assert.assertEquals("1234567", item.getAccount().getAccountNumber());
+        Assert.assertEquals(new KualiDecimal("-1.00"), item.getAmount());
     }
 
     @Test
     public void testHasSufficentFunds() {
         List<GeneralLedgerPendingEntry> glpes = new ArrayList<>();
-        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL","1234567","8000",KFSConstants.SF_TYPE_ACCOUNT,new KualiDecimal("1.00"),true,"AC"));
+        glpes.add(SufficientFundsTestFixtures.getTestGeneralLedgerPendingEntry("BL", "1234567", "8000", KFSConstants.SF_TYPE_ACCOUNT, new KualiDecimal("1.00"), true, "AC"));
 
         GeneralLedgerPostingDocument doc = SufficientFundsTestFixtures.getTestGeneralLedgerPostingDocument(glpes);
 
         List<String> doctypes = Collections.singletonList("DOC12345");
-        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017,true,false));
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(SufficientFundsTestFixtures.getTestSystemOptions(2017, true, false));
         EasyMock.expect(objectTypeService.getCurrentYearExpenseObjectTypes()).andReturn(SufficientFundsTestFixtures.getTestCurrentYearExpenseObjectTypes("EX"));
-        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class,SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL","1234567"))).andReturn(SufficientFundsTestFixtures.getTestSufficientFundBalances("BL","1234567"));
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",true,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017,"BL","1234567","    ",false,false, doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017,"BL","1234567","    ",false)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",true,false,doctypes)).andReturn(KualiDecimal.ZERO);
-        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017,"BL","1234567","    ",false,false,doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(businessObjectService.findByPrimaryKey(SufficientFundBalances.class, SufficientFundsTestFixtures.getTestSufficientFundBalancesKeys("BL", "1234567"))).andReturn(SufficientFundsTestFixtures.getTestSufficientFundBalances("BL", "1234567"));
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getExpenseSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getBudgetSummary(2017, "BL", "1234567", "    ", false)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", true, false, doctypes)).andReturn(KualiDecimal.ZERO);
+        EasyMock.expect(generalLedgerPendingEntryService.getEncumbranceSummary(2017, "BL", "1234567", "    ", false, false, doctypes)).andReturn(KualiDecimal.ZERO);
 
         replayAll();
 
         List<SufficientFundsItem> transactions = sufficientFundsService.checkSufficientFunds(doc);
-        Assert.assertEquals(0,transactions.size());
+        Assert.assertEquals(0, transactions.size());
     }
 }

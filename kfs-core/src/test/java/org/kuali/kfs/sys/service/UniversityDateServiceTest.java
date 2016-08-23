@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Calendar;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Calendar;
 
 @ConfigureContext
 public class UniversityDateServiceTest extends KualiTestBase {
@@ -43,8 +43,7 @@ public class UniversityDateServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(UniversityDateService.class).getFiscalYear(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 

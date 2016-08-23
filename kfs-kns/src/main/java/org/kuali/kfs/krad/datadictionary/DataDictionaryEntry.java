@@ -25,35 +25,34 @@ import java.util.List;
 
 /**
  * Defines methods common to all DataDictionaryDefinition types.
- *
- *     DD: The highest level objects in the data dictionary are of
-        the following types:
-        * BusinessObjectEntry
-        * MaintenanceDocumentEntry
-        * TransactionalDocumentEntry
-
-    JSTL: The data dictionary is exposed as a Map which is accessed
-    by referring to the "DataDictionary" global constant.  This Map contains
-    the following kinds of entries keyed as indicated:
-        * Business Object Entries -
-            Key = dataObjectClass name
-            Value = Map created by BusinessObjectEntryMapper
-        * Maintenance Document entries -
-            Key = DocumentType name
-            Value = Map created by MaintenanceObjectEntryMapper
-        * Transactional Document entries -
-            Key = DocumentType name
-            Value = Map created by TransactionalDocumentEntryMapper
-
-    All elements are exposed to JSTL as Maps (where the element has a
-    unique key by which they can be retrieved), or Strings.  For collections
-    of elements having no unique key, the entry's position in the list
-    (0, 1, etc.) is used as its index.
-
-    All Maps (except the top-level DataDictionary one) are guaranteed to
-    present their entries with an iteration order identical to the order
-    in which the elements were defined in XML.
-
+ * <p>
+ * DD: The highest level objects in the data dictionary are of
+ * the following types:
+ * BusinessObjectEntry
+ * MaintenanceDocumentEntry
+ * TransactionalDocumentEntry
+ * <p>
+ * JSTL: The data dictionary is exposed as a Map which is accessed
+ * by referring to the "DataDictionary" global constant.  This Map contains
+ * the following kinds of entries keyed as indicated:
+ * Business Object Entries -
+ * Key = dataObjectClass name
+ * Value = Map created by BusinessObjectEntryMapper
+ * Maintenance Document entries -
+ * Key = DocumentType name
+ * Value = Map created by MaintenanceObjectEntryMapper
+ * Transactional Document entries -
+ * Key = DocumentType name
+ * Value = Map created by TransactionalDocumentEntryMapper
+ * <p>
+ * All elements are exposed to JSTL as Maps (where the element has a
+ * unique key by which they can be retrieved), or Strings.  For collections
+ * of elements having no unique key, the entry's position in the list
+ * (0, 1, etc.) is used as its index.
+ * <p>
+ * All Maps (except the top-level DataDictionary one) are guaranteed to
+ * present their entries with an iteration order identical to the order
+ * in which the elements were defined in XML.
  */
 public interface DataDictionaryEntry {
     /**

@@ -18,21 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.CANCEL_NOTE_PREFIX;
-import static org.kuali.kfs.module.tem.TemConstants.CANCEL_TA_QUESTION;
-import static org.kuali.kfs.module.tem.TemConstants.CANCEL_TA_TEXT;
-import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_CANCEL_QUESTION;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_PASTLIMIT;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_REQUIRED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.TA_QUESTION_DOCUMENT;
-import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
-import static org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC;
-import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
-import static org.kuali.kfs.sys.KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME;
-
-import java.util.ArrayList;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -46,13 +39,20 @@ import org.kuali.kfs.sys.document.validation.event.AccountingDocumentSaveWithNoL
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.util.ArrayList;
+
+import static org.kuali.kfs.module.tem.TemConstants.CANCEL_NOTE_PREFIX;
+import static org.kuali.kfs.module.tem.TemConstants.CANCEL_TA_QUESTION;
+import static org.kuali.kfs.module.tem.TemConstants.CANCEL_TA_TEXT;
+import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_CANCEL_QUESTION;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_PASTLIMIT;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_REQUIRED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.TA_QUESTION_DOCUMENT;
+import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
+import static org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC;
+import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
+import static org.kuali.kfs.sys.KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME;
 
 
 public class CancelQuestionHandler implements QuestionHandler<TravelDocument> {
@@ -65,14 +65,13 @@ public class CancelQuestionHandler implements QuestionHandler<TravelDocument> {
 
 
     @Override
-    public <T> T handleResponse(final Inquisitive<TravelDocument,?> asker) throws Exception {
+    public <T> T handleResponse(final Inquisitive<TravelDocument, ?> asker) throws Exception {
         if (asker.denied(CANCEL_TA_QUESTION)) {
             return (T) asker.back();
-        }
-        else if (asker.confirmed(CONFIRM_CANCEL_QUESTION)) {
+        } else if (asker.confirmed(CONFIRM_CANCEL_QUESTION)) {
             return (T) asker.end();
         }
-        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument)asker.getDocument();
+        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument) asker.getDocument();
 
         String note = createNote(asker.getReason(), taDocument.getDocumentNumber());
         final StringBuilder noteText = new StringBuilder(note);
@@ -84,13 +83,12 @@ public class CancelQuestionHandler implements QuestionHandler<TravelDocument> {
         if (StringUtils.isBlank(asker.getReason()) || (noteTextLength > noteTextMaxLength)) {
             // Figure out exact number of characters that the user can enter.
             int reasonLimit = noteTextMaxLength - noteTextLength;
-            reasonLimit = reasonLimit<0?reasonLimit*-1:reasonLimit;
+            reasonLimit = reasonLimit < 0 ? reasonLimit * -1 : reasonLimit;
             String message = getMessageFrom(TA_QUESTION_DOCUMENT);
             String question = StringUtils.replace(message, "{0}", CANCEL_TA_TEXT);
-            if (StringUtils.isBlank(asker.getReason())){
-                return (T) asker.confirm(CANCEL_TA_QUESTION, question, true, ERROR_TA_REASON_REQUIRED,QUESTION_REASON_ATTRIBUTE_NAME,CANCEL_TA_TEXT);
-            }
-            else {
+            if (StringUtils.isBlank(asker.getReason())) {
+                return (T) asker.confirm(CANCEL_TA_QUESTION, question, true, ERROR_TA_REASON_REQUIRED, QUESTION_REASON_ATTRIBUTE_NAME, CANCEL_TA_TEXT);
+            } else {
                 return (T) asker.confirm(CANCEL_TA_QUESTION, question, true, ERROR_TA_REASON_PASTLIMIT, QUESTION_REASON_ATTRIBUTE_NAME, new Integer(reasonLimit).toString());
             }
         }
@@ -123,15 +121,13 @@ public class CancelQuestionHandler implements QuestionHandler<TravelDocument> {
 
             if (ObjectUtils.isNotNull(returnActionForward)) {
                 return returnActionForward;
-            }
-            else   {
+            } else {
 
                 String message = getMessageFrom(TA_QUESTION_DOCUMENT);
                 String question = StringUtils.replace(message, "{0}", CANCEL_TA_TEXT);
                 return (T) asker.confirm(CANCEL_TA_QUESTION, question, true, "temSingleConfirmationQuestion", CANCEL_TA_QUESTION, "");
             }
-        }
-        catch (ValidationException ve) {
+        } catch (ValidationException ve) {
             throw ve;
         }
     }
@@ -140,8 +136,8 @@ public class CancelQuestionHandler implements QuestionHandler<TravelDocument> {
      * @see org.kuali.kfs.module.tem.document.web.struts.QuestionHandler#askQuestion(org.kuali.kfs.module.tem.document.web.struts.Inquisitive)
      */
     @Override
-    public <T> T askQuestion(final Inquisitive<TravelDocument,?> asker) throws Exception {
-        final String key      = getMessageFrom(TA_QUESTION_DOCUMENT);
+    public <T> T askQuestion(final Inquisitive<TravelDocument, ?> asker) throws Exception {
+        final String key = getMessageFrom(TA_QUESTION_DOCUMENT);
         final String question = StringUtils.replace(key, "{0}", CANCEL_TA_TEXT);
         T retval = (T) asker.confirm(CANCEL_TA_QUESTION, question, true);
         return retval;

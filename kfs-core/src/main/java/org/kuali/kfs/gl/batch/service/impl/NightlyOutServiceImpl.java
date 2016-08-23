@@ -18,16 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.Entry;
@@ -38,6 +28,7 @@ import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.service.NightlyOutService;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.gl.service.OriginEntryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -46,8 +37,17 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class implements the nightly out batch job.
@@ -73,6 +73,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Deletes all the pending general ledger entries that have now been copied to origin entries
+     *
      * @see org.kuali.kfs.gl.service.NightlyOutService#deleteCopiedPendingLedgerEntries()
      */
     public void deleteCopiedPendingLedgerEntries() {
@@ -83,6 +84,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Copies the approved pending ledger entries to origin entry table and generates a report
+     *
      * @see org.kuali.kfs.gl.service.NightlyOutService#copyApprovedPendingLedgerEntries()
      */
     public void copyApprovedPendingLedgerEntries() {
@@ -92,14 +94,13 @@ public class NightlyOutServiceImpl implements NightlyOutService {
         Date today = new Date(dateTimeService.getCurrentTimestamp().getTime());
 
         Iterator pendingEntries = generalLedgerPendingEntryService.findApprovedPendingLedgerEntries();
-        String outputFile = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.NIGHTLY_OUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION ;
+        String outputFile = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.NIGHTLY_OUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
         PrintStream outputFilePs = null;
 
         try {
-            outputFilePs  = new PrintStream(outputFile);
-        }
-        catch (IOException ioe) {
-            throw new RuntimeException("Cannot open output file "+outputFile+" for writing", ioe);
+            outputFilePs = new PrintStream(outputFile);
+        } catch (IOException ioe) {
+            throw new RuntimeException("Cannot open output file " + outputFile + " for writing", ioe);
         }
 
         EntryListReport entryListReport = new EntryListReport();
@@ -132,8 +133,8 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
         //create done file
         String doneFileName = outputFile.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
-        File doneFile = new File (doneFileName);
-        if (!doneFile.exists()){
+        File doneFile = new File(doneFileName);
+        if (!doneFile.exists()) {
             try {
                 doneFile.createNewFile();
             } catch (IOException e) {
@@ -145,7 +146,6 @@ public class NightlyOutServiceImpl implements NightlyOutService {
         entryListReport.writeReportFooter(pendingEntryListReportWriterService);
         nightlyOutLedgerSummaryReport.writeReport(pendingEntrySummaryReportWriterService);
     }
-
 
 
     public void setGeneralLedgerPendingEntryService(GeneralLedgerPendingEntryService generalLedgerPendingEntryService) {
@@ -170,6 +170,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Gets the pendingEntryListReportWriterService attribute.
+     *
      * @return Returns the pendingEntryListReportWriterService.
      */
     public ReportWriterService getPendingEntryListReportWriterService() {
@@ -178,6 +179,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Sets the pendingEntryListReportWriterService attribute value.
+     *
      * @param pendingEntryListReportWriterService The pendingEntryListReportWriterService to set.
      */
     public void setPendingEntryListReportWriterService(ReportWriterService pendingEntryListReportWriterService) {
@@ -186,6 +188,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Gets the pendingEntrySummaryReportWriterService attribute.
+     *
      * @return Returns the pendingEntrySummaryReportWriterService.
      */
     public ReportWriterService getPendingEntrySummaryReportWriterService() {
@@ -194,6 +197,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Sets the pendingEntrySummaryReportWriterService attribute value.
+     *
      * @param pendingEntrySummaryReportWriterService The pendingEntrySummaryReportWriterService to set.
      */
     public void setPendingEntrySummaryReportWriterService(ReportWriterService pendingEntrySummaryReportWriterService) {
@@ -202,6 +206,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -210,6 +215,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -238,15 +244,15 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
         /**
          * Writes an entry to the list report
-         * @param entry the entry to write
+         *
+         * @param entry               the entry to write
          * @param reportWriterService the reportWriterService to write the entry to
          */
         public void writeEntry(OriginEntryInformation entry, ReportWriterService reportWriterService) {
             pendingEntrySummary.setOriginEntry(entry);
             if (pendingEntrySummary.getSuppressableFieldsAsKey().equals(suppressKey)) {
                 pendingEntrySummary.suppressCommonFields(true);
-            }
-            else if (StringUtils.isNotBlank(suppressKey)) {
+            } else if (StringUtils.isNotBlank(suppressKey)) {
                 writeDocumentTotalLine(documentNumberTotal, reportWriterService);
                 documentNumberTotal = new EntryReportDocumentNumberTotalLine(pendingEntrySummary.getConstantDocumentNumber());
             }
@@ -267,8 +273,9 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
         /**
          * Adds the given pending entry summary to the appropriate doc type's line total
+         *
          * @param pendingEntrySummary the pending entry summary to add
-         * @param docTypeTotals the Map of doc type line total helpers to add the summary to
+         * @param docTypeTotals       the Map of doc type line total helpers to add the summary to
          */
         protected void addPendingEntryToDocumentType(PendingEntrySummary pendingEntrySummary, Map<String, EntryReportDocumentTypeTotalLine> docTypeTotals) {
             EntryReportDocumentTypeTotalLine docTypeTotal = docTypeTotals.get(pendingEntrySummary.getConstantDocumentTypeCode());
@@ -282,8 +289,9 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
         /**
          * Adds the given summary to the correct credit, debit, or budget total in the total line
+         *
          * @param pendingEntrySummary the summary to add
-         * @param totalLine the entry report total line which holds debit, credit, and budget sum totals
+         * @param totalLine           the entry report total line which holds debit, credit, and budget sum totals
          */
         protected void addSummaryToTotal(PendingEntrySummary pendingEntrySummary, EntryReportTotalLine totalLine) {
             if (pendingEntrySummary.getDebitAmount() != null) {
@@ -308,12 +316,13 @@ public class NightlyOutServiceImpl implements NightlyOutService {
             final int amountLength = getDataDictionaryService().getAttributeMaxLength(Entry.class, KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT);
 
             reportWriterService.writeNewLines(1);
-            reportWriterService.writeFormattedMessageLine("                                          Total: %"+amountLength+"s %"+amountLength+"s %"+amountLength+"s", formatter.format(documentNumberTotal.getCreditAmount()), formatter.format(documentNumberTotal.getDebitAmount()), formatter.format(documentNumberTotal.getBudgetAmount()));
+            reportWriterService.writeFormattedMessageLine("                                          Total: %" + amountLength + "s %" + amountLength + "s %" + amountLength + "s", formatter.format(documentNumberTotal.getCreditAmount()), formatter.format(documentNumberTotal.getDebitAmount()), formatter.format(documentNumberTotal.getBudgetAmount()));
             reportWriterService.writeNewLines(1);
         }
 
         /**
          * Completes the footer summary information for the report
+         *
          * @param reportWriterService the reportWriterService to write the footer to
          */
         public void writeReportFooter(ReportWriterService reportWriterService) {
@@ -329,11 +338,11 @@ public class NightlyOutServiceImpl implements NightlyOutService {
             reportWriterService.writeNewLines(1);
             for (String documentTypeCode : documentTypeTotals.keySet()) {
                 final EntryReportDocumentTypeTotalLine docTypeTotal = documentTypeTotals.get(documentTypeCode);
-                reportWriterService.writeFormattedMessageLine("       Totals for Document Type %4s Cnt %6d: %"+amountLength+"s %"+amountLength+"s %"+amountLength+"s",documentTypeCode, docTypeTotal.getEntryCount(), formatter.format(docTypeTotal.getCreditAmount()), formatter.format(docTypeTotal.getDebitAmount()), formatter.format(docTypeTotal.getBudgetAmount()));
+                reportWriterService.writeFormattedMessageLine("       Totals for Document Type %4s Cnt %6d: %" + amountLength + "s %" + amountLength + "s %" + amountLength + "s", documentTypeCode, docTypeTotal.getEntryCount(), formatter.format(docTypeTotal.getCreditAmount()), formatter.format(docTypeTotal.getDebitAmount()), formatter.format(docTypeTotal.getBudgetAmount()));
             }
 
             reportWriterService.writeNewLines(1);
-            reportWriterService.writeFormattedMessageLine("                        Grand Totals Cnt %6d: %"+amountLength+"s %"+amountLength+"s %"+amountLength+"s", new Integer(entryCount), formatter.format(totalLine.getCreditAmount()), formatter.format(totalLine.getDebitAmount()), formatter.format(totalLine.getBudgetAmount()));
+            reportWriterService.writeFormattedMessageLine("                        Grand Totals Cnt %6d: %" + amountLength + "s %" + amountLength + "s %" + amountLength + "s", new Integer(entryCount), formatter.format(totalLine.getCreditAmount()), formatter.format(totalLine.getDebitAmount()), formatter.format(totalLine.getBudgetAmount()));
         }
 
         /**
@@ -367,6 +376,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Adds the given amount to the debit total
+             *
              * @param debitAmount the amount to add to the debit total
              */
             public void addDebitAmount(KualiDecimal debitAmount) {
@@ -375,6 +385,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Adds the given amount to the credit total
+             *
              * @param creditAmount the amount to add to the credit total
              */
             public void addCreditAmount(KualiDecimal creditAmount) {
@@ -383,6 +394,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Adds the given amount to the budget total
+             *
              * @param budgetAmount the amount to add to the budget total
              */
             public void addBudgetAmount(KualiDecimal budgetAmount) {
@@ -399,6 +411,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Constructs a NightlyOutServiceImpl
+             *
              * @param documentTypeCode the document type code to
              */
             public EntryReportDocumentTypeTotalLine(String documentTypeCode) {
@@ -421,6 +434,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically udpate the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addBudgetAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override
@@ -431,6 +445,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically update the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addCreditAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override
@@ -441,6 +456,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically update the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addDebitAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override
@@ -459,6 +475,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Constructs a NightlyOutServiceImpl
+             *
              * @param documentNumber the document number to total
              */
             public EntryReportDocumentNumberTotalLine(String documentNumber) {
@@ -481,6 +498,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically udpate the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addBudgetAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override
@@ -491,6 +509,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically update the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addCreditAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override
@@ -501,6 +520,7 @@ public class NightlyOutServiceImpl implements NightlyOutService {
 
             /**
              * Overridden to automagically update the entry count
+             *
              * @see org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl.EntryReportTotalLine#addDebitAmount(org.kuali.rice.core.api.util.type.KualiDecimal)
              */
             @Override

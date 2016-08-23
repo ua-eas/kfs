@@ -18,14 +18,8 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
@@ -34,8 +28,14 @@ import org.kuali.kfs.module.ec.service.EffortCertificationDocumentBuildService;
 import org.kuali.kfs.module.ec.util.LedgerBalanceConsolidationHelper;
 import org.kuali.kfs.module.ec.util.PayrollAmountHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class Provide the facility used to generate documents (build) from the labor ledger balances
@@ -51,13 +51,13 @@ public class EffortCertificationDocumentBuildServiceImpl implements EffortCertif
      * @see org.kuali.kfs.module.ec.service.EffortCertificationDocumentBuildService#removeExistingDocumentBuild(java.util.Map)
      */
     public void removeExistingDocumentBuild(Map<String, String> fieldValues) {
-         Collection<EffortCertificationDocumentBuild> documents = businessObjectService.findMatching(EffortCertificationDocumentBuild.class, fieldValues);
-        businessObjectService.delete( new ArrayList<EffortCertificationDocumentBuild>( documents ) );
+        Collection<EffortCertificationDocumentBuild> documents = businessObjectService.findMatching(EffortCertificationDocumentBuild.class, fieldValues);
+        businessObjectService.delete(new ArrayList<EffortCertificationDocumentBuild>(documents));
     }
 
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationDocumentBuildService#generateDocumentBuild(org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition,
-     *      java.util.List, java.util.Map)
+     * java.util.List, java.util.Map)
      */
     public List<EffortCertificationDocumentBuild> generateDocumentBuildList(Integer postingYear, EffortCertificationReportDefinition reportDefinition, List<LaborLedgerBalance> ledgerBalances) {
         List<EffortCertificationDocumentBuild> documentList = new ArrayList<EffortCertificationDocumentBuild>();
@@ -75,7 +75,7 @@ public class EffortCertificationDocumentBuildServiceImpl implements EffortCertif
 
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationDocumentBuildService#generateDocumentBuild(org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition,
-     *      java.util.List, java.util.Map)
+     * java.util.List, java.util.Map)
      */
     public EffortCertificationDocumentBuild generateDocumentBuild(Integer postingYear, EffortCertificationReportDefinition reportDefinition, List<LaborLedgerBalance> ledgerBalances) {
         Map<Integer, Set<String>> reportPeriods = reportDefinition.getReportPeriods();
@@ -107,7 +107,7 @@ public class EffortCertificationDocumentBuildServiceImpl implements EffortCertif
      * populate a document build object through the given information
      *
      * @param reportDefinition the given report definition
-     * @param ledgerBalance the given ledger balance
+     * @param ledgerBalance    the given ledger balance
      * @return a dument build object populated with the given information
      */
     protected static EffortCertificationDocumentBuild populateDocument(EffortCertificationReportDefinition reportDefinition, LaborLedgerBalance ledgerBalance) {
@@ -140,12 +140,11 @@ public class EffortCertificationDocumentBuildServiceImpl implements EffortCertif
     }
 
 
-
     /**
      * update the given detail line if the given detail line is in the list; otherwise, add the given line into the list
      *
      * @param detailLineList the given list of detail lines
-     * @param detailLine the given detail line
+     * @param detailLine     the given detail line
      */
     protected void updateDetailLineList(List<EffortCertificationDetailBuild> detailLineList, EffortCertificationDetailBuild detailLine) {
         int index = detailLineList.indexOf(detailLine);
@@ -164,8 +163,7 @@ public class EffortCertificationDocumentBuildServiceImpl implements EffortCertif
             KualiDecimal payrollAmount = existingDetailLine.getEffortCertificationPayrollAmount().add(detailLine.getEffortCertificationPayrollAmount());
             existingDetailLine.setEffortCertificationPayrollAmount(payrollAmount);
 
-        }
-        else {
+        } else {
             detailLineList.add(detailLine);
         }
     }

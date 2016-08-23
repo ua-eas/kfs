@@ -36,7 +36,7 @@ public interface ContainerStepListener {
      * Notify the listener that the Step has finished.
      *
      * @param resultFile the Step's .success or .error file descriptor
-     * @param logFile The Step's log file created by its executor when the step started. The logFile is used to provide a unique identifier for this run of the Step
+     * @param logFile    The Step's log file created by its executor when the step started. The logFile is used to provide a unique identifier for this run of the Step
      */
     public void stepFinished(BatchStepFileDescriptor resultFile, String logFile);
 }

@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 /**
@@ -94,7 +93,7 @@ public class MilestoneSchedule extends PersistableBusinessObjectBase implements 
     @Override
     public KualiDecimal getTotalAmountScheduled() {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Milestone milestone: milestones) {
+        for (Milestone milestone : milestones) {
             if (ObjectUtils.isNotNull(milestone.getMilestoneAmount()) && milestone.isActive()) {
                 total = total.add(milestone.getMilestoneAmount());
             }

@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -31,7 +30,8 @@ import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Set;
 
 /**
  * Cash Control Document presentation Controller.
@@ -56,8 +56,7 @@ public class CashControlDocumentPresentationController extends FinancialSystemTr
             if (SpringContext.getBean(BankService.class).isBankSpecificationEnabled()) {
                 editModes.add(ArAuthorizationConstants.CashControlDocumentEditMode.SHOW_BANK_CODE);
             }
-        }
-        else {
+        } else {
             if (StringUtils.isNotBlank(cashControlDocument.getBankCode())) {
                 editModes.add(ArAuthorizationConstants.CashControlDocumentEditMode.SHOW_BANK_CODE);
             }

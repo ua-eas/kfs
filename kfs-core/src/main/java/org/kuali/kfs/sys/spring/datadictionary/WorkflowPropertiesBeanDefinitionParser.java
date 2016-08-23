@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.spring.datadictionary;
 
-import java.util.ArrayList;
-
 import org.kuali.kfs.krad.datadictionary.WorkflowProperty;
 import org.kuali.kfs.krad.datadictionary.WorkflowPropertyGroup;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -28,6 +26,8 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
 
 public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionParserBase {
 
@@ -44,27 +44,27 @@ public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionP
         // parse groups
         NodeList children = element.getChildNodes();
         ArrayList<WorkflowPropertyGroup> groups = new ArrayList<WorkflowPropertyGroup>();
-        for ( int i = 0; i < children.getLength(); i++ ) {
+        for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            if ( child.getLocalName() != null && child.getLocalName().equals("group") ) {
+            if (child.getLocalName() != null && child.getLocalName().equals("group")) {
                 WorkflowPropertyGroup group = new WorkflowPropertyGroup();
-                Element groupElement = (Element)child;
+                Element groupElement = (Element) child;
                 String basePath = groupElement.getAttribute("basePath");
-                if ( StringUtils.hasText(basePath) ) {
+                if (StringUtils.hasText(basePath)) {
                     group.setBasePath(basePath);
                 }
-                groups.add( group );
+                groups.add(group);
                 // parse group paths
                 NodeList groupChildren = groupElement.getChildNodes();
-                for ( int j = 0 ; j < groupChildren.getLength(); j++ ) {
+                for (int j = 0; j < groupChildren.getLength(); j++) {
                     Node groupChild = groupChildren.item(j);
-                    if ( groupChild.getLocalName() != null && groupChild.getLocalName().equals("path") ) {
-                        Element pathElement = (Element)groupChild;
+                    if (groupChild.getLocalName() != null && groupChild.getLocalName().equals("path")) {
+                        Element pathElement = (Element) groupChild;
                         String path = pathElement.getAttribute("path");
-                        if ( StringUtils.hasText( path ) ) {
+                        if (StringUtils.hasText(path)) {
                             WorkflowProperty prop = new WorkflowProperty();
                             prop.setPath(path);
-                            group.getWorkflowProperties().add( prop );
+                            group.getWorkflowProperties().add(prop);
                         }
                     }
 

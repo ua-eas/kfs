@@ -19,14 +19,14 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TravelAuthBlanketTripTypeValidation extends GenericValidation {
 
@@ -34,10 +34,10 @@ public class TravelAuthBlanketTripTypeValidation extends GenericValidation {
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean rulePassed = true;
-        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument)event.getDocument();
+        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument) event.getDocument();
         if (!ObjectUtils.isNull(taDocument.getTripType())) {
             if (taDocument.isBlanketTravel()) {
-             // If the user selects Blanket Trip Type, airfare amount and the Trip Detail Estimate should not be completed. (Note:
+                // If the user selects Blanket Trip Type, airfare amount and the Trip Detail Estimate should not be completed. (Note:
                 // Blanket Travel implies in-state travel)
                 if (!ObjectUtils.isNull(taDocument.getPerDiemExpenses()) && !taDocument.getPerDiemExpenses().isEmpty()) {
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.PER_DIEM_EXPENSES, TemKeyConstants.ERROR_TA_BLANKET_TYPE_NO_ESTIMATE);
@@ -49,9 +49,9 @@ public class TravelAuthBlanketTripTypeValidation extends GenericValidation {
                     taDocument.logErrors();
                     rulePassed = false;
                 }
-                if (!taDocument.getTripType().isBlanketTravel() ) {
+                if (!taDocument.getTripType().isBlanketTravel()) {
                     rulePassed = false;
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." +TemPropertyConstants.TRIP_TYPE_CODE, TemKeyConstants.ERROR_TA_TRIP_TYPE_BLANKET_NOT_ALLOWED);
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + TemPropertyConstants.TRIP_TYPE_CODE, TemKeyConstants.ERROR_TA_TRIP_TYPE_BLANKET_NOT_ALLOWED);
                 }
             }
             if ((taDocument.isBlanketTravel() || isNonEncumbranceTrip(taDocument)) && (StringUtils.isBlank(taDocument.getTemProfile().getDefaultChartCode()) || StringUtils.isBlank(taDocument.getTemProfile().getDefaultAccount()))) {
@@ -66,6 +66,7 @@ public class TravelAuthBlanketTripTypeValidation extends GenericValidation {
 
     /**
      * Determines if the trip type does not need to generate encumbrances and has no accounting line
+     *
      * @param travelAuth the travel authorization to verify
      * @return true if the authorization is not planning to generate encumbrances, false otherwise
      */

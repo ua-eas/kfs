@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
+import junit.framework.TestCase;
+import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.sys.exception.XmlErrorHandler;
+import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -31,13 +30,12 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-
-import junit.framework.TestCase;
-
-import org.apache.commons.io.IOUtils;
-import org.kuali.kfs.sys.exception.ParseException;
-import org.kuali.kfs.sys.exception.XmlErrorHandler;
-import org.xml.sax.SAXException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 
 public class CustomerLoadXMLSchemaTest extends TestCase {
 
@@ -59,13 +57,11 @@ public class CustomerLoadXMLSchemaTest extends TestCase {
     }
 
     /**
-     *
      * Tests the AR Customer Load sample XML file against the XSD schema.
-     *
+     * <p>
      * The goal if this is to make sure that the Sample file stays current, even
      * if someone changes the XSD schema file down the road.  This failing test will
      * then force the sample file to be updated (hopefully).
-     *
      */
     public void NORUN_testSampleAgainstSchema() throws Exception {
 
@@ -92,10 +88,10 @@ public class CustomerLoadXMLSchemaTest extends TestCase {
      * Validates the xml contents against the batch input type schema using the java 1.5 validation package.
      *
      * @param schemaLocation - location of the schema file
-     * @param fileContents - xml contents to validate against the schema
+     * @param fileContents   - xml contents to validate against the schema
      */
     private void validateContentsAgainstSchema(InputStream schemaLocation, InputStream fileContents)
-            throws ParseException, MalformedURLException, IOException, SAXException {
+        throws ParseException, MalformedURLException, IOException, SAXException {
         // create a SchemaFactory capable of understanding WXS schemas
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 

@@ -22,7 +22,6 @@ package org.kuali.kfs.module.cg.businessobject;
 import org.kuali.rice.kim.api.identity.Person;
 
 
-
 /**
  * This interface defines all the necessary methods to define a Contracts & Grants project director object.
  */

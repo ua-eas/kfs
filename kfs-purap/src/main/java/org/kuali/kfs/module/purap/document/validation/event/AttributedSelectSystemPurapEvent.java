@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.event.SaveEvent;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
 
 /**
  * SelectSystem Event for Accounts Payable Document.
@@ -42,7 +42,7 @@ public final class AttributedSelectSystemPurapEvent extends AttributedSaveDocume
      * Constructs a SelectSystemPurapEvent with the given errorPathPrefix and document.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked upon
+     * @param document        document the event was invoked upon
      */
     public AttributedSelectSystemPurapEvent(String errorPathPrefix, Document document) {
         super("selecting system for document " + getDocumentId(document), errorPathPrefix, document);

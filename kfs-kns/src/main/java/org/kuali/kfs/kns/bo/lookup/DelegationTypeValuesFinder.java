@@ -32,6 +32,7 @@ import java.util.List;
  */
 public class DelegationTypeValuesFinder extends KeyValuesBase {
     private static final List<KeyValue> C_DELEGATION_TYPES;
+
     static {
         final List<KeyValue> delegationTypes = new ArrayList<KeyValue>();
         delegationTypes.add(new ConcreteKeyValue("", ""));

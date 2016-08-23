@@ -25,13 +25,13 @@ import java.util.Set;
 
 
 public class InquiryAuthorizerBase extends BusinessObjectAuthorizerBase implements InquiryAuthorizer {
-	/**
-	 * Implement this method to flag sections as restricted and get the
-	 * framework to check the permission for you
-	 *
-	 * @return Set of section ids that need to be hidden for particular users
-	 */
-	public Set<String> getSecurePotentiallyHiddenSectionIds() {
-		return new HashSet<String>();
-	}
+    /**
+     * Implement this method to flag sections as restricted and get the
+     * framework to check the permission for you
+     *
+     * @return Set of section ids that need to be hidden for particular users
+     */
+    public Set<String> getSecurePotentiallyHiddenSectionIds() {
+        return new HashSet<String>();
+    }
 }

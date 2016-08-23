@@ -28,11 +28,11 @@ import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.beanutils.WrapDynaBean;
 import org.apache.commons.collections.FastHashMap;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.web.format.Formatter;
 
 import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
@@ -68,6 +68,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
      */
     public static class PersistenceStructureServiceProvider implements CollectionItemClassProvider {
         protected static PersistenceStructureService persistenceStructureService = null;
+
         protected static PersistenceStructureService getPersistenceStructureService() {
             if (persistenceStructureService == null) {
                 persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
@@ -85,7 +86,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
     // default is to consult OJB
     protected static CollectionItemClassProvider collectionItemClassProvider = new PersistenceStructureServiceProvider();
 
-	// begin Kuali Foundation modification
+    // begin Kuali Foundation modification
     public PojoPropertyUtilsBean() {
         super();
     }
@@ -103,23 +104,23 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             return unconvertedValues.get(key);
 
         Object val = getNestedProperty(bean, key);
-        Class type = (val!=null)?val.getClass():null;
-        if ( type == null ) {
+        Class type = (val != null) ? val.getClass() : null;
+        if (type == null) {
             try {
                 type = getPropertyType(bean, key);
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 type = String.class;
-                LOG.warn( "Unable to get property type for Class: " + bean.getClass().getName() + "/Property: " + key );
+                LOG.warn("Unable to get property type for Class: " + bean.getClass().getName() + "/Property: " + key);
             }
         }
         return (Formatter.isSupportedType(type) ? form.formatValue(val, key, type) : val);
         // end Kuali Foundation modification
     }
 
-    	// begin Kuali Foundation modification
-    private Map<String,List<Method>> cache = new HashMap<String, List<Method>>();
-    private static Map<String,Method> readMethodCache = new HashMap<String, Method>();
-    private IntrospectionException introspectionException = new IntrospectionException( "" );
+    // begin Kuali Foundation modification
+    private Map<String, List<Method>> cache = new HashMap<String, List<Method>>();
+    private static Map<String, Method> readMethodCache = new HashMap<String, Method>();
+    private IntrospectionException introspectionException = new IntrospectionException("");
 
     public Object fastGetNestedProperty(Object obj, String propertyName) throws IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         //logger.debug("entering fastGetNestedProperty");
@@ -130,47 +131,47 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             Object currentObj = obj;
             Class<?> currentObjClass = currentObj.getClass();
 
-            for (String currentPropertyName : propertyName.split("\\.") ) {
+            for (String currentPropertyName : propertyName.split("\\.")) {
                 String cacheKey = currentObjClass.getName() + currentPropertyName;
-                Method readMethod = readMethodCache.get( cacheKey );
-                if ( readMethod == null ) {
-                	synchronized (readMethodCache) {
-	                    // if the read method was resolved to an error, repeat the exception
-	                    // rather than performing the reflection calls below
-	                    if ( readMethodCache.containsKey(cacheKey) ) {
-	                        throw introspectionException;
-	                    }
-	                    try {
-	                        try {
-	                            readMethod = currentObjClass.getMethod("get" + currentPropertyName.substring(0, 1).toUpperCase() + currentPropertyName.substring(1), (Class[])null);
-	                        } catch (NoSuchMethodException e) {
-	                            readMethod = currentObjClass.getMethod("is" + currentPropertyName.substring(0, 1).toUpperCase() + currentPropertyName.substring(1), (Class[])null);
-	                        }
-	                    } catch ( NoSuchMethodException ex ) {
-	                        // cache failures to prevent re-checking of the parameter
-	                        readMethodCache.put( cacheKey, null );
-	                        throw introspectionException;
-	                    }
-	                    readMethodCache.put(cacheKey, readMethod );
-					}
+                Method readMethod = readMethodCache.get(cacheKey);
+                if (readMethod == null) {
+                    synchronized (readMethodCache) {
+                        // if the read method was resolved to an error, repeat the exception
+                        // rather than performing the reflection calls below
+                        if (readMethodCache.containsKey(cacheKey)) {
+                            throw introspectionException;
+                        }
+                        try {
+                            try {
+                                readMethod = currentObjClass.getMethod("get" + currentPropertyName.substring(0, 1).toUpperCase() + currentPropertyName.substring(1), (Class[]) null);
+                            } catch (NoSuchMethodException e) {
+                                readMethod = currentObjClass.getMethod("is" + currentPropertyName.substring(0, 1).toUpperCase() + currentPropertyName.substring(1), (Class[]) null);
+                            }
+                        } catch (NoSuchMethodException ex) {
+                            // cache failures to prevent re-checking of the parameter
+                            readMethodCache.put(cacheKey, null);
+                            throw introspectionException;
+                        }
+                        readMethodCache.put(cacheKey, readMethod);
+                    }
                 }
                 methods.add(readMethod);
                 currentObjClass = readMethod.getReturnType();
             }
             synchronized (cache) {
                 cache.put(propertyName + obj.getClass().getName(), methods);
-			}
+            }
         }
 
-        for ( Method method : methods ) {
-            obj = method.invoke(obj, (Object[])null);
+        for (Method method : methods) {
+            obj = method.invoke(obj, (Object[]) null);
         }
 
         //logger.debug("exiting fastGetNestedProperty");
 
         return obj;
     }
-	// end Kuali Foundation modification
+    // end Kuali Foundation modification
 
     /*
      *  Kuali modification to make isWriteable work like it did in beanUtils 1.7.
@@ -184,7 +185,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         }
         if (name == null) {
             throw new IllegalArgumentException("No name specified for bean class '" +
-                    bean.getClass() + "'");
+                bean.getClass() + "'");
         }
 
         // Remove any subscript from the final name value
@@ -193,7 +194,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         // Treat WrapDynaBean as special case - may be a read-only property
         // (see Jira issue# BEANUTILS-61)
         if (bean instanceof WrapDynaBean) {
-            bean = ((WrapDynaBean)bean).getInstance();
+            bean = ((WrapDynaBean) bean).getInstance();
         }
 
         // Return the requested result
@@ -203,7 +204,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         } else {
             try {
                 PropertyDescriptor desc =
-                        getPropertyDescriptor(bean, name);
+                    getPropertyDescriptor(bean, name);
                 if (desc != null) {
                     Method writeMethod = desc.getWriteMethod();
                     if (writeMethod == null) {
@@ -233,22 +234,20 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
      * begin Kuali Foundation modification
      * removed comments and @<no space>since javadoc attribute
      * end Kuali Foundation modification
+     *
      * @see org.apache.commons.beanutils.PropertyUtilsBean#getNestedProperty(java.lang.Object, java.lang.String)
      */
     public Object getNestedProperty(Object arg0, String arg1) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		// begin Kuali Foundation modification
+        // begin Kuali Foundation modification
         try {
             try {
                 return fastGetNestedProperty(arg0, arg1);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return super.getNestedProperty(arg0, arg1);
             }
-        }
-        catch (NestedNullException e) {
+        } catch (NestedNullException e) {
             return getUnreachableNestedProperty(arg0, arg1);
-        }
-        catch (InvocationTargetException e1) {
+        } catch (InvocationTargetException e1) {
             return getUnreachableNestedProperty(arg0, arg1);
         }
         // removed commented code
@@ -267,15 +266,15 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         }
     }
 
-    protected Object generateIndexedProperty(Object nestedBean, String property, int index, IndexOutOfBoundsException ioobe)  throws IllegalAccessException, InvocationTargetException,
-            NoSuchMethodException {
+    protected Object generateIndexedProperty(Object nestedBean, String property, int index, IndexOutOfBoundsException ioobe) throws IllegalAccessException, InvocationTargetException,
+        NoSuchMethodException {
 
         if (!(nestedBean instanceof PersistableBusinessObject)) throw ioobe;
 
         // we can only grow lists
         if (!List.class.isAssignableFrom(getPropertyType(nestedBean, property))) throw ioobe;
 
-        List list= (List) getProperty(nestedBean, property);
+        List list = (List) getProperty(nestedBean, property);
 
         Class c = collectionItemClassProvider.getCollectionItemClass(nestedBean, property);
 
@@ -300,12 +299,13 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
     }
 
     // begin Kuali Foundation modification
+
     /**
      * helper method makes sure we don't return "" for collections
      */
     private Object getUnreachableNestedProperty(Object arg0, String arg1) {
         try {
-            PropertyDescriptor propertyDescriptor  = getPropertyDescriptor(arg0, arg1);
+            PropertyDescriptor propertyDescriptor = getPropertyDescriptor(arg0, arg1);
             if (propertyDescriptor == null || Collection.class.isAssignableFrom(propertyDescriptor.getPropertyType())) {
                 return null;
             }
@@ -323,26 +323,26 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
 
 
     // begin Kuali Foundation modification
+
     /**
      * begin Kuali Foundation modification
      * Set the value of the (possibly nested) property of the specified name, for the specified bean, with no type conversions.
      *
-     * @param bean Bean whose property is to be modified
-     * @param name Possibly nested name of the property to be modified
+     * @param bean  Bean whose property is to be modified
+     * @param name  Possibly nested name of the property to be modified
      * @param value Value to which the property is to be set
-     *
-     * @exception IllegalAccessException if the caller does not have access to the property accessor method
-     * @exception IllegalArgumentException if <code>bean</code> or <code>name</code> is null
-     * @exception IllegalArgumentException if a nested reference to a property returns null
-     * @exception InvocationTargetException if the property accessor method throws an exception
-     * @exception NoSuchMethodException if an accessor method for this propety cannot be found
-     * end Kuali Foundation modification
+     * @throws IllegalAccessException    if the caller does not have access to the property accessor method
+     * @throws IllegalArgumentException  if <code>bean</code> or <code>name</code> is null
+     * @throws IllegalArgumentException  if a nested reference to a property returns null
+     * @throws InvocationTargetException if the property accessor method throws an exception
+     * @throws NoSuchMethodException     if an accessor method for this propety cannot be found
+     *                                   end Kuali Foundation modification
      */
     public void setNestedProperty(Object bean, String name, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
         if (bean == null) {
-        	if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name + ", value = " + value);
-        	return;
+            if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name + ", value = " + value);
+            return;
         }
         if (name == null) {
             throw new IllegalArgumentException("No name specified");
@@ -361,20 +361,17 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             indexOfMAPPED_DELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
             if (bean instanceof Map) {
                 propBean = ((Map) bean).get(next);
-            }
-            else if (indexOfMAPPED_DELIM >= 0) {
+            } else if (indexOfMAPPED_DELIM >= 0) {
                 propBean = getMappedProperty(bean, next);
-            }
-            else if (indexOfINDEXED_DELIM >= 0) {
+            } else if (indexOfINDEXED_DELIM >= 0) {
                 propBean = getIndexedProperty(bean, next);
-            }
-            else {
+            } else {
                 propBean = getSimpleProperty(bean, next);
             }
             if (ObjectUtils.isNull(propBean)) {
                 Class propertyType = getPropertyType(bean, next);
                 if (propertyType != null) {
-                	Object newInstance = ObjectUtils.createNewObjectFromClass(propertyType);
+                    Object newInstance = ObjectUtils.createNewObjectFromClass(propertyType);
                     setSimpleProperty(bean, next, newInstance);
                     propBean = getSimpleProperty(bean, next);
                 }
@@ -392,25 +389,22 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             if (descriptor == null) {
                 // no - then put the value into the map
                 ((Map) bean).put(name, value);
-            }
-            else {
+            } else {
                 // yes - use that instead
                 setSimpleProperty(bean, name, value);
             }
-        }
-        else if (indexOfMAPPED_DELIM >= 0) {
+        } else if (indexOfMAPPED_DELIM >= 0) {
             setMappedProperty(bean, name, value);
-        }
-        else if (indexOfINDEXED_DELIM >= 0) {
+        } else if (indexOfINDEXED_DELIM >= 0) {
             setIndexedProperty(bean, name, value);
-        }
-        else {
+        } else {
             setSimpleProperty(bean, name, value);
         }
     }
     // end Kuali Foundation modification
 
-	// begin Kuali Foundation modification
+    // begin Kuali Foundation modification
+
     /**
      * <p>
      * Retrieve the property descriptor for the specified property of the specified bean, or return <code>null</code> if there is
@@ -418,24 +412,23 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
      * class, except that if the last (or only) name element is indexed, the descriptor for the last resolved property itself is
      * returned.
      * </p>
-     *
+     * <p>
      * <p>
      * <strong>FIXME </strong>- Does not work with DynaBeans.
      * </p>
      *
      * @param bean Bean for which a property descriptor is requested
      * @param name Possibly indexed and/or nested name of the property for which a property descriptor is requested
-     *
-     * @exception IllegalAccessException if the caller does not have access to the property accessor method
-     * @exception IllegalArgumentException if <code>bean</code> or <code>name</code> is null
-     * @exception IllegalArgumentException if a nested reference to a property returns null
-     * @exception InvocationTargetException if the property accessor method throws an exception
-     * @exception NoSuchMethodException if an accessor method for this propety cannot be found
+     * @throws IllegalAccessException    if the caller does not have access to the property accessor method
+     * @throws IllegalArgumentException  if <code>bean</code> or <code>name</code> is null
+     * @throws IllegalArgumentException  if a nested reference to a property returns null
+     * @throws InvocationTargetException if the property accessor method throws an exception
+     * @throws NoSuchMethodException     if an accessor method for this propety cannot be found
      */
     public PropertyDescriptor getPropertyDescriptor(Object bean, String name) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         if (bean == null) {
-        	if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name);
-        	return null;
+            if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name);
+            return null;
         }
         if (name == null) {
             throw new IllegalArgumentException("No name specified");
@@ -454,19 +447,17 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
                 int indexOfMAPPED_DELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
                 if (indexOfMAPPED_DELIM >= 0 && (indexOfINDEXED_DELIM < 0 || indexOfMAPPED_DELIM < indexOfINDEXED_DELIM)) {
                     propBean = getMappedProperty(bean, next);
-                }
-                else {
+                } else {
                     if (indexOfINDEXED_DELIM >= 0) {
                         propBean = getIndexedProperty(bean, next);
-                    }
-                    else {
+                    } else {
                         propBean = getSimpleProperty(bean, next);
                     }
                 }
                 if (ObjectUtils.isNull(propBean)) {
                     Class propertyType = getPropertyType(bean, next);
                     if (propertyType != null) {
-                    	Object newInstance = ObjectUtils.createNewObjectFromClass(propertyType);
+                        Object newInstance = ObjectUtils.createNewObjectFromClass(propertyType);
                         setSimpleProperty(bean, next, newInstance);
                         propBean = getSimpleProperty(bean, next);
                     }
@@ -511,8 +502,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
                 // not found, try to create it
                 try {
                     result = new MappedPropertyDescriptor(name, bean.getClass());
-                }
-                catch (IntrospectionException ie) {
+                } catch (IntrospectionException ie) {
                 }
                 if (result != null) {
                     mappedDescriptors.put(name, result);
@@ -520,20 +510,19 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             }
 
             return result;
-        } catch ( RuntimeException ex ) {
-            LOG.error( "Unable to get property descriptor for " + bean.getClass().getName() + " . " + name
-                    + "\n" + ex.getClass().getName() + ": " + ex.getMessage() );
+        } catch (RuntimeException ex) {
+            LOG.error("Unable to get property descriptor for " + bean.getClass().getName() + " . " + name
+                + "\n" + ex.getClass().getName() + ": " + ex.getMessage());
             throw ex;
         }
     }
     // end Kuali Foundation modification
 
-    private int findNextNestedIndex(String expression)
-    {
+    private int findNextNestedIndex(String expression) {
         // walk back from the end to the start
         // and find the first index that
         int bracketCount = 0;
-        for (int i=0, size=expression.length(); i<size ; i++) {
+        for (int i = 0, size = expression.length(); i < size; i++) {
             char at = expression.charAt(i);
             switch (at) {
                 case PropertyUtils.NESTED_DELIM:
@@ -563,29 +552,28 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
      * Set the value of the specified simple property of the specified bean,
      * with no type conversions.
      *
-     * @param bean Bean whose property is to be modified
-     * @param name Name of the property to be modified
+     * @param bean  Bean whose property is to be modified
+     * @param name  Name of the property to be modified
      * @param value Value to which the property should be set
-     *
-     * @exception IllegalAccessException if the caller does not have
-     *  access to the property accessor method
-     * @exception IllegalArgumentException if <code>bean</code> or
-     *  <code>name</code> is null
-     * @exception IllegalArgumentException if the property name is
-     *  nested or indexed
-     * @exception InvocationTargetException if the property accessor method
-     *  throws an exception
-     * @exception NoSuchMethodException if an accessor method for this
-     *  propety cannot be found
+     * @throws IllegalAccessException    if the caller does not have
+     *                                   access to the property accessor method
+     * @throws IllegalArgumentException  if <code>bean</code> or
+     *                                   <code>name</code> is null
+     * @throws IllegalArgumentException  if the property name is
+     *                                   nested or indexed
+     * @throws InvocationTargetException if the property accessor method
+     *                                   throws an exception
+     * @throws NoSuchMethodException     if an accessor method for this
+     *                                   propety cannot be found
      */
     public void setSimpleProperty(Object bean,
-                                         String name, Object value)
-            throws IllegalAccessException, InvocationTargetException,
-            NoSuchMethodException {
+                                  String name, Object value)
+        throws IllegalAccessException, InvocationTargetException,
+        NoSuchMethodException {
 
         if (bean == null) {
-        	if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name + ", value = " + value);
-        	return;
+            if (LOG.isDebugEnabled()) LOG.debug("No bean specified, name = " + name + ", value = " + value);
+            return;
         }
         if (name == null) {
             throw new IllegalArgumentException("No name specified");
@@ -594,27 +582,27 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         // Validate the syntax of the property name
         if (name.indexOf(PropertyUtils.NESTED_DELIM) >= 0) {
             throw new IllegalArgumentException
-                    ("Nested property names are not allowed");
+                ("Nested property names are not allowed");
         } else if (name.indexOf(PropertyUtils.INDEXED_DELIM) >= 0) {
             throw new IllegalArgumentException
-                    ("Indexed property names are not allowed");
+                ("Indexed property names are not allowed");
         } else if (name.indexOf(PropertyUtils.MAPPED_DELIM) >= 0) {
             throw new IllegalArgumentException
-                    ("Mapped property names are not allowed");
+                ("Mapped property names are not allowed");
         }
 
         // Retrieve the property setter method for the specified property
         PropertyDescriptor descriptor =
-                getPropertyDescriptor(bean, name);
+            getPropertyDescriptor(bean, name);
         if (descriptor == null) {
             throw new NoSuchMethodException("Unknown property '" +
-                    name + "'");
+                name + "'");
         }
         Method writeMethod = getWriteMethod(descriptor);
         if (writeMethod == null) {
             //throw new NoSuchMethodException("Property '" + name + "' has no setter method");
-        	LOG.warn("Bean: " + bean.getClass().getName() + ", Property '" + name + "' has no setter method");
-        	return;
+            LOG.warn("Bean: " + bean.getClass().getName() + ", Property '" + name + "' has no setter method");
+            return;
         }
 
         // Call the property setter method
@@ -624,7 +612,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             String valueClassName =
                 value == null ? "<null>" : value.getClass().getName();
             LOG.debug("setSimpleProperty: Invoking method " + writeMethod
-                      + " with value " + value + " (class " + valueClassName + ")");
+                + " with value " + value + " (class " + valueClassName + ")");
         }
 
 
@@ -632,14 +620,16 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
 
     }
 
-    /** This just catches and wraps IllegalArgumentException. */
+    /**
+     * This just catches and wraps IllegalArgumentException.
+     */
     private Object invokeMethod(
-                        Method method,
-                        Object bean,
-                        Object[] values)
-                            throws
-                                IllegalAccessException,
-                                InvocationTargetException {
+        Method method,
+        Object bean,
+        Object[] values)
+        throws
+        IllegalAccessException,
+        InvocationTargetException {
         try {
 
             return method.invoke(bean, values);
@@ -649,21 +639,21 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             LOG.error("Method invocation failed.", e);
             throw new IllegalArgumentException(
                 "Cannot invoke " + method.getDeclaringClass().getName() + "."
-                + method.getName() + " - " + e.getMessage());
+                    + method.getName() + " - " + e.getMessage());
 
         }
     }
 
     public Class getPropertyType(Object bean, String name)
-            throws IllegalAccessException, InvocationTargetException,
-            NoSuchMethodException {
+        throws IllegalAccessException, InvocationTargetException,
+        NoSuchMethodException {
 
         if (bean == null) {
             throw new IllegalArgumentException("No bean specified");
         }
         if (name == null) {
             throw new IllegalArgumentException("No name specified for bean class '" +
-                    bean.getClass() + "'");
+                bean.getClass() + "'");
         }
 
         // Resolve nested references
@@ -671,22 +661,22 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
             String next = getResolver().next(name);
             Object nestedBean = getProperty(bean, next);
             if (nestedBean == null) {
-            	Class<?>[] paramTypes = {};
-            	Method method = null;
-            	try {
-                    method = bean.getClass().getMethod("get" + next.substring(0, 1).toUpperCase() + next.substring(1), (Class[])null);
+                Class<?>[] paramTypes = {};
+                Method method = null;
+                try {
+                    method = bean.getClass().getMethod("get" + next.substring(0, 1).toUpperCase() + next.substring(1), (Class[]) null);
                 } catch (NoSuchMethodException e) {
-                    method = bean.getClass().getMethod("is" + next.substring(0, 1).toUpperCase() + next.substring(1), (Class[])null);
+                    method = bean.getClass().getMethod("is" + next.substring(0, 1).toUpperCase() + next.substring(1), (Class[]) null);
                 }
-            	try {
+                try {
                     nestedBean = ObjectUtils.createNewObjectFromClass(method.getReturnType());
-				} catch (RuntimeException e) {
-					NestedNullException nne = new NestedNullException
-                    ("Null property value for '" + next +
-                    "' on bean class '" + bean.getClass() + "'");
+                } catch (RuntimeException e) {
+                    NestedNullException nne = new NestedNullException
+                        ("Null property value for '" + next +
+                            "' on bean class '" + bean.getClass() + "'");
                     nne.initCause(e);
                     throw nne;
-				}
+                }
             }
             bean = nestedBean;
             name = getResolver().remove(name);
@@ -698,7 +688,7 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         // Special handling for DynaBeans
         if (bean instanceof DynaBean) {
             DynaProperty descriptor =
-                    ((DynaBean) bean).getDynaClass().getDynaProperty(name);
+                ((DynaBean) bean).getDynaClass().getDynaProperty(name);
             if (descriptor == null) {
                 return (null);
             }
@@ -713,15 +703,15 @@ public class PojoPropertyUtilsBean extends PropertyUtilsBean {
         }
 
         PropertyDescriptor descriptor =
-                getPropertyDescriptor(bean, name);
+            getPropertyDescriptor(bean, name);
         if (descriptor == null) {
             return (null);
         } else if (descriptor instanceof IndexedPropertyDescriptor) {
             return (((IndexedPropertyDescriptor) descriptor).
-                    getIndexedPropertyType());
+                getIndexedPropertyType());
         } else if (descriptor instanceof MappedPropertyDescriptor) {
             return (((MappedPropertyDescriptor) descriptor).
-                    getMappedPropertyType());
+                getMappedPropertyType());
         } else {
             return (descriptor.getPropertyType());
         }

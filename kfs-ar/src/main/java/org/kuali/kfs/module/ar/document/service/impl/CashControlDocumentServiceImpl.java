@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -54,11 +55,10 @@ import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CashControlDocumentServiceImpl implements CashControlDocumentService {
 
@@ -77,7 +77,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CashControlDocumentService#createAndSavePaymentApplicationDocument(java.lang.String,
-     *      org.kuali.kfs.module.ar.document.CashControlDocument, org.kuali.kfs.module.ar.businessobject.CashControlDetail)
+     * org.kuali.kfs.module.ar.document.CashControlDocument, org.kuali.kfs.module.ar.businessobject.CashControlDetail)
      */
     @Override
     public PaymentApplicationDocument createAndSavePaymentApplicationDocument(String description, CashControlDocument cashControlDocument, CashControlDetail cashControlDetail) throws WorkflowException {
@@ -130,7 +130,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CashControlDocumentService#addNewCashControlDetail(java.lang.String,
-     *      org.kuali.kfs.module.ar.document.CashControlDocument, org.kuali.kfs.module.ar.businessobject.CashControlDetail)
+     * org.kuali.kfs.module.ar.document.CashControlDocument, org.kuali.kfs.module.ar.businessobject.CashControlDetail)
      */
     @Override
     public void addNewCashControlDetail(String description, CashControlDocument cashControlDocument, CashControlDetail cashControlDetail) throws WorkflowException {
@@ -172,7 +172,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CashControlDocumentService#createCashReceiptGLPEs(org.kuali.kfs.module.ar.document.CashControlDocument,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean createCashReceiptGLPEs(CashControlDocument cashControlDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -219,8 +219,9 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * Creates bank offset GLPEs for the cash control document
+     *
      * @param cashControlDocument the document to create cash control GLPEs for
-     * @param sequenceHelper the sequence helper which will sequence the new GLPEs
+     * @param sequenceHelper      the sequence helper which will sequence the new GLPEs
      * @return true if the new bank offset GLPEs were created successfully, false otherwise
      */
     @Override
@@ -240,8 +241,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
                 isSuccess &= glpeService.populateOffsetGeneralLedgerPendingEntry(cashControlDocument.getPostingYear(), bankOffsetEntry, sequenceHelper, offsetEntry);
                 cashControlDocument.addPendingEntry(offsetEntry);
                 sequenceHelper.increment();
-            }
-            else {
+            } else {
                 isSuccess = false;
             }
         }
@@ -302,8 +302,8 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
         }
 
         // for each Advance Deposit accounting line, create a reverse GLPE in CashControl document.
-        for (ElectronicPaymentClaim electronicPaymentClaim : electronicPaymentClaims ) {
-            Map criteria3= new HashMap();
+        for (ElectronicPaymentClaim electronicPaymentClaim : electronicPaymentClaims) {
+            Map criteria3 = new HashMap();
             criteria3.put(KFSPropertyConstants.DOCUMENT_NUMBER, electronicPaymentClaim.getDocumentNumber());
             criteria3.put(ArPropertyConstants.SEQUENCE_NUMBER, electronicPaymentClaim.getFinancialDocumentLineNumber());
             criteria3.put(KFSPropertyConstants.FINANCIAL_DOCUMENT_LINE_TYPE_CODE, KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
@@ -392,8 +392,8 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
      * This method creates an accounting line.
      *
      * @param systemInformation System Information used to set accounting line data
-     * @param debitOrCredit Tells if it is debit or credit
-     * @param amount The amount
+     * @param debitOrCredit     Tells if it is debit or credit
+     * @param amount            The amount
      * @return The created accounting line
      */
     protected AccountingLine buildAccountingLine(String accountNumber, String subAccountNumber, String objectCode, String subObjectCode, String chartOfAccountsCode, String debitOrCredit, KualiDecimal amount) {
@@ -403,11 +403,9 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
         // get new accounting line
         try {
             accountingLine = SourceAccountingLine.class.newInstance();
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new InfrastructureException("unable to access sourceAccountingLineClass", e);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new InfrastructureException("unable to instantiate sourceAccountingLineClass", e);
         }
 
@@ -427,10 +425,10 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
      * This method creates and adds a new explicit glpe
      *
      * @param cashControlDocument the cash control document
-     * @param sequenceHelper sequence helper
-     * @param accountingLine the accounting line based on which the glpe is created
-     * @param options the current year oprions
-     * @param documentType the document type to be associated with the glpe
+     * @param sequenceHelper      sequence helper
+     * @param accountingLine      the accounting line based on which the glpe is created
+     * @param options             the current year oprions
+     * @param documentType        the document type to be associated with the glpe
      */
     protected GeneralLedgerPendingEntry createAndAddNewExplicitEntry(CashControlDocument cashControlDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, AccountingLine accountingLine, SystemOptions options, String documentType) {
 
@@ -456,9 +454,9 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
      * This method creates and adds an offset entry for the given explicit entry and accounting line.
      *
      * @param cashControlDocument the cash control document
-     * @param explicitEntry the explicit entry for which we create the offset entry
-     * @param accountingLine the accounting line used to populate the offset entry
-     * @param sequenceHelper the sequence helper
+     * @param explicitEntry       the explicit entry for which we create the offset entry
+     * @param accountingLine      the accounting line used to populate the offset entry
+     * @param sequenceHelper      the sequence helper
      * @return true if successfuly created and added, false otherwise
      */
     protected boolean createAndAddTheOffsetEntry(CashControlDocument cashControlDocument, GeneralLedgerPendingEntry explicitEntry, AccountingLine accountingLine, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -481,6 +479,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the system information servcie
+     *
      * @return the system information service
      */
     public SystemInformationService getSystemInformationService() {
@@ -489,6 +488,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the system information service
+     *
      * @param systemInformationService
      */
     public void setSystemInformationService(SystemInformationService systemInformationService) {
@@ -497,6 +497,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the chart service
+     *
      * @return
      */
     public ChartService getChartService() {
@@ -505,6 +506,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the chart service
+     *
      * @param chartService
      */
     public void setChartService(ChartService chartService) {
@@ -513,6 +515,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -521,6 +524,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -529,6 +533,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the glpe service
+     *
      * @return
      */
     public GeneralLedgerPendingEntryService getGlpeService() {
@@ -537,6 +542,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the glpe service
+     *
      * @param glpeService
      */
     public void setGlpeService(GeneralLedgerPendingEntryService glpeService) {
@@ -545,6 +551,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the business object service
+     *
      * @return the business object service
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -553,6 +560,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the business object service
+     *
      * @param businessObjectService
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -561,6 +569,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the option service
+     *
      * @return the option service
      */
     public OptionsService getOptionsService() {
@@ -569,6 +578,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the option service
+     *
      * @param optionsService
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -577,6 +587,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the accounts receivable header
+     *
      * @return the accounts receivable header
      */
     public AccountsReceivableDocumentHeaderService getAccountsReceivableDocumentHeaderService() {
@@ -585,6 +596,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the accounts receivable header
+     *
      * @param accountsReceivableDocumentHeaderService
      */
     public void setAccountsReceivableDocumentHeaderService(AccountsReceivableDocumentHeaderService accountsReceivableDocumentHeaderService) {
@@ -593,6 +605,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method gets the document service
+     *
      * @return the document service
      */
     public DocumentService getDocumentService() {
@@ -601,6 +614,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * This method sets the document service
+     *
      * @param documentService
      */
     public void setDocumentService(DocumentService documentService) {
@@ -629,6 +643,7 @@ public class CashControlDocumentServiceImpl implements CashControlDocumentServic
 
     /**
      * Sets the implementation of the AccountingDocumentRuleHelperService to use
+     *
      * @param accountingDocumentRuleService the implementation of the AccountingDocumentRuleHelperService to use
      */
     public void setAccountingDocumentRuleHelperService(AccountingDocumentRuleHelperService accountingDocumentRuleService) {

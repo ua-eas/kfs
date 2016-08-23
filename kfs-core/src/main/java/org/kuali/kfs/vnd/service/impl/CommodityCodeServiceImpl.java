@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
 import org.kuali.kfs.vnd.dataaccess.CommodityCodeDao;
 import org.kuali.kfs.vnd.service.CommodityCodeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -43,7 +43,7 @@ public class CommodityCodeServiceImpl implements CommodityCodeService {
     public CommodityCode getByPrimaryId(String purchasingCommodityCode) {
         CommodityCode ccToBeRetrieved = new CommodityCode();
         ccToBeRetrieved.setPurchasingCommodityCode(purchasingCommodityCode.toUpperCase());
-        CommodityCode cc = (CommodityCode)businessObjectService.retrieve( ccToBeRetrieved );
+        CommodityCode cc = (CommodityCode) businessObjectService.retrieve(ccToBeRetrieved);
         return cc;
     }
 

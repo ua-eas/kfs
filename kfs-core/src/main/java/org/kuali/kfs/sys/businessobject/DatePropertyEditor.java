@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
 import java.beans.PropertyEditorSupport;
 import java.sql.Date;
 import java.text.ParseException;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 // Created for Research Participant Upload
 public class DatePropertyEditor extends PropertyEditorSupport {
@@ -35,10 +35,9 @@ public class DatePropertyEditor extends PropertyEditorSupport {
     public void setAsText(String text) throws IllegalArgumentException {
 
         try {
-            Date time =  SpringContext.getBean(DateTimeService.class).convertToSqlDate(text);
+            Date time = SpringContext.getBean(DateTimeService.class).convertToSqlDate(text);
             setValue(time);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new IllegalArgumentException("Could not parse date: " + ex.getMessage(), ex);
         }
     }

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+
+import java.math.BigDecimal;
 
 public class PaymentRequestReviewValidation extends GenericValidation {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentRequestReviewValidation.class);
@@ -32,7 +32,7 @@ public class PaymentRequestReviewValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PaymentRequestDocument paymentRequest = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument paymentRequest = (PaymentRequestDocument) event.getDocument();
 
 
         boolean containsAccounts = false;
@@ -50,20 +50,17 @@ public class PaymentRequestReviewValidation extends GenericValidation {
             if (itemForValidation.getItemType().isAmountBasedGeneralLedgerIndicator()) {
                 String error = "Payment Request " + paymentRequest.getPurapDocumentIdentifier() + ", " + identifier + " has total amount '" + itemForValidation.getTotalAmount() + "' but outstanding encumbered amount " + itemForValidation.getPoOutstandingAmount();
                 LOG.error("validatePaymentRequestReview() " + error);
-            }
-            else {
+            } else {
                 String error = "Payment Request " + paymentRequest.getPurapDocumentIdentifier() + ", " + identifier + " has quantity '" + itemForValidation.getItemQuantity() + "' but outstanding encumbered quantity " + itemForValidation.getPoOutstandingQuantity();
                 LOG.error("validatePaymentRequestReview() " + error);
             }
-        }
-        else {
+        } else {
             // not validating but ok
             String error = "Payment Request " + paymentRequest.getPurapDocumentIdentifier() + ", " + identifier + " has total amount '" + itemForValidation.getTotalAmount() + "'";
             if (itemForValidation.getItemType().isLineItemIndicator()) {
                 if (itemForValidation.getItemType().isAmountBasedGeneralLedgerIndicator()) {
                     error = error + " with outstanding encumbered amount " + itemForValidation.getPoOutstandingAmount();
-                }
-                else {
+                } else {
                     error = error + " with outstanding encumbered quantity " + itemForValidation.getPoOutstandingQuantity();
                 }
             }

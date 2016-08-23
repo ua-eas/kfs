@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.kuali.rice.core.impl.resourceloader.SpringBeanFactoryResourceLoader;
 
 import javax.xml.namespace.QName;
-
-import org.kuali.rice.core.impl.resourceloader.SpringBeanFactoryResourceLoader;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A custom {@link org.kuali.rice.kew.plugin.ResourceLoader} which wraps a Spring BeanFactory and delegates certain service lookups to
@@ -50,8 +49,7 @@ public class FinancialSystemResourceLoader extends SpringBeanFactoryResourceLoad
 //        }
         else if (serviceName.getLocalPart().indexOf("Lookupable") > -1) {
             return super.getService(serviceName);
-        }
-        else if (serviceName.getLocalPart().contains("InactivationBlockingDetectionService")) {
+        } else if (serviceName.getLocalPart().contains("InactivationBlockingDetectionService")) {
             return super.getService(serviceName);
         }
         return null;

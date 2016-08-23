@@ -18,24 +18,24 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
+import org.kuali.kfs.krad.bo.Exporter;
+import org.kuali.kfs.krad.exception.ExportNotSupportedException;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.framework.impex.xml.XmlLoader;
+import org.kuali.rice.kim.api.permission.PermissionContract;
+import org.kuali.rice.kim.api.role.RoleContract;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.rice.core.framework.impex.xml.XmlLoader;
-import org.kuali.rice.kim.api.permission.PermissionContract;
-import org.kuali.rice.kim.api.role.RoleContract;
-import org.kuali.kfs.krad.bo.Exporter;
-import org.kuali.kfs.krad.exception.ExportNotSupportedException;
-import org.kuali.kfs.krad.util.KRADConstants;
-
 /**
  * Imports and exports roles and permissions from/to XML via JAXB.
- *
+ * <p>
  * <p>TODO: Do we need to restrict XML additions or updates based on which user is performing the ingestion?
- *
+ * <p>
  * <p>TODO: It may be best to make this class into a "service" instead.
  */
 public class KimImporterAndExporter implements XmlLoader, Exporter {
@@ -55,7 +55,7 @@ public class KimImporterAndExporter implements XmlLoader, Exporter {
      */
     @Override
     public void export(Class<?> dataObjectClass, List<? extends Object> dataObjects, String exportFormat,
-            OutputStream outputStream) throws IOException, ExportNotSupportedException {
+                       OutputStream outputStream) throws IOException, ExportNotSupportedException {
         if (!supportedFormats.contains(exportFormat)) {
             throw new ExportNotSupportedException("The KimImporterAndExporter does not support the \"" + exportFormat + "\" export format");
         }

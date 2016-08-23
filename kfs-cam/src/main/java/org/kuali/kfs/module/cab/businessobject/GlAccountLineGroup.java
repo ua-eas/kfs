@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Accounting line grouped data for GL Line
@@ -59,8 +59,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
         if (KFSConstants.GL_CREDIT_CODE.equals(entry.getTransactionDebitCreditCode())) {
             // negate the amount
             setAmount(amount.negated());
-        }
-        else {
+        } else {
             setAmount(amount);
         }
     }
@@ -94,14 +93,12 @@ public class GlAccountLineGroup extends AccountLineGroup {
         // if debit/credit code is same then just add the amount
         if (targetDebitCreditCode.equals(newDebitCreditCode)) {
             targetAmount = targetAmount.add(newAmt);
-        }
-        else {
+        } else {
             // if debit/credit code is not the same and new amount is greater, toggle the debit/credit code
             if (newAmt.isGreaterThan(targetAmount)) {
                 targetDebitCreditCode = newDebitCreditCode;
                 targetAmount = newAmt.subtract(targetAmount);
-            }
-            else {
+            } else {
                 // if debit/credit code is not the same and current amount is greater or equal
                 targetAmount = targetAmount.subtract(newAmt);
             }
@@ -111,8 +108,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
         // re-compute the absolute value of amount
         if (KFSConstants.GL_CREDIT_CODE.equals(targetDebitCreditCode)) {
             setAmount(targetAmount.negated());
-        }
-        else {
+        } else {
             setAmount(targetAmount);
         }
     }

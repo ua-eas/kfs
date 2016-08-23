@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.fp.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -29,6 +27,8 @@ import org.kuali.kfs.fp.businessobject.CheckBase;
 import org.kuali.kfs.fp.dataaccess.CheckDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.Collection;
 
 /**
  * This class is the OJB implementation of the AccountingLineDao interface.

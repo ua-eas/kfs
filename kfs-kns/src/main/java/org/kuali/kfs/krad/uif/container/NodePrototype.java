@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.uif.container;
 
-import org.kuali.kfs.krad.uif.field.MessageField;
 import org.kuali.kfs.krad.uif.component.ConfigurableBase;
+import org.kuali.kfs.krad.uif.field.MessageField;
 
 import java.io.Serializable;
 

@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.fp.businessobject.CashieringItemInProcess;
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CoinDetail;
@@ -31,9 +28,11 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This service interface defines methods that a CashManagementService implementation must provide.
- *
  */
 public interface CashManagementService {
     /**
@@ -91,7 +90,7 @@ public interface CashManagementService {
      *
      * @param documentId The id of the cash receipt document associated with the cash management document.
      * @return CashManagementDocument which contains the Deposit which contains the given CashReceipt, or null if the CashReceipt is
-     *         not contained in a Deposit
+     * not contained in a Deposit
      */
     public CashManagementDocument getCashManagementDocumentForCashReceiptId(String documentId);
 
@@ -114,7 +113,7 @@ public interface CashManagementService {
      * 5. Saving any new item in process
      * 6. saving any checks
      *
-     * @param cmDoc The transaction to apply to the cash management document.
+     * @param cmDoc                 The transaction to apply to the cash management document.
      * @param cashieringTransaction The transaction being applied to the cash management document.
      */
     public void applyCashieringTransaction(CashManagementDocument cmDoc);
@@ -182,7 +181,7 @@ public interface CashManagementService {
     /**
      * This method creates new cumulative currency and coin details for a document.
      *
-     * @param cmDoc The cash management document the cumulative details will be associated with.
+     * @param cmDoc            The cash management document the cumulative details will be associated with.
      * @param cashieringSource The cashiering record source for the new details.
      */
     public void createNewCashDetails(CashManagementDocument cmDoc, String cashieringSource);
@@ -213,7 +212,7 @@ public interface CashManagementService {
     /**
      * Retrieves from the database all cashiering transaction checks deposited for a given deposit.
      *
-     * @param documentNumber The document number of a cash management document that cashiering transaction checks have been deposited for.
+     * @param documentNumber    The document number of a cash management document that cashiering transaction checks have been deposited for.
      * @param depositLineNumber The line number of the deposit to find checks deposited for.
      * @return A list of checks associated with the given deposit.
      */
@@ -253,7 +252,7 @@ public interface CashManagementService {
 
     /**
      * This returns the currency and coin details for the final deposit, in a map keyed on the detail class
-     *
+     * <p>
      * This returns the currency and coin details for the final deposit, in a map keyed on the detail class.
      *
      * @param documentNumber The document number to find the final deposit cash details for.

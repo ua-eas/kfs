@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Set;
 
 public class ProcurementCardDocumentPresentationController extends AccountingDocumentPresentationControllerBase {
 
@@ -64,8 +64,8 @@ public class ProcurementCardDocumentPresentationController extends AccountingDoc
         boolean canRouteReviewFullEdit = false;
         Set<String> currentNodeNames = workflowDocument.getCurrentNodeNames();
         if (CollectionUtils.isNotEmpty(currentNodeNames)) {
-            for (String routeNode : currentNodeNames ) {
-                if ( StringUtils.equalsIgnoreCase(routeNode, KFSConstants.RouteLevelNames.ACCOUNT_REVIEW_FULL_EDIT ) ) {
+            for (String routeNode : currentNodeNames) {
+                if (StringUtils.equalsIgnoreCase(routeNode, KFSConstants.RouteLevelNames.ACCOUNT_REVIEW_FULL_EDIT)) {
                     canRouteReviewFullEdit = true;
                     break;
                 }
@@ -75,9 +75,9 @@ public class ProcurementCardDocumentPresentationController extends AccountingDoc
         // FULL_ENTRY only if: a) person has an approval request, b) we are at the correct level, c) it's not a correction document,
         // d) it is not an ADHOC request (important so that ADHOC don't get full entry).
         if (canRouteReviewFullEdit
-                && (((FinancialSystemDocumentHeader) document.getDocumentHeader()).getFinancialDocumentInErrorNumber() == null)
-                && workflowDocument.isApprovalRequested()
-                && !workflowDocument.isAcknowledgeRequested()) {
+            && (((FinancialSystemDocumentHeader) document.getDocumentHeader()).getFinancialDocumentInErrorNumber() == null)
+            && workflowDocument.isApprovalRequested()
+            && !workflowDocument.isAcknowledgeRequested()) {
             return true;
         }
 

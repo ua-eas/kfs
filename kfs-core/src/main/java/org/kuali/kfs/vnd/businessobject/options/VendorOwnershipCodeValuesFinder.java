@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.OwnershipType;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.OwnershipType;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Values Finder for <code>OwnershipType</code>.
@@ -46,16 +46,16 @@ public class VendorOwnershipCodeValuesFinder extends KeyValuesBase {
     /***
      * @see org.kuali.rice.krad.keyvalues.KeyValuesBase#getKeyValues(boolean)
      */
-    public List getKeyValues(boolean active){
+    public List getKeyValues(boolean active) {
         KeyValuesService boService = SpringContext.getBean(KeyValuesService.class);
         Collection codes;
         List labels = new ArrayList();
-        if(active){
+        if (active) {
             codes = boService.findAll(OwnershipType.class);
             labels.add(new ConcreteKeyValue("", ""));
         } else
             codes = boService.findAllInactive(OwnershipType.class);
-        for (Iterator iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator iter = codes.iterator(); iter.hasNext(); ) {
             OwnershipType ot = (OwnershipType) iter.next();
             labels.add(new ConcreteKeyValue(ot.getVendorOwnershipCode(), ot.getVendorOwnershipDescription()));
         }

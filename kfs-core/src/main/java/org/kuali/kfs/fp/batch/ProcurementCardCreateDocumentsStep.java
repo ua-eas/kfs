@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * This step will call a service method to create the procurement card documents from the loaded transaction table.

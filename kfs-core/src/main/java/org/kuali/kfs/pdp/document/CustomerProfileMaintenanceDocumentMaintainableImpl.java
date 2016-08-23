@@ -18,13 +18,7 @@
  */
 package org.kuali.kfs.pdp.document;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.pdp.PdpPropertyConstants;
-import org.kuali.kfs.pdp.businessobject.CustomerProfile;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
@@ -32,6 +26,12 @@ import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.pdp.PdpPropertyConstants;
+import org.kuali.kfs.pdp.businessobject.CustomerProfile;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is a special implementation of Maintainable specifically for Account Delegates. It was created to correctly update the
@@ -46,21 +46,21 @@ public class CustomerProfileMaintenanceDocumentMaintainableImpl extends Financia
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterRetrieve()
      */
     @Override
-    public void processAfterCopy( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
 
-        super.processAfterCopy( document, parameters );
+        super.processAfterCopy(document, parameters);
         CustomerProfile customerProfile = (CustomerProfile) document.getNewMaintainableObject().getBusinessObject();
         customerProfile.setChartCode(null);
         customerProfile.setUnitCode(null);
         customerProfile.setSubUnitCode(null);
-     }
+    }
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
-     *
+     * org.kuali.rice.kns.document.MaintenanceDocument)
+     * <p>
      * KRAD Conversion: Performs customization of the sections making fields read only.
-     *
+     * <p>
      * No use of data dictionary.
      */
     @Override
@@ -70,7 +70,7 @@ public class CustomerProfileMaintenanceDocumentMaintainableImpl extends Financia
         //If oldMaintainable is not null, it means we are trying to get sections for the new part
         //Refer to KualiMaintenanceForm lines 288-294
         CustomerProfile customerProfile = (CustomerProfile) document.getNewMaintainableObject().getBusinessObject();
-        if(oldMaintainable==null) {
+        if (oldMaintainable == null) {
             return sections;
         }
         if (shouldReviewTypesFieldBeReadOnly(document) == false) {
@@ -84,9 +84,9 @@ public class CustomerProfileMaintenanceDocumentMaintainableImpl extends Financia
                     for (Field field : row.getFields()) {
                         if (PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_CHART_CODE.equals(field.getPropertyName())) {
                             field.setReadOnly(true);
-                         }
+                        }
                         if (PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_UNIT_CODE.equals(field.getPropertyName())) {
-                             field.setReadOnly(true);
+                            field.setReadOnly(true);
                         }
                         if (PdpPropertyConstants.CustomerProfile.CUSTOMER_PROFILE_SUB_UNIT_CODE.equals(field.getPropertyName())) {
                             field.setReadOnly(true);
@@ -99,15 +99,15 @@ public class CustomerProfileMaintenanceDocumentMaintainableImpl extends Financia
     }
 
 
-    protected boolean shouldReviewTypesFieldBeReadOnly(MaintenanceDocument document){
-        CustomerProfile  customerProfile = (CustomerProfile)document.getNewMaintainableObject().getBusinessObject();
-        if(StringUtils.isEmpty(customerProfile.getChartCode())) {
+    protected boolean shouldReviewTypesFieldBeReadOnly(MaintenanceDocument document) {
+        CustomerProfile customerProfile = (CustomerProfile) document.getNewMaintainableObject().getBusinessObject();
+        if (StringUtils.isEmpty(customerProfile.getChartCode())) {
             return false;
         }
-        if(StringUtils.isEmpty(customerProfile.getSubUnitCode())) {
+        if (StringUtils.isEmpty(customerProfile.getSubUnitCode())) {
             return false;
         }
-        if(StringUtils.isEmpty(customerProfile.getUnitCode())) {
+        if (StringUtils.isEmpty(customerProfile.getUnitCode())) {
             return false;
         }
         return true;
@@ -118,14 +118,14 @@ public class CustomerProfileMaintenanceDocumentMaintainableImpl extends Financia
      */
     @Override
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> parameters) {
-        CustomerProfile  customerProfile = (CustomerProfile)document.getNewMaintainableObject().getBusinessObject();
+        CustomerProfile customerProfile = (CustomerProfile) document.getNewMaintainableObject().getBusinessObject();
 
-       if (ObjectUtils.isNull(customerProfile.getDefaultSubAccountNumber())) {
-        customerProfile.setDefaultSubAccountNumber(PdpPropertyConstants.CustomerProfile.CUSTOMER_DEFAULT_SUB_ACCOUNT_NUMBER);
-    }
-       if (ObjectUtils.isNull(customerProfile.getDefaultSubObjectCode())) {
-        customerProfile.setDefaultSubObjectCode(PdpPropertyConstants.CustomerProfile.CUSTOMER_DEFAULT_SUB_OBJECT_CODE);
-    }
+        if (ObjectUtils.isNull(customerProfile.getDefaultSubAccountNumber())) {
+            customerProfile.setDefaultSubAccountNumber(PdpPropertyConstants.CustomerProfile.CUSTOMER_DEFAULT_SUB_ACCOUNT_NUMBER);
+        }
+        if (ObjectUtils.isNull(customerProfile.getDefaultSubObjectCode())) {
+            customerProfile.setDefaultSubObjectCode(PdpPropertyConstants.CustomerProfile.CUSTOMER_DEFAULT_SUB_OBJECT_CODE);
+        }
         super.processAfterPost(document, parameters);
     }
 }

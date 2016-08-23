@@ -18,26 +18,25 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import java.util.List;
-
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-
 import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.integration.cg.dto.KcObjectCode;
 import org.kuali.kfs.module.external.kc.KcConstants;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import java.util.List;
+
 @WebService(name = KcConstants.ObjectCodeService.WEB_SERVICE_NAME,
-            targetNamespace = KcConstants.KFS_NAMESPACE_URI)
+    targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL,
-             parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface KcObjectCodeService {
 
-    public KcObjectCode getObjectCode( @WebParam(name="universityFiscalYear") String universityFiscalYear,
-            @WebParam(name="chartOfAccountsCode") String chartOfAccountsCode,
-            @WebParam(name="financialObjectCode") String financialObjectCode);
+    public KcObjectCode getObjectCode(@WebParam(name = "universityFiscalYear") String universityFiscalYear,
+                                      @WebParam(name = "chartOfAccountsCode") String chartOfAccountsCode,
+                                      @WebParam(name = "financialObjectCode") String financialObjectCode);
 
-    public List<KcObjectCode> lookupObjectCodes( @WebParam(name="searchCriteria") java.util.List <HashMapElement> searchCriteria);
+    public List<KcObjectCode> lookupObjectCodes(@WebParam(name = "searchCriteria") java.util.List<HashMapElement> searchCriteria);
 
 }

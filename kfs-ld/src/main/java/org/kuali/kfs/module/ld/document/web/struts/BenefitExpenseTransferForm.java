@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.document.BenefitExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action Form for the Benefit Expense Transfer Document.

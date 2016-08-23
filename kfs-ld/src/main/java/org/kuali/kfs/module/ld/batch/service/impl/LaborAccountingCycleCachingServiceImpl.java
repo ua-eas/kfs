@@ -40,8 +40,10 @@ public class LaborAccountingCycleCachingServiceImpl extends AccountingCycleCachi
             protected LaborObject useDao() {
                 return laborLedgerDao.getLaborObject(fiscalYear, chartCode, objectCode);
             }
+
             @Override
-            protected void retrieveReferences(LaborObject laborObject) {}
+            protected void retrieveReferences(LaborObject laborObject) {
+            }
         }.get(LaborObject.class, fiscalYear, chartCode, objectCode);
     }
 

@@ -105,10 +105,6 @@ public class BudgetConstructionOrgPositionFundingDetailReport {
     private BigDecimal totalOrgPercentChange;
 
 
-
-
-
-
     /**
      * Gets the consHdr
      *
@@ -543,6 +539,7 @@ public class BudgetConstructionOrgPositionFundingDetailReport {
 
     /**
      * Gets the chartOfAccountsCode attribute.
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -551,6 +548,7 @@ public class BudgetConstructionOrgPositionFundingDetailReport {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {

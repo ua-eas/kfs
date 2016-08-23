@@ -18,29 +18,28 @@
  */
 package org.kuali.kfs.sys.web.servlet;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-
 import org.apache.commons.lang.StringUtils;
 import org.directwebremoting.Container;
 import org.directwebremoting.extend.Configurator;
 import org.directwebremoting.impl.DwrXmlConfigurator;
 import org.directwebremoting.impl.StartupUtil;
 import org.directwebremoting.servlet.DwrServlet;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ClassLoaderUtils;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.spring.NamedOrderedListBean;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ClassLoaderUtils;
 import org.springframework.core.io.DefaultResourceLoader;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class KfsDWRServlet extends DwrServlet {
 
@@ -56,12 +55,12 @@ public class KfsDWRServlet extends DwrServlet {
      * specified in the loaded module definitions.
      *
      * @see uk.ltd.getahead.dwr.DWRServlet#configure(javax.servlet.ServletConfig,
-     *      uk.ltd.getahead.dwr.Configuration)
+     * uk.ltd.getahead.dwr.Configuration)
      */
     protected List<NamedOrderedListBean> getDwrNamedOrderedListBeans(String listName) {
-        List <NamedOrderedListBean> dwrListBeans = new ArrayList<NamedOrderedListBean>();
+        List<NamedOrderedListBean> dwrListBeans = new ArrayList<NamedOrderedListBean>();
         Map<String, NamedOrderedListBean> namedOrderedListBeans = SpringContext.getBeansOfType(NamedOrderedListBean.class);
-         for (NamedOrderedListBean nameOrderedListBean : namedOrderedListBeans.values()) {
+        for (NamedOrderedListBean nameOrderedListBean : namedOrderedListBeans.values()) {
             if (nameOrderedListBean.getName().equals(listName)) {
                 dwrListBeans.add((NamedOrderedListBean) nameOrderedListBean);
             }
@@ -69,7 +68,7 @@ public class KfsDWRServlet extends DwrServlet {
         return dwrListBeans;
     }
 
-    protected DwrXmlConfigurator generateConfigurator(DefaultResourceLoader resourceLoader, String scriptConfigurationFilePath ) throws ServletException {
+    protected DwrXmlConfigurator generateConfigurator(DefaultResourceLoader resourceLoader, String scriptConfigurationFilePath) throws ServletException {
         try {
             InputStream is = resourceLoader.getResource(scriptConfigurationFilePath).getInputStream();
             DwrXmlConfigurator dwrXmlConfigurator = new DwrXmlConfigurator();
@@ -88,9 +87,9 @@ public class KfsDWRServlet extends DwrServlet {
         for (NamedOrderedListBean namedOrderedListBean : this.getDwrNamedOrderedListBeans(KFSConstants.SCRIPT_CONFIGURATION_FILES_LIST_NAME)) {
             for (String scriptConfigurationFilePath : namedOrderedListBean.getList()) {
                 if (getSpringBasedConfigPath()) {
-                      try {
-                        configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
-                       } catch (Exception e) {
+                    try {
+                        configurators.add(this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
+                    } catch (Exception e) {
                         throw new ServletException(e);
                     }
                 }
@@ -103,33 +102,28 @@ public class KfsDWRServlet extends DwrServlet {
         for (ModuleService moduleService : modules) {
             for (String scriptConfigurationFilePath : moduleService.getModuleConfiguration().getScriptConfigurationFilePaths()) {
                 if (!StringUtils.isBlank(scriptConfigurationFilePath))
-                     try {
-                         configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
+                    try {
+                        configurators.add(this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
                     } catch (Exception e) {
                         throw new ServletException(e);
                     }
-              }
+            }
         }
 
         for (String configFile : HACK_ADDITIONAL_FILES) {
-             try {
+            try {
                 String scriptConfigurationFilePath = classpathResourcePrefix + configFile;
-                configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
+                configurators.add(this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
             } catch (Exception e) {
                 throw new ServletException(e);
             }
         }
-        try
-        {
+        try {
             super.configureContainer(container, servletConfig);
             StartupUtil.configure(container, configurators);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             throw ex;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             throw new ServletException(ex);
         }
     }

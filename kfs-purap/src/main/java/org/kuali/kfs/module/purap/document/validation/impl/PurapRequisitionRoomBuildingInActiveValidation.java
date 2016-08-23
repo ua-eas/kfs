@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocumentBase;
@@ -29,18 +29,18 @@ import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.sys.businessobject.Room;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
-public class PurapRequisitionRoomBuildingInActiveValidation extends GenericValidation{
+import java.util.HashMap;
+import java.util.Map;
+
+public class PurapRequisitionRoomBuildingInActiveValidation extends GenericValidation {
 
     private BusinessObjectService businessObjectService; //
 
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean isActive = true;
-        PurchasingDocumentBase req = (PurchasingDocumentBase)event.getDocument();
+        PurchasingDocumentBase req = (PurchasingDocumentBase) event.getDocument();
         MessageMap errorMap = GlobalVariables.getMessageMap();
 
         errorMap.clearErrorPath();
@@ -51,10 +51,10 @@ public class PurapRequisitionRoomBuildingInActiveValidation extends GenericValid
         primarykeys.put(KFSPropertyConstants.CAMPUS_CODE, req.getDeliveryCampusCode());
         primarykeys.put(KFSPropertyConstants.BUILDING_CODE, req.getDeliveryBuildingCode());
 
-        Building building = businessObjectService.findByPrimaryKey(Building.class ,primarykeys);
+        Building building = businessObjectService.findByPrimaryKey(Building.class, primarykeys);
 
-        if(building != null){
-            if(! building.isActive() ){
+        if (building != null) {
+            if (!building.isActive()) {
                 errorMap.putError(PurapConstants.DELIVERY_BUILDING_NAME_INACTIVE_ERROR, PurapKeyConstants.ERROR_INACTIVE_BUILDING);
                 isActive &= building.isActive();
             }
@@ -62,10 +62,10 @@ public class PurapRequisitionRoomBuildingInActiveValidation extends GenericValid
 
         //Pass primary keys campusCode + buildingCode + buildingRoomNumber, to retrieve room object.
         primarykeys.put("buildingRoomNumber", req.getDeliveryBuildingRoomNumber());
-        Room room = (Room)businessObjectService.findByPrimaryKey(Room.class ,primarykeys);
+        Room room = (Room) businessObjectService.findByPrimaryKey(Room.class, primarykeys);
 
-        if(room!=null){
-            if(! room.isActive()){
+        if (room != null) {
+            if (!room.isActive()) {
                 errorMap.putError(PurapConstants.DELIVERY_ROOM_NUMBER_INACTIVE_ERROR, PurapKeyConstants.ERROR_INACTIVE_ROOM);
                 isActive &= room.isActive();
             }

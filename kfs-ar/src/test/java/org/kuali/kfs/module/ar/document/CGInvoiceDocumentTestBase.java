@@ -96,7 +96,7 @@ public abstract class CGInvoiceDocumentTestBase extends KualiTestBase {
                     list.clear();
                     // only one account is added into the list to create CINV
                     list.add(awardAccount);
-                    Map<String, Object> criteria = new HashMap<String,Object>();
+                    Map<String, Object> criteria = new HashMap<String, Object>();
                     criteria.put("accountNumber", awardAccount.getAccountNumber());
                     criteria.put("chartOfAccountsCode", awardAccount.getChartOfAccountsCode());
 

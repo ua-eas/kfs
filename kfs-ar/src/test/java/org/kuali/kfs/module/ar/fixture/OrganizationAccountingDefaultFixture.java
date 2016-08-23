@@ -25,12 +25,12 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 public enum OrganizationAccountingDefaultFixture {
 
     BASE_OAD(
-            "BL",
-            "AAAM",
-            "BA",
-            "1044900",
-            "5387",
-            SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear()
+        "BL",
+        "AAAM",
+        "BA",
+        "1044900",
+        "5387",
+        SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear()
     );
 
     public String chartOfAccountsCode;
@@ -41,12 +41,12 @@ public enum OrganizationAccountingDefaultFixture {
     public Integer universityFiscalYear;
 
     private OrganizationAccountingDefaultFixture(
-            String chartOfAccountsCode,
-            String organizationCode,
-            String defaultInvoiceChartOfAccountsCode,
-            String defaultInvoiceAccountNumber,
-            String defaultInvoiceFinancialObjectCode,
-            Integer universityFiscalYear){
+        String chartOfAccountsCode,
+        String organizationCode,
+        String defaultInvoiceChartOfAccountsCode,
+        String defaultInvoiceAccountNumber,
+        String defaultInvoiceFinancialObjectCode,
+        Integer universityFiscalYear) {
 
         this.chartOfAccountsCode = chartOfAccountsCode;
         this.organizationCode = organizationCode;
@@ -56,7 +56,7 @@ public enum OrganizationAccountingDefaultFixture {
         this.universityFiscalYear = universityFiscalYear;
     }
 
-    public OrganizationAccountingDefault createOrganizationAccountingDefault( ){
+    public OrganizationAccountingDefault createOrganizationAccountingDefault() {
         OrganizationAccountingDefault organizationAccountingDefault = new OrganizationAccountingDefault();
         organizationAccountingDefault.setChartOfAccountsCode(chartOfAccountsCode);
         organizationAccountingDefault.setOrganizationCode(organizationCode);

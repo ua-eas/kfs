@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ec.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ec.EffortConstants.SystemParameters;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.batch.service.EffortCertificationExtractService;
 import org.kuali.kfs.module.ec.util.EffortCertificationParameterFinder;
 import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Batch Step that executes the Effort Certification Extract Process.
@@ -39,12 +39,11 @@ public class EffortCertificationExtractStep extends AbstractStep {
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)
      */
     public boolean execute(String jobName, Date jobRunDate) {
-        if(EffortCertificationParameterFinder.getRunIndicator()) {
+        if (EffortCertificationParameterFinder.getRunIndicator()) {
             effortCertificationExtractService.extract();
-        }
-        else {
+        } else {
             String key = EffortKeyConstants.ERROR_BATCH_JOB_NOT_SCHEDULED;
-            String message = MessageBuilder.buildMessageWithPlaceHolder(key, 0, new Object[] { jobName, SystemParameters.RUN_IND } ).toString();
+            String message = MessageBuilder.buildMessageWithPlaceHolder(key, 0, new Object[]{jobName, SystemParameters.RUN_IND}).toString();
             LOG.warn(message);
         }
         return true;
@@ -52,6 +51,7 @@ public class EffortCertificationExtractStep extends AbstractStep {
 
     /**
      * Sets the effortCertificationExtractService attribute value.
+     *
      * @param effortCertificationExtractService The effortCertificationExtractService to set.
      */
     public void setEffortCertificationExtractService(EffortCertificationExtractService effortCertificationExtractService) {

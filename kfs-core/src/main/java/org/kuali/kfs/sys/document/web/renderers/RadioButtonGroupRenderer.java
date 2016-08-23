@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.document.web.util.RendererUtil;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.document.web.util.RendererUtil;
-import org.kuali.rice.core.api.util.KeyValue;
+import java.io.IOException;
 
 /**
  * Renders a control as a group of radio buttons
@@ -35,7 +34,6 @@ import org.kuali.rice.core.api.util.KeyValue;
 public class RadioButtonGroupRenderer extends FieldRendererBase {
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -48,28 +46,29 @@ public class RadioButtonGroupRenderer extends FieldRendererBase {
                 renderErrorIcon(pageContext);
             }
             RendererUtil.registerEditableProperty(pageContext, getFieldName());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering radio buttons", ioe);
         }
     }
 
     /**
      * Builds radio buttons for all the valid values on the field
+     *
      * @param propertyPrefix the property path from the form to the business object being rendered
      * @return a String containing the HTML for all the radio buttons
      */
     protected String buildRadioButtons() {
         StringBuilder radioButtons = new StringBuilder();
         for (Object keyLabelPairAsObject : getField().getFieldValidValues()) {
-            radioButtons.append(buildRadioButton((KeyValue)keyLabelPairAsObject));
+            radioButtons.append(buildRadioButton((KeyValue) keyLabelPairAsObject));
         }
         return radioButtons.toString();
     }
 
     /**
      * Given a KeyValue, generates a radio buttion representing it
-     * @param keyLabelPair the key label pair to turn into a radio button
+     *
+     * @param keyLabelPair   the key label pair to turn into a radio button
      * @param propertyPrefix the property path from the form to the business object being rendered
      * @return the HTML for the represented radio button
      */
@@ -91,7 +90,7 @@ public class RadioButtonGroupRenderer extends FieldRendererBase {
         radioButton.append("\"");
 
         radioButton.append(" id=\"");
-        radioButton.append(getFieldName()+"_"+keyLabelPair.getKey().toString().replaceAll("\\W", "_"));
+        radioButton.append(getFieldName() + "_" + keyLabelPair.getKey().toString().replaceAll("\\W", "_"));
         radioButton.append("\"");
 
         radioButton.append(" value=\"");
@@ -113,6 +112,7 @@ public class RadioButtonGroupRenderer extends FieldRendererBase {
 
     /**
      * No quickfinder
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

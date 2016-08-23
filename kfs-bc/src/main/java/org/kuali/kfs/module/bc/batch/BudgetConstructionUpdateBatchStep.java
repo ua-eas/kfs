@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.bc.batch.service.GenesisService;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class BudgetConstructionUpdateBatchStep extends AbstractStep {
 

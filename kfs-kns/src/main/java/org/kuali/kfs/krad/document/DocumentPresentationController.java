@@ -23,8 +23,8 @@ package org.kuali.kfs.krad.document;
  * Determines what actions are applicable to the given document, irrespective of user
  * or other state.  These initial actions are used as inputs for further filtering depending
  * on context.
- * @see DocumentAuthorizer
  *
+ * @see DocumentAuthorizer
  */
 public interface DocumentPresentationController {
 

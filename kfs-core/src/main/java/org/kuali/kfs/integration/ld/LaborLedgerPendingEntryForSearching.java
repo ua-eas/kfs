@@ -21,8 +21,8 @@ package org.kuali.kfs.integration.ld;
 public interface LaborLedgerPendingEntryForSearching {
 
     /**
-     *
      * This method returns the document type code of the LaborLedgerPendingEntry
+     *
      * @return The Document Type code of the Pending Entry.
      */
 

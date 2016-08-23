@@ -19,6 +19,14 @@
 package org.kuali.kfs.coreservice.impl.parameter;
 
 
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterEbo;
+import org.kuali.kfs.coreservice.impl.component.ComponentBo;
+import org.kuali.kfs.coreservice.impl.component.DerivedComponentBo;
+import org.kuali.kfs.coreservice.impl.namespace.NamespaceBo;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,16 +36,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterId;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterEbo;
-import org.kuali.kfs.coreservice.impl.component.ComponentBo;
-import org.kuali.kfs.coreservice.impl.component.DerivedComponentBo;
-import org.kuali.kfs.coreservice.impl.namespace.NamespaceBo;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 @IdClass(ParameterId.class)
 @Entity
@@ -92,6 +90,7 @@ public class ParameterBo extends PersistableBusinessObjectBase implements Parame
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -105,6 +104,7 @@ public class ParameterBo extends PersistableBusinessObjectBase implements Parame
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -121,7 +121,7 @@ public class ParameterBo extends PersistableBusinessObjectBase implements Parame
         bo.setValue(im.getValue());
         bo.setDescription(im.getDescription());
         bo.setParameterTypeCode(im.getParameterType().getCode());
-        if(null != im.getEvaluationOperator()){
+        if (null != im.getEvaluationOperator()) {
             bo.setEvaluationOperatorCode(im.getEvaluationOperator().getCode());
         }
         bo.setParameterType(ParameterTypeBo.from(im.getParameterType()));

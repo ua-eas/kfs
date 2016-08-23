@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum EntryFixture {
 
     REC1 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -62,10 +61,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -96,10 +96,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -130,10 +131,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC4 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -164,10 +166,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC5 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -198,10 +201,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC6 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -232,10 +236,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC7 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -266,10 +271,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC8 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -300,10 +306,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC9 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -334,10 +341,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC10 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -368,10 +376,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC11 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -402,10 +411,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC12 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -436,10 +446,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC13 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -470,10 +481,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC14 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -504,10 +516,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC15 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -538,10 +551,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC16 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -572,10 +586,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC17 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -606,10 +621,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC18 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -640,10 +656,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC19 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -674,10 +691,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC20 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -708,10 +726,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC21 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -742,10 +761,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC22 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -776,10 +796,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC23 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -810,10 +831,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC24 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -844,10 +866,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC25 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -878,10 +901,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC26 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -912,10 +936,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC27 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -946,10 +971,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     },
     REC28 {
-
         @Override
         public Entry newRecord() {
             Entry obj = new Entry();
@@ -980,8 +1006,11 @@ public enum EntryFixture {
             obj.setTransactionPostingDate(date);
             obj.setTransactionDateTimeStamp(timeStamp);
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract Entry newRecord();
 
     public static void setUpData() {

@@ -23,8 +23,6 @@ import org.kuali.kfs.krad.inquiry.Inquirable;
 /**
  * Provides methods to query the dictionary meta-data for view entries and their
  * corresponding component entries
- *
- *
  */
 public interface ViewDictionaryService {
 
@@ -36,10 +34,10 @@ public interface ViewDictionaryService {
      * is used
      *
      * @param dataObjectClass - class for the inquiry data object
-     * @param viewName - name of the inquiry view, can be blank in which case the
-     * 'default' name will be used
+     * @param viewName        - name of the inquiry view, can be blank in which case the
+     *                        'default' name will be used
      * @return Inquirable<?> configured inquirable for the view, or null if view
-     *         is not found
+     * is not found
      */
     public Inquirable getInquirable(Class<?> dataObjectClass, String viewName);
 
@@ -49,7 +47,7 @@ public interface ViewDictionaryService {
      *
      * @param dataObjectClass - object class to get inquiry view for
      * @return boolean true if the class has an inquiry view, false if no
-     *         inquiry view exists for the class
+     * inquiry view exists for the class
      */
     public boolean isInquirable(Class<?> dataObjectClass);
 
@@ -60,7 +58,7 @@ public interface ViewDictionaryService {
      *
      * @param dataObjectClass - object class to get lookup view for
      * @return boolean true if the class has an lookup view, false if no lookup
-     *         view exists for the class
+     * view exists for the class
      */
     public boolean isLookupable(Class<?> dataObjectClass);
 
@@ -70,7 +68,7 @@ public interface ViewDictionaryService {
      *
      * @param dataObjectClass - object class to get maintenance view for
      * @return boolean true if the class has an maintenance view, false if no
-     *         maintenance view exists for the class
+     * maintenance view exists for the class
      */
     public boolean isMaintainable(Class<?> dataObjectClass);
 
@@ -81,7 +79,7 @@ public interface ViewDictionaryService {
      *
      * @param dataObjectClass - object class to get lookup view for
      * @return Integer configured result set limit for lookup, or null if not found (note
-     *         property could also be null on the view itself)
+     * property could also be null on the view itself)
      */
     public Integer getResultSetLimitForLookup(Class<?> dataObjectClass);
 }

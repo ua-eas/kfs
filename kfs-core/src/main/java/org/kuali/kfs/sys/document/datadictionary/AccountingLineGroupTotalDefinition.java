@@ -19,15 +19,15 @@
 package org.kuali.kfs.sys.document.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.document.web.renderers.GroupTotalRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * The definition of an accounting line group total renderer, which will display an accounting line
  * group total as a standard "Total: " + amount.
  */
-public class AccountingLineGroupTotalDefinition extends TotalDefinition{
+public class AccountingLineGroupTotalDefinition extends TotalDefinition {
     private String totalProperty;
     private String representedProperty;
     private boolean nestedProperty;
@@ -36,6 +36,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Gets the totalProperty attribute.
+     *
      * @return Returns the totalProperty.
      */
     public String getTotalProperty() {
@@ -44,6 +45,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Sets the totalProperty attribute value.
+     *
      * @param totalProperty The totalProperty to set.
      */
     public void setTotalProperty(String totalProperty) {
@@ -52,6 +54,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Gets the totalLabelProperty attribute.
+     *
      * @return Returns the totalLabelProperty.
      */
     public String getTotalLabelProperty() {
@@ -60,6 +63,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Sets the totalLabelProperty attribute value.
+     *
      * @param totalLabelProperty The totalLabelProperty to set.
      */
     public void setTotalLabelProperty(String totalLabelProperty) {
@@ -68,6 +72,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Uses GroupTotalRenderer to render the total
+     *
      * @see org.kuali.kfs.sys.document.datadictionary.TotalDefinition#getTotalRenderer()
      */
     @Override
@@ -85,6 +90,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Validates that a total property has been added
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -95,6 +101,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Gets the representedProperty attribute.
+     *
      * @return Returns the representedProperty.
      */
     public String getRepresentedProperty() {
@@ -103,6 +110,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Sets the representedProperty attribute value.
+     *
      * @param representedProperty The representedProperty to set.
      */
     public void setRepresentedProperty(String representedProperty) {
@@ -118,6 +126,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
 
     /**
      * Sets the nestedProperty attribute value.
+     *
      * @param nestedProperty The nestedProperty to set.
      */
     public void setNestedProperty(boolean nestedProperty) {

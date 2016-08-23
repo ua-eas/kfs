@@ -25,13 +25,11 @@ import org.kuali.kfs.krad.uif.view.View;
 /**
  * Field that contains a header element and optionally a <code>Group</code> to
  * present along with the header text
- *
+ * <p>
  * <p>
  * Generally the group is used to display content to the right of the header,
  * such as links for the group or other information
  * </p>
- *
- *
  */
 public class HeaderField extends FieldGroup {
     private static final long serialVersionUID = -6950408292923393244L;
@@ -49,13 +47,13 @@ public class HeaderField extends FieldGroup {
 
     /**
      * The following finalization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set render on group to false if no items are configured</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -105,7 +103,7 @@ public class HeaderField extends FieldGroup {
 
     /**
      * Style class that should be applied to the header text (h tag)
-     *
+     * <p>
      * <p>
      * Note the style class given here applies to only the header text. The
      * style class property inherited from the <code>Component</code> interface
@@ -131,7 +129,7 @@ public class HeaderField extends FieldGroup {
 
     /**
      * Style that should be applied to the header text
-     *
+     * <p>
      * <p>
      * Note the style given here applies to only the header text. The style
      * property inherited from the <code>Component</code> interface can be used
@@ -157,7 +155,7 @@ public class HeaderField extends FieldGroup {
 
     /**
      * Style class that should be applied to the header div
-     *
+     * <p>
      * <p>
      * Note the style class given here applies to the div surrounding the header tag only
      * </p>
@@ -180,7 +178,7 @@ public class HeaderField extends FieldGroup {
 
     /**
      * Style that should be applied to the header div
-     *
+     * <p>
      * <p>
      * Note the style given here applies to the div surrounding the header tag only
      * </p>

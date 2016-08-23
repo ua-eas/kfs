@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_PERIOD_CLOSED;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_PERIOD_CLOSED;
 
 /**
  * Validates that the accounting period given by the document is currently open
@@ -37,6 +37,7 @@ public class AuxiliaryVoucherAccountingPeriodOpenValidation extends GenericValid
 
     /**
      * Uses the accounting period service to get the accounting period for the document and checks that it's open
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -53,6 +54,7 @@ public class AuxiliaryVoucherAccountingPeriodOpenValidation extends GenericValid
 
     /**
      * Gets the accountingPeriodService attribute.
+     *
      * @return Returns the accountingPeriodService.
      */
     public AccountingPeriodService getAccountingPeriodService() {
@@ -61,6 +63,7 @@ public class AuxiliaryVoucherAccountingPeriodOpenValidation extends GenericValid
 
     /**
      * Sets the accountingPeriodService attribute value.
+     *
      * @param accountingPeriodService The accountingPeriodService to set.
      */
     public void setAccountingPeriodService(AccountingPeriodService accountingPeriodService) {
@@ -69,6 +72,7 @@ public class AuxiliaryVoucherAccountingPeriodOpenValidation extends GenericValid
 
     /**
      * Gets the auxliaryVoucherDocumentForValidation attribute.
+     *
      * @return Returns the auxliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxliaryVoucherDocumentForValidation() {
@@ -77,6 +81,7 @@ public class AuxiliaryVoucherAccountingPeriodOpenValidation extends GenericValid
 
     /**
      * Sets the auxliaryVoucherDocumentForValidation attribute value.
+     *
      * @param auxliaryVoucherDocumentForValidation The auxliaryVoucherDocumentForValidation to set.
      */
     public void setAuxliaryVoucherDocumentForValidation(AuxiliaryVoucherDocument auxliaryVoucherDocumentForValidation) {

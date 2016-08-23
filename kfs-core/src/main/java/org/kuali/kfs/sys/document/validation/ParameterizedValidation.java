@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.web.format.FormatException;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * An abstract class that defines methods needed to act on parameter properties for a validation.
@@ -34,6 +34,7 @@ public abstract class ParameterizedValidation {
 
     /**
      * Gets the parameterProperties attribute.
+     *
      * @return Returns the parameterProperties.
      */
     protected List<ValidationFieldConvertible> getParameterProperties() {
@@ -42,6 +43,7 @@ public abstract class ParameterizedValidation {
 
     /**
      * Sets the parameterProperties attribute value.
+     *
      * @param parameterProperties The parameterProperties to set.
      */
     public void setParameterProperties(List<ValidationFieldConvertible> parameterProperties) {
@@ -50,12 +52,13 @@ public abstract class ParameterizedValidation {
 
     /**
      * Given an event and the parameterProperties given by the validations, copies the values from the events to the proper fields in the validation.
+     *
      * @param event an array to derive properties from
-     * @param the parameter to set the parameters on
+     * @param the   parameter to set the parameters on
      */
     public void populateParametersFromEvent(AttributedDocumentEvent event) {
         if (getParameterProperties() != null) {
-            for (ValidationFieldConvertible property: getParameterProperties()) {
+            for (ValidationFieldConvertible property : getParameterProperties()) {
                 populateParameterFromEvent(event, property);
             }
         }
@@ -63,7 +66,8 @@ public abstract class ParameterizedValidation {
 
     /**
      * Populates a single parameter field based on a field conversion, given an event to populate data from
-     * @param event the event which acts as the source of data
+     *
+     * @param event      the event which acts as the source of data
      * @param validation the validation to populate
      * @param conversion the conversion information
      */
@@ -74,17 +78,13 @@ public abstract class ParameterizedValidation {
             if (propertyValue != null) {
                 ObjectUtils.setObjectProperty(this, conversion.getTargetValidationProperty(), propertyClass, propertyValue);
             }
-        }
-        catch (FormatException fe) {
+        } catch (FormatException fe) {
             throw new RuntimeException(fe);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException(iae);
-        }
-        catch (InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             throw new RuntimeException(ite);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             throw new RuntimeException(nsme);
         }
     }

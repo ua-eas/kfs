@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.module.tem.businessobject.datadictionary;
 
-import java.util.Map;
-
 import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+
+import java.util.Map;
 
 /**
  * Contains field-related information for DataDictionary entries.  Used by lookups and inquiries. Maps to
  * fields in other classes for indirect lookup of information
- *
+ * <p>
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
 public class TravelDetailLookupMappedFieldProxy extends FieldDefinition {
     private static final long serialVersionUID = -3426603523049661524L;
-    private Map<String,String> attributeMap;
+    private Map<String, String> attributeMap;
 
     public void setAttributeMap(final Map<String, String> attributeMap) {
         this.attributeMap = attributeMap;

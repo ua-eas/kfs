@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.kns.service;
 
-import org.kuali.kfs.kns.inquiry.InquiryPresentationController;
 import org.kuali.kfs.kns.inquiry.InquiryAuthorizer;
-import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.kfs.kns.inquiry.InquiryPresentationController;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ import java.util.List;
  */
 @Deprecated
 public interface BusinessObjectDictionaryService {
-	public <T extends BusinessObject> InquiryPresentationController getInquiryPresentationController(Class<T> businessObjectClass);
+    public <T extends BusinessObject> InquiryPresentationController getInquiryPresentationController(Class<T> businessObjectClass);
 
-	public <T extends BusinessObject> InquiryAuthorizer getInquiryAuthorizer(Class<T> businessObjectClass);
+    public <T extends BusinessObject> InquiryAuthorizer getInquiryAuthorizer(Class<T> businessObjectClass);
 
     /**
      * the list of business object class names being maintained
@@ -307,7 +307,7 @@ public interface BusinessObjectDictionaryService {
      */
     public String getInquiryFieldAdditionalDisplayAttributeName(Class businessObjectClass, String attributeName);
 
-     /**
+    /**
      * @param businessObjectClass - business object class for lookup definition
      * @return Boolean indicating whether translating of codes is configured to true in lookup definition
      */
@@ -323,21 +323,20 @@ public interface BusinessObjectDictionaryService {
      * Indicates whether a lookup field has been configured to trigger on value change
      *
      * @param businessObjectClass - Class for business object to lookup
-     * @param attributeName - name of attribute in the business object to check configuration for
+     * @param attributeName       - name of attribute in the business object to check configuration for
      * @return true if field is configured to trigger on value change, false if not
      */
     public boolean isLookupFieldTriggerOnChange(Class businessObjectClass, String attributeName);
 
-	/**
-	 * Indicates whether the search and clear buttons should be disabled based on the data
-	 * dictionary configuration
-	 *
-	 * @param businessObjectClass
-	 *            - business object class for lookup definition
-	 * @return Boolean indicating whether disable search buttons is configured to true in lookup
-	 *         definition
-	 */
-	public boolean disableSearchButtonsInLookup(Class businessObjectClass);
+    /**
+     * Indicates whether the search and clear buttons should be disabled based on the data
+     * dictionary configuration
+     *
+     * @param businessObjectClass - business object class for lookup definition
+     * @return Boolean indicating whether disable search buttons is configured to true in lookup
+     * definition
+     */
+    public boolean disableSearchButtonsInLookup(Class businessObjectClass);
 
 
 }

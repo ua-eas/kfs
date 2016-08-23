@@ -46,12 +46,13 @@ import java.util.List;
  * Parser for Style content type, managed by StyleService
  */
 public class StyleXmlParserImpl implements StyleXmlParser {
-	private static final Logger LOG = Logger.getLogger(StyleXmlParserImpl.class);
+    private static final Logger LOG = Logger.getLogger(StyleXmlParserImpl.class);
 
-	private StyleRepositoryService styleRepositoryService;
+    private StyleRepositoryService styleRepositoryService;
 
     /**
      * Returns a valid DocumentBuilder
+     *
      * @return a valid DocumentBuilder
      */
     private static DocumentBuilder getDocumentBuilder() {
@@ -67,14 +68,14 @@ public class StyleXmlParserImpl implements StyleXmlParser {
     }
 
     public void loadXml(InputStream inputStream, String principalId) {
-    	List<Style> styles = parseStyles(inputStream);
-    	for (Style style : styles) {
-    		styleRepositoryService.saveStyle(style);
-    	}
+        List<Style> styles = parseStyles(inputStream);
+        for (Style style : styles) {
+            styleRepositoryService.saveStyle(style);
+        }
     }
 
     public List<Style> parseStyles(InputStream inputStream) {
-    	DocumentBuilder db = getDocumentBuilder();
+        DocumentBuilder db = getDocumentBuilder();
         XPath xpath = XPathFactory.newInstance().newXPath();
         Document doc;
         try {
@@ -84,24 +85,24 @@ public class StyleXmlParserImpl implements StyleXmlParser {
         }
         NodeList styles;
         try {
-        	styles = (NodeList) xpath.evaluate("//" + XmlConstants.STYLE_STYLES, doc.getFirstChild(), XPathConstants.NODESET);
+            styles = (NodeList) xpath.evaluate("//" + XmlConstants.STYLE_STYLES, doc.getFirstChild(), XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
-        	throw generateException("Error evaluating XPath expression", e);
+            throw generateException("Error evaluating XPath expression", e);
         }
 
         List<Style> parsedStyles = new ArrayList<Style>();
         for (int i = 0; i < styles.getLength(); i++) {
-        	Node edl = styles.item(i);
-        	NodeList children = edl.getChildNodes();
-        	for (int j = 0; j < children.getLength(); j++) {
-        		Node node = children.item(j);
-        		if (node.getNodeType() == Node.ELEMENT_NODE) {
-        			Element e = (Element) node;
-        			if (XmlConstants.STYLE_STYLE.equals(node.getNodeName())) {
-        				LOG.debug("Digesting style: " + e.getAttribute("name"));
-        				Style.Builder styleBuilder = parseStyle(e);
-        				parsedStyles.add(styleBuilder.build());
-        			}
+            Node edl = styles.item(i);
+            NodeList children = edl.getChildNodes();
+            for (int j = 0; j < children.getLength(); j++) {
+                Node node = children.item(j);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element e = (Element) node;
+                    if (XmlConstants.STYLE_STYLE.equals(node.getNodeName())) {
+                        LOG.debug("Digesting style: " + e.getAttribute("name"));
+                        Style.Builder styleBuilder = parseStyle(e);
+                        parsedStyles.add(styleBuilder.build());
+                    }
                 }
             }
         }
@@ -111,8 +112,7 @@ public class StyleXmlParserImpl implements StyleXmlParser {
     /**
      * Parses an EDocLiteStyle
      *
-     * @param e
-     *            element to parse
+     * @param e element to parse
      * @return an EDocLiteStyle
      */
     private static Style.Builder parseStyle(Element e) {
@@ -154,11 +154,11 @@ public class StyleXmlParserImpl implements StyleXmlParser {
     }
 
     private static XmlIngestionException generateException(String error, Throwable cause) {
-    	return new XmlIngestionException(error, cause);
+        return new XmlIngestionException(error, cause);
     }
 
     public void setStyleRepositoryService(StyleRepositoryService styleRepositoryService) {
-    	this.styleRepositoryService = styleRepositoryService;
+        this.styleRepositoryService = styleRepositoryService;
     }
 
 }

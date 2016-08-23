@@ -30,8 +30,8 @@ public final class AttributedAddPurchasingCapitalAssetLocationEvent extends Attr
      * Constructs an AddLocationEvent with the given errorPathPrefix, document, and location.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked on
-     * @param item the item being added
+     * @param document        document the event was invoked on
+     * @param item            the item being added
      */
     public AttributedAddPurchasingCapitalAssetLocationEvent(String errorPathPrefix, Document document, CapitalAssetLocation location) {
         super("adding location to document " + getDocumentId(document), errorPathPrefix, document, location);

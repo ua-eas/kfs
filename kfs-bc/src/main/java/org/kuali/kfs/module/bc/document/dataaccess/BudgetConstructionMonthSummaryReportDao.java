@@ -31,10 +31,10 @@ public interface BudgetConstructionMonthSummaryReportDao {
     /**
      * insert rows into the monthly summary report table for this user
      *
-     * @param principalName--the user requesting the report
+     * @param principalName--the                 user requesting the report
      * @param consolidateToObjectCodeLevel--true if sub object codes are to be consolidated, false if sub-object detail is desired
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
-     * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
+     * @param revenueINList                      a SQL IN list containing the budget construction revenue object types
+     * @param expenditureINList                  a SQL IN list containing the budget construction expenditure object types
      */
     public void updateReportsMonthSummaryTable(String principalName, boolean consolidateToObjectCodeLevel, String revenueINList, String expenditureINList);
 

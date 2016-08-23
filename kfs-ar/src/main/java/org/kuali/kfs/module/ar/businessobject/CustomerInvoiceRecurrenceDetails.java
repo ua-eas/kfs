@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoiceRecurrenceDetails;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 
 public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectBase implements MutableInactivatable, AccountsReceivableCustomerInvoiceRecurrenceDetails {
@@ -48,13 +47,10 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
     private Person documentInitiatorUser;
 
 
-
-
     /**
      * Gets the invoiceNumber attribute.
      *
      * @return Returns the invoiceNumber
-     *
      */
     public String getInvoiceNumber() {
         return invoiceNumber;
@@ -64,7 +60,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the invoiceNumber attribute.
      *
      * @param invoiceNumber The invoiceNumber to set.
-     *
      */
     @Override
     public void setInvoiceNumber(String invoiceNumber) {
@@ -75,7 +70,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the customerNumber attribute.
      *
      * @return Returns the customerNumber
-     *
      */
     public String getCustomerNumber() {
         return customerNumber;
@@ -85,7 +79,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the customerNumber attribute.
      *
      * @param customerNumber The customerNumber to set.
-     *
      */
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
@@ -96,7 +89,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentRecurrenceBeginDate attribute.
      *
      * @return Returns the documentRecurrenceBeginDate
-     *
      */
     public Date getDocumentRecurrenceBeginDate() {
         return documentRecurrenceBeginDate;
@@ -106,7 +98,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentRecurrenceBeginDate attribute.
      *
      * @param documentRecurrenceBeginDate The documentRecurrenceBeginDate to set.
-     *
      */
     public void setDocumentRecurrenceBeginDate(Date documentRecurrenceBeginDate) {
         this.documentRecurrenceBeginDate = documentRecurrenceBeginDate;
@@ -117,7 +108,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentRecurrenceEndDate attribute.
      *
      * @return Returns the documentRecurrenceEndDate
-     *
      */
     public Date getDocumentRecurrenceEndDate() {
         return documentRecurrenceEndDate;
@@ -127,7 +117,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentRecurrenceEndDate attribute.
      *
      * @param documentRecurrenceEndDate The documentRecurrenceEndDate to set.
-     *
      */
     public void setDocumentRecurrenceEndDate(Date documentRecurrenceEndDate) {
         this.documentRecurrenceEndDate = documentRecurrenceEndDate;
@@ -138,7 +127,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentTotalRecurrenceNumber attribute.
      *
      * @return Returns the documentTotalRecurrenceNumber
-     *
      */
     public Integer getDocumentTotalRecurrenceNumber() {
         return documentTotalRecurrenceNumber;
@@ -148,7 +136,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentTotalRecurrenceNumber attribute.
      *
      * @param documentTotalRecurrenceNumber The documentTotalRecurrenceNumber to set.
-     *
      */
     public void setDocumentTotalRecurrenceNumber(Integer documentTotalRecurrenceNumber) {
         this.documentTotalRecurrenceNumber = documentTotalRecurrenceNumber;
@@ -159,7 +146,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentRecurrenceIntervalCode attribute.
      *
      * @return Returns the documentRecurrenceIntervalCode
-     *
      */
     public String getDocumentRecurrenceIntervalCode() {
         return documentRecurrenceIntervalCode;
@@ -169,7 +155,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentRecurrenceIntervalCode attribute.
      *
      * @param documentRecurrenceIntervalCode The documentRecurrenceIntervalCode to set.
-     *
      */
     public void setDocumentRecurrenceIntervalCode(String documentRecurrenceIntervalCode) {
         this.documentRecurrenceIntervalCode = documentRecurrenceIntervalCode;
@@ -179,7 +164,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentInitiatorUserIdentifier attribute.
      *
      * @return Returns the documentInitiatorUserIdentifier
-     *
      */
     public String getDocumentInitiatorUserIdentifier() {
         return documentInitiatorUserIdentifier;
@@ -189,7 +173,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentInitiatorUserIdentifier attribute.
      *
      * @param documentInitiatorUserIdentifier The documentInitiatorUserIdentifier to set.
-     *
      */
     public void setDocumentInitiatorUserIdentifier(String documentInitiatorUserIdentifier) {
         this.documentInitiatorUserIdentifier = documentInitiatorUserIdentifier;
@@ -222,7 +205,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the documentLastCreateDate attribute.
      *
      * @return Returns the documentLastCreateDate
-     *
      */
     public Date getDocumentLastCreateDate() {
         return documentLastCreateDate;
@@ -232,7 +214,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the documentLastCreateDate attribute.
      *
      * @param documentLastCreateDate The documentLastCreateDate to set.
-     *
      */
     public void setDocumentLastCreateDate(Date documentLastCreateDate) {
         this.documentLastCreateDate = documentLastCreateDate;
@@ -243,7 +224,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the active attribute.
      *
      * @return Returns the active
-     *
      */
     @Override
     public boolean isActive() {
@@ -254,7 +234,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Sets the active attribute.
      *
      * @param active The active to set.
-     *
      */
     @Override
     public void setActive(boolean active) {
@@ -263,6 +242,7 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
 
     /**
      * Gets the customer attribute.
+     *
      * @return Returns the customer.
      */
     public Customer getCustomer() {
@@ -271,6 +251,7 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
 
     /**
      * Sets the customer attribute value.
+     *
      * @param customer The customer to set.
      * @deprecated
      */
@@ -278,7 +259,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
 
 
     /**
@@ -296,6 +276,7 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
 
     /**
      * Sets the accountsReceivableDocumentHeader attribute value.
+     *
      * @param accountsReceivableDocumentHeader The AccountsReceivableDocumentHeader to set.
      * @deprecated
      */
@@ -309,7 +290,6 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
      * Gets the customerName attribute.
      *
      * @return Returns the customerName
-     *
      */
     public String getCustomerName() {
         return this.getCustomer().getCustomerName();
@@ -322,6 +302,7 @@ public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectB
 
     /**
      * Sets the customerInvoiceDocument attribute value.
+     *
      * @param customerInvoiceDocument The customerInvoiceDocument to set.
      * @deprecated
      */

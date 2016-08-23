@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is the form class for the ProcurementCard document. This method extends the parent KualiTransactionalDocumentFormBase
@@ -58,8 +58,8 @@ public class BudgetAdjustmentForm extends KualiAccountingDocumentFormBase {
             if (LOG.isDebugEnabled()) {
                 StringUtils.join(parameterMap.keySet(), "\n");
             }
-            if (parameterMap.containsKey(accountingLinePropertyName+".accountExpiredOverride.present")) {
-                line.setAccountExpiredOverride(parameterMap.containsKey(accountingLinePropertyName+".accountExpiredOverride"));
+            if (parameterMap.containsKey(accountingLinePropertyName + ".accountExpiredOverride.present")) {
+                line.setAccountExpiredOverride(parameterMap.containsKey(accountingLinePropertyName + ".accountExpiredOverride"));
             }
         } else {
             line.setAccountExpiredOverride(false);

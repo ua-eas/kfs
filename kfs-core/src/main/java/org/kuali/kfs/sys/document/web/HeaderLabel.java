@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.List;
-
 import org.kuali.kfs.kns.web.ui.Field;
+
+import java.util.List;
 
 /**
  * Base class for header labels
@@ -30,6 +30,7 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Header labels are never action blocks
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
@@ -38,6 +39,7 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Header labels are never hidden
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isHidden()
      */
     public boolean isHidden() {
@@ -47,6 +49,7 @@ public abstract class HeaderLabel implements RenderableElement {
     /**
      * Returns whether the label field is either hidden or empty; this way, any labels for
      * moved hidden fields will be removed
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isEmpty()
      */
     public boolean isEmpty() {
@@ -55,6 +58,7 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Gets the labeledFieldEmptyOrHidden attribute.
+     *
      * @return Returns the labeledFieldEmptyOrHidden.
      */
     public boolean isLabeledFieldEmptyOrHidden() {
@@ -63,6 +67,7 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Sets the labeledFieldEmptyOrHidden attribute value.
+     *
      * @param labeledFieldEmptyOrHidden The labeledFieldEmptyOrHidden to set.
      */
     public void setLabeledFieldEmptyOrHidden(boolean labeledFieldEmptyOrHidden) {
@@ -71,8 +76,9 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Header labels aren't really fields, so they append nothing
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
      *
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
+     * <p>
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -81,7 +87,9 @@ public abstract class HeaderLabel implements RenderableElement {
 
     /**
      * Does nothing
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
      */
-    public void populateWithTabIndexIfRequested(int reallyHighIndex) {}
+    public void populateWithTabIndexIfRequested(int reallyHighIndex) {
+    }
 }

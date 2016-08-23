@@ -39,6 +39,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * Returns the name of this actions field
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
@@ -47,6 +48,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * Sets the name of this actions field
+     *
      * @param name the name of this block
      */
     public void setName(String name) {
@@ -55,6 +57,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * We are an action block.  For real, even
+     *
      * @see org.kuali.kfs.sys.document.web.FieldTableJoining#isActionBlock()
      */
     @Override
@@ -100,16 +103,20 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * This doesn't hold a field, so this implementation does nothing
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
      *
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
+     * <p>
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
-    public void appendFields(List<Field> fields) { }
+    public void appendFields(List<Field> fields) {
+    }
 
     /**
      * Doesn't do anything
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int)
      */
-    public void populateWithTabIndexIfRequested(int reallyHighIndex) {}
+    public void populateWithTabIndexIfRequested(int reallyHighIndex) {
+    }
 
 }

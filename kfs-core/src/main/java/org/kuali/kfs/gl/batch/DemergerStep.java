@@ -32,6 +32,7 @@ public class DemergerStep extends AbstractWrappedBatchStep {
 
     /**
      * Overridden to run the scrubber demerger process.
+     *
      * @see org.kuali.kfs.batch.Step#execute(java.lang.String)
      */
     @Override
@@ -53,13 +54,13 @@ public class DemergerStep extends AbstractWrappedBatchStep {
         };
     }
 
-      /**
-       * Sets the scrubberSerivce, allowing the injection of an implementation of that service
-       *
-       * @param scrubberService the scrubberServiceService implementation to set
-       * @see org.kuali.module.gl.service.ScrubberService
-       */
-      public void setScrubberService(ScrubberService ss) {
-          scrubberService = ss;
-      }
+    /**
+     * Sets the scrubberSerivce, allowing the injection of an implementation of that service
+     *
+     * @param scrubberService the scrubberServiceService implementation to set
+     * @see org.kuali.module.gl.service.ScrubberService
+     */
+    public void setScrubberService(ScrubberService ss) {
+        scrubberService = ss;
+    }
 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.AgencyDataImportService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class AgencyDataStagingToHistoricalStep extends AbstractStep {
 
@@ -35,6 +35,7 @@ public class AgencyDataStagingToHistoricalStep extends AbstractStep {
 
     /**
      * Gets the agencyDataImportService attribute.
+     *
      * @return Returns the agencyDataImportService.
      */
     public AgencyDataImportService getAgencyDataImportService() {
@@ -43,6 +44,7 @@ public class AgencyDataStagingToHistoricalStep extends AbstractStep {
 
     /**
      * Sets the agencyDataImportService attribute value.
+     *
      * @param agencyDataImportService The agencyDataImportService to set.
      */
     public void setAgencyDataImportService(AgencyDataImportService agencyDataImportService) {

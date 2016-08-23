@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ld.batch.service.LaborNightlyOutService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Clean Labor entry Batch Step.
@@ -33,7 +33,7 @@ public class ClearLaborGLEntryStep extends AbstractStep {
     /**
      * Deletes labor general ledger entries.
      *
-     * @param jobName String that contains the job that will be executed.
+     * @param jobName    String that contains the job that will be executed.
      * @param jobRunDate the time/date the job is run
      * @return boolean
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)

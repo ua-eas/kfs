@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
+
+import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  * Labor Journal Voucher Detail Business Object.
@@ -440,8 +440,7 @@ public class LaborJournalVoucherDetail extends VoucherSourceAccountingLine {
             if (i < 10 && payrollEndDateFiscalPeriodCode.length() == 1) {
                 payrollEndDateFiscalPeriodCode = "0" + payrollEndDateFiscalPeriodCode;
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
         }
         this.payrollEndDateFiscalPeriodCode = payrollEndDateFiscalPeriodCode;
     }

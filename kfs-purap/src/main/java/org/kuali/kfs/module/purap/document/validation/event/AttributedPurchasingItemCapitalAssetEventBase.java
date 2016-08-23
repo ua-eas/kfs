@@ -21,12 +21,12 @@ package org.kuali.kfs.module.purap.document.validation.event;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 
 /**
  * Event Base class for Purchasing Item Capital Asset
- *
+ * <p>
  * contains the base methods for item events
  */
 public abstract class AttributedPurchasingItemCapitalAssetEventBase extends AttributedDocumentEventBase implements AttributedPurchasingItemCapitalAssetEvent {
@@ -38,10 +38,10 @@ public abstract class AttributedPurchasingItemCapitalAssetEventBase extends Attr
     /**
      * Copies the item and calls the super constructor
      *
-     * @param description the description of the event
+     * @param description     the description of the event
      * @param errorPathPrefix the error path
-     * @param document the document the event is being called on
-     * @param item the item that is having the event called on
+     * @param document        the document the event is being called on
+     * @param item            the item that is having the event called on
      */
     public AttributedPurchasingItemCapitalAssetEventBase(String description, String errorPathPrefix, Document document, ItemCapitalAsset itemCapitalAsset) {
         super(description, errorPathPrefix, document);
@@ -79,8 +79,7 @@ public abstract class AttributedPurchasingItemCapitalAssetEventBase extends Attr
         // vary logging detail as needed
         if (itemCapitalAsset == null) {
             logMessage.append("null item capital asset");
-        }
-        else {
+        } else {
             logMessage.append(" item capital asset# ");
             logMessage.append(itemCapitalAsset.getItemCapitalAssetIdentifier());
         }

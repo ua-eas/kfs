@@ -18,48 +18,48 @@
  */
 package org.kuali.kfs.module.tem.businessobject.inquiry;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.module.tem.businessobject.TemProfile;
-import org.kuali.kfs.module.tem.service.TemProfileService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.FieldRestriction;
 import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.tem.businessobject.TemProfile;
+import org.kuali.kfs.module.tem.service.TemProfileService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
 
-@SuppressWarnings({ "rawtypes", "deprecation" })
+import java.util.List;
+import java.util.Map;
+
+@SuppressWarnings({"rawtypes", "deprecation"})
 public class TemProfileInquirableImpl extends KualiInquirableImpl {
 
     private static final Logger LOG = Logger.getLogger(TemProfileInquirableImpl.class);
 
-	/**
-	 * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getBusinessObject(java.util.Map)
-	 */
+    /**
+     * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getBusinessObject(java.util.Map)
+     */
     @Override
     public BusinessObject getBusinessObject(Map fieldValues) {
-        TemProfile profile = (TemProfile)super.getBusinessObject(fieldValues);
+        TemProfile profile = (TemProfile) super.getBusinessObject(fieldValues);
         SpringContext.getBean(TemProfileService.class).updateACHAccountInfo(profile);
         return profile;
     }
 
     /**
-	 * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.rice.kns.bo.BusinessObject)
-	 */
-	@Override
-	public List<Section> getSections(BusinessObject bo) {
+     * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.rice.kns.bo.BusinessObject)
+     */
+    @Override
+    public List<Section> getSections(BusinessObject bo) {
 
-		List<Section> sections = super.getSections(bo);
-		Person currUser = GlobalVariables.getUserSession().getPerson();
+        List<Section> sections = super.getSections(bo);
+        Person currUser = GlobalVariables.getUserSession().getPerson();
         InquiryRestrictions inquiryRestrictions = KNSServiceLocator.getBusinessObjectAuthorizationService().getInquiryRestrictions(bo, currUser);
 
         // This is to allow users to view their own profile. If the principalId from the profile
@@ -70,33 +70,33 @@ public class TemProfileInquirableImpl extends KualiInquirableImpl {
         FieldRestriction restriction;
 
         if (StringUtils.isNotBlank(principalId) && StringUtils.equalsIgnoreCase(currUser.getPrincipalId().trim(), principalId)) {
-            for(Section section : sections) {
-            	List<Row> rows = section.getRows();
-            	for (Row row : rows) {
-            		List<Field> rowFields = row.getFields();
-            		for (Field field : rowFields) {
-            			if(field.getFieldType().equalsIgnoreCase(Field.CONTAINER)) {
-            				List<Row> containerRows = field.getContainerRows();
-            				for(Row containerRow : containerRows) {
-            					List<Field> containerRowFields = containerRow.getFields();
-            					for (Field containerRowField : containerRowFields) {
-            						restriction = inquiryRestrictions.getFieldRestriction(containerRowField.getPropertyName());
-        	            			if(restriction.isMasked() || restriction.isPartiallyMasked()) {
-        	            				containerRowField.setSecure(false);
-        	            			}
-            					}
-            				}
-            			}
-            			restriction = inquiryRestrictions.getFieldRestriction(field.getPropertyName());
-	            		if(restriction.isMasked() || restriction.isPartiallyMasked()) {
-	            			field.setSecure(false);
-	            		}
-            		}
-            	}
+            for (Section section : sections) {
+                List<Row> rows = section.getRows();
+                for (Row row : rows) {
+                    List<Field> rowFields = row.getFields();
+                    for (Field field : rowFields) {
+                        if (field.getFieldType().equalsIgnoreCase(Field.CONTAINER)) {
+                            List<Row> containerRows = field.getContainerRows();
+                            for (Row containerRow : containerRows) {
+                                List<Field> containerRowFields = containerRow.getFields();
+                                for (Field containerRowField : containerRowFields) {
+                                    restriction = inquiryRestrictions.getFieldRestriction(containerRowField.getPropertyName());
+                                    if (restriction.isMasked() || restriction.isPartiallyMasked()) {
+                                        containerRowField.setSecure(false);
+                                    }
+                                }
+                            }
+                        }
+                        restriction = inquiryRestrictions.getFieldRestriction(field.getPropertyName());
+                        if (restriction.isMasked() || restriction.isPartiallyMasked()) {
+                            field.setSecure(false);
+                        }
+                    }
+                }
             }
         }
 
         return sections;
-	}
+    }
 
 }

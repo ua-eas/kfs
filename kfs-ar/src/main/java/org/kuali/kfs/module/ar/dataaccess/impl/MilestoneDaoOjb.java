@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ar.dataaccess.impl;
 
-import java.util.Collection;
-import java.util.Date;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -28,6 +25,9 @@ import org.kuali.kfs.module.ar.businessobject.Milestone;
 import org.kuali.kfs.module.ar.dataaccess.MilestoneDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * Milestone DAO OJB object that implements MilestoneDao

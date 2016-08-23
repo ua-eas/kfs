@@ -24,18 +24,17 @@ import org.kuali.kfs.module.purap.document.RequisitionDocument;
 public enum ContractManagerAssignmentDetailFixture {
 
     ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS("", // documentNumber
-            new Integer(12),   // contractManagerCode
-            RequisitionDocumentFixture.REQ_NO_APO_VALID.createRequisitionDocument() // purchasingDocumentFixture
+        new Integer(12),   // contractManagerCode
+        RequisitionDocumentFixture.REQ_NO_APO_VALID.createRequisitionDocument() // purchasingDocumentFixture
     ),
     ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS_2("", // documentNumber
-            new Integer(12),   // contractManagerCode
-            RequisitionDocumentFixture.REQ_NO_APO_VALID_2.createRequisitionDocument() // purchasingDocumentFixture
+        new Integer(12),   // contractManagerCode
+        RequisitionDocumentFixture.REQ_NO_APO_VALID_2.createRequisitionDocument() // purchasingDocumentFixture
     ),
     ACM_DETAIL_PERFORMANCE("", // documentNumber
-            new Integer(10),   // contractManagerCode
-            RequisitionDocumentFixture.REQ_PERFORMANCE.createRequisitionDocument() // purchasingDocumentFixture
-    ),
- ;
+        new Integer(10),   // contractManagerCode
+        RequisitionDocumentFixture.REQ_PERFORMANCE.createRequisitionDocument() // purchasingDocumentFixture
+    ),;
 
     private String documentNumber;
     private Integer requisitionIdentifier;

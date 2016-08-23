@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.ar.batch.service;
 
 
-
 /**
  * Provides methods for sending ACH advice notifications
  */

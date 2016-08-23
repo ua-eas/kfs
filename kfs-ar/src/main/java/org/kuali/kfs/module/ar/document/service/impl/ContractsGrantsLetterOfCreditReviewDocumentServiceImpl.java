@@ -18,17 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AwardAccountObjectCodeTotalBilled;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLetterOfCreditReviewDetail;
@@ -42,9 +37,14 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Transactional
 public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements ContractsGrantsLetterOfCreditReviewDocumentService {
@@ -57,6 +57,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
 
     /**
      * Calculates the amount to draw for each award account and puts it in a map, keyed by chart-account
+     *
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsLetterOfCreditReviewDocumentService#calculateAwardAccountAmountsToDraw(org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward, java.util.List)
      */
     @Override
@@ -86,6 +87,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
 
     /**
      * Generates the key as chart of accounts code - account number
+     *
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsLetterOfCreditReviewDocumentService#getAwardAccountKey(org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount)
      */
     @Override
@@ -138,8 +140,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
         //To route the invoices automatically as the initator would be system user after a wait time.
         try {
             Thread.sleep(100);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -148,6 +149,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
 
     /**
      * Retrieves an award based on proposal number
+     *
      * @param proposalNumber the proposal number to look up the award for
      * @return the award
      */

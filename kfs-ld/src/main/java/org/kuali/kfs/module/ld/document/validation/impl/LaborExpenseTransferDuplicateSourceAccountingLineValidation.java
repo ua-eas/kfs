@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
@@ -31,13 +29,15 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * determine whether the given accounting line has already been in the given document
  *
  * @param accountingDocument the given document
- * @param accountingLine the given accounting line
+ * @param accountingLine     the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends GenericValidation {
@@ -47,6 +47,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
     /**
      * Validates that an accounting line does not duplicate in the source lines
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -56,7 +57,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
         // not allow the duplicate source accounting line in the document
         if (isDuplicateSourceAccountingLine(accountingDocument, accountingLine)) {
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_DUPLICATE_SOURCE_ACCOUNTING_LINE );
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_DUPLICATE_SOURCE_ACCOUNTING_LINE);
             return false;
         }
 
@@ -67,7 +68,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
      * determine whether the given accounting line has already been in the given document
      *
      * @param accountingDocument the given document
-     * @param accountingLine the given accounting line
+     * @param accountingLine     the given accounting line
      * @return true if the given accounting line has already been in the given document; otherwise, false
      */
     protected boolean isDuplicateSourceAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine) {
@@ -120,6 +121,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -128,6 +130,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -136,6 +139,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -144,6 +148,7 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

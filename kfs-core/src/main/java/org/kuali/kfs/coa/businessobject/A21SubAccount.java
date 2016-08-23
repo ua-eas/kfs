@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 public class A21SubAccount extends PersistableBusinessObjectBase {
@@ -362,8 +362,8 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     public List<A21IndirectCostRecoveryAccount> getA21ActiveIndirectCostRecoveryAccounts() {
         List<A21IndirectCostRecoveryAccount> activeList = new ArrayList<A21IndirectCostRecoveryAccount>();
-        for (A21IndirectCostRecoveryAccount icr : getA21IndirectCostRecoveryAccounts()){
-            if (icr.isActive()){
+        for (A21IndirectCostRecoveryAccount icr : getA21IndirectCostRecoveryAccounts()) {
+            if (icr.isActive()) {
                 activeList.add(A21IndirectCostRecoveryAccount.copyICRAccount(icr));
             }
         }
@@ -380,7 +380,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
     @Override
     public List buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getA21IndirectCostRecoveryAccounts() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getA21IndirectCostRecoveryAccounts()));
         return managedLists;
     }
 

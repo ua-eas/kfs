@@ -18,19 +18,6 @@
  */
 package org.kuali.kfs.module.cam.report;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.module.cam.CamsKeyConstants;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-
 import com.lowagie.text.Cell;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -47,6 +34,18 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsKeyConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class DepreciationReport {
 
@@ -92,11 +91,9 @@ public class DepreciationReport {
             this.generateReportLogBody(reportLog);
             this.generateReportErrorLog(errorMsg);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("DepreciationReport.generateReport(List<String[]> reportLog, List<String> errorLog) - Error on report generation: " + e.getMessage());
-        }
-        finally {
+        } finally {
             if ((this.document != null) && this.document.isOpen()) {
                 this.document.close();
             }
@@ -112,7 +109,7 @@ public class DepreciationReport {
         try {
             Font font = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL);
             int columnwidths[];
-            columnwidths = new int[] { 40, 15 };
+            columnwidths = new int[]{40, 15};
 
             Table aTable = new Table(2, linesPerPage);
             int rowsWritten = 0;
@@ -153,8 +150,7 @@ public class DepreciationReport {
                 line++;
             }
             this.document.add(aTable);
-        }
-        catch (DocumentException de) {
+        } catch (DocumentException de) {
             throw new RuntimeException("DepreciationReport.generateReportLogBody(List<String[]> reportLog) - error: " + de.getMessage());
         }
     }
@@ -177,8 +173,7 @@ public class DepreciationReport {
                 this.document.add(p1);
                 line++;
             }
-        }
-        catch (Exception de) {
+        } catch (Exception de) {
             throw new RuntimeException("DepreciationReport.generateReportErrorLog(List<String> reportLog) - Report Generation Failed: " + de.getMessage());
         }
     }
@@ -190,7 +185,7 @@ public class DepreciationReport {
      */
     private void generateErrorColumnHeaders() throws DocumentException {
         try {
-            int headerwidths[] = { 60 };
+            int headerwidths[] = {60};
 
             Table aTable = new Table(1, 1); // 2 columns, 1 rows.
 
@@ -211,8 +206,7 @@ public class DepreciationReport {
 
             this.document.add(aTable);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("DepreciationReport.generateErrorColumnHeaders() - Error: " + e.getMessage());
         }
     }
@@ -235,7 +229,7 @@ public class DepreciationReport {
      */
     private void generateColumnHeaders() {
         try {
-            int headerwidths[] = { 40, 15 };
+            int headerwidths[] = {40, 15};
 
             Table aTable = new Table(2, 1); // 2 columns, 1 rows.
 
@@ -261,8 +255,7 @@ public class DepreciationReport {
             aTable.addCell(cell);
             this.document.add(aTable);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("DepreciationReport.generateColumnHeaders() - Error: " + e.getMessage());
         }
     }
@@ -289,7 +282,7 @@ public class DepreciationReport {
                 Rectangle page = document.getPageSize();
                 PdfPTable head = new PdfPTable(3);
 
-                int[] widths = { 15, 70, 15 };
+                int[] widths = {15, 70, 15};
                 head.setWidths(widths);
 
                 SimpleDateFormat sdf = new SimpleDateFormat(CamsConstants.DateFormats.MONTH_DAY_YEAR + " " + CamsConstants.DateFormats.MILITARY_TIME);
@@ -310,8 +303,7 @@ public class DepreciationReport {
 
                 head.setTotalWidth(page.width() - document.leftMargin() - document.rightMargin());
                 head.writeSelectedRows(0, -1, document.leftMargin(), page.height() - document.topMargin() + head.getTotalHeight(), writer.getDirectContent());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new ExceptionConverter(e);
             }
         }

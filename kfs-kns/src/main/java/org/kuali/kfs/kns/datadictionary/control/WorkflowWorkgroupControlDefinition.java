@@ -19,20 +19,19 @@
 package org.kuali.kfs.kns.datadictionary.control;
 
 /**
- *                         The workflowWorkgroup element control is used to identify
-                        the field as being a Workgroup Name field.  The magnifying
-                        glass will do a WorkGroup Lookup into the workflow system.
-                        The Workgroup Name will be returned from the lookup.
-
-                        This control also displays some special icons next to the
-                        magnifying glass.
-
+ * The workflowWorkgroup element control is used to identify
+ * the field as being a Workgroup Name field.  The magnifying
+ * glass will do a WorkGroup Lookup into the workflow system.
+ * The Workgroup Name will be returned from the lookup.
+ * <p>
+ * This control also displays some special icons next to the
+ * magnifying glass.
  */
 @Deprecated
 public class WorkflowWorkgroupControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = -7423968769245455072L;
 
-	public WorkflowWorkgroupControlDefinition() {
+    public WorkflowWorkgroupControlDefinition() {
     }
 
     /**

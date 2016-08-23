@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
@@ -28,8 +28,8 @@ import org.kuali.kfs.module.tem.businessobject.TemExpense;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * On submit, we want to go through the actual expenes on the document and verify that there are notes if notes are required
@@ -40,6 +40,7 @@ public class ActualExpenseNotesValidation extends GenericValidation {
     /**
      * Checks a single actual expense for notes - if the expense has an expense type object code which requires notes, either the actual expense
      * itself or all of its details, need notes
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -56,6 +57,7 @@ public class ActualExpenseNotesValidation extends GenericValidation {
 
     /**
      * Determines if the given expense has notes, or if its detail has notes
+     *
      * @param expense the expense to check
      * @return true if notes are found, false otherwise
      */
@@ -75,6 +77,7 @@ public class ActualExpenseNotesValidation extends GenericValidation {
 
     /**
      * Determines if all the given detail lines have notes
+     *
      * @param expenseDetails the detail lines to check
      * @return true if all details have notes, false if any of them are blank
      */

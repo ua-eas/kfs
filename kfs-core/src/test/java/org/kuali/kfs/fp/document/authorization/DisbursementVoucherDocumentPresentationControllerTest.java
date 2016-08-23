@@ -19,14 +19,6 @@
 
 package org.kuali.kfs.fp.document.authorization;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
@@ -59,807 +51,817 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.document.attribute.WorkflowAttributeDefinition;
 import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(EasyMockRunner.class)
 public class DisbursementVoucherDocumentPresentationControllerTest {
 
-	@TestSubject
-	private DisbursementVoucherDocumentPresentationController dvDocPresentationController = new DisbursementVoucherDocumentPresentationController();
-
-	@Mock
-	private static DisbursementVoucherDocument dv;
-
-	@Mock
-	private static DocumentHeader docHeader;
-
-	@BeforeClass
-	public static void setUp() throws Exception {
-		dv = EasyMock.createNiceMock(DisbursementVoucherDocument.class);
-		docHeader = EasyMock.createNiceMock(DocumentHeader.class);
-	};
-
-	@Test
-	public void testAddACHSignupInfoModeWhenDVInFinalState() throws Exception {
-		StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
-		workflowDocument.setDocumentStatus(DocumentStatus.FINAL);
-		createDVMock(workflowDocument);
-
-		Set<String> editModes = new HashSet<String>();
-		dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
-
-		// final state should now allow ach flag to be seen
-		assertFalse(editModes
-				.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
-	}
-
-	@Test
-	public void testAddACHSignupInfoModeWhenDVInProcessedState()
-			throws Exception {
-
-		StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
-		workflowDocument.setDocumentStatus(DocumentStatus.PROCESSED);
-		createDVMock(workflowDocument);
-
-		Set<String> editModes = new HashSet<String>();
-		dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
-
-		// processed state should not allow ach flag to be seen
-		assertFalse(editModes.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
-	}
-
-	@Test
-	public void testAddACHSignupInfoModeWhenDVInDisapprovedState()
-			throws Exception {
-
-		StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
-		workflowDocument.setDocumentStatus(DocumentStatus.DISAPPROVED);
-		createDVMock(workflowDocument);
-
-		Set<String> editModes = new HashSet<String>();
-		dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
-
-		// disapproved state should now allow ach flag to be seen
-		assertFalse(editModes.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
-	}
-
-	@Test
-	public void testAddACHSignupInfoModeWhenDVEnrouteState() throws Exception {
-		StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
-		workflowDocument.setDocumentStatus(DocumentStatus.ENROUTE);
-		createDVMock(workflowDocument);
-
-		Set<String> editModes = new HashSet<String>();
-		dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
-
-		// final state shoud now allow ach flag to be seen
-		assertTrue(editModes
-				.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
-	}
-
-	private void createDVMock(StubWorkflowDocument workflowDocument) {
-		EasyMock.expect(docHeader.getWorkflowDocument()).andReturn(
-				workflowDocument);
-		EasyMock.replay(docHeader);
-
-		EasyMock.expect(dv.getDocumentHeader()).andReturn(docHeader);
-		EasyMock.replay(dv);
-	}
-
-	public final class StubWorkflowDocument implements WorkflowDocument {
-		private DocumentStatus documentStatus;
-
-		public void setDocumentStatus(DocumentStatus status) {
-			this.documentStatus = status;
-		}
-
-		@Override
-		public String getDocumentId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DocumentStatus getStatus() {
-			return this.documentStatus;
-		}
-
-		@Override
-		public DateTime getDateCreated() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DateTime getDateLastModified() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DateTime getDateApproved() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DateTime getDateFinalized() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getTitle() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getApplicationDocumentId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getInitiatorPrincipalId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getRoutedByPrincipalId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getDocumentTypeName() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getDocumentTypeId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getDocumentHandlerUrl() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getApplicationDocumentStatus() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DateTime getApplicationDocumentStatusDate() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Map<String, String> getVariables() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getPrincipalId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void switchPrincipal(String principalId) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public Document getDocument() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DocumentContent getDocumentContent() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getApplicationContent() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void setTitle(String title) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setApplicationDocumentId(String applicationDocumentId) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setApplicationDocumentStatus(
-				String applicationDocumentStatus) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setApplicationContent(String applicationContent) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setAttributeContent(String attributeContent) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void clearAttributeContent() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public String getAttributeContent() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void addAttributeDefinition(
-				WorkflowAttributeDefinition attributeDefinition) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void removeAttributeDefinition(
-				WorkflowAttributeDefinition attributeDefinition) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void clearAttributeDefinitions() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public List<WorkflowAttributeDefinition> getAttributeDefinitions() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void setSearchableContent(String searchableContent) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void addSearchableDefinition(
-				WorkflowAttributeDefinition searchableDefinition) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void removeSearchableDefinition(
-				WorkflowAttributeDefinition searchableDefinition) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void clearSearchableDefinitions() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void clearSearchableContent() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public List<WorkflowAttributeDefinition> getSearchableDefinitions() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void setVariable(String name, String value) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public String getVariableValue(String name) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void setReceiveFutureRequests() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setDoNotReceiveFutureRequests() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void setClearFutureRequests() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public String getReceiveFutureRequestsValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getDoNotReceiveFutureRequestsValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getClearFutureRequestsValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<? extends RemotableAttributeErrorContract> validateAttributeDefinition(
-				WorkflowAttributeDefinition attributeDefinition) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<ActionRequest> getRootActionRequests() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<ActionTaken> getActionsTaken() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ValidActions getValidActions() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public RequestedActions getRequestedActions() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+    @TestSubject
+    private DisbursementVoucherDocumentPresentationController dvDocPresentationController = new DisbursementVoucherDocumentPresentationController();
+
+    @Mock
+    private static DisbursementVoucherDocument dv;
+
+    @Mock
+    private static DocumentHeader docHeader;
+
+    @BeforeClass
+    public static void setUp() throws Exception {
+        dv = EasyMock.createNiceMock(DisbursementVoucherDocument.class);
+        docHeader = EasyMock.createNiceMock(DocumentHeader.class);
+    }
+
+    ;
+
+    @Test
+    public void testAddACHSignupInfoModeWhenDVInFinalState() throws Exception {
+        StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
+        workflowDocument.setDocumentStatus(DocumentStatus.FINAL);
+        createDVMock(workflowDocument);
+
+        Set<String> editModes = new HashSet<String>();
+        dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
+
+        // final state should now allow ach flag to be seen
+        assertFalse(editModes
+            .contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
+    }
+
+    @Test
+    public void testAddACHSignupInfoModeWhenDVInProcessedState()
+        throws Exception {
+
+        StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
+        workflowDocument.setDocumentStatus(DocumentStatus.PROCESSED);
+        createDVMock(workflowDocument);
+
+        Set<String> editModes = new HashSet<String>();
+        dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
+
+        // processed state should not allow ach flag to be seen
+        assertFalse(editModes.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
+    }
+
+    @Test
+    public void testAddACHSignupInfoModeWhenDVInDisapprovedState()
+        throws Exception {
+
+        StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
+        workflowDocument.setDocumentStatus(DocumentStatus.DISAPPROVED);
+        createDVMock(workflowDocument);
+
+        Set<String> editModes = new HashSet<String>();
+        dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
+
+        // disapproved state should now allow ach flag to be seen
+        assertFalse(editModes.contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
+    }
+
+    @Test
+    public void testAddACHSignupInfoModeWhenDVEnrouteState() throws Exception {
+        StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
+        workflowDocument.setDocumentStatus(DocumentStatus.ENROUTE);
+        createDVMock(workflowDocument);
+
+        Set<String> editModes = new HashSet<String>();
+        dvDocPresentationController.addACHSignUpInfoMode(dv, editModes);
+
+        // final state shoud now allow ach flag to be seen
+        assertTrue(editModes
+            .contains(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
+    }
+
+    private void createDVMock(StubWorkflowDocument workflowDocument) {
+        EasyMock.expect(docHeader.getWorkflowDocument()).andReturn(
+            workflowDocument);
+        EasyMock.replay(docHeader);
+
+        EasyMock.expect(dv.getDocumentHeader()).andReturn(docHeader);
+        EasyMock.replay(dv);
+    }
+
+    public final class StubWorkflowDocument implements WorkflowDocument {
+        private DocumentStatus documentStatus;
+
+        public void setDocumentStatus(DocumentStatus status) {
+            this.documentStatus = status;
+        }
+
+        @Override
+        public String getDocumentId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DocumentStatus getStatus() {
+            return this.documentStatus;
+        }
+
+        @Override
+        public DateTime getDateCreated() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DateTime getDateLastModified() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DateTime getDateApproved() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DateTime getDateFinalized() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getTitle() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getApplicationDocumentId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getInitiatorPrincipalId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getRoutedByPrincipalId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getDocumentTypeName() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getDocumentTypeId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getDocumentHandlerUrl() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getApplicationDocumentStatus() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DateTime getApplicationDocumentStatusDate() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public Map<String, String> getVariables() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getPrincipalId() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void switchPrincipal(String principalId) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public Document getDocument() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DocumentContent getDocumentContent() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getApplicationContent() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setTitle(String title) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setApplicationDocumentId(String applicationDocumentId) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setApplicationDocumentStatus(
+            String applicationDocumentStatus) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setApplicationContent(String applicationContent) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setAttributeContent(String attributeContent) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void clearAttributeContent() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public String getAttributeContent() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void addAttributeDefinition(
+            WorkflowAttributeDefinition attributeDefinition) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void removeAttributeDefinition(
+            WorkflowAttributeDefinition attributeDefinition) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void clearAttributeDefinitions() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public List<WorkflowAttributeDefinition> getAttributeDefinitions() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setSearchableContent(String searchableContent) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void addSearchableDefinition(
+            WorkflowAttributeDefinition searchableDefinition) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void removeSearchableDefinition(
+            WorkflowAttributeDefinition searchableDefinition) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void clearSearchableDefinitions() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void clearSearchableContent() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public List<WorkflowAttributeDefinition> getSearchableDefinitions() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setVariable(String name, String value) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public String getVariableValue(String name) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setReceiveFutureRequests() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setDoNotReceiveFutureRequests() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setClearFutureRequests() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public String getReceiveFutureRequestsValue() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getDoNotReceiveFutureRequestsValue() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getClearFutureRequestsValue() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<? extends RemotableAttributeErrorContract> validateAttributeDefinition(
+            WorkflowAttributeDefinition attributeDefinition) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<ActionRequest> getRootActionRequests() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<ActionTaken> getActionsTaken() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public ValidActions getValidActions() {
+            // TODO Auto-generated method stub
+            return null;
+        }
 
-		@Override
-		public void saveDocument(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void route(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void complete(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public RequestedActions getRequestedActions() {
+            // TODO Auto-generated method stub
+            return null;
+        }
 
-		}
-
-		@Override
-		public void disapprove(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
+        @Override
+        public void saveDocument(String annotation) {
+            // TODO Auto-generated method stub
+
+        }
 
-		@Override
-		public void approve(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void cancel(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void recall(String annotation, boolean cancel) {
-			// TODO Auto-generated method stub
+        @Override
+        public void route(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
-
-		@Override
-		public void blanketApprove(String annotation) {
-			// TODO Auto-generated method stub
-
-		}
+        }
+
+        @Override
+        public void complete(String annotation) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public void blanketApprove(String annotation, String... nodeNames) {
-			// TODO Auto-generated method stub
+        }
 
-		}
+        @Override
+        public void disapprove(String annotation) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public void saveDocumentData() {
-			// TODO Auto-generated method stub
-
-		}
+        }
 
-		@Override
-		public void acknowledge(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void approve(String annotation) {
+            // TODO Auto-generated method stub
+
+        }
 
-		}
+        @Override
+        public void cancel(String annotation) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public void fyi(String annotation) {
-			// TODO Auto-generated method stub
+        }
+
+        @Override
+        public void recall(String annotation, boolean cancel) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void fyi() {
-			// TODO Auto-generated method stub
+        @Override
+        public void blanketApprove(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void delete() {
-			// TODO Auto-generated method stub
+        @Override
+        public void blanketApprove(String annotation, String... nodeNames) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void refresh() {
-			// TODO Auto-generated method stub
+        @Override
+        public void saveDocumentData() {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToPrincipal(ActionRequestType actionRequested,
-				String annotation, String targetPrincipalId,
-				String responsibilityDescription, boolean forceAction) {
-			// TODO Auto-generated method stub
+        @Override
+        public void acknowledge(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToPrincipal(ActionRequestType actionRequested,
-				String nodeName, String annotation, String targetPrincipalId,
-				String responsibilityDescription, boolean forceAction) {
-			// TODO Auto-generated method stub
+        @Override
+        public void fyi(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToPrincipal(ActionRequestType actionRequested,
-				String nodeName, String annotation, String targetPrincipalId,
-				String responsibilityDescription, boolean forceAction,
-				String requestLabel) {
-			// TODO Auto-generated method stub
+        @Override
+        public void fyi() {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToPrincipal(AdHocToPrincipal adHocToPrincipal,
-				String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void delete() {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToGroup(ActionRequestType actionRequested,
-				String annotation, String targetGroupId,
-				String responsibilityDescription, boolean forceAction) {
-			// TODO Auto-generated method stub
+        @Override
+        public void refresh() {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToGroup(ActionRequestType actionRequested,
-				String nodeName, String annotation, String targetGroupId,
-				String responsibilityDescription, boolean forceAction) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToPrincipal(ActionRequestType actionRequested,
+                                     String annotation, String targetPrincipalId,
+                                     String responsibilityDescription, boolean forceAction) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToGroup(ActionRequestType actionRequested,
-				String nodeName, String annotation, String targetGroupId,
-				String responsibilityDescription, boolean forceAction,
-				String requestLabel) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToPrincipal(ActionRequestType actionRequested,
+                                     String nodeName, String annotation, String targetPrincipalId,
+                                     String responsibilityDescription, boolean forceAction) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void adHocToGroup(AdHocToGroup adHocToGroup, String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToPrincipal(ActionRequestType actionRequested,
+                                     String nodeName, String annotation, String targetPrincipalId,
+                                     String responsibilityDescription, boolean forceAction,
+                                     String requestLabel) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void revokeAdHocRequestById(String actionRequestId,
-				String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToPrincipal(AdHocToPrincipal adHocToPrincipal,
+                                     String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void revokeAdHocRequests(AdHocRevoke revoke, String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToGroup(ActionRequestType actionRequested,
+                                 String annotation, String targetGroupId,
+                                 String responsibilityDescription, boolean forceAction) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void revokeAllAdHocRequests(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToGroup(ActionRequestType actionRequested,
+                                 String nodeName, String annotation, String targetGroupId,
+                                 String responsibilityDescription, boolean forceAction) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void returnToPreviousNode(String annotation, String nodeName) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToGroup(ActionRequestType actionRequested,
+                                 String nodeName, String annotation, String targetGroupId,
+                                 String responsibilityDescription, boolean forceAction,
+                                 String requestLabel) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void returnToPreviousNode(String annotation,
-				ReturnPoint returnPoint) {
-			// TODO Auto-generated method stub
+        @Override
+        public void adHocToGroup(AdHocToGroup adHocToGroup, String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void move(MovePoint movePoint, String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void revokeAdHocRequestById(String actionRequestId,
+                                           String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void takeGroupAuthority(String annotation, String groupId) {
-			// TODO Auto-generated method stub
+        @Override
+        public void revokeAdHocRequests(AdHocRevoke revoke, String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void releaseGroupAuthority(String annotation, String groupId) {
-			// TODO Auto-generated method stub
+        @Override
+        public void revokeAllAdHocRequests(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void placeInExceptionRouting(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void returnToPreviousNode(String annotation, String nodeName) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserBlanketApprove(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void returnToPreviousNode(String annotation,
+                                         ReturnPoint returnPoint) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserNodeApprove(String nodeName, String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void move(MovePoint movePoint, String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserTakeRequestedAction(String actionRequestId,
-				String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void takeGroupAuthority(String annotation, String groupId) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserDisapprove(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void releaseGroupAuthority(String annotation, String groupId) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserCancel(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void placeInExceptionRouting(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void superUserReturnToPreviousNode(ReturnPoint returnPoint,
-				String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void superUserBlanketApprove(String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void logAnnotation(String annotation) {
-			// TODO Auto-generated method stub
+        @Override
+        public void superUserNodeApprove(String nodeName, String annotation) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public boolean isCompletionRequested() {
-			// TODO Auto-generated method stub
-			return false;
-		}
+        @Override
+        public void superUserTakeRequestedAction(String actionRequestId,
+                                                 String annotation) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public boolean isApprovalRequested() {
-			// TODO Auto-generated method stub
-			return false;
-		}
+        }
 
-		@Override
-		public boolean isAcknowledgeRequested() {
-			// TODO Auto-generated method stub
-			return false;
-		}
+        @Override
+        public void superUserDisapprove(String annotation) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public boolean isFYIRequested() {
-			// TODO Auto-generated method stub
-			return false;
-		}
+        }
 
-		@Override
-		public boolean isBlanketApproveCapable() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isRouteCapable() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isValidAction(ActionType actionType) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean checkStatus(DocumentStatus status) {
-			return false;
-		}
-
-		@Override
-		public boolean isInitiated() {
-			return false;
-		}
-
-		@Override
-		public boolean isSaved() {
-			return false;
-		}
-
-		@Override
-		public boolean isEnroute() {
-			return this.documentStatus == DocumentStatus.ENROUTE;
-		}
-
-		@Override
-		public boolean isException() {
-			return false;
-		}
-
-		@Override
-		public boolean isCanceled() {
-			return false;
-		}
-
-		@Override
-		public boolean isRecalled() {
-			return false;
-		}
-
-		@Override
-		public boolean isDisapproved() {
-			return this.documentStatus == DocumentStatus.DISAPPROVED;
-		}
-
-		@Override
-		public boolean isApproved() {
-
-			return isProcessed() || isFinal();
-		}
-
-		@Override
-		public boolean isProcessed() {
-			return this.documentStatus == DocumentStatus.PROCESSED;
-		}
-
-		@Override
-		public boolean isFinal() {
-			return this.documentStatus == DocumentStatus.FINAL;
-		}
-
-		@Override
-		public Set<String> getNodeNames() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Set<String> getCurrentNodeNames() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<RouteNodeInstance> getActiveRouteNodeInstances() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<RouteNodeInstance> getCurrentRouteNodeInstances() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<RouteNodeInstance> getRouteNodeInstances() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<String> getPreviousNodeNames() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public DocumentDetail getDocumentDetail() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void updateDocumentContent(
-				DocumentContentUpdate documentContentUpdate) {
-			// TODO Auto-generated method stub
-
-		}
-	}
+        @Override
+        public void superUserCancel(String annotation) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void superUserReturnToPreviousNode(ReturnPoint returnPoint,
+                                                  String annotation) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void logAnnotation(String annotation) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public boolean isCompletionRequested() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isApprovalRequested() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isAcknowledgeRequested() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isFYIRequested() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isBlanketApproveCapable() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isRouteCapable() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isValidAction(ActionType actionType) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean checkStatus(DocumentStatus status) {
+            return false;
+        }
+
+        @Override
+        public boolean isInitiated() {
+            return false;
+        }
+
+        @Override
+        public boolean isSaved() {
+            return false;
+        }
+
+        @Override
+        public boolean isEnroute() {
+            return this.documentStatus == DocumentStatus.ENROUTE;
+        }
+
+        @Override
+        public boolean isException() {
+            return false;
+        }
+
+        @Override
+        public boolean isCanceled() {
+            return false;
+        }
+
+        @Override
+        public boolean isRecalled() {
+            return false;
+        }
+
+        @Override
+        public boolean isDisapproved() {
+            return this.documentStatus == DocumentStatus.DISAPPROVED;
+        }
+
+        @Override
+        public boolean isApproved() {
+
+            return isProcessed() || isFinal();
+        }
+
+        @Override
+        public boolean isProcessed() {
+            return this.documentStatus == DocumentStatus.PROCESSED;
+        }
+
+        @Override
+        public boolean isFinal() {
+            return this.documentStatus == DocumentStatus.FINAL;
+        }
+
+        @Override
+        public Set<String> getNodeNames() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public Set<String> getCurrentNodeNames() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<RouteNodeInstance> getActiveRouteNodeInstances() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<RouteNodeInstance> getCurrentRouteNodeInstances() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<RouteNodeInstance> getRouteNodeInstances() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public List<String> getPreviousNodeNames() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public DocumentDetail getDocumentDetail() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void updateDocumentContent(
+            DocumentContentUpdate documentContentUpdate) {
+            // TODO Auto-generated method stub
+
+        }
+    }
 }

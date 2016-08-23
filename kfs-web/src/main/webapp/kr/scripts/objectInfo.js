@@ -16,54 +16,54 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function loadUserInfo( userIdFieldName, universalIdFieldName, userNameFieldName ) {
-	var userId = dwr.util.getValue( userIdFieldName );
+function loadUserInfo(userIdFieldName, universalIdFieldName, userNameFieldName) {
+    var userId = dwr.util.getValue(userIdFieldName);
 
-	if (userId == "") {
-		clearRecipients( universalIdFieldName, "" );
-		clearRecipients( userNameFieldName, "" );
-	} else {
-		var dwrReply = {
-			callback:function(data) {
-				if ( data != null && typeof data == 'object' ) {
-					if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-						setRecipientValue( universalIdFieldName, data.principalId );
-					}
-					if ( userNameFieldName != null && userNameFieldName != "" ) {
-						setRecipientValue( userNameFieldName, data.name );
-					} else {
-						// guess the DIV name
-						divName = userIdFieldName.replace( ".principalName", ".name.div" );
-						dwr.util.setValue( divName, data.name );
-					}
-				} else {
-					if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-						setRecipientValue( universalIdFieldName, "" );
-					}
-					if ( userNameFieldName != null && userNameFieldName != "" ) {
-						setRecipientValue( userNameFieldName, wrapError( "person not found" ), true );
-					} else {
-						// guess the DIV name
-						divName = userIdFieldName.replace( ".principalName", ".name.div" );
-						dwr.util.setValue( divName, wrapError( "person not found" ), { escapeHtml:false} );
-					}
-				}
-			},
-			errorHandler:function( errorMessage ) {
-				window.status = errorMessage;
-				if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-					setRecipientValue( universalIdFieldName, "" );
-				}
-				if ( userNameFieldName != null && userNameFieldName != "" ) {
-					setRecipientValue( userNameFieldName, wrapError( "person not found" ), true );
-				} else {
-					// guess the DIV name
-					divName = userIdFieldName.replace( ".principalName", ".name.div" );
-					dwr.util.setValue( divName, wrapError( "person not found" ), { escapeHtml:false} );
-				}
-			}
-		};
-		PersonService.getPersonByPrincipalName( userId, dwrReply );
-	}
+    if (userId == "") {
+        clearRecipients(universalIdFieldName, "");
+        clearRecipients(userNameFieldName, "");
+    } else {
+        var dwrReply = {
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    if (universalIdFieldName != null && universalIdFieldName != "") {
+                        setRecipientValue(universalIdFieldName, data.principalId);
+                    }
+                    if (userNameFieldName != null && userNameFieldName != "") {
+                        setRecipientValue(userNameFieldName, data.name);
+                    } else {
+                        // guess the DIV name
+                        divName = userIdFieldName.replace(".principalName", ".name.div");
+                        dwr.util.setValue(divName, data.name);
+                    }
+                } else {
+                    if (universalIdFieldName != null && universalIdFieldName != "") {
+                        setRecipientValue(universalIdFieldName, "");
+                    }
+                    if (userNameFieldName != null && userNameFieldName != "") {
+                        setRecipientValue(userNameFieldName, wrapError("person not found"), true);
+                    } else {
+                        // guess the DIV name
+                        divName = userIdFieldName.replace(".principalName", ".name.div");
+                        dwr.util.setValue(divName, wrapError("person not found"), {escapeHtml: false});
+                    }
+                }
+            },
+            errorHandler: function (errorMessage) {
+                window.status = errorMessage;
+                if (universalIdFieldName != null && universalIdFieldName != "") {
+                    setRecipientValue(universalIdFieldName, "");
+                }
+                if (userNameFieldName != null && userNameFieldName != "") {
+                    setRecipientValue(userNameFieldName, wrapError("person not found"), true);
+                } else {
+                    // guess the DIV name
+                    divName = userIdFieldName.replace(".principalName", ".name.div");
+                    dwr.util.setValue(divName, wrapError("person not found"), {escapeHtml: false});
+                }
+            }
+        };
+        PersonService.getPersonByPrincipalName(userId, dwrReply);
+    }
 }
 

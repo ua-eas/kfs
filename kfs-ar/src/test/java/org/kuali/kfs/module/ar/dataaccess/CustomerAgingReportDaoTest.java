@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.dataaccess;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Map;
-
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDetailFixture;
@@ -31,6 +27,10 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the methods of CustomerAgingReportDao.
@@ -55,7 +55,7 @@ public class CustomerAgingReportDaoTest extends KualiTestBase {
         super.setUp();
         // setting up Customer Invoice Document.
         CustomerInvoiceDetailFixture customerInvoiceDetailFixture1 = CustomerInvoiceDetailFixture.BASE_CUSTOMER_INVOICE_DETAIL;
-        customerInvoiceDocument = CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO.createCustomerInvoiceDocument(new CustomerInvoiceDetailFixture[] {customerInvoiceDetailFixture1});
+        customerInvoiceDocument = CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER_WITH_BILLING_INFO.createCustomerInvoiceDocument(new CustomerInvoiceDetailFixture[]{customerInvoiceDetailFixture1});
         customerAgingReportDao = SpringContext.getBean(CustomerAgingReportDao.class);
     }
 

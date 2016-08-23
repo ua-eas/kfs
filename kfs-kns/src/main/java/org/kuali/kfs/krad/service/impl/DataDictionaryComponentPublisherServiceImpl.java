@@ -23,18 +23,18 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.kfs.coreservice.api.component.Component;
 import org.kuali.kfs.coreservice.api.component.ComponentService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.service.DataDictionaryComponentPublisherService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.rice.core.api.config.ConfigurationException;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +43,8 @@ import java.util.Map;
 
 /**
  * Reference implementation of the {@code DataDictionaryComponentPublisherService}.
- *
+ * <p>
  * This implementation derives components from the DataDictionary for all BusinessObjects and Documents.
- *
- *
  */
 public class DataDictionaryComponentPublisherServiceImpl implements DataDictionaryComponentPublisherService {
 
@@ -80,8 +78,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
             try {
                 Component component = deriveComponentFromBusinessObjectEntry(businessObjectEntry);
                 uniqueComponentMap.put(component.getCode(), component);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("An exception was encountered when attempting to publish all components for business object class: " + businessObjectEntry.getBusinessObjectClass(), e);
             }
         }
@@ -90,8 +87,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
                 try {
                     Component component = deriveComponentFromDocumentEntry(documentEntry);
                     uniqueComponentMap.put(component.getCode(), component);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("An exception was encountered when attempting to publish all components for transactional document class: " + documentEntry.getDocumentClass(), e);
                 }
             }
@@ -100,7 +96,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
         return components;
     }
 
-	protected Component deriveComponentFromClass(Class<?> componentSourceClass) {
+    protected Component deriveComponentFromClass(Class<?> componentSourceClass) {
         String componentCode = getKualiModuleService().getComponentCode(componentSourceClass);
         String componentName = deriveComponentName(componentSourceClass);
         String namespace = getKualiModuleService().getNamespaceCode(componentSourceClass);
@@ -127,7 +123,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
         return deriveComponentFromClass(documentClass);
     }
 
-	protected String deriveComponentName(Class<?> componentSourceClass) {
+    protected String deriveComponentName(Class<?> componentSourceClass) {
         if (componentSourceClass == null) {
             throw new IllegalArgumentException("The deriveComponentName method requires non-null componentSourceClass");
         }
@@ -142,8 +138,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
             BusinessObjectEntry boe = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(componentSourceClass.getName());
             if (boe != null) {
                 return boe.getObjectLabel();
-            }
-            else {
+            } else {
                 return ((ParameterConstants.COMPONENT) componentSourceClass.getAnnotation(ParameterConstants.COMPONENT.class)).component();
             }
         }
@@ -156,17 +151,15 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
          */
         if (TransactionalDocument.class.isAssignableFrom(componentSourceClass)) {
             return getDataDictionaryService().getDocumentLabelByClass(componentSourceClass);
-        }
-        else if (BusinessObject.class.isAssignableFrom(componentSourceClass) ) {
+        } else if (BusinessObject.class.isAssignableFrom(componentSourceClass)) {
             BusinessObjectEntry boe = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(componentSourceClass.getName());
             if (boe != null) {
                 return boe.getObjectLabel();
-            }
-            else {
+            } else {
                 return KRADUtils.getBusinessTitleForClass(componentSourceClass);
             }
         }
-        throw new IllegalArgumentException("The deriveComponentName method of requires TransactionalDocument or BusinessObject class. Was: " + componentSourceClass.getName() );
+        throw new IllegalArgumentException("The deriveComponentName method of requires TransactionalDocument or BusinessObject class. Was: " + componentSourceClass.getName());
     }
 
     public DataDictionaryService getDataDictionaryService() {

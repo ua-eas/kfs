@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.gl.report;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.LedgerBalanceTypeSummaryTotalLine;
 import org.kuali.kfs.gl.businessobject.LedgerSummaryDetailLine;
@@ -31,6 +26,11 @@ import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class which can summarize entries by balance type and then print out a ledger summary report
@@ -53,6 +53,7 @@ public class LedgerSummaryReport {
 
     /**
      * Summarizes an entry into the various totals which this report is keeping
+     *
      * @param entry an entry to summarize
      */
     public void summarizeEntry(OriginEntryInformation entry) {
@@ -63,7 +64,8 @@ public class LedgerSummaryReport {
 
     /**
      * Retrieves the proper balance type summarizer from the given map, or creates a new summarizer and puts it in the Map if it doesn't already exist
-     * @param entry the origin entry to find a balance type summarizer for
+     *
+     * @param entry             the origin entry to find a balance type summarizer for
      * @param balanceTypeTotals the Map of balance type summarizers
      * @return the proper balance type summarizer
      */
@@ -79,7 +81,8 @@ public class LedgerSummaryReport {
 
     /**
      * Retrieves the proper detail line summarizer from the given map, or creates a new summarizer and adds it to the map if needed
-     * @param entry the origin entry to find a detail line summarizer for
+     *
+     * @param entry       the origin entry to find a detail line summarizer for
      * @param detailLines a Map of detail line summarizers
      * @return the proper detail line summarizer
      */
@@ -95,10 +98,11 @@ public class LedgerSummaryReport {
 
     /**
      * Adds the amount of the origin entry into the appropriate total - debit, credit, or budget - on the various ledger summarizers
-     * @param originEntry the origin entry to add the total from
-     * @param totalLine a complete total to add the amount to
+     *
+     * @param originEntry      the origin entry to add the total from
+     * @param totalLine        a complete total to add the amount to
      * @param balanceTypeTotal the total for the entries with the same balance type as the origin entry to add the amount to
-     * @param detailLine the proper detail amount to add the amoun tto
+     * @param detailLine       the proper detail amount to add the amoun tto
      */
     protected void addEntryToLedgerSummaries(OriginEntryInformation originEntry, LedgerSummaryTotalLine totalLine, LedgerBalanceTypeSummaryTotalLine balanceTypeTotal, LedgerSummaryDetailLine detailLine) {
         if (originEntry.getTransactionDebitCreditCode() != null && originEntry.getTransactionDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
@@ -109,7 +113,7 @@ public class LedgerSummaryReport {
             totalLine.addCreditAmount(originEntry.getTransactionLedgerEntryAmount());
             balanceTypeTotal.addCreditAmount(originEntry.getTransactionLedgerEntryAmount());
             detailLine.addCreditAmount(originEntry.getTransactionLedgerEntryAmount());
-        } else{
+        } else {
             totalLine.addBudgetAmount(originEntry.getTransactionLedgerEntryAmount());
             balanceTypeTotal.addBudgetAmount(originEntry.getTransactionLedgerEntryAmount());
             detailLine.addBudgetAmount(originEntry.getTransactionLedgerEntryAmount());
@@ -118,6 +122,7 @@ public class LedgerSummaryReport {
 
     /**
      * Writes the report of totals to the given reportWriterService
+     *
      * @param reportWriterService a report writer service to write the ledger summary report to
      */
     public void writeReport(ReportWriterService reportWriterService) {
@@ -143,7 +148,7 @@ public class LedgerSummaryReport {
 
                 reportWriterService.writeTableRow(detailLine);
             }
-            final LedgerBalanceTypeSummaryTotalLine lastLine = balanceTypeTotals.get(detailList.get(detailList.size()-1).getFinancialBalanceTypeCode());
+            final LedgerBalanceTypeSummaryTotalLine lastLine = balanceTypeTotals.get(detailList.get(detailList.size() - 1).getFinancialBalanceTypeCode());
             if (lastLine != null) {
                 reportWriterService.writeTableRow(lastLine);
             }

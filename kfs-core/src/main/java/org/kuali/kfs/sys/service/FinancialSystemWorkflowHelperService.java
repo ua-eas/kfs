@@ -35,7 +35,7 @@ public interface FinancialSystemWorkflowHelperService {
      * @param principalId
      * @return
      */
-    boolean isAdhocApprovalRequestedForPrincipal( WorkflowDocument workflowDocument, String principalId );
+    boolean isAdhocApprovalRequestedForPrincipal(WorkflowDocument workflowDocument, String principalId);
 
     String getApplicationDocumentStatus(String documentNumber);
 }

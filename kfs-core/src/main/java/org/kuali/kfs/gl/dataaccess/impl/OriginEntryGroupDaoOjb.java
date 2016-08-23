@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -33,6 +26,13 @@ import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.businessobject.OriginEntrySource;
 import org.kuali.kfs.gl.dataaccess.OriginEntryGroupDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An OJB specific implementation of OriginEntryGroupDao
@@ -101,7 +101,7 @@ public class OriginEntryGroupDaoOjb extends PlatformAwareDaoBaseOjb implements O
         LOG.debug("deleteGroups() started");
 
         List ids = new ArrayList();
-        for (Iterator iter = groups.iterator(); iter.hasNext();) {
+        for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -123,7 +123,7 @@ public class OriginEntryGroupDaoOjb extends PlatformAwareDaoBaseOjb implements O
         LOG.debug("getMatchingGroups() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iterator = searchCriteria.keySet().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = searchCriteria.keySet().iterator(); iterator.hasNext(); ) {
             String key = iterator.next().toString();
             criteria.addEqualTo(key, searchCriteria.get(key));
         }
@@ -206,6 +206,7 @@ public class OriginEntryGroupDaoOjb extends PlatformAwareDaoBaseOjb implements O
 
     /**
      * Given a date, finds all origin entry groups that were created on or after that date
+     *
      * @param day the date that defines recency - all qualifying origin entries groups will have been created on or after that day
      * @return a Collection of OriginEntryGroup records
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryGroupDao#getRecentGroups(Date)

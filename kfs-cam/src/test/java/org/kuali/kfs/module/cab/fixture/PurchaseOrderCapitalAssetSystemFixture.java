@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetSystem;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetSystem;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PurchaseOrderCapitalAssetSystemFixture {
 
@@ -35,7 +35,9 @@ public enum PurchaseOrderCapitalAssetSystemFixture {
             obj.setCapitalAssetSystemIdentifier(1100);
             obj.setCapitalAssetNotReceivedCurrentFiscalYearIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
         @Override
@@ -44,7 +46,9 @@ public enum PurchaseOrderCapitalAssetSystemFixture {
             obj.setCapitalAssetSystemIdentifier(1101);
             obj.setCapitalAssetNotReceivedCurrentFiscalYearIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
         @Override
@@ -53,7 +57,9 @@ public enum PurchaseOrderCapitalAssetSystemFixture {
             obj.setCapitalAssetSystemIdentifier(1102);
             obj.setCapitalAssetNotReceivedCurrentFiscalYearIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     },
     REC4 {
         @Override
@@ -62,8 +68,11 @@ public enum PurchaseOrderCapitalAssetSystemFixture {
             obj.setCapitalAssetSystemIdentifier(1103);
             obj.setCapitalAssetNotReceivedCurrentFiscalYearIndicator(false);
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PurchaseOrderCapitalAssetSystem newRecord();
 
     public static void setUpData() {

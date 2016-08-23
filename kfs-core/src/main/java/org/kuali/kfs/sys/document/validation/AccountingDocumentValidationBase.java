@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.AccountingDocument;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class AccountingDocumentValidationBase extends GenericValidation {
     private static ParameterService parameterService;
@@ -47,7 +47,7 @@ public abstract class AccountingDocumentValidationBase extends GenericValidation
     }
 
     protected ParameterService getParameterService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             parameterService = CoreFrameworkServiceLocator.getParameterService();
         }
         return parameterService;

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.module.ar.businessobject.InvoiceDetailAccountObjectCode;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.validation.SuspensionCategoryBase;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Suspension Category that checks to see if the invoice's award has a closed account which still has a current expenditure.
@@ -49,8 +49,7 @@ public class ClosedAccountWithCurrentExpendituresSuspensionCategory extends Susp
             if (map.containsKey(chartOfAccountsCode)) {
                 Set<String> set = map.get(chartOfAccountsCode);
                 set.add(accountNumber);
-            }
-            else {
+            } else {
                 Set<String> set = new HashSet<String>();
                 set.add(accountNumber);
                 map.put(chartOfAccountsCode, set);

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.batch.dataaccess;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.businessobject.BatchParameters;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface ExtractDao {
     /**
@@ -55,7 +55,7 @@ public interface ExtractDao {
 
     /**
      * @deprecated This method should not be used as it is not working properly after moving getDocumentsNumbersAwaitingPurchaseOrderOpenStatus
-     *             method to the service layer.
+     * method to the service layer.
      */
     @Deprecated
     Collection<PurchaseOrderAccount> findPreTaggablePOAccounts(BatchParameters batchParameters);
@@ -63,7 +63,7 @@ public interface ExtractDao {
     /**
      * This method implementation should retrieve all eligible pretaggable PO account lines from Purchasing module
      *
-     * @param batchParameters Batch Parameters
+     * @param batchParameters                       Batch Parameters
      * @param docNumbersAwaitingPurchaseOrderStatus Document numbers awaiting PO Open status
      * @return List of pre-taggable purchase order account lines
      */

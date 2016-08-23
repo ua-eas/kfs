@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
-import org.kuali.kfs.module.ar.document.validation.DeleteCashControlDetailRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
+import org.kuali.kfs.module.ar.document.validation.DeleteCashControlDetailRule;
 
 public class DeleteCashControlDetailEvent extends CashControlDetailEventBase {
 

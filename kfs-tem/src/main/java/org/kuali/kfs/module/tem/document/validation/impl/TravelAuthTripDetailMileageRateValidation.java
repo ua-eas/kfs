@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.PER_DIEM_CATEGORIES;
-
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
@@ -31,8 +29,10 @@ import org.kuali.kfs.module.tem.document.TravelDocumentBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.PER_DIEM_CATEGORIES;
 
 public class TravelAuthTripDetailMileageRateValidation extends GenericValidation {
 

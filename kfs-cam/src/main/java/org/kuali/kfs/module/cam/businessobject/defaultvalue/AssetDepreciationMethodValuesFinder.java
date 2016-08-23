@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.cam.businessobject.defaultvalue;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.cam.businessobject.AssetDepreciationMethod;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssetDepreciationMethodValuesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         List<AssetDepreciationMethod> depreciationMethods = (List<AssetDepreciationMethod>) SpringContext.getBean(KeyValuesService.class).findAll(AssetDepreciationMethod.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( depreciationMethods == null ) {
+        if (depreciationMethods == null) {
             depreciationMethods = new ArrayList<AssetDepreciationMethod>(0);
         } else {
             depreciationMethods = new ArrayList<AssetDepreciationMethod>(depreciationMethods);
@@ -42,7 +42,7 @@ public class AssetDepreciationMethodValuesFinder extends KeyValuesBase {
         labels.add(new ConcreteKeyValue("", ""));
 
         for (AssetDepreciationMethod depreciationMethod : depreciationMethods) {
-            if(depreciationMethod.isActive()) {
+            if (depreciationMethod.isActive()) {
                 labels.add(new ConcreteKeyValue(depreciationMethod.getDepreciationMethodCode(), depreciationMethod.getDepreciationMethodName()));
             }
         }

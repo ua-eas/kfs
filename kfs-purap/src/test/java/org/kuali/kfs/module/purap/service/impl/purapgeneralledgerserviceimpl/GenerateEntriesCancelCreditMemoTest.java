@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.purap.service.impl.purapgeneralledgerserviceimpl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +41,12 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GenerateEntriesCancelCreditMemoTest {
     private PurapGeneralLedgerServiceImpl purapGeneralLedgerService;
@@ -90,14 +90,14 @@ public class GenerateEntriesCancelCreditMemoTest {
 
     private void execute() {
         EasyMock.replay(cm, po, preq, purapAccountingService, purchaseOrderService,
-                generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
+            generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
         for (Object mock : dynamicMocks) {
             EasyMock.replay(mock);
         }
 
         purapGeneralLedgerService.generateEntriesCancelAccountsPayableDocument(cm);
         EasyMock.verify(cm, po, preq, purapAccountingService, purchaseOrderService,
-                generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
+            generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
         for (Object mock : dynamicMocks) {
             EasyMock.verify(mock);
         }
@@ -149,8 +149,8 @@ public class GenerateEntriesCancelCreditMemoTest {
     }
 
     private PurchaseOrderItem createPoItem(int lineNumber, double quantity, double amount, double invoicedQuantity, double newInvoicedQuantity, double invoicedAmount, double newInvoicedAmount,
-            double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
-            double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
+                                           double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
+                                           double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
         List<PurApAccountingLine> sourceAccountingLinesCopy = new ArrayList<>();
         sourceAccountingLinesCopy.addAll(sourceAccountingLines);
         PurchaseOrderItem item = EasyMock.createMock(PurchaseOrderItem.class);
@@ -182,7 +182,7 @@ public class GenerateEntriesCancelCreditMemoTest {
     }
 
     private PurchaseOrderAccount createPoAccountingLine(double percent, double outstandingAmount, double newOutstandingAmount, Double altAmount,
-            String objectCode) {
+                                                        String objectCode) {
         SourceAccountingLine acctString = new SourceAccountingLine();
         acctString.setFinancialObjectCode(objectCode);
 
@@ -215,12 +215,12 @@ public class GenerateEntriesCancelCreditMemoTest {
     }
 
     private void prepareItem(int lineNumber, double cmAmount, double cmQuantity, double poAmount, double poQuantity,
-            double invoicedQuantity, double newInvoicedQuantity, double invoicedAmount, double newInvoicedAmount,
-            double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
-            double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
+                             double invoicedQuantity, double newInvoicedQuantity, double invoicedAmount, double newInvoicedAmount,
+                             double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
+                             double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
         cmItems.add(createCmItem(lineNumber, cmAmount, cmQuantity, type));
         poItems.add(createPoItem(lineNumber, poQuantity, poAmount, invoicedQuantity, newInvoicedQuantity, invoicedAmount, newInvoicedAmount,
-                outstandingQuantity, newOutstandingQuantity, outstandingAmount, newOutstandingAmount, unitPrice, taxAmount, type, sourceAccountingLines));
+            outstandingQuantity, newOutstandingQuantity, outstandingAmount, newOutstandingAmount, unitPrice, taxAmount, type, sourceAccountingLines));
     }
 
     private void prepareItemsNoAccountingLines() {

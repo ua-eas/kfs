@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.purap.identity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocument;
 import org.kuali.kfs.sys.KFSConstants;
@@ -32,10 +28,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class AccountsPayableDocumentDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AccountsPayableDocumentDerivedRoleTypeServiceImpl.class);
@@ -50,21 +49,21 @@ public class AccountsPayableDocumentDerivedRoleTypeServiceImpl extends DerivedRo
      * @see org.kuali.rice.kns.kim.role.RoleTypeServiceBase#(java.lang.String, java.util.List, java.lang.String, java.lang.String, org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String,String> qualification) {
+    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
 
         String docId = qualification.get(KimConstants.AttributeConstants.DOCUMENT_NUMBER);
 
         List<String> roleIds = new ArrayList<String>();
         roleIds.add(KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(KFSConstants.CoreModuleNamespaces.KFS, FISCAL_OFFICER_ROLE_NAME));
         roleIds.add(KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(PurapConstants.PURAP_NAMESPACE, SUB_ACCOUNT_ROLE_NAME));
-        roleIds.add(KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(KFSConstants.CoreModuleNamespaces.KFS, ACCOUNTING_REVIEWER_ROLE_NAME    ));
+        roleIds.add(KimApiServiceLocator.getRoleService().getRoleIdByNamespaceCodeAndName(KFSConstants.CoreModuleNamespaces.KFS, ACCOUNTING_REVIEWER_ROLE_NAME));
 
         try {
-            AccountsPayableDocument apDocument = (AccountsPayableDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-            for (Iterator iter = apDocument.getSourceAccountingLines().iterator(); iter.hasNext();) {
+            AccountsPayableDocument apDocument = (AccountsPayableDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
+            for (Iterator iter = apDocument.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
                 SourceAccountingLine accountingLine = (SourceAccountingLine) iter.next();
 
-                Map<String,String> roleQualifier = new HashMap<String,String>();
+                Map<String, String> roleQualifier = new HashMap<String, String>();
                 roleQualifier.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, apDocument.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
                 roleQualifier.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, apDocument.getFinancialSystemDocumentHeader().getFinancialDocumentTotalAmount().toString());
                 roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, accountingLine.getChartOfAccountsCode());
@@ -78,8 +77,7 @@ public class AccountsPayableDocumentDerivedRoleTypeServiceImpl extends DerivedRo
                 }
 
             }
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Exception encountered when retrieving document number " + docId + ".", we);
             throw new RuntimeException("Exception encountered when retrieving document number " + docId + ".", we);
         }

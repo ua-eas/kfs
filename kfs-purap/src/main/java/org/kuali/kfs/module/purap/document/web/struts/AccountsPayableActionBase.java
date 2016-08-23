@@ -22,6 +22,19 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.AccountsPayableDocumentStrings;
 import org.kuali.kfs.module.purap.PurapConstants.CMDocumentsStrings;
@@ -58,19 +71,6 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -93,24 +93,25 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
         AccountsPayableDocumentBase document = (AccountsPayableDocumentBase) baseForm.getDocument();
         boolean foundAccountExpiredWarning = false;
-        for(int i=0;i<KNSGlobalVariables.getMessageList().size();i++){
-            if (StringUtils.equals(KNSGlobalVariables.getMessageList().get(i).getErrorKey(),PurapKeyConstants.MESSAGE_CLOSED_OR_EXPIRED_ACCOUNTS_REPLACED)){
+        for (int i = 0; i < KNSGlobalVariables.getMessageList().size(); i++) {
+            if (StringUtils.equals(KNSGlobalVariables.getMessageList().get(i).getErrorKey(), PurapKeyConstants.MESSAGE_CLOSED_OR_EXPIRED_ACCOUNTS_REPLACED)) {
                 foundAccountExpiredWarning = true;
             }
         }
 
-        if (!foundAccountExpiredWarning){
+        if (!foundAccountExpiredWarning) {
             SpringContext.getBean(AccountsPayableService.class).generateExpiredOrClosedAccountWarning(document);
         }
 
         return fwd;
 
     }
+
     /**
      * Performs refresh of objects after a lookup.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -151,9 +152,9 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
     /**
      * Perform calculation on item line.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
      * @return An ActionForward
      */
@@ -162,7 +163,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
         AccountsPayableFormBase apForm = (AccountsPayableFormBase) form;
         AccountsPayableDocument apDoc = (AccountsPayableDocument) apForm.getDocument();
 
-     //   //recalculate the amounts and percents on the accounting line.
+        //   //recalculate the amounts and percents on the accounting line.
         SpringContext.getBean(PurapAccountingService.class).updateAccountAmounts(apDoc);
 
         // call precalculate
@@ -172,10 +173,9 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
             // set calculated flag according to document type and status
             if (apForm instanceof PaymentRequestForm && apDoc.getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW)) {
                 // set calculated tax flag for tax area calculation
-                PaymentRequestForm preqForm = (PaymentRequestForm)apForm;
+                PaymentRequestForm preqForm = (PaymentRequestForm) apForm;
                 preqForm.setCalculatedTax(true);
-            }
-            else {
+            } else {
                 // set calculated flag for document calculation, whether or not the process calculation rule passes, since it only gives warning
                 apForm.setCalculated(true);
             }
@@ -220,7 +220,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -269,7 +269,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -287,17 +287,17 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
     /**
      * A wrapper method which prompts for a reason to hold a payment request or credit memo.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
+     * @param mapping      An ActionMapping
+     * @param form         An ActionForm
+     * @param request      The HttpServletRequest
+     * @param response     The HttpServletResponse
      * @param questionType A String used to distinguish which question is being asked
-     * @param notePrefix A String explaining what action was taken, to be prepended to the note containing the reason, which gets
-     *        written to the document
-     * @param operation A one-word String description of the action to be taken, to be substituted into the message. (Can be an
-     *        empty String for some messages.)
-     * @param messageKey A key to the message which will appear on the question screen
-     * @param callback A PurQuestionCallback
+     * @param notePrefix   A String explaining what action was taken, to be prepended to the note containing the reason, which gets
+     *                     written to the document
+     * @param operation    A one-word String description of the action to be taken, to be substituted into the message. (Can be an
+     *                     empty String for some messages.)
+     * @param messageKey   A key to the message which will appear on the question screen
+     * @param callback     A PurQuestionCallback
      * @return An ActionForward
      * @throws Exception
      */
@@ -310,21 +310,21 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
     /**
      * Builds and asks questions which require text input by the user for a payment request or a credit memo.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
-     * @param questionType A String used to distinguish which question is being asked
-     * @param notePrefix A String explaining what action was taken, to be prepended to the note containing the reason, which gets
-     *        written to the document
-     * @param operation A one-word String description of the action to be taken, to be substituted into the message. (Can be an
-     *        empty String for some messages.)
-     * @param messageKey A (whole) key to the message which will appear on the question screen
+     * @param mapping               An ActionMapping
+     * @param form                  An ActionForm
+     * @param request               The HttpServletRequest
+     * @param response              The HttpServletResponse
+     * @param questionType          A String used to distinguish which question is being asked
+     * @param notePrefix            A String explaining what action was taken, to be prepended to the note containing the reason, which gets
+     *                              written to the document
+     * @param operation             A one-word String description of the action to be taken, to be substituted into the message. (Can be an
+     *                              empty String for some messages.)
+     * @param messageKey            A (whole) key to the message which will appear on the question screen
      * @param questionsAndCallbacks A TreeMap associating the type of question to be asked and the type of callback which should
-     *        happen in that case
-     * @param messagePrefix The most general part of a key to a message text to be retrieved from ConfigurationService,
-     *        Describes a collection of questions.
-     * @param redirect An ActionForward to return to if done with questions
+     *                              happen in that case
+     * @param messagePrefix         The most general part of a key to a message text to be retrieved from ConfigurationService,
+     *                              Describes a collection of questions.
+     * @param redirect              An ActionForward to return to if done with questions
      * @return An ActionForward
      * @throws Exception
      */
@@ -350,8 +350,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
             // Ask question if not already asked.
             return this.performQuestionWithInput(mapping, form, request, response, firstQuestion, message, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-        }
-        else {
+        } else {
             // find callback for this question
             while (questions.hasNext()) {
                 mapQuestion = (String) questions.next();
@@ -374,8 +373,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
                     key = getQuestionProperty(messageKey, messagePrefix, kualiConfiguration, nextQuestion);
 
                     return this.performQuestionWithInput(mapping, form, request, response, nextQuestion, key, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-                }
-                else {
+                } else {
 
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
@@ -422,11 +420,11 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
      * Used to look up messages to be displayed, from the ConfigurationService, given either a whole key or two parts of a key
      * that may be concatenated together.
      *
-     * @param messageKey String. One of the message keys in PurapKeyConstants.
-     * @param messagePrefix String. A prefix to the question key, such as "ap.question." that, concatenated with the question,
-     *        comprises the whole key of the message.
+     * @param messageKey         String. One of the message keys in PurapKeyConstants.
+     * @param messagePrefix      String. A prefix to the question key, such as "ap.question." that, concatenated with the question,
+     *                           comprises the whole key of the message.
      * @param kualiConfiguration An instance of ConfigurationService
-     * @param question String. The most specific part of the message key in PurapKeyConstants.
+     * @param question           String. The most specific part of the message key in PurapKeyConstants.
      * @return The message to be displayed given the key
      */
     protected String getQuestionProperty(String messageKey, String messagePrefix, ConfigurationService kualiConfiguration, String question) {
@@ -440,7 +438,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -450,9 +448,9 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
     /**
      * Constructs and asks the question as to whether the user wants to cancel, for payment requests and credit memos.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
      * @return An ActionForward
      * @throws Exception
@@ -515,14 +513,12 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
                 String key = kualiConfiguration.getPropertyValueAsString(PurapKeyConstants.PURCHASE_ORDER_QUESTION_DOCUMENT);
                 String message = StringUtils.replace(key, "{0}", operation);
                 return this.performQuestionWithoutInput(mapping, form, request, response, questionType, message, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-            }
-            else {
+            } else {
                 Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if (question.equals(questionType) && buttonClicked.equals(ConfirmationQuestion.NO)) {
                     // If 'No' is the button clicked, just reload the doc
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
-                }
-                else if (question.equals(confirmType) && buttonClicked.equals(SingleConfirmationQuestion.OK)) {
+                } else if (question.equals(confirmType) && buttonClicked.equals(SingleConfirmationQuestion.OK)) {
                     // This is the case when the user clicks on "OK" in the end; redirect to the preq doc
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
@@ -547,8 +543,7 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
                     KNSGlobalVariables.getMessageList().add(messageType);
                 }
                 return this.performQuestionWithoutInput(mapping, form, request, response, confirmType, kualiConfiguration.getPropertyValueAsString(messageType), PODocumentsStrings.SINGLE_CONFIRMATION_QUESTION, questionType, "");
-            }
-            else {
+            } else {
                 return this.performQuestionWithoutInput(mapping, form, request, response, confirmType, "Unable to reopen the PO at this time due to the incorrect PO status or a pending PO change document.", PODocumentsStrings.SINGLE_CONFIRMATION_QUESTION, questionType, "");
             }
 
@@ -575,14 +570,12 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
                     return SpringContext.getBean(PurchaseOrderService.class).createAndRoutePotentialChangeDocument(po.getDocumentNumber(), PurchaseOrderDocTypes.PURCHASE_ORDER_REOPEN_DOCUMENT, (String) objects[1], null, PurchaseOrderStatuses.APPDOC_PENDING_REOPEN);
                 }
             };
-            return (PurchaseOrderDocument) SpringContext.getBean(PurapService.class).performLogicWithFakedUserSession(KFSConstants.SYSTEM_USER, logicToRun, new Object[] { po, annotation });
-        }
-        catch (WorkflowException e) {
+            return (PurchaseOrderDocument) SpringContext.getBean(PurapService.class).performLogicWithFakedUserSession(KFSConstants.SYSTEM_USER, logicToRun, new Object[]{po, annotation});
+        } catch (WorkflowException e) {
             String errorMsg = "Workflow Exception caught: " + e.getLocalizedMessage();
             LOG.error(errorMsg, e);
             throw new RuntimeException(errorMsg, e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -614,8 +607,8 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
         item.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
 
-        final KualiDecimal itemExtendedPrice = (item.getExtendedPrice()==null)?KualiDecimal.ZERO:item.getExtendedPrice();
-        if (item.getItemType().isQuantityBasedGeneralLedgerIndicator() && item.getExtendedPrice()==null) {
+        final KualiDecimal itemExtendedPrice = (item.getExtendedPrice() == null) ? KualiDecimal.ZERO : item.getExtendedPrice();
+        if (item.getItemType().isQuantityBasedGeneralLedgerIndicator() && item.getExtendedPrice() == null) {
             KualiDecimal newExtendedPrice = item.calculateExtendedPrice();
             item.setExtendedPrice(newExtendedPrice);
         }
@@ -642,15 +635,14 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
         if (PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE.equalsIgnoreCase(accountDistributionMethod)) {
             // update the accounts amounts for PREQ and distribution method = sequential
             purapAccountingService.updatePreqItemAccountAmounts(item);
-        }
-        else {
-                List<PurApAccountingLine> sourceAccountingLines = item.getSourceAccountingLines();
-                for (PurApAccountingLine acctLine : sourceAccountingLines) {
-                    acctLine.setAmount(KualiDecimal.ZERO);
-                }
+        } else {
+            List<PurApAccountingLine> sourceAccountingLines = item.getSourceAccountingLines();
+            for (PurApAccountingLine acctLine : sourceAccountingLines) {
+                acctLine.setAmount(KualiDecimal.ZERO);
+            }
 
-                purapAccountingService.updatePreqProportionalItemAccountAmounts(item);
-             }
+            purapAccountingService.updatePreqProportionalItemAccountAmounts(item);
+        }
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -682,7 +674,8 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
         item.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
 
-        final KualiDecimal itemExtendedPrice = (item.getExtendedPrice()==null)?KualiDecimal.ZERO:item.getExtendedPrice();;
+        final KualiDecimal itemExtendedPrice = (item.getExtendedPrice() == null) ? KualiDecimal.ZERO : item.getExtendedPrice();
+        ;
         if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
             KualiDecimal newExtendedPrice = item.calculateExtendedPrice();
             item.setExtendedPrice(newExtendedPrice);
@@ -722,8 +715,8 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
 
         PurApItem pOItem = getPOItem(pOItems, preqItem.getItemLineNumber());
         if (ObjectUtils.isNotNull(pOItem)) {
-         //   preqItem.setItemUnitPrice(pOItem.getItemUnitPrice());
-            List <PurApAccountingLine> preqAccountingLines = preqItem.getSourceAccountingLines();
+            //   preqItem.setItemUnitPrice(pOItem.getItemUnitPrice());
+            List<PurApAccountingLine> preqAccountingLines = preqItem.getSourceAccountingLines();
             for (PurApAccountingLine lineAcct : preqAccountingLines) {
                 updateItemAccountLine(pOItem, lineAcct);
             }
@@ -759,11 +752,11 @@ public class AccountsPayableActionBase extends PurchasingAccountsPayableActionBa
      * @param lineAcct
      */
     protected void updateItemAccountLine(PurApItem pOItem, PurApAccountingLine lineAcct) {
-        List <PurApAccountingLine> pOAccountingLines = pOItem.getSourceAccountingLines();
+        List<PurApAccountingLine> pOAccountingLines = pOItem.getSourceAccountingLines();
         for (PurApAccountingLine pOLineAcct : pOAccountingLines) {
             if (lineAcct.getChartOfAccountsCode().equalsIgnoreCase(pOLineAcct.getChartOfAccountsCode()) &&
-                    lineAcct.getAccountNumber().equalsIgnoreCase(pOLineAcct.getAccountNumber()) &&
-                    lineAcct.getFinancialObjectCode().equalsIgnoreCase(pOLineAcct.getFinancialObjectCode())) {
+                lineAcct.getAccountNumber().equalsIgnoreCase(pOLineAcct.getAccountNumber()) &&
+                lineAcct.getFinancialObjectCode().equalsIgnoreCase(pOLineAcct.getFinancialObjectCode())) {
                 lineAcct.setAmount(pOLineAcct.getAmount());
                 lineAcct.setAccountLinePercent(pOLineAcct.getAccountLinePercent());
             }

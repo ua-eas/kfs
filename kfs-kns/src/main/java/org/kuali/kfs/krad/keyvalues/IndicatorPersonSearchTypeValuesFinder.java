@@ -26,16 +26,13 @@ import java.util.List;
 
 /**
  * This is a description of what this class does - jjhanso don't forget to fill this in.
- *
- *
- *
  */
 public class IndicatorPersonSearchTypeValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
     /*
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
         List<KeyValue> activeLabels = new ArrayList<KeyValue>();
         activeLabels.add(new ConcreteKeyValue("user", "User"));
         activeLabels.add(new ConcreteKeyValue("group", "Group Member"));

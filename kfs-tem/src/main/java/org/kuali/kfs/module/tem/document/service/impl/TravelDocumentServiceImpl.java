@@ -18,49 +18,33 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_INVALID_NUMERIC_VALUE;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_LINE;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_PROPERTY;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_WRONG_PROPERTY_NUMBER;
-import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_TR_LODGING_ALREADY_CLAIMED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_TR_MEAL_ALREADY_CLAIMED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_UPLOADPARSER_EXCEEDED_MAX_LENGTH;
-import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_UPLOADPARSER_INVALID_VALUE;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.PER_DIEM_EXPENSE_DISABLED;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
+import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoice;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
 import org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.uif.field.LinkField;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
@@ -125,7 +109,6 @@ import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.FormatException;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -136,29 +119,45 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.bo.AdHocRoutePerson;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.uif.field.LinkField;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import au.com.bytecode.opencsv.CSVReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_INVALID_NUMERIC_VALUE;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_LINE;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_PROPERTY;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_UPLOADPARSER_WRONG_PROPERTY_NUMBER;
+import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_TR_LODGING_ALREADY_CLAIMED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_TR_MEAL_ALREADY_CLAIMED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_UPLOADPARSER_EXCEEDED_MAX_LENGTH;
+import static org.kuali.kfs.module.tem.TemKeyConstants.MESSAGE_UPLOADPARSER_INVALID_VALUE;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.PER_DIEM_EXPENSE_DISABLED;
 
 
 /**
@@ -224,10 +223,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Sets the meal and incidental amounts on the given per diem expense
-     * @param expense the expense to set amounts on
-     * @param perDiem the per diem record amounts are based off of
-     * @param tripType the trip type being taken
-     * @param tripEnd the end time of the trip
+     *
+     * @param expense       the expense to set amounts on
+     * @param perDiem       the per diem record amounts are based off of
+     * @param tripType      the trip type being taken
+     * @param tripEnd       the end time of the trip
      * @param shouldProrate whether this expense should be prorated
      */
     @Override
@@ -242,7 +242,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         expense.setDinnerValue(perDiem.getDinner());
         expense.setIncidentalsValue(perDiem.getIncidentals());
         // if prorated, recalculate the values
-        if(shouldProrate){
+        if (shouldProrate) {
             Integer perDiemPercent = calculateProratePercentage(expense, perDiemCalcMethod, tripEnd);
             expense.setDinnerValue(PerDiemExpense.calculateMealsAndIncidentalsProrated(expense.getDinnerValue(), perDiemPercent));
             expense.setLunchValue(PerDiemExpense.calculateMealsAndIncidentalsProrated(expense.getLunchValue(), perDiemPercent));
@@ -256,9 +256,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     /**
      * Makes sure that any rounding in determining prorated meals or incidentals amounts will not be more than the meals and incidentals totals allowed by the per diem.
      * Extra change will be taken from breakfast.
-     * @param expense the expense to correct
+     *
+     * @param expense        the expense to correct
      * @param perDiemPercent the percentage of the proration for this per diem
-     * @param perDiem the per diem record to work against
+     * @param perDiem        the per diem record to work against
      */
     protected void correctProratedPerDiemExpense(PerDiemExpense expense, Integer perDiemPercent, PerDiem perDiem) {
         final KualiDecimal mealAndIncidentalLimit = PerDiemExpense.calculateMealsAndIncidentalsProrated(perDiem.getMealsAndIncidentals(), perDiemPercent);
@@ -273,7 +274,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * Creates a date range for iterating over
      *
      * @param start of the date range
-     * @param end of the date range
+     * @param end   of the date range
      * @return Collection for iterating
      */
     protected Collection<Timestamp> dateRange(final Timestamp start, final Timestamp end) {
@@ -286,8 +287,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             for (; !cal.getTime().after(end) || KfsDateUtils.isSameDay(cal.getTime(), end); cal.add(Calendar.DATE, 1)) {
                 if (KfsDateUtils.isSameDay(cal.getTime(), end)) {
                     retval.add(new Timestamp(end.getTime()));
-                }
-                else {
+                } else {
                     retval.add(new Timestamp(cal.getTime().getTime()));
                 }
             }
@@ -312,7 +312,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             Timestamp tempEnd = perDiemExpenseList.get(0).getMileageDate();
 
             if (perDiemExpenseList.size() > 1) {
-                tempEnd = perDiemExpenseList.get(perDiemExpenseList.size()-1).getMileageDate();
+                tempEnd = perDiemExpenseList.get(perDiemExpenseList.size() - 1).getMileageDate();
             }
 
             if (!(tempStart.equals(start) && tempEnd.equals(end))) {
@@ -326,7 +326,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         // find a valid per diem for each date.  If per diem is null, make it a custom per diem.
         for (final Timestamp eachTimestamp : dateRange(start, end)) {
             PerDiem perDiem = getPerDiemService().getPerDiem(document.getPrimaryDestinationId(), eachTimestamp, document.getEffectiveDateForPerDiem(eachTimestamp));
-            if (perDiem == null || perDiem.getPrimaryDestinationId() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID){
+            if (perDiem == null || perDiem.getPrimaryDestinationId() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID) {
                 perDiem = new PerDiem();
                 perDiem.setPrimaryDestination(new PrimaryDestination());
                 perDiem.getPrimaryDestination().setRegion(new TemRegion());
@@ -371,13 +371,13 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 }
             }
 
-            LOG.debug("Iterating over date range from "+ start+ " to "+ end);
+            LOG.debug("Iterating over date range from " + start + " to " + end);
             int counter = 0;
             for (final Timestamp someDate : dateRange(start, end)) {
                 // Check if a per diem entry exists for this date
                 if (!perDiemMapped.containsKey(someDate)) {
                     final boolean prorated = shouldProrate(someDate, start, end);
-                    PerDiemExpense perDiemExpense = createPerDiemItem(document,perDiemList.get(counter), someDate, prorated, mileageRateExpenseTypeCode);
+                    PerDiemExpense perDiemExpense = createPerDiemItem(document, perDiemList.get(counter), someDate, prorated, mileageRateExpenseTypeCode);
                     perDiemExpense.setDocumentNumber(document.getDocumentNumber());
                     perDiemMapped.put(someDate, perDiemExpense);
                 }
@@ -388,16 +388,17 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         // Sort the dates and recreate the collection
         perDiemExpenseList.clear();
         for (final Timestamp someDate : new TreeSet<Timestamp>(perDiemMapped.keySet())) {
-            LOG.debug("Adding "+ perDiemMapped.get(someDate)+ " to perdiem list");
+            LOG.debug("Adding " + perDiemMapped.get(someDate) + " to perdiem list");
             perDiemExpenseList.add(perDiemMapped.get(someDate));
         }
     }
 
     /**
      * Determines if per diem expenses on the given date should be prorated
+     *
      * @param perDiemDate the timestamp of the per diem
-     * @param tripBegin the begin timestamp of the trip
-     * @param tripEnd the end timestamp of the trip
+     * @param tripBegin   the begin timestamp of the trip
+     * @param tripEnd     the end timestamp of the trip
      * @return true if the per diem expense should be prorated, false otherwise
      */
     protected boolean shouldProrate(Timestamp perDiemDate, Timestamp tripBegin, Timestamp tripEnd) {
@@ -412,7 +413,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public List<KeyValue> getMileageRateKeyValues(Date searchDate) {
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
 
-        TravelDocument document = (TravelDocument) ((TravelFormBase)KNSGlobalVariables.getKualiForm()).getDocument();
+        TravelDocument document = (TravelDocument) ((TravelFormBase) KNSGlobalVariables.getKualiForm()).getDocument();
         String documentType = getDocumentType(document);
         final String travelerType = ObjectUtils.isNull(document.getTraveler()) ? null : document.getTraveler().getTravelerTypeCode();
 
@@ -422,7 +423,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             if (TemConstants.ExpenseTypeMetaCategory.MILEAGE.getCode().equals(expenseType.getExpenseTypeMetaCategoryCode())) {
                 final MileageRate mileageRate = getMileageRateService().findMileageRateByExpenseTypeCodeAndDate(expenseType.getCode(), searchDate);
                 if (mileageRate != null) {
-                    keyValues.add(new ConcreteKeyValue(expenseType.getCode(), expenseType.getCode()+" - "+mileageRate.getRate().toString()));
+                    keyValues.add(new ConcreteKeyValue(expenseType.getCode(), expenseType.getCode() + " - " + mileageRate.getRate().toString()));
                 }
             }
         }
@@ -457,8 +458,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 if (perDiemExpenses != null && i < copyIndex) {
                     // copy over from the old list
                     perDiemExpense = perDiemExpenses.get(i);
-                }
-                else if (i > copyIndex) {
+                } else if (i > copyIndex) {
                     perDiemExpense = copyPerDiemExpense(restoredLine);
                     perDiemExpense.setMileageDate(perDiemExpenses.get(i).getMileageDate());
                     if (shouldProrate(perDiemExpense.getMileageDate(), travelDocument.getTripBegin(), travelDocument.getTripEnd())) {
@@ -481,8 +481,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                         // set lodging to 0
                         perDiemExpense.setLodging(KualiDecimal.ZERO);
                     }
-                }
-                else {
+                } else {
                     // are we copying a prorated line to a non-prorated spot?
 
                     // then let's restore all values before copying
@@ -500,6 +499,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * If the given perDiemExpense was prorated, restores the original values
+     *
      * @param travelDocument the travel document the expense is on
      * @param perDiemExpense the per diem expense to restore
      * @return a PerDiemExpense with all values restored
@@ -509,7 +509,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         if (travelDocument.getPrimaryDestinationId() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID && shouldProrate(perDiemExpense.getMileageDate(), travelDocument.getTripBegin(), travelDocument.getTripEnd())) {
             final Integer perDiemPercentage = lookupProratePercentage(perDiemExpense, travelDocument.getTripType().getPerDiemCalcMethod(), travelDocument.getTripEnd());
             if (perDiemPercentage != null) {
-                final KualiDecimal perDiemPercentageDecimal = new KualiDecimal((double)perDiemPercentage*0.01);
+                final KualiDecimal perDiemPercentageDecimal = new KualiDecimal((double) perDiemPercentage * 0.01);
                 restoredExpense.setBreakfastValue(perDiemExpense.getBreakfastValue().divide(perDiemPercentageDecimal));
                 restoredExpense.setLunchValue(perDiemExpense.getLunchValue().divide(perDiemPercentageDecimal));
                 restoredExpense.setDinnerValue(perDiemExpense.getDinnerValue().divide(perDiemPercentageDecimal));
@@ -526,6 +526,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Takes the values from the given per diem expense and copies them into a per diem
+     *
      * @param perDiemExpense the per diem expense to copy values from
      * @return a fake PerDiem record copied from those values
      */
@@ -583,18 +584,17 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#getDocumentsRelatedTo(org.kuali.kfs.module.tem.document.TravelDocument, java.lang.String[])
      */
     @Override
-    public List<Document> getDocumentsRelatedTo(final TravelDocument document, String... documentTypeList){
+    public List<Document> getDocumentsRelatedTo(final TravelDocument document, String... documentTypeList) {
         List<Document> relatedDocumentList = new ArrayList<Document>();
         Map<String, List<Document>> relatedDocumentMap;
         try {
             relatedDocumentMap = getDocumentsRelatedTo(document);
-            for (String documentType : documentTypeList){
-                if (relatedDocumentMap.containsKey(documentType)){
+            for (String documentType : documentTypeList) {
+                if (relatedDocumentMap.containsKey(documentType)) {
                     relatedDocumentList.addAll(relatedDocumentMap.get(documentType));
                 }
             }
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error(ex.getMessage(), ex);
             throw new RuntimeException(ex);
         }
@@ -638,18 +638,18 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#findAuthorizationDocuments(java.lang.String)
      */
     @Override
-    public List<TravelAuthorizationDocument> findAuthorizationDocuments(final String travelDocumentIdentifier){
+    public List<TravelAuthorizationDocument> findAuthorizationDocuments(final String travelDocumentIdentifier) {
         final List<String> ids = findAuthorizationDocumentNumbers(travelDocumentIdentifier);
 
         List<TravelAuthorizationDocument> resultDocumentLists = new ArrayList<TravelAuthorizationDocument>();
         //retrieve the actual documents
         try {
             if (!ids.isEmpty()) {
-                for (Document document : getDocumentService().getDocumentsByListOfDocumentHeaderIds(TravelAuthorizationDocument.class, ids)){
-                    resultDocumentLists.add((TravelAuthorizationDocument)document);
+                for (Document document : getDocumentService().getDocumentsByListOfDocumentHeaderIds(TravelAuthorizationDocument.class, ids)) {
+                    resultDocumentLists.add((TravelAuthorizationDocument) document);
                 }
             }
-        }catch (WorkflowException wfe){
+        } catch (WorkflowException wfe) {
             LOG.error(wfe.getMessage(), wfe);
         }
         return resultDocumentLists;
@@ -657,6 +657,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Gets the document numbers from the TravelDocumentDao for the given trip id
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#findAuthorizationDocumentNumbers(java.lang.String)
      */
     @Override
@@ -680,8 +681,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     resultDocumentLists.add((TravelReimbursementDocument) document);
                 }
             }
-        }
-        catch (WorkflowException wfe) {
+        } catch (WorkflowException wfe) {
             throw new RuntimeException(wfe);
         }
         return resultDocumentLists;
@@ -689,7 +689,6 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#addAdHocFYIRecipient(org.kuali.rice.kns.document.Document)
      */
     @Override
@@ -698,7 +697,6 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#addAdHocFYIRecipient(org.kuali.rice.kns.document.Document, java.lang.String)
      */
     @Override
@@ -713,8 +711,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public void addAdHocRecipient(Document document, String initiatorUserId, String actionRequested) {
         List<AdHocRoutePerson> adHocRoutePersons = document.getAdHocRoutePersons();
         List<String> adHocRoutePersonIds = new ArrayList<String>();
-        if(!adHocRoutePersons.isEmpty()){
-            for(AdHocRoutePerson ahrp : adHocRoutePersons){
+        if (!adHocRoutePersons.isEmpty()) {
+            for (AdHocRoutePerson ahrp : adHocRoutePersons) {
                 adHocRoutePersonIds.add(ahrp.getId());
             }
         }
@@ -729,12 +727,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     if (documentAuthorizer.canReceiveAdHoc(document, finSysUser, actionRequested)) {
                         adHocRoutePersons.add(recipient);
                     }
-                }
-                else {
+                } else {
                     LOG.warn("finSysUser is null.");
                 }
-            }
-            else {
+            } else {
                 LOG.warn("initiatorUserId is null.");
             }
         }
@@ -760,7 +756,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public List<Map<String, KualiDecimal>> calculateDailyTotals(List<PerDiemExpense> perDiemExpenses) {
         List<Map<String, KualiDecimal>> tripTotals = new ArrayList<Map<String, KualiDecimal>>();
 
-        for (PerDiemExpense perDiemExpense : perDiemExpenses){
+        for (PerDiemExpense perDiemExpense : perDiemExpenses) {
             Map<String, KualiDecimal> dailyTotal = calculateDailyTotal(perDiemExpense);
             tripTotals.add(dailyTotal);
         }
@@ -770,7 +766,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#calculateDailyTotal(org.kuali.kfs.module.tem.businessobject.PerDiemExpense,
-     *      boolean)
+     * boolean)
      */
     @Override
     public Map<String, KualiDecimal> calculateDailyTotal(PerDiemExpense perDiemExpense) {
@@ -797,7 +793,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         final String messagePattern = configurationService.getPropertyValueAsString(TemKeyConstants.MESSAGE_DOCUMENT_TEM_RETURNED_TO_FISCAL_OFFICER);
         final String annotation = MessageFormat.format(messagePattern, GlobalVariables.getUserSession().getPerson().getPrincipalName());
 
-        workflowDocument.adHocToPrincipal( ActionRequestType.FYI, KFSConstants.RouteLevelNames.ACCOUNT, annotation, workflowDocument.getInitiatorPrincipalId(), TemConstants.INITIATOR_RESPONSIBILITY, true);
+        workflowDocument.adHocToPrincipal(ActionRequestType.FYI, KFSConstants.RouteLevelNames.ACCOUNT, annotation, workflowDocument.getInitiatorPrincipalId(), TemConstants.INITIATOR_RESPONSIBILITY, true);
 
         document.refreshReferenceObject(KFSPropertyConstants.DOCUMENT_HEADER);
 
@@ -805,8 +801,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method calculates the prorate percentage value based on perDiemCalcMethod (P/Q)
+     *
      * @param expense
      * @param perDiemCalcMethod
      * @return
@@ -823,9 +819,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Looks up the prorate percentage, even if the per diem doesn't think it's prorated
-     * @param perDiemExpense the per diem expense to find a percentage for (if the quarterly method is used)
+     *
+     * @param perDiemExpense    the per diem expense to find a percentage for (if the quarterly method is used)
      * @param perDiemCalcMethod the per diem calculation method
-     * @param tripEnd the last day of the trip (used for the quarterly method)
+     * @param tripEnd           the last day of the trip (used for the quarterly method)
      * @return a prorate percentage, or 100 if nothing could be found
      */
     protected Integer lookupProratePercentage(PerDiemExpense perDiemExpense, String perDiemCalcMethod, Timestamp tripEnd) {
@@ -834,12 +831,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 final String perDiemPercentage = parameterService.getParameterValueAsString(TravelAuthorizationDocument.class, TravelAuthorizationParameters.FIRST_AND_LAST_DAY_PER_DIEM_PERCENTAGE, "100");
                 final Integer perDiemPercent = Integer.parseInt(perDiemPercentage);
                 return perDiemPercent;
-            }
-            catch (Exception e1) {
+            } catch (Exception e1) {
                 LOG.error("Failed to process prorate percentage for FIRST_AND_LAST_DAY_PER_DIEM_PERCENTAGE parameter.", e1);
             }
-        }
-        else {
+        } else {
             return calculatePerDiemPercentageFromTimestamp(perDiemExpense, tripEnd);
         }
         return 100;
@@ -874,12 +869,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 // Prorate on trip begin. (12:01 AM arrival = 100%, 11:59 PM arrival = 25%)
                 if (tripEnd != null && !KfsDateUtils.isSameDay(prorateDate.getTime(), tripEnd)) {
                     return 100 - ((quadrantIndex - 1) * TemConstants.QUADRANT_PERCENT_VALUE);
-                }
-                else { // Prorate on trip end. (12:01 AM departure = 25%, 11:59 PM arrival = 100%).
+                } else { // Prorate on trip end. (12:01 AM departure = 25%, 11:59 PM arrival = 100%).
                     return quadrantIndex * TemConstants.QUADRANT_PERCENT_VALUE;
                 }
-            }
-            catch (IllegalArgumentException e2) {
+            } catch (IllegalArgumentException e2) {
                 LOG.error("IllegalArgumentException.", e2);
             }
         }
@@ -913,8 +906,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
         if (perDiemExpense.getLodging() == null || perDiemExpense.getLodging().isNegative()) {
             retval.setLodging(KualiDecimal.ZERO);
-        }
-        else {
+        } else {
             retval.setLodging(perDiemExpense.getLodging());
         }
 
@@ -928,7 +920,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         retval.setDinnerValue(perDiemExpense.getDinnerValue());
         retval.setIncidentalsValue(perDiemExpense.getIncidentalsValue());
 
-        LOG.debug("estimated meals and incidentals "+ retval.getMealsAndIncidentals());
+        LOG.debug("estimated meals and incidentals " + retval.getMealsAndIncidentals());
 
         return retval;
     }
@@ -970,12 +962,12 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             final KualiDecimal amount = newActualExpenseLine.getExpenseAmount();
 
             newActualExpenseLine.setConvertedAmount(new KualiDecimal(amount.bigDecimalValue().multiply(rate)));
-            LOG.debug("Set converted amount for "+ newActualExpenseLine+ " to "+ newActualExpenseLine.getConvertedAmount());
+            LOG.debug("Set converted amount for " + newActualExpenseLine + " to " + newActualExpenseLine.getConvertedAmount());
 
             if (isHostedMeal(newActualExpenseLine)) {
                 KNSGlobalVariables.getMessageList().add(TemKeyConstants.MESSAGE_HOSTED_MEAL_ADDED,
-                        new SimpleDateFormat("MM/dd/yyyy").format(newActualExpenseLine.getExpenseDate()),
-                        newActualExpenseLine.getExpenseTypeObjectCode().getExpenseType().getName());
+                    new SimpleDateFormat("MM/dd/yyyy").format(newActualExpenseLine.getExpenseDate()),
+                    newActualExpenseLine.getExpenseTypeObjectCode().getExpenseType().getName());
                 newActualExpenseLine.setNonReimbursable(true);
             }
         }
@@ -996,7 +988,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         }
 
         if (havingExpenseType instanceof PersistableBusinessObject) {
-            ((PersistableBusinessObject)havingExpenseType).refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
+            ((PersistableBusinessObject) havingExpenseType).refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
         }
         if (ObjectUtils.isNull(havingExpenseType.getExpenseType())) {
             return false;
@@ -1018,8 +1010,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     @Override
     public String getMessageFrom(final String messageType, String... args) {
         String strTemp = getConfigurationService().getPropertyValueAsString(messageType);
-        for(int i=0;i<args.length;i++){
-            strTemp = strTemp.replaceAll("\\{"+i+"\\}", args[i]);
+        for (int i = 0; i < args.length; i++) {
+            strTemp = strTemp.replaceAll("\\{" + i + "\\}", args[i]);
         }
         return strTemp;
     }
@@ -1047,22 +1039,20 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @param document
      * @return
      */
     @Override
-    public boolean isTravelAuthorizationProcessed(TravelAuthorizationDocument document){
+    public boolean isTravelAuthorizationProcessed(TravelAuthorizationDocument document) {
         return isFinal(document) || isProcessed(document);
     }
 
     /**
-     *
      * @param document
      * @return
      */
     @Override
-    public boolean isTravelAuthorizationOpened(TravelAuthorizationDocument document){
+    public boolean isTravelAuthorizationOpened(TravelAuthorizationDocument document) {
         return isTravelAuthorizationProcessed(document) && isOpen(document);
     }
 
@@ -1084,8 +1074,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             if (doc != null) {
                 return doc.getOpenAmount();
             }
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException(we);
         }
 
@@ -1106,19 +1095,19 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
         try {
             final Map<String, List<Document>> relatedDocuments = getDocumentsRelatedTo(document);
-            List<Document> taDocs  = relatedDocuments.get(TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT);
+            List<Document> taDocs = relatedDocuments.get(TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT);
             List<Document> taaDocs = relatedDocuments.get(TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT);
             List<Document> tacDocs = relatedDocuments.get(TravelDocTypes.TRAVEL_AUTHORIZATION_CLOSE_DOCUMENT);
 
             //If TAC exists, it will always be the most current travel auth doc
             if (tacDocs != null && !tacDocs.isEmpty()) {
-                travelDocument =  (TravelAuthorizationDocument) tacDocs.get(0);
+                travelDocument = (TravelAuthorizationDocument) tacDocs.get(0);
             }
             //find the TAA with the correct status
-            else if (taaDocs != null && !taaDocs.isEmpty()){
-                for (Document tempDocument : taaDocs){
+            else if (taaDocs != null && !taaDocs.isEmpty()) {
+                for (Document tempDocument : taaDocs) {
                     //Find the doc that is the open to perform actions against.
-                    if (isTravelAuthorizationOpened((TravelAuthorizationDocument)tempDocument)){
+                    if (isTravelAuthorizationOpened((TravelAuthorizationDocument) tempDocument)) {
                         travelDocument = (TravelAuthorizationDocument) tempDocument;
                     }
                 }
@@ -1126,22 +1115,21 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             //return TA doc if no amendments exist
             if (travelDocument == null) {
                 //if the taDocs is null, initialize an empty list
-                taDocs = taDocs == null? new ArrayList<Document>() : taDocs;
+                taDocs = taDocs == null ? new ArrayList<Document>() : taDocs;
 
                 if (taDocs.isEmpty()) {
                     //this should find the TA document for sure
                     final List<TravelAuthorizationDocument> tempTaDocs = findAuthorizationDocuments(document.getTravelDocumentIdentifier());
-                    if (!tempTaDocs.isEmpty()){
+                    if (!tempTaDocs.isEmpty()) {
                         travelDocument = tempTaDocs.get(0);
                     }
-                }else{
+                } else {
                     travelDocument = (TravelAuthorizationDocument) taDocs.get(0);
                 }
             }
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             final String docNum = (document != null && !StringUtils.isBlank(document.getDocumentNumber())) ? document.getDocumentNumber() : "???";
-            throw new RuntimeException("Could not find documents related to document #"+docNum);
+            throw new RuntimeException("Could not find documents related to document #" + docNum);
         }
         return travelDocument;
     }
@@ -1166,7 +1154,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
             if (!tempTaDocs.isEmpty()) {
                 TravelAuthorizationDocument taDoc = null;
-                for(TravelAuthorizationDocument tempTaDoc : tempTaDocs) {
+                for (TravelAuthorizationDocument tempTaDoc : tempTaDocs) {
                     taDoc = tempTaDoc;
                     break;
                 }
@@ -1180,25 +1168,23 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 final List<TravelReimbursementDocument> tempTrDocs = findReimbursementDocuments(travelDocumentIdentifier);
                 //did not find any reimbursements either
                 if (tempTrDocs.isEmpty()) {
-                    LOG.debug("Did not find any authorizations or reimbursements for travelDocumentIndentifier: "+ travelDocumentIdentifier);
+                    LOG.debug("Did not find any authorizations or reimbursements for travelDocumentIndentifier: " + travelDocumentIdentifier);
                     return null;
                 }
 
                 //if there is only one document then that is the root
                 if (tempTrDocs.size() == 1) {
                     rootTravelDocument = tempTrDocs.get(0);
-                }
-                else {
+                } else {
                     //the root document can be found using any document in the list; just use the first one
                     String rootDocumentNumber = getAccountingDocumentRelationshipService().getRootDocumentNumber(tempTrDocs.get(0).getDocumentNumber());
-                    TravelDocument tempDoc = (TravelDocument)documentService.getByDocumentHeaderIdSessionless(rootDocumentNumber);
+                    TravelDocument tempDoc = (TravelDocument) documentService.getByDocumentHeaderIdSessionless(rootDocumentNumber);
 
                     rootTravelDocument = tempDoc;
                 }
             }
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not find authorization or reimbursement documents related to trip id #"+travelDocumentIdentifier);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not find authorization or reimbursement documents related to trip id #" + travelDocumentIdentifier);
         }
 
         return rootTravelDocument;
@@ -1209,19 +1195,19 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         KualiDecimal trTotal = KualiDecimal.ZERO;
 
         List<Document> relatedTravelReimbursementDocuments = getDocumentsRelatedTo(document, TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT);
-        for(Document trDoc: relatedTravelReimbursementDocuments) {
-            final TravelReimbursementDocument tr = (TravelReimbursementDocument)trDoc;
+        for (Document trDoc : relatedTravelReimbursementDocuments) {
+            final TravelReimbursementDocument tr = (TravelReimbursementDocument) trDoc;
             if (!KFSConstants.DocumentStatusCodes.CANCELLED.equals(tr.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode()) && !KFSConstants.DocumentStatusCodes.DISAPPROVED.equals(tr.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode())) {
                 List<AccountingLine> lines = tr.getSourceAccountingLines();
-                for(AccountingLine line: lines) {
+                for (AccountingLine line : lines) {
                     trTotal = trTotal.add(line.getAmount());
                 }
             }
         }
 
-        if (document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName().equals(TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT)){
+        if (document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName().equals(TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT)) {
             List<AccountingLine> lines = document.getSourceAccountingLines();
-            for(AccountingLine line: lines) {
+            for (AccountingLine line : lines) {
                 trTotal = trTotal.add(line.getAmount());
             }
         }
@@ -1237,9 +1223,9 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         KualiDecimal taTotal = KualiDecimal.ZERO;
         TravelAuthorizationDocument taDoc = null;
         taDoc = findCurrentTravelAuthorization(document);
-        if(taDoc != null) {
+        if (taDoc != null) {
             List<AccountingLine> lines = taDoc.getSourceAccountingLines();
-            for(AccountingLine line: lines) {
+            for (AccountingLine line : lines) {
                 taTotal = taTotal.add(line.getAmount());
             }
         }
@@ -1252,7 +1238,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * instance
      *
      * @param authorization to check for fiscal officer status on
-     * @param principalId is a Person that might be a fiscal officer on account
+     * @param principalId   is a Person that might be a fiscal officer on account
      * @return if the <code>user</code> is a fiscal officer on accounts tied to the {@link TravelAuthorizationDocument}
      */
     @Override
@@ -1265,7 +1251,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * Looks up accounts from {@link List} of {@link SourceAccountingLine} instances to determine if {@link Person} <code>user</code>
      * is a fiscal officer on any of those
      *
-     * @param lines or {@link List} of {@link SourceAccountingLine} instances
+     * @param lines       or {@link List} of {@link SourceAccountingLine} instances
      * @param principalId is a Person that might be a fiscal officer on accounts in <code>lines</code>
      * @return a {@link List} of account numbers the {@link Person} is a fiscal officer on
      */
@@ -1299,7 +1285,6 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#getAllStates(java.lang.String)
      */
     @Override
@@ -1319,9 +1304,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method imports the file and convert it to a list of objects (of the class specified in the parameter)
-     *
+     * <p>
      * TODO: re-evaluate KUALITEM-954 in regards to defaultValues and attributeMaxLength. Validation should not happen at parsing (these param are only used by importAttendees in TravelEntertainmentAction).
      *
      * @param formFile
@@ -1331,9 +1315,9 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @return
      */
     @Override
-    public <T> List<T> importFile(final String fileContents, final Class<T> c, final String[] attributeNames, final Map<String,List<String>> defaultValues,
-            final Integer[] attributeMaxLength, final String tabErrorKey) {
-        if(attributeMaxLength != null && attributeNames.length != attributeMaxLength.length){
+    public <T> List<T> importFile(final String fileContents, final Class<T> c, final String[] attributeNames, final Map<String, List<String>> defaultValues,
+                                  final Integer[] attributeMaxLength, final String tabErrorKey) {
+        if (attributeMaxLength != null && attributeNames.length != attributeMaxLength.length) {
             throw new UploadParserException("Invalid parser configuration, the number of attribute names and attribute max length should be the same");
         }
 
@@ -1341,8 +1325,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method imports the file and convert it to a list of objects (of the class specified in the parameter)
+     *
      * @param formFile
      * @param c
      * @param attributeNames
@@ -1350,7 +1334,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @param fileExtensions
      * @return
      */
-    public <T> List<T> importFile(final String fileContents, Class<T> c, String[] attributeNames,Map<String, List<String>> defaultValues, Integer[] attributeMaxLength, String tabErrorKey, List<String> fileExtensions) {
+    public <T> List<T> importFile(final String fileContents, Class<T> c, String[] attributeNames, Map<String, List<String>> defaultValues, Integer[] attributeMaxLength, String tabErrorKey, List<String> fileExtensions) {
         final List<T> importedObjects = new ArrayList<T>();
 
         // parse file line by line
@@ -1361,8 +1345,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             try {
                 final T o = parseLine(line, c, attributeNames, defaultValues, attributeMaxLength, lineNo, tabErrorKey);
                 importedObjects.add(o);
-            }
-            catch (UploadParserException e) {
+            } catch (UploadParserException e) {
                 // continue to parse the rest of the lines after the current line fails
                 // error messages are already dealt with inside parseFile, so no need to do anything here
                 failed = true;
@@ -1377,8 +1360,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method parses a CSV line
+     *
      * @param line
      * @param c
      * @param attributeNames
@@ -1386,7 +1369,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @param tabErrorKey
      * @return
      */
-    protected <T> T parseLine(String line, Class<T> c, String[] attributeNames,Map<String, List<String>> defaultValues, Integer[] attributeMaxLength, Integer lineNo, String tabErrorKey) {
+    protected <T> T parseLine(String line, Class<T> c, String[] attributeNames, Map<String, List<String>> defaultValues, Integer[] attributeMaxLength, Integer lineNo, String tabErrorKey) {
         final Map<String, String> objectMap = retrieveObjectAttributes(line, attributeNames, defaultValues, attributeMaxLength, lineNo, tabErrorKey);
         final T obj = genObjectWithRetrievedAttributes(objectMap, c, lineNo, tabErrorKey);
         ((PersistableBusinessObject) obj).refresh();
@@ -1394,8 +1377,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method generates an object instance and populates it with the specified attribute map.
+     *
      * @param objectMap
      * @param c
      * @param lineNo
@@ -1403,12 +1386,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @return
      */
     protected <T> T genObjectWithRetrievedAttributes(final Map<String, String> objectMap,
-            final Class<T> c, final Integer lineNo, final String tabErrorKey) {
+                                                     final Class<T> c, final Integer lineNo, final String tabErrorKey) {
         T object;
         try {
             object = c.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new InfrastructureException("unable to complete line population.", e);
         }
 
@@ -1417,38 +1399,33 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             try {
                 try {
                     ObjectUtils.setObjectProperty(object, entry.getKey(), entry.getValue());
-                }
-                catch (FormatException e) {
-                    String[] errorParams = { entry.getValue(), entry.getKey(), "" + lineNo };
+                } catch (FormatException e) {
+                    String[] errorParams = {entry.getValue(), entry.getKey(), "" + lineNo};
                     throw new UploadParserException("invalid numeric property value: "
-                            + entry.getKey() + " = " + entry.getValue() + " (line " + lineNo + ")", ERROR_UPLOADPARSER_INVALID_NUMERIC_VALUE, errorParams);
+                        + entry.getKey() + " = " + entry.getValue() + " (line " + lineNo + ")", ERROR_UPLOADPARSER_INVALID_NUMERIC_VALUE, errorParams);
                 }
-            }
-            catch (UploadParserException e) {
+            } catch (UploadParserException e) {
                 // continue to parse the rest of the properties after the current property fails
                 GlobalVariables.getMessageMap().putError(tabErrorKey, e.getErrorKey(), e.getErrorParameters());
                 failed = true;
-            }
-            catch (NoSuchMethodException nsme) {
+            } catch (NoSuchMethodException nsme) {
                 throw new RuntimeException("Could not set property while parsing group travelers csv", nsme);
-            }
-            catch (InvocationTargetException ite) {
+            } catch (InvocationTargetException ite) {
                 throw new RuntimeException("Could not set property while parsing group travelers csv", ite);
-            }
-            catch (IllegalAccessException iae) {
+            } catch (IllegalAccessException iae) {
                 throw new RuntimeException("Could not set property while parsing group travelers csv", iae);
             }
         }
 
         if (failed) {
-            throw new UploadParserException("empty or invalid properties in line " + lineNo + ")", ERROR_UPLOADPARSER_PROPERTY, ""+lineNo);
+            throw new UploadParserException("empty or invalid properties in line " + lineNo + ")", ERROR_UPLOADPARSER_PROPERTY, "" + lineNo);
         }
         return object;
     }
 
     /**
-     *
      * This method retrieves the attributes as key-value string pairs into a map.
+     *
      * @param line
      * @param attributeNames
      * @param lineNo
@@ -1456,13 +1433,13 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @return
      */
     protected Map<String, String> retrieveObjectAttributes(String line,
-            String[] attributeNames,
-            Map<String, List<String>> defaultValues,
-            Integer[] attributeMaxLength,
-            Integer lineNo, String tabErrorKey) {
+                                                           String[] attributeNames,
+                                                           Map<String, List<String>> defaultValues,
+                                                           Integer[] attributeMaxLength,
+                                                           Integer lineNo, String tabErrorKey) {
         String[] attributeValues = StringUtils.splitPreserveAllTokens(line, ',');
         if (attributeNames.length != attributeValues.length) {
-            String[] errorParams = { "" + attributeNames.length, "" + attributeValues.length, "" + lineNo };
+            String[] errorParams = {"" + attributeNames.length, "" + attributeValues.length, "" + lineNo};
             GlobalVariables.getMessageMap().putError(tabErrorKey, ERROR_UPLOADPARSER_WRONG_PROPERTY_NUMBER, errorParams);
             throw new UploadParserException("wrong number of properties: " + attributeValues.length + " exist, " + attributeNames.length + " expected (line " + lineNo + ")", ERROR_UPLOADPARSER_WRONG_PROPERTY_NUMBER, errorParams);
         }
@@ -1485,7 +1462,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             if (attributeMaxLength != null) {
                 if (attributeValues[i] != null && attributeValues[i].length() > attributeMaxLength[i]) {
                     attributeValues[i] = attributeValues[i].substring(0, attributeMaxLength[i]);
-                    String[] errorParams = { "" + attributeNames[i], "" + attributeMaxLength[i], "" + lineNo };
+                    String[] errorParams = {"" + attributeNames[i], "" + attributeMaxLength[i], "" + lineNo};
                     GlobalVariables.getMessageMap().putWarning(tabErrorKey, MESSAGE_UPLOADPARSER_EXCEEDED_MAX_LENGTH, errorParams);
                 }
             }
@@ -1522,12 +1499,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     indexes.add(y);
                 }
                 retval.put(formattedName, indexes);
-            }
-            else {
+            } else {
                 final String formattedName = toCamelCase(csvHeader[i]);
 
                 if (StringUtils.isNotBlank(formattedName)) {
-                    retval.put(formattedName, Arrays.asList(new Integer[] { i }));
+                    retval.put(formattedName, Arrays.asList(new Integer[]{i}));
                 }
             }
         }
@@ -1585,19 +1561,17 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         final List<String[]> rows;
         try {
             rows = csvReader.readAll();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             throw new ParseException("Could not  parse CSV file data", ex);
-        }
-        finally {
+        } finally {
             try {
                 csvReader.close();
+            } catch (Exception e) {
             }
-            catch (Exception e) {}
         }
 
-        final Map<String,List<Integer>> header = getGroupTravelerHeaders();
+        final Map<String, List<Integer>> header = getGroupTravelerHeaders();
 
         for (final String[] row : rows) {
             final GroupTravelerCsvRecord record = createGroupTravelerCsvRecord(header, row);
@@ -1619,8 +1593,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public boolean isUnsuccessful(TravelDocument document) {
         String status = document.getDocumentHeader().getWorkflowDocument().getStatus().getCode();
         List<String> unsuccessful = KewApiConstants.DOCUMENT_STATUS_PARENT_TYPES.get(KewApiConstants.DOCUMENT_STATUS_PARENT_TYPE_UNSUCCESSFUL);
-        for (String tempStatus : unsuccessful){
-            if (status.equals(tempStatus)){
+        for (String tempStatus : unsuccessful) {
+            if (status.equals(tempStatus)) {
                 return true;
             }
         }
@@ -1630,9 +1604,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Turns the injected List of groupTravelerHeaders into a Map where the key is the name and the value is a single element array holding the position of the column (which is assumed to be in the order the columns were injected)
+     *
      * @return a Map of columns and positions
      */
-    protected Map<String,List<Integer>> getGroupTravelerHeaders() {
+    protected Map<String, List<Integer>> getGroupTravelerHeaders() {
         Map<String, List<Integer>> headers = new HashMap<String, List<Integer>>();
         if (getGroupTravelerColumns() != null && !getGroupTravelerColumns().isEmpty()) {
             int count = 0;
@@ -1648,7 +1623,6 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copyGroupTravelers(java.util.List, java.lang.String)
      */
     @Override
@@ -1669,7 +1643,6 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copyActualExpenses(java.util.List, java.lang.String)
      */
     @Override
@@ -1678,7 +1651,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
         if (actualExpenses != null) {
             for (TemExpense expense : actualExpenses) {
-                ActualExpense actualExpense = (ActualExpense)expense;
+                ActualExpense actualExpense = (ActualExpense) expense;
                 ActualExpense newActualExpense = new ActualExpense();
                 boolean nullCheck = false;
                 if (actualExpense.getExpenseDate() == null) {
@@ -1703,19 +1676,18 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         return newActualExpenses;
     }
 
-    private Long getNextActualExpenseId(){
+    private Long getNextActualExpenseId() {
         return SpringContext.getBean(SequenceAccessorService.class).getNextAvailableSequenceNumber(TemConstants.TEM_ACTUAL_EXPENSE_SEQ_NAME);
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copyPerDiemExpenses(java.util.List, java.lang.String)
      */
     @Override
     public List<PerDiemExpense> copyPerDiemExpenses(List<PerDiemExpense> perDiemExpenses, String documentNumber) {
         List<PerDiemExpense> newPerDiemExpenses = new ArrayList<PerDiemExpense>();
         if (perDiemExpenses != null) {
-            for (PerDiemExpense expense : perDiemExpenses){
+            for (PerDiemExpense expense : perDiemExpenses) {
                 PerDiemExpense newExpense = new PerDiemExpense();
                 BeanUtils.copyProperties(expense, newExpense);
                 newExpense.setBreakfastValue(expense.getBreakfastValue());
@@ -1733,14 +1705,13 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copyTravelAdvances(java.util.List, java.lang.String)
      */
     @Override
     public List<TravelAdvance> copyTravelAdvances(List<TravelAdvance> travelAdvances, String documentNumber) {
         List<TravelAdvance> newTravelAdvances = new ArrayList<TravelAdvance>();
         if (travelAdvances != null) {
-            for (TravelAdvance travelAdvance : travelAdvances){
+            for (TravelAdvance travelAdvance : travelAdvances) {
                 TravelAdvance newTravelAdvance = (TravelAdvance) ObjectUtils.deepCopy(travelAdvance);
                 newTravelAdvance.setDocumentNumber(documentNumber);
                 newTravelAdvance.setVersionNumber(new Long(1));
@@ -1753,14 +1724,13 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#copySpecialCircumstances(java.util.List, java.lang.String)
      */
     @Override
     public List<SpecialCircumstances> copySpecialCircumstances(List<SpecialCircumstances> specialCircumstancesList, String documentNumber) {
         List<SpecialCircumstances> newSpecialCircumstancesList = new ArrayList<SpecialCircumstances>();
         if (specialCircumstancesList != null) {
-            for (SpecialCircumstances specialCircumstances : specialCircumstancesList){
+            for (SpecialCircumstances specialCircumstances : specialCircumstancesList) {
                 SpecialCircumstances newSpecialCircumstances = new SpecialCircumstances();
                 BeanUtils.copyProperties(specialCircumstances, newSpecialCircumstances);
                 newSpecialCircumstances.setDocumentNumber(documentNumber);
@@ -1780,7 +1750,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public List<TransportationModeDetail> copyTransportationModeDetails(List<TransportationModeDetail> transportationModeDetails, String documentNumber) {
         List<TransportationModeDetail> newTransportationModeDetails = new ArrayList<TransportationModeDetail>();
         if (transportationModeDetails != null) {
-            for (TransportationModeDetail detail : transportationModeDetails){
+            for (TransportationModeDetail detail : transportationModeDetails) {
                 TransportationModeDetail newDetail = new TransportationModeDetail();
                 BeanUtils.copyProperties(detail, newDetail);
                 newDetail.setDocumentNumber(documentNumber);
@@ -1796,10 +1766,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#showNoTravelAuthorizationError(org.kuali.kfs.module.tem.document.TravelReimbursementDocument)
      */
     @Override
-    public void showNoTravelAuthorizationError(TravelReimbursementDocument document){
-        if (document.getTripType() != null && document.getTripType().getTravelAuthorizationRequired()){
+    public void showNoTravelAuthorizationError(TravelReimbursementDocument document) {
+        if (document.getTripType() != null && document.getTripType().getTravelAuthorizationRequired()) {
             TravelAuthorizationDocument authorization = findCurrentTravelAuthorization(document);
-            if (authorization == null){
+            if (authorization == null) {
                 GlobalVariables.getMessageMap().putError(KRADPropertyConstants.DOCUMENT + "." + TemPropertyConstants.TRIP_TYPE_CODE, TemKeyConstants.ERROR_TRIP_TYPE_TA_REQUIRED, document.getTripType().getName());
             }
         }
@@ -1815,7 +1785,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             return retval;
         }
 
-        LOG.debug("Looking for travel advances for travel: "+ travelDocument.getDocumentNumber());
+        LOG.debug("Looking for travel advances for travel: " + travelDocument.getDocumentNumber());
 
         TravelAuthorizationDocument authorization = null;
         authorization = findCurrentTravelAuthorization(travelDocument);
@@ -1837,56 +1807,54 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     @Override
     public String retrieveAddressFromLocationCode(String locationCode) {
         PaymentDocumentationLocation dvDocumentLocation = businessObjectService.findBySinglePrimaryKey(PaymentDocumentationLocation.class, locationCode);
-        String address = ObjectUtils.isNotNull(dvDocumentLocation)? dvDocumentLocation.getPaymentDocumentationLocationAddress() : "";
+        String address = ObjectUtils.isNotNull(dvDocumentLocation) ? dvDocumentLocation.getPaymentDocumentationLocationAddress() : "";
         return address;
     }
 
     @Override
     public boolean validateSourceAccountingLines(TravelDocument travelDocument, boolean addToErrorPath) {
         boolean success = true;
-        Map<String,Object> fieldValues = new HashMap<String,Object>();
+        Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put(KRADPropertyConstants.DOCUMENT_NUMBER, travelDocument.getDocumentNumber());
         fieldValues.put(KFSPropertyConstants.FINANCIAL_DOCUMENT_LINE_TYPE_CODE, KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
 
-        List<TemSourceAccountingLine> currentLines = (List<TemSourceAccountingLine>) getBusinessObjectService().findMatchingOrderBy(TemSourceAccountingLine.class, fieldValues,KFSPropertyConstants.SEQUENCE_NUMBER, true);
+        List<TemSourceAccountingLine> currentLines = (List<TemSourceAccountingLine>) getBusinessObjectService().findMatchingOrderBy(TemSourceAccountingLine.class, fieldValues, KFSPropertyConstants.SEQUENCE_NUMBER, true);
 
         final boolean canUpdate = isAtTravelNode(travelDocument.getDocumentHeader().getWorkflowDocument());  // Are we at the travel node?  If so, there's a chance that accounting lines changed; if they did, that
-                                        // was a permission granted to the travel manager so we should allow it
+        // was a permission granted to the travel manager so we should allow it
 
-        for (int i=0;i<travelDocument.getSourceAccountingLines().size();i++){
+        for (int i = 0; i < travelDocument.getSourceAccountingLines().size(); i++) {
             AccountingLine line = (AccountingLine) travelDocument.getSourceAccountingLines().get(i);
-            if (addToErrorPath){
+            if (addToErrorPath) {
                 GlobalVariables.getMessageMap().getErrorPath().add("document." + TemPropertyConstants.SOURCE_ACCOUNTING_LINE + "[" + i + "]");
             }
-            if(StringUtils.isBlank(line.getAccountNumber())){
+            if (StringUtils.isBlank(line.getAccountNumber())) {
                 success = false;
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, KFSKeyConstants.ERROR_REQUIRED, "Account Number");
-            }
-            else{
+            } else {
                 if ((!travelDocument.getAppDocStatus().equalsIgnoreCase("Initiated"))
-                        && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS))
-                        && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.CHANGE_IN_PROCESS))){
+                    && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.IN_PROCESS))
+                    && (!travelDocument.getAppDocStatus().equalsIgnoreCase(TemConstants.TravelAuthorizationStatusCodeKeys.CHANGE_IN_PROCESS))) {
                     if ((i < currentLines.size()) && (!(currentLines.get(i)).getAccountNumber().equals(line.getAccountNumber()))
-                            || (i >= currentLines.size())){
-                        try{
+                        || (i >= currentLines.size())) {
+                        try {
                             if (!line.getAccount().getAccountFiscalOfficerUser().getPrincipalId().equals(GlobalVariables.getUserSession().getPerson().getPrincipalId())
-                                    && !canUpdate){
+                                && !canUpdate) {
                                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, TemKeyConstants.ERROR_TA_FISCAL_OFFICER_ACCOUNT, line.getAccountNumber());
                                 success = false;
                             }
-                        }
-                        catch(Exception e){
+                        } catch (Exception e) {
                             //do nothing, other validation will figure out this account doesn't exist
                         }
                     }
                 }
             }
-            if(StringUtils.isBlank(line.getChartOfAccountsCode())){
+            if (StringUtils.isBlank(line.getChartOfAccountsCode())) {
                 success = false;
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSKeyConstants.ERROR_REQUIRED, "Chart");
             }
-            if (addToErrorPath){
-                GlobalVariables.getMessageMap().getErrorPath().remove(GlobalVariables.getMessageMap().getErrorPath().size()-1);
+            if (addToErrorPath) {
+                GlobalVariables.getMessageMap().getErrorPath().remove(GlobalVariables.getMessageMap().getErrorPath().size() - 1);
             }
         }
 
@@ -1928,11 +1896,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      */
     @Override
     public Date findLatestTaxableRamificationNotificationDate() {
-        Object[] returnResult =  travelDocumentDao.findLatestTaxableRamificationNotificationDate();
+        Object[] returnResult = travelDocumentDao.findLatestTaxableRamificationNotificationDate();
         Date date = null;
         try {
-          date =  ObjectUtils.isNotNull(returnResult[0])? dateTimeService.convertToSqlDate((Timestamp)returnResult[0]): null;
-        }catch (java.text.ParseException ex) {
+            date = ObjectUtils.isNotNull(returnResult[0]) ? dateTimeService.convertToSqlDate((Timestamp) returnResult[0]) : null;
+        } catch (java.text.ParseException ex) {
             LOG.error("Invalid latest taxable ramification notification date " + returnResult[0]);
         }
 
@@ -1941,7 +1909,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     @Override
     public void detachImportedExpenses(TravelDocument document) {
-        for (ImportedExpense importedExpense : document.getImportedExpenses()){
+        for (ImportedExpense importedExpense : document.getImportedExpenses()) {
             ExpenseUtils.assignExpense(importedExpense.getHistoricalTravelExpenseId(), null, null, null, false);
         }
         document.setImportedExpenses(new ArrayList<ImportedExpense>());
@@ -1950,8 +1918,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     @Override
     public void attachImportedExpenses(TravelDocument document) {
-        for (ImportedExpense importedExpense : document.getImportedExpenses()){
-            ExpenseUtils.assignExpense(importedExpense.getHistoricalTravelExpenseId(), document.getTravelDocumentIdentifier(),document.getDocumentNumber(), document.getFinancialDocumentTypeCode(), true);
+        for (ImportedExpense importedExpense : document.getImportedExpenses()) {
+            ExpenseUtils.assignExpense(importedExpense.getHistoricalTravelExpenseId(), document.getTravelDocumentIdentifier(), document.getDocumentNumber(), document.getFinancialDocumentTypeCode(), true);
         }
     }
 
@@ -1959,11 +1927,12 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * Check to see if the hold new fiscal year encumbrance indicator is true
      * and the trip end date is after the current fiscal year end date to determine
      * whether or not to mark all the GLPEs as 'H' (Hold)
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#holdGLPEs(org.kuali.kfs.module.tem.document.TravelDocument)
      */
     @Override
     public boolean checkHoldGLPEs(TravelDocument document) {
-        if(getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.HOLD_NEW_FISCAL_YEAR_ENCUMBRANCES_IND)) {
+        if (getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.HOLD_NEW_FISCAL_YEAR_ENCUMBRANCES_IND)) {
 
             java.util.Date endDate = getUniversityDateService().getLastDateOfFiscalYear(getUniversityDateService().getCurrentFiscalYear());
             if (ObjectUtils.isNotNull(document.getTripBegin()) && document.getTripBegin().after(endDate)) {
@@ -1982,15 +1951,14 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     public void revertOriginalDocument(TravelDocument travelDocument, String status) {
         final DocumentAttributeIndexingQueue documentAttributeIndexingQueue = KewApiServiceLocator.getDocumentAttributeIndexingQueue(); // this service is not a good candidate for injection
         List<Document> relatedDocumentList = getDocumentsRelatedTo(travelDocument, TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT,
-                TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT);
+            TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT);
 
         for (Document taDocument : relatedDocumentList) {
             if (taDocument.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT)) {
                 TravelAuthorizationDocument taDoc = (TravelAuthorizationDocument) taDocument;
                 try {
                     taDoc.updateAndSaveAppDocStatus(status);
-                }
-                catch (WorkflowException ex1) {
+                } catch (WorkflowException ex1) {
                     // TODO Auto-generated catch block
                     ex1.printStackTrace();
                 }
@@ -2001,8 +1969,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     cancelNote.setAuthorUniversalIdentifier(systemUser.getPrincipalId());
                     taDoc.addNote(cancelNote);
                     getNoteService().save(cancelNote);
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 documentAttributeIndexingQueue.indexDocument(taDoc.getDocumentNumber());
@@ -2020,14 +1987,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         if (document != null) {
             if (document instanceof TravelAuthorizationDocument) {
                 documentType = TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT;
-            }
-            else if (document instanceof TravelReimbursementDocument) {
+            } else if (document instanceof TravelReimbursementDocument) {
                 documentType = TemConstants.TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT;
-            }
-            else if (document instanceof TravelEntertainmentDocument) {
+            } else if (document instanceof TravelEntertainmentDocument) {
                 documentType = TemConstants.TravelDocTypes.TRAVEL_ENTERTAINMENT_DOCUMENT;
-            }
-            else if (document instanceof TravelRelocationDocument) {
+            } else if (document instanceof TravelRelocationDocument) {
                 documentType = TemConstants.TravelDocTypes.TRAVEL_RELOCATION_DOCUMENT;
             }
         }
@@ -2054,6 +2018,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Returns all travel advances associated with the given trip id
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelReimbursementService#getTravelAdvancesForTrip(java.lang.String)
      */
     @Override
@@ -2062,7 +2027,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         criteria.put(TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER, travelDocumentIdentifier);
         List<TravelAdvance> advances = new ArrayList<TravelAdvance>();
         final Collection<TravelAdvance> foundAdvances = getBusinessObjectService().findMatchingOrderBy(TravelAdvance.class, criteria, KFSPropertyConstants.DOCUMENT_NUMBER, true);
-        for (TravelAdvance foundAdvance: foundAdvances) {
+        for (TravelAdvance foundAdvance : foundAdvances) {
             if (foundAdvance.isAtLeastPartiallyFilledIn() && isDocumentApprovedOrExtracted(foundAdvance.getDocumentNumber())) {
                 advances.add(foundAdvance);
             }
@@ -2071,9 +2036,9 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
 
-
     /**
      * Determines if the document with the given document number has been approved or not
+     *
      * @param documentNumber the document number of the document to check
      * @return true if the document has been approved, false otherwise
      */
@@ -2084,6 +2049,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Determines if the document with the given document number has been initiated or submitted for routing
+     *
      * @param documentNumber the document number of the document to check
      * @return true if the document has been approved, false otherwise
      */
@@ -2114,7 +2080,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         if (trDocument.getPerDiemExpenses() != null && !trDocument.getPerDiemExpenses().isEmpty()) {  // no per diems? then let's not bother
             if (actualExpense.getExpenseDetails() != null && !actualExpense.getExpenseDetails().isEmpty()) {
                 for (TemExpense detail : actualExpense.getExpenseDetails()) {
-                    checkActualExpenseAgainstPerDiems(trDocument, (ActualExpense)detail);
+                    checkActualExpenseAgainstPerDiems(trDocument, (ActualExpense) detail);
                 }
             } else {
                 checkActualExpenseAgainstPerDiems(trDocument, actualExpense);
@@ -2124,7 +2090,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Checks the given actual expense (or detail) against each of the per diems on the TR document to disable
-     * @param trDocument the travel reimbursement with per diems to check against
+     *
+     * @param trDocument    the travel reimbursement with per diems to check against
      * @param actualExpense
      */
     protected void checkActualExpenseAgainstPerDiems(TravelDocument trDocument, ActualExpense actualExpense) {
@@ -2136,22 +2103,23 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     message.addToProperties(trDocument.getDisabledProperties());
                 }
             }
-            i+=1;
+            i += 1;
         }
     }
 
     /**
      * Given one actual expense and one per diem, determines if any of fields on the per diem should be disabled because the actual expense is already covering it
-     * @param actualExpense the actual expense to check
-     * @param perDiemExpense the per diem to check the actual expense against
+     *
+     * @param actualExpense        the actual expense to check
+     * @param perDiemExpense       the per diem to check the actual expense against
      * @param otherExpenseLineCode the expense type code of the actual epxnese
-     * @param perDiemCount the count of the per diems we have worked through
+     * @param perDiemCount         the count of the per diems we have worked through
      * @return a List of any messages about disabled properties which occurred
      */
     protected List<DisabledPropertyMessage> disableDuplicateExpenseForPerDiem(ActualExpense actualExpense, PerDiemExpense perDiemExpense, int perDiemCount) {
         List<DisabledPropertyMessage> disabledPropertyMessages = new ArrayList<DisabledPropertyMessage>();
 
-        if (actualExpense.getExpenseDate() == null){
+        if (actualExpense.getExpenseDate() == null) {
             return disabledPropertyMessages;
         }
         final String expenseDate = getDateTimeService().toDateString(actualExpense.getExpenseDate());
@@ -2164,14 +2132,12 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 perDiemExpense.setBreakfast(false);
                 perDiemExpense.setBreakfastValue(KualiDecimal.ZERO);
                 valid = false;
-            }
-            else if (perDiemExpense.getLunch() && actualExpense.isLunch() && (actualExpense.getExpenseType().isHosted() || actualExpense.getExpenseType().isGroupTravel())) {
+            } else if (perDiemExpense.getLunch() && actualExpense.isLunch() && (actualExpense.getExpenseType().isHosted() || actualExpense.getExpenseType().isGroupTravel())) {
                 meal = TemConstants.HostedMeals.HOSTED_LUNCH;
                 perDiemExpense.setLunch(false);
                 perDiemExpense.setLunchValue(KualiDecimal.ZERO);
                 valid = false;
-            }
-            else if (perDiemExpense.getDinner() && actualExpense.isDinner() && (actualExpense.getExpenseType().isHosted() || actualExpense.getExpenseType().isGroupTravel())) {
+            } else if (perDiemExpense.getDinner() && actualExpense.isDinner() && (actualExpense.getExpenseType().isHosted() || actualExpense.getExpenseType().isGroupTravel())) {
                 meal = TemConstants.HostedMeals.HOSTED_DINNER;
                 perDiemExpense.setDinner(false);
                 perDiemExpense.setDinnerValue(KualiDecimal.ZERO);
@@ -2205,30 +2171,29 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         Timestamp greatestTripEndDate = null;
 
         List<TravelReimbursementDocument> documents = findReimbursementDocuments(travelDocumentIdentifier);
-       for (TravelReimbursementDocument document : documents) {
-           Timestamp tripBegin = document.getTripBegin();
-           Timestamp tripEnd = document.getTripEnd();
-           if (ObjectUtils.isNull(earliestTripBeginDate) && ObjectUtils.isNull(greatestTripEndDate)) {
-               earliestTripBeginDate = tripBegin;
-               greatestTripEndDate = tripEnd;
-           }
-           else {
-               earliestTripBeginDate = tripBegin.before(earliestTripBeginDate) ? tripBegin :earliestTripBeginDate;
-               greatestTripEndDate = tripEnd.after(greatestTripEndDate)? tripEnd : greatestTripEndDate;
+        for (TravelReimbursementDocument document : documents) {
+            Timestamp tripBegin = document.getTripBegin();
+            Timestamp tripEnd = document.getTripEnd();
+            if (ObjectUtils.isNull(earliestTripBeginDate) && ObjectUtils.isNull(greatestTripEndDate)) {
+                earliestTripBeginDate = tripBegin;
+                greatestTripEndDate = tripEnd;
+            } else {
+                earliestTripBeginDate = tripBegin.before(earliestTripBeginDate) ? tripBegin : earliestTripBeginDate;
+                greatestTripEndDate = tripEnd.after(greatestTripEndDate) ? tripEnd : greatestTripEndDate;
 
-               }
+            }
         }
 
-       // TR with no TAs created from mainmenu
-       if(documents.isEmpty() && ObjectUtils.isNotNull(travelDocument.getTripBegin()) && ObjectUtils.isNotNull(travelDocument.getTripEnd())) {
-           earliestTripBeginDate = getTripBeginDate(travelDocument.getTripBegin());
-           greatestTripEndDate = getTripEndDate(travelDocument.getTripEnd());
-       }
+        // TR with no TAs created from mainmenu
+        if (documents.isEmpty() && ObjectUtils.isNotNull(travelDocument.getTripBegin()) && ObjectUtils.isNotNull(travelDocument.getTripEnd())) {
+            earliestTripBeginDate = getTripBeginDate(travelDocument.getTripBegin());
+            greatestTripEndDate = getTripEndDate(travelDocument.getTripEnd());
+        }
 
-       List<TravelReimbursementDocument> matchDocs =  (List<TravelReimbursementDocument>) travelDocumentDao.findMatchingTrips(temProfileId ,earliestTripBeginDate, greatestTripEndDate);
+        List<TravelReimbursementDocument> matchDocs = (List<TravelReimbursementDocument>) travelDocumentDao.findMatchingTrips(temProfileId, earliestTripBeginDate, greatestTripEndDate);
         List<String> documentIds = new ArrayList<String>();
         for (TravelReimbursementDocument document : matchDocs) {
-            if(!travelDocument.getDocumentNumber().equals(document.getDocumentNumber())) {
+            if (!travelDocument.getDocumentNumber().equals(document.getDocumentNumber())) {
                 documentIds.add(document.getDocumentNumber());
             }
         }
@@ -2240,41 +2205,41 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         Integer days = null;
         if (!StringUtils.isNumeric(tripDateRangeDays)) {
             days = TemConstants.DEFAULT_DUPLICATE_TRIP_DATE_RANGE_DAYS;
-       }
+        }
 
-       days = Integer.parseInt(tripDateRangeDays);
-       return days;
+        days = Integer.parseInt(tripDateRangeDays);
+        return days;
 
     }
 
     private Timestamp getTripBeginDate(Timestamp tripBeginDate) {
         Timestamp tripBegin = null;
         Integer days = getDuplicateTripDateRangeDays();
-         try {
-             tripBegin = dateTimeService.convertToSqlTimestamp(dateTimeService.toDateString(DateUtils.addDays(tripBeginDate, (days * -1))));
+        try {
+            tripBegin = dateTimeService.convertToSqlTimestamp(dateTimeService.toDateString(DateUtils.addDays(tripBeginDate, (days * -1))));
 
-         } catch (java.text.ParseException pe) {
-             LOG.error("Exception while parsing trip begin date" + pe);
-         }
+        } catch (java.text.ParseException pe) {
+            LOG.error("Exception while parsing trip begin date" + pe);
+        }
 
 
-         return tripBegin;
+        return tripBegin;
 
-     }
+    }
 
-     private Timestamp getTripEndDate(Timestamp tripEndDate) {
-         Timestamp tripEnd = null;
-         Integer days = getDuplicateTripDateRangeDays();
-          try {
-              tripEnd = dateTimeService.convertToSqlTimestamp(dateTimeService.toDateString((DateUtils.addDays(tripEndDate, days ))));
+    private Timestamp getTripEndDate(Timestamp tripEndDate) {
+        Timestamp tripEnd = null;
+        Integer days = getDuplicateTripDateRangeDays();
+        try {
+            tripEnd = dateTimeService.convertToSqlTimestamp(dateTimeService.toDateString((DateUtils.addDays(tripEndDate, days))));
 
-          } catch (java.text.ParseException pe) {
-              LOG.error("Exception while parsing trip end date" + pe);
-          }
+        } catch (java.text.ParseException pe) {
+            LOG.error("Exception while parsing trip end date" + pe);
+        }
 
-          return tripEnd;
+        return tripEnd;
 
-     }
+    }
 
 
     /**
@@ -2295,62 +2260,63 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * This method gets the current travel document by travel document identifier
+     *
      * @param travelDocumentIdentifier
      * @return
      */
     @Override
     public TravelDocument getParentTravelDocument(String travelDocumentIdentifier) {
 
-       if (ObjectUtils.isNull(travelDocumentIdentifier) || StringUtils.equals(travelDocumentIdentifier,"")) {
-           LOG.error("Received a null tripId/travelDocumentIdentifier; returning a null TravelDocument");
-           return null;
-       }
+        if (ObjectUtils.isNull(travelDocumentIdentifier) || StringUtils.equals(travelDocumentIdentifier, "")) {
+            LOG.error("Received a null tripId/travelDocumentIdentifier; returning a null TravelDocument");
+            return null;
+        }
 
-       try {
-           TravelDocument travelDocument = findRootForTravelReimbursement(travelDocumentIdentifier);
-           if (ObjectUtils.isNotNull(travelDocument)) {
-               LOG.debug("Found "+ travelDocument.getDocumentNumber() +" ("+ travelDocument.getDocumentTypeName() +") for travelDocumentIdentifier: "+ travelDocumentIdentifier);
-               return travelDocument;
-           }
+        try {
+            TravelDocument travelDocument = findRootForTravelReimbursement(travelDocumentIdentifier);
+            if (ObjectUtils.isNotNull(travelDocument)) {
+                LOG.debug("Found " + travelDocument.getDocumentNumber() + " (" + travelDocument.getDocumentTypeName() + ") for travelDocumentIdentifier: " + travelDocumentIdentifier);
+                return travelDocument;
+            }
 
-       } catch (Exception exception) {
-           LOG.error("Exception occurred attempting to retrieve an authorization or remibursement travel document for travelDocumentIdentifier: "+ travelDocumentIdentifier, exception);
-           return null;
-       }
+        } catch (Exception exception) {
+            LOG.error("Exception occurred attempting to retrieve an authorization or remibursement travel document for travelDocumentIdentifier: " + travelDocumentIdentifier, exception);
+            return null;
+        }
 
-       Map<String, Object> fieldValues = new HashMap<String, Object>();
-       fieldValues.put(TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER, travelDocumentIdentifier);
-       fieldValues.put(TemPropertyConstants.TRIP_PROGENITOR, Boolean.TRUE);
+        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        fieldValues.put(TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER, travelDocumentIdentifier);
+        fieldValues.put(TemPropertyConstants.TRIP_PROGENITOR, Boolean.TRUE);
 
-       Collection<TravelEntertainmentDocument> entDocuments = getBusinessObjectService().findMatching(TravelEntertainmentDocument.class, fieldValues);
-       if (entDocuments.iterator().hasNext()) {
-           TravelDocument ent = entDocuments.iterator().next();
-           LOG.debug("Found "+ ent.getDocumentNumber() +" ("+ ent.getDocumentTypeName() +") for travelDocumentIdentifier: "+ travelDocumentIdentifier);
-           return ent;
-       }
+        Collection<TravelEntertainmentDocument> entDocuments = getBusinessObjectService().findMatching(TravelEntertainmentDocument.class, fieldValues);
+        if (entDocuments.iterator().hasNext()) {
+            TravelDocument ent = entDocuments.iterator().next();
+            LOG.debug("Found " + ent.getDocumentNumber() + " (" + ent.getDocumentTypeName() + ") for travelDocumentIdentifier: " + travelDocumentIdentifier);
+            return ent;
+        }
 
-       Collection<TravelRelocationDocument> reloDocuments = getBusinessObjectService().findMatching(TravelRelocationDocument.class, fieldValues);
-       if (reloDocuments.iterator().hasNext()) {
-           TravelDocument relo = reloDocuments.iterator().next();
-           LOG.info("Found "+ relo.getDocumentNumber() +" ("+ relo.getDocumentTypeName() +") for travelDocumentIdentifier: "+ travelDocumentIdentifier);
-           return relo;
-       }
+        Collection<TravelRelocationDocument> reloDocuments = getBusinessObjectService().findMatching(TravelRelocationDocument.class, fieldValues);
+        if (reloDocuments.iterator().hasNext()) {
+            TravelDocument relo = reloDocuments.iterator().next();
+            LOG.info("Found " + relo.getDocumentNumber() + " (" + relo.getDocumentTypeName() + ") for travelDocumentIdentifier: " + travelDocumentIdentifier);
+            return relo;
+        }
 
-       LOG.error("Unable to find any travel document for given Trip Id: "+ travelDocumentIdentifier);
-       return null;
+        LOG.error("Unable to find any travel document for given Trip Id: " + travelDocumentIdentifier);
+        return null;
     }
 
     /**
      * Calculate the total of the source accounting lines on the document
+     *
      * @param travelDoc the travel document to calculate the source accounting line total for
      * @return the total of the source accounting lines
      */
     protected KualiDecimal getAccountingLineAmount(TravelDocument travelDoc) {
         KualiDecimal total = KualiDecimal.ZERO;
         if (travelDoc.getSourceAccountingLines() != null && !travelDoc.getSourceAccountingLines().isEmpty()) {
-            for (TemSourceAccountingLine accountingLine : (List<TemSourceAccountingLine>)travelDoc.getSourceAccountingLines()) {
+            for (TemSourceAccountingLine accountingLine : (List<TemSourceAccountingLine>) travelDoc.getSourceAccountingLines()) {
                 total = total.add(accountingLine.getAmount());
             }
         }
@@ -2358,12 +2324,11 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#getTravelDocumentNumbersByTrip(java.lang.String)
      */
     @Override
     public Collection<String> getApprovedTravelDocumentNumbersByTrip(String travelDocumentIdentifier) {
-        HashMap<String,String> documentNumbersToReturn = new HashMap<String,String>();
+        HashMap<String, String> documentNumbersToReturn = new HashMap<String, String>();
 
         List<TravelDocument> travelDocuments = new ArrayList<TravelDocument>();
 
@@ -2376,10 +2341,10 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         travelDocuments.addAll(getTravelDocumentDao().findDocuments(TravelEntertainmentDocument.class, travelDocumentIdentifier));
         travelDocuments.addAll(getTravelDocumentDao().findDocuments(TravelRelocationDocument.class, travelDocumentIdentifier));
 
-        for(Iterator<TravelDocument> iter = travelDocuments.iterator(); iter.hasNext();) {
+        for (Iterator<TravelDocument> iter = travelDocuments.iterator(); iter.hasNext(); ) {
             TravelDocument document = iter.next();
             if (!documentNumbersToReturn.containsKey(document.getDocumentNumber()) && isDocumentStatusValidForReconcilingCharges(document)) {
-                documentNumbersToReturn.put(document.getDocumentNumber(),document.getDocumentNumber());
+                documentNumbersToReturn.put(document.getDocumentNumber(), document.getDocumentNumber());
             }
         }
 
@@ -2415,23 +2380,22 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#restorePerDiemProperty(org.kuali.kfs.module.tem.document.TravelDocument, java.lang.String)
      */
     @Override
     public void restorePerDiemProperty(TravelDocument document, String property) {
         try {
             final String[] perDiemPropertyParts = splitPerDiemProperty(property);
-            PerDiemExpense perDiemExpense = (PerDiemExpense)ObjectUtils.getPropertyValue(document, perDiemPropertyParts[0]);
+            PerDiemExpense perDiemExpense = (PerDiemExpense) ObjectUtils.getPropertyValue(document, perDiemPropertyParts[0]);
             final String mealName = perDiemPropertyParts[1];
             final boolean mealProperty = isMealProperty(mealName);
             final String mealSuffix = (mealProperty) ? "Value" : "";
-            final String mealValueName = mealName+mealSuffix;
+            final String mealValueName = mealName + mealSuffix;
 
-            KualiDecimal currentMealValue = (KualiDecimal)ObjectUtils.getPropertyValue(perDiemExpense, mealValueName);
+            KualiDecimal currentMealValue = (KualiDecimal) ObjectUtils.getPropertyValue(perDiemExpense, mealValueName);
             if (currentMealValue != null && currentMealValue.equals(KualiDecimal.ZERO)) {
                 final PerDiem perDiem = getPerDiemService().getPerDiem(perDiemExpense.getPrimaryDestinationId(), perDiemExpense.getMileageDate(), document.getEffectiveDateForPerDiem(perDiemExpense));
-                final KualiDecimal mealAmount = (KualiDecimal)ObjectUtils.getPropertyValue(perDiem, mealName);
+                final KualiDecimal mealAmount = (KualiDecimal) ObjectUtils.getPropertyValue(perDiem, mealName);
                 final boolean prorated = mealProperty && !KfsDateUtils.isSameDay(document.getTripBegin(), document.getTripEnd()) && (KfsDateUtils.isSameDay(perDiemExpense.getMileageDate(), document.getTripBegin()) || KfsDateUtils.isSameDay(perDiemExpense.getMileageDate(), document.getTripEnd()));
                 if (prorated && !ObjectUtils.isNull(document.getTripType())) {
                     perDiemExpense.setProrated(true);
@@ -2446,23 +2410,20 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                     ObjectUtils.setObjectProperty(perDiemExpense, mealName, Boolean.TRUE);
                 }
             }
-        }
-        catch (FormatException fe) {
+        } catch (FormatException fe) {
             throw new RuntimeException("Could not set meal value on per diem expense", fe);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("Could not set meal value on per diem expense", iae);
-        }
-        catch (InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             throw new RuntimeException("Could not set meal value on per diem expense", ite);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             throw new RuntimeException("Could not set meal value on per diem expense", nsme);
         }
     }
 
     /**
      * Determines if the given property name represents a meal on a PerDiemExpense (ie, a property with a boolean property and a "Value" property)
+     *
      * @param property the property to check
      * @return true if the property represents a field with an extra "Value" field, false otherwise
      */
@@ -2472,19 +2433,21 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Splits a property into the per diem part and the property of the per diem expense we should update
+     *
      * @param property the property to split
      * @return an Array where the first element is the property path to a per diem expense and the second is the property path to a meal value on that per diem
      */
     protected String[] splitPerDiemProperty(String property) {
-        final String deDocumentedProperty = property.replace(KFSPropertyConstants.DOCUMENT+".", KFSConstants.EMPTY_STRING);
+        final String deDocumentedProperty = property.replace(KFSPropertyConstants.DOCUMENT + ".", KFSConstants.EMPTY_STRING);
         final int lastDivider = deDocumentedProperty.lastIndexOf('.');
         final String perDiemPart = deDocumentedProperty.substring(0, lastDivider);
-        final String mealPart = deDocumentedProperty.substring(lastDivider+1);
-        return new String[] { perDiemPart, mealPart };
+        final String mealPart = deDocumentedProperty.substring(lastDivider + 1);
+        return new String[]{perDiemPart, mealPart};
     }
 
     /**
      * Looks up the document with the progenitor document for the trip
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#getRootTravelDocumentWithoutWorkflowDocument(java.lang.String)
      */
     @Override
@@ -2494,7 +2457,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         fieldValues.put(TemPropertyConstants.TRIP_PROGENITOR, new Boolean(true));
         for (String documentType : getTravelDocumentTypesToCheck()) {
             final Class<? extends TravelDocument> docClazz = getTravelDocumentForType(documentType);
-            Collection<TravelDocument> matchingDocs = (Collection<TravelDocument>)getBusinessObjectService().findMatching(docClazz, fieldValues);
+            Collection<TravelDocument> matchingDocs = (Collection<TravelDocument>) getBusinessObjectService().findMatching(docClazz, fieldValues);
             if (matchingDocs != null && !matchingDocs.isEmpty()) {
                 List<TravelDocument> foundDocs = new ArrayList<TravelDocument>();
                 foundDocs.addAll(matchingDocs);
@@ -2509,6 +2472,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
      * This method returns an ordered list of where to look for progenitor documents.  The order is based on my total guess of which
      * document type is most likely to be the progenitor, so it's TA, ENT, RELO, TR.  But, if you don't use TA's, then obviously TR's should
      * be first.  Anyhow, please feel free to rearrange this list as seems most helpful to you
+     *
      * @return a List of the document types to look for root documents in - in which order
      */
     protected List<String> getTravelDocumentTypesToCheck() {
@@ -2522,28 +2486,31 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Looks up the class associated with the given document type to check
+     *
      * @param documentType the document type name to find a class for
      * @return the class of that document type
      */
     protected Class<? extends TravelDocument> getTravelDocumentForType(String documentType) {
-        return (Class<TravelDocument>)getDataDictionaryService().getDocumentClassByTypeName(documentType);
+        return (Class<TravelDocument>) getDataDictionaryService().getDocumentClassByTypeName(documentType);
     }
 
     /**
      * This smooshes the accounting lines which will do advance clearing.  Here, since we're replacing the object code, we'll smooth together all accounting lines
      * which have the same chart - account - sub-acount.
+     *
      * @param originalAccountingLines the List of accounting lines to smoosh
      * @return the smooshed accounting lines
      */
     @Override
     public List<TemSourceAccountingLine> smooshAccountingLinesToSubAccount(List<TemSourceAccountingLine> originalAccountingLines) {
-       final Map<SmooshLineKey, KualiDecimal> smooshLines =  smooshLinesToMap(originalAccountingLines);
-       final List<TemSourceAccountingLine> unsmooshedLines = raiseMapToLines(smooshLines);
-       return unsmooshedLines;
+        final Map<SmooshLineKey, KualiDecimal> smooshLines = smooshLinesToMap(originalAccountingLines);
+        final List<TemSourceAccountingLine> unsmooshedLines = raiseMapToLines(smooshLines);
+        return unsmooshedLines;
     }
 
     /**
      * Smooshes the lines into a Map
+     *
      * @param accountingLines the accounting lines to smoosh
      * @return the Map of smooshed lines
      */
@@ -2564,6 +2531,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * According to thesaurus.com, "raise" is the antonym of "smoosh".  So this method takes our smooshed line information and turns them back into things which sort of resemble accounting lines
+     *
      * @param smooshLineMap the Map to turn back into accounting lines
      * @return the un-smooshed accounting lines.  Yeah, I like that verb better too
      */
@@ -2578,7 +2546,8 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Converts a SmooshLineKey and an amount into a real - though somewhat less informative - accounting line
-     * @param key the key
+     *
+     * @param key    the key
      * @param amount the amount
      * @return the reconstituted accounting line.  I like that verb too.
      */
@@ -2631,7 +2600,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
             if (!(obj instanceof SmooshLineKey) || obj == null) {
                 return false;
             }
-            final SmooshLineKey golyadkin = (SmooshLineKey)obj;
+            final SmooshLineKey golyadkin = (SmooshLineKey) obj;
             EqualsBuilder eb = new EqualsBuilder();
             eb.append(getChartOfAccountsCode(), golyadkin.getChartOfAccountsCode());
             eb.append(getAccountNumber(), golyadkin.getAccountNumber());
@@ -2642,6 +2611,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Parses the value of url.document.travelRelocation.agencySites and turns those into links
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#getAgencyLinks(org.kuali.kfs.module.tem.document.TravelDocument)
      */
     @Override
@@ -2650,9 +2620,9 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
         if (getConfigurationService().getPropertyValueAsBoolean(TemKeyConstants.ENABLE_AGENCY_SITES_URL)) {
             final String agencySitesURL = getConfigurationService().getPropertyValueAsString(TemKeyConstants.AGENCY_SITES_URL);
             final String target = "_blank";
-            if(!StringUtils.isEmpty(agencySitesURL)){
+            if (!StringUtils.isEmpty(agencySitesURL)) {
                 String[] sites = agencySitesURL.split(";");
-                for (String site : sites){
+                for (String site : sites) {
                     String[] siteInfo = site.split("=");
                     String url = customizeAgencyLink(travelDocument, siteInfo[0], siteInfo[1]);
                     final String prefixedUrl = prefixUrl(url);
@@ -2670,12 +2640,13 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
     /**
      * In the default version, checks if the "config.document.travelRelocation.agencySites.include.tripId" property is true and if it is, just dumbly
      * appends the tripId= doc's trip id to the link.  Really, out of the box, this isn't all that smart. Will mask the value if the parameter says to.
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelDocumentService#customizeAgencyLink(org.kuali.kfs.module.tem.document.TravelDocument, java.lang.String, java.lang.String)
      */
     @Override
     public String customizeAgencyLink(TravelDocument travelDocument, String agencyName, String link) {
         final boolean passTrip = getConfigurationService().getPropertyValueAsBoolean(TemKeyConstants.PASS_TRIP_ID_TO_AGENCY_SITES);
-        if (!passTrip ||  StringUtils.isBlank(travelDocument.getTravelDocumentIdentifier())) {
+        if (!passTrip || StringUtils.isBlank(travelDocument.getTravelDocumentIdentifier())) {
             return link; // nothing to add
         }
 
@@ -2685,19 +2656,20 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
                 return link;
             }
         }
-        final String linkWithTripId = link+"?tripId="+travelDocument.getTravelDocumentIdentifier();
+        final String linkWithTripId = link + "?tripId=" + travelDocument.getTravelDocumentIdentifier();
         return linkWithTripId;
     }
 
     /**
      * Makes sure that url starts with https
+     *
      * @param url the url to prefix as needed
      * @return the url prefixed by protocol
      */
     protected String prefixUrl(String url) {
         String prefixedUrl = url;
         if (!prefixedUrl.startsWith("http")) {
-            prefixedUrl = "https://"+prefixedUrl;
+            prefixedUrl = "https://" + prefixedUrl;
         }
         return prefixedUrl;
     }
@@ -2887,6 +2859,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Gets the universityDateService attribute.
+     *
      * @return Returns the universityDateService.
      */
     public UniversityDateService getUniversityDateService() {
@@ -2895,6 +2868,7 @@ public class TravelDocumentServiceImpl implements TravelDocumentService {
 
     /**
      * Sets the universityDateService attribute value.
+     *
      * @param universityDateService The universityDateService to set.
      */
     public void setUniversityDateService(UniversityDateService universityDateService) {

@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.InitializingBean;
-import org.kuali.kfs.kns.bo.Step;
-
-public abstract class AbstractStep extends InitiateDirectoryBase implements Step, BeanNameAware, InitializingBean, InitiateDirectory{
+public abstract class AbstractStep extends InitiateDirectoryBase implements Step, BeanNameAware, InitializingBean, InitiateDirectory {
 
     private static final Logger LOG = Logger.getLogger(AbstractStep.class);
 
@@ -52,7 +52,7 @@ public abstract class AbstractStep extends InitiateDirectoryBase implements Step
 
     /**
      * By default it should use batchInpeutFile (single file) directory path as the required directory name.
-     *
+     * <p>
      * Subclasses should override this function to provide any custom required directory list.
      *
      * @see org.kuali.kfs.sys.batch.service.InitiateDirectoryInterface#getRequiredDirectoryNames()
@@ -60,7 +60,7 @@ public abstract class AbstractStep extends InitiateDirectoryBase implements Step
     @Override
     public List<String> getRequiredDirectoryNames() {
         List<String> requiredDirectoryList = new ArrayList<String>();
-        if (batchInputFileType != null){
+        if (batchInputFileType != null) {
             LOG.info(batchInputFileType.getClass().getName() + " ==> " + batchInputFileType.getDirectoryPath());
             requiredDirectoryList.add(batchInputFileType.getDirectoryPath());
         }

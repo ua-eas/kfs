@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ValuesFinder that returns a list of InvoiceTemplates.

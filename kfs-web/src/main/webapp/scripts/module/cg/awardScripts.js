@@ -21,9 +21,9 @@
  * Java script to fetch the Letter of Credit Fund Group for the appropriate Letter of Credit Fund
  */
 function onblur_letterOfCreditFundCode(letterOfCreditFundCodeField) {
-	singleKeyLookup(LetterOfCreditFundService.getByPrimaryId,
-			letterOfCreditFundCodeField,
-			"letterOfCreditFund.letterOfCreditFundGroup",
-			"letterOfCreditFundGroupDescription");
+    singleKeyLookup(LetterOfCreditFundService.getByPrimaryId,
+        letterOfCreditFundCodeField,
+        "letterOfCreditFund.letterOfCreditFundGroup",
+        "letterOfCreditFundGroupDescription");
 
 }

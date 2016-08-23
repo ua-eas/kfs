@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ld.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.LaborAuthorizationConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Set;
 
 /**
  * Document Presentation Controller for the Effort Certification document. allowsErrorCorrection property has been set to false in
@@ -62,7 +62,7 @@ public class LaborExpensesDocumentPresentationController extends FinancialSystem
         Set<String> editModes = super.getEditModes(document);
 
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
-        if(workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested()) {
+        if (workflowDocument.isInitiated() || workflowDocument.isSaved() || workflowDocument.isCompletionRequested()) {
             editModes.add(LaborAuthorizationConstants.ExpenseTransferEditMode.LEDGER_BALANCE_IMPORTING);
         }
         AccountService accountService = SpringContext.getBean(AccountService.class);

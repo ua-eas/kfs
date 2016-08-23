@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.ec.service.impl;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
 import org.kuali.kfs.module.ec.service.EffortCertificationReportService;
 import org.kuali.kfs.module.ec.util.ExtractProcessReportDataHolder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification

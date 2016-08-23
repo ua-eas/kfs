@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
@@ -39,9 +37,11 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Determines whether a negtive amount can be transferred from one account to another
@@ -56,6 +56,7 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -140,7 +141,7 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
      * Groups the accounting lines by the specified key fields
      *
      * @param accountingLines the given accounting lines that are stored in a list
-     * @param clazz the class type of given accounting lines
+     * @param clazz           the class type of given accounting lines
      * @return the accounting line groups
      */
     protected Map<String, ExpenseTransferAccountingLine> getAccountingLineGroupMap(List<ExpenseTransferAccountingLine> accountingLines, Class clazz) {
@@ -154,14 +155,12 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
                 line = accountingLineGroupMap.get(stringKey);
                 KualiDecimal amount = line.getAmount();
                 line.setAmount(amount.add(accountingLine.getAmount()));
-            }
-            else {
+            } else {
                 try {
                     line = (ExpenseTransferAccountingLine) clazz.newInstance();
                     ObjectUtil.buildObject(line, accountingLine);
                     accountingLineGroupMap.put(stringKey, line);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("Cannot create a new instance of ExpenseTransferAccountingLine" + e);
                 }
             }
@@ -199,7 +198,7 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
      * get the amount for a given period from a ledger balance that has the given values for specified fileds
      *
      * @param fieldValues the given fields and their values
-     * @param periodCode the given period
+     * @param periodCode  the given period
      * @return the amount for a given period from the qualified ledger balance
      */
     protected KualiDecimal getBalanceAmount(Map<String, Object> fieldValues, String periodCode) {
@@ -234,6 +233,7 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -242,6 +242,7 @@ public class LaborExpenseTransferNegtiveAmountBeTransferredValidation extends Ge
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

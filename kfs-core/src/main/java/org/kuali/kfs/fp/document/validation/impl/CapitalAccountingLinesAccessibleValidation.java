@@ -37,6 +37,7 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
 
     /**
      * Due to code in CapitalAccountingLinesAuthorizerBase we need alter the accessible logic a bit. Otherwise the user gets stopped for reasons they shouldn't be
+     *
      * @see org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizerBase#determineEditPermissionOnField
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
@@ -46,12 +47,12 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
         if (accountingDocumentForValidation instanceof CapitalAccountingLinesDocumentBase) {
             CapitalAccountingLinesDocumentBase caldb = (CapitalAccountingLinesDocumentBase) accountingDocumentForValidation;
 
-            if(caldb.getCapitalAccountingLines().size() > 0 && capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
+            if (caldb.getCapitalAccountingLines().size() > 0 && capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
                 // In this scenario the line is readOnly because of the logic in CapitalAccountingLinesAuthorizerBase. We only stop the user from updating
                 // if the document shouldn't be editable. That means call AccountingLineAuthorizerBase#determineEditPermissionOnField and skip
                 // CapitalAccountingLinesAuthorizerBase#determineEditPermissionOnField. Furthermore error correction documents should not be stopped
                 if (accountingDocumentForValidation instanceof Correctable) {
-                    final String errorDocumentNumber = ((FinancialSystemDocumentHeader)accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
+                    final String errorDocumentNumber = ((FinancialSystemDocumentHeader) accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
                     if (StringUtils.isNotBlank(errorDocumentNumber)) {
                         return true;
                     }

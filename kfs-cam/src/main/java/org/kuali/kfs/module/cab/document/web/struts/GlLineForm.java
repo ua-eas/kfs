@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class GlLineForm extends KualiForm {
     private GeneralLedgerEntry generalLedgerEntry;
@@ -111,6 +111,7 @@ public class GlLineForm extends KualiForm {
 
     /**
      * Gets the capitalAssetLineNumber attribute.
+     *
      * @return Returns the capitalAssetLineNumber.
      */
     public Integer getCapitalAssetLineNumber() {
@@ -119,6 +120,7 @@ public class GlLineForm extends KualiForm {
 
     /**
      * Sets the capitalAssetLineNumber attribute value.
+     *
      * @param capitalAssetLineNumber The capitalAssetLineNumber to set.
      */
     public void setCapitalAssetLineNumber(Integer capitalAssetLineNumber) {
@@ -132,13 +134,13 @@ public class GlLineForm extends KualiForm {
      * @return value
 
     public GeneralLedgerEntry getRelatedGlEntry(int index) {
-        int size = getRelatedGlEntries().size();
-        while (size <= index || getRelatedGlEntries().get(index) == null) {
-            getRelatedGlEntries().add(size++, new GeneralLedgerEntry());
-        }
-        return (GeneralLedgerEntry) getRelatedGlEntries().get(index);
+    int size = getRelatedGlEntries().size();
+    while (size <= index || getRelatedGlEntries().get(index) == null) {
+    getRelatedGlEntries().add(size++, new GeneralLedgerEntry());
     }
-*/
+    return (GeneralLedgerEntry) getRelatedGlEntries().get(index);
+    }
+     */
 
     /**
      * Gets the selectAllGlEntries attribute.

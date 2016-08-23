@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface FinancialSystemUserService {
     boolean isActiveFinancialSystemUser(String principalId);
-  //  boolean isActiveFinancialSystemUser(Person person);
+    //  boolean isActiveFinancialSystemUser(Person person);
 
     /**
      * If the specified person has the KFS-SYS User role for the specified namespace, this will return the organization associated with that assignment.
@@ -34,16 +34,19 @@ public interface FinancialSystemUserService {
      * If the person does not have the KFS-SYS User role at all, this method will derive the organization from the Person Record.
      */
     ChartOrgHolder getPrimaryOrganization(Person person, String namespaceCode);
+
     ChartOrgHolder getPrimaryOrganization(String principalId, String namespaceCode);
 
-    Collection<String> getPrincipalIdsForFinancialSystemOrganizationUsers( String namespaceCode, ChartOrgHolder chartOrg );
-    Collection<String> getPrincipalIdsForFinancialSystemOrganizationUsers( String namespaceCode, List<ChartOrgHolder> chartOrgs );
+    Collection<String> getPrincipalIdsForFinancialSystemOrganizationUsers(String namespaceCode, ChartOrgHolder chartOrg);
+
+    Collection<String> getPrincipalIdsForFinancialSystemOrganizationUsers(String namespaceCode, List<ChartOrgHolder> chartOrgs);
 
     /**
      * KFSCNTRB-1344
      * Gets the name of the person with the specified EmployeeID.
      * Note: This method is added here as a place-holder before Rice provides some method like IdentityService.getPersonNameByEmployeeId.
      * It allows institutions to override the implementation to speed up Person name retrieval if needed.
+     *
      * @param employeeId of the Person
      * @return name of the person
      */

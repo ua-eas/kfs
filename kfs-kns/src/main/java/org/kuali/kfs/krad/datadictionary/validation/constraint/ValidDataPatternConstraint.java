@@ -22,8 +22,6 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Class used to
- *
- *
  */
 public abstract class ValidDataPatternConstraint extends ValidCharactersConstraint {
 
@@ -44,7 +42,7 @@ public abstract class ValidDataPatternConstraint extends ValidCharactersConstrai
      */
     @Override
     public String getValue() {
-        if(StringUtils.isEmpty(value)){
+        if (StringUtils.isEmpty(value)) {
             return "^" + getRegexString() + "$";
         }
         return value;

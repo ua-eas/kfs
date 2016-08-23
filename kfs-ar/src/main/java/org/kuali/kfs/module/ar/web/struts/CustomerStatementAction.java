@@ -18,34 +18,27 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService;
 import org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerStatementResultHolder;
 import org.kuali.kfs.module.ar.service.AccountsReceivablePdfHelperService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.util.KfsWebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class handles Actions for lookup flow
@@ -58,7 +51,7 @@ public class CustomerStatementAction extends KualiAction {
     }
 
     public ActionForward clear(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerStatementForm csForm = (CustomerStatementForm)form;
+        CustomerStatementForm csForm = (CustomerStatementForm) form;
         csForm.clear();
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -71,13 +64,13 @@ public class CustomerStatementAction extends KualiAction {
         String basePath = getApplicationBaseUrl();
         CustomerStatementForm csForm = (CustomerStatementForm) form;
         String chartCode = csForm.getChartCode();
-        chartCode = chartCode==null?"":chartCode;
+        chartCode = chartCode == null ? "" : chartCode;
         String orgCode = csForm.getOrgCode();
-        orgCode = orgCode==null?"":orgCode;
+        orgCode = orgCode == null ? "" : orgCode;
         String customerNumber = csForm.getCustomerNumber();
-        customerNumber = customerNumber==null?"":customerNumber;
+        customerNumber = customerNumber == null ? "" : customerNumber;
         String accountNumber = csForm.getAccountNumber();
-        accountNumber = accountNumber==null?"":accountNumber;
+        accountNumber = accountNumber == null ? "" : accountNumber;
 
         String statementFormat = csForm.getStatementFormat();
         if (StringUtils.isBlank(statementFormat)) {
@@ -94,7 +87,7 @@ public class CustomerStatementAction extends KualiAction {
 
         StringBuilder fileName = new StringBuilder();
 
-        if ( StringUtils.isNotBlank(chartCode) && StringUtils.isNotBlank(orgCode)) {
+        if (StringUtils.isNotBlank(chartCode) && StringUtils.isNotBlank(orgCode)) {
             reports = reportService.generateStatementByBillingOrg(chartCode, orgCode, statementFormat, includeZeroBalanceCustomers);
             fileName.append(chartCode);
             fileName.append(orgCode);

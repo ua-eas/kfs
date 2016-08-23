@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 /**
  * This class is an empty derived class

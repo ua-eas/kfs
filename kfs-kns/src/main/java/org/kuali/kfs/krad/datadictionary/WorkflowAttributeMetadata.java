@@ -20,20 +20,17 @@ package org.kuali.kfs.krad.datadictionary;
 
 /**
  * This is a description of what this class does - mpham don't forget to fill this in.
- *
- *
- *
  */
 public class WorkflowAttributeMetadata extends DataDictionaryDefinitionBase {
-	private static final long serialVersionUID = -6250577044174437101L;
+    private static final long serialVersionUID = -6250577044174437101L;
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
-	 */
-	public void completeValidation(Class rootBusinessObjectClass,
-			Class otherBusinessObjectClass) {
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
+     */
+    public void completeValidation(Class rootBusinessObjectClass,
+                                   Class otherBusinessObjectClass) {
+    }
 
 }

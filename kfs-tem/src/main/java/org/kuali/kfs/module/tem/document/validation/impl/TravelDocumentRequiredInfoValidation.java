@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -30,29 +32,27 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
-public class TravelDocumentRequiredInfoValidation extends GenericValidation{
+public class TravelDocumentRequiredInfoValidation extends GenericValidation {
     protected TravelExpenseService travelExpenseService;
 
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        TravelDocument document = (TravelDocument)event.getDocument();
+        TravelDocument document = (TravelDocument) event.getDocument();
 
         //Check to see if receipt required
-        if(isReceiptRequired(document)){
+        if (isReceiptRequired(document)) {
             //Check to see if missing receipt selected
-            if(isMissingReceiptSelected(document)){
+            if (isMissingReceiptSelected(document)) {
                 //Check to see if notes entered
-                if(!isNotesEnteredForTheMissingReceipts(document)){
+                if (!isNotesEnteredForTheMissingReceipts(document)) {
                     valid = false;
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(TravelAuthorizationFields.TRAVEL_EXPENSE_NOTES, TemKeyConstants.ERROR_RECEIPT_NOTES_REQUIRED);
                 }
             }
             //Check to see if receipt attached.
-            else if(!isReceiptAttached(document)){
+            else if (!isReceiptAttached(document)) {
                 valid = false;
                 GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(TemPropertyConstants.ATTACHMENT_FILE, TemKeyConstants.ERROR_ATTACHMENT_REQUIRED);
             }
@@ -61,18 +61,18 @@ public class TravelDocumentRequiredInfoValidation extends GenericValidation{
         return valid;
     }
 
-    private boolean isReceiptRequired(TravelDocument document){
+    private boolean isReceiptRequired(TravelDocument document) {
 
-        for(ActualExpense actualExpense: document.getActualExpenses()){
+        for (ActualExpense actualExpense : document.getActualExpenses()) {
             ExpenseTypeObjectCode expenseTypeCode = actualExpense.getExpenseTypeObjectCode();
-            if(expenseTypeCode!=null && expenseTypeCode.isReceiptRequired()
-                    && getTravelExpenseService().isTravelExpenseExceedReceiptRequirementThreshold(actualExpense)){
+            if (expenseTypeCode != null && expenseTypeCode.isReceiptRequired()
+                && getTravelExpenseService().isTravelExpenseExceedReceiptRequirementThreshold(actualExpense)) {
                 return true;
             }
         }
 
-        for(ImportedExpense importedExpense: document.getImportedExpenses()){
-            if(importedExpense.getReceiptRequired() != null && importedExpense.getReceiptRequired()){
+        for (ImportedExpense importedExpense : document.getImportedExpenses()) {
+            if (importedExpense.getReceiptRequired() != null && importedExpense.getReceiptRequired()) {
                 return true;
             }
         }
@@ -80,25 +80,25 @@ public class TravelDocumentRequiredInfoValidation extends GenericValidation{
         return false;
     }
 
-    private boolean isReceiptAttached(TravelDocument document){
-        for(Note note: document.getNotes()){
-            if(note.getAttachment() != null && StringUtils.equalsIgnoreCase(note.getAttachment().getAttachmentTypeCode(), TemConstants.AttachmentTypeCodes.ATTACHMENT_TYPE_RECEIPT)){
+    private boolean isReceiptAttached(TravelDocument document) {
+        for (Note note : document.getNotes()) {
+            if (note.getAttachment() != null && StringUtils.equalsIgnoreCase(note.getAttachment().getAttachmentTypeCode(), TemConstants.AttachmentTypeCodes.ATTACHMENT_TYPE_RECEIPT)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isMissingReceiptSelected(TravelDocument document){
-        for(ActualExpense actualExpense: document.getActualExpenses()){
+    private boolean isMissingReceiptSelected(TravelDocument document) {
+        for (ActualExpense actualExpense : document.getActualExpenses()) {
             ExpenseTypeObjectCode expenseTypeCode = actualExpense.getExpenseTypeObjectCode();
-            if(expenseTypeCode.isReceiptRequired() && getTravelExpenseService().isTravelExpenseExceedReceiptRequirementThreshold(actualExpense) && actualExpense.getMissingReceipt() != null && actualExpense.getMissingReceipt()){
+            if (expenseTypeCode.isReceiptRequired() && getTravelExpenseService().isTravelExpenseExceedReceiptRequirementThreshold(actualExpense) && actualExpense.getMissingReceipt() != null && actualExpense.getMissingReceipt()) {
                 return true;
             }
         }
 
-        for(ImportedExpense importedExpense: document.getImportedExpenses()){
-            if(importedExpense.getReceiptRequired() != null && importedExpense.getReceiptRequired() && importedExpense.getMissingReceipt() != null && importedExpense.getMissingReceipt()){
+        for (ImportedExpense importedExpense : document.getImportedExpenses()) {
+            if (importedExpense.getReceiptRequired() != null && importedExpense.getReceiptRequired() && importedExpense.getMissingReceipt() != null && importedExpense.getMissingReceipt()) {
                 return true;
             }
         }
@@ -106,18 +106,18 @@ public class TravelDocumentRequiredInfoValidation extends GenericValidation{
         return false;
     }
 
-    private boolean isNotesEnteredForTheMissingReceipts(TravelDocument document){
-        for(ActualExpense actualExpense: document.getActualExpenses()){
-            if(actualExpense.getMissingReceipt() != null && actualExpense.getMissingReceipt()){
-                if(actualExpense.getNotes() == null || actualExpense.getNotes().length() == 0){
+    private boolean isNotesEnteredForTheMissingReceipts(TravelDocument document) {
+        for (ActualExpense actualExpense : document.getActualExpenses()) {
+            if (actualExpense.getMissingReceipt() != null && actualExpense.getMissingReceipt()) {
+                if (actualExpense.getNotes() == null || actualExpense.getNotes().length() == 0) {
                     return false;
                 }
             }
         }
 
-        for(ImportedExpense importedExpense: document.getImportedExpenses()){
-            if(importedExpense.getMissingReceipt() != null && importedExpense.getMissingReceipt()){
-                if(importedExpense.getNotes() == null || importedExpense.getNotes().length() == 0){
+        for (ImportedExpense importedExpense : document.getImportedExpenses()) {
+            if (importedExpense.getMissingReceipt() != null && importedExpense.getMissingReceipt()) {
+                if (importedExpense.getNotes() == null || importedExpense.getNotes().length() == 0) {
                     return false;
                 }
             }

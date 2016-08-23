@@ -23,8 +23,6 @@ import org.kuali.kfs.krad.uif.UifConstants;
 
 /**
  * A ValidCharactersConstraint based on AlphaNumericValidationPattern.
- *
- *
  */
 public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
     protected boolean lowerCase = false;
@@ -41,10 +39,9 @@ public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
         if (StringUtils.isEmpty(labelKey)) {
             StringBuilder key = new StringBuilder("");
             if (lowerCase) {
-               return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphanumericPatternLowerCase");
-            }
-            else if(upperCase){
-               return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphanumericPatternUpperCase");
+                return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphanumericPatternLowerCase");
+            } else if (upperCase) {
+                return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphanumericPatternUpperCase");
             } else {
                 return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "alphanumericPattern");
             }
@@ -55,6 +52,7 @@ public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
     /**
      * The labelKey should only be set if the auto generated message by this class needs to be
      * overridden
+     *
      * @see BaseConstraint#setLabelKey(java.lang.String)
      */
     @Override
@@ -73,8 +71,7 @@ public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
          */
         if (lowerCase) {
             regexString = new StringBuilder("[a-z0-9");
-        }
-        else if(upperCase){
+        } else if (upperCase) {
             regexString = new StringBuilder("[A-Z0-9");
         }
 
@@ -95,6 +92,7 @@ public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
     /**
      * Only allow lowerCase characters. DO NOT use with upperCase option, no flags set for case
      * means both upper and lower case are allowed.
+     *
      * @param lowerCase the lowerCase to set
      */
     public void setLowerCase(boolean lowerCase) {
@@ -108,6 +106,7 @@ public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
     /**
      * Only allow upperCase characters.  DO NOT use with lowerCase option, no flags set for case
      * means both upper and lower case are allowed.
+     *
      * @param lowerCase the lowerCase to set
      */
     public void setUpperCase(boolean upperCase) {

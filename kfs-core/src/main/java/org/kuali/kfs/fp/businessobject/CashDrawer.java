@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class represents a cash drawer used in cash management document. It contains amounts for
@@ -810,64 +810,56 @@ public class CashDrawer extends PersistableBusinessObjectBase {
         if (detail.getFinancialDocumentHundredDollarAmount() != null) {
             if (financialDocumentHundredDollarAmount == null) {
                 financialDocumentHundredDollarAmount = new KualiDecimal(detail.getFinancialDocumentHundredDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentHundredDollarAmount = financialDocumentHundredDollarAmount.add(detail.getFinancialDocumentHundredDollarAmount());
             }
         }
         if (detail.getFinancialDocumentFiftyDollarAmount() != null) {
             if (financialDocumentFiftyDollarAmount == null) {
                 financialDocumentFiftyDollarAmount = new KualiDecimal(detail.getFinancialDocumentFiftyDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentFiftyDollarAmount = financialDocumentFiftyDollarAmount.add(detail.getFinancialDocumentFiftyDollarAmount());
             }
         }
         if (detail.getFinancialDocumentTwentyDollarAmount() != null) {
             if (financialDocumentTwentyDollarAmount == null) {
                 financialDocumentTwentyDollarAmount = new KualiDecimal(detail.getFinancialDocumentTwentyDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentTwentyDollarAmount = financialDocumentTwentyDollarAmount.add(detail.getFinancialDocumentTwentyDollarAmount());
             }
         }
         if (detail.getFinancialDocumentTenDollarAmount() != null) {
             if (financialDocumentTenDollarAmount == null) {
                 financialDocumentTenDollarAmount = new KualiDecimal(detail.getFinancialDocumentTenDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentTenDollarAmount = financialDocumentTenDollarAmount.add(detail.getFinancialDocumentTenDollarAmount());
             }
         }
         if (detail.getFinancialDocumentFiveDollarAmount() != null) {
             if (financialDocumentFiveDollarAmount == null) {
                 financialDocumentFiveDollarAmount = new KualiDecimal(detail.getFinancialDocumentFiveDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentFiveDollarAmount = financialDocumentFiveDollarAmount.add(detail.getFinancialDocumentFiveDollarAmount());
             }
         }
         if (detail.getFinancialDocumentTwoDollarAmount() != null) {
             if (financialDocumentTwoDollarAmount == null) {
                 financialDocumentTwoDollarAmount = new KualiDecimal(detail.getFinancialDocumentTwoDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentTwoDollarAmount = financialDocumentTwoDollarAmount.add(detail.getFinancialDocumentTwoDollarAmount());
             }
         }
         if (detail.getFinancialDocumentOneDollarAmount() != null) {
             if (financialDocumentOneDollarAmount == null) {
                 financialDocumentOneDollarAmount = new KualiDecimal(detail.getFinancialDocumentOneDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentOneDollarAmount = financialDocumentOneDollarAmount.add(detail.getFinancialDocumentOneDollarAmount());
             }
         }
         if (detail.getFinancialDocumentOtherDollarAmount() != null) {
             if (financialDocumentOtherDollarAmount == null) {
                 financialDocumentOtherDollarAmount = new KualiDecimal(detail.getFinancialDocumentOtherDollarAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 financialDocumentOtherDollarAmount = financialDocumentOtherDollarAmount.add(detail.getFinancialDocumentOtherDollarAmount());
             }
         }
@@ -882,56 +874,49 @@ public class CashDrawer extends PersistableBusinessObjectBase {
         if (detail.getFinancialDocumentHundredCentAmount() != null) {
             if (getFinancialDocumentHundredCentAmount() == null) {
                 setFinancialDocumentHundredCentAmount(new KualiDecimal(detail.getFinancialDocumentHundredCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentHundredCentAmount(getFinancialDocumentHundredCentAmount().add(detail.getFinancialDocumentHundredCentAmount()));
             }
         }
         if (detail.getFinancialDocumentFiftyCentAmount() != null) {
             if (getFinancialDocumentFiftyCentAmount() == null) {
                 setFinancialDocumentFiftyCentAmount(new KualiDecimal(detail.getFinancialDocumentFiftyCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentFiftyCentAmount(getFinancialDocumentFiftyCentAmount().add(detail.getFinancialDocumentFiftyCentAmount()));
             }
         }
         if (detail.getFinancialDocumentTwentyFiveCentAmount() != null) {
             if (getFinancialDocumentTwentyFiveCentAmount() == null) {
                 setFinancialDocumentTwentyFiveCentAmount(new KualiDecimal(detail.getFinancialDocumentTwentyFiveCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentTwentyFiveCentAmount(getFinancialDocumentTwentyFiveCentAmount().add(detail.getFinancialDocumentTwentyFiveCentAmount()));
             }
         }
         if (detail.getFinancialDocumentTenCentAmount() != null) {
             if (getFinancialDocumentTenCentAmount() == null) {
                 setFinancialDocumentTenCentAmount(new KualiDecimal(detail.getFinancialDocumentTenCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentTenCentAmount(getFinancialDocumentTenCentAmount().add(detail.getFinancialDocumentTenCentAmount()));
             }
         }
         if (detail.getFinancialDocumentFiveCentAmount() != null) {
             if (getFinancialDocumentFiveCentAmount() == null) {
                 setFinancialDocumentFiveCentAmount(new KualiDecimal(detail.getFinancialDocumentFiveCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentFiveCentAmount(getFinancialDocumentFiveCentAmount().add(detail.getFinancialDocumentFiveCentAmount()));
             }
         }
         if (detail.getFinancialDocumentOneCentAmount() != null) {
             if (getFinancialDocumentOneCentAmount() == null) {
                 setFinancialDocumentOneCentAmount(new KualiDecimal(detail.getFinancialDocumentOneCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentOneCentAmount(getFinancialDocumentOneCentAmount().add(detail.getFinancialDocumentOneCentAmount()));
             }
         }
         if (detail.getFinancialDocumentOtherCentAmount() != null) {
             if (getFinancialDocumentOtherCentAmount() == null) {
                 setFinancialDocumentOtherCentAmount(new KualiDecimal(detail.getFinancialDocumentOtherCentAmount().bigDecimalValue()));
-            }
-            else {
+            } else {
                 setFinancialDocumentOtherCentAmount(getFinancialDocumentOtherCentAmount().add(detail.getFinancialDocumentOtherCentAmount()));
             }
         }
@@ -946,64 +931,56 @@ public class CashDrawer extends PersistableBusinessObjectBase {
         if (detail.getFinancialDocumentHundredDollarAmount() != null) {
             if (this.getFinancialDocumentHundredDollarAmount() == null || detail.getFinancialDocumentHundredDollarAmount().isGreaterThan(this.getFinancialDocumentHundredDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of hundred dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentHundredDollarAmount(getFinancialDocumentHundredDollarAmount().subtract(detail.getFinancialDocumentHundredDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentFiftyDollarAmount() != null) {
             if (this.getFinancialDocumentFiftyDollarAmount() == null || detail.getFinancialDocumentFiftyDollarAmount().isGreaterThan(this.getFinancialDocumentFiftyDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of fifty dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentFiftyDollarAmount(getFinancialDocumentFiftyDollarAmount().subtract(detail.getFinancialDocumentFiftyDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentTwentyDollarAmount() != null) {
             if (this.getFinancialDocumentTwentyDollarAmount() == null || detail.getFinancialDocumentTwentyDollarAmount().isGreaterThan(this.getFinancialDocumentTwentyDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of twenty dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentTwentyDollarAmount(getFinancialDocumentTwentyDollarAmount().subtract(detail.getFinancialDocumentTwentyDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentTenDollarAmount() != null) {
             if (this.getFinancialDocumentTenDollarAmount() == null || detail.getFinancialDocumentTenDollarAmount().isGreaterThan(this.getFinancialDocumentTenDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of ten dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentTenDollarAmount(getFinancialDocumentTenDollarAmount().subtract(detail.getFinancialDocumentTenDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentFiveDollarAmount() != null) {
             if (this.getFinancialDocumentFiveDollarAmount() == null || detail.getFinancialDocumentFiveDollarAmount().isGreaterThan(this.getFinancialDocumentFiveDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of five dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentFiveDollarAmount(getFinancialDocumentFiveDollarAmount().subtract(detail.getFinancialDocumentFiveDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentTwoDollarAmount() != null) {
             if (this.getFinancialDocumentTwoDollarAmount() == null || detail.getFinancialDocumentTwoDollarAmount().isGreaterThan(this.getFinancialDocumentTwoDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of two dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentTwoDollarAmount(getFinancialDocumentTwoDollarAmount().subtract(detail.getFinancialDocumentTwoDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentOneDollarAmount() != null) {
             if (this.getFinancialDocumentOneDollarAmount() == null || detail.getFinancialDocumentOneDollarAmount().isGreaterThan(this.getFinancialDocumentOneDollarAmount())) {
                 throw new IllegalArgumentException("The requested amount of one dollar bills exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentOneDollarAmount(getFinancialDocumentOneDollarAmount().subtract(detail.getFinancialDocumentOneDollarAmount()));
             }
         }
         if (detail.getFinancialDocumentOtherDollarAmount() != null) {
             if (this.getFinancialDocumentOtherDollarAmount() == null || detail.getFinancialDocumentOtherDollarAmount().isGreaterThan(this.getFinancialDocumentOtherDollarAmount())) {
                 throw new IllegalArgumentException("The requested other dollar amount exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentOtherDollarAmount(getFinancialDocumentOtherDollarAmount().subtract(detail.getFinancialDocumentOtherDollarAmount()));
             }
         }
@@ -1018,56 +995,49 @@ public class CashDrawer extends PersistableBusinessObjectBase {
         if (detail.getFinancialDocumentHundredCentAmount() != null) {
             if (this.getFinancialDocumentHundredCentAmount() == null || detail.getFinancialDocumentHundredCentAmount().isGreaterThan(this.getFinancialDocumentHundredCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of hundred cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentHundredCentAmount(getFinancialDocumentHundredCentAmount().subtract(detail.getFinancialDocumentHundredCentAmount()));
             }
         }
         if (detail.getFinancialDocumentFiftyCentAmount() != null) {
             if (this.getFinancialDocumentFiftyCentAmount() == null || detail.getFinancialDocumentFiftyCentAmount().isGreaterThan(this.getFinancialDocumentFiftyCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of fifty cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentFiftyCentAmount(getFinancialDocumentFiftyCentAmount().subtract(detail.getFinancialDocumentFiftyCentAmount()));
             }
         }
         if (detail.getFinancialDocumentTwentyFiveCentAmount() != null) {
             if (this.getFinancialDocumentTwentyFiveCentAmount() == null || detail.getFinancialDocumentTwentyFiveCentAmount().isGreaterThan(this.getFinancialDocumentTwentyFiveCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of twenty five cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentTwentyFiveCentAmount(getFinancialDocumentTwentyFiveCentAmount().subtract(detail.getFinancialDocumentTwentyFiveCentAmount()));
             }
         }
         if (detail.getFinancialDocumentTenCentAmount() != null) {
             if (this.getFinancialDocumentTenCentAmount() == null || detail.getFinancialDocumentTenCentAmount().isGreaterThan(this.getFinancialDocumentTenCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of ten cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentTenCentAmount(getFinancialDocumentTenCentAmount().subtract(detail.getFinancialDocumentTenCentAmount()));
             }
         }
         if (detail.getFinancialDocumentFiveCentAmount() != null) {
             if (this.getFinancialDocumentFiveCentAmount() == null || detail.getFinancialDocumentFiveCentAmount().isGreaterThan(this.getFinancialDocumentFiveCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of five cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentFiveCentAmount(getFinancialDocumentFiveCentAmount().subtract(detail.getFinancialDocumentFiveCentAmount()));
             }
         }
         if (detail.getFinancialDocumentOneCentAmount() != null) {
             if (this.getFinancialDocumentOneCentAmount() == null || detail.getFinancialDocumentOneCentAmount().isGreaterThan(this.getFinancialDocumentOneCentAmount())) {
                 throw new IllegalArgumentException("The requested amount of one cent pieces exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentOneCentAmount(getFinancialDocumentOneCentAmount().subtract(detail.getFinancialDocumentOneCentAmount()));
             }
         }
         if (detail.getFinancialDocumentOtherCentAmount() != null) {
             if (this.getFinancialDocumentOtherCentAmount() == null || detail.getFinancialDocumentOtherCentAmount().isGreaterThan(this.getFinancialDocumentOtherCentAmount())) {
                 throw new IllegalArgumentException("The requested other cent amount exceeds the amount in the cash drawer");
-            }
-            else {
+            } else {
                 setFinancialDocumentOtherCentAmount(getFinancialDocumentOtherCentAmount().subtract(detail.getFinancialDocumentOtherCentAmount()));
             }
         }
@@ -1079,17 +1049,17 @@ public class CashDrawer extends PersistableBusinessObjectBase {
      * @return Returns the campus.
      */
     public CampusEbo getCampus() {
-        if ( StringUtils.isBlank(campusCode) ) {
+        if (StringUtils.isBlank(campusCode)) {
             campus = null;
         } else {
-            if ( campus == null || !StringUtils.equals( campus.getCode(),campusCode) ) {
+            if (campus == null || !StringUtils.equals(campus.getCode(), campusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, campusCode);
                     campus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }

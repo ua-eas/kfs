@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.SOURCE_ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_SOURCE_SECTION_NO_ACCOUNTING_LINES;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.SOURCE_ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_SOURCE_SECTION_NO_ACCOUNTING_LINES;
 
 /**
  * This class validates to make sure that at least one payment line is available for the document
@@ -40,10 +40,9 @@ public class AssetPaymentAccountingLineCountValidation extends GenericValidation
         boolean valid = true;
         AccountingDocument accountingDocument = (AccountingDocument) event.getDocument();
         if (0 == accountingDocument.getSourceAccountingLines().size()) {
-            GlobalVariables.getMessageMap().putError(SOURCE_ACCOUNTING_LINE_ERRORS, ERROR_DOCUMENT_SOURCE_SECTION_NO_ACCOUNTING_LINES, new String[] { accountingDocument.getSourceAccountingLinesSectionTitle() });
+            GlobalVariables.getMessageMap().putError(SOURCE_ACCOUNTING_LINE_ERRORS, ERROR_DOCUMENT_SOURCE_SECTION_NO_ACCOUNTING_LINES, new String[]{accountingDocument.getSourceAccountingLinesSectionTitle()});
             valid = false;
-        }
-        else {
+        } else {
             valid = true;
         }
         return valid;

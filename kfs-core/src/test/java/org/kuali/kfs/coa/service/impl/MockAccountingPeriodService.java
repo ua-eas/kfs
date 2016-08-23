@@ -45,7 +45,7 @@ public class MockAccountingPeriodService extends AccountingPeriodServiceImpl {
                 if (KfsDateUtils.isSameDayOrEarlier(currentDate, Date.valueOf(cal.get(Calendar.YEAR) + "-06-30"))) {
                     return cal.get(Calendar.YEAR);
                 }
-                return cal.get(Calendar.YEAR)+1;
+                return cal.get(Calendar.YEAR) + 1;
             }
 
             @Override
@@ -56,9 +56,9 @@ public class MockAccountingPeriodService extends AccountingPeriodServiceImpl {
                 if (month == 0) {
                     return "12";
                 } else if (month < 10) {
-                    return "0"+month;
+                    return "0" + month;
                 } else {
-                    return ""+month;
+                    return "" + month;
                 }
             }
 
@@ -78,7 +78,7 @@ public class MockAccountingPeriodService extends AccountingPeriodServiceImpl {
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.MONTH, periodCodeMonth);
                 cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.DAY_OF_MONTH,1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
                 final int lastDayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
                 cal.set(Calendar.DAY_OF_MONTH, lastDayOfMonth);
                 return KfsDateUtils.clearTimeFields(new Date(cal.getTimeInMillis()));

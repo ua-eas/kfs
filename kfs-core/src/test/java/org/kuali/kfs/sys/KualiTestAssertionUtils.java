@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.sys;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -30,12 +31,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 /**
  * Contains assertion related convenience methods for testing (not for production use).
@@ -78,17 +78,16 @@ public class KualiTestAssertionUtils {
      * (redundant with the foreign keys), and many (all?) of our BOs implement the <code>equals</code> method in terms of identity
      * so would fail this assertion anyway. This is a data-oriented assertion, for our data-oriented tests and persistence layer.
      *
-     * @param message a description of this test assertion
+     * @param message      a description of this test assertion
      * @param expectedBean a java bean containing expected properties
-     * @param actualBean a java bean containing actual properties
+     * @param actualBean   a java bean containing actual properties
      * @throws InvocationTargetException if a getter method throws an exception (the cause)
-     * @throws NoSuchMethodException if an expected property does not exist in the actualBean
+     * @throws NoSuchMethodException     if an expected property does not exist in the actualBean
      */
     public static void assertSparselyEqualBean(String message, Object expectedBean, Object actualBean) throws InvocationTargetException, NoSuchMethodException {
         if (message == null) {
             message = "";
-        }
-        else {
+        } else {
             message = message + " ";
         }
         assertNotNull(message + "actual bean is null", actualBean);
@@ -101,8 +100,7 @@ public class KualiTestAssertionUtils {
                     if (expectedValue != null && !(expectedValue instanceof BusinessObject)) {
                         assertEquals(message + descriptor.getName(), expectedValue, PropertyUtils.getSimpleProperty(actualBean, descriptor.getName()));
                     }
-                }
-                catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     throw new AssertionError(e); // can't happen because getReadMethod() returns only public methods
                 }
             }
@@ -143,7 +141,7 @@ public class KualiTestAssertionUtils {
             List expectedParameterList = Arrays.asList(expectedErrorParameters);
             List fieldMessages = map.getMessages(expectedFieldName);
             if (fieldMessages != null) {
-                for (Iterator i = fieldMessages.iterator(); i.hasNext();) {
+                for (Iterator i = fieldMessages.iterator(); i.hasNext(); ) {
                     ErrorMessage errorMessage = (ErrorMessage) i.next();
                     if (sparselyEqualLists(expectedParameterList, Arrays.asList(errorMessage.getMessageParameters()))) {
                         return; // success;
@@ -159,7 +157,7 @@ public class KualiTestAssertionUtils {
             return false;
         }
         Iterator actualIterator = actual.iterator();
-        for (Iterator expectedIterator = expected.iterator(); expectedIterator.hasNext();) {
+        for (Iterator expectedIterator = expected.iterator(); expectedIterator.hasNext(); ) {
             Object expectedItem = expectedIterator.next();
             Object actualItem = actualIterator.next();
             if (expectedItem != null && !expectedItem.equals(actualItem)) {
@@ -203,7 +201,7 @@ public class KualiTestAssertionUtils {
      * assertNotNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
      *
-     * @param message the context of this assertion, if it fails
+     * @param message      the context of this assertion, if it fails
      * @param expectedNull the reference to check
      */
     public static void assertNullHandlingOjbProxies(String message, Object expectedNull) {
@@ -226,7 +224,7 @@ public class KualiTestAssertionUtils {
      * from assertNotNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
      *
-     * @param message the context of this assertion, if it fails
+     * @param message         the context of this assertion, if it fails
      * @param expectedNotNull the reference to check
      */
     public static void assertNotNullHandlingOjbProxies(String message, Object expectedNotNull) {

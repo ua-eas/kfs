@@ -18,21 +18,17 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DISPUTE_URL_PARM_NM;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
@@ -40,18 +36,21 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
 import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants.DISPUTE_URL_PARM_NM;
 
 /**
  * This class is the form class for the ProcurementCard document. This method extends the parent KualiTransactionalDocumentFormBase
  * class which contains all of the common form methods and form attributes needed by the Procurment Card document.
  */
-public class ProcurementCardForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable{
+public class ProcurementCardForm extends CapitalAccountingLinesFormBase implements CapitalAssetEditable {
     protected static final long serialVersionUID = 1L;
     protected List<ProcurementCardTargetAccountingLine> newTargetLines;
     protected List<Boolean> transactionCreditCardNumbersViewStatus;
@@ -81,7 +80,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
 
             if (methodToCall.equals(KFSConstants.INSERT_TARGET_LINE_METHOD)) {
                 // This is the addition for the override: Handle multiple accounting lines ...
-                for (Iterator newTargetLinesIter = getNewTargetLines().iterator(); newTargetLinesIter.hasNext();) {
+                for (Iterator newTargetLinesIter = getNewTargetLines().iterator(); newTargetLinesIter.hasNext(); ) {
                     TargetAccountingLine targetAccountingLine = (TargetAccountingLine) newTargetLinesIter.next();
                     populateTargetAccountingLine(targetAccountingLine, KFSPropertyConstants.NEW_TARGET_LINE, parameterMap);
                 }
@@ -105,12 +104,12 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         super();
 
         this.newTargetLines = new ArrayList<ProcurementCardTargetAccountingLine>();
-       // buildNewTargetAccountingLines();
+        // buildNewTargetAccountingLines();
         capitalAssetInformation = new ArrayList<CapitalAssetInformation>();
     }
 
     public void buildNewTargetAccountingLines(int transactionsCount) {
-        for (int i=0; i < transactionsCount; i++) {
+        for (int i = 0; i < transactionsCount; i++) {
             ProcurementCardTargetAccountingLine newLine = new ProcurementCardTargetAccountingLine();
             newLine.setTransactionContainerIndex(i);
             this.newTargetLines.add(i, newLine);
@@ -179,14 +178,14 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         transactionCreditCardNumbersViewStatus = new ArrayList<Boolean>();
 
-        for (Object transactionEntryAsObject : ((ProcurementCardDocument)getDocument()).getTransactionEntries()) {
-            final ProcurementCardTransactionDetail transactionDetail = (ProcurementCardTransactionDetail)transactionEntryAsObject;
+        for (Object transactionEntryAsObject : ((ProcurementCardDocument) getDocument()).getTransactionEntries()) {
+            final ProcurementCardTransactionDetail transactionDetail = (ProcurementCardTransactionDetail) transactionEntryAsObject;
             Boolean canEditAnyAccountingLine = Boolean.FALSE;
 
             int count = 0;
             while (!canEditAnyAccountingLine.booleanValue() && count < transactionDetail.getTargetAccountingLines().size()) {
-                final TargetAccountingLine accountingLine = (TargetAccountingLine)transactionDetail.getTargetAccountingLines().get(count);
-                if (accountingLineAuthorizer.hasEditPermissionOnAccountingLine(((ProcurementCardDocument)getDocument()), accountingLine, getAccountingLineCollectionName(), currentUser, getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT), getDocument().getDocumentHeader().getWorkflowDocument().getCurrentNodeNames())) {
+                final TargetAccountingLine accountingLine = (TargetAccountingLine) transactionDetail.getTargetAccountingLines().get(count);
+                if (accountingLineAuthorizer.hasEditPermissionOnAccountingLine(((ProcurementCardDocument) getDocument()), accountingLine, getAccountingLineCollectionName(), currentUser, getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT), getDocument().getDocumentHeader().getWorkflowDocument().getCurrentNodeNames())) {
                     canEditAnyAccountingLine = Boolean.TRUE;
                 }
                 count += 1;
@@ -202,7 +201,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         final DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
         final DataDictionary dataDictionary = dataDictionaryService.getDataDictionary();
         final String documentTypeCode = dataDictionaryService.getDocumentTypeNameByClass(this.getDocument().getClass());
-        final FinancialSystemTransactionalDocumentEntry documentEntry = (FinancialSystemTransactionalDocumentEntry)dataDictionary.getDocumentEntry(documentTypeCode);
+        final FinancialSystemTransactionalDocumentEntry documentEntry = (FinancialSystemTransactionalDocumentEntry) dataDictionary.getDocumentEntry(documentTypeCode);
         final AccountingLineGroupDefinition targetAccountingLineGroupDefinition = documentEntry.getAccountingLineGroups().get(ProcurementCardForm.TARGET_ACCOUNTING_LINE_GROUP_NAME);
         return targetAccountingLineGroupDefinition.getAccountingLineAuthorizer();
     }

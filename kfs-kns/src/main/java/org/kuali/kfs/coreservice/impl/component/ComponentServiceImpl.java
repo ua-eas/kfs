@@ -24,10 +24,9 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coreservice.api.component.Component;
 import org.kuali.kfs.coreservice.api.component.ComponentService;
-import org.kuali.kfs.coreservice.impl.component.ComponentSetBo;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.util.ChecksumUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -80,9 +79,9 @@ public class ComponentServiceImpl implements ComponentService {
         List<Component> components = new ArrayList<Component>();
 
         Collection<ComponentBo> componentBos =
-                getBusinessObjectService().findMatching(ComponentBo.class, criteria);
+            getBusinessObjectService().findMatching(ComponentBo.class, criteria);
         Collection<DerivedComponentBo> derivedComponentBos =
-                getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
+            getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
         return translateCollections(componentBos, derivedComponentBos);
     }
 
@@ -95,10 +94,10 @@ public class ComponentServiceImpl implements ComponentService {
         criteria.put("namespaceCode", namespaceCode);
         criteria.put("active", Boolean.TRUE);
         Collection<ComponentBo> componentBos =
-                getBusinessObjectService().findMatching(ComponentBo.class, criteria);
+            getBusinessObjectService().findMatching(ComponentBo.class, criteria);
         criteria.remove("active");
         Collection<DerivedComponentBo> derivedComponentBos =
-                getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
+            getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
         return translateCollections(componentBos, derivedComponentBos);
     }
 
@@ -110,7 +109,7 @@ public class ComponentServiceImpl implements ComponentService {
         Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("componentSetId", componentSetId);
         Collection<DerivedComponentBo> derivedComponentBos =
-                getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
+            getBusinessObjectService().findMatching(DerivedComponentBo.class, criteria);
         return translateCollections(null, derivedComponentBos);
     }
 
@@ -159,7 +158,7 @@ public class ComponentServiceImpl implements ComponentService {
             String currentComponentSetId = component.getComponentSetId();
             if (!componentSetId.equals(currentComponentSetId)) {
                 throw new RiceIllegalArgumentException("Encountered a component with an invalid componentSetId of '" +
-                        currentComponentSetId + "'.  Expected null or '" + componentSetId + "'.");
+                    currentComponentSetId + "'.  Expected null or '" + componentSetId + "'.");
             }
             processedComponents.add(component);
         }

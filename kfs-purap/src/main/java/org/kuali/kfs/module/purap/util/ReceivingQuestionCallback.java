@@ -53,6 +53,7 @@ public interface ReceivingQuestionCallback {
 
     /**
      * Setter for correction document note text
+     *
      * @param noteText
      */
     public void setCorrectionDocumentCreationNoteText(String noteText);

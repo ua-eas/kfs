@@ -19,10 +19,10 @@
 package org.kuali.kfs.krad.kim;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.impl.permission.PermissionBo;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +31,6 @@ import java.util.Map;
 
 /**
  * Type service for the 'View Widget' KIM type which matches on the id for a UIF view and widget id
- *
- *
  */
 public class ViewWidgetPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
@@ -50,12 +48,12 @@ public class ViewWidgetPermissionTypeServiceImpl extends PermissionTypeServiceBa
      * to filter based on view id
      *
      * @param requestedDetails - map of details requested with permission (used for matching)
-     * @param permissionsList - list of permissions to process for matches
+     * @param permissionsList  - list of permissions to process for matches
      * @return List<Permission> list of permissions that match the requested details
      */
     @Override
     protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
-            List<Permission> permissionsList) {
+                                                        List<Permission> permissionsList) {
 
         String requestedWidgetId = requestedDetails.get(KimConstants.AttributeConstants.WIDGET_ID);
 

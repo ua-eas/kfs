@@ -24,22 +24,19 @@ import java.util.Set;
 /**
  * The class which exposes the names of all KNS business object entities - which are managed
  * by all JPA persistence units
- *
- *
- *
  */
 public class KRADPersistableBusinessObjectClassExposer implements
-        PersistableBusinessObjectClassExposer {
+    PersistableBusinessObjectClassExposer {
 
-	/**
-	 * Exposes all KNS objects - a hard coded list for now - to persistence units
-	 *
-	 * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
-	 */
-	@Override
-	public Set<String> exposePersistableBusinessObjectClassNames() {
-		Set<String> knsBOs = new HashSet<String>();
-		/*knsBOs.add(org.kuali.rice.kns.document.DocumentBase.class.getName());
+    /**
+     * Exposes all KNS objects - a hard coded list for now - to persistence units
+     *
+     * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
+     */
+    @Override
+    public Set<String> exposePersistableBusinessObjectClassNames() {
+        Set<String> knsBOs = new HashSet<String>();
+        /*knsBOs.add(org.kuali.rice.kns.document.DocumentBase.class.getName());
 		knsBOs.add(org.kuali.rice.kns.document.MaintenanceDocumentBase.class.getName());
 		knsBOs.add(org.kuali.rice.kns.document.MaintenanceLock.class.getName());
 		knsBOs.add(org.kuali.rice.kns.document.TransactionalDocumentBase.class.getName());
@@ -72,7 +69,7 @@ public class KRADPersistableBusinessObjectClassExposer implements
 		knsBOs.add(org.kuali.rice.kns.bo.StateImpl.class.getName());
 		knsBOs.add(org.kuali.rice.kns.bo.PostalCodeImpl.class.getName());
 		knsBOs.add(org.kuali.rice.kns.bo.SessionDocument.class.getName()); */
-		return knsBOs;
-	}
+        return knsBOs;
+    }
 
 }

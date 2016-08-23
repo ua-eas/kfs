@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationAmendmentDocument;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -31,7 +30,8 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class TravelAuthAmendmentValidation extends GenericValidation {
 
@@ -44,15 +44,15 @@ public class TravelAuthAmendmentValidation extends GenericValidation {
     public boolean validate(AttributedDocumentEvent event) {
 
         boolean validated = true;
-        TravelDocument document = (TravelDocument)event.getDocument();
+        TravelDocument document = (TravelDocument) event.getDocument();
 
         //special rule for Travel Authorization Amendment documents
-        if (document instanceof TravelAuthorizationAmendmentDocument){
+        if (document instanceof TravelAuthorizationAmendmentDocument) {
             List<String> errorPath = GlobalVariables.getMessageMap().getErrorPath();
             GlobalVariables.getMessageMap().clearErrorPath();
 
             //validate if there is no enroute TR
-            validated &= validateSubmissionWithoutEnrouteReimbursement((TravelAuthorizationDocument)document);
+            validated &= validateSubmissionWithoutEnrouteReimbursement((TravelAuthorizationDocument) document);
 
             //reset the error path
             GlobalVariables.getMessageMap().clearErrorPath();
@@ -68,11 +68,11 @@ public class TravelAuthAmendmentValidation extends GenericValidation {
      * @param document
      * @return
      */
-    public boolean validateSubmissionWithoutEnrouteReimbursement(TravelAuthorizationDocument authorization){
+    public boolean validateSubmissionWithoutEnrouteReimbursement(TravelAuthorizationDocument authorization) {
         boolean validated = true;
 
         TravelReimbursementDocument reimbursement = travelAuthorizationService.findEnrouteOrProcessedTravelReimbursement(authorization);
-        if (reimbursement != null){
+        if (reimbursement != null) {
             validated = false;
             DocumentStatus status = reimbursement.getDocumentHeader().getWorkflowDocument().getStatus();
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, TemKeyConstants.ERROR_TAA_WITH_TR_ENROUTE, reimbursement.getDocumentNumber(), KewApiConstants.DOCUMENT_STATUSES.get(status));

@@ -18,40 +18,35 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="travelerDerivedRoleTypeService" p:localServiceName="travelerDerivedRoleTypeService" />
-
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="temProfileOrganizationHierarchyRoleTypeService" p:localServiceName="temProfileOrganizationHierarchyRoleTypeService" />
-
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="temProfileArrangerOrganizationHierarchyRoleTypeService" p:localServiceName="temProfileArrangerOrganizationHierarchyRoleTypeService" />
-
-	<bean parent="roleTypeServiceCallback"
-		p:callbackService-ref="temProfileDerivedRoleTypeService" p:localServiceName="temProfileDerivedRoleTypeService" />
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
     <bean parent="roleTypeServiceCallback"
-        p:callbackService-ref="arrangerDerivedRoleTypeService" p:localServiceName="arrangerDerivedRoleTypeService" />
+          p:callbackService-ref="travelerDerivedRoleTypeService" p:localServiceName="travelerDerivedRoleTypeService"/>
 
     <bean parent="roleTypeServiceCallback"
-        p:callbackService-ref="temExecutiveManagerRoleTypeService" p:localServiceName="temExecutiveManagerRoleTypeService" />
+          p:callbackService-ref="temProfileOrganizationHierarchyRoleTypeService" p:localServiceName="temProfileOrganizationHierarchyRoleTypeService"/>
 
     <bean parent="roleTypeServiceCallback"
-        p:callbackService-ref="reimbursementOverageOrganizationHierarchyRoleTypeService" p:localServiceName="reimbursementOverageOrganizationHierarchyRoleTypeService" />
+          p:callbackService-ref="temProfileArrangerOrganizationHierarchyRoleTypeService" p:localServiceName="temProfileArrangerOrganizationHierarchyRoleTypeService"/>
 
- 	<bean parent="documentSearchCustomizerCallback"
-		p:callbackService-ref="TravelDocumentSearchCustomizer" p:localServiceName="TravelDocumentSearchCustomizer" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="temProfileDerivedRoleTypeService" p:localServiceName="temProfileDerivedRoleTypeService"/>
 
-	<bean parent="searchableAttributeCallback"
-		p:callbackService-ref="TemFinancialSystemSearchableAttribute" p:localServiceName="TemFinancialSystemSearchableAttribute" />
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="arrangerDerivedRoleTypeService" p:localServiceName="arrangerDerivedRoleTypeService"/>
+
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="temExecutiveManagerRoleTypeService" p:localServiceName="temExecutiveManagerRoleTypeService"/>
+
+    <bean parent="roleTypeServiceCallback"
+          p:callbackService-ref="reimbursementOverageOrganizationHierarchyRoleTypeService" p:localServiceName="reimbursementOverageOrganizationHierarchyRoleTypeService"/>
+
+    <bean parent="documentSearchCustomizerCallback"
+          p:callbackService-ref="TravelDocumentSearchCustomizer" p:localServiceName="TravelDocumentSearchCustomizer"/>
+
+    <bean parent="searchableAttributeCallback"
+          p:callbackService-ref="TemFinancialSystemSearchableAttribute" p:localServiceName="TemFinancialSystemSearchableAttribute"/>
 
 </beans>

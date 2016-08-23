@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestPayDateNotPastValidation;
 import org.kuali.kfs.module.purap.fixture.PaymentRequestInvoiceTabFixture;
+
+import java.sql.Date;
 
 public class TestPaymentRequestPayDateNotPastValidation extends PaymentRequestPayDateNotPastValidation {
 

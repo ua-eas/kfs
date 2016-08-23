@@ -34,9 +34,9 @@ public class WorkflowProperty implements Serializable {
 
     /**
      * Default constructor, sets path to null
-     *
      */
-    public WorkflowProperty() {}
+    public WorkflowProperty() {
+    }
 
     /**
      * Returns the path to the property that is serializable, relative to the {@link WorkflowPropertyGroup} that contains this object

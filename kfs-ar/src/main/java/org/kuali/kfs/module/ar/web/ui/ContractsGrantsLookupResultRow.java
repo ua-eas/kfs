@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.web.ui;
 
-import java.util.List;
-
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
+
+import java.util.List;
 
 /**
  * This class defines a Contracts & Grants Lookup Result Row. This class extends ResultRow and adds a List of sub result rows.

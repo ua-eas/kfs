@@ -22,14 +22,17 @@
  */
 package org.kuali.kfs.module.purap.dataaccess;
 
+import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
+
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
-
 public interface ElectronicInvoicingDao {
-  public ElectronicInvoiceLoadSummary getElectronicInvoiceLoadSummary(Integer loadId,String vendorDunsNumber);
-  public List getPendingElectronicInvoices();
-  public Map getDefaultItemMappingMap();
-  public Map getItemMappingMap(Integer vendorHeaderId, Integer vendorDetailId);
+    public ElectronicInvoiceLoadSummary getElectronicInvoiceLoadSummary(Integer loadId, String vendorDunsNumber);
+
+    public List getPendingElectronicInvoices();
+
+    public Map getDefaultItemMappingMap();
+
+    public Map getItemMappingMap(Integer vendorHeaderId, Integer vendorDetailId);
 }

@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.kns.web.struts.config;
 
-import org.apache.struts.config.BaseConfig;
 import org.apache.struts.config.ControllerConfig;
-
-import java.util.Properties;
 
 /**
  * Wrapper which aids specializing Struts ControllerConfig

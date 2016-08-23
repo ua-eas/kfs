@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.document.service;
 
+import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
-import org.kuali.kfs.krad.document.TransactionalDocument;
 
 /**
  * Methods needed to update pending entries on FP year end documents
@@ -53,15 +53,14 @@ public interface YearEndPendingEntryService {
 
     /**
      * Populates an offset GeneralLedgerPendingEntry such that it uses the Offset Definition from the previous year
+     *
      * @param transactionalDocument the transactional document with general ledger pending entries on it
-     * @param accountingLine the general ledger pending entry source which generated the explicit and offset entry
-     * @param explicitEntry the explicit entry requiring this offset entry
-     * @param offsetEntry the offset entry which is being customized
+     * @param accountingLine        the general ledger pending entry source which generated the explicit and offset entry
+     * @param explicitEntry         the explicit entry requiring this offset entry
+     * @param offsetEntry           the offset entry which is being customized
      * @return whether the offset could be successfully customized for year end or not
      */
     public abstract boolean customizeOffsetGeneralLedgerPendingEntry(TransactionalDocument transactionalDocument, GeneralLedgerPendingEntrySourceDetail accountingLine, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry);
-
-
 
 
 }

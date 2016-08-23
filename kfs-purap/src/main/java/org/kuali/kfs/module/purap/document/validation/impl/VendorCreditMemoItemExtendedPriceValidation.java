@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
@@ -26,8 +28,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class VendorCreditMemoItemExtendedPriceValidation extends GenericValidation {
 
@@ -36,7 +36,7 @@ public class VendorCreditMemoItemExtendedPriceValidation extends GenericValidati
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument)event.getDocument();
+        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument) event.getDocument();
 
         String errorKeyPrefix = KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM + "[" + (itemForValidation.getItemLineNumber() - 1) + "].";
         String errorKey = errorKeyPrefix + PurapPropertyConstants.EXTENDED_PRICE;
@@ -52,8 +52,7 @@ public class VendorCreditMemoItemExtendedPriceValidation extends GenericValidati
                 KualiDecimal invoicedAmount = null;
                 if (cmDocument.isSourceDocumentPurchaseOrder()) {
                     invoicedAmount = itemForValidation.getPoTotalAmount();
-                }
-                else {
+                } else {
                     invoicedAmount = itemForValidation.getPreqTotalAmount();
                 }
 

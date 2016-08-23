@@ -19,9 +19,6 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
@@ -32,6 +29,7 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
@@ -41,11 +39,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Represents a G/L entry
- *
  */
 public class Entry extends PersistableBusinessObjectBase implements Transaction {
     static final long serialVersionUID = -24983129882357448L;
@@ -235,13 +234,13 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
      */
     @Override
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }
@@ -860,13 +859,13 @@ public class Entry extends PersistableBusinessObjectBase implements Transaction 
      * @return Returns the referenceFinancialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( referenceFinancialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(referenceFinancialDocumentTypeCode)) {
             referenceFinancialSystemDocumentTypeCode = null;
         } else {
-            if ( referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName() ) ) {
+            if (referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(referenceFinancialDocumentTypeCode);
-                if ( temp != null ) {
-                    referenceFinancialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    referenceFinancialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     referenceFinancialSystemDocumentTypeCode = null;
                 }

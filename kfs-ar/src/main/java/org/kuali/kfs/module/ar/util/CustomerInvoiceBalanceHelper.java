@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class CustomerInvoiceBalanceHelper {
 
@@ -45,6 +45,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method calculates the invoice document balance as the difference between the open amount and the total applied amount
+     *
      * @return the balance of the customer invoice document
      */
     public KualiDecimal getCalculatedBalance() {
@@ -53,6 +54,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method gets the open amount of the ustomer invoice document
+     *
      * @return the open amount of the invoice
      */
     public KualiDecimal getOpenAmount() {
@@ -62,6 +64,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method gets the total applied amount
+     *
      * @return the total applied amount
      */
     public KualiDecimal getTotalAppliedAmountForAppDoc() {
@@ -75,6 +78,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method gets the invoice
+     *
      * @return
      */
     public CustomerInvoiceDocument getInvoice() {
@@ -83,6 +87,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method sets the invoice
+     *
      * @param invoice
      */
     public void setInvoice(CustomerInvoiceDocument invoice) {
@@ -91,6 +96,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method gets the invoice paid applieds
+     *
      * @return
      */
     public Collection<InvoicePaidApplied> getInvoicePaidApplieds() {
@@ -99,6 +105,7 @@ public class CustomerInvoiceBalanceHelper {
 
     /**
      * This method sets the invoice paid applieds
+     *
      * @param invoicePaidApplieds
      */
     public void setInvoicePaidApplieds(Collection<InvoicePaidApplied> invoicePaidApplieds) {

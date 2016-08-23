@@ -32,71 +32,71 @@ import java.util.Map;
  */
 public class DictionaryValidationResult implements Iterable<ConstraintValidationResult> {
 
-	private Map<String, EntryValidationResult> entryValidationResultMap;
-	private ErrorLevel errorLevel;
+    private Map<String, EntryValidationResult> entryValidationResultMap;
+    private ErrorLevel errorLevel;
 
-	private int numberOfErrors;
-	private int numberOfWarnings;
+    private int numberOfErrors;
+    private int numberOfWarnings;
 
-	private Iterator<ConstraintValidationResult> iterator;
+    private Iterator<ConstraintValidationResult> iterator;
 
-	public DictionaryValidationResult() {
-		this.entryValidationResultMap = new LinkedHashMap<String, EntryValidationResult>();
-		this.errorLevel = ErrorLevel.ERROR;
-		this.numberOfErrors = 0;
-		this.numberOfWarnings = 0;
-	}
+    public DictionaryValidationResult() {
+        this.entryValidationResultMap = new LinkedHashMap<String, EntryValidationResult>();
+        this.errorLevel = ErrorLevel.ERROR;
+        this.numberOfErrors = 0;
+        this.numberOfWarnings = 0;
+    }
 
-	public void addConstraintValidationResult(AttributeValueReader attributeValueReader, ConstraintValidationResult constraintValidationResult) {
+    public void addConstraintValidationResult(AttributeValueReader attributeValueReader, ConstraintValidationResult constraintValidationResult) {
 
-		// Don't bother to store this if the error level of the constraint validation result is lower than the level this dictionary validation result is tracking
-		if (constraintValidationResult.getStatus().getLevel() < errorLevel.getLevel())
-			return;
+        // Don't bother to store this if the error level of the constraint validation result is lower than the level this dictionary validation result is tracking
+        if (constraintValidationResult.getStatus().getLevel() < errorLevel.getLevel())
+            return;
 
-		switch (constraintValidationResult.getStatus()) {
-		case ERROR:
-			numberOfErrors++;
-			break;
-		case WARN:
-			numberOfWarnings++;
-			break;
-		default:
-			// Do nothing
-		}
+        switch (constraintValidationResult.getStatus()) {
+            case ERROR:
+                numberOfErrors++;
+                break;
+            case WARN:
+                numberOfWarnings++;
+                break;
+            default:
+                // Do nothing
+        }
 
-		// Give the constraint a chance to override the entry and attribute name - important if the attribute name is not the same as the one in the attribute value reader!
-		String entryName = constraintValidationResult.getEntryName();
-		String attributeName = constraintValidationResult.getAttributeName();
-		String attributePath = constraintValidationResult.getAttributePath();
+        // Give the constraint a chance to override the entry and attribute name - important if the attribute name is not the same as the one in the attribute value reader!
+        String entryName = constraintValidationResult.getEntryName();
+        String attributeName = constraintValidationResult.getAttributeName();
+        String attributePath = constraintValidationResult.getAttributePath();
 
-		if (entryName == null){
-			entryName = attributeValueReader.getEntryName();
-		}
+        if (entryName == null) {
+            entryName = attributeValueReader.getEntryName();
+        }
 
-		if (attributeName == null){
-			attributeName = attributeValueReader.getAttributeName();
-		}
+        if (attributeName == null) {
+            attributeName = attributeValueReader.getAttributeName();
+        }
 
-		if (attributePath == null){
-		    attributePath = attributeValueReader.getPath();
-		}
+        if (attributePath == null) {
+            attributePath = attributeValueReader.getPath();
+        }
 
-		constraintValidationResult.setEntryName(entryName);
-		constraintValidationResult.setAttributeName(attributeName);
-		constraintValidationResult.setAttributePath(attributePath);
+        constraintValidationResult.setEntryName(entryName);
+        constraintValidationResult.setAttributeName(attributeName);
+        constraintValidationResult.setAttributePath(attributePath);
 
-		String entryKey = getEntryValdidationResultKey(entryName, attributePath);
-		getEntryValidationResult(entryKey).getAttributeValidationResult(attributeName).addConstraintValidationResult(constraintValidationResult);
-	}
+        String entryKey = getEntryValdidationResultKey(entryName, attributePath);
+        getEntryValidationResult(entryKey).getAttributeValidationResult(attributeName).addConstraintValidationResult(constraintValidationResult);
+    }
 
-	public ConstraintValidationResult addError(AttributeValueReader attributeValueReader, String constraintName, String errorKey, String... errorParameters) {
-		ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
-		constraintValidationResult.setError(errorKey, errorParameters);
-		numberOfErrors++;
-		return constraintValidationResult;
-	}
+    public ConstraintValidationResult addError(AttributeValueReader attributeValueReader, String constraintName, String errorKey, String... errorParameters) {
+        ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
+        constraintValidationResult.setError(errorKey, errorParameters);
+        numberOfErrors++;
+        return constraintValidationResult;
+    }
 
-    public ConstraintValidationResult addError(String constraintLabelKey, AttributeValueReader attributeValueReader, String constraintName,  String errorKey, String... errorParameters) {
+    public ConstraintValidationResult addError(String constraintLabelKey, AttributeValueReader attributeValueReader, String constraintName, String errorKey, String... errorParameters) {
         ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
         constraintValidationResult.setError(errorKey, errorParameters);
         constraintValidationResult.setConstraintLabelKey(constraintLabelKey);
@@ -104,42 +104,42 @@ public class DictionaryValidationResult implements Iterable<ConstraintValidation
         return constraintValidationResult;
     }
 
-	public ConstraintValidationResult addWarning(AttributeValueReader attributeValueReader, String constraintName, String errorKey, String... errorParameters) {
-		if (errorLevel.getLevel() > ErrorLevel.WARN.getLevel())
-			return new ConstraintValidationResult(constraintName, ErrorLevel.WARN);
+    public ConstraintValidationResult addWarning(AttributeValueReader attributeValueReader, String constraintName, String errorKey, String... errorParameters) {
+        if (errorLevel.getLevel() > ErrorLevel.WARN.getLevel())
+            return new ConstraintValidationResult(constraintName, ErrorLevel.WARN);
 
-		ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
-		constraintValidationResult.setWarning(errorKey, errorParameters);
-		numberOfWarnings++;
-		return constraintValidationResult;
-	}
+        ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
+        constraintValidationResult.setWarning(errorKey, errorParameters);
+        numberOfWarnings++;
+        return constraintValidationResult;
+    }
 
-	public ConstraintValidationResult addSuccess(AttributeValueReader attributeValueReader, String constraintName) {
-		if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
-			return new ConstraintValidationResult(constraintName, ErrorLevel.OK);
+    public ConstraintValidationResult addSuccess(AttributeValueReader attributeValueReader, String constraintName) {
+        if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
+            return new ConstraintValidationResult(constraintName, ErrorLevel.OK);
 
-		return getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
-	}
+        return getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
+    }
 
-	public ConstraintValidationResult addSkipped(AttributeValueReader attributeValueReader, String constraintName) {
-		if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
-			return new ConstraintValidationResult(constraintName, ErrorLevel.INAPPLICABLE);
+    public ConstraintValidationResult addSkipped(AttributeValueReader attributeValueReader, String constraintName) {
+        if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
+            return new ConstraintValidationResult(constraintName, ErrorLevel.INAPPLICABLE);
 
-		ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
-		constraintValidationResult.setStatus(ErrorLevel.INAPPLICABLE);
-		return constraintValidationResult;
-	}
+        ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
+        constraintValidationResult.setStatus(ErrorLevel.INAPPLICABLE);
+        return constraintValidationResult;
+    }
 
-	public ConstraintValidationResult addNoConstraint(AttributeValueReader attributeValueReader, String constraintName) {
-		if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
-			return new ConstraintValidationResult(constraintName, ErrorLevel.NOCONSTRAINT);
+    public ConstraintValidationResult addNoConstraint(AttributeValueReader attributeValueReader, String constraintName) {
+        if (errorLevel.getLevel() > ErrorLevel.OK.getLevel())
+            return new ConstraintValidationResult(constraintName, ErrorLevel.NOCONSTRAINT);
 
-		ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
-		constraintValidationResult.setStatus(ErrorLevel.NOCONSTRAINT);
-		return constraintValidationResult;
-	}
+        ConstraintValidationResult constraintValidationResult = getConstraintValidationResult(attributeValueReader.getEntryName(), attributeValueReader.getAttributeName(), attributeValueReader.getPath(), constraintName);
+        constraintValidationResult.setStatus(ErrorLevel.NOCONSTRAINT);
+        return constraintValidationResult;
+    }
 
-	public Iterator<ConstraintValidationResult> iterator() {
+    public Iterator<ConstraintValidationResult> iterator() {
 
         iterator = new Iterator<ConstraintValidationResult>() {
 
@@ -194,28 +194,28 @@ public class DictionaryValidationResult implements Iterable<ConstraintValidation
 
         };
 
-		return iterator;
-	}
+        return iterator;
+    }
 
-	protected EntryValidationResult getEntryValidationResult(String entryName) {
-		EntryValidationResult entryValidationResult = entryValidationResultMap.get(entryName);
-		if (entryValidationResult == null) {
-			entryValidationResult = new EntryValidationResult(entryName);
-			entryValidationResultMap.put(entryName, entryValidationResult);
-		}
-		return entryValidationResult;
-	}
+    protected EntryValidationResult getEntryValidationResult(String entryName) {
+        EntryValidationResult entryValidationResult = entryValidationResultMap.get(entryName);
+        if (entryValidationResult == null) {
+            entryValidationResult = new EntryValidationResult(entryName);
+            entryValidationResultMap.put(entryName, entryValidationResult);
+        }
+        return entryValidationResult;
+    }
 
-	private ConstraintValidationResult getConstraintValidationResult(String entryName, String attributeName, String attributePath, String constraintName) {
-	    String entryKey = getEntryValdidationResultKey(entryName, attributePath);
-	    ConstraintValidationResult constraintValidationResult = getEntryValidationResult(entryKey).getAttributeValidationResult(attributeName).getConstraintValidationResult(constraintName);
-		constraintValidationResult.setEntryName(entryName);
-		constraintValidationResult.setAttributeName(attributeName);
-		constraintValidationResult.setAttributePath(attributePath);
-		return constraintValidationResult;
-	}
+    private ConstraintValidationResult getConstraintValidationResult(String entryName, String attributeName, String attributePath, String constraintName) {
+        String entryKey = getEntryValdidationResultKey(entryName, attributePath);
+        ConstraintValidationResult constraintValidationResult = getEntryValidationResult(entryKey).getAttributeValidationResult(attributeName).getConstraintValidationResult(constraintName);
+        constraintValidationResult.setEntryName(entryName);
+        constraintValidationResult.setAttributeName(attributeName);
+        constraintValidationResult.setAttributePath(attributePath);
+        return constraintValidationResult;
+    }
 
-	/**
+    /**
      * Returns the key to the EntryValidationResult entry in the EntryValidationResultMap.
      * Most cases entry key will be the entryName, unless the attribute is part of a collection,
      * in which case entry key will be suffixed with index of attribute's parent item.
@@ -225,38 +225,38 @@ public class DictionaryValidationResult implements Iterable<ConstraintValidation
      * @return
      */
     private String getEntryValdidationResultKey(String entryName, String attributePath) {
-        if (attributePath.contains("[")){
+        if (attributePath.contains("[")) {
             return entryName + "[" + ValidationUtils.getLastPathIndex(attributePath) + "]";
         }
         return entryName;
     }
 
     /**
-	 * @return the errorLevel
-	 */
-	public ErrorLevel getErrorLevel() {
-		return this.errorLevel;
-	}
+     * @return the errorLevel
+     */
+    public ErrorLevel getErrorLevel() {
+        return this.errorLevel;
+    }
 
-	/**
-	 * @param errorLevel the errorLevel to set
-	 */
-	public void setErrorLevel(ErrorLevel errorLevel) {
-		this.errorLevel = errorLevel;
-	}
+    /**
+     * @param errorLevel the errorLevel to set
+     */
+    public void setErrorLevel(ErrorLevel errorLevel) {
+        this.errorLevel = errorLevel;
+    }
 
-	/**
-	 * @return the numberOfErrors
-	 */
-	public int getNumberOfErrors() {
-		return this.numberOfErrors;
-	}
+    /**
+     * @return the numberOfErrors
+     */
+    public int getNumberOfErrors() {
+        return this.numberOfErrors;
+    }
 
-	/**
-	 * @return the numberOfWarnings
-	 */
-	public int getNumberOfWarnings() {
-		return this.numberOfWarnings;
-	}
+    /**
+     * @return the numberOfWarnings
+     */
+    public int getNumberOfWarnings() {
+        return this.numberOfWarnings;
+    }
 
 }

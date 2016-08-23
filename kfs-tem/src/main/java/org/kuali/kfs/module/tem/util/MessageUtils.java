@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.util;
 
-import java.text.MessageFormat;
-
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.text.MessageFormat;
 
 public class MessageUtils {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MessageUtils.class);
@@ -33,7 +33,7 @@ public class MessageUtils {
      * @param error
      * @return
      */
-    public static String getErrorMessage(ErrorMessage error){
+    public static String getErrorMessage(ErrorMessage error) {
         return getMessage(error.getErrorKey(), error.getMessageParameters());
     }
 
@@ -43,9 +43,9 @@ public class MessageUtils {
      * @param error
      * @return
      */
-    public static String getMessage(String key, String... parameters){
+    public static String getMessage(String key, String... parameters) {
         String message = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(key);
-        return MessageFormat.format(message, (Object[])parameters);
+        return MessageFormat.format(message, (Object[]) parameters);
     }
 
 }

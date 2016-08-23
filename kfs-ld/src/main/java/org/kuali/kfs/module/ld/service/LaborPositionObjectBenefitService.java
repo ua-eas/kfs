@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit;
+
+import java.util.Collection;
 
 /**
  * This interface provides its clients with access to labor position object benefit entries in the backend data store.
@@ -31,10 +31,11 @@ public interface LaborPositionObjectBenefitService {
      * find the position object benefits matching the given information (fiscal year, chart oc account code and object code)
      *
      * @param universityFiscalYear the given fiscal year
-     * @param chartOfAccountsCode the given chart of accounts code
-     * @param financialObjectCode the given object code
+     * @param chartOfAccountsCode  the given chart of accounts code
+     * @param financialObjectCode  the given object code
      * @return the position object benefits matching the given information
      */
     public Collection<PositionObjectBenefit> getPositionObjectBenefits(Integer universityFiscalYear, String chartOfAccountsCode, String financialObjectCode);
+
     public Collection<PositionObjectBenefit> getActivePositionObjectBenefits(Integer universityFiscalYear, String chartOfAccountsCode, String financialObjectCode);
 }

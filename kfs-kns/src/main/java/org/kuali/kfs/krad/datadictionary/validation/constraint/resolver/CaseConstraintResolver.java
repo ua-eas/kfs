@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint.resolver;
 
-import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
 import org.kuali.kfs.krad.datadictionary.validation.capability.CaseConstrainable;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
  * An object that returns the case constraint as a list for a definition implementing the capability {@link CaseConstrainable}.
- *
- *
  */
 public class CaseConstraintResolver<T extends CaseConstrainable> implements ConstraintResolver<T> {
 
-	@Override
-	public <C extends Constraint> List<C> resolve(T definition) {
-		@SuppressWarnings("unchecked")
-		C caseConstraint = (C)definition.getCaseConstraint();
-		return (caseConstraint == null) ? null : Collections.<C>singletonList(caseConstraint);
-	}
+    @Override
+    public <C extends Constraint> List<C> resolve(T definition) {
+        @SuppressWarnings("unchecked")
+        C caseConstraint = (C) definition.getCaseConstraint();
+        return (caseConstraint == null) ? null : Collections.<C>singletonList(caseConstraint);
+    }
 
 }

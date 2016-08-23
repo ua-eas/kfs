@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.HideShowLayoutElement;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+
+import java.util.List;
 
 /**
  * Defines a set of lines of are displayed within a hide/show block
@@ -38,6 +38,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Validates that name has been set and that at least one line element has been specified
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -65,11 +66,12 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLineFillingDefinition#createLineFillingLayoutElement(java.lang.Class)
      */
     public AccountingLineViewLineFillingElement createLineFillingLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
-        return (AccountingLineViewLineFillingElement)createLayoutElement(accountingLineClass);
+        return (AccountingLineViewLineFillingElement) createLayoutElement(accountingLineClass);
     }
 
     /**
      * Gets the label attribute.
+     *
      * @return Returns the label.
      */
     public String getLabel() {
@@ -78,6 +80,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the label attribute value.
+     *
      * @param label The label to set.
      */
     public void setLabel(String label) {
@@ -86,6 +89,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Gets the lines attribute.
+     *
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingDefinition> getLines() {
@@ -94,6 +98,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the lines attribute value.
+     *
      * @param lines The lines to set.
      */
     public void setLines(List<AccountingLineViewLineFillingDefinition> lines) {
@@ -102,6 +107,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Gets the name attribute.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -110,6 +116,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the name attribute value.
+     *
      * @param name The name to set.
      */
     public void setName(String name) {

@@ -18,14 +18,11 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.web.TestDataGenerator;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusCurrentFunds;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
@@ -37,9 +34,12 @@ import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.kns.lookup.LookupableHelperService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class contains test cases that can be applied to methods in Account Status Current Funds class.
@@ -78,9 +78,9 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method will run the current funds balance inquiry to test that the CurrentFundsLookupableHelperService
      * is returning data correctly.
+     *
      * @throws Exception
      */
     public void testGetSearchResults() throws Exception {
@@ -102,9 +102,9 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
 
         // Make sure the basic search parameters are returned from the inquiry
         for (AccountStatusCurrentFunds accountStatusCurrentFundsReturn : searchResults) {
-              assertTrue((accountStatusCurrentFundsReturn.getAccountNumber().equals(accountStatusCurrentFunds.getAccountNumber()) &&
-              accountStatusCurrentFundsReturn.getUniversityFiscalYear().equals(accountStatusCurrentFunds.getUniversityFiscalYear()) &&
-              accountStatusCurrentFundsReturn.getChartOfAccountsCode().equals(accountStatusCurrentFunds.getChartOfAccountsCode())));
+            assertTrue((accountStatusCurrentFundsReturn.getAccountNumber().equals(accountStatusCurrentFunds.getAccountNumber()) &&
+                accountStatusCurrentFundsReturn.getUniversityFiscalYear().equals(accountStatusCurrentFunds.getUniversityFiscalYear()) &&
+                accountStatusCurrentFundsReturn.getChartOfAccountsCode().equals(accountStatusCurrentFunds.getChartOfAccountsCode())));
         }
 
         if (searchResults != null) {
@@ -112,13 +112,13 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
         }
 
         // compare the search results with the expected and see if they match with each other
-        assertEquals(this.currentFundsExpectedInsertion,searchResults.size());
+        assertEquals(this.currentFundsExpectedInsertion, searchResults.size());
     }
 
     /**
-     *
      * This method will run the current funds balance inquiry to test that the CurrentFundsLookupableHelperService
      * is returning data correctly.
+     *
      * @throws Exception
      */
     public void testGetSearchResultsConsolidated() throws Exception {
@@ -140,9 +140,9 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
 
         // Make sure the basic search parameters are returned from the inquiry
         for (AccountStatusCurrentFunds accountStatusCurrentFundsReturn : searchResults) {
-              assertFalse(!(accountStatusCurrentFundsReturn.getAccountNumber().equals(accountStatusCurrentFunds.getAccountNumber()) &&
-              accountStatusCurrentFundsReturn.getUniversityFiscalYear().equals(accountStatusCurrentFunds.getUniversityFiscalYear()) &&
-              accountStatusCurrentFundsReturn.getChartOfAccountsCode().equals(accountStatusCurrentFunds.getChartOfAccountsCode())));
+            assertFalse(!(accountStatusCurrentFundsReturn.getAccountNumber().equals(accountStatusCurrentFunds.getAccountNumber()) &&
+                accountStatusCurrentFundsReturn.getUniversityFiscalYear().equals(accountStatusCurrentFunds.getUniversityFiscalYear()) &&
+                accountStatusCurrentFundsReturn.getChartOfAccountsCode().equals(accountStatusCurrentFunds.getChartOfAccountsCode())));
         }
 
         if (searchResults != null) {
@@ -150,12 +150,12 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
         }
 
         // compare the search results with the expected and see if they match with each other
-        assertEquals(this.currentFundsExpectedInsertion,searchResults.size());
+        assertEquals(this.currentFundsExpectedInsertion, searchResults.size());
     }
 
     /**
-     *
      * This method uses property file parameters to create insert datacurrent records for this test
+     *
      * @param accountStatusCurrentFunds
      * @param lookupFields
      * @return
@@ -171,8 +171,8 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method adds property constatants for future lookups
+     *
      * @param isExtended
      * @return
      */
@@ -190,7 +190,7 @@ public class CurrentFundsLookupableHelperServiceTest extends KualiTestBase {
      * This method will add temporary test data to the Ledger Balance table
      */
     protected void insertCurrentFundsRecords() {
-        String messageFileName    = "org/kuali/kfs/module/ld/testdata/message.properties";
+        String messageFileName = "org/kuali/kfs/module/ld/testdata/message.properties";
         String propertiesFileName = "org/kuali/kfs/module/ld/testdata/accountStatusCurrentFunds.properties";
 
         properties = (new TestDataGenerator(propertiesFileName, messageFileName)).getProperties();

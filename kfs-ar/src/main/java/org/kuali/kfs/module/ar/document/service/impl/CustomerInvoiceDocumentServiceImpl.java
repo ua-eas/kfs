@@ -18,19 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -69,16 +67,18 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocumentService {
@@ -194,8 +194,8 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         // get all of our docs with full workflow headers
         List<CustomerInvoiceDocument> docs = new ArrayList<CustomerInvoiceDocument>();
         try {
-            for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds) ) {
-                docs.add( (CustomerInvoiceDocument) doc );
+            for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds)) {
+                docs.add((CustomerInvoiceDocument) doc);
             }
         } catch (WorkflowException e) {
             throw new RuntimeException("Unable to retrieve Customer Invoice Documents", e);
@@ -222,8 +222,8 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
         // get all of our docs with full workflow headers
         try {
-            for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds) ) {
-                docs.add( (CustomerInvoiceDocument) doc );
+            for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds)) {
+                docs.add((CustomerInvoiceDocument) doc);
             }
         } catch (WorkflowException e) {
             throw new RuntimeException("Unable to retrieve Customer Invoice Documents", e);
@@ -251,7 +251,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService#getOpenInvoiceDocumentsByCustomerNameByCustomerType(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public Collection<CustomerInvoiceDocument> getOpenInvoiceDocumentsByCustomerNameByCustomerType(String customerName, String customerTypeCode) {
@@ -395,8 +395,8 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
         if (0 < documentHeaderIds.size()) {
             try {
-                for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds) ) {
-                    invoices.add( (CustomerInvoiceDocument) doc );
+                for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds)) {
+                    invoices.add((CustomerInvoiceDocument) doc);
                 }
             } catch (WorkflowException e) {
                 LOG.error("getCustomerInvoiceDocumentsByCustomerNumber " + customerNumber + " failed", e);
@@ -483,22 +483,20 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         List<CustomerInvoiceDocument> customerInvoiceDocumentsSuperSet = new ArrayList<CustomerInvoiceDocument>();
         if (printableUserQueueDocNumbers.size() > 0) {
             try {
-                for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, printableUserQueueDocNumbers) ) {
-                    customerInvoiceDocumentsSuperSet.add( (CustomerInvoiceDocument) doc );
+                for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, printableUserQueueDocNumbers)) {
+                    customerInvoiceDocumentsSuperSet.add((CustomerInvoiceDocument) doc);
                 }
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Unable to retrieve Customer Invoice Documents", e);
             }
-        }
-        else {
+        } else {
             customerInvoiceDocumentsSuperSet = new ArrayList<CustomerInvoiceDocument>();
         }
 
         // filter only the ones initiated by the correct user
         List<CustomerInvoiceDocument> customerInvoiceDocuments = new ArrayList<CustomerInvoiceDocument>();
         for (CustomerInvoiceDocument superSetDocument : customerInvoiceDocumentsSuperSet) {
-            if ( StringUtils.equalsIgnoreCase(superSetDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId(), initiator.getPrincipalId())) {
+            if (StringUtils.equalsIgnoreCase(superSetDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId(), initiator.getPrincipalId())) {
                 customerInvoiceDocuments.add(superSetDocument);
             }
         }
@@ -507,7 +505,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService#getPrintableCustomerInvoiceDocumentsByBillingChartAndOrg(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List<CustomerInvoiceDocument> getPrintableCustomerInvoiceDocumentsByBillingChartAndOrg(String chartOfAccountsCode, String organizationCode) {
@@ -516,12 +514,12 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         return getCustomerInvoiceDocumentsByDocumentNumbers(documentHeaderIds);
     }
 
-    protected List<CustomerInvoiceDocument> getCustomerInvoiceDocumentsByDocumentNumbers( List<String> documentHeaderIds ) {
+    protected List<CustomerInvoiceDocument> getCustomerInvoiceDocumentsByDocumentNumbers(List<String> documentHeaderIds) {
         List<CustomerInvoiceDocument> customerInvoiceDocuments = new ArrayList<CustomerInvoiceDocument>(documentHeaderIds.size());
         if (documentHeaderIds != null && !documentHeaderIds.isEmpty()) {
             try {
-                for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds) ) {
-                    customerInvoiceDocuments.add( (CustomerInvoiceDocument) doc );
+                for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds)) {
+                    customerInvoiceDocuments.add((CustomerInvoiceDocument) doc);
                 }
             } catch (WorkflowException e) {
                 throw new RuntimeException("Unable to retrieve Customer Invoice Documents", e);
@@ -532,7 +530,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService#getPrintableCustomerInvoiceDocumentsForBillingStatementByBillingChartAndOrg(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List<CustomerInvoiceDocument> getPrintableCustomerInvoiceDocumentsForBillingStatementByBillingChartAndOrg(String chartOfAccountsCode, String organizationCode) {
@@ -544,8 +542,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
                 for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(CustomerInvoiceDocument.class, documentHeaderIds)) {
                     customerInvoiceDocuments.add((CustomerInvoiceDocument) doc);
                 }
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new InfrastructureException("Unable to retrieve Customer Invoice Documents", e);
             }
         }
@@ -568,14 +565,14 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
      */
     @Override
     public Collection<CustomerInvoiceDocument> getCustomerInvoiceDocumentsByAccountNumber(String accountNumber) {
-          List<String> documentHeaderIds = customerInvoiceDetailService.getCustomerInvoiceDocumentNumbersByAccountNumber(accountNumber);
+        List<String> documentHeaderIds = customerInvoiceDetailService.getCustomerInvoiceDocumentNumbersByAccountNumber(accountNumber);
 
         return getCustomerInvoiceDocumentsByDocumentNumbers(documentHeaderIds);
     }
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService#getCustomerInvoiceDocumentsByBillingChartAndOrg(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List<CustomerInvoiceDocument> getCustomerInvoiceDocumentsByBillingChartAndOrg(String chartOfAccountsCode, String organizationCode) {
@@ -753,8 +750,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         Date sqlDueDate = null;
         try {
             sqlDueDate = dateTimeService.convertToSqlDate(new Timestamp(cal.getTime().getTime()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             // TODO: throw an error here, but don't die
         }
         return sqlDueDate;
@@ -886,19 +882,16 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         boolean isSuccess = true;
         if (StringUtils.isBlank(invDocumentNumber)) {
             isSuccess &= false;
-        }
-        else {
+        } else {
             CustomerInvoiceDocument customerInvoiceDocument = getInvoiceByInvoiceDocumentNumber(invDocumentNumber);
 
             if (ObjectUtils.isNull(customerInvoiceDocument)) {
                 isSuccess &= false;
-            }
-            else {
+            } else {
                 Document doc = null;
                 try {
                     doc = documentService.getByDocumentHeaderId(invDocumentNumber);
-                }
-                catch (WorkflowException e) {
+                } catch (WorkflowException e) {
                     isSuccess &= false;
                 }
                 if (ObjectUtils.isNull(doc) || ObjectUtils.isNull(doc.getDocumentHeader()) || doc.getDocumentHeader().getWorkflowDocument() == null || !(doc.getDocumentHeader().getWorkflowDocument().isApproved() || doc.getDocumentHeader().getWorkflowDocument().isProcessed())) {
@@ -915,7 +908,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
     @Override
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByBilling(List<String> charts, List<String> organizations, Integer invoiceAge) {
         Date invoiceBillingDateFrom = null;
-        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1) ;
+        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1);
 
         return customerInvoiceDocumentDao.getAllAgingInvoiceDocumentsByBilling(charts, organizations, invoiceBillingDateFrom, invoiceBillingDateTo);
     }
@@ -926,7 +919,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
     @Override
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByAccounts(List<String> charts, List<String> accounts, Integer invoiceAge) {
         Date invoiceBillingDateFrom = null;
-        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1) ;
+        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1);
 
         return customerInvoiceDocumentDao.getAllAgingInvoiceDocumentsByAccounts(charts, accounts, invoiceBillingDateFrom, invoiceBillingDateTo);
     }
@@ -937,7 +930,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
     @Override
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByProcessing(List<String> charts, List<String> organizations, Integer invoiceAge) {
         Date invoiceBillingDateFrom = null;
-        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1) ;
+        Date invoiceBillingDateTo = this.getPastDate(invoiceAge - 1);
 
         return customerInvoiceDocumentDao.getAllAgingInvoiceDocumentsByProcessing(charts, organizations, invoiceBillingDateFrom, invoiceBillingDateTo);
     }
@@ -945,7 +938,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
     /**
      * get the date before the given amount of days
      */
-    protected Date getPastDate(Integer amount){
+    protected Date getPastDate(Integer amount) {
         Integer pastDateAmount = -1 * amount;
 
         java.util.Date today = this.getDateTimeService().getCurrentDate();
@@ -959,7 +952,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
      */
     @Override
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByCustomerTypes(List<String> customerTypes, Integer invoiceAge, Date invoiceDueDateFrom) {
-        Date pastDate = this.getPastDate(invoiceAge - 1) ;
+        Date pastDate = this.getPastDate(invoiceAge - 1);
         Date invoiceDueDateTo = KfsDateUtils.convertToSqlDate(DateUtils.addDays(pastDate, 1));
         LOG.info("invoiceDueDateTo" + invoiceDueDateTo);
 
@@ -978,10 +971,10 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
         String principalName = "Unknown";
         List<ActionTaken> actionsTaken = closingDocument.getActionsTaken();
-        if(ObjectUtils.isNotNull(actionsTaken)){
-            for(ActionTaken action : actionsTaken){
+        if (ObjectUtils.isNotNull(actionsTaken)) {
+            for (ActionTaken action : actionsTaken) {
                 // we're looking for the person who completed the closing document, so we want the COMPLETE action
-                if(isActionClose(action.getActionTaken())){
+                if (isActionClose(action.getActionTaken())) {
                     principalName = getPersonService().getPerson(action.getPrincipalId()).getName();
                     break;
                 }
@@ -989,7 +982,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         }
 
         final String noteTextPattern = getConfigurationService().getPropertyValueAsString(ArKeyConstants.INVOICE_CLOSE_NOTE_TEXT);
-        Object[] arguments = { principalName, closingDocument.getDocumentTypeName(), closingDocument.getDocumentId() };
+        Object[] arguments = {principalName, closingDocument.getDocumentTypeName(), closingDocument.getDocumentId()};
         String noteText = MessageFormat.format(noteTextPattern, arguments);
 
 
@@ -1000,6 +993,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
 
     /**
      * Looks up all invoice paid applieds applied to this invoice owned by payment applications or customer credit memos, and sums the invoice item applied amount
+     *
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService#calculateAppliedPaymentAmount(org.kuali.kfs.module.ar.document.CustomerInvoiceDocument)
      */
     @Override
@@ -1010,7 +1004,7 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         List<String> allowedOwningDocumentTypes = new ArrayList<>();
         allowedOwningDocumentTypes.add(ArConstants.PAYMENT_APPLICATION_DOCUMENT_TYPE_CODE);
         allowedOwningDocumentTypes.add(ArConstants.CUSTOMER_CREDIT_MEMO_DOCUMENT_TYPE_CODE);
-        criteria.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, allowedOwningDocumentTypes);
+        criteria.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, allowedOwningDocumentTypes);
 
         Collection<InvoicePaidApplied> invoicePaidApplieds = businessObjectService.findMatching(InvoicePaidApplied.class, criteria);
         for (InvoicePaidApplied invoicePapidApplied : invoicePaidApplieds) {
@@ -1019,11 +1013,11 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         return totalPayments;
     }
 
-    public void setPersonService(PersonService personService){
+    public void setPersonService(PersonService personService) {
         this.personService = personService;
     }
 
-    public PersonService getPersonService(){
+    public PersonService getPersonService() {
         return personService;
     }
 
@@ -1043,11 +1037,11 @@ public class CustomerInvoiceDocumentServiceImpl implements CustomerInvoiceDocume
         this.configurationService = configurationService;
     }
 
-    private boolean isActionClose(ActionType actionTypeToCheck){
-        return ( (actionTypeToCheck.compareTo(ActionType.COMPLETE) == 0) ||
-                (actionTypeToCheck.compareTo(ActionType.SU_BLANKET_APPROVE) == 0) ||
-                (actionTypeToCheck.compareTo(ActionType.BLANKET_APPROVE) == 0) ||
-                (actionTypeToCheck.compareTo(ActionType.SU_COMPLETE) == 0) );
+    private boolean isActionClose(ActionType actionTypeToCheck) {
+        return ((actionTypeToCheck.compareTo(ActionType.COMPLETE) == 0) ||
+            (actionTypeToCheck.compareTo(ActionType.SU_BLANKET_APPROVE) == 0) ||
+            (actionTypeToCheck.compareTo(ActionType.BLANKET_APPROVE) == 0) ||
+            (actionTypeToCheck.compareTo(ActionType.SU_COMPLETE) == 0));
     }
 
     public FinancialSystemUserService getFinancialSystemUserService() {

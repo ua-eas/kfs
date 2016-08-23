@@ -17,19 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
+
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
 
 public class RequisitionOrganizationValidation extends GenericValidation {
     private OrganizationService organizationService;
+
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         boolean active;
@@ -37,7 +39,7 @@ public class RequisitionOrganizationValidation extends GenericValidation {
         MessageMap errorMap = GlobalVariables.getMessageMap();
         errorMap.clearErrorPath();
         Organization org = organizationService.getByPrimaryId(purDocument.getChartOfAccountsCode(), purDocument.getOrganizationCode());
-        if(org!=null){
+        if (org != null) {
             if (!org.isActive()) {
                 errorMap.putError(PurapConstants.PURAP_REQS_ORG_CD, PurapKeyConstants.ERROR_INACTIVE_ORG);
                 valid = false;

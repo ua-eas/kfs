@@ -23,6 +23,7 @@ import org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic;
 
 /**
  * The implementation of OrganizationReversionCategoryLogic for cash balances.
+ *
  * @see org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic
  */
 public class CashOrganizationReversionCategoryLogic implements OrganizationReversionCategoryLogic {

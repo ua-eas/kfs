@@ -22,12 +22,12 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
@@ -49,8 +49,8 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
-     * @hibernate.many-to-one column="PMT_ACCT_DTL_ID" class="edu.iu.uis.pdp.bo.PaymentAccountHistory"
      * @return Returns the accountDetailId.
+     * @hibernate.many-to-one column="PMT_ACCT_DTL_ID" class="edu.iu.uis.pdp.bo.PaymentAccountHistory"
      */
     public PaymentAccountDetail getPaymentAccountDetail() {
         return paymentAccountDetail;
@@ -64,9 +64,9 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return Returns the Id.
      * @hibernate.id column="PMT_ACCT_HIST_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_ACCT_HIST_ID_SEQ"
-     * @return Returns the Id.
      */
     public KualiInteger getId() {
         return id;
@@ -156,6 +156,7 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the accountingChangeCode
+     *
      * @return accountingChangeCode
      */
     public String getAccountingChangeCode() {
@@ -164,6 +165,7 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the accountingChangeCode
+     *
      * @param accountingChangeCode
      */
     public void setAccountingChangeCode(String accountingChangeCode) {

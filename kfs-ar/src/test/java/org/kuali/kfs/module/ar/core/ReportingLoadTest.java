@@ -18,19 +18,14 @@
  */
 package org.kuali.kfs.module.ar.core;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import com.lowagie.text.Document;
+import com.lowagie.text.pdf.PdfCopy;
+import com.lowagie.text.pdf.PdfImportedPage;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.SimpleBookmark;
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
@@ -44,15 +39,19 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.lookup.LookupableHelperService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.DocumentService;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfImportedPage;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.SimpleBookmark;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
 public class ReportingLoadTest extends KualiTestBase {
@@ -60,7 +59,7 @@ public class ReportingLoadTest extends KualiTestBase {
     private static final int INVOICES_TO_CREATE = 2;
     private static final String PRINT_SETTING = ArConstants.PrintInvoiceOptions.PRINT_BY_PROCESSING_ORG;
     private static final String INITIATOR = "khuntley";
-    private static final int[] INVOICE_AGES = { -5, -18, -35, -65, -95, -125 };
+    private static final int[] INVOICE_AGES = {-5, -18, -35, -65, -95, -125};
 
     private static final String AGING_RPT_LOOKUPABLE_SERVICE = "arCustomerAgingReportLookupable";
     private static final String AGING_RPT_OPTION = "PROCESSING ORGANIZATION";
@@ -95,15 +94,14 @@ public class ReportingLoadTest extends KualiTestBase {
     }
 
     /**
-     *
      * Use this method to setup a bunch of invoices that are ready to print.
-     *
+     * <p>
      * This method doesnt actually print anything, though, so use this if you're perf
      * testing against the web app and just need some test data.
-     *
+     * <p>
      * You'll have to re-run this after each print, as it clears the print flag
      * when you print the invoices.
-     *
+     * <p>
      * NOTE - add 'test' to the method name to make it junit-able
      *
      * @throws Exception
@@ -113,7 +111,6 @@ public class ReportingLoadTest extends KualiTestBase {
     }
 
     /**
-     *
      * Use this method to test the performance of the Customer Report,
      * which creates a multi-page PDF.
      *
@@ -129,13 +126,12 @@ public class ReportingLoadTest extends KualiTestBase {
     }
 
     /**
-     *
      * Use this method to actually seed a bunch of test data, and then run the aging
      * report queries.
-     *
+     * <p>
      * Use this when you dont want to test against the GUI, and just want to profile the
      * app directly, via a unit test.
-     *
+     * <p>
      * NOTE - add 'test' to the method name to make it junit-able
      *
      * @throws Exception
@@ -143,7 +139,7 @@ public class ReportingLoadTest extends KualiTestBase {
     public void customerAgingReport() throws Exception {
         createManyInvoiceReadyForAgingReport();
 
-        Map<String,String> fieldValues = new HashMap<String,String>();
+        Map<String, String> fieldValues = new HashMap<String, String>();
         fieldValues.put(KFSConstants.BACK_LOCATION, "");
         fieldValues.put(KFSConstants.DOC_FORM_KEY, "");
         fieldValues.put(ArPropertyConstants.REPORT_OPTION, AGING_RPT_OPTION);
@@ -169,16 +165,15 @@ public class ReportingLoadTest extends KualiTestBase {
     }
 
     /**
-     *
      * Use this method to actually seed a bunch of test data, and then run the customer
      * invoices.  It will generate the PDFs using Jasper, and save the resulting concatenated
      * PDF to the ar reports directory.  It is a very close simulation to what the web-app
      * does, except when the web-app concatenates the PDF's, it buffers and streams them
      * to the client.
-     *
+     * <p>
      * Use this when you dont want to test against the GUI, and just want to profile the
      * app directly, via a unit test.
-     *
+     * <p>
      * NOTE - add 'test' to the method name to make it junit-able
      *
      * @throws Exception
@@ -212,8 +207,8 @@ public class ReportingLoadTest extends KualiTestBase {
         ArrayList master = new ArrayList();
         int f = 0;
         Document document = null;
-        PdfCopy  writer = null;
-        for (Iterator<File> itr = reports.iterator(); itr.hasNext();) {
+        PdfCopy writer = null;
+        for (Iterator<File> itr = reports.iterator(); itr.hasNext(); ) {
             // we create a reader for a certain document
             String reportName = itr.next().getAbsolutePath();
             PdfReader reader = new PdfReader(reportName);
@@ -279,16 +274,14 @@ public class ReportingLoadTest extends KualiTestBase {
             //  increement or reset the scenario type
             if (typeOfInvoice == 5) {
                 typeOfInvoice = 1;
-            }
-            else {
+            } else {
                 typeOfInvoice++;
             }
 
             //  increement or reset the age index
             if (ageOfInvoice == INVOICE_AGES.length - 1) {
                 ageOfInvoice = 0;
-            }
-            else {
+            } else {
                 ageOfInvoice++;
             }
         }
@@ -314,8 +307,7 @@ public class ReportingLoadTest extends KualiTestBase {
             //  increement or reset the scenario type
             if (typeOfInvoice == 5) {
                 typeOfInvoice = 1;
-            }
-            else {
+            } else {
                 typeOfInvoice++;
             }
         }

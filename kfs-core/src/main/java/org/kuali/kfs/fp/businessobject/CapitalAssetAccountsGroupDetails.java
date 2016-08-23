@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectBase {
 
@@ -53,25 +53,25 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     protected CapitalAssetInformation capitalAssetInformation;
 
     public CapitalAssetAccountsGroupDetails() {
-                super();
-                setAmount(KualiDecimal.ZERO);
+        super();
+        setAmount(KualiDecimal.ZERO);
     }
 
-    public CapitalAssetAccountsGroupDetails(CapitalAssetAccountsGroupDetails other){
+    public CapitalAssetAccountsGroupDetails(CapitalAssetAccountsGroupDetails other) {
         this();
-                this.documentNumber = other.documentNumber;
-                this.capitalAssetLineNumber = other.capitalAssetLineNumber;
-                this.capitalAssetAccountLineNumber = other.capitalAssetAccountLineNumber;
-                this.sequenceNumber = other.sequenceNumber;
-                this.financialDocumentLineTypeCode= other.financialDocumentLineTypeCode;
-                this.chartOfAccountsCode= other.chartOfAccountsCode;
-                this.accountNumber = other.accountNumber;
-                this.financialObjectCode = other.financialObjectCode;
-                this.subAccountNumber = other.subAccountNumber;
-                this.financialSubObjectCode = other.financialSubObjectCode;
-                this.projectCode = other.projectCode;
-                this.organizationReferenceId = other.organizationReferenceId;
-                this.amount = other.amount;
+        this.documentNumber = other.documentNumber;
+        this.capitalAssetLineNumber = other.capitalAssetLineNumber;
+        this.capitalAssetAccountLineNumber = other.capitalAssetAccountLineNumber;
+        this.sequenceNumber = other.sequenceNumber;
+        this.financialDocumentLineTypeCode = other.financialDocumentLineTypeCode;
+        this.chartOfAccountsCode = other.chartOfAccountsCode;
+        this.accountNumber = other.accountNumber;
+        this.financialObjectCode = other.financialObjectCode;
+        this.subAccountNumber = other.subAccountNumber;
+        this.financialSubObjectCode = other.financialSubObjectCode;
+        this.projectCode = other.projectCode;
+        this.organizationReferenceId = other.organizationReferenceId;
+        this.amount = other.amount;
     }
 
     public String getDocumentNumber() {
@@ -79,11 +79,9 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     }
 
 
-
     public Integer getCapitalAssetAccountLineNumber() {
         return capitalAssetAccountLineNumber;
     }
-
 
 
     public String getFinancialDocumentLineTypeCode() {
@@ -91,17 +89,14 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     }
 
 
-
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
 
 
-
     public String getAccountNumber() {
         return accountNumber;
     }
-
 
 
     public String getFinancialObjectCode() {
@@ -117,7 +112,6 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     public void setCapitalAssetInformation(CapitalAssetInformation capitalAssetInformation) {
         this.capitalAssetInformation = capitalAssetInformation;
     }
-
 
 
     public void setDocumentNumber(String documentNumber) {
@@ -199,8 +193,7 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     public KualiDecimal getAmount() {
         if (ObjectUtils.isNull(amount)) {
             return KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             return amount;
         }
     }
@@ -209,8 +202,7 @@ public class CapitalAssetAccountsGroupDetails extends PersistableBusinessObjectB
     public void setAmount(KualiDecimal amount) {
         if (ObjectUtils.isNull(amount)) {
             this.amount = KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             this.amount = amount;
         }
 

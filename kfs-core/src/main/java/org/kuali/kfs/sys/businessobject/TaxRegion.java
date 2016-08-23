@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class TaxRegion extends PersistableBusinessObjectBase implements MutableInactivatable {
 
@@ -193,6 +193,7 @@ public class TaxRegion extends PersistableBusinessObjectBase implements MutableI
 
     /**
      * This method returns the effective tax region rate based off the date of transaction passed in
+     *
      * @param dateOfTransaction
      * @return
      */
@@ -200,7 +201,7 @@ public class TaxRegion extends PersistableBusinessObjectBase implements MutableI
         TaxRegionRate selectedTaxRegionRate = null;
 
         for (TaxRegionRate taxRegionRate : taxRegionRates) {
-            if (taxRegionRate.getEffectiveDate().getTime() <= dateOfTransaction.getTime() ) {
+            if (taxRegionRate.getEffectiveDate().getTime() <= dateOfTransaction.getTime()) {
                 selectedTaxRegionRate = taxRegionRate;
             }
         }

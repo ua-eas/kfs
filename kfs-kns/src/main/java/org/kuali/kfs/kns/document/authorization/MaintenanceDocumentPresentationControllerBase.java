@@ -19,8 +19,8 @@
 package org.kuali.kfs.kns.document.authorization;
 
 import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,11 +29,11 @@ import java.util.Set;
  * Base class for all MaintenanceDocumentPresentationControllers.
  */
 public class MaintenanceDocumentPresentationControllerBase extends DocumentPresentationControllerBase
-       implements MaintenanceDocumentPresentationController {
+    implements MaintenanceDocumentPresentationController {
 
     public boolean canCreate(Class boClass) {
         return KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsNewOrCopy(
-                KRADServiceLocatorWeb.getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
+            KRADServiceLocatorWeb.getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
     }
 
     public boolean canMaintain(Object dataObject) {

@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
+import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,13 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
-import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
-import org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * Default implementation of the PredeterminedBillingScheduleMaintenanceService
@@ -41,7 +41,6 @@ public class PredeterminedBillingScheduleMaintenanceServiceImpl implements Prede
     protected ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService#hasBillBeenCopiedToInvoice(java.lang.Long, java.lang.String)
      */
     @Override

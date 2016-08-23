@@ -42,6 +42,6 @@ public class BudgetIncumbentAlreadyExistsException extends RuntimeException {
     }
 
     public String[] getMessageParameters() {
-        return new String[] { emplid };
+        return new String[]{emplid};
     }
 }

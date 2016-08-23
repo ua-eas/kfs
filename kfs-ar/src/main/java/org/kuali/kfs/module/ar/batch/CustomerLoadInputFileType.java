@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.File;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.batch.service.CustomerLoadService;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
+
+import java.io.File;
+import java.util.List;
 
 public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerLoadInputFileType.class);
@@ -37,7 +37,6 @@ public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
     private CustomerLoadService customerLoadService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.api.identity.Person, java.lang.Object, java.lang.String)
      */
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifer) {
@@ -45,7 +44,6 @@ public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileTypeIdentifer()
      */
     public String getFileTypeIdentifer() {
@@ -53,7 +51,6 @@ public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#validate(java.lang.Object)
      */
     public boolean validate(Object parsedFileContents) {
@@ -61,18 +58,16 @@ public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
         List<CustomerDigesterVO> customerVOs = null;
         try {
             customerVOs = (List<CustomerDigesterVO>) parsedFileContents;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Could not convert the passed-in parsedFileContents of type [" + parsedFileContents.getClass().toString() +
-                    "] to List<CustomerDigesterVO>.");
+                "] to List<CustomerDigesterVO>.");
             throw new RuntimeException("Could not convert the passed-in parsedFileContents of type [" + parsedFileContents.getClass().toString() +
-                    "] to List<CustomerDigesterVO>.", e);
+                "] to List<CustomerDigesterVO>.", e);
         }
         return customerLoadService.validate(customerVOs);
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileTypeBase#process(java.lang.String, java.lang.Object)
      */
     public void process(String fileName, Object parsedFileContents) {
@@ -80,7 +75,6 @@ public class CustomerLoadInputFileType extends XmlBatchInputFileTypeBase {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputType#getTitleKey()
      */
     public String getTitleKey() {

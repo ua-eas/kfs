@@ -20,13 +20,13 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class...
@@ -44,14 +44,14 @@ public class IndirectCostAdjustmentAccountValidation extends GenericValidation {
         if (accountingLine.isSourceAccountingLine()) {
             accountingLine.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
             if (ObjectUtils.isNotNull(accountingLine.getAccount())) {
-                for (IndirectCostRecoveryAccount icrAccount : accountingLine.getAccount().getActiveIndirectCostRecoveryAccounts()){
+                for (IndirectCostRecoveryAccount icrAccount : accountingLine.getAccount().getActiveIndirectCostRecoveryAccounts()) {
                     isValid &= StringUtils.isNotBlank(icrAccount.getIndirectCostRecoveryAccountNumber());
                 }
                 //not valid if ICR collection is empty or any of the account number is blank
                 if (!isValid) {
                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_ACCOUNT, accountingLine.getAccountNumber());
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_ACCOUNT + " / " + accountingLine.getAccountNumber() );
+                        LOG.debug("rule failure: " + KFSKeyConstants.IndirectCostAdjustment.ERROR_DOCUMENT_ICA_GRANT_INVALID_ACCOUNT + " / " + accountingLine.getAccountNumber());
                     }
                 }
             }
@@ -61,6 +61,7 @@ public class IndirectCostAdjustmentAccountValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -69,6 +70,7 @@ public class IndirectCostAdjustmentAccountValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

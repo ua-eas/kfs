@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.metadata.MetadataManager;
 import org.apache.ojb.broker.query.Criteria;
@@ -35,6 +31,10 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.dataaccess.AccountingLineDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the AccountingLineDao interface.
@@ -65,8 +65,7 @@ public class AccountingLineDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
         if (MetadataManager.getInstance().getRepository().getDescriptorFor(clazz).getFieldDescriptorByName("financialDocumentLineTypeCode") != null) {
             if (SourceAccountingLine.class.isAssignableFrom(clazz)) {
                 criteria.addEqualTo("FDOC_LN_TYP_CD", KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
-            }
-            else if (TargetAccountingLine.class.isAssignableFrom(clazz)) {
+            } else if (TargetAccountingLine.class.isAssignableFrom(clazz)) {
                 criteria.addEqualTo("FDOC_LN_TYP_CD", KFSConstants.TARGET_ACCT_LINE_TYPE_CODE);
             }
         }
@@ -80,6 +79,7 @@ public class AccountingLineDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * Retrieves accounting lines associated with the given document header ID and line type code
+     *
      * @see org.kuali.kfs.sys.dataaccess.AccountingLineDao#findByDocumentHeaderIdAndLineType(java.lang.String, java.lang.String)
      */
     @Override

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.vnd.batch.dataaccess;
 
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -27,7 +25,9 @@ import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
-public class DebarredVendorMatchDaoOjb extends  PlatformAwareDaoBaseOjb implements DebarredVendorMatchDao {
+import java.util.List;
+
+public class DebarredVendorMatchDaoOjb extends PlatformAwareDaoBaseOjb implements DebarredVendorMatchDao {
 
     /**
      * @see org.kuali.kfs.vnd.batch.dataaccess.DebarredVendorMatchDao.getPreviousVendorExcludeConfirmation(org.kuali.kfs.vnd.businessobject.DebarredVendorMatch)
@@ -70,7 +70,7 @@ public class DebarredVendorMatchDaoOjb extends  PlatformAwareDaoBaseOjb implemen
             criteria.addIsNull("zip");
         }
         QueryByCriteria query = QueryFactory.newQuery(DebarredVendorMatch.class, criteria);
-        List<DebarredVendorMatch> matches = (List<DebarredVendorMatch>)getPersistenceBrokerTemplate().getCollectionByQuery(query);
+        List<DebarredVendorMatch> matches = (List<DebarredVendorMatch>) getPersistenceBrokerTemplate().getCollectionByQuery(query);
 
         DebarredVendorMatch oldMatch = null;
         if (matches.size() > 0) {
@@ -103,14 +103,14 @@ public class DebarredVendorMatchDaoOjb extends  PlatformAwareDaoBaseOjb implemen
         List<VendorDetail> vendors = (List<VendorDetail>) getPersistenceBrokerTemplate().getCollectionByQuery(query);
 
         return vendors;
-      }
+    }
 
     @Override
     public DebarredVendorMatch getDebarredVendor(int debarredVendorId) {
         Criteria criteria = new Criteria();
         criteria.addEqualTo("debarredVendorId", debarredVendorId);
         QueryByCriteria query = QueryFactory.newQuery(DebarredVendorMatch.class, criteria);
-        return (DebarredVendorMatch)getPersistenceBrokerTemplate().getObjectByQuery(query);
+        return (DebarredVendorMatch) getPersistenceBrokerTemplate().getObjectByQuery(query);
     }
 
 }

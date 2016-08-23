@@ -32,11 +32,11 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.Collection;
 
 /**
-*  This class represents the 4-part key which uniquely identifies a parameter.
-*
-*  @see ParameterContract
-*  @see Parameter
-*/
+ * This class represents the 4-part key which uniquely identifies a parameter.
+ *
+ * @see ParameterContract
+ * @see Parameter
+ */
 @XmlRootElement(name = ParameterKey.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = ParameterKey.Constants.TYPE_NAME, propOrder = {
@@ -48,37 +48,37 @@ import java.util.Collection;
 })
 public final class ParameterKey extends AbstractDataTransferObject {
 
-	private static final long serialVersionUID = -4405355319548951283L;
+    private static final long serialVersionUID = -4405355319548951283L;
 
-	@XmlElement(name = Elements.APPLICATION_ID, required=true)
-	private final String applicationId;
+    @XmlElement(name = Elements.APPLICATION_ID, required = true)
+    private final String applicationId;
 
-	@XmlElement(name = Elements.NAMESPACE_CODE, required=true)
-	private final String namespaceCode;
+    @XmlElement(name = Elements.NAMESPACE_CODE, required = true)
+    private final String namespaceCode;
 
-	@XmlElement(name = Elements.COMPONENT_CODE, required=true)
-	private final String componentCode;
+    @XmlElement(name = Elements.COMPONENT_CODE, required = true)
+    private final String componentCode;
 
-    @XmlElement(name = Elements.NAME, required=true)
+    @XmlElement(name = Elements.NAME, required = true)
     private final String name;
 
     @SuppressWarnings("unused")
-	@XmlAnyElement
+    @XmlAnyElement
     private final Collection<Element> _futureElements = null;
 
     /**
      * This constructor should never be called except during JAXB unmarshalling.
      */
     private ParameterKey() {
-    	this.applicationId = null;
-    	this.namespaceCode = null;
-    	this.componentCode = null;
-    	this.name = null;
+        this.applicationId = null;
+        this.namespaceCode = null;
+        this.componentCode = null;
+        this.name = null;
     }
 
-	/**
-	 * Constructs a ParameterKey from the given values.
-	 */
+    /**
+     * Constructs a ParameterKey from the given values.
+     */
     private ParameterKey(String applicationId, String namespaceCode, String componentCode, String name) {
         if (StringUtils.isBlank(applicationId)) {
             throw new IllegalArgumentException("applicationId is blank");
@@ -89,13 +89,13 @@ public final class ParameterKey extends AbstractDataTransferObject {
         if (StringUtils.isBlank(componentCode)) {
             throw new IllegalArgumentException("componentCode is blank");
         }
-		if (StringUtils.isBlank(name)) {
-			throw new IllegalArgumentException("name is blank");
-		}
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("name is blank");
+        }
         this.applicationId = applicationId;
         this.namespaceCode = namespaceCode;
         this.componentCode = componentCode;
-		this.name = name;
+        this.name = name;
     }
 
     /**
@@ -104,7 +104,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
      * @param applicationId the application id, cannot be null or blank
      * @param namespaceCode the namespace code, cannot be null or blank
      * @param componentCode the component code, cannot be null or blank
-	 * @param name the parameter name, cannot be null or blank
+     * @param name          the parameter name, cannot be null or blank
      * @return the fully-constructed ParameterKey
      * @throws IllegalArgumentException if any arguments are null or blank
      */
@@ -113,42 +113,42 @@ public final class ParameterKey extends AbstractDataTransferObject {
     }
 
     public String getApplicationId() {
-		return applicationId;
-	}
+        return applicationId;
+    }
 
-	public String getNamespaceCode() {
-		return namespaceCode;
-	}
+    public String getNamespaceCode() {
+        return namespaceCode;
+    }
 
-	public String getComponentCode() {
-		return componentCode;
-	}
+    public String getComponentCode() {
+        return componentCode;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     public String getCacheKey() {
         return this.applicationId + ":" + this.namespaceCode + ":" + this.componentCode + ":" + this.name;
     }
 
-	/**
-	 * Defines some internal constants used on this class.
-	 */
-	static class Constants {
-		final static String ROOT_ELEMENT_NAME = "parameterKey";
-		final static String TYPE_NAME = "ParameterKeyType";
-	}
+    /**
+     * Defines some internal constants used on this class.
+     */
+    static class Constants {
+        final static String ROOT_ELEMENT_NAME = "parameterKey";
+        final static String TYPE_NAME = "ParameterKeyType";
+    }
 
-	/**
-	 * A private class which exposes constants which define the XML element names to use
-	 * when this object is marshalled to XML.
-	 */
-	static class Elements {
-		final static String APPLICATION_ID = "applicationId";
-		final static String NAMESPACE_CODE = "namespaceCode";
-		final static String COMPONENT_CODE = "componentCode";
-		final static String NAME = "name";
-	}
+    /**
+     * A private class which exposes constants which define the XML element names to use
+     * when this object is marshalled to XML.
+     */
+    static class Elements {
+        final static String APPLICATION_ID = "applicationId";
+        final static String NAMESPACE_CODE = "namespaceCode";
+        final static String COMPONENT_CODE = "componentCode";
+        final static String NAME = "name";
+    }
 
 }

@@ -45,7 +45,7 @@ public class BulkReceivingDocumentTest extends KualiTestBase {
         super.tearDown();
     }
 
-    @ConfigureContext(session = parke,shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testRouteDocument() throws Exception {
         BulkReceivingDocument doc = BulkReceivingDocumentFixture.SIMPLE_DOCUMENT.createBulkReceivingDocument();
         doc.prepareForSave();
@@ -57,7 +57,7 @@ public class BulkReceivingDocumentTest extends KualiTestBase {
         assertTrue("Document should now be final.", document.getDocumentHeader().getWorkflowDocument().isFinal());
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testRouteDocumentWithPO() throws Exception {
         PurchaseOrderDocument po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS.createPurchaseOrderDocument();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);

@@ -18,9 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelEditMode;
@@ -35,20 +38,16 @@ import org.kuali.kfs.sys.KfsAuthorizationConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequest;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Set;
 
 /**
  * Travel Document Presentation Controller
- *
  */
-public class TravelDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase{
+public class TravelDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
     protected volatile TravelDocumentService travelDocumentService;
 
     /**
@@ -79,6 +78,7 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
 
     /**
      * Determines if there's an action request for the current user
+     *
      * @param document the document to check action requests on
      * @return true if there are action requests for the current user, false otherwise
      */
@@ -103,7 +103,7 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
 
     /**
      * Check user's edit permission in order to grant full entry edit
-     *
+     * <p>
      * When the document is routed to document manager's approval node, check for permission on document
      * manager to get full edit
      *
@@ -115,16 +115,16 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
         Person currentUser = GlobalVariables.getUserSession().getPerson();
 
         DocumentAuthorizer authorizer = getDocumentHelperService().getDocumentAuthorizer(document);
-        TravelArrangeableAuthorizer travelAuthorizer = (TravelArrangeableAuthorizer)authorizer;
+        TravelArrangeableAuthorizer travelAuthorizer = (TravelArrangeableAuthorizer) authorizer;
 
         //check edit permission when document is in init or saved
         if ((workflowDocument.isInitiated() || workflowDocument.isSaved())) {
             //check for edit permission on the document
-            if (travelAuthorizer.canEditDocument(document, currentUser)){
+            if (travelAuthorizer.canEditDocument(document, currentUser)) {
                 editModes.add(TravelEditMode.FULL_ENTRY);
             }
-        } else if(isAtNode(workflowDocument, getDocumentManagerApprovalNode())){ //Document manager will also get full entry edit mode on the approval node
-            if (travelAuthorizer.canEditDocument(document, currentUser)){
+        } else if (isAtNode(workflowDocument, getDocumentManagerApprovalNode())) { //Document manager will also get full entry edit mode on the approval node
+            if (travelAuthorizer.canEditDocument(document, currentUser)) {
                 editModes.add(TravelEditMode.FULL_ENTRY);
             }
         }
@@ -149,12 +149,12 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
 
     /**
      * Get the Document Manager approval node
-     *
+     * <p>
      * Default to Travel Manager's - AP_TRAVEL
      *
      * @return
      */
-    public String getDocumentManagerApprovalNode(){
+    public String getDocumentManagerApprovalNode() {
         return TemWorkflowConstants.RouteNodeNames.AP_TRAVEL;
     }
 
@@ -164,7 +164,7 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
      * @param workflowDocument
      * @return
      */
-    public boolean isInitiator(WorkflowDocument workflowDocument){
+    public boolean isInitiator(WorkflowDocument workflowDocument) {
         String docInitiator = workflowDocument.getInitiatorPrincipalId();
         Person currentUser = GlobalVariables.getUserSession().getPerson();
         return docInitiator.equals(currentUser.getPrincipalId());
@@ -172,6 +172,7 @@ public class TravelDocumentPresentationController extends FinancialSystemTransac
 
     /**
      * Determines if the given travel doc is the "root" travel document
+     *
      * @param travelDoc the travel document to verify
      * @return true if the travel document is the root document, false otherwise
      */

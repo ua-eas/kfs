@@ -21,9 +21,7 @@ package org.kuali.kfs.sys.service;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 
 /**
- *
  * This service interface defines methods that a UniversityDateService implementation must provide.
- *
  */
 public interface UniversityDateService {
 

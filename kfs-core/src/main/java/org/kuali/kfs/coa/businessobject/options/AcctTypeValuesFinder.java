@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountType;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class creates a new finder for our forms view (creates a drop-down of Account types)
@@ -43,10 +43,10 @@ public class AcctTypeValuesFinder extends KeyValuesBase {
 
         List<AccountType> codes = (List<AccountType>) SpringContext.getBean(KeyValuesService.class).findAll(AccountType.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( codes == null ) {
+        if (codes == null) {
             codes = new ArrayList<AccountType>(0);
         } else {
-            codes = new ArrayList<AccountType>( codes );
+            codes = new ArrayList<AccountType>(codes);
         }
         // sort using comparator.
         Collections.sort(codes, new AccountTypeCodeComparator());
@@ -55,7 +55,7 @@ public class AcctTypeValuesFinder extends KeyValuesBase {
         labels.add(new ConcreteKeyValue("", ""));
 
         for (AccountType acctType : codes) {
-            if(acctType.isActive()) {
+            if (acctType.isActive()) {
                 labels.add(new ConcreteKeyValue(acctType.getAccountTypeCode(), acctType.getAccountTypeCode() + " - " + acctType.getAccountTypeName()));
             }
         }

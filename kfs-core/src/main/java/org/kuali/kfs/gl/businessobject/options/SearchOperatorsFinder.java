@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * An extension of KeyValueBase that gives the user a choice of search operator options

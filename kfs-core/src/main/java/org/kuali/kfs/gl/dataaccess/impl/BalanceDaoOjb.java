@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -49,6 +41,14 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * An OJB implementation of BalanceDao
  */
@@ -59,7 +59,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * Does a ReportQuery to summarize GL balance data
      *
      * @param universityFiscalYear the fiscal year of balances to search for
-     * @param balanceTypeCodes a list of balance type codes of balances to search for
+     * @param balanceTypeCodes     a list of balance type codes of balances to search for
      * @return iterator of reported on java.lang.Object arrays with the report data
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#getGlSummary(int, java.util.List)
      */
@@ -71,9 +71,9 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
         c.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, universityFiscalYear);
         c.addIn(KFSPropertyConstants.BALANCE_TYPE_CODE, balanceTypeCodes);
 
-        String[] attributes = new String[] { "account.subFundGroup.fundGroupCode", "sum(accountLineAnnualBalanceAmount)", "sum(beginningBalanceLineAmount)", "sum(contractsGrantsBeginningBalanceAmount)", "sum(month1Amount)", "sum(month2Amount)", "sum(month3Amount)", "sum(month4Amount)", "sum(month5Amount)", "sum(month6Amount)", "sum(month7Amount)", "sum(month8Amount)", "sum(month9Amount)", "sum(month10Amount)", "sum(month11Amount)", "sum(month12Amount)", "sum(month13Amount)" };
+        String[] attributes = new String[]{"account.subFundGroup.fundGroupCode", "sum(accountLineAnnualBalanceAmount)", "sum(beginningBalanceLineAmount)", "sum(contractsGrantsBeginningBalanceAmount)", "sum(month1Amount)", "sum(month2Amount)", "sum(month3Amount)", "sum(month4Amount)", "sum(month5Amount)", "sum(month6Amount)", "sum(month7Amount)", "sum(month8Amount)", "sum(month9Amount)", "sum(month10Amount)", "sum(month11Amount)", "sum(month12Amount)", "sum(month13Amount)"};
 
-        String[] groupby = new String[] { "account.subFundGroup.fundGroupCode" };
+        String[] groupby = new String[]{"account.subFundGroup.fundGroupCode"};
 
         ReportQueryByCriteria query = new ReportQueryByCriteria(Balance.class, c);
 
@@ -113,8 +113,8 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Using values from the transaction as keys, lookup the balance the transaction would affect were it posted
      *
-     * @t a transaction to look up the related balance for
      * @return a Balance that the given transaction would affect
+     * @t a transaction to look up the related balance for
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#getBalanceByTransaction(org.kuali.kfs.gl.businessobject.Transaction)
      */
     @Override
@@ -139,8 +139,8 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * This method adds to the given criteria if the given collection is non-empty. It uses an EQUALS if there is exactly one
      * element in the collection; otherwise, its uses an IN
      *
-     * @param criteria - the criteria that might have a criterion appended
-     * @param name - name of the attribute
+     * @param criteria   - the criteria that might have a criterion appended
+     * @param name       - name of the attribute
      * @param collection - the collection to inspect
      */
     protected void criteriaBuilder(Criteria criteria, String name, Collection collection) {
@@ -150,8 +150,8 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Similar to criteriaBuilder, this adds a negative criterion (NOT EQUALS, NOT IN)
      *
-     * @param criteria - the criteria that might have a criterion appended
-     * @param name - name of the attribute
+     * @param criteria   - the criteria that might have a criterion appended
+     * @param name       - name of the attribute
      * @param collection - the collection to inspect
      */
     protected void negatedCriteriaBuilder(Criteria criteria, String name, Collection collection) {
@@ -162,10 +162,10 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * This method provides the implementation for the conveniences methods criteriaBuilder & negatedCriteriaBuilder
      *
-     * @param criteria - the criteria that might have a criterion appended
-     * @param name - name of the attribute
+     * @param criteria   - the criteria that might have a criterion appended
+     * @param name       - name of the attribute
      * @param collection - the collection to inspect
-     * @param negate - the criterion will be negated (NOT EQUALS, NOT IN) when this is true
+     * @param negate     - the criterion will be negated (NOT EQUALS, NOT IN) when this is true
      */
     protected void criteriaBuilderHelper(Criteria criteria, String name, Collection collection, boolean negate) {
         if (collection != null) {
@@ -173,16 +173,14 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
             if (size == 1) {
                 if (negate) {
                     criteria.addNotEqualTo(name, collection.iterator().next());
-                }
-                else {
+                } else {
                     criteria.addEqualTo(name, collection.iterator().next());
                 }
             }
             if (size > 1) {
                 if (negate) {
                     criteria.addNotIn(name, collection);
-                }
-                else {
+                } else {
                     criteria.addIn(name, collection);
 
                 }
@@ -194,15 +192,15 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Build a query based on all the parameters, and return an Iterator of all Balances from the database that qualify
      *
-     * @param account the account of balances to find
-     * @param fiscalYear the fiscal year of balances to find
+     * @param account             the account of balances to find
+     * @param fiscalYear          the fiscal year of balances to find
      * @param includedObjectCodes a Collection of object codes found balances should have one of
      * @param excludedObjectCodes a Collection of object codes found balances should not have one of
-     * @param objectTypeCodes a Collection of object type codes found balances should have one of
-     * @param balanceTypeCodes a Collection of balance type codes found balances should have one of
+     * @param objectTypeCodes     a Collection of object type codes found balances should have one of
+     * @param balanceTypeCodes    a Collection of balance type codes found balances should have one of
      * @return an Iterator of Balances
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findBalances(org.kuali.kfs.coa.businessobject.Account, java.lang.Integer,
-     *      java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection)
+     * java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection)
      */
     @Override
     public Iterator<Balance> findBalances(Account account, Integer fiscalYear, Collection includedObjectCodes, Collection excludedObjectCodes, Collection objectTypeCodes, Collection balanceTypeCodes) {
@@ -231,7 +229,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * Using the given fieldValues as keys, return all cash balance records. The results will be limited to the system lookup
      * results limit.
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the records of cash balance entries
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#lookupCashBalance(Map, boolean, List)
@@ -248,7 +246,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Get the number of detailed cash balance records that would be returned, were we to do a query based on the given fieldValues
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the size collection of cash balance entry groups
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#getDetailedCashBalanceRecordCount(Map, List)
@@ -279,7 +277,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Given a map of values, build a query out of those and find all the balances that qualify
      *
-     * @param fieldValues a Map of fieldValues to use as keys in the query
+     * @param fieldValues    a Map of fieldValues to use as keys in the query
      * @param isConsolidated should the results be consolidated?
      * @return an Iterator of Balances
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findBalance(java.util.Map, boolean)
@@ -341,7 +339,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * build the query for cash balance search
      *
-     * @param fieldValues Map of keys to use for the query
+     * @param fieldValues    Map of keys to use for the query
      * @param isConsolidated should the results be consolidated?
      * @return the OJB query to perform
      */
@@ -378,7 +376,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * build the query for balance search
      *
-     * @param fieldValues Map of keys to use for the query
+     * @param fieldValues    Map of keys to use for the query
      * @param isConsolidated should the results be consolidated?
      * @return an OJB query to perform
      */
@@ -424,7 +422,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
         ReportQueryByCriteria query = QueryFactory.newReportQuery(Balance.class, criteria);
 
         // set the selection attributes
-        query.setAttributes(new String[] { "count(*)" });
+        query.setAttributes(new String[]{"count(*)"});
 
         List groupByList = buildGroupByList();
         groupByList.remove(KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
@@ -441,7 +439,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * This method builds the query criteria based on the input field map
      *
      * @param fieldValues Map of keys to use for the query
-     * @param balance this really usen't used in the method
+     * @param balance     this really usen't used in the method
      * @return a query criteria
      */
     protected Criteria buildCriteriaFromMap(Map fieldValues, Balance balance, Collection<String> encumbranceBalanceTypes) {
@@ -522,12 +520,12 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * one of those records when you call this method. Let's hope the right one.
      *
      * @param universityFiscalYear the fiscal year of the CB balance to return
-     * @param chartOfAccountsCode the chart of the accounts code of the CB balanes to return
-     * @param accountNumber the account number of the CB balance to return
-     * @param objectCode the object code of the CB balance to return
+     * @param chartOfAccountsCode  the chart of the accounts code of the CB balanes to return
+     * @param accountNumber        the account number of the CB balance to return
+     * @param objectCode           the object code of the CB balance to return
      * @return the CB Balance record
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#getCurrentBudgetForObjectCode(java.lang.Integer, java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Override
     public Balance getCurrentBudgetForObjectCode(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String objectCode) {
@@ -548,8 +546,8 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * Find all matching account balances.
      *
      * @param universityFiscalYear the university fiscal year of balances to return
-     * @param chartOfAccountsCode the chart of accounts code of balances to return
-     * @param accountNumber the account number of balances to return
+     * @param chartOfAccountsCode  the chart of accounts code of balances to return
+     * @param accountNumber        the account number of balances to return
      * @return balances sorted by object code
      */
     @Override
@@ -562,9 +560,9 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * Find all matching account balances. The Sufficient funds code is used to determine the sort of the results.
      *
      * @param universityFiscalYear the university fiscal year of balances to return
-     * @param chartOfAccountsCode the chart of accounts code of balances to return
-     * @param accountNumber the account number of balances to return
-     * @param sfCode the sufficient funds code, used to sort on
+     * @param chartOfAccountsCode  the chart of accounts code of balances to return
+     * @param accountNumber        the account number of balances to return
+     * @param sfCode               the sufficient funds code, used to sort on
      * @return an Iterator of balances
      */
     @Override
@@ -579,11 +577,9 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
         QueryByCriteria qbc = QueryFactory.newQuery(Balance.class, crit);
         if (KFSConstants.SF_TYPE_OBJECT.equals(sfCode)) {
             qbc.addOrderByAscending(KFSPropertyConstants.OBJECT_CODE);
-        }
-        else if (KFSConstants.SF_TYPE_LEVEL.equals(sfCode)) {
+        } else if (KFSConstants.SF_TYPE_LEVEL.equals(sfCode)) {
             qbc.addOrderByAscending(GeneralLedgerConstants.BalanceInquiryDrillDowns.OBJECT_LEVEL_CODE);
-        }
-        else if (KFSConstants.SF_TYPE_CONSOLIDATION.equals(sfCode)) {
+        } else if (KFSConstants.SF_TYPE_CONSOLIDATION.equals(sfCode)) {
             qbc.addOrderByAscending(GeneralLedgerConstants.BalanceInquiryDrillDowns.CONSOLIDATION_OBJECT_CODE);
         }
         return getPersistenceBrokerTemplate().getIteratorByQuery(qbc);
@@ -593,7 +589,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
      * Purge the sufficient funds balance table by year/chart
      *
      * @param chart the chart of balances to purge
-     * @param year the university fiscal year of balances to purge
+     * @param year  the university fiscal year of balances to purge
      */
     @Override
     public void purgeYearByChart(String chartOfAccountsCode, int year) {
@@ -673,7 +669,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
         return getPersistenceBrokerTemplate().getIteratorByQuery(query);
     }
 
-     /**
+    /**
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findNominalActivityBalancesForFiscalYear(java.lang.Integer, java.util.Collection, org.kuali.kfs.sys.businessobject.SystemOptions, java.util.List)
      */
     @Override
@@ -701,7 +697,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
     /**
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findGeneralBalancesToForwardForFiscalYear(java.lang.Integer, java.util.List,
-     *      java.lang.String[])
+     * java.lang.String[])
      */
     @Override
     public Iterator<Balance> findGeneralBalancesToForwardForFiscalYear(Integer year, Collection<String> generalForwardBalanceObjectTypes, Collection<String> generalBalanceForwardBalanceTypes) {
@@ -756,7 +752,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
     /**
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findCumulativeBalancesToForwardForFiscalYear(java.lang.Integer, java.util.List,
-     *      java.util.List, java.lang.String[], java.lang.String[])
+     * java.util.List, java.lang.String[], java.lang.String[])
      */
     @Override
     public Iterator<Balance> findCumulativeBalancesToForwardForFiscalYear(Integer year, Collection<String> cumulativeForwardBalanceObjectTypes, Collection<String> contractsAndGrantsDenotingValues, Collection<String> subFundGroupsForCumulativeBalanceForwarding, Collection<String> cumulativeBalanceForwardBalanceTypes, boolean fundGroupDenotesCGInd) {
@@ -767,10 +763,9 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
         Criteria forCGCrit = new Criteria();
         if (fundGroupDenotesCGInd) {
-        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
-        }
-        else {
-        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
+            forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
+        } else {
+            forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
         }
 
         Criteria subFundGroupCrit = new Criteria();
@@ -806,10 +801,9 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
         Criteria forCGCrit = new Criteria();
         if (fundGroupDenotesCGInd) {
-        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
-        }
-        else {
-        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
+            forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
+        } else {
+            forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
         }
 
         Criteria subFundGroupCrit = new Criteria();
@@ -837,7 +831,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
     /**
      * Returns a list of balances to return for the Organization Reversion year end job to process
      *
-     * @param the university fiscal year to find balances for
+     * @param the       university fiscal year to find balances for
      * @param endOfYear if true, use current year accounts, otherwise use prior year accounts
      * @return an Iterator of Balances to process
      * @see org.kuali.kfs.gl.dataaccess.BalanceDao#findOrganizationReversionBalancesForFiscalYear(Integer, boolean, SystemOptions)
@@ -860,8 +854,7 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
                 if (propertyName != null && propertyName.length() > 0 && ruleValues.size() > 0 && !StringUtils.isBlank(ruleValues.get(0))) {
                     if (parameterEvaluator.constraintIsAllow()) {
                         c.addIn(propertyName, ruleValues);
-                    }
-                    else {
+                    } else {
                         c.addNotIn(propertyName, ruleValues);
                     }
                 }

@@ -18,31 +18,30 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.service.BudgetConstructionIntendedIncumbentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * the struts action for the salary setting for incumbent
@@ -55,16 +54,15 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.SalarySettingBaseAction#loadExpansionScreen(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward loadExpansionScreen(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         IncumbentSalarySettingForm incumbentSalarySettingForm = (IncumbentSalarySettingForm) form;
         MessageMap errorMap;
-        if (incumbentSalarySettingForm.isBudgetByAccountMode()){
+        if (incumbentSalarySettingForm.isBudgetByAccountMode()) {
             errorMap = incumbentSalarySettingForm.getCallBackErrors();
-        }
-        else {
+        } else {
             errorMap = GlobalVariables.getMessageMap();
         }
 
@@ -81,10 +79,9 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
             String emplid = (String) fieldValues.get(KFSPropertyConstants.EMPLID);
 
             errorMap.putError(KFSConstants.GLOBAL_MESSAGES, BCKeyConstants.ERROR_INCUMBENT_NOT_FOUND, emplid);
-            if (incumbentSalarySettingForm.isBudgetByAccountMode()){
+            if (incumbentSalarySettingForm.isBudgetByAccountMode()) {
                 return this.returnToCaller(mapping, form, request, response);
-            }
-            else {
+            } else {
                 this.cleanupAnySessionForm(mapping, request);
                 return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
             }
@@ -102,10 +99,9 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
 
             boolean accessModeUpdated = incumbentSalarySettingForm.updateAccessMode(errorMap);
             if (!accessModeUpdated) {
-                if (incumbentSalarySettingForm.isBudgetByAccountMode()){
+                if (incumbentSalarySettingForm.isBudgetByAccountMode()) {
                     return this.returnToCaller(mapping, form, request, response);
-                }
-                else {
+                } else {
                     this.cleanupAnySessionForm(mapping, request);
                     return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
                 }
@@ -113,10 +109,9 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
 
             boolean gotLocks = incumbentSalarySettingForm.acquirePositionAndFundingLocks(errorMap);
             if (!gotLocks) {
-                if (incumbentSalarySettingForm.isBudgetByAccountMode()){
+                if (incumbentSalarySettingForm.isBudgetByAccountMode()) {
                     return this.returnToCaller(mapping, form, request, response);
-                }
-                else {
+                } else {
                     this.cleanupAnySessionForm(mapping, request);
                     return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
                 }
@@ -132,7 +127,7 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ActionForward saveAction =  super.save(mapping, form, request, response);
+        ActionForward saveAction = super.save(mapping, form, request, response);
 
         IncumbentSalarySettingForm incumbentSalarySettingForm = (IncumbentSalarySettingForm) form;
         this.sendWarnings(incumbentSalarySettingForm, KNSGlobalVariables.getMessageList());
@@ -146,7 +141,7 @@ public class IncumbentSalarySettingAction extends DetailSalarySettingAction {
      * @param incumbentSalarySettingForm
      * @param warnings
      */
-    public void sendWarnings(IncumbentSalarySettingForm incumbentSalarySettingForm, MessageList warnings){
+    public void sendWarnings(IncumbentSalarySettingForm incumbentSalarySettingForm, MessageList warnings) {
         List<PendingBudgetConstructionAppointmentFunding> activeAppointmentFundings = incumbentSalarySettingForm.getActiveFundingLines();
         if (activeAppointmentFundings == null || activeAppointmentFundings.isEmpty()) {
             return;

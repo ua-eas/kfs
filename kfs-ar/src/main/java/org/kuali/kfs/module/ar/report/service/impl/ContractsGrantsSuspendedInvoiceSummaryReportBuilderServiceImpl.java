@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.module.ar.report.ContractsGrantsSuspendedInvoiceSummaryReportDetailDataHolder;
@@ -29,6 +25,10 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderSe
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService for the Contracts & Grants Suspended Invoice Summary Report
@@ -38,6 +38,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportBuilderServiceImpl impl
 
     /**
      * Builds a report from the given list of details
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
@@ -51,7 +52,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportBuilderServiceImpl impl
         ContractsGrantsReportDataHolder cgSuspendedInvoiceSummaryReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsSuspendedInvoiceSummaryReportDetailDataHolder> details = cgSuspendedInvoiceSummaryReportDataHolder.getDetails();
 
-        for (ContractsGrantsSuspendedInvoiceSummaryReport cgSuspendedInvoiceSummaryReportEntry : (List<ContractsGrantsSuspendedInvoiceSummaryReport>)displayList) {
+        for (ContractsGrantsSuspendedInvoiceSummaryReport cgSuspendedInvoiceSummaryReportEntry : (List<ContractsGrantsSuspendedInvoiceSummaryReport>) displayList) {
             ContractsGrantsSuspendedInvoiceSummaryReportDetailDataHolder reportDetail = new ContractsGrantsSuspendedInvoiceSummaryReportDetailDataHolder();
             // set report data
             setReportDate(cgSuspendedInvoiceSummaryReportEntry, reportDetail);
@@ -76,6 +77,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportBuilderServiceImpl impl
 
     /**
      * Returns ContractsGrantsSuspendedInvoiceSummaryReport.class
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ec.service;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ec.util.ExtractProcessReportDataHolder;
+
+import java.util.Date;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -31,7 +31,7 @@ public interface EffortCertificationReportService {
      * generate report for effort certification extract process witht the given report data and information
      *
      * @param reportDataHolder the given report data holder
-     * @param runDate the datetime of the repor generation
+     * @param runDate          the datetime of the repor generation
      */
     void generateReportForExtractProcess(ExtractProcessReportDataHolder reportDataHolder, Date runDate);
 }

@@ -19,16 +19,10 @@
 
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentTargetAccountingLine;
@@ -36,6 +30,9 @@ import org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl;
 import org.kuali.kfs.fp.document.validation.impl.BudgetAdjustmentDocumentRuleConstants;
 import org.kuali.kfs.fp.document.validation.impl.TransferOfFundsDocumentRuleConstants;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -56,13 +53,16 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the business object that represents the BudgetAdjustment document in Kuali.
@@ -125,8 +125,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         // use 'this.postingYear =' because setPostingYear has logic we want to circumvent on initiateDocument
         if (allowedYears.contains(fiscalYearFunctionControl)) {
             this.postingYear = currentYearParam;
-        }
-        else {
+        } else {
             this.postingYear = ((FiscalYearFunctionControl) allowedYears.get(0)).getUniversityFiscalYear();
         }
     }
@@ -167,7 +166,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiDecimal getSourceCurrentBudgetTotal() {
         KualiDecimal currentBudgetTotal = KualiDecimal.ZERO;
 
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             currentBudgetTotal = currentBudgetTotal.add(line.getCurrentBudgetAdjustmentAmount());
         }
@@ -192,7 +191,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiDecimal getSourceCurrentBudgetIncomeTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
 
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
             if (accountingDocumentRuleUtil.isIncome(line)) {
@@ -211,7 +210,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiDecimal getSourceCurrentBudgetExpenseTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
 
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
             if (accountingDocumentRuleUtil.isExpense(line)) {
@@ -230,7 +229,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiDecimal getTargetCurrentBudgetTotal() {
         KualiDecimal currentBudgetTotal = KualiDecimal.ZERO;
 
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             currentBudgetTotal = currentBudgetTotal.add(line.getCurrentBudgetAdjustmentAmount());
         }
@@ -256,7 +255,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiDecimal total = KualiDecimal.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isIncome(line)) {
                 total = total.add(line.getCurrentBudgetAdjustmentAmount());
@@ -275,7 +274,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiDecimal total = KualiDecimal.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isExpense(line)) {
                 total = total.add(line.getCurrentBudgetAdjustmentAmount());
@@ -293,7 +292,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiInteger getSourceBaseBudgetTotal() {
         KualiInteger baseBudgetTotal = KualiInteger.ZERO;
 
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             baseBudgetTotal = baseBudgetTotal.add(line.getBaseBudgetAdjustmentAmount());
         }
@@ -320,7 +319,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiInteger total = KualiInteger.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isIncome(line)) {
                 total = total.add(line.getBaseBudgetAdjustmentAmount());
@@ -339,7 +338,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiInteger total = KualiInteger.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = sourceAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isExpense(line)) {
                 total = total.add(line.getBaseBudgetAdjustmentAmount());
@@ -357,7 +356,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     public KualiInteger getTargetBaseBudgetTotal() {
         KualiInteger baseBudgetTotal = KualiInteger.ZERO;
 
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             baseBudgetTotal = baseBudgetTotal.add(line.getBaseBudgetAdjustmentAmount());
         }
@@ -383,7 +382,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiInteger total = KualiInteger.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isIncome(line)) {
                 total = total.add(line.getBaseBudgetAdjustmentAmount());
@@ -402,7 +401,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiInteger total = KualiInteger.ZERO;
 
         AccountingDocumentRuleHelperService accountingDocumentRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
-        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = targetAccountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             if (accountingDocumentRuleUtil.isExpense(line)) {
                 total = total.add(line.getBaseBudgetAdjustmentAmount());
@@ -415,8 +414,8 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     /**
      * Same as default implementation but uses getTargetCurrentBudgetTotal and getSourceCurrentBudgetTotal instead.
      *
-     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      * @return KualiDecimal
+     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      */
     @Override
     public KualiDecimal getTotalDollarAmount() {
@@ -425,19 +424,19 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         if (this.getTargetBaseBudgetExpenseTotal().isNonZero()) {
             return this.getTargetBaseBudgetExpenseTotal().kualiDecimalValue();
         }
-        if (this.getTargetCurrentBudgetExpenseTotal().isNonZero()){
+        if (this.getTargetCurrentBudgetExpenseTotal().isNonZero()) {
             return this.getTargetCurrentBudgetExpenseTotal();
         }
-        if (this.getTargetBaseBudgetIncomeTotal().isNonZero()){
+        if (this.getTargetBaseBudgetIncomeTotal().isNonZero()) {
             return this.getTargetBaseBudgetIncomeTotal().kualiDecimalValue();
         }
-        if (this.getTargetCurrentBudgetIncomeTotal().isNonZero()){
+        if (this.getTargetCurrentBudgetIncomeTotal().isNonZero()) {
             return this.getTargetCurrentBudgetIncomeTotal();
         }
-        if (this.getSourceBaseBudgetExpenseTotal().isNonZero()){
+        if (this.getSourceBaseBudgetExpenseTotal().isNonZero()) {
             return this.getSourceBaseBudgetExpenseTotal().kualiDecimalValue();
         }
-        if (this.getSourceCurrentBudgetExpenseTotal().isNonZero()){
+        if (this.getSourceCurrentBudgetExpenseTotal().isNonZero()) {
             return this.getSourceCurrentBudgetExpenseTotal();
         }
         return KualiDecimal.ZERO;
@@ -453,7 +452,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         super.toErrorCorrection();
 
         if (this.getSourceAccountingLines() != null) {
-            for (Iterator iter = this.getSourceAccountingLines().iterator(); iter.hasNext();) {
+            for (Iterator iter = this.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
                 BudgetAdjustmentAccountingLine sourceLine = (BudgetAdjustmentAccountingLine) iter.next();
                 sourceLine.setBaseBudgetAdjustmentAmount(sourceLine.getBaseBudgetAdjustmentAmount().negated());
                 sourceLine.setCurrentBudgetAdjustmentAmount(sourceLine.getCurrentBudgetAdjustmentAmount().negated());
@@ -473,7 +472,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         }
 
         if (this.getTargetAccountingLines() != null) {
-            for (Iterator iter = this.getTargetAccountingLines().iterator(); iter.hasNext();) {
+            for (Iterator iter = this.getTargetAccountingLines().iterator(); iter.hasNext(); ) {
                 BudgetAdjustmentAccountingLine targetLine = (BudgetAdjustmentAccountingLine) iter.next();
                 targetLine.setBaseBudgetAdjustmentAmount(targetLine.getBaseBudgetAdjustmentAmount().negated());
                 targetLine.setCurrentBudgetAdjustmentAmount(targetLine.getCurrentBudgetAdjustmentAmount().negated());
@@ -527,12 +526,12 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         super.populateDocumentForRouting();
 
         // set amount fields of line for routing to current amount field
-        for (Iterator iter = this.getSourceAccountingLines().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             line.setAmount(line.getCurrentBudgetAdjustmentAmount());
         }
 
-        for (Iterator iter = this.getTargetAccountingLines().iterator(); iter.hasNext();) {
+        for (Iterator iter = this.getTargetAccountingLines().iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             line.setAmount(line.getCurrentBudgetAdjustmentAmount());
         }
@@ -542,17 +541,16 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * Returns true if accounting line is debit
      *
      * @param financialDocument submitted financial document
-     * @param accountingLine accounting line being evaluated as a debit or not
+     * @param accountingLine    accounting line being evaluated as a debit or not
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
         try {
             DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
             return isDebitUtils.isDebitConsideringType(this, postable);
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             // for all accounting lines except the transfer lines, the line amount will be 0 and this exception will be thrown
             return false;
         }
@@ -564,11 +562,11 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * needed to move funding.
      *
      * @param financialDocument submitted accounting document
-     * @param accountingLine validated accounting line
-     * @param sequenceHelper helper class for keeping track of sequence number
+     * @param accountingLine    validated accounting line
+     * @param sequenceHelper    helper class for keeping track of sequence number
      * @return true if GLPE entries are successfully created.
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#processGenerateGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -578,8 +576,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         KualiDecimal amountSign = null;
         if (accountingLine instanceof SourceAccountingLine) {
             amountSign = new KualiDecimal(-1);
-        }
-        else {
+        } else {
             amountSign = new KualiDecimal(1);
         }
 
@@ -682,10 +679,10 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * Helper method for creating monthly budget pending entry lines.
      *
      * @param financialDocument submitted accounting document
-     * @param accountingLine validated accounting line
-     * @param sequenceHelper helper class for keeping track of sequence number
-     * @param fiscalPeriod fiscal year period code
-     * @param monthAmount ledger entry amount for the month
+     * @param accountingLine    validated accounting line
+     * @param sequenceHelper    helper class for keeping track of sequence number
+     * @param fiscalPeriod      fiscal year period code
+     * @param monthAmount       ledger entry amount for the month
      */
     protected void createMonthlyBudgetGLPE(AccountingLine accountingLine, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, String fiscalPeriod, KualiDecimal monthAmount) {
         GeneralLedgerPendingEntry explicitEntry = new GeneralLedgerPendingEntry();
@@ -719,7 +716,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * @param sequenceHelper helper class for keeping track of sequence number
      * @return true general ledger pending entries are generated without any problems
      * @see org.kuali.rice.krad.rule.GenerateGeneralLedgerDocumentPendingEntriesRule#processGenerateDocumentGeneralLedgerPendingEntries(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateDocumentGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -734,7 +731,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
             // map of income chart/accounts with balance as value
             Map<String, KualiDecimal> incomeStreamMap = buildIncomeStreamBalanceMapForTransferOfFundsGeneration();
             GeneralLedgerPendingEntryService glpeService = SpringContext.getBean(GeneralLedgerPendingEntryService.class);
-            for (Iterator iter = incomeStreamMap.keySet().iterator(); iter.hasNext();) {
+            for (Iterator iter = incomeStreamMap.keySet().iterator(); iter.hasNext(); ) {
                 String chartAccount = (String) iter.next();
                 KualiDecimal streamAmount = incomeStreamMap.get(chartAccount);
                 if (streamAmount.isNonZero()) {
@@ -742,11 +739,9 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
                     AccountingLine accountingLine = null;
                     try {
                         accountingLine = (SourceAccountingLine) getSourceAccountingLineClass().newInstance();
-                    }
-                    catch (IllegalAccessException e) {
+                    } catch (IllegalAccessException e) {
                         throw new InfrastructureException("unable to access sourceAccountingLineClass", e);
-                    }
-                    catch (InstantiationException e) {
+                    } catch (InstantiationException e) {
                         throw new InfrastructureException("unable to instantiate sourceAccountingLineClass", e);
                     }
 
@@ -841,8 +836,8 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         for (BudgetAdjustmentAccountingLine budgetAccountingLine : accountingLines) {
             Account baAccount = budgetAccountingLine.getAccount();
 
-            if(parameterEvaluatorService.getParameterEvaluator(BudgetAdjustmentDocument.class, KFSConstants.BudgetAdjustmentDocumentConstants.CROSS_INCOME_STREAM_GLPE_TRANSFER_GENERATING_FUND_GROUPS, baAccount.getSubFundGroup().getFundGroupCode()).evaluationSucceeds() &&
-               parameterEvaluatorService.getParameterEvaluator(BudgetAdjustmentDocument.class, KFSConstants.BudgetAdjustmentDocumentConstants.CROSS_INCOME_STREAM_GLPE_TRANSFER_GENERATING_SUB_FUND_GROUPS, baAccount.getSubFundGroupCode()).evaluationSucceeds()) {
+            if (parameterEvaluatorService.getParameterEvaluator(BudgetAdjustmentDocument.class, KFSConstants.BudgetAdjustmentDocumentConstants.CROSS_INCOME_STREAM_GLPE_TRANSFER_GENERATING_FUND_GROUPS, baAccount.getSubFundGroup().getFundGroupCode()).evaluationSucceeds() &&
+                parameterEvaluatorService.getParameterEvaluator(BudgetAdjustmentDocument.class, KFSConstants.BudgetAdjustmentDocumentConstants.CROSS_INCOME_STREAM_GLPE_TRANSFER_GENERATING_SUB_FUND_GROUPS, baAccount.getSubFundGroupCode()).evaluationSucceeds()) {
 
                 String incomeStreamKey = baAccount.getIncomeStreamFinancialCoaCode() + BudgetAdjustmentDocumentRuleConstants.INCOME_STREAM_CHART_ACCOUNT_DELIMITER + baAccount.getIncomeStreamAccountNumber();
 
@@ -879,7 +874,6 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
     }
 
     /**
-     *
      * This method calculates the appropriate income stream amount for an account using the value provided and the provided accounting line.
      *
      * @param budgetAccountingLine
@@ -887,7 +881,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * @return
      */
     protected KualiDecimal getIncomeStreamAmount(BudgetAdjustmentAccountingLine budgetAccountingLine, KualiDecimal incomeStreamAmount) {
-        if(incomeStreamAmount == null) {
+        if (incomeStreamAmount == null) {
             incomeStreamAmount = new KualiDecimal(0);
         }
 
@@ -895,8 +889,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         if ((budgetAccountingLine instanceof BudgetAdjustmentSourceAccountingLine && isDebitUtils.isExpense(budgetAccountingLine)) || (budgetAccountingLine instanceof BudgetAdjustmentTargetAccountingLine && isDebitUtils.isIncome(budgetAccountingLine))) {
             incomeStreamAmount = incomeStreamAmount.subtract(budgetAccountingLine.getCurrentBudgetAdjustmentAmount());
-        }
-        else {
+        } else {
             incomeStreamAmount = incomeStreamAmount.add(budgetAccountingLine.getCurrentBudgetAdjustmentAmount());
         }
 
@@ -928,6 +921,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
      * Determines if this document can be auto-approved or not. The conditions for auto-approval are: 1) Single account used on document 2) Initiator is
      * fiscal officer or primary delegate for the account 3) Only current adjustments are being made 4) The fund group for the account
      * is not contract and grants 5) current income/expense decrease amount must equal increase amount
+     *
      * @return false if auto-approval can occur (and therefore, full approval is not required); true if a full approval is required
      */
     protected boolean requiresFullApproval() {
@@ -941,7 +935,7 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
         String objCdKey = "";
 
         for (BudgetAdjustmentAccountingLine account : accountingLines) {
-            if(account.getBaseBudgetAdjustmentAmount().isNonZero()){
+            if (account.getBaseBudgetAdjustmentAmount().isNonZero()) {
                 return true;
             }
             accountKey = account.getChartOfAccountsCode() + "-" + account.getAccountNumber();
@@ -953,24 +947,23 @@ public class BudgetAdjustmentDocument extends AccountingDocumentBase implements 
             }
         }
 
-         // check remaining conditions
+        // check remaining conditions
         // initiator should be fiscal officer or primary delegate for account
         Person initiator = KimApiServiceLocator.getPersonService().getPerson(getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());
         AccountService acctService = SpringContext.getBean(AccountService.class);
-        for (Iterator iter1 = accountingLines.iterator(); iter1.hasNext();) {
+        for (Iterator iter1 = accountingLines.iterator(); iter1.hasNext(); ) {
 
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter1.next();
             Account account = acctService.getByPrimaryId(line.getChartOfAccountsCode(), line.getAccountNumber());
-            boolean hasResponsibilityOnAccount= acctService.hasResponsibilityOnAccount(initiator, account);
+            boolean hasResponsibilityOnAccount = acctService.hasResponsibilityOnAccount(initiator, account);
             Account userAccount = null;
-            if(hasResponsibilityOnAccount){
-                 userAccount=account;
+            if (hasResponsibilityOnAccount) {
+                userAccount = account;
             }
 
             if (userAccount == null) {
                 return true;
-            }
-            else {
+            } else {
                 // fund group should not be CG
                 if (userAccount.isForContractsAndGrants()) {
                     return true;

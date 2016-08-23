@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.purap.service.impl.purapgeneralledgerserviceimpl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +33,10 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenerateEntriesVoidPurchaseOrderTest {
     private PurapGeneralLedgerServiceImpl purapGeneralLedgerService;

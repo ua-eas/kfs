@@ -19,13 +19,13 @@
 
 package org.kuali.kfs.module.cg.document;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Instances of this class are used to signal to the CloseBatchStep that a close should occur on a particular day.

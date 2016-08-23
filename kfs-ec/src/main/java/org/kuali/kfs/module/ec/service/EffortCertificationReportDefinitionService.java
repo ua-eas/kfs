@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ec.service;
 
+import org.kuali.kfs.integration.ec.EffortCertificationReport;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.integration.ec.EffortCertificationReport;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup;
 
 /**
  * Define the services that are related to EffortCertificationReportDefinition
@@ -83,7 +83,7 @@ public interface EffortCertificationReportDefinitionService {
     /**
      * determine whether the given report definition has been used to generate effort certification documents for the given employee
      *
-     * @param emplid the given employee id
+     * @param emplid           the given employee id
      * @param reportDefinition the given report definition
      * @return true if the given report definition has been used for the employee; otherwise, false
      */
@@ -100,7 +100,7 @@ public interface EffortCertificationReportDefinitionService {
     /**
      * determine whether there is any approved effort certification for the given report definition and employee
      *
-     * @param emplid the given employee id
+     * @param emplid           the given employee id
      * @param reportDefinition the given report definition
      * @return true if there is any approved effort certification for the employee; otherwise, false
      */

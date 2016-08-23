@@ -18,24 +18,25 @@
  */
 package org.kuali.kfs.coa.businessobject.inquiry;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.service.OrganizationReversionService;
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationReversionInquirable extends KualiInquirableImpl {
     private OrganizationReversionService organizationReversionService;
 
     /**
      * Overridden to take out details with inactive categories
-     * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.rice.krad.bo.BusinessObject)
      *
+     * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.rice.krad.bo.BusinessObject)
+     * <p>
      * KRAD Conversion: Inquirable performs conditional display/hiding of the fields/sections on the inquiry
      * But all field/section definitions are in data dictionary for bo Organization.
      */
@@ -61,9 +62,10 @@ public class OrganizationReversionInquirable extends KualiInquirableImpl {
 
     /**
      * Determines if the given field should be included in the updated row, once we take out inactive categories
+     *
      * @param field the field to check
      * @return true if the field should be included (ie, it doesn't describe an organization reversion with an inactive category); false otherwise
-     *
+     * <p>
      * KRAD Conversion: Determines if fields should be included in the section.
      * But all field/section definitions are in data dictionary.
      */

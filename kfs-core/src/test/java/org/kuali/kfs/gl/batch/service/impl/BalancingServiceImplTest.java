@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.PosterBalancingStep;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
@@ -37,13 +33,17 @@ import org.kuali.kfs.gl.dataaccess.BalancingDao;
 import org.kuali.kfs.gl.dataaccess.EncumbranceDao;
 import org.kuali.kfs.gl.dataaccess.LedgerBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -62,7 +62,7 @@ public class BalancingServiceImplTest extends BalancingServiceImplTestBase {
     @Override
     protected void setUp() throws Exception {
         balancingService = (BalancingServiceBaseImpl<Entry, Balance>) TestUtils.getUnproxiedService("glBalancingService");
-        ledgerEntryHistoryBalancingDao =  (LedgerEntryHistoryBalancingDao) SpringContext.getService("glEntryHistoryDao");
+        ledgerEntryHistoryBalancingDao = (LedgerEntryHistoryBalancingDao) SpringContext.getService("glEntryHistoryDao");
         ledgerBalancingDao = (LedgerBalancingDao) SpringContext.getService("glLedgerBalancingDao");
 
         balancingDao = (BalancingDao) SpringContext.getService("glBalancingDao");
@@ -86,7 +86,7 @@ public class BalancingServiceImplTest extends BalancingServiceImplTestBase {
         TestUtils.setSystemParameter(PosterBalancingStep.class, GeneralLedgerConstants.Balancing.NUMBER_OF_PAST_FISCAL_YEARS_TO_INCLUDE, "0");
 
         // make sure originEntry directory exists
-        batchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
 
         // careful: super.setUp needs to happen at the end because of service initialization and NUMBER_OF_PAST_FISCAL_YEARS_TO_INCLUDE
@@ -218,8 +218,7 @@ public class BalancingServiceImplTest extends BalancingServiceImplTestBase {
             // Rename the file because that's what happens before the balancing job runs
             Step fileRenameStep = BatchSpringContext.getStep("fileRenameStep");
             assertTrue("fileRenameStep should have succeeded", fileRenameStep.execute(getClass().getName(), dateTimeService.getCurrentDate()));
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             fail("posterEntriesStep or fileRenameStep failed: " + e.getMessage());
         }
     }
@@ -231,25 +230,25 @@ public class BalancingServiceImplTest extends BalancingServiceImplTestBase {
     protected String[] getInputTransactions() {
         // These inputTransactions are missing an initial 4 character FY string. It is added in setUp to test Balancing skipping old entries. Also, first 4
         // of the following array are in error intentionally.
-        return new String[] {
-                "BL1031420-----    ---EXEX08PO  EP542894        88888Midwest Scientific                                      50.00D2009-02-09568210    ----------        REQSEP568210                  D",
-                "BL1031420-----    ---EXFB08PO  EP542894        88888GENERATED OFFSET                                        50.00C2009-03-25          ----------                                       ",
-                "BL1031420-----    ---EXEX08PO  EP61063         88888SIEMENS MEDICAL SOLUTIONS USA INC.                   14331.00D2009-02-0999PC192   ----------        REQSEP57895                   D",
-                "BL1031420-----    ---EXFB08PO  EP61063         88888GENERATED OFFSET                                     14331.00C2009-03-25          ----------                                       ",
-                "BL1031420-----4100---EXEX08PO  EP6797          88888166080043 HPS OFFICE SYSTEMS                           579.84D2009-02-09          ----------                                      D",
-                "BL1031420-----9892---EXFB08PO  EP6797          88888GENERATED OFFSET                                       579.84C2009-03-25          ----------                                       ",
-                "BL1031420-----4617---ACEX08PREQEP926741        88888Young,Bonnie                                           223.44C2009-02-09          ----------        PO  EP528673                   ",
-                "BL1031420-----9041---ACLI08PREQEP926741        88888Young,Bonnie                                           223.44D2009-02-09          ----------        PO  EP528673                   ",
-                "BL1031420-----4300---ACEX08PREQEP934559        88888Post Masters                                           539.73D2009-02-09          ----------        PO  EP409297                   ",
-                "BL1031420-----9041---ACLI08PREQEP934559        88888Post Masters                                           539.73C2009-02-09          ----------        PO  EP409297                   ",
-                "BL1031420-----4300---EXEX08PREQEP934559        88888Post Masters                                           539.73C2009-02-09          ----------        PO  EP409297                  R",
-                "BL1031420-----9892---EXFB08PREQEP934559        88888GENERATED OFFSET                                       539.73D2009-03-25          ----------                                       ",
-                "BL1031420-----4520---ACEX08PREQEP942275        88888ESG SECURITY INC                                        49.00D2009-02-09BC70226   ----------        PO  EP510147                   ",
-                "BL1031420-----9041---ACLI08PREQEP942275        88888ESG SECURITY INC                                        49.00C2009-02-09BC70226   ----------        PO  EP510147                   ",
-                "BL1031420-----4520---ACEX08PREQEP942275        88888ESG SECURITY INC                                        49.00D2009-02-09BC70226   ----------        PO  EP510147                   ",
-                "BL1031420-----9041---ACLI08PREQEP942275        88888ESG SECURITY INC                                        49.00C2009-02-09BC70226   ----------        PO  EP510147                   ",
-                CHART_OF_ACCOUNTS_CODE + "1031420-----" + FINANCIAL_OBJECT_CODE + "---EXEX08PO  EP6797          88888166080043 HPS OFFICE SYSTEMS                           579.84D2009-02-09          ----------                                      D",
-                CHART_OF_ACCOUNTS_CODE + "1031420-----" + FINANCIAL_OBJECT_CODE + "---EXFB08PO  EP6797          88888GENERATED OFFSET                                       579.84C2009-03-25          ----------                                       ",
+        return new String[]{
+            "BL1031420-----    ---EXEX08PO  EP542894        88888Midwest Scientific                                      50.00D2009-02-09568210    ----------        REQSEP568210                  D",
+            "BL1031420-----    ---EXFB08PO  EP542894        88888GENERATED OFFSET                                        50.00C2009-03-25          ----------                                       ",
+            "BL1031420-----    ---EXEX08PO  EP61063         88888SIEMENS MEDICAL SOLUTIONS USA INC.                   14331.00D2009-02-0999PC192   ----------        REQSEP57895                   D",
+            "BL1031420-----    ---EXFB08PO  EP61063         88888GENERATED OFFSET                                     14331.00C2009-03-25          ----------                                       ",
+            "BL1031420-----4100---EXEX08PO  EP6797          88888166080043 HPS OFFICE SYSTEMS                           579.84D2009-02-09          ----------                                      D",
+            "BL1031420-----9892---EXFB08PO  EP6797          88888GENERATED OFFSET                                       579.84C2009-03-25          ----------                                       ",
+            "BL1031420-----4617---ACEX08PREQEP926741        88888Young,Bonnie                                           223.44C2009-02-09          ----------        PO  EP528673                   ",
+            "BL1031420-----9041---ACLI08PREQEP926741        88888Young,Bonnie                                           223.44D2009-02-09          ----------        PO  EP528673                   ",
+            "BL1031420-----4300---ACEX08PREQEP934559        88888Post Masters                                           539.73D2009-02-09          ----------        PO  EP409297                   ",
+            "BL1031420-----9041---ACLI08PREQEP934559        88888Post Masters                                           539.73C2009-02-09          ----------        PO  EP409297                   ",
+            "BL1031420-----4300---EXEX08PREQEP934559        88888Post Masters                                           539.73C2009-02-09          ----------        PO  EP409297                  R",
+            "BL1031420-----9892---EXFB08PREQEP934559        88888GENERATED OFFSET                                       539.73D2009-03-25          ----------                                       ",
+            "BL1031420-----4520---ACEX08PREQEP942275        88888ESG SECURITY INC                                        49.00D2009-02-09BC70226   ----------        PO  EP510147                   ",
+            "BL1031420-----9041---ACLI08PREQEP942275        88888ESG SECURITY INC                                        49.00C2009-02-09BC70226   ----------        PO  EP510147                   ",
+            "BL1031420-----4520---ACEX08PREQEP942275        88888ESG SECURITY INC                                        49.00D2009-02-09BC70226   ----------        PO  EP510147                   ",
+            "BL1031420-----9041---ACLI08PREQEP942275        88888ESG SECURITY INC                                        49.00C2009-02-09BC70226   ----------        PO  EP510147                   ",
+            CHART_OF_ACCOUNTS_CODE + "1031420-----" + FINANCIAL_OBJECT_CODE + "---EXEX08PO  EP6797          88888166080043 HPS OFFICE SYSTEMS                           579.84D2009-02-09          ----------                                      D",
+            CHART_OF_ACCOUNTS_CODE + "1031420-----" + FINANCIAL_OBJECT_CODE + "---EXFB08PO  EP6797          88888GENERATED OFFSET                                       579.84C2009-03-25          ----------                                       ",
         };
     }
 }

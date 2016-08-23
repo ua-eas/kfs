@@ -57,8 +57,6 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
     protected String batchFileDirectoryName;
 
 
-
-
     /**
      * This method sets up services needed by children classes.
      *
@@ -85,7 +83,7 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
         EasyMock.expect(universityDateService.getCurrentUniversityDate()).andReturn(universityDate).anyTimes();
 
         EasyMock.replay(universityDateService);
-        ((IcrEncumbranceServiceImpl)icrEncumbranceService).setUniversityDateService(universityDateService);
+        ((IcrEncumbranceServiceImpl) icrEncumbranceService).setUniversityDateService(universityDateService);
 
         initFileNames();
     }
@@ -103,12 +101,12 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
      * create file paths that children classes generate files to.
      */
     private void initFileNames() {
-        batchFileDirectoryName = configurationService.getPropertyValueAsString("staging.directory") + File.separator +"gl/originEntry";
+        batchFileDirectoryName = configurationService.getPropertyValueAsString("staging.directory") + File.separator + "gl/originEntry";
 
         fileNames = new ArrayList<String>();
         fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
-        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE  + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
-        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE  + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
 
@@ -121,7 +119,7 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
     public void tearDown() throws Exception {
         super.tearDown();
 
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             File file = new File(fileName);
             FileUtils.deleteQuietly(file);
         }

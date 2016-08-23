@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.document.service.RequisitionService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * This class ensures that there are accounting lines on each item. If any item
@@ -52,7 +51,7 @@ public class RequisitionAccountingLineExistsValidation extends GenericValidation
             String org = doc.getOrganizationCode();
             String chart = doc.getChartOfAccountsCode();
             if (!requisitionService.hasContentReviewer(org, chart)) {
-                for(RequisitionItem item : itemsMissingAccountingLines){
+                for (RequisitionItem item : itemsMissingAccountingLines) {
                     GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapConstants.REQ_NO_ACCOUNTING_LINES, item.getItemIdentifierString());
                 }
                 return false;
@@ -63,11 +62,11 @@ public class RequisitionAccountingLineExistsValidation extends GenericValidation
         return true;
     }
 
-    public void setRequisitionService(RequisitionService reqs){
+    public void setRequisitionService(RequisitionService reqs) {
         this.requisitionService = reqs;
     }
 
-    public RequisitionService getRequisitionService(){
+    public RequisitionService getRequisitionService() {
         return this.requisitionService;
     }
 }

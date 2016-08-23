@@ -26,17 +26,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.sys.exception.FileStorageException;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +54,7 @@ public class FileSystemFileStorageServiceImplTest {
         String filename;
         do {
             filename = RandomStringUtils.randomAlphanumeric(8);
-        } while ((new File( tempFolder + filename + (extension != null ? "." + extension : "") )).exists());
+        } while ((new File(tempFolder + filename + (extension != null ? "." + extension : ""))).exists());
         return filename;
     }
 
@@ -78,7 +74,7 @@ public class FileSystemFileStorageServiceImplTest {
 
     private void makeDirectory(String directory) {
         File f = new File(tempFolder + directory);
-        if ( ! f.mkdir() ) {
+        if (!f.mkdir()) {
             System.out.println("WTF?");
         }
     }
@@ -88,7 +84,7 @@ public class FileSystemFileStorageServiceImplTest {
         tempFolder = System.getProperty("java.io.tmpdir");
 
         if (!StringUtils.endsWith(tempFolder, File.separator)) {
-            tempFolder = tempFolder+File.separator;
+            tempFolder = tempFolder + File.separator;
         }
 
         service = new FileSystemFileStorageServiceImpl();
@@ -106,7 +102,7 @@ public class FileSystemFileStorageServiceImplTest {
     public void testSavesToFile() throws IOException {
         String filename = getUniqueFilename("txt");
 
-        service.open(filename,(outputFile) -> {
+        service.open(filename, (outputFile) -> {
             PrintWriter pw = new PrintWriter(outputFile.getOutputStream());
             pw.print("test");
             pw.flush();
@@ -275,12 +271,12 @@ public class FileSystemFileStorageServiceImplTest {
         createFile(dir2 + File.separator + "data3.done");
 
         // Some results
-        List<String> matches = service.getFilesMatching(dir1,"data");
+        List<String> matches = service.getFilesMatching(dir1, "data");
         Assert.assertEquals("Should have found 2 files", 2, matches.size());
 
         // No results
-        matches = service.getFilesMatching(dir2,"data");
-        Assert.assertEquals("Should have found 0 files",0,matches.size());
+        matches = service.getFilesMatching(dir2, "data");
+        Assert.assertEquals("Should have found 0 files", 0, matches.size());
 
         // No extensions specified some results
         matches = service.getFilesMatching(dir1);
@@ -304,7 +300,7 @@ public class FileSystemFileStorageServiceImplTest {
         service.mkdir(dirname);
 
         File d = new File(tempFolder + dirname);
-        Assert.assertEquals("Directory should exist",true,d.exists());
+        Assert.assertEquals("Directory should exist", true, d.exists());
         Assert.assertEquals("Should be a directory", true, d.isDirectory());
 
         deleteFile(dirname);
@@ -390,11 +386,11 @@ public class FileSystemFileStorageServiceImplTest {
         String filename = getUniqueFilename();
         createFile(filename);
 
-        Assert.assertEquals("Directory exists",true,service.directoryExists(dirname));
+        Assert.assertEquals("Directory exists", true, service.directoryExists(dirname));
 
-        Assert.assertEquals("Directory should not exist",false,service.directoryExists(dirname2));
+        Assert.assertEquals("Directory should not exist", false, service.directoryExists(dirname2));
 
-        Assert.assertEquals("File is not a directory",false,service.directoryExists(filename));
+        Assert.assertEquals("File is not a directory", false, service.directoryExists(filename));
 
         deleteFile(dirname);
         deleteFile(filename);

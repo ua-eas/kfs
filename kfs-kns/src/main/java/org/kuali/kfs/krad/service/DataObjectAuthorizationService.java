@@ -24,8 +24,6 @@ import org.kuali.rice.kim.api.identity.Person;
  * Provides methods for checking authorization for actions
  * on a given data object class including the security of fields
  * within the class
- *
- *
  */
 public interface DataObjectAuthorizationService {
 
@@ -35,7 +33,7 @@ public interface DataObjectAuthorizationService {
      * attribute should be securely passed
      *
      * @param dataObjectClass - class that contains the attribute
-     * @param attributeName - name of the attribute (property) within the class
+     * @param attributeName   - name of the attribute (property) within the class
      * @return boolean true if the attribute should be secured, false if security is not needed
      */
     public boolean attributeValueNeedsToBeEncryptedOnFormsAndLinks(Class<?> dataObjectClass, String attributeName);
@@ -45,8 +43,8 @@ public interface DataObjectAuthorizationService {
      * object class with the given document type
      *
      * @param dataObjectClass - class of data object to check authorization for
-     * @param user - person requesting action
-     * @param docTypeName - name of the document type that provides the action
+     * @param user            - person requesting action
+     * @param docTypeName     - name of the document type that provides the action
      * @return boolean true if the user has create authorization, false if not
      */
     public boolean canCreate(Class<?> dataObjectClass, Person user, String docTypeName);
@@ -55,8 +53,8 @@ public interface DataObjectAuthorizationService {
      * Indicates whether the given user has permission to maintain (edit/delete) the
      * give data object instance with the given document type
      *
-     * @param dataObject - data object instance to check authorization for
-     * @param user - person requesting action
+     * @param dataObject  - data object instance to check authorization for
+     * @param user        - person requesting action
      * @param docTypeName - name of the document type that provides the action
      * @return boolean true if the user has maintain authorization, false if not
      */

@@ -31,186 +31,185 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public enum PurchaseOrderItemFixture {
 
     PO_QTY_UNRESTRICTED_ITEM_1(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_QTY_UNRESTRICTED_ITEM_2(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.BASIC_QTY_ITEM_2, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.BASIC_QTY_ITEM_2, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_VALID_FREIGHT_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.VALID_FREIGHT_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.VALID_FREIGHT_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_VALID_SHIPPING_AND_HANDLING_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.VALID_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.VALID_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_MISC_CREDIT_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.VALID_MISC_CREDIT_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.VALID_MISC_CREDIT_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_NEGATIVE_FREIGHT_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.NEGATIVE_FREIGHT_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.NEGATIVE_FREIGHT_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_NEGATIVE_SHIPPING_AND_HANDLING_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.NEGATIVE_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.NEGATIVE_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_ZERO_FREIGHT_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.ZERO_FREIGHT_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.ZERO_FREIGHT_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_ZERO_SHIPPING_AND_HANDLING_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.ZERO_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.ZERO_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_WITH_MISC_ITEM_NO_DESC(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.MISC_ITEM_NO_DESC, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.MISC_ITEM_NO_DESC, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
     ),
     PO_QTY_APO_ITEM_1(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.PO_APO_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.PO_APO_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     PO_ITEM_BASIC_ACTIVE_COMMODITY_CODE(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 }, // purchaseOrderAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE  //commodityCodeFixture
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1}, // purchaseOrderAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE  //commodityCodeFixture
     ),
     PO_ITEM_BASIC_INACTIVE_COMMODITY_CODE(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 }, // purchaseOrderAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1}, // purchaseOrderAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
     ),
     PO_ITEM_NON_EXISTENCE_COMMODITY_CODE(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 }, // purchaseOrderAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_NON_EXISTENCE //commodityCodeFixture
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1}, // purchaseOrderAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_NON_EXISTENCE //commodityCodeFixture
     ),
     PO_ITEM_THRESHOLD_CHECK(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.ITEM_FOR_THRESHOLD_CHECK, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 }, // purchaseOrderAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE //commodityCodeFixture
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.ITEM_FOR_THRESHOLD_CHECK, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1}, // purchaseOrderAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE //commodityCodeFixture
     ),
     EINVOICE_PO_ITEM(null, // documentNumber,
-            null, // itemInvoicedTotalQuantity,
-            null, // itemInvoicedTotalAmount,
-            null, // itemReceivedTotalQuantity,
-            null, // itemReturnedTotalQuantity,
-            null, // itemOutstandingEncumberedQuantity,
-            null, // itemOutstandingEncumberedAmount,
-            true, // itemActiveIndicator,
-            PurApItemFixture.EINVOICE_ITEM, // purApItemFixture
-            new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 } // purchaseOrderAccountMultiFixtures
-    ),
-    ;
+        null, // itemInvoicedTotalQuantity,
+        null, // itemInvoicedTotalAmount,
+        null, // itemReceivedTotalQuantity,
+        null, // itemReturnedTotalQuantity,
+        null, // itemOutstandingEncumberedQuantity,
+        null, // itemOutstandingEncumberedAmount,
+        true, // itemActiveIndicator,
+        PurApItemFixture.EINVOICE_ITEM, // purApItemFixture
+        new PurchaseOrderAccountingLineFixture[]{PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1} // purchaseOrderAccountMultiFixtures
+    ),;
 
 
     private String documentNumber;

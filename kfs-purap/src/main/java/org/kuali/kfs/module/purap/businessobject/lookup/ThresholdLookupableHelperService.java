@@ -18,28 +18,27 @@
  */
 package org.kuali.kfs.module.purap.businessobject.lookup;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.lookup.LookupUtils;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.vnd.VendorConstants;
+import org.kuali.kfs.vnd.VendorKeyConstants;
+import org.kuali.kfs.vnd.VendorPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.vnd.VendorConstants;
-import org.kuali.kfs.vnd.VendorKeyConstants;
-import org.kuali.kfs.vnd.VendorPropertyConstants;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.krad.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-
 /**
  * This lookupable helper service is used to support lookups on the Threshold BO because it deals with the vendor number,
  * which isn't really a field, but rather a combination of 2 fields.
- *
+ * <p>
  * This code mostly copies {@link org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl}, but differs in that this class will
  * not remove search criteria containing values corresponding to hidden fields.
- *
  */
 public class ThresholdLookupableHelperService extends AbstractLookupableHelperServiceImpl {
 
@@ -79,7 +78,7 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
      * method will add error message to the errorMap in GlobalVariables that the vendor number must be numeric or numerics separated
      * by a dash.
      *
-     * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
+     * @param fieldValues  a Map containing only those key-value pairs that have been filled in on the lookup
      * @param vendorNumber venodr number String
      */
     protected void extractVendorNumberToVendorIds(Map fieldValues, String vendorNumber) {
@@ -88,8 +87,7 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
         int indexOfDash = vendorNumber.indexOf(VendorConstants.DASH);
         if (indexOfDash < 0) {
             vendorHeaderGeneratedIdentifier = vendorNumber;
-        }
-        else {
+        } else {
             vendorHeaderGeneratedIdentifier = vendorNumber.substring(0, indexOfDash);
             vendorDetailAssignedIdentifier = vendorNumber.substring(indexOfDash + 1, vendorNumber.length());
         }
@@ -103,8 +101,7 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
             fieldValues.remove(VendorPropertyConstants.VENDOR_NUMBER);
             fieldValues.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, vendorHeaderGeneratedIdentifier);
             fieldValues.put(VendorPropertyConstants.VENDOR_DETAIL_ASSIGNED_ID, vendorDetailAssignedIdentifier);
-        }
-        catch (NumberFormatException headerExc) {
+        } catch (NumberFormatException headerExc) {
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_NUMBER, VendorKeyConstants.ERROR_VENDOR_LOOKUP_VNDR_NUM_NUMERIC_DASH_SEPARATED);
         }
     }
@@ -113,7 +110,6 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
      * Uses Lookup Service to provide a basic search.
      *
      * @param fieldValues - Map containing prop name keys and search values
-     *
      * @return List found business objects
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
      */
@@ -126,7 +122,6 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
      * Uses Lookup Service to provide a basic unbounded search.
      *
      * @param fieldValues - Map containing prop name keys and search values
-     *
      * @return List found business objects
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
      */
@@ -135,16 +130,14 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
     }
 
     /**
-     *
      * This method does the actual search, with the parameters specified, and returns the result.
-     *
+     * <p>
      * NOTE that it will not do any upper-casing based on the DD forceUppercase. That is handled through an external call to
      * LookupUtils.forceUppercase().
      *
      * @param fieldValues A Map of the fieldNames and fieldValues to be searched on.
-     * @param unbounded Whether the results should be bounded or not to a certain max size.
+     * @param unbounded   Whether the results should be bounded or not to a certain max size.
      * @return A List of search results.
-     *
      */
     @SuppressWarnings("unchecked")
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {

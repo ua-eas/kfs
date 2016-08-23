@@ -24,38 +24,36 @@ import java.util.Map;
 /**
  * Holds view index information for a view type, where the index keys are built
  * from the supported view type parameters
- *
- *
  */
 public class ViewTypeDictionaryIndex {
-	private Map<String, String> viewIndex;
+    private Map<String, String> viewIndex;
 
-	public ViewTypeDictionaryIndex() {
-		viewIndex = new HashMap<String, String>();
-	}
+    public ViewTypeDictionaryIndex() {
+        viewIndex = new HashMap<String, String>();
+    }
 
-	public Map<String, String> getViewIndex() {
-		return this.viewIndex;
-	}
+    public Map<String, String> getViewIndex() {
+        return this.viewIndex;
+    }
 
-	public void setViewIndex(Map<String, String> viewIndex) {
-		this.viewIndex = viewIndex;
-	}
+    public void setViewIndex(Map<String, String> viewIndex) {
+        this.viewIndex = viewIndex;
+    }
 
-	public void put(String index, String beanName) {
-		if (viewIndex.containsKey(index)) {
-			throw new DataDictionaryException("Two Views must not share the same type index: " + index);
-		}
+    public void put(String index, String beanName) {
+        if (viewIndex.containsKey(index)) {
+            throw new DataDictionaryException("Two Views must not share the same type index: " + index);
+        }
 
-		viewIndex.put(index, beanName);
-	}
+        viewIndex.put(index, beanName);
+    }
 
-	public String get(String index) {
-		if (viewIndex.containsKey(index)) {
-			return viewIndex.get(index);
-		}
+    public String get(String index) {
+        if (viewIndex.containsKey(index)) {
+            return viewIndex.get(index);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

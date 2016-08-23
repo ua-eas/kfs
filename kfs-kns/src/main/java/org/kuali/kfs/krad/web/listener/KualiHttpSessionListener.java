@@ -21,26 +21,16 @@ package org.kuali.kfs.krad.web.listener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.GlobalVariables;
-
-import java.util.List;
-
 /**
  * This class is used to handle session timeouts
- *
- *
- *
  */
 public class KualiHttpSessionListener implements HttpSessionListener {
 
     /**
-     *  HttpSession hook for additional setup method when sessions are created
+     * HttpSession hook for additional setup method when sessions are created
      *
      * @param se - the HttpSessionEvent containing the session
-     *
-     *  @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
+     * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent se) {
         // no operation required at this time
@@ -50,7 +40,6 @@ public class KualiHttpSessionListener implements HttpSessionListener {
      * HttpSession hook for additional cleanup when sessions are destroyed
      *
      * @param se - the HttpSessionEvent containing the session
-     *
      * @see javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent se) {

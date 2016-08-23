@@ -22,6 +22,6 @@ import org.kuali.kfs.sys.service.VelocityEmailService;
 
 public interface FormatCheckACHEmailService extends VelocityEmailService {
 
-	public void setEmailSubject(String subject);
+    public void setEmailSubject(String subject);
 
 }

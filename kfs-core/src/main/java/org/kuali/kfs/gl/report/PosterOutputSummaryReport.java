@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.gl.report;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.businessobject.PosterOutputSummaryBalanceTypeFiscalYearAndPeriodTotal;
 import org.kuali.kfs.gl.businessobject.PosterOutputSummaryBalanceTypeFiscalYearTotal;
@@ -37,6 +30,13 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class which builds up the data and then reports the PosterOutputSummary report
@@ -56,6 +56,7 @@ public class PosterOutputSummaryReport {
 
     /**
      * Summarizes a transaction for this report
+     *
      * @param transaction the transaction to summarize
      */
     public void summarize(Transaction transaction) {
@@ -64,6 +65,7 @@ public class PosterOutputSummaryReport {
 
     /**
      * Summarizes an origin entry for this report
+     *
      * @param originEntry the origin entry to summarize
      */
     public void summarize(OriginEntryInformation originEntry) {
@@ -72,6 +74,7 @@ public class PosterOutputSummaryReport {
 
     /**
      * Writes the report to the given reportWriterService
+     *
      * @param reportWriterService the reportWriterService to write the report to
      */
     public void writeReport(ReportWriterService reportWriterService) {

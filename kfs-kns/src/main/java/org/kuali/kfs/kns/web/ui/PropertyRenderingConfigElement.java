@@ -23,69 +23,62 @@ import org.kuali.rice.core.web.format.Formatter;
 /**
  * Interface to be implemented by user interface elements that hold configuration about rendering a
  * property
- *
- *
  */
 @Deprecated
 public interface PropertyRenderingConfigElement {
 
-	/**
-	 * @return name of the property that is to be rendered
-	 */
-	public String getPropertyName();
+    /**
+     * @return name of the property that is to be rendered
+     */
+    public String getPropertyName();
 
-	/**
-	 * @param propertyName
-	 *            - name of the property that is to be rendered
-	 */
-	public void setPropertyName(String propertyName);
+    /**
+     * @param propertyName - name of the property that is to be rendered
+     */
+    public void setPropertyName(String propertyName);
 
-	/**
-	 * @return name of the property that is to be rendered
-	 */
-	public String getPropertyValue();
+    /**
+     * @return name of the property that is to be rendered
+     */
+    public String getPropertyValue();
 
-	/**
-	 * @param propertyValue
-	 *            - value of the property that is to be rendered
-	 */
-	public void setPropertyValue(String propertyValue);
+    /**
+     * @param propertyValue - value of the property that is to be rendered
+     */
+    public void setPropertyValue(String propertyValue);
 
-	/**
-	 * @return value of the property that is to be rendered
-	 */
-	public Formatter getFormatter();
+    /**
+     * @return value of the property that is to be rendered
+     */
+    public Formatter getFormatter();
 
-	/**
-	 * @param formatter
-	 *            - {@link Formatter} that should be use when rendering property value
-	 */
-	public void setFormatter(Formatter formatter);
+    /**
+     * @param formatter - {@link Formatter} that should be use when rendering property value
+     */
+    public void setFormatter(Formatter formatter);
 
-	/**
-	 * @return name of the property that should be displayed in place of property we are rendering
-	 *         (only applies when read-only)
-	 */
-	public String getAlternateDisplayPropertyName();
+    /**
+     * @return name of the property that should be displayed in place of property we are rendering
+     * (only applies when read-only)
+     */
+    public String getAlternateDisplayPropertyName();
 
-	/**
-	 * @param alternateDisplayPropertyName
-	 *            - name of the property that should be displayed in place of property we are
-	 *            rendering (only applies when read-only)
-	 */
-	public void setAlternateDisplayPropertyName(String alternateDisplayPropertyName);
+    /**
+     * @param alternateDisplayPropertyName - name of the property that should be displayed in place of property we are
+     *                                     rendering (only applies when read-only)
+     */
+    public void setAlternateDisplayPropertyName(String alternateDisplayPropertyName);
 
-	/**
-	 * @return name of the property that should be displayed in addition to the property we are
-	 *         rendering (only applies when read-only)
-	 */
-	public String getAdditionalDisplayPropertyName();
+    /**
+     * @return name of the property that should be displayed in addition to the property we are
+     * rendering (only applies when read-only)
+     */
+    public String getAdditionalDisplayPropertyName();
 
-	/**
-	 * @param additionalDisplayPropertyName
-	 *            - name of the property that should be displayed in addition to the property we are
-	 *            rendering (only applies when read-only)
-	 */
-	public void setAdditionalDisplayPropertyName(String additionalDisplayPropertyName);
+    /**
+     * @param additionalDisplayPropertyName - name of the property that should be displayed in addition to the property we are
+     *                                      rendering (only applies when read-only)
+     */
+    public void setAdditionalDisplayPropertyName(String additionalDisplayPropertyName);
 
 }

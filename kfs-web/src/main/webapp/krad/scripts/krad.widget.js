@@ -23,47 +23,47 @@
  * Pages are handled by js on the breadcrumb because the page retrieval happens through
  * ajax
  */
-function setPageBreadcrumb(){
-	//check to see if page has navigation element, if so show breadcrumb
-	if(jq("#viewnavigation_div").html() && jq("#breadcrumbs").length){
-		var pageTitle = jq("#currentPageTitle").val();
-		var pageId = jq("#pageId").val();
-		jq("#breadcrumbs").find("#page_breadcrumb").remove();
-		var bcSet = false;
-		if(pageTitle && pageTitle != "&nbsp;"){
-			jq("#breadcrumbs").append("<li id='page_breadcrumb'><span role='presentation'>&raquo;</span> <span class='kr-current'>" + pageTitle + "</span></li>");
-			jq("#current_breadcrumb_span").hide();
-            if(jq("#current_breadcrumb_span").parent("li").length){
+function setPageBreadcrumb() {
+    //check to see if page has navigation element, if so show breadcrumb
+    if (jq("#viewnavigation_div").html() && jq("#breadcrumbs").length) {
+        var pageTitle = jq("#currentPageTitle").val();
+        var pageId = jq("#pageId").val();
+        jq("#breadcrumbs").find("#page_breadcrumb").remove();
+        var bcSet = false;
+        if (pageTitle && pageTitle != "&nbsp;") {
+            jq("#breadcrumbs").append("<li id='page_breadcrumb'><span role='presentation'>&raquo;</span> <span class='kr-current'>" + pageTitle + "</span></li>");
+            jq("#current_breadcrumb_span").hide();
+            if (jq("#current_breadcrumb_span").parent("li").length) {
                 jq("#current_breadcrumb_span").unwrap();
             }
             var anchor = jq("#current_breadcrumb_anchor");
             jq("#current_breadcrumb_anchor").wrap("<li/>");
-			jq("#current_breadcrumb_anchor").show();
-			bcSet = true;
-		}
-		else if(pageId){
-			pageTitle = jq("a[name='"+ escapeName(pageId) + "']").text();
-			if(pageTitle && pageTitle != "&nbsp;"){
-				jq("#breadcrumbs").append("<li id='page_breadcrumb'><span role='presentation'>&raquo;</span> <span class='kr-current'>" + pageTitle + "</span></li>");
-				jq("#current_breadcrumb_span").hide();
-                if(jq("#current_breadcrumb_span").parent("li").length){
+            jq("#current_breadcrumb_anchor").show();
+            bcSet = true;
+        }
+        else if (pageId) {
+            pageTitle = jq("a[name='" + escapeName(pageId) + "']").text();
+            if (pageTitle && pageTitle != "&nbsp;") {
+                jq("#breadcrumbs").append("<li id='page_breadcrumb'><span role='presentation'>&raquo;</span> <span class='kr-current'>" + pageTitle + "</span></li>");
+                jq("#current_breadcrumb_span").hide();
+                if (jq("#current_breadcrumb_span").parent("li").length) {
                     jq("#current_breadcrumb_span").unwrap();
                 }
                 jq("#current_breadcrumb_anchor").wrap();
-				jq("#current_breadcrumb_anchor").show();
-				bcSet=true;
-			}
-		}
+                jq("#current_breadcrumb_anchor").show();
+                bcSet = true;
+            }
+        }
 
-		if(!bcSet){
-			jq("#current_breadcrumb_anchor").hide();
-            if(jq("#current_breadcrumb_anchor").parent("li").length){
+        if (!bcSet) {
+            jq("#current_breadcrumb_anchor").hide();
+            if (jq("#current_breadcrumb_anchor").parent("li").length) {
                 jq("#current_breadcrumb_anchor").unwrap();
             }
             jq("#current_breadcrumb_span").wrap("<li/>");
-			jq("#current_breadcrumb_span").show();
-		}
-	}
+            jq("#current_breadcrumb_span").show();
+        }
+    }
 }
 
 /**
@@ -76,18 +76,18 @@ function setPageBreadcrumb(){
  *          the navigation style to render
  */
 function createNavigation(listId, navigationType, options) {
-	if (navigationType == "VERTICAL_MENU") {
-		createVerticalMenu(listId, options);
-	}
-	else if(navigationType == "TAB_MENU"){
-		createTabMenu(listId, options);
-	}
+    if (navigationType == "VERTICAL_MENU") {
+        createVerticalMenu(listId, options);
+    }
+    else if (navigationType == "TAB_MENU") {
+        createTabMenu(listId, options);
+    }
 }
 
 function createTabMenu(listId, options) {
-	jq(document).ready(function(){
-		jq("#" + listId).tabMenu(options);
-	});
+    jq(document).ready(function () {
+        jq("#" + listId).tabMenu(options);
+    });
 }
 
 /**
@@ -97,9 +97,9 @@ function createTabMenu(listId, options) {
  *          unique id for the unordered list
  */
 function createVerticalMenu(listId, options) {
-	jq(document).ready(function() {
-		jq("#" + listId).navMenu(options);
-	});
+    jq(document).ready(function () {
+        jq("#" + listId).navMenu(options);
+    });
 }
 
 /** Widgets */
@@ -148,8 +148,8 @@ function createLightBoxLink(controlId, options) {
         // Set the dialogMode = true param
         if (jQuery("#" + controlId).attr('href').indexOf('&dialogMode=true') == -1) {
             jQuery("#" + controlId).attr('href', jq("#" + controlId).attr('href') + '&dialogMode=true'
-                    + '&showHome=false' + '&showHistory=' + showHistory
-                    + '&history=' + jq('#formHistory\\.historyParameterString').val());
+                + '&showHome=false' + '&showHistory=' + showHistory
+                + '&history=' + jq('#formHistory\\.historyParameterString').val());
         }
     });
 }
@@ -200,15 +200,15 @@ function createLightBoxPost(controlId, options, actionParameterMapString, lookup
                 // Do the Ajax submit on the kualiForm form
                 jQuery("#kualiForm").ajaxSubmit({
 
-                            success: function(data) {
+                    success: function (data) {
 
-                                // Add the returned URL to the FancyBox href setting
-                                options['href'] = data;
+                        // Add the returned URL to the FancyBox href setting
+                        options['href'] = data;
 
-                                // Open the light box
-                                getContext().fancybox(options);
-                            }
-                        });
+                        // Open the light box
+                        getContext().fancybox(options);
+                    }
+                });
             });
         } else {
 
@@ -292,12 +292,12 @@ function returnLookupResultByScript(fieldName, value) {
 function setMultiValueReturnTarget() {
     if (parent.jQuery('iframe[id*=easyXDM_]').length > 0) {
         // portal and content on same domain
-        top.jQuery('iframe[id*=easyXDM_]').contents().find('#iframeportlet').contents().find('#kualiForm').attr('target','iframeportlet');
+        top.jQuery('iframe[id*=easyXDM_]').contents().find('#iframeportlet').contents().find('#kualiForm').attr('target', 'iframeportlet');
     } else if (parent.parent.jQuery('#iframeportlet').length > 0) {
         // portal and content on different domain
-        parent.jQuery('#kualiForm').attr('target','iframeportlet');
+        parent.jQuery('#kualiForm').attr('target', 'iframeportlet');
     } else {
-        top.jQuery('#kualiForm').attr('target','_parent');
+        top.jQuery('#kualiForm').attr('target', '_parent');
     }
 }
 
@@ -351,7 +351,7 @@ function showDirectInquiry(url, paramMap, showLightBox, lightBoxOptions) {
 
 /**
  * Closes the lightbox window
-*/
+ */
 function closeLightbox() {
     if (usePortalForContext()) {
         getContext().fancybox.close();
@@ -374,18 +374,18 @@ function closeLightbox() {
  *          map of option settings (option name/value pairs) for the plugin
  */
 function createDatePicker(controlId, options) {
-    jq(function() {
+    jq(function () {
         jq("#" + controlId).datepicker(options);
     });
 
     // in order to compensate for jQuery's "Today" functionality (which does not actually return the date to the input box), alter the functionality
-    jq.datepicker._gotoToday = function(id) {
+    jq.datepicker._gotoToday = function (id) {
         var target = jq(id);
         var inst = this._getInst(target[0]);
         if (this._get(inst, 'gotoCurrent') && inst.currentDay) {
             inst.selectedDay = inst.currentDay;
-        inst.drawMonth = inst.selectedMonth = inst.currentMonth;
-        inst.drawYear = inst.selectedYear = inst.currentYear;
+            inst.drawMonth = inst.selectedMonth = inst.currentMonth;
+            inst.drawYear = inst.selectedYear = inst.currentYear;
         }
         else {
             var date = new Date();
@@ -423,7 +423,7 @@ function createDatePicker(controlId, options) {
  *          boolean that indicates whether the expanded or collapsed image should be rendered
  */
 function createDisclosure(groupId, headerId, widgetId, defaultOpen, collapseImgSrc, expandImgSrc, animationSpeed, renderImage) {
-    jq(document).ready(function() {
+    jq(document).ready(function () {
         var groupToggleLinkId = groupId + "_toggle";
 
         var expandImage = "";
@@ -452,28 +452,28 @@ function createDisclosure(groupId, headerId, widgetId, defaultOpen, collapseImgS
         // perform slide and switch image
         if (defaultOpen) {
             jq("#" + groupToggleLinkId).toggle(
-                    function() {
-                        jq("#" + groupAccordionSpanId).slideUp(animationSpeed);
-                        jq("#" + groupId + "_exp").replaceWith(collapseImage);
-                        setComponentState(widgetId, 'defaultOpen', false);
-                    }, function() {
-                        jq("#" + groupAccordionSpanId).slideDown(animationSpeed);
-                        jq("#" + groupId + "_col").replaceWith(expandImage);
-                        setComponentState(widgetId, 'defaultOpen', true);
-                    }
+                function () {
+                    jq("#" + groupAccordionSpanId).slideUp(animationSpeed);
+                    jq("#" + groupId + "_exp").replaceWith(collapseImage);
+                    setComponentState(widgetId, 'defaultOpen', false);
+                }, function () {
+                    jq("#" + groupAccordionSpanId).slideDown(animationSpeed);
+                    jq("#" + groupId + "_col").replaceWith(expandImage);
+                    setComponentState(widgetId, 'defaultOpen', true);
+                }
             );
         }
         else {
             jq("#" + groupToggleLinkId).toggle(
-                    function() {
-                        jq("#" + groupAccordionSpanId).slideDown(animationSpeed);
-                        jq("#" + groupId + "_col").replaceWith(expandImage);
-                        setComponentState(widgetId, 'defaultOpen', true);
-                    }, function() {
-                        jq("#" + groupAccordionSpanId).slideUp(animationSpeed);
-                        jq("#" + groupId + "_exp").replaceWith(collapseImage);
-                        setComponentState(widgetId, 'defaultOpen', false);
-                    }
+                function () {
+                    jq("#" + groupAccordionSpanId).slideDown(animationSpeed);
+                    jq("#" + groupId + "_col").replaceWith(expandImage);
+                    setComponentState(widgetId, 'defaultOpen', true);
+                }, function () {
+                    jq("#" + groupAccordionSpanId).slideUp(animationSpeed);
+                    jq("#" + groupId + "_exp").replaceWith(collapseImage);
+                    setComponentState(widgetId, 'defaultOpen', false);
+                }
             );
         }
     });
@@ -505,12 +505,12 @@ function collapseDisclosures() {
  *          map of option settings (option name/value pairs) for the plugin
  */
 function createTable(tableId, options) {
-    jq(document).ready(function() {
+    jq(document).ready(function () {
         var oTable = jq("#" + tableId).dataTable(options);
         // allow table column size recalculation on window resize
         jq(window).bind('resize', function () {
             oTable.fnAdjustColumnSizing();
-        } );
+        });
     });
 }
 
@@ -546,7 +546,7 @@ function deselectAllLines(collectionId) {
  *          map of option settings (option name/value pairs) for the plugin
  */
 function createTree(divId, options) {
-    jq(document).ready(function() {
+    jq(document).ready(function () {
         jq("#" + divId).jstree(options);
     });
 }
@@ -572,7 +572,7 @@ function createTabs(id, options) {
  * the name of the parameter to send, and the value gives the name of the field to pull the value from
  */
 function createSuggest(controlId, options, queryFieldId, queryParameters) {
-    options.source = function(request, response) {
+    options.source = function (request, response) {
         var queryData = {};
         queryData.methodToCall = 'performFieldSuggest';
         queryData.skipViewInit = 'true';
@@ -585,19 +585,19 @@ function createSuggest(controlId, options, queryFieldId, queryParameters) {
         }
 
         jq.ajax({
-                    url: jq("form#kualiForm").attr("action"),
-                    dataType: "json",
-                    beforeSend: null,
-                    complete: null,
-                    error: null,
-                    data: queryData,
-                    success: function (data) {
-                        response(data.resultData);
-                    }
-                });
+            url: jq("form#kualiForm").attr("action"),
+            dataType: "json",
+            beforeSend: null,
+            complete: null,
+            error: null,
+            data: queryData,
+            success: function (data) {
+                response(data.resultData);
+            }
+        });
     };
 
-    jq(document).ready(function() {
+    jq(document).ready(function () {
         jq("#" + controlId).autocomplete(options);
     });
 }
@@ -662,47 +662,47 @@ function executeFieldQuery(controlId, queryFieldId, queryParameters, queryMethod
     }
 
     jq.ajax({
-                url: jq("form#kualiForm").attr("action"),
-                dataType: "json",
-                data: queryData,
-                beforeSend: null,
-                complete: null,
-                error: null,
-                success: function (data) {
-                    // write out return message (or blank)
-                    var returnMessageSpan = jq("#" + queryFieldId + "_info_message");
-                    if (returnMessageSpan.length > 0) {
-                        returnMessageSpan.html(data.resultMessage);
-                        if (data.resultMessageStyleClasses) {
-                            returnMessageSpan.addClass(data.resultMessageStyleClasses);
-                        }
-                    }
-
-                    // write out informational field values, note if data does not exist
-                    // this will clear the field values
-                    for (var returnField in returnFieldMapping) {
-                        var fieldValue = data.resultFieldData[returnField];
-                        if (!fieldValue) {
-                            fieldValue = "";
-                        }
-
-                        // check for regular fields
-                        var infoFieldSpan = jq("[name='" + escapeName(returnField) + "']");
-                        if (infoFieldSpan.length > 0) {
-                            infoFieldSpan.val(fieldValue);
-                            infoFieldSpan.change();
-                        }
-
-                        // check for info spans
-                        var returnFieldId = returnField.replace(/\./g, "_")
-                                .replace(/\[/g, "-lbrak-")
-                                .replace(/\]/g, "-rbrak-")
-                                .replace(/\'/g, "-quot-");
-                        infoFieldSpan = jq("#" + queryFieldId + "_info_" + returnFieldId);
-                        if (infoFieldSpan.length > 0) {
-                            infoFieldSpan.html(fieldValue);
-                        }
-                    }
+        url: jq("form#kualiForm").attr("action"),
+        dataType: "json",
+        data: queryData,
+        beforeSend: null,
+        complete: null,
+        error: null,
+        success: function (data) {
+            // write out return message (or blank)
+            var returnMessageSpan = jq("#" + queryFieldId + "_info_message");
+            if (returnMessageSpan.length > 0) {
+                returnMessageSpan.html(data.resultMessage);
+                if (data.resultMessageStyleClasses) {
+                    returnMessageSpan.addClass(data.resultMessageStyleClasses);
                 }
-            });
+            }
+
+            // write out informational field values, note if data does not exist
+            // this will clear the field values
+            for (var returnField in returnFieldMapping) {
+                var fieldValue = data.resultFieldData[returnField];
+                if (!fieldValue) {
+                    fieldValue = "";
+                }
+
+                // check for regular fields
+                var infoFieldSpan = jq("[name='" + escapeName(returnField) + "']");
+                if (infoFieldSpan.length > 0) {
+                    infoFieldSpan.val(fieldValue);
+                    infoFieldSpan.change();
+                }
+
+                // check for info spans
+                var returnFieldId = returnField.replace(/\./g, "_")
+                    .replace(/\[/g, "-lbrak-")
+                    .replace(/\]/g, "-rbrak-")
+                    .replace(/\'/g, "-quot-");
+                infoFieldSpan = jq("#" + queryFieldId + "_info_" + returnFieldId);
+                if (infoFieldSpan.length > 0) {
+                    infoFieldSpan.html(fieldValue);
+                }
+            }
+        }
+    });
 }

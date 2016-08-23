@@ -37,29 +37,29 @@ import javax.persistence.Table;
 
 @IdClass(ComponentId.class)
 @Entity
-@Table(name="KRCR_CMPNT_T")
+@Table(name = "KRCR_CMPNT_T")
 public class ComponentBo extends PersistableBusinessObjectBase implements ComponentEbo {
 
     private static final long serialVersionUID = 1L;
 
     private static transient NamespaceService namespaceService;
 
-	@Id
-	@Column(name="NMSPC_CD")
-	private String namespaceCode;
+    @Id
+    @Column(name = "NMSPC_CD")
+    private String namespaceCode;
 
-	@Id
-	@Column(name="CMPNT_CD")
+    @Id
+    @Column(name = "CMPNT_CD")
     private String code;
 
-	@Column(name="NM")
+    @Column(name = "NM")
     private String name;
 
-	@Column(name="ACTV_IND")
+    @Column(name = "ACTV_IND")
     private boolean active = true;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="NMSPC_CD", insertable=false, updatable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NMSPC_CD", insertable = false, updatable = false)
     private NamespaceBo namespace;
 
     public String getComponentSetId() {
@@ -68,6 +68,7 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -81,6 +82,7 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -94,8 +96,8 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
         bo.setName(im.getName());
         bo.setActive(im.isActive());
         bo.setNamespaceCode(im.getNamespaceCode());
-		bo.setVersionNumber(im.getVersionNumber());
-		bo.setObjectId(im.getObjectId());
+        bo.setVersionNumber(im.getVersionNumber());
+        bo.setObjectId(im.getObjectId());
 
         bo.setNamespace(NamespaceBo.from(namespaceService.getNamespace(bo.namespaceCode)));
         return bo;

@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -33,6 +28,11 @@ import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.springframework.util.StopWatch;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A step to run the scrubber process.
@@ -48,7 +48,9 @@ public class PreScrubberStep extends AbstractWrappedBatchStep {
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>(){{add(batchFileDirectoryName);}};
+        return new ArrayList<String>() {{
+            add(batchFileDirectoryName);
+        }};
     }
 
     @Override
@@ -66,12 +68,10 @@ public class PreScrubberStep extends AbstractWrappedBatchStep {
                 try {
                     oeIterator = FileUtils.lineIterator(new File(inputFile));
                     preScrubberReportData = preScrubberService.preprocessOriginEntries(oeIterator, outputFile);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     LOG.error("IO exception occurred during pre scrubbing.", e);
                     throw new RuntimeException("IO exception occurred during pre scrubbing.", e);
-                }
-                finally {
+                } finally {
                     LineIterator.closeQuietly(oeIterator);
                 }
 

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class returns list of string key value pairs for Invoice Document Types.
@@ -37,7 +37,7 @@ public class InvoiceDocumentTypeValuesFinder extends KeyValuesBase {
     @Override
     public List<KeyValue> getKeyValues() {
         List<KeyValue> activeLabels = new ArrayList<KeyValue>();
-        activeLabels.add(new ConcreteKeyValue("",""));
+        activeLabels.add(new ConcreteKeyValue("", ""));
         activeLabels.add(new ConcreteKeyValue(ArConstants.INV_DOCUMENT_TYPE, ArConstants.INV_DOCUMENT_DESCRIPTION));
         activeLabels.add(new ConcreteKeyValue(ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE, ArConstants.CONTRACTS_GRANTS_INVOICE_DOCUMENT_DESCRIPTION));
 

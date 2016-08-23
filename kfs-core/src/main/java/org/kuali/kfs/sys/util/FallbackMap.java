@@ -34,7 +34,7 @@ public class FallbackMap<K, V> implements Map<K, V> {
     protected Map<K, V> frontMap;
     protected Map<K, V> backMap;
 
-    public FallbackMap(Map<K,V> backMap) {
+    public FallbackMap(Map<K, V> backMap) {
         frontMap = new HashMap<>();
         this.backMap = backMap;
     }

@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
 
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
  * Represents a specific university date
- *
  */
 public class UniversityDate extends PersistableBusinessObjectBase implements FiscalYearBasedBusinessObject {
     static final long serialVersionUID = 2587833750168955556L;

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.location.api.postalcode.PostalCode;
 import org.kuali.rice.location.api.postalcode.PostalCodeService;
+
+import java.sql.Date;
 
 /**
  * PreRules checks for the Account that needs to occur while still in the Struts processing. This includes defaults, confirmations,
@@ -75,6 +75,7 @@ public class AccountPreRules extends MaintenancePreRulesBase {
      * <li>{@link AccountPreRules#setStateFromZip}</li>
      * </ul>
      * This does not fail on rule failures
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -152,7 +153,7 @@ public class AccountPreRules extends MaintenancePreRulesBase {
             }
         }
 
-        for (IndirectCostRecoveryAccount icra : newAccount.getActiveIndirectCostRecoveryAccounts()){
+        for (IndirectCostRecoveryAccount icra : newAccount.getActiveIndirectCostRecoveryAccounts()) {
             if (StringUtils.isNotBlank(icra.getIndirectCostRecoveryAccountNumber())) {
                 Account account = checkForContinuationAccount("Indirect Cost Recovery Account", icra.getIndirectCostRecoveryAccountNumber(), icra.getIndirectCostRecoveryFinCoaCode(), "");
                 if (ObjectUtils.isNotNull(account)) { // override old user inputs
@@ -217,8 +218,8 @@ public class AccountPreRules extends MaintenancePreRulesBase {
 
         // acct_zip_cd, acct_state_cd, acct_city_nm all are populated by looking up
         // the zip code and getting the state and city from that
-        if (StringUtils.isNotBlank(newAccount.getAccountZipCode()) && StringUtils.isNotBlank(newAccount.getAccountCountryCode())  ) {
-            PostalCode zip = postalZipCodeService.getPostalCode( newAccount.getAccountCountryCode(), newAccount.getAccountZipCode() );
+        if (StringUtils.isNotBlank(newAccount.getAccountZipCode()) && StringUtils.isNotBlank(newAccount.getAccountCountryCode())) {
+            PostalCode zip = postalZipCodeService.getPostalCode(newAccount.getAccountCountryCode(), newAccount.getAccountZipCode());
 
             // If user enters a valid zip code, override city name and state code entered by user
             if (ObjectUtils.isNotNull(zip)) { // override old user inputs

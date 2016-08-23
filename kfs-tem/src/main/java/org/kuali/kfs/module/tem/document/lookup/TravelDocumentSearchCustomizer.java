@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -29,7 +28,6 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.workflow.KFSDocumentSearchCustomizer;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.document.Document;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttribute;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeString;
@@ -38,7 +36,9 @@ import org.kuali.rice.kew.api.document.search.DocumentSearchResult;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValue;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValues;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TravelDocumentSearchCustomizer extends KFSDocumentSearchCustomizer {
 
@@ -46,7 +46,7 @@ public class TravelDocumentSearchCustomizer extends KFSDocumentSearchCustomizer 
 
     /**
      * @see org.kuali.kfs.sys.document.workflow.KFSDocumentSearchCustomizer#customizeResults(org.kuali.rice.kew.api.document.search.DocumentSearchCriteria,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
     public DocumentSearchResultValues customizeResults(DocumentSearchCriteria documentSearchCriteria, List<DocumentSearchResult> defaultResults) {
@@ -59,24 +59,24 @@ public class TravelDocumentSearchCustomizer extends KFSDocumentSearchCustomizer 
             List<DocumentAttribute.AbstractBuilder<?>> custAttrBuilders = new ArrayList<DocumentAttribute.AbstractBuilder<?>>();
             Document document = result.getDocument();
 
-            if(TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT.equals(document.getDocumentTypeName())) {
+            if (TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT.equals(document.getDocumentTypeName())) {
                 for (DocumentAttribute documentAttribute : result.getDocumentAttributes()) {
                     if (TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER.equals(documentAttribute.getName())) {
-                        if (maskOrgDocNumberAndTravelDocumentIdentifier(document) ) {
-                               DocumentAttributeString.Builder builder = DocumentAttributeString.Builder.create(TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER);
-                                builder.setValue("********");
-                                custAttrBuilders.add(builder);
+                        if (maskOrgDocNumberAndTravelDocumentIdentifier(document)) {
+                            DocumentAttributeString.Builder builder = DocumentAttributeString.Builder.create(TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER);
+                            builder.setValue("********");
+                            custAttrBuilders.add(builder);
 
                         }
                     }
 
                     if (TemPropertyConstants.ORGANIZATION_DOCUMENT_NUMBER.equals(documentAttribute.getName())) {
-                        if (maskOrgDocNumberAndTravelDocumentIdentifier(document) ) {
+                        if (maskOrgDocNumberAndTravelDocumentIdentifier(document)) {
                             DocumentAttributeString.Builder builder = DocumentAttributeString.Builder.create(TemPropertyConstants.ORGANIZATION_DOCUMENT_NUMBER);
-                             builder.setValue("********");
-                             custAttrBuilders.add(builder);
+                            builder.setValue("********");
+                            custAttrBuilders.add(builder);
 
-                     }
+                        }
                     }
 
                 }
@@ -91,9 +91,9 @@ public class TravelDocumentSearchCustomizer extends KFSDocumentSearchCustomizer 
 
     }
 
-    public boolean maskOrgDocNumberAndTravelDocumentIdentifier (Document document) {
+    public boolean maskOrgDocNumberAndTravelDocumentIdentifier(Document document) {
         boolean vendorPaymentAllowedBeforeFinal = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.VENDOR_PAYMENT_ALLOWED_BEFORE_FINAL_APPROVAL_IND);
-        if(!vendorPaymentAllowedBeforeFinal && !(KFSConstants.DocumentStatusCodes.PROCESSED.equals(document.getStatus().getCode()) || KFSConstants.DocumentStatusCodes.FINAL.equals(document.getStatus().getCode()))) {
+        if (!vendorPaymentAllowedBeforeFinal && !(KFSConstants.DocumentStatusCodes.PROCESSED.equals(document.getStatus().getCode()) || KFSConstants.DocumentStatusCodes.FINAL.equals(document.getStatus().getCode()))) {
             return true;
         }
 
@@ -117,8 +117,7 @@ public class TravelDocumentSearchCustomizer extends KFSDocumentSearchCustomizer 
         TravelDocument document = null;
         try {
             document = (TravelDocument) getDocumentService().getByDocumentHeaderId(documentNumber);
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error(ex.getMessage(), ex);
         }
         return document;

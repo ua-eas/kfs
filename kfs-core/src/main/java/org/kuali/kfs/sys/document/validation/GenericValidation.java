@@ -29,12 +29,13 @@ public abstract class GenericValidation extends ParameterizedValidation implemen
 
     /**
      * This version of validate actually sets up the parameter list and then calls validate(Object[] parameters)
+     *
      * @param event the event that requested this validation
      * @return true if validation succeeded and the process required validation should continue, false otherwise
      */
     public boolean stageValidation(AttributedDocumentEvent event) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Staging validation for: "+getClass().getName()+" for event "+event.getClass().getName());
+            LOG.debug("Staging validation for: " + getClass().getName() + " for event " + event.getClass().getName());
         }
         populateParametersFromEvent(event);
         return validate(event);
@@ -42,6 +43,7 @@ public abstract class GenericValidation extends ParameterizedValidation implemen
 
     /**
      * Returns whether the validation process should quit on the failure of this validation
+     *
      * @return true if the validation process should quit, false otherwise
      */
     public boolean shouldQuitOnFail() {
@@ -50,6 +52,7 @@ public abstract class GenericValidation extends ParameterizedValidation implemen
 
     /**
      * Sets whether this rule should quit on fail or not
+     *
      * @param quitOnFail true if the validation process should end if this rule fails, false otherwise
      */
     public void setQuitOnFail(boolean quitOnFail) {

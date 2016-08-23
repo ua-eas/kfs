@@ -18,16 +18,19 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TemProfileFromKimPerson;
 import org.kuali.kfs.module.tem.service.TemProfileService;
@@ -38,18 +41,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.identity.PersonImpl;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.datadictionary.FieldDefinition;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @SuppressWarnings("rawtypes")
 public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
@@ -118,7 +118,7 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
      * @return Map of values
      */
     protected Map<String, String> getPersonFieldValues(final Map<String, String> fieldValues) {
-        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry)getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(PersonImpl.class.getName());
+        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(PersonImpl.class.getName());
         Collection<FieldDefinition> lookupFields = businessObjectEntry.getLookupDefinition().getLookupFields();
 
         Map<String, String> personFieldValues = new HashMap<String, String>();
@@ -156,7 +156,7 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
 
 
         TemRoleService temRoleService = SpringContext.getBean(TemRoleService.class);
-        boolean profileAdmin = temRoleService.isProfileAdmin(GlobalVariables.getUserSession().getPerson(), ((TemProfileFromKimPerson)businessObject).getPrimaryDepartmentCode());
+        boolean profileAdmin = temRoleService.isProfileAdmin(GlobalVariables.getUserSession().getPerson(), ((TemProfileFromKimPerson) businessObject).getPrimaryDepartmentCode());
 
         if (!profileAdmin) {
             return htmlDataList;
@@ -171,7 +171,7 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
             parameters.put(KFSConstants.REFRESH_CALLER, "principalId" + "::" + principalId);
             parameters.put("principalId", principalId);
 
-            Map<String,String> criteria = new HashMap<String,String>(2);
+            Map<String, String> criteria = new HashMap<String, String>(2);
             criteria.put("principalId", principalId);
 
             // If a TEM Profile doesn't exist, display a create link
@@ -181,8 +181,7 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
                 String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, parameters);
                 AnchorHtmlData anchorHtmlData = new AnchorHtmlData(href, "start", "create new profile");
                 htmlDataList.add(anchorHtmlData);
-            }
-            else {
+            } else {
                 // An active TEM Profile exists, display an edit link
                 parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
 
@@ -198,12 +197,13 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
     /**
      * This is a hack.  This is called by Lookup's execute and it's just our way of making sure that maint links are turned on, even for an otherwise
      * erstwhile non-maintainable object
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#applyConditionalLogicForFieldDisplay()
      */
     @Override
     public void applyConditionalLogicForFieldDisplay() {
         super.applyConditionalLogicForFieldDisplay();
-        LookupForm lookupForm = (LookupForm)KNSGlobalVariables.getKualiForm();
+        LookupForm lookupForm = (LookupForm) KNSGlobalVariables.getKualiForm();
         lookupForm.setShowMaintenanceLinks(true);
     }
 
@@ -217,8 +217,8 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
     }
 
     /**
-     *
      * Sets the travelerService attribute
+     *
      * @param travelerService
      */
     public void setTravelerService(final TravelerService travelerService) {
@@ -227,6 +227,7 @@ public class TemProfileFromKimLookupableHelperServiceImpl extends KualiLookupabl
 
     /**
      * Sets the temProfileService attribute value.
+     *
      * @param temProfileService The temProfileService to set.
      */
     public void setTemProfileService(TemProfileService temProfileService) {

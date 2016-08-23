@@ -19,21 +19,22 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.businessobject.CreditCardDetail;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * This class...
  */
 public class CreditCardReceiptValidation extends GenericValidation {
     private CreditCardDetail creditCardDetailForValidation;
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
@@ -72,15 +73,19 @@ public class CreditCardReceiptValidation extends GenericValidation {
 
         return isValid;
     }
+
     /**
      * Gets the creditCardDetailForValidation attribute.
+     *
      * @return Returns the creditCardDetailForValidation.
      */
     public CreditCardDetail getCreditCardDetailForValidation() {
         return creditCardDetailForValidation;
     }
+
     /**
      * Sets the creditCardDetailForValidation attribute value.
+     *
      * @param creditCardDetailForValidation The creditCardDetailForValidation to set.
      */
     public void setCreditCardDetailForValidation(CreditCardDetail creditCardDetailForValidation) {

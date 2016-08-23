@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.ar.service.mock;
 
+import org.kuali.kfs.sys.businessobject.TaxDetail;
+import org.kuali.kfs.sys.service.TaxService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.sys.businessobject.TaxDetail;
-import org.kuali.kfs.sys.service.TaxService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-
 /**
- *
  * Mocks the TaxServiceImpl with the minimally needed configuration.
  */
 public class TaxServiceMockImpl implements TaxService {

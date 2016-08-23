@@ -66,8 +66,8 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
     public CustomerInvoiceDocument getCustomerInvoiceDocument() {
@@ -100,7 +100,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * By overriding this method, we can add the invoice total and open amount to the document header.
      *
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#getDocInfo()
-     *
+     * <p>
      * KRAD Conversion: Performs the customization of the header fields.
      * No data dictionary is involved here.
      */
@@ -144,7 +144,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * Build additional customer invoice specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs the creation of extra buttons.
      * No data dictionary is involved here.
      */
@@ -158,7 +158,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
         CustomerInvoiceDocument invoiceDocument = (CustomerInvoiceDocument) getDocument();
         DocumentHelperService docHelperService = SpringContext.getBean(DocumentHelperService.class);
         CustomerInvoiceDocumentPresentationController presoController =
-                (CustomerInvoiceDocumentPresentationController) docHelperService.getDocumentPresentationController(invoiceDocument);
+            (CustomerInvoiceDocumentPresentationController) docHelperService.getDocumentPresentationController(invoiceDocument);
         Set<String> editModes = presoController.getEditModes(invoiceDocument);
 
         //  draw the Print File button if appropriate
@@ -188,11 +188,11 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
-     *
-     * KRAD Conversion: Performs extra button customization.
-     * No data dictionary is involved here.
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
+     *                 <p>
+     *                 KRAD Conversion: Performs extra button customization.
+     *                 No data dictionary is involved here.
      */
     protected void addExtraButton(String property, String source, String altText) {
 

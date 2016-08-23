@@ -19,13 +19,7 @@
 package org.kuali.kfs.krad.lookup;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ojb.broker.query.Criteria;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.exception.UnknownBusinessClassAttributeException;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
@@ -33,6 +27,10 @@ import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.core.api.search.SearchOperator;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -47,8 +45,6 @@ import java.util.Set;
 
 /**
  * Provides static utility methods for use within the lookup framework
- *
- *
  */
 public class LookupUtils {
 
@@ -57,10 +53,10 @@ public class LookupUtils {
      * uppercase, and returns the upper-cased value.
      *
      * @param dataObjectClass Parent DO class that the fieldName is a member of.
-     * @param fieldName Name of the field to be forced to uppercase.
-     * @param fieldValue Value of the field that may be uppercased.
+     * @param fieldName       Name of the field to be forced to uppercase.
+     * @param fieldValue      Value of the field that may be uppercased.
      * @return The correctly uppercased fieldValue if it should be uppercased, otherwise fieldValue is returned
-     *         unchanged.
+     * unchanged.
      */
     public static String forceUppercase(Class<?> dataObjectClass, String fieldName, String fieldValue) {
         // short-circuit to exit if there isnt enough information to do the forceUppercase
@@ -78,14 +74,14 @@ public class LookupUtils {
         }
 
         if (!KRADServiceLocatorWeb.getDataDictionaryService().isAttributeDefined(dataObjectClass, fieldName)
-                .booleanValue()) {
+            .booleanValue()) {
             return fieldValue;
         }
 
         boolean forceUpperCase = false;
         try {
             forceUpperCase = KRADServiceLocatorWeb.getDataDictionaryService()
-                    .getAttributeForceUppercase(dataObjectClass, fieldName).booleanValue();
+                .getAttributeForceUppercase(dataObjectClass, fieldName).booleanValue();
         } catch (UnknownBusinessClassAttributeException ubae) {
             // do nothing, don't alter the fieldValue
         }
@@ -101,7 +97,7 @@ public class LookupUtils {
      * uppercase, and returns the upper-cased Map of fieldname/fieldValue pairs.
      *
      * @param dataObjectClass Parent DO class that the fieldName is a member of.
-     * @param fieldValues A Map<String,String> where the key is the fieldName and the value is the fieldValue.
+     * @param fieldValues     A Map<String,String> where the key is the fieldName and the value is the fieldValue.
      * @return The same Map is returned, with the appropriate values uppercased (if any).
      */
     public static Map<String, String> forceUppercase(Class<?> dataObjectClass, Map<String, String> fieldValues) {
@@ -142,9 +138,9 @@ public class LookupUtils {
      */
     public static Integer getApplicationSearchResultsLimit() {
         String limitString = CoreFrameworkServiceLocator.getParameterService()
-                .getParameterValueAsString(KRADConstants.KNS_NAMESPACE,
-                        KRADConstants.DetailTypes.LOOKUP_PARM_DETAIL_TYPE,
-                        KRADConstants.SystemGroupParameterNames.LOOKUP_RESULTS_LIMIT);
+            .getParameterValueAsString(KRADConstants.KNS_NAMESPACE,
+                KRADConstants.DetailTypes.LOOKUP_PARM_DETAIL_TYPE,
+                KRADConstants.SystemGroupParameterNames.LOOKUP_RESULTS_LIMIT);
         if (limitString != null) {
             return Integer.valueOf(limitString);
         }
@@ -155,7 +151,7 @@ public class LookupUtils {
     /**
      * Determines what Timestamp should be used for active queries on effective dated records. Determination made as
      * follows:
-     *
+     * <p>
      * <ul>
      * <li>Use activeAsOfDate value from search values Map if value is not empty</li>
      * <li>If search value given, try to convert to sql date, if conversion fails, try to convert to Timestamp</li>
@@ -174,12 +170,12 @@ public class LookupUtils {
             if (StringUtils.isNotBlank(activeAsOfDate)) {
                 try {
                     activeDate = CoreApiServiceLocator.getDateTimeService()
-                            .convertToSqlDate(ObjectUtils.clean(activeAsOfDate));
+                        .convertToSqlDate(ObjectUtils.clean(activeAsOfDate));
                 } catch (ParseException e) {
                     // try to parse as timestamp
                     try {
                         activeTimestamp = CoreApiServiceLocator.getDateTimeService()
-                                .convertToSqlTimestamp(ObjectUtils.clean(activeAsOfDate));
+                            .convertToSqlTimestamp(ObjectUtils.clean(activeAsOfDate));
                     } catch (ParseException e1) {
                         throw new RuntimeException("Unable to convert date: " + ObjectUtils.clean(activeAsOfDate));
                     }
@@ -215,7 +211,7 @@ public class LookupUtils {
             if (propName.startsWith(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX)) {
                 String from_DateValue = searchCriteria.get(propName);
                 String dateFieldName =
-                        StringUtils.remove(propName, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX);
+                    StringUtils.remove(propName, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX);
                 String to_DateValue = searchCriteria.get(dateFieldName);
                 String newPropValue = to_DateValue;// maybe clean above with
                 // ObjectUtils.clean(propertyValue)
@@ -244,7 +240,7 @@ public class LookupUtils {
      * Checks whether any of the fieldValues being passed refer to a property within an ExternalizableBusinessObject.
      */
     public static boolean hasExternalBusinessObjectProperty(Class<?> boClass,
-            Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
+                                                            Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
         Object sampleBo = boClass.newInstance();
         for (String key : fieldValues.keySet()) {
             if (isExternalBusinessObjectProperty(sampleBo, key)) {
@@ -263,7 +259,7 @@ public class LookupUtils {
     public static boolean isExternalBusinessObjectProperty(Object sampleBo, String propertyName) {
         if (propertyName.indexOf(".") > 0 && !StringUtils.contains(propertyName, "add.")) {
             Class<?> propertyClass =
-                    ObjectPropertyUtils.getPropertyType(sampleBo, StringUtils.substringBeforeLast(propertyName, "."));
+                ObjectPropertyUtils.getPropertyType(sampleBo, StringUtils.substringBeforeLast(propertyName, "."));
             if (propertyClass != null) {
                 return ExternalizableBusinessObjectUtils.isExternalizableBusinessObjectInterface(propertyClass);
             }
@@ -278,7 +274,7 @@ public class LookupUtils {
      * local database.
      */
     public static Map<String, String> removeExternalizableBusinessObjectFieldValues(Class<?> boClass,
-            Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
+                                                                                    Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
         Map<String, String> eboFieldValues = new HashMap<String, String>();
         Object sampleBo = boClass.newInstance();
         for (String key : fieldValues.keySet()) {
@@ -295,7 +291,7 @@ public class LookupUtils {
      * property name as a prefix.
      */
     public static Map<String, String> getExternalizableBusinessObjectFieldValues(String eboPropertyName,
-            Map<String, String> fieldValues) {
+                                                                                 Map<String, String> fieldValues) {
         Map<String, String> eboFieldValues = new HashMap<String, String>();
         for (String key : fieldValues.keySet()) {
             if (key.startsWith(eboPropertyName + ".")) {
@@ -308,11 +304,11 @@ public class LookupUtils {
 
     /**
      * Get the complete list of all properties referenced in the fieldValues that are ExternalizableBusinessObjects.
-     *
+     * <p>
      * This is a list of the EBO object references themselves, not of the properties within them.
      */
     public static List<String> getExternalizableBusinessObjectProperties(Class<?> boClass,
-            Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
+                                                                         Map<String, String> fieldValues) throws IllegalAccessException, InstantiationException {
         Set<String> eboPropertyNames = new HashSet<String>();
 
         Object sampleBo = boClass.newInstance();
@@ -334,9 +330,9 @@ public class LookupUtils {
      * @return
      */
     public static Class<? extends ExternalizableBusinessObject> getExternalizableBusinessObjectClass(Class<?> boClass,
-            String propertyName) throws IllegalAccessException, InstantiationException {
+                                                                                                     String propertyName) throws IllegalAccessException, InstantiationException {
         return (Class<? extends ExternalizableBusinessObject>) ObjectPropertyUtils
-                .getPropertyType(boClass.newInstance(), StringUtils.substringBeforeLast(propertyName, "."));
+            .getPropertyType(boClass.newInstance(), StringUtils.substringBeforeLast(propertyName, "."));
     }
 
 }

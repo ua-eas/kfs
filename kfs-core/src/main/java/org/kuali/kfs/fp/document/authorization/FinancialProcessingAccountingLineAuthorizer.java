@@ -59,8 +59,9 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
 
     /**
      * Determines if the given line on the given document should not show any sales tax block it has
+     *
      * @param document the document the line lives on (or will live on)
-     * @param line the accounting line which perhaps should be hiding any sales tax information
+     * @param line     the accounting line which perhaps should be hiding any sales tax information
      * @return true if sales tax should not be seen for the line, false otherwise
      */
     protected boolean salesTaxUnviewable(AccountingDocument document, AccountingLine line) {
@@ -79,6 +80,7 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
 
     /**
      * adds refresh method to the action map.
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.document.web.AccountingLineRenderingContext, java.lang.String, java.lang.Integer, java.lang.String)
      */
     @Override

@@ -28,14 +28,14 @@ public class PurchasingAccountingLinePercentValidation extends GenericValidation
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-     //   PurApAccountingLine purapAccountingLine = (PurApAccountingLine)updatedAccountingLine;
+        //   PurApAccountingLine purapAccountingLine = (PurApAccountingLine)updatedAccountingLine;
 
         // make sure it's a whole number
-      //  if (purapAccountingLine.getAccountLinePercent().stripTrailingZeros().scale() > 0) {
-      //      GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ACCOUNTS, PurapKeyConstants.ERROR_PURCHASING_PERCENT_NOT_WHOLE, purapAccountingLine.getAccountLinePercent().toPlainString());
+        //  if (purapAccountingLine.getAccountLinePercent().stripTrailingZeros().scale() > 0) {
+        //      GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ACCOUNTS, PurapKeyConstants.ERROR_PURCHASING_PERCENT_NOT_WHOLE, purapAccountingLine.getAccountLinePercent().toPlainString());
 //
-       //     valid &= false;
-      //  }
+        //     valid &= false;
+        //  }
 
         return valid;
     }

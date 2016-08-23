@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class gets all the values of a parameter and then builds a list of key label pairs out of them, using each parameter value
@@ -45,7 +45,7 @@ public class ParameterValuesFinder extends KeyValuesBase {
 
     public List getKeyValues() {
         List keyLabels = new ArrayList();
-        List<String> parameterValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(this.componentClass, this.parameterName) );
+        List<String> parameterValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(this.componentClass, this.parameterName));
         if (insertBlankRow) {
             keyLabels.add(new ConcreteKeyValue("", ""));
         }

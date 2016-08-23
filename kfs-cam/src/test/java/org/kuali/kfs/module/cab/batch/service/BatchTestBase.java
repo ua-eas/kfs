@@ -78,8 +78,7 @@ public abstract class BatchTestBase extends KualiTestBase {
             Parameter.Builder updatedParm = Parameter.Builder.create(lastExtractTime);
             updatedParm.setValue(fmt.format(DateUtils.addDays(dateTimeService.getCurrentDate(), -1)));
             SpringContext.getBean(ParameterService.class).updateParameter(updatedParm.build());
-        }
-        else {
+        } else {
             fail("Could not find the parameter LAST_EXTRACT_TIME");
         }
     }
@@ -91,15 +90,14 @@ public abstract class BatchTestBase extends KualiTestBase {
 
     protected void updateLastPreTagExtractTime() {
         Parameter lastExtractTime = findPretagExtractDateParam();
-        if ( lastExtractTime != null ) {
+        if (lastExtractTime != null) {
             SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyyy");
 
 
             Parameter.Builder updatedParm = Parameter.Builder.create(lastExtractTime);
             updatedParm.setValue(fmt.format(DateUtils.addDays(dateTimeService.getCurrentDate(), -1)));
             SpringContext.getBean(ParameterService.class).updateParameter(updatedParm.build());
-        }
-        else {
+        } else {
             fail("Could not find the parameter LAST_EXTRACT_TIME");
         }
     }

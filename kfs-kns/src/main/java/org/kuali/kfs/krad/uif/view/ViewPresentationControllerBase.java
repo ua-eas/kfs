@@ -31,8 +31,6 @@ import java.util.Set;
 
 /**
  * Implementation of {@link ViewPresentationController} that implements no logic by default
- *
- *
  */
 public class ViewPresentationControllerBase implements ViewPresentationController, Serializable {
     private static final long serialVersionUID = -3199587372204398503L;
@@ -122,7 +120,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String)
      */
     public boolean canPerformAction(View view, ViewModel model, ActionField actionField, String actionEvent,
-            String actionId) {
+                                    String actionId) {
         return true;
     }
 
@@ -132,7 +130,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object)
      */
     public boolean canEditLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line) {
+                               String collectionPropertyName, Object line) {
         return true;
     }
 
@@ -142,7 +140,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object)
      */
     public boolean canViewLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line) {
+                               String collectionPropertyName, Object line) {
         return true;
     }
 
@@ -152,7 +150,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object, Field, java.lang.String)
      */
     public boolean canEditLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName) {
+                                    String collectionPropertyName, Object line, Field field, String propertyName) {
         return true;
     }
 
@@ -162,7 +160,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object, Field, java.lang.String)
      */
     public boolean canViewLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName) {
+                                    String collectionPropertyName, Object line, Field field, String propertyName) {
         return true;
     }
 
@@ -173,7 +171,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String)
      */
     public boolean canPerformLineAction(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId) {
+                                        String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId) {
         return true;
     }
 

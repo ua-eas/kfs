@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.module.ld.batch.service.impl.LaborPosterServiceImpl;
 import org.kuali.kfs.module.ld.service.LaborTransactionDescriptionService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+
+import java.util.Map;
 
 public class LaborTransactionDescriptionServiceImpl implements LaborTransactionDescriptionService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborPosterServiceImpl.class);
@@ -55,10 +55,9 @@ public class LaborTransactionDescriptionServiceImpl implements LaborTransactionD
      * @see org.kuali.kfs.module.ld.service.LaborTransactionDescriptionService#getTransactionDescriptionByDocumentType(java.lang.String)
      */
     public String getTransactionDescription(String descriptionKey) {
-        if(transactionDescriptionMap.containsKey(descriptionKey)) {
+        if (transactionDescriptionMap.containsKey(descriptionKey)) {
             return transactionDescriptionMap.get(descriptionKey);
-        }
-        else {
+        } else {
             LOG.warn("Cannot find a description for the given key: " + descriptionKey);
         }
 
@@ -67,6 +66,7 @@ public class LaborTransactionDescriptionServiceImpl implements LaborTransactionD
 
     /**
      * Sets the transactionDescriptionMap attribute value.
+     *
      * @param transactionDescriptionMap The transactionDescriptionMap to set.
      */
     public void setTransactionDescriptionMap(Map<String, String> transactionDescriptionMap) {

@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.gl.businessobject.LedgerEntryForReporting;
 import org.kuali.kfs.gl.businessobject.LedgerEntryHolder;
@@ -28,11 +25,14 @@ import org.kuali.kfs.gl.businessobject.Reversal;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.dataaccess.ReversalDao;
 import org.kuali.kfs.gl.service.ReversalService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * This transactional class provides the default implementation of the services required in ReversalService
@@ -79,6 +79,7 @@ public class ReversalServiceImpl implements ReversalService {
 
     /**
      * Summarizes all of the reversal records set to reverse before or on the given date
+     *
      * @param before the date reversals summarized should be on or before
      * @return a LedgerEntryHolder with a summary of
      * @see org.kuali.kfs.gl.service.ReversalService#getSummaryByDate(java.util.Date)
@@ -109,12 +110,10 @@ public class ReversalServiceImpl implements ReversalService {
         if (KFSConstants.GL_CREDIT_CODE.equals(reversal.getTransactionDebitCreditCode())) {
             entry.setCreditAmount(reversal.getTransactionLedgerEntryAmount());
             entry.setCreditCount(1);
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(reversal.getTransactionDebitCreditCode())) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(reversal.getTransactionDebitCreditCode())) {
             entry.setDebitAmount(reversal.getTransactionLedgerEntryAmount());
             entry.setDebitCount(1);
-        }
-        else {
+        } else {
             entry.setNoDCAmount(reversal.getTransactionLedgerEntryAmount());
             entry.setNoDCCount(1);
         }

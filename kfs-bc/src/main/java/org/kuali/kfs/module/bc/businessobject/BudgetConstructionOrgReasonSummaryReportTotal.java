@@ -56,6 +56,7 @@ public class BudgetConstructionOrgReasonSummaryReportTotal {
 
     /**
      * Gets the budgetConstructionSalarySocialSecurityNumber attribute.
+     *
      * @return Returns the budgetConstructionSalarySocialSecurityNumber.
      */
     public BudgetConstructionSalarySocialSecurityNumber getBudgetConstructionSalarySocialSecurityNumber() {
@@ -64,6 +65,7 @@ public class BudgetConstructionOrgReasonSummaryReportTotal {
 
     /**
      * Sets the budgetConstructionSalarySocialSecurityNumber attribute value.
+     *
      * @param budgetConstructionSalarySocialSecurityNumber The budgetConstructionSalarySocialSecurityNumber to set.
      */
     public void setBudgetConstructionSalarySocialSecurityNumber(BudgetConstructionSalarySocialSecurityNumber budgetConstructionSalarySocialSecurityNumber) {
@@ -254,4 +256,4 @@ public class BudgetConstructionOrgReasonSummaryReportTotal {
         this.personTiFlag = personTiFlag;
     }
 
-    }
+}

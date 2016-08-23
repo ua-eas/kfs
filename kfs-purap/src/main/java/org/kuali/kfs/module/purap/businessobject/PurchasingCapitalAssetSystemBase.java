@@ -19,15 +19,15 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusinessObjectBase implements CapitalAssetSystem {
 
@@ -44,14 +44,14 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     private Integer capitalAssetCountAssetNumber;
 
     public Integer getCapitalAssetCountAssetNumber() {
-		return capitalAssetCountAssetNumber;
-	}
+        return capitalAssetCountAssetNumber;
+    }
 
-	public void setCapitalAssetCountAssetNumber(Integer capitalAssetCountAssetNumber) {
-		this.capitalAssetCountAssetNumber = capitalAssetCountAssetNumber;
-	}
+    public void setCapitalAssetCountAssetNumber(Integer capitalAssetCountAssetNumber) {
+        this.capitalAssetCountAssetNumber = capitalAssetCountAssetNumber;
+    }
 
-	public PurchasingCapitalAssetSystemBase() {
+    public PurchasingCapitalAssetSystemBase() {
         super();
         itemCapitalAssets = new ArrayList();
         capitalAssetLocations = new ArrayList();
@@ -149,16 +149,13 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     //CAMS LOCATION
     public CapitalAssetLocation setupNewPurchasingCapitalAssetLocationLine() {
         CapitalAssetLocation location = null;
-        try{
-            location = (CapitalAssetLocation)getCapitalAssetLocationClass().newInstance();
-        }
-        catch (InstantiationException e) {
+        try {
+            location = (CapitalAssetLocation) getCapitalAssetLocationClass().newInstance();
+        } catch (InstantiationException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to get class");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new RuntimeException("Can't instantiate Purchasing Account from base");
         }
 
@@ -179,7 +176,7 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
         return asset;
     }
 
-    public void resetNewPurchasingCapitalAssetLocationLine(){
+    public void resetNewPurchasingCapitalAssetLocationLine() {
         setNewPurchasingCapitalAssetLocationLine(setupNewPurchasingCapitalAssetLocationLine());
     }
 

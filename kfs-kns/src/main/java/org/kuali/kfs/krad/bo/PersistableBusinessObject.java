@@ -32,7 +32,7 @@ import java.util.UUID;
  * which allow for various operations to be executed that relate to the persistent nature of
  * the business object.  A persistable business object also has some additional data
  * attributes which include the version number, the object id, and the extension.
- *
+ * <p>
  * <p>The version number indicates the version of the business object when it was retrieved
  * from persistent storage.  This allows for services to check this version number
  * during persistence operations to prevent silent overwrites of business object state.
@@ -40,7 +40,7 @@ import java.util.UUID;
  * object in the persistent store (i.e. two web application users updating the same record
  * in a database).  The kind of check which would be performed using the version number is commonly
  * referred to as "optimistic locking".
- *
+ * <p>
  * <p>The object id represents a globally unique identifier for the business object.  In practice,
  * this can be used by other portions of the system to link to persistable business objects which
  * might be stored in different locations or even different persistent data stores.  In general, it
@@ -49,7 +49,7 @@ import java.util.UUID;
  * the business object is persisted.  If the client does need to do this themselves, however, care
  * should be taken that an appropriate globally unique value generator algorithm is used
  * (such as the one provided by {@link UUID}).
- *
+ * <p>
  * <p>The extension object is primarily provided for the purposes of allowing implementer
  * customization of the business object without requiring the original business object to be
  * modified.  The additional {@link PersistableBusinessObjectExtension} which is linked with the
@@ -60,8 +60,6 @@ import java.util.UUID;
  * actual Kuali Foundation projects themselves).  If using the framework for the purposes
  * of implementing an internal application, the use of a business object extensions
  * is likely unnecessary.
- *
- *
  */
 public interface PersistableBusinessObject extends BusinessObject, Versioned, GloballyUnique {
 
@@ -122,7 +120,6 @@ public interface PersistableBusinessObject extends BusinessObject, Versioned, Gl
      * Hook to link in any editable user fields.
      */
     public void linkEditableUserFields();
-
 
 
 }

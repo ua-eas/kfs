@@ -30,7 +30,7 @@ public class AccountingDocumentSaveWithNoLedgerEntryGenerationEvent extends Docu
     /**
      * Constructs a AccountingDocumentSaveWithNoLedgerEntryGenerationEvent with the specified errorPathPrefix and document. Event will
      *
-     * @param document the document that the rules for this event should be applied to
+     * @param document        the document that the rules for this event should be applied to
      * @param errorPathPrefix the error path for any resultant errors to be applied to
      */
     public AccountingDocumentSaveWithNoLedgerEntryGenerationEvent(String errorPathPrefix, Document document) {

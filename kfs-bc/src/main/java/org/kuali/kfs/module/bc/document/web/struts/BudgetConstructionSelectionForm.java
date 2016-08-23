@@ -18,15 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionHeader;
@@ -35,9 +30,13 @@ import org.kuali.kfs.module.bc.document.service.SalarySettingService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -65,7 +64,7 @@ public class BudgetConstructionSelectionForm extends BudgetExpansionForm {
 
         super.populate(request);
 
-        final List REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { "chartOfAccounts", "account", "subAccount", "budgetConstructionAccountReports" }));
+        final List REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{"chartOfAccounts", "account", "subAccount", "budgetConstructionAccountReports"}));
         SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(this.getBudgetConstructionHeader(), REFRESH_FIELDS);
 
         SpringContext.getBean(BusinessObjectDictionaryService.class).performForceUppercase(this.getBudgetConstructionHeader());
@@ -116,7 +115,7 @@ public class BudgetConstructionSelectionForm extends BudgetExpansionForm {
         accountReportsExist = false;
 
         if (this.budgetConstructionHeader.getAccountNumber() != null && this.budgetConstructionHeader.getChartOfAccountsCode() != null) {
-            if (SpringContext.getBean(BudgetDocumentService.class).isAccountReportsExist(this.budgetConstructionHeader.getChartOfAccountsCode(), this.budgetConstructionHeader.getAccountNumber())){
+            if (SpringContext.getBean(BudgetDocumentService.class).isAccountReportsExist(this.budgetConstructionHeader.getChartOfAccountsCode(), this.budgetConstructionHeader.getAccountNumber())) {
                 accountReportsExist = true;
             }
         }
@@ -146,7 +145,7 @@ public class BudgetConstructionSelectionForm extends BudgetExpansionForm {
      */
     public boolean getCanPerformPayrateImportExport() {
         String[] rootOrg = SpringContext.getBean(OrganizationService.class).getRootOrganizationCode();
-        Map<String,String> qualification = new HashMap<String,String>();
+        Map<String, String> qualification = new HashMap<String, String>();
         qualification.put(BCPropertyConstants.ORGANIZATION_CHART_OF_ACCOUNTS_CODE, rootOrg[0]);
         qualification.put(KfsKimAttributes.ORGANIZATION_CODE, rootOrg[1]);
 
@@ -155,6 +154,7 @@ public class BudgetConstructionSelectionForm extends BudgetExpansionForm {
 
     /**
      * Gets the sessionInProgressDetected attribute.
+     *
      * @return Returns the sessionInProgressDetected.
      */
     public boolean isSessionInProgressDetected() {
@@ -163,6 +163,7 @@ public class BudgetConstructionSelectionForm extends BudgetExpansionForm {
 
     /**
      * Sets the sessionInProgressDetected attribute value.
+     *
      * @param sessionInProgressDetected The sessionInProgressDetected to set.
      */
     public void setSessionInProgressDetected(boolean sessionInProgressDetected) {

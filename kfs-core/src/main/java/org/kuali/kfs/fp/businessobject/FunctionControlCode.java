@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a function control code business object.

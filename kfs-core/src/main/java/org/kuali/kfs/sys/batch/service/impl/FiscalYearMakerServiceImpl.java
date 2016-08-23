@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.FiscalYearMakerStep;
@@ -36,11 +32,15 @@ import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao;
 import org.kuali.kfs.sys.batch.service.FiscalYearMakerService;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @see org.kuali.kfs.coa.batch.service.FiscalYearMakerService
@@ -109,8 +109,8 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
                     fiscalYearMaker.performCustomProcessing(baseYear + 1, false);
                 }
-            } catch ( Exception ex ) {
-                throw new RuntimeException( "Internal exception while processing fiscal year for " + fiscalYearMaker.getBusinessObjectClass(), ex );
+            } catch (Exception ex) {
+                throw new RuntimeException("Internal exception while processing fiscal year for " + fiscalYearMaker.getBusinessObjectClass(), ex);
             }
         }
     }
@@ -183,7 +183,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
      * Finds circular references (class which is a child to itself) and throws exception indicating the invalid parent-child
      * configuration
      *
-     * @param parents Set of parent classes to check
+     * @param parents        Set of parent classes to check
      * @param parentChildren Map with parent class as the key and its children classes as value
      */
     protected void findCircularReferenceAndThrowException(Map<Class<? extends FiscalYearBasedBusinessObject>, Set<Class<? extends FiscalYearBasedBusinessObject>>> parentChildren) {
@@ -207,12 +207,12 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
     /**
      * Recursively checks all children of children who are parents for reference to the given parent class
      *
-     * @param parent Class of parent to check for
-     * @param children Set of children classes to check
+     * @param parent         Class of parent to check for
+     * @param children       Set of children classes to check
      * @param parentChildren Map with parent class as the key and its children classes as value
      * @param checkedParents Set of parent classes we have already checked (to prevent endless recursiveness)
      * @return true if the parent class was found in one of the children list (meaning we have a circular reference), false
-     *         otherwise
+     * otherwise
      */
     protected boolean checkChildrenForParentReference(Class<? extends FiscalYearBasedBusinessObject> parent, Set<Class<? extends FiscalYearBasedBusinessObject>> children, Map<Class<? extends FiscalYearBasedBusinessObject>, Set<Class<? extends FiscalYearBasedBusinessObject>>> parentChildren, Set<Class<? extends FiscalYearBasedBusinessObject>> checkedParents) {
         // if parent is in child list then we have a circular reference

@@ -18,20 +18,20 @@
  */
 package org.kuali.rice.kim.api.jaxb;
 
-import javax.xml.bind.MarshalException;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.api.type.KimTypeContract;
 
+import javax.xml.bind.MarshalException;
+import javax.xml.bind.UnmarshalException;
+import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+
 /**
  * An XML adapter that converts between a NameAndNamespacePair and a KIM type ID.
  */
-public class NameAndNamespacePairToKimTypeIdAdapter extends XmlAdapter<NameAndNamespacePair,String> {
+public class NameAndNamespacePairToKimTypeIdAdapter extends XmlAdapter<NameAndNamespacePair, String> {
 
     /**
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
@@ -40,7 +40,7 @@ public class NameAndNamespacePairToKimTypeIdAdapter extends XmlAdapter<NameAndNa
     public String unmarshal(NameAndNamespacePair v) throws Exception {
         if (v != null) {
             KimTypeContract kimType = KimApiServiceLocator.getKimTypeInfoService().findKimTypeByNameAndNamespace(
-                    v.getNamespaceCode(), new NormalizedStringAdapter().unmarshal(v.getName()));
+                v.getNamespaceCode(), new NormalizedStringAdapter().unmarshal(v.getName()));
             if (kimType == null) {
                 throw new UnmarshalException("Cannot find KIM Type with namespace \"" + v.getNamespaceCode() + "\" and name \"" + v.getName() + "\"");
             }

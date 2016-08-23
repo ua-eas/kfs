@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import java.util.List;
-
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.BatchUpload;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+import java.util.List;
 
 /**
  * Struts action form for the batch upload screen.
@@ -107,6 +107,7 @@ public class KualiBatchInputFileForm extends KualiForm {
 
     /**
      * Gets the url attribute.
+     *
      * @return Returns the url.
      */
     public String getUrl() {
@@ -115,6 +116,7 @@ public class KualiBatchInputFileForm extends KualiForm {
 
     /**
      * Sets the url attribute value.
+     *
      * @param url The url to set.
      */
     public void setUrl(String url) {
@@ -123,7 +125,7 @@ public class KualiBatchInputFileForm extends KualiForm {
 
     @Override
     protected void customInitMaxUploadSizes() {
-        addMaxUploadSize (CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, "Batch", "MAX_FILE_SIZE_UPLOAD"));
+        addMaxUploadSize(CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, "Batch", "MAX_FILE_SIZE_UPLOAD"));
     }
 
 }

@@ -18,54 +18,55 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * Relocation Reason
- *
  */
 @Entity
-@Table(name="TEM_JOB_CLASS_T")
-public class JobClassification extends PersistableBusinessObjectBase implements MutableInactivatable{
+@Table(name = "TEM_JOB_CLASS_T")
+public class JobClassification extends PersistableBusinessObjectBase implements MutableInactivatable {
     private String jobClsCode;
     private String jobClsName;
     private Boolean active = Boolean.TRUE;
 
-    public void setJobClsCode(String jobClsCode){
+    public void setJobClsCode(String jobClsCode) {
         this.jobClsCode = jobClsCode;
     }
-    @Column(name="JOB_CLS_CD",length=3,nullable=false)
-    public String getJobClsCode(){
+
+    @Column(name = "JOB_CLS_CD", length = 3, nullable = false)
+    public String getJobClsCode() {
         return this.jobClsCode;
     }
-    public void setJobClsName(String jobClsName){
+
+    public void setJobClsName(String jobClsName) {
         this.jobClsName = jobClsName;
     }
-    @Column(name="JOB_CLS_NM",length=40,nullable=false)
-    public String getJobClsName(){
+
+    @Column(name = "JOB_CLS_NM", length = 40, nullable = false)
+    public String getJobClsName() {
         return this.jobClsName;
     }
 
     @Override
-    public void setActive(boolean active){
+    public void setActive(boolean active) {
         this.active = active;
     }
 
     @Override
-    @Column(name="ROW_ACTV_IND",length=1,nullable=false)
-    public boolean isActive(){
+    @Column(name = "ROW_ACTV_IND", length = 1, nullable = false)
+    public boolean isActive() {
         return this.active;
     }
 
-    @Column(name="ROW_ACTV_IND",length=1,nullable=false)
-    public boolean getActive(){
+    @Column(name = "ROW_ACTV_IND", length = 1, nullable = false)
+    public boolean getActive() {
         return this.active;
     }
 

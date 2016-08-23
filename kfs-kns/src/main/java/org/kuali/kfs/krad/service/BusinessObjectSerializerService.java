@@ -21,6 +21,6 @@ package org.kuali.kfs.krad.service;
 
 public interface BusinessObjectSerializerService {
 
-	public String serializeBusinessObjectToXml(Object businessObject);
+    public String serializeBusinessObjectToXml(Object businessObject);
 
 }

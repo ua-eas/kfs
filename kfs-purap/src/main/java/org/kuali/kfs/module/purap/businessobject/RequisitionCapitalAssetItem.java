@@ -26,7 +26,7 @@ public class RequisitionCapitalAssetItem extends PurchasingCapitalAssetItemBase 
 
     private Integer purapDocumentIdentifier;
 
-    public RequisitionCapitalAssetItem(){
+    public RequisitionCapitalAssetItem() {
         super();
         this.setPurchasingCapitalAssetSystem(new RequisitionCapitalAssetSystem());
     }
@@ -46,12 +46,12 @@ public class RequisitionCapitalAssetItem extends PurchasingCapitalAssetItemBase 
     }
 
     @Override
-    public void setPurchasingDocument(PurchasingDocument pd){
+    public void setPurchasingDocument(PurchasingDocument pd) {
         super.setPurchasingDocument(pd);
 
-        RequisitionDocument req = (RequisitionDocument)pd;
-        if(req != null){
-            setPurapDocumentIdentifier( req.getPurapDocumentIdentifier() );
+        RequisitionDocument req = (RequisitionDocument) pd;
+        if (req != null) {
+            setPurapDocumentIdentifier(req.getPurapDocumentIdentifier());
         }
     }
 

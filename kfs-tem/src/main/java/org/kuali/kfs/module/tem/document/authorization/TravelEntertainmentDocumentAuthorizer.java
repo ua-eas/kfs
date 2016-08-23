@@ -21,4 +21,5 @@ package org.kuali.kfs.module.tem.document.authorization;
 /**
  * A concrete, do-nothing extension of the TravelArrangeableAuthorizer
  */
-public class TravelEntertainmentDocumentAuthorizer extends TravelArrangeableAuthorizer {}
+public class TravelEntertainmentDocumentAuthorizer extends TravelArrangeableAuthorizer {
+}

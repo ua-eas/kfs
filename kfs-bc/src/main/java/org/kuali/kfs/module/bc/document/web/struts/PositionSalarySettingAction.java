@@ -18,23 +18,19 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
-import org.kuali.kfs.module.bc.BCKeyConstants;
-import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.BCConstants.LockStatus;
 import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
+import org.kuali.kfs.module.bc.BCKeyConstants;
+import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockStatus;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
@@ -44,11 +40,14 @@ import org.kuali.kfs.module.bc.service.BudgetConstructionPositionService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
 
 /**
  * the struts action for the salary setting for position
@@ -62,7 +61,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.SalarySettingBaseAction#loadExpansionScreen(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward loadExpansionScreen(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -70,8 +69,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
         MessageMap errorMap;
         if (positionSalarySettingForm.isBudgetByAccountMode()) {
             errorMap = positionSalarySettingForm.getCallBackErrors();
-        }
-        else {
+        } else {
             errorMap = GlobalVariables.getMessageMap();
         }
 
@@ -90,8 +88,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
 
             if (positionSalarySettingForm.isBudgetByAccountMode()) {
                 return this.returnToCaller(mapping, form, request, response);
-            }
-            else {
+            } else {
                 this.cleanupAnySessionForm(mapping, request);
                 return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
             }
@@ -107,11 +104,10 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
             // attempt to lock position
             BudgetConstructionLockStatus bcLockStatus = SpringContext.getBean(LockService.class).lockPosition(positionNumber, universityFiscalYear, principalId);
             if (!bcLockStatus.getLockStatus().equals(BCConstants.LockStatus.SUCCESS)) {
-                errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FAIL_TO_LOCK_POSITION, "Position Number:"+budgetConstructionPosition.getPositionNumber()+", Fiscal Year:"+budgetConstructionPosition.getUniversityFiscalYear().toString()+", Desc:"+budgetConstructionPosition.getPositionDescription()+", Locked By:"+budgetConstructionPosition.getPositionLockUser().getPrincipalName());
+                errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FAIL_TO_LOCK_POSITION, "Position Number:" + budgetConstructionPosition.getPositionNumber() + ", Fiscal Year:" + budgetConstructionPosition.getUniversityFiscalYear().toString() + ", Desc:" + budgetConstructionPosition.getPositionDescription() + ", Locked By:" + budgetConstructionPosition.getPositionLockUser().getPrincipalName());
                 if (positionSalarySettingForm.isBudgetByAccountMode()) {
                     return this.returnToCaller(mapping, form, request, response);
-                }
-                else {
+                } else {
                     this.cleanupAnySessionForm(mapping, request);
                     return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
                 }
@@ -133,8 +129,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
                 this.unlockPositionOnly(positionSalarySettingForm);
                 if (positionSalarySettingForm.isBudgetByAccountMode()) {
                     return this.returnToCaller(mapping, form, request, response);
-                }
-                else {
+                } else {
                     this.cleanupAnySessionForm(mapping, request);
                     return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
                 }
@@ -145,8 +140,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
                 this.unlockPositionOnly(positionSalarySettingForm);
                 if (positionSalarySettingForm.isBudgetByAccountMode()) {
                     return this.returnToCaller(mapping, form, request, response);
-                }
-                else {
+                } else {
                     this.cleanupAnySessionForm(mapping, request);
                     return mapping.findForward(BCConstants.MAPPING_ORGANIZATION_SALARY_SETTING_RETURNING);
                 }
@@ -160,7 +154,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
      * enable to send warning after saving
      *
      * @see org.kuali.kfs.module.bc.document.web.struts.DetailSalarySettingAction#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -176,7 +170,7 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
      * send warning messsages back to the caller
      *
      * @param positionSalarySettingForm the given position salary setting form
-     * @param warnings the warning list that can hold the warning messages if any
+     * @param warnings                  the warning list that can hold the warning messages if any
      */
     public void sendWarnings(PositionSalarySettingForm positionSalarySettingForm, MessageList warnings) {
         List<PendingBudgetConstructionAppointmentFunding> activeAppointmentFundings = positionSalarySettingForm.getActiveFundingLines();
@@ -308,14 +302,13 @@ public class PositionSalarySettingAction extends DetailSalarySettingAction {
         // attempt to lock position and associated funding
         BudgetConstructionLockStatus bcLockStatus = SpringContext.getBean(LockService.class).lockPositionAndActiveFunding(universityFiscalYear, positionNumber, principalId);
         if (!bcLockStatus.getLockStatus().equals(BCConstants.LockStatus.SUCCESS)) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_POSITION_LOCK_NOT_OBTAINED, new String[] { universityFiscalYear.toString(), positionNumber });
+            GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_POSITION_LOCK_NOT_OBTAINED, new String[]{universityFiscalYear.toString(), positionNumber});
             return this.returnToCaller(mapping, form, request, response);
         }
 
         try {
             budgetConstructionPositionService.refreshPositionFromExternal(universityFiscalYear, positionNumber);
-        }
-        finally {
+        } finally {
             // release locks
             LockStatus lockStatus = SpringContext.getBean(LockService.class).unlockPositionAndActiveFunding(universityFiscalYear, positionNumber, principalId);
             if (!lockStatus.equals(BCConstants.LockStatus.SUCCESS)) {

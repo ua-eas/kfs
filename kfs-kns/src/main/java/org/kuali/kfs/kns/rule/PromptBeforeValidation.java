@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * An interface for a class that provides the ability to prompt the user with a question prior to running a document action.
  * An implementation class of this interface may be specified in the document data dictionary file.
- *
+ * <p>
  * By default, unless KualiDocumentActionBase is overridden, the sole method will be invoked upon using the "approve", "blanketApprove",
  * "performRouteReport", and "route" methodToCalls.
  */
@@ -38,7 +38,7 @@ public interface PromptBeforeValidation extends BusinessRule {
      *
      * @param form
      * @param request
-     * @param event stores various information necessary to render the question prompt
+     * @param event   stores various information necessary to render the question prompt
      * @return boolean indicating whether the validation (and if validation successful, the action) should continue.  If false, the
      * values within the event parameter will determine how the struts action handler should proceed
      */

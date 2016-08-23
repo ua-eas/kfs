@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -43,6 +36,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OJB Implementation of Labor Distribution DAO database queries.
@@ -70,7 +70,7 @@ public class LaborDaoOjb extends PlatformAwareDaoBaseOjb implements LaborDao {
 
         String[] groupBy = (String[]) groupByList.toArray(new String[groupByList.size()]);
 
-        query.setAttributes(new String[] { ConsolidationUtil.sum(LaborConstants.BalanceInquiries.ANNUAL_BALANCE) + " + " + ConsolidationUtil.sum(LaborConstants.BalanceInquiries.CONTRACT_GRANT_BB_AMOUNT) });
+        query.setAttributes(new String[]{ConsolidationUtil.sum(LaborConstants.BalanceInquiries.ANNUAL_BALANCE) + " + " + ConsolidationUtil.sum(LaborConstants.BalanceInquiries.CONTRACT_GRANT_BB_AMOUNT)});
         query.addGroupBy(groupBy);
 
         Object[] encumbrances = null;
@@ -130,8 +130,7 @@ public class LaborDaoOjb extends PlatformAwareDaoBaseOjb implements LaborDao {
         Criteria criteria = new Criteria();
         try {
             criteria.addAndCriteria(OJBUtility.buildCriteriaFromMap(fieldValues, clazz.newInstance()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Could not add and criteria properly for " + clazz);
             throw new RuntimeException(e);
         }

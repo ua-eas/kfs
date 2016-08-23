@@ -36,18 +36,18 @@ public class DocumentTypeAndEditModePermissionTypeServiceImpl extends DocumentTy
         return attrs;
     }
 
-	@Override
-	protected List<Permission> performPermissionMatches(
-			Map<String, String> requestedDetails,
-			List<Permission> permissionsList) {
+    @Override
+    protected List<Permission> performPermissionMatches(
+        Map<String, String> requestedDetails,
+        List<Permission> permissionsList) {
 
         List<Permission> matchingPermissions = new ArrayList<Permission>();
-		for (Permission permission : permissionsList) {
+        for (Permission permission : permissionsList) {
             PermissionBo bo = PermissionBo.from(permission);
-			if (requestedDetails.get(KimConstants.AttributeConstants.EDIT_MODE).equals(bo.getDetails().get(KimConstants.AttributeConstants.EDIT_MODE))) {
-				matchingPermissions.add(permission);
-			}
-		}
-		return super.performPermissionMatches(requestedDetails, matchingPermissions);
-	}
+            if (requestedDetails.get(KimConstants.AttributeConstants.EDIT_MODE).equals(bo.getDetails().get(KimConstants.AttributeConstants.EDIT_MODE))) {
+                matchingPermissions.add(permission);
+            }
+        }
+        return super.performPermissionMatches(requestedDetails, matchingPermissions);
+    }
 }

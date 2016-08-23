@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Instances of this class represent the various statuses an Award can be in.
@@ -66,7 +66,7 @@ public class AwardStatus extends PersistableBusinessObjectBase implements Mutabl
     /**
      * @param awardStatusCode
      * @deprecated Do not use this method, it is only here for DD mapping purposes and has no defined functionality. See KULCG-281
-     *             for further details.
+     * for further details.
      */
     @Deprecated
     public void setAwardStatusCodeDropDown(String awardStatusCode) {

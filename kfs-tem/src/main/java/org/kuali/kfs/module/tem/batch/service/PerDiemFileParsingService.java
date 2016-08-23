@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
+import org.kuali.kfs.module.tem.batch.businessobject.PerDiemForLoad;
+
 import java.io.Reader;
 import java.util.List;
-
-import org.kuali.kfs.module.tem.batch.businessobject.PerDiemForLoad;
 
 public interface PerDiemFileParsingService {
 
     /**
      * build per diems from the given csv file
      *
-     * @param fileName the given csv file
-     * @param deliminator the field deliminator of the flat file
+     * @param fileName         the given csv file
+     * @param deliminator      the field deliminator of the flat file
      * @param fieldsToPopulate the name list of fields to be populated from the data in file
      * @return a list of per diems built from the given csv file
      */
@@ -38,8 +38,8 @@ public interface PerDiemFileParsingService {
     /**
      * build per diems from the given csv file
      *
-     * @param reader the given reader
-     * @param deliminator the field deliminator of the flat file
+     * @param reader           the given reader
+     * @param deliminator      the field deliminator of the flat file
      * @param fieldsToPopulate the name list of fields to be populated from the data in file
      * @return a list of per diems built from the given csv file
      */

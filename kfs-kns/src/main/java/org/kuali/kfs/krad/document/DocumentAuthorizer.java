@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.krad.document;
 
+import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
 
 /**
  * Authorizer class for {@link Document} instances
- *
+ * <p>
  * <p>
  * Authorizer provides user based authorization
  * </p>
- *
+ * <p>
  * <p>
  * The document authorizer is associated with a document type through its data dictionary
  * {@link DocumentEntry}. This is then used by the framework to authorize certain
  * actions and in addition used for view presentation logic
  * </p>
- *
- *
  */
 public interface DocumentAuthorizer extends DataObjectAuthorizer {
 
@@ -80,10 +78,10 @@ public interface DocumentAuthorizer extends DataObjectAuthorizer {
     public boolean canAddNoteAttachment(Document document, String attachmentTypeCode, Person user);
 
     public boolean canDeleteNoteAttachment(Document document, String attachmentTypeCode,
-            String authorUniversalIdentifier, Person user);
+                                           String authorUniversalIdentifier, Person user);
 
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, String authorUniversalIdentifier,
-            Person user);
+                                         Person user);
 
     public boolean canSendAdHocRequests(Document document, String actionRequestCd, Person user);
 

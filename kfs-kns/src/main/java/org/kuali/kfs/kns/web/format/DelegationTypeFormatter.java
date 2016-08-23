@@ -27,11 +27,11 @@ import org.kuali.rice.kew.api.KewApiConstants;
  * begin Kuali Foundation modification
  * This class is used to format boolean values.
  * end Kuali Foundation modification
- *
  */
 public class DelegationTypeFormatter extends Formatter {
     private static final long serialVersionUID = -4109390572922205211L;
-	/*
+
+    /*
     protected Object convertToObject(String target) {
         if (Formatter.isEmptyValue(target))
             return null;
@@ -45,8 +45,8 @@ public class DelegationTypeFormatter extends Formatter {
         if (FALSE_VALUES.contains(stringValue))
             return Boolean.FALSE;
 
-		// begin Kuali Foundation modification
-		// was: throw new FormatException(CONVERT_MSG + stringValue);
+        // begin Kuali Foundation modification
+        // was: throw new FormatException(CONVERT_MSG + stringValue);
         throw new FormatException("converting", RiceKeyConstants.ERROR_BOOLEAN, stringValue);
         // end Kuali Foundation modification
     }
@@ -57,12 +57,12 @@ public class DelegationTypeFormatter extends Formatter {
         }
         // begin Kuali Foundation modification
         if (target instanceof String) {
-        	DelegationType delegationType = DelegationType.fromCode(((String) target).trim().toUpperCase());
-        	if (delegationType != null) {
-        		return delegationType.getLabel();
-        	} else {
-        		return KewApiConstants.DELEGATION_BOTH_LABEL;
-        	}
+            DelegationType delegationType = DelegationType.fromCode(((String) target).trim().toUpperCase());
+            if (delegationType != null) {
+                return delegationType.getLabel();
+            } else {
+                return KewApiConstants.DELEGATION_BOTH_LABEL;
+            }
         } else {
             return "";
         }

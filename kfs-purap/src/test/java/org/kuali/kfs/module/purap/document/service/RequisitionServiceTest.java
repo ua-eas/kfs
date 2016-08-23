@@ -18,13 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.sterner;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
@@ -33,8 +28,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.sterner;
 
 /**
  * Includes tests of the methods in RequisitionService.  For tests of isAutomaticPurchaseOrderAllowed,
@@ -70,7 +70,7 @@ public class RequisitionServiceTest extends KualiTestBase {
         }
     }
 
-    private RequisitionDocument routeReqToFinal( RequisitionDocument requistionDocument) throws Exception {
+    private RequisitionDocument routeReqToFinal(RequisitionDocument requistionDocument) throws Exception {
         String docid = requistionDocument.getDocumentNumber();
         AccountingDocumentTestUtils.routeDocument(requistionDocument, SpringContext.getBean(DocumentService.class));
         WorkflowTestUtils.waitForNodeChange(requistionDocument.getDocumentHeader().getWorkflowDocument(), ACCOUNT_REVIEW);
@@ -108,7 +108,7 @@ public class RequisitionServiceTest extends KualiTestBase {
 
         List<RequisitionDocument> reqs = reqService.getRequisitionsAwaitingContractManagerAssignment();
 
-        for(RequisitionDocument req : reqs) {
+        for (RequisitionDocument req : reqs) {
             docIds.add(req.getDocumentNumber());
         }
 

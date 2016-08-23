@@ -26,25 +26,30 @@ import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 public interface AttributedDocumentEvent extends KualiDocumentEvent {
     /**
      * Retrieves a named attribute from the event.
+     *
      * @param attributeName the name of the attribute to retrieve
      * @return the attribute's value, or null if no attribute with the given name was found.
      */
     public abstract Object getAttribute(String attributeName);
+
     /**
      * Sets the value of a named attribute on the event.
-     * @param attributeName the name of the attribute to set
+     *
+     * @param attributeName  the name of the attribute to set
      * @param attributeValue the value of the named attribute
      */
     public abstract void setAttribute(String attributeName, Object attributeValue);
 
     /**
      * This sets an iteration subject in the case of this event going through a CollectionValidation
+     *
      * @param iterationSubject the current subject of the CollectionValidation's iteration through a collection
      */
     public abstract void setIterationSubject(Object iterationSubject);
 
     /**
      * If event is going through a collection validation, this will return the current subject of the iteration through the collection
+     *
      * @return a subject to a CollectionValidation's iteration through a collection
      */
     public abstract Object getIterationSubject();

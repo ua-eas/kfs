@@ -42,9 +42,9 @@ public interface AssetDateService {
     /**
      * This method computes the depreciation date based on input parameters
      *
-     * @param assetType Asset Type Object
+     * @param assetType              Asset Type Object
      * @param depreciationConvention Depreciation Convention for the asset
-     * @param inServiceDate Current in-service date value
+     * @param inServiceDate          Current in-service date value
      * @return Computed Asset Depreciation Date
      */
     java.sql.Date computeDepreciationDate(AssetType assetType, AssetDepreciationConvention depreciationConvention, java.sql.Date inServiceDate);

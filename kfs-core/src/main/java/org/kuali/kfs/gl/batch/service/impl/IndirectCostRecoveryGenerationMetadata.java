@@ -35,27 +35,35 @@ public class IndirectCostRecoveryGenerationMetadata {
         this.indirectCostRecoveryTypeCode = indirectCostRecoveryTypeCode;
         this.financialIcrSeriesIdentifier = financialIcrSeriesIdentifier;
     }
+
     public String getIndirectCostRecoveryTypeCode() {
         return indirectCostRecoveryTypeCode;
     }
+
     public void setIndirectCostRecoveryTypeCode(String indirectCostRecoveryTypeCode) {
         this.indirectCostRecoveryTypeCode = indirectCostRecoveryTypeCode;
     }
+
     public String getFinancialIcrSeriesIdentifier() {
         return financialIcrSeriesIdentifier;
     }
+
     public void setFinancialIcrSeriesIdentifier(String financialIcrSeriesIdentifier) {
         this.financialIcrSeriesIdentifier = financialIcrSeriesIdentifier;
     }
+
     public String getIndirectCostRcvyFinCoaCode() {
         return indirectCostRcvyFinCoaCode;
     }
+
     public void setIndirectCostRcvyFinCoaCode(String indirectCostRcvyFinCoaCode) {
         this.indirectCostRcvyFinCoaCode = indirectCostRcvyFinCoaCode;
     }
+
     public String getIndirectCostRecoveryAcctNbr() {
         return indirectCostRecoveryAcctNbr;
     }
+
     public void setIndirectCostRecoveryAcctNbr(String indirectCostRecoveryAcctNbr) {
         this.indirectCostRecoveryAcctNbr = indirectCostRecoveryAcctNbr;
     }
@@ -63,6 +71,7 @@ public class IndirectCostRecoveryGenerationMetadata {
     public List<IndirectCostRecoveryAccountDistributionMetadata> getAccountLists() {
         return accountLists;
     }
+
     public void setAccountLists(List<IndirectCostRecoveryAccountDistributionMetadata> accountLists) {
         this.accountLists = accountLists;
     }

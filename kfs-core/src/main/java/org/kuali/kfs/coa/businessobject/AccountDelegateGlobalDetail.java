@@ -19,10 +19,8 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.Arrays;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -32,7 +30,9 @@ import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+
+import java.sql.Date;
+import java.util.Arrays;
 
 
 public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase {
@@ -70,16 +70,17 @@ public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }
@@ -243,7 +244,7 @@ public class AccountDelegateGlobalDetail extends GlobalBusinessObjectDetailBase 
      */
     @Override
     public int hashCode() {
-        return ObjectUtil.generateHashCode(this, Arrays.asList(KFSPropertyConstants.DOCUMENT_NUMBER,"financialDocumentTypeCode", "accountDelegatePrimaryRoutingIndicator", "accountDelegateUniversalId" ));
+        return ObjectUtil.generateHashCode(this, Arrays.asList(KFSPropertyConstants.DOCUMENT_NUMBER, "financialDocumentTypeCode", "accountDelegatePrimaryRoutingIndicator", "accountDelegateUniversalId"));
     }
 
 }

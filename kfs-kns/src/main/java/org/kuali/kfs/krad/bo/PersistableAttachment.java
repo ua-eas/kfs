@@ -20,9 +20,6 @@ package org.kuali.kfs.krad.bo;
 
 /**
  * This is a description of what this class does - chitra07 don't forget to fill this in.
- *
- *
- *
  */
 public interface PersistableAttachment {
 

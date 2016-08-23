@@ -30,7 +30,7 @@ import java.sql.Date;
  * Fixture class for ContractsGrantsInvoiceDocument
  */
 public enum ContractsGrantsInvoiceDocumentFixture {
-    CG_INV_DOC1("11",  "2011-12-23"), CG_INV_DOC2("1234", "2011-12-23");
+    CG_INV_DOC1("11", "2011-12-23"), CG_INV_DOC2("1234", "2011-12-23");
 
     private String proposalNumber;
     private String billingDate;
@@ -52,8 +52,7 @@ public enum ContractsGrantsInvoiceDocumentFixture {
         ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = null;
         try {
             contractsGrantsInvoiceDocument = (ContractsGrantsInvoiceDocument) documentService.getNewDocument("CINV");
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 

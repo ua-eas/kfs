@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.krad.config;
 
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.core.api.config.module.RunMode;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.config.module.ModuleConfigurer;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.SmartApplicationListener;
@@ -97,7 +97,7 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     /**
      * Used to "poke" the Data Dictionary again after the Spring Context is initialized.  This is to
      * allow for modules loaded with KualiModule after the KNS has already been initialized to work.
-     *
+     * <p>
      * Also initializes the DateTimeService
      */
     protected void loadDataDictionary() {
@@ -106,14 +106,14 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
             DataDictionaryService dds = KRADServiceLocatorWeb.getDataDictionaryService();
             if (dds == null) {
                 dds = (DataDictionaryService) GlobalResourceLoader
-                        .getService(KRADServiceLocatorWeb.DATA_DICTIONARY_SERVICE);
+                    .getService(KRADServiceLocatorWeb.DATA_DICTIONARY_SERVICE);
             }
             dds.getDataDictionary().parseDataDictionaryConfigurationFiles(false);
 
             if (isValidateDataDictionary()) {
                 LOG.info("KRAD Configurer - Validating DD");
                 //TODO: Fix via config when we can.
-               // dds.getDataDictionary().validateDD(isValidateDataDictionaryEboReferences());
+                // dds.getDataDictionary().validateDD(isValidateDataDictionaryEboReferences());
                 dds.getDataDictionary().validateDD();
             }
 
@@ -140,7 +140,7 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
                             throw e;
                         } finally {
                             long end = System.currentTimeMillis();
-                            LOG.info("... finished scheduled execution of Data Dictionary component publishing.  Took " + (end-start) + " milliseconds");
+                            LOG.info("... finished scheduled execution of Data Dictionary component publishing.  Took " + (end - start) + " milliseconds");
                         }
                     }
                 }, delay, TimeUnit.MILLISECONDS);
@@ -166,7 +166,6 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     }
 
 
-
     public boolean isLoadDataDictionary() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty("load.data.dictionary", true);
     }
@@ -177,12 +176,12 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
 
     public boolean isValidateDataDictionaryEboReferences() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty("validate.data.dictionary.ebo.references",
-                false);
+            false);
     }
 
     public boolean isComponentPublishingEnabled() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty(
-                KRADConstants.Config.COMPONENT_PUBLISHING_ENABLED, false);
+            KRADConstants.Config.COMPONENT_PUBLISHING_ENABLED, false);
     }
 
     public long getComponentPublishingDelay() {
@@ -192,13 +191,13 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     /**
      * Used to "poke" the Data Dictionary again after the Spring Context is initialized.  This is to
      * allow for modules loaded with KualiModule after the KNS has already been initialized to work.
-     *
+     * <p>
      * Also initializes the DateTimeService
      */
     protected void configureDataSource() {
         if (getApplicationDataSource() != null) {
             ConfigContext.getCurrentContextConfig()
-                    .putObject(KRADConstants.KRAD_APPLICATION_DATASOURCE, getApplicationDataSource());
+                .putObject(KRADConstants.KRAD_APPLICATION_DATASOURCE, getApplicationDataSource());
         }
     }
 

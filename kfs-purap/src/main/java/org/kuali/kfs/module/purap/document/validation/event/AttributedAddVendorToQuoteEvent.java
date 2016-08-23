@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
-
 
 
 /**
@@ -36,7 +35,7 @@ public final class AttributedAddVendorToQuoteEvent extends AttributedDocumentEve
      * Constructs an AddVendorToQuoteEvent with the given errorPathPrefix and document.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked on
+     * @param document        document the event was invoked on
      */
     public AttributedAddVendorToQuoteEvent(String errorPathPrefix, Document document, PurchaseOrderVendorQuote vendorQuote) {
         super("adding vendor to document " + getDocumentId(document), errorPathPrefix, document);

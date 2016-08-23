@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -33,8 +32,9 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpenseLineValidation {
     protected ActualExpense actualExpenseForValidation;
@@ -47,11 +47,11 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
 
-        TravelDocument document = (TravelDocument)event.getDocument();
+        TravelDocument document = (TravelDocument) event.getDocument();
 
         success = getDictionaryValidationService().isBusinessObjectValid(getActualExpenseForValidation());
         if (success) {
-			success = validateExpenses(getActualExpenseForValidation(), document);
+            success = validateExpenses(getActualExpenseForValidation(), document);
         }
         return success;
     }
@@ -65,21 +65,21 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
      */
     public boolean validateExpenses(ActualExpense expense, TravelDocument document) {
 
-         boolean success = (validateGeneralRules(expense, document) &&
-                validateExpenseDetail(expense) &&
-                validateAirfareRules(expense, document) &&
-                validateRentalCarRules(expense, document) &&
-                validateLodgingRules(expense, document) &&
-                validateLodgingAllowanceRules(expense, document) &&
-                validatePerDiemRules(expense, document) &&
-                validateMaximumAmountRules(expense, document));
+        boolean success = (validateGeneralRules(expense, document) &&
+            validateExpenseDetail(expense) &&
+            validateAirfareRules(expense, document) &&
+            validateRentalCarRules(expense, document) &&
+            validateLodgingRules(expense, document) &&
+            validateLodgingAllowanceRules(expense, document) &&
+            validatePerDiemRules(expense, document) &&
+            validateMaximumAmountRules(expense, document));
 
         return success;
     }
 
     /**
      * This method validates following rules
-     *
+     * <p>
      * 1.Validates notes field if indicator set to true
      * 2.Validates expense amount if expense type is not mileage
      * 3.Validates currency rate
@@ -94,7 +94,7 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
 
         if (ObjectUtils.isNull(actualExpense)) {
             return false;
-         }
+        }
 
         final ExpenseTypeObjectCode expenseTypeCode = actualExpense.getExpenseTypeObjectCode();
 
@@ -117,8 +117,7 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
             success = false;
             if (expenseTypeCode != null && expenseTypeCode.isPerDaily()) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_ACTUAL_EXPENSE_DUPLICATE_ENTRY_DAILY, actualExpense.getExpenseTypeCode());
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_ACTUAL_EXPENSE_DUPLICATE_ENTRY, actualExpense.getExpenseTypeCode(), actualExpense.getExpenseDate().toString());
             }
         }
@@ -140,12 +139,12 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
         actualExpense.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
         ExpenseTypeObjectCode expenseType = actualExpense.getExpenseTypeObjectCode();
 
-        if (ObjectUtils.isNotNull(expenseType)){
-            if (expenseType.getExpenseType().isExpenseDetailRequired() && actualExpense.getExpenseDetails().isEmpty()){
+        if (ObjectUtils.isNotNull(expenseType)) {
+            if (expenseType.getExpenseType().isExpenseDetailRequired() && actualExpense.getExpenseDetails().isEmpty()) {
                 //detail is required when adding the expense
-                if (isWarningOnly()){
+                if (isWarningOnly()) {
                     GlobalVariables.getMessageMap().putWarning(TemPropertyConstants.TEM_ACTUAL_EXPENSE_DETAIL, TemKeyConstants.ERROR_ACTUAL_EXPENSE_DETAIL_REQUIRED, expenseType.getExpenseType().getName());
-                }else{
+                } else {
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.TEM_ACTUAL_EXPENSE_DETAIL, TemKeyConstants.ERROR_ACTUAL_EXPENSE_DETAIL_REQUIRED, expenseType.getExpenseType().getName());
                     success = false;
                 }
@@ -167,14 +166,13 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
         ExpenseTypeObjectCode expenseTypeObjectCode = actualExpense.getExpenseTypeObjectCode();
 
         KualiDecimal maxAmount = getMaximumAmount(actualExpense, document, expenseTypeObjectCode);
-        if (maxAmount.isNonZero())  {
+        if (maxAmount.isNonZero()) {
             if (expenseTypeObjectCode.isPerDaily()) {
                 if (maxAmount.isLessThan(actualExpense.getConvertedAmount())) { // per daily - check that just this actual expense is greater than max amount
                     success = false;
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_ACTUAL_EXPENSE_MAX_AMT_PER_DAILY, expenseTypeObjectCode.getMaximumAmount().toString());
                 }
-            }
-            else if (expenseTypeObjectCode.isPerOccurrence()) {
+            } else if (expenseTypeObjectCode.isPerOccurrence()) {
                 KualiDecimal totalPerExpenseType = getTotalDocumentAmountForExpenseType(document, actualExpense.getExpenseType());
                 if (!isCurrentExpenseInCollection()) {
                     totalPerExpenseType = totalPerExpenseType.add(actualExpense.getConvertedAmount());
@@ -190,7 +188,8 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
 
     /**
      * Calculates the total of all actual and imported expenses on the document with the given expense type
-     * @param document the document to find the total of expenses of the given expense type for
+     *
+     * @param document    the document to find the total of expenses of the given expense type for
      * @param expenseType the expense type to find a total for
      * @return the total of the converted values of all expenses on the document of that expense type
      */
@@ -202,7 +201,8 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
 
     /**
      * Given a list of expenses, calculates the total of those expenses where the expense type of the expense is that of the given expense type
-     * @param expenses the expenses to total
+     *
+     * @param expenses    the expenses to total
      * @param expenseType the expense type to total for
      * @return the total of the expenses for the given expense type
      */
@@ -219,10 +219,10 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     /**
      * This method validates following rules
      * <ol>
-     *  <li>Validates if lodging allowance is entered for the same day</li>
-     *  <li>Per Diem lodging allowance can also not be entered on the same day</li>
+     * <li>Validates if lodging allowance is entered for the same day</li>
+     * <li>Per Diem lodging allowance can also not be entered on the same day</li>
      * </ol>
-     *
+     * <p>
      * Warn if there is any lodging allowance in the Per Diem section
      *
      * @param actualExpense
@@ -244,10 +244,10 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
 
     /**
      * This method validated following rules
-     *
+     * <p>
      * 1. Validates if lodging allowance is entered for the same day
      * 2. Per Diem lodging allowance can also not be entered on the same day
-     *
+     * <p>
      * Warn if there is any lodging allowance in the Per Diem section
      *
      * @param actualExpense
@@ -277,7 +277,6 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     }
 
     /**
-     *
      * @param ote
      * @param document
      * @return
@@ -285,17 +284,17 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     protected boolean isLodgingAllowanceEntered(ActualExpense ote, TravelDocument document) {
         for (ActualExpense actualExpense : document.getActualExpenses()) {
             if (actualExpense.isLodgingAllowance()
-                    && (!ote.equals(actualExpense))
-                    && (ote.getExpenseDate() != null
-                            && ote.getExpenseDate().equals(actualExpense.getExpenseDate()))) {
+                && (!ote.equals(actualExpense))
+                && (ote.getExpenseDate() != null
+                && ote.getExpenseDate().equals(actualExpense.getExpenseDate()))) {
                 return true;
             }
         }
 
         for (PerDiemExpense perDiemExpense : document.getPerDiemExpenses()) {
             if (KualiDecimal.ZERO.isLessThan(perDiemExpense.getLodging())
-                    && (ote.getExpenseDate() != null
-                            && ote.getExpenseDate().equals(perDiemExpense.getMileageDate()))) {
+                && (ote.getExpenseDate() != null
+                && ote.getExpenseDate().equals(perDiemExpense.getMileageDate()))) {
                 return true;
             }
         }
@@ -304,7 +303,6 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     }
 
     /**
-     *
      * @param ote
      * @param document
      * @return
@@ -312,9 +310,9 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
     protected boolean isLodgingEntered(ActualExpense ote, TravelDocument document) {
         for (ActualExpense actualExpense : document.getActualExpenses()) {
             if (actualExpense.isLodging()
-                    && (!ote.equals(actualExpense))
-                    && (ote.getExpenseDate() != null
-                            && ote.getExpenseDate().equals(actualExpense.getExpenseDate()))) {
+                && (!ote.equals(actualExpense))
+                && (ote.getExpenseDate() != null
+                && ote.getExpenseDate().equals(actualExpense.getExpenseDate()))) {
                 return true;
             }
         }
@@ -336,11 +334,11 @@ public class TravelDocumentActualExpenseLineValidation extends TemDocumentExpens
 
         final ExpenseTypeObjectCode expenseTypeCode = expense.getExpenseTypeObjectCode();
         //do a check if its coming out of the document expense list - this will happen during route validation
-        if (!document.getActualExpenses().contains(expense)){
+        if (!document.getActualExpenses().contains(expense)) {
             for (ActualExpense actualExpense : document.getActualExpenses()) {
                 if (expense.getExpenseDate() != null
-                        && expense.getExpenseDate().equals(actualExpense.getExpenseDate())
-                        && actualExpense.getExpenseTypeCode().equals(expense.getExpenseTypeCode())) {
+                    && expense.getExpenseDate().equals(actualExpense.getExpenseDate())
+                    && actualExpense.getExpenseTypeCode().equals(expense.getExpenseTypeCode())) {
                     return true;
                 }
             }

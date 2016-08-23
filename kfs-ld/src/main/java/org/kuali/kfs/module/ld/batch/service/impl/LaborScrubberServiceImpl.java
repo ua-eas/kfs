@@ -20,9 +20,11 @@ package org.kuali.kfs.module.ld.batch.service.impl;
 
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.gl.service.PreScrubberService;
 import org.kuali.kfs.gl.service.ScrubberValidator;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ld.batch.service.LaborAccountingCycleCachingService;
 import org.kuali.kfs.module.ld.batch.service.LaborScrubberService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryService;
@@ -32,8 +34,6 @@ import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -79,7 +79,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
         // many instance variables which shouldn't be used for Spring services
 
         LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
-                llcpMainReportWriterService, llcpLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, laborPreScrubberService, llcpPreScrubberReportWriterService, parameterService);
+            llcpMainReportWriterService, llcpLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, laborPreScrubberService, llcpPreScrubberReportWriterService, parameterService);
         sp.scrubGroupReportOnly(fileName, documentNumber);
     }
 
@@ -93,14 +93,14 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
         // many instance variables which shouldn't be used for Spring services
 
         LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
-                laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
+            laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
         sp.scrubEntries();
     }
 
     public void performDemerger() {
         LOG.debug("performDemerger() started");
         LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
-                laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
+            laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
         sp.performDemerger();
 
     }
@@ -192,6 +192,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the flexibleOffsetAccountService attribute value.
+     *
      * @param flexibleOffsetAccountService The flexibleOffsetAccountService to set.
      */
     public void setFlexibleOffsetAccountService(FlexibleOffsetAccountService flexibleOffsetAccountService) {
@@ -247,6 +248,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the llcpMainReportWriterService attribute value.
+     *
      * @param llcpMainReportWriterService The llcpMainReportWriterService to set.
      */
     public void setLlcpMainReportWriterService(DocumentNumberAwareReportWriterService llcpMainReportWriterService) {
@@ -255,6 +257,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the llcpLedgerReportWriterService attribute value.
+     *
      * @param llcpLedgerReportWriterService The llcpLedgerReportWriterService to set.
      */
     public void setLlcpLedgerReportWriterService(DocumentNumberAwareReportWriterService llcpLedgerReportWriterService) {
@@ -263,6 +266,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Gets the laborPreScrubberService attribute.
+     *
      * @return Returns the laborPreScrubberService.
      */
     public PreScrubberService getLaborPreScrubberService() {
@@ -271,6 +275,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the laborPreScrubberService attribute value.
+     *
      * @param laborPreScrubberService The laborPreScrubberService to set.
      */
     public void setLaborPreScrubberService(PreScrubberService laborPreScrubberService) {
@@ -279,6 +284,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the laborPreScrubberAwareReportWriterService attribute value.
+     *
      * @param laborPreScrubberAwareReportWriterService The laborPreScrubberAwareReportWriterService to set.
      */
     public void setLlcpPreScrubberReportWriterService(DocumentNumberAwareReportWriterService llcpPreScrubberReportWriterService) {
@@ -287,6 +293,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

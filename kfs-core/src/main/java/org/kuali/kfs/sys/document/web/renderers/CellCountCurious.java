@@ -26,6 +26,7 @@ public interface CellCountCurious {
     /**
      * This method lets the object demanding the rendering to set the total number of cells that the
      * table will be rendered as
+     *
      * @param cellCount the width, measured in table cells, of the accounting line table
      */
     public abstract void setCellCount(int cellCount);

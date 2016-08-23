@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+
+import java.util.List;
 
 /**
  * Presentation Controller for Budget Adjustment documents
@@ -49,6 +49,7 @@ public class BudgetAdjustmentDocumentPresentationController extends AccountingDo
     }
 
     // TODO is there really anything specific to the BA in this logic?
+
     /**
      * @see org.kuali.kfs.sys.document.authorization.LedgerPostingDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
      */
@@ -57,7 +58,7 @@ public class BudgetAdjustmentDocumentPresentationController extends AccountingDo
         final WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
         if (!(document instanceof Correctable)) return false;
-        if (!((FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) return false;
+        if (!((FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(document.getClass().getName())).getAllowsErrorCorrection()) return false;
         if (document.getFinancialSystemDocumentHeader().getCorrectedByDocumentId() != null) return false;
         return (workflowDocument.isApproved() || workflowDocument.isProcessed() || workflowDocument.isFinal());
     }

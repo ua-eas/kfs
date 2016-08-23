@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 /**
  * This interface defines methods that are required to support c Confirmation Question.
- *
- *
  */
 public interface Question {
     /**

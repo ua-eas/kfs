@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.integration.ld;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.BalanceType;
@@ -31,14 +27,18 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
-public interface LaborLedgerEntry extends PersistableBusinessObject, ExternalizableBusinessObject{
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+
+public interface LaborLedgerEntry extends PersistableBusinessObject, ExternalizableBusinessObject {
 
     /**
      * Gets the universityFiscalYear

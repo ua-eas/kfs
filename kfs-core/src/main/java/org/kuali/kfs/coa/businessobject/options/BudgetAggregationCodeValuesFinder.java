@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.BudgetAggregationCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class returns list of Budget Aggregation Code type value pairs.
@@ -45,10 +45,10 @@ public class BudgetAggregationCodeValuesFinder extends KeyValuesBase {
         // get a list of all budget aggregations codes
         List<BudgetAggregationCode> budgetAggregationCodes = (List<BudgetAggregationCode>) SpringContext.getBean(KeyValuesService.class).findAll(BudgetAggregationCode.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( budgetAggregationCodes == null ) {
+        if (budgetAggregationCodes == null) {
             budgetAggregationCodes = new ArrayList<BudgetAggregationCode>(0);
         } else {
-            budgetAggregationCodes = new ArrayList<BudgetAggregationCode>( budgetAggregationCodes );
+            budgetAggregationCodes = new ArrayList<BudgetAggregationCode>(budgetAggregationCodes);
         }
 
         // sort using comparator.
@@ -58,7 +58,7 @@ public class BudgetAggregationCodeValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
 
         for (BudgetAggregationCode budgetAggregationCode : budgetAggregationCodes) {
-            if(budgetAggregationCode.isActive()) {
+            if (budgetAggregationCode.isActive()) {
                 labels.add(new ConcreteKeyValue(budgetAggregationCode.getCode(), budgetAggregationCode.getCodeAndDescription()));
             }
         }

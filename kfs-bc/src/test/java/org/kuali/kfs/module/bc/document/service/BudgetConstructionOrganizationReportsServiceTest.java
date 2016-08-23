@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.List;
 
 /**
  * This class...

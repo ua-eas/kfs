@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Set;
 
 public class TemProfileDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
 
@@ -37,7 +37,7 @@ public class TemProfileDocumentPresentationController extends FinancialSystemMai
         Set<String> readOnlyPropertyNames = super.getConditionallyReadOnlyPropertyNames(document);
 
         TemProfile profile = (TemProfile) document.getNewMaintainableObject().getBusinessObject();
-        if (!StringUtils.isBlank(profile.getPrincipalId())){
+        if (!StringUtils.isBlank(profile.getPrincipalId())) {
             readOnlyPropertyNames.addAll(TemPropertyConstants.KIMReadOnly().keySet());
         }
         readOnlyPropertyNames.add(TemPropertyConstants.TemProfileProperties.TRAVELER_TYPE_CODE);

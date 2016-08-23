@@ -26,8 +26,6 @@ import org.kuali.kfs.krad.rules.rule.BusinessRule;
 /**
  * This class represents the add AdHocRouteWorkgroup event that is part of an eDoc in Kuali. This is triggered when a user presses
  * the add button for a given adHocRouteWorkgroup.
- *
- *
  */
 public final class AddAdHocRouteWorkgroupEvent extends KualiDocumentEventBase {
     private AdHocRouteWorkgroup adHocRouteWorkgroup;

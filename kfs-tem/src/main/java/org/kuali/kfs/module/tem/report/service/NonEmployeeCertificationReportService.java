@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.report.service;
 
-import java.io.File;
-
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.report.NonEmployeeCertificationReport;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
 
 /**
  * Service implementation of ExpenseSummaryReportService.
@@ -31,6 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface NonEmployeeCertificationReportService {
     File generateReport(NonEmployeeCertificationReport report);
 
-	NonEmployeeCertificationReport buildReport(final TravelDocument travelDocument);
+    NonEmployeeCertificationReport buildReport(final TravelDocument travelDocument);
 
 }

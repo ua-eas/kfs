@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountGuideline;
@@ -29,22 +25,9 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.dto.AccountCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.AccountParametersDTO;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
-import org.kuali.kfs.module.external.kc.businessobject.IndirectCostRecoveryAutoDefAccount;
-import org.kuali.kfs.module.external.kc.service.AccountCreationService;
-import org.kuali.kfs.module.external.kc.service.AccountDefaultsService;
-import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
-import org.kuali.kfs.module.external.kc.util.KcUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaNumericValidationPattern;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
@@ -65,6 +48,23 @@ import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
+import org.kuali.kfs.module.external.kc.businessobject.IndirectCostRecoveryAutoDefAccount;
+import org.kuali.kfs.module.external.kc.service.AccountCreationService;
+import org.kuali.kfs.module.external.kc.service.AccountDefaultsService;
+import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
+import org.kuali.kfs.module.external.kc.util.KcUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class AccountCreationServiceImpl implements AccountCreationService {
 
@@ -100,7 +100,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
 
         // check to see if the user has the permission to create account
         String principalId = accountParameters.getPrincipalId();
-        LOG.debug("principalId  ::::"+ principalId);
+        LOG.debug("principalId  ::::" + principalId);
         if (!isValidUser(principalId)) {
             this.setFailStatus(accountCreationStatus, KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_INVALID_USER, new String[]{principalId}));
             return accountCreationStatus;
@@ -121,13 +121,13 @@ public class AccountCreationServiceImpl implements AccountCreationService {
             Account account = createAccountObject(accountParameters, defaults);
 
             //if invalid chart/account number, failure status and return to KC
-            if (! isValidAccount(account, accountCreationStatus)) {
+            if (!isValidAccount(account, accountCreationStatus)) {
                 return accountCreationStatus;
             }
             // create an account automatic maintenance document
             createAutomaticCGAccountMaintenanceDocument(account, accountCreationStatus);
 
-        } catch (Exception ex ) {
+        } catch (Exception ex) {
             this.setFailStatus(accountCreationStatus, KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_GENERATION_PROBLEM);
             return accountCreationStatus;
         }
@@ -141,7 +141,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         return accountCreationStatus;
     }
 
-     /**
+    /**
      * This method creates an account to be used for automatic maintenance document
      *
      * @param AccountParametersDTO
@@ -166,7 +166,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         boolean isKCOverrideKFS = parameterService.getParameterValueAsBoolean(Account.class, KcConstants.AccountCreationService.PARAMETER_KC_OVERRIDES_KFS_DEFAULT_ACCOUNT_IND);
         if (isKCOverrideKFS) {
             // set the right address based on the system parameter RESEARCH_ADMIN_ACCOUNT_ADDRESS_TYPE
-            List<String> addressTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(Account.class, KcConstants.AccountCreationService.PARAMETER_KC_ACCOUNT_ADDRESS_TYPE) );
+            List<String> addressTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(Account.class, KcConstants.AccountCreationService.PARAMETER_KC_ACCOUNT_ADDRESS_TYPE));
             for (String addressType : addressTypes) {
                 if (addressType.equals(KcConstants.AccountCreationService.PI_ADDRESS_TYPE) && (!StringUtils.isBlank(parameters.getDefaultAddressStreetAddress()))) {
                     account.setAccountStreetAddress(parameters.getDefaultAddressStreetAddress());
@@ -174,15 +174,14 @@ public class AccountCreationServiceImpl implements AccountCreationService {
                     account.setAccountStateCode(parameters.getDefaultAddressStateCode());
                     account.setAccountZipCode(parameters.getDefaultAddressZipCode());
                     break;
-                }
-                else if (addressType.equals(KcConstants.AccountCreationService.ADMIN_ADDRESS_TYPE) && (!StringUtils.isBlank(parameters.getAdminContactAddressStreetAddress()))) {
+                } else if (addressType.equals(KcConstants.AccountCreationService.ADMIN_ADDRESS_TYPE) && (!StringUtils.isBlank(parameters.getAdminContactAddressStreetAddress()))) {
                     account.setAccountStreetAddress(parameters.getAdminContactAddressStreetAddress());
                     account.setAccountCityName(parameters.getAdminContactAddressCityName());
                     account.setAccountStateCode(parameters.getAdminContactAddressStateCode());
                     account.setAccountZipCode(parameters.getAdminContactAddressZipCode());
                     break;
                 }
-             }
+            }
 
         } else {
             // use default address
@@ -253,8 +252,8 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         return account;
     }
 
-    /** create an indirect cost recovery distribution account based on default
-     *
+    /**
+     * create an indirect cost recovery distribution account based on default
      */
     protected IndirectCostRecoveryAccount createIndirectCostRecoveryAccount(IndirectCostRecoveryAutoDefAccount indirectCostRecoveryAutoDefAccount, String chartCode, String acctNumber) {
         IndirectCostRecoveryAccount indirectCostRecoveryAccount = new IndirectCostRecoveryAccount();
@@ -269,7 +268,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         return indirectCostRecoveryAccount;
     }
 
-     protected void setFailStatus(AccountCreationStatusDTO accountCreationStatus, String message) {
+    protected void setFailStatus(AccountCreationStatusDTO accountCreationStatus, String message) {
         accountCreationStatus.getErrorMessages().add(message);
         accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
     }
@@ -314,7 +313,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
 
             // if the accountAutoCreateRouteValue is not save or submit or blanketApprove then put an error message and quit.
             if (!accountAutoCreateRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_SAVE) && !accountAutoCreateRouteValue.equalsIgnoreCase("submit") && !accountAutoCreateRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_BLANKET_APPROVE)) {
-                this.setFailStatus( accountCreationStatus, KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_SYSTEM_PARAMETER_INCORRECT_DOCUMENT_ACTION_VALUE);
+                this.setFailStatus(accountCreationStatus, KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_SYSTEM_PARAMETER_INCORRECT_DOCUMENT_ACTION_VALUE);
                 LOG.error("Incorrect document status::::: " + accountCreationStatus.getErrorMessages().toString());
                 return;
             }
@@ -323,60 +322,61 @@ public class AccountCreationServiceImpl implements AccountCreationService {
 
                 //attempt to save if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new SaveDocumentEvent(maintenanceAccountDocument));
-                LOG.debug("global variable messages :::  "  + GlobalVariables.getMessageMap().getErrorMessages().toString());
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                LOG.debug("global variable messages :::  " + GlobalVariables.getMessageMap().getErrorMessages().toString());
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().saveDocument(maintenanceAccountDocument);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
-                    LOG.info("rule fail formatting errors messages " ) ;
+                    LOG.info("rule fail formatting errors messages ");
                     accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(maintenanceAccountDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
                 }
 
-            }
-            else if (accountAutoCreateRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_BLANKET_APPROVE)) {
+            } else if (accountAutoCreateRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_BLANKET_APPROVE)) {
 
                 //attempt to blanket approve if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new BlanketApproveDocumentEvent(maintenanceAccountDocument));
 
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().blanketApproveDocument(maintenanceAccountDocument, "", null);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
                     accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(maintenanceAccountDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
                 }
 
-            }
-            else if (accountAutoCreateRouteValue.equalsIgnoreCase("submit")) {
+            } else if (accountAutoCreateRouteValue.equalsIgnoreCase("submit")) {
 
                 //attempt to route if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new RouteDocumentEvent(maintenanceAccountDocument));
 
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().routeDocument(maintenanceAccountDocument, "", null);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
                     accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(maintenanceAccountDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_RULES_EXCEPTION, new String[]{maintenanceAccountDocument.getDocumentNumber()}));
                 }
 
             }
@@ -384,31 +384,28 @@ public class AccountCreationServiceImpl implements AccountCreationService {
             // set the document number
             accountCreationStatus.setDocumentNumber(maintenanceAccountDocument.getDocumentNumber());
 
-        }
-        catch (WorkflowException wfe) {
+        } catch (WorkflowException wfe) {
 
-            LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + wfe.getMessage());
+            LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + wfe.getMessage());
             accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
-            accountCreationStatus.getErrorMessages().add( KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + wfe.getMessage());
+            accountCreationStatus.getErrorMessages().add(KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + wfe.getMessage());
 
             try {
                 // save it even though it fails to route or blanket approve the document
-                try{
+                try {
                     getDocumentService().saveDocument(maintenanceAccountDocument);
-                }catch(ValidationException ve){
+                } catch (ValidationException ve) {
                     //ok to catch validation exceptions at this point
                 }
                 accountCreationStatus.setDocumentNumber(maintenanceAccountDocument.getDocumentNumber());
                 accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-            }
-            catch (WorkflowException e) {
-                LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + e.getMessage());
+            } catch (WorkflowException e) {
+                LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + e.getMessage());
                 accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
                 accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
             }
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
 
             LOG.error("Unknown exception occurred: " + ex.getMessage());
             accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
@@ -417,16 +414,15 @@ public class AccountCreationServiceImpl implements AccountCreationService {
 
             try {
                 // save it even though it fails to route or blanket approve the document
-                try{
+                try {
                     getDocumentService().saveDocument(maintenanceAccountDocument);
-                }catch(ValidationException ve){
+                } catch (ValidationException ve) {
                     //ok to catch validation exceptions at this point
                 }
                 accountCreationStatus.setDocumentNumber(maintenanceAccountDocument.getDocumentNumber());
                 accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-            }
-            catch (WorkflowException e) {
-                LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + e.getMessage());
+            } catch (WorkflowException e) {
+                LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.WARNING_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + e.getMessage());
                 accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
                 accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
             }
@@ -452,13 +448,11 @@ public class AccountCreationServiceImpl implements AccountCreationService {
             Document document = getDocumentService().getNewDocument(maintenanceDocumentDictionaryService.getDocumentTypeName(Account.class));
             return document;
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             accountCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
             accountCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
             return null;
-        }
-        finally {
+        } finally {
             // if a user session was established for this call, clear it our
             if (internalUserSession) {
                 GlobalVariables.clear();
@@ -468,12 +462,10 @@ public class AccountCreationServiceImpl implements AccountCreationService {
     }
 
 
-
     /**
      * Check to see if the main link between KFS and KC is valid, namely the chart and account number.
      * If these two values have some kind of error, then we don't want to generate an Account document
      * and we'll want to return a failure to KC.
-     *
      *
      * @param account
      * @param accountCreationStatus
@@ -490,7 +482,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
             return false;
         }
 
-        if (StringUtils.isBlank(account.getChartOfAccountsCode()) || StringUtils.isBlank(account.getAccountNumber())){
+        if (StringUtils.isBlank(account.getChartOfAccountsCode()) || StringUtils.isBlank(account.getAccountNumber())) {
             //chart of accounts or account number blank
             setFailStatus(accountCreationStatus, KcConstants.AccountCreationService.ERROR_KC_DOCUMENT_ACCOUNT_MISSING_CHART_OR_ACCT_NBR);
             return false;
@@ -498,35 +490,35 @@ public class AccountCreationServiceImpl implements AccountCreationService {
 
         if (!isValidChartCode(account.getChartOfAccountsCode())) {
             //the chart of accounts code is not valid
-            setFailStatus( accountCreationStatus, KcConstants.AccountCreationService.AUTOMATCICG_ACCOUNT_MAINTENANCE_CHART_NOT_DEFINED);
+            setFailStatus(accountCreationStatus, KcConstants.AccountCreationService.AUTOMATCICG_ACCOUNT_MAINTENANCE_CHART_NOT_DEFINED);
             return false;
         }
 
-        if (!isValidAccountNumberLength(account.getAccountNumber(), accountCreationStatus)){
+        if (!isValidAccountNumberLength(account.getAccountNumber(), accountCreationStatus)) {
             //the account number is an inappropriate length
             //error set in method
             return false;
         }
 
-        if (!checkUniqueAccountNumber(account.getAccountNumber())){
+        if (!checkUniqueAccountNumber(account.getAccountNumber())) {
             //account is not unique
-            setFailStatus( accountCreationStatus, KcUtils.getErrorMessage(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ACCT_NMBR_NOT_UNIQUE, new String[]{account.getAccountNumber()}));
+            setFailStatus(accountCreationStatus, KcUtils.getErrorMessage(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ACCT_NMBR_NOT_UNIQUE, new String[]{account.getAccountNumber()}));
             return false;
         }
 
         if (isValidChartAccount(account.getChartOfAccountsCode(), account.getAccountNumber())) {
             //the chart and account already exist
-            setFailStatus( accountCreationStatus, KcConstants.AccountCreationService.AUTOMATCICG_ACCOUNT_MAINTENANCE_ACCT_ALREADY_DEFINED);
+            setFailStatus(accountCreationStatus, KcConstants.AccountCreationService.AUTOMATCICG_ACCOUNT_MAINTENANCE_ACCT_ALREADY_DEFINED);
             return false;
         }
 
-        if (!checkAccountNumberPrefix(account.getAccountNumber(), accountCreationStatus)){
+        if (!checkAccountNumberPrefix(account.getAccountNumber(), accountCreationStatus)) {
             //account begins with invalid prefix
             //error set in method
             return false;
         }
 
-         return isValid;
+        return isValid;
     }
 
     @Override
@@ -557,10 +549,10 @@ public class AccountCreationServiceImpl implements AccountCreationService {
      * Checks an account numbers exact length
      *
      * @param accountNumber
-     * @param size to be returned
+     * @param size          to be returned
      * @return
      */
-    protected boolean isValidAccountNumberLength(String accountNumber, AccountCreationStatusDTO accountCreationStatus){
+    protected boolean isValidAccountNumberLength(String accountNumber, AccountCreationStatusDTO accountCreationStatus) {
 
         boolean isValid = false;
         int fieldSize = -1;
@@ -569,26 +561,26 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         final org.kuali.kfs.krad.datadictionary.BusinessObjectEntry entry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(Account.class.getName());
         AttributeDefinition attributeDefinition = entry.getAttributeDefinition(KFSPropertyConstants.ACCOUNT_NUMBER);
 
-        if(ObjectUtils.isNotNull(attributeDefinition)){
+        if (ObjectUtils.isNotNull(attributeDefinition)) {
             final ValidationPattern validationPattern = attributeDefinition.getValidationPattern();
 
-            if(ObjectUtils.isNotNull(validationPattern) && validationPattern instanceof AlphaNumericValidationPattern){
-                AlphaNumericValidationPattern alphaPattern = (AlphaNumericValidationPattern)validationPattern;
+            if (ObjectUtils.isNotNull(validationPattern) && validationPattern instanceof AlphaNumericValidationPattern) {
+                AlphaNumericValidationPattern alphaPattern = (AlphaNumericValidationPattern) validationPattern;
                 fieldSize = alphaPattern.getExactLength();
             }
         }
 
         //skip if account number null
-        if(ObjectUtils.isNotNull(accountNumber)){
+        if (ObjectUtils.isNotNull(accountNumber)) {
 
             //data dictionary defined size must equal length of incoming value
-            if(fieldSize == accountNumber.length()){
+            if (fieldSize == accountNumber.length()) {
                 isValid = true;
             }
         }
 
-        if(isValid == false){
-            setFailStatus( accountCreationStatus, KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KR_ALPHANUMERIC_VALIDATION_EXACT_LENGTH, new String[]{"account number", String.valueOf(fieldSize)}));
+        if (isValid == false) {
+            setFailStatus(accountCreationStatus, KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KR_ALPHANUMERIC_VALIDATION_EXACT_LENGTH, new String[]{"account number", String.valueOf(fieldSize)}));
         }
 
         return isValid;
@@ -601,7 +593,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
      * @param accountNumber - The Account Number to be tested.
      * @return false if the accountNumber starts with any of the illegalPrefixes, true otherwise
      */
-    protected boolean checkAccountNumberPrefix(String accountNumber, AccountCreationStatusDTO accountCreationStatus){
+    protected boolean checkAccountNumberPrefix(String accountNumber, AccountCreationStatusDTO accountCreationStatus) {
 
         boolean success = true;
 
@@ -610,12 +602,12 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         // Only bother trying if there is an account string to test
         if (!StringUtils.isBlank(accountNumber)) {
 
-            List<String> illegalValues = new ArrayList<String>( getParameterService().getParameterValuesAsString(Account.class, ACCT_PREFIX_RESTRICTION) );
+            List<String> illegalValues = new ArrayList<String>(getParameterService().getParameterValuesAsString(Account.class, ACCT_PREFIX_RESTRICTION));
 
             for (String illegalValue : illegalValues) {
                 if (accountNumber.startsWith(illegalValue)) {
                     success = false;
-                    setFailStatus( accountCreationStatus, KcUtils.getErrorMessage(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ACCT_NMBR_NOT_ALLOWED, new String[] { accountNumber, illegalValue }));
+                    setFailStatus(accountCreationStatus, KcUtils.getErrorMessage(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ACCT_NMBR_NOT_ALLOWED, new String[]{accountNumber, illegalValue}));
                 }
             }
         }

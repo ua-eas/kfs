@@ -18,6 +18,15 @@
  */
 package org.kuali.kfs.module.bc.dataaccess.impl;
 
+import org.kuali.kfs.gl.Constant;
+import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
+import org.kuali.kfs.module.bc.businessobject.Position;
+import org.kuali.kfs.module.bc.dataaccess.HumanResourcesPayrollDao;
+import org.kuali.kfs.module.bc.document.dataaccess.impl.BudgetConstructionDaoJdbcBase;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -26,15 +35,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.gl.Constant;
-import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
-import org.kuali.kfs.module.bc.businessobject.Position;
-import org.kuali.kfs.module.bc.dataaccess.HumanResourcesPayrollDao;
-import org.kuali.kfs.module.bc.document.dataaccess.impl.BudgetConstructionDaoJdbcBase;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 /**
  * Implementation of <code>HumanResourcesPayrollDao</code> using JDBC to query PS_POSITION_DATA and then set other
@@ -164,8 +164,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         if ("Y".equalsIgnoreCase(positionData.getBudgetedPosition())) {
             position.setBudgetedPosition(true);
-        }
-        else {
+        } else {
             position.setBudgetedPosition(false);
         }
 
@@ -189,23 +188,17 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
             position.setIuPayMonths(new Integer(10));
             position.setIuPositionType("AC");
             position.setIuDefaultObjectCode("2000");
-        }
-
-        else if ("PAO".equals(salaryPlan) || "PAU".equals(salaryPlan)) {
+        } else if ("PAO".equals(salaryPlan) || "PAU".equals(salaryPlan)) {
             position.setIuNormalWorkMonths(new Integer(12));
             position.setIuPayMonths(new Integer(12));
             position.setIuPositionType("SM");
             position.setIuDefaultObjectCode("2480");
-        }
-
-        else if (salaryPlan.startsWith("P")) {
+        } else if (salaryPlan.startsWith("P")) {
             position.setIuNormalWorkMonths(new Integer(12));
             position.setIuPayMonths(new Integer(12));
             position.setIuPositionType("SM");
             position.setIuDefaultObjectCode("2400");
-        }
-
-        else {
+        } else {
             position.setIuNormalWorkMonths(new Integer(12));
             position.setIuPayMonths(new Integer(12));
             position.setIuPositionType("SB");

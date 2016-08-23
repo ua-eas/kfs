@@ -72,6 +72,7 @@ public interface ContractsAndGrantsAccountAwardInformation extends Externalizabl
 
     /**
      * Gets the name of the project director for the associated award.
+     *
      * @return the name of the project director
      */
     public String getProjectDirectorName();

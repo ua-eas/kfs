@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo;
 
-import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
 import org.apache.log4j.BasicConfigurator;
+import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DocumentStoreSchemaUpdater {

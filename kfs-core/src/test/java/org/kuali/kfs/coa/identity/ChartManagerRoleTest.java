@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
@@ -36,6 +30,12 @@ import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @ConfigureContext
 public class ChartManagerRoleTest extends KualiTestBase {
 
@@ -44,9 +44,9 @@ public class ChartManagerRoleTest extends KualiTestBase {
         RoleService rms = KimApiServiceLocator.getRoleService();
         List<String> roleIds = new ArrayList<String>();
 
-        Map<String,String> qualification = new HashMap<String,String>();
+        Map<String, String> qualification = new HashMap<String, String>();
 
-        for ( String chart : SpringContext.getBean(ChartService.class).getAllChartCodes() ) {
+        for (String chart : SpringContext.getBean(ChartService.class).getAllChartCodes()) {
 
             qualification.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, chart);
 
@@ -55,14 +55,14 @@ public class ChartManagerRoleTest extends KualiTestBase {
             Collection<RoleMembership> chartManagers = rms.getRoleMembers(roleIds, qualification);
 //            System.out.println( chartManagers );
 
-            assertEquals( "There should be only one chart manager per chart: " + chart, 1, chartManagers.size() );
+            assertEquals("There should be only one chart manager per chart: " + chart, 1, chartManagers.size());
 
-            for ( RoleMembership rmi : chartManagers ) {
-                Person chartManager = SpringContext.getBean(PersonService.class).getPerson( rmi.getMemberId() );
-                System.out.println( chartManager );
-                assertNotNull( "unable to retrieve person object for principalId: " + rmi.getMemberId(), chartManager );
-                assertFalse( "name should not have been blank", chartManager.getName().equals("") );
-                assertFalse( "campus code should not have been blank", chartManager.getCampusCode().equals("") );
+            for (RoleMembership rmi : chartManagers) {
+                Person chartManager = SpringContext.getBean(PersonService.class).getPerson(rmi.getMemberId());
+                System.out.println(chartManager);
+                assertNotNull("unable to retrieve person object for principalId: " + rmi.getMemberId(), chartManager);
+                assertFalse("name should not have been blank", chartManager.getName().equals(""));
+                assertFalse("campus code should not have been blank", chartManager.getCampusCode().equals(""));
             }
         }
     }

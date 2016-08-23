@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -30,6 +26,10 @@ import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @ConfigureContext
 public class AccountingDocumentRelationshipServiceTest extends KualiTestBase {

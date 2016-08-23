@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.io.Serializable;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -27,6 +25,8 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
 
 /**
  * Represents a sufficient fund item which is used to show if a document has sufficient funds
@@ -55,6 +55,7 @@ public class SufficientFundsItem implements Serializable, Comparable {
 
     /**
      * Constructs a SufficientFundsItem.java.
+     *
      * @param universityFiscalYear
      * @param tran
      * @param sufficientFundsObjectCode
@@ -74,6 +75,7 @@ public class SufficientFundsItem implements Serializable, Comparable {
 
     /**
      * Constructs a SufficientFundsItem.java.
+     *
      * @param universityFiscalYear
      * @param accountLine
      * @param sufficientFundsObjectCode
@@ -93,26 +95,26 @@ public class SufficientFundsItem implements Serializable, Comparable {
 
     /**
      * Adds an accounting line's amount to this sufficient funds item
+     *
      * @param a accounting line
      */
     public void add(AccountingLine a) {
         if (a.getObjectType().getFinObjectTypeDebitcreditCd().equals(a.getDebitCreditCode()) || KFSConstants.EMPTY_STRING.equals(a.getDebitCreditCode())) {
             amount = amount.add(a.getAmount());
-        }
-        else {
+        } else {
             amount = amount.subtract(a.getAmount());
         }
     }
 
     /**
      * Adds a transactions amount to this sufficient funds item
+     *
      * @param t transactions
      */
     public void add(Transaction t) {
         if (t.getObjectType().getFinObjectTypeDebitcreditCd().equals(t.getTransactionDebitCreditCode()) || KFSConstants.EMPTY_STRING.equals(t.getTransactionDebitCreditCode())) {
             amount = amount.add(t.getTransactionLedgerEntryAmount());
-        }
-        else {
+        } else {
             amount = amount.subtract(t.getTransactionLedgerEntryAmount());
         }
     }

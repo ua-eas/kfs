@@ -20,47 +20,49 @@ package org.kuali.kfs.krad.uif.widget;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.control.CheckboxControl;
 import org.kuali.kfs.krad.uif.control.CheckboxGroupControl;
+import org.kuali.kfs.krad.uif.control.Control;
 import org.kuali.kfs.krad.uif.control.RadioGroupControl;
 import org.kuali.kfs.krad.uif.control.SelectControl;
+import org.kuali.kfs.krad.uif.field.DataField;
+import org.kuali.kfs.krad.uif.field.FieldGroup;
 import org.kuali.kfs.krad.uif.field.InputField;
 import org.kuali.kfs.krad.uif.layout.LayoutManager;
+import org.kuali.kfs.krad.uif.layout.TableLayoutManager;
 import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.web.form.UifFormBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.api.util.type.KualiPercent;
-import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.container.CollectionGroup;
-import org.kuali.kfs.krad.uif.control.Control;
-import org.kuali.kfs.krad.uif.field.DataField;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.field.FieldGroup;
-import org.kuali.kfs.krad.uif.layout.TableLayoutManager;
-import org.kuali.kfs.krad.web.form.UifFormBase;
 
 import java.sql.Timestamp;
 import java.util.Set;
 
 /**
  * Decorates a HTML Table client side with various tools
- *
+ * <p>
  * <p>
  * Decorations implemented depend on widget implementation. Examples are
  * sorting, paging and skinning.
  * </p>
- *
- *
  */
 public class RichTable extends WidgetBase {
     private static final long serialVersionUID = 4671589690877390070L;
 
     private String emptyTableMessage;
     private boolean disableTableSort;
-    /** since columns are visible by default, this set holds propertyNames for the ones meant to be hidden*/
+    /**
+     * since columns are visible by default, this set holds propertyNames for the ones meant to be hidden
+     */
     private Set<String> hiddenColumns;
-    /**holds the propertyNames for columns that are to be sorted*/
+    /**
+     * holds the propertyNames for columns that are to be sorted
+     */
     private Set<String> sortableColumns;
 
 
@@ -72,7 +74,7 @@ public class RichTable extends WidgetBase {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Initializes component options for empty table message</li>
      * </ul>
@@ -86,7 +88,7 @@ public class RichTable extends WidgetBase {
         if (isRender()) {
             if (StringUtils.isNotBlank(getEmptyTableMessage())) {
                 getComponentOptions().put(UifConstants.TableToolsKeys.LANGUAGE,
-                        "{\"" + UifConstants.TableToolsKeys.EMPTY_TABLE + "\" : \"" + getEmptyTableMessage() + "\"}");
+                    "{\"" + UifConstants.TableToolsKeys.EMPTY_TABLE + "\" : \"" + getEmptyTableMessage() + "\"}");
             }
 
             if (!isShowSearchAndExportOptions()) {
@@ -130,20 +132,20 @@ public class RichTable extends WidgetBase {
             setDisableTableSort(true);
         }
 
-       if (!isDisableTableSort()) {
+        if (!isDisableTableSort()) {
             // if rendering add line, skip that row from col sorting
             if (collectionGroup.isRenderAddLine()
-                    && !collectionGroup.isReadOnly()
-                    && !((layoutManager instanceof TableLayoutManager) && ((TableLayoutManager) layoutManager)
-                    .isSeparateAddLine())) {
+                && !collectionGroup.isReadOnly()
+                && !((layoutManager instanceof TableLayoutManager) && ((TableLayoutManager) layoutManager)
+                .isSeparateAddLine())) {
                 getComponentOptions().put(UifConstants.TableToolsKeys.SORT_SKIP_ROWS,
-                        "[" + UifConstants.TableToolsValues.ADD_ROW_DEFAULT_INDEX + "]");
+                    "[" + UifConstants.TableToolsValues.ADD_ROW_DEFAULT_INDEX + "]");
             }
 
             StringBuffer tableToolsColumnOptions = new StringBuffer("[");
 
             if (layoutManager instanceof TableLayoutManager && ((TableLayoutManager) layoutManager)
-                    .isRenderSequenceField()) {
+                .isRenderSequenceField()) {
                 tableToolsColumnOptions.append(" null ,");
             }
 
@@ -157,22 +159,22 @@ public class RichTable extends WidgetBase {
             if (!StringUtils.isEmpty(getComponentOptions().get(UifConstants.TableToolsKeys.AO_COLUMNS))) {
                 // get the contents of the JS array string
                 String jsArray = getComponentOptions().get(UifConstants.TableToolsKeys.AO_COLUMNS);
-                int startBrace = StringUtils.indexOf(jsArray,"[");
+                int startBrace = StringUtils.indexOf(jsArray, "[");
                 int endBrace = StringUtils.lastIndexOf(jsArray, "]");
                 tableToolsColumnOptions.append(StringUtils.substring(jsArray, startBrace + 1, endBrace) + " , ");
             } else {
-                    // use layout manager sortableColumns and hiddenColumns if set
-                    Set<String> currentSortableColumns =  getSortableColumns();
-                    Set<String> currentHiddenColumns =  getHiddenColumns();
-                    if (layoutManager instanceof TableLayoutManager) {
-                        TableLayoutManager tableLayoutMgr = (TableLayoutManager) layoutManager;
-                        if (tableLayoutMgr.getSortableColumns() != null && !tableLayoutMgr.getSortableColumns().isEmpty()) {
-                            currentSortableColumns = tableLayoutMgr.getSortableColumns();
-                        }
-                        if (tableLayoutMgr.getHiddenColumns() != null && !tableLayoutMgr.getHiddenColumns().isEmpty()) {
-                            currentHiddenColumns = tableLayoutMgr.getHiddenColumns();
-                        }
+                // use layout manager sortableColumns and hiddenColumns if set
+                Set<String> currentSortableColumns = getSortableColumns();
+                Set<String> currentHiddenColumns = getHiddenColumns();
+                if (layoutManager instanceof TableLayoutManager) {
+                    TableLayoutManager tableLayoutMgr = (TableLayoutManager) layoutManager;
+                    if (tableLayoutMgr.getSortableColumns() != null && !tableLayoutMgr.getSortableColumns().isEmpty()) {
+                        currentSortableColumns = tableLayoutMgr.getSortableColumns();
                     }
+                    if (tableLayoutMgr.getHiddenColumns() != null && !tableLayoutMgr.getHiddenColumns().isEmpty()) {
+                        currentHiddenColumns = tableLayoutMgr.getHiddenColumns();
+                    }
+                }
                 // TODO: does this handle multiple rows correctly?
                 for (Component component : collectionGroup.getItems()) {
                     // for FieldGroup, get the first field from that group
@@ -185,7 +187,7 @@ public class RichTable extends WidgetBase {
                         // if a field is marked as invisible in hiddenColumns, append options and skip sorting
                         if (currentHiddenColumns != null && currentHiddenColumns.contains(field.getPropertyName())) {
                             tableToolsColumnOptions.append("{" + UifConstants.TableToolsKeys.VISIBLE + ": " + UifConstants.TableToolsValues.FALSE + "}, ");
-                        // if sortableColumns is present and a field is marked as sortable or unspecified
+                            // if sortableColumns is present and a field is marked as sortable or unspecified
                         } else if (currentSortableColumns != null && !currentSortableColumns.isEmpty()) {
                             if (currentSortableColumns.contains(field.getPropertyName())) {
                                 tableToolsColumnOptions.append(getDataFieldColumnOptions(collectionGroup, field) + ", ");
@@ -208,26 +210,26 @@ public class RichTable extends WidgetBase {
                 tableToolsColumnOptions.append(colOptions);
             } else {
                 tableToolsColumnOptions = new StringBuffer(StringUtils.removeEnd(tableToolsColumnOptions.toString(),
-                        ", "));
+                    ", "));
             }
 
             tableToolsColumnOptions.append("]");
 
             getComponentOptions().put(UifConstants.TableToolsKeys.AO_COLUMNS, tableToolsColumnOptions.toString());
-       }
+        }
     }
 
     /**
      * construct the column options for a data field
      *
      * @param collectionGroup - the collectionGroup in which the data field is defined
-     * @param field - the field to construction options for
+     * @param field           - the field to construction options for
      * @return - options as valid for datatable
      */
     private String getDataFieldColumnOptions(CollectionGroup collectionGroup, DataField field) {
         String sortType = null;
         if (!collectionGroup.isReadOnly() && (field instanceof InputField)
-                && ((InputField) field).getControl() != null) {
+            && ((InputField) field).getControl() != null) {
             Control control = ((InputField) field).getControl();
             if (control instanceof SelectControl) {
                 sortType = UifConstants.TableToolsValues.DOM_SELECT;
@@ -243,7 +245,7 @@ public class RichTable extends WidgetBase {
         }
 
         Class dataTypeClass = ObjectPropertyUtils.getPropertyType(collectionGroup.getCollectionObjectClass(),
-                field.getPropertyName());
+            field.getPropertyName());
         return constructTableColumnOptions(true, dataTypeClass, sortType);
     }
 
@@ -260,17 +262,16 @@ public class RichTable extends WidgetBase {
             if (ClassUtils.isAssignable(dataTypeClass, KualiPercent.class)) {
                 sortType = UifConstants.TableToolsValues.PERCENT;
             } else if (ClassUtils.isAssignable(dataTypeClass, KualiInteger.class) || ClassUtils.isAssignable(
-                    dataTypeClass, KualiDecimal.class)) {
+                dataTypeClass, KualiDecimal.class)) {
                 sortType = UifConstants.TableToolsValues.CURRENCY;
             } else if (ClassUtils.isAssignable(dataTypeClass, Timestamp.class)) {
                 sortType = "date";
             } else if (ClassUtils.isAssignable(dataTypeClass, java.sql.Date.class) || ClassUtils.isAssignable(
-                    dataTypeClass, java.util.Date.class)) {
+                dataTypeClass, java.util.Date.class)) {
                 sortType = UifConstants.TableToolsValues.DATE;
             } else if (ClassUtils.isAssignable(dataTypeClass, Number.class)) {
                 sortType = UifConstants.TableToolsValues.NUMERIC;
-            }
-            else {
+            } else {
                 sortType = UifConstants.TableToolsValues.STRING;
             }
 

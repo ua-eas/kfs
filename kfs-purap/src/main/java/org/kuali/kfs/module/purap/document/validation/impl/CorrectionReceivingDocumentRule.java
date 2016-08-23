@@ -18,8 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -30,16 +31,15 @@ import org.kuali.kfs.module.purap.document.ReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class CorrectionReceivingDocumentRule extends DocumentRuleBase {
 
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(Document document) {
         boolean valid = true;
-        CorrectionReceivingDocument correctionReceivingDocument = (CorrectionReceivingDocument)document;
+        CorrectionReceivingDocument correctionReceivingDocument = (CorrectionReceivingDocument) document;
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -52,9 +52,9 @@ public class CorrectionReceivingDocumentRule extends DocumentRuleBase {
     }
 
 
-    protected boolean isAtLeastOneItemEntered(ReceivingDocument receivingDocument){
+    protected boolean isAtLeastOneItemEntered(ReceivingDocument receivingDocument) {
         for (ReceivingItem item : (List<ReceivingItem>) receivingDocument.getItems()) {
-            if (((PurapEnterableItem)item).isConsideredEntered()) {
+            if (((PurapEnterableItem) item).isConsideredEntered()) {
                 //if any item is entered return true
                 return true;
             }
@@ -64,6 +64,7 @@ public class CorrectionReceivingDocumentRule extends DocumentRuleBase {
         return false;
 
     }
+
     /**
      * Determines if it is valid to create a receiving correction document.  Only one
      * receiving correction document can be active at any time per receiving line document.
@@ -71,11 +72,11 @@ public class CorrectionReceivingDocumentRule extends DocumentRuleBase {
      * @param receivingCorrectionDocument
      * @return
      */
-    protected boolean canCreateCorrectionReceivingDocument(CorrectionReceivingDocument correctionReceivingDocument){
+    protected boolean canCreateCorrectionReceivingDocument(CorrectionReceivingDocument correctionReceivingDocument) {
 
         boolean valid = true;
 
-        if( SpringContext.getBean(ReceivingService.class).canCreateCorrectionReceivingDocument(correctionReceivingDocument.getLineItemReceivingDocument(), correctionReceivingDocument.getDocumentNumber()) == false){
+        if (SpringContext.getBean(ReceivingService.class).canCreateCorrectionReceivingDocument(correctionReceivingDocument.getLineItemReceivingDocument(), correctionReceivingDocument.getDocumentNumber()) == false) {
             valid &= false;
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.LINE_ITEM_RECEIVING_DOCUMENT_NUMBER, PurapKeyConstants.ERROR_RECEIVING_CORRECTION_DOCUMENT_ACTIVE_FOR_RCV_LINE, correctionReceivingDocument.getDocumentNumber(), correctionReceivingDocument.getLineItemReceivingDocumentNumber());
         }

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class OriginEntryGroup extends PersistableBusinessObjectBase {
 

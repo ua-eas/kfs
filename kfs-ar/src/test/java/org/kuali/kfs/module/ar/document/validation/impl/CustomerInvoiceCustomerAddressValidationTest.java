@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceCustomerAddressValidationTest extends KualiTestBase {
@@ -52,25 +52,25 @@ public class CustomerInvoiceCustomerAddressValidationTest extends KualiTestBase 
         super.tearDown();
     }
 
-    public void testIsValidBillToAddress_True(){
+    public void testIsValidBillToAddress_True() {
         validation.getCustomerInvoiceDocument().getAccountsReceivableDocumentHeader().setCustomerNumber(VALID_CUSTOMER_NUMBER);
         validation.getCustomerInvoiceDocument().setCustomerBillToAddressIdentifier(VALID_ADDRESS_IDENTIFIER);
         assertTrue(validation.validate(null));
     }
 
-    public void testIsValidBillToAddress_False(){
+    public void testIsValidBillToAddress_False() {
         validation.getCustomerInvoiceDocument().getAccountsReceivableDocumentHeader().setCustomerNumber(VALID_CUSTOMER_NUMBER);
         validation.getCustomerInvoiceDocument().setCustomerBillToAddressIdentifier(INVALID_ADDRESS_IDENTIFIER);
         assertFalse(validation.validate(null));
     }
 
-    public void testIsValidShipToAddress_True(){
+    public void testIsValidShipToAddress_True() {
         validation.getCustomerInvoiceDocument().getAccountsReceivableDocumentHeader().setCustomerNumber(VALID_CUSTOMER_NUMBER);
         validation.getCustomerInvoiceDocument().setCustomerShipToAddressIdentifier(VALID_ADDRESS_IDENTIFIER);
         assertTrue(validation.validate(null));
     }
 
-    public void testIsValidShipToAddress_False(){
+    public void testIsValidShipToAddress_False() {
         validation.getCustomerInvoiceDocument().getAccountsReceivableDocumentHeader().setCustomerNumber(VALID_CUSTOMER_NUMBER);
         validation.getCustomerInvoiceDocument().setCustomerShipToAddressIdentifier(INVALID_ADDRESS_IDENTIFIER);
         assertFalse(validation.validate(null));

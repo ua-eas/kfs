@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountGlobal;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class AccountGlobalRuleTest extends ChartRuleTestBase {
@@ -193,7 +193,7 @@ public class AccountGlobalRuleTest extends ChartRuleTestBase {
 
         // if neither C&G nor KFS/KC integration are enabled, test should fail otherwise it should pass
         ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(ContractsAndGrantsCfda.class);
-        if ( moduleService instanceof UnimplementedKfsModuleServiceImpl ) {
+        if (moduleService instanceof UnimplementedKfsModuleServiceImpl) {
             assertEquals("Rule should return false with invalid CFDA number.", false, result);
             assertGlobalMessageMapSize(1);
             assertFieldErrorExists("accountCfdaNumber", KFSKeyConstants.ERROR_DOCUMENT_GLOBAL_ACCOUNT_CFDA_NUMBER_INVALID);

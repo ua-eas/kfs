@@ -39,7 +39,7 @@ public class PurapAccountingLineViewField extends AccountingLineViewField {
      */
     @Override
     protected boolean isRenderingInquiry(AccountingDocument document, AccountingLine line) {
-        if (!((PurchasingAccountsPayableDocument)document).isInquiryRendered()) {
+        if (!((PurchasingAccountsPayableDocument) document).isInquiryRendered()) {
             return false;
         }
         return super.isRenderingInquiry(document, line);
@@ -53,7 +53,7 @@ public class PurapAccountingLineViewField extends AccountingLineViewField {
      */
     @Override
     protected String getDynamicNameLabelDisplayedValue(AccountingLine accountingLine) {
-        PurApAccountingLineBase purapLine = (PurApAccountingLineBase)accountingLine;
+        PurApAccountingLineBase purapLine = (PurApAccountingLineBase) accountingLine;
         PurApItemBase purapItem = purapLine.getPurapItem();
         PurchasingAccountsPayableDocumentBase purapDocument = null;
 
@@ -62,8 +62,7 @@ public class PurapAccountingLineViewField extends AccountingLineViewField {
         }
         if (purapItem == null || purapDocument == null || purapDocument.isInquiryRendered()) {
             return super.getDynamicNameLabelDisplayedValue(accountingLine);
-        }
-        else {
+        } else {
             return null;
         }
     }

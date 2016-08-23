@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.businessobject;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class VendorTaxChangeTest extends KualiTestBase {
@@ -38,6 +38,6 @@ public class VendorTaxChangeTest extends KualiTestBase {
         assertFalse("vendorPreviousTaxNumber should not show on toString", vendorTaxChangeToString.contains("vendorPreviousTaxNumber"));
         assertFalse("vendorPreviousTaxTypeCode should not show on toString", vendorTaxChangeToString.contains("vendorPreviousTaxTypeCode"));
 
-   }
+    }
 
 }

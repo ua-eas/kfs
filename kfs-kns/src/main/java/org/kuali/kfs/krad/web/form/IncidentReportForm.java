@@ -26,8 +26,6 @@ import java.io.StringWriter;
 
 /**
  * Form class for incident reports
- *
- *
  */
 public class IncidentReportForm extends UifFormBase {
 
@@ -62,12 +60,12 @@ public class IncidentReportForm extends UifFormBase {
      */
     public String createEmailMessage() {
         String format = "Document Id: %s%n" + "View Id: %s%n" + "Handler: %s%n%n" + "User Email: %s%n"
-                + "Person User Identifier: %s%n" + "Person Name: %s%n" + "User Input: %s%n%n" + "errorMessage: %n"
-                + "%s";
+            + "Person User Identifier: %s%n" + "Person Name: %s%n" + "User Input: %s%n%n" + "errorMessage: %n"
+            + "%s";
         String message = String.format(format, (incidentDocId == null) ? "" : incidentDocId, (incidentViewId == null) ? "" : incidentViewId,
-                (controller == null) ? "" : controller, (userEmail == null) ? "" : userEmail, (userId == null) ? ""
-                        : userId, (userName == null) ? "" : userName, (userInput == null) ? "" : userInput,
-                (exceptionStackTrace == null) ? "" : exceptionStackTrace);
+            (controller == null) ? "" : controller, (userEmail == null) ? "" : userEmail, (userId == null) ? ""
+                : userId, (userName == null) ? "" : userName, (userInput == null) ? "" : userInput,
+            (exceptionStackTrace == null) ? "" : exceptionStackTrace);
 
         return message;
 
@@ -83,17 +81,15 @@ public class IncidentReportForm extends UifFormBase {
         String env = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("environment");
         String format = "%s:%s:%s:%s";
         String subject = String.format(format, app, env, (incidentViewId == null) ? "" : incidentViewId,
-                truncateString(exceptionMessage, 180));
+            truncateString(exceptionMessage, 180));
         return subject;
     }
 
     /**
      * Truncate the string to specified length.
      *
-     * @param str
-     *            the string to truncate
-     * @param maxLength
-     *            the max length
+     * @param str       the string to truncate
+     * @param maxLength the max length
      * @return the truncated string
      */
     protected String truncateString(String str, int maxLength) {
@@ -105,8 +101,7 @@ public class IncidentReportForm extends UifFormBase {
     /**
      * Gets the stack trace from an exception.
      *
-     * @param t
-     *            the throwable to get the stack trace from
+     * @param t the throwable to get the stack trace from
      * @return the stack trace
      */
     protected String getStackTrace(Throwable t) {
@@ -126,8 +121,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param errorMessage
-     *            the errorMessage to set
+     * @param errorMessage the errorMessage to set
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
@@ -141,8 +135,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param exceptionMessage
-     *            the exceptionMessage to set
+     * @param exceptionMessage the exceptionMessage to set
      */
     public void setExceptionMessage(String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
@@ -156,8 +149,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param exceptionStackTrace
-     *            the exceptionStackTrace to set
+     * @param exceptionStackTrace the exceptionStackTrace to set
      */
     public void setExceptionStackTrace(String exceptionStackTrace) {
         this.exceptionStackTrace = exceptionStackTrace;
@@ -171,8 +163,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param userInput
-     *            the userInput to set
+     * @param userInput the userInput to set
      */
     public void setUserInput(String userInput) {
         this.userInput = userInput;
@@ -186,16 +177,14 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param devMode
-     *            the devMode to set
+     * @param devMode the devMode to set
      */
     public void setDevMode(boolean devMode) {
         this.devMode = devMode;
     }
 
     /**
-     * @param incidentDocId
-     *            the incidentDocId to set
+     * @param incidentDocId the incidentDocId to set
      */
     public void setIncidentDocId(String incidentDocId) {
         this.incidentDocId = incidentDocId;
@@ -209,8 +198,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param incidentViewId
-     *            the incidentViewId to set
+     * @param incidentViewId the incidentViewId to set
      */
     public void setIncidentViewId(String incidentViewId) {
         this.incidentViewId = incidentViewId;
@@ -224,8 +212,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param exception
-     *            the exception to set
+     * @param exception the exception to set
      */
     public void setException(Exception exception) {
         this.exception = exception;
@@ -241,8 +228,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param userName
-     *            the userName to set
+     * @param userName the userName to set
      */
     public void setUserName(String userName) {
         this.userName = userName;
@@ -256,8 +242,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param userId
-     *            the userId to set
+     * @param userId the userId to set
      */
     public void setUserId(String userId) {
         this.userId = userId;
@@ -271,8 +256,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param userEmail
-     *            the userEmail to set
+     * @param userEmail the userEmail to set
      */
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
@@ -286,8 +270,7 @@ public class IncidentReportForm extends UifFormBase {
     }
 
     /**
-     * @param controller
-     *            the controller to set
+     * @param controller the controller to set
      */
     public void setController(String controller) {
         this.controller = controller;

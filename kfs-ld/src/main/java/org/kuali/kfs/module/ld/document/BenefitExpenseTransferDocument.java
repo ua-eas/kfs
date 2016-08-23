@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.util.LaborPendingEntryGenerator;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * Labor Document class for the Benefit Expense Transfer Document and a base class for the year end benefit expense transfer
@@ -41,6 +41,7 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
     protected transient String chartOfAccountsCode;
     protected transient String accountNumber;
     protected transient Account account;
+
     /**
      * Default Constructor.
      */
@@ -117,7 +118,7 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
         this.accountNumber = accountNumber;
         if (StringUtils.isNotEmpty(accountNumber)) {
             AccountService accountService = SpringContext.getBean(AccountService.class);
-            if (! accountService.accountsCanCrossCharts()) {
+            if (!accountService.accountsCanCrossCharts()) {
                 Account acct = accountService.getUniqueAccountForAccountNumber(accountNumber);
                 setChartOfAccountsCode(acct.getChartOfAccountsCode());
                 this.setAccount(acct);

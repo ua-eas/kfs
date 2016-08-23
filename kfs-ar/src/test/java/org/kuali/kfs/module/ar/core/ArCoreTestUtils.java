@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.ar.core;
 
-import java.util.List;
-
 import junit.framework.Assert;
-
 import org.kuali.kfs.fp.businessobject.SalesTax;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
@@ -34,10 +33,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class ArCoreTestUtils extends Assert {
 
@@ -50,7 +48,7 @@ public class ArCoreTestUtils extends Assert {
     }
 
     protected static void confirmCustomerInvoiceValid(CustomerInvoiceDocument invoice, KualiDecimal expectedOpenAmount, KualiDecimal expectedTotalAmount,
-            int numDiscounts, boolean isReversal, boolean isOpen, List<InvoiceDetailExpecteds> expecteds) {
+                                                      int numDiscounts, boolean isReversal, boolean isOpen, List<InvoiceDetailExpecteds> expecteds) {
 
         invoice.updateDiscountAndParentLineReferences();
 
@@ -135,27 +133,27 @@ public class ArCoreTestUtils extends Assert {
     }
 
     protected static CustomerInvoiceDocument newInvoiceDocumentOneLine() throws WorkflowException {
-        CustomerInvoiceDetailFixture[] details = { CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL };
+        CustomerInvoiceDetailFixture[] details = {CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL};
         return CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
     }
 
     protected static CustomerInvoiceDocument newInvoiceDocumentTwoLines() throws WorkflowException {
-        CustomerInvoiceDetailFixture[] details = { CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
-                CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL };
+        CustomerInvoiceDetailFixture[] details = {CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
+            CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL};
         return CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
     }
 
     protected static CustomerInvoiceDocument newInvoiceDocumentOneLineDiscounted() throws WorkflowException {
-        CustomerInvoiceDetailFixture[] details = { CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL };
-        CustomerInvoiceDocument invoice =  CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
+        CustomerInvoiceDetailFixture[] details = {CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL};
+        CustomerInvoiceDocument invoice = CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
         invoice = addDiscountLine(invoice, 0, new KualiDecimal("-250.00"));
         invoice.updateDiscountAndParentLineReferences();
         return invoice;
     }
 
     protected static CustomerInvoiceDocument newInvoiceDocumentTwoLinesOneIsDiscounted() throws WorkflowException {
-        CustomerInvoiceDetailFixture[] details = { CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
-                CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL };
+        CustomerInvoiceDetailFixture[] details = {CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
+            CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL};
         CustomerInvoiceDocument invoice = CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
         invoice = addDiscountLine(invoice, 0, new KualiDecimal("-250.00"));
         invoice.updateDiscountAndParentLineReferences();
@@ -163,8 +161,8 @@ public class ArCoreTestUtils extends Assert {
     }
 
     protected static CustomerInvoiceDocument newInvoiceDocumentTwoLinesDiscounted() throws WorkflowException {
-        CustomerInvoiceDetailFixture[] details = { CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
-                CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL };
+        CustomerInvoiceDetailFixture[] details = {CustomerInvoiceDetailFixture.ONE_THOUSAND_DOLLAR_INVOICE_DETAIL,
+            CustomerInvoiceDetailFixture.FIVE_HUNDRED_DOLLAR_INVOICE_DETAIL};
         CustomerInvoiceDocument invoice = CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER.createCustomerInvoiceDocument(details);
         invoice = addDiscountLine(invoice, 0, new KualiDecimal("-250.00"));
         invoice = addDiscountLine(invoice, 1, new KualiDecimal("-250.00"));
@@ -204,11 +202,28 @@ public class ArCoreTestUtils extends Assert {
         return invoice;
     }
 
-    protected static KualiDecimal fifteenHundred() { return new KualiDecimal("1500.00"); }
-    protected static KualiDecimal twelveFifty()    { return new KualiDecimal("1250.00"); }
-    protected static KualiDecimal oneThousand()    { return new KualiDecimal("1000.00"); }
-    protected static KualiDecimal sevenFifty()     { return new KualiDecimal("750.00"); }
-    protected static KualiDecimal fiveHundred()    { return new KualiDecimal("500.00"); }
-    protected static KualiDecimal twoFifty()       { return new KualiDecimal("250.00"); }
+    protected static KualiDecimal fifteenHundred() {
+        return new KualiDecimal("1500.00");
+    }
+
+    protected static KualiDecimal twelveFifty() {
+        return new KualiDecimal("1250.00");
+    }
+
+    protected static KualiDecimal oneThousand() {
+        return new KualiDecimal("1000.00");
+    }
+
+    protected static KualiDecimal sevenFifty() {
+        return new KualiDecimal("750.00");
+    }
+
+    protected static KualiDecimal fiveHundred() {
+        return new KualiDecimal("500.00");
+    }
+
+    protected static KualiDecimal twoFifty() {
+        return new KualiDecimal("250.00");
+    }
 
 }

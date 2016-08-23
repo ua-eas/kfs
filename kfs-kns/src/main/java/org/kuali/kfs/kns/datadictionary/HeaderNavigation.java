@@ -25,24 +25,24 @@ import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 import java.io.Serializable;
 
 /**
-            The headerNavigation element defines a set of additional
-            tabs which will appear on the document.
- *
- *                The headerNavigationTab defines an additional tab which
-                will appear on the document.
-
+ * The headerNavigation element defines a set of additional
+ * tabs which will appear on the document.
+ * <p>
+ * The headerNavigationTab defines an additional tab which
+ * will appear on the document.
  */
 @Deprecated
 public class HeaderNavigation extends DataDictionaryDefinitionBase implements Serializable {
     private static final long serialVersionUID = 4317341111287854436L;
 
-	protected String headerTabMethodToCall;
+    protected String headerTabMethodToCall;
     protected String headerTabNavigateTo;
     protected String headerTabDisplayName;
     protected HelpDefinition helpDefinition;
     protected boolean disabled = false;
 
-    public HeaderNavigation() {}
+    public HeaderNavigation() {
+    }
 
     public HeaderNavigation(String headerTabNavigateTo, String headerTabDisplayName) {
         this.headerTabNavigateTo = headerTabNavigateTo;
@@ -98,15 +98,15 @@ public class HeaderNavigation extends DataDictionaryDefinitionBase implements Se
 
     /**
      * The pageHelp element provides the keys to
-                    obtain a help description from the database.
-
-                    On document JSP pages, a help icon may be rendered.  If this tag is specified, then
-                    the filename of this page will be located in the value of the parameter specified by the namespace, detail type, and name.
-
-                    The value of the parameter is relative to the value of the "externalizable.help.url" property in ConfigurationService (see KualiHelpAction).
-                    parameterNamespace: namespace of the parameter that has the path to the help page
-                    parameterName: name of the parameter that has the path to the help page
-                    parameterDetailType: detail type of the parameter that has the path to the help page
+     * obtain a help description from the database.
+     * <p>
+     * On document JSP pages, a help icon may be rendered.  If this tag is specified, then
+     * the filename of this page will be located in the value of the parameter specified by the namespace, detail type, and name.
+     * <p>
+     * The value of the parameter is relative to the value of the "externalizable.help.url" property in ConfigurationService (see KualiHelpAction).
+     * parameterNamespace: namespace of the parameter that has the path to the help page
+     * parameterName: name of the parameter that has the path to the help page
+     * parameterDetailType: detail type of the parameter that has the path to the help page
      */
     public void setHelpDefinition(HelpDefinition helpDefinition) {
         this.helpDefinition = helpDefinition;

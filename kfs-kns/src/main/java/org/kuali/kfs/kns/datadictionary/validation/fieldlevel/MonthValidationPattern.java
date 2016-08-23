@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching standard-format (mm or m) months
- *
- *
  */
 public class MonthValidationPattern extends FieldLevelValidationPattern {
 

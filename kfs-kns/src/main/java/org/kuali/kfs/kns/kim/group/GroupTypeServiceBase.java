@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.kns.kim.group;
 
-import org.kuali.rice.kim.framework.group.GroupTypeService;
 import org.kuali.kfs.kns.kim.type.DataDictionaryTypeServiceBase;
+import org.kuali.rice.kim.framework.group.GroupTypeService;
 
 /**
  * @deprecated A krad integrated type service base class will be provided in the future.

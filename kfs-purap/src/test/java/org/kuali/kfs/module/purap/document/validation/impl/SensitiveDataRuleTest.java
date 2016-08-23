@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveDataAssignment;
@@ -39,11 +37,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 public class SensitiveDataRuleTest extends PurapRuleTestBase {
 
@@ -59,12 +59,11 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
     }
 
-    private MaintenanceDocumentBase getMaintenanceDocument(SensitiveDataFixture oldSDFixture, SensitiveDataFixture newSDFixture){
+    private MaintenanceDocumentBase getMaintenanceDocument(SensitiveDataFixture oldSDFixture, SensitiveDataFixture newSDFixture) {
         MaintenanceDocumentBase doc = null;
         try {
             doc = (MaintenanceDocumentBase) SpringContext.getBean(DocumentService.class).getNewDocument("PMSN");
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
         doc.getDocumentHeader().setExplanation("JUnit test document");
@@ -80,11 +79,11 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDataAssignmentReason(null);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     @ConfigureContext(session = parke)
@@ -92,10 +91,10 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_INACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     @ConfigureContext(session = parke)
@@ -104,10 +103,10 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );
+        assertFalse(validation.validate(null));
     }
 
     /**

@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.RouteLevelNames;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
@@ -34,9 +33,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class AccountingDocumentPresentationControllerBase extends LedgerPostingDocumentPresentationControllerBase {
 
@@ -81,8 +81,7 @@ public class AccountingDocumentPresentationControllerBase extends LedgerPostingD
 
         if (workflowDocument.isCanceled() || documentheader.getFinancialDocumentInErrorNumber() != null) {
             return false;
-        }
-        else if (workflowDocument.isEnroute()) {
+        } else if (workflowDocument.isEnroute()) {
             Set<String> currentRouteLevels = workflowDocument.getCurrentNodeNames();
 
             if (CollectionUtils.isNotEmpty(currentRouteLevels) && currentRouteLevels.contains(RouteLevelNames.ACCOUNTING_ORGANIZATION_HIERARCHY)) {
@@ -103,7 +102,7 @@ public class AccountingDocumentPresentationControllerBase extends LedgerPostingD
             if (StringUtils.isNotEmpty(accountingLine.getAccountNumber()) && ObjectUtils.isNotNull(accountingLine.getAccount())) {
                 if (SpringContext.getBean(AccountService.class).hasResponsibilityOnAccount(user, accountingLine.getAccount())) {
                     return true;
-            }
+                }
             }
         }
         return false;

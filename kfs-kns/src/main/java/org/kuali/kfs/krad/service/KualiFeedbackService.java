@@ -27,7 +27,7 @@ package org.kuali.kfs.krad.service;
  */
 public interface KualiFeedbackService {
 
-	/**
+    /**
      * This property must be defined in the base configuration file for specifying
      * the mailing list for the report to be sent.
      * <p>Example:
@@ -37,7 +37,7 @@ public interface KualiFeedbackService {
      */
     public static final String REPORT_MAIL_LIST = String.format("%s.REPORT_MAIL_LIST", KualiFeedbackService.class.getSimpleName());
 
-	/**
+    /**
      * This method send email to the defined mailing list with a specified subject and
      * message.
      *

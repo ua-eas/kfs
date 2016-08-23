@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -85,7 +85,7 @@ public class EffortConstants {
 
     public static final List<String> ELIGIBLE_COST_SHARE_SUB_ACCOUNT_TYPE_CODES = getEligibleCostShareSubAccountTypeCodes();
 
-    private static final List<String> getEligibleCostShareSubAccountTypeCodes(){
+    private static final List<String> getEligibleCostShareSubAccountTypeCodes() {
         List<String> costShareSubAccountTypeCodesList = new ArrayList<String>();
         costShareSubAccountTypeCodesList.add(KFSConstants.SubAccountType.COST_SHARE);
         return costShareSubAccountTypeCodesList;
@@ -93,7 +93,7 @@ public class EffortConstants {
 
     public static final List<String> ELIGIBLE_EXPENSE_SUB_ACCOUNT_TYPE_CODES = getEligibleExpenseSubAccountTypeCodes();
 
-    private static final List<String> getEligibleExpenseSubAccountTypeCodes(){
+    private static final List<String> getEligibleExpenseSubAccountTypeCodes() {
         List<String> expenseSubAccountTypeCodesList = new ArrayList<String>();
         expenseSubAccountTypeCodesList.add(KFSConstants.SubAccountType.EXPENSE);
         return expenseSubAccountTypeCodesList;
@@ -118,6 +118,7 @@ public class EffortConstants {
     }
 
     public static final List<String> DETAIL_LINES_CONSOLIDATION_FILEDS = getDetailLinesConsolidationFields();
+
     private static final List<String> getDetailLinesConsolidationFields() {
         List<String> consolidationFields = new ArrayList<String>();
         consolidationFields.add(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
@@ -128,6 +129,7 @@ public class EffortConstants {
     }
 
     public static final List<String> DETAIL_LINES_GROUPING_FILEDS = getDetailLinesGroupingFields();
+
     private static final List<String> getDetailLinesGroupingFields() {
         List<String> groupingFields = new ArrayList<String>();
         groupingFields.add(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);

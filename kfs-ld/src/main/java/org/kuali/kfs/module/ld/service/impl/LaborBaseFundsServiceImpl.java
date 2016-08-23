@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 import org.kuali.kfs.module.ld.dataaccess.LaborBaseFundsDao;
 import org.kuali.kfs.module.ld.service.LaborBaseFundsService;
 import org.kuali.kfs.module.ld.service.LaborCalculatedSalaryFoundationTrackerService;
 import org.kuali.kfs.sys.service.NonTransactional;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides its clients with access to labor base fund entries in the backend data store.
@@ -58,8 +58,7 @@ public class LaborBaseFundsServiceImpl implements LaborBaseFundsService {
             if (baseFundsCollection.contains(CSFTracker)) {
                 int index = baseFundsCollection.indexOf(CSFTracker);
                 baseFundsCollection.get(index).setCsfAmount(CSFTracker.getCsfAmount());
-            }
-            else {
+            } else {
                 baseFundsCollection.add(CSFTracker);
             }
         }

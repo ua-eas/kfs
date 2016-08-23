@@ -37,11 +37,9 @@ public class NullValueComparator implements Comparator, Serializable {
         }
         if (o1 == null) {
             return -1;
-        }
-        else if (o2 == null) {
+        } else if (o2 == null) {
             return 1;
-        }
-        else {
+        } else {
             // probably won't go into this code segment, but doing it just in case
             return CellComparatorHelper.getAppropriateValueComparatorForPropertyClass(o1.getClass()).compare(o1, o2);
         }

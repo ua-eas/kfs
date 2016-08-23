@@ -21,11 +21,9 @@ package org.kuali.kfs.krad.datadictionary.validation.capability;
 /**
  * This interface defines methods that must be implemented by classes that you want to participate in dictionary validation as
  * for example 'attribute-level' object structure definitions.
- *
- *
  */
 public interface Constrainable {
 
-	public String getName();
+    public String getName();
 
 }

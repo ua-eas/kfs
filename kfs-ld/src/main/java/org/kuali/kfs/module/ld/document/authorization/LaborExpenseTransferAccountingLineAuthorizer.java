@@ -18,20 +18,17 @@
  */
 package org.kuali.kfs.module.ld.document.authorization;
 
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.Map;
 
 /**
  * Data dictionary definition that includes metadata for an accounting document about one of its groups of accounting lines
@@ -58,7 +55,7 @@ public class LaborExpenseTransferAccountingLineAuthorizer extends AccountingLine
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.businessobject.AccountingLine,
-     *      java.lang.String, java.lang.Integer, java.lang.String)
+     * java.lang.String, java.lang.Integer, java.lang.String)
      */
     @Override
     protected Map<String, AccountingLineViewAction> getActionMap(AccountingLineRenderingContext accountingLineRenderingContext, String accountingLinePropertyName, Integer accountingLineIndex, String groupTitle) {
@@ -75,10 +72,10 @@ public class LaborExpenseTransferAccountingLineAuthorizer extends AccountingLine
     /**
      * construct the copy action for the given accounting line, typically, a new accounting line
      *
-     * @param accountingLine the given accounting line
+     * @param accountingLine             the given accounting line
      * @param accountingLinePropertyName the property name of the given account line, typically, the form name
-     * @param accountingLineIndex the index of the given accounting line in its accounting line group
-     * @param groupTitle the title of the accounting line group
+     * @param accountingLineIndex        the index of the given accounting line in its accounting line group
+     * @param groupTitle                 the title of the accounting line group
      * @return the copy action for the given accounting line
      */
     protected AccountingLineViewAction getCopyAction(AccountingLine accountingLine, String accountingLinePropertyName, Integer accountingLineIndex, String groupTitle) {
@@ -91,9 +88,9 @@ public class LaborExpenseTransferAccountingLineAuthorizer extends AccountingLine
     /**
      * Builds the action method name of the method that deletes accounting lines for this group
      *
-     * @param accountingLine the accounting line an action is being checked for
+     * @param accountingLine             the accounting line an action is being checked for
      * @param accountingLinePropertyName the property name of the accounting line
-     * @param accountingLineIndex the index of the given accounting line within the the group being rendered
+     * @param accountingLineIndex        the index of the given accounting line within the the group being rendered
      * @return the action method name of the method that deletes accounting lines for this group
      */
     protected String getCopyLineMethod(AccountingLine accountingLine, String accountingLineProperty, Integer accountingLineIndex) {

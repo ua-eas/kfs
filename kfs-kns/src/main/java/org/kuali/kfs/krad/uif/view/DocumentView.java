@@ -24,44 +24,42 @@ import org.kuali.kfs.krad.document.DocumentViewAuthorizerBase;
 import org.kuali.kfs.krad.document.DocumentViewPresentationControllerBase;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.container.ContainerBase;
 import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.container.ContainerBase;
 
 /**
  * View type for KRAD documents
- *
+ * <p>
  * <p>
  * Provides commons configuration and default behavior applicable to documents
  * in the KRAD module.
  * </p>
- *
- *
  */
 public class DocumentView extends FormView {
-	private static final long serialVersionUID = 2251983409572774175L;
+    private static final long serialVersionUID = 2251983409572774175L;
 
-	private Class<? extends Document> documentClass;
+    private Class<? extends Document> documentClass;
 
-	private boolean allowsNoteAttachments = true;
-	private boolean allowsNoteFYI = false;
-	private boolean displayTopicFieldInNotes = false;
+    private boolean allowsNoteAttachments = true;
+    private boolean allowsNoteFYI = false;
+    private boolean displayTopicFieldInNotes = false;
 
-	private Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass;
+    private Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass;
 
-	public DocumentView() {
-		super();
-	}
+    public DocumentView() {
+        super();
+    }
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Retrieve the document entry</li>
      * <li>Set up the document view authorizer and presentation controller</li>
      * </ul>
      *
      * @see ContainerBase#performInitialization(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performInitialization(View view, Object model) {
@@ -89,10 +87,10 @@ public class DocumentView extends FormView {
 
         if (getPresentationController() instanceof DocumentViewPresentationControllerBase) {
             DocumentViewPresentationControllerBase documentViewPresentationControllerBase =
-                    (DocumentViewPresentationControllerBase) getPresentationController();
+                (DocumentViewPresentationControllerBase) getPresentationController();
             if (documentViewPresentationControllerBase.getDocumentPresentationController() == null) {
                 documentViewPresentationControllerBase.setDocumentPresentationControllerClass(
-                        documentEntry.getDocumentPresentationControllerClass());
+                    documentEntry.getDocumentPresentationControllerClass());
             }
         }
     }
@@ -104,54 +102,54 @@ public class DocumentView extends FormView {
      */
     protected DocumentEntry getDocumentEntryForView() {
         DocumentEntry documentEntry = KRADServiceLocatorWeb.getDocumentDictionaryService().getDocumentEntryByClass(
-                getDocumentClass());
+            getDocumentClass());
 
         if (documentEntry == null) {
             throw new RuntimeException(
-                    "Unable to find document entry for document class: " + getDocumentClass().getName());
+                "Unable to find document entry for document class: " + getDocumentClass().getName());
         }
 
         return documentEntry;
     }
 
-	public Class<? extends Document> getDocumentClass() {
-		return this.documentClass;
-	}
+    public Class<? extends Document> getDocumentClass() {
+        return this.documentClass;
+    }
 
-	public void setDocumentClass(Class<? extends Document> documentClass) {
-		this.documentClass = documentClass;
-	}
+    public void setDocumentClass(Class<? extends Document> documentClass) {
+        this.documentClass = documentClass;
+    }
 
-	public boolean isAllowsNoteAttachments() {
-		return this.allowsNoteAttachments;
-	}
+    public boolean isAllowsNoteAttachments() {
+        return this.allowsNoteAttachments;
+    }
 
-	public void setAllowsNoteAttachments(boolean allowsNoteAttachments) {
-		this.allowsNoteAttachments = allowsNoteAttachments;
-	}
+    public void setAllowsNoteAttachments(boolean allowsNoteAttachments) {
+        this.allowsNoteAttachments = allowsNoteAttachments;
+    }
 
-	public boolean isAllowsNoteFYI() {
-		return this.allowsNoteFYI;
-	}
+    public boolean isAllowsNoteFYI() {
+        return this.allowsNoteFYI;
+    }
 
-	public void setAllowsNoteFYI(boolean allowsNoteFYI) {
-		this.allowsNoteFYI = allowsNoteFYI;
-	}
+    public void setAllowsNoteFYI(boolean allowsNoteFYI) {
+        this.allowsNoteFYI = allowsNoteFYI;
+    }
 
-	public boolean isDisplayTopicFieldInNotes() {
-		return this.displayTopicFieldInNotes;
-	}
+    public boolean isDisplayTopicFieldInNotes() {
+        return this.displayTopicFieldInNotes;
+    }
 
-	public void setDisplayTopicFieldInNotes(boolean displayTopicFieldInNotes) {
-		this.displayTopicFieldInNotes = displayTopicFieldInNotes;
-	}
+    public void setDisplayTopicFieldInNotes(boolean displayTopicFieldInNotes) {
+        this.displayTopicFieldInNotes = displayTopicFieldInNotes;
+    }
 
-	public Class<? extends KeyValuesFinder> getAttachmentTypesValuesFinderClass() {
-		return this.attachmentTypesValuesFinderClass;
-	}
+    public Class<? extends KeyValuesFinder> getAttachmentTypesValuesFinderClass() {
+        return this.attachmentTypesValuesFinderClass;
+    }
 
-	public void setAttachmentTypesValuesFinderClass(Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass) {
-		this.attachmentTypesValuesFinderClass = attachmentTypesValuesFinderClass;
-	}
+    public void setAttachmentTypesValuesFinderClass(Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass) {
+        this.attachmentTypesValuesFinderClass = attachmentTypesValuesFinderClass;
+    }
 
 }

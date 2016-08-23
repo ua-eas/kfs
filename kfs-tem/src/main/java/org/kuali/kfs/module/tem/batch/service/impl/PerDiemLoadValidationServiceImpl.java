@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.batch.service.PerDiemLoadValidationService;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
@@ -30,11 +32,9 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * implement the validation methods against the given per diem
@@ -53,12 +53,12 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
     public <T extends PerDiem> boolean validate(List<T> perDiemList) {
         MessageMap messageMap = GlobalVariables.getMessageMap();
 
-        for(T perDiem: perDiemList){
+        for (T perDiem : perDiemList) {
             List<Message> errorMessages = this.validate(perDiem);
 
             this.populateMessageMap(messageMap, errorMessages);
 
-            if(ObjectUtils.isNotNull(messageMap) && messageMap.hasErrors()){
+            if (ObjectUtils.isNotNull(messageMap) && messageMap.hasErrors()) {
                 return false;
             }
         }
@@ -76,14 +76,14 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
         this.getDictionaryValidationService().isBusinessObjectValid(perDiem);
         MessageMap messageMap = GlobalVariables.getMessageMap();
 
-        if(messageMap.hasErrors()){
+        if (messageMap.hasErrors()) {
             List<Message> message = this.translateErrorsFromErrorMap(messageMap);
             meesageList.addAll(message);
 
             messageMap.clearErrorMessages();
         }
 
-        if(!isValidMealsAndIncidentals(perDiem)){
+        if (!isValidMealsAndIncidentals(perDiem)) {
             Message message = MessageBuilder.buildMessageWithPlaceHolder(TemKeyConstants.ERROR_PER_DIEM_MEAL_INCIDENTAL_NON_POSITIVE_AMOUNT, perDiem.getPrimaryDestination().getRegion().getRegionName(), perDiem.getPrimaryDestination(), perDiem.getLineNumber(), perDiem.getMealsAndIncidentals());
             meesageList.add(message);
         }
@@ -91,7 +91,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
         return meesageList;
     }
 
-    protected boolean isValidMealsAndIncidentals(PerDiem perDiem){
+    protected boolean isValidMealsAndIncidentals(PerDiem perDiem) {
         KualiDecimal mealsAndIncidentals = perDiem.getMealsAndIncidentals();
 
         return ObjectUtils.isNotNull(mealsAndIncidentals) && mealsAndIncidentals.isPositive();
@@ -101,7 +101,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
      * put the error message into the given message map
      */
     protected void populateMessageMap(MessageMap messageMap, List<Message> errorMessages) {
-        for(Message message : errorMessages){
+        for (Message message : errorMessages) {
             messageMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CUSTOM, message.getMessage());
         }
     }
@@ -115,9 +115,9 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
         for (String errorKey : errorMap.getPropertiesWithErrors()) {
 
             for (Object message : errorMap.getMessages(errorKey)) {
-                ErrorMessage errorMessage = (ErrorMessage)message;
+                ErrorMessage errorMessage = (ErrorMessage) message;
 
-                Message messageWithPlaceHolder = MessageBuilder.buildMessageWithPlaceHolder(errorMessage.getErrorKey(), (Object[])errorMessage.getMessageParameters());
+                Message messageWithPlaceHolder = MessageBuilder.buildMessageWithPlaceHolder(errorMessage.getErrorKey(), (Object[]) errorMessage.getMessageParameters());
 
                 errors.add(messageWithPlaceHolder);
             }
@@ -128,6 +128,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
 
     /**
      * Gets the dictionaryValidationService attribute.
+     *
      * @return Returns the dictionaryValidationService.
      */
     public DictionaryValidationService getDictionaryValidationService() {
@@ -136,6 +137,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
 
     /**
      * Sets the dictionaryValidationService attribute value.
+     *
      * @param dictionaryValidationService The dictionaryValidationService to set.
      */
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {
@@ -144,6 +146,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
 
     /**
      * Gets the perDiemService attribute.
+     *
      * @return Returns the perDiemService.
      */
     public PerDiemService getPerDiemService() {
@@ -152,6 +155,7 @@ public class PerDiemLoadValidationServiceImpl implements PerDiemLoadValidationSe
 
     /**
      * Sets the perDiemService attribute value.
+     *
      * @param perDiemService The perDiemService to set.
      */
     public void setPerDiemService(PerDiemService perDiemService) {

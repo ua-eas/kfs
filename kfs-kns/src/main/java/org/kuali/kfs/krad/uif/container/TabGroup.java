@@ -30,7 +30,6 @@ import java.util.Set;
  * A group that presents its child Groups as tabs.  Items in this group's item list must be Groups
  * themselves.
  *
- *
  * @see Group
  */
 public class TabGroup extends Group {

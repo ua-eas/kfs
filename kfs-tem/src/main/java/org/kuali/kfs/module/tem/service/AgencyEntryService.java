@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.service;
 
+import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
 
 public interface AgencyEntryService {
     public void createEntry(AgencyEntryFull agencyEntry, PrintStream ps);
@@ -34,7 +34,7 @@ public interface AgencyEntryService {
      * writes out a list of origin entries to an output stream.
      *
      * @param entries an Iterator of entries to save as text
-     * @param bw the output stream to write origin entries to
+     * @param bw      the output stream to write origin entries to
      */
     public void flatFile(Iterator<AgencyEntryFull> entries, BufferedOutputStream bw);
 
@@ -42,6 +42,6 @@ public interface AgencyEntryService {
 
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<AgencyEntryFull> agencyEntryList);
 
-    public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<AgencyEntryFull> agencyEntryList);
+    public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<AgencyEntryFull> agencyEntryList);
 
 }

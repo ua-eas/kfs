@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.tem.businessobject.PrimaryDestination;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.module.tem.businessobject.PrimaryDestination;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 
 @SuppressWarnings("deprecation")
@@ -42,10 +42,9 @@ public class PrimaryDestinationLookupableHelperServiceImpl extends KualiLookupab
 
         CollectionIncomplete collection = null;
         Integer limit = LookupUtils.getSearchResultsLimit(PrimaryDestination.class);
-        if (results.size() > limit.intValue()){
+        if (results.size() > limit.intValue()) {
             collection = new CollectionIncomplete(results.subList(0, limit), (long) results.size());
-        }
-        else{
+        } else {
             collection = new CollectionIncomplete(results, (long) 0);
         }
 

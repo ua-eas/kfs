@@ -32,6 +32,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the vendor can be paid for this authorization
+     *
      * @param document the authorization to check
      * @return true if the vendor can be paid, false otherwise
      */
@@ -49,6 +50,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the travel authorization is open for reimbursement or amendment
+     *
      * @param document the authorization to check
      * @return true if the authorization is open, false otherwise
      */
@@ -58,6 +60,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document is in processed workflow state
+     *
      * @param document the document to check
      * @return true if the document is in processed workflow state, false otherwise
      */
@@ -67,6 +70,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document is in retired mode or not
+     *
      * @param document the document to check
      * @return true if the document is retired, false otherwise
      */
@@ -76,6 +80,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document has been cancelled as a TA or not
+     *
      * @param document the document to check
      * @return true if the document is TA cancelled, false otherwise
      */

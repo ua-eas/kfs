@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class is used to represent an invoice address detail business object.

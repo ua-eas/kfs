@@ -26,23 +26,23 @@ import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 public final class ExternalizableBusinessObjectUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ExternalizableBusinessObjectUtils.class);
 
-	private ExternalizableBusinessObjectUtils() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private ExternalizableBusinessObjectUtils() {
+        throw new UnsupportedOperationException("do not call");
+    }
 
-	/**
-	 * Given a class, this method determines which of the interfaces that the class implements extends {@link ExternalizableBusinessObject}
-	 *
-	 * @param businessObjectClass
-	 * @return
-	 */
-	public static Class determineExternalizableBusinessObjectSubInterface(Class businessObjectClass) {
-		if (businessObjectClass == null) {
-			return null;
-		}
-		if (businessObjectClass.isInterface() && !ExternalizableBusinessObject.class.equals(businessObjectClass) && ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass)) {
-			return businessObjectClass;
-		}
+    /**
+     * Given a class, this method determines which of the interfaces that the class implements extends {@link ExternalizableBusinessObject}
+     *
+     * @param businessObjectClass
+     * @return
+     */
+    public static Class determineExternalizableBusinessObjectSubInterface(Class businessObjectClass) {
+        if (businessObjectClass == null) {
+            return null;
+        }
+        if (businessObjectClass.isInterface() && !ExternalizableBusinessObject.class.equals(businessObjectClass) && ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass)) {
+            return businessObjectClass;
+        }
         if (ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass)) {
             Class tempClass = businessObjectClass;
             while (tempClass != null && !Object.class.equals(tempClass)) {
@@ -55,24 +55,24 @@ public final class ExternalizableBusinessObjectUtils {
             }
         }
         return null;
-	}
+    }
 
-	public static boolean isExternalizableBusinessObjectInterface(Class businessObjectClass) {
-		return businessObjectClass != null && businessObjectClass.isInterface() && ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass);
-	}
+    public static boolean isExternalizableBusinessObjectInterface(Class businessObjectClass) {
+        return businessObjectClass != null && businessObjectClass.isInterface() && ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass);
+    }
 
     public static boolean isExternalizableBusinessObject(Class businessObjectClass) {
         return businessObjectClass != null && ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass);
     }
 
 
-	public static boolean isExternalizableBusinessObjectInterface(String businessObjectClassName) {
-		try {
-			Class businessObjectClass = Class.forName( businessObjectClassName );
-			return isExternalizableBusinessObjectInterface(businessObjectClass);
-		} catch ( Exception ex ) {
-			LOG.debug( "Unable to get class object for class name: " + businessObjectClassName, ex );
-			return false;
-		}
-	}
+    public static boolean isExternalizableBusinessObjectInterface(String businessObjectClassName) {
+        try {
+            Class businessObjectClass = Class.forName(businessObjectClassName);
+            return isExternalizableBusinessObjectInterface(businessObjectClass);
+        } catch (Exception ex) {
+            LOG.debug("Unable to get class object for class name: " + businessObjectClassName, ex);
+            return false;
+        }
+    }
 }

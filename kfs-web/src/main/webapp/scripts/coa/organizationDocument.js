@@ -16,44 +16,44 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function updateLocationByPostalCode( postalCodeField, callbackFunction ) {
-	var postalCode = getElementValue( postalCodeField.name );
-	var postalCountryCode = getElementValue( findElPrefix( postalCodeField.name ) + ".organizationCountryCode" );
+function updateLocationByPostalCode(postalCodeField, callbackFunction) {
+    var postalCode = getElementValue(postalCodeField.name);
+    var postalCountryCode = getElementValue(findElPrefix(postalCodeField.name) + ".organizationCountryCode");
 
-	if ( postalCode != "" && postalCountryCode != "" ) {
-		var dwrReply = {
-			callback:callbackFunction,
-			errorHandler:function( errorMessage ) {
-				setRecipientValue( "document.newMaintainableObject.organizationCityName", wrapError( "postal code not found"), true );
-				clearRecipients( "document.newMaintainableObject.organizationStateCode" );
-			}
-		};
-		PostalCodeService.getPostalCode(postalCountryCode, postalCode, dwrReply );
-	}
+    if (postalCode != "" && postalCountryCode != "") {
+        var dwrReply = {
+            callback: callbackFunction,
+            errorHandler: function (errorMessage) {
+                setRecipientValue("document.newMaintainableObject.organizationCityName", wrapError("postal code not found"), true);
+                clearRecipients("document.newMaintainableObject.organizationStateCode");
+            }
+        };
+        PostalCodeService.getPostalCode(postalCountryCode, postalCode, dwrReply);
+    }
 }
 
-function updateLocationByPostalCode_Callback( data ) {
-	setRecipientValue( "document.newMaintainableObject.organizationCityName", data.cityName );
-	setRecipientValue( "document.newMaintainableObject.organizationStateCode", data.stateCode );
+function updateLocationByPostalCode_Callback(data) {
+    setRecipientValue("document.newMaintainableObject.organizationCityName", data.cityName);
+    setRecipientValue("document.newMaintainableObject.organizationStateCode", data.stateCode);
 }
 
-function updateLocationByCountryCode( countryCodeField, callbackFunction ) {
-	var postalCountryCode = getElementValue( countryCodeField.name );
-	var postalCode = getElementValue( findElPrefix( countryCodeField.name ) + ".organizationZipCode" );
+function updateLocationByCountryCode(countryCodeField, callbackFunction) {
+    var postalCountryCode = getElementValue(countryCodeField.name);
+    var postalCode = getElementValue(findElPrefix(countryCodeField.name) + ".organizationZipCode");
 
-	if ( postalCode != "" && postalCountryCode != "" ) {
-		var dwrReply = {
-			callback:callbackFunction,
-			errorHandler:function( errorMessage ) {
-				setRecipientValue( "document.newMaintainableObject.organizationCityName", wrapError( "postal code not found"), true );
-				clearRecipients( "document.newMaintainableObject.organizationStateCode" );
-			}
-		};
-		PostalCodeService.getPostalCode(postalCountryCode, postalCode, dwrReply );
-	}
+    if (postalCode != "" && postalCountryCode != "") {
+        var dwrReply = {
+            callback: callbackFunction,
+            errorHandler: function (errorMessage) {
+                setRecipientValue("document.newMaintainableObject.organizationCityName", wrapError("postal code not found"), true);
+                clearRecipients("document.newMaintainableObject.organizationStateCode");
+            }
+        };
+        PostalCodeService.getPostalCode(postalCountryCode, postalCode, dwrReply);
+    }
 }
 
-function updateLocationByCountryCode_Callback( data ) {
-	setRecipientValue( "document.newMaintainableObject.organizationCityName", data.cityName );
-	setRecipientValue( "document.newMaintainableObject.organizationStateCode", data.stateCode );
+function updateLocationByCountryCode_Callback(data) {
+    setRecipientValue("document.newMaintainableObject.organizationCityName", data.cityName);
+    setRecipientValue("document.newMaintainableObject.organizationStateCode", data.stateCode);
 }

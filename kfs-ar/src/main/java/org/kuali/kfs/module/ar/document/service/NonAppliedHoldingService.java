@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface NonAppliedHoldingService {
 
@@ -43,7 +43,6 @@ public interface NonAppliedHoldingService {
     public Collection<NonAppliedHolding> getNonAppliedHoldingsForCustomer(Customer customer);
 
     /**
-     *
      * Retrieves all NonAppliedHolding objects that were created by the
      * passed-in list of document numbers.
      *

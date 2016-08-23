@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Requisition Source Business Object.
  */
-public class RequisitionSource extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class RequisitionSource extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String requisitionSourceCode;
     private String requisitionSourceDescription;
@@ -56,7 +56,6 @@ public class RequisitionSource extends PersistableBusinessObjectBase implements 
     public void setRequisitionSourceDescription(String requisitionSourceDescription) {
         this.requisitionSourceDescription = requisitionSourceDescription;
     }
-
 
 
     public Integer getAllowCopyDays() {

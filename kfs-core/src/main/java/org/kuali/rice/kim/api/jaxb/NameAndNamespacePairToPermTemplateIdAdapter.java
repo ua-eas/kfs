@@ -18,19 +18,19 @@
  */
 package org.kuali.rice.kim.api.jaxb;
 
+import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
+import org.kuali.rice.kim.api.common.template.Template;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
 import javax.xml.bind.MarshalException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.kuali.rice.core.util.jaxb.NameAndNamespacePair;
-import org.kuali.rice.kim.api.common.template.Template;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-
 /**
  * An XML adapter that converts between a NameAndNamespacePair and a permission template ID.
  */
-public class NameAndNamespacePairToPermTemplateIdAdapter extends XmlAdapter<NameAndNamespacePair,String> {
+public class NameAndNamespacePairToPermTemplateIdAdapter extends XmlAdapter<NameAndNamespacePair, String> {
 
     /**
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
@@ -39,7 +39,7 @@ public class NameAndNamespacePairToPermTemplateIdAdapter extends XmlAdapter<Name
     public String unmarshal(NameAndNamespacePair v) throws Exception {
         if (v != null) {
             Template permissionTemplate = KimApiServiceLocator.getPermissionService().findPermTemplateByNamespaceCodeAndName(
-                    v.getNamespaceCode(), new NormalizedStringAdapter().unmarshal(v.getName()));
+                v.getNamespaceCode(), new NormalizedStringAdapter().unmarshal(v.getName()));
             if (permissionTemplate == null) {
                 throw new UnmarshalException("Cannot find permission template with namespace \"" + v.getNamespaceCode() + "\" and name \"" + v.getName() + "\"");
             }

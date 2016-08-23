@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
@@ -27,8 +29,6 @@ import org.kuali.kfs.module.tem.TemPropertyConstants.TravelAuthorizationFields;
 import org.kuali.kfs.module.tem.document.TravelDocumentBase;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class TravelAuthCustomerExistValidation extends GenericValidation {
 
@@ -41,7 +41,7 @@ public class TravelAuthCustomerExistValidation extends GenericValidation {
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(TemPropertyConstants.TRIP_OVERVIEW);
         boolean rulePassed = true;
-        final TravelDocumentBase taDocument = (TravelDocumentBase)event.getDocument();
+        final TravelDocumentBase taDocument = (TravelDocumentBase) event.getDocument();
 
         LOG.debug("Looking up customer with number " + taDocument.getTraveler().getCustomerNumber());
         taDocument.getTraveler().refreshReferenceObject(TemPropertyConstants.CUSTOMER);

@@ -18,40 +18,40 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
-import org.kuali.kfs.module.purap.PurapConstants;
-import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PurchaseOrderEditMode;
+import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.PurapConstants.RequisitionSources;
+import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 public class PurchaseOrderDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
 
     @Override
     public boolean canEdit(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (!PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_QUOTE.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_AWAIT_NEW_UNORDERED_ITEM_REVIEW.equals(poDocument.getApplicationDocumentStatus()) &&
-                !PurchaseOrderStatuses.APPDOC_CHANGE_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus())) {
+            !PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(poDocument.getApplicationDocumentStatus()) &&
+            !PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(poDocument.getApplicationDocumentStatus()) &&
+            !PurchaseOrderStatuses.APPDOC_QUOTE.equals(poDocument.getApplicationDocumentStatus()) &&
+            !PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(poDocument.getApplicationDocumentStatus()) &&
+            !PurchaseOrderStatuses.APPDOC_AWAIT_NEW_UNORDERED_ITEM_REVIEW.equals(poDocument.getApplicationDocumentStatus()) &&
+            !PurchaseOrderStatuses.APPDOC_CHANGE_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus())) {
             return false;
         }
         return super.canEdit(document);
@@ -68,7 +68,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
     @Override
     public boolean canCancel(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (poDocument.isPendingSplit() || poDocument.getAssigningSensitiveData()) {
             return false;
@@ -79,7 +79,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
     @Override
     public boolean canClose(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (poDocument.isPendingSplit() || poDocument.getAssigningSensitiveData()) {
             return false;
@@ -90,7 +90,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
     @Override
     public boolean canReload(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (poDocument.isPendingSplit() || poDocument.getAssigningSensitiveData()) {
             return false;
@@ -101,7 +101,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
     @Override
     public boolean canSave(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         if (poDocument.isPendingSplit() || poDocument.getAssigningSensitiveData()) {
             return false;
@@ -112,12 +112,12 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
     @Override
     public boolean canRoute(Document document) {
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
         String statusCode = poDocument.getApplicationDocumentStatus();
 
         if (StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT) ||
-                StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR) ||
-                StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_QUOTE)) {
+            StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR) ||
+            StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_QUOTE)) {
             return false;
         }
 
@@ -131,7 +131,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
+        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
 
         WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
 
@@ -169,12 +169,12 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
         // if not B2B requisition, users can edit the posting year if within a given amount of time set in a parameter
         if (!RequisitionSources.B2B.equals(poDocument.getRequisitionSourceCode()) &&
-                SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear() &&
-                (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) ||
-                        PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
-                        PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
-                        PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode) ||
-                        PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(statusCode))) {
+            SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear() &&
+            (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) ||
+                PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
+                PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
+                PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode) ||
+                PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(statusCode))) {
             editModes.add(PurchaseOrderEditMode.ALLOW_POSTING_YEAR_ENTRY);
         }
 
@@ -186,8 +186,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
             if (poDocument.isUseTaxIndicator()) {
                 // if use tax, don't allow editing of tax fields
                 editModes.add(PurchaseOrderEditMode.LOCK_TAX_AMOUNT_ENTRY);
-            }
-            else {
+            } else {
                 // display the "clear all taxes" button if doc is not using use tax
                 editModes.add(PurchaseOrderEditMode.CLEAR_ALL_TAXES);
             }
@@ -203,9 +202,9 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         // for ex, contract manager, manual status change, and APPDOC_QUOTE etc
         //if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
         if (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) ||
-                PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
-                PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
-                PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode)) {
+            PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
+            PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
+            PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode)) {
             editModes.add(PurchaseOrderEditMode.PRE_ROUTE_CHANGEABLE);
         }
 
@@ -264,7 +263,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
 
         // transmission method must be one of those specified by the parameter
         if (can) {
-            List<String> methods = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.PURAP_PO_PRINT_PREVIEW_TRANSMISSION_METHOD_TYPES) );
+            List<String> methods = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.PURAP_PO_PRINT_PREVIEW_TRANSMISSION_METHOD_TYPES));
             String method = poDocument.getPurchaseOrderTransmissionMethodCode();
             can = (methods == null || methods.contains(method));
         }

@@ -29,30 +29,29 @@ import java.util.Map;
 
 public class DocumentTypeAndAttachmentTypePermissionTypeService extends DocumentTypePermissionTypeServiceImpl {
 
-	@Override
-	protected List<Permission> performPermissionMatches(
-			Map<String, String> requestedDetails,
-			List<Permission> permissionsList) {
+    @Override
+    protected List<Permission> performPermissionMatches(
+        Map<String, String> requestedDetails,
+        List<Permission> permissionsList) {
 
-		List<Permission> matchingPermissions = new ArrayList<Permission>();
-		if (requestedDetails == null) {
-			return matchingPermissions; // empty list
-		}
-		// loop over the permissions, checking the non-document-related ones
-		for (Permission kimPermissionInfo : permissionsList) {
+        List<Permission> matchingPermissions = new ArrayList<Permission>();
+        if (requestedDetails == null) {
+            return matchingPermissions; // empty list
+        }
+        // loop over the permissions, checking the non-document-related ones
+        for (Permission kimPermissionInfo : permissionsList) {
             PermissionBo bo = PermissionBo.from(kimPermissionInfo);
-			if (!bo.getDetails().containsKey(
-						KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE)
-			  || bo.getDetails().get(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE)
-				 .equals(requestedDetails.get(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE)))
-			{
-				matchingPermissions.add(kimPermissionInfo);
-			}
+            if (!bo.getDetails().containsKey(
+                KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE)
+                || bo.getDetails().get(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE)
+                .equals(requestedDetails.get(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE))) {
+                matchingPermissions.add(kimPermissionInfo);
+            }
 
-		}
-		// now, filter the list to just those for the current document
-		matchingPermissions = super.performPermissionMatches(requestedDetails,
-				matchingPermissions);
-		return matchingPermissions;
-	}
+        }
+        // now, filter the list to just those for the current document
+        matchingPermissions = super.performPermissionMatches(requestedDetails,
+            matchingPermissions);
+        return matchingPermissions;
+    }
 }

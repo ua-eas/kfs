@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -43,8 +39,11 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Action class for the asset barcode inventory error document
@@ -54,7 +53,7 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#sendAdHocRequests(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward sendAdHocRequests(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -67,16 +66,18 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
         return super.sendAdHocRequests(mapping, bcieForm, request, response);
     }
 
-    /** why does this just send false to rules.....
+    /**
+     * why does this just send false to rules.....
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#approve(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BarcodeInventoryErrorForm bcieForm = (BarcodeInventoryErrorForm) form;
         BarcodeInventoryErrorDocument document = bcieForm.getBarcodeInventoryErrorDocument();
         //prevent approval before save if barcode inventory item list not validated
-        if(!document.isDocumentCorrected()){
+        if (!document.isDocumentCorrected()) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.DOCUMENT_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_VALIDATE_ITEMS_BEFORE_APPROVE, document.getDocumentNumber());
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
@@ -92,7 +93,7 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -181,7 +182,7 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
 
         // If rows were selected.....
         if (selectedCheckboxes != null) {
-            for(int i=0;i < selectedCheckboxes.length;i++) {
+            for (int i = 0; i < selectedCheckboxes.length; i++) {
                 selectedRows.add(selectedCheckboxes[i]);
             }
 
@@ -203,14 +204,13 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
                     //detail.getCorrectorUniversalIdentifier() = null means record has not been saved as corrected
                     // if (detail.getCorrectorUniversalIdentifier() == null) {
                     // detail.getInventoryCorrectionTimestamp() used to determine error_status instead of detail.getCorrectorUniversalIdentifier()
-                     if (detail.getInventoryCorrectionTimestamp() == null) {
+                    if (detail.getInventoryCorrectionTimestamp() == null) {
                         detail.setErrorCorrectionStatusCode(CamsConstants.BarCodeInventoryError.STATUS_CODE_ERROR);
                     }
                 }
             }
 
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID, CamsKeyConstants.BarcodeInventory.ERROR_CHECKBOX_MUST_BE_CHECKED);
         }
 
@@ -258,8 +258,7 @@ public class BarcodeInventoryErrorAction extends FinancialSystemTransactionalDoc
                     }
                 }
             }
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID, CamsKeyConstants.BarcodeInventory.ERROR_CHECKBOX_MUST_BE_CHECKED);
         }
 

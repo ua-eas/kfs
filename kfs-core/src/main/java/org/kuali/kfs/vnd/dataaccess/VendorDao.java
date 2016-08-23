@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.dataaccess;
 
-import java.sql.Date;
-
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
+
+import java.sql.Date;
 
 /**
  * Vendor DAO Interface.

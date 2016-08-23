@@ -23,91 +23,89 @@ import org.kuali.kfs.krad.uif.component.Component;
 /**
  * Component that contains one or more user interface elements and can be placed
  * into a <code>Container</code>
- *
+ * <p>
  * <p>
  * Provides a wrapper for various user interface elements so they can be treated
  * uniformly by a container and rendered using a <code>LayoutManager</code>.
  * Implementations exist for various types of elements and properties to
  * configure that element.
  * </p>
- *
- *
  */
 public interface Field extends Component {
 
-	/**
-	 * Label text for the field
-	 *
-	 * <p>
-	 * The label is generally used to identify the field in the user interface
-	 * </p>
-	 *
-	 * @return String label text
-	 */
-	public String getLabel();
+    /**
+     * Label text for the field
+     * <p>
+     * <p>
+     * The label is generally used to identify the field in the user interface
+     * </p>
+     *
+     * @return String label text
+     */
+    public String getLabel();
 
-	/**
-	 * Setter for the field's label text
-	 *
-	 * @param label
-	 */
-	public void setLabel(String label);
+    /**
+     * Setter for the field's label text
+     *
+     * @param label
+     */
+    public void setLabel(String label);
 
-	/**
-	 * Short label for the field
-	 *
-	 * <p>
-	 * For areas of the user interface that have limited area (such as table
-	 * headers), the short label can be used to identify the field
-	 * </p>
-	 *
-	 * @return String short label
-	 */
-	public String getShortLabel();
+    /**
+     * Short label for the field
+     * <p>
+     * <p>
+     * For areas of the user interface that have limited area (such as table
+     * headers), the short label can be used to identify the field
+     * </p>
+     *
+     * @return String short label
+     */
+    public String getShortLabel();
 
-	/**
-	 * Setter for the field's short label text
-	 *
-	 * @param shortLabel
-	 */
-	public void setShortLabel(String shortLabel);
+    /**
+     * Setter for the field's short label text
+     *
+     * @param shortLabel
+     */
+    public void setShortLabel(String shortLabel);
 
-	/**
-	 * <code>LabelField</code> instance for the field
-	 *
-	 * <p>
-	 * The label field contains the labeling text for the field in addition to
-	 * configuration for rendering in the user interface (such as the styling
-	 * for the label area)
-	 * </p>
-	 *
-	 * @return LabelField instance
-	 */
-	public LabelField getLabelField();
+    /**
+     * <code>LabelField</code> instance for the field
+     * <p>
+     * <p>
+     * The label field contains the labeling text for the field in addition to
+     * configuration for rendering in the user interface (such as the styling
+     * for the label area)
+     * </p>
+     *
+     * @return LabelField instance
+     */
+    public LabelField getLabelField();
 
-	/**
-	 * Setter for the field's label field
-	 *
-	 * @param labelField
-	 */
-	public void setLabelField(LabelField labelField);
+    /**
+     * Setter for the field's label field
+     *
+     * @param labelField
+     */
+    public void setLabelField(LabelField labelField);
 
-	/**
-	 * Indicates whether the contained <code>LabelField</code> has been rendered
-	 * as part of another field and thus should not be rendered with the
-	 * attribute
-	 *
-	 * @return boolean true if the label field has been rendered, false if it
-	 *         should be rendered with the attribute
-	 */
-	public boolean isLabelFieldRendered();
+    /**
+     * Indicates whether the contained <code>LabelField</code> has been rendered
+     * as part of another field and thus should not be rendered with the
+     * attribute
+     *
+     * @return boolean true if the label field has been rendered, false if it
+     * should be rendered with the attribute
+     */
+    public boolean isLabelFieldRendered();
 
-	/**
-	 * Setter for the label field rendered indicator
-	 *
-	 * @param labelFieldRendered
-	 */
-	public void setLabelFieldRendered(boolean labelFieldRendered);
+    /**
+     * Setter for the label field rendered indicator
+     *
+     * @param labelFieldRendered
+     */
+    public void setLabelFieldRendered(boolean labelFieldRendered);
 
     /**
      * Field Security object that indicates what authorization (permissions) exist for the field

@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.gl.Constant;
@@ -34,6 +28,10 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.CashBalance;
 import org.kuali.kfs.gl.businessobject.inquiry.CashBalanceInquirableImpl;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -41,11 +39,13 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support cash lookups
@@ -57,12 +57,12 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
     /**
      * Returns the URL for inquiries on fields returned in the lookup
      *
-     * @param bo the business object the field to inquiry on is in
+     * @param bo           the business object the field to inquiry on is in
      * @param propertyName the name of the property that an inquiry url is being asked of
      * @return the String of the url
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String) KRAD
-     *      Conversion: Lookupable modifies the search results based on the fields consolidated. But all field definitions are in
-     *      data dictionary.
+     * Conversion: Lookupable modifies the search results based on the fields consolidated. But all field definitions are in
+     * data dictionary.
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
@@ -85,14 +85,13 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
         String pendingEntryOption = getSelectedPendingEntryOption(fieldValues);
 
 
-
         // KFSMI-410: need to get this before getting isConsolidated because this value will be removed.
         String consolidationOption = (String) fieldValues.get(GeneralLedgerConstants.DummyBusinessObject.CONSOLIDATION_OPTION);
         // get the consolidation option
         boolean isConsolidated = isConsolidationSelected(fieldValues);
 
         // KFSMI-410: added one more node for consolidationOption
-        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
+        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)) {
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
         }
@@ -165,13 +164,13 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
     /**
      * Allows an updating of pending entry records before they are applied to the inquiry results
      *
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     @Override
     protected void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareInclusive) {
@@ -250,9 +249,9 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
         List<Row> rows = super.getRows();
 
         // look for field and replace BO class
-        for (Iterator iter = rows.iterator(); iter.hasNext();) {
+        for (Iterator iter = rows.iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
 
                 if (ObjectUtils.isNotNull(field) && StringUtils.equalsIgnoreCase(field.getPropertyName(), KFSPropertyConstants.ACCOUNT_NUMBER)) {

@@ -41,8 +41,9 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     private LetterOfCreditFundGroup letterOfCreditFundGroup;
 
 
+    public LetterOfCreditFund() {
+    }
 
-    public LetterOfCreditFund() { }
     public LetterOfCreditFund(String letterOfCreditFundCode, String letterOfCreditFundDescription) {
         this.letterOfCreditFundCode = letterOfCreditFundCode;
         this.letterOfCreditFundDescription = letterOfCreditFundDescription;
@@ -59,7 +60,8 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     }
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getLetterOfCreditFundCode() {
@@ -136,7 +138,7 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
             keyValues.put("groupCode", getLetterOfCreditFundGroupCode());
 
             ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(LetterOfCreditFundGroup.class);
-            if (responsibleModuleService != null && responsibleModuleService.isExternalizable(LetterOfCreditFundGroup.class)){
+            if (responsibleModuleService != null && responsibleModuleService.isExternalizable(LetterOfCreditFundGroup.class)) {
                 this.letterOfCreditFundGroup = responsibleModuleService.getExternalizableBusinessObject(LetterOfCreditFundGroup.class, keyValues);
             }
         }

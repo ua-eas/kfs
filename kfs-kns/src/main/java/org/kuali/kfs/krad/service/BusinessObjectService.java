@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,52 +27,46 @@ import java.util.Map;
 
 /**
  * This interface defines methods that a BusinessObjectService must provide.
- *
- *
  */
 public interface BusinessObjectService {
 
     /**
      * Saves the passed in object via the persistence layer.
-     *
+     * <p>
      * This will throw an IllegalArgumentException (runtime exception) if the object passed in is not a descendent of
      * BusinessObject.
      *
      * @param bo A BusinessObject instance or descendent that you wish to be stored.
-     *
      */
     public <T extends PersistableBusinessObject> T save(T bo);
 
     /**
      * Saves the businessObjects on the list via the persistence layer.
-     *
+     * <p>
      * This will throw an IllegalArgumentException (runtime exception) if any of the objects passed in is not a descendent of
      * BusinessObject.
      *
      * @param businessObjects A List<PersistableBusinessObject> of objects to persist.
-     *
      */
     public List<? extends PersistableBusinessObject> save(List<? extends PersistableBusinessObject> businessObjects);
 
     /**
      * Links up any contained objects, and then Saves the passed in object via the persistence layer.
-     *
+     * <p>
      * This will throw an IllegalArgumentException (runtime exception) if the object passed in is not a descendent of
      * BusinessObject.
      *
      * @param bo A BusinessObject instance or descendent that you wish to be stored.
-     *
      */
     public PersistableBusinessObject linkAndSave(PersistableBusinessObject bo);
 
     /**
      * Links up any contained objects, and Saves the businessObjects on the list via the persistence layer.
-     *
+     * <p>
      * This will throw an IllegalArgumentException (runtime exception) if any of the objects passed in is not a descendent of
      * BusinessObject.
      *
      * @param businessObjects A List<BusinessObject> of objects to persist.
-     *
      */
     public List<? extends PersistableBusinessObject> linkAndSave(List<? extends PersistableBusinessObject> businessObjects);
 
@@ -120,7 +114,7 @@ public interface BusinessObjectService {
      * @param clazz
      * @return
      */
-    public <T extends BusinessObject> Collection<T> findAllOrderBy( Class<T> clazz, String sortField, boolean sortAscending );
+    public <T extends BusinessObject> Collection<T> findAllOrderBy(Class<T> clazz, String sortField, boolean sortAscending);
 
     /**
      * This method retrieves a collection of business objects populated with data, such that each record in the database populates a
@@ -196,33 +190,28 @@ public interface BusinessObjectService {
     public void deleteMatching(Class clazz, Map<String, ?> fieldValues);
 
     /**
-     *
      * This method attempts to retrieve the reference from a BO if it exists.
      *
-     * @param bo - populated BusinessObject instance that includes the referenceName property
+     * @param bo            - populated BusinessObject instance that includes the referenceName property
      * @param referenceName - name of the member/property to load
      * @return A populated object from the DB, if it exists
-     *
      */
     public BusinessObject getReferenceIfExists(BusinessObject bo, String referenceName);
 
     /**
-     *
      * Updates all KualiUser or Person objects contained within this BO, based on the UserID as the authoritative key. The
      * appropriate foreign-key field in the BO itself is also updated.
-     *
+     * <p>
      * This allows UserIDs to be entered on forms, and the back-end will link up correctly based on this non-key field.
      *
      * @param bo The populated BO (or descendent) instance to be linked & updated
-     *
      */
     public void linkUserFields(PersistableBusinessObject bo);
 
     /**
-     *
      * Updates all KualiUser or Person objects contained within this BO, based on the UserID as the authoritative key. The
      * appropriate foreign-key field in the BO itself is also updated.
-     *
+     * <p>
      * This allows UserIDs to be entered on forms, and the back-end will link up correctly based on this non-key field.
      *
      * @param bos A List of populated BusinessObject (or descendent) instances to be linked & updated.

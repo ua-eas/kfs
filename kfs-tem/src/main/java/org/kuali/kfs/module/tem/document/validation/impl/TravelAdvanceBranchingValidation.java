@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * A branching validation which will redirect to a "validateTravelAdvance" composite validation if the travel advance looks to need validation
@@ -32,6 +32,7 @@ public class TravelAdvanceBranchingValidation extends BranchingValidation {
 
     /**
      * Returns "validateTravelAdvance" if the travelAuthorizationDocument (or child type) has a travel advance which seems to need authorization
+     *
      * @see org.kuali.kfs.sys.document.validation.BranchingValidation#determineBranch(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -51,6 +52,7 @@ public class TravelAdvanceBranchingValidation extends BranchingValidation {
 
     /**
      * Sets a travel authorization document to potentially validate the travel advance of
+     *
      * @param travelAuthorizationDocumentForValidation the travel authorization document to inspect
      */
     public void setTravelAuthorizationDocumentForValidation(TravelAuthorizationDocument travelAuthorizationDocumentForValidation) {

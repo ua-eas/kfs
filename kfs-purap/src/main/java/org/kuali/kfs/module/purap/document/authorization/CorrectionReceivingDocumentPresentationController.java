@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
-import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
+
+import java.util.Set;
 
 
 public class CorrectionReceivingDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.cab;
 
-import java.util.List;
-
 import org.kuali.kfs.module.cab.businessobject.PurApAccountLineGroup;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
@@ -28,6 +26,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 public class PurApAccountLineGroupTest extends KualiTestBase {
     public static class PurApAccountLineGroupTestable extends PurApAccountLineGroup {
@@ -44,8 +44,7 @@ public class PurApAccountLineGroupTest extends KualiTestBase {
             getSourceEntries().add(entry);
             if (CreditMemoAccountRevision.class.isAssignableFrom(entry.getClass())) {
                 setAmount(entry.getAmount().negated());
-            }
-            else {
+            } else {
                 setAmount(entry.getAmount());
             }
         }
@@ -117,8 +116,7 @@ public class PurApAccountLineGroupTest extends KualiTestBase {
         PurApAccountingLineBase entry = null;
         try {
             entry = (PurApAccountingLineBase) clazz.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail(e.toString());
         }
         entry.setPostingYear(i);

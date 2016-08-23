@@ -20,14 +20,6 @@ package org.kuali.kfs.krad.web.controller;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.web.form.UifFormBase;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.UserSessionUtils;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.bo.Attachment;
@@ -35,10 +27,10 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.exception.DocumentAuthorizationException;
 import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
 import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.rules.rule.event.AddNoteEvent;
 import org.kuali.kfs.krad.service.AttachmentService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
@@ -57,6 +49,14 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.NoteType;
 import org.kuali.kfs.krad.web.form.DocumentFormBase;
+import org.kuali.kfs.krad.web.form.UifFormBase;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.Person;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -78,13 +78,11 @@ import java.util.Properties;
 /**
  * Base controller class for all KRAD <code>DocumentView</code> screens working
  * with <code>Document</code> models
- *
+ * <p>
  * <p>
  * Provides default controller implementations for the standard document actions including: doc handler
  * (retrieve from doc search and action list), save, route (and other KEW actions)
  * </p>
- *
- *
  */
 public abstract class DocumentControllerBase extends UifControllerBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentControllerBase.class);
@@ -92,8 +90,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
     // COMMAND constants which cause docHandler to load an existing document
     // instead of creating a new one
     protected static final String[] DOCUMENT_LOAD_COMMANDS =
-            {KewApiConstants.ACTIONLIST_COMMAND, KewApiConstants.DOCSEARCH_COMMAND, KewApiConstants.SUPERUSER_COMMAND,
-                    KewApiConstants.HELPDESK_ACTIONLIST_COMMAND};
+        {KewApiConstants.ACTIONLIST_COMMAND, KewApiConstants.DOCSEARCH_COMMAND, KewApiConstants.SUPERUSER_COMMAND,
+            KewApiConstants.HELPDESK_ACTIONLIST_COMMAND};
 
     private BusinessObjectService businessObjectService;
     private DataDictionaryService dataDictionaryService;
@@ -119,7 +117,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=docHandler")
     public ModelAndView docHandler(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
         String command = form.getCommand();
 
         // in all of the following cases we want to load the document
@@ -145,7 +143,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      * it can be overridden in children if the need arises
      *
      * @param form - form instance that contains the doc id parameter and where
-     * the retrieved document instance should be set
+     *             the retrieved document instance should be set
      */
     protected void loadDocument(DocumentFormBase form) throws WorkflowException {
         String docId = form.getDocId();
@@ -156,12 +154,12 @@ public abstract class DocumentControllerBase extends UifControllerBase {
         doc = getDocumentService().getByDocumentHeaderId(docId);
         if (doc == null) {
             throw new UnknownDocumentIdException(
-                    "Document no longer exists.  It may have been cancelled before being saved.");
+                "Document no longer exists.  It may have been cancelled before being saved.");
         }
 
         WorkflowDocument workflowDocument = doc.getDocumentHeader().getWorkflowDocument();
         if (!getDocumentDictionaryService().getDocumentAuthorizer(doc).canOpen(doc,
-                GlobalVariables.getUserSession().getPerson())) {
+            GlobalVariables.getUserSession().getPerson())) {
             throw buildAuthorizationException("open", doc);
         }
 
@@ -184,7 +182,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      * This has been abstracted out so that it can be overridden in children if the need arises.
      *
      * @param form - form instance that contains the doc type parameter and where
-     * the new document instance should be set
+     *             the new document instance should be set
      */
     protected void createDocument(DocumentFormBase form) throws WorkflowException {
         LOG.debug("Creating new document instance for doc type: " + form.getDocTypeName());
@@ -198,12 +196,12 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      * Reloads the document contained on the form from the database
      *
      * @param form - document form base containing the document instance from which the document number will
-     * be retrieved and used to fetch the document from the database
+     *             be retrieved and used to fetch the document from the database
      * @return ModelAndView
      */
     @RequestMapping(params = "methodToCall=reload")
     public ModelAndView reload(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                               HttpServletRequest request, HttpServletResponse response) throws Exception {
         Document document = form.getDocument();
 
         // prepare for the reload action - set doc id and command
@@ -226,7 +224,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
     @RequestMapping(params = "methodToCall=cancel")
     @Override
     public ModelAndView cancel(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                               HttpServletRequest request, HttpServletResponse response) {
         DocumentFormBase documentForm = (DocumentFormBase) form;
 
         // TODO: prompt user to confirm the cancel, need question framework
@@ -244,7 +242,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=save")
     public ModelAndView save(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                             HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.SAVE, true);
 
         return getUIFModelAndView(form);
@@ -258,7 +256,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=complete")
     public ModelAndView complete(@ModelAttribute("KualiForm")
-    DocumentFormBase form, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                     DocumentFormBase form, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.COMPLETE, true);
 
         return getUIFModelAndView(form);
@@ -272,7 +270,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=route")
     public ModelAndView route(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
         performWorkflowAction(form, WorkflowAction.ROUTE, true);
 
         return getUIFModelAndView(form);
@@ -286,7 +284,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=blanketApprove")
     public ModelAndView blanketApprove(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.BLANKETAPPROVE, true);
 
         return returnToPrevious(form);
@@ -300,7 +298,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=approve")
     public ModelAndView approve(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.APPROVE, true);
 
         return returnToPrevious(form);
@@ -314,7 +312,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=disapprove")
     public ModelAndView disapprove(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
         // TODO: need to prompt for disapproval note text
         performWorkflowAction(form, WorkflowAction.DISAPPROVE, true);
 
@@ -329,7 +327,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=fyi")
     public ModelAndView fyi(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                            HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.FYI, false);
 
         return returnToPrevious(form);
@@ -343,7 +341,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=acknowledge")
     public ModelAndView acknowledge(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
         performWorkflowAction(form, WorkflowAction.ACKNOWLEDGE, false);
 
         return returnToPrevious(form);
@@ -353,8 +351,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      * Invokes the {@link DocumentService} to carry out a request workflow action and adds a success message, if
      * requested a check for sensitive data is also performed
      *
-     * @param form - document form instance containing the document for which the action will be taken on
-     * @param action - {@link WorkflowAction} enum indicating what workflow action to take
+     * @param form               - document form instance containing the document for which the action will be taken on
+     * @param action             - {@link WorkflowAction} enum indicating what workflow action to take
      * @param checkSensitiveData - boolean indicating whether a check for sensitive data should occur
      */
     protected void performWorkflowAction(DocumentFormBase form, WorkflowAction action, boolean checkSensitiveData) {
@@ -384,7 +382,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
                     break;
                 case BLANKETAPPROVE:
                     getDocumentService().blanketApproveDocument(document, form.getAnnotation(), combineAdHocRecipients(
-                            form));
+                        form));
                     successMessageKey = RiceKeyConstants.MESSAGE_ROUTE_APPROVED;
                     break;
                 case APPROVE:
@@ -403,7 +401,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
                     break;
                 case ACKNOWLEDGE:
                     getDocumentService().acknowledgeDocument(document, form.getAnnotation(), combineAdHocRecipients(
-                            form));
+                        form));
                     successMessageKey = RiceKeyConstants.MESSAGE_ROUTE_ACKNOWLEDGED;
                     break;
                 case CANCEL:
@@ -431,8 +429,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
             }
         } catch (Exception e) {
             throw new RiceRuntimeException(
-                    "Exception trying to invoke action " + action.name() + "for document: " + document
-                            .getDocumentNumber(), e);
+                "Exception trying to invoke action " + action.name() + "for document: " + document
+                    .getDocumentNumber(), e);
         }
 
         form.setAnnotation("");
@@ -445,10 +443,10 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=supervisorFunctions")
     public ModelAndView supervisorFunctions(@ModelAttribute("KualiForm") DocumentFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                            HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String workflowSuperUserUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)
-                + "/" + KRADConstants.SUPERUSER_ACTION;
+            + "/" + KRADConstants.SUPERUSER_ACTION;
 
         Properties props = new Properties();
         props.put(UifParameters.METHOD_TO_CALL, "displaySuperUserDocument");
@@ -466,12 +464,12 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=insertNote")
     public ModelAndView insertNote(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                   HttpServletRequest request, HttpServletResponse response) {
 
         // Get the note add line
         String selectedCollectionPath = uifForm.getActionParamaterValue(UifParameters.SELLECTED_COLLECTION_PATH);
         CollectionGroup collectionGroup = uifForm.getPostedView().getViewIndex().getCollectionGroupByPath(
-                selectedCollectionPath);
+            selectedCollectionPath);
         String addLinePath = collectionGroup.getAddLineBindingInfo().getBindingPath();
         Object addLine = ObjectPropertyUtils.getPropertyValue(uifForm, addLinePath);
         Note newNote = (Note) addLine;
@@ -488,9 +486,9 @@ public abstract class DocumentControllerBase extends UifControllerBase {
         if (attachmentFile != null && !StringUtils.isBlank(attachmentFile.getOriginalFilename())) {
             if (attachmentFile.getSize() == 0) {
                 GlobalVariables.getMessageMap().putError(String.format("%s.%s",
-                        KRADConstants.NEW_DOCUMENT_NOTE_PROPERTY_NAME,
-                        KRADConstants.NOTE_ATTACHMENT_FILE_PROPERTY_NAME), RiceKeyConstants.ERROR_UPLOADFILE_EMPTY,
-                        attachmentFile.getOriginalFilename());
+                    KRADConstants.NEW_DOCUMENT_NOTE_PROPERTY_NAME,
+                    KRADConstants.NOTE_ATTACHMENT_FILE_PROPERTY_NAME), RiceKeyConstants.ERROR_UPLOADFILE_EMPTY,
+                    attachmentFile.getOriginalFilename());
             } else {
                 if (newNote.getAttachment() != null) {
                     attachmentTypeCode = newNote.getAttachment().getAttachmentTypeCode();
@@ -498,7 +496,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
 
                 DocumentAuthorizer documentAuthorizer = getDocumentDictionaryService().getDocumentAuthorizer(document);
                 if (!documentAuthorizer.canAddNoteAttachment(document, attachmentTypeCode,
-                        GlobalVariables.getUserSession().getPerson())) {
+                    GlobalVariables.getUserSession().getPerson())) {
                     throw buildAuthorizationException("annotate", document);
                 }
 
@@ -510,8 +508,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
                     }
 
                     attachment = getAttachmentService().createAttachment(document.getNoteTarget(),
-                            attachmentFile.getOriginalFilename(), attachmentFile.getContentType(),
-                            (int) attachmentFile.getSize(), attachmentFile.getInputStream(), attachmentType);
+                        attachmentFile.getOriginalFilename(), attachmentFile.getContentType(),
+                        (int) attachmentFile.getSize(), attachmentFile.getInputStream(), attachmentType);
                 } catch (IOException e) {
                     throw new RiceRuntimeException("Unable to store attachment", e);
                 }
@@ -527,7 +525,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
 
         // validate the note
         boolean rulePassed = KRADServiceLocatorWeb.getKualiRuleService().applyRules(new AddNoteEvent(document,
-                newNote));
+            newNote));
 
         // if the rule evaluation passed, let's add the note
         if (rulePassed) {
@@ -543,8 +541,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
             }
             // Save the note if the document is already saved
             if (!documentHeader.getWorkflowDocument().isInitiated() && StringUtils.isNotEmpty(
-                    document.getNoteTarget().getObjectId()) && !(document instanceof MaintenanceDocument && NoteType
-                    .BUSINESS_OBJECT.getCode().equals(newNote.getNoteTypeCode()))) {
+                document.getNoteTarget().getObjectId()) && !(document instanceof MaintenanceDocument && NoteType
+                .BUSINESS_OBJECT.getCode().equals(newNote.getNoteTypeCode()))) {
 
                 getNoteService().save(newNote);
             }
@@ -561,7 +559,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=deleteNote")
     public ModelAndView deleteNote(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                   HttpServletRequest request, HttpServletResponse response) {
 
         String selectedLineIndex = uifForm.getActionParamaterValue("selectedLineIndex");
         Document document = ((DocumentFormBase) uifForm).getDocument();
@@ -577,7 +575,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
         Person user = GlobalVariables.getUserSession().getPerson();
         String authorUniversalIdentifier = note.getAuthorUniversalIdentifier();
         if (!getDocumentDictionaryService().getDocumentAuthorizer(document).canDeleteNoteAttachment(document,
-                attachmentTypeCode, authorUniversalIdentifier, user)) {
+            attachmentTypeCode, authorUniversalIdentifier, user)) {
             throw buildAuthorizationException("annotate", document);
         }
 
@@ -586,7 +584,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
             //All references for the business object Attachment are auto-update="none",
             //so refreshNonUpdateableReferences() should work the same as refresh()
             if (note.getNoteIdentifier()
-                    != null) { // KULRICE-2343 don't blow away note reference if the note wasn't persisted
+                != null) { // KULRICE-2343 don't blow away note reference if the note wasn't persisted
                 attachment.refreshNonUpdateableReferences();
             }
             getAttachmentService().deleteAttachmentContents(attachment);
@@ -606,8 +604,8 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=downloadAttachment")
     public ModelAndView downloadAttachment(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request,
-            HttpServletResponse response) throws ServletRequestBindingException, FileNotFoundException, IOException {
+                                           HttpServletRequest request,
+                                           HttpServletResponse response) throws ServletRequestBindingException, FileNotFoundException, IOException {
         // Get the attachment input stream
         String selectedLineIndex = uifForm.getActionParamaterValue("selectedLineIndex");
         Note note = ((DocumentFormBase) uifForm).getDocument().getNote(Integer.parseInt(selectedLineIndex));
@@ -621,7 +619,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
         response.setHeader("Content-Disposition",
-                "attachment; filename=\"" + attachment.getAttachmentFileName() + "\"");
+            "attachment; filename=\"" + attachment.getAttachmentFileName() + "\"");
 
         // Copy the input stream to the response
         FileCopyUtils.copy(is, response.getOutputStream());
@@ -634,7 +632,7 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=cancelAttachment")
     public ModelAndView cancelAttachment(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                         HttpServletRequest request, HttpServletResponse response) {
         // Remove the attached file
         uifForm.setAttachmentFile(null);
         return getUIFModelAndView(uifForm);
@@ -648,18 +646,18 @@ public abstract class DocumentControllerBase extends UifControllerBase {
      * @param form
      * @param request
      * @param response
-     * @param fieldName - name of field with value being checked
+     * @param fieldName  - name of field with value being checked
      * @param fieldValue - value to check for sensitive data
-     * @param caller - method that should be called back from question
-     * @param context - additional context that needs to be passed back with the
-     * question response
+     * @param caller     - method that should be called back from question
+     * @param context    - additional context that needs to be passed back with the
+     *                   question response
      * @return - view for spring to forward to, or null if processing should
-     *         continue
+     * continue
      * @throws Exception
      */
     protected String checkAndWarnAboutSensitiveData(DocumentFormBase form, HttpServletRequest request,
-            HttpServletResponse response, String fieldName, String fieldValue, String caller,
-            String context) throws Exception {
+                                                    HttpServletResponse response, String fieldName, String fieldValue, String caller,
+                                                    String context) throws Exception {
 
         String viewName = null;
         Document document = form.getDocument();
@@ -740,12 +738,12 @@ public abstract class DocumentControllerBase extends UifControllerBase {
     /**
      * Convenience method for building authorization exceptions
      *
-     * @param action - the action that was requested
+     * @param action   - the action that was requested
      * @param document - document instance the action was requested for
      */
     protected DocumentAuthorizationException buildAuthorizationException(String action, Document document) {
         return new DocumentAuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(),
-                action, document.getDocumentNumber());
+            action, document.getDocumentNumber());
     }
 
     public BusinessObjectService getBusinessObjectService() {

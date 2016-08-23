@@ -19,15 +19,15 @@
 package org.kuali.kfs.sys.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Performs bank code validation.
@@ -40,9 +40,9 @@ public class BankCodeValidation {
      * Performs required, exists, and active validation of bank code. Also validates bank for deposit or disbursement indicator if
      * requested. .
      *
-     * @param bankCode value to validate
-     * @param bankCodeProperty property to associate errors with
-     * @param requireDeposit true if the bank code should support deposits
+     * @param bankCode            value to validate
+     * @param bankCodeProperty    property to associate errors with
+     * @param requireDeposit      true if the bank code should support deposits
      * @param requireDisbursement true if the bank code should support disbursements
      * @return true if bank code passes all validations, false if any fail
      */
@@ -89,10 +89,10 @@ public class BankCodeValidation {
      * Performs required, exists, and active validation of bank code. Also validates bank for deposit or disbursement indicator if
      * requested.
      *
-     * @param document the document that is being validated
-     * @param bankCode value to validate
-     * @param bankCodeProperty property to associate errors with
-     * @param requireDeposit true if the bank code should support deposits
+     * @param document            the document that is being validated
+     * @param bankCode            value to validate
+     * @param bankCodeProperty    property to associate errors with
+     * @param requireDeposit      true if the bank code should support deposits
      * @param requireDisbursement true if the bank code should support disbursements
      * @return true if bank code passes all validations, false if any fail
      */

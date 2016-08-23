@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.util;
 
-import javax.servlet.jsp.PageContext;
-
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.pojo.PojoFormBase;
+
+import javax.servlet.jsp.PageContext;
 
 /**
  * This class contains utility methods to help render accounting line elements
@@ -39,11 +39,9 @@ public class RendererUtil {
         PojoFormBase form = null;
         if (pageContext.getRequest().getAttribute(WebUtils.KEY_KUALI_FORM_IN_SESSION) != null) {
             form = (PojoFormBase) pageContext.getRequest().getAttribute(WebUtils.KEY_KUALI_FORM_IN_SESSION);
-        }
-        else if (pageContext.getSession().getAttribute(WebUtils.KEY_KUALI_FORM_IN_SESSION) != null) {
+        } else if (pageContext.getSession().getAttribute(WebUtils.KEY_KUALI_FORM_IN_SESSION) != null) {
             form = (PojoFormBase) pageContext.getSession().getAttribute(WebUtils.KEY_KUALI_FORM_IN_SESSION);
-        }
-        else {
+        } else {
             form = (PojoFormBase) KNSGlobalVariables.getKualiForm();
         }
 

@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.ar.batch.report;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +27,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
- *
  * Contains a set of errors while attempting to run a batch of
  * AR Customer Load entries.
- *
  */
 public class CustomerLoadBatchErrors {
 
@@ -40,7 +38,6 @@ public class CustomerLoadBatchErrors {
     private int errorCount;
 
     /**
-     *
      * Creates a new CustomerLoadBatchErrors object, with empty internal content.
      */
     public CustomerLoadBatchErrors() {
@@ -65,7 +62,6 @@ public class CustomerLoadBatchErrors {
     }
 
     /**
-     *
      * Constructs a CustomerLoadBatchErrors with the specified List of CustomerLoadBatchError
      * objects as the starting content.
      *
@@ -130,12 +126,11 @@ public class CustomerLoadBatchErrors {
     }
 
     /**
-     *
      * Returns the companyName's that have errors in this list.
-     *
+     * <p>
      * Note that the set of CompanyNames returned should be in ascending order
      * for String ordering.
-     *
+     * <p>
      * Note that the underlying implementation's return is undefined where there
      * are no elements in the storage yet, so test for null first.
      *
@@ -146,12 +141,11 @@ public class CustomerLoadBatchErrors {
     }
 
     /**
-     *
      * Returns the list of CustomerLoadBatchError objects for the given
      * companyName.
-     *
+     * <p>
      * Note that null will be returned if there are no errors for that companyName.
-     *
+     * <p>
      * Note that ordering of CustomerLoadBatchError objects for a given companyName is
      * undefined.
      *
@@ -166,8 +160,8 @@ public class CustomerLoadBatchErrors {
     }
 
     /**
-     *
      * Returns true if there are no elements (errors) in this object.
+     *
      * @return True if no errors have been added, False if any have been.
      */
     public boolean isEmpty() {
@@ -175,9 +169,8 @@ public class CustomerLoadBatchErrors {
     }
 
     /**
-     *
      * Returns a string error for each error, suitable to go into some other error container.
-     *
+     * <p>
      * The returned Set is sorted by natural order, and the String constructed should naturally order
      * by companyName, then propertyName, though this is not absolutely guaranteed in all cases.
      *

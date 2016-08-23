@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.taglib.html.HiddenTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.taglib.html.HiddenTag;
-import org.springframework.web.util.HtmlUtils;
+import java.io.IOException;
 
 /**
  * Renders the dynamic label portion of a field
@@ -51,14 +49,13 @@ public class DynamicNameLabelRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
         try {
             out.write("<br />");
-            out.write("<div id=\""+fieldName+".div\" class=\"fineprint\" title=\"" + fieldValue + "\">");
+            out.write("<div id=\"" + fieldName + ".div\" class=\"fineprint\" title=\"" + fieldValue + "\">");
             if (!StringUtils.isBlank(fieldValue)) {
                 out.write(fieldValue);
             }
@@ -67,16 +64,16 @@ public class DynamicNameLabelRenderer implements Renderer {
             if (!StringUtils.isBlank(fieldValue)) {
                 renderValuePersistingTag(pageContext, parentTag);
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering a dynamic field label", ioe);
         }
     }
 
     /**
      * If the value is present, renders that value in a tag
+     *
      * @param pageContext the page context to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      */
     protected void renderValuePersistingTag(PageContext pageContext, Tag parentTag) throws JspException {
         valuePersistingTag.setPageContext(pageContext);
@@ -90,6 +87,7 @@ public class DynamicNameLabelRenderer implements Renderer {
 
     /**
      * Gets the fieldName attribute.
+     *
      * @return Returns the fieldName.
      */
     public String getFieldName() {
@@ -98,6 +96,7 @@ public class DynamicNameLabelRenderer implements Renderer {
 
     /**
      * Sets the fieldName attribute value.
+     *
      * @param fieldName The fieldName to set.
      */
     public void setFieldName(String fieldName) {
@@ -106,6 +105,7 @@ public class DynamicNameLabelRenderer implements Renderer {
 
     /**
      * Gets the fieldValue attribute.
+     *
      * @return Returns the fieldValue.
      */
     public String getFieldValue() {
@@ -114,6 +114,7 @@ public class DynamicNameLabelRenderer implements Renderer {
 
     /**
      * Sets the fieldValue attribute value.
+     *
      * @param fieldValue The fieldValue to set.
      */
     public void setFieldValue(String fieldValue) {

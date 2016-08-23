@@ -18,18 +18,14 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.ENCUMBRANCE_UPDATE_CODE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_NUMBER;
-import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_ORIGIN_CODE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_TYPE_CODE;
-
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.BalanceTypeService;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -37,9 +33,13 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.ENCUMBRANCE_UPDATE_CODE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_NUMBER;
+import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_ORIGIN_CODE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_TYPE_CODE;
 
 /**
  * Validation that if the Journal Voucher is using an encumbrance balance type, reference fields are included on each accounting line
@@ -65,7 +65,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
                 BusinessObjectEntry boe = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(VoucherSourceAccountingLine.class.getName());
                 putRequiredPropertyError(boe, ENCUMBRANCE_UPDATE_CODE);
                 valid = false;
-            } else if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(getAccountingLineForValidation().getEncumbranceUpdateCode())){
+            } else if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(getAccountingLineForValidation().getEncumbranceUpdateCode())) {
                 //check the required reference fields
                 if (StringUtils.isBlank(getAccountingLineForValidation().getReferenceOriginCode())) {
                     BusinessObjectEntry boe = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(VoucherSourceAccountingLine.class.getName());
@@ -93,7 +93,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
      *
      * @return true/false  - true if it is an encumbrance balance type
      */
-    private boolean isEncumbranceBalanceType(String balanceTypeCode){
+    private boolean isEncumbranceBalanceType(String balanceTypeCode) {
         getJournalVoucherForValidation().refreshReferenceObject(KFSPropertyConstants.ACCOUNTING_PERIOD);
         AccountingPeriod accountingPeriod = getJournalVoucherForValidation().getAccountingPeriod();
 
@@ -118,6 +118,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Gets the journalVoucherForValidation attribute.
+     *
      * @return Returns the journalVoucherForValidation.
      */
     public JournalVoucherDocument getJournalVoucherForValidation() {
@@ -126,6 +127,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Sets the journalVoucherForValidation attribute value.
+     *
      * @param journalVoucherForValidation The journalVoucherForValidation to set.
      */
     public void setJournalVoucherForValidation(JournalVoucherDocument journalVoucherForValidation) {
@@ -134,6 +136,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -142,6 +145,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine voucherSourceAccountingLine) {
@@ -150,6 +154,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -158,6 +163,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

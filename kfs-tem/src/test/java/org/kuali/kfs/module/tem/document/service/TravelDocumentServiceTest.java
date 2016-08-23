@@ -18,24 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import static org.kuali.kfs.module.tem.TemConstants.LODGING_TOTAL_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.MEALS_AND_INC_TOTAL_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.MILEAGE_TOTAL_ATTRIBUTE;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseType;
@@ -58,14 +46,25 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.workflow.MockWorkflowDocument;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
+import static org.kuali.kfs.module.tem.TemConstants.LODGING_TOTAL_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.MEALS_AND_INC_TOTAL_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.MILEAGE_TOTAL_ATTRIBUTE;
 
 /**
- *
  * This class tests the travelDocumentService class
  */
 @ConfigureContext
@@ -90,7 +89,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     private static final String HOSTED_BREAKFAST = "HB";
 
     /**
-     *
      * @see junit.framework.TestCase#setUp()
      * Sets up test parameters.
      */
@@ -108,7 +106,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests calculateDailyTotal using a single per diem expense.
      */
     public final void testCalculateDailyTotal_oneDay() {
@@ -161,9 +158,7 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
 
-
     /**
-     *
      * This method tests calculateDailyTotals using multiple (3) per diem expenses.
      */
     public final void testCalculateDailyTotals_threeDays() {
@@ -174,12 +169,12 @@ public class TravelDocumentServiceTest extends KualiTestBase {
 
         PerDiemExpense perDiemExpense = new PerDiemExpense() {
             @Override
-          public MileageRate getMileageRate(java.sql.Date effectiveDate) {
-              MileageRate rate = new MileageRate();
-              rate.setRate(new BigDecimal(0.45));
-              rate.setExpenseTypeCode("MP");
-              return rate;
-          }
+            public MileageRate getMileageRate(java.sql.Date effectiveDate) {
+                MileageRate rate = new MileageRate();
+                rate.setRate(new BigDecimal(0.45));
+                rate.setExpenseTypeCode("MP");
+                return rate;
+            }
         };
 
         perDiemExpense.setMiles(0);
@@ -260,7 +255,7 @@ public class TravelDocumentServiceTest extends KualiTestBase {
 
         assertEquals(new KualiDecimal(20 * 0.45), dailyTotals2.get(0).get(MILEAGE_TOTAL_ATTRIBUTE));
         assertEquals(new KualiDecimal(75), dailyTotals2.get(0).get(LODGING_TOTAL_ATTRIBUTE));
-        assertEquals(new KualiDecimal(60 ), dailyTotals2.get(0).get(MEALS_AND_INC_TOTAL_ATTRIBUTE));
+        assertEquals(new KualiDecimal(60), dailyTotals2.get(0).get(MEALS_AND_INC_TOTAL_ATTRIBUTE));
 
 
         assertEquals(new KualiDecimal(30 * 0.45), dailyTotals2.get(1).get(MILEAGE_TOTAL_ATTRIBUTE));
@@ -270,11 +265,10 @@ public class TravelDocumentServiceTest extends KualiTestBase {
 
         assertEquals(new KualiDecimal(40 * 0.45), dailyTotals2.get(2).get(MILEAGE_TOTAL_ATTRIBUTE));
         assertEquals(new KualiDecimal(55), dailyTotals2.get(2).get(LODGING_TOTAL_ATTRIBUTE));
-        assertEquals(new KualiDecimal(60 ), dailyTotals2.get(2).get(MEALS_AND_INC_TOTAL_ATTRIBUTE));
+        assertEquals(new KualiDecimal(60), dailyTotals2.get(2).get(MEALS_AND_INC_TOTAL_ATTRIBUTE));
     }
 
     /**
-     *
      * This method tests updatePerDiemItemsFor by adding a per diem to the list.
      */
     public final void testUpdatePerDiemExpenses_addDay() {
@@ -366,7 +360,7 @@ public class TravelDocumentServiceTest extends KualiTestBase {
                 return false;
             }
 
-            public Set<Person> getAllPriorApprovers()  {
+            public Set<Person> getAllPriorApprovers() {
                 return null;
             }
 
@@ -384,7 +378,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests updatePerDiemItemsFor for inserting a per diem into an existing list.
      */
     public final void testUpdatePerDiemExpenses_shiftAndAddADay() {
@@ -458,7 +451,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests updatePerDiemItemsFor for inserting multiple per diem expenses (5).
      */
     public final void testUpdatePerDiemExpenses_emptyList() {
@@ -483,7 +475,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests updatePerDiemItemsFor for removing a per diem expense from an existing list.
      */
     public final void testUpdatePerDiemExpenses_removeDay() {
@@ -502,12 +493,11 @@ public class TravelDocumentServiceTest extends KualiTestBase {
             assertEquals(startDate, perDiemExpenses.get(0).getMileageDate());
             assertEquals(endDate, perDiemExpenses.get(1).getMileageDate());
         } else {
-            assertTrue( true ); // couldn't actually run test because there aren't primary destinations
+            assertTrue(true); // couldn't actually run test because there aren't primary destinations
         }
     }
 
     /**
-     *
      * This method tests copyDownPerDiemExpense from the top of an existing list.
      */
     public final void testCopyDownPerDiemExpenses_topDown() {
@@ -531,12 +521,11 @@ public class TravelDocumentServiceTest extends KualiTestBase {
             assertEquals(new KualiDecimal(0), mileages.get(2).getLodging()); // last day lodging is always 0
             assertEquals(testDate2, mileages.get(2).getMileageDate());
         } else {
-            assertTrue( true ); // couldn't actually run test because there aren't primary destinations
+            assertTrue(true); // couldn't actually run test because there aren't primary destinations
         }
     }
 
     /**
-     *
      * This method tests copyDownPerDiemExpense from the middle of an existing list.
      */
     public final void testCopyDownPerDiemExpenses_middleDown() {
@@ -564,12 +553,11 @@ public class TravelDocumentServiceTest extends KualiTestBase {
             assertEquals(new Integer(20), mileages.get(2).getMiles());
             assertEquals(testDate2, mileages.get(2).getMileageDate());
         } else {
-            assertTrue( true ); // couldn't actually run test because there aren't primary destinations
+            assertTrue(true); // couldn't actually run test because there aren't primary destinations
         }
     }
 
     /**
-     *
      * This method tests copyDownPerDiemExpense from the bottom of an existing list.
      */
     public final void testCopyDownPerDiemExpenses_lastOneDown() {
@@ -600,13 +588,13 @@ public class TravelDocumentServiceTest extends KualiTestBase {
             assertEquals(new Integer(10), mileages.get(2).getMiles());
             assertEquals(testDate2, mileages.get(2).getMileageDate());
         } else {
-            assertTrue( true ); // couldn't actually run test because there aren't primary destinations
+            assertTrue(true); // couldn't actually run test because there aren't primary destinations
         }
     }
 
     /**
-     *
      * This method copies per diem.
+     *
      * @param mileage
      * @return
      */
@@ -632,8 +620,8 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method creates a list of per diems.
+     *
      * @return
      */
     private List<PerDiemExpense> createAListOfPerDiems() {
@@ -701,6 +689,7 @@ public class TravelDocumentServiceTest extends KualiTestBase {
 
     /**
      * Find a PerDiem to use for the unit test
+     *
      * @param date a date for the unit test
      * @return a PerDiem
      */
@@ -725,7 +714,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests calculateMileage.
      */
     public final void testCalculateMileage_mileageRatePresent() {
@@ -796,7 +784,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests isHostedMeal
      */
     @Test
@@ -822,7 +809,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests calculateProratePercentage
      */
     @Test
@@ -851,7 +837,6 @@ public class TravelDocumentServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests calculatePerDiemPercentageFromTimestamp
      */
     @Test
@@ -908,4 +893,4 @@ public class TravelDocumentServiceTest extends KualiTestBase {
         assertTrue(advancesTotal.isZero());
     }
 
-   }
+}

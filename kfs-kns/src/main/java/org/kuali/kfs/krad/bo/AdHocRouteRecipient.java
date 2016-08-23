@@ -32,8 +32,6 @@ import java.util.Map;
 /**
  * TODO we should not be referencing kew constants from this class and wedding ourselves to that workflow application Ad Hoc Route
  * Recipient Business Object
- *
- *
  */
 @MappedSuperclass
 public class AdHocRouteRecipient extends PersistableBusinessObjectBase {
@@ -44,22 +42,22 @@ public class AdHocRouteRecipient extends PersistableBusinessObjectBase {
     public static final Integer WORKGROUP_TYPE = new Integer(1);
 
     @Id
-	@Column(name="RECIP_TYP_CD")
-	protected Integer type;
+    @Column(name = "RECIP_TYP_CD")
+    protected Integer type;
 
     @Id
-	@Column(name="ACTN_RQST_CD")
-	protected String actionRequested;
+    @Column(name = "ACTN_RQST_CD")
+    protected String actionRequested;
 
     @Id
-	@Column(name="ACTN_RQST_RECIP_ID")
-	protected String id; // can be networkId or group id
+    @Column(name = "ACTN_RQST_RECIP_ID")
+    protected String id; // can be networkId or group id
 
     @Transient
     protected String name;
 
-    @Column(name="DOC_HDR_ID")
-	protected String documentNumber;
+    @Column(name = "DOC_HDR_ID")
+    protected String documentNumber;
 
     public AdHocRouteRecipient() {
         // set some defaults that can be overridden
@@ -99,11 +97,11 @@ public class AdHocRouteRecipient extends PersistableBusinessObjectBase {
         this.type = type;
     }
 
-    public void setdocumentNumber (String documentNumber){
+    public void setdocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
 
-    public String getdocumentNumber (){
+    public String getdocumentNumber() {
         return documentNumber;
     }
 

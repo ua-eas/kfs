@@ -21,13 +21,12 @@ package org.kuali.kfs.krad.datadictionary.validation.constraint;
 /**
  * A range constraint is one that restricts a value to a specified range. This value can be numeric or it can be a date.
  *
- *
  * @since 1.1
  */
 public interface RangeConstraint extends DataTypeConstraint {
 
-	public String getInclusiveMax();
+    public String getInclusiveMax();
 
-	public String getExclusiveMin();
+    public String getExclusiveMin();
 
 }

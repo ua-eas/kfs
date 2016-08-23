@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
-import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.purap.businessobject.PurApItem;
 
 /**
  * Import Purchasing Accounts Payble Item Event.
@@ -31,8 +31,8 @@ public class AttributedImportPurchasingAccountsPayableItemEvent extends Attribut
      * Constructs an ImportItemEvent with the given errorPathPrefix, document, and item.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked on
-     * @param item the item being added
+     * @param document        document the event was invoked on
+     * @param item            the item being added
      */
     public AttributedImportPurchasingAccountsPayableItemEvent(String errorPathPrefix, Document document, PurApItem item) {
         super("importing item to document " + getDocumentId(document), errorPathPrefix, document, item);

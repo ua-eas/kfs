@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -27,6 +25,8 @@ import org.kuali.kfs.gl.businessobject.CorrectionChange;
 import org.kuali.kfs.gl.dataaccess.CorrectionChangeDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.List;
 
 /**
  * The OJB implementation of the CorrectionChangeDao
@@ -49,11 +49,11 @@ public class CorrectionChangeDaoOjb extends PlatformAwareDaoBaseOjb implements C
     /**
      * Query the database to find qualifying CorrectionChange records
      *
-     * @param documentHeaderId the document number of a GLCP document
+     * @param documentHeaderId          the document number of a GLCP document
      * @param correctionGroupLineNumber the line number of the group within the GLCP document to find correction chagnes for
      * @return a List of correction changes
      * @see org.kuali.kfs.gl.dataaccess.CorrectionChangeDao#findByDocumentHeaderIdAndCorrectionGroupNumber(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public List findByDocumentHeaderIdAndCorrectionGroupNumber(String documentNumber, Integer correctionGroupLineNumber) {
         LOG.debug("findByDocumentHeaderIdAndCorrectionGroupNumber() started");

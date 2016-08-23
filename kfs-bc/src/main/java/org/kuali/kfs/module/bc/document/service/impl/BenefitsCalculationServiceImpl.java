@@ -50,7 +50,7 @@ public class BenefitsCalculationServiceImpl implements BenefitsCalculationServic
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BenefitsCalculationService#calculateAnnualBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateAnnualBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String laborBenefitRateCategoryCode) {
         /**
@@ -72,7 +72,7 @@ public class BenefitsCalculationServiceImpl implements BenefitsCalculationServic
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BenefitsCalculationService#calculateAnnualBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
 
     public void calculateAnnualBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber) {
@@ -95,7 +95,7 @@ public class BenefitsCalculationServiceImpl implements BenefitsCalculationServic
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BenefitsCalculationService#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateMonthlyBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber) {
         /**
@@ -115,7 +115,7 @@ public class BenefitsCalculationServiceImpl implements BenefitsCalculationServic
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BenefitsCalculationService#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateMonthlyBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String laborBenefitRateCategoryCode) {
         /**
@@ -135,7 +135,7 @@ public class BenefitsCalculationServiceImpl implements BenefitsCalculationServic
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BenefitsCalculationService#calculateAllBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateAllBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber) {
         /**

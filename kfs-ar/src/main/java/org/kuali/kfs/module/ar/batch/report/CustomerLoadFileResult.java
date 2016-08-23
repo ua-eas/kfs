@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.batch.report;
 
+import org.kuali.kfs.module.ar.batch.report.CustomerLoadResult.EntryType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.kuali.kfs.module.ar.batch.report.CustomerLoadResult.EntryType;
 
 public class CustomerLoadFileResult {
 
@@ -32,16 +32,16 @@ public class CustomerLoadFileResult {
     private List<String[]> messages;
 
     //  key=customerName, value=CustomerLoadResult
-    private Map<String,CustomerLoadResult> customers;
+    private Map<String, CustomerLoadResult> customers;
 
     public CustomerLoadFileResult() {
-        customers = new TreeMap<String,CustomerLoadResult>();
+        customers = new TreeMap<String, CustomerLoadResult>();
         messages = new ArrayList<String[]>();
     }
 
     public CustomerLoadFileResult(String filename) {
         this.filename = filename;
-        customers = new TreeMap<String,CustomerLoadResult>();
+        customers = new TreeMap<String, CustomerLoadResult>();
         messages = new ArrayList<String[]>();
     }
 
@@ -91,11 +91,11 @@ public class CustomerLoadFileResult {
     }
 
     public void addFileErrorMessage(String message) {
-        this.messages.add(new String[] { CustomerLoadResult.getEntryTypeString(EntryType.ERROR), message });
+        this.messages.add(new String[]{CustomerLoadResult.getEntryTypeString(EntryType.ERROR), message});
     }
 
     public void addFileInfoMessage(String message) {
-        this.messages.add(new String[] { CustomerLoadResult.getEntryTypeString(EntryType.INFO), message });
+        this.messages.add(new String[]{CustomerLoadResult.getEntryTypeString(EntryType.INFO), message});
     }
 
     public Set<String> getCustomerNames() {

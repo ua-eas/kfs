@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.util;
 
-import java.beans.PropertyDescriptor;
-
 import org.apache.commons.beanutils.PropertyUtils;
+
+import java.beans.PropertyDescriptor;
 
 /**
  * This class is a utility which will do copying of attributes from a original object to destination object. Intention was to
@@ -34,12 +34,12 @@ public final class ObjectValueUtils {
     /**
      * This method uses simple getter/setter methods to copy object values from a original object to destination object
      *
-     * @param origin original object
+     * @param origin      original object
      * @param destination destination object
      */
     public static void copySimpleProperties(Object origin, Object destination) {
         try {
-            Object[] empty = new Object[] {};
+            Object[] empty = new Object[]{};
             PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(origin.getClass());
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 if (propertyDescriptor.getReadMethod() != null && propertyDescriptor.getWriteMethod() != null) {
@@ -49,8 +49,7 @@ public final class ObjectValueUtils {
                     }
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unexpected error while copying properties.", e);
 
         }

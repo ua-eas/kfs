@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
+import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.bo.KualiCodeBase;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * This class is the base class for all the ValueFinders for any class extending KualiSystemCode. Subclasses should extend this, but
@@ -39,8 +39,8 @@ public abstract class KualiSystemCodeValuesFinder extends KeyValuesBase {
      * Calls getValuesClass() to generate a list of key/value pairs from the {@link KualiCodeBase}'s code as the key and the code
      * and description as the value
      *
-     * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      * @return list of key/value pairs for displaying on the client side
+     * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */
     public List getKeyValues() {
 
@@ -52,7 +52,7 @@ public abstract class KualiSystemCodeValuesFinder extends KeyValuesBase {
         keyLabels.add(new ConcreteKeyValue("", ""));
 
         // build the list of code/name combos
-        for (Iterator iter = businessObjects.iterator(); iter.hasNext();) {
+        for (Iterator iter = businessObjects.iterator(); iter.hasNext(); ) {
             KualiCodeBase businessObject = (KualiCodeBase) iter.next();
             keyLabels.add(new ConcreteKeyValue(businessObject.getCode(), businessObject.getCodeAndDescription()));
         }

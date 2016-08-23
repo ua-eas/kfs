@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.ShippingPaymentTerms;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.ShippingPaymentTerms;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Values Finder for <code>ShippingPaymentTerms</code>.
@@ -45,7 +45,7 @@ public class ShippingPaymentTermsValuesFinder extends KeyValuesBase {
         Collection codes = boService.findAll(ShippingPaymentTerms.class);
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator iter = codes.iterator(); iter.hasNext(); ) {
             ShippingPaymentTerms spt = (ShippingPaymentTerms) iter.next();
             labels.add(new ConcreteKeyValue(spt.getVendorShippingPaymentTermsCode(), spt.getVendorShippingPaymentTermsDescription()));
         }

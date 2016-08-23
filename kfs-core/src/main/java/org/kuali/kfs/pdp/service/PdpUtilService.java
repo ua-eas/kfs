@@ -25,11 +25,10 @@ import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
  */
 public interface PdpUtilService {
 
-	/**
-	 *
-	 * @param accountDetail
-	 * @param reversal
-	 * @return
-	 */
-	public boolean isDebit(PaymentAccountDetail accountDetail, boolean reversal);
+    /**
+     * @param accountDetail
+     * @param reversal
+     * @return
+     */
+    public boolean isDebit(PaymentAccountDetail accountDetail, boolean reversal);
 }

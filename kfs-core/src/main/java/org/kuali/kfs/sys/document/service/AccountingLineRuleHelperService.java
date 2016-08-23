@@ -25,8 +25,8 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
 
 public interface AccountingLineRuleHelperService {
     /**
@@ -34,9 +34,9 @@ public interface AccountingLineRuleHelperService {
      * are only checked if there are values in them. The others throw errors if they area null.
      *
      * @param accountingLine
-     * @parm accountingLineByPosition
      * @return success or failure of validating the AccountingLine
      * @throws IllegalStateException
+     * @parm accountingLineByPosition
      */
     public abstract boolean validateAccountingLine(AccountingLine accountingLine);
 

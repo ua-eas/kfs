@@ -79,7 +79,7 @@ public class FinalBilledIndicatorAction extends KualiTransactionalDocumentAction
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#doProcessingAfterPost(org.kuali.rice.kns.web.struts.form.KualiForm,
-     *      javax.servlet.http.HttpServletRequest)
+     * javax.servlet.http.HttpServletRequest)
      */
     @Override
     protected void doProcessingAfterPost(KualiForm actionForm, HttpServletRequest request) {

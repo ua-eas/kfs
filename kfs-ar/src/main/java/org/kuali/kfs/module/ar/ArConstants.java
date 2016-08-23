@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class ArConstants{
+public class ArConstants {
 
 
     public static final String AR_NAMESPACE_CODE = "KFS-AR";
@@ -277,22 +277,22 @@ public class ArConstants{
     public static final String DEFAULT_INVOICING_OPTION_PARAMETER = "DEFAULT_INVOICING_OPTION";
 
 
-    public enum ArNotificationSelectionField{
+    public enum ArNotificationSelectionField {
         CHART("CHART"), ORGANIZATION("ORG"), ACCOUNT("ACCOUNT");
 
         public String fieldName;
 
-        private ArNotificationSelectionField(String fieldName){
+        private ArNotificationSelectionField(String fieldName) {
             this.fieldName = fieldName;
         }
     }
 
-    public enum ArNotificationOptions{
+    public enum ArNotificationOptions {
         PROCESSING_ORG("PROCESSING_ORG"), BILLING_ORG("BILLING_ORG"), ACCOUNT("ACCOUNT");
 
         public String option;
 
-        private ArNotificationOptions(String option){
+        private ArNotificationOptions(String option) {
             this.option = option;
         }
     }
@@ -469,10 +469,10 @@ public class ArConstants{
     public static final String CHAPTER13_CODE = "C13";
     public static final String JUDGMENT_OBTAINED_CODE = "JO";
 
-    public static final String CHAPTER7  = "Chapter 7";
+    public static final String CHAPTER7 = "Chapter 7";
     public static final String CHAPTER11 = "Chapter 11";
     public static final String CHAPTER13 = "Chapter 13";
-    public static final String JUDGMENT_OBTAINED= "Judgment Obtained";
+    public static final String JUDGMENT_OBTAINED = "Judgment Obtained";
 
     public static final String CUS = "CUS";
     public static final String INVR = "INVR";
@@ -487,6 +487,7 @@ public class ArConstants{
         LETTER_OF_CREDIT(ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT);
 
         private String code;
+
         BillingFrequencyValues(String code) {
             this.code = code;
         }
@@ -561,6 +562,7 @@ public class ArConstants{
         public static final String TICKLERS = "ticklersReportBuilderService";
         public static final String CONTRACTS_GRANTS_SUSPENDED_INVOICE_DETAIL = "contractsGrantsSuspendedInvoiceDetailReportBuilderService";
     }
+
     public static class Actions {
         public static final String ACCOUNTS_RECEIVABLE_INVOICE_TEMPLATE_UPLOAD = "arAccountsReceivableInvoiceTemplateUpload";
         public static final String ACCOUNTS_RECEIVABLE_DUNNING_LETTER_TEMPLATE_UPLOAD = "arAccountsReceivableDunningLetterTemplateUpload";
@@ -614,8 +616,8 @@ public class ArConstants{
         }
 
         public static String getName(String code) {
-            for(ContractsAndGrantsInvoiceDocumentCreationProcessType type : ContractsAndGrantsInvoiceDocumentCreationProcessType.values()) {
-                if(type.getCode().equals(code)){
+            for (ContractsAndGrantsInvoiceDocumentCreationProcessType type : ContractsAndGrantsInvoiceDocumentCreationProcessType.values()) {
+                if (type.getCode().equals(code)) {
                     return type.getName();
                 }
             }

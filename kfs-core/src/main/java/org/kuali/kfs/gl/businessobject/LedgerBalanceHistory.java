@@ -21,19 +21,24 @@ package org.kuali.kfs.gl.businessobject;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 
-
-
 /**
  * Interface for BalanceHistory used by GL and Labor
  */
 public interface LedgerBalanceHistory extends BusinessObject {
     public Integer getUniversityFiscalYear();
+
     public String getChartOfAccountsCode();
+
     public String getAccountNumber();
+
     public String getSubAccountNumber();
+
     public String getFinancialObjectCode();
+
     public String getFinancialSubObjectCode();
+
     public String getFinancialBalanceTypeCode();
+
     public String getFinancialObjectTypeCode();
 
     public boolean compareAmounts(Balance balance);

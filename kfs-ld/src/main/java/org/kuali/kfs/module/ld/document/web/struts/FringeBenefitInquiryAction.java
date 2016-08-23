@@ -18,17 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.module.ld.businessobject.BenefitInquiry;
 import org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit;
 import org.kuali.kfs.module.ld.service.LaborBenefitsCalculationService;
@@ -36,7 +29,13 @@ import org.kuali.kfs.module.ld.service.LaborPositionObjectBenefitService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class FringeBenefitInquiryAction extends KualiAction {
 
@@ -61,7 +60,7 @@ public class FringeBenefitInquiryAction extends KualiAction {
             }
         }
 
-        Collections.sort(fringebenefitEntries,Collections.reverseOrder());
+        Collections.sort(fringebenefitEntries, Collections.reverseOrder());
 
         accountingLineForm.setBenefitInquiry(fringebenefitEntries);
 

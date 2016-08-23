@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.GroupTravelerForLookup;
@@ -36,12 +35,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Lookup which does searches in KIM Person records or AR Customer records to find people who might be traveling as part of a group
@@ -71,16 +71,16 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
      * This method checks if the minimum required fields are filled
      */
     public boolean checkMinimumFieldsFilled(Map fieldValues) {
-        if(StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.CUSTOMER_NUMBER)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.CUSTOMER_NAME)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.EMPLOYEE_ID)) && StringUtils.isBlank((String)fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME)) &&
-                StringUtils.isBlank((String)fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME)) && StringUtils.isBlank((String)fieldValues.get(KFSPropertyConstants.PERSON+"."+KFSPropertyConstants.PERSON_USER_IDENTIFIER))) {
+        if (StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.CUSTOMER_NUMBER)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.CUSTOMER_NAME)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.EMPLOYEE_ID)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME)) &&
+            StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME)) && StringUtils.isBlank((String) fieldValues.get(KFSPropertyConstants.PERSON + "." + KFSPropertyConstants.PERSON_USER_IDENTIFIER))) {
             final String customerNumberLabel = getAttributeLabel(KFSPropertyConstants.CUSTOMER_NUMBER);
             final String customerNameLabel = getAttributeLabel(KFSPropertyConstants.CUSTOMER_NAME);
-            final String principalNameLabel = getAttributeLabel(KFSPropertyConstants.PERSON+"."+KFSPropertyConstants.PERSON_USER_IDENTIFIER);
+            final String principalNameLabel = getAttributeLabel(KFSPropertyConstants.PERSON + "." + KFSPropertyConstants.PERSON_USER_IDENTIFIER);
             final String firstNameLabel = getAttributeLabel(KIMPropertyConstants.Person.FIRST_NAME);
             final String lastNameLabel = getAttributeLabel(KIMPropertyConstants.Person.LAST_NAME);
             final String employeeIdLabel = getAttributeLabel(KIMPropertyConstants.Person.EMPLOYEE_ID);
 
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PERSON+"."+KFSPropertyConstants.PERSON_USER_IDENTIFIER, TemKeyConstants.ERROR_GROUP_TRAVELER_LOOKUP_NEEDS_SOME_FIELD, new String[] {customerNumberLabel, customerNameLabel, firstNameLabel, lastNameLabel, principalNameLabel, employeeIdLabel});
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PERSON + "." + KFSPropertyConstants.PERSON_USER_IDENTIFIER, TemKeyConstants.ERROR_GROUP_TRAVELER_LOOKUP_NEEDS_SOME_FIELD, new String[]{customerNumberLabel, customerNameLabel, firstNameLabel, lastNameLabel, principalNameLabel, employeeIdLabel});
             return false;
         }
         return true;
@@ -98,6 +98,7 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Perform the search
+     *
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -106,11 +107,9 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
 
         if (StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.CUSTOMER_NUMBER)) || StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.CUSTOMER_NAME))) {
             searchResults.addAll(getCustomersAsGroupTravelers(fieldValues));
-        }
-        else if (StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.EMPLOYEE_ID)) || !StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON+"."+KFSPropertyConstants.PERSON_USER_IDENTIFIER))) {
+        } else if (StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.EMPLOYEE_ID)) || !StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON + "." + KFSPropertyConstants.PERSON_USER_IDENTIFIER))) {
             searchResults.addAll(this.getPersonsAsGroupTravelers(fieldValues));
-        }
-        else {
+        } else {
             searchResults.addAll(getCustomersAsGroupTravelers(fieldValues));
             searchResults.addAll(getPersonsAsGroupTravelers(fieldValues));
         }
@@ -126,7 +125,7 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
      */
     protected Map<String, String> getPersonFieldValues(Map<String, String> fieldValues) {
         Map<String, String> personFieldValues = new HashMap<String, String>();
-        personFieldValues.put(KFSPropertyConstants.PERSON_USER_IDENTIFIER, fieldValues.get(KFSPropertyConstants.PERSON+"."+KFSPropertyConstants.PERSON_USER_IDENTIFIER));
+        personFieldValues.put(KFSPropertyConstants.PERSON_USER_IDENTIFIER, fieldValues.get(KFSPropertyConstants.PERSON + "." + KFSPropertyConstants.PERSON_USER_IDENTIFIER));
         personFieldValues.put(KFSPropertyConstants.PERSON_FIRST_NAME, fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME));
         personFieldValues.put(KFSPropertyConstants.PERSON_LAST_NAME, fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME));
         if (!StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.EMPLOYEE_ID))) {
@@ -142,7 +141,7 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
      * Converts a Person record to a GroupTravelerForLookup record
      *
      * @param personDetail the person detail to convert
-     * @param fieldValues the search fields
+     * @param fieldValues  the search fields
      * @return a converted GroupTravelerForLookup
      */
     protected GroupTravelerForLookup getGroupTravelerFromPerson(Person personDetail, Map<String, String> fieldValues) {
@@ -196,13 +195,13 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
         if (!StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.CUSTOMER_NAME))) {
             customerFieldValues.put(KFSPropertyConstants.CUSTOMER_NAME, fieldValues.get(KFSPropertyConstants.CUSTOMER_NAME));
         } else if (!StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME)) && !StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME))) {
-            final String name = fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME)+" "+fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME);
+            final String name = fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME) + " " + fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME);
             customerFieldValues.put(KFSPropertyConstants.CUSTOMER_NAME, name);
         } else if (!StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME))) {
-            final String name = fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME)+"*";
+            final String name = fieldValues.get(KFSPropertyConstants.PERSON_FIRST_NAME) + "*";
             customerFieldValues.put(KFSPropertyConstants.CUSTOMER_NAME, name);
         } else if (!StringUtils.isBlank(fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME))) {
-            final String name = "*"+fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME);
+            final String name = "*" + fieldValues.get(KFSPropertyConstants.PERSON_LAST_NAME);
             customerFieldValues.put(KFSPropertyConstants.CUSTOMER_NAME, name);
         }
         customerFieldValues.put(KFSPropertyConstants.ACTIVE, fieldValues.get(KFSPropertyConstants.ACTIVE));
@@ -211,55 +210,54 @@ public class GroupTravelerForLookupLookupableHelperServiceImpl extends KualiLook
     }
 
     /**
-    *
-    * @param customer
-    * @param fieldValues
-    * @return
-    */
-   protected GroupTravelerForLookup getGroupTravelerFromCustomer(AccountsReceivableCustomer customer, Map<String, String> fieldValues) {
-       GroupTravelerForLookup traveler = new GroupTravelerForLookup();
-       traveler.setCustomerName(customer.getCustomerName());
-       traveler.setCustomerNumber(customer.getCustomerNumber());
-       traveler.setName(customer.getCustomerName());
-       traveler.setActive(customer.isActive());
-       traveler.setGroupTravelerTypeCode(TemConstants.GroupTravelerType.CUSTOMER);
-       return traveler;
-   }
+     * @param customer
+     * @param fieldValues
+     * @return
+     */
+    protected GroupTravelerForLookup getGroupTravelerFromCustomer(AccountsReceivableCustomer customer, Map<String, String> fieldValues) {
+        GroupTravelerForLookup traveler = new GroupTravelerForLookup();
+        traveler.setCustomerName(customer.getCustomerName());
+        traveler.setCustomerNumber(customer.getCustomerNumber());
+        traveler.setName(customer.getCustomerName());
+        traveler.setActive(customer.isActive());
+        traveler.setGroupTravelerTypeCode(TemConstants.GroupTravelerType.CUSTOMER);
+        return traveler;
+    }
 
-   /**
-    * perform customer search
-    *
-    * @param fieldValues
-    * @return
-    */
-   protected List<GroupTravelerForLookup> getCustomersAsGroupTravelers(Map<String, String> fieldValues) {
-       List<GroupTravelerForLookup> groupTravelerList = new ArrayList<GroupTravelerForLookup>();
+    /**
+     * perform customer search
+     *
+     * @param fieldValues
+     * @return
+     */
+    protected List<GroupTravelerForLookup> getCustomersAsGroupTravelers(Map<String, String> fieldValues) {
+        List<GroupTravelerForLookup> groupTravelerList = new ArrayList<GroupTravelerForLookup>();
 
-       Map<String, String> fieldsForLookup = this.getCustomerFieldValues(fieldValues);
+        Map<String, String> fieldsForLookup = this.getCustomerFieldValues(fieldValues);
 
-       List<AccountsReceivableCustomer> customerList = (List<AccountsReceivableCustomer>) getAccountsReceivableModuleService().searchForCustomers(fieldsForLookup);
-       for (AccountsReceivableCustomer customer : customerList) {
-           GroupTravelerForLookup groupTraveler = getGroupTravelerFromCustomer(customer, fieldValues);
-           groupTravelerList.add(groupTraveler);
-       }
+        List<AccountsReceivableCustomer> customerList = (List<AccountsReceivableCustomer>) getAccountsReceivableModuleService().searchForCustomers(fieldsForLookup);
+        for (AccountsReceivableCustomer customer : customerList) {
+            GroupTravelerForLookup groupTraveler = getGroupTravelerFromCustomer(customer, fieldValues);
+            groupTravelerList.add(groupTraveler);
+        }
 
-       return groupTravelerList;
-   }
+        return groupTravelerList;
+    }
 
-   /**
-    * Sorts search results.
-    */
-   protected List<? extends BusinessObject> sortSearchResults(List<GroupTravelerForLookup> searchResults) {
-       CollectionIncomplete results = new CollectionIncomplete(searchResults, Long.valueOf(searchResults.size()));
+    /**
+     * Sorts search results.
+     */
+    protected List<? extends BusinessObject> sortSearchResults(List<GroupTravelerForLookup> searchResults) {
+        CollectionIncomplete results = new CollectionIncomplete(searchResults, Long.valueOf(searchResults.size()));
 
-       // sort list if default sort column given
-       List<String> defaultSortColumns = getDefaultSortColumns();
-       if (defaultSortColumns.size() > 0) {
-           Collections.sort(results, new BeanPropertyComparator(getDefaultSortColumns(), true));
-       }
+        // sort list if default sort column given
+        List<String> defaultSortColumns = getDefaultSortColumns();
+        if (defaultSortColumns.size() > 0) {
+            Collections.sort(results, new BeanPropertyComparator(getDefaultSortColumns(), true));
+        }
 
-       return results;
-   }
+        return results;
+    }
 
     public AccountsReceivableModuleService getAccountsReceivableModuleService() {
         return accountsReceivableModuleService;

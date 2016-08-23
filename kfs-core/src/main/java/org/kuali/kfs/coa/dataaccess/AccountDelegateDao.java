@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.dataaccess;
 
+import org.kuali.kfs.coa.businessobject.AccountDelegate;
+
 import java.sql.Date;
 import java.util.Iterator;
-
-import org.kuali.kfs.coa.businessobject.AccountDelegate;
 
 
 public interface AccountDelegateDao {
@@ -30,7 +30,7 @@ public interface AccountDelegateDao {
      * Retrieves the Document Number of any AccountDelegate locking this record.
      *
      * @param lockingRepresentation String representation of the MaintanceLock to check against.
-     * @param documentNumber the document number being checked against.
+     * @param documentNumber        the document number being checked against.
      * @return the document number of the Document locking this record.
      */
 
@@ -40,7 +40,7 @@ public interface AccountDelegateDao {
      * Retrieves all active account delegates which reference the given user
      *
      * @param principalId a principal ID of the person to find account delegations for
-     * @param primary whether the account delegates returned should be primary or not
+     * @param primary     whether the account delegates returned should be primary or not
      * @return a Collection, presumably of AccountDelegates
      */
     public abstract Iterator<AccountDelegate> getAccountDelegationsForPerson(String principalId, boolean primary);
@@ -48,7 +48,7 @@ public interface AccountDelegateDao {
     /**
      * Determines if the given principal is an active delegate for any non-closed account
      *
-     * @param principalId the principal ID to check primary account delegations for
+     * @param principalId    the principal ID to check primary account delegations for
      * @param currentSqlDate
      * @return true if the principal is a primary account delegate, false otherwise
      */
@@ -57,7 +57,7 @@ public interface AccountDelegateDao {
     /**
      * Determines if the given principal is an active delegate for any non-closed account
      *
-     * @param principalId the principal ID to check secondary account delegations for
+     * @param principalId    the principal ID to check secondary account delegations for
      * @param currentSqlDate current Sql date
      * @return true if the principal is a secondary account delegate, false otherwise
      */

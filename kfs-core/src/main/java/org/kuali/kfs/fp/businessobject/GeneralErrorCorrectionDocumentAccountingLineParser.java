@@ -19,6 +19,8 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
+
 import static org.kuali.kfs.sys.KFSPropertyConstants.ACCOUNT_NUMBER;
 import static org.kuali.kfs.sys.KFSPropertyConstants.AMOUNT;
 import static org.kuali.kfs.sys.KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE;
@@ -31,8 +33,6 @@ import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_NUMBER;
 import static org.kuali.kfs.sys.KFSPropertyConstants.REFERENCE_ORIGIN_CODE;
 import static org.kuali.kfs.sys.KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
 
-import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
-
 
 /**
  * This class represents a <code>GeneralErrorCorrectionDocument</code> accounting line parser.
@@ -40,7 +40,7 @@ import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
  * @see org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument
  */
 public class GeneralErrorCorrectionDocumentAccountingLineParser extends AccountingLineParserBase {
-    protected static final String[] GEC_FORMAT = { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, REFERENCE_ORIGIN_CODE, REFERENCE_NUMBER, FINANCIAL_DOCUMENT_LINE_DESCRIPTION, AMOUNT };
+    protected static final String[] GEC_FORMAT = {CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, REFERENCE_ORIGIN_CODE, REFERENCE_NUMBER, FINANCIAL_DOCUMENT_LINE_DESCRIPTION, AMOUNT};
 
     /**
      * @see org.kuali.rice.krad.bo.AccountingLineParserBase#getSourceAccountingLineFormat()

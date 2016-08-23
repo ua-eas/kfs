@@ -17,50 +17,50 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
-<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
+<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
 <kul:documentPage showDocumentInfo="true"
-	htmlFormAction="camsAssetPayment"
-	documentTypeName="AssetPaymentDocument" renderMultipart="true"
-	showTabButtons="true">
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
-	<html:hidden property="document.capitalAssetNumber" />
+                  htmlFormAction="camsAssetPayment"
+                  documentTypeName="AssetPaymentDocument" renderMultipart="true"
+                  showTabButtons="true">
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
+    <html:hidden property="document.capitalAssetNumber"/>
 
-	<cams:assetPaymentAllocation />
-	<cams:assetPayments />
+    <cams:assetPaymentAllocation/>
+    <cams:assetPayments/>
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
-			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<c:choose>
-			<c:when
-				test="${KualiForm.document.capitalAssetBuilderOriginIndicator }">
-				<sys-java:accountingLines>
-					<sys-java:accountingLineGroup
-						collectionPropertyName="document.sourceAccountingLines"
-						collectionItemPropertyName="document.sourceAccountingLines"
-						attributeGroupName="source" />
-				</sys-java:accountingLines>
-			</c:when>
-			<c:otherwise>
-				<sys-java:accountingLines>
-					<sys-java:accountingLineGroup newLinePropertyName="newSourceLine"
-						collectionPropertyName="document.sourceAccountingLines"
-						collectionItemPropertyName="document.sourceAccountingLines"
-						attributeGroupName="source" />
-				</sys-java:accountingLines>
-			</c:otherwise>
-		</c:choose>
-	</kul:tab>
-	<cams:viewPaymentInProcessByAsset
-		assetPaymentAssetDetail="${KualiForm.document.assetPaymentAssetDetail}"
-		assetPaymentDetail="${KualiForm.document.sourceAccountingLines}"
-		assetPaymentDistribution="${KualiForm.document.assetPaymentDistributor.assetPaymentDistributions}" />
+    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
+             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
+        <c:choose>
+            <c:when
+                    test="${KualiForm.document.capitalAssetBuilderOriginIndicator }">
+                <sys-java:accountingLines>
+                    <sys-java:accountingLineGroup
+                            collectionPropertyName="document.sourceAccountingLines"
+                            collectionItemPropertyName="document.sourceAccountingLines"
+                            attributeGroupName="source"/>
+                </sys-java:accountingLines>
+            </c:when>
+            <c:otherwise>
+                <sys-java:accountingLines>
+                    <sys-java:accountingLineGroup newLinePropertyName="newSourceLine"
+                                                  collectionPropertyName="document.sourceAccountingLines"
+                                                  collectionItemPropertyName="document.sourceAccountingLines"
+                                                  attributeGroupName="source"/>
+                </sys-java:accountingLines>
+            </c:otherwise>
+        </c:choose>
+    </kul:tab>
+    <cams:viewPaymentInProcessByAsset
+            assetPaymentAssetDetail="${KualiForm.document.assetPaymentAssetDetail}"
+            assetPaymentDetail="${KualiForm.document.sourceAccountingLines}"
+            assetPaymentDistribution="${KualiForm.document.assetPaymentDistributor.assetPaymentDistributions}"/>
 
-	<kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
-	<sys:documentControls
-		transactionalDocument="${documentEntry.transactionalDocument}" />
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <kul:superUserActions/>
+    <sys:documentControls
+            transactionalDocument="${documentEntry.transactionalDocument}"/>
 </kul:documentPage>

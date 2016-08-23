@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
@@ -25,10 +29,6 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PaymentRequestPayDateNotOverThresholdDaysAwayValidation extends GenericValidation {
 
@@ -38,10 +38,9 @@ public class PaymentRequestPayDateNotOverThresholdDaysAwayValidation extends Gen
      * This method side-effects a warning, and consequently should not be used in such a way as to cause validation to fail. Returns
      * a boolean for ease of testing. If the threshold days value is positive, the method will test future dates accurately. If the
      * the threshold days value is negative, the method will test past dates.
-     *
      */
     public boolean validate(AttributedDocumentEvent event) {
-        PaymentRequestDocument document = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument document = (PaymentRequestDocument) event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 

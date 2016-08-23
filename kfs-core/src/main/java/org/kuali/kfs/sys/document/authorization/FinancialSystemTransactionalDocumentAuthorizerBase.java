@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSConstants.PermissionTemplate;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizerBase;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSConstants.PermissionTemplate;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Set;
 
 public class FinancialSystemTransactionalDocumentAuthorizerBase extends TransactionalDocumentAuthorizerBase {
     private static final Log LOG = LogFactory.getLog(FinancialSystemTransactionalDocumentAuthorizerBase.class);
@@ -36,20 +36,20 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
      * Overridden to check if document error correction can be allowed here.
      *
      * @see org.kuali.kfs.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.kfs.krad.document.Document,
-     *      org.kuali.rice.kim.api.identity.Person, java.util.Set)
+     * org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActionsFromPresentationController) {
         Set<String> documentActionsToReturn = super.getDocumentActions(document, user, documentActionsFromPresentationController);
 
         if (documentActionsToReturn.contains(KFSConstants.KFS_ACTION_CAN_ERROR_CORRECT)
-                && !(documentActionsToReturn.contains(KRADConstants.KUALI_ACTION_CAN_COPY)
-                && canErrorCorrect(document, user))) {
+            && !(documentActionsToReturn.contains(KRADConstants.KUALI_ACTION_CAN_COPY)
+            && canErrorCorrect(document, user))) {
             documentActionsToReturn.remove(KFSConstants.KFS_ACTION_CAN_ERROR_CORRECT);
         }
 
         if (documentActionsToReturn.contains(KFSConstants.KFS_ACTION_CAN_EDIT_BANK)
-                && !canEditBankCode(document, user)) {
+            && !canEditBankCode(document, user)) {
             documentActionsToReturn.remove(KFSConstants.KFS_ACTION_CAN_EDIT_BANK);
         }
 
@@ -70,7 +70,7 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
      * Determines if the KIM permission is available to error correct the given document
      *
      * @param document the document to correct
-     * @param user the user to check error correction for
+     * @param user     the user to check error correction for
      * @return true if the user can error correct, false otherwise
      */
     public boolean canErrorCorrect(Document document, Person user) {
@@ -81,7 +81,7 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
      * Determines if the KIM permission is available to error correct the given document
      *
      * @param document the document to correct
-     * @param user the user to check error correction for
+     * @param user     the user to check error correction for
      * @return true if the user can error correct, false otherwise
      */
     public boolean canEditBankCode(Document document, Person user) {
@@ -90,8 +90,9 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
 
     /**
      * Determines if given user can view the accounting period select control
+     *
      * @param document the document to verify against
-     * @param user the user to check if has the ability to view accounting period select
+     * @param user     the user to check if has the ability to view accounting period select
      * @return true if user can view accounting period, false otherwise
      */
     protected boolean canViewAccountingDropDown(Document document, Person user) {
@@ -100,8 +101,9 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
 
     /**
      * Determines if given usre can edit the accounting period select control
+     *
      * @param document the document to verify against
-     * @param user the user to check if has the ability to edit accounting period select
+     * @param user     the user to check if has the ability to edit accounting period select
      * @return true if user can edit accounting period, false otherwise
      */
     protected boolean canEditAccountingDropDown(Document document, Person user) {

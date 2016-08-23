@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.module.purap.businessobject.ItemReasonAdded;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.module.purap.businessobject.ItemReasonAdded;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Value Finder for Carrier.
@@ -44,7 +44,7 @@ public class ItemReasonAddedValuesFinder extends KeyValuesBase {
         Collection codes = boService.findAll(ItemReasonAdded.class);
         List labels = new ArrayList();
 
-        for (Iterator iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator iter = codes.iterator(); iter.hasNext(); ) {
             ItemReasonAdded ira = (ItemReasonAdded) iter.next();
             labels.add(new ConcreteKeyValue(ira.getItemReasonAddedCode(), ira.getItemReasonAddedDescription()));
         }

@@ -34,7 +34,7 @@ public class PurapObjectCodeDynamicNameLabelGeneratorImpl extends ObjectCodeDyna
      */
     @Override
     public String getDynamicNameLabelValue(AccountingLine line, String accountingLineProperty) {
-        PurApAccountingLineBase purapLine = (PurApAccountingLineBase)line;
+        PurApAccountingLineBase purapLine = (PurApAccountingLineBase) line;
         PurApItemBase purapItem = purapLine.getPurapItem();
         PurchasingAccountsPayableDocumentBase purapDocument = null;
         if (purapItem != null) {
@@ -42,8 +42,7 @@ public class PurapObjectCodeDynamicNameLabelGeneratorImpl extends ObjectCodeDyna
         }
         if (purapItem == null || purapDocument == null || purapDocument.isInquiryRendered()) {
             return super.getDynamicNameLabelValue(line, accountingLineProperty);
-        }
-        else {
+        } else {
             return null;
         }
     }

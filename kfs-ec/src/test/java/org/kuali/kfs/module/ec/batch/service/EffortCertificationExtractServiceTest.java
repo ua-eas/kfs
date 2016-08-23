@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.ec.batch.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerEntry;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.ec.batch.EffortCertificationExtractStep;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
@@ -45,11 +44,12 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class EffortCertificationExtractServiceTest extends KualiTestBase {
@@ -127,8 +127,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
 
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail(message.getProperty("error.validParameters"));
         }
@@ -146,8 +145,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(null, reportNumber);
             fail(message.getProperty("error.emptyFiscalYear"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -164,8 +162,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.emptyReportNumber"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -182,8 +179,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.undefinedReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -204,8 +200,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.inactiveReportDefinition"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -232,8 +227,7 @@ public class EffortCertificationExtractServiceTest extends KualiTestBase {
         try {
             effortCertificationExtractService.extract(fiscalYear, reportNumber);
             fail(message.getProperty("error.documentExist"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 

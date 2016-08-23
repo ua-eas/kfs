@@ -26,8 +26,6 @@ import java.util.Map;
 
 /**
  * This class provides collection retrievals to populate key value pairs of business objects.
- *
- *
  */
 public interface KeyValuesService {
 
@@ -46,7 +44,7 @@ public interface KeyValuesService {
      * field.
      *
      * @param clazz
-     * @param sortField - name of the field in the class to sort results by
+     * @param sortField     - name of the field in the class to sort results by
      * @param sortAscending - boolean indicating whether to sort ascending or descending
      * @return
      */

@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.cab.businessobject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
@@ -34,9 +31,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class PurchasingAccountsPayableDocument extends PersistableBusinessObjectBase {
@@ -66,6 +66,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
     /**
      * Gets the capitalAssetSystemTypeCodeFromPurAp attribute.
+     *
      * @return Returns the capitalAssetSystemTypeCodeFromPurAp.
      */
     public String getCapitalAssetSystemTypeCodeFromPurAp() {
@@ -75,6 +76,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
     /**
      * Sets the capitalAssetSystemTypeCodeFromPurAp attribute value.
+     *
      * @param capitalAssetSystemTypeCodeFromPurAp The capitalAssetSystemTypeCodeFromPurAp to set.
      */
     public void setCapitalAssetSystemTypeCodeFromPurAp(String capitalAssetSystemTypeCodeFromPurAp) {
@@ -198,11 +200,11 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), documentTypeCode) ) {
+        if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), documentTypeCode)) {
             financialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(documentTypeCode) ) {
+            if (StringUtils.isNotBlank(documentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -300,8 +302,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
 
         if (StringUtils.isNotBlank(this.statusDescription)) {
             return this.statusDescription;
-        }
-        else {
+        } else {
             Map objectKeys = new HashMap();
             objectKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.PURAP_DOCUMENT_IDENTIFIER, this.getPurapDocumentIdentifier());
 
@@ -311,8 +312,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
                 if (ObjectUtils.isNotNull(paymentRequestDocument)) {
                     statusDescription = paymentRequestDocument.getApplicationDocumentStatus();
                 }
-            }
-            else {
+            } else {
                 VendorCreditMemoDocument vendorCreditMemoDocument = (VendorCreditMemoDocument) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(VendorCreditMemoDocument.class, objectKeys);
                 if (ObjectUtils.isNotNull(vendorCreditMemoDocument)) {
                     statusDescription = vendorCreditMemoDocument.getApplicationDocumentStatus();

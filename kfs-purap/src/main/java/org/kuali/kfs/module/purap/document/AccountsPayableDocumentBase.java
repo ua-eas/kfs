@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Timestamp;
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
@@ -38,9 +38,9 @@ import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Accounts Payable Document Base
@@ -365,8 +365,7 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
             // KUALI-PURAP 1185 PO Id not being set to null, instead throwing error on main screen that value is invalid.
             // setPurchaseOrderIdentifier(null);
             this.purchaseOrderDocument = null;
-        }
-        else {
+        } else {
             if (ObjectUtils.isNotNull(purchaseOrderDocument.getPurapDocumentIdentifier())) {
                 setPurchaseOrderIdentifier(purchaseOrderDocument.getPurapDocumentIdentifier());
             }
@@ -408,8 +407,9 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
 
     /**
      * Sets the processing campus.
-     * @deprecated
+     *
      * @param processingCampus
+     * @deprecated
      */
     @Deprecated
     public void setProcessingCampus(CampusParameter processingCampus) {
@@ -417,11 +417,12 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
     }
 
     // Helper methods
+
     /**
      * Retrieves the universal user object for the last person to perform an action on the document.
      */
     public Person getLastActionPerformedByUser() {
-    	return SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPerson(getLastActionPerformedByPersonId());
+        return SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPerson(getLastActionPerformedByPersonId());
     }
 
     /**
@@ -433,8 +434,7 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
         Person user = getLastActionPerformedByUser();
         if (ObjectUtils.isNull(user)) {
             return "";
-        }
-        else {
+        } else {
             return user.getName();
         }
     }
@@ -504,8 +504,7 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
                 if (preqItem.getItemLineNumber().compareTo(poi.getItemLineNumber()) == 0) {
                     return preqItem;
                 }
-            }
-            else {
+            } else {
                 return (AccountsPayableItem) SpringContext.getBean(PurapService.class).getBelowTheLineByType(this, poi.getItemType());
             }
         }
@@ -540,9 +539,9 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
         for (AccountsPayableItem item : (List<AccountsPayableItem>) getItems()) {
             item.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
 
-            final KualiDecimal itemExtendedPrice = (item.getExtendedPrice()==null)?KualiDecimal.ZERO:item.getExtendedPrice();
-            if ( ObjectUtils.isNotNull( item.getItemType() ) ) {
-                if (item.getItemType().isQuantityBasedGeneralLedgerIndicator() && item.getExtendedPrice()==null ) {
+            final KualiDecimal itemExtendedPrice = (item.getExtendedPrice() == null) ? KualiDecimal.ZERO : item.getExtendedPrice();
+            if (ObjectUtils.isNotNull(item.getItemType())) {
+                if (item.getItemType().isQuantityBasedGeneralLedgerIndicator() && item.getExtendedPrice() == null) {
                     KualiDecimal newExtendedPrice = item.calculateExtendedPrice();
                     item.setExtendedPrice(newExtendedPrice);
                 }
@@ -551,13 +550,12 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.AccountsPayableDocument#getTotalRemitAmount()
      */
     @Override
     public KualiDecimal getTotalRemitTax() {
-        if(!this.isUseTaxIndicator()) {
-            return (KualiDecimal.ZERO.equals(this.getTotalTaxAmount()))?null:this.getTotalTaxAmount();
+        if (!this.isUseTaxIndicator()) {
+            return (KualiDecimal.ZERO.equals(this.getTotalTaxAmount())) ? null : this.getTotalTaxAmount();
         }
         return null;
     }
@@ -565,7 +563,7 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
     @Override
     public boolean customizeOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail accountingLine, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
         boolean value = super.customizeOffsetGeneralLedgerPendingEntry(accountingLine, explicitEntry, offsetEntry);
-        if(offsetEntry != null && this.offsetUseTax != null) {
+        if (offsetEntry != null && this.offsetUseTax != null) {
             offsetEntry.setChartOfAccountsCode(this.offsetUseTax.getChartOfAccountsCode());
             offsetEntry.refreshReferenceObject(KFSPropertyConstants.CHART);
             offsetEntry.setAccountNumber(this.offsetUseTax.getAccountNumber());
@@ -573,7 +571,7 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
             offsetEntry.setFinancialObjectCode(this.offsetUseTax.getFinancialObjectCode());
             offsetEntry.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
         } else {
-            value=false;
+            value = false;
         }
         return value;
     }
@@ -586,19 +584,19 @@ public abstract class AccountsPayableDocumentBase extends PurchasingAccountsPaya
         return value;
     }
 
-    public String getHoldIndicatorForResult(){
+    public String getHoldIndicatorForResult() {
         return isHoldIndicator() ? "Yes" : "No";
     }
 
-    public String getProcessingCampusCodeForSearch(){
+    public String getProcessingCampusCodeForSearch() {
         return getProcessingCampusCode();
     }
 
-    public String getDocumentChartOfAccountsCodeForSearching(){
+    public String getDocumentChartOfAccountsCodeForSearching() {
         return getPurchaseOrderDocument().getChartOfAccountsCode();
     }
 
-    public String getDocumentOrganizationCodeForSearching(){
+    public String getDocumentOrganizationCodeForSearching() {
         return getPurchaseOrderDocument().getOrganizationCode();
     }
 

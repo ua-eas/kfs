@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BudgetConstructionReportMode;
 import org.kuali.kfs.module.bc.document.service.ReportExportService;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Struts action class for report dumps.
@@ -44,7 +43,7 @@ public class ReportExportAction extends BudgetConstructionImportExportAction {
      * Sets up params for export screen based on the dump mode.
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReportExportForm reportDumpForm = (ReportExportForm) form;
@@ -75,7 +74,7 @@ public class ReportExportAction extends BudgetConstructionImportExportAction {
      * Validates export settings, calls service to build the dump data and dump file.
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward submit(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReportExportForm reportExportForm = (ReportExportForm) form;
@@ -124,12 +123,11 @@ public class ReportExportAction extends BudgetConstructionImportExportAction {
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (fileString.length() == 0){
+        if (fileString.length() == 0) {
             String noDataMessage = BCConstants.Report.MSG_REPORT_NO_DATA;
             baos.write(noDataMessage.getBytes());
             WebUtils.saveMimeOutputStreamAsFile(response, ReportGeneration.TEXT_MIME_TYPE, baos, fileName);
-        }
-        else {
+        } else {
             // stream text file back
             baos.write(fileString.toString().getBytes());
             WebUtils.saveMimeOutputStreamAsFile(response, ReportGeneration.TEXT_MIME_TYPE, baos, fileName);

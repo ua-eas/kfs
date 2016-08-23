@@ -49,10 +49,10 @@ public interface BudgetPushPullService {
      * Builds list of budget documents that are in the selected organizations and above the user's point of view. Called from the Org Pull Up screen to display the documents
      * that will be affected by the pull up.
      *
-     * @param principalId current user doing the pullup
-     * @param FiscalYear budget fiscal year
+     * @param principalId                   current user doing the pullup
+     * @param FiscalYear                    budget fiscal year
      * @param pointOfViewCharOfAccountsCode user's point of view chart
-     * @param pointOfViewOrganizationCode user's point of view org
+     * @param pointOfViewOrganizationCode   user's point of view org
      * @return int number of rows affected (number of documents)
      */
     public int buildPullUpBudgetedDocuments(String principalId, Integer FiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode);
@@ -61,10 +61,10 @@ public interface BudgetPushPullService {
      * Builds list of budget documents that are in the selected organizations and at the user's point of view. Called from the Org Push Down screen to display the documents
      * that will be affected by the push down.
      *
-     * @param principalId current user doing the pushdown
-     * @param FiscalYear budget fiscal year
+     * @param principalId                   current user doing the pushdown
+     * @param FiscalYear                    budget fiscal year
      * @param pointOfViewCharOfAccountsCode user's point of view chart
-     * @param pointOfViewOrganizationCode user's point of view org
+     * @param pointOfViewOrganizationCode   user's point of view org
      * @return int number of rows affected (number of documents)
      */
     public int buildPushDownBudgetedDocuments(String principalId, Integer FiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode);

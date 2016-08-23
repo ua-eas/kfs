@@ -18,27 +18,25 @@
  */
 package org.kuali.kfs.krad.inquiry;
 
-import java.util.Set;
-
 import org.kuali.kfs.krad.bo.Exporter;
 import org.kuali.kfs.krad.datadictionary.DataObjectEntry;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.InquiryView;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.ViewPresentationControllerBase;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.web.form.UifFormBase;
 
+import java.util.Set;
+
 /**
  * Implementation of {@link ViewPresentationController} for
  * {@link InquiryView} instances
- *
+ * <p>
  * <p>
  * Adds flag for export of inquiry record
  * </p>
- *
- *
  */
 public class InquiryViewPresentationControllerBase extends ViewPresentationControllerBase {
     private static final long serialVersionUID = 7504225899471226403L;
@@ -65,15 +63,15 @@ public class InquiryViewPresentationControllerBase extends ViewPresentationContr
      */
     protected boolean isExportSupported(InquiryView view) {
         DataObjectEntry dataObjectEntry =
-                KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDataObjectEntry(
-                        view.getDataObjectClassName().getName());
+            KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDataObjectEntry(
+                view.getDataObjectClassName().getName());
 
         Class<? extends Exporter> exporterClass = dataObjectEntry.getExporterClass();
         if (exporterClass != null) {
             try {
                 Exporter exporter = exporterClass.newInstance();
                 if (exporter.getSupportedFormats(dataObjectEntry.getDataObjectClass()).contains(
-                        KRADConstants.XML_FORMAT)) {
+                    KRADConstants.XML_FORMAT)) {
                     return true;
                 }
             } catch (Exception e) {

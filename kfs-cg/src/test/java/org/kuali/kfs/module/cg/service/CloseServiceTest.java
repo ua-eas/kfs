@@ -75,7 +75,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = new Date(dateFormat.parse("May 20, 2000").getTime()); // must be <= closeCloseOnOrBeforeDate
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -117,7 +117,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = new Date(dateFormat.parse("June 1, 2000").getTime()); // must be <= closeCloseOnOrBeforeDate
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -159,7 +159,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = new Date(dateFormat.parse("June 1, 2000").getTime());
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -200,7 +200,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = new Date(dateFormat.parse("June 1, 2000").getTime());
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -241,7 +241,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = tomorrow;
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -282,7 +282,7 @@ public class CloseServiceTest extends KualiTestBase {
         Date closeCloseOnOrBeforeDate = today;
         Date awardEntryDate = new Date(dateFormat.parse("June 1, 2000").getTime());
         Date proposalSubmissionDate = new Date(dateFormat.parse("May 2, 1999").getTime()); // must be less than
-                                                                                            // closeCloseOnOrBeforeDate
+        // closeCloseOnOrBeforeDate
 
         Date proposalBeginningDate = new Date(dateFormat.parse("Jul 1, 1999").getTime()); // not relevant
         Date proposalEndingDate = new Date(dateFormat.parse("Aug 1, 1999").getTime()); // not relevant
@@ -432,25 +432,24 @@ public class CloseServiceTest extends KualiTestBase {
     public static void routeDocument(Document document, DocumentService documentService) throws Exception {
 
         // Verify that the doc isn't yet routed.
-        assertFalse("Document should not be already ENROUTE: " + document,DocumentStatus.ENROUTE.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
+        assertFalse("Document should not be already ENROUTE: " + document, DocumentStatus.ENROUTE.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
 
         // Route the doc.
         try {
             documentService.routeDocument(document, "routing test doc", new Vector());
-        } catch ( ValidationException e ) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }
 
         // Routing should be configured to go straight to final.
-      //  assertTrue(FINAL_STATUS.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
+        //  assertTrue(FINAL_STATUS.equals(document.getDocumentHeader().getWorkflowDocument().getStatus()));
     }
 
     public static void saveDocument(Document document, DocumentService documentService) throws WorkflowException {
         try {
             documentService.saveDocument(document);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.service;
 
+import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 
 /**
  * This interface provides its clients with access to labor base fund entries in the backend data store.
@@ -31,7 +31,7 @@ public interface LaborBaseFundsService {
     /**
      * This method finds the records of base budget for each Labor object according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of base budgets for Labor objects
      */
@@ -40,7 +40,7 @@ public interface LaborBaseFundsService {
     /**
      * This method finds the records of base budget for each Labor object according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return a collection of base budgets for Labor objects
      */

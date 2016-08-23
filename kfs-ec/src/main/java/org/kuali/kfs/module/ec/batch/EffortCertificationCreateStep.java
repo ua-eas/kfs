@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ec.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ec.batch.service.EffortCertificationCreateService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Batch Step that executes the Effort Certification Extract Process.
@@ -42,6 +42,7 @@ public class EffortCertificationCreateStep extends AbstractStep {
 
     /**
      * Sets the effortCertificationCreateService attribute value.
+     *
      * @param effortCertificationCreateService The effortCertificationCreateService to set.
      */
     public void setEffortCertificationCreateService(EffortCertificationCreateService effortCertificationCreateService) {

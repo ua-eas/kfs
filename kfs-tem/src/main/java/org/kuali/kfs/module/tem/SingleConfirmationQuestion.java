@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.module.tem;
 
-import java.util.ArrayList;
-
 import org.kuali.kfs.kns.question.QuestionBase;
+
+import java.util.ArrayList;
 
 public class SingleConfirmationQuestion extends QuestionBase {
     public static final String OK = "0";
     public static final String CANCEL = "1";
+
     public SingleConfirmationQuestion() {
         super("Confirmed", new ArrayList(1));
         this.getButtons().add("ok");

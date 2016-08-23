@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.businessobject.MileageRate;
 import org.kuali.kfs.module.tem.document.service.CachingMileageRateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * So this guy exists so that we can get the calls to go trough spring and our @Cachable notation
@@ -36,7 +36,7 @@ public class CachingMileageRateServiceImpl implements CachingMileageRateService 
     private BusinessObjectService businessObjectService;
 
     @Override
-    @Cacheable(value=MileageRate.CACHE_NAME, key="'findAllMileageRates'")
+    @Cacheable(value = MileageRate.CACHE_NAME, key = "'findAllMileageRates'")
     public List<MileageRate> findAllMileageRates() {
         List<MileageRate> retval = new ArrayList<MileageRate>();
         for (MileageRate mileageRate : businessObjectService.findAll(MileageRate.class)) {

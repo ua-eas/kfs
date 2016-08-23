@@ -18,16 +18,11 @@
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
@@ -52,8 +47,13 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -96,16 +96,14 @@ public class PurApInfoServiceImpl implements PurApInfoService {
         // Set contact email address.
         if (purchaseOrderDocument.getInstitutionContactEmailAddress() != null) {
             purApLineForm.setPurApContactEmailAddress(purchaseOrderDocument.getInstitutionContactEmailAddress());
-        }
-        else if (purchaseOrderDocument.getRequestorPersonEmailAddress() != null) {
+        } else if (purchaseOrderDocument.getRequestorPersonEmailAddress() != null) {
             purApLineForm.setPurApContactEmailAddress(purchaseOrderDocument.getRequestorPersonEmailAddress());
         }
 
         // Set contact phone number.
         if (purchaseOrderDocument.getInstitutionContactPhoneNumber() != null) {
             purApLineForm.setPurApContactPhoneNumber(purchaseOrderDocument.getInstitutionContactPhoneNumber());
-        }
-        else if (purchaseOrderDocument.getRequestorPersonPhoneNumber() != null) {
+        } else if (purchaseOrderDocument.getRequestorPersonPhoneNumber() != null) {
             purApLineForm.setPurApContactPhoneNumber(purchaseOrderDocument.getRequestorPersonPhoneNumber());
         }
 
@@ -138,13 +136,11 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             // If PurAp sets the CAMS as INDIVIDUAL system
             setIndividualAssetsFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
             individualItemLock = true;
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             // If PurAp sets the CAMS as ONE system
             setOneSystemFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
 
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             // If PurAp sets the CAMS as MULTIPLE system
             setMultipleSystemFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
         }
@@ -356,8 +352,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             if (poi != null) {
                 purchasingAccountsPayableItemAsset.setPurchaseOrderItemIdentifier(poi.getItemIdentifier());
             }
-        }
-        else {
+        } else {
             // for CM document
             CreditMemoItem item = (CreditMemoItem) businessObjectService.findByPrimaryKey(CreditMemoItem.class, pKeys);
             if (ObjectUtils.isNull(item)) {
@@ -408,23 +403,20 @@ public class PurApInfoServiceImpl implements PurApInfoService {
                     po.refreshReferenceObject("items");
                 }
                 poi = (PurchaseOrderItem) po.getItem(item.getItemLineNumber().intValue() - 1);
-            }
-            else {
+            } else {
                 // To get the purchaseOrderItem by given CreditMemoItem. Since the additional charge type may be different in CM and
                 // PO, there could be no PO Item for a given CM item.
                 poi = (PurchaseOrderItem) SpringContext.getBean(PurapService.class).getBelowTheLineByType(po, item.getItemType());
             }
             if (poi != null) {
                 return poi;
-            }
-            else {
+            } else {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("getPurchaseOrderItemfromCreditMemoItem() Returning null because PurchaseOrderItem object for line number" + item.getItemLineNumber() + "or itemType " + item.getItemTypeCode() + " is null");
                 }
                 return null;
             }
-        }
-        else {
+        } else {
 
             LOG.error("getPurchaseOrderItemfromCreditMemoItem() Returning null because paymentRequest object is null");
             throw new PurError("Credit Memo Object in Purchase Order item line number " + item.getItemLineNumber() + "or itemType " + item.getItemTypeCode() + " is null");
@@ -440,11 +432,9 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             // If PurAp sets the CAMS as INDIVIDUAL system
             capitalAssetSystem = getCapitalAssetSystemForIndividual(poId, purApItem);
 
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             capitalAssetSystem = this.getPurchaseOrderService().retrieveCapitalAssetSystemForOneSystem(poId);
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             List<CapitalAssetSystem> capitalAssetSystems = this.getPurchaseOrderService().retrieveCapitalAssetSystemsForMultipleSystem(poId);
             if (ObjectUtils.isNotNull(capitalAssetSystems) && !capitalAssetSystems.isEmpty()) {
                 // PurAp doesn't support multiple system asset information for KFS3.0. It works as One system.
@@ -480,8 +470,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
         if (purApItem instanceof PaymentRequestItem) {
             poi = ((PaymentRequestItem) purApItem).getPurchaseOrderItem();
 
-        }
-        else if (purApItem instanceof CreditMemoItem) {
+        } else if (purApItem instanceof CreditMemoItem) {
             poi = getPurchaseOrderItemfromCreditMemoItem((CreditMemoItem) purApItem);
         }
 

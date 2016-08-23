@@ -25,6 +25,7 @@ public interface FinancialSystemDocumentTypeService {
     /**
      * Determines if the doc type code is within the financial system and thus can be used on account
      * delegates.
+     *
      * @param documentTypeCode the document type code to check
      * @return true if the document type code is within the KFS application space, false otherwise
      */
@@ -32,6 +33,7 @@ public interface FinancialSystemDocumentTypeService {
 
     /**
      * Determines if the document type code represents an accounting document
+     *
      * @param documentTypeCode the document type code to check
      * @return true if the document represents an accounting document, false otherwise
      */

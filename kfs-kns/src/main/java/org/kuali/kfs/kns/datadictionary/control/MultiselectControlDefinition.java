@@ -22,7 +22,6 @@ import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
  * A control definition for Multiselect
- *
  */
 @Deprecated
 public class MultiselectControlDefinition extends MultivalueControlDefinitionBase {
@@ -31,7 +30,7 @@ public class MultiselectControlDefinition extends MultivalueControlDefinitionBas
     public MultiselectControlDefinition() {
     }
 
-	/**
+    /**
      * @see ControlDefinition#isMultiselect()
      */
     public boolean isMultiselect() {

@@ -18,58 +18,58 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class OrganizationOptions extends PersistableBusinessObjectBase implements AccountsReceivableOrganizationOptions {
 
-	protected String chartOfAccountsCode;
-	protected String organizationCode;
-	protected String processingChartOfAccountCode;
-	protected String processingOrganizationCode;
-	protected String printInvoiceIndicator;
-	protected String organizationPaymentTermsText;
-	protected String organizationMessageText;
-	protected String organizationRemitToAddressName;
-	protected String organizationRemitToLine1StreetAddress;
-	protected String organizationRemitToLine2StreetAddress;
-	protected String organizationRemitToCityName;
-	protected String organizationRemitToStateCode;
-	protected String organizationRemitToZipCode;
+    protected String chartOfAccountsCode;
+    protected String organizationCode;
+    protected String processingChartOfAccountCode;
+    protected String processingOrganizationCode;
+    protected String printInvoiceIndicator;
+    protected String organizationPaymentTermsText;
+    protected String organizationMessageText;
+    protected String organizationRemitToAddressName;
+    protected String organizationRemitToLine1StreetAddress;
+    protected String organizationRemitToLine2StreetAddress;
+    protected String organizationRemitToCityName;
+    protected String organizationRemitToStateCode;
+    protected String organizationRemitToZipCode;
     protected String organizationRemitToCountryCode = KFSConstants.COUNTRY_CODE_UNITED_STATES;
-	protected String organizationPhoneNumber;
-	protected String organization800PhoneNumber;
-	protected String organizationFaxNumber;
-	protected String universityName;
-	protected String organizationCheckPayableToName;
+    protected String organizationPhoneNumber;
+    protected String organization800PhoneNumber;
+    protected String organizationFaxNumber;
+    protected String universityName;
+    protected String organizationCheckPayableToName;
     protected String organizationPostalZipCode;
     protected String organizationPostalCountryCode;
     private boolean cgBillerIndicator;
     protected Organization organization;
-	protected Chart chartOfAccounts;
-	protected Chart processingChartOfAccount;
-	protected Organization processingOrganization;
+    protected Chart chartOfAccounts;
+    protected Chart processingChartOfAccount;
+    protected Organization processingOrganization;
     protected StateEbo organizationRemitToState;
     protected PrintInvoiceOptions printInvoiceOptions;
     protected PostalCodeEbo orgPostalZipCode;
@@ -82,16 +82,18 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
     protected static transient SystemInformationService systemInformationService;
     protected static transient UniversityDateService universityDateService;
 
-	/**
-	 * Gets the cgBillerIndicator attribute.
-	 * @return Returns the cgBillerIndicator.
-	 */
-	public boolean isCgBillerIndicator() {
-	    return cgBillerIndicator;
-	}
+    /**
+     * Gets the cgBillerIndicator attribute.
+     *
+     * @return Returns the cgBillerIndicator.
+     */
+    public boolean isCgBillerIndicator() {
+        return cgBillerIndicator;
+    }
 
     /**
      * Sets the cgBillerIndicator attribute value.
+     *
      * @param cgBillerIndicator The cgBillerIndicator to set.
      */
     public void setCgBillerIndicator(boolean cgBillerIndicator) {
@@ -99,513 +101,474 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
     }
 
     /**
-	 * Gets the chartOfAccountsCode attribute.
-	 *
-	 * @return Returns the chartOfAccountsCode
-	 *
-	 */
-	public String getChartOfAccountsCode() {
-		return chartOfAccountsCode;
-	}
+     * Gets the chartOfAccountsCode attribute.
+     *
+     * @return Returns the chartOfAccountsCode
+     */
+    public String getChartOfAccountsCode() {
+        return chartOfAccountsCode;
+    }
 
-	/**
-	 * Sets the chartOfAccountsCode attribute.
-	 *
-	 * @param chartOfAccountsCode The chartOfAccountsCode to set.
-	 *
-	 */
-	public void setChartOfAccountsCode(String chartOfAccountsCode) {
-		this.chartOfAccountsCode = chartOfAccountsCode;
-	}
+    /**
+     * Sets the chartOfAccountsCode attribute.
+     *
+     * @param chartOfAccountsCode The chartOfAccountsCode to set.
+     */
+    public void setChartOfAccountsCode(String chartOfAccountsCode) {
+        this.chartOfAccountsCode = chartOfAccountsCode;
+    }
 
 
-	/**
-	 * Gets the organizationCode attribute.
-	 *
-	 * @return Returns the organizationCode
-	 *
-	 */
-	public String getOrganizationCode() {
-		return organizationCode;
-	}
+    /**
+     * Gets the organizationCode attribute.
+     *
+     * @return Returns the organizationCode
+     */
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
 
-	/**
-	 * Sets the organizationCode attribute.
-	 *
-	 * @param organizationCode The organizationCode to set.
-	 *
-	 */
-	public void setOrganizationCode(String organizationCode) {
-		this.organizationCode = organizationCode;
-	}
+    /**
+     * Sets the organizationCode attribute.
+     *
+     * @param organizationCode The organizationCode to set.
+     */
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
 
 
-	/**
-	 * Gets the processingChartOfAccountCode attribute.
-	 *
-	 * @return Returns the processingChartOfAccountCode
-	 *
-	 */
-	@Override
+    /**
+     * Gets the processingChartOfAccountCode attribute.
+     *
+     * @return Returns the processingChartOfAccountCode
+     */
+    @Override
     public String getProcessingChartOfAccountCode() {
-		return processingChartOfAccountCode;
-	}
+        return processingChartOfAccountCode;
+    }
 
-	/**
-	 * Sets the processingChartOfAccountCode attribute.
-	 *
-	 * @param processingChartOfAccountCode The processingChartOfAccountCode to set.
-	 *
-	 */
-	public void setProcessingChartOfAccountCode(String processingChartOfAccountCode) {
-		this.processingChartOfAccountCode = processingChartOfAccountCode;
-	}
+    /**
+     * Sets the processingChartOfAccountCode attribute.
+     *
+     * @param processingChartOfAccountCode The processingChartOfAccountCode to set.
+     */
+    public void setProcessingChartOfAccountCode(String processingChartOfAccountCode) {
+        this.processingChartOfAccountCode = processingChartOfAccountCode;
+    }
 
 
-	/**
-	 * Gets the processingOrganizationCode attribute.
-	 *
-	 * @return Returns the processingOrganizationCode
-	 *
-	 */
-	@Override
+    /**
+     * Gets the processingOrganizationCode attribute.
+     *
+     * @return Returns the processingOrganizationCode
+     */
+    @Override
     public String getProcessingOrganizationCode() {
-		return processingOrganizationCode;
-	}
+        return processingOrganizationCode;
+    }
 
-	/**
-	 * Sets the processingOrganizationCode attribute.
-	 *
-	 * @param processingOrganizationCode The processingOrganizationCode to set.
-	 *
-	 */
-	public void setProcessingOrganizationCode(String processingOrganizationCode) {
-		this.processingOrganizationCode = processingOrganizationCode;
-	}
+    /**
+     * Sets the processingOrganizationCode attribute.
+     *
+     * @param processingOrganizationCode The processingOrganizationCode to set.
+     */
+    public void setProcessingOrganizationCode(String processingOrganizationCode) {
+        this.processingOrganizationCode = processingOrganizationCode;
+    }
 
-	/**
-	 * Gets the printInvoiceIndicator attribute.
-	 *
-	 * @return Returns the printInvoiceIndicator
-	 *
-	 */
-	@Override
+    /**
+     * Gets the printInvoiceIndicator attribute.
+     *
+     * @return Returns the printInvoiceIndicator
+     */
+    @Override
     public String getPrintInvoiceIndicator() {
-		return printInvoiceIndicator;
-	}
+        return printInvoiceIndicator;
+    }
 
-	/**
-	 * Sets the printInvoiceIndicator attribute.
-	 *
-	 * @param printInvoiceIndicator The printInvoiceIndicator to set.
-	 *
-	 */
-	public void setPrintInvoiceIndicator(String printInvoiceIndicator) {
-		this.printInvoiceIndicator = printInvoiceIndicator;
-	}
+    /**
+     * Sets the printInvoiceIndicator attribute.
+     *
+     * @param printInvoiceIndicator The printInvoiceIndicator to set.
+     */
+    public void setPrintInvoiceIndicator(String printInvoiceIndicator) {
+        this.printInvoiceIndicator = printInvoiceIndicator;
+    }
 
 
-	/**
-	 * Gets the organizationPaymentTermsText attribute.
-	 *
-	 * @return Returns the organizationPaymentTermsText
-	 *
-	 */
-	@Override
+    /**
+     * Gets the organizationPaymentTermsText attribute.
+     *
+     * @return Returns the organizationPaymentTermsText
+     */
+    @Override
     public String getOrganizationPaymentTermsText() {
-		return organizationPaymentTermsText;
-	}
+        return organizationPaymentTermsText;
+    }
 
-	/**
-	 * Sets the organizationPaymentTermsText attribute.
-	 *
-	 * @param organizationPaymentTermsText The organizationPaymentTermsText to set.
-	 *
-	 */
-	public void setOrganizationPaymentTermsText(String organizationPaymentTermsText) {
-		this.organizationPaymentTermsText = organizationPaymentTermsText;
-	}
-
-
-	/**
-	 * Gets the organizationMessageText attribute.
-	 *
-	 * @return Returns the organizationMessageText
-	 *
-	 */
-	public String getOrganizationMessageText() {
-		return organizationMessageText;
-	}
-
-	/**
-	 * Sets the organizationMessageText attribute.
-	 *
-	 * @param organizationMessageText The organizationMessageText to set.
-	 *
-	 */
-	public void setOrganizationMessageText(String organizationMessageText) {
-		this.organizationMessageText = organizationMessageText;
-	}
+    /**
+     * Sets the organizationPaymentTermsText attribute.
+     *
+     * @param organizationPaymentTermsText The organizationPaymentTermsText to set.
+     */
+    public void setOrganizationPaymentTermsText(String organizationPaymentTermsText) {
+        this.organizationPaymentTermsText = organizationPaymentTermsText;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToAddressName attribute.
-	 *
-	 * @return Returns the organizationRemitToAddressName
-	 *
-	 */
-	public String getOrganizationRemitToAddressName() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddressName();
-	    if(systemInfo != null) {
-	        return systemInfo.getOrganizationRemitToAddressName();
-	    }
-	    return organizationRemitToAddressName;
-	}
+    /**
+     * Gets the organizationMessageText attribute.
+     *
+     * @return Returns the organizationMessageText
+     */
+    public String getOrganizationMessageText() {
+        return organizationMessageText;
+    }
 
-	/**
-	 * Sets the organizationRemitToAddressName attribute.
-	 *
-	 * @param organizationRemitToAddressName The organizationRemitToAddressName to set.
-	 *
-	 */
-	public void setOrganizationRemitToAddressName(String organizationRemitToAddressName) {
-		this.organizationRemitToAddressName = organizationRemitToAddressName;
-	}
+    /**
+     * Sets the organizationMessageText attribute.
+     *
+     * @param organizationMessageText The organizationMessageText to set.
+     */
+    public void setOrganizationMessageText(String organizationMessageText) {
+        this.organizationMessageText = organizationMessageText;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToLine1StreetAddress attribute.
-	 *
-	 * @return Returns the organizationRemitToLine1StreetAddress
-	 *
-	 */
-	public String getOrganizationRemitToLine1StreetAddress() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+    /**
+     * Gets the organizationRemitToAddressName attribute.
+     *
+     * @return Returns the organizationRemitToAddressName
+     */
+    public String getOrganizationRemitToAddressName() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddressName();
+        if (systemInfo != null) {
+            return systemInfo.getOrganizationRemitToAddressName();
+        }
+        return organizationRemitToAddressName;
+    }
+
+    /**
+     * Sets the organizationRemitToAddressName attribute.
+     *
+     * @param organizationRemitToAddressName The organizationRemitToAddressName to set.
+     */
+    public void setOrganizationRemitToAddressName(String organizationRemitToAddressName) {
+        this.organizationRemitToAddressName = organizationRemitToAddressName;
+    }
+
+
+    /**
+     * Gets the organizationRemitToLine1StreetAddress attribute.
+     *
+     * @return Returns the organizationRemitToLine1StreetAddress
+     */
+    public String getOrganizationRemitToLine1StreetAddress() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
+        if (systemInfo != null) {
             return systemInfo.getOrganizationRemitToLine1StreetAddress();
         }
         return organizationRemitToLine1StreetAddress;
-	}
+    }
 
-	/**
-	 * Sets the organizationRemitToLine1StreetAddress attribute.
-	 *
-	 * @param organizationRemitToLine1StreetAddress The organizationRemitToLine1StreetAddress to set.
-	 *
-	 */
-	public void setOrganizationRemitToLine1StreetAddress(String organizationRemitToLine1StreetAddress) {
-		this.organizationRemitToLine1StreetAddress = organizationRemitToLine1StreetAddress;
-	}
+    /**
+     * Sets the organizationRemitToLine1StreetAddress attribute.
+     *
+     * @param organizationRemitToLine1StreetAddress The organizationRemitToLine1StreetAddress to set.
+     */
+    public void setOrganizationRemitToLine1StreetAddress(String organizationRemitToLine1StreetAddress) {
+        this.organizationRemitToLine1StreetAddress = organizationRemitToLine1StreetAddress;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToLine2StreetAddress attribute.
-	 *
-	 * @return Returns the organizationRemitToLine2StreetAddress
-	 *
-	 */
-	public String getOrganizationRemitToLine2StreetAddress() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+    /**
+     * Gets the organizationRemitToLine2StreetAddress attribute.
+     *
+     * @return Returns the organizationRemitToLine2StreetAddress
+     */
+    public String getOrganizationRemitToLine2StreetAddress() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
+        if (systemInfo != null) {
             return systemInfo.getOrganizationRemitToLine2StreetAddress();
         }
         return organizationRemitToLine2StreetAddress;
-	}
+    }
 
-	/**
-	 * Sets the organizationRemitToLine2StreetAddress attribute.
-	 *
-	 * @param organizationRemitToLine2StreetAddress The organizationRemitToLine2StreetAddress to set.
-	 *
-	 */
-	public void setOrganizationRemitToLine2StreetAddress(String organizationRemitToLine2StreetAddress) {
-		this.organizationRemitToLine2StreetAddress = organizationRemitToLine2StreetAddress;
-	}
+    /**
+     * Sets the organizationRemitToLine2StreetAddress attribute.
+     *
+     * @param organizationRemitToLine2StreetAddress The organizationRemitToLine2StreetAddress to set.
+     */
+    public void setOrganizationRemitToLine2StreetAddress(String organizationRemitToLine2StreetAddress) {
+        this.organizationRemitToLine2StreetAddress = organizationRemitToLine2StreetAddress;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToCityName attribute.
-	 *
-	 * @return Returns the organizationRemitToCityName
-	 *
-	 */
-	public String getOrganizationRemitToCityName() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+    /**
+     * Gets the organizationRemitToCityName attribute.
+     *
+     * @return Returns the organizationRemitToCityName
+     */
+    public String getOrganizationRemitToCityName() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
+        if (systemInfo != null) {
             return systemInfo.getOrganizationRemitToCityName();
         }
-		return organizationRemitToCityName;
-	}
+        return organizationRemitToCityName;
+    }
 
-	/**
-	 * Sets the organizationRemitToCityName attribute.
-	 *
-	 * @param organizationRemitToCityName The organizationRemitToCityName to set.
-	 *
-	 */
-	public void setOrganizationRemitToCityName(String organizationRemitToCityName) {
-		this.organizationRemitToCityName = organizationRemitToCityName;
-	}
+    /**
+     * Sets the organizationRemitToCityName attribute.
+     *
+     * @param organizationRemitToCityName The organizationRemitToCityName to set.
+     */
+    public void setOrganizationRemitToCityName(String organizationRemitToCityName) {
+        this.organizationRemitToCityName = organizationRemitToCityName;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToStateCode attribute.
-	 *
-	 * @return Returns the organizationRemitToStateCode
-	 *
-	 */
-	public String getOrganizationRemitToStateCode() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+    /**
+     * Gets the organizationRemitToStateCode attribute.
+     *
+     * @return Returns the organizationRemitToStateCode
+     */
+    public String getOrganizationRemitToStateCode() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
+        if (systemInfo != null) {
             return systemInfo.getOrganizationRemitToStateCode();
         }
-		return organizationRemitToStateCode;
-	}
+        return organizationRemitToStateCode;
+    }
 
-	/**
-	 * Sets the organizationRemitToStateCode attribute.
-	 *
-	 * @param organizationRemitToStateCode The organizationRemitToStateCode to set.
-	 *
-	 */
-	public void setOrganizationRemitToStateCode(String organizationRemitToStateCode) {
-		this.organizationRemitToStateCode = organizationRemitToStateCode;
-	}
+    /**
+     * Sets the organizationRemitToStateCode attribute.
+     *
+     * @param organizationRemitToStateCode The organizationRemitToStateCode to set.
+     */
+    public void setOrganizationRemitToStateCode(String organizationRemitToStateCode) {
+        this.organizationRemitToStateCode = organizationRemitToStateCode;
+    }
 
 
-	/**
-	 * Gets the organizationRemitToZipCode attribute.
-	 *
-	 * @return Returns the organizationRemitToZipCode
-	 *
-	 */
-	public String getOrganizationRemitToZipCode() {
+    /**
+     * Gets the organizationRemitToZipCode attribute.
+     *
+     * @return Returns the organizationRemitToZipCode
+     */
+    public String getOrganizationRemitToZipCode() {
         final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+        if (systemInfo != null) {
             return systemInfo.getOrganizationRemitToZipCode();
         }
-		return organizationRemitToZipCode;
-	}
+        return organizationRemitToZipCode;
+    }
 
-	/**
-	 * Sets the organizationRemitToZipCode attribute.
-	 *
-	 * @param organizationRemitToZipCode The organizationRemitToZipCode to set.
-	 *
-	 */
-	public void setOrganizationRemitToZipCode(String organizationRemitToZipCode) {
-		this.organizationRemitToZipCode = organizationRemitToZipCode;
-	}
+    /**
+     * Sets the organizationRemitToZipCode attribute.
+     *
+     * @param organizationRemitToZipCode The organizationRemitToZipCode to set.
+     */
+    public void setOrganizationRemitToZipCode(String organizationRemitToZipCode) {
+        this.organizationRemitToZipCode = organizationRemitToZipCode;
+    }
 
-	/**
-	 * Gets the organizationPhoneNumber attribute.
-	 *
-	 * @return Returns the organizationPhoneNumber
-	 *
-	 */
-	public String getOrganizationPhoneNumber() {
-		return organizationPhoneNumber;
-	}
+    /**
+     * Gets the organizationPhoneNumber attribute.
+     *
+     * @return Returns the organizationPhoneNumber
+     */
+    public String getOrganizationPhoneNumber() {
+        return organizationPhoneNumber;
+    }
 
-	/**
-	 * Sets the organizationPhoneNumber attribute.
-	 *
-	 * @param organizationPhoneNumber The organizationPhoneNumber to set.
-	 *
-	 */
-	public void setOrganizationPhoneNumber(String organizationPhoneNumber) {
-		this.organizationPhoneNumber = organizationPhoneNumber;
-	}
+    /**
+     * Sets the organizationPhoneNumber attribute.
+     *
+     * @param organizationPhoneNumber The organizationPhoneNumber to set.
+     */
+    public void setOrganizationPhoneNumber(String organizationPhoneNumber) {
+        this.organizationPhoneNumber = organizationPhoneNumber;
+    }
 
 
-	/**
-	 * Gets the organization800PhoneNumber attribute.
-	 *
-	 * @return Returns the organization800PhoneNumber
-	 *
-	 */
-	public String getOrganization800PhoneNumber() {
-		return organization800PhoneNumber;
-	}
+    /**
+     * Gets the organization800PhoneNumber attribute.
+     *
+     * @return Returns the organization800PhoneNumber
+     */
+    public String getOrganization800PhoneNumber() {
+        return organization800PhoneNumber;
+    }
 
-	/**
-	 * Sets the organization800PhoneNumber attribute.
-	 *
-	 * @param organization800PhoneNumber The organization800PhoneNumber to set.
-	 *
-	 */
-	public void setOrganization800PhoneNumber(String organization800PhoneNumber) {
-		this.organization800PhoneNumber = organization800PhoneNumber;
-	}
+    /**
+     * Sets the organization800PhoneNumber attribute.
+     *
+     * @param organization800PhoneNumber The organization800PhoneNumber to set.
+     */
+    public void setOrganization800PhoneNumber(String organization800PhoneNumber) {
+        this.organization800PhoneNumber = organization800PhoneNumber;
+    }
 
 
-	/**
-	 * Gets the organizationFaxNumber attribute.
-	 *
-	 * @return Returns the organizationFaxNumber
-	 *
-	 */
-	public String getOrganizationFaxNumber() {
-		return organizationFaxNumber;
-	}
+    /**
+     * Gets the organizationFaxNumber attribute.
+     *
+     * @return Returns the organizationFaxNumber
+     */
+    public String getOrganizationFaxNumber() {
+        return organizationFaxNumber;
+    }
 
-	/**
-	 * Sets the organizationFaxNumber attribute.
-	 *
-	 * @param organizationFaxNumber The organizationFaxNumber to set.
-	 *
-	 */
-	public void setOrganizationFaxNumber(String organizationFaxNumber) {
-		this.organizationFaxNumber = organizationFaxNumber;
-	}
+    /**
+     * Sets the organizationFaxNumber attribute.
+     *
+     * @param organizationFaxNumber The organizationFaxNumber to set.
+     */
+    public void setOrganizationFaxNumber(String organizationFaxNumber) {
+        this.organizationFaxNumber = organizationFaxNumber;
+    }
 
 
-	/**
-	 * Gets the universityName attribute.
-	 *
-	 * @return Returns the universityName
-	 *
-	 */
-	public String getUniversityName() {
-		return universityName;
-	}
+    /**
+     * Gets the universityName attribute.
+     *
+     * @return Returns the universityName
+     */
+    public String getUniversityName() {
+        return universityName;
+    }
 
-	/**
-	 * Sets the universityName attribute.
-	 *
-	 * @param universityName The universityName to set.
-	 *
-	 */
-	public void setUniversityName(String universityName) {
-		this.universityName = universityName;
-	}
+    /**
+     * Sets the universityName attribute.
+     *
+     * @param universityName The universityName to set.
+     */
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
+    }
 
 
-	/**
-	 * Gets the organizationCheckPayableToName attribute.
-	 *
-	 * @return Returns the organizationCheckPayableToName
-	 *
-	 */
-	public String getOrganizationCheckPayableToName() {
-	    final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
-        if(systemInfo != null) {
+    /**
+     * Gets the organizationCheckPayableToName attribute.
+     *
+     * @return Returns the organizationCheckPayableToName
+     */
+    public String getOrganizationCheckPayableToName() {
+        final SystemInformation systemInfo = getSystemInformationForRemitToAddress();
+        if (systemInfo != null) {
             return systemInfo.getOrganizationCheckPayableToName();
         }
-		return organizationCheckPayableToName;
-	}
+        return organizationCheckPayableToName;
+    }
 
-	/**
-	 * Sets the organizationCheckPayableToName attribute.
-	 *
-	 * @param organizationCheckPayableToName The organizationCheckPayableToName to set.
-	 *
-	 */
-	public void setOrganizationCheckPayableToName(String organizationCheckPayableToName) {
-		this.organizationCheckPayableToName = organizationCheckPayableToName;
-	}
+    /**
+     * Sets the organizationCheckPayableToName attribute.
+     *
+     * @param organizationCheckPayableToName The organizationCheckPayableToName to set.
+     */
+    public void setOrganizationCheckPayableToName(String organizationCheckPayableToName) {
+        this.organizationCheckPayableToName = organizationCheckPayableToName;
+    }
 
 
-	/**
-	 * Gets the organization attribute.
-	 *
-	 * @return Returns the organization
-	 *
-	 */
-	public Organization getOrganization() {
-		return organization;
-	}
+    /**
+     * Gets the organization attribute.
+     *
+     * @return Returns the organization
+     */
+    public Organization getOrganization() {
+        return organization;
+    }
 
-	/**
-	 * Sets the organization attribute.
-	 *
-	 * @param organization The organization to set.
-	 * @deprecated
-	 */
-	@Deprecated
+    /**
+     * Sets the organization attribute.
+     *
+     * @param organization The organization to set.
+     * @deprecated
+     */
+    @Deprecated
     public void setOrganization(Organization organization) {
-		this.organization = organization;
-	}
+        this.organization = organization;
+    }
 
-	/**
-	 * Gets the chartOfAccounts attribute.
-	 *
-	 * @return Returns the chartOfAccounts
-	 *
-	 */
-	public Chart getChartOfAccounts() {
-		return chartOfAccounts;
-	}
+    /**
+     * Gets the chartOfAccounts attribute.
+     *
+     * @return Returns the chartOfAccounts
+     */
+    public Chart getChartOfAccounts() {
+        return chartOfAccounts;
+    }
 
-	/**
-	 * Sets the chartOfAccounts attribute.
-	 *
-	 * @param chartOfAccounts The chartOfAccounts to set.
-	 * @deprecated
-	 */
-	@Deprecated
+    /**
+     * Sets the chartOfAccounts attribute.
+     *
+     * @param chartOfAccounts The chartOfAccounts to set.
+     * @deprecated
+     */
+    @Deprecated
     public void setChartOfAccounts(Chart chartOfAccounts) {
-		this.chartOfAccounts = chartOfAccounts;
-	}
+        this.chartOfAccounts = chartOfAccounts;
+    }
 
-	/**
-	 * Gets the processingChartOfAccount attribute.
-	 *
-	 * @return Returns the processingChartOfAccount
-	 *
-	 */
-	public Chart getProcessingChartOfAccount() {
-		return processingChartOfAccount;
-	}
+    /**
+     * Gets the processingChartOfAccount attribute.
+     *
+     * @return Returns the processingChartOfAccount
+     */
+    public Chart getProcessingChartOfAccount() {
+        return processingChartOfAccount;
+    }
 
-	/**
-	 * Sets the processingChartOfAccount attribute.
-	 *
-	 * @param processingChartOfAccount The processingChartOfAccount to set.
-	 * @deprecated
-	 */
-	@Deprecated
+    /**
+     * Sets the processingChartOfAccount attribute.
+     *
+     * @param processingChartOfAccount The processingChartOfAccount to set.
+     * @deprecated
+     */
+    @Deprecated
     public void setProcessingChartOfAccount(Chart processingChartOfAccount) {
-		this.processingChartOfAccount = processingChartOfAccount;
-	}
+        this.processingChartOfAccount = processingChartOfAccount;
+    }
 
-	/**
-	 * Gets the processingOrganization attribute.
-	 *
-	 * @return Returns the processingOrganization
-	 *
-	 */
-	public Organization getProcessingOrganization() {
-		return processingOrganization;
-	}
+    /**
+     * Gets the processingOrganization attribute.
+     *
+     * @return Returns the processingOrganization
+     */
+    public Organization getProcessingOrganization() {
+        return processingOrganization;
+    }
 
-	/**
-	 * Sets the processingOrganization attribute.
-	 *
-	 * @param processingOrganization The processingOrganization to set.
-	 * @deprecated
-	 */
-	@Deprecated
+    /**
+     * Sets the processingOrganization attribute.
+     *
+     * @param processingOrganization The processingOrganization to set.
+     * @deprecated
+     */
+    @Deprecated
     public void setProcessingOrganization(Organization processingOrganization) {
-		this.processingOrganization = processingOrganization;
-	}
+        this.processingOrganization = processingOrganization;
+    }
 
     /**
      * Gets the organizationRemitToState attribute.
+     *
      * @return Returns the organizationRemitToState.
      */
     public StateEbo getOrganizationRemitToState() {
-        if ( StringUtils.isBlank(organizationRemitToStateCode) ) {
+        if (StringUtils.isBlank(organizationRemitToStateCode)) {
             organizationRemitToState = null;
         } else {
-            if ( organizationRemitToState == null || !StringUtils.equals( organizationRemitToState.getCode(),organizationRemitToStateCode) ) {
+            if (organizationRemitToState == null || !StringUtils.equals(organizationRemitToState.getCode(), organizationRemitToStateCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationRemitToStateCode);
                     organizationRemitToState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -614,6 +577,7 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the organizationRemitToState attribute value.
+     *
      * @param organizationRemitToState The organizationRemitToState to set.
      * @deprecated
      */
@@ -622,19 +586,20 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
         this.organizationRemitToState = organizationRemitToState;
     }
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, this.chartOfAccountsCode);
         m.put(KFSPropertyConstants.ORGANIZATION_CODE, this.organizationCode);
-	    return m;
+        return m;
     }
 
 
     /**
      * Gets the printOption attribute.
+     *
      * @return Returns the printOption.
      */
     public PrintInvoiceOptions getPrintInvoiceOptions() {
@@ -643,6 +608,7 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the printOption attribute value.
+     *
      * @param printOption The printOption to set.
      */
     public void setPrintInvoiceOptions(PrintInvoiceOptions printInvoiceOptions) {
@@ -676,19 +642,19 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
     }
 
     public PostalCodeEbo getOrgPostalZipCode() {
-        if ( StringUtils.isBlank(organizationPostalZipCode) || StringUtils.isBlank(organizationPostalCountryCode) ) {
+        if (StringUtils.isBlank(organizationPostalZipCode) || StringUtils.isBlank(organizationPostalCountryCode)) {
             orgPostalZipCode = null;
         } else {
-            if ( orgPostalZipCode == null || !StringUtils.equals( orgPostalZipCode.getCode(),organizationPostalZipCode)
-                    || !StringUtils.equals(orgPostalZipCode.getCountryCode(), organizationPostalCountryCode )) {
+            if (orgPostalZipCode == null || !StringUtils.equals(orgPostalZipCode.getCode(), organizationPostalZipCode)
+                || !StringUtils.equals(orgPostalZipCode.getCountryCode(), organizationPostalCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, organizationPostalCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationPostalZipCode);
                     orgPostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -700,19 +666,19 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
     }
 
     public PostalCodeEbo getOrgRemitToZipCode() {
-        if ( StringUtils.isBlank(organizationRemitToZipCode) || StringUtils.isBlank(organizationRemitToCountryCode) ) {
+        if (StringUtils.isBlank(organizationRemitToZipCode) || StringUtils.isBlank(organizationRemitToCountryCode)) {
             orgRemitToZipCode = null;
         } else {
-            if ( orgRemitToZipCode == null || !StringUtils.equals( orgRemitToZipCode.getCode(),organizationRemitToZipCode)
-                    || !StringUtils.equals(orgRemitToZipCode.getCountryCode(), organizationPostalCountryCode )) {
+            if (orgRemitToZipCode == null || !StringUtils.equals(orgRemitToZipCode.getCode(), organizationRemitToZipCode)
+                || !StringUtils.equals(orgRemitToZipCode.getCountryCode(), organizationPostalCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, organizationPostalCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationRemitToZipCode);
                     orgRemitToZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -724,17 +690,17 @@ public class OrganizationOptions extends PersistableBusinessObjectBase implement
     }
 
     public CountryEbo getOrgPostalCountryCode() {
-        if ( StringUtils.isBlank(organizationPostalCountryCode) ) {
+        if (StringUtils.isBlank(organizationPostalCountryCode)) {
             orgPostalCountryCode = null;
         } else {
-            if ( orgPostalCountryCode == null || !StringUtils.equals( orgPostalCountryCode.getCode(),organizationPostalCountryCode) ) {
+            if (orgPostalCountryCode == null || !StringUtils.equals(orgPostalCountryCode.getCode(), organizationPostalCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationPostalCountryCode);
                     orgPostalCountryCode = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }

@@ -27,8 +27,6 @@ import java.util.Map;
 /**
  * Object that is returned for Ajax attribute queries and exposed
  * as JSON
- *
- *
  */
 public class AttributeQueryResult implements Serializable {
     private static final long serialVersionUID = -6688384365943881516L;

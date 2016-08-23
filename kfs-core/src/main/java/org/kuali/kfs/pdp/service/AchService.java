@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.pdp.service;
 
-import java.util.List;
-
 import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
+
+import java.util.List;
 
 /**
  * Provides service methods for retrieving ACH information
@@ -30,8 +30,8 @@ public interface AchService {
     /**
      * Retrieves a Payee's ACH record
      *
-     * @param idType type of payee
-     * @param payeeId unique identifier for payee (based on type)
+     * @param idType             type of payee
+     * @param payeeId            unique identifier for payee (based on type)
      * @param achTransactionType ach transaction type for record
      * @return PayeeAchAccount
      */
@@ -39,6 +39,7 @@ public interface AchService {
 
     /**
      * Gets all active PayeeAchAccounts.
+     *
      * @return all active PayeeAchAccounts.
      */
     public List<PayeeACHAccount> getActiveAchAccounts();

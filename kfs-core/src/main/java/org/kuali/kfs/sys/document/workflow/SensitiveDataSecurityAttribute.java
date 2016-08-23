@@ -18,8 +18,12 @@
  */
 package org.kuali.kfs.sys.document.workflow;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
@@ -27,12 +31,8 @@ import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.document.security.DocumentSecurityAttribute;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * This class...
@@ -46,13 +46,13 @@ public class SensitiveDataSecurityAttribute implements DocumentSecurityAttribute
         String docTypeName = document.getDocumentTypeName();
         DocumentEntry docEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(docTypeName);
         if (docEntry instanceof FinancialSystemTransactionalDocumentEntry) {
-            if (((FinancialSystemTransactionalDocumentEntry)docEntry).isPotentiallySensitive()) {
+            if (((FinancialSystemTransactionalDocumentEntry) docEntry).isPotentiallySensitive()) {
 
                 WorkflowDocumentService workflowDocService = KewApiServiceLocator.getWorkflowDocumentService();
-                List<String> sensitiveDataCodeArray = workflowDocService.getSearchableAttributeStringValuesByKey(document.getDocumentId(),"sensitive");
+                List<String> sensitiveDataCodeArray = workflowDocService.getSearchableAttributeStringValuesByKey(document.getDocumentId(), "sensitive");
                 if (sensitiveDataCodeArray != null && sensitiveDataCodeArray.size() > 0) {
                     List<String> sensitiveDataCode = sensitiveDataCodeArray;
-                    if ( sensitiveDataCode != null && sensitiveDataCode.contains("Y")) {
+                    if (sensitiveDataCode != null && sensitiveDataCode.contains("Y")) {
 
                         DocumentAuthorizer docAuthorizer = SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(docTypeName);
                         try {
@@ -64,9 +64,8 @@ public class SensitiveDataSecurityAttribute implements DocumentSecurityAttribute
                             } else {
                                 return docAuthorizer.canOpen(kfsDocument, KimApiServiceLocator.getPersonService().getPerson(principalId));
                             }
-                        }
-                        catch (WorkflowException ex) {
-                            LOG.error( "Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
+                        } catch (WorkflowException ex) {
+                            LOG.error("Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
                             return false;
                         }
                     }

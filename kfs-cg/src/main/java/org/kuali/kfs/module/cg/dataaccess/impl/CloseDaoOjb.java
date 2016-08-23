@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.cg.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -34,6 +30,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @see CloseDao
@@ -51,7 +51,7 @@ public class CloseDaoOjb extends PlatformAwareDaoBaseOjb implements CloseDao {
         criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, KFSConstants.DocumentStatusCodes.ENROUTE);
 
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(ProposalAwardCloseDocument.class, criteria);
-        rqbc.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        rqbc.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER});
         rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
 
         Iterator<?> documentHeaderIdsIterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
@@ -60,12 +60,10 @@ public class CloseDaoOjb extends PlatformAwareDaoBaseOjb implements CloseDao {
             Object[] result = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(documentHeaderIdsIterator);
             if (result[0] != null) {
                 return result[0].toString();
-            }
-            else {
+            } else {
                 return null;
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -80,11 +78,11 @@ public class CloseDaoOjb extends PlatformAwareDaoBaseOjb implements CloseDao {
         criteria.addEqualTo(CGPropertyConstants.PROPOSAL_AWARD_CLOSE_DOC_USER_INITIATED_CLOSE_DATE, today);
         criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, KFSConstants.DocumentStatusCodes.APPROVED);
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(ProposalAwardCloseDocument.class, criteria);
-        rqbc.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        rqbc.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER});
 
         rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         getPersistenceBrokerTemplate().clearCache();
-        if ( getPersistenceBrokerTemplate().getCount(rqbc) == 0) {
+        if (getPersistenceBrokerTemplate().getCount(rqbc) == 0) {
             return null;
         }
 
@@ -94,8 +92,7 @@ public class CloseDaoOjb extends PlatformAwareDaoBaseOjb implements CloseDao {
         Object[] result = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(documentHeaderIdsIterator);
         if (result[0] != null) {
             return result[0].toString();
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -111,7 +108,7 @@ public class CloseDaoOjb extends PlatformAwareDaoBaseOjb implements CloseDao {
         criteria.addLessOrEqualThan("awardEntryDate", close.getCloseOnOrBeforeDate());
         criteria.addNotEqualTo("awardStatusCode", "U");
 
-        return  getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(Award.class, criteria));
+        return getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(Award.class, criteria));
     }
 
     /**

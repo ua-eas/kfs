@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.krad.dao.impl;
 
-import java.sql.Timestamp;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
-import org.kuali.kfs.krad.dao.SessionDocumentDao;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.bo.SessionDocument;
 import org.kuali.kfs.krad.dao.BusinessObjectDao;
+import org.kuali.kfs.krad.dao.SessionDocumentDao;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.sql.Timestamp;
 
 /**
  * This class is the OJB implementation of the DocumentDao interface.
@@ -47,11 +47,11 @@ public class SessionDocumentDaoOjb extends PlatformAwareDaoBaseOjb implements Se
      *
      * @see SessionDocumentDao#purgeAllSessionDocuments(java.sql.Timestamp)
      */
-    public void purgeAllSessionDocuments(Timestamp expirationDate)throws DataAccessException {
-    	Criteria criteria = new Criteria();
-		criteria.addLessThan(KRADPropertyConstants.LAST_UPDATED_DATE, expirationDate);
-		 getPersistenceBrokerTemplate().deleteByQuery(QueryFactory.newQuery(SessionDocument.class, criteria));
-		 //getPersistenceBrokerTemplate().clearCache();
+    public void purgeAllSessionDocuments(Timestamp expirationDate) throws DataAccessException {
+        Criteria criteria = new Criteria();
+        criteria.addLessThan(KRADPropertyConstants.LAST_UPDATED_DATE, expirationDate);
+        getPersistenceBrokerTemplate().deleteByQuery(QueryFactory.newQuery(SessionDocument.class, criteria));
+        //getPersistenceBrokerTemplate().clearCache();
 
     }
 

@@ -19,13 +19,13 @@
 package org.kuali.kfs.krad.kim;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.membership.MemberType;
-import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.api.common.assignee.Assignee;
 import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.rice.kim.api.role.RoleMembership;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,45 +34,47 @@ import java.util.Map;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
  */
 public class PermissionDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 
 
-	private static PermissionService permissionService;
-	private String permissionTemplateNamespace;
-	private String permissionTemplateName;
-	/**
-	 * @return the permissionTemplateNamespace
-	 */
-	public String getPermissionTemplateNamespace() {
-		return this.permissionTemplateNamespace;
-	}
-	/**
-	 * @param permissionTemplateNamespace the permissionTemplateNamespace to set
-	 */
-	public void setPermissionTemplateNamespace(String permissionTemplateNamespace) {
-		this.permissionTemplateNamespace = permissionTemplateNamespace;
-	}
-	/**
-	 * @return the permissionTemplateName
-	 */
-	public String getPermissionTemplateName() {
-		return this.permissionTemplateName;
-	}
-	/**
-	 * @param permissionTemplateName the permissionTemplateName to set
-	 */
-	public void setPermissionTemplateName(String permissionTemplateName) {
-		this.permissionTemplateName = permissionTemplateName;
-	}
+    private static PermissionService permissionService;
+    private String permissionTemplateNamespace;
+    private String permissionTemplateName;
 
-	protected List<Assignee> getPermissionAssignees(Map<String, String> qualification) {
-		return getPermissionService().getPermissionAssigneesByTemplate(permissionTemplateNamespace,
-                permissionTemplateName, new HashMap<String, String>(qualification), new HashMap<String, String>(
+    /**
+     * @return the permissionTemplateNamespace
+     */
+    public String getPermissionTemplateNamespace() {
+        return this.permissionTemplateNamespace;
+    }
+
+    /**
+     * @param permissionTemplateNamespace the permissionTemplateNamespace to set
+     */
+    public void setPermissionTemplateNamespace(String permissionTemplateNamespace) {
+        this.permissionTemplateNamespace = permissionTemplateNamespace;
+    }
+
+    /**
+     * @return the permissionTemplateName
+     */
+    public String getPermissionTemplateName() {
+        return this.permissionTemplateName;
+    }
+
+    /**
+     * @param permissionTemplateName the permissionTemplateName to set
+     */
+    public void setPermissionTemplateName(String permissionTemplateName) {
+        this.permissionTemplateName = permissionTemplateName;
+    }
+
+    protected List<Assignee> getPermissionAssignees(Map<String, String> qualification) {
+        return getPermissionService().getPermissionAssigneesByTemplate(permissionTemplateNamespace,
+            permissionTemplateName, new HashMap<String, String>(qualification), new HashMap<String, String>(
                 qualification));
-	}
+    }
 
     @Override
     public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
@@ -98,7 +100,7 @@ public class PermissionDerivedRoleTypeServiceImpl extends DerivedRoleTypeService
 
     @Override
     public boolean hasDerivedRole(
-            String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification){
+        String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
         if (StringUtils.isBlank(principalId)) {
             throw new RiceIllegalArgumentException("principalId was null or blank");
         }
@@ -121,7 +123,7 @@ public class PermissionDerivedRoleTypeServiceImpl extends DerivedRoleTypeService
 
         // FIXME: dangerous - data changes could cause an infinite loop - should add thread-local to trap state and abort
         return getPermissionService().isAuthorizedByTemplate(principalId, permissionTemplateNamespace,
-                permissionTemplateName, new HashMap<String, String>(qualification), new HashMap<String, String>(
+            permissionTemplateName, new HashMap<String, String>(qualification), new HashMap<String, String>(
                 qualification));
     }
 

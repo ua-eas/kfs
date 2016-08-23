@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.gl.batch.dataaccess.OrganizationReversionUnitOfWorkDao;
 import org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService;
 import org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWork;
 import org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWorkCategoryAmount;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The base implementation of OrganizationReversionUnitOfWorkService
@@ -47,14 +47,14 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
      * @see org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService#loadCategories(org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWork)
      */
     public OrgReversionUnitOfWork loadCategories(OrgReversionUnitOfWork orgRevUnitOfWork) {
-        Map<String,Object> criteria = new HashMap<String, Object>();
+        Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("chartOfAccountsCode", orgRevUnitOfWork.chartOfAccountsCode);
         criteria.put("accountNbr", orgRevUnitOfWork.accountNumber);
         criteria.put("subAccountNbr", orgRevUnitOfWork.subAccountNumber);
 
         Collection<OrgReversionUnitOfWorkCategoryAmount> categoryAmounts = businessObjectService.findMatching(OrgReversionUnitOfWorkCategoryAmount.class, criteria);
         Map<String, OrgReversionUnitOfWorkCategoryAmount> categories = orgRevUnitOfWork.getCategoryAmounts();
-        for ( OrgReversionUnitOfWorkCategoryAmount catAmount : categoryAmounts ) {
+        for (OrgReversionUnitOfWorkCategoryAmount catAmount : categoryAmounts) {
             categories.put(catAmount.getCategoryCode(), catAmount);
         }
         return orgRevUnitOfWork;
@@ -64,6 +64,7 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
      * Immediate deletion awaits all entries of the unit of work summary tables in the persistence store once
      * you call this method, for this method is both powerful and deadly and also gets called to clear out
      * those tables before every single org reversion run.
+     *
      * @see org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService#removeAll()
      */
     public void destroyAllUnitOfWorkSummaries() {
@@ -81,7 +82,7 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
             LOG.debug("Saving org reversion summary for " + orgRevUnitOfWork.toString() + "; its category keys are: " + orgRevUnitOfWork.getCategoryAmounts().keySet());
         }
         businessObjectService.save(orgRevUnitOfWork);
-        for (String category: orgRevUnitOfWork.getCategoryAmounts().keySet()) {
+        for (String category : orgRevUnitOfWork.getCategoryAmounts().keySet()) {
             final OrgReversionUnitOfWorkCategoryAmount categoryAmount = orgRevUnitOfWork.getCategoryAmounts().get(category);
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Saving category amount for " + categoryAmount.toString());

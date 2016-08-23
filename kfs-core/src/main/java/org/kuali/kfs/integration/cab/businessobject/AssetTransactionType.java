@@ -35,6 +35,7 @@ public class AssetTransactionType implements CapitalAssetBuilderAssetTransaction
 
     /**
      * Constructs a CapitalAssetTransactionType.java.
+     *
      * @param capitalAssetTransactionTypeCode
      */
     public AssetTransactionType(String capitalAssetTransactionTypeCode) {
@@ -70,7 +71,7 @@ public class AssetTransactionType implements CapitalAssetBuilderAssetTransaction
     }
 
     public void setCapitalAssetNonquantitySubtypeRequiredText(
-            String capitalAssetNonquantitySubtypeRequiredText) {
+        String capitalAssetNonquantitySubtypeRequiredText) {
         this.capitalAssetNonquantitySubtypeRequiredText = capitalAssetNonquantitySubtypeRequiredText;
     }
 
@@ -79,7 +80,7 @@ public class AssetTransactionType implements CapitalAssetBuilderAssetTransaction
     }
 
     public void setCapitalAssetQuantitySubtypeRequiredText(
-            String capitalAssetQuantitySubtypeRequiredText) {
+        String capitalAssetQuantitySubtypeRequiredText) {
         this.capitalAssetQuantitySubtypeRequiredText = capitalAssetQuantitySubtypeRequiredText;
     }
 
@@ -91,7 +92,9 @@ public class AssetTransactionType implements CapitalAssetBuilderAssetTransaction
         this.active = active;
     }
 
-    public void prepareForWorkflow() {}
+    public void prepareForWorkflow() {
+    }
 
-    public void refresh() {}
+    public void refresh() {
+    }
 }

@@ -19,9 +19,7 @@
 package org.kuali.kfs.module.cam.document.service;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
@@ -34,7 +32,9 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.UniversityDateServiceImpl;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentSummaryServiceTest extends KualiTestBase {
 

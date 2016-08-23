@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.service;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
-import javax.persistence.EntityManagerFactory;
-
 public class KRADServiceLocator {
     public static final String ATTACHMENT_SERVICE = "cf.attachmentService";
     public static final String PERSISTENCE_SERVICE = "cf.persistenceService";

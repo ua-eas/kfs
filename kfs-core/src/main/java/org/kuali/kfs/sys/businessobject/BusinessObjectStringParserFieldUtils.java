@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 
 /**
  * An abstract class which provides help in determining field lengths of business objects being parsed from Strings
@@ -89,7 +89,7 @@ public abstract class BusinessObjectStringParserFieldUtils {
         for (String property : getOrderedProperties()) {
             fieldBeginningPositionMap.put(property, new Integer(lengthTracker));
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Finding position for property: "+property+"; length = "+lengthMap.get(property));
+                LOG.debug("Finding position for property: " + property + "; length = " + lengthMap.get(property));
             }
             lengthTracker += lengthMap.get(property).intValue();
         }

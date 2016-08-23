@@ -30,8 +30,7 @@ public class ProxyUtils {
                 Object target = advised.getTargetSource().getTarget();
 
                 return target;
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException("Unable to get class for proxy: " + ex.getMessage(), ex);
             }
         }

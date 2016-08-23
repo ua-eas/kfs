@@ -26,9 +26,7 @@ import java.util.Collection;
  * This is a marker interface for 'collection constraint processors', that is - a constraint processor that tests collections
  * rather than their elements. Maybe the best example of a collection-based constraint is a constraint on the number of elements
  * in that collection -- for example, a constraint that ensures that there are between 1 and 10 elements in a collection.
- *
- *
  */
 public interface CollectionConstraintProcessor<T extends Collection<?>, C extends Constraint> extends ConstraintProcessor<T, C> {
-	// Empty
+    // Empty
 }

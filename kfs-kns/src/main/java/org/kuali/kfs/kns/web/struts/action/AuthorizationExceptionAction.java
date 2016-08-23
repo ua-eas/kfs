@@ -25,8 +25,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.util.RiceConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +36,6 @@ import java.util.Map;
 /**
  * This is the struts action class for handling the exception for Kuali
  * applications.
- *
  */
 public class AuthorizationExceptionAction extends Action {
 
@@ -48,8 +47,8 @@ public class AuthorizationExceptionAction extends Action {
      * Dispatches action to be taken during an AuthorizationException.
      *
      * @see org.apache.struts.action.Action#execute(
-     *      org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
+     *org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

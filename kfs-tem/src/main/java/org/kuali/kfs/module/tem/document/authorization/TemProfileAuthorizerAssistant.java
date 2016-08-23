@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAccount;
@@ -31,9 +31,9 @@ import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Why does this class exist?  That's...kind of a long story.
@@ -61,10 +61,10 @@ public class TemProfileAuthorizerAssistant extends FinancialSystemMaintenanceDoc
                 }
             }
         } else if (dataObject instanceof TemProfile) {
-            final TemProfile profile = (TemProfile)dataObject;
+            final TemProfile profile = (TemProfile) dataObject;
             addRoleQualificationsFromProfile(profile, attributes);
         } else if (dataObject instanceof TemProfileEmergencyContact) {
-            final TemProfileEmergencyContact emergencyContact = (TemProfileEmergencyContact)dataObject;
+            final TemProfileEmergencyContact emergencyContact = (TemProfileEmergencyContact) dataObject;
             if (ObjectUtils.isNull(emergencyContact.getProfile())) {
                 emergencyContact.refreshReferenceObject(TemPropertyConstants.PROFILE);
             }
@@ -72,7 +72,7 @@ public class TemProfileAuthorizerAssistant extends FinancialSystemMaintenanceDoc
                 addRoleQualificationsFromProfile(emergencyContact.getProfile(), attributes);
             }
         } else if (dataObject instanceof TemProfileArranger) {
-            final TemProfileArranger arranger = (TemProfileArranger)dataObject;
+            final TemProfileArranger arranger = (TemProfileArranger) dataObject;
             if (ObjectUtils.isNull(arranger.getProfile())) {
                 arranger.refreshReferenceObject(TemPropertyConstants.PROFILE);
             }
@@ -80,7 +80,7 @@ public class TemProfileAuthorizerAssistant extends FinancialSystemMaintenanceDoc
                 addRoleQualificationsFromProfile(arranger.getProfile(), attributes);
             }
         } else if (dataObject instanceof TemProfileAccount) {
-            final TemProfileAccount profileAccount = (TemProfileAccount)dataObject;
+            final TemProfileAccount profileAccount = (TemProfileAccount) dataObject;
             if (ObjectUtils.isNull(profileAccount.getProfile())) {
                 profileAccount.refreshReferenceObject(TemPropertyConstants.PROFILE);
             }
@@ -92,7 +92,8 @@ public class TemProfileAuthorizerAssistant extends FinancialSystemMaintenanceDoc
 
     /**
      * Adds role qualifiers harvested from the TemProfile to the attributes Map
-     * @param profile the TemProfile to harvest qualifiers from
+     *
+     * @param profile    the TemProfile to harvest qualifiers from
      * @param attributes the Map of qualifiers to add into
      */
     protected void addRoleQualificationsFromProfile(TemProfile profile, Map<String, String> attributes) {
@@ -122,6 +123,7 @@ public class TemProfileAuthorizerAssistant extends FinancialSystemMaintenanceDoc
 
     /**
      * There's a permission for out-of-the-box KFS to make the TemProfileAdministrator section read only
+     *
      * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase#getSecurePotentiallyReadOnlySectionIds()
      */
     @Override

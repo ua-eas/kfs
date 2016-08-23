@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.Comparator;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.Comparator;
 
 /**
  * Holds summary data for the ledger summary report
@@ -93,14 +93,14 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
     /**
      * Given the various values, puts together a convenient Map key
      *
-     * @param balanceTypeCode a balance type code
+     * @param balanceTypeCode                a balance type code
      * @param financialSystemOriginationCode an origination code
-     * @param universityFiscalYear a fiscal year, smothered in mustard
+     * @param universityFiscalYear           a fiscal year, smothered in mustard
      * @param universityAccountingPeriodCode an accounting period code
      * @return all of them magically put together, to form a Map key. Like Voltron, but more financially oriented
      */
     private static String makeKey(String balanceTypeCode, String financialSystemOriginationCode, Integer universityFiscalYear, String universityAccountingPeriodCode) {
-        return StringUtils.join(new String[] { balanceTypeCode, financialSystemOriginationCode, universityFiscalYear == null ? "" : universityFiscalYear.toString(), universityAccountingPeriodCode }, ':');
+        return StringUtils.join(new String[]{balanceTypeCode, financialSystemOriginationCode, universityFiscalYear == null ? "" : universityFiscalYear.toString(), universityAccountingPeriodCode}, ':');
     }
 
     /**
@@ -161,6 +161,6 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
         };
     }
 
-    public static String[] keyFields = new String[] { KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, "universityAccountPeriodCode" };
+    public static String[] keyFields = new String[]{KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, "universityAccountPeriodCode"};
 
 }

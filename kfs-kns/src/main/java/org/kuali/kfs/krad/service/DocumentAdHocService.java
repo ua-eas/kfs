@@ -24,17 +24,15 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * This service populates {@link Document}s with {@link AdHocRoutePerson}s and {@link AdHocRouteWorkgroup}s
- *
- *
  */
 public interface DocumentAdHocService {
 
-	/**
-	 * This method populates the given {@link Document} with the {@link AdHocRoutePerson}s and {@link AdHocRouteWorkgroup}s
-	 * that are associated with it.
-	 *
-	 * @param doc
-	 */
-	void addAdHocs(Document doc);
+    /**
+     * This method populates the given {@link Document} with the {@link AdHocRoutePerson}s and {@link AdHocRouteWorkgroup}s
+     * that are associated with it.
+     *
+     * @param doc
+     */
+    void addAdHocs(Document doc);
 
 }

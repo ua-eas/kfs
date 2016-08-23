@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ar.businessobject.Lockbox;
+
+import java.util.Collection;
 
 public interface LockboxDao {
 
@@ -32,7 +32,6 @@ public interface LockboxDao {
     public Collection<Lockbox> getAllLockboxes();
 
     /**
-     *
      * Returns the highest (numerically) value for the Lockbox
      * invoiceSequenceNumber.
      *

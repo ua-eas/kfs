@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import java.util.Date;
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Date;
+import java.util.Set;
 
 public class TaxRegionMaintenanceDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
 

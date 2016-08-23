@@ -18,19 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -53,12 +46,19 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @Transactional
 public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReportService {
@@ -75,7 +75,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
 
 
     @Override
-    public List getPopulatedReportDetails(String customerNumber){
+    public List getPopulatedReportDetails(String customerNumber) {
 
         List results = new ArrayList();
 
@@ -114,15 +114,13 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
 
             if (documentType.equals(KFSConstants.FinancialDocumentTypeCodes.CUSTOMER_INVOICE) || documentType.equals(ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE)) {
                 invoiceIds.add(docNumber);
-            }
-            else {
+            } else {
                 // Approved Date -> for invoices Due Date, for all other documents Approved Date
                 detail.setDueApprovedDate(approvedDate);
 
                 if (documentType.equals(ArConstants.PAYMENT_APPLICATION_DOCUMENT_TYPE_CODE)) {
                     paymentApplicationIds.add(docNumber);
-                }
-                else {
+                } else {
                     finSysDocHeaderIds.add(docNumber);
                 }
             }
@@ -164,7 +162,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             }
         } catch (WorkflowException we) {
             LOG.error("WorkflowException while populating report details for PaymentApplicationDocument", we);
-            throw new RuntimeException("WorkflowException while populating report details for PaymentApplicationDocument",we);
+            throw new RuntimeException("WorkflowException while populating report details for PaymentApplicationDocument", we);
         }
 
         // for all other documents
@@ -179,13 +177,13 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      * This method populates CustomerOpenItemReportDetails for CustomerInvoiceDocuments (Customer History Report).
      *
      * @param finSysDocHeaderIds <=> documentNumbers of CustomerInvoiceDocuments
-     * @param results <=> CustomerOpenItemReportDetails to display in the report
-     * @param details <=> <key = documentNumber, value = customerOpenItemReportDetail>
+     * @param results            <=> CustomerOpenItemReportDetails to display in the report
+     * @param details            <=> <key = documentNumber, value = customerOpenItemReportDetail>
      */
     protected void populateReportDetailsForInvoices(List invoiceIds, List results, Hashtable details) {
         Collection invoices = getDocuments(CustomerInvoiceDocument.class, invoiceIds);
 
-        for (Iterator itr = invoices.iterator(); itr.hasNext();) {
+        for (Iterator itr = invoices.iterator(); itr.hasNext(); ) {
             CustomerInvoiceDocument invoice = (CustomerInvoiceDocument) itr.next();
             String documentNumber = invoice.getDocumentNumber();
 
@@ -195,8 +193,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String documentDescription = invoice.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
 
@@ -220,13 +217,13 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      * This method populates CustomerOpenItemReportDetails for PaymentApplicationDocuments (Customer History Report).
      *
      * @param paymentApplicationIds <=> documentNumbers of PaymentApplicationDocuments
-     * @param results <=> CustomerOpenItemReportDetails to display in the report
-     * @param details <=> <key = documentNumber, value = customerOpenItemReportDetail>
+     * @param results               <=> CustomerOpenItemReportDetails to display in the report
+     * @param details               <=> <key = documentNumber, value = customerOpenItemReportDetail>
      */
     protected void populateReportDetailsForPaymentApplications(List paymentApplicationIds, List results, Hashtable details) throws WorkflowException {
         Collection paymentApplications = getDocuments(PaymentApplicationDocument.class, paymentApplicationIds);
 
-        for (Iterator itr = paymentApplications.iterator(); itr.hasNext();) {
+        for (Iterator itr = paymentApplications.iterator(); itr.hasNext(); ) {
             PaymentApplicationDocument paymentApplication = (PaymentApplicationDocument) itr.next();
             String documentNumber = paymentApplication.getDocumentNumber();
 
@@ -236,8 +233,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String documentDescription = paymentApplication.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
 
@@ -263,13 +259,13 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      * This method populates CustomerOpenItemReportDetails for UnappliedPaymentApplicationDocuments (Customer History Report).
      *
      * @param unappliedHoldingIds <=> documentNumbers of UnappliedPaymentApplicationDocuments
-     * @param results <=> CustomerOpenItemReportDetails to display in the report
-     * @param details <=> <key = documentNumber, value = customerOpenItemReportDetail>
+     * @param results             <=> CustomerOpenItemReportDetails to display in the report
+     * @param details             <=> <key = documentNumber, value = customerOpenItemReportDetail>
      */
     protected void populateReportDetailsForUnappliedPaymentApplications(List unappliedHoldingIds, List results, Hashtable details) throws WorkflowException {
         Collection paymentApplications = getDocuments(PaymentApplicationDocument.class, unappliedHoldingIds);
 
-        for (Iterator itr = paymentApplications.iterator(); itr.hasNext();) {
+        for (Iterator itr = paymentApplications.iterator(); itr.hasNext(); ) {
             PaymentApplicationDocument paymentApplication = (PaymentApplicationDocument) itr.next();
             String documentNumber = paymentApplication.getDocumentNumber();
 
@@ -283,8 +279,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String documentDescription = paymentApplication.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
 
@@ -303,19 +298,19 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      * but CustomerInvoiceDocument and PaymentApplicationDocument (Customer History Report).
      *
      * @param finSysDocHeaderIds <=> documentNumbers of FinancialSystemDocumentHeaders
-     * @param results <=> CustomerOpenItemReportDetails to display in the report
-     * @param details <=> <key = documentNumber, value = customerOpenItemReportDetail>
+     * @param results            <=> CustomerOpenItemReportDetails to display in the report
+     * @param details            <=> <key = documentNumber, value = customerOpenItemReportDetail>
      */
     public void populateReportDetails(List<String> finSysDocHeaderIds, List results, Hashtable details) {
         Collection<FinancialSystemDocumentHeader> financialSystemDocHeaders = new ArrayList<FinancialSystemDocumentHeader>();
         for (String documentNumber : finSysDocHeaderIds) {
             FinancialSystemDocumentHeader header = businessObjectService.findBySinglePrimaryKey(FinancialSystemDocumentHeader.class, documentNumber);
-            if ( header != null ) {
-                financialSystemDocHeaders.add( header );
+            if (header != null) {
+                financialSystemDocHeaders.add(header);
             }
         }
 
-        for ( FinancialSystemDocumentHeader fsDocumentHeader : financialSystemDocHeaders ) {
+        for (FinancialSystemDocumentHeader fsDocumentHeader : financialSystemDocHeaders) {
             CustomerOpenItemReportDetail detail = (CustomerOpenItemReportDetail) details.get(fsDocumentHeader.getDocumentNumber());
 
             // populate Document Description
@@ -340,8 +335,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
 
         try {
             docs = documentService.getDocumentsByListOfDocumentHeaderIds(classToSearchFrom, documentNumbers);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new InfrastructureException("Unable to retrieve documents", e);
         }
         return docs;
@@ -359,8 +353,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
         }
         try {
             sqlDueDate = dateTimeService.convertToSqlDate(new Timestamp(cal.getTime().getTime()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             // throw an error here, but don't die
             LOG.error("Error in converting given calendar to sql date");
         }
@@ -396,8 +389,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String accountNumber = ((String[]) urlParameters.get(KFSConstants.CustomerOpenItemReport.ACCOUNT_NUMBER))[0];
             details = customerInvoiceDetailDao.getCustomerInvoiceDetailsByAccountNumberByInvoiceDocumentNumbers(accountNumber, arDocumentHeaderIds);
             invoices = getInvoicesByAccountNumberByDocumentIds(accountNumber, arDocumentHeaderIds, details);
-        }
-        else {
+        } else {
             invoices = getDocuments(CustomerInvoiceDocument.class, arDocumentHeaderIds);
         }
         if (ObjectUtils.isNull(invoices) | invoices.size() == 0) {
@@ -420,8 +412,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
                     beginDate = dateTimeService.convertToDate(strBeginDate);
                 }
             }
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             LOG.error("problem during CustomerOpenItemReportServiceImpl.getPopulatedReportDetails()", e);
         }
 
@@ -489,8 +480,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
 
         if (StringUtils.equals(reportOption, ArConstants.CustomerAgingReportFields.ACCT)) {
             populateReporDetails(selectedInvoices, results, details);
-        }
-        else {
+        } else {
             populateReportDetails(selectedInvoices, results);
         }
 
@@ -526,7 +516,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      *
      * @param accountNumber
      * @param arDocumentHeaderIds
-     * @param details (will get populated here)
+     * @param details             (will get populated here)
      * @return invoices
      */
     protected Collection<CustomerInvoiceDocument> getInvoicesByAccountNumberByDocumentIds(String accountNumber, List arDocumentHeaderIds, Collection<CustomerInvoiceDetail> details) {
@@ -560,7 +550,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
      */
     protected void populateReporDetails(List<CustomerInvoiceDocument> selectedInvoices, List results, Collection<CustomerInvoiceDetail> invoiceDetails) {
 
-        for (Iterator<CustomerInvoiceDocument> iter = selectedInvoices.iterator(); iter.hasNext();) {
+        for (Iterator<CustomerInvoiceDocument> iter = selectedInvoices.iterator(); iter.hasNext(); ) {
             CustomerInvoiceDocument invoice = iter.next();
             String documentNumber = invoice.getDocumentNumber();
 
@@ -610,8 +600,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String documentDescription = invoice.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
             // Billing Date
@@ -641,8 +630,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             String documentDescription = invoice.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
             // Billing Date
@@ -671,7 +659,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
         List writeOffIds = new ArrayList();
         WorkflowDocument workflowDocument;
 
-        for (Iterator itr = arDocumentHeaders.iterator(); itr.hasNext();) {
+        for (Iterator itr = arDocumentHeaders.iterator(); itr.hasNext(); ) {
             AccountsReceivableDocumentHeader documentHeader = (AccountsReceivableDocumentHeader) itr.next();
 
             // populate workflow document
@@ -689,34 +677,32 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
             // Document Number
             String documentNumber = documentHeader.getDocumentNumber();
 
-            if (documentType.equals(ArConstants.PAYMENT_APPLICATION_DOCUMENT_TYPE_CODE)){
+            if (documentType.equals(ArConstants.PAYMENT_APPLICATION_DOCUMENT_TYPE_CODE)) {
                 paymentApplicationIds.add(documentNumber);
-            }
-            else if (documentType.equals(KFSConstants.FinancialDocumentTypeCodes.CUSTOMER_CREDIT_MEMO)) {
+            } else if (documentType.equals(KFSConstants.FinancialDocumentTypeCodes.CUSTOMER_CREDIT_MEMO)) {
                 creditMemoIds.add(documentNumber);
-            }
-            else if (documentType.equals(ArConstants.INVOICE_WRITEOFF_DOCUMENT_TYPE_CODE)) {
+            } else if (documentType.equals(ArConstants.INVOICE_WRITEOFF_DOCUMENT_TYPE_CODE)) {
                 writeOffIds.add(documentNumber);
             }
         }
 
-        if (paymentApplicationIds.size() > 0){
+        if (paymentApplicationIds.size() > 0) {
             Collection<PaymentApplicationDocument> paymentApplications = getDocuments(PaymentApplicationDocument.class, paymentApplicationIds);
-            for (PaymentApplicationDocument paymentApplicationDocument: paymentApplications ) {
-                for (InvoicePaidApplied invoicePaidApplied : paymentApplicationDocument.getInvoicePaidApplieds()){
+            for (PaymentApplicationDocument paymentApplicationDocument : paymentApplications) {
+                for (InvoicePaidApplied invoicePaidApplied : paymentApplicationDocument.getInvoicePaidApplieds()) {
                     documentNumbers.add(invoicePaidApplied.getFinancialDocumentReferenceInvoiceNumber());
                 }
             }
         }
 
-        if (creditMemoIds.size() > 0){
+        if (creditMemoIds.size() > 0) {
             Collection<CustomerCreditMemoDocument> creditMemoDetailDocs = getDocuments(CustomerCreditMemoDocument.class, creditMemoIds);
-            for (CustomerCreditMemoDocument creditMemo: creditMemoDetailDocs){
+            for (CustomerCreditMemoDocument creditMemo : creditMemoDetailDocs) {
                 documentNumbers.add(creditMemo.getFinancialDocumentReferenceInvoiceNumber());
             }
         }
 
-        if (writeOffIds.size() > 0){
+        if (writeOffIds.size() > 0) {
             Collection<CustomerInvoiceWriteoffDocument> customerInvoiceWriteoffDocs = getDocuments(CustomerInvoiceWriteoffDocument.class, writeOffIds);
             for (CustomerInvoiceWriteoffDocument invoiceWriteoffDocument : customerInvoiceWriteoffDocs) {
                 documentNumbers.add(invoiceWriteoffDocument.getFinancialDocumentReferenceInvoiceNumber());
@@ -766,32 +752,30 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
 
             if (documentType.equals("APP")) {
                 paymentApplicationIds.add(documentNumber);
-            }
-            else if (documentType.equals("CRM")) {
+            } else if (documentType.equals("CRM")) {
                 creditMemoIds.add(documentNumber);
-            }
-            else if (documentType.equals("INVW")) {
+            } else if (documentType.equals("INVW")) {
                 writeOffIds.add(documentNumber);
             }
 
             details.put(documentNumber, detail);
         }
 
-        if (paymentApplicationIds.size() > 0){
+        if (paymentApplicationIds.size() > 0) {
             try {
                 populateReportDetailsForUnpaidUnappliedPaymentApplications(paymentApplicationIds, results, details, refDocumentNumber);
-            } catch(WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error("WorkflowException while populating report details for PaymentApplicationDocument", we);
-                throw new RuntimeException("WorkflowException while populating report details for PaymentApplicationDocument",we);
+                throw new RuntimeException("WorkflowException while populating report details for PaymentApplicationDocument", we);
             }
         }
 
-        if (creditMemoIds.size() > 0){
+        if (creditMemoIds.size() > 0) {
             populateReportDetailsForCreditMemo(creditMemoIds, results, details, refDocumentNumber);
 
         }
 
-        if (writeOffIds.size() > 0){
+        if (writeOffIds.size() > 0) {
             populateReportDetailsForWriteOff(writeOffIds, results, details, refDocumentNumber);
         }
 
@@ -803,9 +787,9 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
         Collection<PaymentApplicationDocument> paymentApplications = getDocuments(PaymentApplicationDocument.class, paymentApplicationIds);
 
         for (PaymentApplicationDocument paymentApplication : paymentApplications) {
-            for (InvoicePaidApplied invoicePaidApplied : paymentApplication.getInvoicePaidApplieds()){
+            for (InvoicePaidApplied invoicePaidApplied : paymentApplication.getInvoicePaidApplieds()) {
 
-                if (invoicePaidApplied.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)){
+                if (invoicePaidApplied.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)) {
                     String documentNumber = paymentApplication.getDocumentNumber();
 
                     CustomerOpenItemReportDetail detail = (CustomerOpenItemReportDetail) details.get(documentNumber);
@@ -814,8 +798,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
                     String documentDescription = paymentApplication.getDocumentHeader().getDocumentDescription();
                     if (ObjectUtils.isNotNull(documentDescription)) {
                         detail.setDocumentDescription(documentDescription);
-                    }
-                    else {
+                    } else {
                         detail.setDocumentDescription("");
                     }
 
@@ -835,10 +818,10 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
         }
     }
 
-    protected void populateReportDetailsForCreditMemo(List creditMemoIds, List results, Hashtable details, String refDocumentNumber){
+    protected void populateReportDetailsForCreditMemo(List creditMemoIds, List results, Hashtable details, String refDocumentNumber) {
         Collection<CustomerCreditMemoDocument> creditMemoDetailDocs = getDocuments(CustomerCreditMemoDocument.class, creditMemoIds);
-        for (CustomerCreditMemoDocument creditMemo: creditMemoDetailDocs){
-            if (creditMemo.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)){
+        for (CustomerCreditMemoDocument creditMemo : creditMemoDetailDocs) {
+            if (creditMemo.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)) {
                 String documentNumber = creditMemo.getDocumentNumber();
 
                 CustomerOpenItemReportDetail detail = (CustomerOpenItemReportDetail) details.get(documentNumber);
@@ -847,8 +830,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
                 String documentDescription = creditMemo.getDocumentHeader().getDocumentDescription();
                 if (ObjectUtils.isNotNull(documentDescription)) {
                     detail.setDocumentDescription(documentDescription);
-                }
-                else {
+                } else {
                     detail.setDocumentDescription("");
                 }
 
@@ -862,10 +844,10 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
         }
     }
 
-    protected void populateReportDetailsForWriteOff(List writeOffIds, List results, Hashtable details, String refDocumentNumber){
+    protected void populateReportDetailsForWriteOff(List writeOffIds, List results, Hashtable details, String refDocumentNumber) {
         Collection<CustomerInvoiceWriteoffDocument> customerInvoiceWriteoffDocs = getDocuments(CustomerInvoiceWriteoffDocument.class, writeOffIds);
         for (CustomerInvoiceWriteoffDocument invoiceWriteoffDocument : customerInvoiceWriteoffDocs) {
-            if (invoiceWriteoffDocument.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)){
+            if (invoiceWriteoffDocument.getFinancialDocumentReferenceInvoiceNumber().equals(refDocumentNumber)) {
                 String documentNumber = invoiceWriteoffDocument.getDocumentNumber();
 
                 CustomerOpenItemReportDetail detail = (CustomerOpenItemReportDetail) details.get(documentNumber);
@@ -874,8 +856,7 @@ public class CustomerOpenItemReportServiceImpl implements CustomerOpenItemReport
                 String documentDescription = invoiceWriteoffDocument.getDocumentHeader().getDocumentDescription();
                 if (ObjectUtils.isNotNull(documentDescription)) {
                     detail.setDocumentDescription(documentDescription);
-                }
-                else {
+                } else {
                     detail.setDocumentDescription("");
                 }
 

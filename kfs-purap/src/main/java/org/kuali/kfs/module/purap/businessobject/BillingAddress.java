@@ -19,14 +19,14 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Billing Address Business Object.
  */
-public class BillingAddress extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class BillingAddress extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     protected String billingCampusCode;
     protected String billingName;

@@ -22,10 +22,6 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
@@ -35,6 +31,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
 
@@ -104,9 +104,9 @@ public class PaymentAccountDetail extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_ACCT_DTL_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_ACCT_DTL_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;

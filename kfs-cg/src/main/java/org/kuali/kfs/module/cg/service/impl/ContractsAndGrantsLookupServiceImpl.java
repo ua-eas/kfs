@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.cg.service.ContractsAndGrantsLookupService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import java.util.Map;
 
 /**
  * Service with methods related to Contracts & Grants Lookups.

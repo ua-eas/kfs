@@ -20,18 +20,18 @@ package org.kuali.kfs.krad.document;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.krad.uif.view.DocumentView;
-import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.view.DocumentView;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
 import org.kuali.kfs.krad.uif.view.ViewAuthorizerBase;
 import org.kuali.kfs.krad.uif.view.ViewModel;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.web.form.DocumentFormBase;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.Map;
 import java.util.Set;
@@ -39,16 +39,14 @@ import java.util.Set;
 /**
  * Implementation of {@link ViewAuthorizer} for
  * {@link DocumentView} instances
- *
+ * <p>
  * <p>
  * Performs KIM permission checks for the various document actions such as save, approve, cancel
  * </p>
- *
+ * <p>
  * <p>
  * By default delegates to the {@link DocumentAuthorizer} configured for the document in the data dictionary
  * </p>
- *
- *
  */
 public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements DocumentAuthorizer {
     private static final long serialVersionUID = 3800780934223224565L;
@@ -61,8 +59,8 @@ public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements Do
 
     /**
      * @see ViewAuthorizer#getActionFlags(View,
-     *      ViewModel, org.kuali.rice.kim.api.identity.Person,
-     *      java.util.Set<java.lang.String>)
+     * ViewModel, org.kuali.rice.kim.api.identity.Person,
+     * java.util.Set<java.lang.String>)
      */
     @Override
     public Set<String> getActionFlags(View view, ViewModel model, Person user, Set<String> actions) {
@@ -70,10 +68,10 @@ public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements Do
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("calling DocumentAuthorizerBase.getDocumentActionFlags for document '"
-                    + document.getDocumentNumber()
-                    + "'. user '"
-                    + user.getPrincipalName()
-                    + "'");
+                + document.getDocumentNumber()
+                + "'. user '"
+                + user.getPrincipalName()
+                + "'");
         }
 
         if (actions.contains(KRADConstants.KUALI_ACTION_CAN_EDIT) && !canEdit(document, user)) {
@@ -143,12 +141,12 @@ public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements Do
         }
 
         if (actions.contains(KRADConstants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW) && !canEditDocumentOverview(
-                document, user)) {
+            document, user)) {
             actions.remove(KRADConstants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW);
         }
 
         if (actions.contains(KRADConstants.KUALI_ACTION_PERFORM_ROUTE_REPORT) && !canPerformRouteReport(document,
-                user)) {
+            user)) {
             actions.remove(KRADConstants.KUALI_ACTION_PERFORM_ROUTE_REPORT);
         }
 
@@ -250,15 +248,15 @@ public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements Do
     }
 
     public final boolean canDeleteNoteAttachment(Document document, String attachmentTypeCode,
-            String authorUniversalIdentifier, Person user) {
+                                                 String authorUniversalIdentifier, Person user) {
         return getDocumentAuthorizer().canDeleteNoteAttachment(document, attachmentTypeCode, authorUniversalIdentifier,
-                user);
+            user);
     }
 
     public final boolean canViewNoteAttachment(Document document, String attachmentTypeCode,
-            String authorUniversalIdentifier, Person user) {
+                                               String authorUniversalIdentifier, Person user) {
         return getDocumentAuthorizer().canViewNoteAttachment(document, attachmentTypeCode, authorUniversalIdentifier,
-                user);
+            user);
     }
 
     public final boolean canSendAdHocRequests(Document document, String actionRequestCd, Person user) {
@@ -304,7 +302,7 @@ public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements Do
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME, PRE_ROUTING_ROUTE_NAME);
         } else {
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME,
-                    KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
+                KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
         }
 
         attributes.put(KimConstants.AttributeConstants.ROUTE_STATUS_CODE, wd.getStatus().getCode());

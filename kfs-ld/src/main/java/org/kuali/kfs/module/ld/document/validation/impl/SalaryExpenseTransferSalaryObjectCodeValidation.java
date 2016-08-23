@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
@@ -26,8 +28,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Validates that an accounting line has salary object code
@@ -38,6 +38,7 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
     /**
      * Validates that an accounting line does not have a salary object code
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -45,7 +46,7 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
         AccountingLine accountingLine = getAccountingLineForValidation();
 
         if (!isSalaryObjectCode(accountingLine)) {
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, LaborKeyConstants.INVALID_SALARY_OBJECT_CODE_ERROR );
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, LaborKeyConstants.INVALID_SALARY_OBJECT_CODE_ERROR);
             result = false;
         }
         return result;
@@ -70,14 +71,15 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
 
         boolean isItSalaryObjectCode = LaborConstants.SalaryExpenseTransfer.LABOR_LEDGER_SALARY_CODE.equals(laborObject.getFinancialObjectFringeOrSalaryCode());
         if (!isItSalaryObjectCode) {
-            salaryObjectCode = false ;
+            salaryObjectCode = false;
         }
 
-        return salaryObjectCode ;
+        return salaryObjectCode;
     }
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -86,6 +88,7 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

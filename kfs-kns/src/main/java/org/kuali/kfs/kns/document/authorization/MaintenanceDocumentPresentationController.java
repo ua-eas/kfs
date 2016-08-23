@@ -24,17 +24,17 @@ import org.kuali.kfs.kns.document.MaintenanceDocument;
 import java.util.Set;
 
 public interface MaintenanceDocumentPresentationController extends InquiryOrMaintenanceDocumentPresentationController,
-		org.kuali.kfs.krad.maintenance.MaintenanceDocumentPresentationController {
+    org.kuali.kfs.krad.maintenance.MaintenanceDocumentPresentationController {
 
     @Override
-	public boolean canCreate(Class boClass);
+    public boolean canCreate(Class boClass);
 
-	public Set<String> getConditionallyReadOnlyPropertyNames(
-			MaintenanceDocument document);
+    public Set<String> getConditionallyReadOnlyPropertyNames(
+        MaintenanceDocument document);
 
-	public Set<String> getConditionallyReadOnlySectionIds(
-			MaintenanceDocument document);
+    public Set<String> getConditionallyReadOnlySectionIds(
+        MaintenanceDocument document);
 
-	public Set<String> getConditionallyRequiredPropertyNames(
-			MaintenanceDocument document);
+    public Set<String> getConditionallyRequiredPropertyNames(
+        MaintenanceDocument document);
 }

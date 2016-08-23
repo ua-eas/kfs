@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal;
 import org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobalDetail;
@@ -31,7 +29,9 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RetirementInfoServiceTest extends KualiTestBase {
     private RetirementInfoServiceImpl retirementInfoService;

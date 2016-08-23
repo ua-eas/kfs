@@ -18,41 +18,16 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-import static org.apache.commons.lang.StringUtils.substringBetween;
-import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
-import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.EXPENSE_SUMMARY_REPORT_TITLE;
-import static org.kuali.kfs.module.tem.TemConstants.REMAINING_DISTRIBUTION_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_ADVANCES_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_ENCUMBRANCE_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SUMMARY_BY_DAY_TITLE;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ADVANCES_IN_REIMBURSEMENT_TOTAL_IND;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ENCUMBRANCE_IND;
-import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
@@ -83,11 +58,35 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+import static org.apache.commons.lang.StringUtils.substringBetween;
+import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
+import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.EXPENSE_SUMMARY_REPORT_TITLE;
+import static org.kuali.kfs.module.tem.TemConstants.REMAINING_DISTRIBUTION_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_ADVANCES_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_ENCUMBRANCE_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SUMMARY_BY_DAY_TITLE;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ADVANCES_IN_REIMBURSEMENT_TOTAL_IND;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ENCUMBRANCE_IND;
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
 
 /***
  * Action methods for the {@link TravelReimbursementDocument}
@@ -99,6 +98,7 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     /**
      * Refreshes all collections upon load
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -143,7 +143,7 @@ public class TravelReimbursementAction extends TravelActionBase {
             can = documentAuthorizer.canSave(reqForm.getTravelDocument(), GlobalVariables.getUserSession().getPerson());
         }
 
-        if (!can){
+        if (!can) {
             TravelReimbursementDocument tr = (TravelReimbursementDocument) reqForm.getDocument();
 
             boolean isTravelManager = getTravelDocumentService().isTravelManager(GlobalVariables.getUserSession().getPerson());
@@ -155,9 +155,8 @@ public class TravelReimbursementAction extends TravelActionBase {
         }
 
         if (can) {
-            reqForm.getDocumentActions().put(KRADConstants.KUALI_ACTION_CAN_SAVE,true);
-        }
-        else{
+            reqForm.getDocumentActions().put(KRADConstants.KUALI_ACTION_CAN_SAVE, true);
+        } else {
             reqForm.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_SAVE);
         }
     }
@@ -176,7 +175,7 @@ public class TravelReimbursementAction extends TravelActionBase {
     public ActionForward printCoversheet(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         final TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
         final String documentNumber = request.getParameter(DOCUMENT_NUMBER);
-        if(documentNumber != null && !documentNumber.isEmpty()) {
+        if (documentNumber != null && !documentNumber.isEmpty()) {
             reimbForm.setDocument(getTravelReimbursementService().find(documentNumber));
         }
         final TravelReimbursementDocument reimbursement = reimbForm.getTravelReimbursementDocument();
@@ -254,7 +253,7 @@ public class TravelReimbursementAction extends TravelActionBase {
             mileage.setDocumentNumber(reimbursement.getDocumentNumber());
 
             if (!StringUtils.isBlank(mileage.getMileageRateExpenseTypeCode())) {
-                LOG.debug("Adding mileage for estimate with date "+ estimate.getMileageDate());
+                LOG.debug("Adding mileage for estimate with date " + estimate.getMileageDate());
                 reimbursement.getPerDiemExpenses().add(mileage);
             }
         }
@@ -262,7 +261,7 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -285,13 +284,13 @@ public class TravelReimbursementAction extends TravelActionBase {
         }
         document.getTraveler().refreshReferenceObject(TemPropertyConstants.TRAVELER_TYPE);
 
-        ((TravelReimbursementDocument)document).updatePayeeTypeForReimbursable();
+        ((TravelReimbursementDocument) document).updatePayeeTypeForReimbursable();
         updateAccountsWithNewProfile(travelForm, document.getTemProfile());
     }
 
 
     protected Integer getPerDiemActionLineNumber(final HttpServletRequest request) {
-        for (final String parameterKey : ((Map<String,String>) request.getParameterMap()).keySet()) {
+        for (final String parameterKey : ((Map<String, String>) request.getParameterMap()).keySet()) {
             if (StringUtils.containsIgnoreCase(parameterKey, TemPropertyConstants.PER_DIEM_EXPENSES)) {
                 return getLineNumberFromParameter(parameterKey);
             }
@@ -336,7 +335,7 @@ public class TravelReimbursementAction extends TravelActionBase {
     public ActionForward addOtherExpenseDetailLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         final TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
         final TravelReimbursementMvcWrapperBean mvcWrapper = newMvcDelegate(form);
-        reimbForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        reimbForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
 
         KualiDecimal totalRemaining = KualiDecimal.ZERO;
         for (final AccountingDistribution dist : reimbForm.getDistribution()) {
@@ -362,9 +361,9 @@ public class TravelReimbursementAction extends TravelActionBase {
         final TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
         final TravelReimbursementDocument document = (TravelReimbursementDocument) reimbForm.getDocument();
         final TravelReimbursementMvcWrapperBean mvcWrapper = newMvcDelegate(form);
-        reimbForm.getObservable().notifyObservers(new Object[] { mvcWrapper,
-                                                                 getSelectedOtherExpenseIndex(request, document),
-                                                                 getSelectedLine(request) });
+        reimbForm.getObservable().notifyObservers(new Object[]{mvcWrapper,
+            getSelectedOtherExpenseIndex(request, document),
+            getSelectedLine(request)});
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
@@ -387,21 +386,21 @@ public class TravelReimbursementAction extends TravelActionBase {
         document.addContactInformation();
 
         if (!StringUtils.isBlank(travelForm.getTravelDocumentIdentifier())) {
-            LOG.debug("Creating reimbursement for document number "+ travelForm.getTravelDocumentIdentifier());
+            LOG.debug("Creating reimbursement for document number " + travelForm.getTravelDocumentIdentifier());
             document.setTravelDocumentIdentifier(travelForm.getTravelDocumentIdentifier());
 
             TravelDocument rootDocument = getTravelDocumentService().findRootForTravelReimbursement(document.getTravelDocumentIdentifier());
             if (ObjectUtils.isNull(rootDocument)) {
-                String errorMsg = "Retrieved null TravelDocument when searching by travelDocumentIdentifier: "+ document.getTravelDocumentIdentifier()
-                                    + " Cannot create a new document";
+                String errorMsg = "Retrieved null TravelDocument when searching by travelDocumentIdentifier: " + document.getTravelDocumentIdentifier()
+                    + " Cannot create a new document";
                 LOG.error(errorMsg);
                 throw new RuntimeException(errorMsg);
             }
 
-            LOG.debug("Setting traveler with id "+ rootDocument.getTravelerDetailId());
+            LOG.debug("Setting traveler with id " + rootDocument.getTravelerDetailId());
             document.setTravelerDetailId(rootDocument.getTravelerDetailId());
             document.refreshReferenceObject(TemPropertyConstants.TRAVELER);
-            LOG.debug("Traveler is "+ document.getTraveler()+ " with customer number "+ document.getTraveler().getCustomerNumber());
+            LOG.debug("Traveler is " + document.getTraveler() + " with customer number " + document.getTraveler().getCustomerNumber());
 
             if (document.getTraveler().getPrincipalId() != null) {
                 document.getTraveler().setPrincipalName(getPersonService().getPerson(document.getTraveler().getPrincipalId()).getPrincipalName());
@@ -428,7 +427,7 @@ public class TravelReimbursementAction extends TravelActionBase {
             document.setPerDiemAdjustment(rootDocument.getPerDiemAdjustment());
             document.getDocumentHeader().setOrganizationDocumentNumber(rootDocument.getDocumentHeader().getOrganizationDocumentNumber());
 
-            if (document.getPrimaryDestinationId() != null && document.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID){
+            if (document.getPrimaryDestinationId() != null && document.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID) {
                 document.getPrimaryDestination().setPrimaryDestinationName(document.getPrimaryDestinationName());
                 document.getPrimaryDestination().setCounty(document.getPrimaryDestinationCounty());
                 document.getPrimaryDestination().getRegion().setRegionName(document.getPrimaryDestinationCountryState());
@@ -436,9 +435,9 @@ public class TravelReimbursementAction extends TravelActionBase {
             }
 
             //copy special circumstances from root document
-            for (SpecialCircumstances rootSpecialCircumstances : rootDocument.getSpecialCircumstances() ) {
+            for (SpecialCircumstances rootSpecialCircumstances : rootDocument.getSpecialCircumstances()) {
                 for (SpecialCircumstances circumstances : document.getSpecialCircumstances()) {
-                    if(circumstances.getQuestionId().equals(rootSpecialCircumstances.getQuestionId())) {
+                    if (circumstances.getQuestionId().equals(rootSpecialCircumstances.getQuestionId())) {
                         circumstances.setText(rootSpecialCircumstances.getText());
                     }
                 }
@@ -448,7 +447,7 @@ public class TravelReimbursementAction extends TravelActionBase {
             if (rootDocument instanceof TravelAuthorizationDocument) {
 
                 if (isCopyPerDiemAndExpenses(document)) {
-                    initializePerDiem(document, (TravelAuthorizationDocument)rootDocument);
+                    initializePerDiem(document, (TravelAuthorizationDocument) rootDocument);
 
                     document.setActualExpenses((List<ActualExpense>) getTravelDocumentService().copyActualExpenses(rootDocument.getActualExpenses(), document.getDocumentNumber()));
                     // add new detail for the copied actualExpenses
@@ -464,7 +463,6 @@ public class TravelReimbursementAction extends TravelActionBase {
             getBusinessObjectService().save(relationship);
 
 
-
         } else {
             // we have no parent document; blank out the trip begin and end dates
             document.setTripBegin(null);
@@ -478,8 +476,8 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final ActionForward retval                 = super.execute(mapping, form, request, response);
-        final TravelReimbursementForm reimbForm    = (TravelReimbursementForm) form;
+        final ActionForward retval = super.execute(mapping, form, request, response);
+        final TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
         final TravelReimbursementDocument document = ((TravelReimbursementForm) form).getTravelReimbursementDocument();
         final String travelIdentifier = document.getTravelDocumentIdentifier();
 
@@ -492,16 +490,16 @@ public class TravelReimbursementAction extends TravelActionBase {
             document.setTripType(null);
         }
         setButtonPermissions(reimbForm);
-        LOG.debug("Found "+ document.getActualExpenses().size()+ " other expenses");
+        LOG.debug("Found " + document.getActualExpenses().size() + " other expenses");
 
         if (reimbForm.getHistory() == null) {
-            LOG.debug("Looking up history for TEM document number "+ travelIdentifier);
+            LOG.debug("Looking up history for TEM document number " + travelIdentifier);
             final List<Serializable> history = new ArrayList<Serializable>();
             final Collection<TravelReimbursementDocument> docs = getTravelReimbursementService().findByTravelId(travelIdentifier);
-            LOG.debug("Got history of size "+ docs.size());
+            LOG.debug("Got history of size " + docs.size());
             for (final TravelReimbursementDocument found : docs) {
-                LOG.debug("Creating history object for document "+ found);
-                LOG.debug("Using header "+ found.getDocumentHeader());
+                LOG.debug("Creating history object for document " + found);
+                LOG.debug("Using header " + found.getDocumentHeader());
                 history.add(new HistoryValueObject(found));
             }
             reimbForm.setHistory(history);
@@ -510,13 +508,13 @@ public class TravelReimbursementAction extends TravelActionBase {
         //Set request variable that will determine whether to show the "Final Reimbursement" checkbox.
         //If TAC exists, no need to create another.
         TravelAuthorizationDocument authorization = getTravelDocumentService().findCurrentTravelAuthorization(document);
-        if (authorization instanceof TravelAuthorizationCloseDocument){
+        if (authorization instanceof TravelAuthorizationCloseDocument) {
             request.setAttribute("isClose", true);
         }
 
         disablePerDiemExpenes(document);
 
-        if(ObjectUtils.isNotNull(document.getActualExpenses())){
+        if (ObjectUtils.isNotNull(document.getActualExpenses())) {
             document.enableExpenseTypeSpecificFields(document.getActualExpenses());
         }
 
@@ -542,7 +540,7 @@ public class TravelReimbursementAction extends TravelActionBase {
         request.setAttribute(CERTIFICATION_STATEMENT_ATTRIBUTE, getCertificationStatement(document));
         request.setAttribute(EMPLOYEE_TEST_ATTRIBUTE, isEmployee(document.getTraveler()));
         request.setAttribute(TemConstants.DELINQUENT_TEST_ATTRIBUTE, document.getDelinquentAction());
-        LOG.debug("Found "+ document.getActualExpenses().size()+ " other expenses");
+        LOG.debug("Found " + document.getActualExpenses().size() + " other expenses");
 
         final boolean showAdvances = getParameterService().getParameterValueAsBoolean(TravelReimbursementDocument.class, DISPLAY_ADVANCES_IN_REIMBURSEMENT_TOTAL_IND);
         request.setAttribute(SHOW_ADVANCES_ATTRIBUTE, showAdvances);
@@ -550,7 +548,7 @@ public class TravelReimbursementAction extends TravelActionBase {
         final boolean showEncumbrance = getParameterService().getParameterValueAsBoolean(TravelReimbursementDocument.class, DISPLAY_ENCUMBRANCE_IND);
         request.setAttribute(SHOW_ENCUMBRANCE_ATTRIBUTE, showEncumbrance);
 
-        if(!getCalculateIgnoreList().contains(reimbForm.getMethodToCall())){
+        if (!getCalculateIgnoreList().contains(reimbForm.getMethodToCall())) {
             recalculateTripDetailTotalOnly(mapping, form, request, response);
         }
 
@@ -572,7 +570,6 @@ public class TravelReimbursementAction extends TravelActionBase {
 
         return retval;
     }
-
 
 
     /**
@@ -611,7 +608,7 @@ public class TravelReimbursementAction extends TravelActionBase {
         ActualExpense retval = null;
         final String parameterName = (String) request.getAttribute(KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
         if (isNotBlank(parameterName)) {
-            final int lineNumber = Integer.parseInt(substringBetween(parameterName, TemPropertyConstants.ACTUAL_EXPENSES+"[", "]."));
+            final int lineNumber = Integer.parseInt(substringBetween(parameterName, TemPropertyConstants.ACTUAL_EXPENSES + "[", "]."));
             retval = document.getActualExpenses().get(lineNumber);
         }
 
@@ -673,10 +670,10 @@ public class TravelReimbursementAction extends TravelActionBase {
             TravelDocument rootDocument = getTravelDocumentService().findRootForTravelReimbursement(travelDocumentIdentifier);
 
             if (ObjectUtils.isNotNull(rootDocument)) {
-            String relationshipDescription = rootDocument.getDocumentTypeName() +" - "+ trDoc.getDocumentTypeName();
-            getAccountingDocumentRelationshipService().save(new AccountingDocumentRelationship(rootDocument.getDocumentNumber(), trDoc.getDocumentNumber(), relationshipDescription));
+                String relationshipDescription = rootDocument.getDocumentTypeName() + " - " + trDoc.getDocumentTypeName();
+                getAccountingDocumentRelationshipService().save(new AccountingDocumentRelationship(rootDocument.getDocumentNumber(), trDoc.getDocumentNumber(), relationshipDescription));
+            }
         }
-    }
     }
 
 
@@ -689,16 +686,16 @@ public class TravelReimbursementAction extends TravelActionBase {
      */
     protected int getSelectedOtherExpenseIndex(final HttpServletRequest request, final TravelReimbursementDocument document) {
         final String parameterName = (String) request.getAttribute(KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
-        LOG.debug("Getting selected other expense index from "+ parameterName);
+        LOG.debug("Getting selected other expense index from " + parameterName);
         if (isNotBlank(parameterName)) {
-            return Integer.parseInt(substringBetween(parameterName, TemPropertyConstants.ACTUAL_EXPENSES+"[", "]."));
+            return Integer.parseInt(substringBetween(parameterName, TemPropertyConstants.ACTUAL_EXPENSES + "[", "]."));
         }
         return -1;
     }
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -709,9 +706,9 @@ public class TravelReimbursementAction extends TravelActionBase {
 
         ActionForward forward = super.route(mapping, form, request, response);
 
-        if (!StringUtils.isBlank(forward.getPath()) && forward.getPath().indexOf(KRADConstants.QUESTION_ACTION) < 0 ) {
+        if (!StringUtils.isBlank(forward.getPath()) && forward.getPath().indexOf(KRADConstants.QUESTION_ACTION) < 0) {
             addDateChangedNote(form);
-           addAccountingDocumentRelationship(form);
+            addAccountingDocumentRelationship(form);
 
         }
 
@@ -720,7 +717,7 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#blanketApprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -728,7 +725,7 @@ public class TravelReimbursementAction extends TravelActionBase {
 
         ActionForward forward = super.blanketApprove(mapping, form, request, response);
 
-        if (!StringUtils.isBlank(forward.getPath()) && forward.getPath().indexOf(KRADConstants.QUESTION_ACTION) < 0 ) {
+        if (!StringUtils.isBlank(forward.getPath()) && forward.getPath().indexOf(KRADConstants.QUESTION_ACTION) < 0) {
             addDateChangedNote(form);
             addAccountingDocumentRelationship(form);
 
@@ -738,15 +735,13 @@ public class TravelReimbursementAction extends TravelActionBase {
     }
 
 
-
     /**
      * This method calls addDateChangedNote() if this TR is created from a TA.
      *
-     * @see org.kuali.kfs.module.tem.document.service.TravelReimbursementService#addDateChangedNote(org.kuali.kfs.module.tem.document.TravelReimbursementDocument,
-     * org.kuali.kfs.module.tem.document.TravelAuthorizationDocument)
-     *
      * @param form
      * @throws Exception
+     * @see org.kuali.kfs.module.tem.document.service.TravelReimbursementService#addDateChangedNote(org.kuali.kfs.module.tem.document.TravelReimbursementDocument,
+     * org.kuali.kfs.module.tem.document.TravelAuthorizationDocument)
      */
     protected void addDateChangedNote(ActionForm form) throws Exception {
 
@@ -764,6 +759,7 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     /**
      * Determines the object code for the next source accounting line, based on the distribution for the document
+     *
      * @param form the reimbursement form
      * @return the object code to set on the new source accounting line
      */
@@ -797,7 +793,7 @@ public class TravelReimbursementAction extends TravelActionBase {
      */
     protected Set<String> getAccountingLineObjectCodes(TravelReimbursementForm form) {
         Set<String> codes = new HashSet<String>();
-        for (AccountingLine line : (List<AccountingLine>)form.getTravelDocument().getSourceAccountingLines()) {
+        for (AccountingLine line : (List<AccountingLine>) form.getTravelDocument().getSourceAccountingLines()) {
             codes.add(line.getFinancialObjectCode());
         }
         return codes;
@@ -815,9 +811,9 @@ public class TravelReimbursementAction extends TravelActionBase {
         List<TravelReimbursementDocument> reimbursementDocuments = getTravelDocumentService().findReimbursementDocuments(newReimbursementDocument.getTravelDocumentIdentifier());
         if (!reimbursementDocuments.isEmpty()) {
 
-            for(TravelReimbursementDocument reimbursementDocument : reimbursementDocuments) {
+            for (TravelReimbursementDocument reimbursementDocument : reimbursementDocuments) {
                 if (reimbursementDocument.getDocumentHeader().getWorkflowDocument().isFinal() ||
-                        reimbursementDocument.getDocumentHeader().getWorkflowDocument().isProcessed()) {
+                    reimbursementDocument.getDocumentHeader().getWorkflowDocument().isProcessed()) {
 
                     //a finalized or processed TR exists- not okay to set up per diem or initialize expenses
                     return false;
@@ -831,11 +827,12 @@ public class TravelReimbursementAction extends TravelActionBase {
 
     /**
      * Guarantee trip id on form is cleared out before copy - this will guarantee we can initiate the copied document (as there are no restrictions on copies)
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase#copy(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward copy(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TravelReimbursementForm reimbForm = (TravelReimbursementForm)form;
+        TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
         reimbForm.setTravelDocumentIdentifier(null);
         reimbForm.setHistory(new ArrayList<Serializable>());
         return super.copy(mapping, form, request, response);
@@ -852,7 +849,7 @@ public class TravelReimbursementAction extends TravelActionBase {
      * @throws Exception
      */
     public ActionForward newReimbursement(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final TravelReimbursementDocument travelReimb = ((TravelReimbursementForm)form).getTravelReimbursementDocument();
+        final TravelReimbursementDocument travelReimb = ((TravelReimbursementForm) form).getTravelReimbursementDocument();
         return new ActionForward(buildNewReimbursementUrl(travelReimb), true);
     }
 
@@ -867,9 +864,11 @@ public class TravelReimbursementAction extends TravelActionBase {
     protected ExpenseSummaryReportService getExpenseSummaryReportService() {
         return SpringContext.getBean(ExpenseSummaryReportService.class);
     }
+
     protected SummaryByDayReportService getSummaryByDayReportService() {
         return SpringContext.getBean(SummaryByDayReportService.class);
     }
+
     protected NonEmployeeCertificationReportService getNonEmployeeCertificationReportService() {
         return SpringContext.getBean(NonEmployeeCertificationReportService.class);
     }

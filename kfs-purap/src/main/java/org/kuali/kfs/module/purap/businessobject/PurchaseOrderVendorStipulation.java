@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Purchase Order Vendor Stipulation.

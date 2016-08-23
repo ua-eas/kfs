@@ -33,8 +33,6 @@ import java.util.Map;
 
 /**
  * Form class for <code>LookupView</code> screens
- *
- *
  */
 public class LookupForm extends UifFormBase {
     private static final long serialVersionUID = -7323484966538685327L;
@@ -99,7 +97,7 @@ public class LookupForm extends UifFormBase {
             if (!((LookupView) getView()).isShowMaintenanceLinks()) {
                 // TODO replace with check to history
                 if (StringUtils.contains(getReturnLocation(), "/" + KRADConstants.PORTAL_ACTION) ||
-                        StringUtils.contains(getReturnLocation(), "/index.html")) {
+                    StringUtils.contains(getReturnLocation(), "/index.html")) {
                     ((LookupView) getView()).setShowMaintenanceLinks(true);
                 }
             }
@@ -122,7 +120,7 @@ public class LookupForm extends UifFormBase {
                 for (Map.Entry<String, String> entry : formFields.entrySet()) {
                     // check here to see if this field is a criteria element on the form
                     fieldValues.put(entry.getKey(),
-                            LookupUtils.forceUppercase(dataObjectClass, entry.getKey(), entry.getValue()));
+                        LookupUtils.forceUppercase(dataObjectClass, entry.getKey(), entry.getValue()));
                 }
             }
 
@@ -173,7 +171,7 @@ public class LookupForm extends UifFormBase {
 
     /**
      * Indicates whether multiple values select should be enabled for the lookup
-     *
+     * <p>
      * <p>
      * When set to true, the select field is enabled for the lookup results group that allows the user
      * to select one or more rows for returning

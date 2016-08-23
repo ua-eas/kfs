@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.gl.service;
 
+import org.kuali.kfs.gl.businessobject.LedgerEntryHolder;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.gl.businessobject.PosterOutputSummaryEntry;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.PrintStream;
@@ -25,10 +29,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.businessobject.LedgerEntryHolder;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.businessobject.PosterOutputSummaryEntry;
 
 /**
  * An interface of methods to interact with Origin Entries
@@ -41,7 +41,7 @@ public interface OriginEntryService {
      * writes out a list of origin entries to an output stream.
      *
      * @param entries an Iterator of entries to save as text
-     * @param bw the output stream to write origin entries to
+     * @param bw      the output stream to write origin entries to
      */
     public void flatFile(Iterator<OriginEntryFull> entries, BufferedOutputStream bw);
 
@@ -65,5 +65,5 @@ public interface OriginEntryService {
 
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<OriginEntryFull> originEntryList);
 
-    public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<OriginEntryFull> originEntryList);
+    public Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<OriginEntryFull> originEntryList);
 }

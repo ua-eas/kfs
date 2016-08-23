@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
 import net.minidev.json.JSONArray;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreChangeHandler {
 
@@ -40,16 +39,16 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
     /**
      * Adds a Json node to a given Json array within a document.
      *
-     * @param change The Json that holds the change definition.
-     * @param documentJson The document to be changed.
-     * @param nodeToAdd The Mongo Json node to add.
-     * @param pathKey The key within the change Json that will yield a JsonPath expression pointing to the array.
+     * @param change        The Json that holds the change definition.
+     * @param documentJson  The document to be changed.
+     * @param nodeToAdd     The Mongo Json node to add.
+     * @param pathKey       The key within the change Json that will yield a JsonPath expression pointing to the array.
      * @param beforeNodeKey The key within the change Json that will (optionally) yield key-value criteria,
-     *        indicating which element in the arry to insert the new node before.
+     *                      indicating which element in the arry to insert the new node before.
      * @return The Mongo Json representation of the altered document.
      */
     protected DBObject addNode(JsonNode change, String documentJson, DBObject nodeToAdd, String pathKey, String beforeNodeKey) {
-        verifyKeyExistence(change,pathKey);
+        verifyKeyExistence(change, pathKey);
         String revertPath = change.get(pathKey).asText();
 
         DocumentContext dc = JsonPath.parse(documentJson);
@@ -77,8 +76,8 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
             }
         }
         if (!changeApplied) {
-         // Revert before node is optional.  Since it wasn't specified or failed for some other reason
-         // (perhaps because of an intervening manual change), add the node at the end of the array.
+            // Revert before node is optional.  Since it wasn't specified or failed for some other reason
+            // (perhaps because of an intervening manual change), add the node at the end of the array.
             arrayToRestore.add(nodeToAdd);
         }
 
@@ -88,7 +87,7 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
     }
 
     private boolean checkConditions(Map mapToCheck, Map<String, Object> conditions) {
-        for (Entry<String, Object> entry : conditions.entrySet() ) {
+        for (Entry<String, Object> entry : conditions.entrySet()) {
             if (!entry.getValue().equals(mapToCheck.get(entry.getKey()))) {
                 return false;
             }

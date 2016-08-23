@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.fp.exception;
 
-import java.util.Properties;
-
 import org.kuali.rice.core.api.exception.KualiException;
 
+import java.util.Properties;
 
 
 public class CashDrawerStateException extends KualiException {
@@ -72,6 +71,7 @@ public class CashDrawerStateException extends KualiException {
 
     /**
      * Creates a Properties object, based on the properties in this exception
+     *
      * @return a Properties object
      */
     public Properties toProperties() {

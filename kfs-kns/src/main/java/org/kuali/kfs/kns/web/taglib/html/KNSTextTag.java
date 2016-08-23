@@ -21,33 +21,30 @@ package org.kuali.kfs.kns.web.taglib.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.taglib.html.TextTag;
-import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
 
 import javax.servlet.jsp.JspException;
 
 /**
  * This is a description of what this class does - bhargavp don't forget to fill this in.
- *
- *
- *
  */
 public class KNSTextTag extends TextTag {
 
-	/**
-	 * @see org.apache.struts.taglib.html.BaseInputTag#doEndTag()
-	 */
-	@Override
+    /**
+     * @see org.apache.struts.taglib.html.BaseInputTag#doEndTag()
+     */
+    @Override
     public int doEndTag() throws JspException {
         int returnVal = super.doEndTag();
         if (!getDisabled() && !getReadonly()) {
-        	String name = prepareName();
-        	if (StringUtils.isNotBlank(name)) {
-	        	ActionForm form = WebUtils.getKualiForm(pageContext);
-	            if(form!=null && form instanceof PojoForm) {
-	            	((PojoForm) form).registerEditableProperty(name);
-	            }
-        	}
+            String name = prepareName();
+            if (StringUtils.isNotBlank(name)) {
+                ActionForm form = WebUtils.getKualiForm(pageContext);
+                if (form != null && form instanceof PojoForm) {
+                    ((PojoForm) form).registerEditableProperty(name);
+                }
+            }
         }
         return returnVal;
     }

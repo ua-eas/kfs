@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
-import org.kuali.kfs.module.ar.document.validation.AddCashControlDetailRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
+import org.kuali.kfs.module.ar.document.validation.AddCashControlDetailRule;
 
 public final class AddCashControlDetailEvent extends CashControlDetailEventBase {
 

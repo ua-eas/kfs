@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.businessobject.InvoiceTemplate;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
@@ -29,11 +31,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ValuesFinder that returns a list of InvoiceTemplates.
@@ -56,12 +56,11 @@ public class InvoiceTemplateValuesFinder extends KeyValuesBase {
             if (element.isActive()) {
                 if (!element.isRestrictUseByChartOrg()) {
                     keyValues.add(new ConcreteKeyValue(element.getInvoiceTemplateCode(), element.getInvoiceTemplateDescription()));
-                }
-                else {
+                } else {
                     ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = null;
                     KualiForm kualiForm = KNSGlobalVariables.getKualiForm();
                     if (kualiForm instanceof ContractsGrantsInvoiceDocumentForm) {
-                        contractsGrantsInvoiceDocument = ((ContractsGrantsInvoiceDocumentForm)kualiForm).getContractsGrantsInvoiceDocument();
+                        contractsGrantsInvoiceDocument = ((ContractsGrantsInvoiceDocumentForm) kualiForm).getContractsGrantsInvoiceDocument();
                     }
                     if (contractsGrantsInvoiceDocumentService.isTemplateValidForContractsGrantsInvoiceDocument(element, contractsGrantsInvoiceDocument)) {
                         keyValues.add(new ConcreteKeyValue(element.getInvoiceTemplateCode(), element.getInvoiceTemplateDescription()));

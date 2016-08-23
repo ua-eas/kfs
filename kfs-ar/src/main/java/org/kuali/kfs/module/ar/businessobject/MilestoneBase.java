@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 /**
  * Base class so the Milestone and InvoiceMilestone BOs don't have to duplicate code.
  */
-public abstract class MilestoneBase extends PersistableBusinessObjectBase  {
+public abstract class MilestoneBase extends PersistableBusinessObjectBase {
 
     protected Long milestoneNumber;
     protected Long milestoneIdentifier;

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ec.document.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 import org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao;
 import org.kuali.kfs.module.ec.document.service.EffortCertificationAutomaticReportPeriodUpdateService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @see org.rg.kuali.module.effort.service.EffortCertificationAutomaticReportPeriodUpdateService

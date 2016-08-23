@@ -26,7 +26,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
  * It also extends Map and simulates a bean property of itself on the proxy, because we want a generic getter that returns objects
  * and will allow us to format booleans.
  *
- *
  * @see org.kuali.rice.kew.attribute.WorkflowLookupableImpl
  * @see WorkflowLookupableInvocationHandler
  * @deprecated This will go away once workflow supports simple url integration for custom attribute lookups.

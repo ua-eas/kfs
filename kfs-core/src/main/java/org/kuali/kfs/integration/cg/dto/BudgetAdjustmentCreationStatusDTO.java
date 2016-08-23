@@ -29,10 +29,12 @@ public class BudgetAdjustmentCreationStatusDTO implements Serializable {
     protected String documentNumber;
     protected String status;
 
-    public BudgetAdjustmentCreationStatusDTO() {}
+    public BudgetAdjustmentCreationStatusDTO() {
+    }
 
     /**
      * Gets the errorCodes attribute.
+     *
      * @return Returns the errorCodes.
      */
     public List<String> getErrorMessages() {
@@ -41,6 +43,7 @@ public class BudgetAdjustmentCreationStatusDTO implements Serializable {
 
     /**
      * Sets the errorCodes attribute value.
+     *
      * @param errorCodes The errorCodes to set.
      */
     public void setErrorMessages(List<String> errorMessages) {
@@ -49,6 +52,7 @@ public class BudgetAdjustmentCreationStatusDTO implements Serializable {
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -57,14 +61,16 @@ public class BudgetAdjustmentCreationStatusDTO implements Serializable {
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
 
-  /**
+    /**
      * Gets the status attribute.
+     *
      * @return Returns the status.
      */
     public String getStatus() {
@@ -73,6 +79,7 @@ public class BudgetAdjustmentCreationStatusDTO implements Serializable {
 
     /**
      * Sets the status attribute value.
+     *
      * @param status The status to set.
      */
     public void setStatus(String status) {

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.io.PrintStream;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.io.PrintStream;
+import java.util.List;
 
 public interface DataReportService {
 
@@ -35,7 +35,7 @@ public interface DataReportService {
      * @param errors
      * @param reportHelper
      */
-    public <T extends BusinessObject> void writeToReport(PrintStream reportDataStream,T tableData, List<ErrorMessage> errors, BusinessObjectReportHelper reportHelper);
+    public <T extends BusinessObject> void writeToReport(PrintStream reportDataStream, T tableData, List<ErrorMessage> errors, BusinessObjectReportHelper reportHelper);
 
     /**
      * Write the report header
@@ -48,7 +48,6 @@ public interface DataReportService {
     public void writeReportHeader(PrintStream reportDataStream, String fileName, String reportHeader, BusinessObjectReportHelper reportHelper);
 
     /**
-     *
      * @param errorMessages
      * @return
      */

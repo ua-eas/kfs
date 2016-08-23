@@ -24,20 +24,17 @@ import java.util.Set;
 /**
  * Business Object class exposer which adds non-KNS Rice entities to the KNS persistence units, so that these objects
  * can be used with KNS functionality - for instance, PersonImpl objects can be looked up.
- *
- *
- *
  */
 public class RiceToNervousSystemBusinessObjectClassExposer implements PersistableBusinessObjectClassExposer {
 
-	/**
-	 * Exposes a list of non-KNS entity class names
-	 *
-	 * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
-	 */
-	public Set<String> exposePersistableBusinessObjectClassNames() {
-		Set<String> exposedClasses = new HashSet<String>();
-		/*exposedClasses.add(org.kuali.rice.kim.bo.reference.impl.AddressTypeImpl.class.getName());
+    /**
+     * Exposes a list of non-KNS entity class names
+     *
+     * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
+     */
+    public Set<String> exposePersistableBusinessObjectClassNames() {
+        Set<String> exposedClasses = new HashSet<String>();
+        /*exposedClasses.add(org.kuali.rice.kim.bo.reference.impl.AddressTypeImpl.class.getName());
 	    exposedClasses.add(org.kuali.rice.kim.bo.reference.impl.AffiliationTypeImpl.class.getName());
 	    exposedClasses.add(org.kuali.rice.kim.bo.reference.impl.CitizenshipStatusImpl.class.getName());
 	    exposedClasses.add(org.kuali.rice.kim.bo.reference.impl.EmailTypeImpl.class.getName());
@@ -120,7 +117,7 @@ public class RiceToNervousSystemBusinessObjectClassExposer implements Persistabl
 	    exposedClasses.add(org.kuali.rice.ken.bo.UserChannelSubscription.class.getName());
 	    exposedClasses.add(org.kuali.rice.ken.bo.NotificationMessageDelivery.class.getName());
 	    */
-	    return exposedClasses;
-	}
+        return exposedClasses;
+    }
 
 }

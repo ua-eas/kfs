@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cab.batch.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -29,6 +26,9 @@ import org.kuali.kfs.module.cab.batch.dataaccess.PurchasingAccountsPayableItemAs
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 public class PurchasingAccountsPayableItemAssetDaoOjb extends PlatformAwareDaoBaseOjb implements PurchasingAccountsPayableItemAssetDao {
 
@@ -39,7 +39,7 @@ public class PurchasingAccountsPayableItemAssetDaoOjb extends PlatformAwareDaoBa
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(PurchasingAccountsPayableItemAsset.class, criteria);
 
-        query.setAttributes(new String[] { "max(" + CabPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + CabPropertyConstants.PurchasingAccountsPayableItemAsset.CAPITAL_ASSET_BUILDER_LINE_NUMBER + ")"});
         Iterator<?> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         Integer maxSequenceNumber = Integer.valueOf(0);
 

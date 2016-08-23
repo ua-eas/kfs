@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.HistoricalTravelExpense;
+
+import java.util.List;
 
 public interface TravelImportedExpenseNotificationService {
 
@@ -34,7 +34,7 @@ public interface TravelImportedExpenseNotificationService {
      * send notifications to the given traveler of newly imported or unused imported expenses from corporate card, CTS, or pre-trip
      * payments that need to be reconciled
      *
-     * @param travelerProfileId the profile id of a traveler
+     * @param travelerProfileId  the profile id of a traveler
      * @param expensesOfTraveler the expenses of the given traveler
      */
     public void sendImportedExpenseNotification(Integer travelerProfileId, List<HistoricalTravelExpense> expensesOfTraveler);

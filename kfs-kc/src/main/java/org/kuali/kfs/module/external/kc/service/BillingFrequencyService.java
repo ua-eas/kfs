@@ -18,24 +18,23 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import java.util.List;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.dto.BillingFrequencyDTO;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.dto.BillingFrequencyDTO;
+import java.util.List;
 
 @WebService(name = KcConstants.BillingFrequencyService.WEB_SERVICE_NAME,
-targetNamespace = KcConstants.KFS_NAMESPACE_URI)
+    targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL,
- parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface BillingFrequencyService {
 
     public List<BillingFrequencyDTO> getAll();
 
     public List<BillingFrequencyDTO> getActive();
 
-    public BillingFrequencyDTO getBillingFrequency(@WebParam(name=KcConstants.BillingFrequencyService.FREQUENCY) String frequency);
+    public BillingFrequencyDTO getBillingFrequency(@WebParam(name = KcConstants.BillingFrequencyService.FREQUENCY) String frequency);
 }

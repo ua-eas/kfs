@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.util;
 
+import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
+
 import java.io.BufferedReader;
 import java.io.File;
-
-import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 
 public class FilteringLaborOriginEntryFileIterator extends LaborOriginEntryFileIterator {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FilteringLaborOriginEntryFileIterator.class);
@@ -35,9 +35,9 @@ public class FilteringLaborOriginEntryFileIterator extends LaborOriginEntryFileI
     /**
      * Constructs a LaborOriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public FilteringLaborOriginEntryFileIterator(BufferedReader reader, LaborOriginEntryFilter filter) {
         super(reader, true);
@@ -47,9 +47,9 @@ public class FilteringLaborOriginEntryFileIterator extends LaborOriginEntryFileI
     /**
      * Constructs a LaborOriginEntryFileIterator
      *
-     * @param reader a reader representing flat-file origin entries
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public FilteringLaborOriginEntryFileIterator(BufferedReader reader, boolean autoCloseReader, LaborOriginEntryFilter filter) {
         super(reader, autoCloseReader);

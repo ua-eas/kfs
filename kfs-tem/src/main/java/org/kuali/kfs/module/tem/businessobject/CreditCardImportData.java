@@ -25,28 +25,29 @@ public class CreditCardImportData {
     private String importBy;
     private List<CreditCardStagingData> creditCardData;
 
-    public CreditCardImportData(){
+    public CreditCardImportData() {
         creditCardData = new ArrayList<CreditCardStagingData>();
     }
 
-    public void setImportBy(String argImportBy){
+    public void setImportBy(String argImportBy) {
         importBy = argImportBy;
     }
-    public String getImportBy(){
+
+    public String getImportBy() {
         return importBy;
     }
 
-    public void seetCreditCardData(List<CreditCardStagingData> argCreditCardData){
+    public void seetCreditCardData(List<CreditCardStagingData> argCreditCardData) {
         creditCardData = argCreditCardData;
     }
 
-    public List<CreditCardStagingData> getCreditCardData(){
+    public List<CreditCardStagingData> getCreditCardData() {
         return creditCardData;
     }
 
     /**
-     *
      * This method adds the {@link CreditCardStagingData} to the list.
+     *
      * @param creditCard
      */
     public void addCreditCard(CreditCardStagingData creditCard) {

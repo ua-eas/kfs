@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.kuali.kfs.integration.ld.LaborModuleService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
@@ -28,6 +25,9 @@ import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Labor business object for Labor Accounting Line Override
@@ -71,8 +71,8 @@ public class LaborAccountingLineOverride {
         // of the transaction, since those are read only.  Otherwise, amounts in expired accounts
         // could never be transferred
         line.setAccountExpiredOverrideNeeded(needed.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
-        if ( line.getAccountExpiredOverrideNeeded() ) {
-            if ( line instanceof SourceAccountingLine ) {
+        if (line.getAccountExpiredOverrideNeeded()) {
+            if (line instanceof SourceAccountingLine) {
                 line.setAccountExpiredOverride(true);
             } else {
                 line.setAccountExpiredOverride(fromCurrentCode.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
@@ -85,9 +85,7 @@ public class LaborAccountingLineOverride {
     }
 
     /**
-     *
      * @deprecated use {@link processForOutput(AccountingDocument document, AccountingLine line)} instead.
-     *
      */
     @Deprecated
     public static void processForOutput(AccountingLine line) {
@@ -97,8 +95,8 @@ public class LaborAccountingLineOverride {
         // of the transaction, since those are read only.  Otherwise, amounts in expired accounts
         // could never be transferred
         line.setAccountExpiredOverrideNeeded(needed.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
-        if ( line.getAccountExpiredOverrideNeeded() ) {
-            if ( line instanceof SourceAccountingLine ) {
+        if (line.getAccountExpiredOverrideNeeded()) {
+            if (line instanceof SourceAccountingLine) {
                 line.setAccountExpiredOverride(true);
             } else {
                 line.setAccountExpiredOverride(fromCurrentCode.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
@@ -122,9 +120,7 @@ public class LaborAccountingLineOverride {
     }
 
     /**
-     *
      * @deprecated use {@link AccountingLineOverride determineNeededOverrides(AccountingDocument document, AccountingLine line)} instead.
-     *
      */
     @Deprecated
     public static AccountingLineOverride determineNeededOverrides(AccountingLine line) {

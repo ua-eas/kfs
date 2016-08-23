@@ -111,8 +111,6 @@ public class BudgetConstructionImportExportForm extends BudgetExpansionForm {
     }
 
     /**
-     *
-     *
      * @return
      */
     public BudgetConstructionRequestImport getBudgetConstructionRequestImport() {
@@ -120,8 +118,6 @@ public class BudgetConstructionImportExportForm extends BudgetExpansionForm {
     }
 
     /**
-     *
-     *
      * @param budgetConstructionRequestImport
      */
     public void setBudgetConstructionRequestImport(BudgetConstructionRequestImport budgetConstructionRequestImport) {

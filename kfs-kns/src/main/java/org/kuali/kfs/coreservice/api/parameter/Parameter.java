@@ -18,8 +18,11 @@
  */
 package org.kuali.kfs.coreservice.api.parameter;
 
-import java.io.Serializable;
-import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
+import org.kuali.rice.core.api.mo.ModelBuilder;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,12 +31,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
-import org.kuali.rice.core.api.mo.ModelBuilder;
-import org.w3c.dom.Element;
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * An immutable representation of a {@link ParameterContract}.
@@ -45,17 +44,17 @@ import org.w3c.dom.Element;
 @XmlRootElement(name = Parameter.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = Parameter.Constants.TYPE_NAME, propOrder = {
-        Parameter.Elements.APPLICATION_ID,
-        Parameter.Elements.NAMESPACE_CODE,
-        Parameter.Elements.COMPONENT_CODE,
-        Parameter.Elements.NAME,
-        Parameter.Elements.VALUE,
-        Parameter.Elements.DESCRIPTION,
-        Parameter.Elements.PARAMETER_TYPE,
-        Parameter.Elements.EVALUATION_OPERATOR,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.OBJECT_ID,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    Parameter.Elements.APPLICATION_ID,
+    Parameter.Elements.NAMESPACE_CODE,
+    Parameter.Elements.COMPONENT_CODE,
+    Parameter.Elements.NAME,
+    Parameter.Elements.VALUE,
+    Parameter.Elements.DESCRIPTION,
+    Parameter.Elements.PARAMETER_TYPE,
+    Parameter.Elements.EVALUATION_OPERATOR,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.OBJECT_ID,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Parameter extends AbstractDataTransferObject implements ParameterContract {
 

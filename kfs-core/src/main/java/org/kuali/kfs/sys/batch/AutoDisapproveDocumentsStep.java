@@ -28,8 +28,10 @@ public class AutoDisapproveDocumentsStep extends AbstractWrappedBatchStep {
     private AutoDisapproveDocumentsService autoDisapproveDocumentsService;
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoDisapproveDocumentsStep.class);
     private String batchFileDirectoryName;
+
     /**
      * Overridden to run the auto disapprove process.
+     *
      * @see org.kuali.kfs.batch.Step#execute(java.lang.String)
      */
     @Override
@@ -56,6 +58,7 @@ public class AutoDisapproveDocumentsStep extends AbstractWrappedBatchStep {
 
     /**
      * This method sets the batchFileDirectoryName
+     *
      * @param batchFileDirectoryName
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

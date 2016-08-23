@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.fp.batch.ProcurementCardInputFileType;
 import org.kuali.kfs.fp.businessobject.ProcurementCardTransaction;
@@ -34,6 +30,10 @@ import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests for the service parse method.
@@ -139,8 +139,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.parse(pcdoBatchInputFileType, emptyContents);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
         assertTrue("exception not thrown for null empty pcdo file contents", failedAsExpected);
@@ -148,8 +147,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         failedAsExpected = false;
         try {
             batchInputFileService.parse(collectorBatchInputFileType, emptyContents);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
         assertTrue("exception not thrown for null empty collector file contents", failedAsExpected);
@@ -165,8 +163,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.parse(pcdoBatchInputFileType, invalidTagOrderPCDOFileContents);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             failedAsExpected = true;
         }
 
@@ -183,8 +180,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.parse(pcdoBatchInputFileType, missingTagPCDOFileContents);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             failedAsExpected = true;
         }
 
@@ -201,8 +197,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.parse(collectorBatchInputFileType, invalidTagCollectorContents);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             failedAsExpected = true;
         }
 

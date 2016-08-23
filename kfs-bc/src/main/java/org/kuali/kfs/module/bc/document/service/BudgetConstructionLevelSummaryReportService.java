@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgLevelSummaryReport;
+
+import java.util.Collection;
 
 /**
  * This interface defines the methods for BudgetConstructionLevelSummaryReports
@@ -36,7 +36,6 @@ public interface BudgetConstructionLevelSummaryReportService {
     public void updateLevelSummaryReport(String principalName);
 
     /**
-     *
      * builds BudgetConstructionLevelSummaryReports
      *
      * @param universityFiscalYear

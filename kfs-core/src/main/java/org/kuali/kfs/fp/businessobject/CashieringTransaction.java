@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * This class represents a cashiering-related transaction used in the cash management document
@@ -440,7 +440,7 @@ public class CashieringTransaction extends TransientBusinessObjectBase {
     private Map buildCheckMap(List checks) {
         Map checkMap = new HashMap();
 
-        for (Iterator i = checks.iterator(); i.hasNext();) {
+        for (Iterator i = checks.iterator(); i.hasNext(); ) {
             Check check = (Check) i.next();
             Integer sequenceId = check.getSequenceId();
 

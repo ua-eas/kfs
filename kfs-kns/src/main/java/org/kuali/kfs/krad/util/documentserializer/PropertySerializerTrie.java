@@ -26,7 +26,6 @@ import java.util.StringTokenizer;
 /**
  * This is a implementation of a trie/prefix tree of that contains metadata about property serializability
  * during the document serialization process.
- *
  */
 public class PropertySerializerTrie {
     private static final String PROPERTY_NAME_COMPONENT_SEPARATOR = ".";
@@ -40,17 +39,17 @@ public class PropertySerializerTrie {
      * Registers a new serializable property so that all of its primitives are serialized.  All nesting properties
      * will be serialized only to render open/close tags to maintain consistency with the document structure, unless
      * they are registered as well.
-     *
+     * <p>
      * For example, if only property "document.a.b" is registered, then the XML will look like the following:
-     *
+     * <p>
      * &lt;document&gt;
-     *     &lt;a&gt;
-     *         &lt;b&gt;
-     *             &lt;primitiveOfB&gt;valueOfPrimitive&lt;/primitiveOfB&gt;
-     *         &lt;/b&gt;
-     *     &lt;/a&gt;
+     * &lt;a&gt;
+     * &lt;b&gt;
+     * &lt;primitiveOfB&gt;valueOfPrimitive&lt;/primitiveOfB&gt;
+     * &lt;/b&gt;
+     * &lt;/a&gt;
      * &lt;/document&gt;
-     *
+     * <p>
      * That is, primitives of "document" and "document.a" will not be serialized unless those property strings are registered.
      *
      * @param propertyName
@@ -62,13 +61,12 @@ public class PropertySerializerTrie {
         }
         if (StringUtils.isBlank(propertyName)) {
             rootNode.setPropertySerializabilityToObjectAndAllPrimitives();
-        }
-        else {
+        } else {
             StringTokenizer tok = new StringTokenizer(propertyName, PROPERTY_NAME_COMPONENT_SEPARATOR, false);
             StringBuilder buf = new StringBuilder();
 
-            if(setPropertySerializabilityToObjectAndAllPrimitivesForAll)
-            	rootNode.setPropertySerializabilityToObjectAndAllPrimitives();
+            if (setPropertySerializabilityToObjectAndAllPrimitivesForAll)
+                rootNode.setPropertySerializabilityToObjectAndAllPrimitives();
 
             PropertySerializerTrieNode currentNode = rootNode;
             while (tok.hasMoreTokens()) {
@@ -88,8 +86,8 @@ public class PropertySerializerTrie {
                     buf.append(PROPERTY_NAME_COMPONENT_SEPARATOR);
                 }
                 currentNode = childNode;
-                if(setPropertySerializabilityToObjectAndAllPrimitivesForAll)
-                	currentNode.setPropertySerializabilityToObjectAndAllPrimitives();
+                if (setPropertySerializabilityToObjectAndAllPrimitivesForAll)
+                    currentNode.setPropertySerializabilityToObjectAndAllPrimitives();
             }
 
             currentNode.setPropertySerializabilityToObjectAndAllPrimitives();
@@ -108,8 +106,7 @@ public class PropertySerializerTrie {
         }
         if (StringUtils.isBlank(propertyName)) {
             return rootNode;
-        }
-        else {
+        } else {
             StringTokenizer tok = new StringTokenizer(propertyName, PROPERTY_NAME_COMPONENT_SEPARATOR, false);
 
             PropertySerializerTrieNode currentNode = rootNode;
@@ -122,8 +119,7 @@ public class PropertySerializerTrie {
                 if (childNode == null) {
                     // we didn't find a child node, so we know that something wasn't added with the prefix we're processing
                     return null;
-                }
-                else {
+                } else {
                     // keep going until we hit the last token, at which case we'll get out of this loop
                     currentNode = childNode;
                 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.util;
 
-import java.sql.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 public class SimpleAddress {
     private String street;
@@ -72,14 +72,11 @@ public class SimpleAddress {
         SimpleAddress that = (SimpleAddress) object;
         if (!StringUtils.equals(this.getStreet(), that.getStreet())) {
             return false;
-        }
-        else if (!StringUtils.equals(this.getCity(), that.getCity())) {
+        } else if (!StringUtils.equals(this.getCity(), that.getCity())) {
             return false;
-        }
-        else if (!StringUtils.equals(this.getState(), that.getState())) {
+        } else if (!StringUtils.equals(this.getState(), that.getState())) {
             return false;
-        }
-        else if (!StringUtils.equals(this.getZip().toString(), that.getZip().toString())) {
+        } else if (!StringUtils.equals(this.getZip().toString(), that.getZip().toString())) {
             return false;
         }
         return true;

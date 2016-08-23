@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
@@ -61,13 +60,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.DocumentSystemSaveEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.campus.CampusService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -85,7 +85,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
 
     /**
      * @see org.kuali.kfs.module.cab.document.service.PurApLineDocumentService#processApplyPayment(PurchasingAccountsPayableItemAsset,
-     *      List, PurApLineSession, Integer)
+     * List, PurApLineSession, Integer)
      */
     @Override
     public String processApplyPayment(PurchasingAccountsPayableItemAsset selectedItem, List<PurchasingAccountsPayableDocument> purApDocs, PurApLineSession purApLineSession, Integer requisitionIdentifer) throws WorkflowException {
@@ -159,7 +159,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
 
     /**
      * @see org.kuali.kfs.module.cab.document.service.PurApLineService#processCreateAsset(org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset,
-     *      org.kuali.kfs.module.cab.document.web.struts.PurApLineForm)
+     * org.kuali.kfs.module.cab.document.web.struts.PurApLineForm)
      */
     @Override
     public String processCreateAsset(PurchasingAccountsPayableItemAsset selectedItem, List<PurchasingAccountsPayableDocument> purApDocs, PurApLineSession purApLineSession, Integer requisitionIdentifier) throws WorkflowException {
@@ -259,8 +259,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                 // Add account amount to GL entry submit amount.
                 if (glEntry.getTransactionLedgerSubmitAmount() != null) {
                     glEntry.setTransactionLedgerSubmitAmount(glEntry.getTransactionLedgerSubmitAmount().add(account.getItemAccountTotalAmount()));
-                }
-                else {
+                } else {
                     glEntry.setTransactionLedgerSubmitAmount(new KualiDecimal(account.getItemAccountTotalAmount().toString()));
                 }
             }
@@ -355,13 +354,11 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                     // initialize location quantity by PurAp setting
                     if (assetLocation.getItemQuantity() != null) {
                         locationQuantity = assetLocation.getItemQuantity().intValue();
-                    }
-                    else {
+                    } else {
                         // if Purap not set item quantity, we set it to 1.
                         locationQuantity = 1;
                     }
-                }
-                else if (locationQuantity <= 0 && !locationIterator.hasNext()) {
+                } else if (locationQuantity <= 0 && !locationIterator.hasNext()) {
                     // Consume the current location quantity and no more PurAp locations can be used, stop here.
                     break;
                 }
@@ -402,8 +399,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
                         assetDetail.setBuildingRoomNumber(buildingRoomNumber);
                     }
                 }
-            }
-            else {
+            } else {
                 // off-campus
                 assetDetail.setOffCampusCityName(assetLocation.getCapitalAssetCityName());
                 assetDetail.setOffCampusAddress(assetLocation.getCapitalAssetLine1Address());

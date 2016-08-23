@@ -23,7 +23,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import java.util.Set;
 
 public interface InquiryOrMaintenanceDocumentPresentationController {
-	public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject);
+    public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject);
 
-	public Set<String> getConditionallyHiddenSectionIds(BusinessObject businessObject);
+    public Set<String> getConditionallyHiddenSectionIds(BusinessObject businessObject);
 }

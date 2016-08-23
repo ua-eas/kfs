@@ -38,6 +38,6 @@ public class OffsetDefinitionServiceTest extends KualiTestBase {
 
         offsetDefinition = null;
         offsetDefinition = SpringContext.getBean(OffsetDefinitionService.class).getByPrimaryId(TestUtils.getFiscalYearForTesting(), "XX", "XX", "XX");
-        assertNull("No offset definition should have been retrieved: " + offsetDefinition,offsetDefinition);
+        assertNull("No offset definition should have been retrieved: " + offsetDefinition, offsetDefinition);
     }
 }

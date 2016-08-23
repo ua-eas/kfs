@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys;
 
-import java.text.MessageFormat;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
+
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * This class provides a set of utilities that can be used to build error message
@@ -40,7 +40,7 @@ public class MessageBuilder {
      * add the given message into the given message list
      *
      * @param messageList the given message list
-     * @param message the given message
+     * @param message     the given message
      */
     public static void addMessageIntoList(List<Message> messageList, Message message) {
         if (message != null) {
@@ -108,7 +108,7 @@ public class MessageBuilder {
     /**
      * build the error message with the given label and current value
      *
-     * @param label the given label
+     * @param label        the given label
      * @param currentValue the given current value
      * @return the error message built from the given label and current value
      */
@@ -122,7 +122,7 @@ public class MessageBuilder {
      * get the label of the specified attribute of the given business object
      *
      * @param businessObjectClass the given business object
-     * @param attributeName the specified attribute name
+     * @param attributeName       the specified attribute name
      * @return the label of the specified attribute of the given business object
      */
     public static String getShortLabel(Class<? extends BusinessObject> businessObjectClass, String attributeName) {

@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
@@ -34,10 +31,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 /**
  * Unit tests for B2BShoppingService.
@@ -60,8 +60,7 @@ public class B2BShoppingServiceTest extends KualiTestBase {
             b2bItem = B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_DUNS;
             String duns = req.getVendorDetail().getVendorDunsNumber();
             assertEquals(duns, b2bItem.duns);
-        }
-        else {
+        } else {
             b2bItem = B2BShoppingCartItemFixture.B2B_ITEM_USING_VENDOR_ID;
             String vendorNumber = req.getVendorNumber();
             assertEquals(vendorNumber, b2bItem.externalSupplierId);
@@ -73,7 +72,7 @@ public class B2BShoppingServiceTest extends KualiTestBase {
 
         // check items: only one item in the cart
         assertEquals(req.getItems().size(), 1);
-        RequisitionItem reqItem = (RequisitionItem)req.getItem(0);
+        RequisitionItem reqItem = (RequisitionItem) req.getItem(0);
         assertNotNull(reqItem);
 
         // check item detail
@@ -98,8 +97,7 @@ public class B2BShoppingServiceTest extends KualiTestBase {
         B2BShoppingCartFixture cartFixture = null;
         if (enableB2bByDunsNumber) {
             cartFixture = B2BShoppingCartFixture.B2B_CART_USING_VENDOR_DUNS;
-        }
-        else {
+        } else {
             cartFixture = B2BShoppingCartFixture.B2B_CART_USING_VENDOR_ID;
         }
 
@@ -113,10 +111,9 @@ public class B2BShoppingServiceTest extends KualiTestBase {
 
             // only one req created since there's only one vendor used in the cart
             assertEquals(reqs.size(), 1);
-            req = (RequisitionDocument)reqs.get(0);
+            req = (RequisitionDocument) reqs.get(0);
             assertNotNull(req);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             fail(e.getMessage());
         }
 

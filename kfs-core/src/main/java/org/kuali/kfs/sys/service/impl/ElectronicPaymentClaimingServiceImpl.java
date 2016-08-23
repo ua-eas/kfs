@@ -18,15 +18,13 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
@@ -35,14 +33,16 @@ import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStra
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentClaimingService {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicPaymentClaimingServiceImpl.class);
@@ -74,8 +74,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
                 noteTexts.add(noteText);
                 i += summariesPerNote;
             }
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new RuntimeException("The KFS-SYS / ElectronicPaymentClaim / " + ELECTRONIC_FUNDS_CLAIM_SUMMARIES_PER_NOTE_PARAMETER + " should have a value that can be parsed into an integer.", nfe);
         }
         return noteTexts;
@@ -84,8 +83,8 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
     /**
      * This creates a note for the given point in the list of summaries.
      *
-     * @param claims a List of ElectronicPaymentClaim records that are being claimed
-     * @param startPoint the point in the list the note is starting at
+     * @param claims              a List of ElectronicPaymentClaim records that are being claimed
+     * @param startPoint          the point in the list the note is starting at
      * @param maxSummariesPerNote the number of ElectronicPaymentClaim summaries we can have on a note
      * @return a newly constructed note, that needs to have a user added
      */
@@ -128,7 +127,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingService#createPaymentClaimingDocument(java.util.List,
-     *      org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy)
+     * org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy)
      */
     public String createPaymentClaimingDocument(List<ElectronicPaymentClaim> claims, ElectronicPaymentClaimingDocumentGenerationStrategy documentCreationHelper, Person user) {
         return documentCreationHelper.createDocumentFromElectronicPayments(claims, user);
@@ -173,7 +172,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
      * Sets the referenceFinancialDocumentNumber on each of the payments passed in with the given document number and then saves
      * them.
      *
-     * @param payments a list of payments to claim
+     * @param payments      a list of payments to claim
      * @param docmentNumber the document number of the claiming document
      */
     public void claimElectronicPayments(List<ElectronicPaymentClaim> payments, String documentNumber) {
@@ -201,14 +200,14 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingService#isAuthorizedForClaimingElectronicPayment(org.kuali.rice.kim.api.identity.Person,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public boolean isAuthorizedForClaimingElectronicPayment(Person user, String workflowDocumentTypeName) {
         String principalId = user.getPrincipalId();
         String namespaceCode = KFSConstants.ParameterNamespaces.KFS;
         String permissionTemplateName = KFSConstants.PermissionTemplate.CLAIM_ELECTRONIC_PAYMENT.name;
 
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocumentTypeName);
 
         IdentityManagementService identityManagementService = SpringContext.getBean(IdentityManagementService.class);
@@ -235,6 +234,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Determines if the given accounting line represents an electronic payment
+     *
      * @param accountingLine the accounting line to check
      * @return true if the accounting line does represent an electronic payment, false otherwise
      */

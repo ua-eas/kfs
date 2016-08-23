@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.document.validation.RecalculateCustomerCreditMemoDocumentRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.ar.document.validation.RecalculateCustomerCreditMemoDocumentRule;
 
 public class RecalculateCustomerCreditMemoDocumentEvent extends KualiDocumentEventBase {
 
     protected boolean printErrMsgFlag;
 
     public RecalculateCustomerCreditMemoDocumentEvent(String errorPathPrefix, Document document, boolean printErrMsgFlag) {
-        super("Recalculating customer credit memo document " + getDocumentId(document), errorPathPrefix,document);
+        super("Recalculating customer credit memo document " + getDocumentId(document), errorPathPrefix, document);
         this.printErrMsgFlag = printErrMsgFlag;
     }
 
@@ -40,7 +40,7 @@ public class RecalculateCustomerCreditMemoDocumentEvent extends KualiDocumentEve
 
     @SuppressWarnings("unchecked")
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((RecalculateCustomerCreditMemoDocumentRule) rule).processRecalculateCustomerCreditMemoDocumentRules((TransactionalDocument)document,printErrMsgFlag);
+        return ((RecalculateCustomerCreditMemoDocumentRule) rule).processRecalculateCustomerCreditMemoDocumentRules((TransactionalDocument) document, printErrMsgFlag);
     }
 
 }

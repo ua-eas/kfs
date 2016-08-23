@@ -22,16 +22,17 @@
  */
 package org.kuali.kfs.pdp.dataaccess;
 
+import org.kuali.kfs.pdp.businessobject.PaymentProcess;
+
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.pdp.businessobject.PaymentProcess;
 
 
 public interface FormatPaymentDao {
     /**
      * This method mark payments for format
+     *
      * @param proc
      * @param customers
      * @param paydate
@@ -41,6 +42,7 @@ public interface FormatPaymentDao {
 
     /**
      * This method unmark payments that were marked for format.
+     *
      * @param proc
      */
     public Iterator unmarkPaymentsForFormat(PaymentProcess proc);

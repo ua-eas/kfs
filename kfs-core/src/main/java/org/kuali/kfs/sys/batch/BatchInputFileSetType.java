@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.rice.kim.api.identity.Person;
 
 /**
  * Declares methods that must be implemented for batch input file set type classes, which provides functionaliy needed to manage
@@ -35,7 +35,7 @@ public interface BatchInputFileSetType extends BatchInputType {
      * Returns all of the types supported by this file set type
      *
      * @return a list of all file types supported. The values in the list do not have an externally usable meaning, and are meant to
-     *         be used to call other methods of this interface.
+     * be used to call other methods of this interface.
      */
     public List<String> getFileTypes();
 
@@ -61,7 +61,7 @@ public interface BatchInputFileSetType extends BatchInputType {
     /**
      * Constructs a file name for the file type, the file user identifier, and the user.
      *
-     * @param user - user who is uploading the file
+     * @param user              - user who is uploading the file
      * @param fileUserIdentifer - file identifier given by user through the batch upload UI
      */
     public String getFileName(String fileType, String principalName, String fileUserIdentifer, Date creationDate);
@@ -100,15 +100,14 @@ public interface BatchInputFileSetType extends BatchInputType {
     /**
      * Runs validation upon uploaded files.  Note the files passed in the Map may be located in a temporary directory rather than the
      * directory returned by {@link #getDirectoryPath(String)}
-     *
+     * <p>
      * If validation fails, the implementation is responsible for adding error messages to the {@link KFSConstants#GLOBAL_ERRORS} property
      * string in the MessageMap
-     *
+     * <p>
      * If validation requires opening up input streams/readers/etc. on the files, implementations of this method must
      * close all input streams/readers on files contained within the map.  Failure to do so may cause the files to be undeletable.
      *
      * @param typeToFiles a map consisting of file type Strings (see {@link #getFileTypes()}) to file mappings
-     *
      * @return true if validation succeeds, false otherwise
      */
     public boolean validate(Map<String, File> typeToFiles);
@@ -116,12 +115,12 @@ public interface BatchInputFileSetType extends BatchInputType {
 
     /**
      * This method will invoke some processing on this file
-     *
+     * <p>
      * There is no error handling provided by the framework.  All error reporting must be done by the implementation of this method
      *
      * @param typeToFiles a map consisting of file type Strings (see {@link #getFileTypes()}) to file mappings
-     *        Note that the map may contain the file handle for {@link KFSConstants#DONE_FILE_TYPE} for the done file,
-     *        if it was created
+     *                    Note that the map may contain the file handle for {@link KFSConstants#DONE_FILE_TYPE} for the done file,
+     *                    if it was created
      */
     public void process(Map<String, File> typeToFiles);
 }

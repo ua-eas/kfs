@@ -111,7 +111,7 @@ public class BusinessObjectResourceTest {
         businessObjectService = EasyMock.createMock(BusinessObjectService.class);
         persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
         configurationService = EasyMock.createMock(ConfigurationService.class);
-        dataDictionaryService = EasyMock.partialMockBuilder(MockDataDictionaryService.class).addMockedMethods("containsDictionaryObject","getDictionaryObject", "getDataDictionary").createMock();
+        dataDictionaryService = EasyMock.partialMockBuilder(MockDataDictionaryService.class).addMockedMethods("containsDictionaryObject", "getDictionaryObject", "getDataDictionary").createMock();
         dataDictionary = EasyMock.createMock(DataDictionary.class);
         permissionService = EasyMock.createMock(PermissionService.class);
         accessSecurityService = EasyMock.createMock(AccessSecurityService.class);
@@ -198,10 +198,10 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)).andReturn(true).anyTimes();
         EasyMock.expect(accessSecurityService.getInquiryWithFieldValueTemplate()).andReturn(null);
         EasyMock.expect(KRADUtils.getNamespaceCode(clazz)).andReturn(namespaceCode);
-        accessSecurityService.applySecurityRestrictions((List)collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
+        accessSecurityService.applySecurityRestrictions((List) collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall().andDelegateTo(new AccessSecurityServiceImpl() {
             @Override
-            public void applySecurityRestrictions(List<? extends BusinessObject> results, Person person, Template permissionTemplate, Map<String,String> additionalPermissionDetails) {
+            public void applySecurityRestrictions(List<? extends BusinessObject> results, Person person, Template permissionTemplate, Map<String, String> additionalPermissionDetails) {
                 results.clear();
             }
         });
@@ -244,7 +244,7 @@ public class BusinessObjectResourceTest {
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(uom);
         Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
-                mapsEqualEnough(entity, beanMap, "itemUnitOfMeasureCode", "itemUnitOfMeasureDescription"));
+            mapsEqualEnough(entity, beanMap, "itemUnitOfMeasureCode", "itemUnitOfMeasureDescription"));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)).andReturn("http://myapp").times(3);
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService,
-                dataDictionary, permissionService, accessSecurityService, userSession);
+            dataDictionary, permissionService, accessSecurityService, userSession);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         PowerMock.replay(KRADUtils.class);
@@ -277,12 +277,12 @@ public class BusinessObjectResourceTest {
 
         Response response = apiResource.getSingleObject("fp", "deposits", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary,
-                permissionService, accessSecurityService, userSession, configurationService);
+            permissionService, accessSecurityService, userSession, configurationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(deposit);
         Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
-                mapsEqualEnough(entity, beanMap, "depositBankCode", "depositAmount"));
+            mapsEqualEnough(entity, beanMap, "depositBankCode", "depositAmount"));
         Map<String, Object> bankMap = (Map<String, Object>) entity.get("bank");
         String bankLink = (String) bankMap.get("link");
         Assert.assertEquals("Bank link incorrect: " + bankLink, "http://myapp/api/v1/business-object/fp/banks/B123", bankLink);
@@ -316,7 +316,7 @@ public class BusinessObjectResourceTest {
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(bank);
         Assert.assertTrue("Banks should have matching values " + beanMap.toString() + " and " + entity.toString(),
-                mapsEqualEnough(entity, beanMap, "bankCode", "bankName"));
+            mapsEqualEnough(entity, beanMap, "bankCode", "bankName"));
         Assert.assertNotEquals("Banks should not match routing numbers", beanMap.get(KFSPropertyConstants.BANK_ROUTING_NUMBER), entity.get(KFSPropertyConstants.BANK_ROUTING_NUMBER));
         Assert.assertNotEquals("Banks should not match account numbers", beanMap.get(KFSPropertyConstants.BANK_ACCOUNT_NUMBER), entity.get(KFSPropertyConstants.BANK_ACCOUNT_NUMBER));
         Assert.assertEquals("Bank routing number should be partially masked", "************4444", entity.get(KFSPropertyConstants.BANK_ROUTING_NUMBER));
@@ -342,7 +342,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)).andReturn(true).anyTimes();
         EasyMock.expect(accessSecurityService.getInquiryWithFieldValueTemplate()).andReturn(null);
         EasyMock.expect(KRADUtils.getNamespaceCode(clazz)).andReturn(namespaceCode);
-        accessSecurityService.applySecurityRestrictions((List)collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
+        accessSecurityService.applySecurityRestrictions((List) collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall();
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService);
         org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
@@ -456,87 +456,208 @@ public class BusinessObjectResourceTest {
     }
 
     class MockDataDictionaryService implements DataDictionaryService {
-        @Override public void setBaselinePackages(List baselinePackages) throws IOException {}
+        @Override
+        public void setBaselinePackages(List baselinePackages) throws IOException {
+        }
 
-        @Override public DataDictionary getDataDictionary() { return null; }
+        @Override
+        public DataDictionary getDataDictionary() {
+            return null;
+        }
 
-        @Override public void addDataDictionaryLocations(List<String> locations) throws IOException { }
+        @Override
+        public void addDataDictionaryLocations(List<String> locations) throws IOException {
+        }
 
-        @Override public ControlDefinition getAttributeControlDefinition(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public ControlDefinition getAttributeControlDefinition(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Integer getAttributeSize(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Integer getAttributeSize(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Integer getAttributeMaxLength(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Integer getAttributeMaxLength(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Pattern getAttributeValidatingExpression(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Pattern getAttributeValidatingExpression(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeLabel(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public String getAttributeLabel(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeShortLabel(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public String getAttributeShortLabel(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeErrorLabel(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public String getAttributeErrorLabel(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Class<? extends Formatter> getAttributeFormatter(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Class<? extends Formatter> getAttributeFormatter(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Boolean getAttributeForceUppercase(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Boolean getAttributeForceUppercase(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeSummary(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public String getAttributeSummary(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeDescription(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public String getAttributeDescription(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Boolean isAttributeRequired(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Boolean isAttributeRequired(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Boolean isAttributeDefined(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Boolean isAttributeDefined(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public Class<? extends KeyValuesFinder> getAttributeValuesFinderClass(Class dataObjectClass, String attributeName) { return null; }
+        @Override
+        public Class<? extends KeyValuesFinder> getAttributeValuesFinderClass(Class dataObjectClass, String attributeName) {
+            return null;
+        }
 
-        @Override public String getCollectionLabel(Class dataObjectClass, String collectionName) { return null; }
+        @Override
+        public String getCollectionLabel(Class dataObjectClass, String collectionName) {
+            return null;
+        }
 
-        @Override public String getCollectionShortLabel(Class dataObjectClass, String collectionName) { return null; }
+        @Override
+        public String getCollectionShortLabel(Class dataObjectClass, String collectionName) {
+            return null;
+        }
 
-        @Override public String getCollectionSummary(Class dataObjectClass, String collectionName) { return null; }
+        @Override
+        public String getCollectionSummary(Class dataObjectClass, String collectionName) {
+            return null;
+        }
 
-        @Override public String getCollectionDescription(Class dataObjectClass, String collectionName) { return null; }
+        @Override
+        public String getCollectionDescription(Class dataObjectClass, String collectionName) {
+            return null;
+        }
 
-        @Override public ControlDefinition getAttributeControlDefinition(String entryName, String attributeName) { return null; }
+        @Override
+        public ControlDefinition getAttributeControlDefinition(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Integer getAttributeSize(String entryName, String attributeName) { return null; }
+        @Override
+        public Integer getAttributeSize(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Integer getAttributeMinLength(String entryName, String attributeName) { return null; }
+        @Override
+        public Integer getAttributeMinLength(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Integer getAttributeMaxLength(String entryName, String attributeName) { return null; }
+        @Override
+        public Integer getAttributeMaxLength(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeExclusiveMin(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeExclusiveMin(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeInclusiveMax(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeInclusiveMax(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Pattern getAttributeValidatingExpression(String entryName, String attributeName) { return null; }
+        @Override
+        public Pattern getAttributeValidatingExpression(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeLabel(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeLabel(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeShortLabel(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeShortLabel(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeErrorLabel(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeErrorLabel(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Class<? extends Formatter> getAttributeFormatter(String entryName, String attributeName) { return null; }
+        @Override
+        public Class<? extends Formatter> getAttributeFormatter(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Boolean getAttributeForceUppercase(String entryName, String attributeName) { return null; }
+        @Override
+        public Boolean getAttributeForceUppercase(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public AttributeSecurity getAttributeSecurity(String entryName, String attributeName) { return null; }
+        @Override
+        public AttributeSecurity getAttributeSecurity(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeSummary(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeSummary(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeDescription(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeDescription(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String getAttributeValidatingErrorMessageKey(String entryName, String attributeName) { return null; }
+        @Override
+        public String getAttributeValidatingErrorMessageKey(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public String[] getAttributeValidatingErrorMessageParameters(String entryName, String attributeName) { return new String[0]; }
+        @Override
+        public String[] getAttributeValidatingErrorMessageParameters(String entryName, String attributeName) {
+            return new String[0];
+        }
 
-        @Override public Boolean isAttributeRequired(String entryName, String attributeName) { return null; }
+        @Override
+        public Boolean isAttributeRequired(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Boolean isAttributeDefined(String entryName, String attributeName) { return null; }
+        @Override
+        public Boolean isAttributeDefined(String entryName, String attributeName) {
+            return null;
+        }
 
-        @Override public Class<? extends KeyValuesFinder> getAttributeValuesFinderClass(String entryName, String attributeName) { return null; }
+        @Override
+        public Class<? extends KeyValuesFinder> getAttributeValuesFinderClass(String entryName, String attributeName) {
+            return null;
+        }
 
         @Override
         public AttributeDefinition getAttributeDefinition(String entryName, String attributeName) {
@@ -567,58 +688,134 @@ public class BusinessObjectResourceTest {
             return attributeDefinition;
         }
 
-        @Override public String getCollectionLabel(String entryName, String collectionName) { return null; }
-
-        @Override public String getCollectionShortLabel(String entryName, String collectionName) { return null; }
-
-        @Override public String getCollectionElementLabel(String entryName, String collectionName, Class dataObjectClass) { return null; }
-
-        @Override public String getCollectionSummary(String entryName, String collectionName) { return null; }
-
-        @Override public String getCollectionDescription(String entryName, String collectionName) { return null; }
-
-        @Override public Class<? extends BusinessObject> getRelationshipSourceClass(String entryName, String relationshipName) { return null; }
-
-        @Override public Class<? extends BusinessObject> getRelationshipTargetClass(String entryName, String relationshipName) { return null; }
-
-        @Override public List<String> getRelationshipSourceAttributes(String entryName, String relationshipName) { return null; }
-
-        @Override public List<String> getRelationshipTargetAttributes(String entryName, String relationshipName) { return null; }
-
-        @Override public Map<String, String> getRelationshipAttributeMap(String entryName, String relationshipName) { return null; }
-
-        @Override public List<String> getRelationshipEntriesForSourceAttribute(String entryName, String sourceAttributeName) { return null; }
-
-        @Override public List<String> getRelationshipEntriesForTargetAttribute(String entryName, String targetAttributeName) { return null; }
-
-        @Override public boolean hasRelationship(String entryName, String relationshipName) { return false; }
-
-        @Override public List<String> getRelationshipNames(String entryName) { return null; }
-
-        @Override public String getDocumentLabelByTypeName(String documentTypeName) { return null; }
-
-        @Override public String getDocumentLabelByClass(Class documentOrBusinessObjectClass) { return null; }
-
-        @Override public String getDocumentTypeNameByClass(Class documentClass) { return null; }
-
-        @Override public String getValidDocumentTypeNameByClass(Class documentClass) { return null; }
-
-        @Override public Class<? extends Document> getDocumentClassByTypeName(String documentTypeName) { return null; }
-
-        @Override public Class<? extends Document> getValidDocumentClassByTypeName(String documentTypeName) { return null; }
-
-        @Override public List<String> getGroupByAttributesForEffectiveDating(Class businessObjectClass) { return null; }
-
-        @Override public Set<InactivationBlockingMetadata> getAllInactivationBlockingDefinitions(Class inactivationBlockedBusinessObjectClass) { return null; }
-
-        @Override public View getViewById(String viewId) { return null; }
+        @Override
+        public String getCollectionLabel(String entryName, String collectionName) {
+            return null;
+        }
 
         @Override
-        public Object getDictionaryObject(String id) { return null; }
+        public String getCollectionShortLabel(String entryName, String collectionName) {
+            return null;
+        }
 
         @Override
-        public boolean containsDictionaryObject(String id) { return false; }
+        public String getCollectionElementLabel(String entryName, String collectionName, Class dataObjectClass) {
+            return null;
+        }
 
-        @Override public View getViewByTypeIndex(UifConstants.ViewType viewTypeName, Map<String, String> indexKey) { return null; }
+        @Override
+        public String getCollectionSummary(String entryName, String collectionName) {
+            return null;
+        }
+
+        @Override
+        public String getCollectionDescription(String entryName, String collectionName) {
+            return null;
+        }
+
+        @Override
+        public Class<? extends BusinessObject> getRelationshipSourceClass(String entryName, String relationshipName) {
+            return null;
+        }
+
+        @Override
+        public Class<? extends BusinessObject> getRelationshipTargetClass(String entryName, String relationshipName) {
+            return null;
+        }
+
+        @Override
+        public List<String> getRelationshipSourceAttributes(String entryName, String relationshipName) {
+            return null;
+        }
+
+        @Override
+        public List<String> getRelationshipTargetAttributes(String entryName, String relationshipName) {
+            return null;
+        }
+
+        @Override
+        public Map<String, String> getRelationshipAttributeMap(String entryName, String relationshipName) {
+            return null;
+        }
+
+        @Override
+        public List<String> getRelationshipEntriesForSourceAttribute(String entryName, String sourceAttributeName) {
+            return null;
+        }
+
+        @Override
+        public List<String> getRelationshipEntriesForTargetAttribute(String entryName, String targetAttributeName) {
+            return null;
+        }
+
+        @Override
+        public boolean hasRelationship(String entryName, String relationshipName) {
+            return false;
+        }
+
+        @Override
+        public List<String> getRelationshipNames(String entryName) {
+            return null;
+        }
+
+        @Override
+        public String getDocumentLabelByTypeName(String documentTypeName) {
+            return null;
+        }
+
+        @Override
+        public String getDocumentLabelByClass(Class documentOrBusinessObjectClass) {
+            return null;
+        }
+
+        @Override
+        public String getDocumentTypeNameByClass(Class documentClass) {
+            return null;
+        }
+
+        @Override
+        public String getValidDocumentTypeNameByClass(Class documentClass) {
+            return null;
+        }
+
+        @Override
+        public Class<? extends Document> getDocumentClassByTypeName(String documentTypeName) {
+            return null;
+        }
+
+        @Override
+        public Class<? extends Document> getValidDocumentClassByTypeName(String documentTypeName) {
+            return null;
+        }
+
+        @Override
+        public List<String> getGroupByAttributesForEffectiveDating(Class businessObjectClass) {
+            return null;
+        }
+
+        @Override
+        public Set<InactivationBlockingMetadata> getAllInactivationBlockingDefinitions(Class inactivationBlockedBusinessObjectClass) {
+            return null;
+        }
+
+        @Override
+        public View getViewById(String viewId) {
+            return null;
+        }
+
+        @Override
+        public Object getDictionaryObject(String id) {
+            return null;
+        }
+
+        @Override
+        public boolean containsDictionaryObject(String id) {
+            return false;
+        }
+
+        @Override
+        public View getViewByTypeIndex(UifConstants.ViewType viewTypeName, Map<String, String> indexKey) {
+            return null;
+        }
     }
 }

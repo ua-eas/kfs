@@ -19,10 +19,10 @@
 package org.kuali.kfs.kns.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
@@ -32,14 +32,14 @@ import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Contains field-related information for DataDictionary entries.  Used by lookups and inquiries.
- *
+ * <p>
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
 @Deprecated
 public class FieldDefinition extends DataDictionaryDefinitionBase implements FieldDefinitionI {
     private static final long serialVersionUID = -3426603523049661524L;
 
-	protected String attributeName;
+    protected String attributeName;
     protected boolean required = false;
     protected boolean forceInquiry = false;
     protected boolean noInquiry = false;
@@ -57,16 +57,16 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
     protected String displayEditMode;
     protected Mask displayMask;
 
-	protected boolean hidden 	= false;
-	protected boolean readOnly 	= false;
+    protected boolean hidden = false;
+    protected boolean readOnly = false;
 
-	protected boolean treatWildcardsAndOperatorsAsLiteral = false;
+    protected boolean treatWildcardsAndOperatorsAsLiteral = false;
 
     protected String alternateDisplayAttributeName;
     protected String additionalDisplayAttributeName;
 
-	protected boolean triggerOnChange;
-	protected boolean total = false;
+    protected boolean triggerOnChange;
+    protected boolean total = false;
 
     public FieldDefinition() {
     }
@@ -102,8 +102,8 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
 
     /**
-                    required = true means that the user must enter something
-                        into the search criterion lookup field
+     * required = true means that the user must enter something
+     * into the search criterion lookup field
      */
     public void setRequired(boolean required) {
         this.required = required;
@@ -120,7 +120,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * forceInquiry = true means that the displayed field value will
-                    always be made inquirable (this attribute is not used within the code).
+     * always be made inquirable (this attribute is not used within the code).
      */
     public void setForceInquiry(boolean forceInquiry) {
         this.forceInquiry = forceInquiry;
@@ -149,10 +149,9 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * @return Returns a boolean value indicating whether or not to provide
-     *          a direct inquiry for the lookup field
+     * a direct inquiry for the lookup field
      */
-    public boolean isNoDirectInquiry()
-    {
+    public boolean isNoDirectInquiry() {
         return noDirectInquiry;
     }
 
@@ -165,7 +164,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * @param noInquiry If true, the displayed field will not have a direct
-	 *     inquiry facility
+     *                  inquiry facility
      */
     public void setNoDirectInquiry(boolean noDirectInquiry) {
         this.noDirectInquiry = noDirectInquiry;
@@ -187,22 +186,22 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
 
     /**
-	 * @return the useShortLabel
-	 */
-	public boolean isUseShortLabel() {
-		return this.useShortLabel;
-	}
+     * @return the useShortLabel
+     */
+    public boolean isUseShortLabel() {
+        return this.useShortLabel;
+    }
 
 
-	/**
-	 * @param useShortLabel the useShortLabel to set
-	 */
-	public void setUseShortLabel(boolean useShortLabel) {
-		this.useShortLabel = useShortLabel;
-	}
+    /**
+     * @param useShortLabel the useShortLabel to set
+     */
+    public void setUseShortLabel(boolean useShortLabel) {
+        this.useShortLabel = useShortLabel;
+    }
 
 
-	/**
+    /**
      * @return Returns the defaultValue.
      */
     public String getDefaultValue() {
@@ -211,30 +210,31 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
 
     /**
-           The defaultValue element will pre-load the specified value
-           into the field.
+     * The defaultValue element will pre-load the specified value
+     * into the field.
      */
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
     /**
-	 * the quickfinderParameterString is a comma separated list of parameter/value pairs, of the format
-	 * "param1=value1,param2=value2", where the parameters correspond to attributes of the target class
-	 * for the quickfinder, and the values to literals that those attributes will default to when the
-	 * quickfinder is used.
-	 * @return the quickfinderParameterString
-	 */
-	public String getQuickfinderParameterString() {
-		return this.quickfinderParameterString;
-	}
+     * the quickfinderParameterString is a comma separated list of parameter/value pairs, of the format
+     * "param1=value1,param2=value2", where the parameters correspond to attributes of the target class
+     * for the quickfinder, and the values to literals that those attributes will default to when the
+     * quickfinder is used.
+     *
+     * @return the quickfinderParameterString
+     */
+    public String getQuickfinderParameterString() {
+        return this.quickfinderParameterString;
+    }
 
-	/**
-	 * @param quickfinderParameterString the quickfinderParameterString to set.  See {@link #getQuickfinderParameterString()}
-	 */
-	public void setQuickfinderParameterString(String quickfinderParameterString) {
-		this.quickfinderParameterString = quickfinderParameterString;
-	}
+    /**
+     * @param quickfinderParameterString the quickfinderParameterString to set.  See {@link #getQuickfinderParameterString()}
+     */
+    public void setQuickfinderParameterString(String quickfinderParameterString) {
+        this.quickfinderParameterString = quickfinderParameterString;
+    }
 
 
     /**
@@ -243,22 +243,24 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
      * is used. The classname specified in this field must implement
      * {@link ValueFinder}.  See {@link #getQuickfinderParameterString()}
      * for the result string format.
-	 * @return the quickfinderParameterStringBuilderClass
-	 */
-	public Class<? extends ValueFinder> getQuickfinderParameterStringBuilderClass() {
-		return this.quickfinderParameterStringBuilderClass;
-	}
+     *
+     * @return the quickfinderParameterStringBuilderClass
+     */
+    public Class<? extends ValueFinder> getQuickfinderParameterStringBuilderClass() {
+        return this.quickfinderParameterStringBuilderClass;
+    }
 
     /**
      * See {@link #getQuickfinderParameterStringBuilderClass()}
-	 * @param quickfinderParameterStringBuilderClass the quickfinderParameterStringBuilderClass to set
+     *
+     * @param quickfinderParameterStringBuilderClass the quickfinderParameterStringBuilderClass to set
      */
-	public void setQuickfinderParameterStringBuilderClass(
-			Class<? extends ValueFinder> quickfinderParameterStringBuilderClass) {
+    public void setQuickfinderParameterStringBuilderClass(
+        Class<? extends ValueFinder> quickfinderParameterStringBuilderClass) {
         if (quickfinderParameterStringBuilderClass == null) {
             throw new IllegalArgumentException("invalid (null) quickfinderParameterStringBuilderClass");
         }
-		this.quickfinderParameterStringBuilderClass = quickfinderParameterStringBuilderClass;
+        this.quickfinderParameterStringBuilderClass = quickfinderParameterStringBuilderClass;
     }
 
     /**
@@ -267,7 +269,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
-    	BusinessObjectMetaDataService boMetadataService = KNSServiceLocator.getBusinessObjectMetaDataService();
+        BusinessObjectMetaDataService boMetadataService = KNSServiceLocator.getBusinessObjectMetaDataService();
 
         if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getAttributeName())) {
             throw new AttributeValidationException("unable to find attribute '" + attributeName + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
@@ -301,14 +303,14 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
 
     /**
-	 * This method does validation on the quickfinderParameterString and quickfinderParameterStringBuilderClass members
-	 *
-	 * @param rootBusinessObjectClass
-	 * @param boMetadataService
-	 */
-	private void validateQuickfinderParameters(Class rootBusinessObjectClass,
-			BusinessObjectMetaDataService boMetadataService) {
-		if (quickfinderParameterStringBuilderClass != null && quickfinderParameterString != null) {
+     * This method does validation on the quickfinderParameterString and quickfinderParameterStringBuilderClass members
+     *
+     * @param rootBusinessObjectClass
+     * @param boMetadataService
+     */
+    private void validateQuickfinderParameters(Class rootBusinessObjectClass,
+                                               BusinessObjectMetaDataService boMetadataService) {
+        if (quickfinderParameterStringBuilderClass != null && quickfinderParameterString != null) {
             throw new AttributeValidationException("Both quickfinderParameterString and quickfinderParameterStringBuilderClass can not be specified on attribute " + getAttributeName() + " in rootBusinessObjectClass " + rootBusinessObjectClass.getName());
         }
 
@@ -316,37 +318,37 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
         String quickfinderParameterStringSource = "quickfinderParameterString";
 
         if (quickfinderParameterStringBuilderClass != null) {
-        	try {
-		        quickfinderParameterStringSource = "quickfinderParameterStringBuilderClass " + quickfinderParameterStringBuilderClass.getCanonicalName();
-				quickfinderParameterString = quickfinderParameterStringBuilderClass.newInstance().getValue();
-			} catch (InstantiationException e) {
-				throw new ClassValidationException("unable to create new instance of "+  quickfinderParameterStringSource +" while validating rootBusinessObjectClass '"+ rootBusinessObjectClass.getName() +"'", e);
-			} catch (IllegalAccessException e) {
-				throw new ClassValidationException("unable to create new instance of "+  quickfinderParameterStringSource +" while validating rootBusinessObjectClass '"+ rootBusinessObjectClass.getName() +"'", e);
-			}
+            try {
+                quickfinderParameterStringSource = "quickfinderParameterStringBuilderClass " + quickfinderParameterStringBuilderClass.getCanonicalName();
+                quickfinderParameterString = quickfinderParameterStringBuilderClass.newInstance().getValue();
+            } catch (InstantiationException e) {
+                throw new ClassValidationException("unable to create new instance of " + quickfinderParameterStringSource + " while validating rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "'", e);
+            } catch (IllegalAccessException e) {
+                throw new ClassValidationException("unable to create new instance of " + quickfinderParameterStringSource + " while validating rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "'", e);
+            }
         }
 
         if (!StringUtils.isEmpty(quickfinderParameterString)) {
-        	// quickfinderParameterString will look something like "campusTypeCode=P,active=Y"
-        	for (String quickfinderParam : quickfinderParameterString.split(",")) { // this is guaranteed to return at least one
-        		if (quickfinderParam.contains("=")) {
-        			String propertyName = quickfinderParam.split("=")[0];
-        			RelationshipDefinition relationship = boMetadataService.getBusinessObjectRelationshipDefinition(rootBusinessObjectClass, attributeName);
-        			Class targetClass = relationship.getTargetClass();
+            // quickfinderParameterString will look something like "campusTypeCode=P,active=Y"
+            for (String quickfinderParam : quickfinderParameterString.split(",")) { // this is guaranteed to return at least one
+                if (quickfinderParam.contains("=")) {
+                    String propertyName = quickfinderParam.split("=")[0];
+                    RelationshipDefinition relationship = boMetadataService.getBusinessObjectRelationshipDefinition(rootBusinessObjectClass, attributeName);
+                    Class targetClass = relationship.getTargetClass();
 
-        			// This is insufficient to ensure the property is valid for a lookup default, but it's better than nothing.
-            		if (!DataDictionary.isPropertyOf(targetClass, propertyName)) {
-            			throw new ClassValidationException("malformed parameter string  '"+ quickfinderParameterString +"' from "+ quickfinderParameterStringSource +
-            					", '"+ propertyName +"' is not a property of "+ targetClass +"' for rootBusinessObjectClass '"+ rootBusinessObjectClass.getName() +"'");
-            		}
+                    // This is insufficient to ensure the property is valid for a lookup default, but it's better than nothing.
+                    if (!DataDictionary.isPropertyOf(targetClass, propertyName)) {
+                        throw new ClassValidationException("malformed parameter string  '" + quickfinderParameterString + "' from " + quickfinderParameterStringSource +
+                            ", '" + propertyName + "' is not a property of " + targetClass + "' for rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "'");
+                    }
 
-        		} else {
-        			throw new ClassValidationException("malformed parameter string '"+ quickfinderParameterString +"' from "+ quickfinderParameterStringSource +
-        					" for rootBusinessObjectClass '"+ rootBusinessObjectClass.getName() +"'");
-        		}
-        	}
+                } else {
+                    throw new ClassValidationException("malformed parameter string '" + quickfinderParameterString + "' from " + quickfinderParameterStringSource +
+                        " for rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "'");
+                }
+            }
         }
-	}
+    }
 
 
     /**
@@ -390,13 +392,12 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * The displayMask element specifies the type of masking to
-                    be used to hide the value from un-authorized users.
-                    There are three types of masking.
+     * be used to hide the value from un-authorized users.
+     * There are three types of masking.
      */
     public void setDisplayMask(Mask displayMask) {
         this.displayMask = displayMask;
     }
-
 
 
     public boolean isReadOnlyAfterAdd() {
@@ -406,6 +407,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * Gets the maxLength attribute.
+     *
      * @return Returns the maxLength.
      */
     public Integer getMaxLength() {
@@ -415,7 +417,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 
     /**
      * maxLength = the maximum allowable length of the field in the lookup result fields.  In other contexts,
-                    like inquiries, this field has no effect.
+     * like inquiries, this field has no effect.
      */
     public void setMaxLength(Integer maxLength) {
         this.maxLength = maxLength;
@@ -429,9 +431,9 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
     }
 
     /**
-                      The defaultValueFinderClass specifies the java class that will be
-                      used to determine the default value of a field.  The classname
-                      specified in this field must implement ValueFinder
+     * The defaultValueFinderClass specifies the java class that will be
+     * used to determine the default value of a field.  The classname
+     * specified in this field must implement ValueFinder
      */
     public void setDefaultValueFinderClass(Class<? extends ValueFinder> defaultValueFinderClass) {
         if (defaultValueFinderClass == null) {
@@ -440,94 +442,93 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
         this.defaultValueFinderClass = defaultValueFinderClass;
     }
 
-	/**
-	 * @return the hidden
-	 */
-	public boolean isHidden() {
-		return this.hidden;
-	}
-
-	/**
-	 * @param hidden
-     *  If the ControlDefinition.isHidden == true then a corresponding LookupDefinition would
-     *  automatically be removed from the search criteria.  In some cases you might want the
-     *  hidden field to be used as a search criteria.  For example, in PersonImpl.xml a client
-     *  might want to have the campus code hidden and preset to Bloomington.  So when the search
-     *  is run, only people from the bloomington campus are returned.
-     *
-     *   So, if you want to have a hidden search criteria, set this variable to true. Defaults to
-     *   false.
+    /**
+     * @return the hidden
      */
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
-	}
+    public boolean isHidden() {
+        return this.hidden;
+    }
 
-	/**
-	 * @return the readOnly
-	 */
-	public boolean isReadOnly() {
-		return this.readOnly;
-	}
+    /**
+     * @param hidden If the ControlDefinition.isHidden == true then a corresponding LookupDefinition would
+     *               automatically be removed from the search criteria.  In some cases you might want the
+     *               hidden field to be used as a search criteria.  For example, in PersonImpl.xml a client
+     *               might want to have the campus code hidden and preset to Bloomington.  So when the search
+     *               is run, only people from the bloomington campus are returned.
+     *               <p>
+     *               So, if you want to have a hidden search criteria, set this variable to true. Defaults to
+     *               false.
+     */
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
 
-	/**
-	 * @param readOnly the readOnly to set
-	 */
-	public void setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
-	}
+    /**
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
 
-	public boolean isTriggerOnChange() {
-		return this.triggerOnChange;
-	}
+    /**
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
 
-	public void setTriggerOnChange(boolean triggerOnChange) {
-		this.triggerOnChange = triggerOnChange;
-	}
+    public boolean isTriggerOnChange() {
+        return this.triggerOnChange;
+    }
 
-	/**
-	 * @return the treatWildcardsAndOperatorsAsLiteralOnLookups
-	 */
-	public boolean isTreatWildcardsAndOperatorsAsLiteral() {
-		return this.treatWildcardsAndOperatorsAsLiteral;
-	}
+    public void setTriggerOnChange(boolean triggerOnChange) {
+        this.triggerOnChange = triggerOnChange;
+    }
 
-
-	/**
-	 * @param treatWildcardsAndOperatorsAsLiteralOnLookups the treatWildcardsAndOperatorsAsLiteralOnLookups to set
-	 */
-	public void setTreatWildcardsAndOperatorsAsLiteral(
-			boolean treatWildcardsAndOperatorsAsLiteralOnLookups) {
-		this.treatWildcardsAndOperatorsAsLiteral = treatWildcardsAndOperatorsAsLiteralOnLookups;
-	}
-
-
-	public String getAlternateDisplayAttributeName() {
-		return this.alternateDisplayAttributeName;
-	}
-
-
-	public void setAlternateDisplayAttributeName(String alternateDisplayAttributeName) {
-		this.alternateDisplayAttributeName = alternateDisplayAttributeName;
-	}
+    /**
+     * @return the treatWildcardsAndOperatorsAsLiteralOnLookups
+     */
+    public boolean isTreatWildcardsAndOperatorsAsLiteral() {
+        return this.treatWildcardsAndOperatorsAsLiteral;
+    }
 
 
-	public String getAdditionalDisplayAttributeName() {
-		return this.additionalDisplayAttributeName;
-	}
+    /**
+     * @param treatWildcardsAndOperatorsAsLiteralOnLookups the treatWildcardsAndOperatorsAsLiteralOnLookups to set
+     */
+    public void setTreatWildcardsAndOperatorsAsLiteral(
+        boolean treatWildcardsAndOperatorsAsLiteralOnLookups) {
+        this.treatWildcardsAndOperatorsAsLiteral = treatWildcardsAndOperatorsAsLiteralOnLookups;
+    }
 
 
-	public void setAdditionalDisplayAttributeName(String additionalDisplayAttributeName) {
-		this.additionalDisplayAttributeName = additionalDisplayAttributeName;
-	}
+    public String getAlternateDisplayAttributeName() {
+        return this.alternateDisplayAttributeName;
+    }
 
 
-	public boolean isTotal() {
-		return this.total;
-	}
+    public void setAlternateDisplayAttributeName(String alternateDisplayAttributeName) {
+        this.alternateDisplayAttributeName = alternateDisplayAttributeName;
+    }
 
 
-	public void setTotal(boolean total) {
-		this.total = total;
-	}
+    public String getAdditionalDisplayAttributeName() {
+        return this.additionalDisplayAttributeName;
+    }
+
+
+    public void setAdditionalDisplayAttributeName(String additionalDisplayAttributeName) {
+        this.additionalDisplayAttributeName = additionalDisplayAttributeName;
+    }
+
+
+    public boolean isTotal() {
+        return this.total;
+    }
+
+
+    public void setTotal(boolean total) {
+        this.total = total;
+    }
 
 }

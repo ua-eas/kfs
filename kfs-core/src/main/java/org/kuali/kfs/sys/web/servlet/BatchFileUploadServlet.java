@@ -18,6 +18,28 @@
  */
 package org.kuali.kfs.sys.web.servlet;
 
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.kim.api.identity.AuthenticationService;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -33,57 +55,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.namespace.QName;
-
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.kim.api.identity.AuthenticationService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.bo.ModuleConfiguration;
-import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-
 public class BatchFileUploadServlet extends HttpServlet {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BatchFileUploadServlet.class);
 
-    protected void checkAuthorization( HttpServletRequest request ) {
+    protected void checkAuthorization(HttpServletRequest request) {
         boolean authorized = false;
         String principalName = ((AuthenticationService) GlobalResourceLoader.getResourceLoader().getService(new QName("kimAuthenticationService"))).getPrincipalName(request);
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Logged In User: " + principalName);
         }
-        if ( StringUtils.isNotBlank(principalName) ) {
+        if (StringUtils.isNotBlank(principalName)) {
             Person person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName);
-            if ( person != null ) {
+            if (person != null) {
                 String principalId = person.getPrincipalId();
-                Map<String,String> permissionDetails = new HashMap<String,String>();
+                Map<String, String> permissionDetails = new HashMap<String, String>();
                 DocumentAuthorizer da = SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer("GLCP");
-                if ( da != null ) {
+                if (da != null) {
                     authorized = da.canInitiate("GLCP", person);
                 }
-                if ( !authorized ) {
+                if (!authorized) {
                     da = SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer("LLCP");
-                    if ( da != null ) {
+                    if (da != null) {
                         authorized = da.canInitiate("LLCP", person);
                     }
                 }
             }
         }
-        if ( !authorized ) {
-            throw new RuntimeException( "You must be able to initiate the GLCP or LLCP documents to use this page.  (Backdoor users are not recognized.)" );
+        if (!authorized) {
+            throw new RuntimeException("You must be able to initiate the GLCP or LLCP documents to use this page.  (Backdoor users are not recognized.)");
         }
     }
 
@@ -123,7 +122,7 @@ public class BatchFileUploadServlet extends HttpServlet {
                 } else {
                     InputStream stream = item.openStream();
                     fileName = item.getName();
-                    LOG.info("Uploading to Directory: " + tempDir );
+                    LOG.info("Uploading to Directory: " + tempDir);
                     // Process the input stream
                     FileOutputStream fos = new FileOutputStream(new File(tempDir, fileName));
                     BufferedOutputStream bos = new BufferedOutputStream(fos, 1024 * 1024);
@@ -138,12 +137,12 @@ public class BatchFileUploadServlet extends HttpServlet {
             }
             LOG.info("Copying to Directory: " + destPath);
 
-            if ( !getBatchDirectories().contains(destPath) ) {
+            if (!getBatchDirectories().contains(destPath)) {
                 new File(tempDir, fileName).delete();
-                throw new RuntimeException( "Illegal Attempt to upload to an unauthorized path: '" + destPath + "'" );
+                throw new RuntimeException("Illegal Attempt to upload to an unauthorized path: '" + destPath + "'");
             }
 
-            BufferedInputStream bis = new BufferedInputStream( new FileInputStream( new File(tempDir, fileName) ) );
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(tempDir, fileName)));
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(destPath, fileName)), 1024 * 1024);
             byte buf[] = new byte[10240];
             int len;
@@ -152,14 +151,12 @@ public class BatchFileUploadServlet extends HttpServlet {
             }
             bos.close();
             bis.close();
-        }
-        catch (FileUploadException ex) {
+        } catch (FileUploadException ex) {
             LOG.error("Problem Uploading file", ex);
         }
         if (fileName != null) {
             request.setAttribute("message", "Successfully uploaded " + fileName + " to " + destPath);
-        }
-        else {
+        } else {
             request.setAttribute("message", "Upload Failed");
         }
         doGet(request, response);
@@ -173,8 +170,8 @@ public class BatchFileUploadServlet extends HttpServlet {
                 List<String> batchFileDirectories = ((FinancialSystemModuleConfiguration) moduleConfiguration).getBatchFileDirectories();
                 for (String batchFileDirectoryName : batchFileDirectories) {
                     String directory = new File(batchFileDirectoryName).getAbsolutePath();
-                    if ( new File( directory, "originEntry" ).isDirectory() ) {
-                        dirs.add( new File( directory, "originEntry" ).getAbsolutePath() );
+                    if (new File(directory, "originEntry").isDirectory()) {
+                        dirs.add(new File(directory, "originEntry").getAbsolutePath());
                     }
                 }
             }

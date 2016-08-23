@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
 import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceImpl extends InactivationBlockingDetectionServiceImpl {
     protected PersistenceService persistenceService;
@@ -46,8 +46,7 @@ public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceI
         Map<String, Object> fieldValues = persistenceService.getPrimaryKeyFieldValues(blockedBo);
         if (Account.class.isAssignableFrom(boClass)) {
             fieldValues.put(KFSPropertyConstants.ACCOUNT_ACTIVE_INDICATOR, KFSConstants.ParameterValues.NO);
-        }
-        else {
+        } else {
             fieldValues.put(KFSPropertyConstants.ACTIVE, KFSConstants.ParameterValues.YES);
         }
         return convertFieldValuesToStrings(fieldValues);
@@ -55,6 +54,7 @@ public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceI
 
     /**
      * Converts the map of PKs - which is a Map of <String, Object> to a Map of <String, String> by turning any objects inside into Strings...
+     *
      * @param fieldValues field values to convert
      * @return the Map of fieldValues converted to a Map of <String, String>
      */

@@ -23,14 +23,14 @@ import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.coreservice.api.parameter.ParameterKey;
 import org.kuali.kfs.coreservice.api.parameter.ParameterQueryResults;
 import org.kuali.kfs.coreservice.api.parameter.ParameterRepositoryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.core.api.criteria.CriteriaLookupService;
 import org.kuali.rice.core.api.criteria.GenericQueryResults;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.exception.RiceIllegalStateException;
 import org.kuali.rice.core.api.util.Truth;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADConstants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -102,7 +102,7 @@ public final class ParameterRepositoryServiceImpl implements ParameterRepository
         map.put("applicationId", key.getApplicationId());
         map.put("namespaceCode", key.getNamespaceCode());
         map.put("componentCode", key.getComponentCode());
-        ParameterBo bo =  businessObjectService.findByPrimaryKey(ParameterBo.class, Collections.unmodifiableMap(map));
+        ParameterBo bo = businessObjectService.findByPrimaryKey(ParameterBo.class, Collections.unmodifiableMap(map));
 
         if (bo == null & !KRADConstants.DEFAULT_PARAMETER_APPLICATION_ID.equals(key.getApplicationId())) {
             map.put("applicationId", KRADConstants.DEFAULT_PARAMETER_APPLICATION_ID);
@@ -113,14 +113,14 @@ public final class ParameterRepositoryServiceImpl implements ParameterRepository
 
     @Override
     public String getParameterValueAsString(ParameterKey key) {
-        final ParameterBo p =  getParameterBo(key);
+        final ParameterBo p = getParameterBo(key);
         return p != null ? p.getValue() : null;
     }
 
     @Override
     public Boolean getParameterValueAsBoolean(ParameterKey key) {
-        final ParameterBo p =  getParameterBo(key);
-        final String value =  p != null ? p.getValue() : null;
+        final ParameterBo p = getParameterBo(key);
+        final String value = p != null ? p.getValue() : null;
         return Truth.strToBooleanIgnoreCase(value);
     }
 
@@ -141,7 +141,7 @@ public final class ParameterRepositoryServiceImpl implements ParameterRepository
 
     @Override
     public Collection<String> getSubParameterValuesAsString(ParameterKey key, String subParameterName) {
-       return splitOn(getSubParameterValueAsString(key, subParameterName), ",");
+        return splitOn(getSubParameterValueAsString(key, subParameterName), ",");
     }
 
     private String getSubParameter(Collection<String> values, String subParameterName) {
@@ -171,7 +171,7 @@ public final class ParameterRepositoryServiceImpl implements ParameterRepository
     }
 
     @Override
-	public ParameterQueryResults findParameters(QueryByCriteria queryByCriteria) {
+    public ParameterQueryResults findParameters(QueryByCriteria queryByCriteria) {
         if (queryByCriteria == null) {
             throw new RiceIllegalArgumentException("queryByCriteria is null");
         }
@@ -189,7 +189,7 @@ public final class ParameterRepositoryServiceImpl implements ParameterRepository
 
         builder.setResults(ims);
         return builder.build();
-	}
+    }
 
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;

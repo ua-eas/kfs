@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -46,13 +45,13 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * This class provides actions for the format process
@@ -107,16 +106,14 @@ public class FormatAction extends KualiAction {
         // no data for format because another format process is already running
         if (formatSelection.getStartDate() != null) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.Format.ERROR_PDP_FORMAT_PROCESS_ALREADY_RUNNING, dateTimeService.toDateTimeString(formatSelection.getStartDate()));
-        }
-        else {
+        } else {
             List<CustomerProfile> customers = formatSelection.getCustomerList();
 
             for (CustomerProfile element : customers) {
 
                 if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
                     element.setSelectedForFormat(Boolean.TRUE);
-                }
-                else {
+                } else {
                     element.setSelectedForFormat(Boolean.FALSE);
                 }
             }
@@ -188,8 +185,7 @@ public class FormatAction extends KualiAction {
         formatForm.setInitiatorEmail(GlobalVariables.getUserSession().getPerson().getEmailAddress());
         try {
             new Thread(new FormatProcess(processId.intValue(), GlobalVariables.getUserSession())).start();
-        }
-        catch (FormatException e) {
+        } catch (FormatException e) {
             // errors added to global message map
             return mapping.findForward(PdpConstants.MAPPING_CONTINUE);
         }
@@ -294,10 +290,12 @@ public class FormatAction extends KualiAction {
     private class FormatProcess implements Runnable {
         int processId;
         UserSession session;
+
         public FormatProcess(int processId, UserSession session) {
             this.processId = processId;
             this.session = session;
         }
+
         @Override
         public void run() {
             GlobalVariables.setUserSession(session);

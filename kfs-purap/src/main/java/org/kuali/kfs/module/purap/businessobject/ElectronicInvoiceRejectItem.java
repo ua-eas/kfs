@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 
 public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
@@ -76,7 +76,6 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
     private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
 
 
-
     public ElectronicInvoiceRejectItem() {
         super();
     }
@@ -88,8 +87,7 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
         this.electronicInvoiceRejectDocument = electronicInvoiceRejectDocument;
         try {
             this.invoiceItemLineNumber = new Integer(Integer.parseInt(eii.getInvoiceLineNumber()));
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             this.invoiceItemLineNumber = null;
         }
         this.invoiceItemCatalogNumber = eii.getCatalogNumber();
@@ -131,16 +129,13 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
             if (((this.invoiceItemQuantity != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemQuantity)) != 0)) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
                 // unit price and quantity are valid... calculate subtotal
                 this.invoiceItemSubTotalAmount = this.invoiceItemQuantity.multiply(this.invoiceItemUnitPrice);
-            }
-            else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
+            } else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
                 // quantity is empty but unit cost exists... use it
                 this.invoiceItemSubTotalAmount = this.invoiceItemUnitPrice;
-            }
-            else {
+            } else {
                 this.invoiceItemSubTotalAmount = null;
             }
-        }
-        else {
+        } else {
             this.invoiceItemSubTotalAmount = eii.getInvoiceLineSubTotalAmountBigDecimal();
         }
     }
@@ -306,8 +301,7 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
             }
             returnValue = returnValue.setScale(4, BigDecimal.ROUND_HALF_UP);
 
-        }
-        else {
+        } else {
             returnValue = null;
         }
 
@@ -416,19 +410,16 @@ public class ElectronicInvoiceRejectItem extends PersistableBusinessObjectBase {
         if (((this.invoiceItemQuantity != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemQuantity)) != 0)) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
             // unit price and quantity are valid... calculate subtotal
             returnValue = this.invoiceItemQuantity.multiply(this.invoiceItemUnitPrice);
-        }
-        else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
+        } else if (((this.invoiceItemQuantity == null) || ("".equals(this.invoiceItemQuantity))) && ((this.invoiceItemUnitPrice != null) && ((BigDecimal.ZERO.compareTo(this.invoiceItemUnitPrice)) != 0))) {
             // quantity is empty but unit cost exists... use it
             returnValue = this.invoiceItemUnitPrice;
-        }
-        else {
+        } else {
             returnValue = null;
         }
 
         if (returnValue != null) {
             invoiceItemSubTotalAmount = returnValue.setScale(4, BigDecimal.ROUND_HALF_UP);
-        }
-        else {
+        } else {
             invoiceItemSubTotalAmount = null;
         }
 

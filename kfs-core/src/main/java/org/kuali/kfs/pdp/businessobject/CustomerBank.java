@@ -22,14 +22,14 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class CustomerBank extends PersistableBusinessObjectBase implements MutableInactivatable {
     private KualiInteger customerId;
@@ -168,7 +168,6 @@ public class CustomerBank extends PersistableBusinessObjectBase implements Mutab
     }
 
     /**
-     *
      * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable#isActive()
      */
     public boolean isActive() {
@@ -176,7 +175,6 @@ public class CustomerBank extends PersistableBusinessObjectBase implements Mutab
     }
 
     /**
-     *
      * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable#setActive(boolean)
      */
     public void setActive(boolean active) {

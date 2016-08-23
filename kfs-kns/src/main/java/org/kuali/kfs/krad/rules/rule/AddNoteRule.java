@@ -23,8 +23,6 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * Defines a rule which gets invoked immediately before a document has a note added to it.
- *
- *
  */
 public interface AddNoteRule extends BusinessRule {
     /**

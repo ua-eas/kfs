@@ -25,18 +25,17 @@ import java.util.List;
 
 /**
  * This is the data access interface for Document objects.
- *
  */
 public interface DocumentDao {
 
-	public <T extends Document> T save(T document);
+    public <T extends Document> T save(T document);
 
-	public <T extends Document> T findByDocumentHeaderId(Class<T> clazz, String id);
+    public <T extends Document> T findByDocumentHeaderId(Class<T> clazz, String id);
 
-	public <T extends Document> List<T> findByDocumentHeaderIds(Class<T> clazz, List<String> idList);
+    public <T extends Document> List<T> findByDocumentHeaderIds(Class<T> clazz, List<String> idList);
 
-	public BusinessObjectDao getBusinessObjectDao();
+    public BusinessObjectDao getBusinessObjectDao();
 
-	public DocumentAdHocService getDocumentAdHocService();
+    public DocumentAdHocService getDocumentAdHocService();
 
 }

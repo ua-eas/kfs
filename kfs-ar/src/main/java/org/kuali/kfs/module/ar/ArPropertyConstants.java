@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 /**
  * Business Object Property Constants for KFS-AR.
  */
-public class ArPropertyConstants{
+public class ArPropertyConstants {
     // CustomerInvoiceDocument
     public static class CustomerInvoiceDocumentFields {
 
@@ -254,6 +254,7 @@ public class ArPropertyConstants{
         public static final String LOCKBOX_NUMBER = "lockboxNumber";
         public static final String FEIN_NUMBER = "feinNumber";
     }
+
     // PaymentApplicationDocument
     public static class PaymentApplicationDocumentFields {
         public static final String AMOUNT_TO_BE_APPLIED = "customerInvoiceDetail[0].amountToBeApplied";
@@ -471,7 +472,9 @@ public class ArPropertyConstants{
         public static final String TOTAL_PAGES = "totalPages";
         public static final String PAGE_NUMBER = "pageNumber";
         public static final String TOTAL = "Total";
-    };
+    }
+
+    ;
 
     public static class ContractsAndGrantsBillingAwardFields {
         public static final String AWARD_ADDENDUM_NUMBER = "awardAddendumNumber";
@@ -518,13 +521,13 @@ public class ArPropertyConstants{
     public static final String CUSTOMER_INVOICE_DOCUMENT = "customerInvoiceDocument";
     public static final String ORGANIZATION_OPTIONS = "organizationOptions";
     public static final String AGING_REPORT_SENT_TIME = "agingReportSentTime";
-    public static final String INVOICE_SEQUENCE_NUMBER ="invoiceSequenceNumber";
-    public static final String SEQUENCE_NUMBER= "sequenceNumber";
+    public static final String INVOICE_SEQUENCE_NUMBER = "invoiceSequenceNumber";
+    public static final String SEQUENCE_NUMBER = "sequenceNumber";
     public static final String BILLING_CHART_CODE = "billingChartCode";
     public static final String PROCESSING_OR_BILLING_CHART_CODE = "processingOrBillingChartCode";
     public static final String COMPLETED = "completed";
     public static final String NOTE = "note";
-    public static final String SUBMITTED_ON ="submittedOn";
+    public static final String SUBMITTED_ON = "submittedOn";
     public static final String SUBMITTED_BY_PRINCIPAL_ID = "submittedByPrincipalId";
 
     public static final String ACCOUNT_DETAILS = "accountDetails";

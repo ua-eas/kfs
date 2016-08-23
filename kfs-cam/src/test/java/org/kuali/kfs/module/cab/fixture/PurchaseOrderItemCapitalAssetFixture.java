@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItemCapitalAsset;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItemCapitalAsset;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PurchaseOrderItemCapitalAssetFixture {
 
@@ -36,7 +36,9 @@ public enum PurchaseOrderItemCapitalAssetFixture {
             obj.setCapitalAssetNumber(1930L);
             obj.setCapitalAssetSystemIdentifier(1100);
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
         @Override
@@ -46,7 +48,9 @@ public enum PurchaseOrderItemCapitalAssetFixture {
             obj.setCapitalAssetNumber(1111L);
             obj.setCapitalAssetSystemIdentifier(1100);
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
         @Override
@@ -56,8 +60,11 @@ public enum PurchaseOrderItemCapitalAssetFixture {
             obj.setCapitalAssetNumber(1929L);
             obj.setCapitalAssetSystemIdentifier(1101);
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PurchaseOrderItemCapitalAsset newRecord();
 
     public static void setUpData() {

@@ -167,6 +167,7 @@ public class GenericAttributes extends AttributeReferenceDummy {
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public String getFinancialSystemDocumentTypeCode() {
@@ -175,6 +176,7 @@ public class GenericAttributes extends AttributeReferenceDummy {
 
     /**
      * Sets the financialSystemDocumentTypeCode attribute value.
+     *
      * @param financialSystemDocumentTypeCode The financialSystemDocumentTypeCode to set.
      */
     public void setFinancialSystemDocumentTypeCode(String financialSystemDocumentTypeCode) {
@@ -183,6 +185,7 @@ public class GenericAttributes extends AttributeReferenceDummy {
 
     /**
      * Gets the referenceDocumentTypeCode attribute.
+     *
      * @return Returns the referenceDocumentTypeCode.
      */
     public String getReferenceTypeCode() {
@@ -191,6 +194,7 @@ public class GenericAttributes extends AttributeReferenceDummy {
 
     /**
      * Sets the referenceDocumentTypeCode attribute value.
+     *
      * @param referenceDocumentTypeCode The referenceDocumentTypeCode to set.
      */
     public void setReferenceTypeCode(String referenceDocumentTypeCode) {

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
 
 /**
  * for those cases when admins claim a payment without an associated document
@@ -57,7 +57,7 @@ public class ElectronicPaymentClaimingDocumentGenerationStrategyImpl implements 
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getClaimingDocumentWorkflowDocumentType()
-     *
+     * <p>
      * return null in the case of no document available
      */
     public String getClaimingDocumentWorkflowDocumentType() {
@@ -80,6 +80,7 @@ public class ElectronicPaymentClaimingDocumentGenerationStrategyImpl implements 
 
     /**
      * Sets the electronicPaymentClaimingService attribute value.
+     *
      * @param electronicPaymentClaimingService The electronicPaymentClaimingService to set.
      */
     public void setElectronicPaymentClaimingService(ElectronicPaymentClaimingService electronicPaymentClaimingService) {

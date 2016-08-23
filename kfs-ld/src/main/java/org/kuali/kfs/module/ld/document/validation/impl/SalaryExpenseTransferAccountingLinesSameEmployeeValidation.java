@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
@@ -31,8 +31,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * Validates that an accounting document's accounting lines have the same Employee ID
@@ -43,6 +43,7 @@ public class SalaryExpenseTransferAccountingLinesSameEmployeeValidation extends 
     /**
      * Validates that the accounting lines in the accounting document have the same employee id
      * <strong>Expects an accounting document as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -52,11 +53,11 @@ public class SalaryExpenseTransferAccountingLinesSameEmployeeValidation extends 
 
         SalaryExpenseTransferDocument salaryExpenseTransferDocument = (SalaryExpenseTransferDocument) documentForValidation;
 
-        String employeeID = salaryExpenseTransferDocument.getEmplid() ;
+        String employeeID = salaryExpenseTransferDocument.getEmplid();
 
         if (StringUtils.isBlank(employeeID)) {
-            GlobalVariables.getMessageMap().putError(LaborConstants.DOCUMENT_EMPLOYEE_ID_ERRORS, LaborKeyConstants.MISSING_EMPLOYEE_ID) ;
-            result = false ;
+            GlobalVariables.getMessageMap().putError(LaborConstants.DOCUMENT_EMPLOYEE_ID_ERRORS, LaborKeyConstants.MISSING_EMPLOYEE_ID);
+            result = false;
         }
 
         // ensure the employee ids in the source accounting lines are same
@@ -65,7 +66,7 @@ public class SalaryExpenseTransferAccountingLinesSameEmployeeValidation extends 
             return false;
         }
 
-        return result ;
+        return result;
     }
 
     protected boolean hasAccountingLinesSameEmployee(AccountingDocument accountingDocument) {
@@ -111,6 +112,7 @@ public class SalaryExpenseTransferAccountingLinesSameEmployeeValidation extends 
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -119,6 +121,7 @@ public class SalaryExpenseTransferAccountingLinesSameEmployeeValidation extends 
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

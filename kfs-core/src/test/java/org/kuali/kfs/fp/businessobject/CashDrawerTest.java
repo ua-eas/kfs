@@ -254,8 +254,7 @@ public class CashDrawerTest extends KualiTestBase {
         try {
             CashDrawer nullDrawer = CashDrawerAmountFixture.NULL_CASH_DRAWER.convertToCashDrawer();
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Hundred Dollar", caught);
@@ -265,8 +264,7 @@ public class CashDrawerTest extends KualiTestBase {
             CashDrawer nullDrawer = CashDrawerAmountFixture.NULL_CASH_DRAWER.convertToCashDrawer();
             nullDrawer.setFinancialDocumentHundredDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Fifty Dollar", caught);
@@ -277,8 +275,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentHundredDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentFiftyDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Twenty Dollar", caught);
@@ -290,8 +287,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentFiftyDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentTwentyDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Ten Dollar", caught);
@@ -304,8 +300,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentTwentyDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentTenDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Five Dollar", caught);
@@ -319,8 +314,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentTenDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentFiveDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer Two Dollar", caught);
@@ -335,8 +329,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentFiveDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentTwoDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Null Drawer One Dollar", caught);
@@ -353,8 +346,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentOneDollarAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentOtherDollarAmount(KualiDecimal.ZERO);
             nullDrawer.removeCurrency(CurrencyDetailTest.CurrencyDetailAmountFixture.ZERO_AMOUNT.convertToCurrencyDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertFalse("Null Drawer now all zeroes", caught);
@@ -378,8 +370,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Hundred Dollar", caught);
@@ -388,8 +379,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Fifty Dollar", caught);
@@ -398,8 +388,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Twenty Dollar", caught);
@@ -408,8 +397,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Ten Dollar", caught);
@@ -418,8 +406,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Five Dollar", caught);
@@ -428,8 +415,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Two Dollar", caught);
@@ -438,8 +424,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("One Dollar", caught);
@@ -448,8 +433,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCurrency(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertFalse("We should be good...", caught);
@@ -466,8 +450,7 @@ public class CashDrawerTest extends KualiTestBase {
         try {
             CashDrawer nullDrawer = CashDrawerAmountFixture.NULL_CASH_DRAWER.convertToCashDrawer();
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer hundred cent amount", caught);
@@ -477,8 +460,7 @@ public class CashDrawerTest extends KualiTestBase {
             CashDrawer nullDrawer = CashDrawerAmountFixture.NULL_CASH_DRAWER.convertToCashDrawer();
             nullDrawer.setFinancialDocumentHundredCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer fifty cent amount", caught);
@@ -489,8 +471,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentHundredCentAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentFiftyCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer twenty five cent amount", caught);
@@ -502,8 +483,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentFiftyCentAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentTwentyFiveCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer ten cent amount", caught);
@@ -516,8 +496,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentTwentyFiveCentAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentTenCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer five cent amount", caught);
@@ -531,8 +510,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentTenCentAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentFiveCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("null drawer one cent amount", caught);
@@ -548,8 +526,7 @@ public class CashDrawerTest extends KualiTestBase {
             nullDrawer.setFinancialDocumentOneCentAmount(KualiDecimal.ZERO);
             nullDrawer.setFinancialDocumentOtherCentAmount(KualiDecimal.ZERO);
             nullDrawer.removeCoin(CoinDetailTest.CoinDetailAmountFixture.ZERO_COIN_AMOUNT.convertToCoinDetail());
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
             iae.printStackTrace();
         }
@@ -574,8 +551,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Hundred Cent", caught);
@@ -584,8 +560,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Fifty Cent", caught);
@@ -594,8 +569,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Twenty Five Cent", caught);
@@ -604,8 +578,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Ten Cent", caught);
@@ -614,8 +587,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("Five Cent", caught);
@@ -624,8 +596,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue("One Cent", caught);
@@ -634,8 +605,7 @@ public class CashDrawerTest extends KualiTestBase {
         caught = false;
         try {
             allFivesDrawerD.removeCoin(excessiveDetail);
-        }
-        catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertFalse("We should be good....", caught);

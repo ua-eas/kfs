@@ -19,17 +19,17 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
 
 
 public class AccountingPeriod extends PersistableBusinessObjectBase implements MutableInactivatable, FiscalYearBasedBusinessObject {
@@ -246,14 +246,12 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
         if (universityFiscalPeriodCode == null) {
             if (other.universityFiscalPeriodCode != null)
                 return false;
-        }
-        else if (!universityFiscalPeriodCode.equals(other.universityFiscalPeriodCode))
+        } else if (!universityFiscalPeriodCode.equals(other.universityFiscalPeriodCode))
             return false;
         if (universityFiscalYear == null) {
             if (other.universityFiscalYear != null)
                 return false;
-        }
-        else if (!universityFiscalYear.equals(other.universityFiscalYear))
+        } else if (!universityFiscalYear.equals(other.universityFiscalYear))
             return false;
         return true;
     }

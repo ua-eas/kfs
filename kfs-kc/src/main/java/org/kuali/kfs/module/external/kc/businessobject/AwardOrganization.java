@@ -42,52 +42,66 @@ public class AwardOrganization implements ContractsAndGrantsOrganization {
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     @Override
     public String getOrganizationCode() {
         return organizationCode;
     }
+
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
     }
+
     @Override
     public String getProposalNumber() {
         return proposalNumber;
     }
+
     public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
+
     @Override
     public boolean isAwardPrimaryOrganizationIndicator() {
         return awardPrimaryOrganizationIndicator;
     }
+
     public void setAwardPrimaryOrganizationIndicator(boolean awardPrimaryOrganizationIndicator) {
         this.awardPrimaryOrganizationIndicator = awardPrimaryOrganizationIndicator;
     }
+
     public boolean isActive() {
         return active;
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }
+
     @Override
     public Chart getChartOfAccounts() {
         return chartOfAccounts;
     }
+
     public void setChartOfAccounts(Chart chartOfAccounts) {
         this.chartOfAccounts = chartOfAccounts;
     }
+
     @Override
     public Organization getOrganization() {
         return organization;
     }
+
     public void setOrganization(Organization organization) {
         this.organization = organization;
     }
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
 }

@@ -16,40 +16,40 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.sys.context.SpringContext" %>
 <%@ page import="org.kuali.kfs.coa.service.AccountService" %>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ page import="org.kuali.kfs.sys.context.SpringContext" %>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>" />
-<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>"/>
+<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="CustomerInvoiceDocument"
-	htmlFormAction="arCustomerInvoice" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="CustomerInvoiceDocument"
+                  htmlFormAction="arCustomerInvoice" renderMultipart="true"
+                  showTabButtons="true">
 
-    <sys:hiddenDocumentFields />
+    <sys:hiddenDocumentFields/>
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-    <ar:customerInvoiceOrganization documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"  readOnly="${readOnly}"/>
-    <ar:customerInvoiceRecurrenceDetails documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
-    <ar:customerInvoiceGeneral documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
-    <ar:customerInvoiceAddresses documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
+    <ar:customerInvoiceOrganization documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}"/>
+    <ar:customerInvoiceRecurrenceDetails documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}"/>
+    <ar:customerInvoiceGeneral documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}"/>
+    <ar:customerInvoiceAddresses documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}"/>
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.SOURCE_ACCOUNTING_LINE_ERROR_PATTERN}"
+    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.SOURCE_ACCOUNTING_LINE_ERROR_PATTERN}"
              helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-		</sys-java:accountingLines>
-	</kul:tab>
+        <sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
+        </sys-java:accountingLines>
+    </kul:tab>
 
-	<gl:generalLedgerPendingEntries />
-	<kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
+    <gl:generalLedgerPendingEntries/>
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <kul:superUserActions/>
 
-	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
-	<sys:documentControls transactionalDocument="true" extraButtons="${extraButtons}"/>
+    <c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
+    <sys:documentControls transactionalDocument="true" extraButtons="${extraButtons}"/>
 </kul:documentPage>

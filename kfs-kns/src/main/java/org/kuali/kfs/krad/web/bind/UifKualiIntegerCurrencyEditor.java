@@ -24,8 +24,6 @@ import org.kuali.rice.core.api.util.type.KualiInteger;
 /**
  * Class used to format
  * <code>org.kuali.rice.core.api.util.type.KualiInteger</code> in the local currency
- *
- *
  */
 public class UifKualiIntegerCurrencyEditor extends UifCurrencyEditor {
 

@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * This is a constraint that limits attribute values to some subset of valid characters or to match a particular regular expression.
- *
+ * <p>
  * For example:
  * - To limit to both upper and lower-case letters, value can be set to "[A-Za-z]*"
  * - To limit to any character except carriage returns and line feeds, value can be set to "[^\n\r]*"
@@ -40,6 +40,7 @@ public class ValidCharactersConstraint extends BaseConstraint {
     /**
      * The Java based regex for valid characters
      * This value should include the ^ and $ symbols if needed
+     *
      * @return the value
      */
     public String getValue() {

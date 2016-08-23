@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ec.businessobject;
 
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
+import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
-import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
 
 /**
  * to handle Effort certification detail line override
  */
 public class EffortCertificationDetailLineOverride {
 
-    public static final List<String> REFRESH_FIELDS = Arrays.asList(new String[]{ KFSPropertyConstants.ACCOUNT});
+    public static final List<String> REFRESH_FIELDS = Arrays.asList(new String[]{KFSPropertyConstants.ACCOUNT});
 
     /**
      * convert override input checkboxes from a Struts Form into an override code.

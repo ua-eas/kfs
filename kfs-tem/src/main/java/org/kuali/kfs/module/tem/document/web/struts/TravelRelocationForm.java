@@ -18,15 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
@@ -37,9 +31,14 @@ import org.kuali.kfs.module.tem.document.web.bean.TravelRelocationMvcWrapperBean
 import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Travel Relocation Form
@@ -130,12 +129,12 @@ public class TravelRelocationForm extends TravelFormBase implements TravelReloca
 
     @Override
     public boolean isDefaultOpenPaymentInfoTab() {
-      String appDocStatus = getDocument().getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus();
-      if(TemConstants.TravelRelocationStatusCodeKeys.AWAIT_RELO_MANAGER.equals(appDocStatus)) {
-          return true;
-      }
+        String appDocStatus = getDocument().getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus();
+        if (TemConstants.TravelRelocationStatusCodeKeys.AWAIT_RELO_MANAGER.equals(appDocStatus)) {
+            return true;
+        }
 
-      return super.isDefaultOpenPaymentInfoTab();
+        return super.isDefaultOpenPaymentInfoTab();
 
     }
 
@@ -275,6 +274,7 @@ public class TravelRelocationForm extends TravelFormBase implements TravelReloca
 
     /**
      * Sets the travel document identifier to populate from
+     *
      * @param travelDocumentIdentifier the travel document identifier to populate from
      */
     public void setTravelDocumentIdentifier(String travelDocumentIdentifier) {

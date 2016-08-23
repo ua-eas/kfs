@@ -19,13 +19,8 @@
 package org.kuali.kfs.krad.inquiry;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.exception.UnknownBusinessClassAttributeException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
@@ -40,6 +35,11 @@ import org.kuali.kfs.krad.uif.widget.Inquiry;
 import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -52,13 +52,11 @@ import java.util.Map;
  * Implementation of the <code>Inquirable</code> interface that uses metadata
  * from the data dictionary and performs a query against the database to retrieve
  * the data object for inquiry
- *
+ * <p>
  * <p>
  * More advanced lookup operations or alternate ways of retrieving metadata can
  * be implemented by extending this base implementation and configuring
  * </p>
- *
- *
  */
 public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InquirableImpl.class);
@@ -78,7 +76,7 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
      * then attempts to find a set with matching key/value pairs from the request, if a set is
      * found then calls the module service (for EBOs) or business object service to retrieve
      * the data object
-     *
+     * <p>
      * <p>
      * Note at this point on business objects are supported by the default implementation
      * </p>
@@ -117,15 +115,15 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
             Boolean forceUppercase = Boolean.FALSE;
             try {
                 forceUppercase = getDataDictionaryService().getAttributeForceUppercase(dataObjectClass,
-                        keyPropertyName);
+                    keyPropertyName);
             } catch (UnknownBusinessClassAttributeException ex) {
                 // swallowing exception because this check for ForceUppercase would
                 // require a DD entry for the attribute, and we will just set force uppercase to false
                 LOG.warn("Data object class "
-                        + dataObjectClass
-                        + " property "
-                        + keyPropertyName
-                        + " should probably have a DD definition.", ex);
+                    + dataObjectClass
+                    + " property "
+                    + keyPropertyName
+                    + " should probably have a DD definition.", ex);
             }
 
             if (forceUppercase.booleanValue() && (keyPropertyValue != null)) {
@@ -134,22 +132,22 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
 
             // check security on key field
             if (getDataObjectAuthorizationService().attributeValueNeedsToBeEncryptedOnFormsAndLinks(dataObjectClass,
-                    keyPropertyName)) {
+                keyPropertyName)) {
                 try {
-                    if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                    if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                         keyPropertyValue = getEncryptionService().decrypt(keyPropertyValue);
                     }
                 } catch (GeneralSecurityException e) {
                     LOG.error("Data object class "
-                            + dataObjectClass
-                            + " property "
-                            + keyPropertyName
-                            + " should have been encrypted, but there was a problem decrypting it.", e);
+                        + dataObjectClass
+                        + " property "
+                        + keyPropertyName
+                        + " should have been encrypted, but there was a problem decrypting it.", e);
                     throw new RuntimeException("Data object class "
-                            + dataObjectClass
-                            + " property "
-                            + keyPropertyName
-                            + " should have been encrypted, but there was a problem decrypting it.", e);
+                        + dataObjectClass
+                        + " property "
+                        + keyPropertyName
+                        + " should have been encrypted, but there was a problem decrypting it.", e);
                 }
             }
 
@@ -160,13 +158,13 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
         Object dataObject = null;
 
         ModuleService moduleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(
-                getDataObjectClass());
+            getDataObjectClass());
         if (moduleService != null && moduleService.isExternalizable(getDataObjectClass())) {
             dataObject = moduleService.getExternalizableBusinessObject(getDataObjectClass().asSubclass(
-                    ExternalizableBusinessObject.class), keyPropertyValues);
+                ExternalizableBusinessObject.class), keyPropertyValues);
         } else if (BusinessObject.class.isAssignableFrom(getDataObjectClass())) {
             dataObject = getBusinessObjectService().findByPrimaryKey(getDataObjectClass().asSubclass(
-                    BusinessObject.class), keyPropertyValues);
+                BusinessObject.class), keyPropertyValues);
         }
 
         return dataObject;
@@ -177,7 +175,7 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
      * all the key names and values are non-blank, first matched set is returned
      *
      * @param potentialKeySets - List of key sets to check for match
-     * @param parameters - map of parameter name/value pairs for matching key set
+     * @param parameters       - map of parameter name/value pairs for matching key set
      * @return List<String> key set that was matched, or null if none were matched
      */
     protected List<String> retrieveKeySetFromMap(List<List<String>> potentialKeySets, Map<String, String> parameters) {
@@ -221,7 +219,7 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
 
     /**
      * @see Inquirable#buildInquirableLink(java.lang.Object,
-     *      java.lang.String, Inquiry)
+     * java.lang.String, Inquiry)
      */
     @Override
     public void buildInquirableLink(Object dataObject, String propertyName, Inquiry inquiry) {
@@ -240,7 +238,7 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
                 Class<?> nestedPropertyObjectClass = ObjectUtils.materializeClassForProxiedObject(nestedPropertyObject);
 
                 if (nestedPropertyPrimitive.equals(getDataObjectMetaDataService().getTitleAttribute(
-                        nestedPropertyObjectClass))) {
+                    nestedPropertyObjectClass))) {
                     inquiryObjectClass = nestedPropertyObjectClass;
                 }
             }
@@ -250,7 +248,7 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
         DataObjectRelationship relationship = null;
         if (inquiryObjectClass == null) {
             relationship = getDataObjectMetaDataService().getDataObjectRelationship(dataObject, objectClass,
-                    propertyName, "", true, false, true);
+                propertyName, "", true, false, true);
             if (relationship != null) {
                 inquiryObjectClass = relationship.getRelatedClass();
             }
@@ -267,10 +265,10 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
             String documentNumber = (String) ObjectUtils.getPropertyValue(dataObject, propertyName);
             if (StringUtils.isNotBlank(documentNumber)) {
                 inquiry.getInquiryLinkField().setHrefText(getConfigurationService().getPropertyValueAsString(
-                        KRADConstants.WORKFLOW_URL_KEY)
-                        + KRADConstants.DOCHANDLER_DO_URL
-                        + documentNumber
-                        + KRADConstants.DOCHANDLER_URL_CHUNK);
+                    KRADConstants.WORKFLOW_URL_KEY)
+                    + KRADConstants.DOCHANDLER_DO_URL
+                    + documentNumber
+                    + KRADConstants.DOCHANDLER_URL_CHUNK);
                 inquiry.getInquiryLinkField().setLinkLabel(documentNumber);
                 inquiry.setRender(true);
             }
@@ -288,14 +286,14 @@ public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable 
         }
 
         if (!inquiryObjectClass.isInterface() && ExternalizableBusinessObject.class.isAssignableFrom(
-                inquiryObjectClass)) {
+            inquiryObjectClass)) {
             inquiryObjectClass = ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
-                    inquiryObjectClass);
+                inquiryObjectClass);
         }
 
         // listPrimaryKeyFieldNames returns an unmodifiable list. So a copy is necessary.
         List<String> keys = new ArrayList<String>(getDataObjectMetaDataService().listPrimaryKeyFieldNames(
-                inquiryObjectClass));
+            inquiryObjectClass));
 
         if (keys == null) {
             keys = Collections.emptyList();

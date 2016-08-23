@@ -18,6 +18,11 @@
  */
 package org.kuali.kfs.module.bc;
 
+import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
+import org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode;
+
+import java.util.EnumSet;
+
 import static org.kuali.kfs.module.bc.BCConstants.Report.BuildMode.BCAF;
 import static org.kuali.kfs.module.bc.BCConstants.Report.BuildMode.MONTH;
 import static org.kuali.kfs.module.bc.BCConstants.Report.BuildMode.PBGL;
@@ -25,11 +30,6 @@ import static org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode.ACCOUN
 import static org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode.OBJECT_CODE;
 import static org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode.REASON;
 import static org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode.SUBFUND;
-
-import java.util.EnumSet;
-
-import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
-import org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode;
 
 /**
  * Contains properties related to a budget construction report.
@@ -94,7 +94,7 @@ public enum BudgetConstructionReportMode {
     public static BudgetConstructionReportMode getBudgetConstructionReportModeByName(String reportModeName) {
         BudgetConstructionReportMode foundReportMode = null;
 
-        for(BudgetConstructionReportMode reportMode : EnumSet.allOf(BudgetConstructionReportMode.class)) {
+        for (BudgetConstructionReportMode reportMode : EnumSet.allOf(BudgetConstructionReportMode.class)) {
             if (reportMode.reportModeName.equals(reportModeName)) {
                 foundReportMode = reportMode;
                 break;

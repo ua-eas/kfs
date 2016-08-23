@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.cg.service.CloseService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * @see CloseService#close()

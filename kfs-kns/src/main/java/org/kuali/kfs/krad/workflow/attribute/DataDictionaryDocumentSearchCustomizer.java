@@ -44,34 +44,34 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
     }
 
     public DataDictionaryDocumentSearchCustomizer(SearchableAttribute searchableAttribute,
-            DocumentSearchCustomizer documentSearchCustomizer) {
+                                                  DocumentSearchCustomizer documentSearchCustomizer) {
         this.searchableAttribute = searchableAttribute;
         this.documentSearchCustomizer = documentSearchCustomizer;
     }
 
     @Override
     public final String generateSearchContent(ExtensionDefinition extensionDefinition,
-            String documentTypeName,
-            WorkflowAttributeDefinition attributeDefinition) {
+                                              String documentTypeName,
+                                              WorkflowAttributeDefinition attributeDefinition) {
         return getSearchableAttribute().generateSearchContent(extensionDefinition, documentTypeName,
-                attributeDefinition);
+            attributeDefinition);
     }
 
     @Override
     public final List<DocumentAttribute> extractDocumentAttributes(ExtensionDefinition extensionDefinition,
-            DocumentWithContent documentWithContent) {
+                                                                   DocumentWithContent documentWithContent) {
         return getSearchableAttribute().extractDocumentAttributes(extensionDefinition, documentWithContent);
     }
 
     @Override
     public final List<RemotableAttributeField> getSearchFields(ExtensionDefinition extensionDefinition,
-            String documentTypeName) {
+                                                               String documentTypeName) {
         return getSearchableAttribute().getSearchFields(extensionDefinition, documentTypeName);
     }
 
     @Override
     public final List<RemotableAttributeError> validateDocumentAttributeCriteria(ExtensionDefinition extensionDefinition,
-            DocumentSearchCriteria documentSearchCriteria) {
+                                                                                 DocumentSearchCriteria documentSearchCriteria) {
         return getSearchableAttribute().validateDocumentAttributeCriteria(extensionDefinition, documentSearchCriteria);
     }
 
@@ -87,13 +87,13 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
 
     @Override
     public final DocumentSearchResultValues customizeResults(DocumentSearchCriteria documentSearchCriteria,
-            List<DocumentSearchResult> defaultResults) {
+                                                             List<DocumentSearchResult> defaultResults) {
         return getDocumentSearchCustomizer().customizeResults(documentSearchCriteria, defaultResults);
     }
 
     @Override
     public DocumentSearchResultSetConfiguration customizeResultSetConfiguration(
-            DocumentSearchCriteria documentSearchCriteria) {
+        DocumentSearchCriteria documentSearchCriteria) {
         return getDocumentSearchCustomizer().customizeResultSetConfiguration(documentSearchCriteria);
     }
 
@@ -117,9 +117,9 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
         return getDocumentSearchCustomizer().isCustomizeResultSetFieldsEnabled(documentTypeName);
     }
 
-	protected SearchableAttribute getSearchableAttribute() {
+    protected SearchableAttribute getSearchableAttribute() {
         return this.searchableAttribute;
-	}
+    }
 
     public void setSearchableAttribute(SearchableAttribute searchableAttribute) {
         this.searchableAttribute = searchableAttribute;

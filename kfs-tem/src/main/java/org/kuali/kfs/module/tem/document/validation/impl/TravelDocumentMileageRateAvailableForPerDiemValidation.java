@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.PerDiemService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Determines if a mileage rate for all days of a trip using the default per diem mileage rate expense type
@@ -34,16 +34,17 @@ public class TravelDocumentMileageRateAvailableForPerDiemValidation extends Gene
 
     /**
      * Uses the PerDiemService to check if default mileage rates are available for each day of the trip
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
-        final TravelDocument document = (TravelDocument)event.getDocument();
+        final TravelDocument document = (TravelDocument) event.getDocument();
 
         if (!getPerDiemService().isMileageRateAvailableForAllPerDiem(document)) {
             final String defaultPerDiemMileageRate = getPerDiemService().getDefaultPerDiemMileageRateExpenseType();
-            GlobalVariables.getMessageMap().putError(TemPropertyConstants.PER_DIEM_EXPENSES, TemKeyConstants.ERROR_DOCUMENT_PER_DIEM_EXPENSE_MISSING_MILEAGE_RATE, new String[] { defaultPerDiemMileageRate });
+            GlobalVariables.getMessageMap().putError(TemPropertyConstants.PER_DIEM_EXPENSES, TemKeyConstants.ERROR_DOCUMENT_PER_DIEM_EXPENSE_MISSING_MILEAGE_RATE, new String[]{defaultPerDiemMileageRate});
             success = false;
         }
         return success;

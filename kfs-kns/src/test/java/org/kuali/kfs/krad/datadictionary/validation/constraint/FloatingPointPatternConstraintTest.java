@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,10 +32,13 @@ import org.kuali.kfs.krad.datadictionary.validation.processor.ValidCharactersCon
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. empty value check. (failure) {@link #testValueEmpty()}
  * 2. value with valid positive number. (success) {@link #testValueValidPositiveNumber()}
  * 3. value with invalid negative number as allowNegative set to false. (failure) {@link #testValueInvalidNegativeNumber()}
@@ -49,135 +46,133 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 5. value with invalid negative number as allowNegative set to true.. (failure) {@link #testValueInvalidNegativeNumber1()}
  * 6. value with invalid positive number. (failure) {@link #testValueInvalidPositiveNumber()}
  * 7. value with valid negative number as allowNegative set to true. (success) {@link #testValueValidNegativeNumber1)}
- *
- *
  */
 public class FloatingPointPatternConstraintTest {
 
-	private final String PATTERN_CONSTRAINT = "validationPatternRegex.floatingPoint";
+    private final String PATTERN_CONSTRAINT = "validationPatternRegex.floatingPoint";
 
-	private AttributeDefinition totalBalanceDefinition;
-	private AttributeDefinition debitBalanceDefinition;
+    private AttributeDefinition totalBalanceDefinition;
+    private AttributeDefinition debitBalanceDefinition;
 
-	private BusinessObjectEntry addressEntry;
-	private DictionaryValidationResult dictionaryValidationResult;
+    private BusinessObjectEntry addressEntry;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private Account iciciAccount = new Account("11111111","ICICI","5000.00","15000","-10000");
-	private Account citibankAccount = new Account("22222222","Citi Bank","15000.70","14999.70","1.");
-	private Account wellsFargoAccount = new Account("33333333","Wells Fargo","",".25","-.25");
-	private Account morganAccount = new Account("44444444","J P Morgan","-1000.00","1000.00","(2000.00)");
+    private Account iciciAccount = new Account("11111111", "ICICI", "5000.00", "15000", "-10000");
+    private Account citibankAccount = new Account("22222222", "Citi Bank", "15000.70", "14999.70", "1.");
+    private Account wellsFargoAccount = new Account("33333333", "Wells Fargo", "", ".25", "-.25");
+    private Account morganAccount = new Account("44444444", "J P Morgan", "-1000.00", "1000.00", "(2000.00)");
 
-	private FloatingPointPatternConstraint totalBalanceFloatingPointPatternConstraint;
-	private FloatingPointPatternConstraint debitBalanceFloatingPointPatternConstraint;
+    private FloatingPointPatternConstraint totalBalanceFloatingPointPatternConstraint;
+    private FloatingPointPatternConstraint debitBalanceFloatingPointPatternConstraint;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
+        String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		addressEntry = new BusinessObjectEntry();
+        addressEntry = new BusinessObjectEntry();
 
-		List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
+        List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
 
-		totalBalanceFloatingPointPatternConstraint = new FloatingPointPatternConstraint();
-		totalBalanceFloatingPointPatternConstraint.setValue(regex);
+        totalBalanceFloatingPointPatternConstraint = new FloatingPointPatternConstraint();
+        totalBalanceFloatingPointPatternConstraint.setValue(regex);
 
-		totalBalanceDefinition = new AttributeDefinition();
-		totalBalanceDefinition.setName("totalBalance");
-		totalBalanceDefinition.setValidCharactersConstraint(totalBalanceFloatingPointPatternConstraint);
-		attributes.add(totalBalanceDefinition);
+        totalBalanceDefinition = new AttributeDefinition();
+        totalBalanceDefinition.setName("totalBalance");
+        totalBalanceDefinition.setValidCharactersConstraint(totalBalanceFloatingPointPatternConstraint);
+        attributes.add(totalBalanceDefinition);
 
-		debitBalanceFloatingPointPatternConstraint = new FloatingPointPatternConstraint();
-		debitBalanceFloatingPointPatternConstraint.setValue("-?"+regex);
-		debitBalanceFloatingPointPatternConstraint.setAllowNegative(true);
+        debitBalanceFloatingPointPatternConstraint = new FloatingPointPatternConstraint();
+        debitBalanceFloatingPointPatternConstraint.setValue("-?" + regex);
+        debitBalanceFloatingPointPatternConstraint.setAllowNegative(true);
 
-		debitBalanceDefinition = new AttributeDefinition();
-		debitBalanceDefinition.setName("debitBalance");
-		debitBalanceDefinition.setValidCharactersConstraint(debitBalanceFloatingPointPatternConstraint);
-		attributes.add(debitBalanceDefinition);
+        debitBalanceDefinition = new AttributeDefinition();
+        debitBalanceDefinition.setName("debitBalance");
+        debitBalanceDefinition.setValidCharactersConstraint(debitBalanceFloatingPointPatternConstraint);
+        attributes.add(debitBalanceDefinition);
 
 
-		addressEntry.setAttributes(attributes);
-	}
+        addressEntry.setAttributes(attributes);
+    }
 
-	@Test
-	public void testValueEmpty() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueEmpty() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidPositiveNumber() {
-		ConstraintValidationResult result = process(citibankAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
-
-    @Ignore
-	@Test
-	public void testValueInvalidNegativeNumber() {
-		ConstraintValidationResult result = process(morganAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
-
-	@Test
-	public void testValueValidNegativeNumber() {
-		ConstraintValidationResult result = process(iciciAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidPositiveNumber() {
+        ConstraintValidationResult result = process(citibankAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueInvalidNegativeNumber1() {
-		ConstraintValidationResult result = process(morganAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidNegativeNumber() {
+        ConstraintValidationResult result = process(morganAccount, "totalBalance", totalBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
+
+    @Test
+    public void testValueValidNegativeNumber() {
+        ConstraintValidationResult result = process(iciciAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueInvalidPositiveNumber() {
-		ConstraintValidationResult result = process(citibankAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidNegativeNumber1() {
+        ConstraintValidationResult result = process(morganAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidNegativeNumber1() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Ignore
+    @Test
+    public void testValueInvalidPositiveNumber() {
+        ConstraintValidationResult result = process(citibankAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
-		attributeValueReader.setAttributeName(attributeName);
+    @Test
+    public void testValueValidNegativeNumber1() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "debitBalance", debitBalanceFloatingPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
+        attributeValueReader.setAttributeName(attributeName);
+
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 }

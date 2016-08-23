@@ -22,7 +22,7 @@ import org.junit.Test
 import org.kuali.kfs.coreservice.test.JAXBAssert
 
 class ParameterKeyTest {
-        private static final String XML = """
+    private static final String XML = """
         <parameterKey xmlns="http://rice.kuali.org/core/v2_0">
             <applicationId>AC</applicationId>
             <namespaceCode>NC</namespaceCode>
@@ -36,67 +36,67 @@ class ParameterKeyTest {
     private static final String COMPONENT_CODE = "CC"
     private static final String NAME = "N"
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_all_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(null, null, null, null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_first_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(null, NAMESPACE_CODE, COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_first_empty() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create("", NAMESPACE_CODE, COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_first_whitespace() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(" ", NAMESPACE_CODE, COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_second_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, null, COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_second_empty() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, "", COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_second_whitespace() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, " ", COMPONENT_CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_third_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, null, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_third_empty() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, "", NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_third_whitespace() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, " ", NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_fourth_null() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, COMPONENT_CODE, null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_fourth_empty() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, COMPONENT_CODE, "");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Key_fail_fourth_whitespace() {
         org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, COMPONENT_CODE, " ");
     }
@@ -107,11 +107,11 @@ class ParameterKeyTest {
     }
 
     @Test
-	public void test_Xml_Marshal_Unmarshal() {
-		JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, org.kuali.kfs.coreservice.api.parameter.ParameterKey.class)
-	}
+    public void test_Xml_Marshal_Unmarshal() {
+        JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, org.kuali.kfs.coreservice.api.parameter.ParameterKey.class)
+    }
 
     private create() {
-		return org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, COMPONENT_CODE, NAME);
-	}
+        return org.kuali.kfs.coreservice.api.parameter.ParameterKey.create(APPLICATION_ID, NAMESPACE_CODE, COMPONENT_CODE, NAME);
+    }
 }

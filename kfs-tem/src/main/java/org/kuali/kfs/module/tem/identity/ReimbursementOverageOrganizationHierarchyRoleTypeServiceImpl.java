@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.identity.OrganizationHierarchyAwareRoleTypeServiceBase;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -30,6 +26,10 @@ import org.kuali.rice.core.api.uif.RemotableAttributeError;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.type.KimTypeAttribute;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Role type service which assigns members by organization.  If attributes reimbursementAmount and authorizationAmount are passed in, members
  * will only match if they are members of the correct organizations and if the difference between the reimbursementAmount and the authorizationAmount
@@ -37,7 +37,6 @@ import org.kuali.rice.kim.api.type.KimTypeAttribute;
  */
 public class ReimbursementOverageOrganizationHierarchyRoleTypeServiceImpl extends OrganizationHierarchyAwareRoleTypeServiceBase {
     /**
-     *
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#performMatch(java.util.Map, java.util.Map)
      */
     @Override
@@ -54,8 +53,9 @@ public class ReimbursementOverageOrganizationHierarchyRoleTypeServiceImpl extend
 
     /**
      * Parses all the passed in values and determines if the difference between the reimbursement amount and the authorization amount should trigger a match
-     * @param reimbursementAmountAsString the unparsed reimbursement amount
-     * @param authorizationAmountAsString the unparsed authorization amount
+     *
+     * @param reimbursementAmountAsString            the unparsed reimbursement amount
+     * @param authorizationAmountAsString            the unparsed authorization amount
      * @param reimbursementOveragePercentageAsString the unparsed reimbursement overage percentage amount
      * @return true if:
      * <ol>
@@ -98,6 +98,7 @@ public class ReimbursementOverageOrganizationHierarchyRoleTypeServiceImpl extend
 
     /**
      * Verifies that the overage percent is greater than 0
+     *
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#validateAttributes(java.lang.String, java.util.Map)
      */
     @Override
@@ -115,6 +116,7 @@ public class ReimbursementOverageOrganizationHierarchyRoleTypeServiceImpl extend
 
     /**
      * Verifies that the reimbursement overage percentage represents a positive number less than 100
+     *
      * @param reimbursementOveragePercentage the reimbursement overage percentage to validate
      * @return the error from a bad reimbursement overage percentage, or null if the reimbursement overage percentage was valid
      */
@@ -143,6 +145,7 @@ public class ReimbursementOverageOrganizationHierarchyRoleTypeServiceImpl extend
 
     /**
      * Overridden to error out a NumberFormatException before the data dictionary stuff would work
+     *
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#validateDataDictionaryAttribute(org.kuali.rice.kim.api.type.KimTypeAttribute, java.lang.String, java.lang.String)
      */
     @Override

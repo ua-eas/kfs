@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.web.bean;
 
+import org.kuali.kfs.module.tem.businessobject.ActualExpense;
+import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import org.kuali.kfs.module.tem.businessobject.ActualExpense;
-import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
 
 
 public interface TravelRelocationMvcWrapperBean extends TravelMvcWrapperBean {

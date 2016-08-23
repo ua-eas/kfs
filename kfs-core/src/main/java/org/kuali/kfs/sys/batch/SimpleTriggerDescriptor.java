@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
+
+import java.util.Date;
 
 public class SimpleTriggerDescriptor extends TriggerDescriptor {
     private Date startTime;
@@ -50,8 +50,7 @@ public class SimpleTriggerDescriptor extends TriggerDescriptor {
         if (!isTestMode()) {
             trigger.setStartTime(new Date(startTime.getTime() + startDelay));
             ((SimpleTrigger) trigger).setRepeatCount(repeatCount);
-        }
-        else {
+        } else {
             trigger.setStartTime(new Date(new Date().getTime() + 525600000L));
         }
     }

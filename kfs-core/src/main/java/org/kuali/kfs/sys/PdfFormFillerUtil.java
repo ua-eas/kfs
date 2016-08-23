@@ -18,18 +18,6 @@
  */
 package org.kuali.kfs.sys;
 
-import java.awt.Color;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Map;
-
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Rectangle;
@@ -39,6 +27,17 @@ import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfGState;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
+import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Map;
 
 /**
  * This class writes the reports onto a pdf file as per a template provided.
@@ -79,7 +78,7 @@ public class PdfFormFillerUtil {
      * @throws IOException, DocumentException
      */
     public static byte[] populateTemplate(File template, Map<String, String> replacementList) throws IOException, DocumentException {
-     // --------------------------------------------------
+        // --------------------------------------------------
         // Validate the parameters
         // --------------------------------------------------
         if (template == null || replacementList == null) {
@@ -142,8 +141,7 @@ public class PdfFormFillerUtil {
                 // Replace the keywords
                 if (fields.getFieldType(fieldName.toString()) == AcroFields.FIELD_TYPE_TEXT) {
                     newText = replaceValuesIteratingThroughFile(text, replacementList);
-                }
-                else {
+                } else {
                     if (ObjectUtils.isNotNull(replacementList.get(fieldName.toString()))) {
                         newText = replacementList.get(fieldName);
                     }
@@ -157,14 +155,11 @@ public class PdfFormFillerUtil {
             // --------------------------------------------------
             pdfStamper.close();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IOException("IO error processing PDF template", e);
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
             throw new IOException("iText error processing PDF template", e);
-        }
-        finally {
+        } finally {
             // --------------------------------------------------
             // Close the files
             // --------------------------------------------------
@@ -209,11 +204,9 @@ public class PdfFormFillerUtil {
                 i++;
             }
             pdfStamper.close();
-        }
-        catch (DocumentException ex) {
+        } catch (DocumentException ex) {
             throw new IOException("iText error creating final watermark on PDF", ex);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new IOException("IO error creating final watermark on PDF", ex);
         }
         return outputStream.toByteArray();
@@ -256,11 +249,9 @@ public class PdfFormFillerUtil {
                 i++;
             }
             pdfStamper.close();
-        }
-        catch (DocumentException ex) {
+        } catch (DocumentException ex) {
             throw new IOException("iText error creating watermark on PDF", ex);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new IOException("IO error creating watermark on PDF", ex);
         }
         return outputStream.toByteArray();
@@ -286,12 +277,10 @@ public class PdfFormFillerUtil {
                 String value = replacementList.get(replacementKey);
                 if (ObjectUtils.isNotNull(value)) {
                     buffOriginal.append(value + " ");
-                }
-                else {
+                } else {
                     buffOriginal.append(" ");
                 }
-            }
-            else {
+            } else {
                 buffOriginal.append(key + " ");
             }
         }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.identity;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.kim.api.role.RoleResponsibilityActionContract;
 import org.kuali.rice.kim.api.role.RoleResponsibilityContract;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class KfsKimRoleResponsibilityAction extends PersistableBusinessObjectBase implements RoleResponsibilityActionContract {
 
@@ -32,9 +32,10 @@ public class KfsKimRoleResponsibilityAction extends PersistableBusinessObjectBas
     protected String roleMemberId;
     protected boolean forceAction;
 
-    public KfsKimRoleResponsibilityAction() {}
+    public KfsKimRoleResponsibilityAction() {
+    }
 
-    public KfsKimRoleResponsibilityAction( RoleResponsibilityActionContract b ) {
+    public KfsKimRoleResponsibilityAction(RoleResponsibilityActionContract b) {
         id = b.getId();
         roleResponsibilityId = b.getRoleResponsibilityId();
         roleMemberId = b.getRoleMemberId();
@@ -46,10 +47,9 @@ public class KfsKimRoleResponsibilityAction extends PersistableBusinessObjectBas
     }
 
 
-
     @Override
     public RoleResponsibilityContract getRoleResponsibility() {
-        throw new UnsupportedOperationException( "getRoleResponsibility needs to be implemented" );
+        throw new UnsupportedOperationException("getRoleResponsibility needs to be implemented");
     }
 
 

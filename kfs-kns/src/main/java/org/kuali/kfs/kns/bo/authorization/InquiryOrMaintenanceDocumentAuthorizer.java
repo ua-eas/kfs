@@ -24,8 +24,7 @@ import java.util.Set;
 
 /**
  * This is a description of what this class does - abyrne don't forget to fill this in.
- *
  */
 public interface InquiryOrMaintenanceDocumentAuthorizer extends BusinessObjectAuthorizer {
-	public Set<String> getSecurePotentiallyHiddenSectionIds();
+    public Set<String> getSecurePotentiallyHiddenSectionIds();
 }

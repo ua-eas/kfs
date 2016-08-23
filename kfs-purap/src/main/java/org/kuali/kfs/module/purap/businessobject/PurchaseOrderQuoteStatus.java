@@ -24,9 +24,8 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * Purchase Order Quote Status Business Object.
- *
  */
-public class PurchaseOrderQuoteStatus extends Status implements MutableInactivatable{
+public class PurchaseOrderQuoteStatus extends Status implements MutableInactivatable {
 
     private boolean active;
 

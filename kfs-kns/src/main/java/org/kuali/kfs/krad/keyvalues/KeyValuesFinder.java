@@ -25,8 +25,6 @@ import java.util.Map;
 
 /**
  * Defines basic methods value finders
- *
- *
  */
 public interface KeyValuesFinder {
 
@@ -41,7 +39,6 @@ public interface KeyValuesFinder {
      * Builds a list of key values representations for valid value selections.
      *
      * @param includeActiveOnly whether to only include active values in the list
-     *
      * @return List of KeyValue objects.
      */
     public List<KeyValue> getKeyValues(boolean includeActiveOnly);

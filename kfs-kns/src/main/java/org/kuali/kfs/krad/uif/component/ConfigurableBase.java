@@ -24,13 +24,11 @@ import java.util.Map;
 /**
  * Implementation of <code>Configurable</code> that contains a Map<String, String> for holding
  * property expressions
- *
+ * <p>
  * <p>
  * Should be extended by other UIF classes (such as <code>Component</code> or <code>LayoutManager</code>) to
  * provide property expression support
  * </p>
- *
- *
  */
 public abstract class ConfigurableBase implements Configurable {
     private Map<String, String> propertyExpressions;

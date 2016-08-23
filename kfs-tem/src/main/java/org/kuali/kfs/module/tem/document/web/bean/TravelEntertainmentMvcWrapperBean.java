@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.web.bean;
 
-import java.util.List;
-
-import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
+import org.kuali.kfs.module.tem.businessobject.Attendee;
+
+import java.util.List;
 
 /**
  * This class...

@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.purap.util;
 
 /**
- *
  * Expired or Closed Account
  */
 public class ExpiredOrClosedAccount {
@@ -32,18 +31,17 @@ public class ExpiredOrClosedAccount {
     private boolean continuationAccountMissing;
 
     /**
-     *
      * Default constructor
      */
     public ExpiredOrClosedAccount() {
     }
 
     /**
-     *
      * Constructs an Expired Or Closed Account consisting of the following attributes.
+     *
      * @param chartOfAccountsCode chart
-     * @param accountNumber account
-     * @param subAccountNumber subAccount
+     * @param accountNumber       account
+     * @param subAccountNumber    subAccount
      */
     public ExpiredOrClosedAccount(String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         setChartOfAccountsCode(chartOfAccountsCode);

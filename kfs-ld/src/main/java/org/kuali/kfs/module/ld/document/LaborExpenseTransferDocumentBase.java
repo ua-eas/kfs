@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.sys.KFSConstants;
@@ -33,7 +30,10 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.document.Copyable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Labor Base class for Expense Transfer Documents
@@ -55,7 +55,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
      * Determine whether target accouting lines have the same amounts as source accounting lines for each object code
      *
      * @return true if target accouting lines have the same amounts as source accounting lines for each object code; otherwise,
-     *         false
+     * false
      */
     public Map<String, KualiDecimal> getUnbalancedObjectCodes() {
         Map<String, KualiDecimal> amountsFromSourceLine = summerizeByObjectCode(getSourceAccountingLines());
@@ -67,8 +67,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
             if (!amountsFromTargetLine.containsKey(objectCode)) {
                 unbalancedAmounts.put(objectCode, sourceAmount.negated());
-            }
-            else {
+            } else {
                 KualiDecimal targetAmount = amountsFromTargetLine.get(objectCode);
                 KualiDecimal amountDifference = targetAmount.subtract(sourceAmount);
                 if (amountDifference.isNonZero()) {
@@ -123,8 +122,8 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
     /**
      * Sets the emplid
      *
-     * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#setEmplid(String)
      * @param emplid
+     * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#setEmplid(String)
      */
     public void setEmplid(String emplid) {
         this.emplid = emplid;
@@ -132,10 +131,11 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Gets the user attribute.
+     *
      * @return Returns the user.
      */
     public Person getUser() {
-        if(user == null || !StringUtils.equals(user.getEmployeeId(), emplid)) {
+        if (user == null || !StringUtils.equals(user.getEmployeeId(), emplid)) {
             this.user = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
 
@@ -144,6 +144,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Sets the user attribute value.
+     *
      * @param user The user to set.
      */
     public void setUser(Person user) {

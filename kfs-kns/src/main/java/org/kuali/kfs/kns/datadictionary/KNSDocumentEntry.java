@@ -89,7 +89,7 @@ public interface KNSDocumentEntry extends DataDictionaryEntry, Serializable, Ini
     public boolean isEncryptDocumentDataInPersistentSessionStorage();
 
     public void setEncryptDocumentDataInPersistentSessionStorage(
-                boolean encryptDocumentDataInPersistentSessionStorage);
+        boolean encryptDocumentDataInPersistentSessionStorage);
 
     List<HeaderNavigation> getHeaderNavigationList();
 

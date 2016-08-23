@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.krad.util.KRADConstants;
+import java.io.IOException;
 
 /**
  * Base class for all renderers which render fields
@@ -44,8 +43,9 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Sets the field to render
-     * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#setField(org.kuali.rice.kns.web.ui.Field)
      *
+     * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#setField(org.kuali.rice.kns.web.ui.Field)
+     * <p>
      * KRAD Conversion - Setting the field - No Use of data dictionary
      */
     public void setField(Field field) {
@@ -54,8 +54,9 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Returns the field to render
-     * @return the field to render
      *
+     * @return the field to render
+     * <p>
      * KRAD Conversion - Getting the field - No Use of data dictionary
      */
     public Field getField() {
@@ -74,6 +75,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Clears the field
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -84,6 +86,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Returns an accessible title for the field being rendered
+     *
      * @return an accessible title for the field to render
      */
     protected String getAccessibleTitle() {
@@ -92,6 +95,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Sets the accessible title of the current field
+     *
      * @param accessibleTitle the given the accessible title
      */
     public void setAccessibleTitle(String accessibleTitle) {
@@ -100,8 +104,9 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Renders a quick finder for the field if one is warranted
-     * @param pageContext the page context to render to
-     * @param parentTag the parent tag requesting all of this rendering
+     *
+     * @param pageContext            the page context to render to
+     * @param parentTag              the parent tag requesting all of this rendering
      * @param businessObjectToRender the business object that will be rendered
      * @throws JspException thrown if something's off
      */
@@ -118,6 +123,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Writes the onblur call for the wrapped field
+     *
      * @return a value for onblur=
      */
     protected String buildOnBlur() {
@@ -140,6 +146,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Overrides the onBlur setting for this renderer
+     *
      * @param onBlur the onBlur value to set and return from buildOnBlur
      */
     public void overrideOnBlur(String onBlur) {
@@ -180,8 +187,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
     public void closeNoWrapSpan(PageContext pageContext, Tag parentTag) throws JspException {
         try {
             pageContext.getOut().write("</span>");
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Could not render closing of no-wrap span", ioe);
         }
     }
@@ -192,14 +198,14 @@ public abstract class FieldRendererBase implements FieldRenderer {
     public void openNoWrapSpan(PageContext pageContext, Tag parentTag) throws JspException {
         try {
             pageContext.getOut().write("<span class=\"nowrap\">");
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Could not render opening of no-wrap span", ioe);
         }
     }
 
     /**
      * Gets the showError attribute.
+     *
      * @return Returns the showError.
      */
     public boolean isShowError() {
@@ -208,6 +214,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Sets the showError attribute value.
+     *
      * @param showError The showError to set.
      */
     public void setShowError(boolean showError) {
@@ -216,14 +223,14 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     /**
      * Renders the error icon
+     *
      * @param pageContext the page context to render to
      * @throws IOException thrown if the pageContext cannot be written to
      */
     protected void renderErrorIcon(PageContext pageContext) throws JspException {
         try {
             pageContext.getOut().write(getErrorIconImageTag());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Could not render error icon", ioe);
         }
     }
@@ -232,14 +239,14 @@ public abstract class FieldRendererBase implements FieldRenderer {
      * @return the tag for the error icon
      */
     protected String getErrorIconImageTag() {
-        return "<img src=\""+getErrorIconImageSrc()+"\" alt=\"error\" />";
+        return "<img src=\"" + getErrorIconImageSrc() + "\" alt=\"error\" />";
     }
 
     /**
      * @return the source of the error icon
      */
     private String getErrorIconImageSrc() {
-        return getRiceImageBase()+"errormark.gif";
+        return getRiceImageBase() + "errormark.gif";
     }
 
     /**
@@ -254,20 +261,20 @@ public abstract class FieldRendererBase implements FieldRenderer {
 
     @Override
     public void renderExplodableLink(PageContext context) throws JspException {
-        String textAreaLabel="Description";
-        String docFormKey="88888888";
-        String readonly="false";
-        String maxLength=Integer.toString(field.getMaxLength());
-        String actionName=((String)context.getRequest().getAttribute("org.apache.struts.globals.ORIGINAL_URI_KEY"));
+        String textAreaLabel = "Description";
+        String docFormKey = "88888888";
+        String readonly = "false";
+        String maxLength = Integer.toString(field.getMaxLength());
+        String actionName = ((String) context.getRequest().getAttribute("org.apache.struts.globals.ORIGINAL_URI_KEY"));
         /* Here we get the action url without decoration turning
          *  /arCustomerInvoice.do    into    arCustomerInvoice
          */
-        actionName=actionName.substring(1,actionName.length() - 3);
-        String title="Description";
+        actionName = actionName.substring(1, actionName.length() - 3);
+        String title = "Description";
         String imageUrl = String.format("%s%s", getRiceImageBase(), "pencil_add.png");
         try {
             context.getOut().write(String.format("<input type=\"image\" name=\"methodToCall.updateTextArea.((`%s`))\" src=\"%s\" " +
-                "onclick=\"javascript: textAreaPop('%s', '%s', '%s', '%s', '%s', '%s'); return false\" class=\"tinybutton\" title=\"%s\" alt=\"Expand Text Area\">",
+                    "onclick=\"javascript: textAreaPop('%s', '%s', '%s', '%s', '%s', '%s'); return false\" class=\"tinybutton\" title=\"%s\" alt=\"Expand Text Area\">",
                 getFieldName(), imageUrl, getFieldName(), actionName, textAreaLabel, docFormKey, readonly, maxLength, title));
         } catch (IOException ex) {
             throw new JspException("Could not render Explodable Link", ex);

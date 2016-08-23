@@ -27,14 +27,14 @@ import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.view.View;
 import org.mockito.Mockito;
 
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
+import static org.mockito.Mockito.when;
 
 /**
  * tests InputField object and methods
- *
-**/
+ **/
 public class InputFieldTest {
 
     View view = null;

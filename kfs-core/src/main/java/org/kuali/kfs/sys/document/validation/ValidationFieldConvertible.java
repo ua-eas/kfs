@@ -26,12 +26,14 @@ package org.kuali.kfs.sys.document.validation;
 public interface ValidationFieldConvertible {
     /**
      * Gets the sourceEventProperty attribute, the property of the event to transfer to the validation
+     *
      * @return Returns the sourceEventProperty.
      */
     public abstract String getSourceEventProperty();
 
     /**
      * Gets the targetValidationProperty attribute, the property on the validation to transfer information from the event to
+     *
      * @return Returns the targetValidationProperty.
      */
     public abstract String getTargetValidationProperty();

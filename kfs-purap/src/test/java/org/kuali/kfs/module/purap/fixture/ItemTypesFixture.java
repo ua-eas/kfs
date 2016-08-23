@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.purap.PurapConstants.ItemTypeCodes;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum ItemTypesFixture {
 
-    WITH_TRADEIN_WITH_DISCOUNT(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE, ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE), WITH_TRADEIN_WITH_MISC(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE, ItemTypeCodes.ITEM_TYPE_MISC_CODE), WITH_MISC_WITH_DISCOUNT(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_MISC_CODE, ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE), ;
+    WITH_TRADEIN_WITH_DISCOUNT(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE, ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE), WITH_TRADEIN_WITH_MISC(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE, ItemTypeCodes.ITEM_TYPE_MISC_CODE), WITH_MISC_WITH_DISCOUNT(ItemTypeCodes.ITEM_TYPE_ITEM_CODE, ItemTypeCodes.ITEM_TYPE_MISC_CODE, ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE),;
 
     private String item1TypeCode;
     private String item2TypeCode;

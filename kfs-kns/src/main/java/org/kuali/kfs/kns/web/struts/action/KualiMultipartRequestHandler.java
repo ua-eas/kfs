@@ -27,9 +27,6 @@ import java.util.List;
 /**
  * Subclass of the MultipartRequestHandler used by Struts.  This one allows the maximum upload size to be set
  * by the application rather than by an init parameter.
- *
- *
- *
  */
 public class KualiMultipartRequestHandler extends CommonsMultipartRequestHandler {
     private static final Logger LOG = Logger.getLogger(KualiMultipartRequestHandler.class);
@@ -41,19 +38,18 @@ public class KualiMultipartRequestHandler extends CommonsMultipartRequestHandler
      * value is obtained from the current module's controller configuration.
      *
      * @param mc The current module's configuration.
-     *
      * @return The maximum allowable file size, in bytes.
      */
     public long getSizeMax(ModuleConfig mc) {
-        return convertSizeToBytes( sizeMax, super.getSizeMax(mc) );
+        return convertSizeToBytes(sizeMax, super.getSizeMax(mc));
     }
 
     public String getSizeMaxString() {
         return sizeMax;
     }
 
-    public void setSizeMax( String sizeString ) {
-    	this.sizeMax = sizeString;
+    public void setSizeMax(String sizeString) {
+        this.sizeMax = sizeString;
     }
 
 //    public long convertSizeToBytes(String sizeString, long defaultSize) {
@@ -63,32 +59,32 @@ public class KualiMultipartRequestHandler extends CommonsMultipartRequestHandler
     /**
      * Sets the max size string to the item in the list that represents the largest size.
      */
-    public void setMaxUploadSizeToMaxOfList( List<String> sizes ) {
-	long maxSize = 0L;
-	for ( String size : sizes ) {
-	    long currSize = convertSizeToBytes(size, 0L);
-	    if ( currSize == 0L ) {
-		LOG.warn( "Unable to parse max size (" + size + ").  Ignoring." );
-	    }
-	    if ( currSize > maxSize ) {
-		maxSize = currSize;
-		sizeMax = size;
-	    }
-	}
+    public void setMaxUploadSizeToMaxOfList(List<String> sizes) {
+        long maxSize = 0L;
+        for (String size : sizes) {
+            long currSize = convertSizeToBytes(size, 0L);
+            if (currSize == 0L) {
+                LOG.warn("Unable to parse max size (" + size + ").  Ignoring.");
+            }
+            if (currSize > maxSize) {
+                maxSize = currSize;
+                sizeMax = size;
+            }
+        }
     }
 
-    public long calculateMaxUploadSizeToMaxOfList( List<String> sizes ) {
-    	long maxSize = 0L;
-    	for ( String size : sizes ) {
-    	    long currSize = convertSizeToBytes(size, 0L);
-    	    if ( currSize == 0L ) {
-    		LOG.warn( "Unable to parse max size (" + size + ").  Ignoring." );
-    	    }
-    	    if ( currSize > maxSize ) {
-    		maxSize = currSize;
-    	    }
-    	}
-    	return maxSize;
+    public long calculateMaxUploadSizeToMaxOfList(List<String> sizes) {
+        long maxSize = 0L;
+        for (String size : sizes) {
+            long currSize = convertSizeToBytes(size, 0L);
+            if (currSize == 0L) {
+                LOG.warn("Unable to parse max size (" + size + ").  Ignoring.");
+            }
+            if (currSize > maxSize) {
+                maxSize = currSize;
+            }
+        }
+        return maxSize;
     }
 
 }

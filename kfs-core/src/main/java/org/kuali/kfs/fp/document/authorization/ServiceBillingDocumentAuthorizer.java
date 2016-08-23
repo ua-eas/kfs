@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -29,9 +28,10 @@ import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The customized document authorizer for the Service Billing document
@@ -41,6 +41,7 @@ public class ServiceBillingDocumentAuthorizer extends AccountingDocumentAuthoriz
 
     /**
      * Overridden to only allow error correction and copy actions if the current user has Modify Accounting Document permission on every accounting line on the document
+     *
      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase#getDocumentActions(org.kuali.rice.krad.document.Document, org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override
@@ -64,22 +65,24 @@ public class ServiceBillingDocumentAuthorizer extends AccountingDocumentAuthoriz
 
     /**
      * Determines if the given user has permission to modify all accounting lines on the document
+     *
      * @param document the document with source accounting lines to check
-     * @param user the user to check
+     * @param user     the user to check
      * @return true if the user can modify all the accounting lines, false otherwise
      */
     protected boolean canModifyAllSourceAccountingLines(Document document, Person user) {
-        for (Object accountingLineAsObject : ((AccountingDocument)document).getSourceAccountingLines()) {
-            if (!canModifyAccountingLine(document, ((AccountingLine)accountingLineAsObject), user)) return false;
+        for (Object accountingLineAsObject : ((AccountingDocument) document).getSourceAccountingLines()) {
+            if (!canModifyAccountingLine(document, ((AccountingLine) accountingLineAsObject), user)) return false;
         }
         return true;
     }
 
     /**
      * Determines if the given user can modify the given accounting line, which is a source line on the given document
-     * @param document a document with source accounting lines
+     *
+     * @param document       a document with source accounting lines
      * @param accountingLine the accounting line to check the modifyability of
-     * @param user the user being checked
+     * @param user           the user being checked
      * @return true if the user can modify the given accounting line, false otherwise
      */
     public boolean canModifyAccountingLine(Document document, AccountingLine accountingLine, Person user) {
@@ -88,6 +91,7 @@ public class ServiceBillingDocumentAuthorizer extends AccountingDocumentAuthoriz
 
     /**
      * Builds the permission details map for permission check
+     *
      * @param document the document, which is used to find the real document type name
      * @return a Map of permissionDetail values
      */
@@ -101,6 +105,7 @@ public class ServiceBillingDocumentAuthorizer extends AccountingDocumentAuthoriz
 
     /**
      * Looks up in the data dictionary the document type name
+     *
      * @param document the document to find a document type name for
      * @return the document type name
      */
@@ -113,6 +118,7 @@ public class ServiceBillingDocumentAuthorizer extends AccountingDocumentAuthoriz
 
     /**
      * Builds a map of role qualifiers, each containing the chart and account of the given accounting line
+     *
      * @param accountingLine the accounting line to build role qualifiers for
      * @return the Map of role qualifiers
      */

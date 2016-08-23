@@ -22,16 +22,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBase {
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(OrganizationAccountingDefaultRule.class);
@@ -70,7 +70,6 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
 
         return success;
     }
-
 
 
     /**
@@ -130,7 +129,6 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
     }
 
     /**
-     *
      * This method checks to see if the Org specified in this document has an Org Options record for it
      *
      * @return false if it does not have an OrgOptions record
@@ -140,7 +138,6 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
     }
 
     /**
-     *
      * This method checks that the Writeoff Object Code is of type Expense
      * <ul>
      * <li>EX</li>
@@ -169,7 +166,6 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
     }
 
     /**
-     *
      * This method checks that the Late Charge Object Code is of type Income Using the ParameterService to find this valid value?
      * <ul>
      * <li>IN</li>
@@ -196,7 +192,6 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
     }
 
     /**
-     *
      * This method checks to see if the invoice object code is of type Income
      * <ul>
      * <li>IN</li>
@@ -210,9 +205,9 @@ public class OrganizationAccountingDefaultRule extends MaintenanceDocumentRuleBa
         boolean success = true;
 
         if (StringUtils.isNotEmpty(organizationAccountingDefault.getDefaultInvoiceFinancialObjectCode()) &&
-                StringUtils.isEmpty(organizationAccountingDefault.getDefaultInvoiceChartOfAccountsCode())) {
+            StringUtils.isEmpty(organizationAccountingDefault.getDefaultInvoiceChartOfAccountsCode())) {
 
-            putFieldError(ArPropertyConstants.OrganizationAccountingDefaultFields.INVOICE_CHART_OF_ACCOUNTS_CODE, ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_CHART_OF_ACCOUNTS_REQUIRED_IF_DEFAULT_OBJECT_CODE_EXISTS );
+            putFieldError(ArPropertyConstants.OrganizationAccountingDefaultFields.INVOICE_CHART_OF_ACCOUNTS_CODE, ArKeyConstants.OrganizationAccountingDefaultErrors.DEFAULT_CHART_OF_ACCOUNTS_REQUIRED_IF_DEFAULT_OBJECT_CODE_EXISTS);
             success = false;
 
         } else {

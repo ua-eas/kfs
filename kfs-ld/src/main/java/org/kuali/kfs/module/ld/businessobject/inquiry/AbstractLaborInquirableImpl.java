@@ -22,7 +22,6 @@ import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractLaborIntegrat
 import org.kuali.kfs.module.ld.LaborConstants;
 
 
-
 /**
  * This class is the template class for the customized inqurable implementations used to generate balance inquiry screens.
  */

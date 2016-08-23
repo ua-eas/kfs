@@ -22,8 +22,6 @@ import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
 
 /**
  * This class converts the "A" or "I" value from the database into a true or false in Java.
- *
- *
  */
 public class OjbCharBooleanFieldAIConversion implements FieldConversion {
     private static final String TRUE = "A";
@@ -36,16 +34,13 @@ public class OjbCharBooleanFieldAIConversion implements FieldConversion {
         if (source instanceof Boolean) {
             if (source.equals(Boolean.TRUE)) {
                 return TRUE;
-            }
-            else {
+            } else {
                 return FALSE;
             }
-        }
-        else if (source instanceof String) {
-            if ("Y".equalsIgnoreCase((String)source)) {
+        } else if (source instanceof String) {
+            if ("Y".equalsIgnoreCase((String) source)) {
                 return TRUE;
-            }
-            else if ("N".equalsIgnoreCase((String)source)) {
+            } else if ("N".equalsIgnoreCase((String) source)) {
                 return FALSE;
             }
         }
@@ -59,12 +54,10 @@ public class OjbCharBooleanFieldAIConversion implements FieldConversion {
         if (source instanceof String) {
             if (TRUE.equals(source)) {
                 return Boolean.TRUE;
-            }
-            else {
+            } else {
                 return Boolean.FALSE;
             }
-        }
-        else {
+        } else {
             return source;
         }
     }

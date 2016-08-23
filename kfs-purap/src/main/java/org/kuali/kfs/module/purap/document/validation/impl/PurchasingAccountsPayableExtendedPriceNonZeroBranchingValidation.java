@@ -22,7 +22,7 @@ import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
-public class PurchasingAccountsPayableExtendedPriceNonZeroBranchingValidation extends BranchingValidation{
+public class PurchasingAccountsPayableExtendedPriceNonZeroBranchingValidation extends BranchingValidation {
 
     private static final String IS_EXTENDED_PRICE_NON_ZERO = "isExtendedPriceNonZero";
     private PurApItem itemForValidation;

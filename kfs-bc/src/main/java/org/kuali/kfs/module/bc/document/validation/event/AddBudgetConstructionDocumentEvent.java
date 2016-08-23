@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
-import org.kuali.kfs.module.bc.document.validation.AddBudgetConstructionDocumentRule;
-import org.kuali.kfs.module.bc.document.validation.AddPendingBudgetGeneralLedgerLineRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
+import org.kuali.kfs.module.bc.document.validation.AddBudgetConstructionDocumentRule;
+import org.kuali.kfs.module.bc.document.validation.AddPendingBudgetGeneralLedgerLineRule;
 
 /**
  * Defines the add (create) Budget Construction document event for the BC Selection screen.
@@ -33,10 +33,11 @@ public class AddBudgetConstructionDocumentEvent extends KualiDocumentEventBase {
 
     /**
      * Constructs a AddBudgetConstructionDocumentEvent.java.
+     *
      * @param errorPathPrefix
      * @param document
      */
-    public AddBudgetConstructionDocumentEvent(String errorPathPrefix, Document document){
+    public AddBudgetConstructionDocumentEvent(String errorPathPrefix, Document document) {
         super("", errorPathPrefix, document);
         this.budgetConstructionDocument = (BudgetConstructionDocument) document;
 
@@ -58,6 +59,7 @@ public class AddBudgetConstructionDocumentEvent extends KualiDocumentEventBase {
 
     /**
      * Gets the budgetConstructionDocument attribute.
+     *
      * @return Returns the budgetConstructionDocument.
      */
     public BudgetConstructionDocument getBudgetConstructionDocument() {
@@ -66,6 +68,7 @@ public class AddBudgetConstructionDocumentEvent extends KualiDocumentEventBase {
 
     /**
      * Sets the budgetConstructionDocument attribute value.
+     *
      * @param budgetConstructionDocument The budgetConstructionDocument to set.
      */
     public void setBudgetConstructionDocument(BudgetConstructionDocument budgetConstructionDocument) {

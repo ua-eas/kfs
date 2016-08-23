@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.module.cam.batch.service.ReportService;
 import org.kuali.kfs.module.cam.report.DepreciationReport;
 
+import java.util.List;
+
 public class ReportServiceImpl implements ReportService {
     /**
-     *
      * @see org.kuali.kfs.module.cam.batch.service.ReportService#generateDepreciationReport(java.util.List, java.lang.String)
      */
     public void generateDepreciationReport(List<String[]> reportLog, String errorMsg, String sDepreciationDate) {

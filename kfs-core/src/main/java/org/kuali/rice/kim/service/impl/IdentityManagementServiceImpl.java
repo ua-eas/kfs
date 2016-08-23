@@ -18,9 +18,6 @@
  */
 package org.kuali.rice.kim.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
@@ -30,66 +27,69 @@ import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Deprecated
 public class IdentityManagementServiceImpl implements IdentityManagementService {
-	private static final Logger LOG = Logger.getLogger( IdentityManagementServiceImpl.class );
+    private static final Logger LOG = Logger.getLogger(IdentityManagementServiceImpl.class);
 
-	protected PermissionService permissionService;
-	protected IdentityService identityService;
+    protected PermissionService permissionService;
+    protected IdentityService identityService;
 
     // AUTHORIZATION SERVICE
     @Override
     public boolean hasPermission(String principalId, String namespaceCode, String permissionName) {
-    	return getPermissionService().hasPermission(principalId, namespaceCode, permissionName );
+        return getPermissionService().hasPermission(principalId, namespaceCode, permissionName);
     }
 
     @Override
-    public boolean isAuthorized(String principalId, String namespaceCode, String permissionName, Map<String, String> qualification ) {
-    	if ( qualification == null || qualification.isEmpty() ) {
-    		return hasPermission( principalId, namespaceCode, permissionName );
-    	}
+    public boolean isAuthorized(String principalId, String namespaceCode, String permissionName, Map<String, String> qualification) {
+        if (qualification == null || qualification.isEmpty()) {
+            return hasPermission(principalId, namespaceCode, permissionName);
+        }
         return getPermissionService().isAuthorized(principalId, namespaceCode, permissionName, qualification);
     }
 
     @Override
     public boolean hasPermissionByTemplateName(String principalId, String namespaceCode, String permissionTemplateName, Map<String, String> permissionDetails) {
-		return getPermissionService().hasPermissionByTemplate(principalId, namespaceCode, permissionTemplateName, permissionDetails);
+        return getPermissionService().hasPermissionByTemplate(principalId, namespaceCode, permissionTemplateName, permissionDetails);
     }
 
     @Override
-    public boolean isAuthorizedByTemplateName(String principalId, String namespaceCode, String permissionTemplateName, Map<String, String> permissionDetails, Map<String, String> qualification ) {
-    	if ( qualification == null || qualification.isEmpty() ) {
-    		return hasPermissionByTemplateName( principalId, namespaceCode, permissionTemplateName, new HashMap<String, String>(permissionDetails) );
-    	}
-    	return getPermissionService().isAuthorizedByTemplate( principalId, namespaceCode, permissionTemplateName, new HashMap<String, String>(permissionDetails), new HashMap<String, String>(qualification) );
+    public boolean isAuthorizedByTemplateName(String principalId, String namespaceCode, String permissionTemplateName, Map<String, String> permissionDetails, Map<String, String> qualification) {
+        if (qualification == null || qualification.isEmpty()) {
+            return hasPermissionByTemplateName(principalId, namespaceCode, permissionTemplateName, new HashMap<String, String>(permissionDetails));
+        }
+        return getPermissionService().isAuthorizedByTemplate(principalId, namespaceCode, permissionTemplateName, new HashMap<String, String>(permissionDetails), new HashMap<String, String>(qualification));
     }
 
     // IDENTITY SERVICE
     @Override
-	public Principal getPrincipal(String principalId) {
-		return getIdentityService().getPrincipal(principalId);
-	}
+    public Principal getPrincipal(String principalId) {
+        return getIdentityService().getPrincipal(principalId);
+    }
 
     @Override
     public Principal getPrincipalByPrincipalName(String principalName) {
-		return getIdentityService().getPrincipalByPrincipalName(principalName);
+        return getIdentityService().getPrincipalByPrincipalName(principalName);
     }
 
     @Override
     public EntityDefault getEntityDefaultInfo(String entityId) {
-		return getIdentityService().getEntityDefault(entityId);
+        return getIdentityService().getEntityDefault(entityId);
     }
 
     @Override
     public EntityDefault getEntityDefaultInfoByPrincipalId(
-    		String principalId) {
-    	return getIdentityService().getEntityDefaultByPrincipalId(principalId);
+        String principalId) {
+        return getIdentityService().getEntityDefaultByPrincipalId(principalId);
     }
 
     @Override
     public EntityDefault getEntityDefaultInfoByPrincipalName(
-    		String principalName) {
-    	return getIdentityService().getEntityDefaultByPrincipalName(principalName);
+        String principalName) {
+        return getIdentityService().getEntityDefaultByPrincipalName(principalName);
     }
 
     @Override
@@ -97,19 +97,19 @@ public class IdentityManagementServiceImpl implements IdentityManagementService 
         return getIdentityService().getEntityByPrincipalId(principalId);
     }
 
-    	// OTHER METHODS
+    // OTHER METHODS
 
-	public IdentityService getIdentityService() {
-		if ( identityService == null ) {
-			identityService = KimApiServiceLocator.getIdentityService();
-		}
-		return identityService;
-	}
+    public IdentityService getIdentityService() {
+        if (identityService == null) {
+            identityService = KimApiServiceLocator.getIdentityService();
+        }
+        return identityService;
+    }
 
-	public PermissionService getPermissionService() {
-		if ( permissionService == null ) {
-			permissionService = KimApiServiceLocator.getPermissionService();
-		}
-		return permissionService;
-	}
+    public PermissionService getPermissionService() {
+        if (permissionService == null) {
+            permissionService = KimApiServiceLocator.getPermissionService();
+        }
+        return permissionService;
+    }
 }

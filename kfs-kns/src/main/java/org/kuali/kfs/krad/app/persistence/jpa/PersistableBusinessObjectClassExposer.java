@@ -23,15 +23,13 @@ import java.util.Set;
 /**
  * Contract for classes which plan to expose class names to the RicePersistenceUnitPostProcessor, for
  * dynamic loading
- *
- *
- *
  */
 public interface PersistableBusinessObjectClassExposer {
-	/**
-	 * Exposes a Set of class names for PersistableBusinessObjects, mapped as JPA entities, which
-	 * should be managed by the JPA persistable unit
-	 * @return a Set of class names to be managed by JPA
-	 */
-	public abstract Set<String> exposePersistableBusinessObjectClassNames();
+    /**
+     * Exposes a Set of class names for PersistableBusinessObjects, mapped as JPA entities, which
+     * should be managed by the JPA persistable unit
+     *
+     * @return a Set of class names to be managed by JPA
+     */
+    public abstract Set<String> exposePersistableBusinessObjectClassNames();
 }

@@ -26,18 +26,17 @@ import java.io.Serializable;
  * primary mechanism by which the validation of an object or one of its attributes takes place. For example, by imposing a length constraint
  * on an attribute of a business object, it's possible to indicate that only values shorter (or longer) than a specific number of characters
  * are valid for that attribute.
- *
+ * <p>
  * Any interface that extends Constraint is by definition a constraint, and may have one of the following defined:
- *
+ * <p>
  * - A sub-interface for {@see Constrainable} that advises on how a constraint maps to data dictionary metadata
  * - A {@see ConstraintProvider} that looks up constraints for a specific constrainable definition
  * - A {@see ConstraintProcessor} that processes the constraint against some object value to determine if it is valid
- *
  *
  * @since 1.1
  */
 public interface Constraint extends Serializable {
 
-	// Empty - since this is a marker interface, all of the interesting stuff is in interfaces or classes that extend this interface
+    // Empty - since this is a marker interface, all of the interesting stuff is in interfaces or classes that extend this interface
 
 }

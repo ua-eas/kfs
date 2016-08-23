@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.kns.web.struts.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.kns.web.struts.form.KualiFeedbackHandlerForm;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiFeedbackService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.kim.api.identity.Person;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class handles when the feedback form is submitted.
@@ -40,50 +40,48 @@ import org.kuali.kfs.krad.util.KRADConstants;
 
 public class KualiFeedbackHandlerAction extends KualiAction {
 
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if (findMethodToCall(form, request) == null || findMethodToCall(form, request).equals("docHandler")) {
-			return executeFeedback(mapping, form, request, response);
-		}
-		else {
-			return super.execute(mapping, form, request, response);
-		}
-	}
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (findMethodToCall(form, request) == null || findMethodToCall(form, request).equals("docHandler")) {
+            return executeFeedback(mapping, form, request, response);
+        } else {
+            return super.execute(mapping, form, request, response);
+        }
+    }
 
-	public ActionForward executeFeedback(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward returnForward = null;
-		KualiFeedbackHandlerForm formObject = (KualiFeedbackHandlerForm) form;
-		if (!formObject.isCancel()) {
-			populateRequest(form, request);
-			returnForward = mapping.findForward(RiceConstants.MAPPING_BASIC);
-		}
-		else {
-			returnForward = mapping.findForward(KRADConstants.MAPPING_CANCEL);
-		}
+    public ActionForward executeFeedback(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ActionForward returnForward = null;
+        KualiFeedbackHandlerForm formObject = (KualiFeedbackHandlerForm) form;
+        if (!formObject.isCancel()) {
+            populateRequest(form, request);
+            returnForward = mapping.findForward(RiceConstants.MAPPING_BASIC);
+        } else {
+            returnForward = mapping.findForward(KRADConstants.MAPPING_CANCEL);
+        }
 
-		return returnForward;
-	}
+        return returnForward;
+    }
 
-	public ActionForward submitFeedback(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if (form instanceof KualiFeedbackHandlerForm) {
-			KualiFeedbackHandlerForm feedbackForm = (KualiFeedbackHandlerForm) form;
-			KualiFeedbackService reporterService = KRADServiceLocatorWeb.getKualiFeedbackService();
-			reporterService.sendFeedback(feedbackForm.getDocumentId(), feedbackForm.getComponentName(), feedbackForm.getDescription());
-		}
-		return mapping.findForward(KRADConstants.MAPPING_CLOSE);
-	}
+    public ActionForward submitFeedback(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (form instanceof KualiFeedbackHandlerForm) {
+            KualiFeedbackHandlerForm feedbackForm = (KualiFeedbackHandlerForm) form;
+            KualiFeedbackService reporterService = KRADServiceLocatorWeb.getKualiFeedbackService();
+            reporterService.sendFeedback(feedbackForm.getDocumentId(), feedbackForm.getComponentName(), feedbackForm.getDescription());
+        }
+        return mapping.findForward(KRADConstants.MAPPING_CLOSE);
+    }
 
-	private void populateRequest(ActionForm form, HttpServletRequest request) {
-		UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
-		Person sessionUser = null;
-		if (userSession != null) {
-			sessionUser = userSession.getPerson();
-		}
-		if (sessionUser != null) {
-			request.setAttribute("principalName", sessionUser.getPrincipalName());
-		}
-	}
+    private void populateRequest(ActionForm form, HttpServletRequest request) {
+        UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+        Person sessionUser = null;
+        if (userSession != null) {
+            sessionUser = userSession.getPerson();
+        }
+        if (sessionUser != null) {
+            request.setAttribute("principalName", sessionUser.getPrincipalName());
+        }
+    }
 
-	@Override
-	protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
-	}
+    @Override
+    protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
+    }
 }

@@ -18,58 +18,58 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.document.LineItemReceivingDocument;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.sql.Date;
 
 public enum LineItemReceivingDocumentFixture {
 
     // Receiving Line FIXTURES
     EMPTY_LINE_ITEM_RECEIVING(
-            null,//carrierCode
-            "",//shipmentPackingSlipNumber,
-            "",//shipmentReferenceNumber,
-            "",//shipmentBillOfLadingNumber,
-            new Date(108, 7, 11),//shipmentReceivedDate,
-            new Integer(0),//vendorHeaderGeneratedIdentifier,
-            new Integer(0),//vendorDetailAssignedIdentifier,
-            "",//vendorName,
-            "",//vendorLine1Address,
-            "",//vendorLine2Address,
-            "",//vendorCityName,
-            "",//vendorStateCode,
-            "",//vendorPostalCode,
-            "",//vendorCountryCode,
-            "",//deliveryCampusCode,
-            "",//deliveryBuildingCode,
-            "",//deliveryBuildingName,
-            "",//deliveryBuildingRoomNumber,
-            "",//deliveryBuildingLine1Address,
-            "",//deliveryBuildingLine2Address,
-            "",//deliveryCityName,
-            "",//deliveryStateCode,
-            "",//deliveryPostalCode,
-            "",//deliveryCountryCode,
-            "",//deliveryToName,
-            "",//deliveryToEmailAddress,
-            "",//deliveryToPhoneNumber,
-            new Date(108, 7, 11),//deliveryRequiredDate,
-            "",//deliveryInstructionText,
-            null,//deliveryRequiredDateReasonCode,
-            new Integer(0),//alternateVendorHeaderGeneratedIdentifier,
-            new Integer(0),//alternateVendorDetailAssignedIdentifier,
-            "",//alternateVendorName,
-            false,//deliveryBuildingOther,
-            null,//vendorNumber,
-            new Integer(0),//vendorAddressGeneratedIdentifier,
-            null,//alternateVendorNumber
-            new Integer(0),//purchaseOrderIdentifier
-            new LineItemReceivingItemFixture[] {} //lineItemReceivingItemFixtures
-        ),
+        null,//carrierCode
+        "",//shipmentPackingSlipNumber,
+        "",//shipmentReferenceNumber,
+        "",//shipmentBillOfLadingNumber,
+        new Date(108, 7, 11),//shipmentReceivedDate,
+        new Integer(0),//vendorHeaderGeneratedIdentifier,
+        new Integer(0),//vendorDetailAssignedIdentifier,
+        "",//vendorName,
+        "",//vendorLine1Address,
+        "",//vendorLine2Address,
+        "",//vendorCityName,
+        "",//vendorStateCode,
+        "",//vendorPostalCode,
+        "",//vendorCountryCode,
+        "",//deliveryCampusCode,
+        "",//deliveryBuildingCode,
+        "",//deliveryBuildingName,
+        "",//deliveryBuildingRoomNumber,
+        "",//deliveryBuildingLine1Address,
+        "",//deliveryBuildingLine2Address,
+        "",//deliveryCityName,
+        "",//deliveryStateCode,
+        "",//deliveryPostalCode,
+        "",//deliveryCountryCode,
+        "",//deliveryToName,
+        "",//deliveryToEmailAddress,
+        "",//deliveryToPhoneNumber,
+        new Date(108, 7, 11),//deliveryRequiredDate,
+        "",//deliveryInstructionText,
+        null,//deliveryRequiredDateReasonCode,
+        new Integer(0),//alternateVendorHeaderGeneratedIdentifier,
+        new Integer(0),//alternateVendorDetailAssignedIdentifier,
+        "",//alternateVendorName,
+        false,//deliveryBuildingOther,
+        null,//vendorNumber,
+        new Integer(0),//vendorAddressGeneratedIdentifier,
+        null,//alternateVendorNumber
+        new Integer(0),//purchaseOrderIdentifier
+        new LineItemReceivingItemFixture[]{} //lineItemReceivingItemFixtures
+    ),
     REQUIRED_FIELDS(
         null,//carrierCode
         "",//shipmentPackingSlipNumber,
@@ -109,8 +109,8 @@ public enum LineItemReceivingDocumentFixture {
         new Integer(1000),//vendorAddressGeneratedIdentifier,
         null,//alternateVendorNumber
         new Integer(0),//purchaseOrderIdentifier
-        new LineItemReceivingItemFixture[] { //lineItemReceivingItemFixtures
-            LineItemReceivingItemFixture.NORMAL_ITEM_1 }
+        new LineItemReceivingItemFixture[]{ //lineItemReceivingItemFixtures
+            LineItemReceivingItemFixture.NORMAL_ITEM_1}
     );
 
     public String carrierCode;
@@ -158,16 +158,16 @@ public enum LineItemReceivingDocumentFixture {
     private LineItemReceivingItemFixture[] lineItemReceivingItemFixtures;
 
     private LineItemReceivingDocumentFixture(
-            String carrierCode, String shipmentPackingSlipNumber, String shipmentReferenceNumber, String shipmentBillOfLadingNumber, Date shipmentReceivedDate,
-            Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String vendorName, String vendorLine1Address,
-            String vendorLine2Address, String vendorCityName, String vendorStateCode, String vendorPostalCode, String vendorCountryCode,
-            String deliveryCampusCode, String deliveryBuildingCode, String deliveryBuildingName, String deliveryBuildingRoomNumber,
-            String deliveryBuildingLine1Address, String deliveryBuildingLine2Address, String deliveryCityName, String deliveryStateCode,
-            String deliveryPostalCode, String deliveryCountryCode, String deliveryToName, String deliveryToEmailAddress, String deliveryToPhoneNumber,
-            Date deliveryRequiredDate, String deliveryInstructionText, String deliveryRequiredDateReasonCode,
-            Integer alternateVendorHeaderGeneratedIdentifier, Integer alternateVendorDetailAssignedIdentifier,
-            String alternateVendorName, boolean deliveryBuildingOther, String vendorNumber, Integer vendorAddressGeneratedIdentifier, String alternateVendorNumber,
-            Integer purchaseOrderIdentifier, LineItemReceivingItemFixture[] lineItemReceivingItemFixtures) {
+        String carrierCode, String shipmentPackingSlipNumber, String shipmentReferenceNumber, String shipmentBillOfLadingNumber, Date shipmentReceivedDate,
+        Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String vendorName, String vendorLine1Address,
+        String vendorLine2Address, String vendorCityName, String vendorStateCode, String vendorPostalCode, String vendorCountryCode,
+        String deliveryCampusCode, String deliveryBuildingCode, String deliveryBuildingName, String deliveryBuildingRoomNumber,
+        String deliveryBuildingLine1Address, String deliveryBuildingLine2Address, String deliveryCityName, String deliveryStateCode,
+        String deliveryPostalCode, String deliveryCountryCode, String deliveryToName, String deliveryToEmailAddress, String deliveryToPhoneNumber,
+        Date deliveryRequiredDate, String deliveryInstructionText, String deliveryRequiredDateReasonCode,
+        Integer alternateVendorHeaderGeneratedIdentifier, Integer alternateVendorDetailAssignedIdentifier,
+        String alternateVendorName, boolean deliveryBuildingOther, String vendorNumber, Integer vendorAddressGeneratedIdentifier, String alternateVendorNumber,
+        Integer purchaseOrderIdentifier, LineItemReceivingItemFixture[] lineItemReceivingItemFixtures) {
 
         this.carrierCode = carrierCode;
         this.shipmentPackingSlipNumber = shipmentPackingSlipNumber;
@@ -216,8 +216,7 @@ public enum LineItemReceivingDocumentFixture {
 
         try {
             doc = (LineItemReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), LineItemReceivingDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 

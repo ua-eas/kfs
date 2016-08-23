@@ -21,9 +21,9 @@
 // This class is a comparator for sorting AccountType with Code name.
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.coa.businessobject.AccountType;
+
+import java.util.Comparator;
 
 /**
  * This class is a comparator for Account Type Codes

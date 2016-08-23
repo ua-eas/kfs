@@ -19,9 +19,9 @@
 package org.kuali.kfs.fp.document.web.struts;
 
 import org.kuali.kfs.fp.document.NonCheckDisbursementDocument;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
 
 /**

@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
@@ -25,7 +26,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class CustomerInvoiceDetailAmountValidation extends GenericValidation {
 
@@ -39,26 +39,22 @@ public class CustomerInvoiceDetailAmountValidation extends GenericValidation {
         if (KualiDecimal.ZERO.equals(amount)) {
             GlobalVariables.getMessageMap().putError(KFSConstants.AMOUNT_PROPERTY_NAME, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_TOTAL_AMOUNT_LESS_THAN_OR_EQUAL_TO_ZERO);
             return false;
-        }
-        else {
+        } else {
             // else if amount is greater than or less than zero
 
             if (customerInvoiceDocument.isInvoiceReversal()) {
                 if (customerInvoiceDetail.isDiscountLine() && amount.isNegative()) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.AMOUNT_PROPERTY_NAME, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_TOTAL_AMOUNT_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
-                }
-                else if (!customerInvoiceDetail.isDiscountLine() && amount.isPositive()) {
+                } else if (!customerInvoiceDetail.isDiscountLine() && amount.isPositive()) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.AMOUNT_PROPERTY_NAME, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_TOTAL_AMOUNT_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
                 }
-            }
-            else {
+            } else {
                 if (customerInvoiceDetail.isDiscountLine() && amount.isPositive()) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.AMOUNT_PROPERTY_NAME, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_TOTAL_AMOUNT_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
-                }
-                else if (!customerInvoiceDetail.isDiscountLine() && amount.isNegative()) {
+                } else if (!customerInvoiceDetail.isDiscountLine() && amount.isNegative()) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.AMOUNT_PROPERTY_NAME, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DETAIL_TOTAL_AMOUNT_LESS_THAN_OR_EQUAL_TO_ZERO);
                     return false;
                 }
@@ -83,7 +79,6 @@ public class CustomerInvoiceDetailAmountValidation extends GenericValidation {
     public void setCustomerInvoiceDetail(CustomerInvoiceDetail customerInvoiceDetail) {
         this.customerInvoiceDetail = customerInvoiceDetail;
     }
-
 
 
 }

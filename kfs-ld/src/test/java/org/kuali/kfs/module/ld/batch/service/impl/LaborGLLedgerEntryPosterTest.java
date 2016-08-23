@@ -18,15 +18,10 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.batch.service.PostTransaction;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.businessobject.LaborGeneralLedgerEntry;
 import org.kuali.kfs.module.ld.service.LaborGeneralLedgerEntryService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
@@ -37,7 +32,12 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class LaborGLLedgerEntryPosterTest extends KualiTestBase {
@@ -68,7 +68,7 @@ public class LaborGLLedgerEntryPosterTest extends KualiTestBase {
         deliminator = properties.getProperty("deliminator");
         keyFieldList = Arrays.asList(StringUtils.split(fieldNames, deliminator));
 
-        laborGLLedgerEntryPoster = SpringContext.getBean(PostTransaction.class,"laborGLLedgerEntryPoster");
+        laborGLLedgerEntryPoster = SpringContext.getBean(PostTransaction.class, "laborGLLedgerEntryPoster");
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         originEntryGroupService = SpringContext.getBean(LaborOriginEntryGroupService.class);
         laborGeneralLedgerEntryService = SpringContext.getBean(LaborGeneralLedgerEntryService.class);

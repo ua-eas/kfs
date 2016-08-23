@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Value Finder for Campus with a blank value.

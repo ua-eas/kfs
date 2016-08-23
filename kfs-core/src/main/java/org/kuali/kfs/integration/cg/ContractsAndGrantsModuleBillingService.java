@@ -87,7 +87,7 @@ public interface ContractsAndGrantsModuleBillingService {
      * Gets letter of credit award criteria.
      *
      * @param fundGroupCode the fund group code
-     * @param fundCode the fund code
+     * @param fundCode      the fund code
      * @return the letter of credit award criteria
      */
     public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode);

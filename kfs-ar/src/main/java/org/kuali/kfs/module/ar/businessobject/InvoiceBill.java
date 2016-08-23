@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a point in time snapshot of a Bill associated with a Contracts & Grants Invoice Document.

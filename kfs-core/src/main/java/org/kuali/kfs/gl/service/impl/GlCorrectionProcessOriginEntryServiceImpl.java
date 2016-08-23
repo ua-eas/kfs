@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.codec.binary.Base64;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.service.GlCorrectionProcessOriginEntryService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.krad.bo.LookupResults;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This implementation of GlCorrectionProcessOriginEntryService uses the database to temporarily store lists of origin entries.
@@ -51,7 +51,7 @@ public class GlCorrectionProcessOriginEntryServiceImpl implements GlCorrectionPr
      * then they will be overridden.
      *
      * @param glcpSearchResuiltsSequenceNumber a sequence number
-     * @param allEntries a list of origin entries
+     * @param allEntries                       a list of origin entries
      * @throws Exception thrown if anything goes wrong
      * @see org.kuali.kfs.gl.service.GlCorrectionProcessOriginEntryService#persistAllEntries(java.lang.String, java.util.List)
      */

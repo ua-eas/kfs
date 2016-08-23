@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.List;
 
 public class GenderValuesFinder extends KeyValuesBase {
     protected volatile TemProfileService temProfileService;
 
     /**
-     *
      * @return
      */
     @Override

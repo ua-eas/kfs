@@ -18,35 +18,35 @@
  */
 package org.kuali.kfs.coa.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrides the base getActionUrls method
  */
 public class KualiAccountLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     private static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";
+
     /**
      * If the account is not closed or the user is an Administrator the "edit" link is added The "copy" link is added for Accounts
      *
      * @returns links to edit and copy maintenance action for the current maintenance record.
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
@@ -58,8 +58,7 @@ public class KualiAccountLookupableHelperServiceImpl extends KualiLookupableHelp
 
         if (theAccount.isActive()) {
             anchorHtmlDataList.add(getUrlData(businessObject, KRADConstants.MAINTENANCE_EDIT_METHOD_TO_CALL, pkNames));
-        }
-        else {
+        } else {
             String principalId = user.getPrincipalId();
             String namespaceCode = KFSConstants.PermissionNames.EDIT_INACTIVE_ACCOUNT.namespace;
             String permissionName = KFSConstants.PermissionNames.EDIT_INACTIVE_ACCOUNT.name;
@@ -69,8 +68,7 @@ public class KualiAccountLookupableHelperServiceImpl extends KualiLookupableHelp
 
             if (isAuthorized) {
                 anchorHtmlDataList.add(getUrlData(businessObject, KRADConstants.MAINTENANCE_EDIT_METHOD_TO_CALL, pkNames));
-            }
-            else {
+            } else {
                 urlDataCopy.setPrependDisplayText("&nbsp;&nbsp;&nbsp;&nbsp;");
             }
         }
@@ -92,8 +90,7 @@ public class KualiAccountLookupableHelperServiceImpl extends KualiLookupableHelp
             if (closedValue != null && closedValue.length() != 0) {
                 if ("Y1T".indexOf(closedValue) > -1) {
                     parameters.put(KFSPropertyConstants.ACTIVE, "N");
-                }
-                else if ("N0F".indexOf(closedValue) > -1) {
+                } else if ("N0F".indexOf(closedValue) > -1) {
                     parameters.put(KFSPropertyConstants.ACTIVE, "Y");
                 }
             }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE;
 
 @ConfigureContext
 public class AccountingLineBaseTest extends KualiTestBase {
@@ -151,8 +151,7 @@ public class AccountingLineBaseTest extends KualiTestBase {
 
         try {
             s1.copyFrom(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 

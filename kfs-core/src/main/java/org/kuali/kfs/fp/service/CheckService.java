@@ -18,14 +18,12 @@
  */
 package org.kuali.kfs.fp.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.fp.businessobject.CheckBase;
+
+import java.util.Collection;
 
 /**
  * This service interface defines methods that a Check service implementation must provide.
- *
- *
  */
 public interface CheckService {
 

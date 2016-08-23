@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.fixture.BudgetAdjustmentParameterDTOFixture;
 import org.kuali.kfs.module.external.kc.fixture.BudgetAdjustmentParameterDTOLineFixture;
@@ -38,7 +34,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest {
@@ -68,7 +68,7 @@ public class BudgetAdjustmentServiceImplTest extends BudgetAdjustmentServiceTest
             fyfc = existingFyfc;
             fyfc.setFinancialSystemFunctionActiveIndicator(true);
         }
-         //
+        //
 
         SpringContext.getBean(BusinessObjectService.class).save(fyfc);
         System.out.println("BA Allowed Years (after update): " + fiscalYearFunctionControlService.getBudgetAdjustmentAllowedYears());

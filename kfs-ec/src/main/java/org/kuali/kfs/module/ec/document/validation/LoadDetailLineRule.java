@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.ec.document.validation;
 
-import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 
 public interface LoadDetailLineRule<E extends EffortCertificationDocument> extends BusinessRule {
 

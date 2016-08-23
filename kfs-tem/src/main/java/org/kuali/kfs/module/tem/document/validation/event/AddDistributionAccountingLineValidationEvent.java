@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 
 public class AddDistributionAccountingLineValidationEvent extends AttributedDocumentEventBase {
@@ -38,7 +38,7 @@ public class AddDistributionAccountingLineValidationEvent extends AttributedDocu
         this.travelForm = travelForm;
     }
 
-    public TravelMvcWrapperBean getTravelForm(){
+    public TravelMvcWrapperBean getTravelForm() {
         return travelForm;
     }
 }

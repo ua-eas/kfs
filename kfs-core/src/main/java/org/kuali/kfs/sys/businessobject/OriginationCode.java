@@ -19,11 +19,10 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
+import java.util.LinkedHashMap;
 
 
 public class OriginationCode extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -69,7 +68,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
         this.financialSystemOriginationCode = financialSystemOriginationCode;
     }
 
-     /**
+    /**
      * Gets the financialSystemServerName attribute.
      *
      * @return Returns the financialSystemServerName
@@ -308,6 +307,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -316,6 +316,7 @@ public class OriginationCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

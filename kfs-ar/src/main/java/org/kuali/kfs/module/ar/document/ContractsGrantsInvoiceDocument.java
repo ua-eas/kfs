@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.CollectionEvent;
@@ -45,9 +43,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Contracts & Grants Invoice document extending Customer Invoice document.
@@ -142,7 +142,7 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
 
         ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
 
-        if ( getDocumentHeader().getWorkflowDocument().isProcessed() ) {
+        if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             // update award accounts to final billed
             contractsGrantsInvoiceDocumentService.updateLastBilledDate(this);
             if (isInvoiceReversal()) { // Invoice correction process when corrected invoice goes to FINAL
@@ -154,26 +154,22 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
                         invoice.getInvoiceGeneralDetail().setFinalBillIndicator(false);
                         SpringContext.getBean(DocumentService.class).updateDocument(invoice);
                         // update correction to the AwardAccount Objects since the Invoice was unmarked as Final
-                        contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(invoice.getAccountDetails(),invoice.getInvoiceGeneralDetail().getProposalNumber());
+                        contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(invoice.getAccountDetails(), invoice.getInvoiceGeneralDetail().getProposalNumber());
                         getInvoiceGeneralDetail().setLastBilledDate(null);// Set invoice last billed date to null.
 
                         if (ArConstants.BillingFrequencyValues.isMilestone(invoice.getInvoiceGeneralDetail())) {
-                            contractsGrantsInvoiceDocumentService.updateMilestonesBilledIndicator(false,invoice.getInvoiceMilestones());
+                            contractsGrantsInvoiceDocumentService.updateMilestonesBilledIndicator(false, invoice.getInvoiceMilestones());
+                        } else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(invoice.getInvoiceGeneralDetail())) {
+                            contractsGrantsInvoiceDocumentService.updateBillsBilledIndicator(false, invoice.getInvoiceBills());
                         }
-                        else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(invoice.getInvoiceGeneralDetail())) {
-                            contractsGrantsInvoiceDocumentService.updateBillsBilledIndicator(false,invoice.getInvoiceBills());
-                        }
-                    }
-                    else {
+                    } else {
                         GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CORRECTED_INVOICE_NOT_FOUND_ERROR, ArKeyConstants.CORRECTED_INVOICE_NOT_FOUND_ERROR);
                     }
-                }
-                catch (WorkflowException ex) {
+                } catch (WorkflowException ex) {
                     LOG.error("problem during ContractsGrantsInvoiceDocument.doRouteStatusChange()", ex);
                     throw new RuntimeException("WorkflowException during ContractsGrantsInvoiceDocument.doRouteStatusChange()", ex);  // if KEW is down, how are we even here?  bad data that should no longer exist or something?
                 }
-            }
-            else {
+            } else {
                 // update Milestones and Bills when invoice goes to final state
                 contractsGrantsInvoiceDocumentService.updateBillsAndMilestones(true, invoiceMilestones, invoiceBills);
 
@@ -218,11 +214,11 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
      * These invoice details are not shown on the document and is different from the
      * other method getInDirectCostInvoiceDetails() because that method returns the total.
      */
-    public List<ContractsGrantsInvoiceDetail> getIndirectCostInvoiceDetails(){
+    public List<ContractsGrantsInvoiceDetail> getIndirectCostInvoiceDetails() {
         List<ContractsGrantsInvoiceDetail> invDetails = new ArrayList<ContractsGrantsInvoiceDetail>();
         for (ContractsGrantsInvoiceDetail invD : invoiceDetails) {
             if (invD.isIndirectCostIndicator()) {
-               invDetails.add(invD);
+                invDetails.add(invD);
             }
         }
         return invDetails;
@@ -482,7 +478,7 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
         final ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
         // if auto approve on the award is false or suspension exists or the award is auto-approve but fails to pass validation, then we need to have funds manager approve.
         boolean result;
-        result =  !CollectionUtils.isEmpty(getInvoiceSuspensionCategories()) || !getInvoiceGeneralDetail().getAward().getAutoApproveIndicator() || (contractsGrantsInvoiceDocumentService.isDocumentBatchCreated(this) && !contractsGrantsInvoiceDocumentService.doesInvoicePassValidation(this));
+        result = !CollectionUtils.isEmpty(getInvoiceSuspensionCategories()) || !getInvoiceGeneralDetail().getAward().getAutoApproveIndicator() || (contractsGrantsInvoiceDocumentService.isDocumentBatchCreated(this) && !contractsGrantsInvoiceDocumentService.doesInvoicePassValidation(this));
         return result;
     }
 
@@ -550,6 +546,7 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
 
     /**
      * The CINV's rule is that if an invoice detail is positive, it's a debit, and if it's negative, it's a credit
+     *
      * @see org.kuali.kfs.module.ar.document.CustomerInvoiceDocument#isInvoiceDetailReceivableDebit(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail)
      */
     @Override
@@ -559,6 +556,7 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
 
     /**
      * If the invoice detail is negative, then return debit here, otherwise it's a credit
+     *
      * @see org.kuali.kfs.module.ar.document.CustomerInvoiceDocument#isInvoiceDetailIncomeDebit(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail)
      */
     @Override

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+
+import java.sql.Date;
 
 public interface InvoiceRecurrenceDocumentService {
 
@@ -32,14 +32,15 @@ public interface InvoiceRecurrenceDocumentService {
      * @param customerInvoiceDetail
      * @return
      */
-    public boolean isCustomerInvoiceDetailTaxable( CustomerInvoiceDocument document, CustomerInvoiceDetail customerInvoiceDetail );
+    public boolean isCustomerInvoiceDetailTaxable(CustomerInvoiceDocument document, CustomerInvoiceDetail customerInvoiceDetail);
 
     /**
      * This method returns the appropriate postal code for taxation
+     *
      * @param document
      * @return
      */
-    public String getPostalCodeForTaxation( CustomerInvoiceDocument document );
+    public String getPostalCodeForTaxation(CustomerInvoiceDocument document);
 
     /**
      * This method returns true if the invoice has an approved status.
@@ -47,7 +48,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isInvoiceApproved( String invoiceNumber ) ;
+    public boolean isInvoiceApproved(String invoiceNumber);
 
     /**
      * This method returns true if the bein date is valid.
@@ -55,7 +56,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidRecurrenceBeginDate( Date beginDate ) ;
+    public boolean isValidRecurrenceBeginDate(Date beginDate);
 
     /**
      * This method returns true if the end date is valid.
@@ -63,7 +64,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidRecurrenceEndDate( Date beginDate, Date endDate ) ;
+    public boolean isValidRecurrenceEndDate(Date beginDate, Date endDate);
 
     /**
      * This method returns true if the end date and number of recurrences are valid if entered together.
@@ -71,7 +72,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidEndDateAndTotalRecurrenceNumber( Date beginDate, Date endDate, Integer totalRecurrenceNumber, String intervalCode ) ;
+    public boolean isValidEndDateAndTotalRecurrenceNumber(Date beginDate, Date endDate, Integer totalRecurrenceNumber, String intervalCode);
 
     /**
      * This method returns true if one of the end date or the number of recurrences is entered.
@@ -79,7 +80,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidEndDateOrTotalRecurrenceNumber( Date endDate, Integer totalRecurrenceNumber ) ;
+    public boolean isValidEndDateOrTotalRecurrenceNumber(Date endDate, Integer totalRecurrenceNumber);
 
     /**
      * This method returns true if the number of recurrences is not more than the maximum allowed.
@@ -87,7 +88,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidMaximumNumberOfRecurrences( Integer totalRecurrenceNumber, String intervalCode ) ;
+    public boolean isValidMaximumNumberOfRecurrences(Integer totalRecurrenceNumber, String intervalCode);
 
     /**
      * This method returns true if the initiator is valid.
@@ -95,7 +96,7 @@ public interface InvoiceRecurrenceDocumentService {
      * @param invoiceNumber
      * @return
      */
-    public boolean isValidInitiator( String initiator ) ;
+    public boolean isValidInitiator(String initiator);
 
 
 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
+import org.kuali.kfs.module.ar.report.util.CustomerCreditMemoReportDataHolder;
+
 import java.io.File;
 import java.util.Date;
-
-import org.kuali.kfs.module.ar.report.util.CustomerCreditMemoReportDataHolder;
 
 /**
  * Customer Credit Memo Report generation related method.
@@ -30,8 +30,9 @@ public interface CustomerCreditMemoReportService {
 
     /**
      * This method generates the Customer Credit Memo PDF report
+     *
      * @param reportDataHolder contains data for the report
-     * @param runDate run date for the report
+     * @param runDate          run date for the report
      * @return report PDF
      */
     public File generateReport(CustomerCreditMemoReportDataHolder reportDataHolder, Date runDate);

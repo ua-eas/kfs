@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -28,7 +27,8 @@ import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocumentBase
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class PurchasingAccountsPayablesItemPreCalculateValidations extends GenericValidation {
 
@@ -89,13 +89,13 @@ public class PurchasingAccountsPayablesItemPreCalculateValidations extends Gener
         KualiDecimal desiredAmount = (item.getTotalAmount() == null) ? new KualiDecimal(0) : item.getTotalAmount();
 
         if (!validPercent && !validAmount) {
-            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_PERCENT_OR_AMOUNT_INVALID, item.getItemIdentifierString(),desiredAmount.toString());
+            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_PERCENT_OR_AMOUNT_INVALID, item.getItemIdentifierString(), desiredAmount.toString());
         } else {
             if (!validPercent) {
                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL, item.getItemIdentifierString());
             } else {
                 if (!validAmount) {
-                    GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(),desiredAmount.toString());
+                    GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(), desiredAmount.toString());
                 }
             }
         }
@@ -106,6 +106,7 @@ public class PurchasingAccountsPayablesItemPreCalculateValidations extends Gener
     /**
      * Verifies account percent. If the total percent does not equal 100,
      * the validation fails.
+     *
      * @param item
      * @param writeErrorMessage true if error message to be added to global error variables, else false
      * @return true if percent sum = 100%
@@ -123,8 +124,7 @@ public class PurchasingAccountsPayablesItemPreCalculateValidations extends Gener
         for (PurApAccountingLine account : item.getSourceAccountingLines()) {
             if (account.getAccountLinePercent() != null) {
                 totalPercent = totalPercent.add(account.getAccountLinePercent());
-            }
-            else {
+            } else {
                 totalPercent = totalPercent.add(BigDecimal.ZERO);
             }
         }
@@ -141,6 +141,7 @@ public class PurchasingAccountsPayablesItemPreCalculateValidations extends Gener
 
     /**
      * Verifies account amounts = item total. If does not equal then validation fails.
+     *
      * @param item
      * @param writeErrorMessage true if error message to be added to global error variables, else false
      * @return true if account amounts sum = item total
@@ -157,22 +158,21 @@ public class PurchasingAccountsPayablesItemPreCalculateValidations extends Gener
             return valid;
         }
 
-     // validate that the amount total
+        // validate that the amount total
         KualiDecimal totalAmount = KualiDecimal.ZERO;
 
         KualiDecimal desiredAmount = (item.getTotalAmount() == null) ? new KualiDecimal(0) : item.getTotalAmount();
         for (PurApAccountingLine account : item.getSourceAccountingLines()) {
             if (account.getAmount() != null) {
                 totalAmount = totalAmount.add(account.getAmount());
-            }
-            else {
+            } else {
                 totalAmount = totalAmount.add(KualiDecimal.ZERO);
             }
         }
 
         if (desiredAmount.compareTo(totalAmount) != 0) {
             if (writeErrorMessage) {
-                GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(),desiredAmount.toString());
+                GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(), desiredAmount.toString());
             }
             valid = false;
         }

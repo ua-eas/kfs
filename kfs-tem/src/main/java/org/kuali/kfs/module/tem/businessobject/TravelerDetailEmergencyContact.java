@@ -61,7 +61,7 @@ public class TravelerDetailEmergencyContact extends EmergencyContact {
         this.traveler = traveler;
     }
 
-    @Column(name="FDOC_NBR")
+    @Column(name = "FDOC_NBR")
     public String getDocumentNumber() {
         return documentNumber;
     }
@@ -70,7 +70,7 @@ public class TravelerDetailEmergencyContact extends EmergencyContact {
         this.documentNumber = documentNumber;
     }
 
-    @Column(name="FDOC_LINE_NBR")
+    @Column(name = "FDOC_LINE_NBR")
     public Integer getFinancialDocumentLineNumber() {
         return financialDocumentLineNumber;
     }

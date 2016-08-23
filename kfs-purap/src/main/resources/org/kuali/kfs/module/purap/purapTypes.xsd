@@ -18,9 +18,8 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <xsd:schema elementFormDefault="qualified"
-    targetNamespace="http://www.kuali.org/kfs/purap/types"
-    xmlns:purap="http://www.kuali.org/kfs/purap/types"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            targetNamespace="http://www.kuali.org/kfs/purap/types"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:simpleType name="statusCodeType">
         <xsd:restriction base="xsd:token">

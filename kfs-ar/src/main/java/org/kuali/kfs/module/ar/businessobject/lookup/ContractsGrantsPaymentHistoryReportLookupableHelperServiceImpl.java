@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsPaymentHistoryReport;
@@ -41,11 +40,12 @@ import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.FormatException;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Defines a custom lookup for the Payment History Report.
@@ -57,6 +57,7 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
 
     /**
      * Overridden to validate the invoie amount and payment date fields to make sure they are parsable
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
     @Override
@@ -64,8 +65,8 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
         if (!StringUtils.isBlank(fieldValues.get(ArPropertyConstants.PAYMENT_DATE))) {
             validateDateField(fieldValues.get(ArPropertyConstants.PAYMENT_DATE), ArPropertyConstants.PAYMENT_DATE, getDateTimeService());
         }
-        if (!StringUtils.isBlank(fieldValues.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX+ArPropertyConstants.PAYMENT_DATE))) {
-            validateDateField(fieldValues.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX+ArPropertyConstants.PAYMENT_DATE), ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX+ArPropertyConstants.PAYMENT_DATE, getDateTimeService());
+        if (!StringUtils.isBlank(fieldValues.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX + ArPropertyConstants.PAYMENT_DATE))) {
+            validateDateField(fieldValues.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX + ArPropertyConstants.PAYMENT_DATE), ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX + ArPropertyConstants.PAYMENT_DATE, getDateTimeService());
         }
         if (!StringUtils.isBlank(fieldValues.get(ArPropertyConstants.INVOICE_AMOUNT))) {
             try {
@@ -99,18 +100,18 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
         Collection<ContractsGrantsPaymentHistoryReport> displayList = new ArrayList<ContractsGrantsPaymentHistoryReport>();
 
         Map<String, String> invoiceAppliedLookupFields = new HashMap<>();
-        invoiceAppliedLookupFields.put(ArPropertyConstants.CUSTOMER_INVOICE_DOCUMENT+"."+KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
+        invoiceAppliedLookupFields.put(ArPropertyConstants.CUSTOMER_INVOICE_DOCUMENT + "." + KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
         if (lookupFormFields.containsKey(ArPropertyConstants.PAYMENT_NUMBER)) {
-            invoiceAppliedLookupFields.put(KFSPropertyConstants.DOCUMENT_NUMBER, (String)lookupFormFields.get(ArPropertyConstants.PAYMENT_NUMBER));
+            invoiceAppliedLookupFields.put(KFSPropertyConstants.DOCUMENT_NUMBER, (String) lookupFormFields.get(ArPropertyConstants.PAYMENT_NUMBER));
         }
         if (lookupFormFields.containsKey(ArPropertyConstants.CustomerFields.CUSTOMER_NUMBER)) {
-            invoiceAppliedLookupFields.put(ArPropertyConstants.CUSTOMER_INVOICE_DOCUMENT+"."+ArPropertyConstants.CustomerFields.CUSTOMER_NUMBER, (String)lookupFormFields.get(ArPropertyConstants.CustomerFields.CUSTOMER_NUMBER));
+            invoiceAppliedLookupFields.put(ArPropertyConstants.CUSTOMER_INVOICE_DOCUMENT + "." + ArPropertyConstants.CustomerFields.CUSTOMER_NUMBER, (String) lookupFormFields.get(ArPropertyConstants.CustomerFields.CUSTOMER_NUMBER));
         }
         if (lookupFormFields.containsKey(ArPropertyConstants.PAYMENT_AMOUNT)) {
-            invoiceAppliedLookupFields.put(ArPropertyConstants.CustomerInvoiceDetailFields.INVOICE_ITEM_APPLIED_AMOUNT, (String)lookupFormFields.get(ArPropertyConstants.PAYMENT_AMOUNT));
+            invoiceAppliedLookupFields.put(ArPropertyConstants.CustomerInvoiceDetailFields.INVOICE_ITEM_APPLIED_AMOUNT, (String) lookupFormFields.get(ArPropertyConstants.PAYMENT_AMOUNT));
         }
         if (lookupFormFields.containsKey(ArPropertyConstants.INVOICE_NUMBER)) {
-            invoiceAppliedLookupFields.put(ArPropertyConstants.CustomerInvoiceDocumentFields.FINANCIAL_DOCUMENT_REF_INVOICE_NUMBER, (String)lookupFormFields.get(ArPropertyConstants.INVOICE_NUMBER));
+            invoiceAppliedLookupFields.put(ArPropertyConstants.CustomerInvoiceDocumentFields.FINANCIAL_DOCUMENT_REF_INVOICE_NUMBER, (String) lookupFormFields.get(ArPropertyConstants.INVOICE_NUMBER));
         }
 
         Collection<InvoicePaidApplied> invoicePaidApplieds = getLookupService().findCollectionBySearchHelper(InvoicePaidApplied.class, invoiceAppliedLookupFields, true);
@@ -122,12 +123,12 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
                 boolean useInvoicePaidApplied = true;
                 final Document doc = getDocumentService().getByDocumentHeaderId(invoicePaidApplied.getDocumentNumber());
                 if (doc instanceof PaymentApplicationDocument) {
-                    final PaymentApplicationDocument paymentApp = (PaymentApplicationDocument)doc;
+                    final PaymentApplicationDocument paymentApp = (PaymentApplicationDocument) doc;
                     if (getFinancialSystemDocumentService().getUnsuccessfulDocumentStatuses().contains(paymentApp.getFinancialSystemDocumentHeader().getWorkflowDocumentStatusCode())) {
                         useInvoicePaidApplied = false;
                     }
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(ArPropertyConstants.APPLIED_INDICATOR))) {
-                        final String appliedIndicator = (String)lookupFormFields.get(ArPropertyConstants.APPLIED_INDICATOR);
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(ArPropertyConstants.APPLIED_INDICATOR))) {
+                        final String appliedIndicator = (String) lookupFormFields.get(ArPropertyConstants.APPLIED_INDICATOR);
                         if (KRADConstants.YES_INDICATOR_VALUE.equals(appliedIndicator) && !getFinancialSystemDocumentService().getSuccessfulDocumentStatuses().contains(paymentApp.getFinancialSystemDocumentHeader().getWorkflowDocumentStatusCode())) {
                             useInvoicePaidApplied = false;
                         } else if (KRADConstants.NO_INDICATOR_VALUE.equals(appliedIndicator) && !getFinancialSystemDocumentService().getPendingDocumentStatuses().contains(paymentApp.getFinancialSystemDocumentHeader().getWorkflowDocumentStatusCode())) {
@@ -135,33 +136,33 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
                         }
                     }
                     final java.util.Date paymentAppFinalDate = paymentApp.getDocumentHeader().getWorkflowDocument().getDateFinalized().toDate();
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(ArPropertyConstants.PAYMENT_DATE))) {
-                        final java.util.Date toPaymentDate = getDateTimeService().convertToDate((String)lookupFormFields.get(ArPropertyConstants.PAYMENT_DATE));
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(ArPropertyConstants.PAYMENT_DATE))) {
+                        final java.util.Date toPaymentDate = getDateTimeService().convertToDate((String) lookupFormFields.get(ArPropertyConstants.PAYMENT_DATE));
                         if (!KfsDateUtils.isSameDay(paymentAppFinalDate, toPaymentDate) && toPaymentDate.before(paymentAppFinalDate)) {
                             useInvoicePaidApplied = false;
                         }
                     }
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX+ArPropertyConstants.PAYMENT_DATE))) {
-                        final java.util.Date fromPaymentDate = getDateTimeService().convertToDate((String)lookupFormFields.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX+ArPropertyConstants.PAYMENT_DATE));
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX + ArPropertyConstants.PAYMENT_DATE))) {
+                        final java.util.Date fromPaymentDate = getDateTimeService().convertToDate((String) lookupFormFields.get(ArPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX + ArPropertyConstants.PAYMENT_DATE));
                         if (!KfsDateUtils.isSameDay(paymentAppFinalDate, fromPaymentDate) && fromPaymentDate.after(paymentAppFinalDate)) {
                             useInvoicePaidApplied = false;
                         }
                     }
 
                     final ContractsGrantsInvoiceDocument cgInvoiceDocument = getBusinessObjectService().findBySinglePrimaryKey(ContractsGrantsInvoiceDocument.class, invoicePaidApplied.getFinancialDocumentReferenceInvoiceNumber());
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(ArPropertyConstants.INVOICE_AMOUNT))) {
-                        final KualiDecimal invoiceAmount = new KualiDecimal((String)lookupFormFields.get(ArPropertyConstants.INVOICE_AMOUNT));
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(ArPropertyConstants.INVOICE_AMOUNT))) {
+                        final KualiDecimal invoiceAmount = new KualiDecimal((String) lookupFormFields.get(ArPropertyConstants.INVOICE_AMOUNT));
                         if (!invoiceAmount.equals(cgInvoiceDocument.getTotalDollarAmount())) {
                             useInvoicePaidApplied = false;
                         }
                     }
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(KFSPropertyConstants.AWARD_NUMBER))) {
-                        if (!StringUtils.equals(cgInvoiceDocument.getInvoiceGeneralDetail().getAward().getProposalNumber().toString(),(String)lookupFormFields.get(KFSPropertyConstants.AWARD_NUMBER))) {
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(KFSPropertyConstants.AWARD_NUMBER))) {
+                        if (!StringUtils.equals(cgInvoiceDocument.getInvoiceGeneralDetail().getAward().getProposalNumber().toString(), (String) lookupFormFields.get(KFSPropertyConstants.AWARD_NUMBER))) {
                             useInvoicePaidApplied = false;
                         }
                     }
-                    if (!StringUtils.isBlank((String)lookupFormFields.get(ArPropertyConstants.REVERSED_INDICATOR))) {
-                        final String reversedIndicator = (String)lookupFormFields.get(ArPropertyConstants.REVERSED_INDICATOR);
+                    if (!StringUtils.isBlank((String) lookupFormFields.get(ArPropertyConstants.REVERSED_INDICATOR))) {
+                        final String reversedIndicator = (String) lookupFormFields.get(ArPropertyConstants.REVERSED_INDICATOR);
                         if (KRADConstants.YES_INDICATOR_VALUE.equals(reversedIndicator) && !cgInvoiceDocument.isInvoiceReversal()) {
                             useInvoicePaidApplied = false;
                         } else if (KRADConstants.NO_INDICATOR_VALUE.equals(reversedIndicator) && cgInvoiceDocument.isInvoiceReversal()) {
@@ -190,11 +191,9 @@ public class ContractsGrantsPaymentHistoryReportLookupableHelperServiceImpl exte
                 }
             }
             buildResultTable(lookupForm, displayList, resultTable);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("Could not open payment application document related to search", we);
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
             throw new RuntimeException("I tried to validate the date and amount fields related to search, I really did.  But...I guess I didn't try hard enough", pe);
         }
         return displayList;

@@ -25,12 +25,12 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.Award;
-import org.kuali.kra.external.award.AwardBillingUpdateDto;
-import org.kuali.kra.external.award.AwardBillingUpdateStatusDto;
-import org.kuali.kra.external.award.AwardFieldValuesDto;
 import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kra.external.award.AwardBillingUpdateDto;
+import org.kuali.kra.external.award.AwardBillingUpdateStatusDto;
+import org.kuali.kra.external.award.AwardFieldValuesDto;
 import org.kuali.kra.external.award.AwardWebService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
@@ -50,20 +50,20 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
 
     @Override
     public List<? extends ContractsAndGrantsAward> lookupAwards(Map<String, String> fieldValues, boolean unbounded) {
-        return (List<Award>)getAwardService().getSearchResults(fieldValues);
+        return (List<Award>) getAwardService().getSearchResults(fieldValues);
     }
 
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward) {
         ContractsAndGrantsBillingAward award = currentAward;
 
         if (ObjectUtils.isNull(proposalNumber)) {
             award = null;
         } else {
-            if (ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber))  {
+            if (ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber)) {
                 Map<String, String> criteria = new HashMap<>();
                 criteria.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
-                List<Award> awards = (List<Award>)awardService.findMatching(criteria);
+                List<Award> awards = (List<Award>) awardService.findMatching(criteria);
                 if (awards.size() > 0) {
                     award = awards.get(0);
                 }
@@ -169,11 +169,10 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         // if we couldn't get the service from the KSB, get as web service - for when KFS & KC have separate Rice instances
         if (awardWebService == null) {
             LOG.warn("Couldn't get AwardWebService from KSB, setting it up as SOAP web service - expected behavior for bundled Rice, but not when KFS & KC share a standalone Rice instance.");
-            AwardWebSoapService ss =  null;
+            AwardWebSoapService ss = null;
             try {
                 ss = new AwardWebSoapService();
-            }
-            catch (MalformedURLException ex) {
+            } catch (MalformedURLException ex) {
                 LOG.error("Could not intialize AwardWebSoapService: " + ex.getMessage());
                 throw new RuntimeException("Could not intialize AwardWebSoapService: " + ex.getMessage());
             }

@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 /**
@@ -66,6 +66,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * This method returns a String representation of this object
+     *
      * @return String representation of this object
      */
     public String getLine() {
@@ -88,12 +89,10 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
     private String getField(int size, String value) {
         if (value == null) {
             return SPACES.substring(0, size);
-        }
-        else {
+        } else {
             if (value.length() < size) {
                 return value + SPACES.substring(0, size - value.length());
-            }
-            else {
+            } else {
                 return value;
             }
         }

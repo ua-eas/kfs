@@ -18,152 +18,151 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItem;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
 import org.kuali.kfs.vnd.fixture.CommodityCodeFixture;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public enum RequisitionItemFixture {
 
     REQ_QTY_UNRESTRICTED_ITEM_1(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_QTY_UNRESTRICTED_ITEM_2(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_2 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_2} // requisitionAccountMultiFixtures
     ),
     REQ_QTY_UNRESTRICTED_ITEM_3(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_2, RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_3 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_2, RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_3} // requisitionAccountMultiFixtures
     ),
     REQ_QTY_ITEM_NEGATIVE_AMOUNT(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NEGATIVE, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.REQ_ACCOUNT_NEGATIVE_AMOUNT } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_NEGATIVE, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.REQ_ACCOUNT_NEGATIVE_AMOUNT} // requisitionAccountMultiFixtures
     ),
     REQ_QTY_APO_ITEM_1(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ), REQ_SERVICE_APO_ITEM_1(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_SERVICE_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_2, RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_3 } // requisitionAccountMultiFixtures
+        PurApItemFixture.APO_SERVICE_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_2, RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_3} // requisitionAccountMultiFixtures
     ), REQ_FREIGHT_ITEM_1(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_FREIGHT_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_4 } // requisitionAccountMultiFixtures
+        PurApItemFixture.APO_FREIGHT_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_4} // requisitionAccountMultiFixtures
     ),
 
     REQ_MULTI_ITEM_QUANTITY(false, // itemRestrictedIndicator
-            PurApItemFixture.REQ_MULTI_ITEM_QUANTITY, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.REQ_ACCOUNT_MULTI_QUANTITY } // requisitionAccountMultiFixtures
+        PurApItemFixture.REQ_MULTI_ITEM_QUANTITY, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.REQ_ACCOUNT_MULTI_QUANTITY} // requisitionAccountMultiFixtures
     ),
     REQ_MULTI_ITEM_NON_QUANTITY(false, // itemRestrictedIndicator
-            PurApItemFixture.REQ_MULTI_ITEM_NON_QUANTITY, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.REQ_ACCOUNT_MULTI_NON_QUANTITY } // requisitionAccountMultiFixtures
+        PurApItemFixture.REQ_MULTI_ITEM_NON_QUANTITY, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.REQ_ACCOUNT_MULTI_NON_QUANTITY} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_NO_APO(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_NO_APO_2(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_2 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_2} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_PERFORMANCE(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_PERFORMANCE, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.PERFORMANCE_ACCOUNT } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_PERFORMANCE, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.PERFORMANCE_ACCOUNT} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_NO_APO_TOTAL_NOT_GREATER_THAN_ZERO(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO_TOTAL_NOT_GREATER_THAN_ZERO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO_TOTAL_NOT_GREATER_THAN_ZERO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
-    REQ_ITEM_NO_APO_RESTRICTED_ITEM (
-            true,                              // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1,  // purApItemFixture
-            new RequisitionAccountingLineFixture[] {RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_1}   // requisitionAccountMultiFixtures
+    REQ_ITEM_NO_APO_RESTRICTED_ITEM(
+        true,                              // itemRestrictedIndicator
+        PurApItemFixture.APO_QTY_ITEM_1,  // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_1}   // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_NO_APO_CONTAIN_RESTRICTED_ITEM(true, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.BASIC_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_VALID_FREIGHT_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.VALID_FREIGHT_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.VALID_FREIGHT_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_VALID_SHIPPING_AND_HANDLING_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.VALID_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.VALID_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_MISC_CREDIT_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.VALID_MISC_CREDIT_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.VALID_MISC_CREDIT_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_NEGATIVE_FREIGHT_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.NEGATIVE_FREIGHT_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.NEGATIVE_FREIGHT_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_NEGATIVE_SHIPPING_AND_HANDLING_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.NEGATIVE_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.NEGATIVE_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_ZERO_FREIGHT_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.ZERO_FREIGHT_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.ZERO_FREIGHT_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_ZERO_SHIPPING_AND_HANDLING_ITEM(false, // itemRestrictedIndicator
-            PurApItemFixture.ZERO_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.ZERO_SHIPPING_AND_HANDLING_ITEM, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_WITH_MISC_ITEM_NO_DESC(false, // itemRestrictedIndicator
-            PurApItemFixture.MISC_ITEM_NO_DESC, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.MISC_ITEM_NO_DESC, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_NO_APO_BASIC_ACTIVE_COMMODITY_CODE(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE  //commodityCodeFixture
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1}, // requisitionAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE  //commodityCodeFixture
     ),
     REQ_ITEM_NO_APO_BASIC_INACTIVE_COMMODITY_CODE(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1}, // requisitionAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
     ),
     REQ_ITEM_NO_APO_NON_EXISTENCE_COMMODITY_CODE(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_NON_EXISTENCE  //commodityCodeFixture
+        PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1}, // requisitionAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_NON_EXISTENCE  //commodityCodeFixture
     ),
     REQ_ITEM_APO_BASIC_INACTIVE_COMMODITY_CODE(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1}, // requisitionAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_BASIC_INACTIVE  //commodityCodeFixture
     ),
     REQ_ITEM_APO_COMMODITY_CODE_WITH_SENSITIVE_DATA(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_WITH_SENSITIVE_DATA  //commodityCodeFixture
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1}, // requisitionAccountMultiFixtures
+        CommodityCodeFixture.COMMODITY_CODE_WITH_SENSITIVE_DATA  //commodityCodeFixture
     ),
     REQ_ITEM_INVALID_QUANTITY_BASED_NO_QUANTITY(false, // itemRestrictedIndicator
-            PurApItemFixture.INVALID_QTY_ITEM_NULL_QUANTITY, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
+        PurApItemFixture.INVALID_QTY_ITEM_NULL_QUANTITY, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_VALID_CAPITAL_ASSET(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] {
-                RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE } // requisitionAccountMultiFixtures
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{
+            RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE} // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_INVALID_CAPITAL_ASSET(false, // itemRestrictedIndicator
-            PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] {
-                RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE_50_PERCENT,
-                RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_EXPENSE_OBJECT_CODE_50_PERCENT } // requisitionAccountMultiFixtures
+        PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{
+            RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE_50_PERCENT,
+            RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_EXPENSE_OBJECT_CODE_50_PERCENT} // requisitionAccountMultiFixtures
     ),
     REQ_QTY_B2B_ITEM_1(false, // itemRestrictedIndicator
-            PurApItemFixture.BASIC_B2B_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
-    ),
-    ;
+        PurApItemFixture.BASIC_B2B_QTY_ITEM_1, // purApItemFixture
+        new RequisitionAccountingLineFixture[]{RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1} // requisitionAccountMultiFixtures
+    ),;
 
     private boolean itemRestrictedIndicator;
     private PurApItemFixture purApItemFixture;
@@ -219,9 +218,9 @@ public enum RequisitionItemFixture {
     }
 
     public PurchasingItem createRequisitionItemForCapitalAsset() {
-        RequisitionItem item = (RequisitionItem)createRequisitionItem();
+        RequisitionItem item = (RequisitionItem) createRequisitionItem();
         if (requisitionAccountingLineFixtures.length > 0) {
-            for(int i = 0; i < requisitionAccountingLineFixtures.length ; i++) {
+            for (int i = 0; i < requisitionAccountingLineFixtures.length; i++) {
                 requisitionAccountingLineFixtures[i].addTo(item);
             }
         }

@@ -22,10 +22,10 @@
  */
 package org.kuali.kfs.pdp.dataaccess;
 
+import org.kuali.kfs.pdp.businessobject.CustomerProfile;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 
 
 /**
@@ -36,10 +36,10 @@ public interface PaymentFileLoadDao {
     /**
      * Checks whether a <code>Batch</code> record already exists for the given key.
      *
-     * @param customer payment file customer
-     * @param count payment total count
+     * @param customer    payment file customer
+     * @param count       payment total count
      * @param totalAmount payment total amount
-     * @param createDate payment file create datetime
+     * @param createDate  payment file create datetime
      * @return true if the batch already exists
      */
     public boolean isDuplicateBatch(CustomerProfile customer, Integer count, BigDecimal totalAmount, Timestamp createDate);

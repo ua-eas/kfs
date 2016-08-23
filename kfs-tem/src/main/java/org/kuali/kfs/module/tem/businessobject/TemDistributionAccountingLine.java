@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+
 import java.math.BigDecimal;
 import java.util.Map;
-
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 
 public class TemDistributionAccountingLine extends SourceAccountingLine implements TemAccountingLine {
     private BigDecimal accountLinePercent = new BigDecimal(0);
@@ -29,6 +29,7 @@ public class TemDistributionAccountingLine extends SourceAccountingLine implemen
 
     /**
      * Gets the cardType attribute.
+     *
      * @return Returns the cardType.
      */
     @Override
@@ -38,6 +39,7 @@ public class TemDistributionAccountingLine extends SourceAccountingLine implemen
 
     /**
      * Sets the cardType attribute value.
+     *
      * @param cardType The cardType to set.
      */
     @Override
@@ -51,6 +53,7 @@ public class TemDistributionAccountingLine extends SourceAccountingLine implemen
 
     /**
      * Gets the accountLinePercent attribute.
+     *
      * @return Returns the accountLinePercent.
      */
     public BigDecimal getAccountLinePercent() {
@@ -59,6 +62,7 @@ public class TemDistributionAccountingLine extends SourceAccountingLine implemen
 
     /**
      * Sets the accountLinePercent attribute value.
+     *
      * @param accountLinePercent The accountLinePercent to set.
      */
     public void setAccountLinePercent(BigDecimal accountLinePercent) {

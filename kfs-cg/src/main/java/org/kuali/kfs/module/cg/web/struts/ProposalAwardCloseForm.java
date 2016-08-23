@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cg.web.struts;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.cg.document.ProposalAwardCloseDocument;
 import org.kuali.kfs.module.cg.service.CloseService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.web.format.DateFormatter;
+
+import java.util.Date;
 
 public class ProposalAwardCloseForm extends FinancialSystemTransactionalDocumentFormBase {
 

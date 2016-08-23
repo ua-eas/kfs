@@ -16,25 +16,25 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="tldHeader.jsp"%>
+<%@ include file="tldHeader.jsp" %>
 
 <kul:page
         showDocumentInfo="false"
-	    headerTitle="${QuestionPromptForm.title}"
+        headerTitle="${QuestionPromptForm.title}"
         docTitle=""
-	    transactionalDocument="false"
+        transactionalDocument="false"
         htmlFormAction="questionPrompt"
-	    errorKey="*">
+        errorKey="*">
 
-    <html:hidden property="formKey" write="false" />
-	<html:hidden property="backLocation" write="false" />
-	<html:hidden property="caller" write="false" />
-	<html:hidden property="questionIndex" write="false" />
-	<html:hidden property="formKey" write="false" />
-	<html:hidden property="context" write="false" />
-	<html:hidden property="questionAnchor" write="false" />
-	<html:hidden property="methodToCallPath" write="false" />
-	<html:hidden property="docNum" write="false" />
+    <html:hidden property="formKey" write="false"/>
+    <html:hidden property="backLocation" write="false"/>
+    <html:hidden property="caller" write="false"/>
+    <html:hidden property="questionIndex" write="false"/>
+    <html:hidden property="formKey" write="false"/>
+    <html:hidden property="context" write="false"/>
+    <html:hidden property="questionAnchor" write="false"/>
+    <html:hidden property="methodToCallPath" write="false"/>
+    <html:hidden property="docNum" write="false"/>
 
     <div class="main-panel">
         <div class="center" style="margin: 30px 0;">${QuestionPromptForm.questionText}</div>
@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <td class="center">
-                        <html:textarea property="reason" tabindex="0" rows="4" cols="60" />
+                        <html:textarea property="reason" tabindex="0" rows="4" cols="60"/>
                     </td>
                 </tr>
             </table>

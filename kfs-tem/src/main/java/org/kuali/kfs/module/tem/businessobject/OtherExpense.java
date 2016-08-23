@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 /**
  * Other Expense
- *
  */
 public interface OtherExpense extends BusinessObject {
 
@@ -89,18 +88,23 @@ public interface OtherExpense extends BusinessObject {
     String getSequenceName();
 
     void setAirfareSourceCode(final String airfareSourceCode);
+
     String getAirfareSourceCode();
 
     void setClassOfServiceCode(final String classOfServiceCode);
+
     String getClassOfServiceCode();
 
     void setMiles(final Integer miles);
+
     Integer getMiles();
 
     void setMileageOtherRate(BigDecimal mileageOtherRate);
+
     BigDecimal getMileageOtherRate();
 
     void setRentalCarInsurance(final Boolean rentalCarInsurance);
+
     Boolean getRentalCarInsurance();
 
     void setTaxable(final Boolean taxable);

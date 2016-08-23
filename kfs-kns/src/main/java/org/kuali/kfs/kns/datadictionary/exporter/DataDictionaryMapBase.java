@@ -26,7 +26,7 @@ import java.util.Set;
 public abstract class DataDictionaryMapBase implements Map {
 
     public int size() {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public boolean isEmpty() {
@@ -34,39 +34,39 @@ public abstract class DataDictionaryMapBase implements Map {
     }
 
     public boolean containsKey(Object key) {
-        return get( key ) != null;
+        return get(key) != null;
     }
 
     public boolean containsValue(Object value) {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public Object put(Object key, Object value) {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public Object remove(Object key) {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public void putAll(Map map) {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public void clear() {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public Set keySet() {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public Collection values() {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
     public Set entrySet() {
-        throw new UnsupportedOperationException( "This operation not supported on a " + this.getClass().getName() );
+        throw new UnsupportedOperationException("This operation not supported on a " + this.getClass().getName());
     }
 
 }

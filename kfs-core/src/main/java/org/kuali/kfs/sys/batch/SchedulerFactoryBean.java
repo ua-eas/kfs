@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.ksb.messaging.quartz.MessageServiceExecutorJobListener;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * This class wraps the spring version to allow deploy time determination of whether to actually create a scheduler and whether to

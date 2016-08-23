@@ -19,13 +19,13 @@
 package org.kuali.kfs.krad.uif.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifPropertyPaths;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
-import org.kuali.kfs.krad.uif.layout.LayoutManager;
-import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.field.DataField;
+import org.kuali.kfs.krad.uif.layout.LayoutManager;
 import org.kuali.kfs.krad.uif.view.View;
 
 import java.util.HashMap;
@@ -34,15 +34,13 @@ import java.util.Map;
 
 /**
  * Utility class for UIF expressions
- *
- *
  */
 public class ExpressionUtils {
 
     /**
      * Adjusts the property expressions for a given object. Any nested properties are moved to the parent
      * object. Binding adjust prefixes are replaced with the correct values.
-     *
+     * <p>
      * <p>
      * The UifConstants#NO_BIND_ADJUST_PREFIX prefix will be removed
      * as this is a placeholder indicating that the property is directly on the form.
@@ -52,7 +50,7 @@ public class ExpressionUtils {
      * by the view's default path if it is set.
      * </p>
      *
-     * @param view - the parent view of the object
+     * @param view   - the parent view of the object
      * @param object - Object to adjust property expressions on
      */
     public static void adjustPropertyExpressions(View view, Object object) {
@@ -93,12 +91,12 @@ public class ExpressionUtils {
 
         // update property expressions map on object
         ObjectPropertyUtils.setPropertyValue(object, UifPropertyPaths.PROPERTY_EXPRESSIONS,
-                adjustedPropertyExpressions);
+            adjustedPropertyExpressions);
     }
 
     /**
      * Adjusts the property expressions for a given object
-     *
+     * <p>
      * <p>
      * The UifConstants#NO_BIND_ADJUST_PREFIX prefix will be removed
      * as this is a placeholder indicating that the property is directly on the form.
@@ -108,8 +106,8 @@ public class ExpressionUtils {
      * by the view's default path if it is set.
      * </p>
      *
-     * @param view - the parent view of the object
-     * @param object - Object to adjust property expressions on
+     * @param view       - the parent view of the object
+     * @param object     - Object to adjust property expressions on
      * @param expression - The expression to adjust
      * @return the adjusted expression String
      */
@@ -126,20 +124,20 @@ public class ExpressionUtils {
             // Remove the property name from the binding path
             fieldPath = StringUtils.removeEnd(fieldPath, "." + bindingInfo.getBindingName());
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.FIELD_PATH_BIND_ADJUST_PREFIX,
-                    fieldPath + ".");
+                fieldPath + ".");
         } else {
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.FIELD_PATH_BIND_ADJUST_PREFIX,
-                    "");
+                "");
         }
 
         // replace the default path prefix if there is one set on the view
         if (StringUtils.isNotBlank(view.getDefaultBindingObjectPath())) {
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.DEFAULT_PATH_BIND_ADJUST_PREFIX,
-                    view.getDefaultBindingObjectPath() + ".");
+                view.getDefaultBindingObjectPath() + ".");
 
         } else {
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.DEFAULT_PATH_BIND_ADJUST_PREFIX,
-                    "");
+                "");
         }
 
         // replace line path binding prefix with the actual line path
@@ -147,7 +145,7 @@ public class ExpressionUtils {
             String linePath = getLinePathPrefixValue((Component) object);
 
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.LINE_PATH_BIND_ADJUST_PREFIX,
-                    linePath + ".");
+                linePath + ".");
         }
 
         // replace node path binding prefix with the actual node path
@@ -160,7 +158,7 @@ public class ExpressionUtils {
             }
 
             adjustedExpression = StringUtils.replace(adjustedExpression, UifConstants.NODE_PATH_BIND_ADJUST_PREFIX,
-                    nodePath + ".");
+                nodePath + ".");
         }
 
         return adjustedExpression;
@@ -177,7 +175,7 @@ public class ExpressionUtils {
         String linePath = "";
 
         CollectionGroup collectionGroup = (CollectionGroup) (component.getContext().get(
-                UifConstants.ContextVariableNames.COLLECTION_GROUP));
+            UifConstants.ContextVariableNames.COLLECTION_GROUP));
         if (collectionGroup == null) {
             return linePath;
         }
@@ -205,9 +203,9 @@ public class ExpressionUtils {
     /**
      * Moves any nested property expressions to the parent object
      *
-     * @param object - the object containing the expression
+     * @param object       - the object containing the expression
      * @param propertyName - the property the expression is on
-     * @param expression - the expression to move
+     * @param expression   - the expression to move
      * @return
      */
     protected static boolean moveNestedPropertyExpression(Object object, String propertyName, String expression) {
@@ -219,11 +217,11 @@ public class ExpressionUtils {
 
         Object parentObject = ObjectPropertyUtils.getPropertyValue(object, parentPropertyName);
         if ((parentObject != null) && ObjectPropertyUtils.isReadableProperty(parentObject,
-                UifPropertyPaths.PROPERTY_EXPRESSIONS) && ((parentObject instanceof Component)
-                || (parentObject instanceof LayoutManager)
-                || (parentObject instanceof BindingInfo))) {
+            UifPropertyPaths.PROPERTY_EXPRESSIONS) && ((parentObject instanceof Component)
+            || (parentObject instanceof LayoutManager)
+            || (parentObject instanceof BindingInfo))) {
             Map<String, String> propertyExpressions = ObjectPropertyUtils.getPropertyValue(parentObject,
-                    UifPropertyPaths.PROPERTY_EXPRESSIONS);
+                UifPropertyPaths.PROPERTY_EXPRESSIONS);
             if (propertyExpressions == null) {
                 propertyExpressions = new HashMap<String, String>();
             }
@@ -231,7 +229,7 @@ public class ExpressionUtils {
             // add expression to map on parent object
             propertyExpressions.put(propertyNameInParent, expression);
             ObjectPropertyUtils.setPropertyValue(parentObject, UifPropertyPaths.PROPERTY_EXPRESSIONS,
-                    propertyExpressions);
+                propertyExpressions);
             moved = true;
         }
 
@@ -243,13 +241,13 @@ public class ExpressionUtils {
      * of controls found in the expression. This method returns a js expression which can
      * be executed on the client to determine if the original exp was satisfied before
      * interacting with the server - ie, this js expression is equivalent to the one passed in.
-     *
+     * <p>
      * There are limitations on the Spring expression language that can be used as this method.
      * It is only used to parse expressions which are valid case statements for determining if
      * some action/processing should be performed.  ONLY Properties, comparison operators, booleans,
      * strings, matches expression, and boolean logic are supported.  Properties must
      * be a valid property on the form, and should have a visible control within the view.
-     *
+     * <p>
      * Example valid exp: account.name == 'Account Name'
      *
      * @param exp
@@ -302,10 +300,10 @@ public class ExpressionUtils {
         }
 
         conditionJs = conditionJs.replaceAll("\\s(?i:ne)\\s", " != ").replaceAll("\\s(?i:eq)\\s", " == ").replaceAll(
-                "\\s(?i:gt)\\s", " > ").replaceAll("\\s(?i:lt)\\s", " < ").replaceAll("\\s(?i:lte)\\s", " <= ")
-                .replaceAll("\\s(?i:gte)\\s", " >= ").replaceAll("\\s(?i:and)\\s", " && ").replaceAll("\\s(?i:or)\\s",
-                        " || ").replaceAll("\\s(?i:not)\\s", " != ").replaceAll("\\s(?i:null)\\s?", " '' ").replaceAll(
-                        "\\s?(?i:#empty)\\((.*?)\\)", "isValueEmpty($1)");
+            "\\s(?i:gt)\\s", " > ").replaceAll("\\s(?i:lt)\\s", " < ").replaceAll("\\s(?i:lte)\\s", " <= ")
+            .replaceAll("\\s(?i:gte)\\s", " >= ").replaceAll("\\s(?i:and)\\s", " && ").replaceAll("\\s(?i:or)\\s",
+                " || ").replaceAll("\\s(?i:not)\\s", " != ").replaceAll("\\s(?i:null)\\s?", " '' ").replaceAll(
+                "\\s?(?i:#empty)\\((.*?)\\)", "isValueEmpty($1)");
 
         if (conditionJs.contains("matches")) {
             conditionJs = conditionJs.replaceAll("\\s+(?i:matches)\\s+'.*'", ".match(/" + "$0" + "/) != null ");
@@ -330,26 +328,26 @@ public class ExpressionUtils {
     public static void evaluateCurrentStack(String stack, List<String> controlNames) {
         if (StringUtils.isNotBlank(stack)) {
             if (!(stack.equals("==")
-                    || stack.equals("!=")
-                    || stack.equals(">")
-                    || stack.equals("<")
-                    || stack.equals(">=")
-                    || stack.equals("<=")
-                    || stack.equalsIgnoreCase("ne")
-                    || stack.equalsIgnoreCase("eq")
-                    || stack.equalsIgnoreCase("gt")
-                    || stack.equalsIgnoreCase("lt")
-                    || stack.equalsIgnoreCase("lte")
-                    || stack.equalsIgnoreCase("gte")
-                    || stack.equalsIgnoreCase("matches")
-                    || stack.equalsIgnoreCase("null")
-                    || stack.equalsIgnoreCase("false")
-                    || stack.equalsIgnoreCase("true")
-                    || stack.equalsIgnoreCase("and")
-                    || stack.equalsIgnoreCase("or")
-                    || stack.contains("#empty")
-                    || stack.startsWith("'")
-                    || stack.endsWith("'"))) {
+                || stack.equals("!=")
+                || stack.equals(">")
+                || stack.equals("<")
+                || stack.equals(">=")
+                || stack.equals("<=")
+                || stack.equalsIgnoreCase("ne")
+                || stack.equalsIgnoreCase("eq")
+                || stack.equalsIgnoreCase("gt")
+                || stack.equalsIgnoreCase("lt")
+                || stack.equalsIgnoreCase("lte")
+                || stack.equalsIgnoreCase("gte")
+                || stack.equalsIgnoreCase("matches")
+                || stack.equalsIgnoreCase("null")
+                || stack.equalsIgnoreCase("false")
+                || stack.equalsIgnoreCase("true")
+                || stack.equalsIgnoreCase("and")
+                || stack.equalsIgnoreCase("or")
+                || stack.contains("#empty")
+                || stack.startsWith("'")
+                || stack.endsWith("'"))) {
 
                 boolean isNumber = false;
                 if ((StringUtils.isNumeric(stack.substring(0, 1)) || stack.substring(0, 1).equals("-"))) {

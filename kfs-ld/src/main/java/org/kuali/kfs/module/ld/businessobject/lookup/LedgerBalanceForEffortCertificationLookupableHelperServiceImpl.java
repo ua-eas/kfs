@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.LedgerBalanceForEffortCertification;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupableHelperService;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.ld.businessobject.LedgerBalanceForEffortCertification;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class LedgerBalanceForEffortCertificationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -47,13 +47,13 @@ public class LedgerBalanceForEffortCertificationLookupableHelperServiceImpl exte
 
     /**
      * Sets the effortLedgerBalanceLookupableHelperService attribute value.
+     *
      * @param effortLedgerBalanceLookupableHelperService The effortLedgerBalanceLookupableHelperService to set.
      */
     public void setEffortLedgerBalanceLookupableHelperService(LookupableHelperService effortLedgerBalanceLookupableHelperService) {
-        if(effortLedgerBalanceLookupableHelperService != null) {
+        if (effortLedgerBalanceLookupableHelperService != null) {
             this.effortLedgerBalanceLookupableHelperService = effortLedgerBalanceLookupableHelperService;
-        }
-        else {
+        } else {
             this.effortLedgerBalanceLookupableHelperService = new KualiLookupableHelperServiceImpl();
         }
     }

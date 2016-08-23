@@ -33,7 +33,7 @@ abstract public class ChangeMonitor {
      * Iterates, with pauseSeconds seconds between iterations, until either the given ChangeMonitor's valueChanged method returns
      * true, or at least maxWaitSeconds seconds have passed.
      *
-     * @param monitor ChangeMonitor instance which watches for whatever change your test is waiting for
+     * @param monitor        ChangeMonitor instance which watches for whatever change your test is waiting for
      * @param maxWaitSeconds
      * @param pauseSeconds
      * @return true if the the ChangeMonitor's valueChanged method returned true before time ran out
@@ -56,8 +56,7 @@ abstract public class ChangeMonitor {
                     LOG.debug("sleeping for " + pauseMs + " ms");
                 }
                 Thread.sleep(pauseMs);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 interrupted = true;
             }
             LOG.debug("checking wait loop sentinel");

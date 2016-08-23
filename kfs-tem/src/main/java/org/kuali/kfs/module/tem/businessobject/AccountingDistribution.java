@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * Bean class used to hold values for creating the view for Accounting Distribution on the
@@ -37,6 +37,7 @@ public class AccountingDistribution extends PersistableBusinessObjectBase implem
     /**
      * Gets the selected attribute.
      * Defaults to false if remaining amount is zero.
+     *
      * @return Returns the selected.
      */
     public Boolean getSelected() {
@@ -45,6 +46,7 @@ public class AccountingDistribution extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the selected attribute value.
+     *
      * @param selected The selected to set.
      */
     public void setSelected(Boolean selected) {
@@ -57,7 +59,6 @@ public class AccountingDistribution extends PersistableBusinessObjectBase implem
     }
 
     /**
-     *
      * @param objectCode new objectCode to assign
      */
     public void setObjectCode(final String objectCode) {
@@ -78,6 +79,7 @@ public class AccountingDistribution extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the cardType attribute.
+     *
      * @return Returns the cardType.
      */
     public String getCardType() {
@@ -86,6 +88,7 @@ public class AccountingDistribution extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the cardType attribute value.
+     *
      * @param cardType The cardType to set.
      */
     public void setCardType(String cardType) {

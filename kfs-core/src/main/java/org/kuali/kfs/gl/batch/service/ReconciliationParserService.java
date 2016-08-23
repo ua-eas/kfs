@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
+import org.kuali.kfs.gl.batch.service.impl.ReconciliationBlock;
+
 import java.io.IOException;
 import java.io.Reader;
-
-import org.kuali.kfs.gl.batch.service.impl.ReconciliationBlock;
 
 /**
  * This class parses a reconciliation file
@@ -30,7 +30,7 @@ public interface ReconciliationParserService {
     /**
      * Parses a reconciliation file
      *
-     * @param reader a source of data from which to build a reconciliation
+     * @param reader  a source of data from which to build a reconciliation
      * @param tableId defined within the reconciliation file; defines which block to parse
      * @return parsed reconciliation data
      * @throws IOException thrown if the file cannot be written for any reason

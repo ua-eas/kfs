@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
+import org.kuali.kfs.fp.businessobject.TravelExpenseTypeCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.fp.businessobject.TravelExpenseTypeCode;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * This class returns list of travel pre paid expense type category value pairs.
@@ -40,7 +40,7 @@ public class TravelPrePaidExpenseTypeValuesFinder extends KeyValuesBase {
         List boList = (List) SpringContext.getBean(KeyValuesService.class).findAllOrderBy(TravelExpenseTypeCode.class, "name", true);
         List keyValues = new ArrayList();
         keyValues.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = boList.iterator(); iter.hasNext();) {
+        for (Iterator iter = boList.iterator(); iter.hasNext(); ) {
             TravelExpenseTypeCode element = (TravelExpenseTypeCode) iter.next();
             if (element.isPrepaidExpense()) {
                 keyValues.add(new ConcreteKeyValue(element.getCode(), element.getCode() + " - " + element.getName()));

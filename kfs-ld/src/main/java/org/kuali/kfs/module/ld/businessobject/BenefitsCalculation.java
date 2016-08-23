@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.integration.ld.LaborLedgerBenefitsCalculation;
 import org.kuali.kfs.integration.ld.LaborLedgerBenefitsType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiPercent;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for Benefits Calculation.
@@ -300,11 +300,12 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
      * @see org.kuali.kfs.integration.businessobject.LaborLedgerBenefitsCalculation#setLaborLedgerBenefitsType(org.kuali.module.labor.bo.LaborLedgerBenefitsType)
      */
     public void setLaborLedgerBenefitsType(LaborLedgerBenefitsType laborLedgerBenefitsType) {
-        this.setPositionBenefitType((BenefitsType)laborLedgerBenefitsType);
+        this.setPositionBenefitType((BenefitsType) laborLedgerBenefitsType);
     }
 
     /**
      * Gets the laborBenefitRateCategory attribute.
+     *
      * @return Returns the laborBenefitRateCategory.
      */
     public LaborBenefitRateCategory getLaborBenefitRateCategory() {
@@ -313,6 +314,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the laborBenefitRateCategory attribute value.
+     *
      * @param laborBenefitRateCategory The laborBenefitRateCategory to set.
      */
     public void setLaborBenefitRateCategory(LaborBenefitRateCategory laborBenefitRateCategory) {
@@ -321,6 +323,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the laborBenefitRateCategoryCode attribute.
+     *
      * @return Returns the laborBenefitRateCategoryCode.
      */
     public String getLaborBenefitRateCategoryCode() {
@@ -329,34 +332,43 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the laborBenefitRateCategoryCode attribute value.
+     *
      * @param laborBenefitRateCategoryCode The laborBenefitRateCategoryCode to set.
      */
     public void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode) {
         this.laborBenefitRateCategoryCode = laborBenefitRateCategoryCode;
     }
+
     /**
      * Gets the laborAccountOffset attribute.
+     *
      * @return Returns the laborAccountOffset.
      */
     public Account getLaborAccountOffset() {
         return laborAccountOffset;
     }
+
     /**
      * Sets the laborAccountOffset attribute value.
+     *
      * @param laborAccountOffset The laborAccountOffset to set.
      */
     public void setLaborAccountOffset(Account laborAccountOffset) {
         this.laborAccountOffset = laborAccountOffset;
     }
+
     /**
      * Gets the laborObjectCodeOffset attribute.
+     *
      * @return Returns the laborObjectCodeOffset.
      */
     public ObjectCode getLaborObjectCodeOffset() {
         return laborObjectCodeOffset;
     }
+
     /**
      * Sets the laborObjectCodeOffset attribute value.
+     *
      * @param laborObjectCodeOffset The laborObjectCodeOffset to set.
      */
     public void setLaborObjectCodeOffset(ObjectCode laborObjectCodeOffset) {
@@ -366,6 +378,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the accountCodeOffset attribute.
+     *
      * @return Returns the accountCodeOffset.
      */
     public String getAccountCodeOffset() {
@@ -374,6 +387,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the accountCodeOffset attribute value.
+     *
      * @param accountCodeOffset The accountCodeOffset to set.
      */
     public void setAccountCodeOffset(String accountCodeOffset) {
@@ -382,6 +396,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the objectCodeOffset attribute.
+     *
      * @return Returns the objectCodeOffset.
      */
     public String getObjectCodeOffset() {
@@ -390,6 +405,7 @@ public class BenefitsCalculation extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the objectCodeOffset attribute value.
+     *
      * @param objectCodeOffset The objectCodeOffset to set.
      */
     public void setObjectCodeOffset(String objectCodeOffset) {

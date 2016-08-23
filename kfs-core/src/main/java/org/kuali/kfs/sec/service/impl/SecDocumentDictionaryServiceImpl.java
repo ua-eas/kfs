@@ -20,19 +20,19 @@ package org.kuali.kfs.sec.service.impl;
 
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.kfs.sec.document.validation.impl.AccessSecurityAccountingDocumentRuleBase;
-import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.service.impl.DocumentDictionaryServiceImpl;
+import org.kuali.kfs.sec.document.validation.impl.AccessSecurityAccountingDocumentRuleBase;
+import org.kuali.kfs.sec.service.AccessSecurityService;
+import org.kuali.kfs.sys.context.SpringContext;
 
 public class SecDocumentDictionaryServiceImpl extends DocumentDictionaryServiceImpl {
     private AccessSecurityService accessSecurityService;
     private DataDictionaryService secDocumentDictionaryDataDictionaryService;
 
     protected AccessSecurityService getAccessSecurityService() {
-        if ( accessSecurityService == null ) {
+        if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;
@@ -54,6 +54,7 @@ public class SecDocumentDictionaryServiceImpl extends DocumentDictionaryServiceI
 
     /**
      * Overridden because it is impossible to inject kns services into services which are overriding other kns services currently
+     *
      * @return the data dictionary service
      */
     @Override

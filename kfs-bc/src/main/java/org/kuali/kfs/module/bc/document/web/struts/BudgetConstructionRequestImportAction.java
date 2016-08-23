@@ -18,21 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.document.service.BudgetRequestImportService;
@@ -40,9 +33,15 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -125,7 +124,6 @@ public class BudgetConstructionRequestImportAction extends BudgetConstructionImp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionImportExportAction#validateFormData(org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionImportExportForm)
      */
     @Override
@@ -141,21 +139,21 @@ public class BudgetConstructionRequestImportAction extends BudgetConstructionImp
             isValid &= false;
         }
 
-        if ( requestImportForm.getFile() == null || requestImportForm.getFile().getFileSize() == 0 ) {
+        if (requestImportForm.getFile() == null || requestImportForm.getFile().getFileSize() == 0) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILE_IS_REQUIRED);
             isValid = false;
         }
-        if ( requestImportForm.getFile() != null && requestImportForm.getFile().getFileSize() == 0 ) {
+        if (requestImportForm.getFile() != null && requestImportForm.getFile().getFileSize() == 0) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILE_EMPTY);
             isValid = false;
         }
-        if (requestImportForm.getFile() != null && (StringUtils.isBlank(requestImportForm.getFile().getFileName())) ) {
+        if (requestImportForm.getFile() != null && (StringUtils.isBlank(requestImportForm.getFile().getFileName()))) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILENAME_REQUIRED);
             isValid = false;
         }
 
         //file type validation
-        if ( StringUtils.isBlank(requestImportForm.getFileType()) ) {
+        if (StringUtils.isBlank(requestImportForm.getFileType())) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_FILE_TYPE_IS_REQUIRED);
             isValid = false;
         }

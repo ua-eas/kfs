@@ -31,8 +31,6 @@ import java.util.Set;
  * Configured for a <code>View</code> instance to provide conditional logic
  * based on any variable (view configuration, system parameters, ...) that does
  * not depend on the current user
- *
- *
  */
 public interface ViewPresentationController {
 
@@ -43,7 +41,7 @@ public interface ViewPresentationController {
     /**
      * Determines if the the given view and data is allowed to be edited
      *
-     * @param view - view instance to check whether editing is allowed
+     * @param view  - view instance to check whether editing is allowed
      * @param model - object containing the view data
      * @return boolean true if editing on the view is allowed, false otherwise
      */
@@ -64,21 +62,21 @@ public interface ViewPresentationController {
     public boolean canViewWidget(View view, ViewModel model, Widget widget, String widgetId);
 
     public boolean canPerformAction(View view, ViewModel model, ActionField actionField, String actionEvent,
-            String actionId);
+                                    String actionId);
 
     public boolean canEditLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line);
+                               String collectionPropertyName, Object line);
 
     public boolean canViewLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line);
+                               String collectionPropertyName, Object line);
 
     public boolean canEditLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName);
+                                    String collectionPropertyName, Object line, Field field, String propertyName);
 
     public boolean canViewLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName);
+                                    String collectionPropertyName, Object line, Field field, String propertyName);
 
     public boolean canPerformLineAction(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId);
+                                        String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId);
 
 }

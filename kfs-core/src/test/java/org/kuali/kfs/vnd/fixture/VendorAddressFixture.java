@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
-import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusIN;
-import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusKO;
-import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusSB;
+import org.kuali.kfs.vnd.businessobject.VendorAddress;
+import org.kuali.kfs.vnd.businessobject.VendorDefaultAddress;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.vnd.businessobject.VendorAddress;
-import org.kuali.kfs.vnd.businessobject.VendorDefaultAddress;
+import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusIN;
+import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusKO;
+import static org.kuali.kfs.vnd.fixture.VendorDefaultAddressFixture.campusSB;
 
 public enum VendorAddressFixture {
 
-    address1(new Integer(1), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true,true, null),
-    address2(new Integer(2), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false,true, new VendorDefaultAddressFixture[] { campusKO, campusIN }),
-    address3(new Integer(3), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true,true, null),
-    address4(new Integer(4), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false,false, new VendorDefaultAddressFixture[] { campusSB }),
-    address5(new Integer(5), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false,true, null),
-    address6(new Integer(6), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true,true, new VendorDefaultAddressFixture[] { campusKO, campusIN }),
-    address7(new Integer(7), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true,true, new VendorDefaultAddressFixture[] { campusSB }), ;
+    address1(new Integer(1), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true, true, null),
+    address2(new Integer(2), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false, true, new VendorDefaultAddressFixture[]{campusKO, campusIN}),
+    address3(new Integer(3), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true, true, null),
+    address4(new Integer(4), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false, false, new VendorDefaultAddressFixture[]{campusSB}),
+    address5(new Integer(5), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", false, true, null),
+    address6(new Integer(6), "PO", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true, true, new VendorDefaultAddressFixture[]{campusKO, campusIN}),
+    address7(new Integer(7), "RM", "line1", "line2", "thisCity", "IN", "44444", "US", "attentionTo", "", "knoreceipt-l@indiana.edu", "", "555-555-5555", true, true, new VendorDefaultAddressFixture[]{campusSB}),;
 
     public final Integer vendorAddressGeneratedIdentifier;
     public final String vendorAddressTypeCode;
@@ -55,7 +55,7 @@ public enum VendorAddressFixture {
     public final boolean active;
     public final List defaultAddresses = new ArrayList();
 
-    private VendorAddressFixture(Integer vendorAddressGeneratedIdentifier, String vendorAddressTypeCode, String vendorLine1Address, String vendorLine2Address, String vendorCityName, String vendorStateCode, String vendorZipCode, String vendorCountryCode, String vendorAttentionName, String vendorAddressInternationalProvinceName, String vendorAddressEmailAddress, String vendorBusinessToBusinessUrlAddress, String vendorFaxNumber, boolean vendorDefaultAddressIndicator,boolean active, VendorDefaultAddressFixture[] campuses) {
+    private VendorAddressFixture(Integer vendorAddressGeneratedIdentifier, String vendorAddressTypeCode, String vendorLine1Address, String vendorLine2Address, String vendorCityName, String vendorStateCode, String vendorZipCode, String vendorCountryCode, String vendorAttentionName, String vendorAddressInternationalProvinceName, String vendorAddressEmailAddress, String vendorBusinessToBusinessUrlAddress, String vendorFaxNumber, boolean vendorDefaultAddressIndicator, boolean active, VendorDefaultAddressFixture[] campuses) {
         this.vendorAddressGeneratedIdentifier = vendorAddressGeneratedIdentifier;
         this.vendorAddressTypeCode = vendorAddressTypeCode;
         this.vendorLine1Address = vendorLine1Address;
@@ -70,7 +70,7 @@ public enum VendorAddressFixture {
         this.vendorBusinessToBusinessUrlAddress = vendorBusinessToBusinessUrlAddress;
         this.vendorFaxNumber = vendorFaxNumber;
         this.vendorDefaultAddressIndicator = vendorDefaultAddressIndicator;
-        this.active=active;
+        this.active = active;
         if (campuses != null) {
             for (VendorDefaultAddressFixture campus : campuses) {
                 VendorDefaultAddress vda = new VendorDefaultAddress();

@@ -29,7 +29,7 @@ public interface VendorRoutingComparable {
      *
      * @param toCompare An Object, which should be of this class if the comparison is to be meaningful.
      * @return True if all non-derived attributes of the given object other than collections are equal to this one's. False if the
-     *         given object is null or of a different class.
+     * given object is null or of a different class.
      */
     public boolean isEqualForRouting(Object toCompare);
 

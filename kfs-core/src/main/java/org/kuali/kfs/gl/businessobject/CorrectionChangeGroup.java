@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents a GLCP correction change group
@@ -93,7 +93,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
      * @param changeNumber correction change line number used to determine which correction change item to remove
      */
     public void removeCorrectionChangeItem(int changeNumber) {
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             if (changeNumber == element.getCorrectionChangeLineNumber().intValue()) {
                 iter.remove();
@@ -107,7 +107,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
      * @param criteriaNumber correction criteria line number used to determine which correction change to remove
      */
     public void removeCorrectionCriteriaItem(int criteriaNumber) {
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             if (criteriaNumber == element.getCorrectionCriteriaLineNumber().intValue()) {
                 iter.remove();
@@ -122,7 +122,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
      * @return CorrectionChange correction change object with specified line number to return
      */
     public CorrectionChange getCorrectionChangeItem(int changeNumber) {
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             if (changeNumber == element.getCorrectionChangeLineNumber().intValue()) {
                 return element;
@@ -143,7 +143,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
      * @return CorrectionChange correction change object with specified line number to return
      */
     public CorrectionCriteria getCorrectionCriteriaItem(int criteriaNumber) {
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             if (criteriaNumber == element.getCorrectionCriteriaLineNumber().intValue()) {
                 return element;
@@ -168,11 +168,11 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
 
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             element.setDocumentNumber(documentNumber);
         }
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             element.setDocumentNumber(documentNumber);
         }
@@ -236,8 +236,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
             Integer thisNbr = correctionChangeGroupLineNumber == null ? 0 : correctionChangeGroupLineNumber;
             Integer thatNbr = other.correctionChangeGroupLineNumber == null ? 0 : other.correctionChangeGroupLineNumber;
             return thisNbr.compareTo(thatNbr);
-        }
-        else {
+        } else {
             return c;
         }
     }

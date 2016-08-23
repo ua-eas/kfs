@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.module.purap.PurapConstants.CreditMemoStatuses;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.kuali.kfs.module.purap.PurapConstants.CreditMemoStatuses;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * Value Finder for Credit Memo Statuses.
@@ -41,7 +41,7 @@ public class CreditMemoStatusValuesFinder extends KeyValuesBase {
     public List getKeyValues() {
         // get all CM statuses
         HashMap<String, String> keyValues = CreditMemoStatuses.getAllAppDocStatuses();
-        SortedSet<String> sortedKeys= new TreeSet<String>(keyValues.keySet());
+        SortedSet<String> sortedKeys = new TreeSet<String>(keyValues.keySet());
 
         // generate output
         List labels = new ArrayList();

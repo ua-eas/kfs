@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public abstract class PurchasingItemCapitalAssetBase extends PersistableBusinessObjectBase implements ItemCapitalAsset {
 
@@ -40,9 +40,10 @@ public abstract class PurchasingItemCapitalAssetBase extends PersistableBusiness
 
     /**
      * Constructs a PurchasingItemCapitalAsset.
+     *
      * @param capitalAssetNumber
      */
-    public PurchasingItemCapitalAssetBase(Long capitalAssetNumber){
+    public PurchasingItemCapitalAssetBase(Long capitalAssetNumber) {
         this.capitalAssetNumber = capitalAssetNumber;
     }
 

@@ -27,12 +27,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="KRNS_LOOKUP_SEL_T")
+@Table(name = "KRNS_LOOKUP_SEL_T")
 public class SelectedObjectIds extends MultipleValueLookupMetadata {
     @Lob
-	@Basic(fetch=FetchType.LAZY)
-	@Column(name="SEL_OBJ_IDS")
-	private String selectedObjectIds;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "SEL_OBJ_IDS")
+    private String selectedObjectIds;
 
     public String getSelectedObjectIds() {
         return selectedObjectIds;

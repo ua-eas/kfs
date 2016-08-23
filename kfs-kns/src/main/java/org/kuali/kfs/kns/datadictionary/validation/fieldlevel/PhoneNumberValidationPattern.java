@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching Domestic phone Numbers
- *
- *
  */
 public class PhoneNumberValidationPattern extends FieldLevelValidationPattern {
 

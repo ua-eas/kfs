@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.GlSummary;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An interface which declares methods needed for using Balance
@@ -83,7 +83,7 @@ public interface BalanceService {
      * This method finds the summary records of balance entries according to input fields an values. The results will be limited to
      * the system lookup results limit.
      *
-     * @param fieldValues the input fields an values
+     * @param fieldValues    the input fields an values
      * @param isConsolidated consolidation option is applied or not
      * @return the summary records of balance entries
      */
@@ -92,7 +92,7 @@ public interface BalanceService {
     /**
      * This method gets the size of cash balance entries according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the count of cash balance entries
      */
@@ -101,7 +101,7 @@ public interface BalanceService {
     /**
      * This method gets the size of balance entries according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the size of balance entries
      */
@@ -110,7 +110,7 @@ public interface BalanceService {
     /**
      * This method finds the summary records of balance entries according to input fields and values
      *
-     * @param fieldValues the input fields and values
+     * @param fieldValues    the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the summary records of balance entries
      */
@@ -120,7 +120,7 @@ public interface BalanceService {
      * Purge the sufficient funds balance table by year/chart
      *
      * @param chart the chart purged balances should have
-     * @param year the fiscal year purged balances should have
+     * @param year  the fiscal year purged balances should have
      */
     public void purgeYearByChart(String chart, int year);
 
@@ -161,7 +161,7 @@ public interface BalanceService {
     /**
      * This method returns all of the balances specifically for the nominal activity closing job when annual closing charts are specified
      *
-     * @param year year to find balances for
+     * @param year   year to find balances for
      * @param charts list of charts to find balances for
      * @return an Iterator of nominal activity balances
      */
@@ -179,7 +179,7 @@ public interface BalanceService {
      * Returns all the balances specifically to be processed by the balance forwards job for the "general" rule
      * for the specified fiscal year and charts
      *
-     * @param year the fiscal year to find balances for
+     * @param year   the fiscal year to find balances for
      * @param charts charts to find balances for
      * @return an Iterator of balances to process for the general balance forward process
      */
@@ -195,7 +195,8 @@ public interface BalanceService {
 
     /**
      * Returns all the balances to be forwarded for the "cumulative" rule
-     * @param year the fiscal year to find balances for
+     *
+     * @param year   the fiscal year to find balances for
      * @param charts charts to find balances for
      * @return an Iterator of balances to process for the cumulative/active balance forward process
      */
@@ -204,9 +205,9 @@ public interface BalanceService {
     /**
      * Returns all of the balances to be forwarded for the organization reversion process
      *
-     * @param year the year of balances to find
+     * @param year      the year of balances to find
      * @param endOfYear whether the organization reversion process is running end of year (before the fiscal year change over) or
-     *        beginning of year (after the fiscal year change over)
+     *                  beginning of year (after the fiscal year change over)
      * @return an iterator of balances to put through the strenuous organization reversion process
      */
     public Iterator<Balance> findOrganizationReversionBalancesForFiscalYear(Integer year, boolean endOfYear);

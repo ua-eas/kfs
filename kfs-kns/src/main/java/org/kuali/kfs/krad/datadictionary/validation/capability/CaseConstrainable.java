@@ -23,11 +23,10 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.CaseConstraint;
 /**
  * Validation capability to constrain a particular value under specific conditions.
  *
- *
  * @since 1.1
  */
 public interface CaseConstrainable extends Constrainable {
 
-	public CaseConstraint getCaseConstraint();
+    public CaseConstraint getCaseConstraint();
 
 }

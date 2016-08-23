@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -29,6 +25,11 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -52,12 +53,11 @@ import org.kuali.kfs.sys.document.GeneralLedgerPostingDocumentBase;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.TaxService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumentBase implements GeneralLedgerPendingEntrySource, AmountTotaling {
 
@@ -335,8 +335,8 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
      * District tax object code for $1.00 on the district tax account
      *
      * @see org.kuali.kfs.service.impl.GenericGeneralLedgerPendingEntryGenerationProcessImpl#processGenerateGeneralLedgerPendingEntries(org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
 
     @Override
@@ -361,8 +361,7 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
             sequenceHelper.increment();
             addWriteoffGLPEs(sequenceHelper, glpeSourceDetail, true, amount);
             addSalesTaxGLPEs(sequenceHelper, glpeSourceDetail, true, amount);
-        }
-        else {
+        } else {
             amount = customerInvoiceDetail.getAmountOpen();
             addReceivableGLPEs(sequenceHelper, glpeSourceDetail, true, amount);
             sequenceHelper.increment();
@@ -436,8 +435,7 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
                 sequenceHelper.increment();
                 if (writeOffGlpe.isWriteOffDetail) {
                     service.createAndAddGenericInvoiceRelatedGLPEs(this, customerInvDetail, sequenceHelper, isDebit, hasWriteoffTaxClaimOnCashOffset, writeOffGlpe.glpe.getTransactionLedgerEntryAmount());
-                }
-                else {
+                } else {
                     service.createAndAddGenericInvoiceRelatedGLPEs(this, receivableCustomerInvoiceDetail, sequenceHelper, !isDebit, hasWriteoffTaxClaimOnCashOffset, writeOffGlpe.glpe.getTransactionLedgerEntryAmount());
                 }
                 invGlpes.remove(writeOffGlpe.glpe);
@@ -447,10 +445,8 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
     }
 
 
-
-
-    /** find all glpes that match this sales tax entry
-     *
+    /**
+     * find all glpes that match this sales tax entry
      *
      * @param glpes
      * @param glpeSourceDetail
@@ -464,8 +460,7 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
         for (GeneralLedgerPendingEntry glpe : glpes) {
             if ((glpeSourceDetail.getAccountNumber().matches(glpe.getAccountNumber())) && (glpeSourceDetail.getChartOfAccountsCode().matches(glpe.getChartOfAccountsCode())) && (glpeSourceDetail.getObjectCode().getFinancialObjectCode().matches(glpe.getFinancialObjectCode()))) {
                 arrGlpeMatches.add(new WriteOffGlpes(glpe, false));
-            }
-            else if ((glpeWriteOffDetail.getAccountNumber().matches(glpe.getAccountNumber())) && (glpeWriteOffDetail.getChartOfAccountsCode().matches(glpe.getChartOfAccountsCode())) && (glpeWriteOffDetail.getObjectCode().getFinancialObjectCode().matches(glpe.getFinancialObjectCode()))) {
+            } else if ((glpeWriteOffDetail.getAccountNumber().matches(glpe.getAccountNumber())) && (glpeWriteOffDetail.getChartOfAccountsCode().matches(glpe.getChartOfAccountsCode())) && (glpeWriteOffDetail.getObjectCode().getFinancialObjectCode().matches(glpe.getFinancialObjectCode()))) {
                 arrGlpeMatches.add(new WriteOffGlpes(glpe, true));
             }
         }
@@ -502,7 +497,7 @@ public class CustomerInvoiceWriteoffDocument extends GeneralLedgerPostingDocumen
      * @return Returns the customerNote.
      */
     public String getCustomerNote() {
-		return customerNote;
+        return customerNote;
     }
 
     /**

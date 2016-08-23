@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItemBase;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentFixture;
@@ -36,7 +32,11 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
 
 /**
  * This class is used to test the below the line item type rules
@@ -303,21 +303,21 @@ public class SystemParameterBelowTheLineItemTypeTest extends KualiTestBase {
      * on each of the item's type, then it will loop through the list of items from the invalidDocument and
      * assertFalse on each of the item's type.
      *
-     * @param documentClass    The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
-     * @param validDocument    The document containing a list of items whose types are supposed to be valid according to the System Parameter.
-     * @param invalidDocument  The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
+     * @param documentClass   The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
+     * @param validDocument   The document containing a list of items whose types are supposed to be valid according to the System Parameter.
+     * @param invalidDocument The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
      * @throws Exception
      */
     private final void testExistingItemTypesAreValid(Class documentClass, PurchasingAccountsPayableDocumentBase validDocument, PurchasingAccountsPayableDocumentBase invalidDocument) throws Exception {
 
-        List<String> validTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(documentClass, PurapConstants.BELOW_THE_LINES_PARAMETER) );
+        List<String> validTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(documentClass, PurapConstants.BELOW_THE_LINES_PARAMETER));
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)validDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) validDocument.getItems()) {
             String theItemType = theItem.getItemTypeCode();
             assertTrue(validTypes.contains(theItemType));
         }
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)invalidDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) invalidDocument.getItems()) {
             String theItemType = theItem.getItemTypeCode();
             assertFalse(validTypes.contains(theItemType));
         }
@@ -330,22 +330,22 @@ public class SystemParameterBelowTheLineItemTypeTest extends KualiTestBase {
      * on each of the item's type, then it will loop through the list of items from the invalidDocument and
      * assertFalse on each of the item's type.
      *
-     * @param documentClass    The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
-     * @param validDocument    The document containing a list of items whose types are supposed to be valid according to the System Parameter.
-     * @param invalidDocument  The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
+     * @param documentClass   The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
+     * @param validDocument   The document containing a list of items whose types are supposed to be valid according to the System Parameter.
+     * @param invalidDocument The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
      * @throws Exception
      */
     private final void testAllowsNegative(Class documentClass, PurchasingAccountsPayableDocumentBase validDocument, PurchasingAccountsPayableDocumentBase invalidDocument) throws Exception {
 
-        List<String> allowNegativeTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_NEGATIVE") );
+        List<String> allowNegativeTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_NEGATIVE"));
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)validDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) validDocument.getItems()) {
             if (theItem.getTotalAmount().isNegative() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertTrue(allowNegativeTypes.contains(theItemType));
             }
         }
-        for (PurApItemBase theItem :(List<PurApItemBase>)invalidDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) invalidDocument.getItems()) {
             if (theItem.getTotalAmount().isNegative() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertFalse(allowNegativeTypes.contains(theItemType));
@@ -360,22 +360,22 @@ public class SystemParameterBelowTheLineItemTypeTest extends KualiTestBase {
      * on each of the item's type, then it will loop through the list of items from the invalidDocument and
      * assertFalse on each of the item's type.
      *
-     * @param documentClass    The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
-     * @param validDocument    The document containing a list of items whose types are supposed to be valid according to the System Parameter.
-     * @param invalidDocument  The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
+     * @param documentClass   The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
+     * @param validDocument   The document containing a list of items whose types are supposed to be valid according to the System Parameter.
+     * @param invalidDocument The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
      * @throws Exception
      */
     private final void testAllowsPositive(Class documentClass, PurchasingAccountsPayableDocumentBase validDocument, PurchasingAccountsPayableDocumentBase invalidDocument) throws Exception {
 
-        List<String> allowPositiveTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_POSITIVE") );
+        List<String> allowPositiveTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_POSITIVE"));
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)validDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) validDocument.getItems()) {
             if (theItem.getTotalAmount().isPositive() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertTrue(allowPositiveTypes.contains(theItemType));
             }
         }
-        for (PurApItemBase theItem :(List<PurApItemBase>)invalidDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) invalidDocument.getItems()) {
             if (theItem.getTotalAmount().isPositive() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertFalse(allowPositiveTypes.contains(theItemType));
@@ -390,22 +390,22 @@ public class SystemParameterBelowTheLineItemTypeTest extends KualiTestBase {
      * on each of the item's type, then it will loop through the list of items from the invalidDocument and
      * assertFalse on each of the item's type.
      *
-     * @param documentClass    The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
-     * @param validDocument    The document containing a list of items whose types are supposed to be valid according to the System Parameter.
-     * @param invalidDocument  The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
+     * @param documentClass   The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
+     * @param validDocument   The document containing a list of items whose types are supposed to be valid according to the System Parameter.
+     * @param invalidDocument The document containing a list of items whose types are supposed to be invalid according to the System Parameter.
      * @throws Exception
      */
     private final void testAllowsZero(Class documentClass, PurchasingAccountsPayableDocumentBase validDocument, PurchasingAccountsPayableDocumentBase invalidDocument) throws Exception {
 
-        List<String> allowZeroTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_ZERO") );
+        List<String> allowZeroTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_ALLOWING_ZERO"));
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)validDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) validDocument.getItems()) {
             if (theItem.getTotalAmount().isZero() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertTrue(allowZeroTypes.contains(theItemType));
             }
         }
-        for (PurApItemBase theItem :(List<PurApItemBase>)invalidDocument.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) invalidDocument.getItems()) {
             if (theItem.getTotalAmount().isZero() && theItem.getItemType().isAdditionalChargeIndicator()) {
                 String theItemType = theItem.getItemTypeCode();
                 assertFalse(allowZeroTypes.contains(theItemType));
@@ -423,23 +423,23 @@ public class SystemParameterBelowTheLineItemTypeTest extends KualiTestBase {
      * item type is specified in the "REQUIRING_USER_ENTERED_DESCRIPTION", then assertFalse that the description
      * is not blank.
      *
-     * @param documentClass             The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
-     * @param docBlankDesc              The document containing a list of items whose description is blank.
-     * @param docItemTypesRequiredDesc  The document containing a list of items whose item types are specified in the System Parameter as the items requiring description.
+     * @param documentClass            The class of the document we want to test, for example, RequisitionDocument, PurchaseOrderDocument, PaymentRequestDocument, CreditMemoDocument.
+     * @param docBlankDesc             The document containing a list of items whose description is blank.
+     * @param docItemTypesRequiredDesc The document containing a list of items whose item types are specified in the System Parameter as the items requiring description.
      * @throws Exception
      */
     private final void testRequiringDescription(Class documentClass, PurchasingAccountsPayableDocumentBase docBlankDesc, PurchasingAccountsPayableDocumentBase docItemTypesRequiredDesc) throws Exception {
 
-        List<String> requiringDescriptionTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_REQUIRING_USER_ENTERED_DESCRIPTION") );
+        List<String> requiringDescriptionTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(documentClass, "ITEM_TYPES_REQUIRING_USER_ENTERED_DESCRIPTION"));
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)docBlankDesc.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) docBlankDesc.getItems()) {
             String theItemType = theItem.getItemTypeCode();
             if (StringUtils.isBlank(theItem.getItemDescription())) {
                 assertFalse(requiringDescriptionTypes.contains(theItemType));
             }
         }
 
-        for (PurApItemBase theItem :(List<PurApItemBase>)docItemTypesRequiredDesc.getItems()) {
+        for (PurApItemBase theItem : (List<PurApItemBase>) docItemTypesRequiredDesc.getItems()) {
             String theItemType = theItem.getItemTypeCode();
             if (requiringDescriptionTypes.contains(theItemType)) {
                 assertFalse(StringUtils.isBlank(theItem.getItemDescription()));

@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.LinkedHashMap;
 
 public class PurchaseOrderCapitalAssetItem extends PurchasingCapitalAssetItemBase {
 
     private String documentNumber;
 
-    public PurchaseOrderCapitalAssetItem(){
+    public PurchaseOrderCapitalAssetItem() {
         super();
     }
 
@@ -37,7 +37,7 @@ public class PurchaseOrderCapitalAssetItem extends PurchasingCapitalAssetItemBas
         this.setItemIdentifier(itemIdentifier);
         this.setCapitalAssetTransactionTypeCode(reqAssetItem.getCapitalAssetTransactionTypeCode());
         if (ObjectUtils.isNotNull(reqAssetItem.getPurchasingCapitalAssetSystem())) {
-            this.setPurchasingCapitalAssetSystem(new PurchaseOrderCapitalAssetSystem((RequisitionCapitalAssetSystem)reqAssetItem.getPurchasingCapitalAssetSystem()));
+            this.setPurchasingCapitalAssetSystem(new PurchaseOrderCapitalAssetSystem((RequisitionCapitalAssetSystem) reqAssetItem.getPurchasingCapitalAssetSystem()));
         }
     }
 
@@ -50,25 +50,25 @@ public class PurchaseOrderCapitalAssetItem extends PurchasingCapitalAssetItemBas
     }
 
 
-    public void setPurchasingDocument(PurchasingDocument pd){
+    public void setPurchasingDocument(PurchasingDocument pd) {
         super.setPurchasingDocument(pd);
 
-        PurchaseOrderDocument po = (PurchaseOrderDocument)pd;
-        if(po != null){
-            setDocumentNumber( po.getDocumentNumber() );
+        PurchaseOrderDocument po = (PurchaseOrderDocument) pd;
+        if (po != null) {
+            setDocumentNumber(po.getDocumentNumber());
         }
     }
 
     @Override
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
-        if( this.getCapitalAssetItemIdentifier() != null) {
+        if (this.getCapitalAssetItemIdentifier() != null) {
             m.put("capitalAssetItemIdentifier", this.getCapitalAssetItemIdentifier().toString());
         }
-        if( this.getItemIdentifier() != null ) {
+        if (this.getItemIdentifier() != null) {
             m.put("itemIdentifier", this.getItemIdentifier().toString());
         }
-        if( this.documentNumber != null) {
+        if (this.documentNumber != null) {
             m.put("documentNumber", this.documentNumber);
         }
         return m;

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ec.util;
 
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 
 /**
  * To group and hold the data presented to working reports of extract process
@@ -66,7 +66,7 @@ public class ExtractProcessReportDataHolder {
      * update the value of the entry with the given key. If the key exists, the value will be the sum of the given and existing
      * values; otherwise, create a new entry with the key and value.
      *
-     * @param key the given key
+     * @param key   the given key
      * @param count the given count
      */
     public void updateBasicStatistics(String key, Integer count) {
@@ -115,6 +115,7 @@ public class ExtractProcessReportDataHolder {
 
     /**
      * Gets the ledgerBalancesWithMessage attribute.
+     *
      * @return Returns the ledgerBalancesWithMessage.
      */
     public List<LedgerBalanceWithMessage> getLedgerBalancesWithMessage() {
@@ -123,6 +124,7 @@ public class ExtractProcessReportDataHolder {
 
     /**
      * Sets the ledgerBalancesWithMessage attribute value.
+     *
      * @param ledgerBalancesWithMessage The ledgerBalancesWithMessage to set.
      */
     public void setLedgerBalancesWithMessage(List<LedgerBalanceWithMessage> ledgerBalancesWithMessage) {
@@ -131,6 +133,7 @@ public class ExtractProcessReportDataHolder {
 
     /**
      * Gets the reportData attribute.
+     *
      * @return Returns the reportData.
      */
     public Map<String, Object> getReportData() {

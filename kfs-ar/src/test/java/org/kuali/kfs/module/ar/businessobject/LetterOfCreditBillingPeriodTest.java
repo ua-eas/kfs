@@ -18,8 +18,10 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import org.junit.Assert;import org.junit.Test;
-import org.kuali.kfs.coa.service.AccountingPeriodService;import org.kuali.kfs.module.ar.ArConstants;
+import org.junit.Assert;
+import org.junit.Test;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.module.ar.ArConstants;
 
 public class LetterOfCreditBillingPeriodTest extends BillingPeriodTest {
 

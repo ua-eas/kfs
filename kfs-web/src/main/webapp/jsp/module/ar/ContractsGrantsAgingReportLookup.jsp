@@ -19,5 +19,5 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <ar:contractsGrantsLedgerLikeLookupPage formActionName="contractsGrantsAgingReportLookup">
-	<ar:contractsGrantsAgingReportResults/>
+    <ar:contractsGrantsAgingReportResults/>
 </ar:contractsGrantsLedgerLikeLookupPage>

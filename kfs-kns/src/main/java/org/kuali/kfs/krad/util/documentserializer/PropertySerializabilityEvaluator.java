@@ -23,7 +23,6 @@ import org.kuali.kfs.krad.document.Document;
 /**
  * Specifies an implementation used during document workflow XML serialization that
  * will be able to determine whether a specific property is serializable
- *
  */
 public interface PropertySerializabilityEvaluator {
 
@@ -40,9 +39,9 @@ public interface PropertySerializabilityEvaluator {
     /**
      * Determines whether a child property of an object is serializable.
      *
-     * @param state Information about the properties that have been serialized so far
-     * @param containingObject The object containing the reference to childPropertyValue
-     * @param childPropertyName The name property to determine whether to serialize, relative to containingObject (i.e. not a nested attribute)
+     * @param state              Information about the properties that have been serialized so far
+     * @param containingObject   The object containing the reference to childPropertyValue
+     * @param childPropertyName  The name property to determine whether to serialize, relative to containingObject (i.e. not a nested attribute)
      * @param childPropertyValue If serializable, this property would be serialized by the serializer service.
      * @return
      */

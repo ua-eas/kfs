@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.vnd.web.struts;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.batch.service.VendorExcludeService;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.batch.service.VendorExcludeService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VendorExclusionAction extends KualiAction {
 
@@ -59,8 +58,8 @@ public class VendorExclusionAction extends KualiAction {
     }
 
     protected String getBackUrl(VendorExclusionForm form) {
-        return form.getBackLocation() + "?methodToCall=search&docFormKey=88888888&businessObjectClassName=" + form.getBusinessObjectClassName()+ "&confirmStatusCode=" +  form.getConfirmStatusCode()
-        + "&vendorExclusionStatus=" +  form.getVendorExclusionStatus() + "&vendorType=" +  form.getVendorType() + "&suppressActions=No&showMaintenanceLinks=Yes";
+        return form.getBackLocation() + "?methodToCall=search&docFormKey=88888888&businessObjectClassName=" + form.getBusinessObjectClassName() + "&confirmStatusCode=" + form.getConfirmStatusCode()
+            + "&vendorExclusionStatus=" + form.getVendorExclusionStatus() + "&vendorType=" + form.getVendorType() + "&suppressActions=No&showMaintenanceLinks=Yes";
     }
 
     @Override

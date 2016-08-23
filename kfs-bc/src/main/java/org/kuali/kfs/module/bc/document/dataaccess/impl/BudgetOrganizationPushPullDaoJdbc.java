@@ -644,7 +644,7 @@ public class BudgetOrganizationPushPullDaoJdbc extends BudgetConstructionDaoJdbc
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetOrganizationPushPullDao#pullupSelectedOrganizationDocuments(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
     public void pullupSelectedOrganizationDocuments(String principalId, Integer fiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode) {
@@ -670,7 +670,7 @@ public class BudgetOrganizationPushPullDaoJdbc extends BudgetConstructionDaoJdbc
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetOrganizationPushPullDao#pushdownSelectedOrganizationDocuments(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
     public void pushdownSelectedOrganizationDocuments(String principalId, Integer fiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode) {
@@ -709,7 +709,7 @@ public class BudgetOrganizationPushPullDaoJdbc extends BudgetConstructionDaoJdbc
      * Uses sql jdbc call to populate the account select table for the set of pull up documents.
      *
      * @see org.kuali.kfs.module.bc.document.dataaccess..BudgetOrganizationPushPullDao#buildPullUpBudgetedDocuments(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
     public int buildPullUpBudgetedDocuments(String principalId, Integer fiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode) {
@@ -733,7 +733,7 @@ public class BudgetOrganizationPushPullDaoJdbc extends BudgetConstructionDaoJdbc
      * Uses sql jdbc call to populate the account select table for the set of push up documents.
      *
      * @see org.kuali.kfs.module.bc.document.dataaccess..BudgetOrganizationPushPullDao#buildPushDownBudgetedDocuments(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
     public int buildPushDownBudgetedDocuments(String principalId, Integer fiscalYear, String pointOfViewCharOfAccountsCode, String pointOfViewOrganizationCode) {

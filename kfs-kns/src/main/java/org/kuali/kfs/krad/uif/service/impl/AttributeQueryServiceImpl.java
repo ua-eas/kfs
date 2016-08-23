@@ -19,20 +19,20 @@
 package org.kuali.kfs.krad.uif.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.MethodInvokerConfig;
-import org.kuali.kfs.krad.uif.service.AttributeQueryService;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.field.InputField;
+import org.kuali.kfs.krad.uif.component.MethodInvokerConfig;
 import org.kuali.kfs.krad.uif.field.AttributeQuery;
 import org.kuali.kfs.krad.uif.field.AttributeQueryResult;
+import org.kuali.kfs.krad.uif.field.InputField;
+import org.kuali.kfs.krad.uif.service.AttributeQueryService;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.widget.Suggest;
 import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -45,8 +45,6 @@ import java.util.Map;
 /**
  * Implementation of <code>AttributeQueryService</code> that prepares the attribute queries and
  * delegates to the <code>LookupService</code>
- *
- *
  */
 public class AttributeQueryServiceImpl implements AttributeQueryService {
 
@@ -56,11 +54,11 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
     /**
      * @see AttributeQueryService#performFieldSuggestQuery(
      *View, java.lang.String, java.lang.String, java.util.Map<java.lang.String,
-     *      java.lang.String>)
+     * java.lang.String>)
      */
     @Override
     public AttributeQueryResult performFieldSuggestQuery(View view, String fieldId, String fieldTerm,
-            Map<String, String> queryParameters) {
+                                                         Map<String, String> queryParameters) {
         AttributeQueryResult queryResult = new AttributeQueryResult();
 
         // retrieve attribute field from view index
@@ -92,7 +90,7 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
             List<String> suggestData = new ArrayList<String>();
             for (Object result : results) {
                 Object suggestFieldValue =
-                        ObjectPropertyUtils.getPropertyValue(result, fieldSuggest.getSourcePropertyName());
+                    ObjectPropertyUtils.getPropertyValue(result, fieldSuggest.getSourcePropertyName());
                 if (suggestFieldValue != null) {
                     // TODO: need to apply formatter for field or have method in object property utils
                     suggestData.add(suggestFieldValue.toString());
@@ -107,7 +105,7 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
 
     /**
      * @see AttributeQueryService#performFieldQuery(View,
-     *      java.lang.String, java.util.Map<java.lang.String,java.lang.String>)
+     * java.lang.String, java.util.Map<java.lang.String,java.lang.String>)
      */
     @Override
     public AttributeQueryResult performFieldQuery(View view, String fieldId, Map<String, String> queryParameters) {
@@ -153,8 +151,7 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
                 if (results.size() > 1) {
                     //finding too many results in a not found message (not specific enough)
                     resultObject = null;
-                }
-                else{
+                } else {
                     resultObject = results.iterator().next();
                 }
             }
@@ -180,8 +177,8 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
             // add data not found message
             if (fieldQuery.isRenderNotFoundMessage()) {
                 String messageTemplate =
-                        getConfigurationService().getPropertyValueAsString(
-                                UifConstants.MessageKeys.QUERY_DATA_NOT_FOUND);
+                    getConfigurationService().getPropertyValueAsString(
+                        UifConstants.MessageKeys.QUERY_DATA_NOT_FOUND);
                 String message = MessageFormat.format(messageTemplate, inputField.getLabel());
                 fieldQuery.setReturnMessageText(message.toLowerCase());
             }
@@ -197,14 +194,14 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
     /**
      * Prepares the method configured on the attribute query then performs the method invocation
      *
-     * @param view - view instance the field is contained within
-     * @param attributeQuery - attribute query instance to execute
+     * @param view            - view instance the field is contained within
+     * @param attributeQuery  - attribute query instance to execute
      * @param queryParameters - map of query parameters that provide values for the method arguments
      * @return Object type depends on method being invoked, could be AttributeQueryResult in which
-     *         case the method has prepared the return result, or an Object that needs to be parsed for the result
+     * case the method has prepared the return result, or an Object that needs to be parsed for the result
      */
     protected Object executeAttributeQueryMethod(View view, AttributeQuery attributeQuery,
-            Map<String, String> queryParameters) {
+                                                 Map<String, String> queryParameters) {
         String queryMethodToCall = attributeQuery.getQueryMethodToCall();
         MethodInvokerConfig queryMethodInvoker = attributeQuery.getQueryMethodInvokerConfig();
 
@@ -226,13 +223,13 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
         // setup query method arguments
         Object[] arguments = null;
         if ((attributeQuery.getQueryMethodArgumentFieldList() != null) &&
-                (!attributeQuery.getQueryMethodArgumentFieldList().isEmpty())) {
+            (!attributeQuery.getQueryMethodArgumentFieldList().isEmpty())) {
             // retrieve argument types for conversion
             Class[] argumentTypes = queryMethodInvoker.getArgumentTypes();
             if ((argumentTypes == null) ||
-                    (argumentTypes.length != attributeQuery.getQueryMethodArgumentFieldList().size())) {
+                (argumentTypes.length != attributeQuery.getQueryMethodArgumentFieldList().size())) {
                 throw new RuntimeException(
-                        "Query method argument field list size does not match found method argument list size");
+                    "Query method argument field list size does not match found method argument list size");
             }
 
             arguments = new Object[attributeQuery.getQueryMethodArgumentFieldList().size()];
@@ -260,13 +257,13 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
      * Prepares a query using the configured data object, parameters, and criteria, then executes
      * the query and returns the result Collection
      *
-     * @param attributeQuery - attribute query instance to perform query for
-     * @param queryParameters - map of parameters that will be used in the query criteria
+     * @param attributeQuery     - attribute query instance to perform query for
+     * @param queryParameters    - map of parameters that will be used in the query criteria
      * @param additionalCriteria - map of additional name/value pairs to add to the critiera
      * @return Collection<?> results of query
      */
     protected Collection<?> executeAttributeQueryCriteria(AttributeQuery attributeQuery,
-            Map<String, String> queryParameters, Map<String, String> additionalCriteria) {
+                                                          Map<String, String> queryParameters, Map<String, String> additionalCriteria) {
         Collection<?> results = null;
 
         // build criteria for query
@@ -292,7 +289,7 @@ public class AttributeQueryServiceImpl implements AttributeQueryService {
             queryClass = Class.forName(attributeQuery.getDataObjectClassName());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(
-                    "Invalid data object class given for suggest query: " + attributeQuery.getDataObjectClassName(), e);
+                "Invalid data object class given for suggest query: " + attributeQuery.getDataObjectClassName(), e);
         }
 
         // run query

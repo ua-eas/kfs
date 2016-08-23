@@ -19,9 +19,9 @@
 package org.kuali.kfs.krad.uif.widget;
 
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.view.HistoryEntry;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +31,6 @@ import java.util.Map;
 /**
  * The breadcrumb widget contains various settings for setting up
  * Breadcrumb/History support on the view.
- *
- *
  */
 public class BreadCrumbs extends WidgetBase {
     private static final long serialVersionUID = -2864287914665842251L;
@@ -48,13 +46,13 @@ public class BreadCrumbs extends WidgetBase {
 
     /**
      * The following updates are done here:
-     *
+     * <p>
      * <ul>
      * <li>Evaluate expression on howeward path list</li>
      * </ul>
      *
      * @see Component#performApplyModel(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performApplyModel(View view, Object model, Component parent) {
@@ -66,7 +64,7 @@ public class BreadCrumbs extends WidgetBase {
 
             for (HistoryEntry historyEntry : homewardPathList) {
                 KRADServiceLocatorWeb.getExpressionEvaluatorService().evaluateObjectExpressions(historyEntry, model,
-                        context);
+                    context);
             }
         }
     }

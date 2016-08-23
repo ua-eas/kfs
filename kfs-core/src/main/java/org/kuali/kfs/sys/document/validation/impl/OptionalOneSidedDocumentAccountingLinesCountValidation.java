@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_OPTIONAL_ONE_SIDED_DOCUMENT_REQUIRED_NUMBER_OF_ACCOUNTING_LINES_NOT_MET;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_OPTIONAL_ONE_SIDED_DOCUMENT_REQUIRED_NUMBER_OF_ACCOUNTING_LINES_NOT_MET;
 
 /**
  * Validation which checks a one-sided accounting document (ie, an accounting document which only uses source accounting lines, not target)
@@ -54,6 +54,7 @@ public class OptionalOneSidedDocumentAccountingLinesCountValidation extends Gene
 
     /**
      * Gets the accountingDocumentForValdation attribute.
+     *
      * @return Returns the accountingDocumentForValdation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -62,6 +63,7 @@ public class OptionalOneSidedDocumentAccountingLinesCountValidation extends Gene
 
     /**
      * Sets the accountingDocumentForValdation attribute value.
+     *
      * @param accountingDocumentForValdation The accountingDocumentForValdation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {

@@ -23,19 +23,21 @@ package org.kuali.kfs.sys.batch;
  */
 public class FlatFilePrefixObjectSpecification extends AbstractFlatFileObjectSpecification {
 
-	protected String linePrefix;
+    protected String linePrefix;
+
     /**
      * @return the prefix of the line which determines if the given line should be associated with this object specification
      */
     public String getLinePrefix() {
-		return linePrefix;
-	}
+        return linePrefix;
+    }
 
     /**
      * Sets the prefix that configures which lines this object specification will be associated with
+     *
      * @param linePrefix the prefix
      */
-	public void setLinePrefix(String linePrefix) {
-		this.linePrefix = linePrefix;
-	}
+    public void setLinePrefix(String linePrefix) {
+        this.linePrefix = linePrefix;
+    }
 }

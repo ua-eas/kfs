@@ -18,121 +18,119 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument" parent="PredeterminedBillingScheduleMaintenanceDocument-parentBean" />
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument" parent="PredeterminedBillingScheduleMaintenanceDocument-parentBean"/>
 
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument-parentBean"
-		abstract="true" parent="MaintenanceDocumentEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule" />
-		<property name="maintainableClass"
-			value="org.kuali.kfs.module.ar.document.PredeterminedBillingScheduleMaintainableImpl" />
-		<property name="maintainableSections">
-			<list>
-				<ref bean="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule" />
-				<ref bean="PredeterminedBillingScheduleMaintenanceDocument-NewBill" />
-			</list>
-		</property>
-		<property name="lockingKeys">
-			<list>
-				<value>proposalNumber</value>
-			</list>
-		</property>
-		<property name="documentTypeName" value="PDBS" />
-		<property name="businessRulesClass"
-			value="org.kuali.kfs.module.ar.document.validation.PredeterminedBillingScheduleRule" />
-		<property name="documentAuthorizerClass"
-			value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
-		<property name="workflowAttributes">
-			<ref bean="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes" />
-		</property>
-	</bean>
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument-parentBean"
+          abstract="true" parent="MaintenanceDocumentEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule"/>
+        <property name="maintainableClass"
+                  value="org.kuali.kfs.module.ar.document.PredeterminedBillingScheduleMaintainableImpl"/>
+        <property name="maintainableSections">
+            <list>
+                <ref bean="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule"/>
+                <ref bean="PredeterminedBillingScheduleMaintenanceDocument-NewBill"/>
+            </list>
+        </property>
+        <property name="lockingKeys">
+            <list>
+                <value>proposalNumber</value>
+            </list>
+        </property>
+        <property name="documentTypeName" value="PDBS"/>
+        <property name="businessRulesClass"
+                  value="org.kuali.kfs.module.ar.document.validation.PredeterminedBillingScheduleRule"/>
+        <property name="documentAuthorizerClass"
+                  value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
+        <property name="workflowAttributes">
+            <ref bean="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<!-- Maintenance Section Definitions -->
-
-
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule"
-		parent="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule-parentBean" />
-
-	<bean
-		id="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule-parentBean"
-		abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="Predetermined Billing Schedule" />
-		<property name="title" value="Predetermined Billing Schedule" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableFieldDefinition" p:name="proposalNumber"
-					p:required="true" p:lookupReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="award.agency.fullName"
-					p:unconditionallyReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="award.awardTotalAmount"
-					p:unconditionallyReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="totalAmountScheduled"
-					p:unconditionallyReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="totalAmountRemaining"
-					p:unconditionallyReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="award.awardEndingDate"
-					p:unconditionallyReadOnly="true" />
-			</list>
-		</property>
-	</bean>
+    <!-- Maintenance Section Definitions -->
 
 
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule"
+          parent="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule-parentBean"/>
 
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument-NewBill"
-		parent="PredeterminedBillingScheduleMaintenanceDocument-NewBill-parentBean" />
+    <bean
+            id="PredeterminedBillingScheduleMaintenanceDocument-PredeterminedBillingSchedule-parentBean"
+            abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Predetermined Billing Schedule"/>
+        <property name="title" value="Predetermined Billing Schedule"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="proposalNumber"
+                      p:required="true" p:lookupReadOnly="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="award.agency.fullName"
+                      p:unconditionallyReadOnly="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="award.awardTotalAmount"
+                      p:unconditionallyReadOnly="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="totalAmountScheduled"
+                      p:unconditionallyReadOnly="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="totalAmountRemaining"
+                      p:unconditionallyReadOnly="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="award.awardEndingDate"
+                      p:unconditionallyReadOnly="true"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument-NewBill-parentBean"
-		abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="Bills" />
-		<property name="title" value="Bills" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableCollectionDefinition">
-					<property name="name" value="bills" />
-					<property name="businessObjectClass"
-						value="org.kuali.kfs.module.ar.businessobject.Bill" />
-					<property name="summaryFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="proposalNumber" />
-							<bean parent="MaintainableFieldDefinition" p:name="billNumber" />
-							<bean parent="MaintainableFieldDefinition" p:name="billDescription" />
-							<bean parent="MaintainableFieldDefinition" p:name="estimatedAmount" />
-							<bean parent="MaintainableFieldDefinition" p:name="billDate" />
-							<bean parent="MaintainableFieldDefinition" p:name="billed" />
-							<bean parent="MaintainableFieldDefinition" p:name="active" />
-						</list>
-					</property>
-					<property name="maintainableFields">
-						<list>
-							<bean parent="MaintainableFieldDefinition" p:name="proposalNumber" />
-							<bean parent="MaintainableFieldDefinition" p:name="billNumber"
-								p:required="true" />
-							<bean parent="MaintainableFieldDefinition" p:name="billIdentifier"
-								p:unconditionallyReadOnly="true" />
-							<bean parent="MaintainableFieldDefinition" p:name="billDescription" />
-							<bean parent="MaintainableFieldDefinition" p:name="estimatedAmount" />
-							<bean parent="MaintainableFieldDefinition" p:name="billDate"
-								p:required="true" />
-							<bean parent="MaintainableFieldDefinition" p:name="billed"
-								p:unconditionallyReadOnly="true" />
-							<bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true" />
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
 
-	<!-- workflow attributes -->
-	<bean id="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes"
-		parent="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes-parentBean" />
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument-NewBill"
+          parent="PredeterminedBillingScheduleMaintenanceDocument-NewBill-parentBean"/>
 
-	<bean
-		id="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes-parentBean"
-		class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument-NewBill-parentBean"
+          abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Bills"/>
+        <property name="title" value="Bills"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="bills"/>
+                    <property name="businessObjectClass"
+                              value="org.kuali.kfs.module.ar.businessobject.Bill"/>
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="proposalNumber"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billNumber"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billDescription"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="estimatedAmount"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billDate"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billed"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="active"/>
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="proposalNumber"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billNumber"
+                                  p:required="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billIdentifier"
+                                  p:unconditionallyReadOnly="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billDescription"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="estimatedAmount"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billDate"
+                                  p:required="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="billed"
+                                  p:unconditionallyReadOnly="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- workflow attributes -->
+    <bean id="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes"
+          parent="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes-parentBean"/>
+
+    <bean
+            id="PredeterminedBillingScheduleMaintenanceDocument-workflowAttributes-parentBean"
+            class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>
 

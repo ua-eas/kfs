@@ -19,7 +19,7 @@
 /**
  * Bind to click events on toggle buttons
  */
-jQuery(function() {
+jQuery(function () {
     /**
      * Toggle the named input value between YES and NO, and then call customLookupChanged
      * to submit form to refresh.
@@ -29,9 +29,16 @@ jQuery(function() {
         input.val(input.val() == "YES" ? "NO" : "YES");
         customLookupChanged();
     }
-    jQuery("#toggleAdvancedSearch" ).click(function() { toggleSearchType("isAdvancedSearch"); });
-    jQuery("#toggleSuperUserSearch").click(function() { toggleSearchType("superUserSearch"); });
-    jQuery("#resetSavedSearch"     ).click(function() { toggleSearchType("resetSavedSearch"); });
+
+    jQuery("#toggleAdvancedSearch").click(function () {
+        toggleSearchType("isAdvancedSearch");
+    });
+    jQuery("#toggleSuperUserSearch").click(function () {
+        toggleSearchType("superUserSearch");
+    });
+    jQuery("#resetSavedSearch").click(function () {
+        toggleSearchType("resetSavedSearch");
+    });
 });
 
 /**
@@ -39,16 +46,16 @@ jQuery(function() {
  * Invokes performCustomAction.
  */
 function customLookupChanged() {
-    var methodToCallElement=document.createElement("input");
-    methodToCallElement.setAttribute("type","hidden");
-    methodToCallElement.setAttribute("name","methodToCall");
-    methodToCallElement.setAttribute("value","refresh");
+    var methodToCallElement = document.createElement("input");
+    methodToCallElement.setAttribute("type", "hidden");
+    methodToCallElement.setAttribute("name", "methodToCall");
+    methodToCallElement.setAttribute("value", "refresh");
     document.forms[0].appendChild(methodToCallElement);
 
-    var refreshCallerElement=document.createElement("input");
-    refreshCallerElement.setAttribute("type","hidden");
-    refreshCallerElement.setAttribute("name","refreshCaller");
-    refreshCallerElement.setAttribute("value","customLookupAction");
+    var refreshCallerElement = document.createElement("input");
+    refreshCallerElement.setAttribute("type", "hidden");
+    refreshCallerElement.setAttribute("name", "refreshCaller");
+    refreshCallerElement.setAttribute("value", "customLookupAction");
     document.forms[0].appendChild(refreshCallerElement);
 
     document.forms[0].submit();

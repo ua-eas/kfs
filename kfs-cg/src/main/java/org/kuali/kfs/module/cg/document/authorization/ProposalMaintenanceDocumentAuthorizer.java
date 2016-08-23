@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
+
+import java.util.Set;
 
 public class ProposalMaintenanceDocumentAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
 

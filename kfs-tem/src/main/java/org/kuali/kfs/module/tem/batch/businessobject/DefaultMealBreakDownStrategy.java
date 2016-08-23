@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.batch.businessobject;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.MEAL_CODE;
 import org.kuali.kfs.module.tem.TemConstants.PerDiemParameter;
 import org.kuali.kfs.module.tem.batch.PerDiemLoadStep;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class DefaultMealBreakDownStrategy implements MealBreakDownStrategy {
 
@@ -42,7 +42,7 @@ public class DefaultMealBreakDownStrategy implements MealBreakDownStrategy {
 
     /**
      * @see org.kuali.kfs.module.tem.batch.businessobject.MealBreakDownStrategy#breakDown(org.kuali.kfs.module.tem.businessobject.PerDiem,
-     *      org.kuali.rice.kns.util.KualiDecimal)
+     * org.kuali.rice.kns.util.KualiDecimal)
      */
     @Override
     public void breakDown(PerDiem perDiem, KualiDecimal mealsAndIncidentals) {
@@ -78,9 +78,8 @@ public class DefaultMealBreakDownStrategy implements MealBreakDownStrategy {
         try {
             String mealPercentString = getMealPercent(mealCode);
 
-            mealPercent =  new KualiDecimal(mealPercentString);
-        }
-        catch (Exception e) {
+            mealPercent = new KualiDecimal(mealPercentString);
+        } catch (Exception e) {
             String error = this.getParameterName() + "is not setup correctly";
             throw new RuntimeException(error, e);
         }
@@ -99,7 +98,7 @@ public class DefaultMealBreakDownStrategy implements MealBreakDownStrategy {
     /**
      * get the parameter name that is used for break down
      */
-    protected String getParameterName(){
+    protected String getParameterName() {
         return PerDiemParameter.CONUS_MEAL_BREAKDOWN;
     }
 

@@ -67,7 +67,7 @@ public class AccountingLineTableHeaderRendererTest {
 
         replayAll();
 
-        accountingLineTableHeaderRenderer.render(pageContext,parentTag);
+        accountingLineTableHeaderRenderer.render(pageContext, parentTag);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class AccountingLineTableHeaderRendererTest {
 
         replayAll();
 
-        accountingLineTableHeaderRenderer.render(pageContext,parentTag);
+        accountingLineTableHeaderRenderer.render(pageContext, parentTag);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class AccountingLineTableHeaderRendererTest {
 
         replayAll();
 
-        accountingLineTableHeaderRenderer.render(pageContext,parentTag);
+        accountingLineTableHeaderRenderer.render(pageContext, parentTag);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class AccountingLineTableHeaderRendererTest {
         replayAll();
 
         try {
-            accountingLineTableHeaderRenderer.render(pageContext,parentTag);
+            accountingLineTableHeaderRenderer.render(pageContext, parentTag);
         } catch (NullPointerException e) {
             Assert.fail("Error handling null sequence numbers in decideTableClass()");
             e.printStackTrace();
@@ -128,7 +128,8 @@ public class AccountingLineTableHeaderRendererTest {
     }
 
     private AccountingLine getSequenceAccountingLine(Integer sequenceNumber) {
-        AccountingLine accountingLine = new AccountingLineBase() {};
+        AccountingLine accountingLine = new AccountingLineBase() {
+        };
         accountingLine.setSequenceNumber(sequenceNumber);
         return accountingLine;
     }

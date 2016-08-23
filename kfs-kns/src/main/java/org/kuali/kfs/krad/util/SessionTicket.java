@@ -27,26 +27,26 @@ import java.util.Map;
  * example a Question or document action where the action is not recorded on the document or form).
  */
 public class SessionTicket implements Serializable {
-	private String ticketTypeName;
-	private Map<String, String> ticketContext;
+    private String ticketTypeName;
+    private Map<String, String> ticketContext;
 
-	public SessionTicket(String ticketTypeName) {
-		this.ticketTypeName = ticketTypeName;
-	}
+    public SessionTicket(String ticketTypeName) {
+        this.ticketTypeName = ticketTypeName;
+    }
 
-	public String getTicketTypeName() {
-		return this.ticketTypeName;
-	}
+    public String getTicketTypeName() {
+        return this.ticketTypeName;
+    }
 
-	public void setTicketTypeName(String ticketTypeName) {
-		this.ticketTypeName = ticketTypeName;
-	}
+    public void setTicketTypeName(String ticketTypeName) {
+        this.ticketTypeName = ticketTypeName;
+    }
 
-	public Map<String, String> getTicketContext() {
-		return this.ticketContext;
-	}
+    public Map<String, String> getTicketContext() {
+        return this.ticketContext;
+    }
 
-	public void setTicketContext(Map<String, String> ticketContext) {
-		this.ticketContext = ticketContext;
-	}
+    public void setTicketContext(Map<String, String> ticketContext) {
+        this.ticketContext = ticketContext;
+    }
 }

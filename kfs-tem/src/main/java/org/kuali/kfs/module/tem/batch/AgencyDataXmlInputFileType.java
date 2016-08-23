@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.io.File;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -27,6 +25,8 @@ import org.kuali.kfs.module.tem.businessobject.AgencyImportData;
 import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
 
 public class AgencyDataXmlInputFileType extends XmlBatchInputFileTypeBase {
 
@@ -98,6 +98,7 @@ public class AgencyDataXmlInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -106,6 +107,7 @@ public class AgencyDataXmlInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -114,6 +116,7 @@ public class AgencyDataXmlInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Gets the fileNamePrefix attribute.
+     *
      * @return Returns the fileNamePrefix.
      */
     public String getFileNamePrefix() {
@@ -122,6 +125,7 @@ public class AgencyDataXmlInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * Sets the fileNamePrefix attribute value.
+     *
      * @param fileNamePrefix The fileNamePrefix to set.
      */
     public void setFileNamePrefix(String fileNamePrefix) {

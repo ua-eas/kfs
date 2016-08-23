@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.fixture.SubAccountFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class SubAccountRuleTest extends ChartRuleTestBase {
@@ -89,8 +89,8 @@ public class SubAccountRuleTest extends ChartRuleTestBase {
      *
      * @param sub
      */
-    private void addA21SubAccount(SubAccount sub){
-        A21SubAccount a21 =  new A21SubAccount();
+    private void addA21SubAccount(SubAccount sub) {
+        A21SubAccount a21 = new A21SubAccount();
         a21.setChartOfAccountsCode(sub.getChartOfAccountsCode());
         a21.setAccountNumber(sub.getAccountNumber());
         a21.refresh();

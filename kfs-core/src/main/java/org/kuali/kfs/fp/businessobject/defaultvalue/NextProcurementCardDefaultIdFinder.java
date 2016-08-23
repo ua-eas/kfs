@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.businessobject.defaultvalue;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Finds the next value in the sequence for ProcurementCardDefault records
@@ -31,6 +31,7 @@ public class NextProcurementCardDefaultIdFinder implements ValueFinder {
 
     /**
      * Pulls the next value from the FP_PRCRMNT_CARD_DFLT_SEQ sequence
+     *
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     @Override

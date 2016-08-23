@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountMonthlyDetailReport;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionAccountMonthlyDetailReportService;
@@ -32,6 +26,12 @@ import org.kuali.kfs.module.bc.report.BudgetConstructionReportHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionLevelSummaryReportService.
@@ -44,7 +44,7 @@ public class BudgetConstructionAccountMonthlyDetailReportServiceImpl implements 
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionLevelSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     public Collection<BudgetConstructionAccountMonthlyDetailReport> buildReports(String documentNumber, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         Collection<BudgetConstructionAccountMonthlyDetailReport> reportSet = new ArrayList();
@@ -88,9 +88,9 @@ public class BudgetConstructionAccountMonthlyDetailReportServiceImpl implements 
         accountMonthlyDetailReport.setAccountName(bcMonthly.getAccount().getAccountName());
         try {
             accountMonthlyDetailReport.setSubAccountName(bcMonthly.getSubAccount().getSubAccountName());
-            } catch (Exception e){
-                accountMonthlyDetailReport.setSubAccountName("");
-            }
+        } catch (Exception e) {
+            accountMonthlyDetailReport.setSubAccountName("");
+        }
     }
 
     /**
@@ -118,9 +118,9 @@ public class BudgetConstructionAccountMonthlyDetailReportServiceImpl implements 
         Integer financialDocumentMonth12LineAmount = BudgetConstructionReportHelper.convertKualiInteger(bcMonthly.getFinancialDocumentMonth12LineAmount());
 
         Integer annualAmount = financialDocumentMonth1LineAmount + financialDocumentMonth2LineAmount + financialDocumentMonth3LineAmount
-                             + financialDocumentMonth4LineAmount + financialDocumentMonth5LineAmount + financialDocumentMonth6LineAmount
-                             + financialDocumentMonth7LineAmount + financialDocumentMonth8LineAmount + financialDocumentMonth9LineAmount
-                             + financialDocumentMonth10LineAmount + financialDocumentMonth11LineAmount +financialDocumentMonth12LineAmount;
+            + financialDocumentMonth4LineAmount + financialDocumentMonth5LineAmount + financialDocumentMonth6LineAmount
+            + financialDocumentMonth7LineAmount + financialDocumentMonth8LineAmount + financialDocumentMonth9LineAmount
+            + financialDocumentMonth10LineAmount + financialDocumentMonth11LineAmount + financialDocumentMonth12LineAmount;
 
         accountMonthlyDetailReport.setAnnualAmount(annualAmount);
         accountMonthlyDetailReport.setFinancialDocumentMonth1LineAmount(financialDocumentMonth1LineAmount);

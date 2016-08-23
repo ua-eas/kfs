@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -36,6 +31,11 @@ import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.springframework.util.StopWatch;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class LaborPreScrubberStep extends AbstractWrappedBatchStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborPreScrubberStep.class);
     private String batchFileDirectoryName;
@@ -47,7 +47,9 @@ public class LaborPreScrubberStep extends AbstractWrappedBatchStep {
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(batchFileDirectoryName); }};
+        return new ArrayList<String>() {{
+            add(batchFileDirectoryName);
+        }};
     }
 
     /**
@@ -72,12 +74,10 @@ public class LaborPreScrubberStep extends AbstractWrappedBatchStep {
                 try {
                     oeIterator = FileUtils.lineIterator(new File(inputFile));
                     preScrubberReportData = laborPreScrubberService.preprocessOriginEntries(oeIterator, outputFile);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     LOG.error("IO exception occurred during pre scrubbing.", e);
                     throw new RuntimeException("IO exception occurred during pre scrubbing.", e);
-                }
-                finally {
+                } finally {
                     LineIterator.closeQuietly(oeIterator);
                 }
                 if (preScrubberReportData != null) {
@@ -110,6 +110,7 @@ public class LaborPreScrubberStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the laborPreScrubberReportWriterService attribute value.
+     *
      * @param laborPreScrubberReportWriterService The laborPreScrubberReportWriterService to set.
      */
     public void setLaborPreScrubberReportWriterService(ReportWriterService laborPreScrubberReportWriterService) {

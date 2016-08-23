@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.Constant;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Options finder for the options to include zero encumbrances on the open encumbrance lookup
@@ -34,6 +34,7 @@ public class ZeroEncumbranceOptionFinder extends KeyValuesBase implements ValueF
 
     /**
      * Get the values: to include or exclude the zeroed out encumbrances
+     *
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
@@ -46,6 +47,7 @@ public class ZeroEncumbranceOptionFinder extends KeyValuesBase implements ValueF
 
     /**
      * Return the default value - which is to Exclude the zeroed out encumbrances
+     *
      * @see org.kuali.rice.kns.lookup.valueFinder.ValueFinder#getValue()
      */
     @Override

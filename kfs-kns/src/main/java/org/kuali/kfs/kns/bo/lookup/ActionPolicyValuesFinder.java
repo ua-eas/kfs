@@ -33,7 +33,7 @@ public class ActionPolicyValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (Object key : CodeTranslator.approvePolicyLabels.keySet()) {
-            labels.add(new ConcreteKeyValue((String)key,(String) CodeTranslator.approvePolicyLabels.get(key)));
+            labels.add(new ConcreteKeyValue((String) key, (String) CodeTranslator.approvePolicyLabels.get(key)));
         }
         return labels;
     }

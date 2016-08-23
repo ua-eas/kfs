@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
 import org.kuali.kfs.sys.document.web.RenderableAccountingLineContainer;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Data dictionary definition that includes metadata for an accounting document about one of its groups of accounting lines (typically source vs. target, but this should open things up).
@@ -56,19 +56,21 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
      * Validates that:
      * 1) this accounting line group has an accounting line class
      * 2) this accounting line group has an accounting line view
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
         if (accountingLineClass == null) {
-            throw new AttributeValidationException("Please specify an accounting line class for AccountingLineGroup "+getId());
+            throw new AttributeValidationException("Please specify an accounting line class for AccountingLineGroup " + getId());
         }
         if (accountingLineView == null) {
-            throw new AttributeValidationException("Please specify an accountingLineView for AccountingLineGroup "+getId());
+            throw new AttributeValidationException("Please specify an accountingLineView for AccountingLineGroup " + getId());
         }
     }
 
     /**
      * Gets the accountingLineClass attribute.
+     *
      * @return Returns the accountingLineClass.
      */
     public Class<? extends AccountingLine> getAccountingLineClass() {
@@ -77,6 +79,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineClass attribute value.
+     *
      * @param accountingLineClass The accountingLineClass to set.
      */
     public void setAccountingLineClass(Class<? extends AccountingLine> accountingLineClass) {
@@ -85,6 +88,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the accountingLineView attribute.
+     *
      * @return Returns the accountingLineView.
      */
     public AccountingLineViewDefinition getAccountingLineView() {
@@ -93,6 +97,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineView attribute value.
+     *
      * @param accountingLineView The accountingLineView to set.
      */
     public void setAccountingLineView(AccountingLineViewDefinition accountingLineView) {
@@ -101,6 +106,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the groupLabel attribute.
+     *
      * @return Returns the groupLabel.
      */
     public String getGroupLabel() {
@@ -109,6 +115,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the groupLabel attribute value.
+     *
      * @param groupLabel The groupLabel to set.
      */
     public void setGroupLabel(String groupLabel) {
@@ -117,6 +124,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the totals attribute.
+     *
      * @return Returns the totals.
      */
     public List<? extends TotalDefinition> getTotals() {
@@ -125,6 +133,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the totals attribute value.
+     *
      * @param totals The totals to set.
      */
     public void setTotals(List<? extends TotalDefinition> totals) {
@@ -133,6 +142,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the accountingLineAuthorizerClass attribute.
+     *
      * @return Returns the accountingLineAuthorizerClass.
      */
     public Class<? extends AccountingLineAuthorizer> getAccountingLineAuthorizerClass() {
@@ -141,6 +151,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineAuthorizerClass attribute value.
+     *
      * @param accountingLineAuthorizerClass The accountingLineAuthorizerClass to set.
      */
     public void setAccountingLineAuthorizerClass(Class<? extends AccountingLineAuthorizer> accountingLineAuthorizerClass) {
@@ -149,6 +160,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the importedLinePropertyPrefix attribute.
+     *
      * @return Returns the importedLinePropertyPrefix.
      */
     public String getImportedLinePropertyPrefix() {
@@ -157,6 +169,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the importedLinePropertyPrefix attribute value.
+     *
      * @param importedLinePropertyPrefix The importedLinePropertyPrefix to set.
      */
     public void setImportedLinePropertyPrefix(String importedLinePropertyPrefix) {
@@ -165,6 +178,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the forceColumnCount attribute.
+     *
      * @return Returns the forceColumnCount.
      */
     public int getForceColumnCount() {
@@ -173,6 +187,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the forceColumnCount attribute value.
+     *
      * @param forceColumnCount The forceColumnCount to set.
      */
     public void setForceColumnCount(int forceColumnCount) {
@@ -181,6 +196,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the errorKey attribute.
+     *
      * @return Returns the errorKey.
      */
     public String getErrorKey() {
@@ -189,6 +205,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the errorKey attribute value.
+     *
      * @param errorKey The errorKey to set.
      */
     public void setErrorKey(String errorKey) {
@@ -197,6 +214,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Returns an instance of the accounting line authorizer for this group
+     *
      * @return an instance of the accounting line authorizer
      */
     public AccountingLineAuthorizer getAccountingLineAuthorizer() {
@@ -208,6 +226,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Creates an instance of the accounting line authorizer
+     *
      * @return the accounting line authorizer for this group
      */
     protected AccountingLineAuthorizer createAccountingLineAuthorizer() {
@@ -215,11 +234,9 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
         AccountingLineAuthorizer authorizer = null;
         try {
             authorizer = authorizerClass.newInstance();
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new IllegalArgumentException("InstantiationException while attempting to instantiate AccountingLineAuthorization class", ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new IllegalArgumentException("IllegalAccessException while attempting to instantiate AccountingLineAuthorization class", iae);
         }
         return authorizer;
@@ -227,6 +244,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the topHeadersAfterFirstLineHiding attribute.
+     *
      * @return Returns the topHeadersAfterFirstLineHiding.
      */
     public boolean isTopHeadersAfterFirstLineHiding() {
@@ -235,6 +253,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the topHeadersAfterFirstLineHiding attribute value.
+     *
      * @param topHeadersAfterFirstLineHiding The topHeadersAfterFirstLineHiding to set.
      */
     public void setTopHeadersAfterFirstLineHiding(boolean showTopHeadersAfterFirstLine) {
@@ -243,6 +262,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the headerRendering attribute.
+     *
      * @return Returns the headerRendering.
      */
     public boolean isHeaderRendering() {
@@ -251,6 +271,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the headerRendering attribute value.
+     *
      * @param headerRendering The headerRendering to set.
      */
     public void setHeaderRendering(boolean headerRendering) {
@@ -259,6 +280,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the accountingLineGroupActions attribute.
+     *
      * @return Returns the accountingLineGroupActions.
      */
     public List<? extends AccountingLineViewActionDefinition> getAccountingLineGroupActions() {
@@ -267,6 +289,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineGroupActions attribute value.
+     *
      * @param accountingLineGroupActions The accountingLineGroupActions to set.
      */
     public void setAccountingLineGroupActions(List<? extends AccountingLineViewActionDefinition> accountingLineGroupActions) {
@@ -275,6 +298,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the importingAllowed attribute.
+     *
      * @return Returns the importingAllowed.
      */
     public boolean isImportingAllowed() {
@@ -283,6 +307,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the importingAllowed attribute value.
+     *
      * @param importingAllowed The importingAllowed to set.
      */
     public void setImportingAllowed(boolean importingAllowed) {
@@ -291,6 +316,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Gets the accountingLineGroupClass attribute.
+     *
      * @return Returns the accountingLineGroupClass.
      */
     public Class<? extends DefaultAccountingLineGroupImpl> getAccountingLineGroupClass() {
@@ -299,6 +325,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineGroupClass attribute value.
+     *
      * @param accountingLineGroupClass The accountingLineGroupClass to set.
      */
     public void setAccountingLineGroupClass(Class<? extends DefaultAccountingLineGroupImpl> accountingLineGroupClass) {
@@ -307,6 +334,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Sets the accountingLineComparatorClass attribute value.
+     *
      * @param accountingLineComparatorClass The accountingLineComparatorClass to set.
      */
     public void setAccountingLineComparatorClass(Class<? extends Comparator<AccountingLine>> accountingLineComparatorClass) {
@@ -320,11 +348,9 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
         Comparator<AccountingLine> comparator = null;
         try {
             comparator = accountingLineComparatorClass.newInstance();
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Could not instantiate class for AccountingLineComparator for group", ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("Illegal access attempting to instantiate class for AccountingLineComparator for group", iae);
         }
         return comparator;
@@ -332,12 +358,13 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
 
     /**
      * Creates a new accounting line group for this definition
-     * @param accountingDocument the document which owns or will own the accounting line being rendered
-     * @param containers the containers within this group
+     *
+     * @param accountingDocument     the document which owns or will own the accounting line being rendered
+     * @param containers             the containers within this group
      * @param collectionPropertyName the property name of the collection of accounting lines owned by this group
-     * @param errors a List of errors keys for errors on the page
-     * @param displayedErrors a Map of errors that have already been displayed
-     * @param canEdit determines if the page can be edited or not
+     * @param errors                 a List of errors keys for errors on the page
+     * @param displayedErrors        a Map of errors that have already been displayed
+     * @param canEdit                determines if the page can be edited or not
      * @return a newly created and initialized accounting line group
      */
     public DefaultAccountingLineGroupImpl createAccountingLineGroup(AccountingDocument accountingDocument, List<RenderableAccountingLineContainer> containers, String collectionPropertyName, String collectionItemPropertyName, Map<String, Object> displayedErrors, Map<String, Object> displayedWarnings, Map<String, Object> displayedInfo, boolean canEdit) {
@@ -345,12 +372,10 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
         try {
             accountingLineGroup = getAccountingLineGroupClass().newInstance();
             accountingLineGroup.initialize(this, accountingDocument, containers, collectionPropertyName, collectionItemPropertyName, displayedErrors, displayedWarnings, displayedInfo, canEdit);
-        }
-        catch (InstantiationException ie) {
-            throw new RuntimeException("Could not initialize new AccountingLineGroup implementation of class: "+getAccountingLineGroupClass().getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
-            throw new RuntimeException("Could not initialize new AccountingLineGroup implementation of class: "+getAccountingLineGroupClass().getName(), iae);
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("Could not initialize new AccountingLineGroup implementation of class: " + getAccountingLineGroupClass().getName(), ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Could not initialize new AccountingLineGroup implementation of class: " + getAccountingLineGroupClass().getName(), iae);
         }
         return accountingLineGroup;
     }

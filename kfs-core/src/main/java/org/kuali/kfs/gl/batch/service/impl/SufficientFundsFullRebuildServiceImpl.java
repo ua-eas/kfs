@@ -33,6 +33,7 @@ public class SufficientFundsFullRebuildServiceImpl implements SufficientFundsFul
 
     /**
      * Goes through all accounts in the database, and generates a sufficient fund rebuild record for each one!
+     *
      * @see org.kuali.kfs.gl.batch.service.SufficientFundsFullRebuildService#syncSufficientFunds()
      */
     public void syncSufficientFunds() {

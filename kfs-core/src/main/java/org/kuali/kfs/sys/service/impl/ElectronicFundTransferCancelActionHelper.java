@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.Map;
-
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
+
+import java.util.Map;
 
 /**
  * An Electronic Funds Transfer action which simply returns to the portal.
@@ -33,6 +33,7 @@ public class ElectronicFundTransferCancelActionHelper implements ElectronicFundT
 
     /**
      * Just return to the portal.
+     *
      * @see org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper#performAction(org.kuali.rice.kns.web.struts.form.KualiForm, org.apache.struts.action.ActionMapping)
      */
     public ActionForward performAction(ElectronicFundTransferForm form, ActionMapping mapping, Map paramsMap, String basePath) {

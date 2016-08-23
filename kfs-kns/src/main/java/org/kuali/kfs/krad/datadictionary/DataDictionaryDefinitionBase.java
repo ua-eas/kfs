@@ -21,16 +21,13 @@ package org.kuali.kfs.krad.datadictionary;
 import org.springframework.beans.factory.InitializingBean;
 
 
-
 /**
  * Common base class for DataDictionaryDefinition types.
- *
- *
  */
 abstract public class DataDictionaryDefinitionBase implements DataDictionaryDefinition, InitializingBean {
     private static final long serialVersionUID = -2003626577498716712L;
 
-	protected String id;
+    protected String id;
 
     public DataDictionaryDefinitionBase() {
     }
@@ -49,5 +46,6 @@ abstract public class DataDictionaryDefinitionBase implements DataDictionaryDefi
     /**
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
-    public void afterPropertiesSet() throws Exception {}
+    public void afterPropertiesSet() throws Exception {
+    }
 }

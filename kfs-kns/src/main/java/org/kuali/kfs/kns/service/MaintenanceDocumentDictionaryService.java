@@ -21,10 +21,10 @@ package org.kuali.kfs.kns.service;
 import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
-import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,8 +32,6 @@ import java.util.List;
 /**
  * Defines methods that a MaintenanceDocumentDictionary Service must provide. Defines the API for the interacting
  * with Document-related entries in the data dictionary.
- *
- *
  */
 @Deprecated
 public interface MaintenanceDocumentDictionaryService {
@@ -157,57 +155,52 @@ public interface MaintenanceDocumentDictionaryService {
     public List<MaintainableSectionDefinition> getMaintainableSections(String docTypeName);
 
     /**
-     *
      * This method returns the defaultValue as it would appear in the UI on a maintenance document.
-     *
+     * <p>
      * If both a defaultValue and a defaultValueFinderClass is present in the MaintainableFieldDefinition instance, then the
      * defaultValue will be preferentially returned. If only one is present, then that will be returned.
-     *
+     * <p>
      * Note that if a defaultValueFinderClass value is present, then this method will attempt to create a new instance of the
      * specified class. If this attempt to generate a new instance fails, the error will be suppressed, and an null result will be
      * returned.
      *
-     * @param boClass - the class of BO being maintained
+     * @param boClass   - the class of BO being maintained
      * @param fieldName - the fieldName of the attribute for which the default is desired
      * @return the default if one is available, null otherwise
-     *
      */
     @Deprecated
     public String getFieldDefaultValue(Class boClass, String fieldName);
 
     /**
-     *
      * This method returns the defaultValue as it would appear in the UI on a maintenance document.
-     *
+     * <p>
      * If both a defaultValue and a defaultValueFinderClass is present in the MaintainableFieldDefinition instance, then the
      * defaultValue will be preferentially returned. If only one is present, then that will be returned.
-     *
+     * <p>
      * Note that if a defaultValueFinderClass value is present, then this method will attempt to create a new instance of the
      * specified class. If this attempt to generate a new instance fails, the error will be suppressed, and an null result will be
      * returned.
      *
      * @param docTypeName - the document type name of the maintainable
-     * @param fieldName - the fieldName of the attribute for which the default is desired
+     * @param fieldName   - the fieldName of the attribute for which the default is desired
      * @return the default if one is available, null otherwise
-     *
      */
     @Deprecated
     public String getFieldDefaultValue(String docTypeName, String fieldName);
 
     /**
-     *
      * This method returns the defaultValue as it would appear in the UI on a maintenance document for a collection.
-     *
+     * <p>
      * If both a defaultValue and a defaultValueFinderClass is present in the MaintainableFieldDefinition instance, then the
      * defaultValue will be preferentially returned. If only one is present, then that will be returned.
-     *
+     * <p>
      * Note that if a defaultValueFinderClass value is present, then this method will attempt to create a new instance of the
      * specified class. If this attempt to generate a new instance fails, the error will be suppressed, and an null result will be
      * returned.
      *
-     * @param docTypeName - the document type name of the maintainable
+     * @param docTypeName    - the document type name of the maintainable
      * @param collectionName - the name attribute of the collection to which the field belongs
-     * @param fieldName - the fieldName of the attribute for which the default is desired
+     * @param fieldName      - the fieldName of the attribute for which the default is desired
      * @return the default if one is available, null otherwise
      */
     @Deprecated
@@ -221,7 +214,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return
      */
     @Deprecated
-    public Class getCollectionBusinessObjectClass( String docTypeName, String collectionName );
+    public Class getCollectionBusinessObjectClass(String docTypeName, String collectionName);
 
     /**
      * Returns the definition for the maintainable item identified by "itemName".
@@ -231,7 +224,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return The item or <b>null</b> if the item does not exist.
      */
     @Deprecated
-    public MaintainableItemDefinition getMaintainableItem( String docTypeName, String itemName );
+    public MaintainableItemDefinition getMaintainableItem(String docTypeName, String itemName);
 
     /**
      * Returns the definition for the maintainable field identified by "fieldName".
@@ -241,7 +234,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return The field or <b>null</b> if the item does not exist or is not a field.
      */
     @Deprecated
-    public MaintainableFieldDefinition getMaintainableField( String docTypeName, String fieldName );
+    public MaintainableFieldDefinition getMaintainableField(String docTypeName, String fieldName);
 
     /**
      * Returns the definition for the maintainable collection identified by "collectionName".
@@ -251,7 +244,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return The collection or <b>null</b> if the item does not exist or is not a collection.
      */
     @Deprecated
-    public MaintainableCollectionDefinition getMaintainableCollection( String docTypeName, String collectionName );
+    public MaintainableCollectionDefinition getMaintainableCollection(String docTypeName, String collectionName);
 
     /**
      * Gets a list of all top-level maintainable collections on the document
@@ -260,7 +253,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return
      */
     @Deprecated
-    public List<MaintainableCollectionDefinition> getMaintainableCollections( String docTypeName );
+    public List<MaintainableCollectionDefinition> getMaintainableCollections(String docTypeName);
 
     /**
      * Returns a list of all collections within the given collection
@@ -269,7 +262,7 @@ public interface MaintenanceDocumentDictionaryService {
      * @return
      */
     @Deprecated
-    public List<MaintainableCollectionDefinition> getMaintainableCollections( MaintainableCollectionDefinition parentCollection );
+    public List<MaintainableCollectionDefinition> getMaintainableCollections(MaintainableCollectionDefinition parentCollection);
 
 
     /**
@@ -283,12 +276,13 @@ public interface MaintenanceDocumentDictionaryService {
 
     /**
      * validates the collections of the maintenance document checking to see if duplicate entries in the collection exist
+     *
      * @param document
      */
     public void validateMaintainableCollectionsForDuplicateEntries(MaintenanceDocument document);
 
     @Deprecated
-    public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName );
+    public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName);
 
     /**
      * @param businessObjectClass - business object class for maintenance definition

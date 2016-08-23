@@ -36,6 +36,7 @@ public class KualiControllerConfig extends ControllerConfigWrapper {
     /**
      * Returns the global max file upload size, which is dynamically derived from the Rice parameter service.
      * This technically breaks the implicit contract in ControllerConfig that the config is frozen after startup.
+     *
      * @return the global max file upload size
      */
     @Override

@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import KfsUtils from './utils.js';
+import KfsUtils from "./utils.js";
 
-export function getPrincipalName(success,fail) {
+export function getPrincipalName(success, fail) {
     KfsUtils.ajaxCall({
         url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/id",
         dataType: 'json',
@@ -33,10 +33,10 @@ export function getPrincipalName(success,fail) {
     })
 }
 
-export function getUserPreferences(success,fail) {
-    let p1 = new Promise ( getPrincipalName );
+export function getUserPreferences(success, fail) {
+    let p1 = new Promise(getPrincipalName);
 
-    p1.then(function(principalName) {
+    p1.then(function (principalName) {
         KfsUtils.ajaxCall({
             url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
@@ -49,15 +49,15 @@ export function getUserPreferences(success,fail) {
                 fail(err.toString());
             }
         });
-    }).catch(function(message) {
+    }).catch(function (message) {
         fail(message);
     });
- }
+}
 
 export function putUserPreferences(userPreferences) {
-    let p1 = new Promise ( getPrincipalName );
+    let p1 = new Promise(getPrincipalName);
 
-    p1.then(function(principalName) {
+    p1.then(function (principalName) {
         KfsUtils.ajaxCall({
             url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
@@ -69,7 +69,7 @@ export function putUserPreferences(userPreferences) {
                 console.error(status, err.toString());
             }
         });
-    }).catch(function(message) {
+    }).catch(function (message) {
         console.log("Error: " + message);
     });
 }

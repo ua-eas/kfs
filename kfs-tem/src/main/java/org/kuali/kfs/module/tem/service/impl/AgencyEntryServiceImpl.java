@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
+import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.module.tem.batch.AgencyDataXmlInputFileType;
+import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
+import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
+import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
+import org.kuali.kfs.module.tem.service.AgencyEntryService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,14 +36,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.kuali.kfs.module.tem.batch.AgencyDataXmlInputFileType;
-import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
-import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
-import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
-import org.kuali.kfs.module.tem.service.AgencyEntryService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 public class AgencyEntryServiceImpl implements AgencyEntryService {
     private AgencyEntryGroupService agencyEntryGroupService;
@@ -75,8 +75,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
                     agencyGroup.add(fullAgency);
                 }
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 // figure it out
             }
         }
@@ -110,12 +109,10 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
                 }
                 agencyEntryList.addAll(agencyGroup);
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 // figure it out
             }
-        }
-        else {
+        } else {
             agencyEntryList.addAll(agencyGroup);
         }
 
@@ -196,6 +193,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
 
     /**
      * Gets the batchFileDirectoryName attribute.
+     *
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {
@@ -204,6 +202,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.service;
 
+import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
+import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
-import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument;
 
 /**
  * Defines methods that must be implemented by classes providing a LaborLedgerPendingEntryServiceImpl.
@@ -80,7 +80,7 @@ public interface LaborLedgerPendingEntryService {
      * Use fieldValues to create a query for matching records of <code>{@link LaborLedgerPendingEntry}</code> instances
      *
      * @param fieldValues properties to match against
-     * @param isApproved Retrieve approved or unapproved entries?
+     * @param isApproved  Retrieve approved or unapproved entries?
      */
     public Collection findPendingEntries(Map fieldValues, boolean isApproved);
 

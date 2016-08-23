@@ -40,16 +40,15 @@ public class CsrfValidator {
     /**
      * Applies CSRF protection for any HTTP method other than GET, HEAD, or OPTIONS.
      *
-     * @param request the http request to check
+     * @param request  the http request to check
      * @param response the http response associated with the given request
-     *
      * @return true if the request validated successfully, false otherwise. If false is returned, calling code should
      * act immediately to terminate any additional work performed on the response.
      */
     public static boolean validateCsrf(HttpServletRequest request, HttpServletResponse response) {
         if (HttpMethod.GET.equals(request.getMethod()) ||
-                HttpMethod.HEAD.equals(request.getMethod()) ||
-                HttpMethod.OPTIONS.equals(request.getMethod())) {
+            HttpMethod.HEAD.equals(request.getMethod()) ||
+            HttpMethod.OPTIONS.equals(request.getMethod())) {
             // if it's a GET and there's not already a CSRF token, then we need to generate and place a CSRF token
             placeSessionToken(request);
         } else {
@@ -76,7 +75,7 @@ public class CsrfValidator {
      * @return the CSRF token on the request's session, or null if the session has none
      */
     public static String getSessionToken(HttpServletRequest request) {
-        return (String)request.getSession().getAttribute(CSRF_SESSION_TOKEN);
+        return (String) request.getSession().getAttribute(CSRF_SESSION_TOKEN);
     }
 
     /**

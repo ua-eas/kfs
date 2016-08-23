@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.fp.businessobject.AdvanceDepositDetail;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent an electronic payment claim.
@@ -59,7 +59,8 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     private transient KualiDecimal amountFrom;
     private transient KualiDecimal amountTo;
 
-    public ElectronicPaymentClaim() {}
+    public ElectronicPaymentClaim() {
+    }
 
     /**
      * Gets the documentNumber attribute.
@@ -157,6 +158,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the paymentClaimStatusCode attribute.
+     *
      * @return Returns the paymentClaimStatusCode.
      */
     public String getPaymentClaimStatusCode() {
@@ -165,6 +167,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the paymentClaimStatusCode attribute value.
+     *
      * @param paymentClaimStatusCode The paymentClaimStatusCode to set.
      */
     public void setPaymentClaimStatusCode(String paymentClaimStatusCode) {
@@ -173,16 +176,16 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the generatingDocument attribute.
+     *
      * @return Returns the generatingDocument.
      */
     public AdvanceDepositDocument getGeneratingDocument() {
         final boolean docNumbersAreDifferentAndNotNull = (generatingDocumentHeader != null && !documentNumber.equals(this.generatingDocumentHeader.getDocumentNumber()));
         if (StringUtils.isNotBlank(documentNumber) && (this.generatingDocument == null || docNumbersAreDifferentAndNotNull)) {
             try {
-                generatingDocument = (AdvanceDepositDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException we) {
-                throw new RuntimeException("Could not retrieve Document #"+documentNumber, we);
+                generatingDocument = (AdvanceDepositDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentNumber);
+            } catch (WorkflowException we) {
+                throw new RuntimeException("Could not retrieve Document #" + documentNumber, we);
             }
         }
         return this.generatingDocument;
@@ -190,6 +193,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the generatingDocumentHeader attribute.
+     *
      * @return Returns the generatingDocumentHeader.
      */
     public DocumentHeader getGeneratingDocumentHeader() {
@@ -198,6 +202,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the generatingDocumentHeader attribute value.
+     *
      * @param generatingDocumentHeader The generatingDocumentHeader to set.
      * @deprecated
      */
@@ -207,6 +212,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Returns the accounting line on the generating Advance Deposit document for the transaction which generated this record
+     *
      * @return the accounting line that describes the transaction responsible for the creation of this record
      */
     public SourceAccountingLine getGeneratingAccountingLine() {
@@ -229,6 +235,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Returns the AdvanceDepositDetail for the first deposit detail on this document
+     *
      * @return the advance deposit detail that describes the transaction responsible for the creation of this record
      */
     public AdvanceDepositDetail getGeneratingAdvanceDepositDetail() {
@@ -241,6 +248,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentPostingPeriod attribute.
+     *
      * @return Returns the financialDocumentPostingPeriod.
      */
     public AccountingPeriod getFinancialDocumentPostingPeriod() {
@@ -249,6 +257,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentPostingPeriod attribute value.
+     *
      * @param financialDocumentPostingPeriod The financialDocumentPostingPeriod to set.
      */
     public void setFinancialDocumentPostingPeriod(AccountingPeriod financialDocumentPostingPeriod) {
@@ -270,6 +279,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     /**
      * Returns the String representation for an Electronic Payment Claim record, to be used by the claimed
      * checkbox
+     *
      * @param claim a claim to get a String representation for
      * @return the representation in the form of "{generating document number}::{generating document accounting line sequence number}"
      */

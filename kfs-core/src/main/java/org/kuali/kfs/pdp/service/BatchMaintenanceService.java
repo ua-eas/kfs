@@ -30,33 +30,37 @@ public interface BatchMaintenanceService {
 
     /**
      * This method cancels a pending Batch.
+     *
      * @param batchId the id of the batch to be canceled
-     * @param note  a note stating the reason for the batch cancelation
-     * @param user the user that performed the batch cancelation
+     * @param note    a note stating the reason for the batch cancelation
+     * @param user    the user that performed the batch cancelation
      * @return true if batch successfully canceled, false otherwise
      */
     public boolean cancelPendingBatch(Integer batchId, String note, Person user);
 
     /**
      * This method holds a pending Batch.
+     *
      * @param batchId the id of the batch to perfomr hold on
-     * @param note a nite stating the reason for holding batch
-     * @param user the user that performed the batch hold
+     * @param note    a nite stating the reason for holding batch
+     * @param user    the user that performed the batch hold
      * @return true if batch successfully hold, false otherwise
      */
     public boolean holdPendingBatch(Integer batchId, String note, Person user);
 
     /**
      * This method removes a hold on a Batch.
-     * @param batchId the id of the batch we want to remove the hold
+     *
+     * @param batchId    the id of the batch we want to remove the hold
      * @param changeText a text stating the reason for removing the hold
-     * @param user the user that removed hold on batch
-     * @return  true if batch hold successfully removed, false otherwise
+     * @param user       the user that removed hold on batch
+     * @return true if batch hold successfully removed, false otherwise
      */
     public boolean removeBatchHold(Integer batchId, String changeText, Person user);
 
     /**
      * This method checks if the batch has open payments.
+     *
      * @param batchId the id of the batch
      * @return returns true if batch has open payments, false otherwise
      */
@@ -64,6 +68,7 @@ public interface BatchMaintenanceService {
 
     /**
      * This method checks if batch payments has open or held payments.
+     *
      * @param batchId the id of the batch
      * @return true if batch has open or held payments, false otherwise
      */
@@ -71,6 +76,7 @@ public interface BatchMaintenanceService {
 
     /**
      * This method checks if batch payments have held status.
+     *
      * @param batchId the id of the batch
      * @return true if batch payments have held status, false otherwise
      */

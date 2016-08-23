@@ -18,6 +18,12 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao;
+import org.kuali.kfs.sys.businessobject.OriginationCode;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,14 +31,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao;
-import org.kuali.kfs.sys.businessobject.OriginationCode;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-
 public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends AbstractPreparedStatementCachingDaoJdbc implements LedgerReferenceValuePreparedStatementCachingDao {
-    static final Map<String,String> sql = new HashMap<String,String>();
+    static final Map<String, String> sql = new HashMap<String, String>();
+
     static {
         sql.put(RETRIEVE_PREFIX + UniversityDate.class, "select univ_fiscal_yr, univ_fiscal_prd_cd from SH_UNIV_DATE_T where univ_dt = ?");
         sql.put(RETRIEVE_PREFIX + SystemOptions.class, "select act_fin_bal_typ_cd, fobj_typ_asset_cd, fobj_typ_fndbal_cd, fobj_typ_lblty_cd, ext_enc_fbaltyp_cd, int_enc_fbaltyp_cd, pre_enc_fbaltyp_cd, fobjtp_xpnd_exp_cd, fobjtp_xpndnexp_cd, fobjtp_expnxpnd_cd, bdgt_chk_baltyp_cd, CSTSHR_ENCUM_FIN_BAL_TYP_CD, FIN_OBJECT_TYP_TRNFR_EXP_CD from FS_OPTION_T where univ_fiscal_yr = ?");
@@ -50,6 +51,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, financialSystemOriginationCode);
             }
+
             @Override
             protected OriginationCode extractResult(ResultSet resultSet) throws SQLException {
                 OriginationCode originationCode = new OriginationCode();
@@ -66,6 +68,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setInt(1, fiscalYear);
             }
+
             @Override
             protected SystemOptions extractResult(ResultSet resultSet) throws SQLException {
                 SystemOptions systemOptions = new SystemOptions();
@@ -94,6 +97,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setDate(1, date);
             }
+
             @Override
             protected UniversityDate extractResult(ResultSet resultSet) throws SQLException {
                 UniversityDate universityDate = new UniversityDate();

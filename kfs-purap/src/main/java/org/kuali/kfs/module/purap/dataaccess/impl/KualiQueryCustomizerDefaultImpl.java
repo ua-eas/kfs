@@ -18,18 +18,19 @@
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
 
+import org.apache.ojb.broker.accesslayer.QueryCustomizerDefaultImpl;
+
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import org.apache.ojb.broker.accesslayer.QueryCustomizerDefaultImpl;
 /**
- *
  * Contains methods of use to other QueryCustomizers
  */
 public abstract class KualiQueryCustomizerDefaultImpl extends QueryCustomizerDefaultImpl {
     /**
      * exposes the list of attributes specified in the ojb file.  This is necessary since
      * the super class does not expose this.
+     *
      * @return a list of attributes
      */
     public Map<String, String> getAttributes() {
@@ -37,16 +38,14 @@ public abstract class KualiQueryCustomizerDefaultImpl extends QueryCustomizerDef
         Field field = null;
         try {
             field = KualiQueryCustomizerDefaultImpl.class.getSuperclass().getDeclaredField("m_attributeList");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         field.setAccessible(true);
         Map<String, String> m_attributeList = null;
         try {
             m_attributeList = (Map) field.get(this);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return m_attributeList;

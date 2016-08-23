@@ -19,21 +19,19 @@
 package org.kuali.kfs.krad.uif.control;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.MethodInvokerConfig;
+import org.kuali.kfs.krad.uif.field.AttributeQuery;
+import org.kuali.kfs.krad.uif.field.InputField;
+import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.widget.QuickFinder;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.uif.field.InputField;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
-import org.kuali.kfs.krad.uif.field.AttributeQuery;
-import org.kuali.kfs.krad.uif.widget.QuickFinder;
 
 /**
  * Represents a user control, which is a special control to handle
  * the input of a Person
- *
- *
  */
 public class UserControl extends TextControl {
     private static final long serialVersionUID = 7468340793076585869L;

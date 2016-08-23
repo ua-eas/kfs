@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.pdp.PdpConstants;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.pdp.PdpConstants;
 
 public class AutoCheckFormat extends PersistableBusinessObjectBase {
 
@@ -38,7 +38,7 @@ public class AutoCheckFormat extends PersistableBusinessObjectBase {
     private List<CustomerProfile> customers;
     private List<DisbursementNumberRange> ranges;
 
-    public AutoCheckFormat(){
+    public AutoCheckFormat() {
         this.paymentTypes = PdpConstants.PaymentTypes.ALL;
         customers = new ArrayList<CustomerProfile>();
         ranges = new ArrayList<DisbursementNumberRange>();

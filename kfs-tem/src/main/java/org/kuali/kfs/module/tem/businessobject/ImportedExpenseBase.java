@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.math.BigDecimal;
+import java.sql.Date;
 
 public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase {
 
@@ -54,6 +53,7 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the id attribute.
+     *
      * @return Returns the id.
      */
     @Column(name = "ID", nullable = false)
@@ -63,6 +63,7 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Sets the id attribute value.
+     *
      * @param id The id to set.
      */
     public void setId(Long id) {
@@ -71,6 +72,7 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the creditCardOrAgencyCode attribute.
+     *
      * @return Returns the creditCardOrAgencyCode.
      */
     @Column(name = "CCA_CD", nullable = false)
@@ -80,6 +82,7 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Sets the creditCardOrAgencyCode attribute value.
+     *
      * @param creditCardOrAgencyCode The creditCardOrAgencyCode to set.
      */
     public void setCreditCardOrAgencyCode(String creditCardOrAgencyCode) {
@@ -88,16 +91,18 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the creditCardAgency attribute.
+     *
      * @return Returns the creditCardAgency.
      */
     @ManyToOne
-    @JoinColumn(name="CREDIT_AGENCY_CD")
+    @JoinColumn(name = "CREDIT_AGENCY_CD")
     public CreditCardAgency getCreditCardAgency() {
         return creditCardAgency;
     }
 
     /**
      * Sets the creditCardAgency attribute value.
+     *
      * @param creditCardAgency The creditCardAgency to set.
      */
     public void setCreditCardAgency(CreditCardAgency creditCardAgency) {
@@ -106,15 +111,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the importDate attribute.
+     *
      * @return Returns the importDate.
      */
-    @Column(name="IMPORT_DT")
+    @Column(name = "IMPORT_DT")
     public Date getImportDate() {
         return importDate;
     }
 
     /**
      * Sets the importDate attribute value.
+     *
      * @param importDate The importDate to set.
      */
     public void setImportDate(Date importDate) {
@@ -123,15 +130,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the travelCompany attribute.
+     *
      * @return Returns the travelCompany.
      */
-    @Column(name="COMPANY")
+    @Column(name = "COMPANY")
     public String getTravelCompany() {
         return travelCompany;
     }
 
     /**
      * Sets the travelCompany attribute value.
+     *
      * @param travelCompany The travelCompany to set.
      */
     public void setTravelCompany(String travelCompany) {
@@ -140,15 +149,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the location attribute.
+     *
      * @return Returns the location.
      */
-    @Column(name="LOCATION")
+    @Column(name = "LOCATION")
     public String getLocation() {
         return location;
     }
 
     /**
      * Sets the location attribute value.
+     *
      * @param location The location to set.
      */
     public void setLocation(String location) {
@@ -157,15 +168,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the travelExpenseType attribute.
+     *
      * @return Returns the travelExpenseType.
      */
-    @Column(name="EXP_TYP_CD")
+    @Column(name = "EXP_TYP_CD")
     public String getTravelExpenseTypeCode() {
         return travelExpenseTypeCode;
     }
 
     /**
      * Sets the travelExpenseType attribute value.
+     *
      * @param travelExpenseType The travelExpenseType to set.
      */
     public void setTravelExpenseTypeCode(String travelExpenseTypeCode) {
@@ -174,15 +187,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the amount attribute.
+     *
      * @return Returns the amount.
      */
-    @Column(name="AMOUNT")
+    @Column(name = "AMOUNT")
     public KualiDecimal getAmount() {
         return amount;
     }
 
     /**
      * Sets the amount attribute value.
+     *
      * @param amount The amount to set.
      */
     public void setAmount(KualiDecimal amount) {
@@ -191,15 +206,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the transactionPostingDate attribute.
+     *
      * @return Returns the transactionPostingDate.
      */
-    @Column(name="TRANS_POST_DT")
+    @Column(name = "TRANS_POST_DT")
     public Date getTransactionPostingDate() {
         return transactionPostingDate;
     }
 
     /**
      * Sets the transactionPostingDate attribute value.
+     *
      * @param transactionPostingDate The transactionPostingDate to set.
      */
     public void setTransactionPostingDate(Date transactionPostingDate) {
@@ -208,15 +225,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the reconciliationDate attribute.
+     *
      * @return Returns the reconciliationDate.
      */
-    @Column(name="RECON_DT")
+    @Column(name = "RECON_DT")
     public Date getReconciliationDate() {
         return reconciliationDate;
     }
 
     /**
      * Sets the reconciliationDate attribute value.
+     *
      * @param reconciliationDate The reconciliationDate to set.
      */
     public void setReconciliationDate(Date reconciliationDate) {
@@ -225,15 +244,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the reconciled attribute.
+     *
      * @return Returns the reconciled.
      */
-    @Column(name="RECONCILED")
+    @Column(name = "RECONCILED")
     public String getReconciled() {
         return reconciled;
     }
 
     /**
      * Sets the reconciled attribute value.
+     *
      * @param reconciled The reconciled to set.
      */
     public void setReconciled(String reconciled) {
@@ -242,15 +263,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the description attribute.
+     *
      * @return Returns the description.
      */
-    @Column(name="DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
     }
 
     /**
      * Sets the description attribute value.
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {
@@ -259,15 +282,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the currencyRate attribute.
+     *
      * @return Returns the currencyRate.
      */
-    @Column(name="CURR_RT")
+    @Column(name = "CURR_RT")
     public BigDecimal getCurrencyRate() {
         return currencyRate;
     }
 
     /**
      * Sets the currencyRate attribute value.
+     *
      * @param currencyRate The currencyRate to set.
      */
     public void setCurrencyRate(BigDecimal currencyRate) {
@@ -276,11 +301,12 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the convertedAmount attribute.
+     *
      * @return Returns the convertedAmount.
      */
-    @Column(name="CONV_AMT")
+    @Column(name = "CONV_AMT")
     public KualiDecimal getConvertedAmount() {
-        if (convertedAmount == null){
+        if (convertedAmount == null) {
             convertedAmount = new KualiDecimal(amount.bigDecimalValue().multiply(currencyRate));
         }
         return convertedAmount;
@@ -288,6 +314,7 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Sets the convertedAmount attribute value.
+     *
      * @param convertedAmount The convertedAmount to set.
      */
     public void setConvertedAmount(KualiDecimal convertedAmount) {
@@ -296,15 +323,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the reimbursable attribute.
+     *
      * @return Returns the reimbursable.
      */
-    @Column(name="REIMB")
+    @Column(name = "REIMB")
     public Boolean getReimbursable() {
         return reimbursable;
     }
 
     /**
      * Sets the reimbursable attribute value.
+     *
      * @param reimbursable The reimbursable to set.
      */
     public void setReimbursable(Boolean reimbursable) {
@@ -313,15 +342,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the missingReceipt attribute.
+     *
      * @return Returns the missingReceipt.
      */
-    @Column(name="MISSING_RCPT")
+    @Column(name = "MISSING_RCPT")
     public Boolean getMissingReceipt() {
         return missingReceipt;
     }
 
     /**
      * Sets the missingReceipt attribute value.
+     *
      * @param missingReceipt The missingReceipt to set.
      */
     public void setMissingReceipt(Boolean missingReceipt) {
@@ -330,15 +361,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the assigned attribute.
+     *
      * @return Returns the assigned.
      */
-    @Column(name="ASSIGNED")
+    @Column(name = "ASSIGNED")
     public Boolean getAssigned() {
         return assigned;
     }
 
     /**
      * Sets the assigned attribute value.
+     *
      * @param assigned The assigned to set.
      */
     public void setAssigned(Boolean assigned) {
@@ -347,15 +380,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
-    @Column(name="DOC_NBR")
+    @Column(name = "DOC_NBR")
     public String getDocumentNumber() {
         return documentNumber;
     }
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -364,15 +399,17 @@ public abstract class ImportedExpenseBase extends PersistableBusinessObjectBase 
 
     /**
      * Gets the expenseNotificationDate attribute.
+     *
      * @return Returns the expenseNotificationDate.
      */
-    @Column(name="EXP_NTF_DT")
+    @Column(name = "EXP_NTF_DT")
     public Date getExpenseNotificationDate() {
         return expenseNotificationDate;
     }
 
     /**
      * Sets the expenseNotificationDate attribute value.
+     *
      * @param expenseNotificationDate The expenseNotificationDate to set.
      */
     public void setExpenseNotificationDate(Date expenseNotificationDate) {

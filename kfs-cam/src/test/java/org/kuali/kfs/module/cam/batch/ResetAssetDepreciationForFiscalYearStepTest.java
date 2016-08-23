@@ -44,7 +44,7 @@ public class ResetAssetDepreciationForFiscalYearStepTest {
         EasyMock.replay(assetDepreciationService);
 
         try {
-            Assert.assertTrue(step.execute("resetAssetDepreciationForFiscalYearJob",new Date()));
+            Assert.assertTrue(step.execute("resetAssetDepreciationForFiscalYearJob", new Date()));
         } catch (InterruptedException e) {
             e.printStackTrace();
             Assert.fail("Exception thrown");
@@ -57,7 +57,7 @@ public class ResetAssetDepreciationForFiscalYearStepTest {
         EasyMock.replay(assetDepreciationService);
 
         try {
-            Assert.assertFalse(step.execute("resetAssetDepreciationForFiscalYearJob",new Date()));
+            Assert.assertFalse(step.execute("resetAssetDepreciationForFiscalYearJob", new Date()));
         } catch (InterruptedException e) {
             e.printStackTrace();
             Assert.fail("Exception thrown");

@@ -16,14 +16,14 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page showDocumentInfo="false" htmlFormAction="budgetPositionSalarySetting" renderMultipart="true"
-	showTabButtons="false" docTitle="${KualiForm.documentTitle}" transactionalDocument="false">
+          showTabButtons="false" docTitle="${KualiForm.documentTitle}" transactionalDocument="false">
 
-    <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" " />
+    <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" "/>
     <div id="globalbuttons" class="globalbuttons">
-	    <html:submit value="Close" styleClass="btn btn-default"
-	        onclick="window.close();return true;" property="methodToCall.performLost" title="close the window" alt="close the window"/>
+        <html:submit value="Close" styleClass="btn btn-default"
+                     onclick="window.close();return true;" property="methodToCall.performLost" title="close the window" alt="close the window"/>
     </div>
 </kul:page>

@@ -29,8 +29,9 @@ public interface Renderer {
 
     /**
      * Asks this renderer to render
-     * @param pageContext the JSP page context to render to
-     * @param parentTag the tag that is the "parent" of this rendering
+     *
+     * @param pageContext    the JSP page context to render to
+     * @param parentTag      the tag that is the "parent" of this rendering
      * @param businessObject the business object being rendered
      */
     public abstract void render(PageContext pageContext, Tag parentTag) throws JspException;

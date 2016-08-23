@@ -39,7 +39,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class HealthReport {
 
@@ -62,7 +61,7 @@ public class HealthReport {
             status = "OK";
             message = "System checks out";
         }
-        Metric metric = new Metric("Health", "executionTime", (System.currentTimeMillis()-startTime)+"ms");
+        Metric metric = new Metric("Health", "executionTime", (System.currentTimeMillis() - startTime) + "ms");
         metrics.add(metric);
         return this;
 
@@ -109,7 +108,7 @@ public class HealthReport {
         String context = ConfigContext.getCurrentContextConfig().getProperty("app.context.name");
 
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName objectName = new ObjectName("Catalina:type=Manager,context=/"+context+",host=localhost");
+        ObjectName objectName = new ObjectName("Catalina:type=Manager,context=/" + context + ",host=localhost");
         Object activeSessions = mBeanServer.getAttribute(objectName, "activeSessions");
         Metric metric = new Metric("Session", "active", activeSessions.toString());
         metrics.add(metric);
@@ -169,11 +168,11 @@ public class HealthReport {
 
     protected void doCheckMemory() {
         Runtime runtime = Runtime.getRuntime();
-        Metric metric  = new Metric("Memory", "free", ""+ runtime.freeMemory());
+        Metric metric = new Metric("Memory", "free", "" + runtime.freeMemory());
         metrics.add(metric);
-        metric  = new Metric("Memory", "max", ""+ runtime.maxMemory());
+        metric = new Metric("Memory", "max", "" + runtime.maxMemory());
         metrics.add(metric);
-        metric  = new Metric("Memory", "total", ""+ runtime.totalMemory());
+        metric = new Metric("Memory", "total", "" + runtime.totalMemory());
         metrics.add(metric);
     }
 

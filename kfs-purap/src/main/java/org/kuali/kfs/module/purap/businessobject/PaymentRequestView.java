@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.web.format.CurrencyFormatter;
+import org.kuali.rice.core.web.format.DateFormatter;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
-import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.NoteService;
 /**
  * Payment Request View Business Object.
  */
@@ -157,7 +157,7 @@ public class PaymentRequestView extends AbstractRelatedView {
         List<Note> tmpNotes = noteService.getByRemoteObjectId(documentHeader.getObjectId());
         notes.clear();
         // reverse the order of notes retrieved so that newest note is in the front
-        for (int i = tmpNotes.size()-1; i>=0; i--) {
+        for (int i = tmpNotes.size() - 1; i >= 0; i--) {
             Note note = tmpNotes.get(i);
             notes.add(note);
         }

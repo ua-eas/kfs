@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.fp.batch.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 /**
  * This class tests the services used to create ProcurementCard documents.

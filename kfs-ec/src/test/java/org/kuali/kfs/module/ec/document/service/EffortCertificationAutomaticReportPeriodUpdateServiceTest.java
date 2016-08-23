@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.ec.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ec.EffortCertificationTestConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 import org.kuali.kfs.module.ec.dataaccess.MockEffortCertificationReportDefinitionDaoOjb;
@@ -28,7 +26,9 @@ import org.kuali.kfs.module.ec.fixture.EffortCertificationReportDefinitionFixtur
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains methods that test the EffortCertificationAutomaticReportPeriodUpdateService.
@@ -42,7 +42,6 @@ public class EffortCertificationAutomaticReportPeriodUpdateServiceTest extends K
     private List<EffortCertificationReportDefinition> testReportDefinitions;
 
     /**
-     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -100,7 +99,6 @@ public class EffortCertificationAutomaticReportPeriodUpdateServiceTest extends K
     }
 
     /**
-     *
      * Tests report defintions without overlapping periods. Service method should return false.
      */
     public void testIsAnOverlappingReportDefinition_boundry1() {
@@ -116,7 +114,6 @@ public class EffortCertificationAutomaticReportPeriodUpdateServiceTest extends K
     }
 
     /**
-     *
      * Tests report defintions without overlapping periods. Service method should return false.
      */
     public void testIsAnOverlappingReportDefinition_boundry2() {
@@ -147,7 +144,6 @@ public class EffortCertificationAutomaticReportPeriodUpdateServiceTest extends K
     }
 
     /**
-     *
      * Tests report definitions with overlapping dates. Service method should return true.
      */
     public void testIsAnOverlappingReportDefinition_overlappingDates1() {

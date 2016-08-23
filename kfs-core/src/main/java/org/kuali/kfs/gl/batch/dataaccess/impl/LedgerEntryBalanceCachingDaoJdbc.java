@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.gl.batch.dataaccess.impl;
 
+import org.kuali.kfs.gl.batch.dataaccess.LedgerEntryBalanceCachingDao;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.batch.dataaccess.LedgerEntryBalanceCachingDao;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
 
 /**
  * This class...

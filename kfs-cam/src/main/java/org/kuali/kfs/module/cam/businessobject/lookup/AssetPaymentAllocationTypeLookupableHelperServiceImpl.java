@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getExternalBusinessObjectProperty(java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     protected String getExternalBusinessObjectProperty(Object sampleBo, String propertyName) {
@@ -38,7 +38,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getExternalizableBusinessObjectClass(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     protected Class<? extends ExternalizableBusinessObject> getExternalizableBusinessObjectClass(Class boClass, String propertyName) {
@@ -47,7 +47,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getExternalizableBusinessObjectFieldValues(java.lang.String,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected Map<String, String> getExternalizableBusinessObjectFieldValues(String eboPropertyName, Map<String, String> fieldValues) {
@@ -56,7 +56,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getExternalizableBusinessObjectProperties(java.lang.Class,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected List<String> getExternalizableBusinessObjectProperties(Class boClass, Map<String, String> fieldValues) {
@@ -97,7 +97,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#hasExternalBusinessObjectProperty(java.lang.Class,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected boolean hasExternalBusinessObjectProperty(Class boClass, Map<String, String> fieldValues) {
@@ -106,7 +106,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#isExternalBusinessObjectProperty(java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     protected boolean isExternalBusinessObjectProperty(Object sampleBo, String propertyName) {
@@ -123,7 +123,7 @@ public class AssetPaymentAllocationTypeLookupableHelperServiceImpl extends Kuali
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#removeExternalizableBusinessObjectFieldValues(java.lang.Class,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected Map<String, String> removeExternalizableBusinessObjectFieldValues(Class boClass, Map<String, String> fieldValues) {

@@ -28,8 +28,6 @@ import java.util.Arrays;
 
 /**
  * Contains the error message key and parameters for a specific instantiation of an error message.
- *
- *
  */
 public class ErrorMessage implements Serializable {
     private String errorKey;
@@ -102,7 +100,6 @@ public class ErrorMessage implements Serializable {
 
 
     /**
-     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -111,8 +108,7 @@ public class ErrorMessage implements Serializable {
 
         if (this == obj) {
             equals = true;
-        }
-        else if (obj instanceof ErrorMessage) {
+        } else if (obj instanceof ErrorMessage) {
             ErrorMessage other = (ErrorMessage) obj;
 
             if (StringUtils.equals(getErrorKey(), other.getErrorKey())) {

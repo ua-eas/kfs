@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ec.dataaccess;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Mock dao class to be used for unit tests that do not test database operations
@@ -32,9 +32,7 @@ public class MockEffortCertificationReportDefinitionDaoOjb implements EffortCert
     List<EffortCertificationReportDefinition> reportDefinitions;
 
     /**
-     *
      * Constructs a MockEffortCertificationReportDefinitionDaoOjb.java.
-     *
      */
     public MockEffortCertificationReportDefinitionDaoOjb() {
         this.reportDefinitions = new ArrayList<EffortCertificationReportDefinition>();
@@ -56,6 +54,7 @@ public class MockEffortCertificationReportDefinitionDaoOjb implements EffortCert
 
     /**
      * Sets the report defintions to be used by unit tests
+     *
      * @param reportDefinitions
      */
     public void setReportDefinitionList(List<EffortCertificationReportDefinition> reportDefinitions) {

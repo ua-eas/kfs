@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.KFSConstants.FROM;
-import static org.kuali.kfs.sys.KFSConstants.TO;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.GECSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.GECTargetAccountingLine;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -32,10 +33,9 @@ import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+
+import static org.kuali.kfs.sys.KFSConstants.FROM;
+import static org.kuali.kfs.sys.KFSConstants.TO;
 
 
 /**
@@ -95,10 +95,10 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
      * Customizes a GLPE by setting financial document number, financial system origination code and document type code to null
      *
      * @param transactionalDocument submitted accounting document
-     * @param accountingLine accounting line in document
-     * @param explicitEntry general ledger pending entry
+     * @param accountingLine        accounting line in document
+     * @param explicitEntry         general ledger pending entry
      * @see FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(FinancialDocument, AccountingLine,
-     *      GeneralLedgerPendingEntry)
+     * GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
@@ -116,7 +116,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
      * Builds an appropriately formatted string to be used for the <code>transactionLedgerEntryDescription</code>. It is built
      * using information from the <code>{@link AccountingLine}</code>. Format is "01-12345: blah blah blah".
      *
-     * @param line accounting line
+     * @param line                  accounting line
      * @param transactionalDocument submitted accounting document
      * @return String formatted string to be used for transaction ledger entry description
      */
@@ -126,8 +126,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
 
         if (StringUtils.isNotBlank(line.getFinancialDocumentLineDescription())) {
             description += ": " + line.getFinancialDocumentLineDescription();
-        }
-        else {
+        } else {
             description += ": " + getDocumentHeader().getDocumentDescription();
         }
 

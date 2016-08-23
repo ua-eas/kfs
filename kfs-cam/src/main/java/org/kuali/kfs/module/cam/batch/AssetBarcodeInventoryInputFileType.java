@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.module.cam.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.apache.commons.io.filefilter.AndFileFilter;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
@@ -42,6 +33,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Batch input type for the barcode inventory document.
  */
@@ -53,7 +53,6 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     private static final String FILE_NAME_PART_DELIMITER = "_";
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDirectoryPath(java.lang.String)
      */
     public String getDirectoryPath(String fileType) {
@@ -62,8 +61,8 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
 
     /**
-     *
      * Sets the path were the files will be saved
+     *
      * @param directoryPath
      */
     public void setDirectoryPath(String directoryPath) {
@@ -72,7 +71,6 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypes()
      */
     public List<String> getFileTypes() {
@@ -95,7 +93,6 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
      * Returns a map with the enterprise feeder file type descriptions
      *
      * @return a map containing the following key/description pairs: DATA/Data Files, RECON/Reconciliation File
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypeDescription()
      */
     public Map<String, String> getFileTypeDescription() {
@@ -107,10 +104,9 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     /**
      * Return the file name based on information from user and file user identifier
      *
-     * @param user Person object representing user who uploaded file
+     * @param user              Person object representing user who uploaded file
      * @param fileUserIdentifer String representing user who uploaded file
      * @return String enterprise feeder formated file name string using information from user and file user identifier
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileName(java.lang.String, org.kuali.rice.kim.api.identity.Person, java.lang.String)
      */
     public String getFileName(String fileType, String principalName, String fileUserIdentifer, Date creationDate) {
@@ -119,9 +115,9 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
         fileUserIdentifer = StringUtils.deleteWhitespace(fileUserIdentifer);
         fileUserIdentifer = StringUtils.remove(fileUserIdentifer, FILE_NAME_PART_DELIMITER);
         buf.append(FILE_NAME_PREFIX).append(FILE_NAME_PART_DELIMITER).append(principalName)
-                .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
-                .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
-                .append(getFileExtension(fileType));
+            .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
+            .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
+            .append(getFileExtension(fileType));
         return buf.toString();
     }
 
@@ -175,10 +171,9 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     /**
      * Returns done file name for a specific user and file user identifier
      *
-     * @param user the user who uploaded or will upload the file
+     * @param user               the user who uploaded or will upload the file
      * @param fileUserIdentifier the file identifier
      * @return String done file name
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDoneFileName(org.kuali.rice.kim.api.identity.Person, java.lang.String)
      */
     public String getDoneFileName(Person user, String fileUserIdentifer, Date creationDate) {
@@ -187,19 +182,18 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
         fileUserIdentifer = StringUtils.deleteWhitespace(fileUserIdentifer);
         fileUserIdentifer = StringUtils.remove(fileUserIdentifer, FILE_NAME_PART_DELIMITER);
         buf.append(FILE_NAME_PREFIX).append(FILE_NAME_PART_DELIMITER).append(user.getPrincipalName())
-                .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
-                .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
-                .append(getDoneFileExtension());
+            .append(FILE_NAME_PART_DELIMITER).append(fileUserIdentifer)
+            .append(FILE_NAME_PART_DELIMITER).append(dateTimeService.toDateTimeStringForFilename(creationDate))
+            .append(getDoneFileExtension());
         return buf.toString();
     }
 
     /**
      * Return set of file user identifiers from a list of files
      *
-     * @param user user who uploaded or will upload file
+     * @param user  user who uploaded or will upload file
      * @param files list of files objects
      * @return Set containing all user identifiers from list of files
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#extractFileUserIdentifiers(org.kuali.rice.kim.api.identity.Person, java.util.List)
      */
     public Set<String> extractFileUserIdentifiers(Person user, List<File> files) {
@@ -229,7 +223,6 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#process(java.util.Map)
      */
     public void process(Map<String, File> typeToFiles) {
@@ -237,19 +230,18 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
 
     public void process(Map<String, File> typeToFiles, AssetBarCodeInventoryInputFileForm form) {
-        SpringContext.getBean(AssetBarcodeInventoryLoadService.class).processFile(typeToFiles.get(CamsConstants.BarCodeInventory.DATA_FILE_TYPE),form);
+        SpringContext.getBean(AssetBarcodeInventoryLoadService.class).processFile(typeToFiles.get(CamsConstants.BarCodeInventory.DATA_FILE_TYPE), form);
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#validate(java.util.Map)
      */
     public boolean validate(Map<String, File> typeToFiles) {
-        boolean isValid=true;
+        boolean isValid = true;
         //Validating file format.
 
         if (!SpringContext.getBean(AssetBarcodeInventoryLoadService.class).isFileFormatValid(typeToFiles.get(CamsConstants.BarCodeInventory.DATA_FILE_TYPE))) {
-            isValid=false;
+            isValid = false;
         }
         return isValid;
     }

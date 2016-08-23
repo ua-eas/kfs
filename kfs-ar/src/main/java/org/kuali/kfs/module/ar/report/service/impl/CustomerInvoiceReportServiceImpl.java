@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.CustomerInvoiceReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerInvoiceReportDataHolder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -85,7 +84,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
         reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
-        File report = new File(fullReportFileName+".pdf");
+        File report = new File(fullReportFileName + ".pdf");
         return report;
     }
 
@@ -109,6 +108,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -117,6 +117,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Gets the customerInvoiceReportInfo attribute.
+     *
      * @return Returns the customerInvoiceReportInfo.
      */
     public ReportInfo getCustomerInvoiceReportInfo() {
@@ -125,6 +126,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Gets the customerInvoiceReportInfoNoTax attribute.
+     *
      * @return Returns the customerInvoiceReportInfoNoTax.
      */
     public ReportInfo getCustomerInvoiceReportInfoNoTax() {
@@ -133,6 +135,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Sets the customerInvoiceReportInfoNoTax attribute value.
+     *
      * @param customerInvoiceReportInfoNoTax The customerInvoiceReportInfoNoTax to set.
      */
     public void setCustomerInvoiceReportInfoNoTax(ReportInfo customerInvoiceReportInfoNoTax) {

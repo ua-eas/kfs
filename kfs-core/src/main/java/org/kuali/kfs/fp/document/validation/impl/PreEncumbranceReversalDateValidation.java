@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
 import org.kuali.kfs.fp.document.PreEncumbranceDocument;
 import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * Validates that an accounting line does not have a capital object object code
@@ -36,16 +36,18 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
     /**
      * Validates that an accounting line does not have a capital object object code
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         java.sql.Date reversalDate = getAccountingDocumentForValidation().getReversalDate();
-       // AccountingDocumentRuleHelperService accountingDocumentRuleUtil = getAccountingLineRuleHelperService();
+        // AccountingDocumentRuleHelperService accountingDocumentRuleUtil = getAccountingLineRuleHelperService();
         return accountingDocumentRuleHelperService.isValidReversalDate(reversalDate, DOCUMENT_ERROR_PREFIX + REVERSAL_DATE);
     }
 
     /**
      * Gets the accountingDocumentRuleHelperService attribute.
+     *
      * @return Returns the accountingDocumentRuleHelperService.
      */
     public AccountingDocumentRuleHelperService getAccountingDocumentRuleHelperService() {
@@ -54,6 +56,7 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentRuleHelperService attribute value.
+     *
      * @param accountingDocumentRuleHelperService The accountingDocumentRuleHelperService to set.
      */
     public void setAccountingDocumentRuleHelperService(AccountingDocumentRuleHelperService accountingDocumentRuleHelperService) {
@@ -62,6 +65,7 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public PreEncumbranceDocument getAccountingDocumentForValidation() {
@@ -70,12 +74,12 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(PreEncumbranceDocument accountingDocumentForValidation) {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
     }
-
 
 
 }

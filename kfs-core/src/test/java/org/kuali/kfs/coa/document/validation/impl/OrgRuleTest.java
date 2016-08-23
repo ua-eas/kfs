@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 
 @ConfigureContext(session = khuntley)
@@ -104,7 +104,7 @@ public class OrgRuleTest extends ChartRuleTestBase {
         maintDoc = this.newMaintDoc(oldBO, newBO);
         maintDoc.getNewMaintainableObject().setMaintenanceAction(KFSConstants.MAINTENANCE_EDIT_ACTION); // simulate editing
         newBO.setReportsToChartOfAccountsCode(OrgKeys.CampusOrg.CHART_OF_ACCOUNTS_CODE); // simulate trying to create a new top
-                                                                                            // level org
+        // level org
         newBO.setReportsToOrganizationCode(OrgKeys.CampusOrg.ORGANIZATION_CODE);
         rule = (OrgRule) this.setupMaintDocRule(maintDoc, OrgRule.class);
         assertFalse(rule.checkSimpleRules(maintDoc)); // we may not add more than one top level org
@@ -162,7 +162,7 @@ public class OrgRuleTest extends ChartRuleTestBase {
         maintDoc.getNewMaintainableObject().setMaintenanceAction(KFSConstants.MAINTENANCE_EDIT_ACTION); // simulate editing
         rule = (OrgRule) this.setupMaintDocRule(maintDoc, OrgRule.class);
         assertFalse(rule.checkDefaultAccountNumber(maintDoc)); // it is NOT okay for a non-university/non-campus to have no default
-                                                                // account number
+        // account number
     }
 
     private Map getPrimaryKeysForTopLevelOrg(OrgKeys org) {

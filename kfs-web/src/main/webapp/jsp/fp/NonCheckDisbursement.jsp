@@ -16,35 +16,35 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="NonCheckDisbursementDocument"
-	htmlFormAction="financialNonCheckDisbursement" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="NonCheckDisbursementDocument"
+                  htmlFormAction="financialNonCheckDisbursement" renderMultipart="true"
+                  showTabButtons="true">
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" includeBankCode="true"
-	  bankProperty="document.financialDocumentBankCode"
-	  bankObjectProperty="document.bank"
-	  disbursementOnly="true" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}" includeBankCode="true"
+                          bankProperty="document.financialDocumentBankCode"
+                          bankObjectProperty="document.bank"
+                          disbursementOnly="true"/>
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
-			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-		</sys-java:accountingLines>
-	</kul:tab>
+    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
+             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
+        <sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
+        </sys-java:accountingLines>
+    </kul:tab>
 
-	<gl:generalLedgerPendingEntries />
+    <gl:generalLedgerPendingEntries/>
 
-	<kul:notes />
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
+    <sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.PurchasingItem;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.List;
 
 public class PurchasingDocumentTestUtils extends KualiTestBase {
 

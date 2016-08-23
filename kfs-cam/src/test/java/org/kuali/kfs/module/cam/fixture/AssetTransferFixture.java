@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.module.cam.document.AssetTransferDocument;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public enum AssetTransferFixture {
     ACTIVE_CAPITAL_ASSET(1), RETIRED_ASSET(2), ACTIVE_NON_CAPITAL_ASSET(3), PAYMENT1_WITH_OFFSET(1), PAYMENT2_WITH_OFFSET(2), PAYMENT3_WITHOUT_OFFSET(3), PAYMENT4_WITHOUT_OFFSET(4), ASSET_TRANSFER(1);
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/asset_transfer_service.properties";
         properties = new Properties();
         try {
             properties.load(AssetTransferFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }

@@ -18,23 +18,16 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.saveDocument;
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE7;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.hschrein;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.mylarge;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.vputman;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import junit.framework.Assert;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.KualiTestConstants;
@@ -49,12 +42,18 @@ import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.saveDocument;
+import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE7;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.hschrein;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.mylarge;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.vputman;
 
 /**
  * This class is used to test DisbursementVoucherDocument.
@@ -78,7 +77,7 @@ public class DisbursementVoucherDocumentIntegrationTest extends KualiTestBase {
         GlobalVariables.getMessageMap().clearErrorMessages();
         KNSGlobalVariables.getMessageList().clear();
 
-    	DisbursementVoucherDocument dvParameter = (DisbursementVoucherDocument) getDocumentParameterFixture();
+        DisbursementVoucherDocument dvParameter = (DisbursementVoucherDocument) getDocumentParameterFixture();
         DisbursementVoucherDocument document = (DisbursementVoucherDocument) getDocumentParameterFixture();
         document.getDvPayeeDetail().setDisbVchrPayeeIdNumber("1234-0");
         document.getDvPayeeDetail().setDisbursementVoucherPayeeTypeCode("V");
@@ -185,7 +184,7 @@ public class DisbursementVoucherDocumentIntegrationTest extends KualiTestBase {
         DisbursementVoucherDocument document = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), DisbursementVoucherDocument.class);
         DisbursementVoucherPayeeDetail payeeDetail = new DisbursementVoucherPayeeDetail();
         payeeDetail.setDisbVchrPayeeIdNumber("1013-0");
-       // payeeDetail.setDisbVchrAlienPaymentCode(true);
+        // payeeDetail.setDisbVchrAlienPaymentCode(true);
         payeeDetail.setDisbursementVoucherPayeeTypeCode("V");
         payeeDetail.setDisbVchrPayeeLine1Addr("100 Main St");
         payeeDetail.setDisbVchrPayeeCityName("Bloomington");

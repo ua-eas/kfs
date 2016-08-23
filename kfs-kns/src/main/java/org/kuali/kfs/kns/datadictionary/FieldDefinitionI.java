@@ -21,7 +21,10 @@ package org.kuali.kfs.kns.datadictionary;
 @Deprecated
 public interface FieldDefinitionI {
     public String getName();
+
     public boolean isReadOnlyAfterAdd();
+
     public String getAlternateDisplayAttributeName();
+
     public String getAdditionalDisplayAttributeName();
 }

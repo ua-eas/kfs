@@ -20,13 +20,13 @@ package org.kuali.kfs.module.ar.businessobject;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 
 public class WriteoffCustomerInvoiceDetail extends CustomerInvoiceDetail {
@@ -36,16 +36,16 @@ public class WriteoffCustomerInvoiceDetail extends CustomerInvoiceDetail {
     private boolean isUsingOrgAcctDefaultWriteoffFAU;
     private boolean isUsingChartForWriteoff;
 
-    public WriteoffCustomerInvoiceDetail(CustomerInvoiceDetail postable, CustomerInvoiceWriteoffDocument poster){
+    public WriteoffCustomerInvoiceDetail(CustomerInvoiceDetail postable, CustomerInvoiceWriteoffDocument poster) {
         this.postable = postable;
         this.poster = poster;
 
         String writeoffGenerationOption = SpringContext.getBean(ParameterService.class).getParameterValueAsString(CustomerInvoiceWriteoffDocument.class, ArConstants.GLPE_WRITEOFF_GENERATION_METHOD);
-        isUsingOrgAcctDefaultWriteoffFAU = ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals( writeoffGenerationOption );
-        isUsingChartForWriteoff = ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_CHART.equals( writeoffGenerationOption );
+        isUsingOrgAcctDefaultWriteoffFAU = ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGenerationOption);
+        isUsingChartForWriteoff = ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_CHART.equals(writeoffGenerationOption);
 
 
-        if( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             //if is using org account default, I already set the writeoff FAU on
             //the document, so that is needed to do is refresh the FAU objects
             this.poster.refreshReferenceObject("account");
@@ -61,16 +61,16 @@ public class WriteoffCustomerInvoiceDetail extends CustomerInvoiceDetail {
 
     @Override
     public Account getAccount() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getAccount();
         } else {
             return postable.getAccount();
         }
     }
 
-   @Override
+    @Override
     public String getAccountNumber() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getAccountNumber();
         } else {
             return postable.getAccountNumber();
@@ -82,64 +82,64 @@ public class WriteoffCustomerInvoiceDetail extends CustomerInvoiceDetail {
         return postable.getAmountOpen();
     }
 
-   @Override
+    @Override
     public String getChartOfAccountsCode() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getChartOfAccountsCode();
         } else {
             return postable.getChartOfAccountsCode();
         }
     }
 
-   @Override
+    @Override
     public String getDocumentNumber() {
         return postable.getDocumentNumber();
     }
 
-   @Override
+    @Override
     public String getFinancialDocumentLineDescription() {
         return postable.getFinancialDocumentLineDescription();
     }
 
-   @Override
-   public String getFinancialObjectCode() {
-       CustomerInvoiceWriteoffDocumentService customerInvoiceWriteoffDocumentService = SpringContext.getBean(CustomerInvoiceWriteoffDocumentService.class);
-       return customerInvoiceWriteoffDocumentService.getFinancialObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU, isUsingChartForWriteoff, this.getChartOfAccountsCode());
-   }
+    @Override
+    public String getFinancialObjectCode() {
+        CustomerInvoiceWriteoffDocumentService customerInvoiceWriteoffDocumentService = SpringContext.getBean(CustomerInvoiceWriteoffDocumentService.class);
+        return customerInvoiceWriteoffDocumentService.getFinancialObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU, isUsingChartForWriteoff, this.getChartOfAccountsCode());
+    }
 
-  @Override
-   public ObjectCode getObjectCode() {
-      CustomerInvoiceWriteoffDocumentService customerInvoiceWriteoffDocumentService = SpringContext.getBean(CustomerInvoiceWriteoffDocumentService.class);
-      return customerInvoiceWriteoffDocumentService.getObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU, isUsingChartForWriteoff, this.getChartOfAccountsCode());
-      }
+    @Override
+    public ObjectCode getObjectCode() {
+        CustomerInvoiceWriteoffDocumentService customerInvoiceWriteoffDocumentService = SpringContext.getBean(CustomerInvoiceWriteoffDocumentService.class);
+        return customerInvoiceWriteoffDocumentService.getObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU, isUsingChartForWriteoff, this.getChartOfAccountsCode());
+    }
 
 
-  @Override
-  public String getFinancialSubObjectCode() {
-      return GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialSubObjectCode();
-  }
+    @Override
+    public String getFinancialSubObjectCode() {
+        return GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialSubObjectCode();
+    }
 
-   @Override
+    @Override
     public String getOrganizationReferenceId() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getOrganizationReferenceIdentifier();
         } else {
             return postable.getOrganizationReferenceId();
         }
     }
 
-   @Override
+    @Override
     public String getProjectCode() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getProjectCode();
         } else {
             return postable.getProjectCode();
         }
     }
 
-   @Override
+    @Override
     public String getSubAccountNumber() {
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getSubAccountNumber();
         } else {
             return postable.getSubAccountNumber();

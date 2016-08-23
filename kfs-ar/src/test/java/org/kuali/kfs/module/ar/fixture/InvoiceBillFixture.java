@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 /**
  * Fixture class for InvoiceBill

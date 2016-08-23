@@ -28,7 +28,7 @@ public class SubAccountOrganizationAccountingDefaultValueFinder extends ObjectOr
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {
-        return (organizationAccountingDefault != null)? organizationAccountingDefault.getDefaultInvoiceSubAccountNumber() : "";
+        return (organizationAccountingDefault != null) ? organizationAccountingDefault.getDefaultInvoiceSubAccountNumber() : "";
     }
 
 }

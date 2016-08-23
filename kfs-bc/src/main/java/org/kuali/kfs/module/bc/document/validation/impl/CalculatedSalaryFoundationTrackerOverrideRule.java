@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.validation.impl;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTrackerOverride;
 import org.kuali.kfs.module.bc.document.service.CalculatedSalaryFoundationTrackerOverrideService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CalculatedSalaryFoundationTrackerOverrideRule extends MaintenanceDocumentRuleBase {
 
@@ -107,8 +107,7 @@ public class CalculatedSalaryFoundationTrackerOverrideRule extends MaintenanceDo
                 putFieldError("emplid", BCKeyConstants.ERROR_INVALID_APPOINTMENT, "Employee Id");
                 success &= false;
             }
-        }
-        else {
+        } else {
             putFieldError("emplid", BCKeyConstants.ERROR_INVALID_APPOINTMENT, "Employee Id");
             success &= false;
         }
@@ -128,8 +127,7 @@ public class CalculatedSalaryFoundationTrackerOverrideRule extends MaintenanceDo
                 putFieldError("positionNumber", BCKeyConstants.ERROR_INVALID_POSITION, "Position Number");
                 success &= false;
             }
-        }
-        else {
+        } else {
             putFieldError("positionNumber", BCKeyConstants.ERROR_INVALID_POSITION, "Position Number");
             success &= false;
         }

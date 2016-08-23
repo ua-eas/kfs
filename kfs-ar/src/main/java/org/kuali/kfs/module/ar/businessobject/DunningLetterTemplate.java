@@ -22,7 +22,6 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * Defines the letter templates that will be assigned to the appropriate dunning letter campaigns.
- *
  */
 public class DunningLetterTemplate extends TemplateBase implements MutableInactivatable {
 

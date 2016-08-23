@@ -23,12 +23,12 @@ import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
 public enum CustomerInvoiceItemCodeFixture {
 
 
-    BASE_CIIC( "999999", //invoiceItemCode
-            "BL", //chartOfAccountsCode
-            "AAAM", //organizationCode
-            "BL", //defaultInvoiceChartOfAccountsCode
-            "1031400", //defaultInvoiceAccountNumber
-            "5821" ); //defaultInvoiceFinancialObjectCode
+    BASE_CIIC("999999", //invoiceItemCode
+        "BL", //chartOfAccountsCode
+        "AAAM", //organizationCode
+        "BL", //defaultInvoiceChartOfAccountsCode
+        "1031400", //defaultInvoiceAccountNumber
+        "5821"); //defaultInvoiceFinancialObjectCode
 
 
     public String invoiceItemCode;
@@ -39,12 +39,12 @@ public enum CustomerInvoiceItemCodeFixture {
     public String defaultInvoiceFinancialObjectCode;
 
 
-    private CustomerInvoiceItemCodeFixture( String invoiceItemCode,
-            String chartOfAccountsCode,
-            String organizationCode,
-            String defaultInvoiceChartOfAccountsCode,
-            String defaultInvoiceAccountNumber,
-            String defaultInvoiceFinancialObjectCode) {
+    private CustomerInvoiceItemCodeFixture(String invoiceItemCode,
+                                           String chartOfAccountsCode,
+                                           String organizationCode,
+                                           String defaultInvoiceChartOfAccountsCode,
+                                           String defaultInvoiceAccountNumber,
+                                           String defaultInvoiceFinancialObjectCode) {
 
         this.invoiceItemCode = invoiceItemCode;
         this.chartOfAccountsCode = chartOfAccountsCode;
@@ -54,7 +54,7 @@ public enum CustomerInvoiceItemCodeFixture {
         this.defaultInvoiceFinancialObjectCode = defaultInvoiceFinancialObjectCode;
     }
 
-    public CustomerInvoiceItemCode createCustomerInvoiceItemCode( ){
+    public CustomerInvoiceItemCode createCustomerInvoiceItemCode() {
         CustomerInvoiceItemCode customerInvoiceItemCode = new CustomerInvoiceItemCode();
         customerInvoiceItemCode.setActive(true);
         customerInvoiceItemCode.setInvoiceItemCode(invoiceItemCode);

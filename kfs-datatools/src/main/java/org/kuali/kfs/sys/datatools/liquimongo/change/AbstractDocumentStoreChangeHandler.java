@@ -18,17 +18,8 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-
-import org.apache.commons.codec.binary.Hex;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mongodb.DBObject;
+import org.springframework.data.mongodb.core.MongoOperations;
 
 public abstract class AbstractDocumentStoreChangeHandler implements DocumentStoreChangeHandler {
     protected MongoOperations mongoTemplate;
@@ -37,12 +28,12 @@ public abstract class AbstractDocumentStoreChangeHandler implements DocumentStor
 
     public static final String CHANGE_TYPE = "changeType";
 
-    protected boolean isKeyValueCorrect(JsonNode node,String key,String value) {
+    protected boolean isKeyValueCorrect(JsonNode node, String key, String value) {
         return node.get(key).asText().equals(value);
     }
 
     protected void verifyKeyExistence(JsonNode node, String key) {
-        if ( node.get(key) == null ) {
+        if (node.get(key) == null) {
             LOG.error("verifyKeyExistence() " + key + " is required in node: " + node);
             throw new IllegalArgumentException(key + " is missing from change json");
         }

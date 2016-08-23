@@ -28,14 +28,12 @@ import java.io.Serializable;
 /**
  * Provides binding configuration for an DataBinding component (attribute or
  * collection)
- *
+ * <p>
  * <p>
  * From the binding configuration the binding path is determined (if not
  * manually set) and used to set the path in the UI or to get the value from the
  * model
  * </p>
- *
- *
  */
 public class BindingInfo extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -7389398061672136091L;
@@ -61,18 +59,16 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
     /**
      * Sets up some default binding properties based on the view configuration
      * and the component's property name
-     *
+     * <p>
      * <p>
      * Sets the bindingName (if not set) to the given property name, and if the
      * binding object path has not been set uses the default binding object path
      * setup for the view
      * </p>
      *
-     * @param view
-     *            - the view instance the component belongs to
-     * @param propertyName
-     *            - name of the property (relative to the parent object) the
-     *            component binds to
+     * @param view         - the view instance the component belongs to
+     * @param propertyName - name of the property (relative to the parent object) the
+     *                     component binds to
      */
     public void setDefaults(View view, String propertyName) {
         if (StringUtils.isBlank(bindingName)) {
@@ -89,7 +85,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * dot notation for nested properties. If the binding path was manually set
      * it will be returned as it is, otherwise the path will be formed by using
      * the binding object path and the bind prefix
-     *
+     * <p>
      * <p>
      * e.g. Property name 'foo' on a model would have binding path "foo", while
      * property name 'name' of the nested model property 'account' would have
@@ -161,7 +157,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * binding name. This can be used to get the binding path when just a property
      * name is given that is assumed to be on the same parent object of the field with
      * the configured binding info
-     *
+     * <p>
      * <p>
      * Special check is done for UifConstants#NO_BIND_ADJUST_PREFIX prefix
      * on the property name which indicates the property path is the full path and should
@@ -224,7 +220,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * is configured by bindingObjectPath.
      *
      * @return boolean true if component binds directly to form, false if it
-     *         binds to a nested object
+     * binds to a nested object
      */
     public boolean isBindToForm() {
         return this.bindToForm;
@@ -243,7 +239,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * Gives the name of the property that the component binds to. The name can
      * be nested but not the full path, just from the parent object or in the
      * case of binding directly to the form from the form object
-     *
+     * <p>
      * <p>
      * If blank this will be set from the name field of the component
      * </p>
@@ -284,7 +280,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * If field is part of a collection field, gives path to collection
-     *
+     * <p>
      * <p>
      * This is used for metadata purposes when getting finding the attribute
      * definition from the dictionary and is not used in building the final
@@ -310,7 +306,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * For attribute fields that do not belong to the default form object (given
      * by the view), this field specifies the path to the object (on the form)
      * the attribute does belong to.
-     *
+     * <p>
      * <p>
      * e.g. Say we have an attribute field with property name 'number', that
      * belongs to the object given by the 'account' property on the form. The

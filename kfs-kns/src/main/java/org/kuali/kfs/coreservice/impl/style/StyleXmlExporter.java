@@ -25,12 +25,16 @@ import org.kuali.rice.core.api.util.xml.XmlException;
 import org.kuali.rice.core.api.util.xml.XmlHelper;
 import org.kuali.rice.core.api.util.xml.XmlRenderer;
 import org.kuali.rice.core.framework.impex.xml.XmlExporter;
-import org.kuali.kfs.coreservice.impl.style.StyleBo;
 
 import java.io.StringReader;
 import java.util.Iterator;
 
-import static org.kuali.rice.core.api.impex.xml.XmlConstants.*;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.SCHEMA_LOCATION_ATTR;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.SCHEMA_NAMESPACE;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.STYLE_NAMESPACE;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.STYLE_SCHEMA_LOCATION;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.STYLE_STYLE;
+import static org.kuali.rice.core.api.impex.xml.XmlConstants.STYLE_STYLES;
 
 /**
  * Exports Style definitions to XML.
@@ -40,30 +44,30 @@ import static org.kuali.rice.core.api.impex.xml.XmlConstants.*;
  * @see EDocLiteStyle
  */
 public class StyleXmlExporter implements XmlExporter {
-	private static final Logger LOG = Logger.getLogger(StyleXmlExporter.class);
+    private static final Logger LOG = Logger.getLogger(StyleXmlExporter.class);
 
-	private XmlRenderer renderer = new XmlRenderer(STYLE_NAMESPACE);
+    private XmlRenderer renderer = new XmlRenderer(STYLE_NAMESPACE);
 
-	@Override
-	public boolean supportPrettyPrint() {
-		return false;
-	}
+    @Override
+    public boolean supportPrettyPrint() {
+        return false;
+    }
 
-	public Element export(ExportDataSet exportDataSet) {
-		StyleExportDataSet dataSet = StyleExportDataSet.fromExportDataSet(exportDataSet);
-		if (!dataSet.getStyles().isEmpty()) {
-			Element rootElement = renderer.renderElement(null, STYLE_STYLES);
-			rootElement.setAttribute(SCHEMA_LOCATION_ATTR, STYLE_SCHEMA_LOCATION, SCHEMA_NAMESPACE);
-			for (Iterator<StyleBo> iter = dataSet.getStyles().iterator(); iter.hasNext();) {
-				StyleBo edocLite = iter.next();
-				exportStyle(rootElement, edocLite);
-			}
-			return rootElement;
-		}
-		return null;
-	}
+    public Element export(ExportDataSet exportDataSet) {
+        StyleExportDataSet dataSet = StyleExportDataSet.fromExportDataSet(exportDataSet);
+        if (!dataSet.getStyles().isEmpty()) {
+            Element rootElement = renderer.renderElement(null, STYLE_STYLES);
+            rootElement.setAttribute(SCHEMA_LOCATION_ATTR, STYLE_SCHEMA_LOCATION, SCHEMA_NAMESPACE);
+            for (Iterator<StyleBo> iter = dataSet.getStyles().iterator(); iter.hasNext(); ) {
+                StyleBo edocLite = iter.next();
+                exportStyle(rootElement, edocLite);
+            }
+            return rootElement;
+        }
+        return null;
+    }
 
-	private void exportStyle(Element parentEl, StyleBo style) {
+    private void exportStyle(Element parentEl, StyleBo style) {
         if (style == null) {
             LOG.error("Attempted to export style which was not found");
             return;
@@ -75,8 +79,8 @@ public class StyleXmlExporter implements XmlExporter {
         try {
             Element styleEl = XmlHelper.buildJDocument(new StringReader(style.getXmlContent())).getRootElement();
             styleWrapperEl.addContent(styleEl.detach());
-		} catch (XmlException e) {
-			throw new RuntimeException("Error building JDom document for style", e);
-		}
-	}
+        } catch (XmlException e) {
+            throw new RuntimeException("Error building JDom document for style", e);
+        }
+    }
 }

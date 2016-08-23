@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
 import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
@@ -25,10 +29,6 @@ import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * This class is used to ensure that default values are set accordingly if blank
@@ -44,12 +44,11 @@ public class CustomerInvoiceItemCodePreRule extends PromptBeforeValidationBase {
         Person user = GlobalVariables.getUserSession().getPerson();
         ChartOrgHolder chartOrg = SpringContext.getBean(FinancialSystemUserService.class).getPrimaryOrganization(user, ArConstants.AR_NAMESPACE_CODE);
 
-        invoiceItemCode.setChartOfAccountsCode( chartOrg.getChartOfAccountsCode() );
-        invoiceItemCode.setOrganizationCode( chartOrg.getOrganizationCode() );
+        invoiceItemCode.setChartOfAccountsCode(chartOrg.getChartOfAccountsCode());
+        invoiceItemCode.setOrganizationCode(chartOrg.getOrganizationCode());
 
         OrganizationAccountingDefault orgAccDefault = new OrganizationAccountingDefault();
         invoiceItemCode.setChartOfAccounts(orgAccDefault.getChartOfAccounts());
-
 
 
         return true;

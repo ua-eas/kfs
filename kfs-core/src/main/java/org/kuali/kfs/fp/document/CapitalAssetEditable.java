@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+
+import java.util.List;
 
 public interface CapitalAssetEditable {
 

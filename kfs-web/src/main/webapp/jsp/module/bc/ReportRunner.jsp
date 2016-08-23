@@ -16,27 +16,27 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page
         showDocumentInfo="false"
-	    htmlFormAction="budgetReportRunner"
+        htmlFormAction="budgetReportRunner"
         renderMultipart="true"
         showTabButtons="false"
         docTitle="Document Reports and Exports"
         transactionalDocument="false">
 
-    <html:hidden property="returnAnchor" />
-    <html:hidden property="returnFormKey" />
-    <html-el:hidden name="KualiForm" property="backLocation" />
-    <html:hidden property="documentNumber" />
-    <html:hidden property="universityFiscalYear" />
-    <html:hidden property="chartOfAccountsCode" />
-    <html:hidden property="accountNumber" />
-    <html:hidden property="subAccountNumber" />
-    <html:hidden property="mainWindow" />
+    <html:hidden property="returnAnchor"/>
+    <html:hidden property="returnFormKey"/>
+    <html-el:hidden name="KualiForm" property="backLocation"/>
+    <html:hidden property="documentNumber"/>
+    <html:hidden property="universityFiscalYear"/>
+    <html:hidden property="chartOfAccountsCode"/>
+    <html:hidden property="accountNumber"/>
+    <html:hidden property="subAccountNumber"/>
+    <html:hidden property="mainWindow"/>
 
-    <bc:budgetConstructionReportDumpLines />
+    <bc:budgetConstructionReportDumpLines/>
 
     <div id="globalbuttons" class="globalbuttons">
         <html:submit

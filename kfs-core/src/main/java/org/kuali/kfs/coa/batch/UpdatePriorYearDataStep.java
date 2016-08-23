@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.coa.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.coa.service.PriorYearAccountService;
 import org.kuali.kfs.coa.service.PriorYearOrganizationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * This class updates the prior year data in the prior year account and prior year org tables to set it to the new year This is

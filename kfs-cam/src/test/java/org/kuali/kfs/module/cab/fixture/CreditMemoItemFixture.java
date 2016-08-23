@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum CreditMemoItemFixture {
 
@@ -47,8 +47,11 @@ public enum CreditMemoItemFixture {
             obj.setPoUnitPrice(new BigDecimal(7000));
             obj.setPoTotalAmount(new KualiDecimal(14000));
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract CreditMemoItem newRecord();
 
     public static void setUpData() {

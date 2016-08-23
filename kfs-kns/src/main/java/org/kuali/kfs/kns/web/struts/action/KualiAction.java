@@ -29,21 +29,14 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
-import org.kuali.kfs.kns.web.struts.form.pojo.PojoFormBase;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
+import org.kuali.kfs.kns.web.struts.form.pojo.PojoFormBase;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
@@ -53,6 +46,13 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,11 +68,9 @@ import java.util.Set;
  * <p>The base {@link org.apache.struts.action.Action} class for all KNS-based Actions. Extends from the standard
  * {@link org.apache.struts.actions.DispatchAction} which allows for a <i>methodToCall</i> request parameter to
  * be used to indicate which method to invoke.</p>
- *
+ * <p>
  * <p>This Action overrides #execute to set methodToCall for image submits.  Also performs other setup
  * required for KNS framework calls.</p>
- *
- *
  */
 public abstract class KualiAction extends DispatchAction {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiAction.class);
@@ -86,72 +84,70 @@ public abstract class KualiAction extends DispatchAction {
     private Set<String> methodToCallsToNotCheckAuthorization = new HashSet<String>();
 
     {
-        methodToCallsToNotCheckAuthorization.add( "performLookup" );
-        methodToCallsToNotCheckAuthorization.add( "performQuestion" );
-        methodToCallsToNotCheckAuthorization.add( "performQuestionWithInput" );
-        methodToCallsToNotCheckAuthorization.add( "performQuestionWithInputAgainBecauseOfErrors" );
-        methodToCallsToNotCheckAuthorization.add( "performQuestionWithoutInput" );
-        methodToCallsToNotCheckAuthorization.add( "performWorkgroupLookup" );
+        methodToCallsToNotCheckAuthorization.add("performLookup");
+        methodToCallsToNotCheckAuthorization.add("performQuestion");
+        methodToCallsToNotCheckAuthorization.add("performQuestionWithInput");
+        methodToCallsToNotCheckAuthorization.add("performQuestionWithInputAgainBecauseOfErrors");
+        methodToCallsToNotCheckAuthorization.add("performQuestionWithoutInput");
+        methodToCallsToNotCheckAuthorization.add("performWorkgroupLookup");
     }
 
     /**
      * Entry point to all actions.
-     *
+     * <p>
      * NOTE: No need to hook into execute for handling framework setup anymore. Just implement the methodToCall for the framework
      * setup, Constants.METHOD_REQUEST_PARAMETER will contain the full parameter, which can be sub stringed for getting framework
      * parameters.
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward returnForward = null;
 
         String methodToCall = findMethodToCall(form, request);
 
-        if(isModuleLocked(form, methodToCall, request)) {
+        if (isModuleLocked(form, methodToCall, request)) {
             return mapping.findForward(RiceConstants.MODULE_LOCKED_MAPPING);
         }
 
         if (form instanceof KualiForm && StringUtils.isNotEmpty(((KualiForm) form).getMethodToCall())) {
             if (StringUtils.isNotBlank(getImageContext(request, KRADConstants.ANCHOR))) {
                 ((KualiForm) form).setAnchor(getImageContext(request, KRADConstants.ANCHOR));
-            }
-            else if (StringUtils.isNotBlank(request.getParameter(KRADConstants.ANCHOR))) {
+            } else if (StringUtils.isNotBlank(request.getParameter(KRADConstants.ANCHOR))) {
                 ((KualiForm) form).setAnchor(request.getParameter(KRADConstants.ANCHOR));
             }
         }
         // if found methodToCall, pass control to that method, else return the basic forward
         if (StringUtils.isNotBlank(methodToCall)) {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug("methodToCall: '" + methodToCall+"'");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("methodToCall: '" + methodToCall + "'");
             }
             returnForward = dispatchMethod(mapping, form, request, response, methodToCall);
-            if ( returnForward!=null && returnForward.getRedirect() && returnForward.getName()!=null && returnForward.getName().equals(KRADConstants.KRAD_INITIATED_DOCUMENT_VIEW_NAME)) {
+            if (returnForward != null && returnForward.getRedirect() && returnForward.getName() != null && returnForward.getName().equals(KRADConstants.KRAD_INITIATED_DOCUMENT_VIEW_NAME)) {
                 return returnForward;
             }
-        }
-        else {
+        } else {
             returnForward = defaultDispatch(mapping, form, request, response);
         }
 
         // make sure the user can do what they're trying to according to the module that owns the functionality
-        if ( !methodToCallsToNotCheckAuthorization.contains(methodToCall) ) {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "'" + methodToCall + "' not in set of excempt methods: " + methodToCallsToNotCheckAuthorization);
+        if (!methodToCallsToNotCheckAuthorization.contains(methodToCall)) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("'" + methodToCall + "' not in set of excempt methods: " + methodToCallsToNotCheckAuthorization);
             }
             checkAuthorization(form, methodToCall);
         } else {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug("'" + methodToCall + "' is exempt from auth checks." );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("'" + methodToCall + "' is exempt from auth checks.");
             }
         }
 
         // Add the ActionForm to GlobalVariables
         // This will allow developers to retrieve both the Document and any request parameters that are not
         // part of the Form and make them available in ValueFinder classes and other places where they are needed.
-        if(KNSGlobalVariables.getKualiForm() == null) {
-            KNSGlobalVariables.setKualiForm((KualiForm)form);
+        if (KNSGlobalVariables.getKualiForm() == null) {
+            KNSGlobalVariables.setKualiForm((KualiForm) form);
         }
 
         return returnForward;
@@ -175,8 +171,7 @@ public abstract class KualiAction extends DispatchAction {
         String methodToCall;
         if (form instanceof KualiForm && StringUtils.isNotEmpty(((KualiForm) form).getMethodToCall())) {
             methodToCall = ((KualiForm) form).getMethodToCall();
-        }
-        else {
+        } else {
             // call utility method to parse the methodToCall from the request.
             methodToCall = WebUtils.parseMethodToCall(form, request);
         }
@@ -200,14 +195,13 @@ public abstract class KualiAction extends DispatchAction {
             if (kualiForm.getTabState(tabToToggle).equals(KualiForm.TabState.OPEN.name())) {
                 kualiForm.getTabStates().remove(tabToToggle);
                 kualiForm.getTabStates().put(tabToToggle, KualiForm.TabState.CLOSE.name());
-            }
-            else {
+            } else {
                 kualiForm.getTabStates().remove(tabToToggle);
                 kualiForm.getTabStates().put(tabToToggle, KualiForm.TabState.OPEN.name());
             }
         }
 
-        doProcessingAfterPost( kualiForm, request );
+        doProcessingAfterPost(kualiForm, request);
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
@@ -240,14 +234,13 @@ public abstract class KualiAction extends DispatchAction {
     }
 
     /**
-     *
      * Toggles all tabs to open of closed depending on the boolean flag.
      *
-     * @param mapping the mapping
-     * @param form the form
-     * @param request the request
+     * @param mapping  the mapping
+     * @param form     the form
+     * @param request  the request
      * @param response the response
-     * @param open whether to open of close the tabs
+     * @param open     whether to open of close the tabs
      * @return the action forward
      */
     private ActionForward doTabOpenOrClose(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, boolean open) {
@@ -255,11 +248,11 @@ public abstract class KualiAction extends DispatchAction {
 
         Map<String, String> tabStates = kualiForm.getTabStates();
         Map<String, String> newTabStates = new HashMap<String, String>();
-        for (String tabKey: tabStates.keySet()) {
+        for (String tabKey : tabStates.keySet()) {
             newTabStates.put(tabKey, open ? "OPEN" : "CLOSE");
         }
         kualiForm.setTabStates(newTabStates);
-        doProcessingAfterPost( kualiForm, request );
+        doProcessingAfterPost(kualiForm, request);
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
@@ -360,8 +353,7 @@ public abstract class KualiAction extends DispatchAction {
         String imageContext = getImageContext(request, KRADConstants.HEADER_DISPATCH);
         if (StringUtils.isNotBlank(imageContext)) {
             headerTabDispatch = imageContext;
-        }
-        else {
+        } else {
             // In some cases it might be in request params instead
             headerTabDispatch = request.getParameter(KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
         }
@@ -398,8 +390,8 @@ public abstract class KualiAction extends DispatchAction {
      * in the request to determine wheter the appropriate value exists as a request parameter.  If not, it will attempt to look through the form object to find
      * the property.
      *
-     * @param boClass a class implementing boClass, representing the BO that will be looked up
-     * @param parameterName the name of the parameter
+     * @param boClass                    a class implementing boClass, representing the BO that will be looked up
+     * @param parameterName              the name of the parameter
      * @param parameterValuePropertyName the property (relative to the form object) where the value to be passed into the lookup/inquiry may be found
      * @param form
      * @param request
@@ -425,7 +417,7 @@ public abstract class KualiAction extends DispatchAction {
         }
 
         if (value != null && boClass != null && getBusinessObjectAuthorizationService().attributeValueNeedsToBeEncryptedOnFormsAndLinks(boClass, parameterName)) {
-            if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+            if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                 value = getEncryptionService().encrypt(value) + EncryptionService.ENCRYPTION_POST_PREFIX;
             }
         }
@@ -463,17 +455,17 @@ public abstract class KualiAction extends DispatchAction {
         }
         Class boClass = null;
 
-        try{
+        try {
             boClass = Class.forName(boClassName);
-        } catch(ClassNotFoundException cnfex){
+        } catch (ClassNotFoundException cnfex) {
             if ((StringUtils.isNotEmpty(baseLookupUrl) && baseLookupUrl.startsWith(getApplicationBaseUrl() + "/kr/"))
-                    || StringUtils.isEmpty(baseLookupUrl)) {
+                || StringUtils.isEmpty(baseLookupUrl)) {
                 throw new IllegalArgumentException("The class (" + boClassName + ") cannot be found by this particular "
                     + "application. " + "ApplicationBaseUrl: " + getApplicationBaseUrl()
                     + " ; baseLookupUrl: " + baseLookupUrl);
-            }  else {
+            } else {
                 LOG.info("The class (" + boClassName + ") cannot be found by this particular application. "
-                   + "ApplicationBaseUrl: " + getApplicationBaseUrl() + " ; baseLookupUrl: " + baseLookupUrl);
+                    + "ApplicationBaseUrl: " + getApplicationBaseUrl() + " ; baseLookupUrl: " + baseLookupUrl);
             }
         }
 
@@ -493,14 +485,14 @@ public abstract class KualiAction extends DispatchAction {
 
         // pass values from form that should be pre-populated on lookup search
         String parameterFields = StringUtils.substringBetween(fullParameter, KRADConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KRADConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "fullParameter: " + fullParameter );
-            LOG.debug( "parameterFields: " + parameterFields );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fullParameter: " + fullParameter);
+            LOG.debug("parameterFields: " + parameterFields);
         }
         if (StringUtils.isNotBlank(parameterFields)) {
             String[] lookupParams = parameterFields.split(KRADConstants.FIELD_CONVERSIONS_SEPARATOR);
-            if ( LOG.isDebugEnabled() ) {
-                 LOG.debug( "lookupParams: " + Arrays.toString(lookupParams) );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("lookupParams: " + Arrays.toString(lookupParams));
             }
             for (String lookupParam : lookupParams) {
                 String[] keyValue = lookupParam.split(KRADConstants.FIELD_CONVERSION_PAIR_SEPARATOR, 2);
@@ -513,9 +505,9 @@ public abstract class KualiAction extends DispatchAction {
                     parameters.put(keyValue[1], lookupParameterValue);
                 }
 
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "keyValue[0]: " + keyValue[0] );
-                    LOG.debug( "keyValue[1]: " + keyValue[1] );
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("keyValue[0]: " + keyValue[0]);
+                    LOG.debug("keyValue[1]: " + keyValue[1]);
                 }
             }
         }
@@ -526,9 +518,9 @@ public abstract class KualiAction extends DispatchAction {
             parameters.put(KRADConstants.LOOKUP_READ_ONLY_FIELDS, readOnlyFields);
         }
 
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "fullParameter: " + fullParameter );
-            LOG.debug( "readOnlyFields: " + readOnlyFields );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fullParameter: " + fullParameter);
+            LOG.debug("readOnlyFields: " + readOnlyFields);
         }
 
         // grab whether or not the "return value" link should be hidden or not
@@ -589,7 +581,7 @@ public abstract class KualiAction extends DispatchAction {
 
         if (StringUtils.isNotBlank(autoSearch)) {
             parameters.put(KRADConstants.LOOKUP_AUTO_SEARCH, autoSearch);
-            if ("YES".equalsIgnoreCase(autoSearch)){
+            if ("YES".equalsIgnoreCase(autoSearch)) {
                 parameters.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, "search");
             }
         }
@@ -601,19 +593,19 @@ public abstract class KualiAction extends DispatchAction {
 
         if (form instanceof KualiDocumentFormBase) {
             String docNum = ((KualiDocumentFormBase) form).getDocument().getDocumentNumber();
-            if(docNum != null){
+            if (docNum != null) {
                 parameters.put(KRADConstants.DOC_NUM, docNum);
             }
-        }else if(form instanceof LookupForm){
+        } else if (form instanceof LookupForm) {
             String docNum = ((LookupForm) form).getDocNum();
-            if(docNum != null){
+            if (docNum != null) {
                 parameters.put(KRADConstants.DOC_NUM, ((LookupForm) form).getDocNum());
             }
         }
 
         if (boClass != null) {
             ModuleService responsibleModuleService = getKualiModuleService().getResponsibleModuleService(boClass);
-            if(responsibleModuleService!=null && responsibleModuleService.isExternalizable(boClass)){
+            if (responsibleModuleService != null && responsibleModuleService.isExternalizable(boClass)) {
                 Map<String, String> parameterMap = new HashMap<String, String>();
                 Enumeration<Object> e = parameters.keys();
                 while (e.hasMoreElements()) {
@@ -635,10 +627,10 @@ public abstract class KualiAction extends DispatchAction {
         return new ActionForward(lookupUrl, true);
     }
 
-    protected void validateLookupInquiryFullParameter(HttpServletRequest request, ActionForm form, String fullParameter){
+    protected void validateLookupInquiryFullParameter(HttpServletRequest request, ActionForm form, String fullParameter) {
         PojoFormBase pojoFormBase = (PojoFormBase) form;
-        if(WebUtils.isFormSessionDocument((PojoFormBase) form)){
-            if(!pojoFormBase.isPropertyEditable(fullParameter)) {
+        if (WebUtils.isFormSessionDocument((PojoFormBase) form)) {
+            if (!pojoFormBase.isPropertyEditable(fullParameter)) {
                 throw new RuntimeException("The methodToCallAttribute is not registered as an editable property.");
             }
         }
@@ -669,15 +661,15 @@ public abstract class KualiAction extends DispatchAction {
 
         // pass values from form that should be pre-populated on inquiry
         String parameterFields = StringUtils.substringBetween(fullParameter, KRADConstants.METHOD_TO_CALL_PARM2_LEFT_DEL, KRADConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "fullParameter: " + fullParameter );
-            LOG.debug( "parameterFields: " + parameterFields );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fullParameter: " + fullParameter);
+            LOG.debug("parameterFields: " + parameterFields);
         }
         if (StringUtils.isNotBlank(parameterFields)) {
             // TODO : create a method for this to be used by both lookup & inquiry ?
             String[] inquiryParams = parameterFields.split(KRADConstants.FIELD_CONVERSIONS_SEPARATOR);
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "inquiryParams: " + inquiryParams );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("inquiryParams: " + inquiryParams);
             }
             Class<? extends BusinessObject> boClass = (Class<? extends BusinessObject>) Class.forName(boClassName);
             for (String inquiryParam : inquiryParams) {
@@ -686,14 +678,13 @@ public abstract class KualiAction extends DispatchAction {
                 String inquiryParameterValue = retrieveLookupParameterValue(boClass, keyValue[1], keyValue[0], form, request);
                 if (inquiryParameterValue == null) {
                     parameters.put(keyValue[1], "directInquiryKeyNotSpecified");
-                }
-                else {
+                } else {
                     parameters.put(keyValue[1], inquiryParameterValue);
                 }
 
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "keyValue[0]: " + keyValue[0] );
-                    LOG.debug( "keyValue[1]: " + keyValue[1] );
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("keyValue[0]: " + keyValue[0]);
+                    LOG.debug("keyValue[1]: " + keyValue[1]);
                 }
             }
         }
@@ -703,7 +694,7 @@ public abstract class KualiAction extends DispatchAction {
         try {
             Class.forName(boClassName);
             inquiryUrl = getApplicationBaseUrl() + "/kr/" + KRADConstants.DIRECT_INQUIRY_ACTION;
-        } catch ( ClassNotFoundException ex ) {
+        } catch (ClassNotFoundException ex) {
             // allow inquiry url to be null (and therefore no inquiry link will be displayed) but at least log a warning
             LOG.warn("Class name does not represent a valid class which this application understands: " + boClassName);
         }
@@ -818,7 +809,7 @@ public abstract class KualiAction extends DispatchAction {
 
         if (form instanceof KualiDocumentFormBase) {
             String docNum = ((KualiDocumentFormBase) form).getDocument().getDocumentNumber();
-            if(docNum != null){
+            if (docNum != null) {
                 parameters.put(KRADConstants.DOC_NUM, ((KualiDocumentFormBase) form)
                     .getDocument().getDocumentNumber());
             }
@@ -826,7 +817,7 @@ public abstract class KualiAction extends DispatchAction {
 
         // KULRICE-8077: PO Quote Limitation of Only 9 Vendors
         String questionTextAttributeName = KRADConstants.QUESTION_TEXT_ATTRIBUTE_NAME + questionId;
-        GlobalVariables.getUserSession().addObject(questionTextAttributeName, (Object)questionText);
+        GlobalVariables.getUserSession().addObject(questionTextAttributeName, (Object) questionText);
 
         String questionUrl = UrlFactory.parameterizeUrl(getApplicationBaseUrl() + "/kr/" + KRADConstants.QUESTION_ACTION, parameters);
         return new ActionForward(questionUrl, true);
@@ -856,14 +847,14 @@ public abstract class KualiAction extends DispatchAction {
         String conversionFields = StringUtils.substringBetween(fullParameter, KRADConstants.METHOD_TO_CALL_PARM1_LEFT_DEL, KRADConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
 
         String deploymentBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                KRADConstants.WORKFLOW_URL_KEY);
+            KRADConstants.WORKFLOW_URL_KEY);
         String workgroupLookupUrl = deploymentBaseUrl + "/Lookup.do?lookupableImplServiceName=WorkGroupLookupableImplService&methodToCall=start&docFormKey=" + GlobalVariables.getUserSession().addObjectWithGeneratedKey(form);
 
         if (conversionFields != null) {
             workgroupLookupUrl += "&conversionFields=" + conversionFields;
         }
         if (form instanceof KualiDocumentFormBase) {
-            workgroupLookupUrl +="&docNum="+ ((KualiDocumentFormBase) form).getDocument().getDocumentNumber();
+            workgroupLookupUrl += "&docNum=" + ((KualiDocumentFormBase) form).getDocument().getDocumentNumber();
         }
 
         workgroupLookupUrl += "&returnLocation=" + returnUrl;
@@ -904,31 +895,29 @@ public abstract class KualiAction extends DispatchAction {
      * @param form
      * @throws AuthorizationException
      */
-    protected void checkAuthorization( ActionForm form, String methodToCall) throws AuthorizationException
-    {
+    protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
         String principalId = GlobalVariables.getUserSession().getPrincipalId();
         Map<String, String> roleQualifier = new HashMap<String, String>(getRoleQualification(form, methodToCall));
         Map<String, String> permissionDetails = KRADUtils.getNamespaceAndActionClass(this.getClass());
 
         if (!KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(principalId,
-                KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails,
-                roleQualifier))
-        {
+            KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails,
+            roleQualifier)) {
             throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(),
-                    methodToCall,
-                    this.getClass().getSimpleName());
+                methodToCall,
+                this.getClass().getSimpleName());
         }
     }
 
     /**
      * override this method to add data from the form for role qualification in the authorization check
      */
-    protected Map<String,String> getRoleQualification(ActionForm form, String methodToCall) {
-        return new HashMap<String,String>();
+    protected Map<String, String> getRoleQualification(ActionForm form, String methodToCall) {
+        return new HashMap<String, String>();
     }
 
     protected static KualiModuleService getKualiModuleService() {
-        if ( kualiModuleService == null ) {
+        if (kualiModuleService == null) {
             kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();
         }
         return kualiModuleService;
@@ -938,54 +927,54 @@ public abstract class KualiAction extends DispatchAction {
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is textAreaFieldName
      */
-    public static final String TEXT_AREA_FIELD_NAME="textAreaFieldName";
+    public static final String TEXT_AREA_FIELD_NAME = "textAreaFieldName";
     /**
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is textAreaFieldLabel
-    */
-    public static final String TEXT_AREA_FIELD_LABEL="textAreaFieldLabel";
+     */
+    public static final String TEXT_AREA_FIELD_LABEL = "textAreaFieldLabel";
     /**
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is textAreaReadOnly
-    */
-    public static final String TEXT_AREA_READ_ONLY="textAreaReadOnly";
+     */
+    public static final String TEXT_AREA_READ_ONLY = "textAreaReadOnly";
     /**
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is textAreaFieldAnchor
-    */
-    public static final String TEXT_AREA_FIELD_ANCHOR="textAreaFieldAnchor";
+     */
+    public static final String TEXT_AREA_FIELD_ANCHOR = "textAreaFieldAnchor";
     /**
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is textAreaFieldAnchor
-    */
-    public static final String TEXT_AREA_MAX_LENGTH="textAreaMaxLength";
+     */
+    public static final String TEXT_AREA_MAX_LENGTH = "textAreaMaxLength";
     /**
      * Constant defined to match with TextArea.jsp and updateTextArea function in core.js
      * <p>Value is htmlFormAction
-    */
-    public static final String FORM_ACTION="htmlFormAction";
+     */
+    public static final String FORM_ACTION = "htmlFormAction";
     /**
      * Constant defined to match input parameter from URL and from TextArea.jsp.
      * <p>Value is methodToCall
-    */
-    public static final String METHOD_TO_CALL="methodToCall";
+     */
+    public static final String METHOD_TO_CALL = "methodToCall";
     /**
      * Constant defined to match with global forwarding in struts-config.xml
      * for Text Area Update.
      * <p>Value is updateTextArea
-    */
-    public static final String FORWARD_TEXT_AREA_UPDATE="updateTextArea";
+     */
+    public static final String FORWARD_TEXT_AREA_UPDATE = "updateTextArea";
     /**
      * Constant defined to match with method to call in TextArea.jsp.
      * <p>Value is postTextAreaToParent
-    */
-    public static final String POST_TEXT_AREA_TO_PARENT="postTextAreaToParent";
+     */
+    public static final String POST_TEXT_AREA_TO_PARENT = "postTextAreaToParent";
     /**
      * Constant defined to match with local forwarding in struts-config.xml
      * for the parent of the Updated Text Area.
      * <p>Value is forwardNext
-    */
-    public static final String FORWARD_NEXT="forwardNext";
+     */
+    public static final String FORWARD_NEXT = "forwardNext";
 
     /**
      * This method is invoked when Java Script is turned off from the web browser. It
@@ -1001,38 +990,38 @@ public abstract class KualiAction extends DispatchAction {
      * @return
      */
     public ActionForward updateTextArea(ActionMapping mapping,
-            ActionForm form,
-            HttpServletRequest request,
-            HttpServletResponse response)  {
+                                        ActionForm form,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response) {
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s%n%s", form.getClass().getSimpleName(),
-                    request.getRequestURI());
+            String lm = String.format("ENTRY %s%n%s", form.getClass().getSimpleName(),
+                request.getRequestURI());
             LOG.trace(lm);
         }
 
         final String[] keyValue = getTextAreaParams(request);
 
         request.setAttribute(TEXT_AREA_FIELD_NAME, keyValue[0]);
-        request.setAttribute(FORM_ACTION,keyValue[1]);
-        request.setAttribute(TEXT_AREA_FIELD_LABEL,keyValue[2]);
-        request.setAttribute(TEXT_AREA_READ_ONLY,keyValue[3]);
-        request.setAttribute(TEXT_AREA_MAX_LENGTH,keyValue[4]);
+        request.setAttribute(FORM_ACTION, keyValue[1]);
+        request.setAttribute(TEXT_AREA_FIELD_LABEL, keyValue[2]);
+        request.setAttribute(TEXT_AREA_READ_ONLY, keyValue[3]);
+        request.setAttribute(TEXT_AREA_MAX_LENGTH, keyValue[4]);
         if (form instanceof KualiForm && StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
-            request.setAttribute(TEXT_AREA_FIELD_ANCHOR,((KualiForm) form).getAnchor());
+            request.setAttribute(TEXT_AREA_FIELD_ANCHOR, ((KualiForm) form).getAnchor());
         }
 
         // Set document related parameter
-        String docWebScope=(String)request.getAttribute(KRADConstants.DOCUMENT_WEB_SCOPE);
+        String docWebScope = (String) request.getAttribute(KRADConstants.DOCUMENT_WEB_SCOPE);
         if (docWebScope != null && docWebScope.trim().length() >= 0) {
             request.setAttribute(KRADConstants.DOCUMENT_WEB_SCOPE, docWebScope);
         }
 
         request.setAttribute(KRADConstants.DOC_FORM_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(form));
 
-        ActionForward forward=mapping.findForward(FORWARD_TEXT_AREA_UPDATE);
+        ActionForward forward = mapping.findForward(FORWARD_TEXT_AREA_UPDATE);
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT %s", (forward==null)?"null":forward.getPath());
+            String lm = String.format("EXIT %s", (forward == null) ? "null" : forward.getPath());
             LOG.trace(lm);
         }
 
@@ -1057,32 +1046,32 @@ public abstract class KualiAction extends DispatchAction {
     private String[] getTextAreaParams(HttpServletRequest request) {
         // parse out the important strings from our methodToCall parameter
         String fullParameter = (String) request.getAttribute(
-                KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
+            KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
 
         // parse textfieldname:htmlformaction
         String parameterFields = StringUtils.substringBetween(fullParameter,
-                KRADConstants.METHOD_TO_CALL_PARM2_LEFT_DEL,
-                KRADConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "fullParameter: " + fullParameter );
-            LOG.debug( "parameterFields: " + parameterFields );
+            KRADConstants.METHOD_TO_CALL_PARM2_LEFT_DEL,
+            KRADConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fullParameter: " + fullParameter);
+            LOG.debug("parameterFields: " + parameterFields);
         }
         String[] keyValue = null;
         if (StringUtils.isNotBlank(parameterFields)) {
             String[] textAreaParams = parameterFields.split(
-                    KRADConstants.FIELD_CONVERSIONS_SEPARATOR);
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "lookupParams: " + textAreaParams );
+                KRADConstants.FIELD_CONVERSIONS_SEPARATOR);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("lookupParams: " + textAreaParams);
             }
             for (final String textAreaParam : textAreaParams) {
                 keyValue = textAreaParam.split(KRADConstants.FIELD_CONVERSION_PAIR_SEPARATOR, 2);
 
-                if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "keyValue[0]: " + keyValue[0] );
-                    LOG.debug( "keyValue[1]: " + keyValue[1] );
-                    LOG.debug( "keyValue[2]: " + keyValue[2] );
-                    LOG.debug( "keyValue[3]: " + keyValue[3] );
-                    LOG.debug( "keyValue[4]: " + keyValue[4] );
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("keyValue[0]: " + keyValue[0]);
+                    LOG.debug("keyValue[1]: " + keyValue[1]);
+                    LOG.debug("keyValue[2]: " + keyValue[2]);
+                    LOG.debug("keyValue[3]: " + keyValue[3]);
+                    LOG.debug("keyValue[4]: " + keyValue[4]);
                 }
             }
         }
@@ -1103,24 +1092,24 @@ public abstract class KualiAction extends DispatchAction {
      * @return
      */
     public ActionForward postTextAreaToParent(ActionMapping mapping,
-            ActionForm form,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+                                              ActionForm form,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response) {
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s%n%s", form.getClass().getSimpleName(),
-                    request.getRequestURI());
+            String lm = String.format("ENTRY %s%n%s", form.getClass().getSimpleName(),
+                request.getRequestURI());
             LOG.trace(lm);
         }
 
-        String forwardingId=request.getParameter(FORWARD_NEXT);
+        String forwardingId = request.getParameter(FORWARD_NEXT);
         if (forwardingId == null) {
-            forwardingId=RiceConstants.MAPPING_BASIC;
+            forwardingId = RiceConstants.MAPPING_BASIC;
         }
-        ActionForward forward=mapping.findForward(forwardingId);
+        ActionForward forward = mapping.findForward(forwardingId);
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT %s", (forward==null)?"null":forward.getPath());
+            String lm = String.format("EXIT %s", (forward == null) ? "null" : forward.getPath());
             LOG.trace(lm);
         }
 
@@ -1132,14 +1121,14 @@ public abstract class KualiAction extends DispatchAction {
      * This assumes that the call will be redirected (as in the case of a lookup) that will perform
      * the authorization.
      */
-    protected final void addMethodToCallToUncheckedList( String methodToCall ) {
+    protected final void addMethodToCallToUncheckedList(String methodToCall) {
         methodToCallsToNotCheckAuthorization.add(methodToCall);
     }
 
     /**
      * This method does all special processing on a document that should happen on each HTTP post (ie, save, route, approve, etc).
      */
-    protected void doProcessingAfterPost( KualiForm form, HttpServletRequest request ) {
+    protected void doProcessingAfterPost(KualiForm form, HttpServletRequest request) {
 
     }
 
@@ -1158,9 +1147,9 @@ public abstract class KualiAction extends DispatchAction {
     }
 
     public static String getApplicationBaseUrl() {
-        if ( applicationBaseUrl == null ) {
+        if (applicationBaseUrl == null) {
             applicationBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                    KRADConstants.APPLICATION_URL_KEY);
+                KRADConstants.APPLICATION_URL_KEY);
         }
         return applicationBaseUrl;
     }
@@ -1168,7 +1157,7 @@ public abstract class KualiAction extends DispatchAction {
     protected boolean isModuleLocked(ActionForm form, String methodToCall, HttpServletRequest request) {
         String boClass = request.getParameter(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
         ModuleService moduleService = null;
-        if(StringUtils.isNotBlank(boClass)) {
+        if (StringUtils.isNotBlank(boClass)) {
             try {
                 moduleService = getKualiModuleService().getResponsibleModuleService(Class.forName(boClass));
             } catch (ClassNotFoundException classNotFoundException) {
@@ -1177,19 +1166,19 @@ public abstract class KualiAction extends DispatchAction {
         } else {
             moduleService = getKualiModuleService().getResponsibleModuleService(this.getClass());
         }
-        if(moduleService != null && moduleService.isLocked()) {
+        if (moduleService != null && moduleService.isLocked()) {
             String principalId = GlobalVariables.getUserSession().getPrincipalId();
             String namespaceCode = KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE;
             String permissionName = KimConstants.PermissionNames.ACCESS_LOCKED_MODULE;
             Map<String, String> qualification = getRoleQualification(form, methodToCall);
-            if(!KimApiServiceLocator.getPermissionService().isAuthorized(principalId, namespaceCode, permissionName, qualification)) {
+            if (!KimApiServiceLocator.getPermissionService().isAuthorized(principalId, namespaceCode, permissionName, qualification)) {
                 ParameterService parameterSerivce = CoreFrameworkServiceLocator.getParameterService();
                 String messageParamNamespaceCode = moduleService.getModuleConfiguration().getNamespaceCode();
                 String messageParamComponentCode = KRADConstants.DetailTypes.ALL_DETAIL_TYPE;
                 String messageParamName = KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_MESSAGE_PARM;
                 String lockoutMessage = parameterSerivce.getParameterValueAsString(messageParamNamespaceCode, messageParamComponentCode, messageParamName);
 
-                if(StringUtils.isBlank(lockoutMessage)) {
+                if (StringUtils.isBlank(lockoutMessage)) {
                     String defaultMessageParamName = KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_DEFAULT_MESSAGE;
                     lockoutMessage = parameterSerivce.getParameterValueAsString(KRADConstants.KNS_NAMESPACE, messageParamComponentCode, defaultMessageParamName);
                 }

@@ -30,8 +30,8 @@ public interface EffortCertificationDetailBuildService {
     /**
      * generate a detail line (build) for effort certification from the given labor ledger balance
      *
-     * @param postingYear the fiscal year when the detail line is generated
-     * @param ledgerBalance the given labor ledger balance
+     * @param postingYear      the fiscal year when the detail line is generated
+     * @param ledgerBalance    the given labor ledger balance
      * @param reportDefinition the given report definition
      * @return a detail line (build) for effort certification from the given labor ledger balance
      */

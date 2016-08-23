@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ec.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 import org.kuali.kfs.module.ec.dataaccess.EffortCertificationReportDefinitionDao;
+
+import java.util.List;
 
 /**
  * Contains service methods for the Effort Certification Automatic Period Update Process
@@ -30,6 +30,7 @@ public interface EffortCertificationAutomaticReportPeriodUpdateService {
 
     /**
      * Checks if this report definition will overlap an already existing report definition
+     *
      * @param reportDefinition
      * @return true reportDefinition is an overlapping report defintion
      */
@@ -37,13 +38,14 @@ public interface EffortCertificationAutomaticReportPeriodUpdateService {
 
     /**
      * gets all EffortCertificationReportDefinition records
+     *
      * @return list of EffortCertificationReportDefinition records
      */
     public List<EffortCertificationReportDefinition> getAllReportDefinitions();
 
     /**
-     *
      * Sets dao to be used by service
+     *
      * @param effortCertificationReportDefinitionDao
      */
     public void setEffortCertificationReportDefinitionDao(EffortCertificationReportDefinitionDao effortCertificationReportDefinitionDao);

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.batch.service.SufficientFundsFullRebuildService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.TestingStep;
+
+import java.util.Date;
 
 /**
  * A step to run the sufficient funds sync process. One typically doesn't need to do this - which is why it's marked as TestingStep -
@@ -36,7 +36,7 @@ public class SufficientFundsFullRebuildStep extends AbstractStep implements Test
     /**
      * Runs the sufficient funds sync service.
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job was started
      * @return true if the job completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)

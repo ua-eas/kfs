@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess;
 
-import java.sql.Date;
-
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
+
+import java.sql.Date;
 
 public interface LedgerReferenceValuePreparedStatementCachingDao extends PreparedStatementCachingDao {
     public UniversityDate getUniversityDate(Date date);

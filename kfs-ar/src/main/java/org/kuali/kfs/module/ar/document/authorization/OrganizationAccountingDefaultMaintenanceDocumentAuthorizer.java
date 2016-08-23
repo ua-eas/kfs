@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Map;
-
-import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
+import org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+
+import java.util.Map;
 
 public class OrganizationAccountingDefaultMaintenanceDocumentAuthorizer extends MaintenanceDocumentAuthorizerBase {
     @Override
@@ -32,8 +32,7 @@ public class OrganizationAccountingDefaultMaintenanceDocumentAuthorizer extends 
         OrganizationAccountingDefault organizationAccountingDefault = null;
         if (businessObject instanceof MaintenanceDocument) {
             organizationAccountingDefault = (OrganizationAccountingDefault) ((MaintenanceDocument) businessObject).getNewMaintainableObject().getBusinessObject();
-        }
-        else {
+        } else {
             organizationAccountingDefault = (OrganizationAccountingDefault) businessObject;
         }
         attributes.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, organizationAccountingDefault.getChartOfAccountsCode());

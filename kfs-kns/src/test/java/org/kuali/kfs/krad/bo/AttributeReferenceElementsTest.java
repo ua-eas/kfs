@@ -22,43 +22,40 @@ package org.kuali.kfs.krad.bo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kuali.kfs.krad.bo.AttributeReferenceElements;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * This is a description of what this class does - chang don't forget to fill this in.
- *
- *
- *
  */
 public class AttributeReferenceElementsTest {
 
-	AttributeReferenceElements dummyAttributeReferenceElement;
-	@Before
-	public void setUp() throws Exception {
-		dummyAttributeReferenceElement = new AttributeReferenceElements();
-	}
+    AttributeReferenceElements dummyAttributeReferenceElement;
 
-	/**
-	 * This method ...
-	 *
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		dummyAttributeReferenceElement = null;
-	}
+    @Before
+    public void setUp() throws Exception {
+        dummyAttributeReferenceElement = new AttributeReferenceElements();
+    }
 
-	@Test
-	public void testInfoTextArea(){
-		dummyAttributeReferenceElement.setInfoTextArea("dummyAttributeReferenceElement");
-		assertEquals("Testing InfoTextArea in AttributeReferenceElements.","dummyAttributeReferenceElement",dummyAttributeReferenceElement.getInfoTextArea());
-	}
+    /**
+     * This method ...
+     *
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        dummyAttributeReferenceElement = null;
+    }
 
-	@Test
-	public void testExtendedTextArea(){
-		dummyAttributeReferenceElement.setExtendedTextArea("dummyAttributeReferenceElement");
-		assertEquals("Testing ExtendedTextArea in AttributeReferenceElements","dummyAttributeReferenceElement",dummyAttributeReferenceElement.getExtendedTextArea());
-	}
+    @Test
+    public void testInfoTextArea() {
+        dummyAttributeReferenceElement.setInfoTextArea("dummyAttributeReferenceElement");
+        assertEquals("Testing InfoTextArea in AttributeReferenceElements.", "dummyAttributeReferenceElement", dummyAttributeReferenceElement.getInfoTextArea());
+    }
+
+    @Test
+    public void testExtendedTextArea() {
+        dummyAttributeReferenceElement.setExtendedTextArea("dummyAttributeReferenceElement");
+        assertEquals("Testing ExtendedTextArea in AttributeReferenceElements", "dummyAttributeReferenceElement", dummyAttributeReferenceElement.getExtendedTextArea());
+    }
 }

@@ -18,38 +18,37 @@
  */
 package org.kuali.kfs.kns.service;
 
-import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentRestrictions;
 import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DataObjectAuthorizationService;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * Responsible for using AttributeSecurity on
  * AttributeDefinitions, InquirableField the data dictionary business object and
  * maintenance document entries
- *
+ * <p>
  * TODO: refactor for general objects
- *
  */
 @Deprecated
 public interface BusinessObjectAuthorizationService extends DataObjectAuthorizationService {
-	public BusinessObjectRestrictions getLookupResultRestrictions(
-			Object dataObject, Person user);
+    public BusinessObjectRestrictions getLookupResultRestrictions(
+        Object dataObject, Person user);
 
-	public InquiryRestrictions getInquiryRestrictions(
-			BusinessObject businessObject, Person user);
+    public InquiryRestrictions getInquiryRestrictions(
+        BusinessObject businessObject, Person user);
 
-	public MaintenanceDocumentRestrictions getMaintenanceDocumentRestrictions(
-			MaintenanceDocument maintenanceDocument, Person user);
+    public MaintenanceDocumentRestrictions getMaintenanceDocumentRestrictions(
+        MaintenanceDocument maintenanceDocument, Person user);
 
-	public boolean canFullyUnmaskField(Person user,
-			Class<?> dataObjectClass, String fieldName, Document document);
+    public boolean canFullyUnmaskField(Person user,
+                                       Class<?> dataObjectClass, String fieldName, Document document);
 
-	public boolean canPartiallyUnmaskField(
-			Person user, Class<?> businessObjectClass, String fieldName, Document document);
+    public boolean canPartiallyUnmaskField(
+        Person user, Class<?> businessObjectClass, String fieldName, Document document);
 
 }

@@ -34,6 +34,7 @@ public interface ReadOnlyable {
 
     /**
      * Determines whether is element is entirely read only or not
+     *
      * @return true if the entire element is read only; false otherwise
      */
     public abstract boolean isReadOnly();

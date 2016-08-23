@@ -127,23 +127,23 @@
                         <th> Total Credits:</th>
                         <td>
                             <fmt:formatNumber
-                                value="${KualiForm.document.correctionCreditTotalAmount}" groupingUsed="true"
-                                minFractionDigits="2"/>
+                                    value="${KualiForm.document.correctionCreditTotalAmount}" groupingUsed="true"
+                                    minFractionDigits="2"/>
                         </td>
                     </tr>
                     <tr>
                         <th> Total No DB/CR:</th>
                         <td>
                             <fmt:formatNumber
-                                value="${KualiForm.document.correctionBudgetTotalAmount}" groupingUsed="true"
-                                minFractionDigits="2"/>
+                                    value="${KualiForm.document.correctionBudgetTotalAmount}" groupingUsed="true"
+                                    minFractionDigits="2"/>
                         </td>
                     </tr>
                     <tr>
                         <th> Rows output:</th>
                         <td>
                             <fmt:formatNumber
-                                value="${KualiForm.document.correctionRowCount}" groupingUsed="true"/>
+                                    value="${KualiForm.document.correctionRowCount}" groupingUsed="true"/>
                         </td>
                     </tr>
                 </table>
@@ -225,9 +225,10 @@
                                 </tr>
                             </c:if>
                             <tr>
-                                <th>Output File Name:</td>
+                                <th>Output File Name:
+                                </td>
                                 <c:if test="${KualiForm.document.correctionOutputFileName != null}">
-                                    <td ><c:out value="${KualiForm.document.correctionOutputFileName}"/></td>
+                                    <td><c:out value="${KualiForm.document.correctionOutputFileName}"/></td>
                                 </c:if>
                                 <c:if test="${KualiForm.document.correctionOutputFileName == null}">
                                     <c:if test="${KualiForm.document.correctionTypeCode eq 'R'}">

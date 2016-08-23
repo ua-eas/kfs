@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.io.InputStream;
-import java.util.Map;
-
+import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.sys.batch.BatchInputFileSetType;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
+
+import java.io.InputStream;
+import java.util.Map;
 
 /**
  * This interface defines the methods needed to save/download/delete file sets in the batch upload system
  */
-public interface BatchInputFileSetService extends InitiateDirectory{
+public interface BatchInputFileSetService extends InitiateDirectory {
 
     /**
      * Stores the input streams (the values in the Map parameter) as files on the server, identified by the given user file name and
      * file user identifier
      *
-     * @param user - user who is requesting the save
-     * @param inputType - instance of a BatchInputFileSetType
+     * @param user              - user who is requesting the save
+     * @param inputType         - instance of a BatchInputFileSetType
      * @param fileUserIdentifer - file identifier specified by user
-     * @param typeToStreamMap - contents of the uploaded files, keyed by the input file type
+     * @param typeToStreamMap   - contents of the uploaded files, keyed by the input file type
      * @return a Map of type to file name mappings of the saved files
      * @throws FileStorageException - if errors were encountered while attempting to write the file
      */

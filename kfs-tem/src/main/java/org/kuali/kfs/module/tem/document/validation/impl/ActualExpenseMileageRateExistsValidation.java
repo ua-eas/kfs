@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -27,8 +29,6 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.service.MileageRateService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Determines that an actual expense - if it has a mileage rate expense object code - has a valid mileage rate for the document-effective
@@ -45,11 +45,11 @@ public class ActualExpenseMileageRateExistsValidation extends GenericValidation 
                 getActualExpenseForValidation().refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE);
             }
             if (getActualExpenseForValidation().isMileage()) {
-                final TravelDocument doc = (TravelDocument)event.getDocument();
+                final TravelDocument doc = (TravelDocument) event.getDocument();
                 final java.sql.Date effectiveDate = doc.getEffectiveDateForMileageRate(getActualExpenseForValidation());
                 final MileageRate rate = getMileageRateService().findMileageRateByExpenseTypeCodeAndDate(getActualExpenseForValidation().getExpenseTypeCode(), effectiveDate);
                 if (ObjectUtils.isNull(rate)) {
-                    GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_ACTUAL_EXPENSE_MISSING_MILEAGE_RATE, new String[] { getActualExpenseForValidation().getExpenseType().getName() });
+                    GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_ACTUAL_EXPENSE_MISSING_MILEAGE_RATE, new String[]{getActualExpenseForValidation().getExpenseType().getName()});
                     return false;
                 }
             }

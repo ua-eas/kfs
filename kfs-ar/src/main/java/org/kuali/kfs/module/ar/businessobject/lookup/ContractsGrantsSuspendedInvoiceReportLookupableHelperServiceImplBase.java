@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.kew.api.document.DocumentStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract base class of the suspended invoice reports

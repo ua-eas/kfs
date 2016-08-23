@@ -19,9 +19,6 @@
 package org.kuali.kfs.module.ar.document.service;
 
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult;
@@ -29,6 +26,9 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Collection;
+import java.util.Map;
 
 public interface CustomerInvoiceWriteoffDocumentService {
 
@@ -101,9 +101,9 @@ public interface CustomerInvoiceWriteoffDocumentService {
     /**
      * Creates a new Invoice Writeoff Document based on the indicated Invoice doc number and the initiator.
      *
-     * @param initiator Person who initiated the writeoffs.
+     * @param initiator     Person who initiated the writeoffs.
      * @param invoiceNumber Invoice document number to base the writeoff on.
-     * @param note User note to be added to the document.
+     * @param note          User note to be added to the document.
      * @return Returns the Document Number of the Invoice Writeoff document created.
      * @throws WorkflowException
      */

@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.lang.reflect.Field;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 /**
  * Records any changes to a Vendor's Tax Number or Type. Not shown on the screen.
@@ -56,10 +56,10 @@ public class VendorTaxChange extends PersistableBusinessObjectBase {
     /**
      * Constructs a VendorTaxChange.
      *
-     * @param vndrHdrGenId The generated Id of the Vendor Header
-     * @param taxChangeDate The date of this change
-     * @param prevTaxNum The tax number previously
-     * @param prevTaxTypeCode The tax type previously
+     * @param vndrHdrGenId      The generated Id of the Vendor Header
+     * @param taxChangeDate     The date of this change
+     * @param prevTaxNum        The tax number previously
+     * @param prevTaxTypeCode   The tax type previously
      * @param taxChangePersonId The Id of the user who is making this change
      */
     public VendorTaxChange(Integer vndrHdrGenId, Timestamp taxChangeTimestamp, String prevTaxNum, String prevTaxTypeCode, String taxChangePersonId) {
@@ -176,13 +176,14 @@ public class VendorTaxChange extends PersistableBusinessObjectBase {
                 DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
                 AttributeSecurity attributeSecurity = dataDictionaryService.getAttributeSecurity(VendorTaxChange.class.getName(), field.getName());
                 if (ObjectUtils.isNotNull(attributeSecurity)
-                                && (attributeSecurity.isHide() || attributeSecurity.isMask() || attributeSecurity.isPartialMask())) {
+                    && (attributeSecurity.isHide() || attributeSecurity.isMask() || attributeSecurity.isPartialMask())) {
                     return false;
                 }
 
                 return super.accept(field);
             }
-        };
+        }
+        ;
         ReflectionToStringBuilder toStringBuilder = new VendorTaxChangeToStringBuilder(this);
         return toStringBuilder.toString();
     }

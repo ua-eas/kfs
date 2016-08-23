@@ -19,17 +19,17 @@
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Business Object representing the account change details entity
@@ -68,8 +68,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
                 pks.put(key, ObjectUtils.getPropertyValue(this, key));
             }
             return pks;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("unable to get primary keys for global detail object", ex);
         }
         return new HashMap<String, Object>(0);

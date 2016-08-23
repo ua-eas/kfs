@@ -33,8 +33,8 @@ public class ApprovedDocumentIndicatorValuesFinder extends org.kuali.kfs.krad.ke
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> keyValues = new ArrayList<KeyValue>();
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue("A", "Approved"));
         keyValues.add(new ConcreteKeyValue("", "All"));
 

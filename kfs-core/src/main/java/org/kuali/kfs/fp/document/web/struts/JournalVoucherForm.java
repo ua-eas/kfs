@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.BalanceTypeService;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the Struts specific form object that works in conjunction with the pojo utilities to build the UI for the Journal
@@ -108,8 +107,7 @@ public class JournalVoucherForm extends VoucherForm {
 //            else {
 //                sourceLine.setEncumbranceUpdateCode(null);
 //            }
-        }
-        else {
+        } else {
             // it's the first time in, the form will be empty the first time in
             // set up default selection value
             selectedBalanceType = getPopulatedBalanceTypeInstance(KFSConstants.BALANCE_TYPE_ACTUAL);
@@ -198,7 +196,7 @@ public class JournalVoucherForm extends VoucherForm {
      *
      * @return true/false  - true if it is an encumbrance balance type
      */
-    public boolean getIsEncumbranceBalanceType(){
+    public boolean getIsEncumbranceBalanceType() {
         //get encumbrance balance type list
         BalanceTypeService balanceTypeSerivce = SpringContext.getBean(BalanceTypeService.class);
         List<String> encumbranceBalanceTypes = balanceTypeSerivce.getEncumbranceBalanceTypes(getSelectedPostingYear());
@@ -260,5 +258,5 @@ public class JournalVoucherForm extends VoucherForm {
      */
     protected boolean isSelectedBalanceTypeFinancialOffsetGenerationIndicator() {
         return getPopulatedBalanceTypeInstance(getSelectedBalanceType().getCode()).isFinancialOffsetGenerationIndicator();
-      }
+    }
 }

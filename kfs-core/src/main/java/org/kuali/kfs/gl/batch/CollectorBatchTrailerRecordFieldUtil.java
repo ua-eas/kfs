@@ -29,6 +29,7 @@ public class CollectorBatchTrailerRecordFieldUtil extends BusinessObjectStringPa
 
     /**
      * Returns the class to parse into - CollectorBatch
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getBusinessObjectClass()
      */
     @Override
@@ -38,20 +39,21 @@ public class CollectorBatchTrailerRecordFieldUtil extends BusinessObjectStringPa
 
     /**
      * Returns the fields to be parsed from a String, in order, to form a CollectorBatch
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getOrderedProperties()
      */
     @Override
     public String[] getOrderedProperties() {
-        return new String[] {
-                KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
-                KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
-                KFSPropertyConstants.ORGANIZATION_CODE,
-                KFSPropertyConstants.TRANSMISSION_DATE,
-                KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE,
-                KFSPropertyConstants.TRAILER_RECORD_FIRST_EMPTY_FIELD,
-                KFSPropertyConstants.TOTAL_RECORDS,
-                KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD,
-                KFSPropertyConstants.TOTAL_AMOUNT
+        return new String[]{
+            KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
+            KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
+            KFSPropertyConstants.ORGANIZATION_CODE,
+            KFSPropertyConstants.TRANSMISSION_DATE,
+            KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE,
+            KFSPropertyConstants.TRAILER_RECORD_FIRST_EMPTY_FIELD,
+            KFSPropertyConstants.TOTAL_RECORDS,
+            KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD,
+            KFSPropertyConstants.TOTAL_AMOUNT
         };
     }
 }

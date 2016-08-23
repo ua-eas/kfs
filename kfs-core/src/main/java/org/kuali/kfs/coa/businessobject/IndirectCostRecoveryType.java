@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
  * This class...
@@ -34,7 +34,7 @@ public class IndirectCostRecoveryType extends KualiCodeBase implements MutableIn
     private boolean active;
     private List indirectCostRecoveryExclusionTypeDetails;
 
-    public IndirectCostRecoveryType () {
+    public IndirectCostRecoveryType() {
         indirectCostRecoveryExclusionTypeDetails = new ArrayList<IndirectCostRecoveryExclusionType>();
     }
 

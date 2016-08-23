@@ -18,28 +18,27 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocumentBase;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class RequisitionAssignToTradeInValidation extends GenericValidation
-{
+import java.util.List;
+
+public class RequisitionAssignToTradeInValidation extends GenericValidation {
     private DataDictionaryService dataDictionaryService;
 
     public boolean validate(AttributedDocumentEvent event) {
 
         // Initialize the valid and true, and get the requisition document.
         boolean foundTradeIn = false;
-        boolean valid        = true;
+        boolean valid = true;
 
         PurchasingAccountsPayableDocumentBase purapDoc =
             (PurchasingAccountsPayableDocumentBase) event.getDocument();
@@ -48,7 +47,7 @@ public class RequisitionAssignToTradeInValidation extends GenericValidation
         // the items, look for the ones that are assigned to a trade-in value.
         // For these trade-in items, validate that the trade-in line has a valid
         // description and amount.
-        List<PurApItem> items = (List<PurApItem>)purapDoc.getItems();
+        List<PurApItem> items = (List<PurApItem>) purapDoc.getItems();
         for (PurApItem item : items) {
             item.refreshReferenceObject(PurapPropertyConstants.ITEM_TYPE);
             if (item.getItemAssignedToTradeInIndicator()) {
@@ -68,21 +67,20 @@ public class RequisitionAssignToTradeInValidation extends GenericValidation
                     String attributeLabel = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(tradeInItem.getClass().getName()).getAttributeDefinition(PurapPropertyConstants.ITEM_DESCRIPTION).getLabel();
                     tradeInItem.getItemLineNumber();
                     GlobalVariables.getMessageMap().putError(
-                            "document.item[" + (items.size() - 1) + "]." + PurapPropertyConstants.ITEM_DESCRIPTION,
-                            PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE,
-                            "The item description of " + tradeInItem.getItemType().getItemTypeDescription(),
-                            "empty");
+                        "document.item[" + (items.size() - 1) + "]." + PurapPropertyConstants.ITEM_DESCRIPTION,
+                        PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE,
+                        "The item description of " + tradeInItem.getItemType().getItemTypeDescription(),
+                        "empty");
 
                     valid = false;
-                }
-                else if (ObjectUtils.isNull(tradeInItem.getItemUnitPrice())) {
+                } else if (ObjectUtils.isNull(tradeInItem.getItemUnitPrice())) {
 
                     String attributeLabel = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(tradeInItem.getClass().getName()).getAttributeDefinition(PurapPropertyConstants.ITEM_UNIT_PRICE).getLabel();
                     GlobalVariables.getMessageMap().putError(
-                            "document.item[" + (items.size() - 1) + "]." + PurapPropertyConstants.ITEM_UNIT_PRICE,
-                            PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE,
-                            tradeInItem.getItemType().getItemTypeDescription(),
-                            "zero");
+                        "document.item[" + (items.size() - 1) + "]." + PurapPropertyConstants.ITEM_UNIT_PRICE,
+                        PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE,
+                        tradeInItem.getItemType().getItemTypeDescription(),
+                        "zero");
 
                     valid = false;
                 }
@@ -94,6 +92,7 @@ public class RequisitionAssignToTradeInValidation extends GenericValidation
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

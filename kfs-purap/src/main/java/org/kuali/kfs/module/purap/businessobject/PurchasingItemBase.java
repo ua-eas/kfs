@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.vnd.businessobject.CommodityCode;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
 
 /**
  * Purchasing Item Base Business Object.
@@ -82,7 +82,7 @@ public abstract class PurchasingItemBase extends PurApItemBase implements Purcha
     }
 
     public CommodityCode getCommodityCode() {
-        if (ObjectUtils.isNull(commodityCode) || !StringUtils.equalsIgnoreCase( commodityCode.getPurchasingCommodityCode(), getPurchasingCommodityCode()) )  {
+        if (ObjectUtils.isNull(commodityCode) || !StringUtils.equalsIgnoreCase(commodityCode.getPurchasingCommodityCode(), getPurchasingCommodityCode())) {
             refreshReferenceObject(PurapPropertyConstants.COMMODITY_CODE);
         }
         return commodityCode;
@@ -100,18 +100,17 @@ public abstract class PurchasingItemBase extends PurApItemBase implements Purcha
         this.purchasingCommodityCode = (StringUtils.isNotBlank(purchasingCommodityCode) ? purchasingCommodityCode.toUpperCase() : purchasingCommodityCode);
     }
 
-    public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem(){
-        PurchasingDocument pd = (PurchasingDocument)this.getPurapDocument();
+    public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem() {
+        PurchasingDocument pd = (PurchasingDocument) this.getPurapDocument();
         if (this.getItemIdentifier() != null) {
             return pd.getPurchasingCapitalAssetItem(this.getItemIdentifier());
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     public UnitOfMeasure getItemUnitOfMeasure() {
-    	if (ObjectUtils.isNull(itemUnitOfMeasure) || !StringUtils.equalsIgnoreCase( itemUnitOfMeasure.getItemUnitOfMeasureCode(), getItemUnitOfMeasureCode()) ) {
+        if (ObjectUtils.isNull(itemUnitOfMeasure) || !StringUtils.equalsIgnoreCase(itemUnitOfMeasure.getItemUnitOfMeasureCode(), getItemUnitOfMeasureCode())) {
             refreshReferenceObject(PurapPropertyConstants.ITEM_UNIT_OF_MEASURE);
         }
         return itemUnitOfMeasure;

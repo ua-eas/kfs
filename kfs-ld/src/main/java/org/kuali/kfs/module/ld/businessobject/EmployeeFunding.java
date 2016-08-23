@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.math.BigDecimal;
-
 import org.apache.commons.lang.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.math.BigDecimal;
 
 /**
  * Labor business object for Employee Funding.
@@ -238,26 +238,19 @@ public class EmployeeFunding extends LedgerBalance {
 
         if (!ObjectUtils.equals(getAccountNumber(), other.getAccountNumber())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getChartOfAccountsCode(), other.getChartOfAccountsCode())) {
+        } else if (!ObjectUtils.equals(getChartOfAccountsCode(), other.getChartOfAccountsCode())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getFinancialObjectCode(), other.getFinancialObjectCode())) {
+        } else if (!ObjectUtils.equals(getFinancialObjectCode(), other.getFinancialObjectCode())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getFinancialSubObjectCode(), other.getFinancialSubObjectCode())) {
+        } else if (!ObjectUtils.equals(getFinancialSubObjectCode(), other.getFinancialSubObjectCode())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getSubAccountNumber(), other.getSubAccountNumber())) {
+        } else if (!ObjectUtils.equals(getSubAccountNumber(), other.getSubAccountNumber())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getUniversityFiscalYear(), other.getUniversityFiscalYear())) {
+        } else if (!ObjectUtils.equals(getUniversityFiscalYear(), other.getUniversityFiscalYear())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getEmplid(), other.getEmplid())) {
+        } else if (!ObjectUtils.equals(getEmplid(), other.getEmplid())) {
             return false;
-        }
-        else if (!ObjectUtils.equals(getPositionNumber(), other.getPositionNumber())) {
+        } else if (!ObjectUtils.equals(getPositionNumber(), other.getPositionNumber())) {
             return false;
         }
 

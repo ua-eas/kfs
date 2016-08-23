@@ -27,8 +27,8 @@ import java.util.List;
 public class IndicatorYNNullValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
 
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> activeLabels = new ArrayList<KeyValue>();
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> activeLabels = new ArrayList<KeyValue>();
         activeLabels.add(new ConcreteKeyValue("", ""));
         activeLabels.add(new ConcreteKeyValue("Yes", "Yes"));
         activeLabels.add(new ConcreteKeyValue("No", "No"));

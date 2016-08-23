@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
+import org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl;
+import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl;
-import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * This class...
@@ -41,7 +41,7 @@ public class BudgetAdjustmentFiscalYearValuesFinder extends KeyValuesBase {
         List returnControls = new ArrayList();
         List controls = SpringContext.getBean(FiscalYearFunctionControlService.class).getBudgetAdjustmentAllowedYears();
 
-        for (Iterator iter = controls.iterator(); iter.hasNext();) {
+        for (Iterator iter = controls.iterator(); iter.hasNext(); ) {
             FiscalYearFunctionControl control = (FiscalYearFunctionControl) iter.next();
             returnControls.add(new ConcreteKeyValue(control.getUniversityFiscalYear().toString(), control.getUniversityFiscalYear().toString()));
         }// endfor

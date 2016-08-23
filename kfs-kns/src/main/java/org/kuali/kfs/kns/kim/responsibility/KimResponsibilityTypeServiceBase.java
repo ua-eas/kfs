@@ -33,11 +33,11 @@ import java.util.Map;
  */
 @Deprecated
 public class KimResponsibilityTypeServiceBase extends DataDictionaryTypeServiceBase
-		implements ResponsibilityTypeService {
+    implements ResponsibilityTypeService {
 
-	@Override
-	public final List<Responsibility> getMatchingResponsibilities( Map<String, String> requestedDetails, List<Responsibility> responsibilitiesList ) {
-		if (requestedDetails == null) {
+    @Override
+    public final List<Responsibility> getMatchingResponsibilities(Map<String, String> requestedDetails, List<Responsibility> responsibilitiesList) {
+        if (requestedDetails == null) {
             throw new RiceIllegalArgumentException("requestedDetails is null");
         }
 
@@ -46,23 +46,23 @@ public class KimResponsibilityTypeServiceBase extends DataDictionaryTypeServiceB
         }
 
         requestedDetails = translateInputAttributes(requestedDetails);
-		validateRequiredAttributesAgainstReceived(requestedDetails);
-		return Collections.unmodifiableList(performResponsibilityMatches(requestedDetails, responsibilitiesList));
-	}
+        validateRequiredAttributesAgainstReceived(requestedDetails);
+        return Collections.unmodifiableList(performResponsibilityMatches(requestedDetails, responsibilitiesList));
+    }
 
-	/**
-	 * Internal method for matching Responsibilities.  Override this method to customize the matching behavior.
-	 *
-	 * This base implementation uses the {@link #performMatch(Map, Map)} method
-	 * to perform an exact match on the Responsibility details and return all that are equal.
-	 */
-	protected List<Responsibility> performResponsibilityMatches(Map<String, String> requestedDetails, List<Responsibility> responsibilitiesList) {
-		List<Responsibility> matchingResponsibilities = new ArrayList<Responsibility>();
-		for (Responsibility responsibility : responsibilitiesList) {
-			if ( performMatch(requestedDetails, responsibility.getAttributes())) {
-				matchingResponsibilities.add( responsibility );
-			}
-		}
-		return matchingResponsibilities;
-	}
+    /**
+     * Internal method for matching Responsibilities.  Override this method to customize the matching behavior.
+     * <p>
+     * This base implementation uses the {@link #performMatch(Map, Map)} method
+     * to perform an exact match on the Responsibility details and return all that are equal.
+     */
+    protected List<Responsibility> performResponsibilityMatches(Map<String, String> requestedDetails, List<Responsibility> responsibilitiesList) {
+        List<Responsibility> matchingResponsibilities = new ArrayList<Responsibility>();
+        for (Responsibility responsibility : responsibilitiesList) {
+            if (performMatch(requestedDetails, responsibility.getAttributes())) {
+                matchingResponsibilities.add(responsibility);
+            }
+        }
+        return matchingResponsibilities;
+    }
 }

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ojb.broker.OptimisticLockException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cab.CabKeyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springmodules.orm.ojb.OjbOperationException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class CabActionBase extends KualiAction {
     @Override
@@ -41,8 +41,7 @@ public class CabActionBase extends KualiAction {
         // if found methodToCall, pass control to that method
         try {
             returnForward = super.execute(mapping, form, request, response);
-        }
-        catch (OjbOperationException e) {
+        } catch (OjbOperationException e) {
             // special handling for OptimisticLockExceptions
             OjbOperationException ooe = (OjbOperationException) e;
 
@@ -50,8 +49,7 @@ public class CabActionBase extends KualiAction {
             if (cause instanceof OptimisticLockException) {
                 OptimisticLockException ole = (OptimisticLockException) cause;
                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, CabKeyConstants.DATA_EDIT_LOCK_ERROR);
-            }
-            else {
+            } else {
                 // if exceptions are from 'save'
                 throw e;
             }
@@ -63,9 +61,9 @@ public class CabActionBase extends KualiAction {
     /**
      * This method will process the view document request by clicking on a specific document.
      *
-     * @param mapping ActionMapping
-     * @param form ActionForm
-     * @param request HttpServletRequest
+     * @param mapping  ActionMapping
+     * @param form     ActionForm
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @return ActionForward
      * @throws Exception
@@ -76,8 +74,7 @@ public class CabActionBase extends KualiAction {
         String docHandlerUrl = KewApiServiceLocator.getWorkflowDocumentService().getDocument(documentId).getDocumentHandlerUrl();
         if (docHandlerUrl.indexOf("?") == -1) {
             docHandlerUrl += "?";
-        }
-        else {
+        } else {
             docHandlerUrl += "&";
         }
 

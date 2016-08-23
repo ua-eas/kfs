@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_AV_INCORRECT_FISCAL_YEAR_AVRC;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_AV_INCORRECT_POST_PERIOD_AVRC;
-import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_ACCOUNTING_PERIOD_OUT_OF_RANGE;
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.document.validation.GenericValidation;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_ACCOUNTING_PERIOD_OUT_OF_RANGE;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_AV_INCORRECT_FISCAL_YEAR_AVRC;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_AV_INCORRECT_POST_PERIOD_AVRC;
 
 /**
  * Validation that checks whether the accounting period of an AuxiliaryVoucher document is allowable,
@@ -44,9 +44,10 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
     /**
      * Validates the accounting period on an AV doc if the doc is a recode type, with the following rules:
      * <ol>
-     *  <li>The accounting period does not occur in a previous fiscal year</li>
-     *  <li>The accounting period is between 1 and 12 (13 can't be recoded, nor can the non-numeric periods: AB, BB, and CB</li>
+     * <li>The accounting period does not occur in a previous fiscal year</li>
+     * <li>The accounting period is between 1 and 12 (13 can't be recoded, nor can the non-numeric periods: AB, BB, and CB</li>
      * </ol>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -57,8 +58,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
             Integer period = null;
             try {
                 period = new Integer(auxiliaryVoucherDocumentForValidation.getPostingPeriodCode());
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 numericPeriod = false;
             }
             Integer year = auxiliaryVoucherDocumentForValidation.getPostingYear();
@@ -76,13 +76,11 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
                 if (period > 12) {
                     GlobalVariables.getMessageMap().putError(DOCUMENT_ERRORS, ERROR_DOCUMENT_AV_INCORRECT_POST_PERIOD_AVRC);
                     return false;
-                }
-                else if (period < 1) {
+                } else if (period < 1) {
                     GlobalVariables.getMessageMap().putError(DOCUMENT_ERRORS, ERROR_ACCOUNTING_PERIOD_OUT_OF_RANGE);
                     return false;
                 }
-            }
-            else {
+            } else {
                 // not a numeric period and this is a recode? Then we won't allow it; ref KULRNE-6001
                 GlobalVariables.getMessageMap().putError(DOCUMENT_ERRORS, ERROR_DOCUMENT_AV_INCORRECT_POST_PERIOD_AVRC);
                 return false;
@@ -94,6 +92,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
 
     /**
      * Gets the accountingPeriodService attribute.
+     *
      * @return Returns the accountingPeriodService.
      */
     public AccountingPeriodService getAccountingPeriodService() {
@@ -102,6 +101,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
 
     /**
      * Sets the accountingPeriodService attribute value.
+     *
      * @param accountingPeriodService The accountingPeriodService to set.
      */
     public void setAccountingPeriodService(AccountingPeriodService accountingPeriodService) {
@@ -110,6 +110,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
 
     /**
      * Gets the auxiliaryVoucherDocumentForValidation attribute.
+     *
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {
@@ -118,6 +119,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
 
     /**
      * Sets the auxiliaryVoucherDocumentForValidation attribute value.
+     *
      * @param auxiliaryVoucherDocumentForValidation The auxiliaryVoucherDocumentForValidation to set.
      */
     public void setAuxiliaryVoucherDocumentForValidation(AuxiliaryVoucherDocument auxiliaryVoucherDocumentForValidation) {

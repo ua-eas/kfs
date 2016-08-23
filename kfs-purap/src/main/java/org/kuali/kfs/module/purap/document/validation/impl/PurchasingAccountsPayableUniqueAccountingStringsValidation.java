@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class PurchasingAccountsPayableUniqueAccountingStringsValidation extends GenericValidation {
 
@@ -39,8 +39,7 @@ public class PurchasingAccountsPayableUniqueAccountingStringsValidation extends 
         for (PurApAccountingLine acct : itemForValidation.getSourceAccountingLines()) {
             if (!existingAccounts.contains(acct.toString())) {
                 existingAccounts.add(acct.toString());
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_NOT_UNIQUE, itemForValidation.getItemIdentifierString());
                 return false;
             }

@@ -32,30 +32,30 @@ public class ParameterMaintainableImpl extends KualiMaintainableImpl {
     @Override
     public void saveDataObject() {
         if (super.getDataObject() instanceof ParameterBo) {
-            ParameterBo object  = (ParameterBo)getDataObject();
+            ParameterBo object = (ParameterBo) getDataObject();
             Parameter param = null;
 
             // construct a ParameterType.Builder for when we need to set the type
             // (since object may not have a ParameterType set)
             ParameterType.Builder parameterTypeBuilder =
-                    ParameterType.Builder.create(object.getParameterTypeCode());
+                ParameterType.Builder.create(object.getParameterTypeCode());
 
             ParameterRepositoryService parameterRepository = CoreServiceApiServiceLocator.getParameterRepositoryService();
 
             param = parameterRepository.getParameter(
-                    ParameterKey.create(object.getApplicationId(),
-                            object.getNamespaceCode(),
-                            object.getComponentCode(),
-                            object.getName()));
+                ParameterKey.create(object.getApplicationId(),
+                    object.getNamespaceCode(),
+                    object.getComponentCode(),
+                    object.getName()));
 
             // Note that the parameter repository service will try to get back a parameter with the Rice application
             // ID if it can't find it with the give application ID.  If the given application ID is not Rice, and a
             // parameter for Rice comes back, we have to be careful and not update it as that would effectively
             // erase the Rice parameter.
 
-            if(param == null || !object.getApplicationId().equals(param.getApplicationId())) { // create new
+            if (param == null || !object.getApplicationId().equals(param.getApplicationId())) { // create new
                 param = parameterRepository.createParameter(Parameter.Builder.create(object.getApplicationId(),
-                        object.getNamespaceCode(), object.getComponentCode(), object.getName(), parameterTypeBuilder
+                    object.getNamespaceCode(), object.getComponentCode(), object.getName(), parameterTypeBuilder
                     /* set the type using our builder from above */).build());
 
             }
@@ -70,7 +70,7 @@ public class ParameterMaintainableImpl extends KualiMaintainableImpl {
 
         } else {
             throw new RuntimeException(
-                    "Cannot update object of type: " + this.getDataObjectClass() + " with Parameter repository service");
+                "Cannot update object of type: " + this.getDataObjectClass() + " with Parameter repository service");
         }
     }
 

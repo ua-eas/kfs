@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.cg.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.Agency;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.util.FieldUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Helper service class for Agency lookup
@@ -94,14 +94,14 @@ public class AgencyLookupableHelperServiceImpl extends KualiLookupableHelperServ
         List<String> lookupFieldNames = null;
         if (getBusinessObjectMetaDataService().isLookupable(getBusinessObjectClass())) {
             lookupFieldNames = getBusinessObjectMetaDataService().getLookupableFieldNames(
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         }
         if (lookupFieldNames == null) {
             throw new RuntimeException("Lookup not defined for business object " + getBusinessObjectClass());
         }
 
         List<String> lookupFieldAttributeList = new ArrayList();
-        for (String lookupFieldName: lookupFieldNames) {
+        for (String lookupFieldName : lookupFieldNames) {
             if (!getFieldsToIgnore().contains(lookupFieldName)) {
                 lookupFieldAttributeList.add(lookupFieldName);
             }
@@ -112,7 +112,7 @@ public class AgencyLookupableHelperServiceImpl extends KualiLookupableHelperServ
 
         try {
             fields = FieldUtils.createAndPopulateFieldsForLookup(lookupFieldAttributeList, getReadOnlyFieldsList(),
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
         }

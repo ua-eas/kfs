@@ -16,62 +16,74 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page lookup="true" showDocumentInfo="false"
-	htmlFormAction="${KualiForm.htmlFormAction}"
-	headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
-	headerTitle="Lookup" docTitle="" transactionalDocument="false">
+          htmlFormAction="${KualiForm.htmlFormAction}"
+          headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
+          headerTitle="Lookup" docTitle="" transactionalDocument="false">
 
-	<div class="headerarea-small" id="headerarea-small">
-	<h1><c:out value="${param.reportName}" />
-	<kul:help resourceKey="lookupHelpText" altText="lookup help" /></h1>
-	</div>
+    <div class="headerarea-small" id="headerarea-small">
+        <h1><c:out value="${param.reportName}"/>
+            <kul:help resourceKey="lookupHelpText" altText="lookup help"/></h1>
+    </div>
 
-	<h3>
-		<table width="100%" cellspacing="0" cellpadding="0">
-			<tr>
-				<td>Customer Number: &nbsp; <c:out value="${param.customerNumber}" />&nbsp;&nbsp;<c:out value="${param.customerName}" /></td>
-			</tr>
-		</table>
-	</h3>
+    <h3>
+        <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>Customer Number: &nbsp; <c:out value="${param.customerNumber}"/>&nbsp;&nbsp;<c:out value="${param.customerName}"/></td>
+            </tr>
+        </table>
+    </h3>
 
-	<kul:enterKey methodToCall="search" />
+    <kul:enterKey methodToCall="search"/>
 
-	<html-el:hidden name="KualiForm" property="backLocation" />
-	<html-el:hidden name="KualiForm" property="formKey" />
-	<html-el:hidden name="KualiForm" property="lookupableImplServiceName" />
-	<html-el:hidden name="KualiForm" property="businessObjectClassName" />
-	<html-el:hidden name="KualiForm" property="conversionFields" />
-	<html-el:hidden name="KualiForm" property="hideReturnLink" />
+    <html-el:hidden name="KualiForm" property="backLocation"/>
+    <html-el:hidden name="KualiForm" property="formKey"/>
+    <html-el:hidden name="KualiForm" property="lookupableImplServiceName"/>
+    <html-el:hidden name="KualiForm" property="businessObjectClassName"/>
+    <html-el:hidden name="KualiForm" property="conversionFields"/>
+    <html-el:hidden name="KualiForm" property="hideReturnLink"/>
 
-	<kul:errors errorTitle="Errors found in Search Criteria:" />
+    <kul:errors errorTitle="Errors found in Search Criteria:"/>
 
-	<table width="100%">
-		<tr>
-			<td>
-				<c:if test="${empty reqSearchResultsSize}">
-					There were no results found.
-				</c:if>
-				<c:if test="${!empty reqSearchResultsSize}">
-						<table width="25%">
-								<c:if test="${param.accountNumber != null}" >
-									<tr><td>Account Number:</td><td><c:out value="${param.accountNumber}" /></td>
-								</c:if>
-								<c:if test="${param.billingChartCode != null}" >
-									<tr><td>Chart Code:</td><td><c:out value="${param.billingChartCode}" /></td></tr>
-								</c:if>
-								<c:if test="${param.organizationCode != null}" >
-									<tr><td>Organization Code:</td><td><c:out value="${param.organizationCode}" /></td>
-								</c:if>
+    <table width="100%">
+        <tr>
+            <td>
+                <c:if test="${empty reqSearchResultsSize}">
+                    There were no results found.
+                </c:if>
+                <c:if test="${!empty reqSearchResultsSize}">
+                    <table width="25%">
+                        <c:if test="${param.accountNumber != null}">
+                        <tr>
+                            <td>Account Number:</td>
+                            <td><c:out value="${param.accountNumber}"/></td>
+                            </c:if>
+                            <c:if test="${param.billingChartCode != null}">
+                        <tr>
+                            <td>Chart Code:</td>
+                            <td><c:out value="${param.billingChartCode}"/></td>
+                        </tr>
+                        </c:if>
+                        <c:if test="${param.organizationCode != null}">
+                        <tr>
+                            <td>Organization Code:</td>
+                            <td><c:out value="${param.organizationCode}"/></td>
+                            </c:if>
 
-							<tr><td>Report Run Date:</td><td><c:out value="${param.reportRunDate}" /></td>
-							<tr><td>Report Age:</td><td><c:out value="${param.columnTitle}" /></td>
-						</table> <br><br>
+                        <tr>
+                            <td>Report Run Date:</td>
+                            <td><c:out value="${param.reportRunDate}"/></td>
+                        <tr>
+                            <td>Report Age:</td>
+                            <td><c:out value="${param.columnTitle}"/></td>
+                    </table>
+                    <br><br>
 
-					<ar:openInvoiceReportResults reportLookupActionName="arContractsGrantsAgingOpenInvoicesReportLookup.do"/>
-			    </c:if>
-			</td>
-		</tr>
-	</table>
+                    <ar:openInvoiceReportResults reportLookupActionName="arContractsGrantsAgingOpenInvoicesReportLookup.do"/>
+                </c:if>
+            </td>
+        </tr>
+    </table>
 </kul:page>

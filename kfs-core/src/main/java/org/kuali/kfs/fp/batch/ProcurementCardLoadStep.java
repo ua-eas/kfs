@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.fp.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.batch.service.ProcurementCardLoadTransactionsService;
 import org.kuali.kfs.sys.batch.AbstractStep;
@@ -30,6 +25,11 @@ import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This step will call a service method to load the kuali pcard xml file into the transaction table. Validates the data before the
@@ -115,7 +115,6 @@ public class ProcurementCardLoadStep extends AbstractStep {
     }
 
     /**
-     *
      * @return
      */
     public ReportWriterService getReportWriterService() {
@@ -123,7 +122,6 @@ public class ProcurementCardLoadStep extends AbstractStep {
     }
 
     /**
-     *
      * @param reportWriterService
      */
     public void setReportWriterService(ReportWriterService reportWriterService) {

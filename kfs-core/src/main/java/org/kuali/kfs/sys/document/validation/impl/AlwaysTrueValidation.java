@@ -28,6 +28,7 @@ public class AlwaysTrueValidation extends GenericValidation {
 
     /**
      * Just return true already!
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {

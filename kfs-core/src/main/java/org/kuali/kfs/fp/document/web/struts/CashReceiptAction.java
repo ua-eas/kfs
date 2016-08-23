@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -35,18 +28,23 @@ import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.document.validation.event.AddCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.DeleteCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.UpdateCheckEvent;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class CashReceiptAction extends CapitalAccountingLinesActionBase {
@@ -54,7 +52,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
      * Adds handling for check updates
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -139,8 +137,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
 
                     // notify user
                     KNSGlobalVariables.getMessageList().add(KFSKeyConstants.CashReceipt.MSG_CHECK_ENTRY_INDIVIDUAL);
-                }
-                else {
+                } else {
                     // restore saved checkTotal
                     crDoc.setTotalCheckAmount(crForm.getCheckTotal());
 
@@ -265,8 +262,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
             if (crForm.hasBaselineCheck(deleteIndex)) {
                 crForm.getBaselineChecks().remove(deleteIndex);
             }
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError("document.check[" + deleteIndex + "]", KFSKeyConstants.Check.ERROR_CHECK_DELETERULE, Integer.toString(deleteIndex));
         }
 
@@ -301,8 +297,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
             if (crForm.hasBaselineCheck(deleteIndex)) {
                 crForm.getBaselineChecks().remove(deleteIndex);
             }
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError("document.confirmedCheck[" + deleteIndex + "]", KFSKeyConstants.Check.ERROR_CHECK_DELETERULE, Integer.toString(deleteIndex));
         }
 
@@ -340,8 +335,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
 
                     // notify user
                     KNSGlobalVariables.getMessageList().add(KFSKeyConstants.CashReceipt.MSG_CHECK_ENTRY_INDIVIDUAL);
-                }
-                else {
+                } else {
                     // restore saved checkTotal
                     crDoc.setTotalCheckAmount(crForm.getCheckTotal());
 
@@ -399,7 +393,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
         CashReceiptDocument crDoc = crForm.getCashReceiptDocument();
 
         Check c, confirmedCheck;
-        for (Iterator<Check> i = crDoc.getChecks().iterator(); i.hasNext();) {
+        for (Iterator<Check> i = crDoc.getChecks().iterator(); i.hasNext(); ) {
             c = i.next();
             confirmedCheck = crForm.getNewConfirmedCheck();
             confirmedCheck.setDocumentNumber(c.getDocumentNumber());
@@ -474,12 +468,13 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
 
     /**
      * Overridden to guarantee that form of copied document is set to whatever the entry mode of the document is
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase#copy(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward copy(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward forward = super.copy(mapping, form, request, response);
-        initDerivedCheckValues((CashReceiptForm)form);
+        initDerivedCheckValues((CashReceiptForm) form);
         return forward;
     }
 

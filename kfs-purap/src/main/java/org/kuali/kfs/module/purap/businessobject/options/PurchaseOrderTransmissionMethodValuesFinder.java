@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderTransmissionMethod;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Value Finder for Purchase Order Transmission Methods.
@@ -44,7 +44,7 @@ public class PurchaseOrderTransmissionMethodValuesFinder extends KeyValuesBase {
         KeyValuesService boService = SpringContext.getBean(KeyValuesService.class);
         Collection<PurchaseOrderTransmissionMethod> codes = boService.findAll(PurchaseOrderTransmissionMethod.class);
         List<KeyValue> labels = new ArrayList<KeyValue>();
-        for (Iterator<PurchaseOrderTransmissionMethod> iter = codes.iterator(); iter.hasNext();) {
+        for (Iterator<PurchaseOrderTransmissionMethod> iter = codes.iterator(); iter.hasNext(); ) {
             PurchaseOrderTransmissionMethod purchaseOrderTransmissionMethod = (PurchaseOrderTransmissionMethod) iter.next();
             if (purchaseOrderTransmissionMethod.isDisplayToUser()) {
                 labels.add(new ConcreteKeyValue(purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodCode(), purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodDescription()));

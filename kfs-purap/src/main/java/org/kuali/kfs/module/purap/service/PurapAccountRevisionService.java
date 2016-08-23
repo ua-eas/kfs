@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
+
+import java.util.List;
 
 public interface PurapAccountRevisionService {
     /**
@@ -29,8 +29,8 @@ public interface PurapAccountRevisionService {
      * history table. If new lines are added, then new account history lines are added too.
      *
      * @param paymentRequestItems Items from payment request document
-     * @param postingYear Posting year
-     * @param postingPeriodCode Posting period code
+     * @param postingYear         Posting year
+     * @param postingPeriodCode   Posting period code
      */
     void savePaymentRequestAccountRevisions(List<PaymentRequestItem> paymentRequestItems, Integer postingYear, String postingPeriodCode);
 
@@ -39,8 +39,8 @@ public interface PurapAccountRevisionService {
      * table. If new lines are added, then new account history lines are added too.
      *
      * @param paymentRequestItems Items from payment request document
-     * @param postingYear Posting year
-     * @param postingPeriodCode Posting period code
+     * @param postingYear         Posting year
+     * @param postingPeriodCode   Posting period code
      */
     void saveCreditMemoAccountRevisions(List<CreditMemoItem> creditMemoItems, Integer postingYear, String postingPeriodCode);
 
@@ -48,8 +48,8 @@ public interface PurapAccountRevisionService {
      * This method will negate all existing payment request account line revisions
      *
      * @param paymentRequestItems Items from payment request document
-     * @param postingYear Posting year
-     * @param postingPeriodCode Posting period code
+     * @param postingYear         Posting year
+     * @param postingPeriodCode   Posting period code
      */
     void cancelPaymentRequestAccountRevisions(List<PaymentRequestItem> paymentRequestItems, Integer postingYear, String postingPeriodCode);
 
@@ -57,8 +57,8 @@ public interface PurapAccountRevisionService {
      * This method will negate all existing credit memo account revision lines
      *
      * @param paymentRequestItems Items from payment request document
-     * @param postingYear Posting year
-     * @param postingPeriodCode Posting period code
+     * @param postingYear         Posting year
+     * @param postingPeriodCode   Posting period code
      */
     void cancelCreditMemoAccountRevisions(List<CreditMemoItem> creditMemoItems, Integer postingYear, String postingPeriodCode);
 }

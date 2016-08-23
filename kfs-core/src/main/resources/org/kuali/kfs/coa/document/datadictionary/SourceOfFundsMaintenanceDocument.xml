@@ -19,57 +19,54 @@
  -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:dd="http://rice.kuali.org/dd"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-        http://rice.kuali.org/dd
-        http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="SourceOfFundsMaintenanceDocument" parent="SourceOfFundsMaintenanceDocument-parentBean" />
+    <bean id="SourceOfFundsMaintenanceDocument" parent="SourceOfFundsMaintenanceDocument-parentBean"/>
 
-	<bean id="SourceOfFundsMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
-    	<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SourceOfFunds" />
-    	<property name="maintainableClass" value="org.kuali.kfs.sys.document.FinancialSystemMaintainable" />
-    	<property name="maintainableSections" >
-      		<list>
-        		<ref bean="SourceOfFundsMaintenanceDocument-EditSourceOfFunds" />
-      		</list>
-    	</property>
-    	<property name="allowsNewOrCopy" value="true" />
-    	<property name="documentTypeName" value="SOF" />
-    	<property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
-    	<property name="workflowAttributes">
-    		<ref bean="SourceOfFundsMaintenanceDocument-workflowAttributes" />
-    	</property>
-    	<property name="lockingKeys" >
-      	<list>
-        	<value>typeCode</value>
-      	</list>
-    	</property>
-  	</bean>
+    <bean id="SourceOfFundsMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SourceOfFunds"/>
+        <property name="maintainableClass" value="org.kuali.kfs.sys.document.FinancialSystemMaintainable"/>
+        <property name="maintainableSections">
+            <list>
+                <ref bean="SourceOfFundsMaintenanceDocument-EditSourceOfFunds"/>
+            </list>
+        </property>
+        <property name="allowsNewOrCopy" value="true"/>
+        <property name="documentTypeName" value="SOF"/>
+        <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
+        <property name="workflowAttributes">
+            <ref bean="SourceOfFundsMaintenanceDocument-workflowAttributes"/>
+        </property>
+        <property name="lockingKeys">
+            <list>
+                <value>typeCode</value>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Maintenance Section Definitions -->
+    <!-- Maintenance Section Definitions -->
 
-	<bean id="SourceOfFundsMaintenanceDocument-EditSourceOfFunds" parent="SourceOfFundsMaintenanceDocument-EditSourceOfFunds-parentBean" />
+    <bean id="SourceOfFundsMaintenanceDocument-EditSourceOfFunds" parent="SourceOfFundsMaintenanceDocument-EditSourceOfFunds-parentBean"/>
 
-  	<bean id="SourceOfFundsMaintenanceDocument-EditSourceOfFunds-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    	<property name="id" value="Edit Source Of Funds" />
-    	<property name="title" value="Edit Source Of Funds" />
-    	<property name="maintainableItems" >
-     		<list>
-        		<bean parent="MaintainableFieldDefinition" p:name="typeCode" p:required="true"/>
-        		<bean parent="MaintainableFieldDefinition" p:name="sourceOfFundsName" p:required="true"/>
-        		<bean parent="MaintainableFieldDefinition" p:name="sourceOfFundsDescription"/>
-        		<bean parent="MaintainableFieldDefinition" p:defaultValue="Y" p:name="active" />
-      		</list>
-    	</property>
-  	</bean>
+    <bean id="SourceOfFundsMaintenanceDocument-EditSourceOfFunds-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Edit Source Of Funds"/>
+        <property name="title" value="Edit Source Of Funds"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="typeCode" p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="sourceOfFundsName" p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="sourceOfFundsDescription"/>
+                <bean parent="MaintainableFieldDefinition" p:defaultValue="Y" p:name="active"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Exported Workflow Properties -->
+    <!-- Exported Workflow Properties -->
 
-	<bean id="SourceOfFundsMaintenanceDocument-workflowAttributes" parent="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean" />
-	<bean id="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
+    <bean id="SourceOfFundsMaintenanceDocument-workflowAttributes" parent="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean"/>
+    <bean id="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 
 </beans>

@@ -18,44 +18,44 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public enum CreditMemoDocumentFixture {
 
     CM_ONLY_REQUIRED_PO_FIELDS(null, // paymentRequestIdentifier
-            null,                   // creditMemoNumber
-            null,                   // creditMemoDate
-            null,                   // creditMemoAmount
-            new KualiDecimal(1),    // grandTotal
-            new KualiDecimal(1),    // totalDollarAmount
-            null,                   // creditMemoPaidTimestamp
-            null,                   // itemMiscellaneousCreditDescription
-            null,                   // purchaseOrderEndDate
-            "appleton",             // accountsPayableProcessorIdentifier
-            PurchasingAccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
-            new CreditMemoItemFixture[] {CreditMemoItemFixture.CM_QTY_UNRESTRICTED_ITEM_1} // requisitionItemMultiFixtures
-            ),
+        null,                   // creditMemoNumber
+        null,                   // creditMemoDate
+        null,                   // creditMemoAmount
+        new KualiDecimal(1),    // grandTotal
+        new KualiDecimal(1),    // totalDollarAmount
+        null,                   // creditMemoPaidTimestamp
+        null,                   // itemMiscellaneousCreditDescription
+        null,                   // purchaseOrderEndDate
+        "appleton",             // accountsPayableProcessorIdentifier
+        PurchasingAccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
+        new CreditMemoItemFixture[]{CreditMemoItemFixture.CM_QTY_UNRESTRICTED_ITEM_1} // requisitionItemMultiFixtures
+    ),
     CM_ONLY_REQUIRED_FIELDS(null,   // paymentRequestIdentifier
-            "12345",                   // creditMemoNumber
-            SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),     // creditMemoDate
-            new KualiDecimal(1),    // creditMemoAmount
-            new KualiDecimal(1),    // grandTotal
-            new KualiDecimal(1),    // totalDollarAmount
-            null,                   // creditMemoPaidTimestamp
-            null,                   // itemMiscellaneousCreditDescription
-            null,                   // purchaseOrderEndDate
-            "appleton",             // accountsPayableProcessorIdentifier
-            PurchasingAccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
-            AccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
-            new CreditMemoItemFixture[] {CreditMemoItemFixture.CM_QTY_UNRESTRICTED_ITEM_1} // creditMemoItemMultiFixtures
-            );
+        "12345",                   // creditMemoNumber
+        SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),     // creditMemoDate
+        new KualiDecimal(1),    // creditMemoAmount
+        new KualiDecimal(1),    // grandTotal
+        new KualiDecimal(1),    // totalDollarAmount
+        null,                   // creditMemoPaidTimestamp
+        null,                   // itemMiscellaneousCreditDescription
+        null,                   // purchaseOrderEndDate
+        "appleton",             // accountsPayableProcessorIdentifier
+        PurchasingAccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
+        AccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
+        new CreditMemoItemFixture[]{CreditMemoItemFixture.CM_QTY_UNRESTRICTED_ITEM_1} // creditMemoItemMultiFixtures
+    );
 
 
     public final Integer paymentRequestIdentifier;
@@ -75,19 +75,19 @@ public enum CreditMemoDocumentFixture {
 
 
     private CreditMemoDocumentFixture(
-            Integer paymentRequestIdentifier,
-            String creditMemoNumber,
-            Date creditMemoDate,
-            KualiDecimal creditMemoAmount,
-            KualiDecimal grandTotal,
-            KualiDecimal totalDollarAmount,
-            Timestamp creditMemoPaidTimestamp,
-            String itemMiscellaneousCreditDescription,
-            Date purchaseOrderEndDate,
-            String accountsPayableProcessorIdentifier,
-            PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
-            AccountsPayableDocumentFixture apDocumentFixture,
-            CreditMemoItemFixture[] creditMemoItemFixtures) {
+        Integer paymentRequestIdentifier,
+        String creditMemoNumber,
+        Date creditMemoDate,
+        KualiDecimal creditMemoAmount,
+        KualiDecimal grandTotal,
+        KualiDecimal totalDollarAmount,
+        Timestamp creditMemoPaidTimestamp,
+        String itemMiscellaneousCreditDescription,
+        Date purchaseOrderEndDate,
+        String accountsPayableProcessorIdentifier,
+        PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
+        AccountsPayableDocumentFixture apDocumentFixture,
+        CreditMemoItemFixture[] creditMemoItemFixtures) {
 
         this.paymentRequestIdentifier = paymentRequestIdentifier;
         this.creditMemoNumber = creditMemoNumber;

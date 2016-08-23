@@ -29,9 +29,9 @@ public interface CashControlDocumentService {
     /**
      * This method add a new cash control detail to the cash control document
      *
-     * @param descritpion the description tells whether the detail was added by cash controo doc or by lockbox
+     * @param descritpion         the description tells whether the detail was added by cash controo doc or by lockbox
      * @param cashControlDocument the cash control document
-     * @param cashControlDetail the cash control detail to be added
+     * @param cashControlDetail   the cash control detail to be added
      * @throws WorkflowException
      */
     public void addNewCashControlDetail(String descritpion, CashControlDocument cashControlDocument, CashControlDetail cashControlDetail) throws WorkflowException;
@@ -39,9 +39,9 @@ public interface CashControlDocumentService {
     /**
      * This method creates a new PaymentApplicationDocument
      *
-     * @param description the description tells whether the detail was added by cash controo doc or by lockbox
+     * @param description         the description tells whether the detail was added by cash controo doc or by lockbox
      * @param cashControlDocument the cash control document
-     * @param cashControlDetail the cash control detail
+     * @param cashControlDetail   the cash control detail
      * @return true if all application document have been approved, false otherwise
      * @throws WorkflowException
      */
@@ -90,8 +90,9 @@ public interface CashControlDocumentService {
 
     /**
      * Creates bank offset GLPEs for the cash control document
+     *
      * @param cashControlDocument the document to create cash control GLPEs for
-     * @param sequenceHelper the sequence helper which will sequence the new GLPEs
+     * @param sequenceHelper      the sequence helper which will sequence the new GLPEs
      * @return true if the new bank offset GLPEs were created successfully, false otherwise
      */
     public abstract boolean createBankOffsetGLPEs(CashControlDocument cashControlDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper);

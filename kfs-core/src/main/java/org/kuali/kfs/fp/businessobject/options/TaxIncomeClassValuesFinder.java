@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.TaxIncomeClassCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class returns list of tax income class value pairs.
@@ -41,7 +41,7 @@ public class TaxIncomeClassValuesFinder extends KeyValuesBase {
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue("", ""));
         for (TaxIncomeClassCode element : boList) {
-            if(element.isActive()) {
+            if (element.isActive()) {
                 keyValues.add(new ConcreteKeyValue(element.getCode(), element.getCodeAndDescription()));
             }
         }

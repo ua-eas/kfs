@@ -27,20 +27,18 @@ import java.lang.annotation.Target;
 /**
  * Annotation for <code>View</code> fields to indicate the field can be set by a
  * parameter of the initial request
- *
- *
  */
-@Target({ ElementType.FIELD })
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface RequestParameter {
 
-	/**
-	 * Name of the request parameter whose value should be pulled to populate
-	 * the field. If not set, any parameter that matches the name of the field
-	 * will be used
-	 *
-	 * @return String request parameter name
-	 */
-	public String parameterName() default "";
+    /**
+     * Name of the request parameter whose value should be pulled to populate
+     * the field. If not set, any parameter that matches the name of the field
+     * will be used
+     *
+     * @return String request parameter name
+     */
+    public String parameterName() default "";
 }

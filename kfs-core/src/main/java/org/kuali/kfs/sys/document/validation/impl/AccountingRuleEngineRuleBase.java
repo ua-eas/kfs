@@ -18,8 +18,15 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.BlanketApproveDocumentEvent;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -35,15 +42,8 @@ import org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocum
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.AdHocRoutePerson;
-import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.BlanketApproveDocumentEvent;
+
+import java.util.Map;
 
 /**
  * A rule that uses the accounting rule engine to perform rule validations.
@@ -62,7 +62,7 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
      * @see org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule#validateForEvent(org.kuali.rice.krad.rule.event.KualiDocumentEvent)
      */
     public boolean validateForEvent(AttributedDocumentEvent event) {
-        final FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument)event.getDocument());
+        final FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument) event.getDocument());
         final Map<Class, String> validationMap = documentEntry.getValidationMap();
 
         if (validationMap == null || !validationMap.containsKey(event.getClass())) {
@@ -78,11 +78,12 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
 
     /**
      * Returns the validation from the data dictionary for the document in the event
+     *
      * @param document the document to look up a data dictionary entry for
      * @return a document entry
      */
     protected FinancialSystemTransactionalDocumentEntry getDataDictionaryEntryForDocument(TransactionalDocument document) {
-        return (FinancialSystemTransactionalDocumentEntry)SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDictionaryObjectEntry(document.getClass().getName());
+        return (FinancialSystemTransactionalDocumentEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDictionaryObjectEntry(document.getClass().getName());
     }
 
     /**
@@ -167,10 +168,10 @@ public class AccountingRuleEngineRuleBase extends DocumentRuleBase implements Ac
      */
     @Override
     public boolean isDocumentAttributesValid(Document document, boolean validateRequired) {
-        FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument)document);
+        FinancialSystemTransactionalDocumentEntry documentEntry = getDataDictionaryEntryForDocument((TransactionalDocument) document);
         Integer maxDictionaryValidationDepth = documentEntry.getMaxDictionaryValidationDepth();
 
-        if(maxDictionaryValidationDepth != null) {
+        if (maxDictionaryValidationDepth != null) {
             this.setMaxDictionaryValidationDepth(maxDictionaryValidationDepth);
         }
 

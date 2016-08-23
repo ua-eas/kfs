@@ -47,18 +47,18 @@ public class OriginEntryTest extends KualiTestBase {
         String line = null;
 
         String testingYear = TestUtils.getFiscalYearForTesting().toString();
-        line = testingYear+"BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC          CONCERTO OFFICE PRODUCTS                                48.53C2006-01-05          ----------                                       ";
-        String convertedLine = testingYear+"BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC     00000CONCERTO OFFICE PRODUCTS                +00000000000000048.53C2006-01-05          ----------                                       ";
+        line = testingYear + "BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC          CONCERTO OFFICE PRODUCTS                                48.53C2006-01-05          ----------                                       ";
+        String convertedLine = testingYear + "BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC     00000CONCERTO OFFICE PRODUCTS                +00000000000000048.53C2006-01-05          ----------                                       ";
         final String lineFromOE = new OriginEntryFull(line).getLine();
         assertEquals(convertedLine, lineFromOE);
 
-        line = testingYear+"BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC     00000CONCERTO OFFICE PRODUCTS                +00000000000000048.53C2006-01-05          ----------                                       ";
+        line = testingYear + "BL4131407-----4100---ACEX07TOPSLGEXPIRCGAC     00000CONCERTO OFFICE PRODUCTS                +00000000000000048.53C2006-01-05          ----------                                       ";
         assertEquals(line, new OriginEntryFull(line).getLine());
 
-        line = testingYear+"BL4131407-----9041---ACLI07TOPSLGEXPIRCGAC     12345CONCERTO OFFICE PRODUCTS                +00000000000000048.53D2006-01-05          ----------                                       ";
+        line = testingYear + "BL4131407-----9041---ACLI07TOPSLGEXPIRCGAC     12345CONCERTO OFFICE PRODUCTS                +00000000000000048.53D2006-01-05          ----------                                       ";
         assertEquals(line, new OriginEntryFull(line).getLine());
 
-        line = testingYear+"BL4131407-----9041---ACLI07TOPSLGEXPIRCGAC     00045CONCERTO OFFICE PRODUCTS                +00000000000000048.53D2006-01-05          ----------                                       ";
+        line = testingYear + "BL4131407-----9041---ACLI07TOPSLGEXPIRCGAC     00045CONCERTO OFFICE PRODUCTS                +00000000000000048.53D2006-01-05          ----------                                       ";
         assertEquals(line, new OriginEntryFull(line).getLine());
 
     }

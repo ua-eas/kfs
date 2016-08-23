@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_BALANCE_CONSIDERING_CREDIT_AND_DEBIT_AMOUNTS;
-
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_BALANCE_CONSIDERING_CREDIT_AND_DEBIT_AMOUNTS;
 
 /**
  * Validation for Auxiliary Voucher, which checks tha tthe accounting lines on the document, with all of
@@ -36,6 +36,7 @@ public class AuxiliaryVoucherAccountingLinesBalanceValidation extends GenericVal
 
     /**
      * Returns true if credit/debit entries are in balance
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -44,7 +45,7 @@ public class AuxiliaryVoucherAccountingLinesBalanceValidation extends GenericVal
 
         boolean balanced = debitAmount.equals(creditAmount);
         if (!balanced) {
-            String errorParams[] = { creditAmount.toString(), debitAmount.toString() };
+            String errorParams[] = {creditAmount.toString(), debitAmount.toString()};
             GlobalVariables.getMessageMap().putError(ACCOUNTING_LINE_ERRORS, ERROR_DOCUMENT_BALANCE_CONSIDERING_CREDIT_AND_DEBIT_AMOUNTS, errorParams);
         }
         return balanced;
@@ -52,6 +53,7 @@ public class AuxiliaryVoucherAccountingLinesBalanceValidation extends GenericVal
 
     /**
      * Gets the auxiliaryVoucherDocumentForValidation attribute.
+     *
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {
@@ -60,6 +62,7 @@ public class AuxiliaryVoucherAccountingLinesBalanceValidation extends GenericVal
 
     /**
      * Sets the auxiliaryVoucherDocumentForValidation attribute value.
+     *
      * @param auxiliaryVoucherDocumentForValidation The auxiliaryVoucherDocumentForValidation to set.
      */
     public void setAuxiliaryVoucherDocumentForValidation(AuxiliaryVoucherDocument accountingDocumentForValidation) {

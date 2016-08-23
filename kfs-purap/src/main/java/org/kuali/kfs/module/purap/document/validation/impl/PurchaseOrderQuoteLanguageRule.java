@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteLanguage;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteLanguage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  *
@@ -81,11 +81,11 @@ public class PurchaseOrderQuoteLanguageRule extends MaintenanceDocumentRuleBase 
         if (oldQuoteLanguage != null && newQuoteLanguage != null &&
             newQuoteLanguage.getPurchaseOrderQuoteLanguageIdentifier() != null && oldQuoteLanguage.getPurchaseOrderQuoteLanguageIdentifier() != null &&
             newQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate() != null && oldQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate() != null &&
-            StringUtils.equalsIgnoreCase(newQuoteLanguage.getPurchaseOrderQuoteLanguageDescription(),oldQuoteLanguage.getPurchaseOrderQuoteLanguageDescription()) &&
+            StringUtils.equalsIgnoreCase(newQuoteLanguage.getPurchaseOrderQuoteLanguageDescription(), oldQuoteLanguage.getPurchaseOrderQuoteLanguageDescription()) &&
             newQuoteLanguage.getPurchaseOrderQuoteLanguageIdentifier().equals(oldQuoteLanguage.getPurchaseOrderQuoteLanguageIdentifier()) &&
-            newQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate().equals(oldQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate())){
+            newQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate().equals(oldQuoteLanguage.getPurchaseOrderQuoteLanguageCreateDate())) {
             success = true;
-        }else if (boService.countMatching(newQuoteLanguage.getClass(), fieldValues) != 0) {
+        } else if (boService.countMatching(newQuoteLanguage.getClass(), fieldValues) != 0) {
             success &= false;
             putGlobalError(PurapKeyConstants.PURAP_GENERAL_POTENTIAL_DUPLICATE);
         }

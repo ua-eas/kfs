@@ -22,24 +22,22 @@ package org.kuali.kfs.krad.uif.component;
 /**
  * Components that bind to a model (hold model data) should implement this
  * interface
- *
+ * <p>
  * <p>
  * Provides access to the <code>BindingInfo</code> object for the component that
  * contains binding configuration
  * </p>
- *
- *
  */
 public interface DataBinding {
 
-	/**
-	 * Returns the <code>BindingInfo</code> instance that is configured for the
-	 * component
-	 *
-	 * @return BindingInfo
-	 * @see BindingInfo
-	 */
-	public BindingInfo getBindingInfo();
+    /**
+     * Returns the <code>BindingInfo</code> instance that is configured for the
+     * component
+     *
+     * @return BindingInfo
+     * @see BindingInfo
+     */
+    public BindingInfo getBindingInfo();
 
     /**
      * Setter for the binding info instance
@@ -48,12 +46,12 @@ public interface DataBinding {
      */
     public void setBindingInfo(BindingInfo bindingInfo);
 
-	/**
-	 * Name of the property (relative to the parent object) the component binds
-	 * to
-	 *
-	 * @return String property name
-	 */
-	public String getPropertyName();
+    /**
+     * Name of the property (relative to the parent object) the component binds
+     * to
+     *
+     * @return String property name
+     */
+    public String getPropertyName();
 
 }

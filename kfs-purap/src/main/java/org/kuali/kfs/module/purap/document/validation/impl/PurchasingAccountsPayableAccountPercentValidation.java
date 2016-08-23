@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class PurchasingAccountsPayableAccountPercentValidation extends GenericValidation {
 
@@ -42,13 +42,12 @@ public class PurchasingAccountsPayableAccountPercentValidation extends GenericVa
         BigDecimal totalPercent = BigDecimal.ZERO;
         BigDecimal desiredPercent = new BigDecimal("100");
         for (PurApAccountingLine account : itemForValidation.getSourceAccountingLines()) {
-            if(account.getAccountLinePercent() != null && account.getAccountLinePercent().compareTo(BigDecimal.ZERO) == 0){
+            if (account.getAccountLinePercent() != null && account.getAccountLinePercent().compareTo(BigDecimal.ZERO) == 0) {
                 isAnyAccountingLineZero = true;
             }
             if (account.getAccountLinePercent() != null) {
                 totalPercent = totalPercent.add(account.getAccountLinePercent());
-            }
-            else {
+            } else {
                 totalPercent = totalPercent.add(BigDecimal.ZERO);
             }
         }
@@ -57,7 +56,7 @@ public class PurchasingAccountsPayableAccountPercentValidation extends GenericVa
             valid = false;
         }
 
-        if(isAnyAccountingLineZero && itemForValidation.getSourceAccountingLines().size() > 1){
+        if (isAnyAccountingLineZero && itemForValidation.getSourceAccountingLines().size() > 1) {
             GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_ZERO, itemForValidation.getItemIdentifierString());
             valid = false;
         }

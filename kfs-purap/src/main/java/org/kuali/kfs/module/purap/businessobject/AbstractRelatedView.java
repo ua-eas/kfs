@@ -18,17 +18,7 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.joda.time.DateTime;
-import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
@@ -37,6 +27,16 @@ import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Base class for Related View Business Objects.
@@ -86,7 +86,7 @@ public abstract class AbstractRelatedView extends PersistableBusinessObjectBase 
         List<Note> tmpNotes = noteService.getByRemoteObjectId(findDocument(this.documentNumber).getDocumentHeader().getObjectId());
         notes.clear();
         // reverse the order of notes retrieved so that newest note is in the front
-        for (int i = tmpNotes.size()-1; i>=0; i--) {
+        for (int i = tmpNotes.size() - 1; i >= 0; i--) {
             Note note = tmpNotes.get(i);
             notes.add(note);
         }
@@ -100,7 +100,7 @@ public abstract class AbstractRelatedView extends PersistableBusinessObjectBase 
         int endSubString = docHandlerUrl.lastIndexOf("/");
         String serverName = docHandlerUrl.substring(0, endSubString);
         String handler = docHandlerUrl.substring(endSubString + 1, docHandlerUrl.lastIndexOf("?"));
-        return serverName + "/" + handler + "?channelTitle=" + docType.getName() + "&" + KRADConstants.DISPATCH_REQUEST_PARAMETER + "=" + KRADConstants.DOC_HANDLER_METHOD +"&" + KRADConstants.PARAMETER_DOC_ID + "=" + this.getDocumentNumber() + "&" + KRADConstants.PARAMETER_COMMAND + "=" + KewApiConstants.DOCSEARCH_COMMAND;
+        return serverName + "/" + handler + "?channelTitle=" + docType.getName() + "&" + KRADConstants.DISPATCH_REQUEST_PARAMETER + "=" + KRADConstants.DOC_HANDLER_METHOD + "&" + KRADConstants.PARAMETER_DOC_ID + "=" + this.getDocumentNumber() + "&" + KRADConstants.PARAMETER_COMMAND + "=" + KewApiConstants.DOCSEARCH_COMMAND;
     }
 
     public String getDocumentIdentifierString() {
@@ -117,7 +117,7 @@ public abstract class AbstractRelatedView extends PersistableBusinessObjectBase 
      * @return
      * @throws WorkflowException
      */
-    public String getDocumentLabel() throws WorkflowException{
+    public String getDocumentLabel() throws WorkflowException {
         return SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(getDocumentTypeName());
     }
 
@@ -166,12 +166,13 @@ public abstract class AbstractRelatedView extends PersistableBusinessObjectBase 
         return documentHeader.getApplicationDocumentStatus();
     }
 
-    public org.kuali.rice.kew.api.document.Document findWorkflowDocument(String documentId){
+    public org.kuali.rice.kew.api.document.Document findWorkflowDocument(String documentId) {
         return KewApiServiceLocator.getWorkflowDocumentService().getDocument(documentId);
     }
 
     /**
      * This method finds the document for the given document header id
+     *
      * @param documentHeaderId
      * @return document The document in the workflow that matches the document header id.
      */
@@ -180,12 +181,11 @@ public abstract class AbstractRelatedView extends PersistableBusinessObjectBase 
 
         try {
             document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentHeaderId);
-        }
-        catch (WorkflowException ex) {
-            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex );
-        } catch ( UnknownDocumentTypeException ex ) {
+        } catch (WorkflowException ex) {
+            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex);
+        } catch (UnknownDocumentTypeException ex) {
             // don't blow up just because a document type is not installed (but don't return it either)
-            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex );
+            LOG.error("Exception encountered on finding the document: " + documentHeaderId, ex);
         }
 
         return document;

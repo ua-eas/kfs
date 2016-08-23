@@ -20,14 +20,14 @@ package org.kuali.kfs.coa.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.service.ChartService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /**
  * Business rule(s) applicable to {@link ChartMaintenance} documents.
@@ -39,8 +39,8 @@ public class ChartRule extends MaintenanceDocumentRuleBase {
      * reportsToChart exists if it is not the same code as the newly created Chart and it checks to make sure that the chart manager
      * is valid for the Chart Module
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      * @return false if reports to chart code doesn't exist or user is invalid for this module
+     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -56,7 +56,7 @@ public class ChartRule extends MaintenanceDocumentRuleBase {
         String reportsToChartCode = chart.getReportsToChartOfAccountsCode();
 
         if (chartCode != null && !chartCode.equals(reportsToChartCode)) { // if not equal to this newly created chart, then must
-                                                                            // exist
+            // exist
             Chart reportsToChart = chartService.getByPrimaryId(reportsToChartCode);
             if (reportsToChart == null) {
                 result = false;
@@ -64,7 +64,7 @@ public class ChartRule extends MaintenanceDocumentRuleBase {
             }
         }
         Entity chartManager = idService.getEntityByPrincipalId(chart.getFinCoaManagerPrincipalId());
-        if ( chartManager == null ) {
+        if (chartManager == null) {
             result = false;
             putFieldError("finCoaManagerUniversal.principalName", KFSKeyConstants.ERROR_DOCUMENT_CHART_MANAGER_MUST_EXIST);
         }

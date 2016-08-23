@@ -16,41 +16,41 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<c:set var="readOnly" value="${KualiForm.viewOnlyEntry || KualiForm.salarySettingClosed}" />
+<c:set var="readOnly" value="${KualiForm.viewOnlyEntry || KualiForm.salarySettingClosed}"/>
 
 <kul:page showDocumentInfo="false" docTitle="Quick Salary Setting" transactionalDocument="false"
-	htmlFormAction="budgetQuickSalarySetting" renderMultipart="true" showTabButtons="true">
+          htmlFormAction="budgetQuickSalarySetting" renderMultipart="true" showTabButtons="true">
 
-    <html:hidden property="mainWindow" />
+    <html:hidden property="mainWindow"/>
 
-	<kul:tabTop tabTitle="Quick Salary Setting" defaultOpen="true" tabErrorKey="${BCConstants.ErrorKey.QUICK_SALARY_SETTING_TAB_ERRORS}">
-		<div class="tab-container" align=center>
-			<bc:expenditureSalaryLine readOnly="${readOnly}"/>
+    <kul:tabTop tabTitle="Quick Salary Setting" defaultOpen="true" tabErrorKey="${BCConstants.ErrorKey.QUICK_SALARY_SETTING_TAB_ERRORS}">
+        <div class="tab-container" align=center>
+            <bc:expenditureSalaryLine readOnly="${readOnly}"/>
 
-			<br/>
+            <br/>
 
-			<bc:expenditureSalaryLineDetails readOnly="${readOnly}"/>
-		</div>
-	</kul:tabTop>
+            <bc:expenditureSalaryLineDetails readOnly="${readOnly}"/>
+        </div>
+    </kul:tabTop>
 
     <%-- add another copy of the errors since this screen can get long --%>
-    <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}" errorTitle=" " />
-    <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" " />
+    <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}" errorTitle=" "/>
+    <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" "/>
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
-	        <html:submit
-	        	    styleClass="btn btn-default"
+            <html:submit
+                    styleClass="btn btn-default"
                     property="methodToCall.save"
                     title="Save"
                     alt="save"
                     value="Save"/>
-	    </c:if>
+        </c:if>
 
         <html:submit
-       		    styleClass="btn btn-default"
+                styleClass="btn btn-default"
                 property="methodToCall.close"
                 title="Close"
                 alt="close"

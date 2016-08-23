@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -31,6 +26,11 @@ import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
 import org.kuali.kfs.module.purap.dataaccess.ElectronicInvoicingDao;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ElectronicInvoicingDaoOjb extends PlatformAwareDaoBaseOjb implements ElectronicInvoicingDao {
 
@@ -59,7 +59,7 @@ public class ElectronicInvoicingDaoOjb extends PlatformAwareDaoBaseOjb implement
         criteria.addEqualTo("status.code", PurapConstants.PaymentRequestStatuses.APPDOC_PENDING_E_INVOICE);
         criteria.addEqualTo("isElectronicInvoice", Boolean.TRUE);
         List invoices = (List) getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(PaymentRequestDocument.class, criteria));
-        for (Iterator iter = invoices.iterator(); iter.hasNext();) {
+        for (Iterator iter = invoices.iterator(); iter.hasNext(); ) {
             PaymentRequestDocument p = (PaymentRequestDocument) iter.next();
         }
 
@@ -92,7 +92,7 @@ public class ElectronicInvoicingDaoOjb extends PlatformAwareDaoBaseOjb implement
         Map hm = new HashMap();
         List itemMappings = (List) getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(ElectronicInvoiceItemMapping.class, criteria));
 
-        for (Iterator iter = itemMappings.iterator(); iter.hasNext();) {
+        for (Iterator iter = itemMappings.iterator(); iter.hasNext(); ) {
             ElectronicInvoiceItemMapping mapping = (ElectronicInvoiceItemMapping) iter.next();
             hm.put(mapping.getInvoiceItemTypeCode(), mapping);
         }

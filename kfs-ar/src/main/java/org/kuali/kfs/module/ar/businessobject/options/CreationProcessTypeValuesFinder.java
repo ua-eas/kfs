@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
+
+import java.util.List;
 
 public class CreationProcessTypeValuesFinder extends EnumValuesFinder {
 
@@ -40,12 +40,12 @@ public class CreationProcessTypeValuesFinder extends EnumValuesFinder {
 
     @Override
     protected String getEnumKey(Enum enm) {
-        return ((ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType)enm).getCode();
+        return ((ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType) enm).getCode();
     }
 
     @Override
     protected String getEnumLabel(Enum enm) {
-        return ((ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType)enm).getName();
+        return ((ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType) enm).getName();
     }
 
 }

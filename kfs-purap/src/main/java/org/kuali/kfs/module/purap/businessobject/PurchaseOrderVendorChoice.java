@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Purchase Order Vendor Choice Business Object.
  */
-public class PurchaseOrderVendorChoice extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class PurchaseOrderVendorChoice extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String purchaseOrderVendorChoiceCode;
     private String purchaseOrderVendorChoiceDescription;

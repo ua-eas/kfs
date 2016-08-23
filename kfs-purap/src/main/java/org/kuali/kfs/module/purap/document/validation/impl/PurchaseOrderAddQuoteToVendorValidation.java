@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
@@ -28,7 +29,6 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -42,8 +42,8 @@ public class PurchaseOrderAddQuoteToVendorValidation extends GenericValidation {
     /**
      * Applies rules for validation of the Split of PO and PO child documents
      *
-     * @param document  A PurchaseOrderDocument (or one of its children)
-     * @return      True if all relevant validation rules are passed.
+     * @param document A PurchaseOrderDocument (or one of its children)
+     * @return True if all relevant validation rules are passed.
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
@@ -58,8 +58,7 @@ public class PurchaseOrderAddQuoteToVendorValidation extends GenericValidation {
             if (!vendorDetail.isActiveIndicator()) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.NEW_PURCHASE_ORDER_VENDOR_QUOTE_VENDOR_NAME, PurapKeyConstants.ERROR_PURCHASE_ORDER_QUOTE_INACTIVE_VENDOR);
                 return false;
-            }
-            else if (vendorDetail.isVendorDebarred()) {
+            } else if (vendorDetail.isVendorDebarred()) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.NEW_PURCHASE_ORDER_VENDOR_QUOTE_VENDOR_NAME, PurapKeyConstants.ERROR_PURCHASE_ORDER_QUOTE_DEBARRED_VENDOR);
                 return false;
             }
@@ -67,9 +66,9 @@ public class PurchaseOrderAddQuoteToVendorValidation extends GenericValidation {
         return true;
     }
 
-    protected boolean vendorQuoteHasRequiredFields (PurchaseOrderVendorQuote vendorQuote) {
+    protected boolean vendorQuoteHasRequiredFields(PurchaseOrderVendorQuote vendorQuote) {
         boolean valid = true;
-        if ( StringUtils.isBlank(vendorQuote.getVendorName()) ) {
+        if (StringUtils.isBlank(vendorQuote.getVendorName())) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.NEW_PURCHASE_ORDER_VENDOR_QUOTE_VENDOR_NAME, KFSKeyConstants.ERROR_REQUIRED, "Vendor Name");
             valid = false;
         }

@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.URL;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rules;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -31,6 +26,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerInvoiceWriteoffBatchVO;
 import org.kuali.kfs.sys.exception.XmlErrorHandler;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 public class CustomerInvoiceWriteoffBatchDigesterTest extends TestCase {
 
@@ -63,14 +62,13 @@ public class CustomerInvoiceWriteoffBatchDigesterTest extends TestCase {
         Object parsedObject = null;
         try {
             parsedObject = digester.parse(sampleCustomerBatchFile);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error parsing xml contents: " + e.getMessage(), e);
         }
 
         assertNotNull("Parsed object should not be null.", parsedObject);
         assertTrue("Parsed object class [" + parsedObject.getClass().toString() + "] should be assignable to a List.",
-                parsedObject instanceof CustomerInvoiceWriteoffBatchVO);
+            parsedObject instanceof CustomerInvoiceWriteoffBatchVO);
 
         parsedBatchVO = (CustomerInvoiceWriteoffBatchVO) parsedObject;
 

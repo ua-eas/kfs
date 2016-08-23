@@ -67,7 +67,7 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao#buildSubTree(java.lang.String, java.lang.String,
-     *      java.lang.String, int)
+     * java.lang.String, int)
      */
     public void buildSubTree(String principalName, String chartOfAccountsCode, String organizationCode, int currentLevel) {
 
@@ -80,7 +80,7 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
      * This method initializes and inserts the root organization using raw SQL.
      *
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao#initPointOfView(java.lang.String, java.lang.String,
-     *      java.lang.String, int)
+     * java.lang.String, int)
      */
     protected void initPointOfView(String principalName, String chartOfAccountsCode, String organizationCode, int currentLevel) {
 
@@ -106,13 +106,11 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
             int rowsAffected = getSimpleJdbcTemplate().update(insertChildOrgTemplates[0], principalName, currentLevel, principalName, previousLevel);
             if (rowsAffected > 0) {
                 insertChildOrgs(principalName, currentLevel);
-            }
-            else {
+            } else {
                 // cleanup by resetting the pull_flag to zero for all
                 getSimpleJdbcTemplate().update(insertChildOrgTemplates[1], principalName);
             }
-        }
-        else {
+        } else {
             // overrun problem
             LOG.warn(String.format("\nWarning: One or more selected organizations have reporting organizations more than maxlevel of %d deep.", MAXLEVEL));
         }

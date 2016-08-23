@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.cam.utils;
 
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
@@ -30,12 +28,13 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 
+import java.util.List;
+
 @ConfigureContext(session = UserNameFixture.kfs)
 public class BarcodeInventoryErrorDetailPredicateTest extends KualiTestBase {
     private static Logger LOG = Logger.getLogger(BarcodeInventoryErrorDetailPredicateTest.class);
 
     /**
-     *
      * test the UpdateAssetInformation
      */
     public void testUpdateAssetInformation() {
@@ -43,20 +42,20 @@ public class BarcodeInventoryErrorDetailPredicateTest extends KualiTestBase {
         BarcodeInventoryErrorDetail barcodeInventoryErrorExpectedDetail;
 
         BarcodeInventoryErrorDocument barcodeInventoryErrorDocument = BarcodeInventoryErrorDetailPredicateFixture.DATA.getBarcodeInventoryErrorDocument();
-        List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetails=BarcodeInventoryErrorDetailPredicateFixture.DATA.getBarcodeInventoryDetail();
-        List<BarcodeInventoryErrorDetail> barcodeInventoryErrorExpectedDetails=BarcodeInventoryErrorDetailPredicateFixture.DATA.getExpectedResults();
+        List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetails = BarcodeInventoryErrorDetailPredicateFixture.DATA.getBarcodeInventoryDetail();
+        List<BarcodeInventoryErrorDetail> barcodeInventoryErrorExpectedDetails = BarcodeInventoryErrorDetailPredicateFixture.DATA.getExpectedResults();
 
         BarcodeInventoryErrorDetailPredicate predicatedClosure = new BarcodeInventoryErrorDetailPredicate(barcodeInventoryErrorDocument);
 
         // searches and replaces
         CollectionUtils.forAllDo(barcodeInventoryErrorDetails, predicatedClosure);
 
-        for(int row=0;row < barcodeInventoryErrorDetails.size();row++) {
+        for (int row = 0; row < barcodeInventoryErrorDetails.size(); row++) {
             barcodeInventoryErrorDetail = barcodeInventoryErrorDetails.get(row);
             barcodeInventoryErrorExpectedDetail = barcodeInventoryErrorExpectedDetails.get(row);
 
             assertTrue("Replacement failed.",
-                    barcodeInventoryErrorDetail.getCampusCode().equals(barcodeInventoryErrorExpectedDetail.getCampusCode()) &&
+                barcodeInventoryErrorDetail.getCampusCode().equals(barcodeInventoryErrorExpectedDetail.getCampusCode()) &&
                     barcodeInventoryErrorDetail.getBuildingCode().equals(barcodeInventoryErrorExpectedDetail.getBuildingCode()) &&
                     barcodeInventoryErrorDetail.getBuildingRoomNumber().equals(barcodeInventoryErrorExpectedDetail.getBuildingRoomNumber()) &&
                     barcodeInventoryErrorDetail.getBuildingSubRoomNumber().equals(barcodeInventoryErrorExpectedDetail.getBuildingSubRoomNumber()) &&

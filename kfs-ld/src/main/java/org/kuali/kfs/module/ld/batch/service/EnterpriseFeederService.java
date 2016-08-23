@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.batch.InitiateDirectory;
 /**
  * The enterprise feeder is a component that feeds in origin entries from an external data source
  */
-public interface EnterpriseFeederService extends InitiateDirectory{
+public interface EnterpriseFeederService extends InitiateDirectory {
     public static final String DONE_FILE_SUFFIX = ".done";
     public static final String DATA_FILE_SUFFIX = ".data";
     public static final String RECON_FILE_SUFFIX = ".recon";
@@ -32,14 +32,15 @@ public interface EnterpriseFeederService extends InitiateDirectory{
     /**
      * This method does the feeding
      *
-     * @param processName this merely identifies the process executing the feed. It will be used to build any error messages, but
-     *        computationally it should be ignored.
+     * @param processName          this merely identifies the process executing the feed. It will be used to build any error messages, but
+     *                             computationally it should be ignored.
      * @param performNotifications whether notifications should be sent out
      */
     public void feed(String processName, boolean performNotifications);
 
     /**
      * Returns the directory name from which files are loaded.
+     *
      * @return the staging directory name
      */
     public String getDirectoryName();

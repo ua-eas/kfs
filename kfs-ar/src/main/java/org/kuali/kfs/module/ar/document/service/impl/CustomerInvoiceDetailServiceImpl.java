@@ -18,14 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
@@ -43,12 +40,15 @@ import org.kuali.kfs.sys.service.TaxService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailService {
@@ -64,7 +64,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#getAddCustomerInvoiceDetail(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Override
     public CustomerInvoiceDetail getCustomerInvoiceDetailFromOrganizationAccountingDefault(Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode) {
@@ -107,7 +107,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#getCustomerInvoiceDetailFromCustomerInvoiceItemCode(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Override
     public CustomerInvoiceDetail getCustomerInvoiceDetailFromCustomerInvoiceItemCode(String invoiceItemCode, String chartOfAccountsCode, String organizationCode) {
@@ -176,7 +176,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#getDiscountCustomerInvoiceDetail(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
     public CustomerInvoiceDetail getDiscountCustomerInvoiceDetail(CustomerInvoiceDetail customerInvoiceDetail, Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode) {
@@ -220,8 +220,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
         // make sure amounts are negative when they are supposed to be
         if (!customerInvoiceDocument.isInvoiceReversal() && customerInvoiceDetail.isDiscountLine()) {
             customerInvoiceDetail.setInvoiceItemUnitPriceToNegative();
-        }
-        else if (customerInvoiceDocument.isInvoiceReversal() && !customerInvoiceDetail.isDiscountLine()) {
+        } else if (customerInvoiceDocument.isInvoiceReversal() && !customerInvoiceDetail.isDiscountLine()) {
             customerInvoiceDetail.setInvoiceItemUnitPriceToNegative();
         }
         KualiDecimal pretaxAmount = customerInvoiceDetail.getInvoiceItemPreTaxAmount();
@@ -258,7 +257,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#getCustomerInvoiceDetail(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -285,7 +284,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#getCustomerInvoiceDetailsForInvoiceWithCaching(java.lang.String)
      */
     @Override
-    @Cacheable(value=CustomerInvoiceDetail.CACHE_NAME, key="'{getCustomerInvoiceDetailsForInvoiceWithCaching}'+#p0")
+    @Cacheable(value = CustomerInvoiceDetail.CACHE_NAME, key = "'{getCustomerInvoiceDetailsForInvoiceWithCaching}'+#p0")
     public Collection<CustomerInvoiceDetail> getCustomerInvoiceDetailsForInvoiceWithCaching(String customerInvoiceDocumentNumber) {
         Map<String, String> criteria = new HashMap<String, String>();
         criteria.put(KFSPropertyConstants.DOCUMENT_NUMBER, customerInvoiceDocumentNumber);
@@ -314,7 +313,7 @@ public class CustomerInvoiceDetailServiceImpl implements CustomerInvoiceDetailSe
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService#prepareCustomerInvoiceDetailForAdd(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail,
-     *      org.kuali.kfs.module.ar.document.CustomerInvoiceDocument)
+     * org.kuali.kfs.module.ar.document.CustomerInvoiceDocument)
      */
     @Override
     public void prepareCustomerInvoiceDetailForAdd(CustomerInvoiceDetail customerInvoiceDetail, CustomerInvoiceDocument customerInvoiceDocument) {

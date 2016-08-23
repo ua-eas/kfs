@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.cg.service;
 
-import java.util.List;
-
 /**
  * Defines methods for sending AR emails.
  */
 public interface CGEmailService {
-
 
 
 }

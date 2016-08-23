@@ -25,7 +25,7 @@ public interface CollectorDetailDao {
     /**
      * Purge the table by year/chart
      *
-     * @param chartOfAccountsCode chart of accounts code criteria to purge
+     * @param chartOfAccountsCode  chart of accounts code criteria to purge
      * @param universityFiscalYear university fiscal year criteria to purge
      */
     public void purgeYearByChart(String chartOfAccountsCode, int universityFiscalYear);

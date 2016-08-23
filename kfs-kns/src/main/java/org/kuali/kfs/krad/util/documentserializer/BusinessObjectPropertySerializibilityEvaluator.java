@@ -35,7 +35,6 @@ import java.util.List;
  * If a property specified in the data dictionary corresponds to a business object, then all primitives will be serialized of the business object.
  * All primitives of a primitive that has already been serialized will be serialized as well.   If a property specified in the data dictionary corresponds
  * to a collection, then all primitives of all collection elements will be serialized.
- *
  */
 public class BusinessObjectPropertySerializibilityEvaluator extends PropertySerializabilityEvaluatorBase implements PropertySerializabilityEvaluator {
 
@@ -44,7 +43,7 @@ public class BusinessObjectPropertySerializibilityEvaluator extends PropertySeri
      *
      * @see PropertySerializabilityEvaluator#initializeEvaluator(Document)
      */
-	@Override
+    @Override
     public void initializeEvaluatorForDocument(Document document) {
         DataDictionary dictionary = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary();
         DocumentEntry docEntry = dictionary.getDocumentEntry(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
@@ -58,17 +57,15 @@ public class BusinessObjectPropertySerializibilityEvaluator extends PropertySeri
             if (StringUtils.isEmpty(group.getBasePath())) {
                 // automatically serialize all primitives of document when the base path is null or empty string
                 serializableProperties.addSerializablePropertyName(document.getBasePathToDocumentDuringSerialization(), false);
-            }
-            else {
-               serializableProperties.addSerializablePropertyName(group.getBasePath(), false);
+            } else {
+                serializableProperties.addSerializablePropertyName(group.getBasePath(), false);
             }
 
             for (WorkflowProperty property : group.getWorkflowProperties()) {
                 String fullPath;
                 if (StringUtils.isEmpty(group.getBasePath())) {
                     fullPath = document.getBasePathToDocumentDuringSerialization() + "." + property.getPath();
-                }
-                else {
+                } else {
                     fullPath = group.getBasePath() + "." + property.getPath();
                 }
                 serializableProperties.addSerializablePropertyName(fullPath, false);

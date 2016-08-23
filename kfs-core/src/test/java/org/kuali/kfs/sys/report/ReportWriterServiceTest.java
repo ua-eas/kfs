@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.sys.report;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.GlSummary;
 import org.kuali.kfs.gl.businessobject.LedgerEntryForReporting;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -29,6 +25,10 @@ import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class ReportWriterServiceTest extends KualiTestBase {
@@ -60,24 +60,24 @@ public class ReportWriterServiceTest extends KualiTestBase {
         ((WrappingBatchService) ledgerReportWriterService).destroy();
     }
 
-    public void testWriteTable() throws Exception{
+    public void testWriteTable() throws Exception {
         ((WrappingBatchService) tableReportWriterService).initialize();
 
         List<GlSummary> summaryList = this.getTestData(40);
         tableReportWriterService.writeTable(summaryList, true, false);
     }
 
-    public void testWriteRowWithColspan() throws Exception{
+    public void testWriteRowWithColspan() throws Exception {
         ((WrappingBatchService) colspanTableReportWriterService).initialize();
 
         List<GlSummary> summaryList = this.getTestData(20);
         colspanTableReportWriterService.writeTableHeader(summaryList.get(0));
 
         int index = 1;
-        for(GlSummary summary : summaryList) {
+        for (GlSummary summary : summaryList) {
             colspanTableReportWriterService.writeTableRow(summary);
 
-            if(index++ % 5 == 0) {
+            if (index++ % 5 == 0) {
                 GlSummary subTotal = new GlSummary();
                 subTotal.setFundGroup("Sub Totals (AC):");
 
@@ -91,7 +91,7 @@ public class ReportWriterServiceTest extends KualiTestBase {
         colspanTableReportWriterService.writeTableRowWithColspan(grandTotal);
     }
 
-    public void testLedgerReport() throws Exception{
+    public void testLedgerReport() throws Exception {
         ((WrappingBatchService) ledgerReportWriterService).initialize();
 
         List<LedgerEntryForReporting> ledgerEntries = this.getLedgerEntryTestData(40);
@@ -100,7 +100,7 @@ public class ReportWriterServiceTest extends KualiTestBase {
 
     protected List<LedgerEntryForReporting> getLedgerEntryTestData(int countOfData) {
         List<LedgerEntryForReporting> ledgerEntries = new ArrayList<LedgerEntryForReporting>();
-        for(int i = 0; i < countOfData; i++) {
+        for (int i = 0; i < countOfData; i++) {
             LedgerEntryForReporting entry = new LedgerEntryForReporting();
             entry.setBalanceType("Bal-" + i);
             entry.setFiscalYear(2000 + i);
@@ -115,7 +115,7 @@ public class ReportWriterServiceTest extends KualiTestBase {
 
     protected List<GlSummary> getTestData(int countOfData) {
         List<GlSummary> summaryList = new ArrayList<GlSummary>();
-        for(int i = 0; i < countOfData; i++) {
+        for (int i = 0; i < countOfData; i++) {
             GlSummary summary = new GlSummary();
             summary.setFundGroup("FG-" + i);
 

@@ -18,28 +18,27 @@
  */
 package org.kuali.kfs.gl.web.struts;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.krad.lookup.LookupUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * This class is the action form for balance inquiries.
@@ -65,9 +64,9 @@ public class BalanceInquiryForm extends LookupForm {
      * Picks out business object name from the request to get retrieve a lookupable and set properties.
      *
      * @see org.kuali.kfs.kns.web.struts.form.LookupForm#populate(javax.servlet.http.HttpServletRequest)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the fields and check for additional fields.
-     *
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     public void populate(HttpServletRequest request) {
@@ -112,8 +111,7 @@ public class BalanceInquiryForm extends LookupForm {
             // check the doc form key is empty before setting so we don't override a restored lookup form
             if (request.getAttribute(KFSConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
                 setFormKey((String) request.getAttribute(KFSConstants.DOC_FORM_KEY));
-            }
-            else if (request.getParameter(KFSConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
+            } else if (request.getParameter(KFSConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
                 setFormKey(request.getParameter(KFSConstants.DOC_FORM_KEY));
             }
 
@@ -125,7 +123,7 @@ public class BalanceInquiryForm extends LookupForm {
             }
 
             // init lookupable with bo class
-            getLookupable().setBusinessObjectClass((Class<? extends BusinessObject>)Class.forName(getBusinessObjectClassName()));
+            getLookupable().setBusinessObjectClass((Class<? extends BusinessObject>) Class.forName(getBusinessObjectClassName()));
             if (null != getPendingEntryLookupable()) {
                 getPendingEntryLookupable().setBusinessObjectClass(GeneralLedgerPendingEntry.class);
             }
@@ -133,10 +131,10 @@ public class BalanceInquiryForm extends LookupForm {
             Map fieldValues = new HashMap();
             Map formFields = getFields();
             Class boClass = Class.forName(getBusinessObjectClassName());
-            for (Iterator iter = getLookupable().getRows().iterator(); iter.hasNext();) {
+            for (Iterator iter = getLookupable().getRows().iterator(); iter.hasNext(); ) {
                 Row row = (Row) iter.next();
 
-                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                     Field field = (Field) iterator.next();
 
                     // check whether form already has value for field
@@ -156,10 +154,10 @@ public class BalanceInquiryForm extends LookupForm {
                 }
             }
             if (getLookupable().checkForAdditionalFields(fieldValues)) {
-                for (Iterator iter = getLookupable().getRows().iterator(); iter.hasNext();) {
+                for (Iterator iter = getLookupable().getRows().iterator(); iter.hasNext(); ) {
                     Row row = (Row) iter.next();
 
-                    for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+                    for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                         Field field = (Field) iterator.next();
 
                         // check whether form already has value for field
@@ -188,8 +186,7 @@ public class BalanceInquiryForm extends LookupForm {
                         String element = token.nextToken();
                         fieldConversionMap.put(element.substring(0, element.indexOf(":")), element.substring(element.indexOf(":") + 1));
                     }
-                }
-                else {
+                } else {
                     fieldConversionMap.put(this.getConversionFields().substring(0, this.getConversionFields().indexOf(":")), this.getConversionFields().substring(this.getConversionFields().indexOf(":") + 1));
                 }
             }
@@ -198,8 +195,7 @@ public class BalanceInquiryForm extends LookupForm {
             if (null != getPendingEntryLookupable()) {
                 getPendingEntryLookupable().setFieldConversions(fieldConversionMap);
             }
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             LOG.error("Business Object class " + getBusinessObjectClassName() + " not found");
             throw new RuntimeException("Business Object class " + getBusinessObjectClassName() + " not found", e);
         }

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class TravelEntertainmentDocumentPreRules extends PromptBeforeValidationBase{
+import java.util.List;
+
+public class TravelEntertainmentDocumentPreRules extends PromptBeforeValidationBase {
 
     @SuppressWarnings("rawtypes")
     @Override
@@ -43,16 +43,16 @@ public class TravelEntertainmentDocumentPreRules extends PromptBeforeValidationB
         boolean hostCertificationAttached = false;
 
         List<Note> notes = entDoc.getNotes();
-        for (Note note  : notes) {
-            if (ObjectUtils.isNotNull(note.getAttachment())&& TemConstants.AttachmentTypeCodes.ATTACHMENT_TYPE_ATTENDEE_LIST.equals(note.getAttachment().getAttachmentTypeCode())) {
+        for (Note note : notes) {
+            if (ObjectUtils.isNotNull(note.getAttachment()) && TemConstants.AttachmentTypeCodes.ATTACHMENT_TYPE_ATTENDEE_LIST.equals(note.getAttachment().getAttachmentTypeCode())) {
                 attendeelistAttached = true;
             }
         }
 
         boolean shouldAskQuestion = false;
         String question = "";
-        String proceed=SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TEM_ENT_QUESTION_PROCEED);
-        if(entDoc.getAttendeeListAttached()!=null&&entDoc.getAttendeeListAttached()&&!attendeelistAttached){
+        String proceed = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TEM_ENT_QUESTION_PROCEED);
+        if (entDoc.getAttendeeListAttached() != null && entDoc.getAttendeeListAttached() && !attendeelistAttached) {
             question = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.TEM_ENT_DOC_ATTENDEE_LIST_QUESTION);
             shouldAskQuestion = true;
         }
@@ -63,8 +63,7 @@ public class TravelEntertainmentDocumentPreRules extends PromptBeforeValidationB
                 this.event.setActionForwardName(KFSConstants.MAPPING_BASIC);
             }
             return userClickedYes;
-        }
-        else {
+        } else {
             //no question necessary- continue as normal
             return true;
         }

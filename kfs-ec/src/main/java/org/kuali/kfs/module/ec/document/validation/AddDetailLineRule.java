@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ec.document.validation;
 
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
-import org.kuali.kfs.krad.rules.rule.BusinessRule;
 
 /**
  * Defines a rule which gets invoked immediately before a detail line is added to a effort certification document.
@@ -31,7 +31,7 @@ public interface AddDetailLineRule<E extends EffortCertificationDocument, D exte
      * validate the given effort certification detail line before it can be added into the given document
      *
      * @param effortCertificationDocument the given effort certification document
-     * @param effortCertificationDetail the given effort certification detail line
+     * @param effortCertificationDetail   the given effort certification detail line
      * @return true if all rules are valid; otherwise, false;
      */
     public boolean processAddDetailLineRules(E effortCertificationDocument, D effortCertificationDetail);

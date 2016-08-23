@@ -18,101 +18,101 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="ContractsGrantsCollectionActivityDocument" parent="ContractsGrantsCollectionActivityDocument-parentBean" />
+    <bean id="ContractsGrantsCollectionActivityDocument" parent="ContractsGrantsCollectionActivityDocument-parentBean"/>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-parentBean" abstract="true"
-		parent="TransactionalDocumentEntry">
+    <bean id="ContractsGrantsCollectionActivityDocument-parentBean" abstract="true"
+          parent="TransactionalDocumentEntry">
 
-		<property name="documentTypeName" value="CCA" />
-		<property name="documentClass"
-			value="org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument" />
-		<property name="businessRulesClass"
-			value="org.kuali.kfs.module.ar.document.validation.impl.ContractsGrantsCollectionActivityDocumentRule" />
-		<property name="documentAuthorizerClass"
-			value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase" />
-		<property name="documentPresentationControllerClass"
-			value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase" />
-		<property name="attributes">
-			<list>
-				<ref bean="ContractsGrantsCollectionActivityDocument-proposalNumber" />
-				<ref bean="ContractsGrantsCollectionActivityDocument-agencyNumber"/>
-				<ref bean="ContractsGrantsCollectionActivityDocument-agencyName"/>
-				<ref bean="ContractsGrantsCollectionActivityDocument-customerNumber"/>
-				<ref bean="ContractsGrantsCollectionActivityDocument-customerName"/>
-				<ref bean="ContractsGrantsCollectionActivityDocument-activityCode" />
-				<ref bean="ContractsGrantsCollectionActivityDocument-activityDate" />
-				<ref bean="ContractsGrantsCollectionActivityDocument-activityText" />
-				<ref bean="ContractsGrantsCollectionActivityDocument-followupDate"/>
-				<ref bean="ContractsGrantsCollectionActivityDocument-completedDate"/>
-			</list>
-		</property>
-	<property name="workflowAttributes">
-    	<ref bean="ContractsGrantsCollectionActivityDocument-workflowAttributes"/>
-    </property>
-	</bean>
+        <property name="documentTypeName" value="CCA"/>
+        <property name="documentClass"
+                  value="org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument"/>
+        <property name="businessRulesClass"
+                  value="org.kuali.kfs.module.ar.document.validation.impl.ContractsGrantsCollectionActivityDocumentRule"/>
+        <property name="documentAuthorizerClass"
+                  value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase"/>
+        <property name="documentPresentationControllerClass"
+                  value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase"/>
+        <property name="attributes">
+            <list>
+                <ref bean="ContractsGrantsCollectionActivityDocument-proposalNumber"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-agencyNumber"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-agencyName"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-customerNumber"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-customerName"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-activityCode"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-activityDate"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-activityText"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-followupDate"/>
+                <ref bean="ContractsGrantsCollectionActivityDocument-completedDate"/>
+            </list>
+        </property>
+        <property name="workflowAttributes">
+            <ref bean="ContractsGrantsCollectionActivityDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-proposalNumber" parent="ContractsGrantsCollectionActivityDocument-proposalNumber-parentBean" />
-	<bean id="ContractsGrantsCollectionActivityDocument-proposalNumber-parentBean"
-		abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber" />
-	</bean>
+    <bean id="ContractsGrantsCollectionActivityDocument-proposalNumber" parent="ContractsGrantsCollectionActivityDocument-proposalNumber-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-proposalNumber-parentBean"
+          abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+    </bean>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-agencyNumber" parent="ContractsGrantsCollectionActivityDocument-agencyNumber-parentBean" />
-	<bean id="ContractsGrantsCollectionActivityDocument-agencyNumber-parentBean"
-		abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
-		p:sourceAttributeName="agencyNumber">
-		<property name="name" value="agencyNumber"/>
-	</bean>
+    <bean id="ContractsGrantsCollectionActivityDocument-agencyNumber" parent="ContractsGrantsCollectionActivityDocument-agencyNumber-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-agencyNumber-parentBean"
+          abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
+          p:sourceAttributeName="agencyNumber">
+        <property name="name" value="agencyNumber"/>
+    </bean>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-agencyName" parent="ContractsGrantsCollectionActivityDocument-agencyName-parentBean" />
-	<bean id="ContractsGrantsCollectionActivityDocument-agencyName-parentBean"
-		abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
-		p:sourceAttributeName="fullName">
-		<property name="name" value="agencyName"/>
-	</bean>
+    <bean id="ContractsGrantsCollectionActivityDocument-agencyName" parent="ContractsGrantsCollectionActivityDocument-agencyName-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-agencyName-parentBean"
+          abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency"
+          p:sourceAttributeName="fullName">
+        <property name="name" value="agencyName"/>
+    </bean>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-customerNumber" parent="ContractsGrantsCollectionActivityDocument-customerNumber-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-customerNumber" parent="ContractsGrantsCollectionActivityDocument-customerNumber-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber"/>
 
-  	<bean id="ContractsGrantsCollectionActivityDocument-customerName" parent="ContractsGrantsCollectionActivityDocument-customerName-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-customerName-parentBean" abstract="true" parent="Customer-customerName"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-customerName" parent="ContractsGrantsCollectionActivityDocument-customerName-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-customerName-parentBean" abstract="true" parent="Customer-customerName"/>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-activityCode" parent="ContractsGrantsCollectionActivityDocument-activityCode-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-activityCode-parentBean" abstract="true" parent="CollectionEvent-activityCode"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityCode" parent="ContractsGrantsCollectionActivityDocument-activityCode-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityCode-parentBean" abstract="true" parent="CollectionEvent-activityCode"/>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-activityDate" parent="ContractsGrantsCollectionActivityDocument-activityDate-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-activityDate-parentBean" abstract="true" parent="CollectionEvent-activityDate"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityDate" parent="ContractsGrantsCollectionActivityDocument-activityDate-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityDate-parentBean" abstract="true" parent="CollectionEvent-activityDate"/>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-activityText" parent="ContractsGrantsCollectionActivityDocument-activityText-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-activityText-parentBean" abstract="true" parent="CollectionEvent-activityText"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityText" parent="ContractsGrantsCollectionActivityDocument-activityText-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-activityText-parentBean" abstract="true" parent="CollectionEvent-activityText"/>
 
-	<bean id="ContractsGrantsCollectionActivityDocument-followupDate" parent="ContractsGrantsCollectionActivityDocument-followupDate-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-followupDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-  		<property name="name" value="followupDate"/>
-  		<property name="label" value="Follow-up Date"/>
-  		<property name="shortLabel" value="Follow-up Dt"/>
-  	</bean>
+    <bean id="ContractsGrantsCollectionActivityDocument-followupDate" parent="ContractsGrantsCollectionActivityDocument-followupDate-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-followupDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="name" value="followupDate"/>
+        <property name="label" value="Follow-up Date"/>
+        <property name="shortLabel" value="Follow-up Dt"/>
+    </bean>
 
-  	<bean id="ContractsGrantsCollectionActivityDocument-completedDate" parent="ContractsGrantsCollectionActivityDocument-completedDate-parentBean"/>
-  	<bean id="ContractsGrantsCollectionActivityDocument-completedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
-  		<property name="name" value="completedDate"/>
-  		<property name="label" value="Completed Date"/>
-  		<property name="shortLabel" value="Cmpltd Dt"/>
-  	</bean>
+    <bean id="ContractsGrantsCollectionActivityDocument-completedDate" parent="ContractsGrantsCollectionActivityDocument-completedDate-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-completedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+        <property name="name" value="completedDate"/>
+        <property name="label" value="Completed Date"/>
+        <property name="shortLabel" value="Cmpltd Dt"/>
+    </bean>
 
-	<!-- workflow attributes -->
-	<bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes" parent="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean"/>
-	<bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
-	</bean>
+    <!-- workflow attributes -->
+    <bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes" parent="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean"/>
+    <bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
+    </bean>
 
 </beans>

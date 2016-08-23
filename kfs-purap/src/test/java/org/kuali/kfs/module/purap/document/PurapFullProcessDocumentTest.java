@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.ferland;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.impl.DocumentServiceImpl;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderDocTypes;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
@@ -34,8 +31,11 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.impl.DocumentServiceImpl;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.ferland;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 /**
  * Used to create and test populated Purchase Order Documents of various kinds.
@@ -115,13 +115,12 @@ public class PurapFullProcessDocumentTest extends KualiTestBase {
     }
 
 
-
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public final PaymentRequestDocument routePREQDocumentToFinal(PurchaseOrderDocument POdoc) throws Exception {
 //        purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, true);
         PaymentRequestDocumentTest preqDocTest = new PaymentRequestDocumentTest();
         PaymentRequestDocument paymentRequestDocument = preqDocTest.createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
-                POdoc, true, new KualiDecimal[] {new KualiDecimal(100)});
+            POdoc, true, new KualiDecimal[]{new KualiDecimal(100)});
 
         final String docId = paymentRequestDocument.getDocumentNumber();
         AccountingDocumentTestUtils.routeDocument(paymentRequestDocument, documentService);
@@ -138,7 +137,7 @@ public class PurapFullProcessDocumentTest extends KualiTestBase {
         changeCurrentUser(ferland);
         paymentRequestDocument = (PaymentRequestDocument) documentService.getByDocumentHeaderId(docId);
         assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(paymentRequestDocument,
-                ACCOUNT_REVIEW));
+            ACCOUNT_REVIEW));
         assertTrue("Document should be enroute.", paymentRequestDocument.getDocumentHeader().getWorkflowDocument().isEnroute());
         assertTrue("ferland should have an approve request.", paymentRequestDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
         documentService.approveDocument(paymentRequestDocument, "Test approving as ferland", null);

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ld.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a working unit of labor origin entry. It is formed by a group of slimilar labor origin entries. If any two entries
@@ -67,7 +67,7 @@ public class LaborLedgerUnitOfWork {
      * Intialize the specified key fields of the labor ledger unit of work with the given origin entry
      *
      * @param laborOriginEntry the given origin entry
-     * @param keyFields the keys to which values will be assigned
+     * @param keyFields        the keys to which values will be assigned
      */
     public void resetLaborLedgerUnitOfWork(LaborOriginEntry laborOriginEntry, List<String> keyFields) {
         this.workingEntry = new LaborOriginEntry();
@@ -126,7 +126,7 @@ public class LaborLedgerUnitOfWork {
      * @return true if the given origin entry has the same key as the current unit of work; otherwise, false
      */
     public boolean hasSameKey(LaborOriginEntry laborOriginEntry) {
-        if(ObjectUtils.isNull(laborOriginEntry)) {
+        if (ObjectUtils.isNull(laborOriginEntry)) {
             return false;
         }
 

@@ -22,8 +22,6 @@ import org.kuali.rice.core.framework.persistence.jta.NoRollbackRuntimeException;
 
 /**
  * ValidationException
- *
- *
  */
 public class ValidationException extends NoRollbackRuntimeException {
     private static final long serialVersionUID = 2098470374196729509L;

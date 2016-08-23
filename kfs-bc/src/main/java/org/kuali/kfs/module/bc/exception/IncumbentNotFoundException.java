@@ -42,7 +42,7 @@ public class IncumbentNotFoundException extends RuntimeException {
     }
 
     public String[] getMessageParameters() {
-        return new String[] { emplid };
+        return new String[]{emplid};
     }
 
 }

@@ -22,46 +22,45 @@ import org.kuali.kfs.vnd.businessobject.CommodityCode;
 
 public enum CommodityCodeFixture {
 
-    COMMODITY_CODE_BASIC_ACTIVE (
-            "517211",  //purchasingCommodityCode
-            "Paging", //commodityDescription
-            false,    //salesTaxIndicator
-            false,    //restrictedItemsIndicator
-            null,     //sensitiveDataCode
-            true      //active
-            ),
-    COMMODITY_CODE_BASIC_ACTIVE_2 (
-                    "311311",  //purchasingCommodityCode
-                    "Sugarcane Mills", //commodityDescription
-                    false,    //salesTaxIndicator
-                    false,    //restrictedItemsIndicator
-                    null,     //sensitiveDataCode
-                    true      //active
-                    ),
-    COMMODITY_CODE_BASIC_INACTIVE (
-            "516110",  //purchasingCommodityCode
-            "Internet Publishing and Broadcasting", //commodityDescription
-            false,    //salesTaxIndicator
-            false,    //restrictedItemsIndicator
-            null,     //sensitiveDataCode
-            false      //active
-            ),
-    COMMODITY_CODE_NON_EXISTENCE (
-            "asdfg",  //purchasingCommodityCode
-            null, //commodityDescription
-            false,    //salesTaxIndicator
-            false,    //restrictedItemsIndicator
-            null,     //sensitiveDataCode
-            false      //active
-            ),
+    COMMODITY_CODE_BASIC_ACTIVE(
+        "517211",  //purchasingCommodityCode
+        "Paging", //commodityDescription
+        false,    //salesTaxIndicator
+        false,    //restrictedItemsIndicator
+        null,     //sensitiveDataCode
+        true      //active
+    ),
+    COMMODITY_CODE_BASIC_ACTIVE_2(
+        "311311",  //purchasingCommodityCode
+        "Sugarcane Mills", //commodityDescription
+        false,    //salesTaxIndicator
+        false,    //restrictedItemsIndicator
+        null,     //sensitiveDataCode
+        true      //active
+    ),
+    COMMODITY_CODE_BASIC_INACTIVE(
+        "516110",  //purchasingCommodityCode
+        "Internet Publishing and Broadcasting", //commodityDescription
+        false,    //salesTaxIndicator
+        false,    //restrictedItemsIndicator
+        null,     //sensitiveDataCode
+        false      //active
+    ),
+    COMMODITY_CODE_NON_EXISTENCE(
+        "asdfg",  //purchasingCommodityCode
+        null, //commodityDescription
+        false,    //salesTaxIndicator
+        false,    //restrictedItemsIndicator
+        null,     //sensitiveDataCode
+        false      //active
+    ),
     COMMODITY_CODE_WITH_SENSITIVE_DATA("516110", // purchasingCommodityCode
-            "Internet Publishing and Broadcasting", // commodityDescription
-            false, // salesTaxIndicator
-            true, // restrictedItemsIndicator
-            null, // sensitiveDataCode
-            true // active
-            ),
-            ;
+        "Internet Publishing and Broadcasting", // commodityDescription
+        false, // salesTaxIndicator
+        true, // restrictedItemsIndicator
+        null, // sensitiveDataCode
+        true // active
+    ),;
 
     private String purchasingCommodityCode;
     private String commodityDescription;
@@ -70,7 +69,7 @@ public enum CommodityCodeFixture {
     private String sensitiveDataCode;
     private boolean active;
 
-    private CommodityCodeFixture (String purchasingCommodityCode, String commodityDescription, boolean salesTaxIndicator, boolean restrictedItemsIndicator, String sensitiveDataCode, boolean active) {
+    private CommodityCodeFixture(String purchasingCommodityCode, String commodityDescription, boolean salesTaxIndicator, boolean restrictedItemsIndicator, String sensitiveDataCode, boolean active) {
         this.purchasingCommodityCode = purchasingCommodityCode;
         this.commodityDescription = commodityDescription;
         this.salesTaxIndicator = salesTaxIndicator;

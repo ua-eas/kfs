@@ -18,49 +18,46 @@
  */
 package org.kuali.kfs.krad.datadictionary.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.krad.datadictionary.FieldOverride;
+
+import java.util.List;
 
 /**
  * A Field Override used to replace list elements in a Data Dictionary bean.
- *
- *
- *
  */
 public class FieldOverrideForListElementReplaceImpl extends FieldOverrideForListElementBase implements FieldOverride {
-	private Object replaceWith;
+    private Object replaceWith;
 
-	public Object getReplaceWith() {
-		return replaceWith;
-	}
+    public Object getReplaceWith() {
+        return replaceWith;
+    }
 
-	public void setReplaceWith(Object replaceAt) {
-		this.replaceWith = replaceAt;
-	}
+    public void setReplaceWith(Object replaceAt) {
+        this.replaceWith = replaceAt;
+    }
 
-	protected void varifyConfig() {
-		if (replaceWith == null) {
-			throw new RuntimeException(
-					"Configuration Error, Missing required replaceWith parameter....");
-		}
-	}
+    protected void varifyConfig() {
+        if (replaceWith == null) {
+            throw new RuntimeException(
+                "Configuration Error, Missing required replaceWith parameter....");
+        }
+    }
 
-	public Object performFieldOverride(Object bean, Object property) {
-		varifyConfig();
-		List oldList = (List) property;
+    public Object performFieldOverride(Object bean, Object property) {
+        varifyConfig();
+        List oldList = (List) property;
 
-		int replacePos = getElementPositionInList(getElement(), oldList);
+        int replacePos = getElementPositionInList(getElement(), oldList);
 
-		if (replacePos == -1) {
-			throw new RuntimeException(
-					"Configuration Error, replace element could not be located.");
-		}
-		if (replacePos >= 0 && replacePos < oldList.size()) {
-			oldList.remove(replacePos);
-			oldList.add(replacePos, getReplaceWith());
-		}
+        if (replacePos == -1) {
+            throw new RuntimeException(
+                "Configuration Error, replace element could not be located.");
+        }
+        if (replacePos >= 0 && replacePos < oldList.size()) {
+            oldList.remove(replacePos);
+            oldList.add(replacePos, getReplaceWith());
+        }
 
-		return oldList;
-	}
+        return oldList;
+    }
 }

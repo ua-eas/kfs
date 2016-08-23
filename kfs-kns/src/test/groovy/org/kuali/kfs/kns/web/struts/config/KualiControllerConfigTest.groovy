@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.kns.web.struts.config
 
-import org.junit.Test
+import org.apache.struts.config.ControllerConfig
 import org.junit.Before
-import org.kuali.kfs.kns.web.struts.config.KualiControllerConfig
-import org.kuali.rice.core.framework.config.property.SimpleConfig
+import org.junit.Test
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService
 import org.kuali.rice.core.api.CoreConstants
 import org.kuali.rice.core.api.config.property.ConfigContext
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader
+import org.kuali.rice.core.framework.config.property.SimpleConfig
 import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader
+
 import javax.xml.namespace.QName
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService
-import org.apache.struts.config.ControllerConfig
 
 import static org.junit.Assert.assertEquals
 
@@ -52,8 +52,8 @@ class KualiControllerConfigTest {
 
         GlobalResourceLoader.addResourceLoader(new BaseResourceLoader(new QName("Foo", "Bar")) {
             def getService(QName name) {
-                [ "cf.parameterService":
-                    [ getParameterValueAsString: { ns, cmp, param -> parameterMaxFileSize } ] as ParameterService
+                ["cf.parameterService":
+                         [getParameterValueAsString: { ns, cmp, param -> parameterMaxFileSize }] as ParameterService
                 ][name.getLocalPart()]
             }
         })

@@ -25,12 +25,14 @@ package org.kuali.kfs.sys.document.web.renderers;
 public interface CollectionPropertiesCurious {
     /**
      * Sets the name of the collection property for the currently being rendered group
+     *
      * @param collectionProperty the collection property
      */
     public abstract void setCollectionProperty(String collectionProperty);
 
     /**
      * Sets the name of the collection item property of the currently being rendered group
+     *
      * @param collectionItemProperty the collection item property
      */
     public abstract void setCollectionItemProperty(String collectionItemProperty);

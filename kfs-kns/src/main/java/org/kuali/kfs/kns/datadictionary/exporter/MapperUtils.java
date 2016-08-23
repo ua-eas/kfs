@@ -23,15 +23,13 @@ import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 
 /**
  * Defines utility methods associated with mapping Entries et al
- *
- *
  */
 @Deprecated
 public final class MapperUtils {
 
-	private MapperUtils() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private MapperUtils() {
+        throw new UnsupportedOperationException("do not call");
+    }
 
     /**
      * @param attributeName

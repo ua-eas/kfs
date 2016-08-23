@@ -18,32 +18,30 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.batch.service.LockboxLoadService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 
+import java.util.Date;
+
 /**
- *
  * Lockbox Load step to load lockbox payment files
- *
  */
 public class LockboxLoadStep extends AbstractStep {
 
-	LockboxLoadService lockboxLoadService;
+    LockboxLoadService lockboxLoadService;
 
 
-	@Override
+    @Override
     public boolean execute(String jobName, Date jobRunDate)
-			throws InterruptedException {
+        throws InterruptedException {
 
-		return lockboxLoadService.loadFile();
+        return lockboxLoadService.loadFile();
 
-	}
+    }
 
 
-	public void setLockboxLoadService(LockboxLoadService lockboxLoadService) {
-		this.lockboxLoadService = lockboxLoadService;
-	}
+    public void setLockboxLoadService(LockboxLoadService lockboxLoadService) {
+        this.lockboxLoadService = lockboxLoadService;
+    }
 
 }

@@ -18,8 +18,9 @@
  */
 package org.kuali.kfs.module.tem.util;
 
-import java.util.Comparator;
 import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
+
+import java.util.Comparator;
 
 public class GroupTravelerComparator implements Comparator<GroupTraveler> {
 
@@ -33,22 +34,18 @@ public class GroupTravelerComparator implements Comparator<GroupTraveler> {
     }
 
 
-    private String formatName(String name){
-        if (name.indexOf(",") > 0){
+    private String formatName(String name) {
+        if (name.indexOf(",") > 0) {
             return name;
-        }
-        else{
+        } else {
             String[] nameArr = name.split("\\s");
-            if (nameArr.length == 1){
+            if (nameArr.length == 1) {
                 return name;
-            }
-            else if (nameArr.length == 2){
+            } else if (nameArr.length == 2) {
                 return (nameArr[1] + ", " + nameArr[0]);
-            }
-            else if (nameArr.length == 3){
+            } else if (nameArr.length == 3) {
                 return (nameArr[2] + ", " + nameArr[0] + " " + nameArr[1]);
-            }
-            else{
+            } else {
                 return name;
             }
 

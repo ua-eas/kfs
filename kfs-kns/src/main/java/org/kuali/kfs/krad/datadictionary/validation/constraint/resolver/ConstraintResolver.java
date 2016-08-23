@@ -26,15 +26,14 @@ import java.util.List;
 /**
  * An interface that provides a lookup of constraints for a specific constrainable attribute definition. Implemented by constraint
  * providers as a mechanism to store functional lookups in a map, keyed by constraint type, for example.
- *
+ * <p>
  * {@see AttributeDefinitionConstraintProvider} for a number of examples.
- *
  *
  * @param <T>
  * @since 1.1
  */
 public interface ConstraintResolver<T extends Constrainable> {
 
-	public <C extends Constraint> List<C> resolve(T definition);
+    public <C extends Constraint> List<C> resolve(T definition);
 
 }

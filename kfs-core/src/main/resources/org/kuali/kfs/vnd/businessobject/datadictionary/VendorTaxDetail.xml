@@ -18,47 +18,46 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
-	<bean id="VendorTaxDetail" parent="VendorTaxDetail-parentBean" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="VendorTaxDetail" parent="VendorTaxDetail-parentBean"/>
 
-	<bean id="VendorTaxDetail-parentBean" abstract="true" parent="VendorDetail">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.vnd.businessobject.VendorTaxDetail" />
-		<property name="lookupDefinition">
-			<ref bean="VendorTaxDetail-lookupDefinition" />
-		</property>
-	</bean>
+    <bean id="VendorTaxDetail-parentBean" abstract="true" parent="VendorDetail">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.vnd.businessobject.VendorTaxDetail"/>
+        <property name="lookupDefinition">
+            <ref bean="VendorTaxDetail-lookupDefinition"/>
+        </property>
+    </bean>
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
 
-	<bean id="VendorTaxDetail-lookupDefinition" parent="VendorTaxDetail-lookupDefinition-parentBean" />
+    <bean id="VendorTaxDetail-lookupDefinition" parent="VendorTaxDetail-lookupDefinition-parentBean"/>
 
-	<bean id="VendorTaxDetail-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Vendor Tax Lookup" />
+    <bean id="VendorTaxDetail-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Vendor Tax Lookup"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-				<property name="attributeNames">
-					<list>
-						<value>vendorNumber</value>
-					</list>
-				</property>
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="activeIndicator" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="vendorNumber" />
-				<bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorTaxNumber" />
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+                <property name="attributeNames">
+                    <list>
+                        <value>vendorNumber</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="activeIndicator"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="vendorNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorTaxNumber"/>
+            </list>
+        </property>
+    </bean>
 </beans>

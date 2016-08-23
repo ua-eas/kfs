@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.web.struts.TravelFormBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class CardTypeValuesFinder extends KeyValuesBase {
 
     /**
      * Get the card type values based on available imported expenses
-     *
+     * <p>
      * Always include actual expense as the first option on the type
      *
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
@@ -45,9 +45,9 @@ public class CardTypeValuesFinder extends KeyValuesBase {
     @Override
     public List<KeyValue> getKeyValues() {
 
-        TravelDocument document = ((TravelFormBase)KNSGlobalVariables.getKualiForm()).getTravelDocument();
+        TravelDocument document = ((TravelFormBase) KNSGlobalVariables.getKualiForm()).getTravelDocument();
         List<ImportedExpense> importedExpenses = document.getImportedExpenses();
-        Map<String,KeyValue> map = new LinkedHashMap<String, KeyValue>();
+        Map<String, KeyValue> map = new LinkedHashMap<String, KeyValue>();
 
         String defaultCardType = document.getDefaultAccountingLineCardAgencyType();
 
@@ -56,10 +56,10 @@ public class CardTypeValuesFinder extends KeyValuesBase {
 
         for (ImportedExpense expense : importedExpenses) {
             String cardType = StringUtils.defaultString(expense.getCardType());
-            if (!map.containsKey(cardType)){
-                map.put(cardType, new ConcreteKeyValue(cardType,cardType));
+            if (!map.containsKey(cardType)) {
+                map.put(cardType, new ConcreteKeyValue(cardType, cardType));
                 //remove the default card type (if its blank) - since there is a new default
-                if (map.containsKey(defaultCardType) && StringUtils.isBlank(defaultCardType)){
+                if (map.containsKey(defaultCardType) && StringUtils.isBlank(defaultCardType)) {
                     map.remove(defaultCardType);
                 }
             }

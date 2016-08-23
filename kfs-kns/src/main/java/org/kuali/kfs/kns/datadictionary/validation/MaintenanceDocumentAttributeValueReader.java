@@ -23,17 +23,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
-import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
-import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
-import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.DictionaryObjectAttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.capability.Constrainable;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.type.TypeUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -49,118 +49,118 @@ import java.util.Map;
 @Deprecated
 public class MaintenanceDocumentAttributeValueReader extends DictionaryObjectAttributeValueReader {
 
-	protected Map<String, Class<?>> attributeTypeMap;
-	protected Map<String, Object> attributeValueMap;
-	//protected Map<String, PropertyDescriptor> beanInfo;
+    protected Map<String, Class<?>> attributeTypeMap;
+    protected Map<String, Object> attributeValueMap;
+    //protected Map<String, PropertyDescriptor> beanInfo;
 
-	private final static Logger LOG = Logger.getLogger(MaintenanceDocumentAttributeValueReader.class);
+    private final static Logger LOG = Logger.getLogger(MaintenanceDocumentAttributeValueReader.class);
 
-	private List<Constrainable> attributeDefinitions;
-	private Map<String, AttributeDefinition> attributeDefinitionMap;
+    private List<Constrainable> attributeDefinitions;
+    private Map<String, AttributeDefinition> attributeDefinitionMap;
 
-	public MaintenanceDocumentAttributeValueReader(Object object, String entryName, MaintenanceDocumentEntry entry, PersistenceStructureService persistenceStructureService) {
-		super(object, entryName, entry);
+    public MaintenanceDocumentAttributeValueReader(Object object, String entryName, MaintenanceDocumentEntry entry, PersistenceStructureService persistenceStructureService) {
+        super(object, entryName, entry);
 
-		//if (object != null)
-		//	this.beanInfo = getBeanInfo(object.getClass());
+        //if (object != null)
+        //	this.beanInfo = getBeanInfo(object.getClass());
 
-		this.attributeTypeMap = new HashMap<String, Class<?>>();
-		this.attributeValueMap = new HashMap<String, Object>();
+        this.attributeTypeMap = new HashMap<String, Class<?>>();
+        this.attributeValueMap = new HashMap<String, Object>();
 
-		this.attributeDefinitions = new LinkedList<Constrainable>();
-		this.attributeDefinitionMap = new HashMap<String, AttributeDefinition>();
-		for (MaintainableSectionDefinition sectionDefinition : entry.getMaintainableSections()) {
-			List<? extends MaintainableItemDefinition> itemDefinitions = sectionDefinition.getMaintainableItems();
+        this.attributeDefinitions = new LinkedList<Constrainable>();
+        this.attributeDefinitionMap = new HashMap<String, AttributeDefinition>();
+        for (MaintainableSectionDefinition sectionDefinition : entry.getMaintainableSections()) {
+            List<? extends MaintainableItemDefinition> itemDefinitions = sectionDefinition.getMaintainableItems();
 
-			for (MaintainableItemDefinition itemDefinition : itemDefinitions) {
-				if (itemDefinition instanceof MaintainableFieldDefinition) {
-					String itemDefinitionName = itemDefinition.getName();
-					AttributeDefinition attributeDefinition = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeDefinition(object.getClass().getName(), itemDefinitionName);
+            for (MaintainableItemDefinition itemDefinition : itemDefinitions) {
+                if (itemDefinition instanceof MaintainableFieldDefinition) {
+                    String itemDefinitionName = itemDefinition.getName();
+                    AttributeDefinition attributeDefinition = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeDefinition(object.getClass().getName(), itemDefinitionName);
 
-						//entry.getAttributeDefinition(attributeName);
-					boolean isAttributeDefined = attributeDefinition != null;
-						//getDataDictionaryService().isAttributeDefined(businessObject.getClass(), itemDefinition.getName());
-			        if (isAttributeDefined) {
-			        	attributeDefinitions.add(attributeDefinition);
-			        	attributeDefinitionMap.put(itemDefinitionName, attributeDefinition);
+                    //entry.getAttributeDefinition(attributeName);
+                    boolean isAttributeDefined = attributeDefinition != null;
+                    //getDataDictionaryService().isAttributeDefined(businessObject.getClass(), itemDefinition.getName());
+                    if (isAttributeDefined) {
+                        attributeDefinitions.add(attributeDefinition);
+                        attributeDefinitionMap.put(itemDefinitionName, attributeDefinition);
                         LOG.info("itemDefName: " + itemDefinitionName);
 
-						try {
-                            Object  attributeValue = PropertyUtils.getNestedProperty(object, itemDefinitionName);
+                        try {
+                            Object attributeValue = PropertyUtils.getNestedProperty(object, itemDefinitionName);
 
-							if (attributeValue != null && StringUtils.isNotBlank(attributeValue.toString())) {
-				    			Class<?> propertyType = ObjectUtils.getPropertyType(object, itemDefinitionName, persistenceStructureService);
-				    			attributeTypeMap.put(itemDefinitionName, propertyType);
+                            if (attributeValue != null && StringUtils.isNotBlank(attributeValue.toString())) {
+                                Class<?> propertyType = ObjectUtils.getPropertyType(object, itemDefinitionName, persistenceStructureService);
+                                attributeTypeMap.put(itemDefinitionName, propertyType);
                                 if (TypeUtils.isStringClass(propertyType) || TypeUtils.isIntegralClass(propertyType) ||
-                                        TypeUtils.isDecimalClass(propertyType) ||
-                                        TypeUtils.isTemporalClass(propertyType) ||
-                                        TypeUtils.isBooleanClass(propertyType)) {
+                                    TypeUtils.isDecimalClass(propertyType) ||
+                                    TypeUtils.isTemporalClass(propertyType) ||
+                                    TypeUtils.isBooleanClass(propertyType)) {
                                     // check value format against dictionary
                                     if (!TypeUtils.isTemporalClass(propertyType)) {
                                         attributeValueMap.put(itemDefinitionName, attributeValue);
                                     }
                                 }
-				    		}
-						} catch (IllegalArgumentException e) {
-							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
-						} catch (IllegalAccessException e) {
-							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
-						} catch (InvocationTargetException e) {
-							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
-			        	} catch (NoSuchMethodException e) {
+                            }
+                        } catch (IllegalArgumentException e) {
+                            LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
+                        } catch (IllegalAccessException e) {
+                            LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
+                        } catch (InvocationTargetException e) {
+                            LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
+                        } catch (NoSuchMethodException e) {
                             LOG.warn("Failed to find property description on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
                         }
 
-			        }
-				}
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * @see AttributeValueReader#getDefinition(java.lang.String)
-	 */
-	@Override
-	public Constrainable getDefinition(String attributeName) {
-		return attributeDefinitionMap != null ? attributeDefinitionMap.get(attributeName) : null;
-	}
+    /**
+     * @see AttributeValueReader#getDefinition(java.lang.String)
+     */
+    @Override
+    public Constrainable getDefinition(String attributeName) {
+        return attributeDefinitionMap != null ? attributeDefinitionMap.get(attributeName) : null;
+    }
 
-	/**
-	 * @see AttributeValueReader#getDefinitions()
-	 */
-	@Override
-	public List<Constrainable> getDefinitions() {
-		return attributeDefinitions;
-	}
+    /**
+     * @see AttributeValueReader#getDefinitions()
+     */
+    @Override
+    public List<Constrainable> getDefinitions() {
+        return attributeDefinitions;
+    }
 
-	@Override
-	public String getLabel(String attributeName) {
-		AttributeDefinition attributeDefinition = attributeDefinitionMap != null ? attributeDefinitionMap.get(attributeName) : null;
-		return attributeDefinition != null ? attributeDefinition.getLabel()  : attributeName;
-	}
+    @Override
+    public String getLabel(String attributeName) {
+        AttributeDefinition attributeDefinition = attributeDefinitionMap != null ? attributeDefinitionMap.get(attributeName) : null;
+        return attributeDefinition != null ? attributeDefinition.getLabel() : attributeName;
+    }
 
-	/**
-	 * @see AttributeValueReader#getType(java.lang.String)
-	 */
-	@Override
-	public Class<?> getType(String attributeName) {
-		return attributeTypeMap != null ? attributeTypeMap.get(attributeName) : null;
-	}
+    /**
+     * @see AttributeValueReader#getType(java.lang.String)
+     */
+    @Override
+    public Class<?> getType(String attributeName) {
+        return attributeTypeMap != null ? attributeTypeMap.get(attributeName) : null;
+    }
 
-	/**
-	 * @see AttributeValueReader#getValue(java.lang.String)
-	 */
-	@Override
-	public <X> X getValue(String attributeName) throws AttributeValidationException {
-		return (X) attributeValueMap.get(attributeName);
-	}
+    /**
+     * @see AttributeValueReader#getValue(java.lang.String)
+     */
+    @Override
+    public <X> X getValue(String attributeName) throws AttributeValidationException {
+        return (X) attributeValueMap.get(attributeName);
+    }
 
-	//private Map<String, PropertyDescriptor> getBeanInfo(Class<?> clazz) {
-	//	final Map<String, PropertyDescriptor> properties = new HashMap<String, PropertyDescriptor>();
-	//	for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(clazz)) {
-	//		properties.put(propertyDescriptor.getName(), propertyDescriptor);
-	//	}
-	//	return properties;
-	//}
+    //private Map<String, PropertyDescriptor> getBeanInfo(Class<?> clazz) {
+    //	final Map<String, PropertyDescriptor> properties = new HashMap<String, PropertyDescriptor>();
+    //	for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(clazz)) {
+    //		properties.put(propertyDescriptor.getName(), propertyDescriptor);
+    //	}
+    //	return properties;
+    //}
 
 }

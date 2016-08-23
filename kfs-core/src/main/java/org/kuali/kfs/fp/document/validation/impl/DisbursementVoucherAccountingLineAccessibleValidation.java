@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -31,10 +30,11 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public class DisbursementVoucherAccountingLineAccessibleValidation extends AccountingLineAccessibleValidation {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherAccountingLineAccessibleValidation.class);
@@ -55,8 +55,8 @@ public class DisbursementVoucherAccountingLineAccessibleValidation extends Accou
         // in certain cases - when the user has special edit modes restricted to the central office, we need to make it *possible* to edit
         // the accounting lines.
         // This only happens during routing and for approval requests
-        if ( workflowDocument.isEnroute() && workflowDocument.isApprovalRequested() ) {
-            if ( hasRequiredEditMode( accountingDocument, GlobalVariables.getUserSession().getPerson(), getCandidateEditModes() )) {
+        if (workflowDocument.isEnroute() && workflowDocument.isApprovalRequested()) {
+            if (hasRequiredEditMode(accountingDocument, GlobalVariables.getUserSession().getPerson(), getCandidateEditModes())) {
                 return true;
             }
 
@@ -67,8 +67,8 @@ public class DisbursementVoucherAccountingLineAccessibleValidation extends Accou
     /**
      * determine whether the give user has permission to any edit mode defined in the given candidate edit modes
      *
-     * @param accountingDocument the given accounting document
-     * @param financialSystemUser the given user
+     * @param accountingDocument     the given accounting document
+     * @param financialSystemUser    the given user
      * @param candidateEditEditModes the given candidate edit modes
      * @return true if the give user has permission to any edit mode defined in the given candidate edit modes; otherwise, false
      */
@@ -90,6 +90,7 @@ public class DisbursementVoucherAccountingLineAccessibleValidation extends Accou
     }
 
     protected static final List<String> CANDIDATE_EDIT_MODES = new ArrayList<String>(4);
+
     static {
         CANDIDATE_EDIT_MODES.add(KfsAuthorizationConstants.DisbursementVoucherEditMode.TAX_ENTRY);
         CANDIDATE_EDIT_MODES.add(KfsAuthorizationConstants.TransactionalEditMode.FRN_ENTRY);
@@ -108,6 +109,7 @@ public class DisbursementVoucherAccountingLineAccessibleValidation extends Accou
 
     /**
      * Sets the oldAccountingLineForValidation attribute value.
+     *
      * @param oldAccountingLineForValidation The oldAccountingLineForValidation to set.
      */
     @Deprecated

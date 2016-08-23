@@ -30,37 +30,39 @@ public class ComponentId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@Column(name="NMSPC_CD")
+    @Column(name = "NMSPC_CD")
     private final String namespaceCode;
 
-    @Column(name="CMPNT_CD")
+    @Column(name = "CMPNT_CD")
     private final String componentCode;
 
-    /** this ctor should never be called.  It is only present for hibernate */
+    /**
+     * this ctor should never be called.  It is only present for hibernate
+     */
     private ComponentId() {
         namespaceCode = null;
         componentCode = null;
     }
 
     public ComponentId(String namespaceCode, String componentCode) {
-    	this.namespaceCode = namespaceCode;
-    	this.componentCode = componentCode;
+        this.namespaceCode = namespaceCode;
+        this.componentCode = componentCode;
     }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(obj, this);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(obj, this);
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
     public String getNamespaceCode() {
         return namespaceCode;

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.InitializingBean;
 
 
 /**
@@ -54,6 +54,7 @@ public abstract class AbstractFlatFileSpecificationBase implements FlatFileSpeci
 
     /**
      * Sets the list of FlatFileObjectSpecifications which instruct the FlatFileSpecification how to parse
+     *
      * @param objectSpecifications
      */
     public void setObjectSpecifications(List<FlatFileObjectSpecification> objectSpecifications) {
@@ -64,12 +65,12 @@ public abstract class AbstractFlatFileSpecificationBase implements FlatFileSpeci
         this.defaultBusinessObjectClass = businessObjectClass;
     }
 
-    public void afterPropertiesSet() throws Exception{
+    public void afterPropertiesSet() throws Exception {
         Class<?> child;
-        for(FlatFileObjectSpecification specification: objectSpecifications) {
-            if(specification.getParentBusinessObjectClass() != null) {
+        for (FlatFileObjectSpecification specification : objectSpecifications) {
+            if (specification.getParentBusinessObjectClass() != null) {
                 child = specification.getBusinessObjectClass();
-                if(childrenList.contains(child)) {
+                if (childrenList.contains(child)) {
                     //A child can't appear twice within the same configuration, without having two parents
                     throw new Exception("The child " + child + " can't have more than one parent");
                 } else {

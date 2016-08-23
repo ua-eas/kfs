@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -29,7 +30,6 @@ import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class PurchaseOrderAmendmentNewIndividualItemValidation extends PurchaseOrderNewIndividualItemValidation {
 
@@ -49,8 +49,7 @@ public class PurchaseOrderAmendmentNewIndividualItemValidation extends PurchaseO
             if (item.getItemQuantity() == null) {
                 valid = false;
                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_AMND_NULL, "Item Quantity", identifierString);
-            }
-            else if (item.getItemQuantity().compareTo(item.getItemInvoicedTotalQuantity()) < 0) {
+            } else if (item.getItemQuantity().compareTo(item.getItemInvoicedTotalQuantity()) < 0) {
                 valid = false;
                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_AMND_INVALID, "Item Quantity", identifierString);
             }
@@ -64,11 +63,11 @@ public class PurchaseOrderAmendmentNewIndividualItemValidation extends PurchaseO
             }
         }
 
-        PurchaseOrderAmendmentDocument document = (PurchaseOrderAmendmentDocument)event.getDocument();
+        PurchaseOrderAmendmentDocument document = (PurchaseOrderAmendmentDocument) event.getDocument();
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
         // run additional accounting line check for items added to POA via receiving line, only after document in enroute
-        if ( !(workflowDocument.isInitiated() || workflowDocument.isSaved()) && purchaseOrderService.isNewUnorderedItem(item) ) {
+        if (!(workflowDocument.isInitiated() || workflowDocument.isSaved()) && purchaseOrderService.isNewUnorderedItem(item)) {
 
             // check to see if the account lines are empty
             if (item.getSourceAccountingLines() == null || item.getSourceAccountingLines().size() == 0) {
@@ -82,15 +81,15 @@ public class PurchaseOrderAmendmentNewIndividualItemValidation extends PurchaseO
 
     /**
      * Overrides to provide validation for PurchaseOrderAmendmentDocument.
+     *
      * @see org.kuali.kfs.module.purap.document.validation.impl.PurchasingDocumentRuleBase#validateCommodityCodes(org.kuali.kfs.module.purap.businessobject.PurApItem, boolean)
      */
     @Override
     protected boolean validateCommodityCodes(PurApItem item, boolean commodityCodeRequired) {
         //If the item is inactive then don't need any of the following validations.
-        if (!((PurchaseOrderItem)item).isItemActiveIndicator()) {
+        if (!((PurchaseOrderItem) item).isItemActiveIndicator()) {
             return true;
-        }
-        else {
+        } else {
             return super.validateCommodityCodes(item, commodityCodeRequired);
         }
     }
@@ -108,9 +107,8 @@ public class PurchaseOrderAmendmentNewIndividualItemValidation extends PurchaseO
     protected boolean validateThatCommodityCodeIsActive(PurApItem item) {
         if (item.getVersionNumber() != null) {
             return true;
-        }
-        else {
-            if (!((PurchasingItemBase)item).getCommodityCode().isActive()) {
+        } else {
+            if (!((PurchasingItemBase) item).getCommodityCode().isActive()) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ITEM_COMMODITY_CODE, PurapKeyConstants.PUR_COMMODITY_CODE_INACTIVE, " in " + item.getItemIdentifierString());
                 return false;
             }

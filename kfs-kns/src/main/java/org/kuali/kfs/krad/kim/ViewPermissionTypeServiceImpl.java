@@ -19,10 +19,10 @@
 package org.kuali.kfs.krad.kim;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.impl.permission.PermissionBo;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +31,6 @@ import java.util.Map;
 
 /**
  * Type service for the 'View' KIM type which matches on the id for a UIF view
- *
- *
  */
 public class ViewPermissionTypeServiceImpl extends PermissionTypeServiceBase {
     private boolean exactMatchPriority = true;
@@ -47,7 +45,7 @@ public class ViewPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
     /**
      * Filters the given permission list to return those that match the view id qualifier
-     *
+     * <p>
      * <p>
      * By default, this method will return all exact matches if any exist, and it will only return partial matches
      * if there are no exact matches. i.e. KR-DocumentView will have priority over KR-*. If ExactMatchPriority is
@@ -56,12 +54,12 @@ public class ViewPermissionTypeServiceImpl extends PermissionTypeServiceBase {
      * </p>
      *
      * @param requestedDetails - map of details requested with permission (used for matching)
-     * @param permissionsList - list of permissions to process for matches
+     * @param permissionsList  - list of permissions to process for matches
      * @return List<Permission> list of permissions that match the requested details
      */
     @Override
     protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
-            List<Permission> permissionsList) {
+                                                        List<Permission> permissionsList) {
         List<Permission> matchingPermissions = new ArrayList<Permission>();
 
         String requestedViewId = requestedDetails.get(KimConstants.AttributeConstants.VIEW_ID);
@@ -83,7 +81,7 @@ public class ViewPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
                 String permissionViewId = bo.getDetails().get(KimConstants.AttributeConstants.VIEW_ID);
                 if (requestedViewId != null && permissionViewId != null && (!(StringUtils.equals(requestedViewId,
-                        permissionViewId))) && requestedViewId.matches(permissionViewId.replaceAll("\\*", ".*"))) {
+                    permissionViewId))) && requestedViewId.matches(permissionViewId.replaceAll("\\*", ".*"))) {
                     matchingPermissions.add(kpi);
                 }
             }

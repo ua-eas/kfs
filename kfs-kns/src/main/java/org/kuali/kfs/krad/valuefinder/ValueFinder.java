@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.valuefinder;
 
 /**
  * This interface defines basic methods value finders.
- *
- *
  */
 public interface ValueFinder {
 

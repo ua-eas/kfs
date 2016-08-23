@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.sys.web;
 
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.sys.KFSConstants;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.regex.Pattern;
 
 /**
  * A utility class which holds functions that can be used as JSP functions.
@@ -35,6 +30,7 @@ public class WebUtilities {
      * Converts a property name so that it is correct for the purposes of populating a business object
      * in the maintenance framework - basically by changing "document.oldMaintainableObject.businessObject" to
      * "document.oldMaintainableObject" and doing a similar operation for "document.newMaintainableObject.businessObject"
+     *
      * @param propertyName the property name to fix
      * @return the corrected version of the property name
      */
@@ -55,7 +51,8 @@ public class WebUtilities {
 
     /**
      * Determines if the given value matches the given pattern
-     * @param value the value which is matching the pattern
+     *
+     * @param value   the value which is matching the pattern
      * @param pattern the Java regular expression pattern to match against
      * @return true if the value matches; false otherwise
      * @see java.util.regex.Pattern

@@ -21,20 +21,17 @@ package org.kuali.kfs.krad.datadictionary;
 
 /**
  * This is a description of what this class does - mpham don't forget to fill this in.
- *
- *
- *
  */
 public class RoutingAttribute extends WorkflowAttributeMetadata {
-	private static final long serialVersionUID = -8232868861868863394L;
+    private static final long serialVersionUID = -8232868861868863394L;
 
-	private String qualificationAttributeName;
+    private String qualificationAttributeName;
 
-	public String getQualificationAttributeName() {
-		return this.qualificationAttributeName;
-	}
+    public String getQualificationAttributeName() {
+        return this.qualificationAttributeName;
+    }
 
-	public void setQualificationAttributeName(String qualificationAttributeName) {
-		this.qualificationAttributeName = qualificationAttributeName;
-	}
+    public void setQualificationAttributeName(String qualificationAttributeName) {
+        this.qualificationAttributeName = qualificationAttributeName;
+    }
 }

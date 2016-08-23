@@ -18,20 +18,17 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.upload.FormFile;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -44,11 +41,13 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the base action form for all financial documents.
@@ -99,6 +98,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
 
     /**
      * Populates the accounting lines which need to be updated to successfully complete a response to the request
+     *
      * @param methodToCall the method to call in the action to complete this request transaction
      * @param parameterMap the map of parameters which came in with the transaction
      */
@@ -125,7 +125,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
         int count = 0;
         while (sourceLines.hasNext()) {
             SourceAccountingLine sourceLine = (SourceAccountingLine) sourceLines.next();
-            populateSourceAccountingLine(sourceLine, KFSPropertyConstants.DOCUMENT+"."+KFSPropertyConstants.SOURCE_ACCOUNTING_LINE+"["+count+"]", parameterMap);
+            populateSourceAccountingLine(sourceLine, KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.SOURCE_ACCOUNTING_LINE + "[" + count + "]", parameterMap);
             count += 1;
         }
 
@@ -133,7 +133,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
         count = 0;
         while (targetLines.hasNext()) {
             TargetAccountingLine targetLine = (TargetAccountingLine) targetLines.next();
-            populateTargetAccountingLine(targetLine, KFSPropertyConstants.DOCUMENT+"."+KFSPropertyConstants.TARGET_ACCOUNTING_LINE+"["+count+"]", parameterMap);
+            populateTargetAccountingLine(targetLine, KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.TARGET_ACCOUNTING_LINE + "[" + count + "]", parameterMap);
             count += 1;
         }
     }
@@ -145,7 +145,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
      *
      * @param sourceLine
      * @param accountingLinePropertyName the property path from the form to the accounting line
-     * @param parameterMap the map of parameters that were sent in with the request
+     * @param parameterMap               the map of parameters that were sent in with the request
      */
     public void populateSourceAccountingLine(SourceAccountingLine sourceLine, String accountingLinePropertyName, Map parameterMap) {
         populateAccountingLine(sourceLine, accountingLinePropertyName, parameterMap);
@@ -158,7 +158,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
      *
      * @param targetLine
      * @param accountingLinePropertyName the property path from the form to the accounting line
-     * @param parameterMap the map of parameters that were sent in with the request
+     * @param parameterMap               the map of parameters that were sent in with the request
      */
     public void populateTargetAccountingLine(TargetAccountingLine targetLine, String accountingLinePropertyName, Map parameterMap) {
         populateAccountingLine(targetLine, accountingLinePropertyName, parameterMap);
@@ -169,7 +169,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
      *
      * @param line
      * @param accountingLinePropertyName the property path from the form to the accounting line
-     * @param parameterMap the map of parameters that were sent in with the request
+     * @param parameterMap               the map of parameters that were sent in with the request
      */
     @SuppressWarnings("deprecation")
     protected void populateAccountingLine(AccountingLine line, String accountingLinePropertyName, Map parameterMap) {
@@ -209,25 +209,26 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
 
     /**
      * This repopulates the override values from the request
-     * @param line the line to repopulate override values for
+     *
+     * @param line                       the line to repopulate override values for
      * @param accountingLinePropertyName the property path from the form to the accounting line
-     * @param parameterMap the map of parameters that were sent in with the request
+     * @param parameterMap               the map of parameters that were sent in with the request
      */
     protected void repopulateOverrides(AccountingLine line, String accountingLinePropertyName, Map parameterMap) {
-        AccountingLineOverride.determineNeededOverrides(getFinancialDocument() , line);
+        AccountingLineOverride.determineNeededOverrides(getFinancialDocument(), line);
         if (line.getAccountExpiredOverrideNeeded()) {
             if (LOG.isDebugEnabled()) {
                 StringUtils.join(parameterMap.keySet(), "\n");
             }
-            if (parameterMap.containsKey(accountingLinePropertyName+".accountExpiredOverride.present")) {
-                line.setAccountExpiredOverride(parameterMap.containsKey(accountingLinePropertyName+".accountExpiredOverride"));
+            if (parameterMap.containsKey(accountingLinePropertyName + ".accountExpiredOverride.present")) {
+                line.setAccountExpiredOverride(parameterMap.containsKey(accountingLinePropertyName + ".accountExpiredOverride"));
             }
         } else {
             line.setAccountExpiredOverride(false);
         }
         if (line.isObjectBudgetOverrideNeeded()) {
-            if (parameterMap.containsKey(accountingLinePropertyName+".objectBudgetOverride.present")) {
-                line.setObjectBudgetOverride(parameterMap.containsKey(accountingLinePropertyName+".objectBudgetOverride"));
+            if (parameterMap.containsKey(accountingLinePropertyName + ".objectBudgetOverride.present")) {
+                line.setObjectBudgetOverride(parameterMap.containsKey(accountingLinePropertyName + ".objectBudgetOverride"));
             }
         } else {
             line.setObjectBudgetOverride(false);
@@ -377,8 +378,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
         }
         try {
             return (SourceAccountingLine) financialDocument.getSourceAccountingLineClass().newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new InfrastructureException("unable to create a new source accounting line", e);
         }
     }
@@ -393,8 +393,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
         }
         try {
             return (TargetAccountingLine) financialDocument.getTargetAccountingLineClass().newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new InfrastructureException("unable to create a new target accounting line", e);
         }
     }
@@ -450,8 +449,8 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
      */
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
-        if(StringUtils.equals(methodToCallParameterName, KRADConstants.DISPATCH_REQUEST_PARAMETER)) {
-            if(this.getExcludedmethodToCall().contains(methodToCallParameterValue)) {
+        if (StringUtils.equals(methodToCallParameterName, KRADConstants.DISPATCH_REQUEST_PARAMETER)) {
+            if (this.getExcludedmethodToCall().contains(methodToCallParameterValue)) {
                 return true;
             }
         }
@@ -460,6 +459,7 @@ public class KualiAccountingDocumentFormBase extends FinancialSystemTransactiona
 
     /**
      * get the names of the methods to call that can be excluded from the "be used" check.
+     *
      * @return the names of the methods to call that can be excluded from the "be used" check
      */
     protected List<String> getExcludedmethodToCall() {

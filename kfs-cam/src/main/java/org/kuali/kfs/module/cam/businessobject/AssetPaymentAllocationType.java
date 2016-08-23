@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Asset payment Allocation type is used to select the method of Allocation of payments. In other words, the type determines how
@@ -111,19 +111,19 @@ public class AssetPaymentAllocationType extends PersistableBusinessObjectBase im
     }
 
 
-	/**
-	 * Sets whether the allocation column is editable by the user
-	 */
-	public void setAllocationEditable(boolean allocationEditable) {
-		this.allocationEditable = allocationEditable;
-	}
+    /**
+     * Sets whether the allocation column is editable by the user
+     */
+    public void setAllocationEditable(boolean allocationEditable) {
+        this.allocationEditable = allocationEditable;
+    }
 
 
-	/**
-	 * Returns true if the allocation column is editable by the user
-	 */
-	public boolean isAllocationEditable() {
-		return allocationEditable;
-	}
+    /**
+     * Returns true if the allocation column is editable by the user
+     */
+    public boolean isAllocationEditable() {
+        return allocationEditable;
+    }
 
 }

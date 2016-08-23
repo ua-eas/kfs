@@ -36,6 +36,7 @@ public class ScrubberMessage {
 
     /**
      * Constructs a ScrubberMessage instance
+     *
      * @param m the message
      * @param t the type of message
      */
@@ -46,6 +47,7 @@ public class ScrubberMessage {
 
     /**
      * Returns the message
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
@@ -63,6 +65,7 @@ public class ScrubberMessage {
 
     /**
      * Sets the error message for this object
+     *
      * @param message the message to set
      */
     public void setMessage(String message) {

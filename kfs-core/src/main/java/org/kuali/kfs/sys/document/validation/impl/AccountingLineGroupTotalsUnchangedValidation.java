@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -28,8 +30,6 @@ import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * A validation, used on accounting document approval, that accounting line totals are unchanged
@@ -41,6 +41,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
      * Checks that the source and total amounts on the current version of the accounting document
      * are equal to the persisted source and total totals.
      * <strong>Expects a document to be sent in as the first parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     @Override
@@ -56,8 +57,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
         boolean isUnchanged = true;
         if (persistedDocument == null) {
             handleNonExistentDocumentWhenApproving(accountingDocumentForValidation);
-        }
-        else {
+        } else {
             // retrieve the persisted totals
             KualiDecimal persistedSourceLineTotal = persistedDocument.getSourceTotal();
             KualiDecimal persistedTargetLineTotal = persistedDocument.getTargetTotal();
@@ -97,8 +97,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
 
         try {
             persistedDocument = (AccountingDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(accountingDocument.getDocumentNumber());
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             handleNonExistentDocumentWhenApproving(accountingDocument);
         }
 
@@ -115,7 +114,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
     protected void buildTotalChangeErrorMessage(String propertyName, KualiDecimal persistedSourceLineTotal, KualiDecimal currentSourceLineTotal) {
         String persistedTotal = (String) new CurrencyFormatter().format(persistedSourceLineTotal);
         String currentTotal = (String) new CurrencyFormatter().format(currentSourceLineTotal);
-        GlobalVariables.getMessageMap().putError(propertyName, KFSKeyConstants.ERROR_DOCUMENT_SINGLE_ACCOUNTING_LINE_SECTION_TOTAL_CHANGED, new String[] { persistedTotal, currentTotal });
+        GlobalVariables.getMessageMap().putError(propertyName, KFSKeyConstants.ERROR_DOCUMENT_SINGLE_ACCOUNTING_LINE_SECTION_TOTAL_CHANGED, new String[]{persistedTotal, currentTotal});
     }
 
     /**
@@ -132,6 +131,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -140,6 +140,7 @@ public class AccountingLineGroupTotalsUnchangedValidation extends GenericValidat
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {

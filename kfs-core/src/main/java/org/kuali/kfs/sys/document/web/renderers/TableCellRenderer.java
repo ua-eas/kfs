@@ -36,6 +36,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Resets the cell to null
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -44,6 +45,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Renders the table cell as a header cell as well as rendering all children renderable elements of the cell
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -56,14 +58,14 @@ public class TableCellRenderer implements Renderer {
                 out.write("&nbsp;");
             }
             out.write(buildEndingTag());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering table cell", ioe);
         }
     }
 
     /**
      * Builds the opening cell tag, ie <td>
+     *
      * @return the opening cell tag
      */
     protected String buildBeginningTag() {
@@ -88,7 +90,7 @@ public class TableCellRenderer implements Renderer {
             builder.append(cell.getExtraStyle());
             builder.append("\"");
         } else {
-            builder.append(" class=\""+getStyleClass() + "\"");
+            builder.append(" class=\"" + getStyleClass() + "\"");
         }
         builder.append(">\n");
         return builder.toString();
@@ -96,6 +98,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Returns what style class to use - using the styleClassOverride of the cell if possible
+     *
      * @return the styleClassOverride if it exists, otherwise "infoline"
      */
     protected String getStyleClass() {
@@ -109,6 +112,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Builds the closing cell tag, ie </td>
+     *
      * @return the closing cell tag
      */
     protected String buildEndingTag() {
@@ -121,6 +125,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Returns the name of the cell tag we want to create - in this case, "td"
+     *
      * @return the String td, which is the tag name of the tags we want to produce
      */
     protected String getTagName() {
@@ -129,6 +134,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Gets the cell attribute.
+     *
      * @return Returns the cell.
      */
     public AccountingLineTableCell getCell() {
@@ -137,6 +143,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Sets the cell attribute value.
+     *
      * @param cell The cell to set.
      */
     public void setCell(AccountingLineTableCell cell) {
@@ -145,6 +152,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Determines if the cell should be veritically aligned to the top
+     *
      * @return true if the cell should vertically align to the top; false otherwise
      */
     protected boolean verticallyAlignTowardsTop() {

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.module.purap.dataaccess.ElectronicInvoiceItemMappingDao;
 import org.kuali.kfs.module.purap.service.ElectronicInvoiceItemMappingService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.List;
 
 public class ElectronicInvoiceItemMappingServiceImpl implements ElectronicInvoiceItemMappingService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceItemMappingServiceImpl.class);
@@ -61,8 +61,7 @@ public class ElectronicInvoiceItemMappingServiceImpl implements ElectronicInvoic
              * FIXME need to record the errors as reject reasons and put those in route log somehow se.setTab("error");
              * se.setMessageKey("errors.einvoice.item.mapping.duplicate.rows");
              */
-        }
-        else {
+        } else {
             SpringContext.getBean(BusinessObjectService.class).save(ei);
         }
         return getAll();
@@ -77,8 +76,7 @@ public class ElectronicInvoiceItemMappingServiceImpl implements ElectronicInvoic
              * FIXME need to record the errors as reject reasons and put those in route log somehow se.setTab("error");
              * se.setMessageKey("errors.einvoice.item.mapping.null.vendor.id.deletion");
              */
-        }
-        else {
+        } else {
             electronicInvoiceItemMappingDao.delete(ei);
         }
         return getAll();

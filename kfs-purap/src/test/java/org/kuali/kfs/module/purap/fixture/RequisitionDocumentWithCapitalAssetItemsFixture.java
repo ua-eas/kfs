@@ -23,16 +23,15 @@ import org.kuali.kfs.module.purap.document.RequisitionDocument;
 public enum RequisitionDocumentWithCapitalAssetItemsFixture {
 
     REQ_VALID_IND_NEW_CAPITAL_ASSET_ITEM(
-            "IND", // capitalAssetSystemTypeCode
-            "NEW", // capitalAssetSystemStateCode
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_ITEM_VALID_CAPITAL_ASSET} // requisitionItemMultiFixtures
+        "IND", // capitalAssetSystemTypeCode
+        "NEW", // capitalAssetSystemStateCode
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_ITEM_VALID_CAPITAL_ASSET} // requisitionItemMultiFixtures
     ),
     REQ_VALID_ONE_NEW_CAPITAL_ASSET_ITEM(
-            "ONE", // capitalAssetSystemTypeCode
-            "NEW", // capitalAssetSystemStateCode
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_ITEM_VALID_CAPITAL_ASSET} // requisitionItemMultiFixtures
-    ),
-    ;
+        "ONE", // capitalAssetSystemTypeCode
+        "NEW", // capitalAssetSystemStateCode
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_ITEM_VALID_CAPITAL_ASSET} // requisitionItemMultiFixtures
+    ),;
 
     private String capitalAssetSystemTypeCode;
     private String capitalAssetSystemStateCode;
@@ -40,9 +39,9 @@ public enum RequisitionDocumentWithCapitalAssetItemsFixture {
 
 
     private RequisitionDocumentWithCapitalAssetItemsFixture(
-            String capitalAssetSystemTypeCode,
-            String capitalAssetSystemStateCode,
-            RequisitionItemFixture[] requisitionItemFixtures) {
+        String capitalAssetSystemTypeCode,
+        String capitalAssetSystemStateCode,
+        RequisitionItemFixture[] requisitionItemFixtures) {
         this.capitalAssetSystemTypeCode = capitalAssetSystemTypeCode;
         this.capitalAssetSystemStateCode = capitalAssetSystemStateCode;
         this.requisitionItemFixtures = requisitionItemFixtures;

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sec.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Custom access permission evaluator that looks at the chart hierarchy when matching values

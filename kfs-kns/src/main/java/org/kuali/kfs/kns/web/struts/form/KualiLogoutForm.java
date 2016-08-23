@@ -23,9 +23,6 @@ import org.apache.struts.action.ActionForm;
 /**
  * This is an empty form used by the logout so it can invalidate the session without getting
  * null pointer exceptions.
- *
- *
- *
  */
 public class KualiLogoutForm extends ActionForm {
 

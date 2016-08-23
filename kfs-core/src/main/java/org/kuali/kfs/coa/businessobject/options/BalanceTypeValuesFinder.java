@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.BalanceTypeService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class returns list of balance type value pairs.
@@ -45,7 +45,7 @@ public class BalanceTypeValuesFinder extends KeyValuesBase {
         balanceTypeCodes.add(new ConcreteKeyValue("", ""));
 
         for (BalanceType balanceType : balanceTypeCodeCollection) {
-            if(balanceType.isActive()) {
+            if (balanceType.isActive()) {
                 balanceTypeCodes.add(new ConcreteKeyValue(balanceType.getCode(), balanceType.getCodeAndDescription()));
             }
         }

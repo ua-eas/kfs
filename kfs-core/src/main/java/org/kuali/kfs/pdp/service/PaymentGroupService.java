@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.pdp.service;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.pdp.businessobject.PaymentGroup;
+import org.kuali.kfs.pdp.businessobject.PaymentProcess;
+
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.pdp.businessobject.PaymentGroup;
-import org.kuali.kfs.pdp.businessobject.PaymentProcess;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 
 public interface PaymentGroupService {
     /**
@@ -52,7 +52,7 @@ public interface PaymentGroupService {
      * @param disbursementType
      * @return
      */
-    public List<Integer> getDisbursementNumbersByDisbursementType(Integer pid,String disbursementType);
+    public List<Integer> getDisbursementNumbersByDisbursementType(Integer pid, String disbursementType);
 
     /**
      * Get all payment groups by Payment Process Id/Disbursement Type for a given bank code
@@ -62,11 +62,12 @@ public interface PaymentGroupService {
      * @param bankCode
      * @return
      */
-    public abstract List<Integer> getDisbursementNumbersByDisbursementTypeAndBankCode(Integer pid,String disbursementType, String bankCode);
+    public abstract List<Integer> getDisbursementNumbersByDisbursementTypeAndBankCode(Integer pid, String disbursementType, String bankCode);
 
     /**
      * Given a process id and a disbursement type, finds a distinct list of bank codes used by payment groups within that payment process
-     * @param pid payment process to query payment groups of
+     *
+     * @param pid              payment process to query payment groups of
      * @param disbursementType the type of disbursements to query
      * @return a sorted List of bank codes
      */

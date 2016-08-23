@@ -18,20 +18,10 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
 import org.kuali.kfs.module.tem.TemParameterConstants;
@@ -41,10 +31,19 @@ import org.kuali.kfs.module.tem.document.web.struts.TravelFormBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_PER_DIEM_EXP_T")
@@ -325,6 +324,7 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
 
     /**
      * Matching setter for getUnfilteredLoding, functionally equivalent to setLodging
+     *
      * @param lodging
      */
     public void setUnfilteredLodging(KualiDecimal lodging) {
@@ -476,6 +476,7 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
 
     /**
      * Determines if the mileage date for this per diem expense matches the range for the given mileage rate
+     *
      * @param mileageRate the mileage rate to check the mileage date against
      * @return true if the mileage date matches, false otherwise
      */
@@ -489,7 +490,7 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
     public KualiDecimal getMileageTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
         if (KNSGlobalVariables.getKualiForm() instanceof TravelFormBase) {
-            final TravelFormBase travelForm = (TravelFormBase)KNSGlobalVariables.getKualiForm();
+            final TravelFormBase travelForm = (TravelFormBase) KNSGlobalVariables.getKualiForm();
             if (travelForm == null) {
                 return KualiDecimal.ZERO;
             }
@@ -540,8 +541,8 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
     }
 
     /**
-     *
      * This method gets the mealsTotal with
+     *
      * @return
      */
     public KualiDecimal getMealsTotal() {
@@ -561,8 +562,8 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
     }
 
     /**
-     *
      * This method gets the Lodging Total if it is not a personal expense.
+     *
      * @return
      */
     public KualiDecimal getLodgingTotal() {
@@ -574,7 +575,7 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
 
     /**
      * Retrieve the Mileage date of per diem
-     *
+     * <p>
      * CLEANUP: mileage date should be the per diem expense date
      *
      * @return mileage date
@@ -601,8 +602,8 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
     }
 
     /**
-     *
      * This method split mealsAndIncidentals into breakfast, lunch, dinner and incidentals (overriding the existing breakfast, lunch, dinner and incidentals values).
+     *
      * @param mealsAndIncidentals
      */
     public void setMealsAndIncidentals(KualiDecimal mealsAndIncidentals) {
@@ -728,7 +729,7 @@ public class PerDiemExpense extends PersistableBusinessObjectBase {
     }
 
     public boolean isProrated() {
-        if(isCustomPerDiem()){
+        if (isCustomPerDiem()) {
             return false;
         }
 

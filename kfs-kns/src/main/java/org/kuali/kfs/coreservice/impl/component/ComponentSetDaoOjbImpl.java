@@ -20,7 +20,6 @@ package org.kuali.kfs.coreservice.impl.component;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
-import org.kuali.kfs.coreservice.impl.component.ComponentSetBo;
 import org.kuali.rice.core.framework.persistence.ojb.DataAccessUtils;
 import org.springmodules.orm.ojb.support.PersistenceBrokerDaoSupport;
 
@@ -32,8 +31,8 @@ public class ComponentSetDaoOjbImpl extends PersistenceBrokerDaoSupport implemen
     @Override
     public ComponentSetBo getComponentSet(String componentSetId) {
         Criteria criteria = new Criteria();
-	    criteria.addEqualTo("componentSetId", componentSetId);
-	    return (ComponentSetBo) getPersistenceBrokerTemplate().getObjectByQuery(new QueryByCriteria(ComponentSetBo.class, criteria));
+        criteria.addEqualTo("componentSetId", componentSetId);
+        return (ComponentSetBo) getPersistenceBrokerTemplate().getObjectByQuery(new QueryByCriteria(ComponentSetBo.class, criteria));
     }
 
     @Override

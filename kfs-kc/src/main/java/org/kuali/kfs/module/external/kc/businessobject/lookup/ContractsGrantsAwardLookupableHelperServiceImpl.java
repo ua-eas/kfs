@@ -40,10 +40,10 @@ public class ContractsGrantsAwardLookupableHelperServiceImpl extends ContractsGr
             Properties parameters = new Properties();
             parameters.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
             parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, ContractsAndGrantsAward.class.getName());
-            parameters.put(KFSPropertyConstants.PROPOSAL_NUMBER, ((Award)bo).getAwardId().toString());
+            parameters.put(KFSPropertyConstants.PROPOSAL_NUMBER, ((Award) bo).getAwardId().toString());
             inquiryHref.setHref(UrlFactory.parameterizeUrl(KFSConstants.RICE_PATH_PREFIX + KRADConstants.INQUIRY_ACTION, parameters));
         } else {
-            inquiryHref = (HtmlData.AnchorHtmlData)super.getInquiryUrl(bo, propertyName);
+            inquiryHref = (HtmlData.AnchorHtmlData) super.getInquiryUrl(bo, propertyName);
         }
 
         return inquiryHref;

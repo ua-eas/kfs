@@ -22,7 +22,6 @@ import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 /**
- *
  * Purchasing Accounts Payable Item Event
  */
 public interface AttributedPurchasingAccountsPayableItemEvent extends AttributedDocumentEvent {

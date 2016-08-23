@@ -19,8 +19,8 @@
 package org.kuali.kfs.fp.document.validation.event;
 
 import org.kuali.kfs.fp.businessobject.Check;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 
 /**
  * An event which is fired when a member of the Cash Receipt family of documents adds a check.
@@ -44,6 +44,7 @@ public class AddCheckEvent extends AttributedDocumentEventBase implements CheckE
 
     /**
      * Constructs a AddCheckEvent, with a blank description
+     *
      * @param errorPathPrefix
      * @param document
      * @param check

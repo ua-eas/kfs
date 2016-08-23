@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.bc.util;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.bc.BCParameterKeyConstants;
 import org.kuali.kfs.module.bc.batch.GenesisBatchStep;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
@@ -30,7 +27,9 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPayRateHolding;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.math.BigDecimal;
+import java.util.Collection;
 
 /**
  * A convenient utility that can delegate the calling client to retrieve system parameters of budget construction module.
@@ -172,8 +171,7 @@ public class BudgetParameterFinder {
      * returns the base fiscal year to use to initialize budget construction
      */
 
-    public static Integer getBaseFiscalYear()
-    {
+    public static Integer getBaseFiscalYear() {
         String yearValue = parameterService.getParameterValueAsString(GenesisBatchStep.class, BCParameterKeyConstants.SOURCE_FISCAL_YEAR);
         return (Integer.valueOf(StringUtils.trim(yearValue)));
     }

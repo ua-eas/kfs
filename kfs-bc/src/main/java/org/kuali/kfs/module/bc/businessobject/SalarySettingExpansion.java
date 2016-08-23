@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
+import org.kuali.kfs.module.bc.document.service.SalarySettingService;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.module.bc.document.service.SalarySettingService;
-import org.kuali.kfs.sys.context.SpringContext;
 
 
 public class SalarySettingExpansion extends PendingBudgetConstructionGeneralLedger implements PendingBudgetConstructionAppointmentFundingAware {
@@ -91,7 +91,7 @@ public class SalarySettingExpansion extends PendingBudgetConstructionGeneralLedg
         managedLists.add(this.getPendingBudgetConstructionAppointmentFunding());
 
         List<BudgetConstructionAppointmentFundingReason> appointmentFundingReasons = new ArrayList<BudgetConstructionAppointmentFundingReason>();
-        for (PendingBudgetConstructionAppointmentFunding appointmentFunding: this.getPendingBudgetConstructionAppointmentFunding()){
+        for (PendingBudgetConstructionAppointmentFunding appointmentFunding : this.getPendingBudgetConstructionAppointmentFunding()) {
             appointmentFundingReasons.addAll(appointmentFunding.getBudgetConstructionAppointmentFundingReason());
         }
         managedLists.add(appointmentFundingReasons);

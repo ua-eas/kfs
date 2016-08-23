@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
@@ -30,17 +30,16 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class PaymentRequestTotalsValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
-        PaymentRequestDocument document = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument document = (PaymentRequestDocument) event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
-        String[] excludeArray = { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] excludeArray = {PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
 
         // if NO invoice amount
         if (ObjectUtils.isNull(document.getVendorInvoiceAmount())) {
@@ -78,7 +77,7 @@ public class PaymentRequestTotalsValidation extends GenericValidation {
     /**
      * Calculates a total but excludes passed in item types from the totalling.
      *
-     * @param itemList - list of purap items
+     * @param itemList          - list of purap items
      * @param excludedItemTypes - list of item types to exclude from totalling
      * @return
      */
@@ -109,7 +108,7 @@ public class PaymentRequestTotalsValidation extends GenericValidation {
     protected void flagLineItemTotals(List<PurApItem> itemList) {
         for (PurApItem purApItem : itemList) {
             PaymentRequestItem item = (PaymentRequestItem) purApItem;
-            if (item.getItemQuantity() != null && item.getExtendedPrice() !=null) {
+            if (item.getItemQuantity() != null && item.getExtendedPrice() != null) {
                 if (item.calculateExtendedPrice().compareTo(item.getExtendedPrice()) != 0) {
                     KNSGlobalVariables.getMessageList().add(PurapKeyConstants.WARNING_PAYMENT_REQUEST_ITEM_TOTAL_NOT_EQUAL, item.getItemIdentifierString());
                 }

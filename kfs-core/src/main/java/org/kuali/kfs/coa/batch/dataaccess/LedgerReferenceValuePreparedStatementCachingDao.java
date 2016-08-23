@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.coa.batch.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.A21IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -37,6 +35,8 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.sys.batch.dataaccess.PreparedStatementCachingDao;
+
+import java.util.List;
 
 public interface LedgerReferenceValuePreparedStatementCachingDao extends PreparedStatementCachingDao {
     public Chart getChart(String chartOfAccountsCode);

@@ -22,8 +22,8 @@ import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.*;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
@@ -85,17 +85,13 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         List primaryKeys = KNSServiceLocator.getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(gboClass);
         if (primaryKeys == null) {
             assumptionIsWrong = true;
-        }
-        else if (primaryKeys.isEmpty()) {
+        } else if (primaryKeys.isEmpty()) {
             assumptionIsWrong = true;
-        }
-        else if (primaryKeys.size() != 1) {
+        } else if (primaryKeys.size() != 1) {
             assumptionIsWrong = true;
-        }
-        else if (!primaryKeys.get(0).getClass().equals(String.class)) {
+        } else if (!primaryKeys.get(0).getClass().equals(String.class)) {
             assumptionIsWrong = true;
-        }
-        else if (!KRADPropertyConstants.DOCUMENT_NUMBER.equalsIgnoreCase((String) primaryKeys.get(0))) {
+        } else if (!KRADPropertyConstants.DOCUMENT_NUMBER.equalsIgnoreCase((String) primaryKeys.get(0))) {
             assumptionIsWrong = true;
         }
         if (assumptionIsWrong) {
@@ -118,8 +114,7 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         // property newCollectionRecord of PersistableObjectBase is not persisted, but is always true for globals
         try {
             ObjectUtils.setObjectPropertyDeep(newBo, KRADPropertyConstants.NEW_COLLECTION_RECORD, boolean.class, true, 2);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("unable to set newCollectionRecord property: " + e.getMessage());
             throw new RuntimeException("unable to set newCollectionRecord property: " + e.getMessage());
         }
@@ -138,7 +133,7 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         gbo.setDocumentNumber(getDocumentNumber());
 
         List<? extends GlobalBusinessObjectDetail> details = gbo.getAllDetailObjects();
-        for ( GlobalBusinessObjectDetail detail : details ) {
+        for (GlobalBusinessObjectDetail detail : details) {
             detail.setDocumentNumber(getDocumentNumber());
         }
     }
@@ -146,6 +141,7 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
     /**
      * This overrides the standard version in KualiMaintainableImpl which works for non-global maintenance documents
      * Each global document must in turn override this with its own locking representation, since it varies from document to document (some have one detail class and others have two, and the way to combine the two detail classes is unique to document with two detail classes)
+     *
      * @see Maintainable#generateMaintenanceLocks()
      */
     @Override

@@ -22,23 +22,23 @@
 
 <krad:group group="${group}" groupBodyIdSuffix="_tabGroup">
 
-  <%-- render items through layout manager --%>
-  <div id="${group.id}_tabs">
-    <%-- render items in list --%>
-    <ul id="${group.id}">
-      <c:forEach items="${group.items}" var="item">
-        <li>
-          <a href="#${item.id}_tab">${item.title}</a>
-        </li>
-      </c:forEach>
-    </ul>
+    <%-- render items through layout manager --%>
+    <div id="${group.id}_tabs">
+            <%-- render items in list --%>
+        <ul id="${group.id}">
+            <c:forEach items="${group.items}" var="item">
+                <li>
+                    <a href="#${item.id}_tab">${item.title}</a>
+                </li>
+            </c:forEach>
+        </ul>
 
-    <c:forEach items="${group.items}" var="item">
-      <div id="${item.id}_tab">
-        <krad:template component="${item}"/>
-      </div>
-    </c:forEach>
-  </div>
+        <c:forEach items="${group.items}" var="item">
+            <div id="${item.id}_tab">
+                <krad:template component="${item}"/>
+            </div>
+        </c:forEach>
+    </div>
 
 </krad:group>
 

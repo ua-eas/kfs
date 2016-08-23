@@ -26,8 +26,6 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.CollectionSizeCon
 /**
  * A single Collection attribute definition in the DataDictionary, which contains information relating to the display, validation,
  * and general maintenance of a specific Collection attribute of an entry.
- *
- *
  */
 public class CollectionDefinition extends DataDictionaryDefinitionBase implements CollectionSizeConstrainable {
     private static final long serialVersionUID = -2644072136271281041L;
@@ -40,13 +38,13 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
 
     protected String summary;
 
-	protected String description;
+    protected String description;
 
-	protected Integer minOccurs;
-	protected Integer maxOccurs;
+    protected Integer minOccurs;
+    protected Integer maxOccurs;
 
     public CollectionDefinition() {
-    	//empty
+        //empty
     }
 
     public String getName() {
@@ -87,6 +85,7 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
 
     /**
      * Gets the elementLabel attribute.
+     *
      * @return Returns the elementLabel.
      */
     public String getElementLabel() {
@@ -94,7 +93,7 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
- 	 * The elementLabel defines the name to be used for a single object
+     * The elementLabel defines the name to be used for a single object
      * within the collection.  For example: "Address" may be the name
      * of one object within the "Addresses" collection.
      */
@@ -107,7 +106,7 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
-	 * The summary element is used to provide a short description of the
+     * The summary element is used to provide a short description of the
      * attribute or collection.  This is designed to be used for help purposes.
      */
     public void setSummary(String summary) {
@@ -119,8 +118,8 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
-	 * The description element is used to provide a long description of the
-	 * attribute or collection.  This is designed to be used for help purposes.
+     * The description element is used to provide a long description of the
+     * attribute or collection.  This is designed to be used for help purposes.
      */
     public void setDescription(String description) {
         this.description = description;
@@ -128,20 +127,20 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
 
 
     /**
-	 * @return the dataObjectClass
-	 */
-	public String getDataObjectClass() {
-		return this.dataObjectClass;
-	}
+     * @return the dataObjectClass
+     */
+    public String getDataObjectClass() {
+        return this.dataObjectClass;
+    }
 
-	/**
-	 * @param objectClass the dataObjectClass to set
-	 */
-	public void setDataObjectClass(String dataObjectClass) {
-		this.dataObjectClass = dataObjectClass;
-	}
+    /**
+     * @param objectClass the dataObjectClass to set
+     */
+    public void setDataObjectClass(String dataObjectClass) {
+        this.dataObjectClass = dataObjectClass;
+    }
 
-	/**
+    /**
      * Directly validate simple fields, call completeValidation on Definition fields.
      *
      * @see DataDictionaryEntry#completeValidation()
@@ -161,48 +160,48 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
         return "CollectionDefinition for collection " + getName();
     }
 
-	/**
-	 * @see CollectionSizeConstraint#getMaximumNumberOfElements()
-	 */
-	@Override
-	public Integer getMaximumNumberOfElements() {
-		return this.maxOccurs;
-	}
-
-	/**
-	 * @see CollectionSizeConstraint#getMinimumNumberOfElements()
-	 */
-	@Override
-	public Integer getMinimumNumberOfElements() {
-		return this.minOccurs;
-	}
+    /**
+     * @see CollectionSizeConstraint#getMaximumNumberOfElements()
+     */
+    @Override
+    public Integer getMaximumNumberOfElements() {
+        return this.maxOccurs;
+    }
 
     /**
-	 * @return the minOccurs
-	 */
-	public Integer getMinOccurs() {
-		return this.minOccurs;
-	}
+     * @see CollectionSizeConstraint#getMinimumNumberOfElements()
+     */
+    @Override
+    public Integer getMinimumNumberOfElements() {
+        return this.minOccurs;
+    }
 
-	/**
-	 * @param minOccurs the minOccurs to set
-	 */
-	public void setMinOccurs(Integer minOccurs) {
-		this.minOccurs = minOccurs;
-	}
+    /**
+     * @return the minOccurs
+     */
+    public Integer getMinOccurs() {
+        return this.minOccurs;
+    }
 
-	/**
-	 * @return the maxOccurs
-	 */
-	public Integer getMaxOccurs() {
-		return this.maxOccurs;
-	}
+    /**
+     * @param minOccurs the minOccurs to set
+     */
+    public void setMinOccurs(Integer minOccurs) {
+        this.minOccurs = minOccurs;
+    }
 
-	/**
-	 * @param maxOccurs the maxOccurs to set
-	 */
-	public void setMaxOccurs(Integer maxOccurs) {
-		this.maxOccurs = maxOccurs;
-	}
+    /**
+     * @return the maxOccurs
+     */
+    public Integer getMaxOccurs() {
+        return this.maxOccurs;
+    }
+
+    /**
+     * @param maxOccurs the maxOccurs to set
+     */
+    public void setMaxOccurs(Integer maxOccurs) {
+        this.maxOccurs = maxOccurs;
+    }
 
 }

@@ -29,14 +29,12 @@ import java.util.Set;
 
 /**
  * Interface that must be implemented for clases the provide the backing data (model) for a {@link View}
- *
+ * <p>
  * <p>
  * Since the View relies on helper properties from the model it is necessary the backing object implement this
  * interface. Note model objects can extend {@link UifFormBase} which implements
  * this interface
  * </p>
- *
- *
  */
 public interface ViewModel extends Serializable {
 
@@ -167,12 +165,12 @@ public interface ViewModel extends Serializable {
 
     /**
      * List of fields that should be read only on the view
-     *
+     * <p>
      * <p>
      * If the view being rendered supports request setting of read-only fields, the readOnlyFields request parameter
      * can be sent to mark fields as read only that might not have been otherwise
      * </p>
-     *
+     * <p>
      * <p>
      * Note the paths specified should be the simple property names (not the full binding path). Therefore if the
      * property name appears multiple times in the view, all instances will be set as read only
@@ -208,7 +206,7 @@ public interface ViewModel extends Serializable {
 
     /**
      * Map of parameters sent for the invoked action
-     *
+     * <p>
      * <p>
      * Many times besides just setting the method to call actions need to send
      * additional parameters. For instance the method being called might do a
@@ -233,7 +231,7 @@ public interface ViewModel extends Serializable {
 
     /**
      * Map that is populated from the component state maintained on the client
-     *
+     * <p>
      * <p>
      * Used when a request is made that refreshes part of the view. The current state for components (which
      * have state that can be changed on the client), is populated into this map which is then used by the
@@ -241,13 +239,13 @@ public interface ViewModel extends Serializable {
      * </p>
      *
      * @return Map<String, Object> map where key is name of property or component id, and value is the property
-     *         value or another map of component key/value pairs
+     * value or another map of component key/value pairs
      */
     public Map<String, Object> getClientStateForSyncing();
 
     /**
      * Holds Set of String identifiers for lines that were selected in a collection
-     *
+     * <p>
      * <p>
      * When the select field is enabled for a <code>CollectionGroup</code>, the framework will be
      * default bind the selected identifier strings to this property. The key of the map uniquely identifies the

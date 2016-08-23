@@ -43,14 +43,14 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
      * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService#updateAwardIfNecessary(String, ContractsAndGrantsBillingAward)
      */
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 
     /**
      * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAwardAccount(java.util.Map,
-     *      java.lang.String, java.sql.Date)
+     * java.lang.String, java.sql.Date)
      */
     @Override
     public void setLastBilledDateToAwardAccount(Map<String, Object> criteria, boolean invoiceReversal, Date lastBilledDate) {

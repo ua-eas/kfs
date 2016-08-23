@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Value Finder for Item Types.
@@ -46,7 +46,7 @@ public class ItemTypeValuesFinder extends KeyValuesBase {
         for (Object code : codes) {
             ItemType it = (ItemType) code;
             //exclude certain item types from the list
-            if (it.isLineItemIndicator() && !PurapConstants.ItemTypeCodes.EXCLUDED_ITEM_TYPES.contains(it.getItemTypeCode()) ) {
+            if (it.isLineItemIndicator() && !PurapConstants.ItemTypeCodes.EXCLUDED_ITEM_TYPES.contains(it.getItemTypeCode())) {
                 labels.add(new ConcreteKeyValue(it.getItemTypeCode(), it.getItemTypeDescription()));
             }
         }

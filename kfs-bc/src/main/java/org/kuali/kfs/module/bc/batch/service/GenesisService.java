@@ -42,7 +42,7 @@ public interface GenesisService {
     /*
      * this step updates budget construction with new data from the sources after genesis has run
      */
-   public void bCUpdateStep(Integer baseYear);
+    public void bCUpdateStep(Integer baseYear);
 
     /*
      * this step fetches the base fiscal year based on today's date
@@ -53,6 +53,7 @@ public interface GenesisService {
      *  this step runs genesis
      */
     public void genesisStep(Integer baseYear);
+
     /*
      *   look of accounts from the payroll (CSF) or GL that came into budget construction but are *not* in the budget construction accounting table.
      *   this can be due to an oversight on the part of the chart manager, or to problems with the current year's budget control.

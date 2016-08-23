@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.sql.Timestamp;
 
 /**
  * Base class containing fields and methods that are common among templates.

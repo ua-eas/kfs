@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class tests the AccountingPeriod business object from a persistence standpoint using the BusinessObjectService.
@@ -55,20 +55,20 @@ public class AccountingPeriodServiceTest extends KualiTestBase {
         String universityFiscalPeriodCode = "UT";
         String periodName = "unitTest";
 
-        AccountingPeriod nullPeriod = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year );
-        assertNull( "UT accounting period should not already exist", nullPeriod );
+        AccountingPeriod nullPeriod = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year);
+        assertNull("UT accounting period should not already exist", nullPeriod);
 
         period.setUniversityFiscalPeriodCode(universityFiscalPeriodCode);
         period.setUniversityFiscalPeriodName(periodName);
 
         SpringContext.getBean(BusinessObjectService.class).save(period);
 
-        AccountingPeriod result = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year );
-        assertNull( "Previous null result should have been retrieved from cache", result );
+        AccountingPeriod result = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year);
+        assertNull("Previous null result should have been retrieved from cache", result);
         SpringContext.getBean(AccountingPeriodService.class).clearCache();
 
-        result = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year );
-        assertNotNull( "After clearing cache, we should have retrieved a value", result);
+        result = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(universityFiscalPeriodCode, year);
+        assertNotNull("After clearing cache, we should have retrieved a value", result);
         assertEquals(periodName, result.getUniversityFiscalPeriodName());
 
         SpringContext.getBean(BusinessObjectService.class).delete(result);
@@ -93,7 +93,7 @@ public class AccountingPeriodServiceTest extends KualiTestBase {
 
     public void testGetOpenAccountingPeriods() {
         Collection<AccountingPeriod> accountingPeriods = SpringContext.getBean(AccountingPeriodService.class).getOpenAccountingPeriods();
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Number of OpenAccountingPeriods found: " + accountingPeriods.size());
         }
 
@@ -109,10 +109,10 @@ public class AccountingPeriodServiceTest extends KualiTestBase {
     public void testGetByPeriod() {
         Collection<AccountingPeriod> accountingPeriods = SpringContext.getBean(AccountingPeriodService.class).getAllAccountingPeriods();
         AccountingPeriod periodToTest = accountingPeriods.iterator().next();
-        AccountingPeriod period = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(periodToTest.getUniversityFiscalPeriodCode(),periodToTest.getUniversityFiscalYear());
+        AccountingPeriod period = SpringContext.getBean(AccountingPeriodService.class).getByPeriod(periodToTest.getUniversityFiscalPeriodCode(), periodToTest.getUniversityFiscalYear());
 
         AccountingPeriod periodFromBoService = getAccountingPeriodByPrimaryKeys(periodToTest.getUniversityFiscalYear(), periodToTest.getUniversityFiscalPeriodCode());
 
-        assertEquals( "service not retrieving expected object", periodFromBoService, period );
+        assertEquals("service not retrieving expected object", periodFromBoService, period);
     }
 }

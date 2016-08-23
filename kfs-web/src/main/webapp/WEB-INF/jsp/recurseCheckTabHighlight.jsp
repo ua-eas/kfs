@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp" %>
 <kul:checkTabHighlight
-    rows="${_rows}"
-    addHighlighting="${_addHighlighting}" />
+        rows="${_rows}"
+        addHighlighting="${_addHighlighting}"/>

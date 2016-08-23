@@ -26,50 +26,48 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationR
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. city and state entered, but no postal code (success) {@link #testCityStateNoPostalSuccess()}
  * 2. city entered, no state or postal code (failure) {@link #testCityNoStateNoPostalFailure()}
  * 3. postal code entered but no city or state (success) {@link #testPostalNoCityStateSuccess()}
- *
- *
  */
 public class MustOccurConstraintProcessorTest extends BaseConstraintProcessorTest<MustOccurConstraintProcessor> {
 
-	private Address noPostalCodeAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "DC", "", "USA", null);
-	private Address noStateOrPostalCodeAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "", "", "USA", null);
-	private Address noCityStateAddress = new Address("893 Presidential Ave", "Suite 800", "", "", "12340", "USA", null);
+    private Address noPostalCodeAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "DC", "", "USA", null);
+    private Address noStateOrPostalCodeAddress = new Address("893 Presidential Ave", "Suite 800", "Washington", "", "", "USA", null);
+    private Address noCityStateAddress = new Address("893 Presidential Ave", "Suite 800", "", "", "12340", "USA", null);
 
-	@Test
-	public void testCityStateNoPostalSuccess() {
-		ConstraintValidationResult result = process(noPostalCodeAddress, null, topLevelConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testCityStateNoPostalSuccess() {
+        ConstraintValidationResult result = process(noPostalCodeAddress, null, topLevelConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testCityNoStateNoPostalFailure() {
-		ConstraintValidationResult result = process(noStateOrPostalCodeAddress, null, topLevelConstraint);
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testCityNoStateNoPostalFailure() {
+        ConstraintValidationResult result = process(noStateOrPostalCodeAddress, null, topLevelConstraint);
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testPostalNoCityStateSuccess() {
-		ConstraintValidationResult result = process(noCityStateAddress, null, topLevelConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testPostalNoCityStateSuccess() {
+        ConstraintValidationResult result = process(noCityStateAddress, null, topLevelConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new MustOccurConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	/**
-	 * @see org.kuali.rice.kns.datadictionary.validation.processor.BaseConstraintProcessorTest#newProcessor()
-	 */
-	@Override
-	protected MustOccurConstraintProcessor newProcessor() {
-		return new MustOccurConstraintProcessor();
-	}
+    /**
+     * @see org.kuali.rice.kns.datadictionary.validation.processor.BaseConstraintProcessorTest#newProcessor()
+     */
+    @Override
+    protected MustOccurConstraintProcessor newProcessor() {
+        return new MustOccurConstraintProcessor();
+    }
 
 }

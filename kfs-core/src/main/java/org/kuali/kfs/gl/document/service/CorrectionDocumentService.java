@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.gl.document.service;
 
+import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.gl.document.CorrectionDocumentUtils;
+import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
+import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.sys.batch.InitiateDirectory;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
@@ -25,18 +33,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.document.CorrectionDocumentUtils;
-import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
-import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
-import org.kuali.kfs.sys.batch.InitiateDirectory;
-import org.kuali.kfs.kns.web.ui.Column;
-
 /**
  * An interface declaring methods needed by the GLCP to function
  */
-public interface CorrectionDocumentService extends InitiateDirectory{
+public interface CorrectionDocumentService extends InitiateDirectory {
     public final static String CORRECTION_TYPE_MANUAL = "M";
     public final static String CORRECTION_TYPE_CRITERIA = "C";
     public final static String CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING = "R";
@@ -55,7 +55,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * Returns a specific correction change group for a GLCP document
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a CorrectionChangeGroup
      */
     public CorrectionChangeGroup findByDocumentNumberAndCorrectionChangeGroupNumber(String docId, int i);
@@ -64,7 +64,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * Finds CollectionChange records associated with a given document id and correction change group
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a List of qualifying CorrectionChange records
      */
     public List findByDocumentHeaderIdAndCorrectionGroupNumber(String docId, int i);
@@ -73,7 +73,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * Finds Collection Criteria associated with the given GLCP document and group
      *
      * @param docId the document id of a GLCP document
-     * @param i the number of the correction group within the document
+     * @param i     the number of the correction group within the document
      * @return a List of qualifying CorrectionCriteria
      */
     public List findByDocumentNumberAndCorrectionGroupNumber(String docId, int i);
@@ -98,7 +98,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
      *
      * @param document an initiated or saved document
-     * @param entries an Iterator of origin entries
+     * @param entries  an Iterator of origin entries
      */
     public void persistInputOriginEntriesForInitiatedOrSavedDocument(GeneralLedgerCorrectionProcessDocument document, Iterator<OriginEntryFull> entries);
 
@@ -119,9 +119,9 @@ public interface CorrectionDocumentService extends InitiateDirectory{
     /**
      * Retrieves input origin entries that have been persisted for this document
      *
-     * @param document the document
+     * @param document       the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
-     *        signifies that there is no limit
+     *                       signifies that there is no limit
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
@@ -142,8 +142,8 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * Writes out the persisted input origin entries in an {@link OutputStream} in a flat file format
      *
      * @param document a GLCP document
-     * @param out an open and ready output stream
-     * @throws IOException thrown if errors were encountered writing to the Stream
+     * @param out      an open and ready output stream
+     * @throws IOException      thrown if errors were encountered writing to the Stream
      * @throws RuntimeException several reasons, including if the entries are not persisted
      */
     public void writePersistedInputOriginEntriesToStream(GeneralLedgerCorrectionProcessDocument document, OutputStream out) throws IOException;
@@ -152,7 +152,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
      *
      * @param document an initiated or saved document
-     * @param entries an Iterator of OriginEntries to persist
+     * @param entries  an Iterator of OriginEntries to persist
      */
     public void persistOutputOriginEntriesForInitiatedOrSavedDocument(GeneralLedgerCorrectionProcessDocument document, Iterator<OriginEntryFull> entries);
 
@@ -173,9 +173,9 @@ public interface CorrectionDocumentService extends InitiateDirectory{
     /**
      * Retrieves output origin entries that have been persisted for this document
      *
-     * @param document the document
+     * @param document       the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
-     *        signifies that there is no limit
+     *                       signifies that there is no limit
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
@@ -216,8 +216,8 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * Writes out the persisted output origin entries in an {@link OutputStream} in a flat file format\
      *
      * @param document a GLCP document
-     * @param out axn open and ready output stream
-     * @throws IOException thrown if IOExceptions occurred in writing the persisted origin entries
+     * @param out      axn open and ready output stream
+     * @throws IOException      thrown if IOExceptions occurred in writing the persisted origin entries
      * @throws RuntimeException several reasons, including if the entries are not persisted
      */
     public void writePersistedOutputOriginEntriesToStream(GeneralLedgerCorrectionProcessDocument document, OutputStream out) throws IOException;
@@ -225,7 +225,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
     /**
      * Saves the input and output origin entry groups for a document prior to saving the document
      *
-     * @param document a GLCP document
+     * @param document                        a GLCP document
      * @param correctionDocumentEntryMetadata metadata about this GLCP document
      */
     public void persistOriginEntryGroupsForDocumentSave(GeneralLedgerCorrectionProcessDocument document, CorrectionDocumentEntryMetadata correctionDocumentEntryMetadata);
@@ -261,5 +261,5 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * @param documentNumber
      * @return
      */
-    public String[] findExistingCorrectionOutputFilesForDocument( String documentNumber );
+    public String[] findExistingCorrectionOutputFilesForDocument(String documentNumber);
 }

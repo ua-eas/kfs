@@ -18,15 +18,19 @@
  */
 package org.kuali.kfs.module.cam.document;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -47,17 +51,13 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -122,12 +122,12 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
         String docType = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
         ParameterEvaluatorService parameterEvaluatorService = SpringContext.getBean(ParameterEvaluatorService.class);
         ParameterEvaluator evaluator = parameterEvaluatorService.getParameterEvaluator(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.DETAIL_PARAMETER_TYPE, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.FISCAL_PERIOD_SELECTION_DOCUMENT_TYPES, docType);
-        if (evaluator.evaluationSucceeds() && isPeriod13(assetRetirementGlobal) ) {
+        if (evaluator.evaluationSucceeds() && isPeriod13(assetRetirementGlobal)) {
             Integer closingYear = new Integer(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_FISCAL_YEAR_PARM));
             String closingDate = getClosingDate(closingYear);
             try {
-                if (ObjectUtils.isNotNull(assetRetirementGlobal.getPostingYear()) ) {
-                    assetRetirementGlobal.setAccountingPeriodCompositeString(assetRetirementGlobal.getAccountingPeriod().getUniversityFiscalPeriodCode()+assetRetirementGlobal.getPostingYear());
+                if (ObjectUtils.isNotNull(assetRetirementGlobal.getPostingYear())) {
+                    assetRetirementGlobal.setAccountingPeriodCompositeString(assetRetirementGlobal.getAccountingPeriod().getUniversityFiscalPeriodCode() + assetRetirementGlobal.getPostingYear());
                 }
                 updateAssetRetirementGlobalForPeriod13(assetRetirementGlobal, closingYear, closingDate);
                 assetRetirementGlobal.refreshNonUpdateableReferences();
@@ -162,8 +162,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
         int nElements = assetRetirementGlobal.getAssetRetirementGlobalDetails().size() + rawValues.size();
         if (!getAssetService().isDocumentEnrouting(document) && !getAssetRetirementService().isAllowedRetireMultipleAssets(document) && nElements > new Integer(1)) {
             GlobalVariables.getMessageMap().putErrorForSectionId(CamsConstants.AssetRetirementGlobal.SECTION_ID_ASSET_DETAIL_INFORMATION, CamsKeyConstants.Retirement.ERROR_MULTIPLE_ASSET_RETIRED);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().clearErrorMessages();
 
             // Adding the selected asset.
@@ -174,7 +173,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -188,8 +187,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
             for (AssetRetirementGlobalDetail assetRetirementGlobalDetail : assetRetirementGlobalDetails) {
                 getAssetService().setAssetSummaryFields(assetRetirementGlobalDetail.getAsset());
             }
-        }
-        else if (CamsConstants.AssetRetirementGlobal.ASSET_LOOKUPABLE_ID.equalsIgnoreCase(refreshCaller)) {
+        } else if (CamsConstants.AssetRetirementGlobal.ASSET_LOOKUPABLE_ID.equalsIgnoreCase(refreshCaller)) {
             // Set non-persistent values in the result from asset lookup. So the screen can show them when return from single asset
             // lookup.
             String referencesToRefresh = (String) fieldValues.get(KRADConstants.REFERENCES_TO_REFRESH);
@@ -265,13 +263,13 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
     }
 
     @Override
-    public Map<String, String> populateNewCollectionLines( Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall ) {
-        String capitalAssetNumber = (String)fieldValues.get(CamsPropertyConstants.AssetRetirementGlobal.CAPITAL_ASSET_NUMBER);
+    public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall) {
+        String capitalAssetNumber = (String) fieldValues.get(CamsPropertyConstants.AssetRetirementGlobal.CAPITAL_ASSET_NUMBER);
 
         if (StringUtils.isNotBlank(capitalAssetNumber)) {
             fieldValues.remove(CamsPropertyConstants.AssetRetirementGlobal.CAPITAL_ASSET_NUMBER);
             fieldValues.put(CamsPropertyConstants.AssetRetirementGlobal.CAPITAL_ASSET_NUMBER, capitalAssetNumber.trim());
-		}
+        }
         return super.populateNewCollectionLines(fieldValues, maintenanceDocument, methodToCall);
 
     }
@@ -290,6 +288,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Checks for Accounting Period 13
+     *
      * @param assetRetirementGlobal
      * @return true if the accountingPeriod in assetRetirementGlobal is 13.
      * TODO Remove hardcoding
@@ -303,9 +302,9 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Return the closing date as mm/dd/yyyy
+     *
      * @param closingYear
      * @return the closing date as mm/dd/yyyy
-
      */
     private String getClosingDate(Integer closingYear) {
         return SpringContext.getBean(AssetGlobalService.class).getFiscalYearEndDayAndMonth() + closingYear.toString();
@@ -314,6 +313,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Return the calendar Date for the closing year
+     *
      * @param closingYear
      * @return 01/01/[closing year]
      * TODO Remove hardcoding
@@ -324,6 +324,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Convenience method to reduce clutter
+     *
      * @return {@link DateTimeService}
      */
     private DateTimeService getDateTimeService() {
@@ -332,6 +333,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Perform changes to assetRetirementGlobal on period 13.
+     *
      * @param assetRetirementGlobal
      */
     private void doPeriod13Changes(AssetRetirementGlobal assetRetirementGlobal) {
@@ -349,6 +351,7 @@ public class AssetRetirementGlobalMaintainableImpl extends LedgerPostingMaintain
 
     /**
      * Update assetRetirementGlobal fields for period 13
+     *
      * @param assetRetirementGlobal
      * @param closingYear
      * @param closingDate

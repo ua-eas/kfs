@@ -19,9 +19,7 @@
 package org.kuali.kfs.kns.lookup;
 
 import org.apache.commons.codec.binary.Base64;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.LookupResults;
 import org.kuali.kfs.krad.bo.MultipleValueLookupMetadata;
 import org.kuali.kfs.krad.bo.SelectedObjectIds;
@@ -30,6 +28,8 @@ import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -79,13 +79,14 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         selectedObjectIdsBO.setLookupResultsSequenceNumber(lookupResultsSequenceNumber);
         selectedObjectIdsBO.setLookupPersonId(personId);
         selectedObjectIdsBO.setSelectedObjectIds(
-                org.kuali.kfs.kns.lookup.LookupUtils.convertSetOfObjectIdsToString(selectedObjectIds));
+            org.kuali.kfs.kns.lookup.LookupUtils.convertSetOfObjectIdsToString(selectedObjectIds));
         selectedObjectIdsBO.setLookupDate(CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp());
         businessObjectService.save(selectedObjectIdsBO);
     }
 
     /**
      * Retrieves the LookupResults BO with the given sequence number.  Does not check authentication.
+     *
      * @param lookupResultsSequenceNumber
      * @return
      * @throws Exception
@@ -100,6 +101,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 
     /**
      * Retrieves the SelectedObjectIds BO with the given sequence number.  Does not check authentication.
+     *
      * @param lookupResultsSequenceNumber
      * @return
      * @throws Exception
@@ -119,8 +121,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         try {
             LookupResults lookupResults = retrieveLookupResults(lookupResultsSequenceNumber);
             return isAuthorizedToAccessLookupResults(lookupResults, personId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -143,8 +144,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         try {
             SelectedObjectIds selectedObjectIds = retrieveSelectedObjectIds(lookupResultsSequenceNumber);
             return isAuthorizedToAccessSelectedObjectIds(selectedObjectIds, personId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -180,12 +180,12 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
      * @see org.kuali.rice.krad.lookup.LookupResultsService#retrieveSelectedResultBOs(java.lang.String, java.lang.Class, java.lang.String)
      */
     public <T extends BusinessObject> Collection<T> retrieveSelectedResultBOs(String lookupResultsSequenceNumber, Class<T> boClass, String personId) throws Exception {
-    	final LookupResultsSupportStrategyService supportService = getQualifingSupportStrategy(boClass);
-    	if (supportService == null) {
-    		throw new RuntimeException("BusinessObject class "+boClass.getName()+" cannot be used within a multiple value lookup; it either needs to be a PersistableBusinessObject or have both its primary keys and a lookupable defined in its data dictionary entry");
-    	}
+        final LookupResultsSupportStrategyService supportService = getQualifingSupportStrategy(boClass);
+        if (supportService == null) {
+            throw new RuntimeException("BusinessObject class " + boClass.getName() + " cannot be used within a multiple value lookup; it either needs to be a PersistableBusinessObject or have both its primary keys and a lookupable defined in its data dictionary entry");
+        }
 
-    	SelectedObjectIds selectedObjectIds = retrieveSelectedObjectIds(lookupResultsSequenceNumber);
+        SelectedObjectIds selectedObjectIds = retrieveSelectedObjectIds(lookupResultsSequenceNumber);
 
         if (!isAuthorizedToAccessSelectedObjectIds(selectedObjectIds, personId)) {
             // TODO: use the other identifier
@@ -193,14 +193,14 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         }
 
         Set<String> setOfSelectedObjIds = LookupUtils
-                .convertStringOfObjectIdsToSet(selectedObjectIds.getSelectedObjectIds());
+            .convertStringOfObjectIdsToSet(selectedObjectIds.getSelectedObjectIds());
 
         if (setOfSelectedObjIds.isEmpty()) {
             // OJB throws exception if querying on empty set
             return new ArrayList<T>();
         }
 
-    	return supportService.retrieveSelectedResultBOs(boClass, setOfSelectedObjIds);
+        return supportService.retrieveSelectedResultBOs(boClass, setOfSelectedObjIds);
     }
 
     /**
@@ -210,12 +210,12 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
      * @return an LookupResultsSupportStrategyService implementation, or null if no qualifying strategies could be found
      */
     protected LookupResultsSupportStrategyService getQualifingSupportStrategy(Class boClass) {
-    	if (getPersistableBusinessObjectSupportStrategy().qualifiesForStrategy(boClass)) {
-    		return getPersistableBusinessObjectSupportStrategy();
-    	} else if (getDataDictionarySupportStrategy().qualifiesForStrategy(boClass)) {
-    		return getDataDictionarySupportStrategy();
-    	}
-    	return null;
+        if (getPersistableBusinessObjectSupportStrategy().qualifiesForStrategy(boClass)) {
+            return getPersistableBusinessObjectSupportStrategy();
+        } else if (getDataDictionarySupportStrategy().qualifiesForStrategy(boClass)) {
+            return getDataDictionarySupportStrategy();
+        }
+        return null;
     }
 
     /**
@@ -239,18 +239,19 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     }
 
     /**
-	 * Figures out which LookupResultsServiceSupportStrategy to defer to, and uses that to get the lookup id
-	 * @see org.kuali.rice.krad.lookup.LookupResultsService#getLookupId(org.kuali.rice.krad.bo.BusinessObject)
-	 */
-	public String getLookupId(BusinessObject businessObject) {
-		final LookupResultsSupportStrategyService supportService = getQualifingSupportStrategy(businessObject.getClass());
-		if (supportService == null) {
-			return null; // this may happen quite often, so let's just return null - no exception here
-		}
-		return supportService.getLookupIdForBusinessObject(businessObject);
-	}
+     * Figures out which LookupResultsServiceSupportStrategy to defer to, and uses that to get the lookup id
+     *
+     * @see org.kuali.rice.krad.lookup.LookupResultsService#getLookupId(org.kuali.rice.krad.bo.BusinessObject)
+     */
+    public String getLookupId(BusinessObject businessObject) {
+        final LookupResultsSupportStrategyService supportService = getQualifingSupportStrategy(businessObject.getClass());
+        if (supportService == null) {
+            return null; // this may happen quite often, so let's just return null - no exception here
+        }
+        return supportService.getLookupIdForBusinessObject(businessObject);
+    }
 
-	public BusinessObjectService getBusinessObjectService() {
+    public BusinessObjectService getBusinessObjectService() {
         return businessObjectService;
     }
 
@@ -260,6 +261,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 
     /**
      * Determines whether the passed in user ID is allowed to view the lookup metadata (object IDs or results table)
+     *
      * @param mvlm
      * @param personId
      * @return
@@ -286,35 +288,35 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         this.persistedLookupMetadataDao = persistedLookupMetadataDao;
     }
 
-	/**
-	 * @return the persistableBusinessObjectSupportStrategy
-	 */
-	public LookupResultsSupportStrategyService getPersistableBusinessObjectSupportStrategy() {
-		return this.persistableBusinessObjectSupportStrategy;
-	}
+    /**
+     * @return the persistableBusinessObjectSupportStrategy
+     */
+    public LookupResultsSupportStrategyService getPersistableBusinessObjectSupportStrategy() {
+        return this.persistableBusinessObjectSupportStrategy;
+    }
 
-	/**
-	 * @return the dataDictionarySupportStrategy
-	 */
-	public LookupResultsSupportStrategyService getDataDictionarySupportStrategy() {
-		return this.dataDictionarySupportStrategy;
-	}
+    /**
+     * @return the dataDictionarySupportStrategy
+     */
+    public LookupResultsSupportStrategyService getDataDictionarySupportStrategy() {
+        return this.dataDictionarySupportStrategy;
+    }
 
-	/**
-	 * @param persistableBusinessObjectSupportStrategy the persistableBusinessObjectSupportStrategy to set
-	 */
-	public void setPersistableBusinessObjectSupportStrategy(
-			LookupResultsSupportStrategyService persistableBusinessObjectSupportStrategy) {
-		this.persistableBusinessObjectSupportStrategy = persistableBusinessObjectSupportStrategy;
-	}
+    /**
+     * @param persistableBusinessObjectSupportStrategy the persistableBusinessObjectSupportStrategy to set
+     */
+    public void setPersistableBusinessObjectSupportStrategy(
+        LookupResultsSupportStrategyService persistableBusinessObjectSupportStrategy) {
+        this.persistableBusinessObjectSupportStrategy = persistableBusinessObjectSupportStrategy;
+    }
 
-	/**
-	 * @param dataDictionarySupportStrategy the dataDictionarySupportStrategy to set
-	 */
-	public void setDataDictionarySupportStrategy(
-			LookupResultsSupportStrategyService dataDictionarySupportStrategy) {
-		this.dataDictionarySupportStrategy = dataDictionarySupportStrategy;
-	}
+    /**
+     * @param dataDictionarySupportStrategy the dataDictionarySupportStrategy to set
+     */
+    public void setDataDictionarySupportStrategy(
+        LookupResultsSupportStrategyService dataDictionarySupportStrategy) {
+        this.dataDictionarySupportStrategy = dataDictionarySupportStrategy;
+    }
 
 }
 

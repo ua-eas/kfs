@@ -40,8 +40,6 @@ import java.util.regex.Pattern;
  * response to CVE-2014-0114.
  *
  * @deprecated Patches Struts 1 which is end-of-life and will eventually be removed from Rice.
- *
- *
  */
 @Deprecated
 public class ParameterFilter implements Filter {
@@ -56,7 +54,8 @@ public class ParameterFilter implements Filter {
         chain.doFilter(new FilteredServletRequest(request, excludeParams), response);
     }
 
-    public void destroy() { }
+    public void destroy() {
+    }
 
     private static class FilteredServletRequest extends HttpServletRequestWrapper {
 

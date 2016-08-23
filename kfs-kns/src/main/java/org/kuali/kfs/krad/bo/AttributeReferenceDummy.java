@@ -21,7 +21,6 @@ package org.kuali.kfs.krad.bo;
 
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiPercent;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -53,9 +52,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
     private boolean current;
 
     /**
-     *
      * Constructs a AttributeReferenceDummy.java.
-     *
      */
     public AttributeReferenceDummy() {
     }
@@ -279,6 +276,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the newCollectionRecord attribute.
+     *
      * @return Returns the newCollectionRecord.
      */
     public boolean isNewCollectionRecord() {
@@ -287,6 +285,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the newCollectionRecord attribute value.
+     *
      * @param newCollectionRecord The newCollectionRecord to set.
      */
     public void setNewCollectionRecord(boolean newCollectionRecord) {
@@ -308,34 +307,34 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
     }
 
     public Date getActiveFromDate() {
-		return this.activeFromDate;
-	}
+        return this.activeFromDate;
+    }
 
-	public void setActiveFromDate(Date activeFromDate) {
-		this.activeFromDate = activeFromDate;
-	}
+    public void setActiveFromDate(Date activeFromDate) {
+        this.activeFromDate = activeFromDate;
+    }
 
-	public Date getActiveToDate() {
-		return this.activeToDate;
-	}
+    public Date getActiveToDate() {
+        return this.activeToDate;
+    }
 
-	public void setActiveToDate(Date activeToDate) {
-		this.activeToDate = activeToDate;
-	}
+    public void setActiveToDate(Date activeToDate) {
+        this.activeToDate = activeToDate;
+    }
 
-	public Date getActiveAsOfDate() {
-		return this.activeAsOfDate;
-	}
+    public Date getActiveAsOfDate() {
+        return this.activeAsOfDate;
+    }
 
-	public void setActiveAsOfDate(Date activeAsOfDate) {
-		this.activeAsOfDate = activeAsOfDate;
-	}
+    public void setActiveAsOfDate(Date activeAsOfDate) {
+        this.activeAsOfDate = activeAsOfDate;
+    }
 
-	public boolean isCurrent() {
-		return this.current;
-	}
+    public boolean isCurrent() {
+        return this.current;
+    }
 
-	public void setCurrent(boolean current) {
-		this.current = current;
-	}
+    public void setCurrent(boolean current) {
+        this.current = current;
+    }
 }

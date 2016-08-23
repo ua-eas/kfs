@@ -18,8 +18,11 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.Serializable;
-import java.util.List;
+import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
+import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
+import org.kuali.rice.kim.api.permission.PermissionContract;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
@@ -28,30 +31,27 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
-import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
-import org.kuali.rice.kim.api.permission.PermissionContract;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * This class represents a &lt;permissions&gt; element.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="PermissionsType", propOrder={"permissions"})
+@XmlType(name = "PermissionsType", propOrder = {"permissions"})
 public class PermissionsXmlDTO implements RiceXmlListAdditionListener<PermissionXmlDTO>,
-        RiceXmlListGetterListener<PermissionXmlDTO,Object>, Serializable {
+    RiceXmlListGetterListener<PermissionXmlDTO, Object>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="permission")
+    @XmlElement(name = "permission")
     private List<PermissionXmlDTO> permissions;
 
-    public PermissionsXmlDTO() {}
+    public PermissionsXmlDTO() {
+    }
 
     public PermissionsXmlDTO(List<? extends Object> permissionsToExport) {
-        this.permissions = new RiceXmlExportList<PermissionXmlDTO,Object>(permissionsToExport, this);
+        this.permissions = new RiceXmlExportList<PermissionXmlDTO, Object>(permissionsToExport, this);
     }
 
     /**

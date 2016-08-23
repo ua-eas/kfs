@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -31,15 +32,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Set;
 
 public class CustomerInvoiceDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
 
 
     @Override
-   public Set<String> getDocumentActions(Document document) {
+    public Set<String> getDocumentActions(Document document) {
 
         Set<String> documentActions = super.getDocumentActions(document);
         if (isDocErrorCorrectionMode((FinancialSystemTransactionalDocument) document)) {
@@ -61,8 +61,7 @@ public class CustomerInvoiceDocumentPresentationController extends FinancialSyst
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (ObjectUtils.isNotNull(workflowDocument) && (workflowDocument.isApproved() || workflowDocument.isProcessed() || workflowDocument.isFinal())) {
             editModes.add(ArAuthorizationConstants.CustomerInvoiceDocumentEditMode.DISPLAY_PRINT_BUTTON);
-        }
-        else {
+        } else {
             if (editModes.contains(ArAuthorizationConstants.CustomerInvoiceDocumentEditMode.DISPLAY_PRINT_BUTTON)) {
                 editModes.remove(ArAuthorizationConstants.CustomerInvoiceDocumentEditMode.DISPLAY_PRINT_BUTTON);
             }
@@ -78,14 +77,14 @@ public class CustomerInvoiceDocumentPresentationController extends FinancialSyst
     @Override
     public boolean canCopy(Document document) {
         boolean copyable = true;
-        CustomerInvoiceDocument ciDoc = (CustomerInvoiceDocument)document;
+        CustomerInvoiceDocument ciDoc = (CustomerInvoiceDocument) document;
 
         // Confirm doc is in a saved and copyable state.
         copyable &= !ciDoc.getDocumentHeader().getWorkflowDocument().isInitiated();
         copyable &= !ciDoc.getDocumentHeader().getWorkflowDocument().isCanceled();
 
         // Confirm doc is reversible.
-        copyable &= !((CustomerInvoiceDocument)document).isInvoiceReversal();
+        copyable &= !((CustomerInvoiceDocument) document).isInvoiceReversal();
         return copyable;
     }
 
@@ -102,7 +101,7 @@ public class CustomerInvoiceDocumentPresentationController extends FinancialSyst
             return false;
         }
 
-        if(((CustomerInvoiceDocument)document).isInvoiceReversal()){
+        if (((CustomerInvoiceDocument) document).isInvoiceReversal()) {
             return false;
         } else {
             // a normal invoice can only be error corrected if document is in a final state
@@ -113,7 +112,7 @@ public class CustomerInvoiceDocumentPresentationController extends FinancialSyst
 
     //  if this isnt self-explanatory, I dont know what is
     protected boolean isDocFinalWithNoAppliedAmountsExceptDiscounts(CustomerInvoiceDocument document) {
-        boolean isFinal = (document.getDocumentHeader().getWorkflowDocument().isFinal() || document.getDocumentHeader().getWorkflowDocument().isProcessed() );
+        boolean isFinal = (document.getDocumentHeader().getWorkflowDocument().isFinal() || document.getDocumentHeader().getWorkflowDocument().isProcessed());
 
         InvoicePaidAppliedService<CustomerInvoiceDetail> paidAppliedService = SpringContext.getBean(InvoicePaidAppliedService.class);
         boolean hasAppliedAmountsExcludingDiscounts = paidAppliedService.doesInvoiceHaveAppliedAmounts(document);
@@ -128,7 +127,7 @@ public class CustomerInvoiceDocumentPresentationController extends FinancialSyst
             return true;
         }
 
-        if(((CustomerInvoiceDocument)document).isInvoiceReversal()){
+        if (((CustomerInvoiceDocument) document).isInvoiceReversal()) {
             return true;
         } else {
             // a normal invoice can only be error corrected if document is in a final state

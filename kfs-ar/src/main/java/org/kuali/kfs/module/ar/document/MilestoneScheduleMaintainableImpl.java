@@ -54,7 +54,7 @@ public class MilestoneScheduleMaintainableImpl extends FinancialSystemMaintainab
      * This method is called to check if the award already has milestones set, and to validate on refresh
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
 
     @Override
@@ -63,19 +63,18 @@ public class MilestoneScheduleMaintainableImpl extends FinancialSystemMaintainab
             if (MilestoneScheduleRuleUtil.checkIfMilestonesExists(getMilestoneSchedule())) {
                 String pathToMaintainable = DOCUMENT + "." + NEW_MAINTAINABLE_OBJECT;
                 GlobalVariables.getMessageMap().addToErrorPath(pathToMaintainable);
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_MILESTONE_SCHEDULE_EXISTS, new String[] { getMilestoneSchedule().getProposalNumber().toString() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_MILESTONE_SCHEDULE_EXISTS, new String[]{getMilestoneSchedule().getProposalNumber().toString()});
                 GlobalVariables.getMessageMap().removeFromErrorPath(pathToMaintainable);
             }
-        }
-        else {
+        } else {
             super.refresh(refreshCaller, fieldValues, document);
         }
     }
 
-   /**
-    * Not to copy over the Milestones billed and milestoneIdentifier values to prevent
-    * bad data and PK issues when saving new Milestones.
-    */
+    /**
+     * Not to copy over the Milestones billed and milestoneIdentifier values to prevent
+     * bad data and PK issues when saving new Milestones.
+     */
     @Override
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterCopy(document, parameters);
@@ -84,7 +83,7 @@ public class MilestoneScheduleMaintainableImpl extends FinancialSystemMaintainab
         // reset billed indicator in case bill we're copying from was already billed
         List<Milestone> milestones = getMilestoneSchedule().getMilestones();
         if (ObjectUtils.isNotNull(milestones)) {
-            for (Milestone milestone:milestones) {
+            for (Milestone milestone : milestones) {
                 milestone.setBilled(false);
                 milestone.setMilestoneIdentifier(null);
             }
@@ -125,7 +124,7 @@ public class MilestoneScheduleMaintainableImpl extends FinancialSystemMaintainab
     /**
      * Sets the Milestone in the passed in section to be readonly if it has been copied to a CG Invoice doc.
      *
-     * @param section Milestone section to review and possibly set readonly
+     * @param section        Milestone section to review and possibly set readonly
      * @param proposalNumber used to look for CG Invoice docs
      */
     protected void prepareMilestonesTab(Section section, String proposalNumber) {
@@ -160,6 +159,7 @@ public class MilestoneScheduleMaintainableImpl extends FinancialSystemMaintainab
 
     /**
      * Gets the underlying Milestone Schedule.
+     *
      * @return
      */
     public MilestoneSchedule getMilestoneSchedule() {

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContextAware;
 
@@ -31,8 +31,6 @@ import java.util.Properties;
 
 /**
  * Defines service methods for module services
- *
- *
  */
 public interface ModuleService extends InitializingBean, ApplicationContextAware {
 
@@ -97,7 +95,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public <T extends ExternalizableBusinessObject> T getExternalizableBusinessObject(Class<T> businessObjectClass,
-            Map<String, Object> fieldValues);
+                                                                                      Map<String, Object> fieldValues);
 
     /**
      * This method gets the list of externalizable business objects, given its type and a map of primary keys and
@@ -108,7 +106,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public <T extends ExternalizableBusinessObject> List<T> getExternalizableBusinessObjectsList(
-            Class<T> businessObjectClass, Map<String, Object> fieldValues);
+        Class<T> businessObjectClass, Map<String, Object> fieldValues);
 
     /**
      * This method gets the list of externalizable business objects for lookup, given its type and a map of primary keys
@@ -121,15 +119,15 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public <T extends ExternalizableBusinessObject> List<T> getExternalizableBusinessObjectsListForLookup(
-            Class<T> businessObjectClass, Map<String, Object> fieldValues, boolean unbounded);
+        Class<T> businessObjectClass, Map<String, Object> fieldValues, boolean unbounded);
 
     /**
      * Returns a URL so that the inquiry framework may redirect a user to the appropriate (possibly
      * external) website at which to view inquiry information
      *
      * @param inquiryDataObjectClass - a {@link ExternalizableBusinessObject} managed by this module
-     * @param parameters - any inquiry parameters, and the primary key values of the inquiry class would be
-     * in here
+     * @param parameters             - any inquiry parameters, and the primary key values of the inquiry class would be
+     *                               in here
      * @return String URL where externalizable object information may be viewed
      */
     public String getExternalizableDataObjectInquiryUrl(Class<?> inquiryDataObjectClass, Properties parameters);
@@ -139,7 +137,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * external) website at which to the data for the object may be searched
      *
      * @param inquiryDataObjectClass - a {@link ExternalizableBusinessObject} managed by this module
-     * @param parameters - any parameters for the lookup call
+     * @param parameters             - any parameters for the lookup call
      * @return String URL where externalizable object information may be searched
      */
     public String getExternalizableDataObjectLookupUrl(Class<?> inquiryDataObjectClass, Properties parameters);
@@ -150,15 +148,15 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * at which to view inquiry information.
      *
      * @param inquiryBusinessObjectClass a {@link ExternalizableBusinessObject} managed by this module
-     * @param parameters any inquiry parameters, and the primary key values of the inquiryBusinessObjectClass would be
-     * in here
+     * @param parameters                 any inquiry parameters, and the primary key values of the inquiryBusinessObjectClass would be
+     *                                   in here
      * @return a URL where externalizable business object information may be viewed.
      * @deprecated legacy KNS call, replaced by {@link #getExternalizableDataObjectInquiryUrl(Class, java.util.Properties)}
      * in KRAD
      */
     @Deprecated
     public String getExternalizableBusinessObjectInquiryUrl(Class inquiryBusinessObjectClass,
-            Map<String, String[]> parameters);
+                                                            Map<String, String[]> parameters);
 
     /**
      * This method gets the lookup url for the given externalizable business object properties.
@@ -170,7 +168,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      */
     @Deprecated
     public String getExternalizableBusinessObjectLookupUrl(Class inquiryBusinessObjectClass,
-            Map<String, String> parameters);
+                                                           Map<String, String> parameters);
 
     /**
      * This method retrieves the externalizable business object, if it is not already populated
@@ -182,7 +180,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public <T extends ExternalizableBusinessObject> T retrieveExternalizableBusinessObjectIfNecessary(
-            BusinessObject businessObject, T currentInstanceExternalizableBO, String externalizableRelationshipName);
+        BusinessObject businessObject, T currentInstanceExternalizableBO, String externalizableRelationshipName);
 
     /**
      * This method retrieves a list of externalizable business objects given a business object,
@@ -195,7 +193,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public <T extends ExternalizableBusinessObject> List<T> retrieveExternalizableBusinessObjectsList(
-            BusinessObject businessObject, String externalizableRelationshipName, Class<T> externalizableClazz);
+        BusinessObject businessObject, String externalizableRelationshipName, Class<T> externalizableClazz);
 
     /**
      * This method determines whether or not a bo class is externalizable.
@@ -219,6 +217,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
 
     /**
      * Determines whether an EBO's implementation is external.
+     *
      * @param boClass
      * @return
      */
@@ -235,7 +234,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * For a given ExternalizableBusinessObject interface, return the implementation class provided by this module.
      */
     public <E extends ExternalizableBusinessObject> Class<E> getExternalizableBusinessObjectImplementation(
-            Class<E> externalizableBusinessObjectInterface);
+        Class<E> externalizableBusinessObjectInterface);
 
     /**
      * This method determines whether or not this module is currently locked

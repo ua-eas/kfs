@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import org.kuali.kfs.sys.exception.ParseException;
-
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.CsvToBean;
+import org.kuali.kfs.sys.exception.ParseException;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created for Research Participant Upload
@@ -37,7 +36,6 @@ import au.com.bytecode.opencsv.bean.CsvToBean;
  * an Object. The type of Object it's creating
  * depends on the MappingStrategy passed into the
  * input parameter.
- *
  */
 public class MappingCSVReader extends CsvToBean {
 
@@ -55,8 +53,7 @@ public class MappingCSVReader extends CsvToBean {
     public Object processLine(au.com.bytecode.opencsv.bean.MappingStrategy strat, java.lang.String[] line) throws ParseException {
         try {
             return super.processLine(strat, line);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ParseException(e.getMessage());
         }
     }

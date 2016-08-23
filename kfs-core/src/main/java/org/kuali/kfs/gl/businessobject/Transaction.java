@@ -22,8 +22,6 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -35,6 +33,8 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.sql.Date;
 
 /**
  * This interface represents a financial transaction

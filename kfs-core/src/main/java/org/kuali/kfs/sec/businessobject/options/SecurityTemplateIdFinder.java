@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sec.SecConstants;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -52,7 +51,7 @@ public class SecurityTemplateIdFinder extends KeyValuesBase {
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     public List<KeyValue> getKeyValues() {
-        if ( OPTIONS == null ) {
+        if (OPTIONS == null) {
             buildOptionsList();
         }
         return OPTIONS;

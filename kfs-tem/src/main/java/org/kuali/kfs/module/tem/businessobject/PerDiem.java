@@ -18,8 +18,11 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,53 +31,49 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 @Entity
-@Table(name="TEM_PER_DIEM_T")
+@Table(name = "TEM_PER_DIEM_T")
 public class PerDiem extends PersistableBusinessObjectBase {
 
     @Id
-    @GeneratedValue(generator="TEM_PER_DIEM_ID_SEQ")
-    @SequenceGenerator(name="TEM_PER_DIEM_ID_SEQ",sequenceName="TEM_PER_DIEM_ID_SEQ", allocationSize=5)
-    @Column(name="id",nullable=false)
+    @GeneratedValue(generator = "TEM_PER_DIEM_ID_SEQ")
+    @SequenceGenerator(name = "TEM_PER_DIEM_ID_SEQ", sequenceName = "TEM_PER_DIEM_ID_SEQ", allocationSize = 5)
+    @Column(name = "id", nullable = false)
     protected Integer id;
 
-    @JoinColumn(name="PRI_DEST_ID")
-    @Column(name="PRI_DEST_ID",length=100, nullable=false)
+    @JoinColumn(name = "PRI_DEST_ID")
+    @Column(name = "PRI_DEST_ID", length = 100, nullable = false)
     protected PrimaryDestination primaryDestination;
 
-    @Column(name="PRI_DEST_ID",length=100, nullable=false)
+    @Column(name = "PRI_DEST_ID", length = 100, nullable = false)
     protected Integer primaryDestinationId;
 
-    @Column(name="BKFST",nullable=false)
+    @Column(name = "BKFST", nullable = false)
     protected KualiDecimal breakfast = KualiDecimal.ZERO;
 
-    @Column(name="LUNCH",nullable=false)
+    @Column(name = "LUNCH", nullable = false)
     protected KualiDecimal lunch = KualiDecimal.ZERO;
 
-    @Column(name="DIN",nullable=false)
+    @Column(name = "DIN", nullable = false)
     protected KualiDecimal dinner = KualiDecimal.ZERO;
 
-    @Column(name="lodging",nullable=false)
+    @Column(name = "lodging", nullable = false)
     protected KualiDecimal lodging = KualiDecimal.ZERO;
 
-    @Column(name="INC",precision=19,scale=2,nullable=false)
+    @Column(name = "INC", precision = 19, scale = 2, nullable = false)
     protected KualiDecimal incidentals = KualiDecimal.ZERO;
 
-    @Column(name="MEALS_INC",precision=19,scale=2,nullable=false)
+    @Column(name = "MEALS_INC", precision = 19, scale = 2, nullable = false)
     protected KualiDecimal mealsAndIncidentals = KualiDecimal.ZERO;
 
     protected String seasonBeginMonthAndDay;
 
     protected Date loadDate;
 
-    @Column(name="EFFECT_FROM_DT")
+    @Column(name = "EFFECT_FROM_DT")
     protected Date effectiveFromDate;
 
     protected Date effectiveToDate;
@@ -83,9 +82,9 @@ public class PerDiem extends PersistableBusinessObjectBase {
     protected int lineNumber;
 
     @Id
-    @GeneratedValue(generator="TEM_PER_DIEM_ID_SEQ")
-    @SequenceGenerator(name="TEM_PER_DIEM_ID_SEQ",sequenceName="TEM_PER_DIEM_ID_SEQ", allocationSize=5)
-    @Column(name="id",nullable=false)
+    @GeneratedValue(generator = "TEM_PER_DIEM_ID_SEQ")
+    @SequenceGenerator(name = "TEM_PER_DIEM_ID_SEQ", sequenceName = "TEM_PER_DIEM_ID_SEQ", allocationSize = 5)
+    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -192,15 +191,17 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Gets the effectiveFromDate attribute.
+     *
      * @return Returns the effectiveFromDate.
      */
-    @Column(name="EFFECT_FROM_DT")
+    @Column(name = "EFFECT_FROM_DT")
     public Date getEffectiveFromDate() {
         return effectiveFromDate;
     }
 
     /**
      * Gets the lineNumber attribute.
+     *
      * @return Returns the lineNumber.
      */
     public int getLineNumber() {
@@ -209,6 +210,7 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Sets the lineNumber attribute value.
+     *
      * @param lineNumber The lineNumber to set.
      */
     public void setLineNumber(int lineNumber) {
@@ -217,6 +219,7 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Gets the conusIndicator attribute.
+     *
      * @return Returns the conusIndicator.
      */
     public String getConusIndicator() {
@@ -225,6 +228,7 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Sets the conusIndicator attribute value.
+     *
      * @param conusIndicator The conusIndicator to set.
      */
     public void setConusIndicator(String conusIndicator) {
@@ -233,15 +237,17 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Gets the loadDate attribute.
+     *
      * @return Returns the loadDate.
      */
-    @Column(name="LOAD_DT")
+    @Column(name = "LOAD_DT")
     public Date getLoadDate() {
         return loadDate;
     }
 
     /**
      * Sets the loadDate attribute value.
+     *
      * @param loadDate The loadDate to set.
      */
     public void setLoadDate(Date loadDate) {
@@ -250,15 +256,17 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Gets the seasonBeginMonthAndDay attribute.
+     *
      * @return Returns the seasonBeginMonthAndDay.
      */
-    @Column(name="SSN_BGN_MONTH_DAY")
+    @Column(name = "SSN_BGN_MONTH_DAY")
     public String getSeasonBeginMonthAndDay() {
         return seasonBeginMonthAndDay;
     }
 
     /**
      * Sets the seasonBeginMonthAndDay attribute value.
+     *
      * @param seasonBeginMonthAndDay The seasonBeginMonthAndDay to set.
      */
     public void setSeasonBeginMonthAndDay(String seasonBeginMonthAndDay) {
@@ -267,15 +275,17 @@ public class PerDiem extends PersistableBusinessObjectBase {
 
     /**
      * Gets the expirationDate attribute.
+     *
      * @return Returns the expirationDate.
      */
-    @Column(name="EFFECT_TO_DT")
+    @Column(name = "EFFECT_TO_DT")
     public Date getEffectiveToDate() {
         return effectiveToDate;
     }
 
     /**
      * Sets the expirationDate attribute value.
+     *
      * @param expirationDate The expirationDate to set.
      */
     public void setEffectiveToDate(Date effectiveToDate) {
@@ -307,7 +317,7 @@ public class PerDiem extends PersistableBusinessObjectBase {
             if (obj instanceof PerDiem) {
                 PerDiem other = (PerDiem) obj;
 
-                if (ObjectUtils.isNotNull(this.getPrimaryDestination()) && ObjectUtils.isNotNull(other.getPrimaryDestination()) ) {
+                if (ObjectUtils.isNotNull(this.getPrimaryDestination()) && ObjectUtils.isNotNull(other.getPrimaryDestination())) {
                     if (StringUtils.equals(this.getPrimaryDestination().getPrimaryDestinationName(), other.getPrimaryDestination().getPrimaryDestinationName())) {
                         if (StringUtils.equals(this.getSeasonBeginMonthAndDay(), other.getSeasonBeginMonthAndDay())) {
                             if (this.getEffectiveFromDate().equals(other.getEffectiveFromDate())) {

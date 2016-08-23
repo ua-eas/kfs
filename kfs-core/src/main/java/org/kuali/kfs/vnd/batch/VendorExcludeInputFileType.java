@@ -18,15 +18,7 @@
  */
 package org.kuali.kfs.vnd.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
+import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.batch.BatchInputFileTypeBase;
@@ -36,9 +28,16 @@ import org.kuali.kfs.vnd.VendorKeyConstants;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorDetail;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
-import au.com.bytecode.opencsv.CSVReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
+public class VendorExcludeInputFileType extends BatchInputFileTypeBase {
     private static final Logger LOG = Logger.getLogger(VendorExcludeInputFileType.class);
 
     private static final String FILE_NAME_PREFIX = "epls_debarred_vendors_";
@@ -56,6 +55,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
 
     /**
      * doesn't do any validation
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#validate(java.lang.Object)
      */
     @Override
@@ -71,7 +71,8 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
         return VendorKeyConstants.MESSAGE_BATCH_UPLOAD_VENDOR_EXCLUDE;
     }
 
-    /** @see org.kuali.kfs.sys.batch.BatchInputFileType#getAuthorPrincipalName(File)
+    /**
+     * @see org.kuali.kfs.sys.batch.BatchInputFileType#getAuthorPrincipalName(File)
      */
     @Override
     public String getAuthorPrincipalName(File file) {
@@ -87,7 +88,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
     }
 
     /**
-     * @param principalName - not used
+     * @param principalName      - not used
      * @param parsedFileContents List - not used
      * @param fileUserIdentifier - not used
      * @return file name prefix appended by current date
@@ -111,7 +112,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
         Reader inReader = new InputStreamReader(new ByteArrayInputStream(fileByteContent));
         CSVReader reader = new CSVReader(inReader, ',', '"', Character.MIN_VALUE, skipLine, true, true);
 
-        List <DebarredVendorDetail> debarredVendors = new ArrayList<DebarredVendorDetail>();
+        List<DebarredVendorDetail> debarredVendors = new ArrayList<DebarredVendorDetail>();
         String[] nextLine;
         DebarredVendorDetail vendor;
         int lineNumber = skipLine;
@@ -199,14 +200,12 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
                     // Since the file usually doesn't contain empty lines or lines with empty fields, this happening usually is a good indicator that
                     // some line ahead has wrong data format, for ex, missing a quote on a field, which could mess up the following fields and lines.
                     throw new ParseException("Line " + lineNumber + " in the Vendor Exclude Input File contains no valid field or only empty fields within quote pairs. Please check the lines ahead to see if any field is missing quotes.");
-                }
-                else {
+                } else {
                     vendor.setLoadDate(new Date(new java.util.Date().getTime()));
                     debarredVendors.add(vendor);
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new ParseException("Error reading Vendor Exclude Input File at line " + lineNumber + ": " + ex.getMessage());
         }
 
@@ -217,6 +216,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
 
     /**
      * Gets the fileTypeIdentifier attribute.
+     *
      * @return Returns the fileTypeIdentifier.
      */
     public String getFileTypeIdentifier() {
@@ -225,6 +225,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
 
     /**
      * Sets the fileTypeIdentifier attribute value.
+     *
      * @param fileTypeIdentifier The fileTypeIdentifier to set.
      */
     public void setFileTypeIdentifier(String fileTypeIdentifier) {
@@ -233,6 +234,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -241,6 +243,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

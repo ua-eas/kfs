@@ -18,63 +18,62 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="InvoiceTransmissionMethodMaintenanceDocument" parent="InvoiceTransmissionMethodMaintenanceDocument-parentBean" />
+    <bean id="InvoiceTransmissionMethodMaintenanceDocument" parent="InvoiceTransmissionMethodMaintenanceDocument-parentBean"/>
 
-	<bean id="InvoiceTransmissionMethodMaintenanceDocument-parentBean"
-		abstract="true" parent="MaintenanceDocumentEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod" />
-		<property name="maintainableClass"
-			value="org.kuali.kfs.sys.document.FinancialSystemMaintainable" />
-		<property name="maintainableSections">
-			<list>
-				<ref bean="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod" />
-			</list>
-		</property>
-		<property name="lockingKeys">
-			<list>
-				<value>invoiceTransmissionMethodCode</value>
-			</list>
-		</property>
-		<property name="documentTypeName" value="IMTM" />
-		<property name="documentAuthorizerClass"
-			value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase" />
-		<property name="workflowAttributes">
-			<ref bean="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes" />
-		</property>
-	</bean>
+    <bean id="InvoiceTransmissionMethodMaintenanceDocument-parentBean"
+          abstract="true" parent="MaintenanceDocumentEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod"/>
+        <property name="maintainableClass"
+                  value="org.kuali.kfs.sys.document.FinancialSystemMaintainable"/>
+        <property name="maintainableSections">
+            <list>
+                <ref bean="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod"/>
+            </list>
+        </property>
+        <property name="lockingKeys">
+            <list>
+                <value>invoiceTransmissionMethodCode</value>
+            </list>
+        </property>
+        <property name="documentTypeName" value="IMTM"/>
+        <property name="documentAuthorizerClass"
+                  value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
+        <property name="workflowAttributes">
+            <ref bean="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes"/>
+        </property>
+    </bean>
 
-	<!-- Maintenance Section Definitions -->
+    <!-- Maintenance Section Definitions -->
 
-	<bean id="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod"
-		parent="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod-parentBean" />
+    <bean id="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod"
+          parent="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod-parentBean"/>
 
-	<bean
-		id="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod-parentBean"
-		abstract="true" parent="MaintainableSectionDefinition">
-		<property name="id" value="Edit Method of Invoice Transmission" />
-		<property name="title" value="Edit Method of Invoice Transmission" />
-		<property name="maintainableItems">
-			<list>
-				<bean parent="MaintainableFieldDefinition" p:name="invoiceTransmissionMethodCode"
-					p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="invoiceTransmissionMethodDescription"
-					p:required="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="active"
-					p:defaultValue="true" />
-			</list>
-		</property>
-	</bean>
+    <bean
+            id="InvoiceTransmissionMethodMaintenanceDocument-EditInvoiceTransmissionMethod-parentBean"
+            abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Edit Method of Invoice Transmission"/>
+        <property name="title" value="Edit Method of Invoice Transmission"/>
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableFieldDefinition" p:name="invoiceTransmissionMethodCode"
+                      p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="invoiceTransmissionMethodDescription"
+                      p:required="true"/>
+                <bean parent="MaintainableFieldDefinition" p:name="active"
+                      p:defaultValue="true"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- workflow attributes -->
-	<bean id="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes"
-		parent="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes-parentBean" />
+    <!-- workflow attributes -->
+    <bean id="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes"
+          parent="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes-parentBean"/>
 
-	<bean
-		id="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes-parentBean"
-		class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
+    <bean
+            id="InvoiceTransmissionMethodMaintenanceDocument-workflowAttributes-parentBean"
+            class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>

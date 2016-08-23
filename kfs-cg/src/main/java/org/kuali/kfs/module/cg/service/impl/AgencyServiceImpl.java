@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.cg.businessobject.Agency;
-import org.kuali.kfs.module.cg.service.AgencyService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cg.businessobject.Agency;
+import org.kuali.kfs.module.cg.service.AgencyService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the Agency service.
@@ -56,7 +56,7 @@ public class AgencyServiceImpl implements AgencyService {
     public List<Note> getAgencyNotes(String agencyNumber) {
         Agency agency = getByPrimaryId(agencyNumber);
         List<Note> notes = new ArrayList<Note>();
-       if (ObjectUtils.isNotNull(agency)) {
+        if (ObjectUtils.isNotNull(agency)) {
             notes = noteService.getByRemoteObjectId(agency.getObjectId());
         }
         return notes;

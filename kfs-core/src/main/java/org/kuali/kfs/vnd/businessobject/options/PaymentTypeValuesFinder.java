@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorParameterConstants;
 import org.kuali.kfs.vnd.businessobject.PaymentTermType;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Values finder for <code>PaymentTermsType</code>. Similar to <code>PaymentTermsValuesFinder</code>, except that the list of
@@ -44,7 +44,7 @@ public class PaymentTypeValuesFinder extends KeyValuesBase implements ValueFinde
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     public List getKeyValues() {
-        List<String> descValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PaymentTermType.class, VendorParameterConstants.PAYMENT_TERMS_DUE_TYPE_DESC) );
+        List<String> descValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PaymentTermType.class, VendorParameterConstants.PAYMENT_TERMS_DUE_TYPE_DESC));
         List keyValues = new ArrayList();
         for (String desc : descValues) {
             keyValues.add(new ConcreteKeyValue(desc, desc));

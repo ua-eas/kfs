@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -43,6 +34,15 @@ import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The base implementation of the Collector service
@@ -115,6 +115,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Clears out associated .done files for the processed data files.
+     *
      * @param dataFileNames the name of files with done files to remove
      */
     protected void removeDoneFiles(List<String> dataFileNames) {
@@ -138,7 +139,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         fileNameList.add(GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_VAILD_OUTPUT_FILE);
         fileNameList.add(GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_ERROR_OUTPUT_FILE);
 
-        for (String fileName : fileNameList){
+        for (String fileName : fileNameList) {
             File file = new File(filePath + fileName + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             if (file.exists()) {
                 String changedFileName = filePath + fileName + "." + getDateTimeService().toDateTimeStringForFilename(dateTimeService.getCurrentDate());
@@ -147,14 +148,14 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         }
     }
 
-    public void finalizeCollector(CollectorReportData collectorReportData){
+    public void finalizeCollector(CollectorReportData collectorReportData) {
         // remove all done files for processed files
-        removeDoneFiles( (List) collectorReportData.getLoadedfileNames());
+        removeDoneFiles((List) collectorReportData.getLoadedfileNames());
 
         // create a done file for collector gl output
         String collectorFinalOutputDoneFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_OUTPUT + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
-        File doneFile = new File (collectorFinalOutputDoneFileName);
-        if (!doneFile.exists()){
+        File doneFile = new File(collectorFinalOutputDoneFileName);
+        if (!doneFile.exists()) {
             try {
                 doneFile.createNewFile();
             } catch (IOException e) {
@@ -233,7 +234,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
     /**
      * Adds execution statistics to the Collector run
      *
-     * @param collectorReportData data gathered from the run of the Collector
+     * @param collectorReportData       data gathered from the run of the Collector
      * @param collectorScrubberStatuses a List of CollectorScrubberStatus records
      */
     protected void updateCollectorReportDataWithExecutionStatistics(CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses) {
@@ -253,6 +254,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Sets the collectorReportWriterService attribute value.
+     *
      * @param collectorReportWriterService The collectorReportWriterService to set.
      */
     public void setCollectorReportWriterService(ReportWriterService collectorReportWriterService) {
@@ -265,7 +267,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
     @Override
     public List<String> getRequiredDirectoryNames() {
         List<String> requiredDirectoryList = new ArrayList<String>();
-        for (BatchInputFileType batchInputFile : collectorInputFileTypes){
+        for (BatchInputFileType batchInputFile : collectorInputFileTypes) {
             requiredDirectoryList.add(batchInputFile.getDirectoryPath());
         }
         return requiredDirectoryList;

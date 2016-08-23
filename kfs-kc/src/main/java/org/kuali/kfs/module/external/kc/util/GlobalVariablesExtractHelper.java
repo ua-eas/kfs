@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.external.kc.util;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class will help extract the error messages from GlobalVariables object and creates a list of string.
@@ -73,8 +73,7 @@ public class GlobalVariablesExtractHelper {
                 // per pass, so I just keep beating on it until all are gone.
                 if (StringUtils.isBlank(errorKeyString)) {
                     errorString = errorMessage.getErrorKey();
-                }
-                else {
+                } else {
                     errorString = errorKeyString;
                 }
                 LOG.debug(errorString);
@@ -90,7 +89,7 @@ public class GlobalVariablesExtractHelper {
         return result;
     }
 
-    public static String replaceTokens(String line, String ... replacements) {
+    public static String replaceTokens(String line, String... replacements) {
         int i = 0;
         for (String err : replacements) {
             String repl = "{" + String.valueOf(i++) + "}";

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.MileageRate;
+
+import java.util.List;
 
 public interface CachingMileageRateService {
 

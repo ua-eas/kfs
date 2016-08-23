@@ -28,8 +28,6 @@ import java.util.regex.Pattern;
 
 /**
  * Pattern for matching any character in the given list (String)
- *
- *
  */
 public class CharsetPatternConstraint extends ValidCharactersPatternConstraint {
     protected String validChars;
@@ -77,25 +75,25 @@ public class CharsetPatternConstraint extends ValidCharactersPatternConstraint {
         return regexString.toString();
     }
 
-	/**
-	 *
-	 * @see BaseConstraint#getLabelKey()
-	 */
-	@Override
-	public String getLabelKey() {
-		String labelKey = super.getLabelKey();
-		if (StringUtils.isNotEmpty(labelKey)) {
-			return labelKey;
-		}
-		return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "charsetPattern");
-	}
+    /**
+     * @see BaseConstraint#getLabelKey()
+     */
+    @Override
+    public String getLabelKey() {
+        String labelKey = super.getLabelKey();
+        if (StringUtils.isNotEmpty(labelKey)) {
+            return labelKey;
+        }
+        return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "charsetPattern");
+    }
 
     /**
      * Parameters to be used in the string retrieved by this constraint's labelKey
+     *
      * @return the validationMessageParams
      */
     public List<String> getValidationMessageParams() {
-        if(validationMessageParams == null){
+        if (validationMessageParams == null) {
             validationMessageParams = new ArrayList<String>();
             if (StringUtils.isNotBlank(validChars)) {
                 validationMessageParams.add(validChars);

@@ -31,9 +31,10 @@ public interface PurchasingService {
 
 
     public String getDefaultAssetTypeCodeNotThisFiscalYear();
+
     /**
-     *
      * Gets the default value for use tax
+     *
      * @param purDoc
      * @return boolean indicating value of use tax indicator
      */

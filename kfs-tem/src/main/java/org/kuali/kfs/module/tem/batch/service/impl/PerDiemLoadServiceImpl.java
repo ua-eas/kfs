@@ -18,25 +18,13 @@
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.PerDiemParameter;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -56,10 +44,22 @@ import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * implement the service methods that can parse and load federal per diem records, which can be downloaded from
@@ -119,7 +119,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.PerDiemLoadService#loadPerDiem(java.lang.String,
-     *      org.kuali.kfs.sys.batch.BatchInputFileType)
+     * org.kuali.kfs.sys.batch.BatchInputFileType)
      */
     @Override
     @Transactional
@@ -152,8 +152,8 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
             persistedPrimaryDestinations = businessObjectService.findAll(PrimaryDestination.class);
             Map<String, PrimaryDestination> allPrimaryDestinations = new HashMap<String, PrimaryDestination>();
-            for (PrimaryDestination pd: persistedPrimaryDestinations) {
-                allPrimaryDestinations.put(pd.getRegionCode()+":"+pd.getCounty()+":"+pd.getPrimaryDestinationName(), pd);
+            for (PrimaryDestination pd : persistedPrimaryDestinations) {
+                allPrimaryDestinations.put(pd.getRegionCode() + ":" + pd.getCounty() + ":" + pd.getPrimaryDestinationName(), pd);
             }
 
             for (PerDiem perDiem : perDiemLoadList) {
@@ -180,44 +180,42 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
                 for (PerDiem oldPerDiem : oldPerDiems) {
 
                     if (KfsDateUtils.isSameDay(oldPerDiem.getEffectiveToDate(), futureDate)) {
-                        oldPerDiem.setEffectiveToDate( new java.sql.Date(DateUtils.addDays(perDiem.getEffectiveFromDate(), 0).getTime()));
+                        oldPerDiem.setEffectiveToDate(new java.sql.Date(DateUtils.addDays(perDiem.getEffectiveFromDate(), 0).getTime()));
                         businessObjectService.save(oldPerDiem);
                     }
                 }
-               // businessObjectService.save(perDiem);
+                // businessObjectService.save(perDiem);
             }
             businessObjectService.save(perDiemLoadList);
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("Failed to process the file : " + dataFileName, ex);
             this.moveErrorFile(dataFileName, this.getPerDiemFileErrorDirectory());
 
             throw new RuntimeException("Failed to process the file : " + dataFileName, ex);
-        }
-        finally {
+        } finally {
             boolean doneFileDeleted = doneFile.delete();
         }
 
         return true;
     }
 
-    protected Map<String,PrimaryDestination> extractPrimaryDestinations(List<PerDiemForLoad> validPerDiemList, boolean newOnly) {
+    protected Map<String, PrimaryDestination> extractPrimaryDestinations(List<PerDiemForLoad> validPerDiemList, boolean newOnly) {
         Map<String, PrimaryDestination> primaryDests = new HashMap<String, PrimaryDestination>();
         for (PerDiem perDiem : validPerDiemList) {
             PrimaryDestination primaryDest = perDiem.getPrimaryDestination();
             primaryDest.setRegionCode(primaryDest.getRegion().getRegionCode());
             if (!persistedPrimaryDestinations.contains(primaryDest) && newOnly) {
-                primaryDests.put(primaryDest.getRegionCode()+":"+primaryDest.getCounty()+":"+primaryDest.getPrimaryDestinationName(), primaryDest);
-            } else if (!newOnly){
-                primaryDests.put(primaryDest.getRegionCode()+":"+primaryDest.getCounty()+":"+primaryDest.getPrimaryDestinationName(), primaryDest);
+                primaryDests.put(primaryDest.getRegionCode() + ":" + primaryDest.getCounty() + ":" + primaryDest.getPrimaryDestinationName(), primaryDest);
+            } else if (!newOnly) {
+                primaryDests.put(primaryDest.getRegionCode() + ":" + primaryDest.getCounty() + ":" + primaryDest.getPrimaryDestinationName(), primaryDest);
             }
         }
         return primaryDests;
     }
 
-    protected Map<String,TemRegion> extractTemCountries(List<PerDiemForLoad> validPerDiemList, boolean newOnly) {
-        Map<String, TemRegion> regions = new HashMap<String,TemRegion>();
+    protected Map<String, TemRegion> extractTemCountries(List<PerDiemForLoad> validPerDiemList, boolean newOnly) {
+        Map<String, TemRegion> regions = new HashMap<String, TemRegion>();
         for (PerDiem perDiem : validPerDiemList) {
             TemRegion region = perDiem.getPrimaryDestination().getRegion();
             if (!persistedRegions.contains(region) && newOnly) {
@@ -302,6 +300,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
     /**
      * This method...
+     *
      * @param perDiem
      * @return
      */
@@ -312,7 +311,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
         Date seasonDate = this.getDateFromString(seasonDateAsString, effectiveYear);
         int difference = this.getDateTimeService().dateDiff(effectiveDate, seasonDate, true);
-        if(difference <= 0){
+        if (difference <= 0) {
             DateUtils.addYears(seasonDate, 1);
         }
         return seasonDate;
@@ -370,8 +369,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
         try {
             java.util.Date localDate = TemConstants.SIMPLE_DATE_FORMAT.parse(dateString);
             return KfsDateUtils.convertToSqlDate(localDate);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new RuntimeException("The date " + dateString + " must be formatted as " + TemConstants.DATE_FORMAT_STRING, ex);
         }
     }
@@ -379,7 +377,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
     /**
      * get the year of the per diem in effect
      */
-    protected int getEffectiveYear(PerDiemForLoad perDiem){
+    protected int getEffectiveYear(PerDiemForLoad perDiem) {
         Date effectiveDate = perDiem.getEffectiveFromDate();
 
         return this.getDateTimeService().getCurrentCalendar().get(Calendar.YEAR);
@@ -388,7 +386,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
     /**
      * move the given file to the specified directory
      *
-     * @param fileName the given file name
+     * @param fileName  the given file name
      * @param directory the specified directory
      */
     protected void moveErrorFile(String fileName, String directory) {
@@ -399,8 +397,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
             try {
                 FileUtils.moveToDirectory(dataFile, errorDirectory, true);
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
                 LOG.error("Cannot move the file:" + fileName + " to the directory: " + perDiemFileErrorDirectory, ex);
             }
         }
@@ -426,8 +423,8 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
     /**
      * generate the name of a companion file of the given file with the given companion file extension
      *
-     * @param fileAbsPath the given file
-     * @param fileExtension the extension of the given file
+     * @param fileAbsPath            the given file
+     * @param fileExtension          the extension of the given file
      * @param companionFileExtension the given companion file extension
      * @return the name of a companion file of the given file with the given companion file extension
      */
@@ -453,8 +450,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
             if (ObjectUtils.isNotNull(errorMessage) && !errorMessage.isEmpty()) {
 
                 this.writeErrorToReport(reportDataStream, perDiem, errorMessage);
-            }
-            else{
+            } else {
                 validPerDiems.add(perDiem);
             }
         }
@@ -526,8 +522,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
         try {
             return new PrintStream(outputfile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             String errorMessage = "Cannot find the output file: " + reportFileName;
 
             LOG.error(errorMessage);
@@ -537,6 +532,7 @@ public class PerDiemLoadServiceImpl implements PerDiemLoadService {
 
     /**
      * Determines if the given PerDiem record should be processed at all; in the base implementation, it checks the KFS-TEM / PerDiemLoadStep / BYPASS_STATE_OR_COUNTRY_CODES to see if the perdiem should be skipped
+     *
      * @param perDiem the PerDiem record
      * @return true if the record should be validated and processed, false otherwise
      */

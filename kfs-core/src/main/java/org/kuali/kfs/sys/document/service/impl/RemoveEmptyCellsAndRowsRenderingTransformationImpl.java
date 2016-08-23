@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.sys.document.service.AccountingLineTableTransformation;
 import org.kuali.kfs.sys.document.web.AccountingLineTableCell;
 import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Rendering transformation which removes any empty cells and rows from a table
@@ -33,6 +33,7 @@ public class RemoveEmptyCellsAndRowsRenderingTransformationImpl implements Accou
 
     /**
      * Removes any empty cells and rows from this table
+     *
      * @param rows the table rows to render
      */
     public void transformRows(List<AccountingLineTableRow> rows) {
@@ -48,6 +49,7 @@ public class RemoveEmptyCellsAndRowsRenderingTransformationImpl implements Accou
 
     /**
      * Removes all empty cells from a given row
+     *
      * @param row the row to remove empty cells from
      */
     public void removeEmptyCells(AccountingLineTableRow row) {

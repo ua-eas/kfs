@@ -26,12 +26,10 @@ import javax.persistence.Transient;
 
 /**
  * Ad Hoc Route Workgroup Business Object
- *
- *
  */
 @IdClass(AdHocRouteWorkgroupId.class)
 @Entity
-@Table(name="KRNS_ADHOC_RTE_ACTN_RECIP_T")
+@Table(name = "KRNS_ADHOC_RTE_ACTN_RECIP_T")
 public class AdHocRouteWorkgroup extends org.kuali.kfs.krad.bo.AdHocRouteRecipient {
     private static final long serialVersionUID = 1L;
 

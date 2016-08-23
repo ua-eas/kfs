@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -29,6 +25,10 @@ import org.kuali.kfs.gl.dataaccess.LedgerBalanceHistoryBalancingDao;
 import org.kuali.kfs.module.ld.businessobject.LaborBalanceHistory;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This is the data access object for labor balance history
@@ -44,7 +44,7 @@ public class LaborLedgerBalanceHistoryDaoOjb extends PlatformAwareDaoBaseOjb imp
     public List<Integer> findDistinctFiscalYears() {
         Criteria crit = new Criteria();
         ReportQueryByCriteria q = QueryFactory.newReportQuery(LaborBalanceHistory.class, crit);
-        q.setAttributes(new String[] { KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR });
+        q.setAttributes(new String[]{KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR});
         q.setDistinct(true);
 
         Iterator<Object[]> years = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);

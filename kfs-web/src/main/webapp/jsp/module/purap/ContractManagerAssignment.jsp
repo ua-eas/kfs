@@ -16,25 +16,25 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-      documentTypeName="ContractManagerAssignmentDocument"
-      htmlFormAction="purapContractManagerAssignment" renderMultipart="true"
-      showTabButtons="true">
+                  documentTypeName="ContractManagerAssignmentDocument"
+                  htmlFormAction="purapContractManagerAssignment" renderMultipart="true"
+                  showTabButtons="true">
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-    <purap:contractManagerAssignment />
+    <purap:contractManagerAssignment/>
 
-	<kul:notes />
+    <kul:notes/>
 
-    <kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="true" />
+    <sys:documentControls transactionalDocument="true"/>
 
 </kul:documentPage>

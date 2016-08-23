@@ -23,13 +23,13 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 public class DataDictionaryNamespaceHandler extends NamespaceHandlerSupport {
 
     public void init() {
-        registerBeanDefinitionParser( "field", new FieldBeanDefinitionParser() );
-        registerBeanDefinitionParser( "relationship", new RelationshipBeanDefinitionParser() );
-        registerBeanDefinitionParser( "maintField", new MaintenanceFieldBeanDefinitionParser() );
-        registerBeanDefinitionParser( "workflow", new WorkflowPropertiesBeanDefinitionParser() );
-        registerBeanDefinitionParser( "boAttribute", new AttributeBeanDefinitionParser() );
-        registerBeanDefinitionParser( "boAttributeRef", new AttributeBeanDefinitionParser() );
-        registerBeanDefinitionParser( "workflowAttributes", new WorkflowAttributesBeanDefinitionParser() );
+        registerBeanDefinitionParser("field", new FieldBeanDefinitionParser());
+        registerBeanDefinitionParser("relationship", new RelationshipBeanDefinitionParser());
+        registerBeanDefinitionParser("maintField", new MaintenanceFieldBeanDefinitionParser());
+        registerBeanDefinitionParser("workflow", new WorkflowPropertiesBeanDefinitionParser());
+        registerBeanDefinitionParser("boAttribute", new AttributeBeanDefinitionParser());
+        registerBeanDefinitionParser("boAttributeRef", new AttributeBeanDefinitionParser());
+        registerBeanDefinitionParser("workflowAttributes", new WorkflowAttributesBeanDefinitionParser());
     }
 
 }

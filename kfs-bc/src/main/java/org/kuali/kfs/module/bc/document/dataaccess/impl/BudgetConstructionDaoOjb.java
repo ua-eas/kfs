@@ -18,21 +18,14 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.module.bc.BCConstants;
-import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.BCConstants.OrgSelControlOption;
+import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionFundingLock;
@@ -47,6 +40,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the BudgetConstructionDao interface.
@@ -127,7 +127,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
         criteria.addEqualTo("pendingBudgetConstructionAppointmentFunding.subAccountNumber", budgetConstructionFundingLock.getSubAccountNumber());
         criteria.addEqualTo("pendingBudgetConstructionAppointmentFunding.universityFiscalYear", budgetConstructionFundingLock.getUniversityFiscalYear());
         criteria.addEqualTo("positionLockUserIdentifier", budgetConstructionFundingLock.getAppointmentFundingLockUserId());
-        String[] columns = new String[] { "positionNumber" };
+        String[] columns = new String[]{"positionNumber"};
         ReportQueryByCriteria q = QueryFactory.newReportQuery(BudgetConstructionPosition.class, columns, criteria, true);
         PersistenceBroker pb = getPersistenceBroker(true);
 
@@ -171,7 +171,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getBcPullupChildOrgs(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public List<BudgetConstructionPullup> getBudgetConstructionPullupChildOrgs(String principalId, String chartOfAccountsCode, String organizationCode) {
         List<BudgetConstructionPullup> orgs = new ArrayList<BudgetConstructionPullup>();
@@ -212,9 +212,9 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
         criteria.addEqualTo("subAccountNumber", salaryDetailLine.getSubAccountNumber());
         criteria.addEqualTo("financialObjectCode", salaryDetailLine.getFinancialObjectCode());
         criteria.addEqualTo("financialSubObjectCode", salaryDetailLine.getFinancialSubObjectCode());
-        String[] columns = new String[] { "financialObjectCode", "financialSubObjectCode", "sum(appointmentRequestedAmount)" };
+        String[] columns = new String[]{"financialObjectCode", "financialSubObjectCode", "sum(appointmentRequestedAmount)"};
         ReportQueryByCriteria q = QueryFactory.newReportQuery(PendingBudgetConstructionAppointmentFunding.class, columns, criteria, true);
-        q.addGroupBy(new String[] { "financialObjectCode", "financialSubObjectCode" });
+        q.addGroupBy(new String[]{"financialObjectCode", "financialSubObjectCode"});
         PersistenceBroker pb = getPersistenceBroker(true);
 
         Iterator<Object[]> iter = pb.getReportQueryIteratorByQuery(q);
@@ -231,7 +231,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getDocumentPBGLFringeLines(java.lang.String,
-     *      java.util.List)
+     * java.util.List)
      */
     public List getDocumentPBGLFringeLines(String documentNumber, List fringeObjects) {
         List documentPBGLfringeLines = new ArrayList();
@@ -251,7 +251,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getAccountOrgHierForAccount(java.lang.String,
-     *      java.lang.String, java.lang.Integer)
+     * java.lang.String, java.lang.Integer)
      */
     public List<BudgetConstructionAccountOrganizationHierarchy> getAccountOrgHierForAccount(String chartOfAccountsCode, String accountNumber, Integer universityFiscalYear) {
         List<BudgetConstructionAccountOrganizationHierarchy> accountOrgHier = new ArrayList();
@@ -284,7 +284,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getOrganizationReports(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public BudgetConstructionOrganizationReports getOrganizationReports(String chartOfAccountsCode, String organizationCode) {
 
@@ -297,8 +297,8 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#insertAccountIntoAccountOrganizationHierarchy(java.lang.String,
-     *      java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.Integer, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.Integer, java.lang.String,
+     * java.lang.String)
      */
     public boolean insertAccountIntoAccountOrganizationHierarchy(String rootChart, String rootOrganization, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, Integer currentLevelCode, String organizationChartOfAccountsCode, String organizationCode) {
 
@@ -321,12 +321,10 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
                 if (organizationReports != null) {
                     currentLevelCode++;
                     overFlow = this.insertAccountIntoAccountOrganizationHierarchy(rootChart, rootOrganization, universityFiscalYear, chartOfAccountsCode, accountNumber, currentLevelCode, organizationReports.getReportsToChartOfAccountsCode(), organizationReports.getReportsToOrganizationCode());
-                }
-                else {
+                } else {
                     // not the root but doesn't exist - done
                 }
-            }
-            else {
+            } else {
                 // overflow
                 overFlow = true;
             }
@@ -336,7 +334,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#deleteExistingAccountOrganizationHierarchy(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public void deleteExistingAccountOrganizationHierarchy(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber) {
 
@@ -349,7 +347,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getPBGLSalarySettingRows(java.lang.String,
-     *      java.util.List)
+     * java.util.List)
      */
     public List getPBGLSalarySettingRows(String documentNumber, List salarySettingObjects) {
         List pbglSalarySettingRows = new ArrayList();
@@ -368,7 +366,7 @@ public class BudgetConstructionDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao#getAllFundingForPosition(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List<PendingBudgetConstructionAppointmentFunding> getAllFundingForPosition(Integer universityFiscalYear, String positionNumber) {
         Criteria criteria = new Criteria();

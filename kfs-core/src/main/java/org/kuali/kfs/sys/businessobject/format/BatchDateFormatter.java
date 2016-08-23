@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject.format;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.FormatException;
 import org.kuali.rice.core.web.format.Formatter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Formatter which specializes in reading dates from flat files
@@ -39,6 +39,7 @@ public class BatchDateFormatter extends Formatter {
 
     /**
      * Sets the date format to use for parsing
+     *
      * @param dateFormat
      */
     public void setDateFormat(String dateFormat) {
@@ -64,6 +65,7 @@ public class BatchDateFormatter extends Formatter {
 
     /**
      * Determines if the date should be parsed to a java.sql.Timestamp rather than the default java.sql.Date
+     *
      * @param formatToTimestamp true if result should be parsed as timestamp, false otherwise
      */
     public void setFormatToTimestamp(boolean formatToTimestamp) {
@@ -81,8 +83,7 @@ public class BatchDateFormatter extends Formatter {
                 return new java.sql.Timestamp(time);
             }
             return new java.sql.Date(time);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new FormatException("Date must be of the format " + dateFormat, e);
         }
     }

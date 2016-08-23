@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
 
 import java.util.Properties;
 
@@ -35,7 +33,8 @@ public class UrlFactoryTest {
     /**
      * Test that what is returned from url factory matches the url we expect.
      */
-    @Test public void testFactoryMatch() throws Exception {
+    @Test
+    public void testFactoryMatch() throws Exception {
         String basePath = "http://localhost:8080/";
         String actionPath = "kr/lookup.do";
         String testUrl = basePath + actionPath + "?" + KRADConstants.DISPATCH_REQUEST_PARAMETER + "=start" + "&" + KRADConstants.DOC_FORM_KEY + "=903" + KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME + "=accountLookupableImpl" + KRADConstants.RETURN_LOCATION_PARAMETER + "=" + basePath + "ib.do";

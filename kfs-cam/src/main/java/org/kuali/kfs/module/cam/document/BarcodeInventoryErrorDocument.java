@@ -18,18 +18,19 @@
  */
 package org.kuali.kfs.module.cam.document;
 
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
+import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
-import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BarcodeInventoryErrorDocument.class);
 
-	protected String documentNumber;
-	protected String uploaderUniversalIdentifier;
+    protected String documentNumber;
+    protected String uploaderUniversalIdentifier;
 
     //global replace	- search fields
     //*** Old values **************
@@ -52,54 +53,50 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
 
     protected List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetail;
 
-	/**
-	 * Default constructor.
-	 */
-	public BarcodeInventoryErrorDocument() {
-	    super();
-	    this.setBarcodeInventoryErrorDetail(new ArrayList<BarcodeInventoryErrorDetail>());
-	}
+    /**
+     * Default constructor.
+     */
+    public BarcodeInventoryErrorDocument() {
+        super();
+        this.setBarcodeInventoryErrorDetail(new ArrayList<BarcodeInventoryErrorDetail>());
+    }
 
-	/**
-	 * Gets the documentNumber attribute.
-	 *
-	 * @return Returns the documentNumber
-	 *
-	 */
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
+    /**
+     * Gets the documentNumber attribute.
+     *
+     * @return Returns the documentNumber
+     */
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
 
-	/**
-	 * Sets the documentNumber attribute.
-	 *
-	 * @param documentNumber The documentNumber to set.
-	 *
-	 */
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
+    /**
+     * Sets the documentNumber attribute.
+     *
+     * @param documentNumber The documentNumber to set.
+     */
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 
 
-	/**
-	 * Gets the uploaderUniversalIdentifier attribute.
-	 *
-	 * @return Returns the uploaderUniversalIdentifier
-	 *
-	 */
-	public String getUploaderUniversalIdentifier() {
-		return uploaderUniversalIdentifier;
-	}
+    /**
+     * Gets the uploaderUniversalIdentifier attribute.
+     *
+     * @return Returns the uploaderUniversalIdentifier
+     */
+    public String getUploaderUniversalIdentifier() {
+        return uploaderUniversalIdentifier;
+    }
 
-	/**
-	 * Sets the uploaderUniversalIdentifier attribute.
-	 *
-	 * @param uploaderUniversalIdentifier The uploaderUniversalIdentifier to set.
-	 *
-	 */
-	public void setUploaderUniversalIdentifier(String uploaderUniversalIdentifier) {
-		this.uploaderUniversalIdentifier = uploaderUniversalIdentifier;
-	}
+    /**
+     * Sets the uploaderUniversalIdentifier attribute.
+     *
+     * @param uploaderUniversalIdentifier The uploaderUniversalIdentifier to set.
+     */
+    public void setUploaderUniversalIdentifier(String uploaderUniversalIdentifier) {
+        this.uploaderUniversalIdentifier = uploaderUniversalIdentifier;
+    }
 
     public List<BarcodeInventoryErrorDetail> getBarcodeInventoryErrorDetail() {
         return barcodeInventoryErrorDetail;
@@ -116,7 +113,7 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
      * @return boolean
      */
     public boolean isDocumentCorrected() {
-        for(BarcodeInventoryErrorDetail detail:this.getBarcodeInventoryErrorDetail() ) {
+        for (BarcodeInventoryErrorDetail detail : this.getBarcodeInventoryErrorDetail()) {
             if (detail.getErrorCorrectionStatusCode().equals(CamsConstants.BarCodeInventoryError.STATUS_CODE_ERROR))
                 return false;
         }
@@ -246,19 +243,19 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
     }
 
     public void resetSearchFields() {
-        currentTagNumber="";
-        currentScanCode="";
-        currentCampusCode="";
-        currentBuildingNumber="";
-        currentRoom="";
-        currentSubroom="";
-        currentConditionCode="";
-        newTagNumber="";
-        newScanCode="";
-        newCampusCode="";
-        newBuildingNumber="";
-        newRoom="";
-        newSubroom="";
-        newConditionCode="";
+        currentTagNumber = "";
+        currentScanCode = "";
+        currentCampusCode = "";
+        currentBuildingNumber = "";
+        currentRoom = "";
+        currentSubroom = "";
+        currentConditionCode = "";
+        newTagNumber = "";
+        newScanCode = "";
+        newCampusCode = "";
+        newBuildingNumber = "";
+        newRoom = "";
+        newSubroom = "";
+        newConditionCode = "";
     }
 }

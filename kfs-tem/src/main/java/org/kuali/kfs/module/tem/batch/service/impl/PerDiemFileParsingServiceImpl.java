@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
+import au.com.bytecode.opencsv.CSVReader;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.kuali.kfs.module.tem.batch.businessobject.PerDiemForLoad;
+import org.kuali.kfs.module.tem.batch.service.PerDiemFileParsingService;
+import org.kuali.kfs.sys.ObjectUtil;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,21 +32,13 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.kuali.kfs.module.tem.batch.businessobject.PerDiemForLoad;
-import org.kuali.kfs.module.tem.batch.service.PerDiemFileParsingService;
-import org.kuali.kfs.sys.ObjectUtil;
-
-import au.com.bytecode.opencsv.CSVReader;
-
 public class PerDiemFileParsingServiceImpl implements PerDiemFileParsingService {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PerDiemFileParsingServiceImpl.class);
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.PerDiemFileParsingService#buildPerDiemsFromFlatFile(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List<PerDiemForLoad> buildPerDiemsFromFlatFile(String fileName, String deliminator, List<String> fieldsToPopulate) {
@@ -47,8 +46,7 @@ public class PerDiemFileParsingServiceImpl implements PerDiemFileParsingService 
             Reader fileReader = new FileReader(fileName);
 
             return this.buildPerDiemsFromFlatFile(fileReader, deliminator, fieldsToPopulate);
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             LOG.error("Failed to process data file: " + fileName);
             throw new RuntimeException("Failed to process data file: " + fileName, ex);
         }
@@ -56,7 +54,7 @@ public class PerDiemFileParsingServiceImpl implements PerDiemFileParsingService 
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.PerDiemFileParsingService#buildPerDiemsFromFlatFile(java.io.Reader,
-     *      java.lang.String)
+     * java.lang.String)
      */
 
     @Override
@@ -79,17 +77,14 @@ public class PerDiemFileParsingServiceImpl implements PerDiemFileParsingService 
 
                 perDiemList.add(perDiem);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("Failed to process data file. ");
             throw new RuntimeException("Failed to process data file. ", ex);
-        }
-        finally {
+        } finally {
             if (csvReader != null) {
                 try {
                     csvReader.close();
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     LOG.info(ex);
                 }
             }

@@ -18,15 +18,19 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
+import org.kuali.kfs.module.purap.PurapConstants.PREQDocumentsStrings;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
-import org.kuali.kfs.module.purap.PurapConstants.PREQDocumentsStrings;
 import org.kuali.kfs.module.purap.businessobject.LineItemReceivingItem;
 import org.kuali.kfs.module.purap.businessobject.PurapEnterableItem;
 import org.kuali.kfs.module.purap.businessobject.ReceivingItem;
@@ -39,21 +43,17 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class LineItemReceivingDocumentRule extends DocumentRuleBase implements ContinuePurapRule, AddReceivingItemRule{
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class LineItemReceivingDocumentRule extends DocumentRuleBase implements ContinuePurapRule, AddReceivingItemRule {
 
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(Document document) {
         boolean valid = true;
-        LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument)document;
+        LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument) document;
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -69,15 +69,17 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
 
         return valid;
     }
+
     /**
      * TODO: move this up
      * This method...
+     *
      * @param receivingDocument
      * @return
      */
-    protected boolean isAtLeastOneItemEntered(ReceivingDocument receivingDocument){
+    protected boolean isAtLeastOneItemEntered(ReceivingDocument receivingDocument) {
         for (ReceivingItem item : (List<ReceivingItem>) receivingDocument.getItems()) {
-            if (((PurapEnterableItem)item).isConsideredEntered()) {
+            if (((PurapEnterableItem) item).isConsideredEntered()) {
                 //if any item is entered return true
                 return true;
             }
@@ -91,14 +93,14 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
     public boolean processContinuePurapBusinessRules(TransactionalDocument document) {
 
         boolean valid = true;
-        LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument)document;
+        LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument) document;
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
         valid &= hasRequiredFieldsForContinue(lineItemReceivingDocument);
         //only do this if valid
-        if(valid){
+        if (valid) {
             valid &= canCreateLineItemReceivingDocument(lineItemReceivingDocument);
         }
 
@@ -111,7 +113,7 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
      * @param lineItemReceivingDocument
      * @return
      */
-    protected boolean hasRequiredFieldsForContinue(LineItemReceivingDocument lineItemReceivingDocument){
+    protected boolean hasRequiredFieldsForContinue(LineItemReceivingDocument lineItemReceivingDocument) {
 
         boolean valid = true;
 
@@ -135,11 +137,11 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
      * @param lineItemReceivingDocument
      * @return
      */
-    protected boolean canCreateLineItemReceivingDocument(LineItemReceivingDocument lineItemReceivingDocument){
+    protected boolean canCreateLineItemReceivingDocument(LineItemReceivingDocument lineItemReceivingDocument) {
 
         boolean valid = true;
 
-        if( SpringContext.getBean(ReceivingService.class).canCreateLineItemReceivingDocument(lineItemReceivingDocument.getPurchaseOrderIdentifier(), lineItemReceivingDocument.getDocumentNumber()) == false){
+        if (SpringContext.getBean(ReceivingService.class).canCreateLineItemReceivingDocument(lineItemReceivingDocument.getPurchaseOrderIdentifier(), lineItemReceivingDocument.getDocumentNumber()) == false) {
             valid &= false;
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_RECEIVING_LINE_DOCUMENT_ACTIVE_FOR_PO, lineItemReceivingDocument.getDocumentNumber(), lineItemReceivingDocument.getPurchaseOrderIdentifier().toString());
         }
@@ -160,8 +162,7 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
                     valid = false;
                     String attributeLabel = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(item.getClass().getName()).getAttributeDefinition(KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE).getLabel();
                     GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE, KFSKeyConstants.ERROR_REQUIRED, attributeLabel + item.getItemUnitOfMeasureCode());
-                }
-                else {
+                } else {
                     // Find out whether the unit of measure code has existed in the database
                     Map<String, String> fieldValues = new HashMap<String, String>();
                     fieldValues.put(KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE, item.getItemUnitOfMeasureCode());
@@ -179,10 +180,10 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
     /**
      * @see org.kuali.kfs.module.purap.document.validation.AddReceivingItemRule#processAddReceivingItemRules(org.kuali.kfs.module.purap.document.ReceivingDocument, org.kuali.kfs.module.purap.businessobject.ReceivingItem)
      */
-    public boolean processAddReceivingItemRules(ReceivingDocument document, LineItemReceivingItem item,String errorPathPrefix) {
+    public boolean processAddReceivingItemRules(ReceivingDocument document, LineItemReceivingItem item, String errorPathPrefix) {
         boolean valid = true;
 
-        valid &= SpringContext.getBean(DictionaryValidationService.class).isBusinessObjectValid(item,errorPathPrefix);
+        valid &= SpringContext.getBean(DictionaryValidationService.class).isBusinessObjectValid(item, errorPathPrefix);
 
         //  test that the amount entered in the QuantityReturned and/or QuantityDamaged fields dont
         // either equal more than the QuantityReceived.  In other words, you can only return or mark as

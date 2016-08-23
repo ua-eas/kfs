@@ -114,8 +114,7 @@ public class AccountLineGroupTest extends KualiTestBase {
         PurApAccountingLineBase entry = null;
         try {
             entry = (PurApAccountingLineBase) clazz.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail(e.toString());
         }
         entry.setPostingYear(i);

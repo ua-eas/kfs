@@ -29,12 +29,12 @@ import java.util.List;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface AwardWebService {
 
-	public AwardDTO getAward(@WebParam(name="awardId") Long awardId);
+    public AwardDTO getAward(@WebParam(name = "awardId") Long awardId);
 
-    public List<AwardDTO> getMatchingAwards(@WebParam(name= "searchCriteria") AwardFieldValuesDto fieldValues);
+    public List<AwardDTO> getMatchingAwards(@WebParam(name = "searchCriteria") AwardFieldValuesDto fieldValues);
 
-    public List<AwardDTO> searchAwards(@WebParam(name="searchDto") AwardSearchCriteriaDto searchDto);
+    public List<AwardDTO> searchAwards(@WebParam(name = "searchDto") AwardSearchCriteriaDto searchDto);
 
-    public AwardBillingUpdateStatusDto updateAwardBillingStatus(@WebParam(name="searchDto") AwardFieldValuesDto searchDto,
-            @WebParam(name="billingUpdate") AwardBillingUpdateDto updateDto);
+    public AwardBillingUpdateStatusDto updateAwardBillingStatus(@WebParam(name = "searchDto") AwardFieldValuesDto searchDto,
+                                                                @WebParam(name = "billingUpdate") AwardBillingUpdateDto updateDto);
 }

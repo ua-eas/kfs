@@ -18,6 +18,12 @@
  */
 package org.kuali.kfs.sys.context;
 
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.springframework.aop.framework.ProxyFactory;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -26,17 +32,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.springframework.aop.framework.ProxyFactory;
 
 /**
  * This class provides utility methods for use during manual testing.
@@ -51,7 +46,7 @@ public class TestUtils {
     private static ParameterService parameterService;
 
     public static ParameterService getParameterService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             parameterService = SpringContext.getBean(ParameterService.class);
         }
         return parameterService;
@@ -66,36 +61,36 @@ public class TestUtils {
         ex.fillInStackTrace();
         Boolean willCommit = null;
         // loop over the stack trace
-        for ( StackTraceElement ste : ex.getStackTrace() ) {
+        for (StackTraceElement ste : ex.getStackTrace()) {
             try {
-                Class clazz = Class.forName( ste.getClassName() );
+                Class clazz = Class.forName(ste.getClassName());
                 // for efficiency, only check classes that extend from KualiTestBase
-                if ( KualiTestBase.class.isAssignableFrom(clazz) ) {
+                if (KualiTestBase.class.isAssignableFrom(clazz)) {
                     //System.err.println( "Checking Method: " + ste.toString() );
                     // check the class-level annotation to set the default for test methods in that class
-                    ConfigureContext a = (ConfigureContext)clazz.getAnnotation(ConfigureContext.class);
-                    if ( a != null ) {
+                    ConfigureContext a = (ConfigureContext) clazz.getAnnotation(ConfigureContext.class);
+                    if (a != null) {
                         willCommit = a.shouldCommitTransactions();
                     }
                     // now, check the method-level annotation
                     try {
-                        Method m = clazz.getMethod(ste.getMethodName(), (Class[])null);
+                        Method m = clazz.getMethod(ste.getMethodName(), (Class[]) null);
                         // if the method-level annotation is present, it overrides the class-level annotation
-                        a = (ConfigureContext)m.getAnnotation(ConfigureContext.class);
-                        if ( a != null ) {
+                        a = (ConfigureContext) m.getAnnotation(ConfigureContext.class);
+                        if (a != null) {
                             willCommit = a.shouldCommitTransactions();
                         }
-                    } catch ( NoSuchMethodException e ) {
+                    } catch (NoSuchMethodException e) {
                         // do nothing
 
                     }
                 }
-            } catch ( Exception e ) {
-                LOG.error( "Error checking stack trace element: " + ste.toString(), e );
+            } catch (Exception e) {
+                LOG.error("Error checking stack trace element: " + ste.toString(), e);
             }
         }
-        if ( willCommit == null || willCommit ) {
-            throw new RuntimeException( "Attempt to set system parameter in unit test set to commit database changes.");
+        if (willCommit == null || willCommit) {
+            throw new RuntimeException("Attempt to set system parameter in unit test set to commit database changes.");
         }
 
         Parameter parameter = getParameterService().getParameter(componentClass, parameterName);
@@ -107,12 +102,13 @@ public class TestUtils {
     /**
      * Returns an invoked instance for the serviceName passed. This uses SpringContext.getService but doesn't return the proxy. Should only
      * be used for unit testing purposes
+     *
      * @param serviceName service to return
      * @throws Exception
      */
     public static Object getUnproxiedService(String serviceName) throws Exception {
         Object service = SpringContext.getService(serviceName);
-        if ( service == null ) {
+        if (service == null) {
             return null;
         }
         try {
@@ -121,18 +117,19 @@ public class TestUtils {
             privateAdvisedField.setAccessible(true);
             ProxyFactory proxyFactory = (ProxyFactory) privateAdvisedField.get(invocationHandler);
             return proxyFactory.getTargetSource().getTarget();
-        } catch ( IllegalArgumentException ex ) {
+        } catch (IllegalArgumentException ex) {
             return service;
-        } catch ( NoSuchFieldException ex ) {
-            LOG.error( "Problem obtaining advised object: " + ex.getMessage() );
-            LOG.error( "Invocation Handler: " + Proxy.getInvocationHandler(service) );
+        } catch (NoSuchFieldException ex) {
+            LOG.error("Problem obtaining advised object: " + ex.getMessage());
+            LOG.error("Invocation Handler: " + Proxy.getInvocationHandler(service));
             return service;
         }
     }
 
     /**
      * Writes an array to a file.  Useful for GL / LD poster file handling.
-     * @param filePath file and path to write
+     *
+     * @param filePath          file and path to write
      * @param inputTransactions data to write to pathname
      * @throws IllegalArgumentException if file already exists
      */
@@ -140,7 +137,7 @@ public class TestUtils {
         File file = new File(filePath);
 
         if (file.exists()) {
-            if(!file.delete()) {
+            if (!file.delete()) {
                 throw new RuntimeException("Attempt to overwrite " + file.getName() + " failed.");
             }
         }
@@ -148,12 +145,11 @@ public class TestUtils {
         PrintStream outputFileStream = null;
         try {
             outputFileStream = new PrintStream(file);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        for (String line: inputTransactions){
+        for (String line : inputTransactions) {
             outputFileStream.printf("%s\n", line);
         }
         outputFileStream.close();
@@ -161,6 +157,7 @@ public class TestUtils {
 
     /**
      * Deletes all files from a directory except PLACEHOLDER_FILENAME.
+     *
      * @param path of the directory to empty
      */
     public static void deleteFilesInDirectory(String pathname) {
@@ -178,7 +175,7 @@ public class TestUtils {
         } else {
             for (int i = 0; i < directoryListing.length; i++) {
                 File file = directoryListing[i];
-                if(!file.delete()) {
+                if (!file.delete()) {
                     throw new RuntimeException("Delete of " + file.getName() + " failed.");
                 }
             }
@@ -188,6 +185,7 @@ public class TestUtils {
     /**
      * Returns a fiscal year for testing.  If the fiscalYearForTesting property is not null, it returns that;
      * otherwise, it runs the current fiscal year
+     *
      * @return a fiscal year suitable for testing purposes
      */
     public static Integer getFiscalYearForTesting() {
@@ -200,6 +198,7 @@ public class TestUtils {
     /**
      * Returns a period code for testing.  If the periodCodeForTesting property is not null, it returns that;
      * otherwise, it runs the current period code
+     *
      * @return a period code suitable for testing purposes
      */
     public static String getPeriodCodeForTesting() {

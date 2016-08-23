@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * A generic validation which will only validate at specified notes
@@ -41,6 +41,7 @@ public class NodeSpecificValidation extends NodeAwareValidation {
 
     /**
      * Sets the list of node names where this validation should occur
+     *
      * @param validationNodes a List of node names
      */
     public void setValidationNodes(List<String> validationNodes) {
@@ -49,6 +50,7 @@ public class NodeSpecificValidation extends NodeAwareValidation {
 
     /**
      * Determines that something has been passed into the validationNodes property, or else the injected validation will never run
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.NodeAwareValidation#isNodesPropertyValid()
      */
     @Override
@@ -58,6 +60,7 @@ public class NodeSpecificValidation extends NodeAwareValidation {
 
     /**
      * Determines if this validation should be run at this node
+     *
      * @param document the document which is being validated
      * @return true if one of the validation nodes is within the current nodes and the validation should run; false otherwise
      */
@@ -89,6 +92,7 @@ public class NodeSpecificValidation extends NodeAwareValidation {
     /**
      * Currently, there does not seem a way in which this method would be called - stageValidation should be called, not this.  So we'll
      * throw an UnsupportedOperationException until someone calls me up and tells me I'm crazy
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override

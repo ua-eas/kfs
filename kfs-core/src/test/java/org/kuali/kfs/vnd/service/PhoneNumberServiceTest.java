@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.vnd.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.web.format.FormatException;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class PhoneNumberServiceTest extends KualiTestBase {
@@ -110,13 +110,11 @@ public class PhoneNumberServiceTest extends KualiTestBase {
         boolean b = true;
         try {
             b = phoneGenericFormat1.equals(phoneNumberService.formatNumberIfPossible(phoneTooShort));
-        }
-        catch (FormatException fe) {
+        } catch (FormatException fe) {
             if (fe.getMessage().indexOf("fewer than") > 0) {
                 b = false;
             }
-        }
-        finally {
+        } finally {
             assertEquals(b, false);
         }
     }
@@ -125,13 +123,11 @@ public class PhoneNumberServiceTest extends KualiTestBase {
         boolean b = true;
         try {
             b = phoneGenericFormat1.equals(phoneNumberService.formatNumberIfPossible(phoneTooLong));
-        }
-        catch (FormatException fe) {
+        } catch (FormatException fe) {
             if (fe.getMessage().indexOf("more than") > 0) {
                 b = false;
             }
-        }
-        finally {
+        } finally {
             assertEquals(b, false);
         }
     }
@@ -140,13 +136,11 @@ public class PhoneNumberServiceTest extends KualiTestBase {
         boolean b = true;
         try {
             b = phoneNumberService.isDefaultFormatPhoneNumber(phoneNumberService.formatNumberIfPossible(phoneNonNumeric));
-        }
-        catch (FormatException fe) {
+        } catch (FormatException fe) {
             if (fe.getMessage().indexOf("fewer than") > 0) {
                 b = false;
             }
-        }
-        finally {
+        } finally {
             assertEquals(b, false);
         }
     }

@@ -25,42 +25,41 @@ import org.kuali.kfs.module.purap.businessobject.B2BShoppingCartItem;
  */
 public enum B2BShoppingCartItemFixture {
 
-    B2B_ITEM_USING_VENDOR_ID (
-            "10", // quantity
-            "A0125156", // supplierPartId
-            "1012273985063\1", // supplierPartAuxiliaryId
-            "252.60", // unitPrice
-            "USD", // unitPriceCurrency
-            "01:00 Kensington Microsaver Laptop Lock - security cable lock", // description
-            "EA", // unitOfMeasure
-            "64068F", // manufacturerPartID
-            "Dell", // manufacturerName
-            "4006-0", // externalSupplierId - vendorID
-            "Punchout", // productSource
-            "", // systemProductID
-            //"624007902" // SupplierID-DUNS: value in KFS
-            "12829371", // SupplierID-DUNS: value from SciQuest
-            "4050097" // SupplierID-SystemSupplierID
+    B2B_ITEM_USING_VENDOR_ID(
+        "10", // quantity
+        "A0125156", // supplierPartId
+        "1012273985063\1", // supplierPartAuxiliaryId
+        "252.60", // unitPrice
+        "USD", // unitPriceCurrency
+        "01:00 Kensington Microsaver Laptop Lock - security cable lock", // description
+        "EA", // unitOfMeasure
+        "64068F", // manufacturerPartID
+        "Dell", // manufacturerName
+        "4006-0", // externalSupplierId - vendorID
+        "Punchout", // productSource
+        "", // systemProductID
+        //"624007902" // SupplierID-DUNS: value in KFS
+        "12829371", // SupplierID-DUNS: value from SciQuest
+        "4050097" // SupplierID-SystemSupplierID
     ),
 
-    B2B_ITEM_USING_VENDOR_DUNS (
-            "10", // quantity
-            "A0125156", // supplierPartId
-            "1012273985063\1", // supplierPartAuxiliaryId
-            "252.60", // unitPrice
-            "USD", // unitPriceCurrency
-            "01:00 Kensington Microsaver Laptop Lock - security cable lock", // description
-            "EA", // unitOfMeasure
-            "64068F", // manufacturerPartID
-            "Dell", // manufacturerName
-            "", // externalSupplierId - vendorID
-            "Punchout", // productSource
-            "", // systemProductID
-            //"624007902" // SupplierID-DUNS: value in KFS
-            "12829371", // SupplierID-DUNS: value from SciQuest
-            "4050097" // SupplierID-SystemSupplierID
-    ),
-    ;
+    B2B_ITEM_USING_VENDOR_DUNS(
+        "10", // quantity
+        "A0125156", // supplierPartId
+        "1012273985063\1", // supplierPartAuxiliaryId
+        "252.60", // unitPrice
+        "USD", // unitPriceCurrency
+        "01:00 Kensington Microsaver Laptop Lock - security cable lock", // description
+        "EA", // unitOfMeasure
+        "64068F", // manufacturerPartID
+        "Dell", // manufacturerName
+        "", // externalSupplierId - vendorID
+        "Punchout", // productSource
+        "", // systemProductID
+        //"624007902" // SupplierID-DUNS: value in KFS
+        "12829371", // SupplierID-DUNS: value from SciQuest
+        "4050097" // SupplierID-SystemSupplierID
+    ),;
 
     public String quantity;
     public String supplierPartId;
@@ -78,20 +77,20 @@ public enum B2BShoppingCartItemFixture {
     public String systemSupplierID;
 
     private B2BShoppingCartItemFixture(
-            String quantity,
-            String supplierPartId,
-            String supplierPartAuxiliaryId,
-            String unitPrice,
-            String unitPriceCurrency,
-            String description,
-            String unitOfMeasure,
-            String manufacturerPartID,
-            String manufacturerName,
-            String externalSupplierId,
-            String productSource,
-            String systemProductID,
-            String duns,
-            String systemSupplierID
+        String quantity,
+        String supplierPartId,
+        String supplierPartAuxiliaryId,
+        String unitPrice,
+        String unitPriceCurrency,
+        String description,
+        String unitOfMeasure,
+        String manufacturerPartID,
+        String manufacturerName,
+        String externalSupplierId,
+        String productSource,
+        String systemProductID,
+        String duns,
+        String systemSupplierID
     ) {
         this.quantity = quantity;
         this.supplierPartId = supplierPartId;

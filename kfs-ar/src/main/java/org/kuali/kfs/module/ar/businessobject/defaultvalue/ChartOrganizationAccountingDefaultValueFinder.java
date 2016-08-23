@@ -28,7 +28,7 @@ public class ChartOrganizationAccountingDefaultValueFinder extends OrganizationA
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {
-        return (organizationAccountingDefault != null)? organizationAccountingDefault.getDefaultInvoiceChartOfAccountsCode() : "";
+        return (organizationAccountingDefault != null) ? organizationAccountingDefault.getDefaultInvoiceChartOfAccountsCode() : "";
     }
 
 }

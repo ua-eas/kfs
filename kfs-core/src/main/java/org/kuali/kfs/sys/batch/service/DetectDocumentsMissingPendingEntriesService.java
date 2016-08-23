@@ -34,6 +34,7 @@ public interface DetectDocumentsMissingPendingEntriesService {
 
     /**
      * Reports (either through e-mail or logging) about documents which are missing pending ledger entries
+     *
      * @param documentHeaders the documents which are missing expected pending ledger entries
      */
     public void reportDocumentsWithoutPendingEntries(List<DocumentHeaderData> documentHeaders);

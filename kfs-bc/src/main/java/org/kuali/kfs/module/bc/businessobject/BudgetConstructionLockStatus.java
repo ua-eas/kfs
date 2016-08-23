@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.module.bc.BCConstants.LockStatus;
+
 import java.util.LinkedHashMap;
 import java.util.SortedSet;
-
-import org.kuali.kfs.module.bc.BCConstants.LockStatus;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * This class defines a BudgetConstructionLockStatus object. This object is used by many of the methods in the Budget module's
@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
  * with the uid associated with the lock. LockStatus.FLOCK_FOUND usually means the set of fundingLocks is also defined. See the
  * LockService methods JavaDoc for more details.
  */
-public class BudgetConstructionLockStatus extends TransientBusinessObjectBase{
+public class BudgetConstructionLockStatus extends TransientBusinessObjectBase {
 
     private LockStatus lockStatus;
     private String accountLockOwner;
@@ -144,6 +144,7 @@ public class BudgetConstructionLockStatus extends TransientBusinessObjectBase{
 
     /**
      * Gets the budgetConstructionHeader attribute.
+     *
      * @return Returns the budgetConstructionHeader.
      */
     public BudgetConstructionHeader getBudgetConstructionHeader() {
@@ -152,6 +153,7 @@ public class BudgetConstructionLockStatus extends TransientBusinessObjectBase{
 
     /**
      * Sets the budgetConstructionHeader attribute value.
+     *
      * @param budgetConstructionHeader The budgetConstructionHeader to set.
      */
     public void setBudgetConstructionHeader(BudgetConstructionHeader budgetConstructionHeader) {
@@ -163,7 +165,7 @@ public class BudgetConstructionLockStatus extends TransientBusinessObjectBase{
      */
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap<String,Object> mapper = new LinkedHashMap<String,Object>();
+        LinkedHashMap<String, Object> mapper = new LinkedHashMap<String, Object>();
 
         mapper.put("lockStatus", this.lockStatus);
         mapper.put("accountLockOwner", this.accountLockOwner);

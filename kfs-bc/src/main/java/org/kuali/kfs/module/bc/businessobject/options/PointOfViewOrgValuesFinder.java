@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.bc.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionProcessorService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class...
@@ -45,7 +45,7 @@ public class PointOfViewOrgValuesFinder extends KeyValuesBase {
         List<Organization> pointOfViewOrgs = SpringContext.getBean(BudgetConstructionProcessorService.class).getProcessorOrgs(person);
         pointOfViewOrgKeyLabels = new ArrayList();
         pointOfViewOrgKeyLabels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = pointOfViewOrgs.iterator(); iter.hasNext();) {
+        for (Iterator iter = pointOfViewOrgs.iterator(); iter.hasNext(); ) {
             Organization element = (Organization) iter.next();
             pointOfViewOrgKeyLabels.add(new ConcreteKeyValue(element.getChartOfAccountsCode() + "-" + element.getOrganizationCode(), element.getChartOfAccountsCode() + "-" + element.getOrganizationCode()));
         }

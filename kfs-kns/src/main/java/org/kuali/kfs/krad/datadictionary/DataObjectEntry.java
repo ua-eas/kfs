@@ -21,16 +21,14 @@ package org.kuali.kfs.krad.datadictionary;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.Exporter;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
-import org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint;
 import org.kuali.kfs.krad.datadictionary.validation.capability.MustOccurConstrainable;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint;
 
 import java.util.List;
 
 /**
  * Generic dictionary entry for an object that does not have to implement BusinessObject. It provides support
  * for general objects.
- *
- *
  */
 public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccurConstrainable {
 
@@ -166,10 +164,10 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
 
     /**
      * Sets the helpDefinition attribute value.
-     *
+     * <p>
      * The objectHelp element provides the keys to
      * obtain a help description from the system parameters table.
-     *
+     * <p>
      * parameterNamespace the namespace of the parameter containing help information
      * parameterName the name of the parameter containing help information
      * parameterDetailType the detail type of the parameter containing help information
@@ -213,7 +211,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
      * The titleAttribute element is the name of the attribute that
      * will be used as an inquiry field when the lookup search results
      * fields are displayed.
-     *
+     * <p>
      * For some business objects, there is no obvious field to serve
      * as the inquiry field. in that case a special field may be required
      * for inquiry purposes.
@@ -266,7 +264,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
 
     /**
      * Gets the boNotesEnabled flag for the Data object
-     *
+     * <p>
      * <p>
      * true indicates that notes and attachments will be permanently
      * associated with the business object
@@ -289,9 +287,9 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
 
     /**
      * Gets the inactivationBlockingDefinitions for the Data object
-     *
      * <p>
-     *
+     * <p>
+     * <p>
      * </p>
      *
      * @return the list of <code>InactivationBlockingDefinition</code>
@@ -304,7 +302,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
      * Setter for the inactivationBlockingDefinitions
      */
     public void setInactivationBlockingDefinitions(
-            List<InactivationBlockingDefinition> inactivationBlockingDefinitions) {
+        List<InactivationBlockingDefinition> inactivationBlockingDefinitions) {
         this.inactivationBlockingDefinitions = inactivationBlockingDefinitions;
     }
 }

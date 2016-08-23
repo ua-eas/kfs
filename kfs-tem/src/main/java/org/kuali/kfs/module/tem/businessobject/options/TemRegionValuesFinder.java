@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemRegion;
@@ -34,8 +29,13 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class TemRegionValuesFinder extends KeyValuesBase {
     protected static volatile KeyValuesService keyValuesService;
@@ -74,11 +74,11 @@ public class TemRegionValuesFinder extends KeyValuesBase {
         Iterator<TemRegion> it = usRegions.iterator();
 
         String key = KFSConstants.EMPTY_STRING;
-        while (it.hasNext()){
+        while (it.hasNext()) {
             TemRegion temRegion = it.next();
 
             String tempKey = temRegion.getRegionName();
-            if (!tempKey.equals(key)){
+            if (!tempKey.equals(key)) {
                 keyValues.add(new ConcreteKeyValue(temRegion.getRegionCode().toUpperCase(), temRegion.getRegionName().toUpperCase()));
             }
             key = tempKey;

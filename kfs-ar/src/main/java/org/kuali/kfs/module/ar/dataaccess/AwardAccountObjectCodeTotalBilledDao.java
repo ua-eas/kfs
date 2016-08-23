@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.module.ar.businessobject.AwardAccountObjectCodeTotalBilled;
+
+import java.util.List;
 
 
 /**

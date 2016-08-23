@@ -27,7 +27,8 @@ public class ExtractionUnit {
 
     /**
      * Constructs a new ExtractionUnit object with the given unit and sub-unit
-     * @param unit the unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION
+     *
+     * @param unit    the unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION
      * @param subUnit the sub-unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
      */
     public ExtractionUnit(String unit, String subUnit) {
@@ -68,16 +69,14 @@ public class ExtractionUnit {
             if (other.subUnit != null) {
                 return false;
             }
-        }
-        else if (!subUnit.equals(other.subUnit)) {
+        } else if (!subUnit.equals(other.subUnit)) {
             return false;
         }
         if (unit == null) {
             if (other.unit != null) {
                 return false;
             }
-        }
-        else if (!unit.equals(other.unit)) {
+        } else if (!unit.equals(other.unit)) {
             return false;
         }
         return true;

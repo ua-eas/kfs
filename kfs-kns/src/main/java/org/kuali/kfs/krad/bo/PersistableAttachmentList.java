@@ -23,5 +23,6 @@ import java.util.List;
 
 public interface PersistableAttachmentList<T extends PersistableAttachment> {
     List<T> getAttachments();
+
     void setAttachments(List<T> attachments);
 }

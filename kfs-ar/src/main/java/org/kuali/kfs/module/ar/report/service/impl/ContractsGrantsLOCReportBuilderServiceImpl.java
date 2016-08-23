@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLOCReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsLOCReportDetailDataHolder;
@@ -32,7 +28,11 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService to build the Contracts & Grants LOC Draw Details Report
@@ -43,6 +43,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
@@ -52,13 +53,13 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
         Map<String, KualiDecimal> subTotalMap = new HashMap<String, KualiDecimal>();
 
         if (isFieldSubtotalRequired) {
-            subTotalMap = buildSubTotalMap((List<ContractsGrantsLOCReport>)displayList, sortPropertyName);
+            subTotalMap = buildSubTotalMap((List<ContractsGrantsLOCReport>) displayList, sortPropertyName);
         }
 
         ContractsGrantsReportDataHolder cgLOCDrawDetailsReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsLOCReportDetailDataHolder> details = cgLOCDrawDetailsReportDataHolder.getDetails();
 
-        for (ContractsGrantsLOCReport cgLOCDrawDetailsReportEntry : (List<ContractsGrantsLOCReport>)displayList) {
+        for (ContractsGrantsLOCReport cgLOCDrawDetailsReportEntry : (List<ContractsGrantsLOCReport>) displayList) {
             ContractsGrantsLOCReportDetailDataHolder reportDetail = new ContractsGrantsLOCReportDetailDataHolder();
             // set report data
             setReportDate(cgLOCDrawDetailsReportEntry, reportDetail);
@@ -69,8 +70,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
                 reportDetail.setDisplaySubtotal(true);
                 // set subTotal from subTotalMap
                 reportDetail.setSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgLOCDrawDetailsReportEntry, sortPropertyName)).bigDecimalValue());
-            }
-            else {
+            } else {
                 // set this to empty string for not displaying subtotal
                 reportDetail.setDisplaySubtotal(false);
             }
@@ -82,6 +82,7 @@ public class ContractsGrantsLOCReportBuilderServiceImpl implements ContractsGran
 
     /**
      * Returns the class of ContractsGrantsLOCReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

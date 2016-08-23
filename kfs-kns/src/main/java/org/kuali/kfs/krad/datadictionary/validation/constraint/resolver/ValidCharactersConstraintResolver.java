@@ -26,16 +26,14 @@ import java.util.List;
 
 /**
  * An object that returns the valid characters constraint as a list for a definition implementing the capability {@link ValidCharactersConstrainable}.
- *
- *
  */
 public class ValidCharactersConstraintResolver<T extends ValidCharactersConstrainable> implements ConstraintResolver<T> {
 
-	@Override
-	public <C extends Constraint> List<C> resolve(T definition) {
-		@SuppressWarnings("unchecked")
-		C caseConstraint = (C)definition.getValidCharactersConstraint();
-		return Collections.singletonList(caseConstraint);
-	}
+    @Override
+    public <C extends Constraint> List<C> resolve(T definition) {
+        @SuppressWarnings("unchecked")
+        C caseConstraint = (C) definition.getValidCharactersConstraint();
+        return Collections.singletonList(caseConstraint);
+    }
 
 }

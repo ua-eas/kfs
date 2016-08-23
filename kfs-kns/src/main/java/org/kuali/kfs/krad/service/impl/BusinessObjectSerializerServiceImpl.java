@@ -22,8 +22,8 @@ package org.kuali.kfs.krad.service.impl;
 import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectSerializerService;
-import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.documentserializer.AlwaysTruePropertySerializibilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
@@ -40,7 +40,7 @@ public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase i
      */
     public String serializeBusinessObjectToXml(Object businessObject) {
         PropertySerializabilityEvaluator propertySerizabilityEvaluator =
-                getPropertySerizabilityEvaluator(businessObject);
+            getPropertySerizabilityEvaluator(businessObject);
         evaluators.set(propertySerizabilityEvaluator);
         SerializationState state = new SerializationState(); //createNewDocumentSerializationState(document);
         serializationStates.set(state);
@@ -63,7 +63,7 @@ public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase i
 
         String docTypeName = getDocumentDictionaryService().getMaintenanceDocumentTypeName(businessObject.getClass());
         MaintenanceDocumentEntry maintenanceDocumentEntry =
-                getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
+            getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
 
         // TODO: need to determine view properties to serialize
         evaluator = new AlwaysTruePropertySerializibilityEvaluator();

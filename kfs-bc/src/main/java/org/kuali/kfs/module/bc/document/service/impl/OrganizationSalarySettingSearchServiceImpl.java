@@ -34,7 +34,7 @@ public class OrganizationSalarySettingSearchServiceImpl implements OrganizationS
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.OrganizationSalarySettingSearchService#buildIntendedIncumbentSelect(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public void buildIntendedIncumbentSelect(String principalName, Integer universityFiscalYear) {
 
@@ -52,7 +52,7 @@ public class OrganizationSalarySettingSearchServiceImpl implements OrganizationS
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.OrganizationSalarySettingSearchService#buildPositionSelect(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public void buildPositionSelect(String principalName, Integer universityFiscalYear) {
 

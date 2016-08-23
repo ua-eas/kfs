@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectType;
 
+import java.util.List;
+
 /**
- *
  * This service interface defines methods necessary for retrieving fully populated ObjectType business objects from the database
  * that are necessary for transaction processing in the application. It also defines methods to retrieve specific object type codes
  */
@@ -46,8 +45,8 @@ public interface ObjectTypeService {
     public List<String> getBasicExpenseObjectTypes(Integer universityFiscalYear);
 
     /**
-     *
      * Returns a list of all expense objects from options table for a given university fiscal year
+     *
      * @param universityFiscalYear
      * @return a list of all expense object types based on the fiscal year
      */

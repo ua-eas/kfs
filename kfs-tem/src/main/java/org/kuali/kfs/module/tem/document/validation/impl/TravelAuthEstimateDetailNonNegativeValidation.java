@@ -18,46 +18,46 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.businessobject.PerDiemExpense;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 public class TravelAuthEstimateDetailNonNegativeValidation extends GenericValidation {
 
     @Override
     public boolean validate(AttributedDocumentEvent event) {
-        TravelAuthorizationDocument doc = (TravelAuthorizationDocument)event.getDocument();
+        TravelAuthorizationDocument doc = (TravelAuthorizationDocument) event.getDocument();
         List<PerDiemExpense> estimates = doc.getPerDiemExpenses();
         boolean valid = true;
 
-        for(int i = 0; i < estimates.size(); i++) {
+        for (int i = 0; i < estimates.size(); i++) {
             PerDiemExpense estimate = estimates.get(i);
-            if(estimate.getLodging() != null) {
+            if (estimate.getLodging() != null) {
                 KualiDecimal lodging = estimate.getLodging();
-                if(lodging.isLessThan(KualiDecimal.ZERO)) {
+                if (lodging.isLessThan(KualiDecimal.ZERO)) {
                     GlobalVariables.getMessageMap().putError("document.perDiemExpenses[" + i + "].lodging", KFSKeyConstants.ERROR_NEGATIVE_AMOUNT, "Lodging");
                     valid = false;
                 }
             }
 
-            if(estimate.getMiles() != null) {
+            if (estimate.getMiles() != null) {
                 Integer miles = estimate.getMiles();
-                if(miles.intValue() < 0) {
+                if (miles.intValue() < 0) {
                     GlobalVariables.getMessageMap().putError("document.perDiemExpenses[" + i + "].miles", KFSKeyConstants.ERROR_NEGATIVE_AMOUNT, "Miles");
                     valid = false;
                 }
             }
         }
 
-        if(doc.getPerDiemAdjustment() != null) {
+        if (doc.getPerDiemAdjustment() != null) {
             KualiDecimal perDiemAdjustment = doc.getPerDiemAdjustment();
-            if(perDiemAdjustment.isLessThan(KualiDecimal.ZERO)) {
+            if (perDiemAdjustment.isLessThan(KualiDecimal.ZERO)) {
                 GlobalVariables.getMessageMap().putError("document.perDiemAdjustment", KFSKeyConstants.ERROR_NEGATIVE_AMOUNT, "Manual Per Diem Adjustment");
                 valid = false;
             }

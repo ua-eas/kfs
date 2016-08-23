@@ -23,12 +23,14 @@ public interface AppliedPayment {
 
     /**
      * This method returns the invoice reference number
+     *
      * @return
      */
     public String getInvoiceReferenceNumber();
 
     /**
      * This method returns the invoice detail item number that the amount is being applied to
+     *
      * @return
      */
     public Integer getInvoiceItemNumber();

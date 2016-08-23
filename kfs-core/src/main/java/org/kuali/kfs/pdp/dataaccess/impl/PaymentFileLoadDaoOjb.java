@@ -22,9 +22,6 @@
  */
 package org.kuali.kfs.pdp.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -32,6 +29,9 @@ import org.kuali.kfs.pdp.businessobject.Batch;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.dataaccess.PaymentFileLoadDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
  * @see org.kuali.kfs.pdp.dataaccess.PaymentFileLoadDao
@@ -45,7 +45,7 @@ public class PaymentFileLoadDaoOjb extends PlatformAwareDaoBaseOjb implements Pa
 
     /**
      * @see org.kuali.kfs.pdp.dataaccess.PaymentFileLoadDao#isDuplicateBatch(org.kuali.kfs.pdp.businessobject.CustomerProfile,
-     *      java.lang.Integer, java.math.BigDecimal, java.sql.Timestamp)
+     * java.lang.Integer, java.math.BigDecimal, java.sql.Timestamp)
      */
     public boolean isDuplicateBatch(CustomerProfile customer, Integer count, BigDecimal totalAmount, Timestamp now) {
         LOG.debug("isDuplicateBatch() starting");

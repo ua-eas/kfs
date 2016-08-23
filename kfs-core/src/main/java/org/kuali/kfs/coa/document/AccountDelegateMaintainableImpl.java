@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.security.GeneralSecurityException;
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
 import org.kuali.kfs.coa.service.AccountDelegateService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.encryption.EncryptionService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+
+import java.security.GeneralSecurityException;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is a special implementation of Maintainable specifically for Account Delegates. It was created to correctly update the
@@ -51,9 +51,9 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterRetrieve()
      */
     @Override
-    public void processAfterCopy( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         this.setStartDateDefault();
-        super.processAfterCopy( document, parameters );
+        super.processAfterCopy(document, parameters);
     }
 
     /**
@@ -62,9 +62,9 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterEdit()
      */
     @Override
-    public void processAfterEdit( MaintenanceDocument document, Map<String,String[]> parameters ) {
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
         this.setStartDateDefault();
-        super.processAfterEdit( document, parameters );
+        super.processAfterEdit(document, parameters);
     }
 
     /**
@@ -87,21 +87,21 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
         AccountDelegate delegate = (AccountDelegate) this.businessObject;
         List<MaintenanceLock> locks = super.generateMaintenanceLocks();
         if (delegate.isAccountsDelegatePrmrtIndicator()) {
-            locks.add(createMaintenanceLock(new String[] { "chartOfAccountsCode", "accountNumber", "financialDocumentTypeCode", "accountsDelegatePrmrtIndicator" }));
+            locks.add(createMaintenanceLock(new String[]{"chartOfAccountsCode", "accountNumber", "financialDocumentTypeCode", "accountsDelegatePrmrtIndicator"}));
         }
         return locks;
     }
 
     @Override
     public String getLockingDocumentId() {
-       String lock = super.getLockingDocumentId();
-       if (StringUtils.isNotBlank(lock))
-           return lock;
-       else {
-           AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
-           lock = accountDelegateService.getLockingDocumentId(this, getDocumentNumber());
-           return lock;
-       }
+        String lock = super.getLockingDocumentId();
+        if (StringUtils.isNotBlank(lock))
+            return lock;
+        else {
+            AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
+            lock = accountDelegateService.getLockingDocumentId(this, getDocumentNumber());
+            return lock;
+        }
     }
 
     /**
@@ -165,8 +165,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
         if (SpringContext.getBean(BusinessObjectAuthorizationService.class).attributeValueNeedsToBeEncryptedOnFormsAndLinks(getBoClass(), fieldName)) {
             try {
                 fieldValue = encryptionService.encrypt(fieldValue);
-            }
-            catch (GeneralSecurityException e) {
+            } catch (GeneralSecurityException e) {
                 LOG.error("Unable to encrypt secure field for locking representation " + e.getMessage());
                 throw new RuntimeException("Unable to encrypt secure field for locking representation " + e.getMessage());
             }
@@ -213,11 +212,12 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     /**
      * Overridden so that after account delegate is saved, it updates the proper account delegate role
      * Defers saving to a service to guarantee that the delegate saves in a separate transaction
+     *
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
      */
     @Override
     public void saveBusinessObject() {
-        final AccountDelegate accountDelegate = (AccountDelegate)getBusinessObject();
+        final AccountDelegate accountDelegate = (AccountDelegate) getBusinessObject();
         final AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
 
         accountDelegateService.saveForMaintenanceDocument(accountDelegate);

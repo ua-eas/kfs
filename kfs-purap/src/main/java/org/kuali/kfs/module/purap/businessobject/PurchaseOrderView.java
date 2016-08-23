@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Purchase Order View Business Object.
@@ -96,13 +96,12 @@ public class PurchaseOrderView extends AbstractRelatedView {
                 List<Note> tmpNotes = SpringContext.getBean(PurchaseOrderService.class).getPurchaseOrderNotes(this.getPurapDocumentIdentifier());
                 //FIXME if NoteService returns notes in descending order (newer ones first) then remove the following
                 // reverse the order of notes retrieved so that newest note is in the front
-                for (int i = tmpNotes.size()-1; i>=0; i--) {
+                for (int i = tmpNotes.size() - 1; i >= 0; i--) {
                     Note note = tmpNotes.get(i);
                     notes.add(note);
                 }
             }
-        }
-        else {
+        } else {
             notes = null;
         }
 
@@ -143,6 +142,7 @@ public class PurchaseOrderView extends AbstractRelatedView {
 
     /**
      * Checks whether the purchase order view needs a warning to be displayed, i.e. it never has been opened.
+     *
      * @return true if the purchase order needs a warning; false otherwise.
      */
     public boolean getNeedWarning() {

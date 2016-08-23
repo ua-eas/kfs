@@ -20,34 +20,34 @@ package org.kuali.kfs.kns.datadictionary.validation.charlevel;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 /**
  * This is a description of what this class does - ctdang don't forget to fill this in.
- *
  */
 public class RegexValidationPattern extends CharacterLevelValidationPattern {
 
     private static final long serialVersionUID = -5642894236634278352L;
-    private static final Logger LOG=Logger.getLogger(RegexValidationPattern.class);
+    private static final Logger LOG = Logger.getLogger(RegexValidationPattern.class);
     /**
      * Regular expression, e.g. "[a-zA-Z0-9]"
      */
     private String pattern;
 
     private String validationErrorMessageKey;
+
     /**
      * This exports a representation of this instance by an ExportMap.
      *
      * @see CharacterLevelValidationPattern#extendExportMap(ExportMap)
      */
     @Override
-	public void extendExportMap(ExportMap exportMap) {
+    public void extendExportMap(ExportMap exportMap) {
         if (LOG.isTraceEnabled()) {
-            String message=String.format("ENTRY %s",
-                    (exportMap==null)?"null":exportMap.toString());
+            String message = String.format("ENTRY %s",
+                (exportMap == null) ? "null" : exportMap.toString());
             LOG.trace(message);
         }
 
@@ -57,12 +57,12 @@ public class RegexValidationPattern extends CharacterLevelValidationPattern {
         exportMap.set("pattern", getPattern());
 
         if (LOG.isTraceEnabled()) {
-            String message=String.format("EXIT %s",
-                    (exportMap==null)?"null":exportMap.toString());
+            String message = String.format("EXIT %s",
+                (exportMap == null) ? "null" : exportMap.toString());
             LOG.trace(message);
         }
 
-     }
+    }
 
     /**
      * This returns an instance of this class as string.
@@ -71,7 +71,7 @@ public class RegexValidationPattern extends CharacterLevelValidationPattern {
      */
     public String getPatternXml() {
         if (LOG.isTraceEnabled()) {
-            String message=String.format("ENTRY");
+            String message = String.format("ENTRY");
             LOG.trace(message);
         }
 
@@ -80,7 +80,7 @@ public class RegexValidationPattern extends CharacterLevelValidationPattern {
         xml.append("/>");
 
         if (LOG.isTraceEnabled()) {
-            String message=String.format("EXIT %s", xml.toString());
+            String message = String.format("EXIT %s", xml.toString());
             LOG.trace(message);
         }
 
@@ -94,19 +94,19 @@ public class RegexValidationPattern extends CharacterLevelValidationPattern {
      * @see ValidationPattern#getRegexString()
      */
     @Override
-	protected String getRegexString() {
+    protected String getRegexString() {
         if (LOG.isTraceEnabled()) {
-            String message=String.format("ENTRY %s",
-                    (pattern==null)?"null":pattern.toString());
+            String message = String.format("ENTRY %s",
+                (pattern == null) ? "null" : pattern.toString());
             LOG.trace(message);
         }
 
         if (StringUtils.isEmpty(pattern)) {
-            throw new IllegalStateException(this.getClass().getName()+".pattern is empty");
+            throw new IllegalStateException(this.getClass().getName() + ".pattern is empty");
         }
 
         if (LOG.isTraceEnabled()) {
-            String message=String.format("EXIT");
+            String message = String.format("EXIT");
             LOG.trace(message);
         }
 
@@ -127,30 +127,30 @@ public class RegexValidationPattern extends CharacterLevelValidationPattern {
         this.pattern = pattern;
     }
 
-	/**
-	 * @return the validationErrorMessageKey
-	 */
+    /**
+     * @return the validationErrorMessageKey
+     */
     @Override
-	public String getValidationErrorMessageKey() {
-		return this.validationErrorMessageKey;
-	}
+    public String getValidationErrorMessageKey() {
+        return this.validationErrorMessageKey;
+    }
 
-	/**
-	 * @param validationErrorMessageKey a message key from the application's message resource bundle signifying the error message
-	 * to display if some validation does not match this pattern
-	 */
-	public void setValidationErrorMessageKey(String validationErrorMessageKey) {
-		this.validationErrorMessageKey = validationErrorMessageKey;
-	}
+    /**
+     * @param validationErrorMessageKey a message key from the application's message resource bundle signifying the error message
+     *                                  to display if some validation does not match this pattern
+     */
+    public void setValidationErrorMessageKey(String validationErrorMessageKey) {
+        this.validationErrorMessageKey = validationErrorMessageKey;
+    }
 
-	/**
-	 * @see ValidationPattern#completeValidation()
-	 */
-	@Override
-	public void completeValidation() {
-		super.completeValidation();
-		if (StringUtils.isBlank(validationErrorMessageKey)) {
-			throw new ValidationPatternException("Regex Validation Patterns must have a validation error message key defined");
-		}
-	}
+    /**
+     * @see ValidationPattern#completeValidation()
+     */
+    @Override
+    public void completeValidation() {
+        super.completeValidation();
+        if (StringUtils.isBlank(validationErrorMessageKey)) {
+            throw new ValidationPatternException("Regex Validation Patterns must have a validation error message key defined");
+        }
+    }
 }

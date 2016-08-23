@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.module.cam.document.validation.event;
 
-import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
-import org.kuali.kfs.module.cam.document.validation.impl.BarcodeInventoryErrorDocumentRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
+import org.kuali.kfs.module.cam.document.validation.impl.BarcodeInventoryErrorDocumentRule;
 
 public final class ValidateBarcodeInventoryEvent extends KualiDocumentEventBase {
     boolean updateStatus;
+
     public ValidateBarcodeInventoryEvent(String errorPathPrefix, Document document, boolean updateStatus) {
         super("", errorPathPrefix, document);
         this.updateStatus = updateStatus;
@@ -38,7 +39,7 @@ public final class ValidateBarcodeInventoryEvent extends KualiDocumentEventBase 
 
     @SuppressWarnings("unchecked")
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((BarcodeInventoryErrorDocumentRule) rule).validateBarcodeInventoryErrorDetail((BarcodeInventoryErrorDocument)getDocument(),this.updateStatus);
+        return ((BarcodeInventoryErrorDocumentRule) rule).validateBarcodeInventoryErrorDetail((BarcodeInventoryErrorDocument) getDocument(), this.updateStatus);
     }
 
 }

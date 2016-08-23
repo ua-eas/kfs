@@ -31,7 +31,7 @@ public class KualiAddLineEvent extends KualiDocumentEventBase {
     private PersistableBusinessObject bo;
     private String collectionName;
 
-    public KualiAddLineEvent( Document document, String collectionName, PersistableBusinessObject addLine ) {
+    public KualiAddLineEvent(Document document, String collectionName, PersistableBusinessObject addLine) {
         super("adding bo to document collection " + KualiDocumentEventBase.getDocumentId(document), "", document);
 
         this.bo = addLine;//(BusinessObject)ObjectUtils.deepCopy( addLine );
@@ -39,7 +39,7 @@ public class KualiAddLineEvent extends KualiDocumentEventBase {
     }
 
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((AddCollectionLineRule)rule).processAddCollectionLineBusinessRules( (MaintenanceDocument)getDocument(), collectionName, bo );
+        return ((AddCollectionLineRule) rule).processAddCollectionLineBusinessRules((MaintenanceDocument) getDocument(), collectionName, bo);
     }
 
     public Class<? extends BusinessRule> getRuleInterfaceClass() {

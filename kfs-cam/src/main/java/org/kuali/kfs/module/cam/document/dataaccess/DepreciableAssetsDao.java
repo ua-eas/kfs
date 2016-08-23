@@ -30,13 +30,13 @@ public interface DepreciableAssetsDao {
      * This method stores in a collection each item the depreciation report will print out
      *
      * @param beforeDepreciationReport when true will print out some of the items
-     * @param documentNumber Document number that will be print out in the report
-     * @param fiscalYear fiscal year of the date in depreciation
-     * @param fiscalMonth fiscal month of the date in depreciation
-     * @param depreciationDate depreciation date
-     * @param depreciationRunDate depreciation date that will be print out
-     * @param a Collection of all AssetObjectCodes
-     * @param fiscalStartMonth fiscal month
+     * @param documentNumber           Document number that will be print out in the report
+     * @param fiscalYear               fiscal year of the date in depreciation
+     * @param fiscalMonth              fiscal month of the date in depreciation
+     * @param depreciationDate         depreciation date
+     * @param depreciationRunDate      depreciation date that will be print out
+     * @param a                        Collection of all AssetObjectCodes
+     * @param fiscalStartMonth         fiscal month
      * @param errorMessage
      * @return
      */

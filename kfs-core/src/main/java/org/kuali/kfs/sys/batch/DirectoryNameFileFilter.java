@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-
 import org.apache.commons.io.filefilter.IOFileFilter;
+
+import java.io.File;
 
 /**
  * A file filter which only allows through files in a given directory
@@ -31,6 +31,7 @@ public class DirectoryNameFileFilter implements IOFileFilter {
     /**
      * Constructs a DirectoryNameFileFilter, using the directory name from the FilePurgeCustomAge configuration
      * as the directory to match
+     *
      * @param filePurgeCustomAge the filePurgeCustomAge to get the directory name from
      */
     public DirectoryNameFileFilter(FilePurgeCustomAge filePurgeCustomAge) {
@@ -38,7 +39,6 @@ public class DirectoryNameFileFilter implements IOFileFilter {
     }
 
     /**
-     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File)
      */
     public boolean accept(File file) {
@@ -47,11 +47,10 @@ public class DirectoryNameFileFilter implements IOFileFilter {
     }
 
     /**
-     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
      */
     public boolean accept(File directory, String fileName) {
-        final File file = new File(directory.getName()+File.separator+fileName);
+        final File file = new File(directory.getName() + File.separator + fileName);
         if (file.isDirectory()) return true;
         return directory.equals(directoryName);
     }

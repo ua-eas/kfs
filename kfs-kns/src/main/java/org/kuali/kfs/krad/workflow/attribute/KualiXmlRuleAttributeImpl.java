@@ -25,12 +25,9 @@ import org.w3c.dom.Element;
 
 /**
  * This class extends the workflow xml rule attribute implementation to use the information in the data dictionary to generate labels.
- *
- *
- *
  */
 public class KualiXmlRuleAttributeImpl extends StandardGenericXMLRuleAttribute implements KualiXmlAttribute {
-	private static final long serialVersionUID = -3453451186396963835L;
+    private static final long serialVersionUID = -3453451186396963835L;
 
     /**
      * Constructs a KualiXmlRuleAttributeImpl.java.

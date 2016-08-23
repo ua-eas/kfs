@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
+import java.io.IOException;
 
 /**
  * Don't you love it when you've got to write silly code, just because of some arbitrary rule within the
@@ -34,6 +33,7 @@ public class StringRenderer implements Renderer {
 
     /**
      * Clears out the stringToRender
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -42,14 +42,14 @@ public class StringRenderer implements Renderer {
 
     /**
      * Renders stringToRender
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         if (stringToRender != null) {
             try {
                 pageContext.getOut().write(stringToRender);
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 new JspException("Difficulty rendering...oh dear...difficulty rendering a plain String.  That's just sad.", ioe);
             }
         }
@@ -57,6 +57,7 @@ public class StringRenderer implements Renderer {
 
     /**
      * Gets the stringToRender attribute.
+     *
      * @return Returns the stringToRender.
      */
     public String getStringToRender() {
@@ -65,6 +66,7 @@ public class StringRenderer implements Renderer {
 
     /**
      * Sets the stringToRender attribute value.
+     *
      * @param stringToRender The stringToRender to set.
      */
     public void setStringToRender(String stringToRender) {

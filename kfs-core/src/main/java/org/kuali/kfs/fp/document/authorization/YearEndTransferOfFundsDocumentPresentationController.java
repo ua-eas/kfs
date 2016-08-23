@@ -31,20 +31,20 @@ import org.springframework.util.ObjectUtils;
  * Document Authorizer for the Year End Budget Adjustment document.
  */
 public class YearEndTransferOfFundsDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
-   /**
+    /**
      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#canErrorCorrect(org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument)
      */
-   @Override
-   public boolean canErrorCorrect(FinancialSystemTransactionalDocument document) {
-       final boolean result = super.canErrorCorrect(document);
-       if (result) {
-           YearEndPendingEntryService yearEndPendingEntryService = SpringContext.getBean(YearEndPendingEntryService.class);
-           Integer previousFiscalYear = yearEndPendingEntryService.getPreviousFiscalYear();
-           if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument)document).getPostingYear())) {
-               return false;
-           }
-       }
-       return result;
-   }
+    @Override
+    public boolean canErrorCorrect(FinancialSystemTransactionalDocument document) {
+        final boolean result = super.canErrorCorrect(document);
+        if (result) {
+            YearEndPendingEntryService yearEndPendingEntryService = SpringContext.getBean(YearEndPendingEntryService.class);
+            Integer previousFiscalYear = yearEndPendingEntryService.getPreviousFiscalYear();
+            if (!ObjectUtils.nullSafeEquals(previousFiscalYear, ((LedgerPostingDocument) document).getPostingYear())) {
+                return false;
+            }
+        }
+        return result;
+    }
 
 }

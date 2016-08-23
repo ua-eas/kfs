@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.uif.control;
 
-import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.widget.Spinner;
 
 import java.util.List;
@@ -27,8 +27,6 @@ import java.util.List;
 /**
  * Text control that as decorated with a spinner widget (allowing the control value to be modified using the
  * spinner)
- *
- *
  */
 public class SpinnerControl extends TextControl {
     private static final long serialVersionUID = -8267606288443759880L;

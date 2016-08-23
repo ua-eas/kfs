@@ -25,7 +25,7 @@ public final class StringValueComparator implements Serializable, Comparator<Str
     private static final StringValueComparator INSTANCE = new StringValueComparator();
 
     private StringValueComparator() {
-    	//private
+        //private
     }
 
     public static StringValueComparator getInstance() {
@@ -33,7 +33,7 @@ public final class StringValueComparator implements Serializable, Comparator<Str
     }
 
     @Override
-	public int compare(String o1, String o2) {
+    public int compare(String o1, String o2) {
         // null guard. non-null value is greater. equal if both are null
         if (null == o1 || null == o2) {
             return (null == o1 && null == o2) ? 0 : ((null == o1) ? -1 : 1);

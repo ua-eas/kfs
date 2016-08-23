@@ -22,53 +22,53 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 
 public interface PurchaseOrderParameters {
-   /**
-    *
-    * This method returns the purchase Order transmit parameters require to generate
-    * purchase order and purchase order quote pdf.
-    * @param po
-    * @param povq
-    * @return
-    */
-   public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po) ;
+    /**
+     * This method returns the purchase Order transmit parameters require to generate
+     * purchase order and purchase order quote pdf.
+     *
+     * @param po
+     * @param povq
+     * @return
+     */
+    public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po);
 
-   /**
-    *
-    * This method returns the purchase Order transmit parameters require to generate
-    * purchase order and purchase order quote pdf.
-    * @param po
-    * @param povq
-    * @return
-    */
-   public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po , PurchaseOrderVendorQuote povq) ;
+    /**
+     * This method returns the purchase Order transmit parameters require to generate
+     * purchase order and purchase order quote pdf.
+     *
+     * @param po
+     * @param povq
+     * @return
+     */
+    public void setPurchaseOrderPdfParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq);
 
-   /**
-    *
-    * This method returns the purchase order transmit parameters require to send
-    * purchase order and purchase order quote fax.
-    * @param po
-    * @param povq
-    * @return
-    */
-   public void setPurchaseOrderFaxParameters(PurchaseOrderDocument po , PurchaseOrderVendorQuote povq) ;
+    /**
+     * This method returns the purchase order transmit parameters require to send
+     * purchase order and purchase order quote fax.
+     *
+     * @param po
+     * @param povq
+     * @return
+     */
+    public void setPurchaseOrderFaxParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq);
 
-   /**
-    *
-    * This method returns the purchase order transmit parameters require to
-    * generate purchase order and purchase order quote pdf and to send fax.
-    * @param po
-    * @param povq
-    * @return
-    */
-   public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po ) ;
+    /**
+     * This method returns the purchase order transmit parameters require to
+     * generate purchase order and purchase order quote pdf and to send fax.
+     *
+     * @param po
+     * @param povq
+     * @return
+     */
+    public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po);
 
-   /**
-    *
-    * This method returns the purchase order transmit parameters require to
-    * generate purchase order and purchase order quote pdf and to send fax.
-    * @param po
-    * @param povq
-    * @return
-    */
-   public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po , PurchaseOrderVendorQuote povq) ;
+    /**
+     * This method returns the purchase order transmit parameters require to
+     * generate purchase order and purchase order quote pdf and to send fax.
+     *
+     * @param po
+     * @param povq
+     * @return
+     */
+    public void setPurchaseOrderPdfAndFaxParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq);
 }

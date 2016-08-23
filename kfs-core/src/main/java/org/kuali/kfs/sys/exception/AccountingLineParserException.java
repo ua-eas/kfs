@@ -32,7 +32,7 @@ public class AccountingLineParserException extends RuntimeException {
      * Constructs a AccountingLineParserException.java.
      *
      * @param message
-     * @param errorKey key to an error message
+     * @param errorKey        key to an error message
      * @param errorParameters error message parameters
      */
     public AccountingLineParserException(String message, String errorKey, String... errorParameters) {

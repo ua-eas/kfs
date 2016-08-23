@@ -18,23 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.AMENDMENT_TA_QUESTION;
-import static org.kuali.kfs.module.tem.TemConstants.AMEND_NOTE_PREFIX;
-import static org.kuali.kfs.module.tem.TemConstants.AMEND_NOTE_SUFFIX;
-import static org.kuali.kfs.module.tem.TemConstants.AMEND_TA_TEXT;
-import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_AMENDMENT_QUESTION;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_PASTLIMIT;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_REQUIRED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.TA_QUESTION_DOCUMENT;
-import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
-import static org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC;
-import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
-import static org.kuali.kfs.sys.KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
 import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -54,15 +46,23 @@ import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.module.tem.TemConstants.AMENDMENT_TA_QUESTION;
+import static org.kuali.kfs.module.tem.TemConstants.AMEND_NOTE_PREFIX;
+import static org.kuali.kfs.module.tem.TemConstants.AMEND_NOTE_SUFFIX;
+import static org.kuali.kfs.module.tem.TemConstants.AMEND_TA_TEXT;
+import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_AMENDMENT_QUESTION;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_PASTLIMIT;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_REASON_REQUIRED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.TA_QUESTION_DOCUMENT;
+import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
+import static org.kuali.kfs.sys.KFSConstants.MAPPING_BASIC;
+import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
+import static org.kuali.kfs.sys.KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME;
 
 
 @Transactional
@@ -78,11 +78,10 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
     protected NoteService noteService;
 
     @Override
-    public <T> T handleResponse(final Inquisitive<TravelDocument,?> asker) throws Exception {
+    public <T> T handleResponse(final Inquisitive<TravelDocument, ?> asker) throws Exception {
         if (asker.denied(AMENDMENT_TA_QUESTION)) {
             return (T) asker.back();
-        }
-        else if (asker.confirmed(CONFIRM_AMENDMENT_QUESTION)) {
+        } else if (asker.confirmed(CONFIRM_AMENDMENT_QUESTION)) {
             return (T) asker.end();
             // This is the case when the user clicks on "OK" in the end.
             // After we inform the user that the close has been rerouted, we'll redirect to the portal page.
@@ -100,13 +99,12 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
         if (StringUtils.isBlank(asker.getReason()) || (noteTextLength > noteTextMaxLength)) {
             // Figure out exact number of characters that the user can enter.
             int reasonLimit = noteTextMaxLength - noteTextLength;
-            reasonLimit = reasonLimit<0?reasonLimit*-1:reasonLimit;
+            reasonLimit = reasonLimit < 0 ? reasonLimit * -1 : reasonLimit;
             String message = getMessageFrom(TA_QUESTION_DOCUMENT);
             String question = StringUtils.replace(message, "{0}", AMEND_TA_TEXT);
-            if (StringUtils.isBlank(asker.getReason())){
-                return (T) asker.confirm(AMENDMENT_TA_QUESTION, question, true, ERROR_TA_REASON_REQUIRED,QUESTION_REASON_ATTRIBUTE_NAME,AMEND_TA_TEXT);
-            }
-            else {
+            if (StringUtils.isBlank(asker.getReason())) {
+                return (T) asker.confirm(AMENDMENT_TA_QUESTION, question, true, ERROR_TA_REASON_REQUIRED, QUESTION_REASON_ATTRIBUTE_NAME, AMEND_TA_TEXT);
+            } else {
                 return (T) asker.confirm(AMENDMENT_TA_QUESTION, question, true, ERROR_TA_REASON_PASTLIMIT, QUESTION_REASON_ATTRIBUTE_NAME, new Integer(reasonLimit).toString());
             }
         }
@@ -150,7 +148,7 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
             accountingDocumentRelationshipService.save(new AccountingDocumentRelationship(document.getDocumentNumber(), taaDocument.getDocumentNumber(), relationDescription));
 
             // add an additional relationship to the original TA
-            if (documentType.equals(TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT)){
+            if (documentType.equals(TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT)) {
                 relationDescription = TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT + " - " + TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT;
 
                 List<Document> travelAuthDocs = travelDocumentService.getDocumentsRelatedTo(document, TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT);
@@ -160,14 +158,12 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
 
             if (ObjectUtils.isNotNull(returnActionForward)) {
                 return returnActionForward;
-            }
-            else {
+            } else {
                 String message = getMessageFrom(TA_QUESTION_DOCUMENT);
                 String question = StringUtils.replace(message, "{0}", AMEND_TA_TEXT);
                 return (T) asker.confirm(AMENDMENT_TA_QUESTION, question, true, "temSingleConfirmationQuestion", AMENDMENT_TA_QUESTION, "");
             }
-        }
-        catch (ValidationException ve) {
+        } catch (ValidationException ve) {
             throw ve;
         }
     }
@@ -180,11 +176,11 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
 
 
     @Override
-    public <T> T askQuestion(final Inquisitive<TravelDocument,?> asker) throws Exception {
-        final String key      = getMessageFrom(TA_QUESTION_DOCUMENT);
+    public <T> T askQuestion(final Inquisitive<TravelDocument, ?> asker) throws Exception {
+        final String key = getMessageFrom(TA_QUESTION_DOCUMENT);
         final String question = StringUtils.replace(key, "{0}", AMEND_TA_TEXT);
 
-        T retval = (T) asker.confirm(AMENDMENT_TA_QUESTION, question,true);
+        T retval = (T) asker.confirm(AMENDMENT_TA_QUESTION, question, true);
         return retval;
 
     }
@@ -228,6 +224,7 @@ public class AmendQuestionHandler implements QuestionHandler<TravelDocument> {
 
     /**
      * Creates a new detail line for each actual expense on the document
+     *
      * @param form the TravelAuthForm to copy expense detail lines on
      */
     protected void addActualExpenseNewDetailLines(TravelAuthorizationForm form) {

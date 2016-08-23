@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.document.validation.GenericValidation;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 /**
  * Validation to check if a reference of a validation
@@ -37,13 +37,12 @@ public class ReferenceExistsValidation extends GenericValidation {
     private String responsibleProperty;
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
         if (dictionaryValidationService.validateReferenceExists(businessObjectToValidate, referenceName)) {
-            GlobalVariables.getMessageMap().putError(responsibleProperty, KFSKeyConstants.ERROR_EXISTENCE, new String[] { dataDictionaryService.getAttributeLabel(businessObjectToValidate.getClass(), responsibleProperty) });
+            GlobalVariables.getMessageMap().putError(responsibleProperty, KFSKeyConstants.ERROR_EXISTENCE, new String[]{dataDictionaryService.getAttributeLabel(businessObjectToValidate.getClass(), responsibleProperty)});
             result = false;
         }
         return result;
@@ -51,6 +50,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Gets the businessObjectToValidate attribute.
+     *
      * @return Returns the businessObjectToValidate.
      */
     public PersistableBusinessObject getBusinessObjectToValidate() {
@@ -59,6 +59,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Sets the businessObjectToValidate attribute value.
+     *
      * @param businessObjectToValidate The businessObjectToValidate to set.
      */
     public void setBusinessObjectToValidate(PersistableBusinessObject businessObjectToValidate) {
@@ -67,6 +68,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Gets the referenceName attribute.
+     *
      * @return Returns the referenceName.
      */
     public String getReferenceName() {
@@ -75,6 +77,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Sets the referenceName attribute value.
+     *
      * @param referenceName The referenceName to set.
      */
     public void setReferenceName(String referenceName) {
@@ -83,6 +86,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Gets the responsibleProperty attribute.
+     *
      * @return Returns the responsibleProperty.
      */
     public String getResponsibleProperty() {
@@ -91,6 +95,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Sets the responsibleProperty attribute value.
+     *
      * @param responsibleProperty The responsibleProperty to set.
      */
     public void setResponsibleProperty(String responsibleProperty) {
@@ -99,6 +104,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Sets the dictionaryValidationService attribute value.
+     *
      * @param dictionaryValidationService The dictionaryValidationService to set.
      */
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {
@@ -107,6 +113,7 @@ public class ReferenceExistsValidation extends GenericValidation {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

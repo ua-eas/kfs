@@ -26,8 +26,6 @@ import java.util.Map;
 
 /**
  * Adds a litle strong type-checking and validation on top of the generic LinkedHashMap
- *
- *
  */
 @Deprecated
 public class StringMap extends LinkedHashMap<String, Object> {

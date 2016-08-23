@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.BatchJobStatus;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsModuleServiceImpl;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -71,7 +71,7 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
         String jobStatus = fieldValues.get("status");
         for (BatchJobStatus job : allJobs) {
             if (!StringUtils.isEmpty(namespaceCode) &&
-                    (!namespaceCode.equalsIgnoreCase(job.getNamespaceCode()) && job.getNamespaceCode()!=null)) {
+                (!namespaceCode.equalsIgnoreCase(job.getNamespaceCode()) && job.getNamespaceCode() != null)) {
                 continue;
             }
             if (namePattern != null && !namePattern.matcher(job.getName()).matches()) {
@@ -89,11 +89,11 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
         return jobs;
     }
 
-    public boolean doesModuleServiceHaveJobStatus(BatchJobStatus job){
-        if(job!=null) {
-            KfsModuleServiceImpl moduleService = (KfsModuleServiceImpl)getKualiModuleService().getResponsibleModuleServiceForJob(job.getName());
+    public boolean doesModuleServiceHaveJobStatus(BatchJobStatus job) {
+        if (job != null) {
+            KfsModuleServiceImpl moduleService = (KfsModuleServiceImpl) getKualiModuleService().getResponsibleModuleServiceForJob(job.getName());
             //This means this job is externalized and we do not want to show any action urls for it.
-            return (moduleService!=null && moduleService.isExternalJob(job.getName()));
+            return (moduleService != null && moduleService.isExternalJob(job.getName()));
         }
         return false;
     }
@@ -105,21 +105,21 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         if (businessObject instanceof BatchJobStatus) {
             BatchJobStatus job = (BatchJobStatus) businessObject;
-            if(doesModuleServiceHaveJobStatus(job)) {
+            if (doesModuleServiceHaveJobStatus(job)) {
                 return getEmptyActionUrls();
             }
             String linkText = "Modify";
-            Map<String,String> permissionDetails = new HashMap<String,String>(1);
-            permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, job.getNamespaceCode() );
+            Map<String, String> permissionDetails = new HashMap<String, String>(1);
+            permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, job.getNamespaceCode());
 
-            if ( !SpringContext.getBean(IdentityManagementService.class).hasPermissionByTemplateName(
-                    GlobalVariables.getUserSession().getPerson().getPrincipalId(),
-                    KRADConstants.KNS_NAMESPACE,
-                    KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name,
-                    permissionDetails ) ) {
+            if (!SpringContext.getBean(IdentityManagementService.class).hasPermissionByTemplateName(
+                GlobalVariables.getUserSession().getPerson().getPrincipalId(),
+                KRADConstants.KNS_NAMESPACE,
+                KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name,
+                permissionDetails)) {
                 linkText = "View";
             }
-            String href = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/batchModify.do?methodToCall=start&name="+(UrlFactory.encode(job.getName()))+("&group=")+(UrlFactory.encode(job.getGroup()));
+            String href = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/batchModify.do?methodToCall=start&name=" + (UrlFactory.encode(job.getName())) + ("&group=") + (UrlFactory.encode(job.getGroup()));
             List<HtmlData> anchorHtmlDataList = new ArrayList<HtmlData>();
             AnchorHtmlData anchorHtmlData = new AnchorHtmlData(href, KFSConstants.START_METHOD, linkText);
             anchorHtmlDataList.add(anchorHtmlData);
@@ -132,13 +132,13 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getActionUrlTitleText(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, java.util.List)
      */
     @Override
-    protected String getActionUrlTitleText(BusinessObject businessObject, String displayText, List pkNames, BusinessObjectRestrictions businessObjectRestrictions){
+    protected String getActionUrlTitleText(BusinessObject businessObject, String displayText, List pkNames, BusinessObjectRestrictions businessObjectRestrictions) {
         BatchJobStatus job = (BatchJobStatus) businessObject;
-        String titleText = displayText+" "
-            +getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(getBusinessObjectClass().getName()).getObjectLabel()
-            +" "
-            +configurationService.getPropertyValueAsString(TITLE_ACTION_URL_PREPENDTEXT_PROPERTY);
-        titleText += "Name="+job.getName()+" Group="+job.getGroup();
+        String titleText = displayText + " "
+            + getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(getBusinessObjectClass().getName()).getObjectLabel()
+            + " "
+            + configurationService.getPropertyValueAsString(TITLE_ACTION_URL_PREPENDTEXT_PROPERTY);
+        titleText += "Name=" + job.getName() + " Group=" + job.getGroup();
         return titleText;
     }
 
@@ -155,14 +155,14 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
     }
 
     public KualiModuleService getKualiModuleService() {
-        if ( kualiModuleService == null ) {
+        if (kualiModuleService == null) {
             kualiModuleService = SpringContext.getBean(KualiModuleService.class);
         }
         return kualiModuleService;
     }
 
     public IdentityManagementService getIdentityManagementService() {
-        if ( identityManagementService == null ) {
+        if (identityManagementService == null) {
             identityManagementService = SpringContext.getBean(IdentityManagementService.class);
         }
         return identityManagementService;

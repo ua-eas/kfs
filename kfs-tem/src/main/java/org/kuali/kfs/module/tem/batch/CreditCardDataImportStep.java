@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.CreditCardDataImportService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 
-public class CreditCardDataImportStep extends AbstractStep{
-private CreditCardDataImportService creditCardDataImportService;
+import java.util.Date;
+
+public class CreditCardDataImportStep extends AbstractStep {
+    private CreditCardDataImportService creditCardDataImportService;
 
     @Override
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
@@ -33,6 +33,7 @@ private CreditCardDataImportService creditCardDataImportService;
 
     /**
      * Gets the creditCardDataImportService attribute.
+     *
      * @return Returns the creditCardDataImportService.
      */
     public CreditCardDataImportService getCreditCardDataImportService() {
@@ -41,6 +42,7 @@ private CreditCardDataImportService creditCardDataImportService;
 
     /**
      * Sets the creditCardDataImportService attribute value.
+     *
      * @param creditCardDataImportService The creditCardDataImportService to set.
      */
     public void setCreditCardDataImportService(CreditCardDataImportService creditCardDataImportService) {

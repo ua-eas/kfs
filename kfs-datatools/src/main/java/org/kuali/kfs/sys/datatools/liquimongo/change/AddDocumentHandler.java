@@ -40,12 +40,12 @@ public class AddDocumentHandler extends AbstractDocumentStoreChangeHandler imple
 
         verifyKeyExistence(change, COLLECTION_NAME);
         verifyKeyExistence(change, DOCUMENT);
-        verifyKeyExistence(change,QUERY); // Needed for reversion
+        verifyKeyExistence(change, QUERY); // Needed for reversion
 
         String collectionName = change.get(COLLECTION_NAME).asText();
         JsonNode document = change.get(DOCUMENT);
 
-        DBObject dbObject = (DBObject)JSON.parse(document.toString());
+        DBObject dbObject = (DBObject) JSON.parse(document.toString());
         mongoTemplate.save(dbObject, collectionName);
     }
 }

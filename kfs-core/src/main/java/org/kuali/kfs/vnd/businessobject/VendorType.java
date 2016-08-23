@@ -19,16 +19,16 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Major classification of Vendors according to whether they are sufficiently set up to provide for an interaction via Purchase
  * Orders.
  */
-public class VendorType extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class VendorType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String vendorTypeCode;
     private String vendorTypeDescription;
@@ -133,6 +133,7 @@ public class VendorType extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Gets the commodityRequiredIndicator attribute.
+     *
      * @return Returns the commodityRequiredIndicator.
      */
     public boolean isCommodityRequiredIndicator() {
@@ -141,6 +142,7 @@ public class VendorType extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the commodityRequiredIndicator attribute value.
+     *
      * @param commodityRequiredIndicator The commodityRequiredIndicator to set.
      */
     public void setCommodityRequiredIndicator(boolean commodityRequiredIndicator) {

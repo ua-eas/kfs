@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sec.SecConstants;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +33,7 @@ import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 public class SecurityOperatorCodeFinder extends KeyValuesBase {
 
     protected static final List<KeyValue> OPTIONS = new ArrayList<KeyValue>();
+
     static {
         OPTIONS.add(new ConcreteKeyValue(SecConstants.SecurityDefinitionOperatorCodes.EQUAL, "Equal"));
         OPTIONS.add(new ConcreteKeyValue(SecConstants.SecurityDefinitionOperatorCodes.NOT_EQUAL, "Not Equal"));
@@ -42,6 +42,7 @@ public class SecurityOperatorCodeFinder extends KeyValuesBase {
         OPTIONS.add(new ConcreteKeyValue(SecConstants.SecurityDefinitionOperatorCodes.LESS_THAN, "Less Than"));
         OPTIONS.add(new ConcreteKeyValue(SecConstants.SecurityDefinitionOperatorCodes.LESS_THAN_EQUAL, "Less Than or Equal"));
     }
+
     /**
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */

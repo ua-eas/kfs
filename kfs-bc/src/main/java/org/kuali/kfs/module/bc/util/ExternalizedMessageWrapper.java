@@ -24,7 +24,7 @@ public class ExternalizedMessageWrapper {
     private String messageKey;
     private String[] params;
 
-    public ExternalizedMessageWrapper(String messageKey, String ... params) {
+    public ExternalizedMessageWrapper(String messageKey, String... params) {
         this.messageKey = messageKey;
         if (params == null) this.params = new String[]{};
         else this.params = params;

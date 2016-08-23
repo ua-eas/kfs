@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.File;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
 
 public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFileTypeBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceWriteoffBatchInputFileType.class);
@@ -34,7 +34,6 @@ public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFile
     private DateTimeService dateTimeService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.api.identity.Person, java.lang.Object, java.lang.String)
      */
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifer) {
@@ -58,7 +57,6 @@ public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFile
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileTypeIdentifer()
      */
     public String getFileTypeIdentifer() {
@@ -66,7 +64,6 @@ public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFile
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#validate(java.lang.Object)
      */
     public boolean validate(Object parsedFileContents) {
@@ -74,7 +71,6 @@ public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFile
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileTypeBase#process(java.lang.String, java.lang.Object)
      */
     public void process(String fileName, Object parsedFileContents) {
@@ -82,7 +78,6 @@ public class CustomerInvoiceWriteoffBatchInputFileType extends XmlBatchInputFile
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputType#getTitleKey()
      */
     public String getTitleKey() {

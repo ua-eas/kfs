@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.external.kc.dto;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "billingFrequencyDTO", propOrder = {
@@ -42,7 +42,8 @@ public class BillingFrequencyDTO implements AccountsReceivableBillingFrequency, 
     private static final long serialVersionUID = 1037941585371926846L;
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getFrequency() {

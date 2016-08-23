@@ -24,11 +24,9 @@ import java.io.Serializable;
 
 /**
  * A simple object that keeps track of various HistoryInformation
- *
+ * <p>
  * TODO a variety of these settings are not used in the current implementation of breadcrumbs
  * and history, they may be removed later if they prove unuseful in future changes
- *
- *
  */
 public class HistoryEntry extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -8310916657379268794L;
@@ -40,7 +38,7 @@ public class HistoryEntry extends ConfigurableBase implements Serializable {
     private String formKey;
 
     public HistoryEntry() {
-       super();
+        super();
     }
 
     public HistoryEntry(String viewId, String pageId, String title, String url, String formKey) {
@@ -55,14 +53,14 @@ public class HistoryEntry extends ConfigurableBase implements Serializable {
 
     public String toParam() {
         return viewId
-                + History.VAR_TOKEN
-                + pageId
-                + History.VAR_TOKEN
-                + title
-                + History.VAR_TOKEN
-                + url
-                + History.VAR_TOKEN
-                + formKey;
+            + History.VAR_TOKEN
+            + pageId
+            + History.VAR_TOKEN
+            + title
+            + History.VAR_TOKEN
+            + url
+            + History.VAR_TOKEN
+            + formKey;
     }
 
     /**

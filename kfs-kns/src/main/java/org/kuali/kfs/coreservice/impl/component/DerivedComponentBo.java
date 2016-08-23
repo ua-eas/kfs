@@ -30,21 +30,21 @@ import javax.persistence.Table;
 
 @IdClass(ComponentId.class)
 @Entity
-@Table(name="KRCR_DRVD_CMPNT_T")
+@Table(name = "KRCR_DRVD_CMPNT_T")
 public class DerivedComponentBo extends PersistableBusinessObjectBase implements ComponentContract {
 
-	@Id
-	@Column(name="NMSPC_CD")
-	private String namespaceCode;
+    @Id
+    @Column(name = "NMSPC_CD")
+    private String namespaceCode;
 
-	@Id
-	@Column(name="CMPNT_CD")
+    @Id
+    @Column(name = "CMPNT_CD")
     private String code;
 
-	@Column(name="NM")
+    @Column(name = "NM")
     private String name;
 
-    @Column(name="CMPNT_SET_ID")
+    @Column(name = "CMPNT_SET_ID")
     private String componentSetId;
 
     @Override
@@ -64,6 +64,7 @@ public class DerivedComponentBo extends PersistableBusinessObjectBase implements
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -76,6 +77,7 @@ public class DerivedComponentBo extends PersistableBusinessObjectBase implements
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -88,7 +90,7 @@ public class DerivedComponentBo extends PersistableBusinessObjectBase implements
         bo.setCode(im.getCode());
         bo.setName(im.getName());
         bo.setNamespaceCode(im.getNamespaceCode());
-		bo.setComponentSetId(im.getComponentSetId());
+        bo.setComponentSetId(im.getComponentSetId());
 
         return bo;
     }

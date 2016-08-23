@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.sys.Message;
+
+import java.util.List;
 
 /**
  * define the validation methods against the given per diem

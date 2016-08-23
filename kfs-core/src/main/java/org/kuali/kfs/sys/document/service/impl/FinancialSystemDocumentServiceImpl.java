@@ -18,6 +18,28 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentAdHocService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
+import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
+import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentDao;
+import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentHeaderDao;
+import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.document.DocumentStatus;
+import org.kuali.rice.kew.api.document.DocumentStatusCategory;
+import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,28 +48,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
-import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
-import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentDao;
-import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentHeaderDao;
-import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
-import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.rice.kew.api.document.DocumentStatusCategory;
-import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentAdHocService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class is a Financial System specific Document Service class to allow for the
@@ -69,7 +69,7 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
 
     /**
      * @see org.kuali.kfs.sys.document.service.FinancialSystemDocumentService#findByDocumentHeaderStatusCode(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public <T extends Document> Collection<T> findByDocumentHeaderStatusCode(Class<T> clazz, String statusCode) throws WorkflowException {
@@ -79,7 +79,7 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
         }
 
         Collection<T> returnDocuments = new ArrayList<T>();
-        for (Iterator<T> iter = foundDocuments.iterator(); iter.hasNext();) {
+        for (Iterator<T> iter = foundDocuments.iterator(); iter.hasNext(); ) {
             Document doc = iter.next();
             returnDocuments.add((T) getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber()));
         }
@@ -92,18 +92,17 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
     @Override
     public <T extends Document> Collection<T> findByWorkflowStatusCode(Class<T> clazz, DocumentStatus docStatus) throws WorkflowException {
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, docStatus.getCode());
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, docStatus.getCode());
         final Collection<T> docsWithoutWorfklowHeaders = getBusinessObjectService().findMatching(clazz, fieldValues);
         List<T> results = new ArrayList<T>();
         for (T doc : docsWithoutWorfklowHeaders) {
-            final T docWithWorkflowHeader = (T)getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+            final T docWithWorkflowHeader = (T) getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
             results.add(docWithWorkflowHeader);
         }
         return results;
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.service.FinancialSystemDocumentService#findByWorkflowStatusCode(org.kuali.rice.kew.api.document.DocumentStatus)
      */
     @Override
@@ -120,11 +119,11 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
     @Override
     public <T extends Document> Collection<T> findByApplicationDocumentStatus(Class<T> clazz, String applicationDocumentStatus) throws WorkflowException {
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, applicationDocumentStatus);
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, applicationDocumentStatus);
         final Collection<T> docsWithoutWorfklowHeaders = getBusinessObjectService().findMatching(clazz, fieldValues);
         List<T> results = new ArrayList<T>();
         for (T doc : docsWithoutWorfklowHeaders) {
-            final T docWithWorkflowHeader = (T)getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+            final T docWithWorkflowHeader = (T) getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
             results.add(docWithWorkflowHeader);
         }
         return results;
@@ -178,6 +177,7 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
 
     /**
      * Turns all of the Rice KEW DocumentStatus codes for the given category into a Set of String codes
+     *
      * @param documentStatusCategory the category to get DocumentStatuses for
      * @return the Set of String DocumentStatus codes for the given category
      */
@@ -191,6 +191,7 @@ public class FinancialSystemDocumentServiceImpl implements FinancialSystemDocume
 
     /**
      * Defers to the DAO
+     *
      * @see org.kuali.kfs.sys.document.service.FinancialSystemDocumentService#getCorrectingDocumentHeader(java.lang.String)
      */
     @Override

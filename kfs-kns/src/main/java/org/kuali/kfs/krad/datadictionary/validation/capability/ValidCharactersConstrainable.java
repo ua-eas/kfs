@@ -23,11 +23,10 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersCo
 /**
  * Validation capability that tests a value against some regular expression or set of valid characters.
  *
- *
  * @since 1.1
  */
 public interface ValidCharactersConstrainable extends Constrainable {
 
-	public ValidCharactersConstraint getValidCharactersConstraint();
+    public ValidCharactersConstraint getValidCharactersConstraint();
 
 }

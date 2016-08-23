@@ -18,22 +18,8 @@
  */
 package org.kuali.kfs.module.cam.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.module.cam.CamsKeyConstants;
-import org.kuali.kfs.module.cam.CamsPropertyConstants;
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.kfs.module.cam.businessobject.AssetLocationGlobal;
-import org.kuali.kfs.module.cam.businessobject.AssetLocationGlobalDetail;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.KualiGlobalMaintainableImpl;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -42,6 +28,20 @@ import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsKeyConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
+import org.kuali.kfs.module.cam.businessobject.Asset;
+import org.kuali.kfs.module.cam.businessobject.AssetLocationGlobal;
+import org.kuali.kfs.module.cam.businessobject.AssetLocationGlobalDetail;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kew.api.WorkflowDocument;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrides the base {@link KualiGlobalMaintainableImpl} to generate the specific maintenance locks for Global location
@@ -116,7 +116,7 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
     }
 
     @Override
-    public Map<String, String> populateNewCollectionLines( Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall ) {
+    public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall) {
         String capitalAssetNumber = (String) fieldValues.get(CamsPropertyConstants.AssetLocationGlobalDetail.CAPITAL_ASSET_NUMBER);
 
         if (StringUtils.isNotBlank(capitalAssetNumber)) {
@@ -138,13 +138,14 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
 
     /**
      * Verify multiple value lookup entries are authorized by user to add
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#addMultipleValueLookupResults(org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String, java.util.Collection, boolean, org.kuali.rice.kns.bo.PersistableBusinessObject)
      */
     @Override
     public void addMultipleValueLookupResults(MaintenanceDocument document, String collectionName, Collection<PersistableBusinessObject> rawValues, boolean needsBlank, PersistableBusinessObject bo) {
         AssetLocationGlobal assetLocationGlobal = (AssetLocationGlobal) document.getDocumentBusinessObject();
         Collection<PersistableBusinessObject> allowedAssetsCollection = new ArrayList<PersistableBusinessObject>();
-        final String maintDocTypeName =  CamsConstants.DocumentTypeName.ASSET_EDIT;
+        final String maintDocTypeName = CamsConstants.DocumentTypeName.ASSET_EDIT;
         GlobalVariables.getMessageMap().clearErrorMessages();
         for (PersistableBusinessObject businessObject : rawValues) {
             Asset asset = (Asset) businessObject;
@@ -153,7 +154,7 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
                 if (allowsEdit) {
                     allowedAssetsCollection.add(asset);
                 } else {
-                    GlobalVariables.getMessageMap().putErrorForSectionId(CamsConstants.AssetLocationGlobal.SECTION_ID_EDIT_LIST_OF_ASSETS, CamsKeyConstants.AssetLocationGlobal.ERROR_ASSET_AUTHORIZATION, new String[] { GlobalVariables.getUserSession().getPerson().getPrincipalName(), asset.getCapitalAssetNumber().toString() });
+                    GlobalVariables.getMessageMap().putErrorForSectionId(CamsConstants.AssetLocationGlobal.SECTION_ID_EDIT_LIST_OF_ASSETS, CamsKeyConstants.AssetLocationGlobal.ERROR_ASSET_AUTHORIZATION, new String[]{GlobalVariables.getUserSession().getPerson().getPrincipalName(), asset.getCapitalAssetNumber().toString()});
                 }
             }
         }

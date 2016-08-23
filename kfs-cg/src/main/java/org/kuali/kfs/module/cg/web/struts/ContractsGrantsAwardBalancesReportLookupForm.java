@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cg.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Form Class for Contracts & Grants Award Balances Report Lookup.

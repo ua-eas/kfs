@@ -18,45 +18,44 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="YearEndTransferOfFunds-routeDocumentValidation" parent="YearEndTransferOfFunds-routeDocumentValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-routeDocumentValidation" parent="YearEndTransferOfFunds-routeDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-routeDocumentValidation-parentBean" parent="TransferOfFunds-routeDocumentValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-routeDocumentValidation-parentBean" parent="TransferOfFunds-routeDocumentValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-approveDocumentValidation" parent="YearEndTransferOfFunds-approveDocumentValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-approveDocumentValidation" parent="YearEndTransferOfFunds-approveDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-approveDocumentValidation-parentBean" parent="TransferOfFunds-approveDocumentValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-approveDocumentValidation-parentBean" parent="TransferOfFunds-approveDocumentValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-saveDocumentValidation" parent="YearEndTransferOfFunds-saveDocumentValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-saveDocumentValidation" parent="YearEndTransferOfFunds-saveDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-saveDocumentValidation-parentBean" parent="TransferOfFunds-saveDocumentValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-saveDocumentValidation-parentBean" parent="TransferOfFunds-saveDocumentValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-blanketApproveDocumentValidation" parent="YearEndTransferOfFunds-blanketApproveDocumentValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-blanketApproveDocumentValidation" parent="YearEndTransferOfFunds-blanketApproveDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-blanketApproveDocumentValidation-parentBean" parent="TransferOfFunds-blanketApproveDocumentValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-blanketApproveDocumentValidation-parentBean" parent="TransferOfFunds-blanketApproveDocumentValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-accountingLineValuesAllowedValidation" parent="YearEndTransferOfFunds-accountingLineValuesAllowedValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-accountingLineValuesAllowedValidation" parent="YearEndTransferOfFunds-accountingLineValuesAllowedValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-accountingLineValuesAllowedValidation-parentBean" parent="TransferOfFunds-accountingLineValuesAllowedValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-accountingLineValuesAllowedValidation-parentBean" parent="TransferOfFunds-accountingLineValuesAllowedValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-addAccountingLineValidation" parent="YearEndTransferOfFunds-addAccountingLineValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-addAccountingLineValidation" parent="YearEndTransferOfFunds-addAccountingLineValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-addAccountingLineValidation-parentBean" parent="TransferOfFunds-addAccountingLineValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-addAccountingLineValidation-parentBean" parent="TransferOfFunds-addAccountingLineValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-deleteAccountingLineValidation" parent="YearEndTransferOfFunds-deleteAccountingLineValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-deleteAccountingLineValidation" parent="YearEndTransferOfFunds-deleteAccountingLineValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-deleteAccountingLineValidation-parentBean" parent="TransferOfFunds-deleteAccountingLineValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-deleteAccountingLineValidation-parentBean" parent="TransferOfFunds-deleteAccountingLineValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-reviewAccountingLineValidation" parent="YearEndTransferOfFunds-reviewAccountingLineValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-reviewAccountingLineValidation" parent="YearEndTransferOfFunds-reviewAccountingLineValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-reviewAccountingLineValidation-parentBean" parent="TransferOfFunds-reviewAccountingLineValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-reviewAccountingLineValidation-parentBean" parent="TransferOfFunds-reviewAccountingLineValidation" abstract="true"/>
 
-	<bean id="YearEndTransferOfFunds-updateAccountingLineValidation" parent="YearEndTransferOfFunds-updateAccountingLineValidation-parentBean" scope="prototype" />
+    <bean id="YearEndTransferOfFunds-updateAccountingLineValidation" parent="YearEndTransferOfFunds-updateAccountingLineValidation-parentBean" scope="prototype"/>
 
-	<bean id="YearEndTransferOfFunds-updateAccountingLineValidation-parentBean" parent="TransferOfFunds-updateAccountingLineValidation" abstract="true"/>
+    <bean id="YearEndTransferOfFunds-updateAccountingLineValidation-parentBean" parent="TransferOfFunds-updateAccountingLineValidation" abstract="true"/>
 
 </beans>

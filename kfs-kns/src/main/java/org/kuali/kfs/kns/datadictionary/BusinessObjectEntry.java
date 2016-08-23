@@ -56,14 +56,14 @@ public class BusinessObjectEntry extends org.kuali.kfs.krad.datadictionary.Busin
     /**
      * The inquiry element is used to specify the fields that will be displayed on the
      * inquiry screen for this business object and the order in which they will appear.
-     *
+     * <p>
      * DD: See InquiryDefinition.java
-     *
+     * <p>
      * JSTL: The inquiry element is a Map which is accessed using
      * a key of "inquiry".  This map contains the following keys:
      * title (String)
      * inquiryFields (Map)
-     *
+     * <p>
      * See InquiryMapBuilder.java
      */
     public void setInquiryDefinition(InquiryDefinition inquiryDefinition) {
@@ -89,9 +89,9 @@ public class BusinessObjectEntry extends org.kuali.kfs.krad.datadictionary.Busin
      * a business object.  These specifications define the following:
      * How to specify the search criteria used to locate a set of business objects
      * How to display the search results
-     *
+     * <p>
      * DD: See LookupDefinition.java
-     *
+     * <p>
      * JSTL: The lookup element is a Map which is accessed using
      * a key of "lookup".  This map contains the following keys:
      * lookupableID (String, optional)
@@ -101,7 +101,7 @@ public class BusinessObjectEntry extends org.kuali.kfs.krad.datadictionary.Busin
      * lookupFields (Map)
      * resultFields (Map)
      * resultSetLimit (String, optional)
-     *
+     * <p>
      * See LookupMapBuilder.java
      */
     public void setLookupDefinition(LookupDefinition lookupDefinition) {

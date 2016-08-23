@@ -26,21 +26,24 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 public interface Validation {
     /**
      * This method validates that certain parameters
+     *
      * @param parameters a list of parameters to validate
      * @return true if validation should continue, false otherwise
      */
-   public abstract boolean validate(AttributedDocumentEvent event);
+    public abstract boolean validate(AttributedDocumentEvent event);
 
-   /**
-    * Returns whether the validation process should quit on the failure of this validation
-    * @return true if the validation process should quit, false otherwise
-    */
-   public abstract boolean shouldQuitOnFail();
+    /**
+     * Returns whether the validation process should quit on the failure of this validation
+     *
+     * @return true if the validation process should quit, false otherwise
+     */
+    public abstract boolean shouldQuitOnFail();
 
-   /**
-    * Stages the execution of a Validation
-    * @param event the event the validate
-    * @return the boolean result of the staged Validation
-    */
-   public abstract boolean stageValidation(AttributedDocumentEvent event);
+    /**
+     * Stages the execution of a Validation
+     *
+     * @param event the event the validate
+     * @return the boolean result of the staged Validation
+     */
+    public abstract boolean stageValidation(AttributedDocumentEvent event);
 }

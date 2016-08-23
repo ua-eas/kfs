@@ -30,45 +30,43 @@ import java.util.Map;
 
 /**
  * Abstract base implementation of {@link KeyValuesFinder}
- *
- *
  */
 public abstract class KeyValuesBase implements KeyValuesFinder, Serializable {
 
     public Collection<String> getOptionLabels() {
-    	Collection<String> optionLabels = new ArrayList<String>();
+        Collection<String> optionLabels = new ArrayList<String>();
 
-    	Collection<KeyValue> keyLabels = getKeyValues();
+        Collection<KeyValue> keyLabels = getKeyValues();
         for (KeyValue keyLabel : keyLabels) {
-        	optionLabels.add(keyLabel.getValue());
+            optionLabels.add(keyLabel.getValue());
         }
         return optionLabels;
     }
 
     public Collection<String> getOptionValues() {
-    	Collection<String> optionValues = new ArrayList<String>();
+        Collection<String> optionValues = new ArrayList<String>();
 
-    	Collection<KeyValue> keyLabels = getKeyValues();
+        Collection<KeyValue> keyLabels = getKeyValues();
         for (KeyValue keyLabel : keyLabels) {
-        	optionValues.add(keyLabel.getKey());
+            optionValues.add(keyLabel.getKey());
         }
         return optionValues;
     }
 
     @Override
-	public Map<String, String> getKeyLabelMap() {
+    public Map<String, String> getKeyLabelMap() {
         Map<String, String> keyLabelMap = new HashMap<String, String>();
 
         List<KeyValue> keyLabels = getKeyValues();
         for (KeyValue keyLabel : keyLabels) {
-        	keyLabelMap.put(keyLabel.getKey(), keyLabel.getValue());
+            keyLabelMap.put(keyLabel.getKey(), keyLabel.getValue());
         }
 
         return keyLabelMap;
     }
 
     @Override
-	public String getKeyLabel(String key) {
+    public String getKeyLabel(String key) {
         Map<String, String> keyLabelMap = getKeyLabelMap();
 
         if (keyLabelMap.containsKey(key)) {
@@ -78,13 +76,13 @@ public abstract class KeyValuesBase implements KeyValuesFinder, Serializable {
     }
 
     @Override
-	public List<KeyValue> getKeyValues(boolean includeActiveOnly){
-    	return Collections.emptyList();
+    public List<KeyValue> getKeyValues(boolean includeActiveOnly) {
+        return Collections.emptyList();
     }
 
-	@Override
-	public void clearInternalCache() {
-		// do nothing
-	}
+    @Override
+    public void clearInternalCache() {
+        // do nothing
+    }
 
 }

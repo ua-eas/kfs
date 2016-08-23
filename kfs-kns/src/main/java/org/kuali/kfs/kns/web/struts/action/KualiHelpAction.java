@@ -22,20 +22,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.kns.datadictionary.HeaderNavigation;
-import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.rice.core.api.config.property.ConfigContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.HeaderNavigation;
 import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
 import org.kuali.kfs.kns.datadictionary.LookupDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.kns.util.WebUtils;
@@ -43,19 +36,24 @@ import org.kuali.kfs.kns.web.struts.form.KualiHelpForm;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class handles requests for help text.
- *
- *
  */
 public class KualiHelpAction extends KualiAction {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiHelpAction.class);
@@ -71,26 +69,28 @@ public class KualiHelpAction extends KualiAction {
     private static MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
 
     private DataDictionaryService getDataDictionaryService() {
-        if ( dataDictionaryService == null ) {
+        if (dataDictionaryService == null) {
             dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
         }
         return dataDictionaryService;
     }
+
     private ConfigurationService getConfigurationService() {
-        if ( kualiConfigurationService == null ) {
+        if (kualiConfigurationService == null) {
             kualiConfigurationService = KRADServiceLocator.getKualiConfigurationService();
         }
         return kualiConfigurationService;
     }
+
     private ParameterService getParameterService() {
-        if ( parameterService == null ) {
+        if (parameterService == null) {
             parameterService = CoreFrameworkServiceLocator.getParameterService();
         }
         return parameterService;
     }
 
     private MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {
-        if ( maintenanceDocumentDictionaryService == null ) {
+        if (maintenanceDocumentDictionaryService == null) {
             maintenanceDocumentDictionaryService = KNSServiceLocator.getMaintenanceDocumentDictionaryService();
         }
         return maintenanceDocumentDictionaryService;
@@ -165,9 +165,9 @@ public class KualiHelpAction extends KualiAction {
         }
         attribute = getAttributeDefinition(helpForm.getBusinessObjectClassName(), helpForm.getAttributeName());
 
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "Request for help on: " + helpForm.getBusinessObjectClassName() + " -- " + helpForm.getAttributeName() );
-            LOG.debug( "  attribute: " + attribute );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Request for help on: " + helpForm.getBusinessObjectClassName() + " -- " + helpForm.getAttributeName());
+            LOG.debug("  attribute: " + attribute);
         }
 
         if (attribute == null || StringUtils.isBlank(attribute.getSummary())) {
@@ -178,29 +178,28 @@ public class KualiHelpAction extends KualiAction {
         boolean required = attribute.isRequired().booleanValue();
         // KULRNE-4392 - pull the required attribute on BO maintenance documents from the document def rather than the BO
         try {
-            Class boClass = Class.forName( helpForm.getBusinessObjectClassName() );
-            String docTypeName = getMaintenanceDocumentDictionaryService().getDocumentTypeName( boClass );
+            Class boClass = Class.forName(helpForm.getBusinessObjectClassName());
+            String docTypeName = getMaintenanceDocumentDictionaryService().getDocumentTypeName(boClass);
             if (StringUtils.isNotBlank(docTypeName)) {
                 // maybe it's not a maint doc
-                MaintainableFieldDefinition field = getMaintenanceDocumentDictionaryService().getMaintainableField( docTypeName, helpForm.getAttributeName() );
-                if ( field != null ) {
+                MaintainableFieldDefinition field = getMaintenanceDocumentDictionaryService().getMaintainableField(docTypeName, helpForm.getAttributeName());
+                if (field != null) {
                     required = field.isRequired();
                 }
-            }
-            else {
+            } else {
                 if (log.isInfoEnabled()) {
                     log.info("BO class " + boClass.getName() + " does not have a maint doc definition.  Defaulting to using DD for definition");
                 }
             }
-        } catch ( ClassNotFoundException ex ) {
+        } catch (ClassNotFoundException ex) {
             // do nothing
-            LOG.warn( "Unable to obtain maintainable field for BO property.", ex );
+            LOG.warn("Unable to obtain maintainable field for BO property.", ex);
         }
 
         helpForm.setHelpLabel(attribute.getLabel());
         helpForm.setHelpSummary(attribute.getSummary());
         helpForm.setHelpDescription(attribute.getDescription());
-        helpForm.setHelpRequired(required?YES:NO);
+        helpForm.setHelpRequired(required ? YES : NO);
         helpForm.setHelpMaxLength(getAttributeMaxLength(attribute));
         helpForm.setValidationPatternName(getAttributeValidationPatternName(attribute));
 
@@ -241,11 +240,11 @@ public class KualiHelpAction extends KualiAction {
             label = docType.getLabel();
             description = docType.getDescription();
             if (StringUtils.isNotBlank(docType.getHelpDefinitionUrl())) {
-            	apcHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), docType.getHelpDefinitionUrl());
+                apcHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), docType.getHelpDefinitionUrl());
             }
         }
 
-        if ( StringUtils.isNotBlank(apcHelpUrl) ) {
+        if (StringUtils.isNotBlank(apcHelpUrl)) {
             response.sendRedirect(apcHelpUrl);
             return null;
         }
@@ -283,10 +282,10 @@ public class KualiHelpAction extends KualiAction {
             objectDescription = entry.getObjectDescription();
             if (null != helpDefinition && null != helpDefinition.getParameterNamespace() && null != helpDefinition.getParameterDetailType() && null != helpDefinition.getParameterName()) {
                 apcHelpUrl = getHelpUrl(helpDefinition.getParameterNamespace(), helpDefinition.getParameterDetailType(), helpDefinition.getParameterName());
-                }
-                }
+            }
+        }
 
-        if ( !StringUtils.isBlank(apcHelpUrl) ) {
+        if (!StringUtils.isBlank(apcHelpUrl)) {
             response.sendRedirect(apcHelpUrl);
             return null;
         }
@@ -320,7 +319,7 @@ public class KualiHelpAction extends KualiAction {
         String label = "";
         String objectDescription = "";
         if (entry != null) {
-            for ( HeaderNavigation headerNavigation : entry.getHeaderNavigationList() ) {
+            for (HeaderNavigation headerNavigation : entry.getHeaderNavigationList()) {
                 if (headerNavigation.getHeaderTabDisplayName().equals(pageName)) {
                     HelpDefinition helpDefinition = headerNavigation.getHelpDefinition();
                     if (null != helpDefinition && null != helpDefinition.getParameterNamespace() && null != helpDefinition.getParameterDetailType() && null != helpDefinition.getParameterName()) {
@@ -330,7 +329,7 @@ public class KualiHelpAction extends KualiAction {
             }
         }
 
-        if ( !StringUtils.isBlank(apcHelpUrl) ) {
+        if (!StringUtils.isBlank(apcHelpUrl)) {
             response.sendRedirect(apcHelpUrl);
             return null;
         }
@@ -364,7 +363,7 @@ public class KualiHelpAction extends KualiAction {
 
         String apcHelpUrl = getHelpUrl(helpParameterNamespace, helpParameterDetailType, helpParameterName);
 
-        if ( !StringUtils.isBlank(apcHelpUrl) ) {
+        if (!StringUtils.isBlank(apcHelpUrl)) {
             response.sendRedirect(apcHelpUrl);
             return null;
         }
@@ -387,11 +386,12 @@ public class KualiHelpAction extends KualiAction {
 
     /**
      * Utility method that populates a KualiHelpForm with the description from a given resource key
-     * @param helpForm the KualiHelpForm to populate with help text
+     *
+     * @param helpForm    the KualiHelpForm to populate with help text
      * @param resourceKey the resource key to use as help text
      */
     protected void populateHelpFormForResourceText(KualiHelpForm helpForm, String resourceKey) {
-    	if (StringUtils.isBlank(resourceKey)) {
+        if (StringUtils.isBlank(resourceKey)) {
             throw new RuntimeException("Help resource key not specified.");
         }
 
@@ -404,45 +404,45 @@ public class KualiHelpAction extends KualiAction {
      * Retrieves help for a lookup
      */
     public ActionForward getLookupHelpText(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	KualiHelpForm helpForm = (KualiHelpForm) form;
+        KualiHelpForm helpForm = (KualiHelpForm) form;
 
         // handle doc search custom help urls
-    	if (!StringUtils.isEmpty(helpForm.getSearchDocumentTypeName())) {
-    	    DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(helpForm.getSearchDocumentTypeName());
-    	    if (docType != null && !StringUtils.isEmpty(docType.getDocSearchHelpUrl())) {
-    	        String docSearchHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), docType.getDocSearchHelpUrl());
+        if (!StringUtils.isEmpty(helpForm.getSearchDocumentTypeName())) {
+            DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(helpForm.getSearchDocumentTypeName());
+            if (docType != null && !StringUtils.isEmpty(docType.getDocSearchHelpUrl())) {
+                String docSearchHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), docType.getDocSearchHelpUrl());
 
-    	        if ( StringUtils.isNotBlank(docSearchHelpUrl) ) {
-    	            response.sendRedirect(docSearchHelpUrl);
-    	            return null;
-    	        }
-    	    }
-    	}
+                if (StringUtils.isNotBlank(docSearchHelpUrl)) {
+                    response.sendRedirect(docSearchHelpUrl);
+                    return null;
+                }
+            }
+        }
 
-    	final String lookupBusinessObjectClassName = helpForm.getLookupBusinessObjectClassName();
-    	if (!StringUtils.isBlank(lookupBusinessObjectClassName)) {
-    		final DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
-    		final BusinessObjectEntry entry = (BusinessObjectEntry) dataDictionary.getBusinessObjectEntry(lookupBusinessObjectClassName);
-    		final LookupDefinition lookupDefinition = entry.getLookupDefinition();
+        final String lookupBusinessObjectClassName = helpForm.getLookupBusinessObjectClassName();
+        if (!StringUtils.isBlank(lookupBusinessObjectClassName)) {
+            final DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
+            final BusinessObjectEntry entry = (BusinessObjectEntry) dataDictionary.getBusinessObjectEntry(lookupBusinessObjectClassName);
+            final LookupDefinition lookupDefinition = entry.getLookupDefinition();
 
-    		if (lookupDefinition != null) {
-    			if (lookupDefinition.getHelpDefinition() != null && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterNamespace()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterDetailType()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterName())) {
-    				final String apcHelpUrl = getHelpUrl(lookupDefinition.getHelpDefinition().getParameterNamespace(), lookupDefinition.getHelpDefinition().getParameterDetailType(), lookupDefinition.getHelpDefinition().getParameterName());
+            if (lookupDefinition != null) {
+                if (lookupDefinition.getHelpDefinition() != null && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterNamespace()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterDetailType()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterName())) {
+                    final String apcHelpUrl = getHelpUrl(lookupDefinition.getHelpDefinition().getParameterNamespace(), lookupDefinition.getHelpDefinition().getParameterDetailType(), lookupDefinition.getHelpDefinition().getParameterName());
 
-    		        if ( !StringUtils.isBlank(apcHelpUrl) ) {
-    		            response.sendRedirect(apcHelpUrl);
-    		            return null;
-    		        }
-    			} else if (!StringUtils.isBlank(lookupDefinition.getHelpUrl())) {
-    				final String apcHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), lookupDefinition.getHelpUrl());
-    				response.sendRedirect(apcHelpUrl);
-    				return null;
-    			}
-    		}
-    	}
+                    if (!StringUtils.isBlank(apcHelpUrl)) {
+                        response.sendRedirect(apcHelpUrl);
+                        return null;
+                    }
+                } else if (!StringUtils.isBlank(lookupDefinition.getHelpUrl())) {
+                    final String apcHelpUrl = WebUtils.toAbsoluteURL(ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), lookupDefinition.getHelpUrl());
+                    response.sendRedirect(apcHelpUrl);
+                    return null;
+                }
+            }
+        }
 
-    	// still here?  guess we're defaulting...
-    	populateHelpFormForResourceText(helpForm, getDefaultLookupHelpResourceKey());
+        // still here?  guess we're defaulting...
+        populateHelpFormForResourceText(helpForm, getDefaultLookupHelpResourceKey());
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
@@ -450,7 +450,7 @@ public class KualiHelpAction extends KualiAction {
      * @return the key of the default lookup help resource text
      */
     protected String getDefaultLookupHelpResourceKey() {
-    	return KualiHelpAction.DEFAULT_LOOKUP_HELP_TEXT_RESOURCE_KEY;
+        return KualiHelpAction.DEFAULT_LOOKUP_HELP_TEXT_RESOURCE_KEY;
     }
 
     private String getHelpUrl(String parameterNamespace, String parameterDetailTypeCode, String parameterName) {
@@ -462,6 +462,6 @@ public class KualiHelpAction extends KualiAction {
      */
     public ActionForward getHelpUrlByNamespace(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiHelpForm helpForm = (KualiHelpForm) form;
-       return getStoredHelpUrl(mapping, form, request, response);
+        return getStoredHelpUrl(mapping, form, request, response);
     }
 }

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.document.service;
 
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.cab.businessobject.Pretag;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableActionHistory;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.module.cab.document.web.PurApLineSession;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -52,7 +52,7 @@ public interface PurApLineService {
     /**
      * Changes percent quantities to a quantity of 1 for selected line item.
      *
-     * @param itemAsset Selected line item.
+     * @param itemAsset   Selected line item.
      * @param actionsTake Action taken history.
      */
     void processPercentPayment(PurchasingAccountsPayableItemAsset itemAsset, List<PurchasingAccountsPayableActionHistory> actionsTaken);
@@ -60,7 +60,7 @@ public interface PurApLineService {
     /**
      * Split the selected line item quantity and create a new line item.
      *
-     * @param itemAsset Selected line item.
+     * @param itemAsset    Selected line item.
      * @param actionsTaken Action taken history.
      * @return
      */

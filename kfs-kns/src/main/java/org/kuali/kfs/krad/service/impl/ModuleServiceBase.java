@@ -20,17 +20,17 @@ package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.config.ConfigurationException;
-import org.kuali.rice.core.api.config.module.RunMode;
-import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.config.ConfigurationException;
+import org.kuali.rice.core.api.config.module.RunMode;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 import java.util.List;
 import java.util.Map;
@@ -38,8 +38,6 @@ import java.util.Properties;
 
 /**
  * This class implements ModuleService interface.
- *
- *
  */
 public class ModuleServiceBase extends RemoteModuleServiceBase implements ModuleService {
 
@@ -53,12 +51,12 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
      * @see ModuleService#getExternalizableBusinessObject(java.lang.Class, java.util.Map)
      */
     public <T extends ExternalizableBusinessObject> T getExternalizableBusinessObject(Class<T> businessObjectClass,
-            Map<String, Object> fieldValues) {
+                                                                                      Map<String, Object> fieldValues) {
         Class<? extends ExternalizableBusinessObject> implementationClass =
-                getExternalizableBusinessObjectImplementation(businessObjectClass);
+            getExternalizableBusinessObjectImplementation(businessObjectClass);
         ExternalizableBusinessObject businessObject =
-                (ExternalizableBusinessObject) getBusinessObjectService().findByPrimaryKey(implementationClass,
-                        fieldValues);
+            (ExternalizableBusinessObject) getBusinessObjectService().findByPrimaryKey(implementationClass,
+                fieldValues);
         return (T) businessObject;
     }
 
@@ -66,17 +64,16 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
      * @see ModuleService#getExternalizableBusinessObject(java.lang.Class, java.util.Map)
      */
     public <T extends ExternalizableBusinessObject> List<T> getExternalizableBusinessObjectsList(
-            Class<T> externalizableBusinessObjectClass, Map<String, Object> fieldValues) {
+        Class<T> externalizableBusinessObjectClass, Map<String, Object> fieldValues) {
         Class<? extends ExternalizableBusinessObject> implementationClass =
-                getExternalizableBusinessObjectImplementation(externalizableBusinessObjectClass);
+            getExternalizableBusinessObjectImplementation(externalizableBusinessObjectClass);
         return (List<T>) getBusinessObjectService().findMatching(implementationClass, fieldValues);
     }
 
 
-
     @Deprecated
     public String getExternalizableBusinessObjectInquiryUrl(Class inquiryBusinessObjectClass,
-            Map<String, String[]> parameters) {
+                                                            Map<String, String[]> parameters) {
         if (!isExternalizable(inquiryBusinessObjectClass)) {
             return KRADConstants.EMPTY_STRING;
         }
@@ -85,13 +82,13 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
         Class implementationClass = getExternalizableBusinessObjectImplementation(inquiryBusinessObjectClass);
         if (implementationClass == null) {
             LOG.error("Can't find ExternalizableBusinessObject implementation class for " + inquiryBusinessObjectClass
-                    .getName());
+                .getName());
             throw new RuntimeException("Can't find ExternalizableBusinessObject implementation class for interface "
-                    + inquiryBusinessObjectClass.getName());
+                + inquiryBusinessObjectClass.getName());
         }
         businessObjectClassAttribute = implementationClass.getName();
         return UrlFactory.parameterizeUrl(getInquiryUrl(inquiryBusinessObjectClass), getUrlParameters(
-                businessObjectClassAttribute, parameters));
+            businessObjectClassAttribute, parameters));
     }
 
     @Deprecated
@@ -129,12 +126,12 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
      * This overridden method ...
      *
      * @see ModuleService#getExternalizableBusinessObjectLookupUrl(java.lang.Class,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Deprecated
     @Override
     public String getExternalizableBusinessObjectLookupUrl(Class inquiryBusinessObjectClass,
-            Map<String, String> parameters) {
+                                                           Map<String, String> parameters) {
         Properties urlParameters = new Properties();
 
         String riceBaseUrl = "";
@@ -154,8 +151,7 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
 
         if (parameters.containsKey(KRADConstants.MULTIPLE_VALUE)) {
             lookupUrl = lookupUrl + potentialUrlAddition + KRADConstants.MULTIPLE_VALUE_LOOKUP_ACTION;
-        }
-        else {
+        } else {
             lookupUrl = lookupUrl + potentialUrlAddition + KRADConstants.LOOKUP_ACTION;
         }
 

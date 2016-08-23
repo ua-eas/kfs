@@ -24,11 +24,9 @@ import java.util.Set;
 
 /**
  * The DocumentPresentationController class is used for non-user related lock down
- *
- *
  */
 public interface TransactionalDocumentPresentationController extends DocumentPresentationController {
-	 /**
+    /**
      * @param document
      * @return Set of operations that allow to take on that document.
      */

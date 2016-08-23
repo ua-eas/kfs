@@ -18,27 +18,27 @@
  */
 package org.kuali.kfs.integration.ec;
 
+import org.apache.log4j.Logger;
+
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.log4j.Logger;
 
 public class EffortCertificationModuleServiceNoOp implements EffortCertificationModuleService {
 
     private Logger LOG = Logger.getLogger(getClass());
 
     public List<EffortCertificationReport> findReportDefinitionsForPeriod(Integer fiscalYear, String periodCode, String positionObjectGroupCode) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return Collections.emptyList();
     }
 
     public List<String> getCostShareSubAccountTypeCodes() {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return Collections.emptyList();
     }
 
     public EffortCertificationReport isEmployeeWithOpenCertification(List<EffortCertificationReport> effortCertificationReports, String emplid) {
-        LOG.warn( "Using No-Op " + getClass().getSimpleName() + " service." );
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
 

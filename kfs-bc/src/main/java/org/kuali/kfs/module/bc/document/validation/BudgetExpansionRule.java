@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.bc.document.validation;
 
-import org.kuali.kfs.module.bc.document.validation.event.BudgetExpansionEvent;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.module.bc.document.validation.event.BudgetExpansionEvent;
 
 /**
  * Defines rule methods for handling expansion events.

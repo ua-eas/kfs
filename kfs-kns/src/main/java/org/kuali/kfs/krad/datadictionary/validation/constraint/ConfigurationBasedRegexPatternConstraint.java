@@ -57,20 +57,19 @@ public class ConfigurationBasedRegexPatternConstraint extends ValidDataPatternCo
      */
     @Override
     public String getLabelKey() {
-        if(StringUtils.isNotEmpty(labelKey)){
+        if (StringUtils.isNotEmpty(labelKey)) {
             return labelKey;
-        }
-        else{
+        } else {
             StringBuilder buf = new StringBuilder();
             buf.append(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX).append(getPatternTypeKey());
             return buf.toString();
         }
     }
 
-	/**
-	 * This method implementation uses the key returned by {@link #getPatternTypePropertyString()} to fetch the
-	 * validationPattern's regex string from the ConfigurationService which should not include the start(^) and end($) symbols
-	 */
+    /**
+     * This method implementation uses the key returned by {@link #getPatternTypePropertyString()} to fetch the
+     * validationPattern's regex string from the ConfigurationService which should not include the start(^) and end($) symbols
+     */
     protected String getRegexString() {
 //        return (String) KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("validationPatternRegex." + getPatternTypeName());
         return (String) KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(getPatternTypeKey());

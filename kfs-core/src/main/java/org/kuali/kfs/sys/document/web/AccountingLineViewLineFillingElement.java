@@ -24,12 +24,14 @@ package org.kuali.kfs.sys.document.web;
 public interface AccountingLineViewLineFillingElement extends TableJoining, ReadOnlyable {
     /**
      * Finds the number of table cells this line expects to take up
+     *
      * @return the number of displayed table cells this line expects to render as
      */
     public abstract int getDisplayingFieldWidth();
 
     /**
      * A way to ask the line filling element if it wants its cell to be stretched to fill the line
+     *
      * @return true if the line filling element should stretch its cell to fill the line; if false (or if the line contains more than a single cell), the line will be padded out with an empty cell
      */
     public abstract boolean shouldStretchToFillLine();

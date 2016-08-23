@@ -72,7 +72,6 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
     }
 
 
-
     public Long getAgencyNumber() {
         return agencyNumber;
     }
@@ -163,7 +162,6 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
     }
 
 
-
     public String getBillingPeriod() {
         return billingPeriod;
     }
@@ -219,7 +217,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
         if (this.proposalNumber != null) {
             m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
         }
-                return m;
+        return m;
     }
 
     public List<String> getAwardAttributesForDisplay() {

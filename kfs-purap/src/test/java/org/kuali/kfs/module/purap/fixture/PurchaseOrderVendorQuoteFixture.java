@@ -18,37 +18,37 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public enum PurchaseOrderVendorQuoteFixture {
     BASIC_VENDOR_QUOTE_1(
-                         1000, //vendorHeaderGeneratedIdentifier
-                         0,    //vendorDetailAssignedIdentifier
-                         "A Name For Vendor", //vendorName
-                         "123 Hagadorn Rd", //vendorLine1Address
-                         "East Lansing", //vendorCityName
-                         "MI", //vendorStateCode
-                         "48823", //vendorPostalCode
-                         "5173533121", //vendorPhoneNumber
-                         "", //vendorFaxNumber
-                         "msu@msu.edu", //vendorEmailAddress
-                         "Attention Name", //vendorAttentionName
-                         "PRIN", //purchaseOrderQuoteTransmitTypeCode
-                         SpringContext.getBean(DateTimeService.class).getCurrentTimestamp(), //purchaseOrderQuoteTransmitTimestamp
-                         null, //purchaseOrderQuotePriceExpirationDate
-                         PurapConstants.QuoteStatusCode.FUIP, //purchaseOrderQuoteStatusCode
-                         null, //purchaseOrderQuoteAwardTimestamp
-                         "1", //purchaseOrderQuoteRankNumber
-                         "US", //vendorCountryCode
-                         null //vendorAddressInternationalProvinceName
-                         ),  ;
+        1000, //vendorHeaderGeneratedIdentifier
+        0,    //vendorDetailAssignedIdentifier
+        "A Name For Vendor", //vendorName
+        "123 Hagadorn Rd", //vendorLine1Address
+        "East Lansing", //vendorCityName
+        "MI", //vendorStateCode
+        "48823", //vendorPostalCode
+        "5173533121", //vendorPhoneNumber
+        "", //vendorFaxNumber
+        "msu@msu.edu", //vendorEmailAddress
+        "Attention Name", //vendorAttentionName
+        "PRIN", //purchaseOrderQuoteTransmitTypeCode
+        SpringContext.getBean(DateTimeService.class).getCurrentTimestamp(), //purchaseOrderQuoteTransmitTimestamp
+        null, //purchaseOrderQuotePriceExpirationDate
+        PurapConstants.QuoteStatusCode.FUIP, //purchaseOrderQuoteStatusCode
+        null, //purchaseOrderQuoteAwardTimestamp
+        "1", //purchaseOrderQuoteRankNumber
+        "US", //vendorCountryCode
+        null //vendorAddressInternationalProvinceName
+    ),;
 
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
@@ -95,25 +95,25 @@ public enum PurchaseOrderVendorQuoteFixture {
 
     public PurchaseOrderVendorQuote createPurchaseOrderVendorQuote() {
         PurchaseOrderVendorQuote vendorQuote = new PurchaseOrderVendorQuote();
-        vendorQuote.setVendorHeaderGeneratedIdentifier (vendorHeaderGeneratedIdentifier);
-        vendorQuote.setVendorDetailAssignedIdentifier (vendorDetailAssignedIdentifier);
-        vendorQuote.setVendorName (vendorName);
-        vendorQuote.setVendorLine1Address (vendorLine1Address);
-        vendorQuote.setVendorCityName (vendorCityName);
-        vendorQuote.setVendorStateCode (vendorStateCode);
-        vendorQuote.setVendorPostalCode (vendorPostalCode);
-        vendorQuote.setVendorPhoneNumber (vendorPhoneNumber);
-        vendorQuote.setVendorFaxNumber (vendorFaxNumber);
-        vendorQuote.setVendorEmailAddress (vendorEmailAddress);
-        vendorQuote.setVendorAttentionName (vendorAttentionName);
-        vendorQuote.setPurchaseOrderQuoteTransmitTypeCode (purchaseOrderQuoteTransmitTypeCode);
-        vendorQuote.setPurchaseOrderQuoteTransmitTimestamp (purchaseOrderQuoteTransmitTimestamp);
-        vendorQuote.setPurchaseOrderQuotePriceExpirationDate (purchaseOrderQuotePriceExpirationDate);
+        vendorQuote.setVendorHeaderGeneratedIdentifier(vendorHeaderGeneratedIdentifier);
+        vendorQuote.setVendorDetailAssignedIdentifier(vendorDetailAssignedIdentifier);
+        vendorQuote.setVendorName(vendorName);
+        vendorQuote.setVendorLine1Address(vendorLine1Address);
+        vendorQuote.setVendorCityName(vendorCityName);
+        vendorQuote.setVendorStateCode(vendorStateCode);
+        vendorQuote.setVendorPostalCode(vendorPostalCode);
+        vendorQuote.setVendorPhoneNumber(vendorPhoneNumber);
+        vendorQuote.setVendorFaxNumber(vendorFaxNumber);
+        vendorQuote.setVendorEmailAddress(vendorEmailAddress);
+        vendorQuote.setVendorAttentionName(vendorAttentionName);
+        vendorQuote.setPurchaseOrderQuoteTransmitTypeCode(purchaseOrderQuoteTransmitTypeCode);
+        vendorQuote.setPurchaseOrderQuoteTransmitTimestamp(purchaseOrderQuoteTransmitTimestamp);
+        vendorQuote.setPurchaseOrderQuotePriceExpirationDate(purchaseOrderQuotePriceExpirationDate);
         vendorQuote.setPurchaseOrderQuoteStatusCode(purchaseOrderQuoteStatusCode);
-        vendorQuote.setPurchaseOrderQuoteAwardTimestamp (purchaseOrderQuoteAwardTimestamp);
-        vendorQuote.setPurchaseOrderQuoteRankNumber (purchaseOrderQuoteRankNumber);
-        vendorQuote.setVendorCountryCode (vendorCountryCode);
-        vendorQuote.setVendorAddressInternationalProvinceName (vendorAddressInternationalProvinceName);
+        vendorQuote.setPurchaseOrderQuoteAwardTimestamp(purchaseOrderQuoteAwardTimestamp);
+        vendorQuote.setPurchaseOrderQuoteRankNumber(purchaseOrderQuoteRankNumber);
+        vendorQuote.setVendorCountryCode(vendorCountryCode);
+        vendorQuote.setVendorAddressInternationalProvinceName(vendorAddressInternationalProvinceName);
 
         SequenceAccessorService sequenceAccessorService = SpringContext.getBean(SequenceAccessorService.class);
         Integer purchaseOrderVendorQuoteIdentifier = new Integer(sequenceAccessorService.getNextAvailableSequenceNumber("PO_VNDR_QT_ID").toString());

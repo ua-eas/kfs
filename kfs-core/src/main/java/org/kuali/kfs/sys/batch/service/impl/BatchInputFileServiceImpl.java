@@ -18,15 +18,10 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
@@ -34,10 +29,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides batch input file management, including listing files, parsing, downloading, storing, and deleting.
@@ -54,8 +54,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
     public Object parse(BatchInputFileType batchInputFileType, byte[] fileByteContent) {
         try {
             return batchInputFileType.parse(fileByteContent);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             LOG.error("Error encountered parsing file", e);
             throw e;
         }
@@ -80,7 +79,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
 
     /**
      * @see org.kuali.kfs.sys.batch.service.BatchInputFileService#save(org.kuali.rice.kim.api.identity.Person,
-     *      org.kuali.kfs.sys.batch.BatchInputFileType, java.lang.String, java.io.InputStream)
+     * org.kuali.kfs.sys.batch.BatchInputFileType, java.lang.String, java.io.InputStream)
      */
     @Override
     public String save(Person user, BatchInputFileType batchInputFileType, String fileUserIdentifier, InputStream fileContents, Object parsedObject) throws AuthorizationException, FileStorageException {
@@ -119,13 +118,11 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
                 createDoneFile(fileToSave, batchInputFileType);
 
                 batchInputFileType.process(saveFileName, parsedObject);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("unable to save contents to file " + saveFileName, e);
                 throw new RuntimeException("errors encountered while writing file " + saveFileName, e);
             }
-        }
-        else {
+        } else {
             batchInputFileType.process(saveFileName, parsedObject);
         }
         return saveFileName;
@@ -134,7 +131,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
     /**
      * Creates a '.done' file with the name of the batch file.
      */
-    protected void createDoneFile(File batchFile ,BatchInputFileType batchInputFileType ) {
+    protected void createDoneFile(File batchFile, BatchInputFileType batchInputFileType) {
         String fileExtension = batchInputFileType.getFileExtension();
         File doneFile = generateDoneFileObject(batchFile, fileExtension);
         String doneFileName = doneFile.getName();
@@ -143,8 +140,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
             boolean doneFileCreated = false;
             try {
                 doneFileCreated = doneFile.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("unable to create done file " + doneFileName, e);
                 throw new RuntimeException("Errors encountered while saving the file: Unable to create .done file " + doneFileName, e);
             }
@@ -162,11 +158,11 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
      *
      * @param batchInputFile
      * @return a File object representing the done file. The real file may not exist on disk, but the return value can be used to
-     *         create that file.
+     * create that file.
      */
     protected File generateDoneFileObject(File batchInputFile, String fileExtension) {
-        String doneFileName = fileExtension != null  ? StringUtils.substringBeforeLast(batchInputFile.getPath(), ".") + ".done" :
-                                batchInputFile.getPath() + ".done" ;
+        String doneFileName = fileExtension != null ? StringUtils.substringBeforeLast(batchInputFile.getPath(), ".") + ".done" :
+            batchInputFile.getPath() + ".done";
         File doneFile = new File(doneFileName);
         return doneFile;
     }
@@ -181,7 +177,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
             throw new IllegalArgumentException("an invalid(null) argument was given");
         }
 
-        List<String> activeInputTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, SystemGroupParameterNames.ACTIVE_INPUT_TYPES_PARAMETER_NAME) );
+        List<String> activeInputTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, SystemGroupParameterNames.ACTIVE_INPUT_TYPES_PARAMETER_NAME));
 
         boolean activeBatchType = false;
         if (activeInputTypes.size() > 0 && activeInputTypes.contains(batchInputFileType.getFileTypeIdentifer())) {
@@ -197,7 +193,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
      * implementation for finer grained security. If the method returns true, the filename is added to the user's list.
      *
      * @see org.kuali.kfs.sys.batch.service.BatchInputFileService#listBatchTypeFilesForUser(org.kuali.kfs.sys.batch.BatchInputFileType,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public List<String> listBatchTypeFilesForUser(BatchInputFileType batchInputFileType, Person user) throws AuthorizationException {
@@ -295,7 +291,7 @@ public class BatchInputFileServiceImpl implements BatchInputFileService {
      */
     @Override
     public boolean isFileUserIdentifierProperlyFormatted(String fileUserIdentifier) {
-        if(ObjectUtils.isNull(fileUserIdentifier)) {
+        if (ObjectUtils.isNull(fileUserIdentifier)) {
             return false;
         }
         for (int i = 0; i < fileUserIdentifier.length(); i++) {

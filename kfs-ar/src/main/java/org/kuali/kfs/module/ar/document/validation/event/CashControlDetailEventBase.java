@@ -20,10 +20,10 @@ package org.kuali.kfs.module.ar.document.validation.event;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 
 public abstract class CashControlDetailEventBase extends KualiDocumentEventBase implements CashControlDetailEvent {
 
@@ -79,8 +79,7 @@ public abstract class CashControlDetailEventBase extends KualiDocumentEventBase 
         // vary logging detail as needed
         if (cashControlDetail == null) {
             logMessage.append("null cashControlDetail");
-        }
-        else {
+        } else {
             logMessage.append(" cashControlDetail# ");
             logMessage.append(cashControlDetail.getDocumentNumber());
         }

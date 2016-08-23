@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
@@ -32,6 +28,10 @@ import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PurapTestConstants {
 
@@ -107,9 +107,9 @@ public class PurapTestConstants {
         static final KualiDecimal POSITIVE_AMOUNT = new KualiDecimal(16);
         static final KualiDecimal ZERO_AMOUNT = new KualiDecimal(0);
         static final KualiDecimal NEGATIVE_AMOUNT = new KualiDecimal(-16);
-        static final ObjectCode CAPITAL_OBJECT_CODE = new ObjectCode(new Integer("2008"),"BL","7017"); //Level should be set to "CAP"
-        static final ObjectCode POSSIBLE_OBJECT_CODE = new ObjectCode(new Integer("2008"),"BL","7050"); //Level should be set to "S&E"
-        static final ObjectCode EXPENSE_OBJECT_CODE = new ObjectCode(new Integer("2008"),"BL","5010"); //Level should be set to "DEBT"
+        static final ObjectCode CAPITAL_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "7017"); //Level should be set to "CAP"
+        static final ObjectCode POSSIBLE_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "7050"); //Level should be set to "S&E"
+        static final ObjectCode EXPENSE_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "5010"); //Level should be set to "DEBT"
         static final CapitalAssetBuilderAssetTransactionType NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("MDEX");
         static final CapitalAssetBuilderAssetTransactionType NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("NEW");
         static final CapitalAssetBuilderAssetTransactionType RECURRING_TRAN_TYPE = new MockAssetTransactionType("LEAS");
@@ -127,6 +127,7 @@ public class PurapTestConstants {
 
             /**
              * Constructs a MockAssetTransactionType.java.
+             *
              * @param capitalAssetTransactionTypeCode
              */
             public MockAssetTransactionType(String capitalAssetTransactionTypeCode) {
@@ -162,7 +163,7 @@ public class PurapTestConstants {
             }
 
             public void setCapitalAssetNonquantitySubtypeRequiredText(
-                    String capitalAssetNonquantitySubtypeRequiredText) {
+                String capitalAssetNonquantitySubtypeRequiredText) {
                 this.capitalAssetNonquantitySubtypeRequiredText = capitalAssetNonquantitySubtypeRequiredText;
             }
 
@@ -171,7 +172,7 @@ public class PurapTestConstants {
             }
 
             public void setCapitalAssetQuantitySubtypeRequiredText(
-                    String capitalAssetQuantitySubtypeRequiredText) {
+                String capitalAssetQuantitySubtypeRequiredText) {
                 this.capitalAssetQuantitySubtypeRequiredText = capitalAssetQuantitySubtypeRequiredText;
             }
 
@@ -183,9 +184,11 @@ public class PurapTestConstants {
                 this.active = active;
             }
 
-            public void refresh() {}
+            public void refresh() {
+            }
 
-            public void prepareForWorkflow() {}
+            public void prepareForWorkflow() {
+            }
         }
     }
 

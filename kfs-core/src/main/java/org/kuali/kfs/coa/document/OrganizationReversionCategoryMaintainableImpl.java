@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
 import org.kuali.kfs.coa.service.OrganizationReversionDetailTrickleDownInactivationService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A Maintainable for the Organization Reversion Category maintenance document
@@ -36,6 +36,7 @@ public class OrganizationReversionCategoryMaintainableImpl extends FinancialSyst
 
     /**
      * Determines if this maint doc is inactivating an organization reversion category
+     *
      * @return true if the document is inactivating an active organization reversioncategory, false otherwise
      */
     protected boolean isInactivatingOrganizationReversionCategory() {
@@ -54,6 +55,7 @@ public class OrganizationReversionCategoryMaintainableImpl extends FinancialSyst
 
     /**
      * Determines if this maint doc is activating an organization reversion category
+     *
      * @return true if the document is activating an inactive organization reversion category, false otherwise
      */
     protected boolean isActivatingOrganizationReversionCategory() {
@@ -72,18 +74,20 @@ public class OrganizationReversionCategoryMaintainableImpl extends FinancialSyst
 
     /**
      * Grabs the old version of this org reversion category from the database
+     *
      * @return the old version of this organization reversion category
      */
     protected OrganizationReversionCategory retrieveExistingOrganizationReversionCategory() {
-        final OrganizationReversionCategory orgRevCategory = (OrganizationReversionCategory)getBusinessObject();
+        final OrganizationReversionCategory orgRevCategory = (OrganizationReversionCategory) getBusinessObject();
         Map<String, Object> pkMap = new HashMap<String, Object>();
-        pkMap.put("organizationReversionCategoryCode", ((OrganizationReversionCategory)getBusinessObject()).getOrganizationReversionCategoryCode());
-        final OrganizationReversionCategory oldOrgRevCategory = (OrganizationReversionCategory)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(OrganizationReversionCategory.class, pkMap);
+        pkMap.put("organizationReversionCategoryCode", ((OrganizationReversionCategory) getBusinessObject()).getOrganizationReversionCategoryCode());
+        final OrganizationReversionCategory oldOrgRevCategory = (OrganizationReversionCategory) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(OrganizationReversionCategory.class, pkMap);
         return oldOrgRevCategory;
     }
 
     /**
      * Overridden to trickle down inactivation or activation to details
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
      */
     @Override
@@ -94,9 +98,9 @@ public class OrganizationReversionCategoryMaintainableImpl extends FinancialSyst
         super.saveBusinessObject();
 
         if (isActivatingOrgReversionCategory) {
-            SpringContext.getBean(OrganizationReversionDetailTrickleDownInactivationService.class).trickleDownActiveOrganizationReversionDetails((OrganizationReversionCategory)getBusinessObject(), getDocumentNumber());
+            SpringContext.getBean(OrganizationReversionDetailTrickleDownInactivationService.class).trickleDownActiveOrganizationReversionDetails((OrganizationReversionCategory) getBusinessObject(), getDocumentNumber());
         } else if (isInactivatingOrgReversionCategory) {
-            SpringContext.getBean(OrganizationReversionDetailTrickleDownInactivationService.class).trickleDownInactiveOrganizationReversionDetails((OrganizationReversionCategory)getBusinessObject(), getDocumentNumber());
+            SpringContext.getBean(OrganizationReversionDetailTrickleDownInactivationService.class).trickleDownInactiveOrganizationReversionDetails((OrganizationReversionCategory) getBusinessObject(), getDocumentNumber());
         }
     }
 

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.FederalFundedCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class returns list of {@link FederalFundedCode} key value pairs.
@@ -45,7 +45,7 @@ public class FederalFundedCodeValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (FederalFundedCode federalFundedCode : codes) {
-            if(federalFundedCode.isActive()) {
+            if (federalFundedCode.isActive()) {
                 labels.add(new ConcreteKeyValue(federalFundedCode.getCode(), federalFundedCode.getCodeAndDescription()));
             }
         }

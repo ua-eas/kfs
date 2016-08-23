@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.batch.service.AssetBarcodeInventoryLoadService;
@@ -38,8 +33,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // @ConfigureContext(session = UserNameFixture.kfs)
 @ConfigureContext(session = UserNameFixture.bomiddle)
@@ -78,8 +78,7 @@ public class AssetBarcodeInventoryLoadServiceTest extends KualiTestBase {
 
                 if ((listOfFiles[i].getName().indexOf(ERROR) != -1) && (listOfFiles[i].getName().indexOf(FORMAT) != -1)) {
                     assertFalse(INVALID_FORMAT_MSG, assetBarcodeInventoryLoadService.isFileFormatValid(listOfFiles[i]));
-                }
-                else {
+                } else {
                     assertTrue(INVALID_FORMAT_MSG, assetBarcodeInventoryLoadService.isFileFormatValid(listOfFiles[i]));
                 }
             }
@@ -96,8 +95,7 @@ public class AssetBarcodeInventoryLoadServiceTest extends KualiTestBase {
             LOG.info("*** testProcessFile() - Running test on file " + file.getName());
             try {
                 assetBarcodeInventoryLoadService.processFile(file, form);
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 Throwable cause = e.getCause();
                 Throwable origin = e;
                 while (cause != null) {
@@ -118,7 +116,7 @@ public class AssetBarcodeInventoryLoadServiceTest extends KualiTestBase {
         File[] listOfFiles;
         try {
             Class<AssetBarcodeInventoryLoadServiceTest> THIS_CLASS = AssetBarcodeInventoryLoadServiceTest.class;
-            String childPath = THIS_CLASS.getPackage().getName().replace( '.', '/');
+            String childPath = THIS_CLASS.getPackage().getName().replace('.', '/');
 
             File directory = new File(new File(THIS_CLASS.getProtectionDomain().getCodeSource().getLocation().toURI()), childPath);
             if (!onlyValid) {
@@ -127,16 +125,14 @@ public class AssetBarcodeInventoryLoadServiceTest extends KualiTestBase {
                         return name.endsWith(CamsConstants.BarCodeInventory.DATA_FILE_EXTENSION) && name.startsWith(BARCODE) && (name.indexOf(ERROR) != -1) || (name.indexOf(VALID) != -1);
                     }
                 });
-            }
-            else {
+            } else {
                 listOfFiles = directory.listFiles(new FilenameFilter() {
                     public boolean accept(File dir, String name) {
                         return name.endsWith(CamsConstants.BarCodeInventory.DATA_FILE_EXTENSION) && name.startsWith(BARCODE) && (name.indexOf(VALID) != -1);
                     }
                 });
             }
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new AssertionError(e);
         }
         return listOfFiles;
@@ -154,7 +150,7 @@ public class AssetBarcodeInventoryLoadServiceTest extends KualiTestBase {
             barcodeInventoryErrorDetail = barcodeInventoryErrorDetails.get(row);
 
             // Saving record
-            assetBarcodeInventoryLoadService.updateAssetInformation(barcodeInventoryErrorDetail,false);
+            assetBarcodeInventoryLoadService.updateAssetInformation(barcodeInventoryErrorDetail, false);
 
             // Confirming data was sucessfully stored.
             fieldValues.put(CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, barcodeInventoryErrorDetail.getAssetTagNumber());

@@ -21,13 +21,12 @@ package org.kuali.kfs.krad.datadictionary.validation.constraint;
 /**
  * A collection size constraint is one that implements a maximum and minimum number of elements for a collection.
  *
- *
  * @since 1.1
  */
 public interface CollectionSizeConstraint extends Constraint {
 
-	public Integer getMaximumNumberOfElements();
+    public Integer getMaximumNumberOfElements();
 
-	public Integer getMinimumNumberOfElements();
+    public Integer getMinimumNumberOfElements();
 
 }

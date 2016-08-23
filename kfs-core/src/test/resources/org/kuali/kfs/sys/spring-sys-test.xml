@@ -19,71 +19,64 @@
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-    <bean id="unitTestSqlDao" parent="platformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb" />
+    <bean id="unitTestSqlDao" parent="platformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb"/>
 
-    <bean id="riceUnitTestSqlDao" parent="ricePlatformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb" />
+    <bean id="riceUnitTestSqlDao" parent="ricePlatformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb"/>
 
-	<bean id="trigger" abstract="true">
-		<property name="group" value="scheduled" />
-		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="testMode" value="true" />
-	</bean>
+    <bean id="trigger" abstract="true">
+        <property name="group" value="scheduled"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="testMode" value="true"/>
+    </bean>
 
-	<bean id="infoForParameterMapReport" class="org.kuali.kfs.sys.report.ReportInfoHolder" >
-		<property name="reportTitle" value="Account and SubAccount For Testing" />
-		<property name="reportFileName" value="TestReportWithParameterMap" />
-		<property name="reportsDirectory" value="${reports.directory}/" />
-		<property name="resourceBundleBaseName" value="org/kuali/kfs/sys/report/ReportGenerationService" />
-		<property name="reportTemplateClassPath" value="org/kuali/kfs/sys/report/" />
-		<property name="reportTemplateName" value="MasterReportWithParamterMap" />
-		<property name="subReportTemplateClassPath" value="org/kuali/kfs/sys/report/" />
-		<property name="subReports">
-			<map>
-				<entry key="AccountReport" value="AccountReport"/>
-				<entry key="SubAccountReport" value="SubAccountReport"/>
-			</map>
-		</property>
-	</bean>
+    <bean id="infoForParameterMapReport" class="org.kuali.kfs.sys.report.ReportInfoHolder">
+        <property name="reportTitle" value="Account and SubAccount For Testing"/>
+        <property name="reportFileName" value="TestReportWithParameterMap"/>
+        <property name="reportsDirectory" value="${reports.directory}/"/>
+        <property name="resourceBundleBaseName" value="org/kuali/kfs/sys/report/ReportGenerationService"/>
+        <property name="reportTemplateClassPath" value="org/kuali/kfs/sys/report/"/>
+        <property name="reportTemplateName" value="MasterReportWithParamterMap"/>
+        <property name="subReportTemplateClassPath" value="org/kuali/kfs/sys/report/"/>
+        <property name="subReports">
+            <map>
+                <entry key="AccountReport" value="AccountReport"/>
+                <entry key="SubAccountReport" value="SubAccountReport"/>
+            </map>
+        </property>
+    </bean>
 
-	<bean id="infoForDataSourceReport" class="org.kuali.kfs.sys.report.ReportInfoHolder" >
-		<property name="reportTitle" value="Account For Testing" />
-		<property name="reportFileName" value="TestReportWithDataSource" />
-		<property name="reportsDirectory" value="${reports.directory}" />
-		<property name="resourceBundleBaseName" value="org/kuali/kfs/sys/report/ReportGenerationService" />
-		<property name="reportTemplateClassPath" value="org/kuali/kfs/sys/report/" />
-		<property name="reportTemplateName" value="MasterReportWithDataSource" />
-		<property name="subReportTemplateClassPath" value="org/kuali/kfs/sys/report/" />
-		<property name="subReports">
-			<map>
-				<entry key="AccountReport" value="AccountReport"/>
-			</map>
-		</property>
-	</bean>
+    <bean id="infoForDataSourceReport" class="org.kuali.kfs.sys.report.ReportInfoHolder">
+        <property name="reportTitle" value="Account For Testing"/>
+        <property name="reportFileName" value="TestReportWithDataSource"/>
+        <property name="reportsDirectory" value="${reports.directory}"/>
+        <property name="resourceBundleBaseName" value="org/kuali/kfs/sys/report/ReportGenerationService"/>
+        <property name="reportTemplateClassPath" value="org/kuali/kfs/sys/report/"/>
+        <property name="reportTemplateName" value="MasterReportWithDataSource"/>
+        <property name="subReportTemplateClassPath" value="org/kuali/kfs/sys/report/"/>
+        <property name="subReports">
+            <map>
+                <entry key="AccountReport" value="AccountReport"/>
+            </map>
+        </property>
+    </bean>
 
-    <bean id="mockReportWriterService" class="org.kuali.kfs.gl.service.impl.MockReportWriterService" />
+    <bean id="mockReportWriterService" class="org.kuali.kfs.gl.service.impl.MockReportWriterService"/>
 
-	<bean id="sysMockAutoDisapproveDocumentsService" parent="autoDisapproveService">
-		<property name="autoDisapproveErrorReportWriterService">
-			<ref bean="mockReportWriterService" />
-		</property>
-	</bean>
+    <bean id="sysMockAutoDisapproveDocumentsService" parent="autoDisapproveService">
+        <property name="autoDisapproveErrorReportWriterService">
+            <ref bean="mockReportWriterService"/>
+        </property>
+    </bean>
 
     <!-- Fake dependency added for SchedulerServiceImplTest.testDropDependenciesNotScheduled -->
     <bean id="purgeReportsAndStagingJob" parent="purgeReportsAndStagingJob-parentBean">
-		<property name="dependencies">
-			<map>
-				<entry key="dailyEmailJob" value="hardDependency"/>
-			</map>
-		</property>
-	</bean>
+        <property name="dependencies">
+            <map>
+                <entry key="dailyEmailJob" value="hardDependency"/>
+            </map>
+        </property>
+    </bean>
 </beans>

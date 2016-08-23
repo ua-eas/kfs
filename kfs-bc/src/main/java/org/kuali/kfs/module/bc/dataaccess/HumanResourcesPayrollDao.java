@@ -29,7 +29,7 @@ public interface HumanResourcesPayrollDao {
      * Gets the Position data for the given key.
      *
      * @param universityFiscalYear position fiscal year, part of record key
-     * @param positionNumber position number, part of record key
+     * @param positionNumber       position number, part of record key
      * @return <Position>
      */
     public Position getPosition(Integer universityFiscalYear, String positionNumber);

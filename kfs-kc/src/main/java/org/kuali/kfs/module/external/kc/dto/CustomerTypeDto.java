@@ -35,12 +35,15 @@ public class CustomerTypeDto {
     public String getCustomerTypeCode() {
         return customerTypeCode;
     }
+
     public void setCustomerTypeCode(String customerTypeCode) {
         this.customerTypeCode = customerTypeCode;
     }
+
     public String getCustomerTypeDescription() {
         return customerTypeDescription;
     }
+
     public void setCustomerTypeDescription(String customerTypeDescription) {
         this.customerTypeDescription = customerTypeDescription;
     }

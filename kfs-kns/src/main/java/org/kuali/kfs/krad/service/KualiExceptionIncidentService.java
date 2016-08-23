@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * This is used for sending report of an incident
- *
- *
- *
  */
 public interface KualiExceptionIncidentService extends KualiFeedbackService {
 
@@ -44,17 +41,17 @@ public interface KualiExceptionIncidentService extends KualiFeedbackService {
      *
      * @param exception
      * @param properties Additional information when the exception is thrown
-     * <p>example:
-     * <ul>
-     * <li>Document id</li>
-     * <li>User email</li>
-     * <li>User name</li>
-     * <li>Component name</li>
-     * </ul>
+     *                   <p>example:
+     *                   <ul>
+     *                   <li>Document id</li>
+     *                   <li>User email</li>
+     *                   <li>User name</li>
+     *                   <li>Component name</li>
+     *                   </ul>
      * @return
      */
     public KualiExceptionIncident getExceptionIncident(
-            Exception exception, Map<String, String> properties);
+        Exception exception, Map<String, String> properties);
 
     /**
      * This method create an instance of the KualiExceptionIncident from its factory.
@@ -62,7 +59,7 @@ public interface KualiExceptionIncidentService extends KualiFeedbackService {
      * initialization.
      *
      * @param properties The list of name-value pairs containing the thrown exception
-     * information
+     *                   information
      * @return
      */
     public KualiExceptionIncident getExceptionIncident(Map<String, String> properties);

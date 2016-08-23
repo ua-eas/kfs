@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Map;
-
 import org.kuali.rice.core.api.mail.MailMessage;
+
+import java.util.Map;
 
 public interface KfsNotificationService {
 
@@ -35,7 +35,7 @@ public interface KfsNotificationService {
      * generate notification content from the given template and data stored in the model
      *
      * @param template the given template
-     * @param model the given model that contains the data
+     * @param model    the given model that contains the data
      * @return notification content generated from the given template and data stored in the model
      */
     String generateNotificationContent(String template, Map<String, Object> model);

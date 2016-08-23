@@ -24,7 +24,7 @@ package org.kuali.kfs.module.cam.businessobject;
 
 public class AssetForSearching extends AssetBase {
 
-    public AssetForSearching(){
+    public AssetForSearching() {
         super();
     }
 

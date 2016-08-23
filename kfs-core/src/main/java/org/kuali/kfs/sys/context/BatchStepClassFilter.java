@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.lang.reflect.Proxy;
-
 import org.kuali.kfs.kns.bo.Step;
 import org.springframework.aop.ClassFilter;
+
+import java.lang.reflect.Proxy;
 
 /**
  * Class filter used to match classes that executes batch job/steps, used to configure batch transaction settings

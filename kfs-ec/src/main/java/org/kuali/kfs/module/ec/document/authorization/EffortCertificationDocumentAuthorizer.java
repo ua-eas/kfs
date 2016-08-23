@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.ec.document.authorization;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -30,11 +29,12 @@ import org.kuali.rice.kew.api.action.ActionTaken;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.UserSession;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Document Authorizer for the Effort Certification document.
@@ -45,26 +45,27 @@ public class EffortCertificationDocumentAuthorizer extends FinancialSystemTransa
      * Overridden to check if document error correction can be allowed here.
      *
      * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.rice.krad.document.Document,
-     *      org.kuali.rice.kim.api.identity.Person, java.util.Set)
+     * org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActionsFromPresentationController) {
         Set<String> documentActionsToReturn = super.getDocumentActions(document, user, documentActionsFromPresentationController);
         UserSession userSession = GlobalVariables.getUserSession();
-        String principalId =  userSession.getPrincipalId();
+        String principalId = userSession.getPrincipalId();
         if (document.getDocumentHeader().getWorkflowDocument().isEnroute()) {
-                Set<Person> priorApprovers = this.getPriorApprovers(document.getDocumentHeader().getWorkflowDocument());
-                  for (Person priorApprover : priorApprovers) {
-                      if (principalId.equals(priorApprover.getPrincipalId())) {
-                          documentActionsToReturn.add(KRADConstants.KUALI_ACTION_CAN_EDIT);
-                          documentActionsToReturn.add(KRADConstants.KUALI_ACTION_CAN_SAVE);
-                      }
-                  }
+            Set<Person> priorApprovers = this.getPriorApprovers(document.getDocumentHeader().getWorkflowDocument());
+            for (Person priorApprover : priorApprovers) {
+                if (principalId.equals(priorApprover.getPrincipalId())) {
+                    documentActionsToReturn.add(KRADConstants.KUALI_ACTION_CAN_EDIT);
+                    documentActionsToReturn.add(KRADConstants.KUALI_ACTION_CAN_SAVE);
+                }
+            }
         }
 
 
         return documentActionsToReturn;
     }
+
     protected Set<Person> getPriorApprovers(WorkflowDocument workflowDocument) {
         PersonService personService = KimApiServiceLocator.getPersonService();
         List<ActionTaken> actionsTaken = workflowDocument.getActionsTaken();
@@ -84,8 +85,8 @@ public class EffortCertificationDocumentAuthorizer extends FinancialSystemTransa
     }
 
     public boolean doPermissionExistsByTemplate(
-            BusinessObject businessObject, String namespaceCode,
-            String permissionTemplateName, Map<String, String> permissionDetails) {
+        BusinessObject businessObject, String namespaceCode,
+        String permissionTemplateName, Map<String, String> permissionDetails) {
 
         return permissionExistsByTemplate(businessObject, namespaceCode, permissionTemplateName, permissionDetails);
 

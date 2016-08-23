@@ -22,10 +22,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -37,6 +33,10 @@ import org.kuali.kfs.gl.dataaccess.ReversalDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * An OJB implementation of the Reversal DAO
@@ -89,7 +89,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
         crit.addEqualTo(KFSPropertyConstants.DOCUMENT_NUMBER, t.getDocumentNumber());
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(Entry.class, crit);
-        q.setAttributes(new String[] { "max(transactionLedgerEntrySequenceNumber)" });
+        q.setAttributes(new String[]{"max(transactionLedgerEntrySequenceNumber)"});
 
         Iterator iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         if (iter.hasNext()) {
@@ -98,12 +98,10 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
 
             if (max == null) {
                 return 0;
-            }
-            else {
+            } else {
                 return max.intValue();
             }
-        }
-        else {
+        } else {
             return 0;
         }
     }

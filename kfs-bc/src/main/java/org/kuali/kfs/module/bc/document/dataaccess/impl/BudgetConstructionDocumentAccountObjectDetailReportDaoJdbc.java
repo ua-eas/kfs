@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDocumentAccountObjectDetailReportDao;
+
+import java.util.ArrayList;
 
 
 public class BudgetConstructionDocumentAccountObjectDetailReportDaoJdbc extends BudgetConstructionDaoJdbcBase implements BudgetConstructionDocumentAccountObjectDetailReportDao {
@@ -170,7 +170,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportDaoJdbc extends 
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDocumentAccountObjectDetailReportDao#updateDocumentAccountObjectDetailReportTable(java.lang.String,
-     *      java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public void updateDocumentAccountObjectDetailReportTable(String principalName, String documentNumber, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         // eliminate any rows already extant in the table for this user

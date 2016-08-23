@@ -31,40 +31,40 @@
  * @return the value of the element
  */
 function getElementValue(name) {
-	var value = null;
+    var value = null;
 
-	// retrieve element using name as ID
-	var el = kualiElements[name];
-	//alert("overriden getElementValue: kualiElements el = " + el);
+    // retrieve element using name as ID
+    var el = kualiElements[name];
+    //alert("overriden getElementValue: kualiElements el = " + el);
 
-	// if the element exists, then it's an input field, get its value directly
-	if ( el ) {
-		value = el.value.toUpperCase().trim();
-		//alert("input el value = " + value);
-	}
+    // if the element exists, then it's an input field, get its value directly
+    if (el) {
+        value = el.value.toUpperCase().trim();
+        //alert("input el value = " + value);
+    }
 
-	// otherwise the el is readOnly, retrieve the value using name.div as ID
-	else {
-		el = document.getElementById(name + ".div");
-		//alert("getElementById el = " + el);
+    // otherwise the el is readOnly, retrieve the value using name.div as ID
+    else {
+        el = document.getElementById(name + ".div");
+        //alert("getElementById el = " + el);
 
-		if (el) {
-			value = dwr.util.getValue(name + ".div");
-			//alert("DWR getValue = " + value);
+        if (el) {
+            value = dwr.util.getValue(name + ".div");
+            //alert("DWR getValue = " + value);
 
-			// trim html link if any
-			value = value.replace(/(<([^>]+)>)/ig,"");
-			//alert("After striping html, value = " + value);
+            // trim html link if any
+            value = value.replace(/(<([^>]+)>)/ig, "");
+            //alert("After striping html, value = " + value);
 
-			// trim &nbsp's and white spaces if any
-			value = value.replace("&nbsp;", "").replace(/^\s+|\s+$/g,"");
-			//alert("After striping spaces, value = " + value);
+            // trim &nbsp's and white spaces if any
+            value = value.replace("&nbsp;", "").replace(/^\s+|\s+$/g, "");
+            //alert("After striping spaces, value = " + value);
 
-			// value most likely already in upper case, but just in case
-			value = value.toUpperCase();
-			//alert("After upper case, value = " + value);
-		}
-	}
+            // value most likely already in upper case, but just in case
+            value = value.toUpperCase();
+            //alert("After upper case, value = " + value);
+        }
+    }
 
-	return value;
+    return value;
 }

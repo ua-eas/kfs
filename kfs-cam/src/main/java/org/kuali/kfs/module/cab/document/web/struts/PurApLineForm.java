@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
@@ -34,10 +33,10 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurApLineForm extends KualiForm {
     private static final Logger LOG = Logger.getLogger(PurApLineAction.class);
@@ -344,8 +343,7 @@ public class PurApLineForm extends KualiForm {
             try {
                 String docTypeName = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(this.documentNumber).getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
                 docHandlerLink = SpringContext.getBean(GlAndPurApHelperService.class).getDocHandlerUrl(this.documentNumber, docTypeName);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Caught WorkflowException trying to get document type name from Workflow", e);
             }
         }

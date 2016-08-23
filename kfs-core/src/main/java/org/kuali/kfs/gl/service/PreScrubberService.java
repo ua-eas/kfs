@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.service;
 
+import org.kuali.kfs.gl.report.PreScrubberReportData;
+
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.kuali.kfs.gl.report.PreScrubberReportData;
 
 public interface PreScrubberService {
     public PreScrubberReportData preprocessOriginEntries(Iterator<String> inputOriginEntries, String outputFileName) throws IOException;

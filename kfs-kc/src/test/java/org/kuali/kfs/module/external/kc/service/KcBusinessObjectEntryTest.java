@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class KcBusinessObjectEntryTest extends KualiTestBase {
@@ -38,7 +38,6 @@ public class KcBusinessObjectEntryTest extends KualiTestBase {
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -46,7 +45,7 @@ public class KcBusinessObjectEntryTest extends KualiTestBase {
         super.tearDown();
     }
 
-    public void testBOEntry(){
+    public void testBOEntry() {
         BusinessObjectEntry boe1 = (BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry("org.kuali.kfs.module.external.kc.businessobject.AwardAccount");
         BusinessObjectEntry boe2 = (BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry("org.kuali.kfs.module.cg.businessobject.AwardAccount");
         BusinessObjectEntry boe3 = (BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry("org.kuali.kfs.integration.cg.businessobject.AwardAccount");

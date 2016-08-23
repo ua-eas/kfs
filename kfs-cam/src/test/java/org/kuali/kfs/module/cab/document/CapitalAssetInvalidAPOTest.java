@@ -19,28 +19,20 @@
 package org.kuali.kfs.module.cab.document;
 
 import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.PurapRuleConstants;
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
-import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.RequisitionService;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
-import org.kuali.kfs.module.purap.fixture.RequisitionDocumentWithCommodityCodeFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class is used to create and test populated Requisition Documents
  * that are not eligible to become APO because of capital asset rules.
- *
+ * <p>
  * The other criteria for APO ineligibility are tested in NegativeAPOTest
  * in the PurAp module.
  *
@@ -75,7 +67,7 @@ public class CapitalAssetInvalidAPOTest extends KualiTestBase {
         assertFalse(reqService.isAutomaticPurchaseOrderAllowed(requisitionDocument));
         if (requisitionDocument.getNotes() != null && requisitionDocument.getNotes().size() > 0) {
             String reason = kualiConfigurationService.getPropertyValueAsString(PurapKeyConstants.NON_APO_REQUISITION_ACCT_LINE_CAPITAL_OBJ_LEVEL);
-            assertTrue(requisitionDocument.getNote(0).getNoteText().indexOf(reason) >=0);
+            assertTrue(requisitionDocument.getNote(0).getNoteText().indexOf(reason) >= 0);
         }
     }
 

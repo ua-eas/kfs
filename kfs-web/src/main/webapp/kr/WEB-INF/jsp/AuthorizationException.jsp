@@ -16,32 +16,31 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.krad.exception.AuthorizationException"%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp" %>
 
 <c:set var="parameters"
-       value="<%=request.getAttribute(\"org.kuali.kfs.kns.web.struts.action.AuthorizationExceptionAction\")%>" />
+       value="<%=request.getAttribute(\"org.kuali.kfs.kns.web.struts.action.AuthorizationExceptionAction\")%>"/>
 
 <c:if test="${not empty parameters}">
-	<c:set var="message" value="${parameters.message}" />
-  <c:if test="${empty message}">
-    <c:set var="exception" value='<%=request.getAttribute("org.apache.struts.action.EXCEPTION")%>'/>
-    <c:set var="message" value="${exception['class'].name}" />
-  </c:if>
+    <c:set var="message" value="${parameters.message}"/>
+    <c:if test="${empty message}">
+        <c:set var="exception" value='<%=request.getAttribute("org.apache.struts.action.EXCEPTION")%>'/>
+        <c:set var="message" value="${exception['class'].name}"/>
+    </c:if>
 </c:if>
 
 <kul:page showDocumentInfo="false"
-	      headerTitle="Authorization Exception"
-	      docTitle="Authorization Exception Report"
-	      transactionalDocument="false"
-	      htmlFormAction="authorizationExceptionReport"
-	      defaultMethodToCall="notify"
-	      errorKey="*">
+          headerTitle="Authorization Exception"
+          docTitle="Authorization Exception Report"
+          transactionalDocument="false"
+          htmlFormAction="authorizationExceptionReport"
+          defaultMethodToCall="notify"
+          errorKey="*">
 
-	<html:hidden property="message" write="false" value="${message}" />
+    <html:hidden property="message" write="false" value="${message}"/>
 
     <div class="center">
         <strong>Error Message:</strong>
-        ${message}
+            ${message}
     </div>
 </kul:page>

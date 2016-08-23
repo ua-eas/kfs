@@ -19,10 +19,6 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
@@ -31,14 +27,18 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * CollectorDetail Business Object.
@@ -138,6 +138,7 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the transactionLedgerEntrySequenceNumber attribute.
+     *
      * @return Returns the transactionLedgerEntrySequenceNumber.
      */
     public Integer getTransactionLedgerEntrySequenceNumber() {
@@ -146,6 +147,7 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the transactionLedgerEntrySequenceNumber attribute value.
+     *
      * @param transactionLedgerEntrySequenceNumber The transactionLedgerEntrySequenceNumber to set.
      */
     public void setTransactionLedgerEntrySequenceNumber(Integer transactionLedgerEntrySequenceNumber) {
@@ -554,9 +556,9 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
         return collectorDetailFieldUtil;
     }
 
-    public void setFromFileForCollectorDetail(String detailLine, Map<String, String>accountRecordBalanceTypeMap, Date curDate, UniversityDate universityDate, int lineNumber, MessageMap messageMap) {
+    public void setFromFileForCollectorDetail(String detailLine, Map<String, String> accountRecordBalanceTypeMap, Date curDate, UniversityDate universityDate, int lineNumber, MessageMap messageMap) {
 
-        try{
+        try {
 
             final Map<String, Integer> pMap = getCollectorDetailFieldUtil().getFieldBeginningPositionMap();
 
@@ -566,13 +568,11 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
             if (!GeneralLedgerConstants.getSpaceUniversityFiscalYear().equals(detailLine.substring(pMap.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR), pMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE)))) {
                 try {
                     setUniversityFiscalYear(new Integer(getValue(detailLine, pMap.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR), pMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE))));
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     messageMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CUSTOM, "Collector detail university fiscal year " + lineNumber + " string " + detailLine.substring(pMap.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR), pMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE)));
                     setUniversityFiscalYear(null);
                 }
-            }
-            else {
+            } else {
                 setUniversityFiscalYear(null);
             }
 
@@ -609,8 +609,7 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
             setDocumentNumber(getValue(detailLine, pMap.get(KFSPropertyConstants.DOCUMENT_NUMBER), pMap.get(KFSPropertyConstants.COLLECTOR_DETAIL_AMOUNT)));
             try {
                 setCollectorDetailItemAmount(getValue(detailLine, pMap.get(KFSPropertyConstants.COLLECTOR_DETAIL_AMOUNT), pMap.get(KFSPropertyConstants.COLLECTOR_DETAIL_GL_CREDIT_CODE)));
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 setCollectorDetailItemAmount(KualiDecimal.ZERO);
                 messageMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CUSTOM, "Collector detail amount cannot be parsed on line " + lineNumber + " amount string " + detailLine.substring(pMap.get(KFSPropertyConstants.COLLECTOR_DETAIL_AMOUNT), pMap.get(KFSPropertyConstants.GL_CREDIT_CODE)));
             }
@@ -628,7 +627,7 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
             if (org.apache.commons.lang.StringUtils.isEmpty(getCollectorDetailSequenceNumber())) {
                 setCollectorDetailSequenceNumber(" ");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e + " occurred in CollectorDetail.setFromFileForCollectorDetail()");
         }
     }
@@ -636,10 +635,10 @@ public class CollectorDetail extends PersistableBusinessObjectBase {
     /**
      * Account record balance type key
      * Fiscal Year - Chart Code - Account Number - Sub-account Number - Object code - Sub-object Code
-     *
+     * <p>
      * For the two optional fields sub-account and sub-object code, create an additional filter to replace
      * the usual place holder - with spaces
-     *
+     * <p>
      * NOTE: this should match the same implementation in CollectorFlatFile generateAccountRecordBalanceTypeKey
      *
      * @return

@@ -18,15 +18,7 @@
  */
 package org.kuali.kfs.module.purap.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
@@ -39,7 +31,15 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 public class SensitiveDataServiceTest extends KualiTestBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SensitiveDataServiceTest.class);
@@ -53,14 +53,14 @@ public class SensitiveDataServiceTest extends KualiTestBase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        if ( boService == null ) {
+        if (boService == null) {
             boService = SpringContext.getBean(BusinessObjectService.class);
         }
-        if ( sdService == null ) {
+        if (sdService == null) {
             sdService = SpringContext.getBean(SensitiveDataService.class);
         }
 
-        if ( po == null ) {
+        if (po == null) {
             po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
         }
         if (po.getPurapDocumentIdentifier() == null) {
@@ -138,7 +138,7 @@ public class SensitiveDataServiceTest extends KualiTestBase {
 
         // test SensitiveDataAssignmentDetail retrieval
         List<SensitiveDataAssignmentDetail> sdadsRet = sdService.getLastSensitiveDataAssignmentDetails(poId);
-        assertTrue( sdadsRet.size() == sdads.size());
+        assertTrue(sdadsRet.size() == sdads.size());
         for (SensitiveDataAssignmentDetail sdadR : sdadsRet) {
             assertTrue(sdadR.getSensitiveDataAssignmentIdentifier().equals(sdaId));
         }

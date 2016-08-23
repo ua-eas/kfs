@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -26,10 +29,7 @@ import org.kuali.kfs.module.purap.document.service.PaymentRequestService;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class VendorCreditMemoInitTabRequiredFieldsValidation extends GenericValidation {
 
@@ -67,7 +67,7 @@ public class VendorCreditMemoInitTabRequiredFieldsValidation extends GenericVali
      * for the error required message param.
      *
      * @param businessObject - Business object to check for value
-     * @param fieldName - Name of the property in the business object
+     * @param fieldName      - Name of the property in the business object
      */
     protected boolean validateRequiredField(BusinessObject businessObject, String fieldName) {
         boolean valid = true;

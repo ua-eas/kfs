@@ -37,8 +37,7 @@ public abstract class TriggerDescriptor implements BeanNameAware {
         Trigger trigger = null;
         if (getClass().equals(SimpleTriggerDescriptor.class)) {
             trigger = new SimpleTrigger(name, group);
-        }
-        else {
+        } else {
             trigger = new CronTrigger(name, group);
         }
         trigger.setJobName(jobName);

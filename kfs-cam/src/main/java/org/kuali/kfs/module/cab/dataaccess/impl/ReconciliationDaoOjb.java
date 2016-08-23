@@ -64,7 +64,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
         // is equal to or is null criteria
         Criteria tempCriteria1 = new Criteria();
         Criteria tempCriteria2 = new Criteria();
-        tempCriteria1.addEqualTo(CabPropertyConstants.GeneralLedgerEntry.ORGNIZATION_REFERENCE_ID,  glEntry.getOrganizationReferenceId());
+        tempCriteria1.addEqualTo(CabPropertyConstants.GeneralLedgerEntry.ORGNIZATION_REFERENCE_ID, glEntry.getOrganizationReferenceId());
         if (StringUtils.isEmpty(glEntry.getOrganizationReferenceId())) {
             tempCriteria2.addIsNull(CabPropertyConstants.GeneralLedgerEntry.ORGNIZATION_REFERENCE_ID);
             tempCriteria1.addOrCriteria(tempCriteria2);

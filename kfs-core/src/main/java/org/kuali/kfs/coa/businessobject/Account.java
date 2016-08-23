@@ -19,14 +19,6 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.service.SubFundGroupService;
@@ -35,21 +27,29 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsAccountAwardInformation;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
 import org.kuali.kfs.integration.ld.LaborBenefitRateCategory;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Account extends PersistableBusinessObjectBase implements AccountIntf, MutableInactivatable {
@@ -157,6 +157,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
     //added for the employee labor benefit calculation
     protected String laborBenefitRateCategoryCode;
     protected LaborBenefitRateCategory laborBenefitRateCategory;
+
     /**
      * Default no-arg constructor.
      */
@@ -172,7 +173,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
         // Retrieve all the existing sub accounts for this
         List<SubAccount> bosToDeactivate = new ArrayList<SubAccount>();
         if (!isActive()) {
-            Map<String, Object> fieldValues = new HashMap<String,Object>();
+            Map<String, Object> fieldValues = new HashMap<String, Object>();
             fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, getChartOfAccountsCode());
             fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, getAccountNumber());
             fieldValues.put(KFSPropertyConstants.ACTIVE, true);
@@ -432,7 +433,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      * date values, not time-values.
      *
      * @param testDate - Calendar instance with the date to test the Account's Expiration Date against. This is most commonly set to
-     *        today's date.
+     *                 today's date.
      * @return true or false based on the logic outlined above
      */
     @Override
@@ -466,7 +467,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      * date values, not time-values.
      *
      * @param testDate - java.util.Date instance with the date to test the Account's Expiration Date against. This is most commonly
-     *        set to today's date.
+     *                 set to today's date.
      * @return true or false based on the logic outlined above
      */
     @Override
@@ -749,8 +750,8 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     public List<IndirectCostRecoveryAccount> getActiveIndirectCostRecoveryAccounts() {
         List<IndirectCostRecoveryAccount> activeList = new ArrayList<IndirectCostRecoveryAccount>();
-        for (IndirectCostRecoveryAccount icr : getIndirectCostRecoveryAccounts()){
-            if (icr.isActive()){
+        for (IndirectCostRecoveryAccount icr : getIndirectCostRecoveryAccounts()) {
+            if (icr.isActive()) {
                 activeList.add(IndirectCostRecoveryAccount.copyICRAccount(icr));
             }
         }
@@ -760,7 +761,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
     @Override
     public void setIndirectCostRecoveryAccounts(List<? extends IndirectCostRecoveryAccount> indirectCostRecoveryAccounts) {
         List<IndirectCostRecoveryAccount> accountIcrList = new ArrayList<IndirectCostRecoveryAccount>();
-        for (IndirectCostRecoveryAccount icr : indirectCostRecoveryAccounts){
+        for (IndirectCostRecoveryAccount icr : indirectCostRecoveryAccounts) {
             accountIcrList.add(icr);
         }
         this.indirectCostRecoveryAccounts = accountIcrList;
@@ -898,17 +899,17 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      */
     @Override
     public CampusEbo getAccountPhysicalCampus() {
-        if ( StringUtils.isBlank(accountPhysicalCampusCode) ) {
+        if (StringUtils.isBlank(accountPhysicalCampusCode)) {
             accountPhysicalCampus = null;
         } else {
-            if ( accountPhysicalCampus == null || !StringUtils.equals( accountPhysicalCampus.getCode(),accountPhysicalCampusCode) ) {
+            if (accountPhysicalCampus == null || !StringUtils.equals(accountPhysicalCampus.getCode(), accountPhysicalCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountPhysicalCampusCode);
                     accountPhysicalCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -934,18 +935,18 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      */
     @Override
     public StateEbo getAccountState() {
-        if ( StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(accountCountryCode) ) {
+        if (StringUtils.isBlank(accountStateCode) || StringUtils.isBlank(accountCountryCode)) {
             accountState = null;
         } else {
-            if ( accountState == null || !StringUtils.equals( accountState.getCode(),accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), accountCountryCode ) ) {
+            if (accountState == null || !StringUtils.equals(accountState.getCode(), accountStateCode) || !StringUtils.equals(accountState.getCountryCode(), accountCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, accountCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountStateCode);
                     accountState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1127,6 +1128,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     /**
      * This fix is temporary until Jonathan's fix is reflected to Rice
+     *
      * @see org.kuali.kfs.kns.bo.PersistableBusinessObjectBase#refreshReferenceObject(java.lang.String)
      */
     @Override
@@ -1140,7 +1142,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
         }
     }
 
-   /**
+    /**
      * @param accountFiscalOfficerUser The accountFiscalOfficerUser to set.
      * @deprecated
      */
@@ -1611,19 +1613,19 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      */
     @Override
     public PostalCodeEbo getPostalZipCode() {
-        if ( StringUtils.isBlank(accountZipCode) || StringUtils.isBlank( accountCountryCode ) ) {
+        if (StringUtils.isBlank(accountZipCode) || StringUtils.isBlank(accountCountryCode)) {
             postalZipCode = null;
         } else {
-            if ( postalZipCode == null || !StringUtils.equals( postalZipCode.getCode(),accountZipCode)
-                    || !StringUtils.equals(postalZipCode.getCountryCode(), accountCountryCode ) ) {
+            if (postalZipCode == null || !StringUtils.equals(postalZipCode.getCode(), accountZipCode)
+                || !StringUtils.equals(postalZipCode.getCountryCode(), accountCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, accountCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, accountZipCode);
                     postalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1893,7 +1895,8 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
         this.endowmentIncomeChartOfAccounts = endowmentIncomeChartOfAccounts;
     }
 
-    @Override protected void preUpdate() {
+    @Override
+    protected void preUpdate() {
         super.preUpdate();
         try {
             // KULCOA-549: update the sufficient funds table
@@ -1912,8 +1915,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
                     }
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("Problem updating sufficient funds rebuild table: ", ex);
         }
     }
@@ -1925,7 +1927,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
      */
     @Override
     public boolean isForContractsAndGrants() {
-        if ( forContractsAndGrants == null ) {
+        if (forContractsAndGrants == null) {
             forContractsAndGrants = SpringContext.getBean(SubFundGroupService.class).isForContractsAndGrants(getSubFundGroup());
         }
         return forContractsAndGrants;
@@ -1934,10 +1936,10 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
     /**
      * determine if the given account is awarded by a federal agency
      *
-     * @param account the given account
+     * @param account                the given account
      * @param federalAgencyTypeCodes the given federal agency type code
      * @return true if the given account is funded by a federal agency or associated with federal pass through indicator; otherwise,
-     *         false
+     * false
      */
     public boolean isAwardedByFederalAgency(List<String> federalAgencyTypeCodes) {
         return SpringContext.getBean(ContractsAndGrantsModuleService.class).isAwardedByFederalAgency(getChartOfAccountsCode(), getAccountNumber(), federalAgencyTypeCodes);
@@ -1963,6 +1965,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     /**
      * Gets the laborBenefitRateCategoryCode attribute.
+     *
      * @return Returns the laborBenefitRateCategoryCode.
      */
     public String getLaborBenefitRateCategoryCode() {
@@ -1971,6 +1974,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     /**
      * Sets the laborBenefitRateCategoryCode attribute value.
+     *
      * @param laborBenefitRateCategoryCode The laborBenefitRateCategoryCode to set.
      */
     public void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode) {
@@ -1979,6 +1983,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     /**
      * Gets the laborBenefitRateCategory attribute.
+     *
      * @return Returns the laborBenefitRateCategory.
      */
     public LaborBenefitRateCategory getLaborBenefitRateCategory() {
@@ -1988,6 +1993,7 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
 
     /**
      * Sets the laborBenefitRateCategory attribute value.
+     *
      * @param laborBenefitRateCategory The laborBenefitRateCategory to set.
      */
     public void setLaborBenefitRateCategory(LaborBenefitRateCategory laborBenefitRateCategory) {
@@ -2050,34 +2056,34 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
     }
 
     /**
-    * Gets the incomeStreamChartOfAccounts attribute.
-    *
-    * @return Returns the incomeStreamChartOfAccounts.
-    */
-   public Chart getContractControlChartOfAccounts() {
-       return contractControlChartOfAccounts;
-   }
+     * Gets the incomeStreamChartOfAccounts attribute.
+     *
+     * @return Returns the incomeStreamChartOfAccounts.
+     */
+    public Chart getContractControlChartOfAccounts() {
+        return contractControlChartOfAccounts;
+    }
 
-   /**
-    * Sets the contractControlChartOfAccounts attribute value.
-    *
-    * @param contractControlChartOfAccounts The contractControlChartOfAccounts to set.
-    */
-   public void setContractControlChartOfAccounts(Chart contractControlChartOfAccounts) {
-       this.contractControlChartOfAccounts = contractControlChartOfAccounts;
-   }
+    /**
+     * Sets the contractControlChartOfAccounts attribute value.
+     *
+     * @param contractControlChartOfAccounts The contractControlChartOfAccounts to set.
+     */
+    public void setContractControlChartOfAccounts(Chart contractControlChartOfAccounts) {
+        this.contractControlChartOfAccounts = contractControlChartOfAccounts;
+    }
 
-   /**
-    * Gets the indirectCostRcvyChartOfAccounts attribute.
-    *
-    * @return Returns the indirectCostRcvyChartOfAccounts.
-    */
-   @Override
-   public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
-       List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
-       managedLists.add( new ArrayList<PersistableBusinessObject>( getIndirectCostRecoveryAccounts() ));
-       return managedLists;
-   }
+    /**
+     * Gets the indirectCostRcvyChartOfAccounts attribute.
+     *
+     * @return Returns the indirectCostRcvyChartOfAccounts.
+     */
+    @Override
+    public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
+        List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getIndirectCostRecoveryAccounts()));
+        return managedLists;
+    }
 
     public String getAccountCountryCode() {
         return accountCountryCode;
@@ -2088,18 +2094,18 @@ public class Account extends PersistableBusinessObjectBase implements AccountInt
     }
 
     public String getSourceOfFundsTypeCode() {
-    	return sourceOfFundsTypeCode;
+        return sourceOfFundsTypeCode;
     }
 
     public void setSourceOfFundsTypeCode(String sourceOfFundsTypeCode) {
-    	this.sourceOfFundsTypeCode = sourceOfFundsTypeCode;
+        this.sourceOfFundsTypeCode = sourceOfFundsTypeCode;
     }
 
     public SourceOfFunds getSourceOfFunds() {
-    	return sourceOfFunds;
+        return sourceOfFunds;
     }
 
     public void setSourceOfFunds(SourceOfFunds sourceOfFunds) {
-    	this.sourceOfFunds = sourceOfFunds;
+        this.sourceOfFunds = sourceOfFunds;
     }
 }

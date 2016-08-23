@@ -18,24 +18,12 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.SubObjectTrickleDownInactivationService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -47,7 +35,19 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentHeaderService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTrickleDownInactivationService {
@@ -125,16 +125,14 @@ public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTri
                     if (failedLock != null) {
                         // another document has locked this sub account, so we don't try to inactivate the account
                         trickleDownInactivationStatus.alreadyLockedSubObjCds.put(subObjCd, failedLock.getDocumentNumber());
-                    }
-                    else {
+                    } else {
                         // no locks other than our own (but there may have been no locks at all), just go ahead and try to update
                         subObjCd.setActive(false);
 
                         try {
                             subObjectMaintainable.saveBusinessObject();
                             trickleDownInactivationStatus.inactivatedSubObjCds.add(subObjCd);
-                        }
-                        catch (RuntimeException e) {
+                        } catch (RuntimeException e) {
                             LOG.error("Unable to trickle-down inactivate sub-account " + subObjCd.toString(), e);
                             trickleDownInactivationStatus.errorPersistingSubObjCds.add(subObjCd);
                         }
@@ -175,10 +173,9 @@ public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTri
             subObjectMaintainable = (Maintainable) maintenanceDocumentDictionaryService.getMaintainableClass(SubObjectCode.class.getName()).newInstance();
             subObjectMaintainable.setBoClass(SubObjectCode.class);
             subObjectMaintainable.setDocumentNumber(documentNumber);
-        }
-        catch (Exception e) {
-            LOG.error("Unable to instantiate SubObject Maintainable" , e);
-            throw new RuntimeException("Unable to instantiate SubObject Maintainable" , e);
+        } catch (Exception e) {
+            LOG.error("Unable to instantiate SubObject Maintainable", e);
+            throw new RuntimeException("Unable to instantiate SubObject Maintainable", e);
         }
         return subObjectMaintainable;
     }
@@ -211,8 +208,7 @@ public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTri
                     note.setNotePostedTimestampToCurrent();
                     noteService.save(note);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to create/save notes for document " + documentNumber, e);
                 throw new RuntimeException("Unable to create/save notes for document " + documentNumber, e);
             }
@@ -232,8 +228,7 @@ public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTri
                     note.setNotePostedTimestampToCurrent();
                     noteService.save(note);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to create/save notes for document " + documentNumber, e);
                 throw new RuntimeException("Unable to create/save notes for document " + documentNumber, e);
             }
@@ -245,8 +240,8 @@ public class SubObjectTrickleDownInactivationServiceImpl implements SubObjectTri
         for (int i = startIndex; i < endIndex && i < listOfSubObjects.size(); i++) {
             SubObjectCode subObjCd = listOfSubObjects.get(i);
             buf.append(subObjCd.getUniversityFiscalYear()).append(" - ").append(subObjCd.getChartOfAccountsCode()).append(" - ")
-                    .append(subObjCd.getAccountNumber()).append(" - ").append(subObjCd.getFinancialObjectCode())
-                    .append(" - ").append(subObjCd.getFinancialSubObjectCode());
+                .append(subObjCd.getAccountNumber()).append(" - ").append(subObjCd.getFinancialObjectCode())
+                .append(" - ").append(subObjCd.getFinancialSubObjectCode());
             if (i + 1 < endIndex && i + 1 < listOfSubObjects.size()) {
                 buf.append(", ");
             }

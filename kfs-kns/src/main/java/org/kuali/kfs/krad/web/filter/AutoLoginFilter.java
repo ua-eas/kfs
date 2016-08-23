@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.krad.web.filter;
 
-import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -28,6 +26,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
 
 /**
  * Automatically logs in with the user specified via filter init parameter {@link AutoLoginFilter#USER_PARAM_NAME}.
@@ -42,31 +41,37 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * </p>
  */
 public class AutoLoginFilter implements Filter {
-	public static final String USER_PARAM_NAME = "autouser";
+    public static final String USER_PARAM_NAME = "autouser";
 
-	private FilterConfig filterConfig;
+    private FilterConfig filterConfig;
 
-	/** {@inheritDoc} */
-	public void init(FilterConfig config) throws ServletException {
-	    this.filterConfig = config;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public void init(FilterConfig config) throws ServletException {
+        this.filterConfig = config;
+    }
 
-	/** {@inheritDoc} */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (filterConfig.getInitParameter(USER_PARAM_NAME) == null) {
-		    throw new IllegalStateException("the " + USER_PARAM_NAME + " param is not set");
-		}
+    /**
+     * {@inheritDoc}
+     */
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        if (filterConfig.getInitParameter(USER_PARAM_NAME) == null) {
+            throw new IllegalStateException("the " + USER_PARAM_NAME + " param is not set");
+        }
 
-	    chain.doFilter(new HttpServletRequestWrapper((HttpServletRequest) request) {
+        chain.doFilter(new HttpServletRequestWrapper((HttpServletRequest) request) {
             @Override
             public String getRemoteUser() {
                 return AutoLoginFilter.this.filterConfig.getInitParameter(USER_PARAM_NAME);
             }
         }, response);
-	}
+    }
 
-	/** {@inheritDoc} */
-	public void destroy() {
-	    this.filterConfig = null;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public void destroy() {
+        this.filterConfig = null;
+    }
 }

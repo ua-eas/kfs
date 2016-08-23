@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching standard-format (yyyy-mm-dd hh:mm:ss.m) timestamps
- *
- *
  */
 public class TimestampValidationPattern extends FieldLevelValidationPattern {
 

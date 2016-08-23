@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Organization;
+
+import java.util.List;
 
 /**
  * This interface defines methods that an Org Service must provide.
@@ -48,7 +48,7 @@ public interface OrganizationService {
      * empty list will be returned.
      *
      * @param chartOfAccountsCode - chartCode for the Org you want Accounts for
-     * @param organizationCode - orgCode for the Org you want Accounts for
+     * @param organizationCode    - orgCode for the Org you want Accounts for
      * @return A List of Accounts that are active, and tied to this Org
      */
     public List<Account> getActiveAccountsByOrg(String chartOfAccountsCode, String organizationCode);
@@ -58,7 +58,7 @@ public interface OrganizationService {
      * list will be returned.
      *
      * @param chartOfAccountsCode - chartCode for the Org you want Child Orgs for
-     * @param organizationCode - orgCode for the Org you want Child Orgs for
+     * @param organizationCode    - orgCode for the Org you want Child Orgs for
      * @return A List of Orgs that are active, and report to this Org
      */
     public List<Organization> getActiveChildOrgs(String chartOfAccountsCode, String organizationCode);
@@ -98,9 +98,8 @@ public interface OrganizationService {
 
     /**
      * Flushes an internal cache used to resolve parent organizations.
-     *
+     * <p>
      * Called from the KualiOrgMaintainable when an org is saved via the document.
-     *
      */
     public void flushParentOrgCache();
 }

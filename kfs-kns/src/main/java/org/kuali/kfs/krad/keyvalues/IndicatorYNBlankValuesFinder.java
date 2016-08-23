@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * This class returns list of payment method key value pairs.
- *
- *
  */
 public class IndicatorYNBlankValuesFinder extends IndicatorYNOnlyValuesFinder {
 
@@ -34,9 +32,9 @@ public class IndicatorYNBlankValuesFinder extends IndicatorYNOnlyValuesFinder {
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> activeLabels = super.getKeyValues();
-        activeLabels.add(0,new ConcreteKeyValue("", ""));
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> activeLabels = super.getKeyValues();
+        activeLabels.add(0, new ConcreteKeyValue("", ""));
         return activeLabels;
     }
 

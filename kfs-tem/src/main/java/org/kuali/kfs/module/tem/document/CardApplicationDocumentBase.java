@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.util.ArrayList;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.tem.TemWorkflowConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.util.ArrayList;
 
 public abstract class CardApplicationDocumentBase extends FinancialSystemTransactionalDocumentBase implements CardApplicationDocument {
     protected static Logger LOG = Logger.getLogger(CardApplicationDocumentBase.class);
@@ -48,22 +48,27 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
     public TemProfile getTemProfile() {
         return temProfile;
     }
+
     @Override
     public void setTemProfile(TemProfile temProfile) {
         this.temProfile = temProfile;
     }
+
     @Override
     public Integer getTemProfileId() {
         return temProfileId;
     }
+
     @Override
     public void setTemProfileId(Integer temProfileId) {
         this.temProfileId = temProfileId;
     }
+
     @Override
     public boolean isUserAgreement() {
         return userAgreement;
     }
+
     @Override
     public void setUserAgreement(boolean userAgreement) {
         this.userAgreement = userAgreement;
@@ -83,6 +88,7 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
     public String getDummyAppDocStatus() {
         return dummyAppDocStatus;
     }
+
     /**
      * Sets the dummyAppDocStatus attribute.
      *
@@ -94,7 +100,7 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
 
     protected String zeroBuffer(Long number) {
         String numberStr = number.toString();
-        while (numberStr.length() < 16){
+        while (numberStr.length() < 16) {
             numberStr = "0" + numberStr;
         }
         return numberStr;
@@ -141,8 +147,7 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
         getTravelDocumentService().addAdHocRecipient(this, getTemProfile().getPrincipalId(), KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ);
         try {
             SpringContext.getBean(WorkflowDocumentService.class).acknowledge(this.getDocumentHeader().getWorkflowDocument(), null, new ArrayList<AdHocRouteRecipient>(getAdHocRoutePersons()));
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             // TODO Auto-generated catch block
             ex.printStackTrace();
         }
@@ -151,10 +156,12 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
 
     /**
      * Default: do nothing
+     *
      * @see org.kuali.kfs.module.tem.document.CardApplicationDocument#approvedByBank()
      */
     @Override
-    public void approvedByBank() {}
+    public void approvedByBank() {
+    }
 
     @Override
     public boolean saveAppDocStatus() {
@@ -162,8 +169,7 @@ public abstract class CardApplicationDocumentBase extends FinancialSystemTransac
         try {
             getWorkflowDocumentService().save(getDocumentHeader().getWorkflowDocument(), null);
             saved = true;
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error(ex.getMessage(), ex);
         }
         return saved;

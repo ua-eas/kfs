@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.fp.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -30,6 +27,9 @@ import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springmodules.orm.ojb.PersistenceBrokerTemplate;
 
+import java.math.BigDecimal;
+import java.util.Iterator;
+
 public class CapitalAssetInformationDaoOjb extends PlatformAwareDaoBaseOjb implements CapitalAssetInformationDao {
     protected static final Logger LOG = Logger.getLogger(CapitalAssetInformation.class);
 
@@ -38,7 +38,7 @@ public class CapitalAssetInformationDaoOjb extends PlatformAwareDaoBaseOjb imple
         final PersistenceBrokerTemplate temp = getPersistenceBrokerTemplate();
         final String queryString = "";
         final Criteria cri = new Criteria();
-        final ReportQueryByCriteria query = new ReportQueryByCriteria(CapitalAssetInformation.class, new String[]{"max(capitalAssetLineNumber)"}, cri );
+        final ReportQueryByCriteria query = new ReportQueryByCriteria(CapitalAssetInformation.class, new String[]{"max(capitalAssetLineNumber)"}, cri);
         cri.addEqualTo("documentNumber", financialDocumentNumber);
         query.addGroupBy("documentNumber");
         final Iterator<Object> iterator = temp.getReportQueryIteratorByQuery(query);
@@ -47,7 +47,7 @@ public class CapitalAssetInformationDaoOjb extends PlatformAwareDaoBaseOjb imple
         if (iterator.hasNext()) {
             Object[] data = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);
             if (data[0] != null) {
-                value = (BigDecimal)data[0];
+                value = (BigDecimal) data[0];
             }
         }
         //do the add in BigDecimal so that we can accurately check for lost information *after* the add

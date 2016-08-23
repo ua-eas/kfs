@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides option values the threshold settings operator field.

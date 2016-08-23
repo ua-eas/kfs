@@ -22,7 +22,6 @@ import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 
 /**
  * This service interface defines methods that a BudgetAdjustmentLaborBenefitService implementation must provide.
- *
  */
 public interface BudgetAdjustmentLaborBenefitsService {
 

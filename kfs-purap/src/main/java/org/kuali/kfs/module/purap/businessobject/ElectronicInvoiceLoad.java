@@ -22,13 +22,13 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 
 public class ElectronicInvoiceLoad {
 
@@ -72,7 +72,7 @@ public class ElectronicInvoiceLoad {
         return rejectFilesToMove;
     }
 
-    public boolean containsRejects(){
+    public boolean containsRejects() {
         return !rejectDocumentList.isEmpty();
     }
 

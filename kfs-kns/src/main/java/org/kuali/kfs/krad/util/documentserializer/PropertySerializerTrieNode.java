@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * A node in the trie.
- *
  */
 public class PropertySerializerTrieNode implements PropertySerializabilityMetadata {
     private String pathString;
@@ -109,10 +108,9 @@ public class PropertySerializerTrieNode implements PropertySerializabilityMetada
         buf.append("Path String: ").append(pathString).append(" Name component: ").append(propertyNameComponent);
         if (childNodes == null || childNodes.isEmpty()) {
             buf.append(" No child nodes.");
-        }
-        else {
+        } else {
             buf.append(" Child nodes: ");
-            for (Iterator<PropertySerializerTrieNode> i = childNodes.iterator(); i.hasNext();) {
+            for (Iterator<PropertySerializerTrieNode> i = childNodes.iterator(); i.hasNext(); ) {
                 buf.append(i.next().getPropertyNameComponent());
                 if (i.hasNext()) {
                     buf.append(", ");

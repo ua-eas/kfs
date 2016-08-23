@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.integration.cab;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.integration.purap.ExternalPurApItem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.krad.bo.DocumentHeader;
+
+import java.util.List;
 
 public interface CapitalAssetBuilderModuleService {
     /**
@@ -35,6 +35,7 @@ public interface CapitalAssetBuilderModuleService {
      * @return
      */
     public boolean isAssetTypeExisting(String assetTypeCode);
+
     /**
      * Get current Purchase Order Document number for given CAMS Document Number
      *
@@ -46,7 +47,7 @@ public interface CapitalAssetBuilderModuleService {
     /**
      * validate the capitalAssetManagementAsset data associated with the given accounting document
      *
-     * @param accountingDocument the given accounting document
+     * @param accountingDocument          the given accounting document
      * @param capitalAssetManagementAsset data to be validated
      * @return validation succeeded or errors present
      */
@@ -87,7 +88,7 @@ public interface CapitalAssetBuilderModuleService {
      *
      * @param accountingLines the given source accounting lines
      * @return true if there is at least one object code of the given source accounting lines with a capital asset object sub type;
-     *         otherwise, false
+     * otherwise, false
      */
     public boolean hasCapitalAssetObjectSubType(AccountingDocument accountingDocument);
 
@@ -110,6 +111,7 @@ public interface CapitalAssetBuilderModuleService {
     /**
      * determine whether the given document's all capital accounting lines totals
      * match to that of capital assets.
+     *
      * @param accountingDocumentForValidation
      * @return true if totals match else return false
      */
@@ -126,6 +128,7 @@ public interface CapitalAssetBuilderModuleService {
 
     /**
      * validates whether capital assets exist for any given capital accounting line.
+     *
      * @param accountingDocumentForValidation
      * @return true if capital assets exist for capital accounting line else return false.
      */
@@ -133,6 +136,7 @@ public interface CapitalAssetBuilderModuleService {
 
     /**
      * mark the gl entry line if all the capital asset lines have been processed
+     *
      * @param documentNumber
      * @return true if gl entry line marked as processed else return false.
      */
@@ -158,35 +162,36 @@ public interface CapitalAssetBuilderModuleService {
 
     /**
      * Check FP document individual Capital Asset line eligibility for CAB Extract Batch
+     *
      * @param assetInfoLine
      * @param postingYear
      * @return
      */
-	public boolean isAssetLineEligibleForCABBatch(
-			CapitalAssetInformation assetInfoLine, Integer postingYear,
-			List<String> includedObjectSubTypeCodes,
-			List<String> excludedChartCodes, List<String> excludedSubFundCodes);
+    public boolean isAssetLineEligibleForCABBatch(
+        CapitalAssetInformation assetInfoLine, Integer postingYear,
+        List<String> includedObjectSubTypeCodes,
+        List<String> excludedChartCodes, List<String> excludedSubFundCodes);
 
     /**
      * Get CAB Batch parameter value of allowed financial object sub types
      *
      * @return
      */
-    public List<String> getBatchIncludedObjectSubTypes ();
+    public List<String> getBatchIncludedObjectSubTypes();
 
     /**
      * Get CAB Batch parameter value of disallowed chart codes
      *
      * @return
      */
-    public List<String> getBatchExcludedChartCodes ();
+    public List<String> getBatchExcludedChartCodes();
 
     /**
      * Get CAB Batch parameter value of disallowed sub fund codes
      *
-    * @return
-    */
-    public List<String> getBatchExcludedSubFundCodes ();
+     * @return
+     */
+    public List<String> getBatchExcludedSubFundCodes();
 
     /**
      * This function removes CapitalAssetInformations that don't have at least one capital asset object

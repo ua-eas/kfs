@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sec.businessobject.SecurityAttribute;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -43,7 +43,7 @@ public class SecurityAttributeFinder extends KeyValuesBase {
         List activeLabels = new ArrayList();
 
         Collection securityAttributes = SpringContext.getBean(KeyValuesService.class).findAllOrderBy(SecurityAttribute.class, KFSPropertyConstants.ID, true);
-        for (Iterator iterator = securityAttributes.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = securityAttributes.iterator(); iterator.hasNext(); ) {
             SecurityAttribute securityAttribute = (SecurityAttribute) iterator.next();
             activeLabels.add(new ConcreteKeyValue(securityAttribute.getId().toString(), securityAttribute.getName()));
         }

@@ -18,11 +18,8 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountDump;
@@ -36,9 +33,12 @@ import org.kuali.kfs.module.bc.document.service.ReportExportService;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @see org.kuali.kfs.module.bc.document.service.ReportExportService
@@ -57,7 +57,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildAccountDumpFile(java.lang.String, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public StringBuilder buildOrganizationAccountDumpFile(String principalId, String fieldSeperator, String textDelimiter) {
 
@@ -125,43 +125,43 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildFundingDumpFile(java.lang.String, java.lang.String,
-     *      java.lang.String) // read u_where %\ // (univ_fiscal_yr.ld_pndbc_apptfnd_t = univ_fiscal_yr.ld_bcn_acct_dump_t & %\ //
-     *      fin_coa_cd.ld_pndbc_apptfnd_t = fin_coa_cd.ld_bcn_acct_dump_t & %\ // account_nbr.ld_pndbc_apptfnd_t =
-     *      account_nbr.ld_bcn_acct_dump_t & %\ // sub_acct_nbr.ld_pndbc_apptfnd_t = sub_acct_nbr.ld_bcn_acct_dump_t) %\ // order by
-     *      "fin_object_cd , fin_sub_obj_cd, position_nbr, emplid" // // // if ($empty(ld_pndbc_apptfnd_t) = 0) // repeat // ;build
-     *      the output line // ;note that gennum and genpct are used to strip numbers of commas // ;bcpct and bcfte are used also to
-     *      force the display of decimals // $line$ = "%%univ_fiscal_yr.ld_pndbc_apptfnd_t%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fin_coa_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%account_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // ;add in org code field // $line$ =
-     *      "%%$line$%%$dlm$%%$org_cd$%%$dlm$%%$sep$" // $line$ = "%%$line$%%$dlm$%%sub_acct_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" //
-     *      $line$ = "%%$line$%%$dlm$%%fin_object_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fin_sub_obj_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%position_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // ;add in position and job rank fields // $line$ =
-     *      "%%$line$%%$dlm$%%pos_descr.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%setid_salary.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%pos_sal_plan_dflt.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%pos_grade_dflt.ld_bcn_pos_t%%$dlm$%%$sep$" // ;add in work months and pay months // $line$ =
-     *      "%%$line$%%iu_norm_work_months.ld_bcn_pos_t%%$sep$" // $line$ = "%%$line$%%iu_pay_months.ld_bcn_pos_t%%$sep$" // ;add in
-     *      incumbent fields // $line$ = "%%$line$%%$dlm$%%emplid.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%person_nm.ld_bcn_intincbnt_t%%$dlm$%%$sep$" // $line$ = %\ //
-     *      "%%$line$%%$dlm$%%iu_classif_level.ld_bcn_intincbnt_t%%$dlm$%%$sep$" // ;add in the admin post // $line$ = %\ //
-     *      "%%$line$%%$dlm$%%admin_post.ld_bcn_adm_post_t%%$dlm$%%$sep$" // ;add in the csf info // $gennum$ =
-     *      pos_csf_amt.ld_bcn_csf_trckr_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ = pos_csf_fte_qty.ld_bcn_csf_trckr_t //
-     *      $line$ = "%%$line$%%$bcfte$%%$sep$" // $bcpct$ = pos_csf_tm_pct.ld_bcn_csf_trckr_t // $line$ =
-     *      "%%$line$%%$bcpct$%%$sep$" // ;rest of bcaf // $line$ =
-     *      "%%$line$%%$dlm$%%appt_fnd_dur_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $gennum$ = appt_rqst_csf_amt.ld_pndbc_apptfnd_t //
-     *      $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ = appt_rqcsf_fte_qty.ld_pndbc_apptfnd_t // $line$ =
-     *      "%%$line$%%$bcfte$%%$sep$" // $bcpct$ = appt_rqcsf_tm_pct.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcpct$%%$sep$" //
-     *      $gennum$ = appt_tot_intnd_amt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ =
-     *      appt_totintfte_qty.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcfte$%%$sep$" // $gennum$ =
-     *      appt_rqst_amt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcpct$ =
-     *      appt_rqst_tm_pct.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcpct$%%$sep$" // $bcfte$ =
-     *      appt_rqst_fte_qty.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcfte$%%$sep$" // $gennum$ =
-     *      appt_rqst_pay_rt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%appt_fnd_dlt_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%appt_fnd_mo.ld_pndbc_apptfnd_t%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%appt_fnd_reason_cd.ld_bcn_af_reason_t%%$dlm$%%$sep$" // ; rc_cd added 12/20/2004 - gwp // $line$ =
-     *      "%%$line$%%$dlm$%%$rc_cd$%%$dlm$" // // $line$ = "%%$line$%%^"
+     * java.lang.String) // read u_where %\ // (univ_fiscal_yr.ld_pndbc_apptfnd_t = univ_fiscal_yr.ld_bcn_acct_dump_t & %\ //
+     * fin_coa_cd.ld_pndbc_apptfnd_t = fin_coa_cd.ld_bcn_acct_dump_t & %\ // account_nbr.ld_pndbc_apptfnd_t =
+     * account_nbr.ld_bcn_acct_dump_t & %\ // sub_acct_nbr.ld_pndbc_apptfnd_t = sub_acct_nbr.ld_bcn_acct_dump_t) %\ // order by
+     * "fin_object_cd , fin_sub_obj_cd, position_nbr, emplid" // // // if ($empty(ld_pndbc_apptfnd_t) = 0) // repeat // ;build
+     * the output line // ;note that gennum and genpct are used to strip numbers of commas // ;bcpct and bcfte are used also to
+     * force the display of decimals // $line$ = "%%univ_fiscal_yr.ld_pndbc_apptfnd_t%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fin_coa_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%account_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // ;add in org code field // $line$ =
+     * "%%$line$%%$dlm$%%$org_cd$%%$dlm$%%$sep$" // $line$ = "%%$line$%%$dlm$%%sub_acct_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" //
+     * $line$ = "%%$line$%%$dlm$%%fin_object_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fin_sub_obj_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%position_nbr.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // ;add in position and job rank fields // $line$ =
+     * "%%$line$%%$dlm$%%pos_descr.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%setid_salary.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%pos_sal_plan_dflt.ld_bcn_pos_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%pos_grade_dflt.ld_bcn_pos_t%%$dlm$%%$sep$" // ;add in work months and pay months // $line$ =
+     * "%%$line$%%iu_norm_work_months.ld_bcn_pos_t%%$sep$" // $line$ = "%%$line$%%iu_pay_months.ld_bcn_pos_t%%$sep$" // ;add in
+     * incumbent fields // $line$ = "%%$line$%%$dlm$%%emplid.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%person_nm.ld_bcn_intincbnt_t%%$dlm$%%$sep$" // $line$ = %\ //
+     * "%%$line$%%$dlm$%%iu_classif_level.ld_bcn_intincbnt_t%%$dlm$%%$sep$" // ;add in the admin post // $line$ = %\ //
+     * "%%$line$%%$dlm$%%admin_post.ld_bcn_adm_post_t%%$dlm$%%$sep$" // ;add in the csf info // $gennum$ =
+     * pos_csf_amt.ld_bcn_csf_trckr_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ = pos_csf_fte_qty.ld_bcn_csf_trckr_t //
+     * $line$ = "%%$line$%%$bcfte$%%$sep$" // $bcpct$ = pos_csf_tm_pct.ld_bcn_csf_trckr_t // $line$ =
+     * "%%$line$%%$bcpct$%%$sep$" // ;rest of bcaf // $line$ =
+     * "%%$line$%%$dlm$%%appt_fnd_dur_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $gennum$ = appt_rqst_csf_amt.ld_pndbc_apptfnd_t //
+     * $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ = appt_rqcsf_fte_qty.ld_pndbc_apptfnd_t // $line$ =
+     * "%%$line$%%$bcfte$%%$sep$" // $bcpct$ = appt_rqcsf_tm_pct.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcpct$%%$sep$" //
+     * $gennum$ = appt_tot_intnd_amt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcfte$ =
+     * appt_totintfte_qty.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcfte$%%$sep$" // $gennum$ =
+     * appt_rqst_amt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $bcpct$ =
+     * appt_rqst_tm_pct.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcpct$%%$sep$" // $bcfte$ =
+     * appt_rqst_fte_qty.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$bcfte$%%$sep$" // $gennum$ =
+     * appt_rqst_pay_rt.ld_pndbc_apptfnd_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%appt_fnd_dlt_cd.ld_pndbc_apptfnd_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%appt_fnd_mo.ld_pndbc_apptfnd_t%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%appt_fnd_reason_cd.ld_bcn_af_reason_t%%$dlm$%%$sep$" // ; rc_cd added 12/20/2004 - gwp // $line$ =
+     * "%%$line$%%$dlm$%%$rc_cd$%%$dlm$" // // $line$ = "%%$line$%%^"
      */
     public StringBuilder buildOrganizationFundingDumpFile(String principalId, String fieldSeperator, String textDelimiter) {
         // update account dump table
@@ -184,33 +184,33 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildMonthlyDumpFile(java.lang.String, java.lang.String,
-     *      java.lang.String) // read u_where %\ // (univ_fiscal_yr.ld_bcnstr_month_t = univ_fiscal_yr.ld_bcn_acct_dump_t & %\ //
-     *      fin_coa_cd.ld_bcnstr_month_t = fin_coa_cd.ld_bcn_acct_dump_t & %\ // account_nbr.ld_bcnstr_month_t =
-     *      account_nbr.ld_bcn_acct_dump_t & %\ // sub_acct_nbr.ld_bcnstr_month_t = sub_acct_nbr.ld_bcn_acct_dump_t) %\ // order by
-     *      "fin_object_cd, fin_sub_obj_cd" // endif // // if ($empty(ld_bcnstr_month_t) = 0) // repeat // ;build the output line //
-     *      ;note that gennum are used to strip numbers of commas // $line$ =
-     *      "%%$dlm$%%fs_origin_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fdoc_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%univ_fiscal_yr.ld_bcnstr_month_t%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fin_coa_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%account_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" // ;add in org code field // $line$ =
-     *      "%%$line$%%$dlm$%%$org_cd$%%$dlm$%%$sep$" // $line$ = "%%$line$%%$dlm$%%sub_acct_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" //
-     *      $line$ = "%%$line$%%$dlm$%%fin_object_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fin_sub_obj_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ = %\ //
-     *      "%%$line$%%$dlm$%%fin_balance_typ_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
-     *      "%%$line$%%$dlm$%%fin_obj_typ_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $gennum$ = fdoc_ln_mo1_amt.ld_bcnstr_month_t //
-     *      $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ = fdoc_ln_mo2_amt.ld_bcnstr_month_t // $line$ =
-     *      "%%$line$%%$gennum$%%$sep$" // $gennum$ = fdoc_ln_mo3_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" //
-     *      $gennum$ = fdoc_ln_mo4_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo5_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo6_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo7_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo8_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo9_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo10_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo11_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
-     *      fdoc_ln_mo12_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // ; rc_cd added 12/20/2004 - gwp // $line$ =
-     *      "%%$line$%%$dlm$%%$rc_cd$%%$dlm$" // // $line$ = "%%$line$%%^"
+     * java.lang.String) // read u_where %\ // (univ_fiscal_yr.ld_bcnstr_month_t = univ_fiscal_yr.ld_bcn_acct_dump_t & %\ //
+     * fin_coa_cd.ld_bcnstr_month_t = fin_coa_cd.ld_bcn_acct_dump_t & %\ // account_nbr.ld_bcnstr_month_t =
+     * account_nbr.ld_bcn_acct_dump_t & %\ // sub_acct_nbr.ld_bcnstr_month_t = sub_acct_nbr.ld_bcn_acct_dump_t) %\ // order by
+     * "fin_object_cd, fin_sub_obj_cd" // endif // // if ($empty(ld_bcnstr_month_t) = 0) // repeat // ;build the output line //
+     * ;note that gennum are used to strip numbers of commas // $line$ =
+     * "%%$dlm$%%fs_origin_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fdoc_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%univ_fiscal_yr.ld_bcnstr_month_t%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fin_coa_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%account_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" // ;add in org code field // $line$ =
+     * "%%$line$%%$dlm$%%$org_cd$%%$dlm$%%$sep$" // $line$ = "%%$line$%%$dlm$%%sub_acct_nbr.ld_bcnstr_month_t%%$dlm$%%$sep$" //
+     * $line$ = "%%$line$%%$dlm$%%fin_object_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fin_sub_obj_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ = %\ //
+     * "%%$line$%%$dlm$%%fin_balance_typ_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $line$ =
+     * "%%$line$%%$dlm$%%fin_obj_typ_cd.ld_bcnstr_month_t%%$dlm$%%$sep$" // $gennum$ = fdoc_ln_mo1_amt.ld_bcnstr_month_t //
+     * $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ = fdoc_ln_mo2_amt.ld_bcnstr_month_t // $line$ =
+     * "%%$line$%%$gennum$%%$sep$" // $gennum$ = fdoc_ln_mo3_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" //
+     * $gennum$ = fdoc_ln_mo4_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo5_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo6_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo7_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo8_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo9_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo10_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo11_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // $gennum$ =
+     * fdoc_ln_mo12_amt.ld_bcnstr_month_t // $line$ = "%%$line$%%$gennum$%%$sep$" // ; rc_cd added 12/20/2004 - gwp // $line$ =
+     * "%%$line$%%$dlm$%%$rc_cd$%%$dlm$" // // $line$ = "%%$line$%%^"
      */
     public StringBuilder buildOrganizationMonthlyDumpFile(String principalId, String fieldSeperator, String textDelimiter) {
         // update account dump table
@@ -232,7 +232,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildAccountDumpFile(java.lang.String, java.lang.String,
-     *      java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public StringBuilder buildAccountDumpFile(String principalId, String fieldSeperator, String textDelimiter, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         StringBuilder results = new StringBuilder();
@@ -253,7 +253,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildAccountFundingDumpFile(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public StringBuilder buildAccountFundingDumpFile(String principalId, String fieldSeperator, String textDelimiter, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         StringBuilder results = new StringBuilder();
@@ -273,7 +273,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.ReportExportService#buildAccountMonthlyDumpFile(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
      */
     public StringBuilder buildAccountMonthlyDumpFile(String principalId, String fieldSeperator, String textDelimiter, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber) {
         StringBuilder results = new StringBuilder();
@@ -452,8 +452,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         if (ObjectUtils.isNotNull(fundingRecord.getBudgetConstructionIntendedIncumbent())) {
             line = line + textDelimiter + fundingRecord.getBudgetConstructionIntendedIncumbent().getName() + textDelimiter + fieldSeperator;
             line = line + textDelimiter + fundingRecord.getBudgetConstructionIntendedIncumbent().getIuClassificationLevel() + textDelimiter + fieldSeperator;
-        }
-        else {
+        } else {
             line = line + textDelimiter + textDelimiter + fieldSeperator;
             line = line + textDelimiter + textDelimiter + fieldSeperator;
         }
@@ -469,8 +468,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             line = line + "" + fieldSeperator;
             line = line + "" + fieldSeperator;
 
-        }
-        else {
+        } else {
             line = line + (new KualiDecimal(fundingRecord.getBcnCalculatedSalaryFoundationTracker().get(0).getCsfAmount().intValue())) + fieldSeperator;
             line = line + (new KualiDecimal(fundingRecord.getBcnCalculatedSalaryFoundationTracker().get(0).getCsfFullTimeEmploymentQuantity())) + fieldSeperator;
             line = line + (new KualiDecimal(fundingRecord.getBcnCalculatedSalaryFoundationTracker().get(0).getCsfTimePercent())) + fieldSeperator;
@@ -490,10 +488,9 @@ public class ReportExportServiceImpl implements ReportExportService {
         line = line + fundingRecord.getAppointmentFundingMonth() + fieldSeperator;
 
         List<BudgetConstructionAppointmentFundingReason> appointmentFundingReasonList = fundingRecord.getBudgetConstructionAppointmentFundingReason();
-        if (ObjectUtils.isNotNull(appointmentFundingReasonList) && !appointmentFundingReasonList.isEmpty()){
+        if (ObjectUtils.isNotNull(appointmentFundingReasonList) && !appointmentFundingReasonList.isEmpty()) {
             line = line + textDelimiter + ((appointmentFundingReasonList.get(0).getAppointmentFundingReasonCode() == null) ? "" : appointmentFundingReasonList.get(0).getAppointmentFundingReasonCode()) + textDelimiter + fieldSeperator;
-        }
-        else {
+        } else {
             line = line + textDelimiter + "" + textDelimiter + fieldSeperator;
         }
         line = line + textDelimiter + accountReport.getBudgetConstructionOrganizationReports().getResponsibilityCenterCode() + textDelimiter;

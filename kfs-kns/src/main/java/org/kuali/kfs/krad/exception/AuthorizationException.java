@@ -27,8 +27,6 @@ import java.util.Map;
 /**
  * Represents an exception that is thrown when a given user is not authorized to take the given action on the given
  * target type
- *
- *
  */
 public class AuthorizationException extends KualiException {
     private static final long serialVersionUID = -3874239711783179351L;
@@ -45,25 +43,25 @@ public class AuthorizationException extends KualiException {
     /**
      * Constructs a exception with a message from the passed in information.
      *
-     * @param userId the userid of the user who failed authorization
-     * @param action the action the user was trying to take
-     * @param targetType what the user was trying to take action on
+     * @param userId            the userid of the user who failed authorization
+     * @param action            the action the user was trying to take
+     * @param targetType        what the user was trying to take action on
      * @param additionalDetails additional details about the authorization failure to be passed in and added to the
-     * exception message (ex: permission name, qualifiers, etc.)
+     *                          exception message (ex: permission name, qualifiers, etc.)
      */
     public AuthorizationException(String userId, String action, String targetType,
-            Map<String, Object> additionalDetails) {
+                                  Map<String, Object> additionalDetails) {
         this(userId, action, targetType, "user '" + userId + "' is not authorized to take action '" + action
-                + "' on targets of type '" + targetType + "'"
-                + (additionalDetails != null && !additionalDetails.isEmpty() ?
-                " Additional Details : " + additionalDetails : ""), additionalDetails);
+            + "' on targets of type '" + targetType + "'"
+            + (additionalDetails != null && !additionalDetails.isEmpty() ?
+            " Additional Details : " + additionalDetails : ""), additionalDetails);
     }
 
     /**
      * Allows you to construct the exception message manually
      */
     public AuthorizationException(String userId, String action, String targetType, String message,
-            Map<String, Object> additionalDetails) {
+                                  Map<String, Object> additionalDetails) {
         super(message);
 
         this.userId = userId;

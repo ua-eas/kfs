@@ -19,30 +19,30 @@
 package org.kuali.kfs.module.cam.businessobject.options;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AssetDepreciationConventionValuesFinder extends KeyValuesBase {
 
     /**
-    * Constructs a AssetDepreciationConventionValuesFinder.java.
-    */
+     * Constructs a AssetDepreciationConventionValuesFinder.java.
+     */
     public AssetDepreciationConventionValuesFinder() {
         super();
     }
 
     /**
-    * Builds a collection of possible values to be selected from. These values are used to build out a drop down list for user
-    * selection.
-    *
-    * @return A list of KeyValue objects.
-    * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
-    */
+     * Builds a collection of possible values to be selected from. These values are used to build out a drop down list for user
+     * selection.
+     *
+     * @return A list of KeyValue objects.
+     * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
+     */
     public List getKeyValues() {
 
         List<KeyValue> notificationValuesPairList = new ArrayList(4);

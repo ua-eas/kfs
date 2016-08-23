@@ -18,19 +18,11 @@
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.KFSConstants.EMPTY_STRING;
-import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.BALANCE_TYPE;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.fp.businessobject.JournalVoucherAccountingLineParser;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
@@ -48,7 +40,15 @@ import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Copyable;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSConstants.EMPTY_STRING;
+import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
+import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.BALANCE_TYPE;
 
 /**
  * This is the business object that represents the JournalVoucherDocument in Kuali. This is a transactional document that will
@@ -222,12 +222,10 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
         if (this.balanceType.isFinancialOffsetGenerationIndicator()) {
             if (getCreditTotal().isGreaterThan(getDebitTotal())) {
                 total = getCreditTotal();
-            }
-            else {
+            } else {
                 total = getDebitTotal();
             }
-        }
-        else {
+        } else {
             total = getDebitTotal();
         }
         return total;
@@ -276,11 +274,9 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
                     // now just flip the debit/credit code
                     if (GL_DEBIT_CODE.equals(debitCreditCode)) {
                         sLine.setDebitCreditCode(GL_CREDIT_CODE);
-                    }
-                    else if (GL_CREDIT_CODE.equals(debitCreditCode)) {
+                    } else if (GL_CREDIT_CODE.equals(debitCreditCode)) {
                         sLine.setDebitCreditCode(GL_DEBIT_CODE);
-                    }
-                    else {
+                    } else {
                         throw new IllegalStateException("SourceAccountingLine at index " + index + " does not have a debit/credit " + "code associated with it.  This should never have occured. Please contact your system administrator.");
 
                     }
@@ -295,7 +291,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
      * <ol>
      * <li> (debitCreditCode isNotBlank) && debitCreditCode != 'D'
      * </ol>
-     *
+     * <p>
      * The following are debits (return true)
      * <ol>
      * <li> debitCreditCode == 'D'
@@ -303,16 +299,15 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
      * </ol>
      *
      * @param financialDocument The document which contains the accounting line being analyzed.
-     * @param accountingLine The accounting line which will be analyzed to determine if it is a debit line.
+     * @param accountingLine    The accounting line which will be analyzed to determine if it is a debit line.
      * @return True if the accounting line provided is a debit accounting line, false otherwise.
      * @throws IllegalStateException Thrown by method IsDebitUtiles.isDebitCode()
-     *
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase.IsDebitUtils#isDebitCode(String)
      */
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) throws IllegalStateException {
-        AccountingLine accountingLine = (AccountingLine)postable;
+        AccountingLine accountingLine = (AccountingLine) postable;
         String debitCreditCode = accountingLine.getDebitCreditCode();
 
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
@@ -327,15 +322,14 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
      * the balance type code, the debit/credit code, the encumbrance update code and the reversal date.
      *
      * @param financialDocument The document which contains the general ledger pending entry being modified.
-     * @param accountingLine The accounting line the explicit entry was generated from.
-     * @param explicitEntry The explicit entry being updated.
-     *
+     * @param accountingLine    The accounting line the explicit entry was generated from.
+     * @param explicitEntry     The explicit entry being updated.
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
-        AccountingLine accountingLine = (AccountingLine)postable;
+        AccountingLine accountingLine = (AccountingLine) postable;
 
         // set the appropriate accounting period values according to the values chosen by the user
         explicitEntry.setUniversityFiscalPeriodCode(getPostingPeriodCode());
@@ -351,8 +345,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
         refreshReferenceObject(BALANCE_TYPE);
         if (getBalanceType().isFinancialOffsetGenerationIndicator()) {
             explicitEntry.setTransactionDebitCreditCode(StringUtils.isNotBlank(accountingLine.getDebitCreditCode()) ? accountingLine.getDebitCreditCode() : KFSConstants.BLANK_SPACE);
-        }
-        else {
+        } else {
             explicitEntry.setTransactionDebitCreditCode(KFSConstants.BLANK_SPACE);
         }
 
@@ -369,16 +362,15 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
      * A Journal Voucher document doesn't generate an offset entry at all, so this method overrides to do nothing more than return
      * true. This will be called by the parent's processGeneralLedgerPendingEntries method.
      *
-     * @param financialDocument The document the offset will be stored within.
-     * @param sequenceHelper The sequence object to be modified.
+     * @param financialDocument    The document the offset will be stored within.
+     * @param sequenceHelper       The sequence object to be modified.
      * @param accountingLineToCopy The accounting line the offset is generated for.
-     * @param explicitEntry The explicit entry the offset will be generated for.
-     * @param offsetEntry The offset entry to be processed.
+     * @param explicitEntry        The explicit entry the offset will be generated for.
+     * @param offsetEntry          The offset entry to be processed.
      * @return This method always returns true.
-     *
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#processOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
-     *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
+     * org.kuali.module.gl.bo.GeneralLedgerPendingEntry, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public boolean processOffsetGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntry explicitEntry, GeneralLedgerPendingEntry offsetEntry) {
@@ -387,7 +379,6 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#getGeneralLedgerPendingEntryAmountForAccountingLine(org.kuali.kfs.sys.businessobject.AccountingLine)
      */
     @Override
@@ -398,8 +389,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
         String budgetCodes = SpringContext.getBean(OptionsService.class).getOptions(accountingLine.getPostingYear()).getBudgetCheckingBalanceTypeCd();
         if (!this.balanceType.isFinancialOffsetGenerationIndicator()) {
             returnKualiDecimal = accountingLine.getAmount();
-        }
-        else {
+        } else {
             returnKualiDecimal = accountingLine.getAmount().abs();
         }
         LOG.debug("getGeneralLedgerPendingEntryAmountForAccountingLine(AccountingLine) - end");

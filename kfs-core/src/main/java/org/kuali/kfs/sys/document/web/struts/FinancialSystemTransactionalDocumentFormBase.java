@@ -45,27 +45,27 @@ public class FinancialSystemTransactionalDocumentFormBase extends KualiTransacti
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase#populateHeaderFields(org.kuali.rice.kew.api.WorkflowDocument)
-
+     * <p>
      * KRAD Conversion: Customizing the header fields - Uses data dictionary
      */
     @Override
     public void populateHeaderFields(WorkflowDocument workflowDocument) {
         super.populateHeaderFields(workflowDocument);
         if (getDocument().getDocumentHeader() instanceof FinancialSystemDocumentHeader) {
-            FinancialSystemDocumentHeader documentHeader = (FinancialSystemDocumentHeader)getDocument().getDocumentHeader();
+            FinancialSystemDocumentHeader documentHeader = (FinancialSystemDocumentHeader) getDocument().getDocumentHeader();
             if (StringUtils.isNotBlank(documentHeader.getFinancialDocumentInErrorNumber())) {
                 extendDocInfoToThreeColumns();
                 int insertIndex = 2;
                 getDocInfo().remove(insertIndex);
                 getDocInfo().add(insertIndex, new HeaderField("DataDictionary.FinancialSystemDocumentHeader.attributes.financialDocumentInErrorNumber",
-                        documentHeader.getFinancialDocumentInErrorNumber(), buildHtmlLink(getDocumentHandlerUrl(documentHeader.getFinancialDocumentInErrorNumber()), documentHeader.getFinancialDocumentInErrorNumber())));
+                    documentHeader.getFinancialDocumentInErrorNumber(), buildHtmlLink(getDocumentHandlerUrl(documentHeader.getFinancialDocumentInErrorNumber()), documentHeader.getFinancialDocumentInErrorNumber())));
             }
             if (StringUtils.isNotBlank(documentHeader.getCorrectedByDocumentId())) {
                 extendDocInfoToThreeColumns();
                 int insertIndex = getNumColumns() + 2;
                 getDocInfo().remove(insertIndex);
                 getDocInfo().add(insertIndex, new HeaderField("DataDictionary.FinancialSystemDocumentHeader.attributes.correctedByDocumentId",
-                        documentHeader.getCorrectedByDocumentId(), buildHtmlLink(getDocumentHandlerUrl(documentHeader.getCorrectedByDocumentId()), documentHeader.getCorrectedByDocumentId())));
+                    documentHeader.getCorrectedByDocumentId(), buildHtmlLink(getDocumentHandlerUrl(documentHeader.getCorrectedByDocumentId()), documentHeader.getCorrectedByDocumentId())));
 
 
             }
@@ -101,7 +101,7 @@ public class FinancialSystemTransactionalDocumentFormBase extends KualiTransacti
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#getExtraButtons()
-     *
+     * <p>
      * KRAD Conversion: Customizing the addition of extra buttons
      */
     @Override
@@ -119,15 +119,15 @@ public class FinancialSystemTransactionalDocumentFormBase extends KualiTransacti
      * Generates an ExtraButton which represents the error correction button
      *
      * @return an ExtraButton representing an ErrorCorrection button
-     *
-     *  KRAD Conversion: Customizing the error correction button
+     * <p>
+     * KRAD Conversion: Customizing the error correction button
      */
     protected ExtraButton generateErrorCorrectionButton() {
-        if ( errorCorrectionButton == null ) {
+        if (errorCorrectionButton == null) {
             ExtraButton button = new ExtraButton();
             button.setExtraButtonAltText("Error Correction");
             button.setExtraButtonProperty("methodToCall.correct");
-            button.setExtraButtonSource(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url")+"buttonsmall_errcorr.gif");
+            button.setExtraButtonSource(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url") + "buttonsmall_errcorr.gif");
             errorCorrectionButton = button;
         }
         return errorCorrectionButton;

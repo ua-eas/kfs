@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Declares the service methods used by CAB batch program
@@ -62,7 +62,7 @@ public interface BatchExtractService {
     /**
      * Saves financial transaction lines which dont have Purchase Order number associated with it
      *
-     * @param fpLines Financial transaction lines
+     * @param fpLines    Financial transaction lines
      * @param processLog Process Log
      */
     void saveFPLines(List<Entry> fpLines, ExtractProcessLog processLog);
@@ -71,7 +71,7 @@ public interface BatchExtractService {
      * Saved purchasing line transactions, this method implementation internally uses
      * {@link org.kuali.kfs.gl.batch.service.ReconciliationService} to QA the data before saving
      *
-     * @param poLines Eligible GL Lines
+     * @param poLines    Eligible GL Lines
      * @param processLog Process Log
      */
     HashSet<PurchasingAccountsPayableDocument> savePOLines(List<Entry> poLines, ExtractProcessLog processLog);
@@ -79,8 +79,8 @@ public interface BatchExtractService {
     /**
      * Separates out transaction lines associated with purchase order from the rest
      *
-     * @param fpLines Non-purchasing lines
-     * @param purapLines Purchasing lines
+     * @param fpLines          Non-purchasing lines
+     * @param purapLines       Purchasing lines
      * @param elgibleGLEntries Full list of eligible GL entries
      */
     void separatePOLines(List<Entry> fpLines, List<Entry> purapLines, Collection<Entry> elgibleGLEntries);

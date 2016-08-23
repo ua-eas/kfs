@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.krad.web.session
 
-import org.kuali.kfs.krad.web.session.NonSerializableSessionListener
-
-import javax.servlet.http.HttpSessionBindingEvent
 import org.junit.Test
 import org.kuali.rice.core.api.config.property.Config
 import org.kuali.rice.core.api.config.property.ConfigContext
 import org.kuali.rice.core.framework.config.property.SimpleConfig
 import org.springframework.mock.web.MockHttpSession
+
+import javax.servlet.http.HttpSessionBindingEvent
+
 import static org.junit.Assert.assertFalse
 import static org.junit.Assert.assertTrue
 
@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue
 class NonSerializableSessionListenerTest {
     static class TestNonSerializableSessionListener extends NonSerializableSessionListener {
         private serializationChecked = false
+
         protected void checkSerialization(final HttpSessionBindingEvent se, String action) {
             serializationChecked = true
             super.checkSerialization(se, action)

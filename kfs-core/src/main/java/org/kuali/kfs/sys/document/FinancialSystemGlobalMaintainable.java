@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
 import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.KualiGlobalMaintainableImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class...
@@ -94,10 +94,10 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
         PersistableBusinessObject bo = getBusinessObject();
         Iterator<Map.Entry<String, String>> chartAccountPairs = apsService.listChartCodeAccountNumberPairs(bo).entrySet().iterator();
         while (chartAccountPairs.hasNext()) {
-            Map.Entry<String, String> entry = (Map.Entry<String, String>)chartAccountPairs.next();
+            Map.Entry<String, String> entry = (Map.Entry<String, String>) chartAccountPairs.next();
             String coaCodeName = entry.getKey();
             String acctNumName = entry.getValue();
-            String accountNumber = (String)ObjectUtils.getPropertyValue(bo, acctNumName);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(bo, acctNumName);
             String coaCode = null;
             Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
@@ -105,8 +105,7 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
             }
             try {
                 ObjectUtils.setObjectProperty(bo, coaCodeName, coaCode);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Error in setting property value for " + coaCodeName, e);
             }
         }
@@ -114,21 +113,20 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
         // collection reference accounts
         Iterator<Map.Entry<String, Class>> accountColls = apsService.listCollectionAccountFields(bo).entrySet().iterator();
         while (accountColls.hasNext()) {
-            Map.Entry<String, Class> entry = (Map.Entry<String, Class>)accountColls.next();
+            Map.Entry<String, Class> entry = (Map.Entry<String, Class>) accountColls.next();
             String accountCollName = entry.getKey();
             PersistableBusinessObject newAccount = getNewCollectionLine(accountCollName);
 
             // here we can use hard-coded chartOfAccountsCode and accountNumber field name
             // since all reference account types do follow the standard naming pattern
-            String accountNumber = (String)ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
             String coaCode = null;
             Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
                 coaCode = account.getChartOfAccountsCode();
                 try {
                     ObjectUtils.setObjectProperty(newAccount, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, coaCode);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("Error in setting chartOfAccountsCode property value in account collection " + accountCollName, e);
                 }
             }

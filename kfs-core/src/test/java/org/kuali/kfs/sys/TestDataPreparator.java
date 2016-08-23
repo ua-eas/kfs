@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.sys;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,14 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * provide with a set of utilities that can be used to prepare test data for unit testing. The core idea is to convert Java
@@ -54,8 +53,7 @@ public class TestDataPreparator {
         Properties properties = new Properties();
         try {
             properties.load(TestDataPreparator.class.getClassLoader().getResourceAsStream(classPath));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Invalid class path: " + classPath + e);
         }
 
@@ -66,10 +64,10 @@ public class TestDataPreparator {
      * build a list of objects of type "clazz" from the test data provided by the given properties. The default fieldNames and
      * deliminator are used.
      *
-     * @param clazz the the specified object type
-     * @param properties the given properties that contain the test data
+     * @param clazz             the the specified object type
+     * @param properties        the given properties that contain the test data
      * @param propertyKeyPrefix the test data with the given key prefix can be used to construct the return objects
-     * @param numberOfData the number of test data matching the search criteria
+     * @param numberOfData      the number of test data matching the search criteria
      * @return a list of objects of type "clazz" from the test data provided by the given properties
      */
     public static <T> List<T> buildTestDataList(Class<? extends T> clazz, Properties properties, String propertyKeyPrefix, int numberOfData) {
@@ -81,12 +79,12 @@ public class TestDataPreparator {
     /**
      * build a list of objects of type "clazz" from the test data provided by the given properties
      *
-     * @param clazz the the specified object type
-     * @param properties the given properties that contain the test data
+     * @param clazz             the the specified object type
+     * @param properties        the given properties that contain the test data
      * @param propertyKeyPrefix the test data with the given key prefix can be used to construct the return objects
-     * @param fieldNames the field names of the test data columns
-     * @param deliminator the deliminator that is used to separate the field from each other
-     * @param numberOfData the number of test data matching the search criteria
+     * @param fieldNames        the field names of the test data columns
+     * @param deliminator       the deliminator that is used to separate the field from each other
+     * @param numberOfData      the number of test data matching the search criteria
      * @return a list of objects of type "clazz" from the test data provided by the given properties
      */
     public static <T> List<T> buildTestDataList(Class<? extends T> clazz, Properties properties, String propertyKeyPrefix, String fieldNames, String deliminator, int numberOfData) {
@@ -102,10 +100,10 @@ public class TestDataPreparator {
     /**
      * build an object of type "clazz" from the test data provided by the given properties
      *
-     * @param clazz the the specified object type
-     * @param properties the given properties that contain the test data
+     * @param clazz       the the specified object type
+     * @param properties  the given properties that contain the test data
      * @param propertyKey the test data with the given key
-     * @param fieldNames the field names of the test data columns
+     * @param fieldNames  the field names of the test data columns
      * @param deliminator the deliminator that is used to separate the field from each other
      * @return an object of type "clazz" from the test data provided by the given properties
      */
@@ -114,8 +112,7 @@ public class TestDataPreparator {
         try {
             testData = clazz.newInstance();
             ObjectUtil.populateBusinessObject(testData, properties, propertyKey, fieldNames, deliminator);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -125,8 +122,8 @@ public class TestDataPreparator {
     /**
      * build an object of type "clazz" from the test data provided by the given properties
      *
-     * @param clazz the the specified object type
-     * @param properties the given properties that contain the test data
+     * @param clazz       the the specified object type
+     * @param properties  the given properties that contain the test data
      * @param propertyKey the test data with the given key
      * @return an object of type "clazz" from the test data provided by the given properties
      */
@@ -138,8 +135,7 @@ public class TestDataPreparator {
         try {
             testData = clazz.newInstance();
             ObjectUtil.populateBusinessObject(testData, properties, propertyKey, fieldNames, deliminator);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -150,10 +146,10 @@ public class TestDataPreparator {
      * build a list of objects of type "clazz" from the expected results provided by the given properties. The default fieldNames
      * and deliminator are used.
      *
-     * @param clazz the the specified object type. The instance of this type should be comparable through overriding Object.equals()
-     * @param properties the given properties that contain the expected results
+     * @param clazz             the the specified object type. The instance of this type should be comparable through overriding Object.equals()
+     * @param properties        the given properties that contain the expected results
      * @param propertyKeyPrefix the expected results with the given key prefix can be used to construct the return objects
-     * @param numberOfData the number of the expected results matching the search criteria
+     * @param numberOfData      the number of the expected results matching the search criteria
      * @return a list of objects of type "clazz" from the expected results provided by the given properties
      */
     public static <T> List<T> buildExpectedValueList(Class<? extends T> clazz, Properties properties, String propertyKeyPrefix, int numberOfData) {
@@ -165,12 +161,12 @@ public class TestDataPreparator {
     /**
      * build a list of objects of type "clazz" from the expected results provided by the given properties
      *
-     * @param clazz the the specified object type. The instance of this type should be comparable through overriding Object.equals()
-     * @param properties the given properties that contain the expected results
+     * @param clazz             the the specified object type. The instance of this type should be comparable through overriding Object.equals()
+     * @param properties        the given properties that contain the expected results
      * @param propertyKeyPrefix the expected results with the given key prefix can be used to construct the return objects
-     * @param fieldNames the field names of the expected results columns
-     * @param deliminator the deliminator that is used to separate the field from each other
-     * @param numberOfData the number of the expected results matching the search criteria
+     * @param fieldNames        the field names of the expected results columns
+     * @param deliminator       the deliminator that is used to separate the field from each other
+     * @param numberOfData      the number of the expected results matching the search criteria
      * @return a list of objects of type "clazz" from the expected results provided by the given properties
      */
     public static <T> List<T> buildExpectedValueList(Class<? extends T> clazz, Properties properties, String propertyKeyPrefix, String fieldNames, String deliminator, int numberOfData) {
@@ -183,8 +179,7 @@ public class TestDataPreparator {
                 if (!expectedDataList.contains(expectedData)) {
                     expectedDataList.add(expectedData);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -194,8 +189,8 @@ public class TestDataPreparator {
     /**
      * build the cleanup criteria for "clazz" from the given properties. The default fieldNames and deliminator are used.
      *
-     * @param clazz the the specified object type.
-     * @param properties the given properties that contain the cleanup criteria fields and values
+     * @param clazz       the the specified object type.
+     * @param properties  the given properties that contain the cleanup criteria fields and values
      * @param propertyKey the given property whose value provides the cleanup criteria values
      * @return the cleanup criteria for "clazz" from the given properties
      */
@@ -208,10 +203,10 @@ public class TestDataPreparator {
     /**
      * build the cleanup criteria for "clazz" from the given properties.
      *
-     * @param clazz the the specified object type.
-     * @param properties the given properties that contain the cleanup criteria fields and values
+     * @param clazz       the the specified object type.
+     * @param properties  the given properties that contain the cleanup criteria fields and values
      * @param propertyKey the given property whose value provides the cleanup criteria values
-     * @param fieldNames the field names of the cleanup columns
+     * @param fieldNames  the field names of the cleanup columns
      * @param deliminator the deliminator that is used to separate the field from each other
      * @return the cleanup criteria for "clazz" from the given properties
      */
@@ -232,8 +227,7 @@ public class TestDataPreparator {
             getBusinessObjectService().save(dataObject);
             getPersistenceService().retrieveNonKeyFields(dataObject);
             return dataObject;
-        }
-        else {
+        } else {
             ObjectUtil.buildObject(existingDataObject, dataObject);
         }
 
@@ -363,8 +357,7 @@ public class TestDataPreparator {
                     PropertyUtils.setProperty(testData, propertyName, finalPropertyValue);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Cannot build a test data object with the given data. " + e);
         }
 

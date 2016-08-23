@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.io.FileReader;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.io.FileReader;
+import java.util.List;
 
 /**
  * A class to test functionality of the IcrEncumbranceSortStepTest class.
@@ -50,7 +50,7 @@ public class IcrEncumbranceSortStepTest extends IcrEncumbranceStepTestBase {
         super.setUp();
         icrEncumbranceSortStep = SpringContext.getBean(IcrEncumbranceSortStep.class);
         icrEncumbranceSortStep.setParameterService(SpringContext.getBean(ParameterService.class));
-        batchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
     }
 
@@ -65,7 +65,7 @@ public class IcrEncumbranceSortStepTest extends IcrEncumbranceStepTestBase {
      * and that at the very least is not dropping or dupe'ing records.
      */
     @Override
-    public void testExecute(){
+    public void testExecute() {
         TestUtils.setSystemParameter(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.USE_ICR_ENCUMBRANCE_PARAM, "Y");
 
         // Create an input file via the related service
@@ -78,7 +78,7 @@ public class IcrEncumbranceSortStepTest extends IcrEncumbranceStepTestBase {
         List<String> inputLines = null;
         try {
             inputLines = IOUtils.readLines(new FileReader(inputFile));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -87,7 +87,7 @@ public class IcrEncumbranceSortStepTest extends IcrEncumbranceStepTestBase {
         List<String> outputLines = null;
         try {
             outputLines = IOUtils.readLines(new FileReader(outputFilePath));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

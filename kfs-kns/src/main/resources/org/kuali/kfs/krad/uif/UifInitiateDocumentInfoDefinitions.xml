@@ -21,31 +21,31 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <bean id="InitiatedDocumentView" parent="Uif-FormView">
-    <property name="title" value="The Document you have selected cannot be opened."/>
-    <property name="footer">
-      <ref bean="InitiatedDocumentFooter"/>
-    </property>
-    <property name="theme">
-      <bean parent="Uif-ClassicKnsTheme"/>
-    </property>
-    <property name="formClass" value="org.kuali.kfs.krad.web.form.InitiatedDocumentInfoForm"/>
-  </bean>
+    <bean id="InitiatedDocumentView" parent="Uif-FormView">
+        <property name="title" value="The Document you have selected cannot be opened."/>
+        <property name="footer">
+            <ref bean="InitiatedDocumentFooter"/>
+        </property>
+        <property name="theme">
+            <bean parent="Uif-ClassicKnsTheme"/>
+        </property>
+        <property name="formClass" value="org.kuali.kfs.krad.web.form.InitiatedDocumentInfoForm"/>
+    </bean>
 
- <bean id="UifLayoutView_KNS" parent="InitiatedDocumentView">
-    <property name="theme">
-      <bean parent="Uif-ClassicKnsTheme"/>
-    </property>
-  </bean>
+    <bean id="UifLayoutView_KNS" parent="InitiatedDocumentView">
+        <property name="theme">
+            <bean parent="Uif-ClassicKnsTheme"/>
+        </property>
+    </bean>
 
 
-<bean id="InitiatedDocumentFooter" parent="Uif-FooterBase">
-  <property name="items">
-    <list>
-      <bean parent="Uif-PrimaryActionButton" p:methodToCall="close" p:actionLabel="Close" />
-    </list>
-  </property>
+    <bean id="InitiatedDocumentFooter" parent="Uif-FooterBase">
+        <property name="items">
+            <list>
+                <bean parent="Uif-PrimaryActionButton" p:methodToCall="close" p:actionLabel="Close"/>
+            </list>
+        </property>
 
-</bean>
+    </bean>
 
 </beans>

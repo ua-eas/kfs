@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.batch.service.PaymentSourceExtractionService;
+
+import java.util.Date;
 
 public class PaymentSourceToPdpExtractStep extends AbstractStep {
     private PaymentSourceExtractionService paymentSourceExtractionService;
 
     /**
      * Extracts the payments to PDP via the injected PaymentSourceExtractionService
+     *
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     @Override
@@ -43,6 +44,7 @@ public class PaymentSourceToPdpExtractStep extends AbstractStep {
 
     /**
      * Sets the implementation of PaymentSourceExtractionService to use
+     *
      * @param paymentSourceExtractionService the implementation of PaymentSourceExtractionService to use
      */
     public void setPaymentSourceExtractionService(PaymentSourceExtractionService paymentSourceExtractionService) {

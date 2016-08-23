@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgAccountSummaryReport;
+
+import java.util.Collection;
 
 /**
  * This interface defines the methods for BudgetConstructionAccountSummaryReports
@@ -45,12 +45,11 @@ public interface BudgetConstructionAccountSummaryReportService {
      * updates account summary table.
      *
      * @param principalName - user requesting the report
-     * @param consolidated - whether to produce a consolidate report
+     * @param consolidated  - whether to produce a consolidate report
      */
     public void updateReportsAccountSummaryTable(String principalName, boolean consolidated);
 
     /**
-     *
      * builds BudgetConstructionAccountSummaryReports
      *
      * @param universityFiscalYear

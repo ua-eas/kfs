@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_DELINQUENT_MSG_REQUIRED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_AUTH_END_DATE_BEFORE_BEGIN;
-
-import java.util.Date;
-
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelDocument;
@@ -31,9 +29,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.Date;
+
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_DELINQUENT_MSG_REQUIRED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_AUTH_END_DATE_BEFORE_BEGIN;
 
 /**
  * Validation that is run when a user modifies the trip detail information in a {@link TravelDocument}

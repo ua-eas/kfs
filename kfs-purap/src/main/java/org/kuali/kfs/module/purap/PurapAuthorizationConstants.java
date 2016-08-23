@@ -82,7 +82,7 @@ public class PurapAuthorizationConstants {
         public static final String REMOVE_HOLD = "paymentRequestHoldCancelRemoval";
         public static final String REMOVE_REQUEST_CANCEL = "paymentRequestHoldCancelRemoval";
         public static final String FULL_DOCUMENT_ENTRY_COMPLETED = "fullDocumentEntryCompleted";
-		public static final String ACH_ACCOUNT_INFO_DISPLAYED = "achAccountInfoDisplayed";
+        public static final String ACH_ACCOUNT_INFO_DISPLAYED = "achAccountInfoDisplayed";
     }
 
     public static class CreditMemoEditMode {

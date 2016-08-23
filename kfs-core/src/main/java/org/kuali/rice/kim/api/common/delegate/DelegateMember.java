@@ -18,18 +18,6 @@
  */
 package org.kuali.rice.kim.api.common.delegate;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.CoreConstants;
@@ -42,22 +30,33 @@ import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
 import org.kuali.rice.kim.api.KimConstants;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
+
 @XmlRootElement(name = DelegateMember.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = DelegateMember.Constants.TYPE_NAME, propOrder = {
-        DelegateMember.Elements.DELEGATION_MEMBER_ID,
-        DelegateMember.Elements.DELEGATION_ID,
-        DelegateMember.Elements.MEMBER_ID,
-        DelegateMember.Elements.ROLE_MEMBER_ID,
-        DelegateMember.Elements.TYPE_CODE,
-        DelegateMember.Elements.ATTRIBUTES,
-        CoreConstants.CommonElements.ACTIVE_FROM_DATE,
-        CoreConstants.CommonElements.ACTIVE_TO_DATE,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    DelegateMember.Elements.DELEGATION_MEMBER_ID,
+    DelegateMember.Elements.DELEGATION_ID,
+    DelegateMember.Elements.MEMBER_ID,
+    DelegateMember.Elements.ROLE_MEMBER_ID,
+    DelegateMember.Elements.TYPE_CODE,
+    DelegateMember.Elements.ATTRIBUTES,
+    CoreConstants.CommonElements.ACTIVE_FROM_DATE,
+    CoreConstants.CommonElements.ACTIVE_TO_DATE,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class DelegateMember extends AbstractDataTransferObject
-        implements DelegateMemberContract {
+    implements DelegateMemberContract {
 
     @XmlElement(name = Elements.DELEGATION_MEMBER_ID, required = false)
     private final String delegationMemberId;

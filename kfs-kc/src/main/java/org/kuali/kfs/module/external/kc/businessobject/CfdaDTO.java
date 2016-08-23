@@ -19,20 +19,19 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.io.Serializable;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
+import java.io.Serializable;
 
 
 /**
  * <p>Java class for cfdaDTO complex type.
- *
+ * <p>
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * <p>
  * <pre>
  * &lt;complexType name="cfdaDTO">
  *   &lt;complexContent>
@@ -48,8 +47,6 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "cfdaDTO", propOrder = {
@@ -69,7 +66,6 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
 
     /**
      * Gets the value of the active property.
-     *
      */
     public boolean isActive() {
         return active;
@@ -77,7 +73,6 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
 
     /**
      * Sets the value of the active property.
-     *
      */
     public void setActive(boolean value) {
         this.active = value;
@@ -86,10 +81,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Gets the value of the awardId property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getAwardId() {
         return awardId;
@@ -98,10 +91,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Sets the value of the awardId property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setAwardId(String value) {
         this.awardId = value;
@@ -110,10 +101,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Gets the value of the cfdaMaintenanceTypeId property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCfdaMaintenanceTypeId() {
         return cfdaMaintenanceTypeId;
@@ -122,10 +111,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Sets the value of the cfdaMaintenanceTypeId property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCfdaMaintenanceTypeId(String value) {
         this.cfdaMaintenanceTypeId = value;
@@ -134,10 +121,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Gets the value of the cfdaNumber property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCfdaNumber() {
         return cfdaNumber;
@@ -146,10 +131,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Sets the value of the cfdaNumber property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCfdaNumber(String value) {
         this.cfdaNumber = value;
@@ -158,10 +141,8 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Gets the value of the cfdaProgramTitleName property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCfdaProgramTitleName() {
         return cfdaProgramTitleName;
@@ -170,16 +151,15 @@ public class CfdaDTO implements ContractsAndGrantsCfda, Serializable {
     /**
      * Sets the value of the cfdaProgramTitleName property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCfdaProgramTitleName(String value) {
         this.cfdaProgramTitleName = value;
     }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
 }

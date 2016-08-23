@@ -19,11 +19,7 @@
 package org.kuali.kfs.module.tem.document.web.struts;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine;
 import org.kuali.kfs.module.tem.businessobject.TemSourceAccountingLine;
@@ -32,7 +28,11 @@ import org.kuali.kfs.module.tem.document.validation.event.AssignDistributionAcco
 import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.KualiRuleService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class DistributeAccountingLinesEvent implements Observer {
 
@@ -45,9 +45,9 @@ public class DistributeAccountingLinesEvent implements Observer {
         // check any business rules
         rulePassed &= getRuleService().applyRules(new AssignDistributionAccountingLinesEvent(TemPropertyConstants.NEW_IMPORTED_EXPENSE_LINE, wrapper.getTravelDocument(), wrapper));
 
-        if (rulePassed){
+        if (rulePassed) {
             List<TemSourceAccountingLine> newLines = getAccountingDistributionService().distributionToSouceAccountingLines(wrapper.getAccountDistributionsourceAccountingLines(),
-                    wrapper.getDistribution(), wrapper.getTravelDocument().getSourceTotal(), wrapper.getTravelDocument().getExpenseLimit());
+                wrapper.getDistribution(), wrapper.getTravelDocument().getSourceTotal(), wrapper.getTravelDocument().getExpenseLimit());
 
             for (TemSourceAccountingLine newLine : newLines) {
                 wrapper.getTravelDocument().addSourceAccountingLine(newLine);

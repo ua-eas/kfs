@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.fp.document.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.fp.businessobject.TravelMileageRate;
 import org.kuali.kfs.fp.document.dataaccess.TravelMileageRateDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * This class is the OJB implementation of the TravelMileageRate interface.
@@ -51,7 +51,7 @@ public class TravelMileageRateDaoOjb extends PlatformAwareDaoBaseOjb implements 
         Collection mostEffectiveRates = new ArrayList();
         Collection rates = getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
         Date mostEffectiveDate = ((TravelMileageRate) rates.iterator().next()).getDisbursementVoucherMileageEffectiveDate();
-        for (Iterator iter = rates.iterator(); iter.hasNext();) {
+        for (Iterator iter = rates.iterator(); iter.hasNext(); ) {
             TravelMileageRate rate = (TravelMileageRate) iter.next();
             if (rate.getDisbursementVoucherMileageEffectiveDate().compareTo(mostEffectiveDate) == 0) {
                 mostEffectiveRates.add(rate);

@@ -23,7 +23,7 @@ import org.kuali.kfs.module.purap.service.PurapAccountingLineRuleHelperService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl;
 
-public class PurapAccountingLineRuleHelperServiceImpl extends AccountingLineRuleHelperServiceImpl implements PurapAccountingLineRuleHelperService{
+public class PurapAccountingLineRuleHelperServiceImpl extends AccountingLineRuleHelperServiceImpl implements PurapAccountingLineRuleHelperService {
     private PurchasingAccountsPayableDocument document;
 
     public PurchasingAccountsPayableDocument getDocument() {

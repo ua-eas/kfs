@@ -21,7 +21,7 @@ package org.kuali.kfs.integration.purap;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-public interface ItemCapitalAsset  extends ExternalizableBusinessObject{
+public interface ItemCapitalAsset extends ExternalizableBusinessObject {
 
     public Long getCapitalAssetNumber();
 

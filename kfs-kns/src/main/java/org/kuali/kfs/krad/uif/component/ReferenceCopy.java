@@ -28,21 +28,19 @@ import java.lang.annotation.Target;
  * Annotation for <code>Component</code> fields to indicate only the property
  * reference should be made (as opposed to a new object) when doing a component
  * copy
- *
- *
  */
-@Target({ ElementType.FIELD })
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ReferenceCopy {
 
-	/**
-	 * Indicates whether a new collection instance should be made with
-	 * collection elements copied by reference
-	 *
-	 * @return boolean true if new collection instance should be made, false if
-	 *         the whole collection should be copied by reference
-	 */
-	public boolean newCollectionInstance() default false;
+    /**
+     * Indicates whether a new collection instance should be made with
+     * collection elements copied by reference
+     *
+     * @return boolean true if new collection instance should be made, false if
+     * the whole collection should be copied by reference
+     */
+    public boolean newCollectionInstance() default false;
 
 }

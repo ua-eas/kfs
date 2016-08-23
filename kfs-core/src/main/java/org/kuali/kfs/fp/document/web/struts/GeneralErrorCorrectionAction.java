@@ -19,7 +19,6 @@
 package org.kuali.kfs.fp.document.web.struts;
 
 
-
 /**
  * This class piggy backs on all of the functionality in the FinancialSystemTransactionalDocumentActionBase.
  */

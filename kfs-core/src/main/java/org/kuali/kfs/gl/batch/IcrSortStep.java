@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.util.Date;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.springframework.util.StopWatch;
+
+import java.io.File;
+import java.util.Date;
 
 /**
  * A step to run the scrubber process.
@@ -31,10 +31,11 @@ import org.springframework.util.StopWatch;
 public class IcrSortStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(IcrSortStep.class);
     private String batchFileDirectoryName;
+
     /**
      * Runs the scrubber process.
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job was started
      * @return true if the job completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)

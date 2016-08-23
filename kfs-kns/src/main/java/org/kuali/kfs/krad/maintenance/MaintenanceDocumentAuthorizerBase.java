@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.krad.maintenance;
 
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.DocumentAuthorizerBase;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,34 +38,34 @@ public class MaintenanceDocumentAuthorizerBase extends DocumentAuthorizerBase im
     public final boolean canCreate(Class boClass, Person user) {
         Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME,
-                getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
+            getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
         permissionDetails.put(KRADConstants.MAINTENANCE_ACTN, KRADConstants.MAINTENANCE_NEW_ACTION);
 
         return !permissionExistsByTemplate(KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails)
-                || getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails,
-                new HashMap<String, String>());
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails)
+            || getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), KRADConstants.KNS_NAMESPACE,
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails,
+            new HashMap<String, String>());
     }
 
     public final boolean canMaintain(Object dataObject, Person user) {
         Map<String, String> permissionDetails = new HashMap<String, String>(2);
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME,
-                getDocumentDictionaryService().getMaintenanceDocumentTypeName(dataObject.getClass()));
+            getDocumentDictionaryService().getMaintenanceDocumentTypeName(dataObject.getClass()));
         permissionDetails.put(KRADConstants.MAINTENANCE_ACTN, KRADConstants.MAINTENANCE_EDIT_ACTION);
 
         return !permissionExistsByTemplate(KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails)
-                || isAuthorizedByTemplate(dataObject, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, user.getPrincipalId(), permissionDetails,
-                null);
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails)
+            || isAuthorizedByTemplate(dataObject, KRADConstants.KNS_NAMESPACE,
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, user.getPrincipalId(), permissionDetails,
+            null);
     }
 
     public final boolean canCreateOrMaintain(MaintenanceDocument maintenanceDocument, Person user) {
         return !permissionExistsByTemplate(maintenanceDocument, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS) || isAuthorizedByTemplate(
-                maintenanceDocument, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS) || isAuthorizedByTemplate(
+            maintenanceDocument, KRADConstants.KNS_NAMESPACE,
+            KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, user.getPrincipalId());
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +77,7 @@ public class MaintenanceDocumentAuthorizerBase extends DocumentAuthorizerBase im
             MaintenanceDocument maintDoc = (MaintenanceDocument) dataObject;
             if (maintDoc.getNewMaintainableObject() != null) {
                 attributes.putAll(KRADUtils.getNamespaceAndComponentSimpleName(
-                        maintDoc.getNewMaintainableObject().getDataObjectClass()));
+                    maintDoc.getNewMaintainableObject().getDataObjectClass()));
             }
         }
     }
@@ -91,9 +91,9 @@ public class MaintenanceDocumentAuthorizerBase extends DocumentAuthorizerBase im
             MaintenanceDocument maintDoc = (MaintenanceDocument) dataObject;
             if (maintDoc.getNewMaintainableObject() != null) {
                 attributes.putAll(KRADUtils.getNamespaceAndComponentSimpleName(
-                        maintDoc.getNewMaintainableObject().getDataObjectClass()));
+                    maintDoc.getNewMaintainableObject().getDataObjectClass()));
                 attributes.put(KRADConstants.MAINTENANCE_ACTN,
-                        maintDoc.getNewMaintainableObject().getMaintenanceAction());
+                    maintDoc.getNewMaintainableObject().getMaintenanceAction());
             }
         }
     }

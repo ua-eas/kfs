@@ -126,48 +126,42 @@ public class AccountStatusBaseFunds extends LedgerBalance {
         if (getAccountNumber() == null) {
             if (other.getAccountNumber() != null)
                 return false;
-        }
-        else if (!getAccountNumber().equals(other.getAccountNumber())) {
+        } else if (!getAccountNumber().equals(other.getAccountNumber())) {
             return false;
         }
 
         if (getChartOfAccountsCode() == null) {
             if (other.getChartOfAccountsCode() != null)
                 return false;
-        }
-        else if (!getChartOfAccountsCode().equals(other.getChartOfAccountsCode())) {
+        } else if (!getChartOfAccountsCode().equals(other.getChartOfAccountsCode())) {
             return false;
         }
 
         if (getFinancialObjectCode() == null) {
             if (other.getFinancialObjectCode() != null)
                 return false;
-        }
-        else if (!getFinancialObjectCode().equals(other.getFinancialObjectCode())) {
+        } else if (!getFinancialObjectCode().equals(other.getFinancialObjectCode())) {
             return false;
         }
 
         if (getFinancialSubObjectCode() == null) {
             if (other.getFinancialSubObjectCode() != null)
                 return false;
-        }
-        else if (!getFinancialSubObjectCode().equals(other.getFinancialSubObjectCode())) {
+        } else if (!getFinancialSubObjectCode().equals(other.getFinancialSubObjectCode())) {
             return false;
         }
 
         if (getSubAccountNumber() == null) {
             if (other.getSubAccountNumber() != null)
                 return false;
-        }
-        else if (!getSubAccountNumber().equals(other.getSubAccountNumber())) {
+        } else if (!getSubAccountNumber().equals(other.getSubAccountNumber())) {
             return false;
         }
 
         if (getUniversityFiscalYear() == null) {
             if (other.getUniversityFiscalYear() != null)
                 return false;
-        }
-        else if (!getUniversityFiscalYear().equals(other.getUniversityFiscalYear())) {
+        } else if (!getUniversityFiscalYear().equals(other.getUniversityFiscalYear())) {
             return false;
         }
 

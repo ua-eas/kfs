@@ -38,5 +38,5 @@ public interface Inquisitive<D, R> {
 
     boolean wasQuestionAsked();
 
-    R confirm(final String questionType, final String message, final boolean showReasonField, final String ... errorArgs) throws Exception;
+    R confirm(final String questionType, final String message, final boolean showReasonField, final String... errorArgs) throws Exception;
 }

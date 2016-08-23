@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.TaxDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.List;
 
 public interface TaxService {
 
@@ -30,38 +30,38 @@ public interface TaxService {
      * This method returns a list of Tax Detail BO's for Sales Tax
      *
      * @param dateOfTransaction date to include tax rates from
-     * @param postalCode postal code to get tax rates
-     * @param amount amount to be taxed
+     * @param postalCode        postal code to get tax rates
+     * @param amount            amount to be taxed
      * @return
      */
-    List<TaxDetail> getSalesTaxDetails( Date dateOfTransaction, String postalCode,  KualiDecimal amount );
+    List<TaxDetail> getSalesTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount);
 
     /**
      * This method returns a list of Tax Detail BO's for Sales Tax
      *
      * @param dateOfTransaction date to include tax rates from
-     * @param postalCode postal code to get tax rates
-     * @param amount amount to be taxed
+     * @param postalCode        postal code to get tax rates
+     * @param amount            amount to be taxed
      * @return
      */
-    List<TaxDetail> getUseTaxDetails( Date dateOfTransaction, String postalCode, KualiDecimal amount );
+    List<TaxDetail> getUseTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount);
 
     /**
      * This method returns the total sales tax amount
      *
      * @param dateOfTransaction date to include tax rates from
-     * @param postalCode postal code to get tax rates
-     * @param amount amount to be taxed
+     * @param postalCode        postal code to get tax rates
+     * @param amount            amount to be taxed
      * @return
      */
-    KualiDecimal getTotalSalesTaxAmount( Date dateOfTransaction, String postalCode, KualiDecimal amount );
+    KualiDecimal getTotalSalesTaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amount);
 
     /**
      * This method returns pretaxAmount
      *
      * @param dateOfTransaction date to include tax rates from
-     * @param postalCode postal code to get tax rates
-     * @param amount amount to be taxed
+     * @param postalCode        postal code to get tax rates
+     * @param amount            amount to be taxed
      * @return
      */
     KualiDecimal getPretaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amountWithTax);

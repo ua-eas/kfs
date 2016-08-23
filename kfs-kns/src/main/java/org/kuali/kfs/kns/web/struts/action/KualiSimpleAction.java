@@ -30,8 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * This forwards to MAPPING_BASIC without doing anything else; useful for displaying JSPs whose contents don't depend on anything
  * being set up in the action.
- *
- *
  */
 
 public class KualiSimpleAction extends Action {

@@ -22,9 +22,9 @@ import java.sql.Timestamp;
 
 public interface TravelEntertainmentMovingTravelDocument {
 
-	public String getTravelDocumentIdentifier();
+    public String getTravelDocumentIdentifier();
 
-	public String getPrimaryDestinationName();
+    public String getPrimaryDestinationName();
 
-	public Timestamp getTripBegin();
+    public Timestamp getTripBegin();
 }

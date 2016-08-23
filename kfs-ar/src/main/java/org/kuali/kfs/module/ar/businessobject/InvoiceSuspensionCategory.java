@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 public class InvoiceSuspensionCategory extends PersistableBusinessObjectBase {
 
@@ -42,6 +42,7 @@ public class InvoiceSuspensionCategory extends PersistableBusinessObjectBase {
 
     /**
      * Constructor that uses document number and a suspension category code.
+     *
      * @param documentNumber
      * @param suspensionCategoryCode
      */
@@ -104,7 +105,7 @@ public class InvoiceSuspensionCategory extends PersistableBusinessObjectBase {
             if (this.getClass().equals(obj.getClass())) {
                 InvoiceSuspensionCategory other = (InvoiceSuspensionCategory) obj;
                 return (StringUtils.equalsIgnoreCase(this.documentNumber, other.documentNumber) &&
-                        StringUtils.equalsIgnoreCase(this.suspensionCategoryCode, other.suspensionCategoryCode));
+                    StringUtils.equalsIgnoreCase(this.suspensionCategoryCode, other.suspensionCategoryCode));
             }
         }
         return false;

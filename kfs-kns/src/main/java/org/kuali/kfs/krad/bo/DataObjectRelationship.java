@@ -24,13 +24,11 @@ import java.util.Map;
 
 /**
  * Represents a relationship to another class that exists within a given parent class
- *
+ * <p>
  * <p>
  * In terms of relational db, this can be thought of as a foreign key relationship. That is one of the
  * properties (fields) of the parent class (parent table) has a relationship to another class (table)
  * </p>
- *
- *
  */
 public class DataObjectRelationship implements Serializable {
     private Class<?> relatedClass;
@@ -71,7 +69,7 @@ public class DataObjectRelationship implements Serializable {
 
     /**
      * Returns the name of the attribute within the parent class that holds the related class object
-     *
+     * <p>
      * <p>
      * Note this attribute should be of type given by #getRelatedClass
      * </p>

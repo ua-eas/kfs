@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cg.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.cg.businessobject.ResearchRiskType;
+
+import java.util.List;
 
 /**
  * This interface defines methods that a RoutingFormResearchRiskService must provide

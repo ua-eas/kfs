@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit;
 import org.kuali.kfs.module.purap.document.dataaccess.NegativePaymentRequestApprovalLimitDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 /**
  * OJB Implementation of NegativePaymentRequestApprovalLimitDao.
@@ -57,7 +57,7 @@ public class NegativePaymentRequestApprovalLimitDaoOjb extends PlatformAwareDaoB
 
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.NegativePaymentRequestApprovalLimitDao#findByChartAndAccount(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<NegativePaymentRequestApprovalLimit> findByChartAndAccount(String chartCode, String accountNumber) {
         LOG.debug("Entering findByChartAndAccount(String, String)");
@@ -74,7 +74,7 @@ public class NegativePaymentRequestApprovalLimitDaoOjb extends PlatformAwareDaoB
 
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.NegativePaymentRequestApprovalLimitDao#findByChartAndOrganization(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<NegativePaymentRequestApprovalLimit> findByChartAndOrganization(String chartCode, String organizationCode) {
         LOG.debug("Entering findByChartAndOrganization(String, String)");
@@ -119,9 +119,10 @@ public class NegativePaymentRequestApprovalLimitDaoOjb extends PlatformAwareDaoB
 
     /**
      * Builds a Criteria object for activeIndicator field set to true
+     *
      * @return Criteria
      */
-    protected Criteria buildActiveCriteria(){
+    protected Criteria buildActiveCriteria() {
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KRADPropertyConstants.ACTIVE, true);
 

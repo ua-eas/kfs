@@ -25,7 +25,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 /**
  * A representation of LedgerEntries, which are summaries that show up on Ledger Reports created by the scrubber and poster.
  */
-public class LedgerEntryForReporting implements BusinessObject{
+public class LedgerEntryForReporting implements BusinessObject {
 
     private String balanceType;
     private String originCode;
@@ -112,12 +112,10 @@ public class LedgerEntryForReporting implements BusinessObject{
         if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setCreditAmount(amount);
             ledgerEntry.setCreditCount(count);
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setDebitAmount(amount);
             ledgerEntry.setDebitCount(count);
-        }
-        else {
+        } else {
             ledgerEntry.setNoDCAmount(amount);
             ledgerEntry.setNoDCCount(count);
         }
@@ -348,6 +346,9 @@ public class LedgerEntryForReporting implements BusinessObject{
         return ledgerEntryDescription.toString();
     }
 
-    public void prepareForWorkflow() {}
-    public void refresh() { }
+    public void prepareForWorkflow() {
+    }
+
+    public void refresh() {
+    }
 }

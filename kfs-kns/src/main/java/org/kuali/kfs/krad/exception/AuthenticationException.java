@@ -22,13 +22,10 @@ import org.kuali.rice.core.api.exception.KualiException;
 
 /**
  * Exception thrown on authentication failure.
- *
- *
- *
  */
 public class AuthenticationException extends KualiException {
 
-	public AuthenticationException(String message) {
-		super(message);
-	}
+    public AuthenticationException(String message) {
+        super(message);
+    }
 }

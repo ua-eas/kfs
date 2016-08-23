@@ -33,32 +33,32 @@ public class RequisitionAccountingLineAccessibleValidation extends PurchasingAcc
     /**
      * Validates that the given accounting line is accessible for editing by the current user.
      * <strong>This method expects a document as the first parameter and an accounting line as the second</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         RequisitionDocument requisitionDocument = (RequisitionDocument) event.getDocument();
         //for app doc status
         //to be removed
-       //remove (requisitionDocument.isDocumentStoppedInRouteNode(NodeDetailEnum.CONTENT_REVIEW) - kfsmi-4592
+        //remove (requisitionDocument.isDocumentStoppedInRouteNode(NodeDetailEnum.CONTENT_REVIEW) - kfsmi-4592
         if (requisitionDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_CONTENT_REVIEW) ||
-            StringUtils.equals( requisitionDocument.getApplicationDocumentStatus(), PurapConstants.RequisitionStatuses.APPDOC_IN_PROCESS) ) {
+            StringUtils.equals(requisitionDocument.getApplicationDocumentStatus(), PurapConstants.RequisitionStatuses.APPDOC_IN_PROCESS)) {
             // DO NOTHING: do not check that user owns acct lines; at this level, approvers can edit all detail on REQ
 
             return true;
-        }
-        else {
+        } else {
             boolean result = false;
             boolean setDummyAccountIdentifier = false;
 
             if (needsDummyAccountIdentifier()) {
-                ((PurApAccountingLine)getAccountingLineForValidation()).setAccountIdentifier(Integer.MAX_VALUE);  // avoid conflicts with any accouting identifier on any other accounting lines in the doc because, you know, you never know...
+                ((PurApAccountingLine) getAccountingLineForValidation()).setAccountIdentifier(Integer.MAX_VALUE);  // avoid conflicts with any accouting identifier on any other accounting lines in the doc because, you know, you never know...
                 setDummyAccountIdentifier = true;
             }
 
             result = super.validate(event);
 
             if (setDummyAccountIdentifier) {
-                ((PurApAccountingLine)getAccountingLineForValidation()).setAccountIdentifier(null);
+                ((PurApAccountingLine) getAccountingLineForValidation()).setAccountIdentifier(null);
             }
 
             return result;

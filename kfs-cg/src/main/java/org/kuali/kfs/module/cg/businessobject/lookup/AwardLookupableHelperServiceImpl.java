@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.module.cg.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.service.ContractsAndGrantsLookupService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBo;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.util.FieldUtils;
-import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Allows custom handling of Awards within the lookup framework.
@@ -55,10 +55,10 @@ public class AwardLookupableHelperServiceImpl extends KualiLookupableHelperServi
      */
     @Override
     public List<Column> getColumns() {
-        List<Column> columns =  super.getColumns();
+        List<Column> columns = super.getColumns();
 
         if (!getAccountsReceivableModuleBillingService().isContractsGrantsBillingEnhancementActive()) {
-            for(Iterator<Column> it = columns.iterator(); it.hasNext(); ) {
+            for (Iterator<Column> it = columns.iterator(); it.hasNext(); ) {
                 Column column = it.next();
                 if (getFieldsToIgnore().contains(column.getPropertyName())) {
                     it.remove();
@@ -80,14 +80,14 @@ public class AwardLookupableHelperServiceImpl extends KualiLookupableHelperServi
         List<String> lookupFieldNames = null;
         if (getBusinessObjectMetaDataService().isLookupable(getBusinessObjectClass())) {
             lookupFieldNames = getBusinessObjectMetaDataService().getLookupableFieldNames(
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         }
         if (lookupFieldNames == null) {
             throw new RuntimeException("Lookup not defined for business object " + getBusinessObjectClass());
         }
 
         List<String> lookupFieldAttributeList = new ArrayList();
-        for (String lookupFieldName: lookupFieldNames) {
+        for (String lookupFieldName : lookupFieldNames) {
             if (!getFieldsToIgnore().contains(lookupFieldName)) {
                 lookupFieldAttributeList.add(lookupFieldName);
             }
@@ -98,7 +98,7 @@ public class AwardLookupableHelperServiceImpl extends KualiLookupableHelperServi
 
         try {
             fields = FieldUtils.createAndPopulateFieldsForLookup(lookupFieldAttributeList, getReadOnlyFieldsList(),
-                    getBusinessObjectClass());
+                getBusinessObjectClass());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
         }
@@ -139,7 +139,7 @@ public class AwardLookupableHelperServiceImpl extends KualiLookupableHelperServi
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {
         // perform the lookup on the project director and fund manager objects first
         if (contractsAndGrantsLookupService.setupSearchFields(fieldValues, CGPropertyConstants.LOOKUP_USER_ID_FIELD, CGPropertyConstants.AWARD_LOOKUP_UNIVERSAL_USER_ID_FIELD) &&
-                contractsAndGrantsLookupService.setupSearchFields(fieldValues, CGPropertyConstants.LOOKUP_FUND_MGR_USER_ID_FIELD, CGPropertyConstants.AWARD_LOOKUP_FUND_MGR_UNIVERSAL_USER_ID_FIELD)) {
+            contractsAndGrantsLookupService.setupSearchFields(fieldValues, CGPropertyConstants.LOOKUP_FUND_MGR_USER_ID_FIELD, CGPropertyConstants.AWARD_LOOKUP_FUND_MGR_UNIVERSAL_USER_ID_FIELD)) {
             return super.getSearchResultsHelper(fieldValues, unbounded);
         }
 
@@ -148,7 +148,7 @@ public class AwardLookupableHelperServiceImpl extends KualiLookupableHelperServi
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      List pkNames)
+     * List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {

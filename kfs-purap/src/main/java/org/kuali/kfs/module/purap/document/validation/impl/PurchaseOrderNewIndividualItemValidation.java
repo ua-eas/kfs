@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapRuleConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
@@ -25,7 +26,6 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class PurchaseOrderNewIndividualItemValidation extends PurchasingNewIndividualItemValidation {
 
@@ -33,7 +33,7 @@ public class PurchaseOrderNewIndividualItemValidation extends PurchasingNewIndiv
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = super.validate(event);
-        emptyItemsWithAccountsValidation.setItemForValidation((PurchaseOrderItem)super.getItemForValidation());
+        emptyItemsWithAccountsValidation.setItemForValidation((PurchaseOrderItem) super.getItemForValidation());
         valid &= emptyItemsWithAccountsValidation.validate(event);
 
         return valid;
@@ -46,11 +46,11 @@ public class PurchaseOrderNewIndividualItemValidation extends PurchasingNewIndiv
         boolean enableCommodityCode = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_COMMODITY_CODE_IND);
         if (!enableCommodityCode) {
             return false;
-        }
-        else {
+        } else {
             return getParameterService().getParameterValueAsBoolean(PurchaseOrderDocument.class, PurapRuleConstants.ITEMS_REQUIRE_COMMODITY_CODE_IND);
         }
     }
+
     public PurchaseOrderEmptyItemWithAccountsValidation getEmptyItemsWithAccountsValidation() {
         return emptyItemsWithAccountsValidation;
     }

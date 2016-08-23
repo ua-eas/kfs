@@ -96,7 +96,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -109,7 +109,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -123,7 +123,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -135,7 +135,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -147,7 +147,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -159,7 +159,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -171,7 +171,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -185,7 +185,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -194,13 +194,13 @@ public class ResourceLoginFilterTest {
     public void testNonCoreGoodHeader() throws Exception {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
         EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
-        JwtData data = new JwtData("user",1000);
+        JwtData data = new JwtData("user", 1000);
         EasyMock.expect(jwtService.decodeJwt("GOOD")).andReturn(data);
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -214,7 +214,7 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }
@@ -224,11 +224,11 @@ public class ResourceLoginFilterTest {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
         EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
         EasyMock.expect(coreApiKeyAuthenticationService.getPrincipalIdFromApiKey("GOOD")).andReturn(Optional.of("user"));
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verifyAll();
     }

@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -35,10 +32,13 @@ import org.kuali.kfs.krad.datadictionary.validation.processor.ValidCharactersCon
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. empty value check. (failure) {@link #testValueEmpty()}
  * 2. value with valid positive number within specified precision and scale. (success) {@link #testValueValidPositiveNumber()}
  * 3. value with invalid positive number as per given precision and scale. (failure) {@link testValueInvalidPositiveNumber()}
@@ -50,192 +50,188 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 9. zero precision and scale test. (error) {@link testZeroPrecisionAndScale()}
  * 10. precision less than scale test. (error) {@link testPrecisionLessThanScale()}
  * 11. negative precision and scale test. (error) {@link testNegativePrecisionAndScale()}
- *
- *
- *
- *
  */
 public class FixedPointPatternConstraintTest {
 
-	private AttributeDefinition totalBalanceDefinition;
-	private AttributeDefinition debitBalanceDefinition;
-	private AttributeDefinition creditBalanceDefinition;
+    private AttributeDefinition totalBalanceDefinition;
+    private AttributeDefinition debitBalanceDefinition;
+    private AttributeDefinition creditBalanceDefinition;
 
-	private BusinessObjectEntry addressEntry;
-	private DictionaryValidationResult dictionaryValidationResult;
+    private BusinessObjectEntry addressEntry;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private Account iciciAccount = new Account("11111111","ICICI","5000.00","15000","-10000");
-	private Account citibankAccount = new Account("22222222","Citi Bank","15000.70","14999.70","1.");
-	private Account wellsFargoAccount = new Account("33333333","Wells Fargo","",".25","-.25");
-	private Account morganAccount = new Account("44444444","J P Morgan","-1000.00","1000.00","-2000.00");
+    private Account iciciAccount = new Account("11111111", "ICICI", "5000.00", "15000", "-10000");
+    private Account citibankAccount = new Account("22222222", "Citi Bank", "15000.70", "14999.70", "1.");
+    private Account wellsFargoAccount = new Account("33333333", "Wells Fargo", "", ".25", "-.25");
+    private Account morganAccount = new Account("44444444", "J P Morgan", "-1000.00", "1000.00", "-2000.00");
 
-	private FixedPointPatternConstraint totalBalanceFixedPointPatternConstraint;
-	private FixedPointPatternConstraint debitBalanceFixedPointPatternConstraint;
-	private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint;
-	private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint1;
-	private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint2;
+    private FixedPointPatternConstraint totalBalanceFixedPointPatternConstraint;
+    private FixedPointPatternConstraint debitBalanceFixedPointPatternConstraint;
+    private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint;
+    private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint1;
+    private FixedPointPatternConstraint creditBalanceFixedPointPatternConstraint2;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		addressEntry = new BusinessObjectEntry();
+        addressEntry = new BusinessObjectEntry();
 
-		List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
+        List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
 
-		totalBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
-		totalBalanceFixedPointPatternConstraint.setPrecision(6);
-		totalBalanceFixedPointPatternConstraint.setScale(2);
+        totalBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
+        totalBalanceFixedPointPatternConstraint.setPrecision(6);
+        totalBalanceFixedPointPatternConstraint.setScale(2);
 
-		totalBalanceDefinition = new AttributeDefinition();
-		totalBalanceDefinition.setName("totalBalance");
-		totalBalanceDefinition.setValidCharactersConstraint(totalBalanceFixedPointPatternConstraint);
-		attributes.add(totalBalanceDefinition);
+        totalBalanceDefinition = new AttributeDefinition();
+        totalBalanceDefinition.setName("totalBalance");
+        totalBalanceDefinition.setValidCharactersConstraint(totalBalanceFixedPointPatternConstraint);
+        attributes.add(totalBalanceDefinition);
 
-		debitBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
-		debitBalanceFixedPointPatternConstraint.setPrecision(6);
-		debitBalanceFixedPointPatternConstraint.setScale(2);
-		debitBalanceFixedPointPatternConstraint.setAllowNegative(true);
+        debitBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
+        debitBalanceFixedPointPatternConstraint.setPrecision(6);
+        debitBalanceFixedPointPatternConstraint.setScale(2);
+        debitBalanceFixedPointPatternConstraint.setAllowNegative(true);
 
-		debitBalanceDefinition = new AttributeDefinition();
-		debitBalanceDefinition.setName("debitBalance");
-		debitBalanceDefinition.setValidCharactersConstraint(debitBalanceFixedPointPatternConstraint);
-		attributes.add(debitBalanceDefinition);
+        debitBalanceDefinition = new AttributeDefinition();
+        debitBalanceDefinition.setName("debitBalance");
+        debitBalanceDefinition.setValidCharactersConstraint(debitBalanceFixedPointPatternConstraint);
+        attributes.add(debitBalanceDefinition);
 
-		creditBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
-		creditBalanceFixedPointPatternConstraint.setPrecision(0);
-		creditBalanceFixedPointPatternConstraint.setScale(0);
+        creditBalanceFixedPointPatternConstraint = new FixedPointPatternConstraint();
+        creditBalanceFixedPointPatternConstraint.setPrecision(0);
+        creditBalanceFixedPointPatternConstraint.setScale(0);
 
-		creditBalanceDefinition = new AttributeDefinition();
-		creditBalanceDefinition.setName("creditBalance");
-		creditBalanceDefinition.setValidCharactersConstraint(creditBalanceFixedPointPatternConstraint);
-		attributes.add(creditBalanceDefinition);
+        creditBalanceDefinition = new AttributeDefinition();
+        creditBalanceDefinition.setName("creditBalance");
+        creditBalanceDefinition.setValidCharactersConstraint(creditBalanceFixedPointPatternConstraint);
+        attributes.add(creditBalanceDefinition);
 
-		creditBalanceFixedPointPatternConstraint1 = new FixedPointPatternConstraint();
-		creditBalanceFixedPointPatternConstraint1.setPrecision(2);
-		creditBalanceFixedPointPatternConstraint1.setScale(3);
+        creditBalanceFixedPointPatternConstraint1 = new FixedPointPatternConstraint();
+        creditBalanceFixedPointPatternConstraint1.setPrecision(2);
+        creditBalanceFixedPointPatternConstraint1.setScale(3);
 
-		creditBalanceFixedPointPatternConstraint2 = new FixedPointPatternConstraint();
-		creditBalanceFixedPointPatternConstraint2.setPrecision(-2);
-		creditBalanceFixedPointPatternConstraint2.setScale(-3);
+        creditBalanceFixedPointPatternConstraint2 = new FixedPointPatternConstraint();
+        creditBalanceFixedPointPatternConstraint2.setPrecision(-2);
+        creditBalanceFixedPointPatternConstraint2.setScale(-3);
 
-		addressEntry.setAttributes(attributes);
-	}
+        addressEntry.setAttributes(attributes);
+    }
 
-	@Test
-	public void testValueEmpty() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueEmpty() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidPositiveNumber() {
-		ConstraintValidationResult result = process(iciciAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
-
-    @Ignore
-	@Test
-	public void testValueInvalidPositiveNumber() {
-		ConstraintValidationResult result = process(citibankAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidPositiveNumber() {
+        ConstraintValidationResult result = process(iciciAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueInvalidNegativeNumber() {
-		ConstraintValidationResult result = process(morganAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
-
-	@Test
-	public void testValueValidNegativeNumber() {
-		ConstraintValidationResult result = process(morganAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidPositiveNumber() {
+        ConstraintValidationResult result = process(citibankAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueInvalidNegativeNumber1() {
-		ConstraintValidationResult result = process(iciciAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidNegativeNumber() {
+        ConstraintValidationResult result = process(morganAccount, "totalBalance", totalBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
+
+    @Test
+    public void testValueValidNegativeNumber() {
+        ConstraintValidationResult result = process(morganAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueInvalidPositiveNumber1() {
-		ConstraintValidationResult result = process(citibankAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidNegativeNumber1() {
+        ConstraintValidationResult result = process(iciciAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidNegativeNumber1() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Ignore
+    @Test
+    public void testValueInvalidPositiveNumber1() {
+        ConstraintValidationResult result = process(citibankAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test(expected=java.util.regex.PatternSyntaxException.class)
-	public void testZeroPrecisionAndScale() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidNegativeNumber1() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "debitBalance", debitBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test(expected=java.util.regex.PatternSyntaxException.class)
-	public void testPrecisionLessThanScale() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint1);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test(expected = java.util.regex.PatternSyntaxException.class)
+    public void testZeroPrecisionAndScale() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test(expected=java.util.regex.PatternSyntaxException.class)
-	public void testNegativePrecisionAndScale() {
-		ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint2);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test(expected = java.util.regex.PatternSyntaxException.class)
+    public void testPrecisionLessThanScale() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint1);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
-		attributeValueReader.setAttributeName(attributeName);
+    @Test(expected = java.util.regex.PatternSyntaxException.class)
+    public void testNegativePrecisionAndScale() {
+        ConstraintValidationResult result = process(wellsFargoAccount, "creditBalance", creditBalanceFixedPointPatternConstraint2);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
+        attributeValueReader.setAttributeName(attributeName);
+
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 }

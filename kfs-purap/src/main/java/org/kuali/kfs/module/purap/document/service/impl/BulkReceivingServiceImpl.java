@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
@@ -40,12 +39,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.ByteArrayOutputStream;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 @Transactional
 public class BulkReceivingServiceImpl implements BulkReceivingService {
@@ -64,13 +64,13 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
         boolean canCreate = false;
         WorkflowDocument workflowDocument = null;
 
-        try{
+        try {
             workflowDocument = workflowDocumentService.createWorkflowDocument(blkRecDoc.getDocumentHeader().getWorkflowDocument().getDocumentTypeName(), GlobalVariables.getUserSession().getPerson());
-        }catch(WorkflowException we){
+        } catch (WorkflowException we) {
             throw new RuntimeException(we);
         }
 
-        if( workflowDocument.isFinal()){
+        if (workflowDocument.isFinal()) {
             canCreate = true;
         }
 
@@ -78,11 +78,10 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
     }
 
     public void populateAndSaveBulkReceivingDocument(BulkReceivingDocument blkRecDoc)
-    throws WorkflowException {
+        throws WorkflowException {
         try {
             documentService.saveDocument(blkRecDoc, AttributedContinuePurapEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             String errorMsg = "Error saving document # " + blkRecDoc.getDocumentHeader().getDocumentNumber() + " " + we.getMessage();
             throw new RuntimeException(errorMsg, we);
         }
@@ -96,39 +95,39 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
         List<String> docNumbers = null;
 
         //check vendor date for duplicates
-        if( blkRecDoc.getShipmentReceivedDate() != null ){
+        if (blkRecDoc.getShipmentReceivedDate() != null) {
             docNumbers = bulkReceivingDao.duplicateVendorDate(poId, blkRecDoc.getShipmentReceivedDate());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_VENDOR_DATE, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
 
         //check packing slip number for duplicates
-        if( !StringUtils.isEmpty(blkRecDoc.getShipmentPackingSlipNumber()) ){
+        if (!StringUtils.isEmpty(blkRecDoc.getShipmentPackingSlipNumber())) {
             docNumbers = bulkReceivingDao.duplicatePackingSlipNumber(poId, blkRecDoc.getShipmentPackingSlipNumber());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_PACKING_SLIP_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
 
         //check bill of lading number for duplicates
-        if( !StringUtils.isEmpty(blkRecDoc.getShipmentBillOfLadingNumber()) ){
+        if (!StringUtils.isEmpty(blkRecDoc.getShipmentBillOfLadingNumber())) {
             docNumbers = bulkReceivingDao.duplicateBillOfLadingNumber(poId, blkRecDoc.getShipmentBillOfLadingNumber());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_BILL_OF_LADING_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
 
-       //add message if one exists
-       if(currentMessage.length() > 0){
-           //add suffix
-           appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_SUFFIX, blkRecDoc.getPurchaseOrderIdentifier() );
+        //add message if one exists
+        if (currentMessage.length() > 0) {
+            //add suffix
+            appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_SUFFIX, blkRecDoc.getPurchaseOrderIdentifier());
 
-           //add msg to map
-           msgs.put(PurapConstants.BulkReceivingDocumentStrings.DUPLICATE_BULK_RECEIVING_DOCUMENT_QUESTION, currentMessage.toString());
-       }
+            //add msg to map
+            msgs.put(PurapConstants.BulkReceivingDocumentStrings.DUPLICATE_BULK_RECEIVING_DOCUMENT_QUESTION, currentMessage.toString());
+        }
 
-       return msgs;
+        return msgs;
     }
 
     /**
@@ -138,21 +137,21 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
      * @param docNumbers
      * @return
      */
-    protected boolean hasDuplicateEntry(List<String> docNumbers){
+    protected boolean hasDuplicateEntry(List<String> docNumbers) {
 
         boolean isDuplicate = false;
         WorkflowDocument workflowDocument = null;
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
             //if the doc number exists, and is in final status, consider this a dupe and return
-            if(workflowDocument.isFinal()){
+            if (workflowDocument.isFinal()) {
                 isDuplicate = true;
                 break;
             }
@@ -163,23 +162,23 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
     }
 
     protected void appendDuplicateMessage(StringBuffer currentMessage,
-                                        String duplicateMessageKey,
-                                        Integer poId){
+                                          String duplicateMessageKey,
+                                          Integer poId) {
 
         //append prefix if this is first call
-        if(currentMessage.length() == 0){
+        if (currentMessage.length() == 0) {
             String messageText = configurationService.getPropertyValueAsString(PurapKeyConstants.MESSAGE_BULK_RECEIVING_DUPLICATE_PREFIX);
-            String prefix = MessageFormat.format(messageText, poId.toString() );
+            String prefix = MessageFormat.format(messageText, poId.toString());
 
             currentMessage.append(prefix);
         }
 
         //append message
-        currentMessage.append( configurationService.getPropertyValueAsString(duplicateMessageKey) );
+        currentMessage.append(configurationService.getPropertyValueAsString(duplicateMessageKey));
     }
 
     public String getBulkReceivingDocumentNumberInProcessForPurchaseOrder(Integer poId,
-                                                                          String bulkReceivingDocumentNumber){
+                                                                          String bulkReceivingDocumentNumber) {
 
         String docNumberInProcess = StringUtils.EMPTY;
 
@@ -188,17 +187,17 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber,
-                                                                                  GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+                    GlobalVariables.getUserSession().getPerson());
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
-            if(!(workflowDocument.isCanceled() ||
-                 workflowDocument.isException() ||
-                 workflowDocument.isFinal()) &&
-                 !docNumber.equals(bulkReceivingDocumentNumber)){
+            if (!(workflowDocument.isCanceled() ||
+                workflowDocument.isException() ||
+                workflowDocument.isFinal()) &&
+                !docNumber.equals(bulkReceivingDocumentNumber)) {
 
                 docNumberInProcess = docNumber;
                 break;
@@ -210,16 +209,16 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
 
     public void populateBulkReceivingFromPurchaseOrder(BulkReceivingDocument blkRecDoc) {
 
-        if (blkRecDoc != null){
+        if (blkRecDoc != null) {
             PurchaseOrderDocument poDoc = purchaseOrderService.getCurrentPurchaseOrder(blkRecDoc.getPurchaseOrderIdentifier());
-            if(poDoc != null){
+            if (poDoc != null) {
                 blkRecDoc.populateBulkReceivingFromPurchaseOrder(poDoc);
             }
         }
 
     }
 
-    public BulkReceivingDocument getBulkReceivingByDocumentNumber(String documentNumber){
+    public BulkReceivingDocument getBulkReceivingByDocumentNumber(String documentNumber) {
 
         if (ObjectUtils.isNotNull(documentNumber)) {
             try {
@@ -230,8 +229,7 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
                     doc.getDocumentHeader().setWorkflowDocument(workflowDocument);
                 }
                 return doc;
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 String errorMessage = "Error getting bulk receiving document from document service";
                 throw new RuntimeException(errorMessage, e);
             }
@@ -240,7 +238,7 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
     }
 
     public void performPrintReceivingTicketPDF(String blkDocId,
-                                               ByteArrayOutputStream baosPDF){
+                                               ByteArrayOutputStream baosPDF) {
 
         BulkReceivingDocument blkRecDoc = getBulkReceivingByDocumentNumber(blkDocId);
         Collection<String> generatePDFErrors = printService.generateBulkReceivingPDF(blkRecDoc, baosPDF);
@@ -253,7 +251,7 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
     }
 
     protected void addStringErrorMessagesToMessageMap(String errorKey,
-                                                  Collection<String> errors) {
+                                                      Collection<String> errors) {
 
         if (ObjectUtils.isNotNull(errors)) {
             for (String error : errors) {
@@ -276,11 +274,11 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
         this.bulkReceivingDao = bulkReceivingDao;
     }
 
-    public void setDocumentService(DocumentService documentService){
+    public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
 
-    public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService){
+    public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
     }
 

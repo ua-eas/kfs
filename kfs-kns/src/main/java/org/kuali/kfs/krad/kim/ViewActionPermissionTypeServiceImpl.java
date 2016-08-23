@@ -19,10 +19,10 @@
 package org.kuali.kfs.krad.kim;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.impl.permission.PermissionBo;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +31,6 @@ import java.util.Map;
 
 /**
  * Type service for the 'View Action' KIM type which matches on the id for a UIF view, field id or action event
- *
- *
  */
 public class ViewActionPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
@@ -49,12 +47,12 @@ public class ViewActionPermissionTypeServiceImpl extends PermissionTypeServiceBa
      * to filter based on view id
      *
      * @param requestedDetails - map of details requested with permission (used for matching)
-     * @param permissionsList - list of permissions to process for matches
+     * @param permissionsList  - list of permissions to process for matches
      * @return List<Permission> list of permissions that match the requested details
      */
     @Override
     protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
-            List<Permission> permissionsList) {
+                                                        List<Permission> permissionsList) {
 
         String requestedFieldId = null;
         if (requestedDetails.containsKey(KimConstants.AttributeConstants.FIELD_ID)) {
@@ -81,10 +79,10 @@ public class ViewActionPermissionTypeServiceImpl extends PermissionTypeServiceBa
             }
 
             if ((requestedFieldId != null) && (permissionFieldId != null) && StringUtils.equals(requestedFieldId,
-                    permissionFieldId)) {
+                permissionFieldId)) {
                 matchingPermissions.add(permission);
             } else if ((requestedActionEvent != null) && (permissionActionEvent != null) && StringUtils.equals(
-                    requestedActionEvent, permissionActionEvent)) {
+                requestedActionEvent, permissionActionEvent)) {
                 matchingPermissions.add(permission);
             }
         }

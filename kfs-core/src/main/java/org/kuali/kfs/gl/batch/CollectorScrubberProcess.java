@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.batch.service.impl.DocumentGroupData;
 import org.kuali.kfs.gl.batch.service.impl.OriginEntryFileIterator;
@@ -37,13 +29,21 @@ import org.kuali.kfs.gl.report.CollectorReportData;
 import org.kuali.kfs.gl.service.ScrubberService;
 import org.kuali.kfs.gl.service.impl.CollectorScrubberStatus;
 import org.kuali.kfs.gl.service.impl.ScrubberStatus;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.PersistenceService;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 
 /**
@@ -71,20 +71,20 @@ public class CollectorScrubberProcess {
     /**
      * Constructs a CollectorScrubberProcess.java.
      *
-     * @param batch the batch to scrub
-     * @param inputGroup the origin entry group that holds all of the origin entries coming from the parsed input groups in the
-     *        given batch
-     * @param validGroup the origin entry group that holds all of the origin entries coming that are in the origin entry scrubber
-     *        valid group
-     * @param errorGroup the origin entry group that holds all of the origin entries coming that are in the origin entry scrubber
-     *        error group
-     * @param expiredGroup are in the origin entry scrubber valid group that are in the origin entry scrubber expired group
-     * @param originEntryService the origin entry service that holds the origin entries in the batch (not necessarily the default
-     *        implementation)
-     * @param originEntryGroupService the origin entry group service that holds the 3 group parameters (not necessarily the default
-     *        implementation)
+     * @param batch                     the batch to scrub
+     * @param inputGroup                the origin entry group that holds all of the origin entries coming from the parsed input groups in the
+     *                                  given batch
+     * @param validGroup                the origin entry group that holds all of the origin entries coming that are in the origin entry scrubber
+     *                                  valid group
+     * @param errorGroup                the origin entry group that holds all of the origin entries coming that are in the origin entry scrubber
+     *                                  error group
+     * @param expiredGroup              are in the origin entry scrubber valid group that are in the origin entry scrubber expired group
+     * @param originEntryService        the origin entry service that holds the origin entries in the batch (not necessarily the default
+     *                                  implementation)
+     * @param originEntryGroupService   the origin entry group service that holds the 3 group parameters (not necessarily the default
+     *                                  implementation)
      * @param kualiConfigurationService the config service
-     * @param persistenceService the persistence service
+     * @param persistenceService        the persistence service
      */
     public CollectorScrubberProcess(CollectorBatch batch, ConfigurationService kualiConfigurationService, PersistenceService persistenceService, ScrubberService scrubberService, CollectorReportData collectorReportData, DateTimeService dateTimeService, String collectorFileDirectoryName) {
         this.batch = batch;
@@ -113,8 +113,7 @@ public class CollectorScrubberProcess {
 
         try {
             step.execute(getClass().getName(), dateTimeService.getCurrentDate());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Exception occured executing step", e);
             throw new RuntimeException("Exception occured executing step", e);
         }
@@ -189,21 +188,21 @@ public class CollectorScrubberProcess {
      * Determines if an origin entry is related to the given Collector detail record
      *
      * @param originEntry the origin entry to check
-     * @param detail the Collector detail to check against
+     * @param detail      the Collector detail to check against
      * @return true if the origin entry is related, false otherwise
      */
     protected boolean isOriginEntryRelatedToDetailRecord(OriginEntryInformation originEntry, CollectorDetail detail) {
         return StringUtils.equals(originEntry.getUniversityFiscalPeriodCode(), detail.getUniversityFiscalPeriodCode())
-                && originEntry.getUniversityFiscalYear() != null && originEntry.getUniversityFiscalYear().equals(detail.getUniversityFiscalYear())
-                && StringUtils.equals(originEntry.getChartOfAccountsCode(), detail.getChartOfAccountsCode())
-                && StringUtils.equals(originEntry.getAccountNumber(), detail.getAccountNumber())
-                && StringUtils.equals(originEntry.getSubAccountNumber(), detail.getSubAccountNumber())
-                && StringUtils.equals(originEntry.getFinancialObjectCode(), detail.getFinancialObjectCode())
-                && StringUtils.equals(originEntry.getFinancialSubObjectCode(), detail.getFinancialSubObjectCode())
-                && StringUtils.equals(originEntry.getFinancialSystemOriginationCode(), detail.getFinancialSystemOriginationCode())
-                && StringUtils.equals(originEntry.getFinancialDocumentTypeCode(), detail.getFinancialDocumentTypeCode())
-                && StringUtils.equals(originEntry.getDocumentNumber(), detail.getDocumentNumber())
-                && StringUtils.equals(originEntry.getFinancialObjectTypeCode(), detail.getFinancialObjectTypeCode());
+            && originEntry.getUniversityFiscalYear() != null && originEntry.getUniversityFiscalYear().equals(detail.getUniversityFiscalYear())
+            && StringUtils.equals(originEntry.getChartOfAccountsCode(), detail.getChartOfAccountsCode())
+            && StringUtils.equals(originEntry.getAccountNumber(), detail.getAccountNumber())
+            && StringUtils.equals(originEntry.getSubAccountNumber(), detail.getSubAccountNumber())
+            && StringUtils.equals(originEntry.getFinancialObjectCode(), detail.getFinancialObjectCode())
+            && StringUtils.equals(originEntry.getFinancialSubObjectCode(), detail.getFinancialSubObjectCode())
+            && StringUtils.equals(originEntry.getFinancialSystemOriginationCode(), detail.getFinancialSystemOriginationCode())
+            && StringUtils.equals(originEntry.getFinancialDocumentTypeCode(), detail.getFinancialDocumentTypeCode())
+            && StringUtils.equals(originEntry.getDocumentNumber(), detail.getDocumentNumber())
+            && StringUtils.equals(originEntry.getFinancialObjectTypeCode(), detail.getFinancialObjectTypeCode());
     }
 
     /**
@@ -213,7 +212,7 @@ public class CollectorScrubberProcess {
      * @return true if one of the errors was fatal, false otherwise
      */
     private boolean hasFatal(List<Message> errors) {
-        for (Iterator<Message> iter = errors.iterator(); iter.hasNext();) {
+        for (Iterator<Message> iter = errors.iterator(); iter.hasNext(); ) {
             Message element = iter.next();
             if (element.getType() == Message.TYPE_FATAL) {
                 return true;
@@ -229,7 +228,7 @@ public class CollectorScrubberProcess {
      * @return true if there are any warnings in the list, false otherwise
      */
     private boolean hasWarning(List<Message> errors) {
-        for (Iterator<Message> iter = errors.iterator(); iter.hasNext();) {
+        for (Iterator<Message> iter = errors.iterator(); iter.hasNext(); ) {
             Message element = iter.next();
             if (element.getType() == Message.TYPE_WARNING) {
                 return true;
@@ -242,7 +241,7 @@ public class CollectorScrubberProcess {
      * Updates the Collector detail with the data from a scrubbed entry
      *
      * @param originEntry a scrubbed origin entry
-     * @param detail a Collector detail to update
+     * @param detail      a Collector detail to update
      */
     protected void applyScrubberEditsToDetail(OriginEntryInformation originEntry, CollectorDetail detail) {
         detail.setUniversityFiscalPeriodCode(originEntry.getUniversityFiscalPeriodCode());
@@ -291,7 +290,7 @@ public class CollectorScrubberProcess {
      * represented by those origin entries and initializes the {@link #errorDocumentGroups} variable
      */
     protected void retrieveErrorDocumentGroups() {
-        File errorFile = new File( collectorFileDirectoryName + File.separator + errorFileName);
+        File errorFile = new File(collectorFileDirectoryName + File.separator + errorFileName);
         OriginEntryFileIterator entryIterator = new OriginEntryFileIterator(errorFile);
         errorDocumentGroups = DocumentGroupData.getDocumentGroupDatasForTransactions(entryIterator);
     }

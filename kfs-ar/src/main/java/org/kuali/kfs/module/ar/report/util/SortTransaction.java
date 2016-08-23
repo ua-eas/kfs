@@ -29,7 +29,7 @@ public class SortTransaction implements Comparator<CustomerStatementDetailReport
         Date c2Date = c2.getDocumentFinalDate();
         int result = 0;
         if (c1Date == null) {
-            result = (c2Date == null)? 0 : -1;
+            result = (c2Date == null) ? 0 : -1;
         } else {
             result = (c2Date == null) ? 1 : c1Date.compareTo(c2Date);
         }

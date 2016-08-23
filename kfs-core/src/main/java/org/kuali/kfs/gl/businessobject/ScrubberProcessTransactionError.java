@@ -30,6 +30,7 @@ public class ScrubberProcessTransactionError {
 
     /**
      * Constructs a ScrubberProcessTransactionError instance
+     *
      * @param t the transaction that had the error
      * @param m a message about the error
      */

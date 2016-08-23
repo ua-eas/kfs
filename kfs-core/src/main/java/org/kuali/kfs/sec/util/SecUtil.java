@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sec.util;
 
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 
-public class    SecUtil {
+public class SecUtil {
 
     /**
      * Calls access security service to check view access on given GLPE for current user. Access to view the GLPE on the document should be related to the view permissions for an
@@ -38,7 +38,7 @@ public class    SecUtil {
      */
     public static boolean canViewGLPE(Document document, GeneralLedgerPendingEntry pendingEntry) {
         if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)) {
-            return SpringContext.getBean(AccessSecurityService.class).canViewGLPE(document, pendingEntry, GlobalVariables.getUserSession().getPerson() );
+            return SpringContext.getBean(AccessSecurityService.class).canViewGLPE(document, pendingEntry, GlobalVariables.getUserSession().getPerson());
         }
         return true; // access security isn't on.  so that means you can view glpes
     }

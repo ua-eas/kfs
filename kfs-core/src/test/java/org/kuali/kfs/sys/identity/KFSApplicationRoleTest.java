@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.sys.identity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -35,6 +29,12 @@ import org.kuali.rice.kim.api.common.delegate.DelegateMember;
 import org.kuali.rice.kim.api.common.delegate.DelegateType;
 import org.kuali.rice.kim.api.role.RoleMembership;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Test of various KFS application roles.
  */
@@ -45,8 +45,8 @@ public class KFSApplicationRoleTest extends RoleTestBase {
     public static final UserNameFixture NON_KFS_USER = UserNameFixture.bcoffee;
 
     public void testFinancialSystemUserRoleTypeService() {
-        assertUserIsRoleMember(KFS_USER.getPerson().getPrincipalId(), KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.SysKimApiConstants.KFS_USER_ROLE_NAME, new HashMap<String,String>());
-        assertUserIsNotRoleMember(NON_KFS_USER.getPerson().getPrincipalId(), KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.SysKimApiConstants.KFS_USER_ROLE_NAME, new HashMap<String,String>());
+        assertUserIsRoleMember(KFS_USER.getPerson().getPrincipalId(), KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.SysKimApiConstants.KFS_USER_ROLE_NAME, new HashMap<String, String>());
+        assertUserIsNotRoleMember(NON_KFS_USER.getPerson().getPrincipalId(), KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.SysKimApiConstants.KFS_USER_ROLE_NAME, new HashMap<String, String>());
     }
 
     public static final String ACCOUNT_DERIVED_CHART = "BL";
@@ -61,12 +61,11 @@ public class KFSApplicationRoleTest extends RoleTestBase {
     public static final UserNameFixture ACCOUNT_DERIVED_DELEGATE_PRINCIPAL = UserNameFixture.rmunroe;
 
 
-
     public void testAccountDerivedRoleTypeService() {
         AccountService accountService = SpringContext.getBean(AccountService.class);
 
-        Account account = accountService.getByPrimaryId(ACCOUNT_DERIVED_CHART , ACCOUNT_DERIVED_ACCOUNT);
-        Map<String,String> roleQualifications = new HashMap<String,String>();
+        Account account = accountService.getByPrimaryId(ACCOUNT_DERIVED_CHART, ACCOUNT_DERIVED_ACCOUNT);
+        Map<String, String> roleQualifications = new HashMap<String, String>();
         roleQualifications.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, account.getChartOfAccountsCode());
         roleQualifications.put(KfsKimAttributes.ACCOUNT_NUMBER, account.getAccountNumber());
         roleQualifications.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, "10.00");
@@ -119,8 +118,8 @@ public class KFSApplicationRoleTest extends RoleTestBase {
     public static final String ORG_HIERARCHY_ROLE_NAME = KFSConstants.SysKimApiConstants.ORGANIZATION_REVIEWER_ROLE_NAME;
     public static final String GOOD_DOCUMENT_TYPE_NAME = "ACCT";
 
-    public Map<String,String> buildOrganizationHierarchyRoleQualifiers(String chartCode, String organizationCode, String docTypeName) {
-        Map<String,String> roleQualifiers = new HashMap<String,String>();
+    public Map<String, String> buildOrganizationHierarchyRoleQualifiers(String chartCode, String organizationCode, String docTypeName) {
+        Map<String, String> roleQualifiers = new HashMap<String, String>();
         roleQualifiers.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, chartCode);
         roleQualifiers.put(KfsKimAttributes.ORGANIZATION_CODE, organizationCode);
         roleQualifiers.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, docTypeName);
@@ -164,8 +163,8 @@ public class KFSApplicationRoleTest extends RoleTestBase {
     public static final String ACCOUNTING_ORG_HIERARCHY_ENOUGH_AMOUNT = "25000.03";
     public static final String ACCOUNTING_ORG_HIERARCHY_NOT_QUITE_ENOUGH_AMOUNT = "3.00";
 
-    public Map<String,String> buildAccountingOrganizationHierarchyReviewRoleQualifiers(String chartCode, String organizationCode, String documentTypeName, String amount) {
-        Map<String,String> roleQualifiers = buildOrganizationHierarchyRoleQualifiers(chartCode, organizationCode, documentTypeName);
+    public Map<String, String> buildAccountingOrganizationHierarchyReviewRoleQualifiers(String chartCode, String organizationCode, String documentTypeName, String amount) {
+        Map<String, String> roleQualifiers = buildOrganizationHierarchyRoleQualifiers(chartCode, organizationCode, documentTypeName);
         roleQualifiers.put(KfsKimAttributes.FINANCIAL_DOCUMENT_TOTAL_AMOUNT, amount);
         roleQualifiers.put(KfsKimAttributes.ACCOUNTING_LINE_OVERRIDE_CODE, "");
         return roleQualifiers;

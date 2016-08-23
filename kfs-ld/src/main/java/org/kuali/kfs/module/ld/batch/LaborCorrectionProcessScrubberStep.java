@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ld.batch;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ld.batch.service.LaborScrubberService;
 import org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService;
 import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
+
+import java.util.List;
 
 /**
  * Labor scrubber Batch Step.

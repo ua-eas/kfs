@@ -24,9 +24,9 @@ import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.rule.PromptBeforeValidation;
 import org.kuali.kfs.kns.rule.event.PromptBeforeValidationEvent;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.util.RiceConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -34,16 +34,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *
  * This class simplifies requesting clarifying user input prior to applying business rules. It mostly shields the classes that
  * extend it from being aware of the web layer, even though the input is collected via a series of one or more request/response
  * cycles.
- *
+ * <p>
  * Beware: method calls with side-effects will have unusual results. While it looks like the doRules method is executed
  * sequentially, in fact, it is more of a geometric series: if n questions are asked, then the code up to and including the first
  * question is executed n times, the second n-1 times, ..., the last question only one time.
- *
- *
  */
 public abstract class PromptBeforeValidationBase implements PromptBeforeValidation {
 
@@ -58,7 +55,6 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
     }
 
     /**
-     *
      * This class acts similarly to HTTP session, but working inside a REQUEST parameter
      */
     public class ContextSession {
@@ -88,7 +84,7 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
         /**
          * Invoked to indicate that the user should be prompted a question
          *
-         * @param id the ID of the question, an arbitrary value, but must be consistent
+         * @param id   the ID of the question, an arbitrary value, but must be consistent
          * @param text the question text, to be displayed to the user
          */
         public void askQuestion(String id, String text) {
@@ -118,8 +114,7 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
                 if (values.next().equals(name)) {
                     try {
                         result = (String) values.next();
-                    }
-                    catch (NoSuchElementException e) {
+                    } catch (NoSuchElementException e) {
                         result = null;
                     }
                 }
@@ -134,7 +129,7 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
 
     /**
      * Implementations will override this method to do perform the actual prompting and/or logic
-     *
+     * <p>
      * They are able to utilize the following methods:
      * <li> {@link PromptBeforeValidationBase#abortRulesCheck()}
      * <li> {@link PromptBeforeValidationBase#askOrAnalyzeYesNoQuestion(String, String)}
@@ -171,8 +166,7 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
 
         try {
             result = doPrompts(event.getDocument());
-        }
-        catch (IsAskingException e) {
+        } catch (IsAskingException e) {
             return false;
         }
 
@@ -186,7 +180,6 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
     /**
      * This bounces the user back to the document as if they had never tried to routed it. (Business rules are not invoked
      * and the action is not executed.)
-     *
      */
     public void abortRulesCheck() {
         event.setActionForwardName(RiceConstants.MAPPING_BASIC);
@@ -196,10 +189,10 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
     /**
      * This method poses a Y/N question to the user.  If the user has already answered the question, then it returns whether
      * the answer to the question was yes or no
-     *
+     * <p>
      * Code that invokes this method will behave a bit strangely, so you should try to keep it as simple as possible.
      *
-     * @param id an ID for the question
+     * @param id   an ID for the question
      * @param text the text of the question, to be displayed on the screen
      * @return true if the user answered Yes, false if the user answers no
      * @throws IsAskingException if the user needs to be prompted the question
@@ -219,8 +212,7 @@ public abstract class PromptBeforeValidationBase implements PromptBeforeValidati
         if (id.equals(question)) {
             session.setAttribute(id, Boolean.toString(!ConfirmationQuestion.NO.equals(buttonClicked)));
             return !ConfirmationQuestion.NO.equals(buttonClicked);
-        }
-        else if (!session.hasAsked(id)) {
+        } else if (!session.hasAsked(id)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Forcing question to be asked: " + id);
             }

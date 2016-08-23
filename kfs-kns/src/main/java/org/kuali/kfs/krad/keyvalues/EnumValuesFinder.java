@@ -40,7 +40,7 @@ public class EnumValuesFinder extends KeyValuesBase {
     @Override
     public List<KeyValue> getKeyValues() {
         List<KeyValue> labels = new ArrayList<KeyValue>();
-        for (Enum enumval: enumeration.getEnumConstants()) {
+        for (Enum enumval : enumeration.getEnumConstants()) {
             labels.add(new ConcreteKeyValue(getEnumKey(enumval), getEnumLabel(enumval)));
         }
         return labels;

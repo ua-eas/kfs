@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.module.cam.businessobject.AssetAcquisitionType;
 import org.kuali.kfs.module.cam.fixture.AssetAcquisitionTypeFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 public class AssetAcquisitionTypeServiceTest extends KualiTestBase {
 

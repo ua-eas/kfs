@@ -18,6 +18,12 @@
  */
 package org.kuali.kfs.sys;
 
+import org.apache.log4j.Logger;
+
+import javax.management.ListenerNotFoundException;
+import javax.management.Notification;
+import javax.management.NotificationEmitter;
+import javax.management.NotificationListener;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryNotificationInfo;
 import java.lang.management.MemoryPoolMXBean;
@@ -28,13 +34,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.management.ListenerNotFoundException;
-import javax.management.Notification;
-import javax.management.NotificationEmitter;
-import javax.management.NotificationListener;
-
-import org.apache.log4j.Logger;
-
 public class MemoryMonitor {
     private final Collection<Listener> listeners = new ArrayList<Listener>();
     private static final Logger LOG = Logger.getLogger(MemoryMonitor.class);
@@ -43,7 +42,9 @@ public class MemoryMonitor {
     public interface Listener {
         public void memoryUsageLow(String springContextId, Map<String, String> memoryUsageStatistics, String deadlockedThreadIds);
     }
+
     NotificationListener lowMemoryListener;
+
     public MemoryMonitor() {
         LOG.info("initializing");
         this.springContextId = "Unknown";
@@ -72,7 +73,7 @@ public class MemoryMonitor {
             removeAllListeners();
             ((NotificationEmitter) ManagementFactory.getMemoryMXBean()).removeNotificationListener(lowMemoryListener);
         } catch (ListenerNotFoundException ex) {
-            LOG.error( "Unable to unregister mbean listener", ex);
+            LOG.error("Unable to unregister mbean listener", ex);
         }
     }
 

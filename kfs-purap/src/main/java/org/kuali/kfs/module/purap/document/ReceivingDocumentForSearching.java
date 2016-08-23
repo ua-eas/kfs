@@ -23,7 +23,7 @@ import java.util.List;
 /*
  * This is a dummy class used to create a DataDictionary entry for the Receiving parent type (RCV) for searching.
  */
-public class ReceivingDocumentForSearching extends ReceivingDocumentBase{
+public class ReceivingDocumentForSearching extends ReceivingDocumentBase {
 
     /**
      * It's not needed to implement PurapItemOperations methods in this dummy class

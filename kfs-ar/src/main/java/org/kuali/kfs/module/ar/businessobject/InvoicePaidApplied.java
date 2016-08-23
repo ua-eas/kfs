@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
@@ -30,8 +28,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class InvoicePaidApplied extends PersistableBusinessObjectBase {
@@ -103,8 +103,7 @@ public class InvoicePaidApplied extends PersistableBusinessObjectBase {
         CustomerInvoiceDocument customerInvoiceDocument = null;
         try {
             customerInvoiceDocument = (CustomerInvoiceDocument) getDocumentService().getByDocumentHeaderId(getFinancialDocumentReferenceInvoiceNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("WorkflowException thrown when trying to retrieve Invoice document [" + getFinancialDocumentReferenceInvoiceNumber() + "]", e);
         }
         return customerInvoiceDocument;

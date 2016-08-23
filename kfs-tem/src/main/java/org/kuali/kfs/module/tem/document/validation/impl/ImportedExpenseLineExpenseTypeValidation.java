@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
@@ -27,9 +30,6 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ImportedExpenseLineExpenseTypeValidation extends GenericValidation {
     protected ImportedExpense importedExpenseForValidation;
@@ -46,13 +46,14 @@ public class ImportedExpenseLineExpenseTypeValidation extends GenericValidation 
 
     /**
      * Determines if an expense type object code will be found for the given importedExpenseForValidation for this document
+     *
      * @param doc the document to check
      * @return true if an expense type object code is found; false otherwise
      */
     protected boolean checkExpenseTypeExistsForDocument(Document doc) {
         boolean success = true;
 
-        final TravelDocument travelDoc = (TravelDocument)doc;
+        final TravelDocument travelDoc = (TravelDocument) doc;
         final String documentTypeName = travelDoc.getDocumentTypeName();
         if (!StringUtils.isBlank(documentTypeName)) {
             final String travelerType = (ObjectUtils.isNull(travelDoc.getTraveler())) ? null : travelDoc.getTraveler().getTravelerTypeCode();

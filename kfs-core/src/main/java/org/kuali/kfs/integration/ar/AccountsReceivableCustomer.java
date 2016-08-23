@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.ar;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
+import java.util.List;
 
 public interface AccountsReceivableCustomer extends ExternalizableBusinessObject {
 

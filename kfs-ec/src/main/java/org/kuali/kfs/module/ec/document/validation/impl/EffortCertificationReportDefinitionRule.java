@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
 
-import java.util.Collection;
-
-import org.kuali.kfs.module.ec.EffortKeyConstants;
-import org.kuali.kfs.module.ec.EffortPropertyConstants;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportPosition;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ec.EffortKeyConstants;
+import org.kuali.kfs.module.ec.EffortPropertyConstants;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportPosition;
+
+import java.util.Collection;
 
 /**
  * Contains Business Rules for the Effort Certification Report Maintenance Document.

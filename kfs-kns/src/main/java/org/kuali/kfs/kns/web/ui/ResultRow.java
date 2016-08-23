@@ -92,6 +92,7 @@ public class ResultRow implements Serializable {
 
     /**
      * Gets the Object ID of the BO that this row represents
+     *
      * @return
      */
     public String getObjectId() {
@@ -100,6 +101,7 @@ public class ResultRow implements Serializable {
 
     /**
      * Sets the Object ID of the BO that this row represents
+     *
      * @param objectId
      */
     public void setObjectId(String objectId) {
@@ -126,51 +128,49 @@ public class ResultRow implements Serializable {
         this.rowReturnable = rowReturnable;
     }
 
-	/**
-	 * Returns the BusinessObject associated with this row.  This may be null
-	 *
-	 * @return the businessObject, or null if the businessObject was not set
-	 */
-	public BusinessObject getBusinessObject() {
-		return this.businessObject;
-	}
+    /**
+     * Returns the BusinessObject associated with this row.  This may be null
+     *
+     * @return the businessObject, or null if the businessObject was not set
+     */
+    public BusinessObject getBusinessObject() {
+        return this.businessObject;
+    }
 
-	/**
-	 * @param businessObject the businessObject to set
-	 */
-	public void setBusinessObject(BusinessObject businessObject) {
-		this.businessObject = businessObject;
-	}
+    /**
+     * @param businessObject the businessObject to set
+     */
+    public void setBusinessObject(BusinessObject businessObject) {
+        this.businessObject = businessObject;
+    }
 
-	/**
-	 * @return the rowId
-	 */
-	public String getRowId() {
-		return this.rowId;
-	}
+    /**
+     * @return the rowId
+     */
+    public String getRowId() {
+        return this.rowId;
+    }
 
-	/**
-	 * @param rowId the rowId to set
-	 */
-	public void setRowId(String rowId) {
-		this.rowId = rowId;
-	}
+    /**
+     * @param rowId the rowId to set
+     */
+    public void setRowId(String rowId) {
+        this.rowId = rowId;
+    }
 
-	/**
-	 * @return the returnUrlHtmlData
-	 */
-	public HtmlData getReturnUrlHtmlData() {
-		return this.returnUrlHtmlData;
-	}
+    /**
+     * @return the returnUrlHtmlData
+     */
+    public HtmlData getReturnUrlHtmlData() {
+        return this.returnUrlHtmlData;
+    }
 
-	/**
-	 * @param returnUrlHtmlData the returnUrlHtmlData to set
-	 */
-	public void setReturnUrlHtmlData(HtmlData returnUrlHtmlData) {
-		this.returnUrlHtmlData = returnUrlHtmlData;
-	}
-
-
+    /**
+     * @param returnUrlHtmlData the returnUrlHtmlData to set
+     */
+    public void setReturnUrlHtmlData(HtmlData returnUrlHtmlData) {
+        this.returnUrlHtmlData = returnUrlHtmlData;
+    }
 
 
 }

@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Tax District Rate business object.

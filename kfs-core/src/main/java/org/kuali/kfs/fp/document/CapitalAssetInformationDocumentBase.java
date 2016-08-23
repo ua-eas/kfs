@@ -18,25 +18,23 @@
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
-import org.kuali.kfs.fp.businessobject.CapitalAssetInformationDetail;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class which defines behavior common for capital asset information lines.
  */
- public class CapitalAssetInformationDocumentBase extends AccountingDocumentBase implements CapitalAssetEditable {
+public class CapitalAssetInformationDocumentBase extends AccountingDocumentBase implements CapitalAssetEditable {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CapitalAssetInformationDocumentBase.class);
     protected Integer nextCapitalAssetLineNumber;
 
@@ -84,11 +82,11 @@ import org.kuali.kfs.krad.util.ObjectUtils;
      * Return true if account line is debit
      *
      * @param financialDocument submitted accounting document
-     * @param accountingLine accounting line from accounting document
+     * @param accountingLine    accounting line from accounting document
      * @return true is account line is debit
      * @see IsDebitUtils#isDebitConsideringSectionAndTypePositiveOnly(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);

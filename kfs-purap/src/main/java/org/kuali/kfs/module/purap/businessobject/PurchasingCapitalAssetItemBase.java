@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.LinkedHashMap;
 
 public abstract class PurchasingCapitalAssetItemBase extends PersistableBusinessObjectBase implements PurchasingCapitalAssetItem {
 
@@ -45,7 +45,7 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
     private PurchasingItem purchasingItem;
     private ItemCapitalAsset newPurchasingItemCapitalAssetLine;
 
-    public PurchasingCapitalAssetItemBase(){
+    public PurchasingCapitalAssetItemBase() {
         super();
         this.setNewPurchasingItemCapitalAssetLine(this.setupNewPurchasingItemCapitalAssetLine());
     }
@@ -98,35 +98,33 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
         this.purchasingCapitalAssetSystem = purchasingCapitalAssetSystem;
     }
 
-    public PurchasingDocument getPurchasingDocument(){
-        if(ObjectUtils.isNull(this.purchasingDocument)){
+    public PurchasingDocument getPurchasingDocument() {
+        if (ObjectUtils.isNull(this.purchasingDocument)) {
             this.refreshReferenceObject("purchasingDocument");
         }
 
         return this.purchasingDocument;
     }
 
-    public void setPurchasingDocument(PurchasingDocument pd){
+    public void setPurchasingDocument(PurchasingDocument pd) {
         this.purchasingDocument = pd;
     }
 
-    public PurchasingItem getPurchasingItem(){
+    public PurchasingItem getPurchasingItem() {
         PurchasingDocument pd = this.getPurchasingDocument();
 
-        if(( pd != null) && ( this.getItemIdentifier() != null)) {
+        if ((pd != null) && (this.getItemIdentifier() != null)) {
             return pd.getPurchasingItem(this.getItemIdentifier());
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     public boolean isEmpty() {
         if (PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(this.getPurchasingDocument().getCapitalAssetSystemTypeCode())) {
-            return !(StringUtils.isNotEmpty(capitalAssetTransactionTypeCode) || ! this.getPurchasingCapitalAssetSystem().isEmpty());
-        }
-        else {
-            return !(StringUtils.isNotEmpty(capitalAssetTransactionTypeCode) || ! this.getPurchasingDocument().getPurchasingCapitalAssetSystems().get(0).isEmpty());
+            return !(StringUtils.isNotEmpty(capitalAssetTransactionTypeCode) || !this.getPurchasingCapitalAssetSystem().isEmpty());
+        } else {
+            return !(StringUtils.isNotEmpty(capitalAssetTransactionTypeCode) || !this.getPurchasingDocument().getPurchasingCapitalAssetSystems().get(0).isEmpty());
         }
     }
 

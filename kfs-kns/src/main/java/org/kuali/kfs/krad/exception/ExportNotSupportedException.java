@@ -22,14 +22,12 @@ import org.kuali.rice.kew.api.WorkflowRuntimeException;
 
 /**
  * Exception thrown when an invalid export is attempted.
- *
- *
  */
 public class ExportNotSupportedException extends WorkflowRuntimeException {
 
-	private static final long serialVersionUID = 1450235230768995894L;
+    private static final long serialVersionUID = 1450235230768995894L;
 
-	public ExportNotSupportedException(String message) {
+    public ExportNotSupportedException(String message) {
         super(message);
     }
 

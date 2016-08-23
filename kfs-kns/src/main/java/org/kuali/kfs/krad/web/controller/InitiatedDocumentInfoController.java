@@ -34,11 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Controller for <code>MaintenanceView</code> screens which operate on
  * <code>MaintenanceDocument</code> instances
- *
- *
  */
 @Controller
-@RequestMapping(value="/initdocinfo")
+@RequestMapping(value = "/initdocinfo")
 
 public class InitiatedDocumentInfoController extends UifControllerBase {
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(InitiatedDocumentInfoController.class);
@@ -53,8 +51,8 @@ public class InitiatedDocumentInfoController extends UifControllerBase {
 
     @Override
     @RequestMapping(method = RequestMethod.GET, params = "methodToCall=start")
-    public ModelAndView start(@ModelAttribute("KualiForm")UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView start(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
+                              HttpServletRequest request, HttpServletResponse response) {
 
         InitiatedDocumentInfoForm initiatedDocumentInfoForm = (InitiatedDocumentInfoForm) form;
         return super.start(form, result, request, response);

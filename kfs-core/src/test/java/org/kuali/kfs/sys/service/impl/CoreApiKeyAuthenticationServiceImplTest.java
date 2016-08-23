@@ -106,7 +106,7 @@ public class CoreApiKeyAuthenticationServiceImplTest {
 
         Optional<String> principalId = coreApiKeyAuthenticationService.getPrincipalIdFromApiKey("GOOD");
 
-        assertEquals("username",principalId.get());
+        assertEquals("username", principalId.get());
     }
 
     @Test

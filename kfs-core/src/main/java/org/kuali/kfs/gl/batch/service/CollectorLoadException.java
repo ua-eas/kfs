@@ -28,6 +28,7 @@ public class CollectorLoadException extends RuntimeException {
 
     /**
      * Constructs a CollectorLoadException instance
+     *
      * @param errors a List of errors encountered while loading and parsing the file
      */
     public CollectorLoadException(List errors) {

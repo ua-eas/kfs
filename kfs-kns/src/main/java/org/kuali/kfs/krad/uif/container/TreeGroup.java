@@ -19,16 +19,16 @@
 package org.kuali.kfs.krad.uif.container;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.field.MessageField;
-import org.kuali.kfs.krad.uif.util.ComponentUtils;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.api.util.tree.Node;
-import org.kuali.rice.core.api.util.tree.Tree;
 import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.DataBinding;
+import org.kuali.kfs.krad.uif.field.MessageField;
+import org.kuali.kfs.krad.uif.util.ComponentUtils;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.util.tree.Node;
+import org.kuali.rice.core.api.util.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +37,8 @@ import java.util.Map;
 /**
  * Group component that is backed by a <code>Tree</code> data structure and typically
  * rendered as a tree in the user interface
- *
- *
  */
-public class TreeGroup extends Group implements DataBinding{
+public class TreeGroup extends Group implements DataBinding {
     private static final long serialVersionUID = 5841343037089286740L;
 
     private String propertyName;
@@ -61,14 +59,13 @@ public class TreeGroup extends Group implements DataBinding{
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Set fieldBindModelPath to the collection model path (since the fields
      * have to belong to the same model as the collection)</li>
      * <li>Set defaults for binding</li>
      * <li>Calls view helper service to initialize prototypes</li>
      * </ul>
-     *
      */
     @Override
     public void performInitialization(View view, Object model) {
@@ -87,9 +84,9 @@ public class TreeGroup extends Group implements DataBinding{
 
     protected void initializeNodePrototypeComponents(View view, Object model) {
         view.getViewHelperService().performComponentInitialization(view, model,
-                defaultNodePrototype.getLabelPrototype());
+            defaultNodePrototype.getLabelPrototype());
         view.getViewHelperService().performComponentInitialization(view, model,
-                defaultNodePrototype.getDataGroupPrototype());
+            defaultNodePrototype.getDataGroupPrototype());
 
         if (nodePrototypeMap != null) {
             for (Map.Entry<Class<?>, NodePrototype> prototypeEntry : nodePrototypeMap.entrySet()) {
@@ -98,14 +95,14 @@ public class TreeGroup extends Group implements DataBinding{
 
                     if (prototype.getLabelPrototype() != null) {
                         view.getViewHelperService().performComponentInitialization(view, model,
-                                prototype.getLabelPrototype());
+                            prototype.getLabelPrototype());
                     } else {
                         throw new IllegalStateException("encountered null NodePrototype.labelPrototype");
                     }
 
                     if (prototype.getDataGroupPrototype() != null) {
                         view.getViewHelperService().performComponentInitialization(view, model,
-                                prototype.getDataGroupPrototype());
+                            prototype.getDataGroupPrototype());
                     } else {
                         throw new IllegalStateException("encountered null NodePrototype.dataGroupPrototype");
                     }
@@ -125,7 +122,7 @@ public class TreeGroup extends Group implements DataBinding{
 
     /**
      * Builds the components that will be rendered as part of the tree group
-     *
+     * <p>
      * <p>
      * The component tree group mirrors the tree data structure on the model. For each node of
      * the data structure, a corresponding <code>MessageField</code>  will be created for the node
@@ -134,7 +131,7 @@ public class TreeGroup extends Group implements DataBinding{
      * to be read by the renderer
      * </p>
      *
-     * @param view - view instance the tree group belongs to
+     * @param view  - view instance the tree group belongs to
      * @param model - object containing the view data from which the tree data will be retrieved
      */
     protected void buildTreeGroups(View view, Object model) {
@@ -146,14 +143,14 @@ public class TreeGroup extends Group implements DataBinding{
 
         String bindingPrefix = getBindingInfo().getBindingPrefixForNested();
         Node<Group, MessageField> rootNode =
-                buildTreeNode(treeData.getRootElement(), bindingPrefix + /* TODO: hack */ ".rootElement", "root");
+            buildTreeNode(treeData.getRootElement(), bindingPrefix + /* TODO: hack */ ".rootElement", "root");
         treeGroups.setRootElement(rootNode);
 
         setTreeGroups(treeGroups);
     }
 
     protected Node<Group, MessageField> buildTreeNode(Node<Object, String> nodeData, String bindingPrefix,
-            String parentNode) {
+                                                      String parentNode) {
         if (nodeData == null) {
             return null;
         }
@@ -169,7 +166,7 @@ public class TreeGroup extends Group implements DataBinding{
         node.setNodeLabel(messageField);
 
         Group nodeGroup = ComponentUtils.copyComponent(prototype.getDataGroupPrototype(), bindingPrefix + ".data",
-                parentNode);
+            parentNode);
         ComponentUtils.pushObjectToContext(nodeGroup, UifConstants.ContextVariableNames.NODE, nodeData);
 
         String nodePath = bindingPrefix + ".data";
@@ -185,7 +182,7 @@ public class TreeGroup extends Group implements DataBinding{
         for (Node<Object, String> childDataNode : nodeData.getChildren()) {
             String nextBindingPrefix = bindingPrefix + ".children[" + childIndex + "]";
             Node<Group, MessageField> childNode = buildTreeNode(childDataNode, nextBindingPrefix,
-                    "_node_" + childIndex + ("root".equals(parentNode) ? "_parent_" : "_parent") + parentNode);
+                "_node_" + childIndex + ("root".equals(parentNode) ? "_parent_" : "_parent") + parentNode);
 
             nodeChildren.add(childNode);
 
@@ -267,7 +264,7 @@ public class TreeGroup extends Group implements DataBinding{
      * Retrieves the <code>Component</code> instances from the node for building the nested
      * components list
      *
-     * @param node - node to pull components from
+     * @param node       - node to pull components from
      * @param components - list to add components to
      */
     protected void addNodeComponents(Node<Group, MessageField> node, List<Component> components) {

@@ -19,9 +19,9 @@
 package org.kuali.kfs.kns.bo.lookup;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.services.LocationApiServiceLocator;
 import org.kuali.rice.location.api.state.State;
@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class StateValuesFinder  extends KeyValuesBase {
+public class StateValuesFinder extends KeyValuesBase {
     private String countryCode = "";
 
     @Override
@@ -44,7 +44,7 @@ public class StateValuesFinder  extends KeyValuesBase {
             }
         }
         List<State> baseCodes = LocationApiServiceLocator.getStateService().findAllStatesInCountry(countryCode);
-        List<State> codes = new ArrayList<State>( baseCodes );
+        List<State> codes = new ArrayList<State>(baseCodes);
         Collections.sort(codes, new Comparator<State>() {
             @Override
             public int compare(State o1, State o2) {
@@ -55,7 +55,7 @@ public class StateValuesFinder  extends KeyValuesBase {
         List<KeyValue> newLabels = new ArrayList<KeyValue>();
         newLabels.add(new ConcreteKeyValue("", ""));
         for (State state : codes) {
-            if(state.isActive()) {
+            if (state.isActive()) {
                 newLabels.add(new ConcreteKeyValue(state.getCode(), state.getName()));
             }
         }

@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
 
 /**
  * Exception thrown when an error occurs validating the data parsed from a DictionaryEntry's XML file.
- *
- *
  */
 public class CompletionException extends DataDictionaryException {
 

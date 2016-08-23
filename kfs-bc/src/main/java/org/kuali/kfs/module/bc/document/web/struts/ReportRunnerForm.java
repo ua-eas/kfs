@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.kfs.module.bc.BudgetConstructionDocumentReportMode;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.kuali.kfs.module.bc.BudgetConstructionDocumentReportMode;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Form class to display document reports and dumps menu

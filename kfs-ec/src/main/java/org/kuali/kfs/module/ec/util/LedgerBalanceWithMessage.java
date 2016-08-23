@@ -46,9 +46,9 @@ public class LedgerBalanceWithMessage {
     /**
      * Constructs a LedgerBalanceWithMessage.java.
      *
-     * @param emplid the given employee id
+     * @param emplid       the given employee id
      * @param employeeName the given employee name
-     * @param message the message associated with the given ledger balance
+     * @param message      the message associated with the given ledger balance
      */
     public LedgerBalanceWithMessage(String emplid, String employeeName, String message) {
         super();
@@ -66,7 +66,7 @@ public class LedgerBalanceWithMessage {
      * Constructs a LedgerBalanceWithMessage.java.
      *
      * @param ledgerBalance the given ledger balance
-     * @param message the message associated with the given ledger balance
+     * @param message       the message associated with the given ledger balance
      */
     public LedgerBalanceWithMessage(LaborLedgerBalance ledgerBalance, String message) {
         super();
@@ -192,6 +192,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Gets the employeeName attribute.
+     *
      * @return Returns the employeeName.
      */
     public String getEmployeeName() {
@@ -200,6 +201,7 @@ public class LedgerBalanceWithMessage {
 
     /**
      * Sets the employeeName attribute value.
+     *
      * @param employeeName The employeeName to set.
      */
     public void setEmployeeName(String employeeName) {

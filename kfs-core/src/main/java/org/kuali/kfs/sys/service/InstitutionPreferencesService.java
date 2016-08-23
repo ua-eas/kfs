@@ -26,15 +26,26 @@ import java.util.Map;
 
 public interface InstitutionPreferencesService {
     Map<String, Object> findInstitutionPreferencesLinks(Person person, boolean useCache);
+
     Map<String, Object> findInstitutionPreferencesNoLinks();
+
     void saveInstitutionPreferences(String institutionId, String linkGroups);
-    Map<String,Object> getAllLinkGroups();
+
+    Map<String, Object> getAllLinkGroups();
+
     List<Map<String, String>> getMenu();
+
     List<Map<String, String>> saveMenu(String menu);
+
     Map<String, String> getLogo();
+
     Map<String, String> uploadLogo(InputStream uploadedInputStream, String filename);
+
     Map<String, String> saveLogo(String logo);
+
     void setInstitutionPreferencesCacheLength(int seconds);
+
     int getInstitutionPreferencesCacheLength();
+
     boolean hasConfigurationPermission(String principalName);
 }

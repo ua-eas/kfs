@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.dataaccess.AccountingLineDao;
 import org.kuali.kfs.sys.service.AccountingLineService;
 import org.kuali.kfs.sys.service.NonTransactional;
+
+import java.util.List;
 
 /**
  * This class is the service implementation for the AccountingLine structure. This has been created with polymorphism in mind so
@@ -59,6 +59,7 @@ public class AccountingLineServiceImpl implements AccountingLineService {
 
     /**
      * Calls AccountingLineDao#findByDocumentHeaderIdAndLineType to find the appropriate lines
+     *
      * @see org.kuali.kfs.sys.service.AccountingLineService#getByDocumentHeaderIdAndLineType(java.lang.Class, java.lang.String, java.lang.String)
      */
     @Override
@@ -67,6 +68,7 @@ public class AccountingLineServiceImpl implements AccountingLineService {
     }
 
     // needed for Spring injection
+
     /**
      * Sets the data access object
      *

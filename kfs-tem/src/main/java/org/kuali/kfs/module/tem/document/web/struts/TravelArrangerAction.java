@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.TEM_PROFILE_LOOKUPABLE;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.document.TravelArrangerDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static org.kuali.kfs.module.tem.TemConstants.TEM_PROFILE_LOOKUPABLE;
 
 public class TravelArrangerAction extends KualiTransactionalDocumentActionBase {
 
@@ -91,7 +91,7 @@ public class TravelArrangerAction extends KualiTransactionalDocumentActionBase {
             return null;
         }
 
-        TravelArrangerDocument doc = (TravelArrangerDocument)arrangerForm.getDocument();
+        TravelArrangerDocument doc = (TravelArrangerDocument) arrangerForm.getDocument();
         doc.refreshReferenceObject("profile");
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -103,12 +103,12 @@ public class TravelArrangerAction extends KualiTransactionalDocumentActionBase {
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TravelArrangerForm arrgrForm = (TravelArrangerForm) form;
-        TravelArrangerDocument doc = (TravelArrangerDocument)arrgrForm.getDocument();
-        if(doc.getResign()) {
-            if(ObjectUtils.isNull(doc.getProfile())) {
+        TravelArrangerDocument doc = (TravelArrangerDocument) arrgrForm.getDocument();
+        if (doc.getResign()) {
+            if (ObjectUtils.isNull(doc.getProfile())) {
                 doc.refreshReferenceObject("profile");
             }
-            if(ObjectUtils.isNotNull(doc.getProfile().getPrincipalId())) {
+            if (ObjectUtils.isNotNull(doc.getProfile().getPrincipalId())) {
                 getTravelDocumentService().addAdHocFYIRecipient(doc, doc.getProfile().getPrincipalId());
             }
         }

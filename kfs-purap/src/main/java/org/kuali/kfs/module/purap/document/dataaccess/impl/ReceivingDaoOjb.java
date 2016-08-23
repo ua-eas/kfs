@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -31,6 +27,10 @@ import org.kuali.kfs.module.purap.document.dataaccess.ReceivingDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * OJB implementation of PurchaseOrderDao.
@@ -52,7 +52,7 @@ public class ReceivingDaoOjb extends PlatformAwareDaoBaseOjb implements Receivin
         Criteria criteria = new Criteria();
         criteria.addEqualTo("lineItemReceivingDocument.purchaseOrderIdentifier", id);
 
-        List<String> returnList =  getDocumentNumbersOfCorrectionReceivingByCriteria(criteria, false);
+        List<String> returnList = getDocumentNumbersOfCorrectionReceivingByCriteria(criteria, false);
 
         return returnList;
     }
@@ -70,7 +70,7 @@ public class ReceivingDaoOjb extends PlatformAwareDaoBaseOjb implements Receivin
      * Retrieves a document number for a payment request by user defined criteria and sorts the values ascending if orderByAscending
      * parameter is true, descending otherwise.
      *
-     * @param criteria - list of criteria to use in the retrieve
+     * @param criteria         - list of criteria to use in the retrieve
      * @param orderByAscending - boolean to sort results ascending if true, descending otherwise
      * @return - Iterator of document numbers
      */
@@ -78,8 +78,7 @@ public class ReceivingDaoOjb extends PlatformAwareDaoBaseOjb implements Receivin
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(LineItemReceivingDocument.class, criteria);
         if (orderByAscending) {
             rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
-        }
-        else {
+        } else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
 
@@ -98,8 +97,7 @@ public class ReceivingDaoOjb extends PlatformAwareDaoBaseOjb implements Receivin
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(CorrectionReceivingDocument.class, criteria);
         if (orderByAscending) {
             rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
-        }
-        else {
+        } else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
 

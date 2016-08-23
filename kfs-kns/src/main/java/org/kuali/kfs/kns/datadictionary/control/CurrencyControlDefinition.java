@@ -22,18 +22,18 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-                        The currency element defines an HTML text control for
-                        entering dollar and cents amounts.  Only two decimals to
-                        the right of the decimal point are allowed.  Formatted
-                        value is displayed with commas.
-
-                        Used Properties: size, formattedMaxLength
+ * The currency element defines an HTML text control for
+ * entering dollar and cents amounts.  Only two decimals to
+ * the right of the decimal point are allowed.  Formatted
+ * value is displayed with commas.
+ * <p>
+ * Used Properties: size, formattedMaxLength
  */
 @Deprecated
 public class CurrencyControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = 1650000676894176080L;
 
-	/**
+    /**
      * the maxLength for text that has been formatted. ie if maxLength=5. [12345]. but after going through the formatter the value
      * is [12,345.00] and will no longer fit in a field whos maxLength=5. formattedMaxLength solves this problem.
      */
@@ -43,7 +43,6 @@ public class CurrencyControlDefinition extends ControlDefinitionBase {
     }
 
     /**
-     *
      * @see ControlDefinition#isCurrency()
      */
     public boolean isCurrency() {

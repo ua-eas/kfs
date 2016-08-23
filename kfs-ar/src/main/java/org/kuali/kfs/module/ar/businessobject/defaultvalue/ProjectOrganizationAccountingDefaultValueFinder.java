@@ -28,7 +28,7 @@ public class ProjectOrganizationAccountingDefaultValueFinder extends ObjectOrgan
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {
-        return (organizationAccountingDefault != null)? organizationAccountingDefault.getDefaultInvoiceProjectCode() : "";
+        return (organizationAccountingDefault != null) ? organizationAccountingDefault.getDefaultInvoiceProjectCode() : "";
     }
 
 }

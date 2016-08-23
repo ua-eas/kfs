@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapWorkflowConstants;
 import org.kuali.kfs.module.purap.businessobject.LineItemReceivingItem;
@@ -35,10 +35,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class LineItemReceivingDocument extends ReceivingDocumentBase {
@@ -55,61 +55,61 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
     }
 
 
-    public void initiateDocument(){
+    public void initiateDocument() {
         super.initiateDocument();
         this.setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_IN_PROCESS);
     }
 
-    public void populateReceivingLineFromPurchaseOrder(PurchaseOrderDocument po){
+    public void populateReceivingLineFromPurchaseOrder(PurchaseOrderDocument po) {
 
         //populate receiving line document from purchase order
-        this.setPurchaseOrderIdentifier( po.getPurapDocumentIdentifier() );
-        this.getDocumentHeader().setOrganizationDocumentNumber( po.getDocumentHeader().getOrganizationDocumentNumber() );
-        this.setAccountsPayablePurchasingDocumentLinkIdentifier( po.getAccountsPayablePurchasingDocumentLinkIdentifier() );
+        this.setPurchaseOrderIdentifier(po.getPurapDocumentIdentifier());
+        this.getDocumentHeader().setOrganizationDocumentNumber(po.getDocumentHeader().getOrganizationDocumentNumber());
+        this.setAccountsPayablePurchasingDocumentLinkIdentifier(po.getAccountsPayablePurchasingDocumentLinkIdentifier());
 
         //copy vendor
-        this.setVendorHeaderGeneratedIdentifier( po.getVendorHeaderGeneratedIdentifier() );
-        this.setVendorDetailAssignedIdentifier( po.getVendorDetailAssignedIdentifier() );
-        this.setVendorName( po.getVendorName() );
-        this.setVendorNumber( po.getVendorNumber() );
-        this.setVendorAddressGeneratedIdentifier( po.getVendorAddressGeneratedIdentifier() );
-        this.setVendorLine1Address( po.getVendorLine1Address() );
-        this.setVendorLine2Address( po.getVendorLine2Address() );
-        this.setVendorCityName( po.getVendorCityName() );
-        this.setVendorStateCode( po.getVendorStateCode() );
-        this.setVendorPostalCode( po.getVendorPostalCode() );
-        this.setVendorCountryCode( po.getVendorCountryCode() );
+        this.setVendorHeaderGeneratedIdentifier(po.getVendorHeaderGeneratedIdentifier());
+        this.setVendorDetailAssignedIdentifier(po.getVendorDetailAssignedIdentifier());
+        this.setVendorName(po.getVendorName());
+        this.setVendorNumber(po.getVendorNumber());
+        this.setVendorAddressGeneratedIdentifier(po.getVendorAddressGeneratedIdentifier());
+        this.setVendorLine1Address(po.getVendorLine1Address());
+        this.setVendorLine2Address(po.getVendorLine2Address());
+        this.setVendorCityName(po.getVendorCityName());
+        this.setVendorStateCode(po.getVendorStateCode());
+        this.setVendorPostalCode(po.getVendorPostalCode());
+        this.setVendorCountryCode(po.getVendorCountryCode());
 
         //copy alternate vendor
-        this.setAlternateVendorName( po.getAlternateVendorName() );
-        this.setAlternateVendorNumber( po.getAlternateVendorNumber() );
-        this.setAlternateVendorDetailAssignedIdentifier( po.getAlternateVendorDetailAssignedIdentifier() );
-        this.setAlternateVendorHeaderGeneratedIdentifier( po.getAlternateVendorHeaderGeneratedIdentifier() );
+        this.setAlternateVendorName(po.getAlternateVendorName());
+        this.setAlternateVendorNumber(po.getAlternateVendorNumber());
+        this.setAlternateVendorDetailAssignedIdentifier(po.getAlternateVendorDetailAssignedIdentifier());
+        this.setAlternateVendorHeaderGeneratedIdentifier(po.getAlternateVendorHeaderGeneratedIdentifier());
 
         //copy delivery
-        this.setDeliveryBuildingCode( po.getDeliveryBuildingCode() );
-        this.setDeliveryBuildingLine1Address( po.getDeliveryBuildingLine1Address() );
-        this.setDeliveryBuildingLine2Address( po.getDeliveryBuildingLine2Address() );
-        this.setDeliveryBuildingName( po.getDeliveryBuildingName() );
-        this.setDeliveryBuildingRoomNumber( po.getDeliveryBuildingRoomNumber() );
-        this.setDeliveryCampusCode( po.getDeliveryCampusCode() );
-        this.setDeliveryCityName( po.getDeliveryCityName() );
-        this.setDeliveryCountryCode( po.getDeliveryCountryCode() );
-        this.setDeliveryInstructionText( po.getDeliveryInstructionText() );
-        this.setDeliveryPostalCode( po.getDeliveryPostalCode() );
-        this.setDeliveryRequiredDate( po.getDeliveryRequiredDate() );
-        this.setDeliveryRequiredDateReasonCode( po.getDeliveryRequiredDateReasonCode() );
-        this.setDeliveryStateCode( po.getDeliveryStateCode() );
-        this.setDeliveryToEmailAddress( po.getDeliveryToEmailAddress() );
-        this.setDeliveryToName( po.getDeliveryToName() );
-        this.setDeliveryToPhoneNumber( po.getDeliveryToPhoneNumber() );
+        this.setDeliveryBuildingCode(po.getDeliveryBuildingCode());
+        this.setDeliveryBuildingLine1Address(po.getDeliveryBuildingLine1Address());
+        this.setDeliveryBuildingLine2Address(po.getDeliveryBuildingLine2Address());
+        this.setDeliveryBuildingName(po.getDeliveryBuildingName());
+        this.setDeliveryBuildingRoomNumber(po.getDeliveryBuildingRoomNumber());
+        this.setDeliveryCampusCode(po.getDeliveryCampusCode());
+        this.setDeliveryCityName(po.getDeliveryCityName());
+        this.setDeliveryCountryCode(po.getDeliveryCountryCode());
+        this.setDeliveryInstructionText(po.getDeliveryInstructionText());
+        this.setDeliveryPostalCode(po.getDeliveryPostalCode());
+        this.setDeliveryRequiredDate(po.getDeliveryRequiredDate());
+        this.setDeliveryRequiredDateReasonCode(po.getDeliveryRequiredDateReasonCode());
+        this.setDeliveryStateCode(po.getDeliveryStateCode());
+        this.setDeliveryToEmailAddress(po.getDeliveryToEmailAddress());
+        this.setDeliveryToName(po.getDeliveryToName());
+        this.setDeliveryToPhoneNumber(po.getDeliveryToPhoneNumber());
 
         //copy purchase order items
         for (PurchaseOrderItem poi : (List<PurchaseOrderItem>) po.getItems()) {
             //TODO: Refactor this check into a service call. route FYI during submit
-            if(poi.isItemActiveIndicator() &&
-               poi.getItemType().isQuantityBasedGeneralLedgerIndicator() &&
-               poi.getItemType().isLineItemIndicator() ){
+            if (poi.isItemActiveIndicator() &&
+                poi.getItemType().isQuantityBasedGeneralLedgerIndicator() &&
+                poi.getItemType().isLineItemIndicator()) {
                 this.getItems().add(new LineItemReceivingItem(poi, this));
             }
         }
@@ -128,7 +128,7 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         this.getDocumentHeader().setOrganizationDocumentNumber(null);
 
         // Clearing document Init fields
-        if(fromPurchaseOrder == false){
+        if (fromPurchaseOrder == false) {
             this.setPurchaseOrderIdentifier(null);
         }
         this.setShipmentReceivedDate(null);
@@ -165,7 +165,7 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
     public void doRouteLevelChange(DocumentRouteLevelChange change) {
         //If the new node is Outstanding Transactions then we want to set the line item
         //receiving status code to APOO.
-        if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.AWAITING_PO_OPEN_STATUS, change.getNewNodeName())){
+        if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.AWAITING_PO_OPEN_STATUS, change.getNewNodeName())) {
             setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_AWAITING_PO_OPEN_STATUS);
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(this);
         }
@@ -235,7 +235,7 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
      */
     public boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
         if (nodeName.equals(PurapWorkflowConstants.RELATES_TO_OUTSTANDING_TRANSACTIONS)) return isRelatesToOutstandingTransactionsRequired();
-        throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+        throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
     }
 
     public List buildListOfDeletionAwareLists() {

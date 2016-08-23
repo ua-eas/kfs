@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.vnd.batch.service.VendorExcludeService;
+
+import java.util.Date;
 
 public class VendorMatchStep extends AbstractStep {
     VendorExcludeService vendorExcludeService;

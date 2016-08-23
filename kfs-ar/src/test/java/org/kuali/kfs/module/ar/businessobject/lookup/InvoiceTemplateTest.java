@@ -20,6 +20,7 @@ package org.kuali.kfs.module.ar.businessobject.lookup;
 
 import org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserChartValueFinder;
 import org.kuali.kfs.coa.businessobject.defaultvalue.CurrentUserOrgValueFinder;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.businessobject.InvoiceTemplate;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
@@ -29,7 +30,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * This class is used to test Invoice template class

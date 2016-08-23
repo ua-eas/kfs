@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
+
+import java.util.List;
 
 /**
  * Decorator class for the Long Row Table.
@@ -37,9 +37,9 @@ public class LongRowTableDecorator extends TableDecorator {
 
     /**
      * @see org.displaytag.decorator.TableDecorator#finishRow()
-     *
+     * <p>
      * KRAD Conversion: Performs customization of the row.
-     *
+     * <p>
      * No uses data dictionary.
      */
     @Override

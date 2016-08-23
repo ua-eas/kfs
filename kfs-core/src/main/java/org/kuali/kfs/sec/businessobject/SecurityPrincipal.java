@@ -18,15 +18,13 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the assignment of one or more security definitions and one or more models to a principal

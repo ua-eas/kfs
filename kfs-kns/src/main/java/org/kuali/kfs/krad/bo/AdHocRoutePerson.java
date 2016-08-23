@@ -29,8 +29,6 @@ import javax.persistence.Transient;
 
 /**
  * Ad Hoc Route Person Business Object
- *
- *
  */
 @IdClass(AdHocRoutePersonId.class)
 @Entity
@@ -74,7 +72,7 @@ public class AdHocRoutePerson extends AdHocRouteRecipient {
         super.setName(name);
 
         if (StringUtils.isNotBlank(name) && getId() != null &&
-                ((person != null) && !StringUtils.equals(person.getName(), name))) {
+            ((person != null) && !StringUtils.equals(person.getName(), name))) {
             person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(getId());
             setPerson(person);
         }
@@ -87,7 +85,7 @@ public class AdHocRoutePerson extends AdHocRouteRecipient {
             if (person == null) {
                 try {
                     person = (Person) KimApiServiceLocator.getPersonService().getPersonImplementationClass()
-                            .newInstance();
+                        .newInstance();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

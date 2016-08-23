@@ -16,13 +16,13 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page showDocumentInfo="false"
-	headerTitle="Batch File Delete" docTitle="Batch File Delete"
-	transactionalDocument="false" htmlFormAction="batchFileAdmin">
-	<c:out value="${status}"/>
-	<br/>
-	<br/>
-	<li><sys:backdoorAwareLink displayTitle="true" title="Click here to return to the Batch File lookup" url="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+          headerTitle="Batch File Delete" docTitle="Batch File Delete"
+          transactionalDocument="false" htmlFormAction="batchFileAdmin">
+    <c:out value="${status}"/>
+    <br/>
+    <br/>
+    <li><sys:backdoorAwareLink displayTitle="true" title="Click here to return to the Batch File lookup" url="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true"/></li>
 </kul:page>

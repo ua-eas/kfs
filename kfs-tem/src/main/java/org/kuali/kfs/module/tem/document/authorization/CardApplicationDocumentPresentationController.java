@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 
 /**
  * Generic presentation controller for the travel card application documents
@@ -28,6 +28,7 @@ public class CardApplicationDocumentPresentationController extends FinancialSyst
 
     /**
      * travel card documents cannot be blanket approved
+     *
      * @see org.kuali.rice.krad.document.DocumentPresentationControllerBase#canBlanketApprove(org.kuali.rice.krad.document.Document)
      */
     @Override

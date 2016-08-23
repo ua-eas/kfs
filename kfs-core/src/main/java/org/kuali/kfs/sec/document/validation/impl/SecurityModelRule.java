@@ -18,10 +18,14 @@
  */
 package org.kuali.kfs.sec.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.SecPropertyConstants;
@@ -33,19 +37,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.group.Group;
-import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.role.Role;
-import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.rice.kim.api.services.IdentityManagementService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -101,7 +98,7 @@ public class SecurityModelRule extends MaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -183,7 +180,7 @@ public class SecurityModelRule extends MaintenanceDocumentRuleBase {
     /**
      * For new or copy action verifies the name given for the model is not being used by another model or definition
      *
-     * @param securityModel SecurityModel with name to check
+     * @param securityModel  SecurityModel with name to check
      * @param errorKeyPrefix String errorPrefix to use if any errors are found
      * @return boolean true if name exists, false if not
      */
@@ -212,7 +209,7 @@ public class SecurityModelRule extends MaintenanceDocumentRuleBase {
      * Validates a definition assignment to the model
      *
      * @param modelDefinition SecurityModelDefinition to validate
-     * @param errorKeyPrefix String errorPrefix to use if any errors are found
+     * @param errorKeyPrefix  String errorPrefix to use if any errors are found
      * @return boolean true if validation was successful, false if there are errors
      */
     protected boolean validateModelDefinition(SecurityModelDefinition modelDefinition, String errorKeyPrefix) {
@@ -259,7 +256,7 @@ public class SecurityModelRule extends MaintenanceDocumentRuleBase {
     /**
      * Validates a member assignment to the model
      *
-     * @param modelMember SecurityModelMember to validate
+     * @param modelMember    SecurityModelMember to validate
      * @param errorKeyPrefix String errorPrefix to use if any errors are found
      * @return boolean true if validation was successful, false if there are errors
      */
@@ -279,15 +276,13 @@ public class SecurityModelRule extends MaintenanceDocumentRuleBase {
                 GlobalVariables.getMessageMap().putError(errorKeyPrefix + SecPropertyConstants.MEMBER_ID, SecKeyConstants.ERROR_MODEL_MEMBER_ID_NOT_VALID, memberId, memberTypeCode);
                 isValid = false;
             }
-        }
-        else if (MemberType.ROLE.getCode().equals(memberTypeCode)) {
+        } else if (MemberType.ROLE.getCode().equals(memberTypeCode)) {
             Role roleInfo = KimApiServiceLocator.getRoleService().getRole(memberId);
             if (roleInfo == null) {
                 GlobalVariables.getMessageMap().putError(errorKeyPrefix + SecPropertyConstants.MEMBER_ID, SecKeyConstants.ERROR_MODEL_MEMBER_ID_NOT_VALID, memberId, memberTypeCode);
                 isValid = false;
             }
-        }
-        else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
+        } else if (MemberType.GROUP.getCode().equals(memberTypeCode)) {
             Group groupInfo = KimApiServiceLocator.getGroupService().getGroup(memberId);
             if (groupInfo == null) {
                 GlobalVariables.getMessageMap().putError(errorKeyPrefix + SecPropertyConstants.MEMBER_ID, SecKeyConstants.ERROR_MODEL_MEMBER_ID_NOT_VALID, memberId, memberTypeCode);

@@ -31,43 +31,44 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  */
 public interface AccountsReceivablePendingEntryService {
 
-   /**
-    * This method creates and adds generic invoice related GLPEs.
-    *
-    * @param glpeSource
-    * @param glpeSourceDetail
-    * @param sequenceHelper
-    * @param isDebit
-    * @param hasClaimOnCashOffset
-    * @param amount
-    */
-   public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasClaimOnCashOffset, KualiDecimal amount);
+    /**
+     * This method creates and adds generic invoice related GLPEs.
+     *
+     * @param glpeSource
+     * @param glpeSourceDetail
+     * @param sequenceHelper
+     * @param isDebit
+     * @param hasClaimOnCashOffset
+     * @param amount
+     */
+    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasClaimOnCashOffset, KualiDecimal amount);
 
-   /**
-    * This method creates and adds generic invoice related GLPEs.
-    *
-    * @param glpeSource
-    * @param glpeSourceDetail
-    * @param sequenceHelper
-    * @param isDebit
-    * @param hasReceivableClaimOnCashOffset
-    * @param writeoffTaxGenerationMethodDisallowFlag
-    * @param amount
-    */
-   public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasReceivableClaimOnCashOffset, boolean writeoffTaxGenerationMethodDisallowFlag, KualiDecimal amount);
+    /**
+     * This method creates and adds generic invoice related GLPEs.
+     *
+     * @param glpeSource
+     * @param glpeSourceDetail
+     * @param sequenceHelper
+     * @param isDebit
+     * @param hasReceivableClaimOnCashOffset
+     * @param writeoffTaxGenerationMethodDisallowFlag
+     * @param amount
+     */
+    public void createAndAddGenericInvoiceRelatedGLPEs(GeneralLedgerPendingEntrySource glpeSource, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, boolean isDebit, boolean hasReceivableClaimOnCashOffset, boolean writeoffTaxGenerationMethodDisallowFlag, KualiDecimal amount);
 
-   /**
-    * Determines the proper object code to use for pending entries generated from the given invoicePaidApplied
-    * @param invoicePaidApplied the invoicePaidApplied to find an object code for
-    * @return the object code to use
-    */
-   public ObjectCode getAccountsReceivableObjectCode(InvoicePaidApplied invoicePaidApplied);
+    /**
+     * Determines the proper object code to use for pending entries generated from the given invoicePaidApplied
+     *
+     * @param invoicePaidApplied the invoicePaidApplied to find an object code for
+     * @return the object code to use
+     */
+    public ObjectCode getAccountsReceivableObjectCode(InvoicePaidApplied invoicePaidApplied);
 
-   /**
-    * This method returns the correct accounts receivable object code based on a receivable parameter.
-    *
-    * @param customerInvoiceDetail
-    * @return
-    */
-   public String getAccountsReceivableObjectCode(CustomerInvoiceDetail customerInvoiceDetail);
+    /**
+     * This method returns the correct accounts receivable object code based on a receivable parameter.
+     *
+     * @param customerInvoiceDetail
+     * @return
+     */
+    public String getAccountsReceivableObjectCode(CustomerInvoiceDetail customerInvoiceDetail);
 }

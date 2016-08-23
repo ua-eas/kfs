@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
+
+import java.util.List;
 
 /**
  * Defines methods that must be implements for a general ledger posting document.
@@ -57,7 +57,7 @@ public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
      * This method will check sufficient funds for the document
      *
      * @return a list of sufficientfundsitems that do not have sufficient funds. It returns an empty list if there is sufficient
-     *         funds for the entire document
+     * funds for the entire document
      */
     public List<SufficientFundsItem> checkSufficientFunds();
 
@@ -66,7 +66,7 @@ public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
      * have additional requirements.
      *
      * @return a list of sufficientfundsitems that do not have sufficient funds. It returns an empty list if there is sufficient
-     *         funds for the entire document
+     * funds for the entire document
      */
     public List<GeneralLedgerPendingEntry> getPendingLedgerEntriesForSufficientFundsChecking();
 }

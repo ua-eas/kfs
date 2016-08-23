@@ -24,25 +24,25 @@ import java.util.Map;
 
 
 public interface BusinessObjectAuthorizer {
-	public boolean isAuthorized(BusinessObject businessObject,
-			String namespaceCode, String permissionName, String principalId);
+    public boolean isAuthorized(BusinessObject businessObject,
+                                String namespaceCode, String permissionName, String principalId);
 
-	public boolean isAuthorizedByTemplate(BusinessObject businessObject,
-			String namespaceCode, String permissionTemplateName,
-			String principalId);
+    public boolean isAuthorizedByTemplate(BusinessObject businessObject,
+                                          String namespaceCode, String permissionTemplateName,
+                                          String principalId);
 
-	public boolean isAuthorized(BusinessObject businessObject,
-			String namespaceCode, String permissionName, String principalId,
-			Map<String, String> additionalPermissionDetails,
-			Map<String, String> additionalRoleQualifiers);
+    public boolean isAuthorized(BusinessObject businessObject,
+                                String namespaceCode, String permissionName, String principalId,
+                                Map<String, String> additionalPermissionDetails,
+                                Map<String, String> additionalRoleQualifiers);
 
-	public boolean isAuthorizedByTemplate(Object dataObject,
-			String namespaceCode, String permissionTemplateName,
-			String principalId,
-			Map<String, String> additionalPermissionDetails,
-			Map<String, String> additionalRoleQualifiers);
+    public boolean isAuthorizedByTemplate(Object dataObject,
+                                          String namespaceCode, String permissionTemplateName,
+                                          String principalId,
+                                          Map<String, String> additionalPermissionDetails,
+                                          Map<String, String> additionalRoleQualifiers);
 
-	public Map<String,String> getCollectionItemRoleQualifications(BusinessObject collectionItemBusinessObject);
+    public Map<String, String> getCollectionItemRoleQualifications(BusinessObject collectionItemBusinessObject);
 
-	public Map<String,String> getCollectionItemPermissionDetails(BusinessObject collectionItemBusinessObject);
+    public Map<String, String> getCollectionItemPermissionDetails(BusinessObject collectionItemBusinessObject);
 }

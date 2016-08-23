@@ -18,27 +18,31 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.identity.OrgReviewRole;
-import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.rice.kim.api.role.RoleMember;
+
+import java.util.List;
 
 public interface OrgReviewRoleService {
 
-    void populateOrgReviewRoleFromRoleMember( OrgReviewRole orr, String roleMemberId );
-    void populateOrgReviewRoleFromDelegationMember( OrgReviewRole orr, String roleMemberId, String delegationMemberId );
+    void populateOrgReviewRoleFromRoleMember(OrgReviewRole orr, String roleMemberId);
+
+    void populateOrgReviewRoleFromDelegationMember(OrgReviewRole orr, String roleMemberId, String delegationMemberId);
 
     boolean isValidDocumentTypeForOrgReview(String documentTypeName);
 
     void validateDocumentType(String documentTypeName) throws ValidationException;
+
     List<String> getRolesToConsider(String documentTypeName) throws ValidationException;
 
     boolean hasAccountingOrganizationHierarchy(final String documentTypeName);
+
     boolean hasOrganizationHierarchy(final String documentTypeName);
+
     String getClosestOrgReviewRoleParentDocumentTypeName(final String documentTypeName);
 
-    RoleMember getRoleMemberFromKimRoleService( String roleMemberId );
+    RoleMember getRoleMemberFromKimRoleService(String roleMemberId);
 
-    void saveOrgReviewRoleToKim( OrgReviewRole orr );
+    void saveOrgReviewRoleToKim(OrgReviewRole orr);
 }

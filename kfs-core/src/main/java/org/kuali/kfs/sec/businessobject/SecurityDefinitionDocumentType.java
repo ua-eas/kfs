@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -29,7 +28,8 @@ import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 /**
@@ -113,13 +113,13 @@ public class SecurityDefinitionDocumentType extends PersistableBusinessObjectBas
      * @return Returns the financialSystemDocumentType.
      */
     public DocumentTypeEBO getFinancialSystemDocumentType() {
-        if ( StringUtils.isBlank( financialSystemDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialSystemDocumentTypeCode)) {
             financialSystemDocumentType = null;
         } else {
-            if ( financialSystemDocumentType == null || !StringUtils.equals(financialSystemDocumentTypeCode, financialSystemDocumentType.getName() ) ) {
+            if (financialSystemDocumentType == null || !StringUtils.equals(financialSystemDocumentTypeCode, financialSystemDocumentType.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialSystemDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentType = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentType = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentType = null;
                 }

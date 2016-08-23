@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -32,12 +32,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CashControlDocumentServiceTest extends KualiTestBase {
-    private static final Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocumentServiceTest.class);;
+    private static final Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocumentServiceTest.class);
+    ;
 
     protected static final String PROCESSING_CHART_CODE = "UA";
     protected static final String PROCESSING_ORG_CODE = "AR";
@@ -93,9 +94,8 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
     protected CashControlDocument createCashControlDocumentWithOneDetail() {
         CashControlDocument cashControlDocument;
         try {
-            cashControlDocument = (CashControlDocument)documentService.getNewDocument(dataDictionaryService.getDocumentTypeNameByClass(CashControlDocument.class));
-        }
-        catch (Exception e) {
+            cashControlDocument = (CashControlDocument) documentService.getNewDocument(dataDictionaryService.getDocumentTypeNameByClass(CashControlDocument.class));
+        } catch (Exception e) {
             LOG.error("A Exception was thrown while trying to initiate a new CashControl document.", e);
             throw new RuntimeException("A Exception was thrown while trying to initiate a new CashControl document.", e);
         }
@@ -106,8 +106,7 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
         AccountsReceivableDocumentHeader arDocHeader;
         try {
             arDocHeader = arDocHeaderService.getNewAccountsReceivableDocumentHeaderForCurrentUser();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("An Exception was thrown while trying to create a new AccountsReceivableDocumentHeader.", e);
             throw new RuntimeException("An Exception was thrown while trying to create a new AccountsReceivableDocumentHeader.", e);
         }
@@ -124,8 +123,7 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
         //  add it to the document
         try {
             service.addNewCashControlDetail("Test Document", cashControlDocument, detail);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("A Exception was thrown while trying to create a new CashControl detail.", e);
             throw new RuntimeException("A Exception was thrown while trying to create a new CashControl detail.", e);
         }

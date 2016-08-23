@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ec.batch.service.impl;
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortKeyConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
@@ -34,13 +32,15 @@ import org.kuali.kfs.module.ec.util.EffortCertificationParameterFinder;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.MessageBuilder;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * This Process creates effort certification documents from the temporary build table created by the batch process and routes effort
  * certification documents to project directors, fiscal officers, and central workgroups. The process includes the following steps:
- *
+ * <p>
  * <li>construct an effort certification document from a temporary effort certification document; </li>
  * <li>route each effort certification document; </li>
  * <li>delete the temporary effort certification document after routing successfully. </li>
@@ -80,7 +80,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
         for (EffortCertificationDocumentBuild documentBuild : documentsBuild) {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
 
-            if(isCreated) {
+            if (isCreated) {
                 businessObjectService.delete(documentBuild);
             }
         }
@@ -150,6 +150,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
 
     /**
      * Sets the effortCertificationDocumentService attribute value.
+     *
      * @param effortCertificationDocumentService The effortCertificationDocumentService to set.
      */
     public void setEffortCertificationDocumentService(EffortCertificationDocumentService effortCertificationDocumentService) {

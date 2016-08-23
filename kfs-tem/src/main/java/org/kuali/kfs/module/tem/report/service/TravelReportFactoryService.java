@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.tem.report.service;
 
-import java.lang.reflect.Field;
-import java.util.Collection;
-
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
-
 import org.kuali.kfs.module.tem.report.RString;
 import org.kuali.kfs.sys.report.ReportInfo;
+
+import java.lang.reflect.Field;
+import java.util.Collection;
 
 /**
  * Service interface for travel reports.
@@ -52,7 +51,7 @@ public interface TravelReportFactoryService {
     JasperDesign designSummary(final ReportInfo report) throws Exception;
 
 
-    Field getFieldWithAnnotation(final ReportInfo report, final Class ... annotations);
+    Field getFieldWithAnnotation(final ReportInfo report, final Class... annotations);
 
     /**
      * @return JasperDesign
@@ -67,7 +66,7 @@ public interface TravelReportFactoryService {
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Summary} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Summary} annotation is on a {@link Field}
+     * @param true  if the {@link Summary} annotation is on a {@link Field}
      */
     boolean isSummary(final Field field);
 

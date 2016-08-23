@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocument;
@@ -26,7 +27,6 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Performs prompts and other pre business rule checks for the Accounts Payable Document (and its children).
@@ -45,7 +45,7 @@ public abstract class AccountsPayableDocumentPreRulesBase extends PurapDocumentP
      * @see org.kuali.rice.kns.rules.PromptBeforeValidationBase#doRules(org.kuali.rice.krad.document.Document)
      */
     @Override
-    public boolean doPrompts(Document document){
+    public boolean doPrompts(Document document) {
 
         boolean preRulesOK = true;
 
@@ -54,8 +54,7 @@ public abstract class AccountsPayableDocumentPreRulesBase extends PurapDocumentP
         // Ask the nomatch question if the document hasn't been completed.
         if (SpringContext.getBean(PurapService.class).isFullDocumentEntryCompleted(accountsPayableDocument) == false) {
             preRulesOK = confirmInvoiceNoMatchOverride(accountsPayableDocument);
-        }
-        else if (SpringContext.getBean(PurapService.class).isFullDocumentEntryCompleted(accountsPayableDocument)) {
+        } else if (SpringContext.getBean(PurapService.class).isFullDocumentEntryCompleted(accountsPayableDocument)) {
             // if past full document entry complete, then set override to true to skip validation
             accountsPayableDocument.setUnmatchedOverride(true);
         }
@@ -100,7 +99,7 @@ public abstract class AccountsPayableDocumentPreRulesBase extends PurapDocumentP
      * @param accountsPayableDocument - to be used by overriding method.
      * @return
      */
-    public String createInvoiceNoMatchQuestionText(AccountsPayableDocument accountsPayableDocument){
+    public String createInvoiceNoMatchQuestionText(AccountsPayableDocument accountsPayableDocument) {
 
         String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.AP_QUESTION_CONFIRM_INVOICE_MISMATCH);
         questionText = StringUtils.replace(questionText, "{0}", getDocumentName());
@@ -116,7 +115,7 @@ public abstract class AccountsPayableDocumentPreRulesBase extends PurapDocumentP
      */
     protected boolean validateInvoiceTotalsAreMismatched(AccountsPayableDocument accountsPayableDocument) {
         boolean mismatched = false;
-        String[] excludeArray = { PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE };
+        String[] excludeArray = {PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE};
         if (accountsPayableDocument.getTotalDollarAmountAllItems(excludeArray).compareTo(accountsPayableDocument.getInitialAmount()) != 0 && !accountsPayableDocument.isUnmatchedOverride()) {
             mismatched = true;
         }

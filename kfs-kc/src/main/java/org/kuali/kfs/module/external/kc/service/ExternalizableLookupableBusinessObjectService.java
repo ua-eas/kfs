@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.rice.krad.bo.BusinessObject;
 
 public interface ExternalizableLookupableBusinessObjectService extends ExternalizableBusinessObjectService {
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues);

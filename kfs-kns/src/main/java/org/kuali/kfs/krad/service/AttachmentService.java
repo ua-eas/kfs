@@ -27,8 +27,6 @@ import java.io.InputStream;
 
 /**
  * Defines the methods common to all AttachmentService implementations
- *
- *
  */
 public interface AttachmentService {
     /**
@@ -36,7 +34,6 @@ public interface AttachmentService {
      *
      * @param document TODO
      * @param foo
-     *
      * @return Attachment
      * @throws IOException
      */
@@ -46,7 +43,6 @@ public interface AttachmentService {
      * Retrieves a given Attachments contents from the corresponding Attachment object
      *
      * @param documentAttachment
-     *
      * @return OutputStream
      * @throws IOException
      */
@@ -60,11 +56,10 @@ public interface AttachmentService {
     public void deleteAttachmentContents(Attachment attachment);
 
     /**
-     *
      * Moves attachments on notes from the pending directory to the real one
-     * @param note the Note from which to move attachments.  If this Note does not
-     * have an attachment then this method does nothing.
      *
+     * @param note the Note from which to move attachments.  If this Note does not
+     *             have an attachment then this method does nothing.
      * @throws IllegalArgumentException if the given Note is null
      * @throws IllegalArgumentException if the Note does not have a valid object id
      */
@@ -75,7 +70,7 @@ public interface AttachmentService {
      * time, so we use modification time instead.
      *
      * @param modificationTime the number of milliseconds since "the epoch" (i.e.January 1, 1970, 00:00:00 GMT).  java.util.Date and java.util.Calendar's
-     *  methods return time in this format.  If a pending attachment was modified before this time, then it will be deleted (unless an error occurs)
+     *                         methods return time in this format.  If a pending attachment was modified before this time, then it will be deleted (unless an error occurs)
      */
     public void deletePendingAttachmentsModifiedBefore(long modificationTime);
 

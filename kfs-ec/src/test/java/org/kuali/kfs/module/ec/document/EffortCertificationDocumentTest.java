@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ec.document;
 
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.testdata.EffortTestDataPropertyConstants;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.List;
+import java.util.Properties;
 
 @ConfigureContext
 public class EffortCertificationDocumentTest extends KualiTestBase {

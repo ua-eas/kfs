@@ -29,7 +29,7 @@ public class AccountsPayableValidateAccountsPayableItemsValidation extends Gener
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        valid &= capitalAssetBuilderModuleService.validateAccountsPayableData((AccountsPayableDocument)event.getDocument());
+        valid &= capitalAssetBuilderModuleService.validateAccountsPayableData((AccountsPayableDocument) event.getDocument());
         return valid;
     }
 

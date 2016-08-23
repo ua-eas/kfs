@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSKeyConstants;
+
+import java.util.LinkedHashMap;
 
 /**
  * A poster output summary total line, for transactions with a given fiscal year, fiscal period, and balance type
@@ -30,8 +30,9 @@ public class PosterOutputSummaryBalanceTypeFiscalYearAndPeriodTotal extends Post
 
     /**
      * Constructs a PosterOutputSummaryBalanceTypeFiscalYearAndPeriodTotal
-     * @param balanceTypeCode the balance type code to total
-     * @param universityFiscalYear the fiscal year to total
+     *
+     * @param balanceTypeCode            the balance type code to total
+     * @param universityFiscalYear       the fiscal year to total
      * @param universityFiscalPeriodCode the fiscal period code to total
      */
     public PosterOutputSummaryBalanceTypeFiscalYearAndPeriodTotal(String balanceTypeCode, Integer universityFiscalYear, String universityFiscalPeriodCode) {
@@ -59,24 +60,25 @@ public class PosterOutputSummaryBalanceTypeFiscalYearAndPeriodTotal extends Post
      */
     @Override
     protected String[] getSummaryMessageParameters() {
-        return new String[] { this.getFiscalPeriodCode(), this.getUniversityFiscalYear().toString(), this.getBalanceTypeCode() };
+        return new String[]{this.getFiscalPeriodCode(), this.getUniversityFiscalYear().toString(), this.getBalanceTypeCode()};
     }
 
     /**
      * A map of the "keys" of this transient business object
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     @Override
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pks = new LinkedHashMap<String, Object>();
         pks.put("universityFiscalYear", this.getUniversityFiscalYear());
-        pks.put("fiscalPeriodCode",this.getFiscalPeriodCode());
-        pks.put("balanceTypeCode",this.getBalanceTypeCode());
-        pks.put("objectTypeCode",this.getObjectTypeCode());
-        pks.put("creditAmount",this.getCreditAmount());
-        pks.put("debitAmount",this.getDebitAmount());
-        pks.put("budgetAmount",this.getBudgetAmount());
-        pks.put("netAmount",this.getNetAmount());
+        pks.put("fiscalPeriodCode", this.getFiscalPeriodCode());
+        pks.put("balanceTypeCode", this.getBalanceTypeCode());
+        pks.put("objectTypeCode", this.getObjectTypeCode());
+        pks.put("creditAmount", this.getCreditAmount());
+        pks.put("debitAmount", this.getDebitAmount());
+        pks.put("budgetAmount", this.getBudgetAmount());
+        pks.put("netAmount", this.getNetAmount());
         return pks;
     }
 }

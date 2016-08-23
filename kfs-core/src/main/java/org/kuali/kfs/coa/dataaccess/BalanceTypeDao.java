@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
+
+import java.util.Collection;
 
 /**
  * This interface defines what methods of data retrieval should be allowed for {@link org.kuali.kfs.coa.businessobject.BalanceTyp}

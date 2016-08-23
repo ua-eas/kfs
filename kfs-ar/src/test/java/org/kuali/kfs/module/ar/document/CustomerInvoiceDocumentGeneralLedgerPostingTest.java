@@ -69,7 +69,7 @@ public class CustomerInvoiceDocumentGeneralLedgerPostingTest extends KualiTestBa
      */
     public CustomerInvoiceDocument getCustomerInvoiceDocumentWithGLPEs(CustomerInvoiceDocumentFixture customerInvoiceDocumentFixture, CustomerInvoiceDetailFixture customerInvoiceDetailFixture) throws WorkflowException {
         // create Customer Invoice Document
-        CustomerInvoiceDetailFixture[] customerInvoiceDetailFixtures = new CustomerInvoiceDetailFixture[] { customerInvoiceDetailFixture };
+        CustomerInvoiceDetailFixture[] customerInvoiceDetailFixtures = new CustomerInvoiceDetailFixture[]{customerInvoiceDetailFixture};
         CustomerInvoiceDocument doc = customerInvoiceDocumentFixture.createCustomerInvoiceDocument(customerInvoiceDetailFixtures);
 
         // generate general pending entries
@@ -81,7 +81,7 @@ public class CustomerInvoiceDocumentGeneralLedgerPostingTest extends KualiTestBa
 
     /**
      * This method checks the invoice, state tax, district tax GLPE entries
-     *
+     * <p>
      * TODO add tests for tax GLPEs
      *
      * @param income

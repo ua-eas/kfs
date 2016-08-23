@@ -31,18 +31,18 @@ public final class ParameterConstants {
     public static final String BATCH_COMPONENT = "Batch";
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target( { ElementType.TYPE })
+    @Target({ElementType.TYPE})
     public static @interface NAMESPACE {
         String namespace();
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target( { ElementType.TYPE })
+    @Target({ElementType.TYPE})
     public static @interface COMPONENT {
         String component();
     }
 
-	private ParameterConstants() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private ParameterConstants() {
+        throw new UnsupportedOperationException("do not call");
+    }
 }

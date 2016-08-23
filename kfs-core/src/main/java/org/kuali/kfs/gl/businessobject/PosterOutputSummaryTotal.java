@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implements PosterOutputSummaryAmountHolder {
     private KualiDecimal creditAmount;
@@ -64,8 +64,8 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
      * This method sets the amounts for this poster output summary entry.
      *
      * @param debitCreditCode credit code used to determine whether amounts is debit or credit
-     * @param objectTypeCode object type code associated with amount
-     * @param amount amount to add
+     * @param objectTypeCode  object type code associated with amount
+     * @param amount          amount to add
      */
     public void addAmount(String debitCreditCode, String objectTypeCode, KualiDecimal amount) {
 
@@ -73,21 +73,17 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
             creditAmount = creditAmount.add(amount);
             if (ArrayUtils.contains(assetExpenseObjectTypeCodes, objectTypeCode)) {
                 netAmount = netAmount.subtract(amount);
-            }
-            else {
+            } else {
                 netAmount = netAmount.add(amount);
             }
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             debitAmount = debitAmount.add(amount);
             if (ArrayUtils.contains(assetExpenseObjectTypeCodes, objectTypeCode)) {
                 netAmount = netAmount.add(amount);
-            }
-            else {
+            } else {
                 netAmount = netAmount.subtract(amount);
             }
-        }
-        else {
+        } else {
             netAmount = netAmount.add(amount);
             budgetAmount = budgetAmount.add(amount);
         }
@@ -95,6 +91,7 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
 
     /**
      * Adds the totals from the entry to the totals this total line carries
+     *
      * @param entry the entry to add totals from
      */
     public void addAmount(PosterOutputSummaryEntry entry) {
@@ -137,16 +134,17 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
 
     /**
      * A map of the "keys" of this transient business object
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pks = new LinkedHashMap<String, Object>();
-        pks.put("objectTypeCode",this.getObjectTypeCode());
-        pks.put("creditAmount",this.getCreditAmount());
-        pks.put("debitAmount",this.getDebitAmount());
-        pks.put("budgetAmount",this.getBudgetAmount());
-        pks.put("netAmount",this.getNetAmount());
+        pks.put("objectTypeCode", this.getObjectTypeCode());
+        pks.put("creditAmount", this.getCreditAmount());
+        pks.put("debitAmount", this.getDebitAmount());
+        pks.put("budgetAmount", this.getBudgetAmount());
+        pks.put("netAmount", this.getNetAmount());
         return pks;
     }
 

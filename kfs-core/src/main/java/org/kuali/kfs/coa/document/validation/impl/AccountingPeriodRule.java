@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Business rule(s) applicable to AccountingPeriodMaintence documents.
@@ -100,8 +100,8 @@ public class AccountingPeriodRule extends MaintenanceDocumentRuleBase {
 
         KeyValuesService boService = SpringContext.getBean(KeyValuesService.class);
         List optionList = (List) boService.findAll(SystemOptions.class);
-        if ( newAccountingPeriod.getUniversityFiscalYear() != null) {
-            for (Iterator iter = optionList.iterator(); iter.hasNext();) {
+        if (newAccountingPeriod.getUniversityFiscalYear() != null) {
+            for (Iterator iter = optionList.iterator(); iter.hasNext(); ) {
                 SystemOptions options = (SystemOptions) iter.next();
                 if (options.getUniversityFiscalYear().compareTo(newAccountingPeriod.getUniversityFiscalYear()) == 0) {
                     foundYear = true;

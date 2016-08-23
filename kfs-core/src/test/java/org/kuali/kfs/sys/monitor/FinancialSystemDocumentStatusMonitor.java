@@ -19,10 +19,10 @@
 package org.kuali.kfs.sys.monitor;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
-import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
+import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 
 /**
  * FinancialSystemDocumentStatusMonitor

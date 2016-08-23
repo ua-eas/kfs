@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
 
 public class VendorCreditMemoTotalMatchesVendorAmountValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument)event.getDocument();
+        VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument) event.getDocument();
 
         // If UseTax is included, then the invoiceInitialAmount should be compared against the
         // total amount NOT INCLUDING tax.

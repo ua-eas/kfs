@@ -19,9 +19,6 @@
 package org.kuali.kfs.kns.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
@@ -36,6 +33,9 @@ import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -209,7 +209,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             throw new IllegalArgumentException("invalid (blank) docTypeName");
         }
 
-        MaintenanceDocumentEntry entry = (MaintenanceDocumentEntry)getDataDictionary().getDocumentEntry(docTypeName);
+        MaintenanceDocumentEntry entry = (MaintenanceDocumentEntry) getDataDictionary().getDocumentEntry(docTypeName);
         return entry;
     }
 
@@ -251,7 +251,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
         // walk through the sections
         List sections = getMaintainableSections(docTypeName);
-        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext();) {
+        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext(); ) {
             MaintainableSectionDefinition section = (MaintainableSectionDefinition) sectionIterator.next();
 
             // walk through the fields
@@ -266,7 +266,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
     }
 
     private String getFieldDefaultValue(Collection maintainableFields, String fieldName) {
-        for (Iterator iterator = maintainableFields.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = maintainableFields.iterator(); iterator.hasNext(); ) {
             MaintainableItemDefinition item = (MaintainableItemDefinition) iterator.next();
             // only check fields...skip subcollections
             if (item instanceof MaintainableFieldDefinition) {
@@ -288,8 +288,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                         ValueFinder valueFinder = null;
                         try {
                             valueFinder = (ValueFinder) field.getDefaultValueFinderClass().newInstance();
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             LOG.info("Exception obtaining valueFinder for collection field default value", e);
                             valueFinder = null;
                         }
@@ -311,7 +310,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
     /**
      * @see MaintenanceDocumentDictionaryService#getCollectionFieldDefaultValue(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public String getCollectionFieldDefaultValue(String docTypeName, String collectionName, String fieldName) {
         // input parameter validation
@@ -380,12 +379,12 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
         // walk through the sections
         List sections = getMaintainableSections(docTypeName);
-        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext();) {
+        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext(); ) {
             MaintainableSectionDefinition section = (MaintainableSectionDefinition) sectionIterator.next();
 
             // walk through the fields
             Collection fields = section.getMaintainableItems();
-            for (Iterator fieldIterator = fields.iterator(); fieldIterator.hasNext();) {
+            for (Iterator fieldIterator = fields.iterator(); fieldIterator.hasNext(); ) {
                 MaintainableItemDefinition item = (MaintainableItemDefinition) fieldIterator.next();
 
                 if (item.getName().equals(itemName)) {
@@ -396,7 +395,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                 if (item instanceof MaintainableCollectionDefinition) {
                     MaintainableCollectionDefinition col = (MaintainableCollectionDefinition) item;
                     if ((subItems.length > 1) && (StringUtils.equals(col.getName(), subItems[0]))) {
-                        for (Iterator<MaintainableCollectionDefinition> colIterator = col.getMaintainableCollections().iterator(); colIterator.hasNext();) {
+                        for (Iterator<MaintainableCollectionDefinition> colIterator = col.getMaintainableCollections().iterator(); colIterator.hasNext(); ) {
                             MaintainableCollectionDefinition subCol = (MaintainableCollectionDefinition) colIterator.next();
                             if (subCol.getName().equals(subItems[1])) {
                                 return subCol;
@@ -443,12 +442,12 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
         // walk through the sections
         List sections = getMaintainableSections(docTypeName);
-        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext();) {
+        for (Iterator sectionIterator = sections.iterator(); sectionIterator.hasNext(); ) {
             MaintainableSectionDefinition section = (MaintainableSectionDefinition) sectionIterator.next();
 
             // walk through the fields
             Collection fields = section.getMaintainableItems();
-            for (Iterator fieldIterator = fields.iterator(); fieldIterator.hasNext();) {
+            for (Iterator fieldIterator = fields.iterator(); fieldIterator.hasNext(); ) {
                 MaintainableItemDefinition item = (MaintainableItemDefinition) fieldIterator.next();
 
                 if (item instanceof MaintainableCollectionDefinition) {
@@ -512,15 +511,15 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             throw new IllegalArgumentException("invalid fieldName parameter.");
         }
         // if required check we have a value for this field
-        if (maintainableFieldDefinition.isRequired() && !maintainableFieldDefinition.isUnconditionallyReadOnly() ) {
+        if (maintainableFieldDefinition.isRequired() && !maintainableFieldDefinition.isUnconditionallyReadOnly()) {
             try {
                 Object obj = ObjectUtils.getNestedValue(businessObject, fieldName);
 
                 if (obj == null || StringUtils.isBlank(obj.toString())) {
                     String attributeLabel = dataDictionaryService.getAttributeLabel(businessObject.getClass(), fieldName);
                     String shortLabel = dataDictionaryService.getAttributeShortLabel(businessObject.getClass(), fieldName);
-                    GlobalVariables.getMessageMap().putError(fieldName, RiceKeyConstants.ERROR_REQUIRED, attributeLabel + " (" + shortLabel + ")" );
-                } else if ( fieldName.endsWith(".principalName") ) {
+                    GlobalVariables.getMessageMap().putError(fieldName, RiceKeyConstants.ERROR_REQUIRED, attributeLabel + " (" + shortLabel + ")");
+                } else if (fieldName.endsWith(".principalName")) {
                     // special handling to catch when the principalName is not really a valid user
                     // pull the Person object and test the entity ID.  If that's null, then this
                     // is just a shell user instance and does not represent a true user
@@ -528,39 +527,39 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                     // but it is also unconditionally read only and not tested - checking that would
                     // require checking the relationships and be more complex than we want to get here
                     String personProperty = ObjectUtils.getNestedAttributePrefix(fieldName);
-                    if ( StringUtils.isNotBlank(personProperty) ) {
-                        if ( StringUtils.isBlank( (String)ObjectUtils.getNestedValue(businessObject, personProperty+".entityId") ) ) {
+                    if (StringUtils.isNotBlank(personProperty)) {
+                        if (StringUtils.isBlank((String) ObjectUtils.getNestedValue(businessObject, personProperty + ".entityId"))) {
                             String attributeLabel = dataDictionaryService.getAttributeLabel(businessObject.getClass(), fieldName);
-                            GlobalVariables.getMessageMap().putError(fieldName, RiceKeyConstants.ERROR_EXISTENCE, attributeLabel );
+                            GlobalVariables.getMessageMap().putError(fieldName, RiceKeyConstants.ERROR_EXISTENCE, attributeLabel);
                         }
                     }
                 }
-            } catch( Exception ex ) {
-                LOG.error( "unable to read property during doc required field checks", ex );
+            } catch (Exception ex) {
+                LOG.error("unable to read property during doc required field checks", ex);
             }
         }
     }
 
 
-    private MaintainableCollectionDefinition getCollectionDefinition( String docTypeName, String collectionName ) {
+    private MaintainableCollectionDefinition getCollectionDefinition(String docTypeName, String collectionName) {
         String currentCollection = collectionName;
         String nestedCollections = "";
-    	if (StringUtils.contains(collectionName, "[")) {
-    		// strip off any array indexes
-            currentCollection = StringUtils.substringBefore( collectionName, "[" );
-            nestedCollections = StringUtils.substringAfter( collectionName, "." );
-    	}
+        if (StringUtils.contains(collectionName, "[")) {
+            // strip off any array indexes
+            currentCollection = StringUtils.substringBefore(collectionName, "[");
+            nestedCollections = StringUtils.substringAfter(collectionName, ".");
+        }
 
         // loop over all sections to find this collection
-        List<MaintainableSectionDefinition> maintainableSectionDefinitions = getMaintainableSections( docTypeName );
+        List<MaintainableSectionDefinition> maintainableSectionDefinitions = getMaintainableSections(docTypeName);
         for (MaintainableSectionDefinition maintainableSectionDefinition : maintainableSectionDefinitions) {
             for (MaintainableItemDefinition maintainableItemDefinition : maintainableSectionDefinition.getMaintainableItems()) {
-                if (maintainableItemDefinition instanceof MaintainableCollectionDefinition && maintainableItemDefinition.getName().equals( currentCollection ) ) {
-                    if ( StringUtils.isBlank( nestedCollections ) ) {
+                if (maintainableItemDefinition instanceof MaintainableCollectionDefinition && maintainableItemDefinition.getName().equals(currentCollection)) {
+                    if (StringUtils.isBlank(nestedCollections)) {
                         return (MaintainableCollectionDefinition) maintainableItemDefinition;
                     }
 
-                    return getCollectionDefinition( (MaintainableCollectionDefinition)maintainableItemDefinition, nestedCollections );
+                    return getCollectionDefinition((MaintainableCollectionDefinition) maintainableItemDefinition, nestedCollections);
                 }
             }
         }
@@ -568,34 +567,35 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
         return null;
     }
 
-    private MaintainableCollectionDefinition getCollectionDefinition( MaintainableCollectionDefinition collectionDef, String collectionName ) {
+    private MaintainableCollectionDefinition getCollectionDefinition(MaintainableCollectionDefinition collectionDef, String collectionName) {
         String currentCollection = collectionName;
         String nestedCollections = "";
-    	if (StringUtils.contains(collectionName, "[")) {
-    		// strip off any array indexes
-            currentCollection = StringUtils.substringBefore( collectionName, "[" );
-            nestedCollections = StringUtils.substringAfter( collectionName, "." );
-    	}
+        if (StringUtils.contains(collectionName, "[")) {
+            // strip off any array indexes
+            currentCollection = StringUtils.substringBefore(collectionName, "[");
+            nestedCollections = StringUtils.substringAfter(collectionName, ".");
+        }
 
         // loop over all nested collections
         for (MaintainableCollectionDefinition maintainableCollectionDefinition : collectionDef.getMaintainableCollections()) {
-            if ( maintainableCollectionDefinition.getName().equals( currentCollection ) ) {
-                if ( StringUtils.isBlank( nestedCollections ) ) {
+            if (maintainableCollectionDefinition.getName().equals(currentCollection)) {
+                if (StringUtils.isBlank(nestedCollections)) {
                     return maintainableCollectionDefinition;
                 }
-                return getCollectionDefinition( maintainableCollectionDefinition, nestedCollections );
+                return getCollectionDefinition(maintainableCollectionDefinition, nestedCollections);
             }
         }
 
         return null;
     }
 
-    public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName ) {
-        MaintainableCollectionDefinition def = getCollectionDefinition( getDocumentTypeName(businessObject.getClass()), collectionName );
-        if ( def != null ) {
-            validateMaintainableCollectionsAddLineRequiredFields( document, businessObject, collectionName, def, 0);
+    public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName) {
+        MaintainableCollectionDefinition def = getCollectionDefinition(getDocumentTypeName(businessObject.getClass()), collectionName);
+        if (def != null) {
+            validateMaintainableCollectionsAddLineRequiredFields(document, businessObject, collectionName, def, 0);
         }
     }
+
     /**
      * calls code to generate error messages if maintainableFields within any collections or sub-collections are marked as required
      *
@@ -606,11 +606,11 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
      * @param depth
      */
     private void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName, MaintainableCollectionDefinition maintainableCollectionDefinition, int depth) {
-        if ( depth == 0 ) {
+        if (depth == 0) {
             GlobalVariables.getMessageMap().addToErrorPath("add");
         }
         // validate required fields on fields withing collection definition
-        PersistableBusinessObject element = document.getNewMaintainableObject().getNewCollectionLine( collectionName );
+        PersistableBusinessObject element = document.getNewMaintainableObject().getNewCollectionLine(collectionName);
         GlobalVariables.getMessageMap().addToErrorPath(collectionName);
         for (MaintainableFieldDefinition maintainableFieldDefinition : maintainableCollectionDefinition.getMaintainableFields()) {
             final String fieldName = maintainableFieldDefinition.getName();
@@ -619,7 +619,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
         }
 
         GlobalVariables.getMessageMap().removeFromErrorPath(collectionName);
-        if ( depth == 0 ) {
+        if (depth == 0) {
             GlobalVariables.getMessageMap().removeFromErrorPath("add");
         }
     }
@@ -704,7 +704,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                     String pathToElement = collectionName + "[" + (pos++) + "]";
                     if (ObjectUtils.countObjectsWithIdentitcalKey(collection, element) > 1) {
                         GlobalVariables.getMessageMap().addToErrorPath(pathToElement);
-                        GlobalVariables.getMessageMap().putError(propertyName, RiceKeyConstants.ERROR_DUPLICATE_ELEMENT, new String[] { label, shortLabel });
+                        GlobalVariables.getMessageMap().putError(propertyName, RiceKeyConstants.ERROR_DUPLICATE_ELEMENT, new String[]{label, shortLabel});
                         GlobalVariables.getMessageMap().removeFromErrorPath(pathToElement);
                     }
                 }
@@ -722,64 +722,64 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
         }
     }
 
-	/**
-	 * for issue KULRice 3072
-	 *
-	 * @see MaintenanceDocumentDictionaryService#getgetPreserveLockingKeysOnCopy(java.lang.Class)
-	 */
-	public boolean getPreserveLockingKeysOnCopy(Class businessObjectClass) {
+    /**
+     * for issue KULRice 3072
+     *
+     * @see MaintenanceDocumentDictionaryService#getgetPreserveLockingKeysOnCopy(java.lang.Class)
+     */
+    public boolean getPreserveLockingKeysOnCopy(Class businessObjectClass) {
 
-		boolean preserveLockingKeysOnCopy = false;
+        boolean preserveLockingKeysOnCopy = false;
 
-		MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
+        MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
 
-		if (docEntry != null) {
-			preserveLockingKeysOnCopy = docEntry.getPreserveLockingKeysOnCopy();
-		}
+        if (docEntry != null) {
+            preserveLockingKeysOnCopy = docEntry.getPreserveLockingKeysOnCopy();
+        }
 
-		return preserveLockingKeysOnCopy;
-	}
+        return preserveLockingKeysOnCopy;
+    }
 
-	/**
-	 * for isue KULRice 3070
-	 *
-	 * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(java.lang.Class)
-	 */
-	public Boolean getAllowsRecordDeletion(Class businessObjectClass) {
+    /**
+     * for isue KULRice 3070
+     *
+     * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(java.lang.Class)
+     */
+    public Boolean getAllowsRecordDeletion(Class businessObjectClass) {
 
-		Boolean allowsRecordDeletion = Boolean.FALSE;
+        Boolean allowsRecordDeletion = Boolean.FALSE;
 
-		MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
+        MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
 
-		if (docEntry != null) {
-			allowsRecordDeletion = Boolean.valueOf(docEntry.getAllowsRecordDeletion());
-		}
+        if (docEntry != null) {
+            allowsRecordDeletion = Boolean.valueOf(docEntry.getAllowsRecordDeletion());
+        }
 
-		return allowsRecordDeletion;
-	}
+        return allowsRecordDeletion;
+    }
 
-	/**
-	 *  for issue KULRice3070, see if need delete button
-	 *
-	 * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(org.kuali.kfs.krad.maintenance.MaintenanceDocument)
-	 */
-	public Boolean getAllowsRecordDeletion(MaintenanceDocument document) {
+    /**
+     * for issue KULRice3070, see if need delete button
+     *
+     * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(org.kuali.kfs.krad.maintenance.MaintenanceDocument)
+     */
+    public Boolean getAllowsRecordDeletion(MaintenanceDocument document) {
         return document != null ? this.getAllowsRecordDeletion(document.getNewMaintainableObject().getBoClass()) : Boolean.FALSE;
-	}
+    }
 
-	/**
-	 * @see MaintenanceDocumentDictionaryService#translateCodes(java.lang.Class)
-	 */
-	public Boolean translateCodes(Class businessObjectClass) {
-		boolean translateCodes = false;
+    /**
+     * @see MaintenanceDocumentDictionaryService#translateCodes(java.lang.Class)
+     */
+    public Boolean translateCodes(Class businessObjectClass) {
+        boolean translateCodes = false;
 
-		MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
+        MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
 
-		if (docEntry != null) {
-			translateCodes = docEntry.isTranslateCodes();
-		}
+        if (docEntry != null) {
+            translateCodes = docEntry.isTranslateCodes();
+        }
 
-		return translateCodes;
-	}
+        return translateCodes;
+    }
 
 }

@@ -18,18 +18,14 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformationDetail;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
 import org.kuali.kfs.module.cab.document.service.GlLineService;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
@@ -43,9 +39,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GlLineServiceTest extends KualiTestBase {
     private GlLineService glLineService;
@@ -154,9 +154,9 @@ public class GlLineServiceTest extends KualiTestBase {
         entry.setTransactionDebitCreditCode("D");
         entry.setOrganizationDocumentNumber(null);
         entry.setProjectCode(null);
-        entry.setTransactionDate(new Date(DateUtils.parseDate("04/23/2009", new String[] { "MM/dd/yyyy" }).getTime()));
-        entry.setTransactionPostingDate(new Date(DateUtils.parseDate("04/23/2009", new String[] { "MM/dd/yyyy" }).getTime()));
-        entry.setTransactionDateTimeStamp(new Timestamp(DateUtils.parseDate("04/23/2009 10:59:59", new String[] { "MM/dd/yyyy HH:mm:ss" }).getTime()));
+        entry.setTransactionDate(new Date(DateUtils.parseDate("04/23/2009", new String[]{"MM/dd/yyyy"}).getTime()));
+        entry.setTransactionPostingDate(new Date(DateUtils.parseDate("04/23/2009", new String[]{"MM/dd/yyyy"}).getTime()));
+        entry.setTransactionDateTimeStamp(new Timestamp(DateUtils.parseDate("04/23/2009 10:59:59", new String[]{"MM/dd/yyyy HH:mm:ss"}).getTime()));
         return entry;
     }
 
@@ -226,7 +226,7 @@ public class GlLineServiceTest extends KualiTestBase {
         assertEquals("7015", detail.getFinancialObjectCode());
         assertEquals("", detail.getProjectCode());
         assertEquals("", detail.getOrganizationReferenceId());
-     //   assertEquals(amount, detail.getAmount());
+        //   assertEquals(amount, detail.getAmount());
         assertEquals("01", detail.getExpenditureFinancialSystemOriginationCode());
         assertEquals("1001", detail.getExpenditureFinancialDocumentNumber());
         assertEquals("INV", detail.getExpenditureFinancialDocumentTypeCode());

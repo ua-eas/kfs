@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -37,6 +30,13 @@ import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OJB Implementation of LaborOriginEntryDao.
@@ -189,8 +189,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
             qbc.addOrderByAscending(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC);
             qbc.addOrderByAscending(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT);
             qbc.addOrderByAscending(KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE);
-        }
-        else if (sort == OriginEntryDao.SORT_REPORT) {
+        } else if (sort == OriginEntryDao.SORT_REPORT) {
             qbc.addOrderByAscending(KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
@@ -198,8 +197,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
             qbc.addOrderByAscending(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.ACCOUNT_NUMBER);
             qbc.addOrderByAscending(KFSPropertyConstants.FINANCIAL_OBJECT_CODE);
-        }
-        else if (sort == OriginEntryDao.SORT_LISTING_REPORT) {
+        } else if (sort == OriginEntryDao.SORT_LISTING_REPORT) {
             qbc.addOrderByAscending(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR);
             qbc.addOrderByAscending(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.ACCOUNT_NUMBER);
@@ -211,8 +209,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
             qbc.addOrderByAscending(KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
             qbc.addOrderByAscending(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_DESC);
-        }
-        else {
+        } else {
             qbc.addOrderByAscending(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.ACCOUNT_NUMBER);
             qbc.addOrderByAscending(KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
@@ -236,7 +233,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
         LOG.debug("getMatchingEntries() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -271,7 +268,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
         }
 
         Collection ids = new ArrayList();
-        for (Iterator iter = groupIdList.iterator(); iter.hasNext();) {
+        for (Iterator iter = groupIdList.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -281,9 +278,9 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(getEntryClass(), criteria);
 
-        String attributeList[] = { KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")", "count(*)" };
+        String attributeList[] = {KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")", "count(*)"};
 
-        String groupList[] = { KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE };
+        String groupList[] = {KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE};
 
         query.setAttributes(attributeList);
         query.addGroupBy(groupList);
@@ -336,7 +333,6 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
      *
      * @param groupDate the date returned origin entry groups must have been created on or before
      * @return a Collection of Labor Origin Entry Groups to backup
-     *
      * @see org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao#getLaborScrubberGroups(java.sql.Date)
      */
     public Collection getLaborGroupsToBackup(Date groupDate) {

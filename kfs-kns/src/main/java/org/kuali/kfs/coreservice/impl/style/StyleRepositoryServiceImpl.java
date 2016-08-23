@@ -100,7 +100,7 @@ public class StyleRepositoryServiceImpl implements StyleRepositoryService {
 
     private String getUnableToLoadMessage(String propertyName, String location) {
         return "unable to load resource at '" + location +
-                "' specified by configuration parameter '" + propertyName + "'";
+            "' specified by configuration parameter '" + propertyName + "'";
     }
 
     @Override

@@ -19,5 +19,5 @@
 package org.kuali.kfs.module.purap.dataaccess;
 
 public interface B2BDao {
-  public String sendPunchOutRequest(String request,String punchoutUrl);
+    public String sendPunchOutRequest(String request, String punchoutUrl);
 }

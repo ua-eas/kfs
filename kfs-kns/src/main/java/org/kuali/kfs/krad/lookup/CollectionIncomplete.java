@@ -30,7 +30,7 @@ import java.util.RandomAccess;
 public class CollectionIncomplete<T> implements List<T>, RandomAccess, Serializable {
 
     private static final long serialVersionUID = 8683452581122892189L;
-	private final List<T> list;
+    private final List<T> list;
     private Long actualSizeIfTruncated;
 
 

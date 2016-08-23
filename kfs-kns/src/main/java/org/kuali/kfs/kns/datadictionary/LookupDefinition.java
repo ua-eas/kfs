@@ -20,13 +20,13 @@ package org.kuali.kfs.kns.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 import org.kuali.kfs.krad.datadictionary.SortDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.DuplicateEntryException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -165,11 +165,11 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
         // TODO: catch exception if service locator call fails
         ConfigurationService kualiConfigurationservice = KRADServiceLocator.getKualiConfigurationService();
         this.menubar = menubar.replace("${kr.externalizable.images.url}",
-                kualiConfigurationservice.getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY)).replace("${externalizable.images.url}",
-                kualiConfigurationservice.getPropertyValueAsString(
-                        KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY));
+            kualiConfigurationservice.getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY)).replace("${externalizable.images.url}",
+            kualiConfigurationservice.getPropertyValueAsString(
+                KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY));
         this.menubar = this.menubar.replace("${application.url}", kualiConfigurationservice.getPropertyValueAsString(
-                KRADConstants.APPLICATION_URL_KEY));
+            KRADConstants.APPLICATION_URL_KEY));
     }
 
 
@@ -214,7 +214,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return List of attributeNames of all lookupField FieldDefinitions associated with this LookupDefinition, in the order in
-     *         which they were added
+     * which they were added
      */
     public List getLookupFieldNames() {
         List fieldNames = new ArrayList();
@@ -225,7 +225,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return Collection of all lookupField FieldDefinitions associated with this LookupDefinition, in the order in which they were
-     *         added
+     * added
      */
     public List<FieldDefinition> getLookupFields() {
         return lookupFields;
@@ -241,7 +241,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return List of attributeNames of all resultField FieldDefinitions associated with this LookupDefinition, in the order in
-     *         which they were added
+     * which they were added
      */
     public List<String> getResultFieldNames() {
         List<String> fieldNames = new ArrayList<String>();
@@ -252,7 +252,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return Collection of all resultField FieldDefinitions associated with this LookupDefinition, in the order in which they were
-     *         added
+     * added
      */
     public List<FieldDefinition> getResultFields() {
         return resultFields;
@@ -296,14 +296,14 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
      * as a result of a multiple values lookup search.
      */
     public void setMultipleValuesResultSetLimit(Integer multipleValuesResultSetLimit) {
-    	this.multipleValuesResultSetLimit = multipleValuesResultSetLimit;
-	}
+        this.multipleValuesResultSetLimit = multipleValuesResultSetLimit;
+    }
 
     /**
      * @return true if this instance has a multiple values result set limit
      */
     public boolean hasMultipleValuesResultSetLimit() {
-    	return (multipleValuesResultSetLimit != null);
+        return (multipleValuesResultSetLimit != null);
     }
 
 
@@ -312,7 +312,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
      * as a result of a multiple values lookup search.
      */
     public Integer getMultipleValuesResultSetLimit() {
-    	return multipleValuesResultSetLimit;
+        return multipleValuesResultSetLimit;
     }
 
     /**

@@ -22,8 +22,8 @@ import org.kuali.kfs.coreservice.impl.component.ComponentBo;
 import org.kuali.kfs.coreservice.impl.component.DerivedComponentBo;
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.krad.inquiry.Inquirable;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,38 +31,37 @@ import java.util.Map;
 /**
  * Since ParameterDetailType can be either DataDictionary or DB based, we need a custom {@link Inquirable} to
  * check both.
- *
  */
 public class ComponentInquirableImpl extends KualiInquirableImpl {
 
-	private static final String COMPONENT_CODE = "code";
-	private static final String NAMESPACE_CODE = "namespaceCode";
+    private static final String COMPONENT_CODE = "code";
+    private static final String NAMESPACE_CODE = "namespaceCode";
 
-	@Override
-	public Object retrieveDataObject(Map fieldValues){
-		BusinessObject result = (BusinessObject)super.retrieveDataObject(fieldValues);
-		if (result == null) {
+    @Override
+    public Object retrieveDataObject(Map fieldValues) {
+        BusinessObject result = (BusinessObject) super.retrieveDataObject(fieldValues);
+        if (result == null) {
             result = loadDerivedComponent(fieldValues);
         }
-		return result;
+        return result;
     }
 
-	@Override
-	public BusinessObject getBusinessObject(Map fieldValues) {
-		BusinessObject result = super.getBusinessObject(fieldValues);
-		if (result == null) {
-			result = loadDerivedComponent(fieldValues);
-		}
-		return result;
-	}
+    @Override
+    public BusinessObject getBusinessObject(Map fieldValues) {
+        BusinessObject result = super.getBusinessObject(fieldValues);
+        if (result == null) {
+            result = loadDerivedComponent(fieldValues);
+        }
+        return result;
+    }
 
     protected ComponentBo loadDerivedComponent(Map fieldValues) {
-        String componentCode = (String)fieldValues.get(COMPONENT_CODE);
-	    String namespaceCode = (String)fieldValues.get(NAMESPACE_CODE);
+        String componentCode = (String) fieldValues.get(COMPONENT_CODE);
+        String namespaceCode = (String) fieldValues.get(NAMESPACE_CODE);
         if (componentCode == null) {
             throw new RuntimeException(COMPONENT_CODE + " is a required key for this inquiry");
         }
-	    if (namespaceCode == null) {
+        if (namespaceCode == null) {
             throw new RuntimeException(NAMESPACE_CODE + " is a required key for this inquiry");
         }
         Map<String, Object> primaryKeys = new HashMap<String, Object>();
@@ -70,7 +69,7 @@ public class ComponentInquirableImpl extends KualiInquirableImpl {
         primaryKeys.put(NAMESPACE_CODE, namespaceCode);
 
         DerivedComponentBo derivedComponentBo = KRADServiceLocator.getBusinessObjectService().findByPrimaryKey(
-                DerivedComponentBo.class, primaryKeys);
+            DerivedComponentBo.class, primaryKeys);
         if (derivedComponentBo != null) {
             return DerivedComponentBo.toComponentBo(derivedComponentBo);
         }

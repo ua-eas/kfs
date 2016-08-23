@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.kuali.kfs.gl.batch.service.EncumbranceClosingOriginEntryGenerationService;
 import org.kuali.kfs.gl.batch.service.impl.OriginEntryOffsetPair;
 import org.kuali.kfs.gl.businessobject.Encumbrance;
@@ -30,6 +27,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Tests that the forward encumbrance process is generating cost share encumbrance forwarding origin entries correctly
@@ -61,12 +61,13 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
 
         /**
          * Constructs a ForwardEncumbranceTest.ENCUMBRANCE_FIXTURE
-         * @param chart the chart of the encumbrance
-         * @param accountNumber the account of the encumbrance
+         *
+         * @param chart            the chart of the encumbrance
+         * @param accountNumber    the account of the encumbrance
          * @param subAccountNumber the sub account of the encumbrance
-         * @param objectCode the object code of the encumbrance
-         * @param balanceType the balance type code of the encumbrance
-         * @param objectTypeCode the object type code of the encumbrance
+         * @param objectCode       the object code of the encumbrance
+         * @param balanceType      the balance type code of the encumbrance
+         * @param objectTypeCode   the object type code of the encumbrance
          */
         private ENCUMBRANCE_FIXTURE(String chart, String accountNumber, String subAccountNumber, String objectCode, String balanceType, String objectTypeCode) {
             this.chart = chart;
@@ -138,7 +139,7 @@ public class ForwardEncumbranceTest extends OriginEntryTestBase {
         assertTrue(encumbranceClosingOriginEntryGenerationService.shouldForwardCostShareForEncumbrance(entryPair.getEntry(), entryPair.getOffset(), encumbrance, ENCUMBRANCE_FIXTURE.COST_SHARE_ENCUMBRANCE.getObjectType()));
 
         OriginEntryOffsetPair costShareEntryPair = encumbranceClosingOriginEntryGenerationService.createCostShareBeginningBalanceEntryOffsetPair(encumbrance, new java.sql.Date(new GregorianCalendar().getTimeInMillis()));
-        assertFalse( "Should not have had a fatal error: " + costShareEntryPair, costShareEntryPair.isFatalErrorFlag() );
+        assertFalse("Should not have had a fatal error: " + costShareEntryPair, costShareEntryPair.isFatalErrorFlag());
         LOG.info(costShareEntryPair.getEntry().getLine());
         LOG.info(costShareEntryPair.getOffset().getLine());
 

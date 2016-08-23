@@ -19,29 +19,27 @@
 package org.kuali.kfs.krad.datadictionary;
 
 
-
 /**
  * TransactionalDocumentEntry
- *
- *
  */
 public class TransactionalDocumentEntry extends DocumentEntry {
     private static final long serialVersionUID = 5746921563371805425L;
 
-    public TransactionalDocumentEntry() {}
+    public TransactionalDocumentEntry() {
+    }
 
     /**
-	 * @see DocumentEntry#completeValidation()
-	 */
-	@Override
-	public void completeValidation() {
-		super.completeValidation();
-        for ( ReferenceDefinition reference : defaultExistenceChecks ) {
+     * @see DocumentEntry#completeValidation()
+     */
+    @Override
+    public void completeValidation() {
+        super.completeValidation();
+        for (ReferenceDefinition reference : defaultExistenceChecks) {
             reference.completeValidation(documentClass, null);
         }
-	}
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "TransactionalDocumentEntry for documentType " + getDocumentTypeName();
     }

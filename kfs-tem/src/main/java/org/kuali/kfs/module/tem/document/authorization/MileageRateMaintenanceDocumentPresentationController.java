@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Prevents certain fields from being changed when editing the business object
@@ -34,6 +34,7 @@ public class MileageRateMaintenanceDocumentPresentationController extends Mainte
 
     /**
      * If the document is editing, then only the effective to date should be editable
+     *
      * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase#getConditionallyReadOnlyPropertyNames(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override

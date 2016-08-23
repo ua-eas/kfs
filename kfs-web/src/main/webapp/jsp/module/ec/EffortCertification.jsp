@@ -17,21 +17,21 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:choose>
-	<c:when test="${KualiForm.document.documentHeader.workflowDocument.initiated}">
-		<c:set var="url" value="/effortCertificationRecreate.do" />
-	</c:when>
-	<c:otherwise>
-		<c:set var="url" value="/effortCertificationReport.do" />
-	</c:otherwise>
+    <c:when test="${KualiForm.document.documentHeader.workflowDocument.initiated}">
+        <c:set var="url" value="/effortCertificationRecreate.do"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="url" value="/effortCertificationReport.do"/>
+    </c:otherwise>
 </c:choose>
 
 <c:redirect url="${url}">
-	<c:forEach var="parameter" items="${paramValues}">
-		<c:forEach var="value" items="${parameter.value}">
-			<c:param name="${parameter.key}" value="${value}"/>
-		</c:forEach>
-	</c:forEach>
+    <c:forEach var="parameter" items="${paramValues}">
+        <c:forEach var="value" items="${parameter.value}">
+            <c:param name="${parameter.key}" value="${value}"/>
+        </c:forEach>
+    </c:forEach>
 </c:redirect>

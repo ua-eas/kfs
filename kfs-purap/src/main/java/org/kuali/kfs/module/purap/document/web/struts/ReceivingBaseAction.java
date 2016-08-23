@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.Iterator;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.ReceivingDocument;
 import org.kuali.kfs.module.purap.util.ReceivingQuestionCallback;
@@ -35,28 +34,28 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentActionBase {
 
     /**
      * A wrapper method which prompts for a reason to hold a payment request or credit memo.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
+     * @param mapping      An ActionMapping
+     * @param form         An ActionForm
+     * @param request      The HttpServletRequest
+     * @param response     The HttpServletResponse
      * @param questionType A String used to distinguish which question is being asked
-     * @param notePrefix A String explaining what action was taken, to be prepended to the note containing the reason, which gets
-     *        written to the document
-     * @param operation A one-word String description of the action to be taken, to be substituted into the message. (Can be an
-     *        empty String for some messages.)
-     * @param messageKey A key to the message which will appear on the question screen
-     * @param callback A PurQuestionCallback
+     * @param notePrefix   A String explaining what action was taken, to be prepended to the note containing the reason, which gets
+     *                     written to the document
+     * @param operation    A one-word String description of the action to be taken, to be substituted into the message. (Can be an
+     *                     empty String for some messages.)
+     * @param messageKey   A key to the message which will appear on the question screen
+     * @param callback     A PurQuestionCallback
      * @return An ActionForward
      * @throws Exception
      */
@@ -70,21 +69,21 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
     /**
      * Builds and asks questions which require text input by the user for a payment request or a credit memo.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
-     * @param questionType A String used to distinguish which question is being asked
-     * @param notePrefix A String explaining what action was taken, to be prepended to the note containing the reason, which gets
-     *        written to the document
-     * @param operation A one-word String description of the action to be taken, to be substituted into the message. (Can be an
-     *        empty String for some messages.)
-     * @param messageKey A (whole) key to the message which will appear on the question screen
+     * @param mapping               An ActionMapping
+     * @param form                  An ActionForm
+     * @param request               The HttpServletRequest
+     * @param response              The HttpServletResponse
+     * @param questionType          A String used to distinguish which question is being asked
+     * @param notePrefix            A String explaining what action was taken, to be prepended to the note containing the reason, which gets
+     *                              written to the document
+     * @param operation             A one-word String description of the action to be taken, to be substituted into the message. (Can be an
+     *                              empty String for some messages.)
+     * @param messageKey            A (whole) key to the message which will appear on the question screen
      * @param questionsAndCallbacks A TreeMap associating the type of question to be asked and the type of callback which should
-     *        happen in that case
-     * @param messagePrefix The most general part of a key to a message text to be retrieved from ConfigurationService,
-     *        Describes a collection of questions.
-     * @param redirect An ActionForward to return to if done with questions
+     *                              happen in that case
+     * @param messagePrefix         The most general part of a key to a message text to be retrieved from ConfigurationService,
+     *                              Describes a collection of questions.
+     * @param redirect              An ActionForward to return to if done with questions
      * @return An ActionForward
      * @throws Exception
      */
@@ -110,8 +109,7 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
 
             // Ask question if not already asked.
             return this.performQuestionWithInput(mapping, form, request, response, firstQuestion, message, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-        }
-        else {
+        } else {
             // find callback for this question
             while (questions.hasNext()) {
                 mapQuestion = (String) questions.next();
@@ -134,8 +132,7 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
                     key = getQuestionProperty(messageKey, messagePrefix, kualiConfiguration, nextQuestion);
 
                     return this.performQuestionWithInput(mapping, form, request, response, nextQuestion, key, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-                }
-                else {
+                } else {
 
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
@@ -182,11 +179,11 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
      * Used to look up messages to be displayed, from the ConfigurationService, given either a whole key or two parts of a key
      * that may be concatenated together.
      *
-     * @param messageKey String. One of the message keys in PurapKeyConstants.
-     * @param messagePrefix String. A prefix to the question key, such as "ap.question." that, concatenated with the question,
-     *        comprises the whole key of the message.
+     * @param messageKey         String. One of the message keys in PurapKeyConstants.
+     * @param messagePrefix      String. A prefix to the question key, such as "ap.question." that, concatenated with the question,
+     *                           comprises the whole key of the message.
      * @param kualiConfiguration An instance of ConfigurationService
-     * @param question String. The most specific part of the message key in PurapKeyConstants.
+     * @param question           String. The most specific part of the message key in PurapKeyConstants.
      * @return The message to be displayed given the key
      */
     protected String getQuestionProperty(String messageKey, String messagePrefix, ConfigurationService kualiConfiguration, String question) {

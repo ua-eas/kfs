@@ -45,9 +45,8 @@ public interface EffortCertificationDocumentService {
     /**
      * populate the given effort certification document with the given effort certification document build
      *
-     * @param effortCertificationDocument the given effort certification document
+     * @param effortCertificationDocument      the given effort certification document
      * @param effortCertificationDocumentBuild the given effort certification document build
-     *
      * @return true if the given document has been populated sucessfully; otherwise, false
      */
     public boolean populateEffortCertificationDocument(EffortCertificationDocument effortCertificationDocument, EffortCertificationDocumentBuild effortCertificationDocumentBuild);
@@ -56,7 +55,6 @@ public interface EffortCertificationDocumentService {
      * generate salary expense transfer document from the given effort certification document
      *
      * @param effortCertificationDocument the given effort certification document
-     *
      * @return true if the generation is complete successfully; otherwise, return false
      */
     public boolean generateSalaryExpenseTransferDocument(EffortCertificationDocument effortCertificationDocument);

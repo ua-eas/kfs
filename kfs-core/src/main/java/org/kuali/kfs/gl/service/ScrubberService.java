@@ -35,9 +35,9 @@ public interface ScrubberService {
     /**
      * Scrubs data read in by the Collector
      *
-     * @param batch the data read by the Collector
-     * @param collectorReportData statistics about
-     * @param overrideOriginEntryService the implementation of origin entry service to use for this specific Collector scrub
+     * @param batch                           the data read by the Collector
+     * @param collectorReportData             statistics about
+     * @param overrideOriginEntryService      the implementation of origin entry service to use for this specific Collector scrub
      * @param overrideOriginEntryGroupService the implementation of origin entry group service to use for this specific Collector scrub
      * @return the status returned by the Scrubber
      */
@@ -46,7 +46,8 @@ public interface ScrubberService {
     /**
      * This process will call the scrubber in a read only mode. It will scrub a single group, won't create any output in origin
      * entry. It will create a the scrubber report
-     * @param group the origin entry group to scrub for report
+     *
+     * @param group          the origin entry group to scrub for report
      * @param documentNumber the id of documents which generated origin entries that should be scrubbed
      */
     public void scrubGroupReportOnly(String fileName, String documentNumber);

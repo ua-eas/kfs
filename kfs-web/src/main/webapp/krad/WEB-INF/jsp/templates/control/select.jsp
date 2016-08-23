@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="control" classname="org.kuali.kfs.krad.uif.control.SelectControl"/>
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.InputField"/>
@@ -31,10 +31,10 @@
              cssClass="${control.styleClassesAsString}" disabled="${control.disabled}"
              tabindex="${control.tabIndex}">
 
-  <%-- TODO: need htmlSpacePadding that was removed from KeyValuePair --%>
-  <c:forEach items="${control.options}" var="option" varStatus="optionVarStatus">
-    <form:option value="${option.key}">${option.value}</form:option>
-  </c:forEach>
+    <%-- TODO: need htmlSpacePadding that was removed from KeyValuePair --%>
+    <c:forEach items="${control.options}" var="option" varStatus="optionVarStatus">
+        <form:option value="${option.key}">${option.value}</form:option>
+    </c:forEach>
 
 </form:select>
 

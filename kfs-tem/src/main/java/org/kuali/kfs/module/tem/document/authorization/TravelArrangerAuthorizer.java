@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.document.TravelArrangerDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
 
 
 public class TravelArrangerAuthorizer extends FinancialSystemTransactionalDocumentAuthorizerBase {
 
     /**
-     * @see org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.kns.bo.BusinessObject,java.util.Map)
+     * @see org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.kns.bo.BusinessObject, java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> qualification) {
         super.addRoleQualification(dataObject, qualification);
         if (dataObject instanceof TravelArrangerDocument) {
-         TravelArrangerDocument document = (TravelArrangerDocument)dataObject;
+            TravelArrangerDocument document = (TravelArrangerDocument) dataObject;
             if (ObjectUtils.isNotNull(document.getProfile())) {
                 qualification.put(KfsKimAttributes.PROFILE_PRINCIPAL_ID, document.getProfile().getPrincipalId());
             }

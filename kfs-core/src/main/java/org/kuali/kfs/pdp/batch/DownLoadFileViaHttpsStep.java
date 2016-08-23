@@ -18,23 +18,22 @@
  */
 package org.kuali.kfs.pdp.batch;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.Date;
+import org.kuali.kfs.pdp.PdpConstants;
+import org.kuali.kfs.pdp.PdpParameterConstants;
+import org.kuali.kfs.pdp.util.HttpsTrustManager;
+import org.kuali.kfs.sys.batch.AbstractStep;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
-import org.kuali.kfs.pdp.PdpConstants;
-import org.kuali.kfs.pdp.PdpParameterConstants;
-import org.kuali.kfs.pdp.util.HttpsTrustManager;
-import org.kuali.kfs.sys.batch.AbstractStep;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * Batch step to download a text file from an HTTPS URL to the specified target directory.
@@ -64,7 +63,7 @@ public class DownLoadFileViaHttpsStep extends AbstractStep {
             SSLSocketFactory factory = context.getSocketFactory();
 
             URL url = new URL(sourceFileUrl);
-            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setSSLSocketFactory(factory);
 
@@ -74,16 +73,15 @@ public class DownLoadFileViaHttpsStep extends AbstractStep {
             String line;
             int count = 0;
             while ((line = in.readLine()) != null) {
-               out.println(line);
-               count++;
+                out.println(line);
+                count++;
             }
 
             in.close();
             out.close();
 
             LOG.info("Total number of ACH Bank records downloaded: " + count);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

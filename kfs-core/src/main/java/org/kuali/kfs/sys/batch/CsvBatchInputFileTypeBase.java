@@ -18,6 +18,11 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import au.com.bytecode.opencsv.CSVReader;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.sys.exception.ParseException;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +33,6 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.exception.ParseException;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Base class for BatchInputFileType implementations that validate using an Enum class (use as the CSV file header)
@@ -63,17 +62,16 @@ public abstract class CsvBatchInputFileTypeBase<CSVEnum extends Enum<CSVEnum>> e
     }
 
     /**
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#parse(byte[])
-     *
      * @return parsed object in structure - List<Map<String, String>>
+     * @see org.kuali.kfs.sys.batch.BatchInputFileType#parse(byte[])
      */
     public Object parse(byte[] fileByteContent) throws ParseException {
 
         // handle null objects and zero byte contents
-        String errorMessage = fileByteContent == null? "an invalid(null) argument was given" :
-            fileByteContent.length == 0? "an invalid argument was given, empty input stream" : "";
+        String errorMessage = fileByteContent == null ? "an invalid(null) argument was given" :
+            fileByteContent.length == 0 ? "an invalid argument was given, empty input stream" : "";
 
-        if (!errorMessage.isEmpty()){
+        if (!errorMessage.isEmpty()) {
             LOG.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
@@ -87,28 +85,28 @@ public abstract class CsvBatchInputFileTypeBase<CSVEnum extends Enum<CSVEnum>> e
 
             //use csv reader to parse the csv content
             CSVReader csvReader = new CSVReader(new InputStreamReader(new ByteArrayInputStream(fileByteContent)));
-            List<String[]>dataList = csvReader.readAll();
+            List<String[]> dataList = csvReader.readAll();
 
             //remove first header line
             dataList.remove(0);
 
             //parse and create List of Maps base on enum value names as map keys
             List<Map<String, String>> dataMapList = new ArrayList<Map<String, String>>();
-            Map<String, String>rowMap;
+            Map<String, String> rowMap;
             int index = 0;
-            for (String[] row : dataList){
+            for (String[] row : dataList) {
                 rowMap = new LinkedHashMap<String, String>();
                 // reset index
                 index = 0;
 
-                for (String header : headerList){
+                for (String header : headerList) {
                     rowMap.put(header, row[index++]);
                 }
                 dataMapList.add(rowMap);
             }
 
             parsedContents = dataMapList;
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);
             throw new ParseException(ex.getMessage(), ex);
         }
@@ -120,9 +118,8 @@ public abstract class CsvBatchInputFileTypeBase<CSVEnum extends Enum<CSVEnum>> e
      * 1. content header must match CSVEnum order/value
      * 2. each data row should have same size as the header
      *
-     * @param expectedHeaderList        expected CSV header String list
-     * @param fileContents              contents to validate
-     *
+     * @param expectedHeaderList expected CSV header String list
+     * @param fileContents       contents to validate
      * @throws IOException
      */
     private void validateCSVFileInput(final List<String> expectedHeaderList, InputStream fileContents) throws IOException {
@@ -134,26 +131,26 @@ public abstract class CsvBatchInputFileTypeBase<CSVEnum extends Enum<CSVEnum>> e
         String errorMessage = null;
 
         // validate
-        if (!CollectionUtils.isEqualCollection(expectedHeaderList, inputHeaderList)){
+        if (!CollectionUtils.isEqualCollection(expectedHeaderList, inputHeaderList)) {
             errorMessage = "CSV Batch Input File contains incorrect number of headers";
             //collection has same elements, now check the exact content orders by looking at the toString comparisons
-        }else if (!expectedHeaderList.equals(inputHeaderList)){
+        } else if (!expectedHeaderList.equals(inputHeaderList)) {
             errorMessage = "CSV Batch Input File headers are different";
-        }else {
+        } else {
 
             //check the content size as well if headers are validated
             int line = 1;
             List<String> inputDataList = null;
-            while ((inputDataList = Arrays.asList(csvReader.readNext())) != null && errorMessage != null){
+            while ((inputDataList = Arrays.asList(csvReader.readNext())) != null && errorMessage != null) {
                 //if the data list size does not match header list (its missing data)
-                if (inputDataList.size() != expectedHeaderList.size()){
+                if (inputDataList.size() != expectedHeaderList.size()) {
                     errorMessage = "line " + line + " layout does not match the header";
                 }
                 line++;
             }
         }
 
-        if (errorMessage != null){
+        if (errorMessage != null) {
             LOG.error(errorMessage);
             throw new RuntimeException(errorMessage);
         }
@@ -165,10 +162,10 @@ public abstract class CsvBatchInputFileTypeBase<CSVEnum extends Enum<CSVEnum>> e
      * @return
      */
     @SuppressWarnings("rawtypes")
-    protected List<String> getCsvHeaderList(){
+    protected List<String> getCsvHeaderList() {
         List<String> headerList = new ArrayList<String>();
-        EnumSet<CSVEnum> enums = EnumSet.allOf((Class)csvEnumClass);
-        for (Enum<CSVEnum> e : enums ){
+        EnumSet<CSVEnum> enums = EnumSet.allOf((Class) csvEnumClass);
+        for (Enum<CSVEnum> e : enums) {
             headerList.add(e.name());
         }
         return headerList;

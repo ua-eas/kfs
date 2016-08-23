@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.dataaccess.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.module.ld.batch.dataaccess.LedgerPreparedStatementCachingDao;
 import org.kuali.kfs.module.ld.businessobject.LaborObject;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
@@ -32,8 +25,16 @@ import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
 import org.kuali.kfs.sys.batch.dataaccess.impl.AbstractPreparedStatementCachingDaoJdbc;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
+
 public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedStatementCachingDaoJdbc implements LedgerPreparedStatementCachingDao {
     static final Map<String, String> sql = new HashMap<String, String>();
+
     static {
         sql.put(RETRIEVE_PREFIX + LaborObject.class, "select finobj_frngslry_cd from LD_LABOR_OBJ_T where univ_fiscal_yr = ? and fin_coa_cd = ? and fin_object_cd = ?");
         sql.put(RETRIEVE_PREFIX + Integer.class, "select max(trn_entr_seq_nbr) from LD_LDGR_ENTR_T where univ_fiscal_yr = ? and fin_coa_cd = ? and account_nbr = ? and sub_acct_nbr = ? and fin_object_cd = ? and fin_sub_obj_cd = ? and fin_balance_typ_cd = ? and fin_obj_typ_cd = ? and univ_fiscal_prd_cd = ? and fdoc_typ_cd = ? and fs_origin_cd = ? and fdoc_nbr = ?");
@@ -164,14 +165,12 @@ public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedState
                 preparedStatement.setString(10, ledgerBalance.getEmplid());
                 if (ledgerBalance.getObjectId() == null) {
                     preparedStatement.setString(11, java.util.UUID.randomUUID().toString());
-                }
-                else {
+                } else {
                     preparedStatement.setString(11, ledgerBalance.getObjectId());
                 }
                 if (ledgerBalance.getVersionNumber() == null) {
                     preparedStatement.setLong(12, 1);
-                }
-                else {
+                } else {
                     preparedStatement.setLong(12, ledgerBalance.getVersionNumber());
                 }
                 preparedStatement.setBigDecimal(13, ledgerBalance.getAccountLineAnnualBalanceAmount().bigDecimalValue());
@@ -251,14 +250,12 @@ public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedState
                 preparedStatement.setInt(13, ledgerEntry.getTransactionLedgerEntrySequenceNumber());
                 if (ledgerEntry.getObjectId() == null) {
                     preparedStatement.setString(14, java.util.UUID.randomUUID().toString());
-                }
-                else {
+                } else {
                     preparedStatement.setString(14, ledgerEntry.getObjectId());
                 }
                 if (ledgerEntry.getVersionNumber() == null) {
                     preparedStatement.setLong(15, 1);
-                }
-                else {
+                } else {
                     preparedStatement.setLong(15, ledgerEntry.getVersionNumber());
                 }
                 preparedStatement.setString(16, ledgerEntry.getPositionNumber());
@@ -279,16 +276,14 @@ public class LedgerPreparedStatementCachingDaoJdbc extends AbstractPreparedState
                 preparedStatement.setBigDecimal(31, ledgerEntry.getTransactionTotalHours());
                 if (ledgerEntry.getPayrollEndDateFiscalYear() == null) {
                     preparedStatement.setNull(32, java.sql.Types.INTEGER);
-                }
-                else {
+                } else {
                     preparedStatement.setInt(32, ledgerEntry.getPayrollEndDateFiscalYear());
                 }
                 preparedStatement.setString(33, ledgerEntry.getPayrollEndDateFiscalPeriodCode());
                 preparedStatement.setString(34, ledgerEntry.getEmplid());
                 if (ledgerEntry.getEmployeeRecord() == null) {
                     preparedStatement.setNull(35, java.sql.Types.INTEGER);
-                }
-                else {
+                } else {
                     preparedStatement.setInt(35, ledgerEntry.getEmployeeRecord());
                 }
                 preparedStatement.setString(36, ledgerEntry.getEarnCode());

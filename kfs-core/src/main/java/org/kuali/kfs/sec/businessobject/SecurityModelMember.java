@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.group.Group;
-import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Timestamp;
 
 
 /**
@@ -158,7 +157,7 @@ public class SecurityModelMember extends PersistableBusinessObjectBase {
      * @return Returns the memberName.
      */
     public String getMemberName() {
-        if ( StringUtils.isBlank(memberName) ) {
+        if (StringUtils.isBlank(memberName)) {
             if (StringUtils.isNotBlank(memberTypeCode) && StringUtils.isNotBlank(memberId)) {
                 if (MemberType.PRINCIPAL.getCode().equals(memberTypeCode)) {
                     Person person = SpringContext.getBean(PersonService.class).getPerson(memberId);

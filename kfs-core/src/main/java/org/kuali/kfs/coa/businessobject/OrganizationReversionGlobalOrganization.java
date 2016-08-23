@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedHashMap;
 
 /**
  * An organization which is related to a Global Organization Reversion Detail.
@@ -165,17 +165,13 @@ public class OrganizationReversionGlobalOrganization extends GlobalBusinessObjec
             if (keyValueObj != null) {
                 keyValue = keyValueObj.toString();
             }
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             LOG.info("Illegal access exception while attempting to read property " + keyName, iae);
-        }
-        catch (InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             LOG.info("Illegal Target Exception while attempting to read property " + keyName, ite);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             LOG.info("There is no such method to read property " + keyName + " in this class.", nsme);
-        }
-        finally {
+        } finally {
             sb.append(keyValue);
         }
         sb.append(KFSConstants.Maintenance.AFTER_VALUE_DELIM);
@@ -210,20 +206,17 @@ public class OrganizationReversionGlobalOrganization extends GlobalBusinessObjec
         if (this.getChartOfAccountsCode() == null) {
             if (other.getChartOfAccountsCode() != null)
                 return false;
-        }
-        else if (!this.getChartOfAccountsCode().equals(other.getChartOfAccountsCode()))
+        } else if (!this.getChartOfAccountsCode().equals(other.getChartOfAccountsCode()))
             return false;
         if (this.getDocumentNumber() == null) {
             if (other.getDocumentNumber() != null)
                 return false;
-        }
-        else if (!this.getDocumentNumber().equals(other.getDocumentNumber()))
+        } else if (!this.getDocumentNumber().equals(other.getDocumentNumber()))
             return false;
         if (this.getOrganizationCode() == null) {
             if (other.getOrganizationCode() != null)
                 return false;
-        }
-        else if (!this.getOrganizationCode().equals(other.getOrganizationCode()))
+        } else if (!this.getOrganizationCode().equals(other.getOrganizationCode()))
             return false;
         return true;
     }

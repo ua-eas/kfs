@@ -24,20 +24,22 @@ import java.util.AbstractList;
 /**
  * Custom subclass of AbstractList that, when adding new items, will pass them on to a listener instead of
  * storing them internally.
- *
+ * <p>
  * <p>This is based off of the JAXB "streaming" unmarshalling strategy, which is briefly mentioned here:
- *
+ * <p>
  * <p>http://jaxb.java.net/guide/Dealing_with_large_documents.html
- *
+ * <p>
  * <p>and is presented in the example code available here:
- *
+ * <p>
  * <p>http://jaxb.java.net/2.2.4/
  */
 public final class RiceXmlImportList<E> extends AbstractList<E> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** The listener that this list will pass new items to. */
+    /**
+     * The listener that this list will pass new items to.
+     */
     private final RiceXmlListAdditionListener<E> listAdditionListener;
 
     /**
@@ -56,7 +58,7 @@ public final class RiceXmlImportList<E> extends AbstractList<E> implements Seria
 
     /**
      * Instead of adding the item to the list, simply invoke the appropriate listener.
-     *
+     * <p>
      * <p>This is based off of the "streaming" unmarshalling strategy used in one of the JAXB sample apps.
      *
      * @return false, since the list never gets altered as a result of invoking this method.

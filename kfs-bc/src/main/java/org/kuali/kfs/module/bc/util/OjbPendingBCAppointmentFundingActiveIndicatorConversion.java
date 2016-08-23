@@ -27,22 +27,22 @@ import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanCo
 public class OjbPendingBCAppointmentFundingActiveIndicatorConversion extends OjbCharBooleanConversion {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OjbPendingBCAppointmentFundingActiveIndicatorConversion.class);
 
-    public final static String INDICATOR_NO  = "N";
+    public final static String INDICATOR_NO = "N";
     public final static String INDICATOR_YES = "Y";
 
     /**
      * This handles checking the boolean value coming in and converts it to
      * the appropriate Y or N value.
+     *
      * @see FieldConversion#javaToSql(Object)
      */
     @Override
     public Object javaToSql(Object source) {
         Object sqlValue = super.javaToSql(source);
 
-        if(INDICATOR_NO.equals(sqlValue)) {
+        if (INDICATOR_NO.equals(sqlValue)) {
             return INDICATOR_YES;
-        }
-        else if(INDICATOR_YES.equals(sqlValue)) {
+        } else if (INDICATOR_YES.equals(sqlValue)) {
             return INDICATOR_NO;
         }
 
@@ -52,19 +52,18 @@ public class OjbPendingBCAppointmentFundingActiveIndicatorConversion extends Ojb
     /**
      * This handles checking the sql coming back from the database and converting
      * it to the appropriate boolean true or false value.
+     *
      * @see FieldConversion#sqlToJava(Object)
      */
     @Override
     public Object sqlToJava(Object source) {
         Object javaValue = super.sqlToJava(source);
 
-        if(javaValue == null) {
+        if (javaValue == null) {
             return null;
-        }
-        else if(Boolean.TRUE.equals(javaValue)) {
+        } else if (Boolean.TRUE.equals(javaValue)) {
             return Boolean.FALSE;
-        }
-        else if(Boolean.FALSE.equals(javaValue)) {
+        } else if (Boolean.FALSE.equals(javaValue)) {
             return Boolean.TRUE;
         }
 

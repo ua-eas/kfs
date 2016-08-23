@@ -19,15 +19,8 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ResponsibilityCenter;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.KFSConstants.BudgetConstructionPositionConstants;
@@ -36,7 +29,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class BudgetConstructionPosition extends PersistableBusinessObjectBase implements PendingBudgetConstructionAppointmentFundingAware, Position, MutableInactivatable {
@@ -96,8 +96,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
             BigDecimal result = temp1.multiply(temp2);
             result = result.setScale(2, KualiDecimal.ROUND_BEHAVIOR);
             return result;
-        }
-        else {
+        } else {
             return BigDecimal.ZERO;
         }
     }
@@ -179,6 +178,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -187,6 +187,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.KualiModuleBO;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ModuleLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -58,7 +58,7 @@ public class ModuleLookupableHelperServiceImpl extends KualiLookupableHelperServ
                 continue;
             }
             boModules.add(new KualiModuleBO(mod.getModuleConfiguration().getNamespaceCode(),
-                    mod.getModuleConfiguration().getNamespaceCode(), tempNamespaceName));
+                mod.getModuleConfiguration().getNamespaceCode(), tempNamespaceName));
         }
         return boModules;
     }
@@ -73,8 +73,7 @@ public class ModuleLookupableHelperServiceImpl extends KualiLookupableHelperServ
 
         if (fieldConversions != null && !fieldConversions.isEmpty()) {
             returnKeys = new ArrayList(fieldConversions.keySet());
-        }
-        else {
+        } else {
             returnKeys = SpringContext.getBean(BusinessObjectDictionaryService.class).getLookupFieldNames(org.kuali.kfs.sys.businessobject.KualiModuleBO.class);
         }
 

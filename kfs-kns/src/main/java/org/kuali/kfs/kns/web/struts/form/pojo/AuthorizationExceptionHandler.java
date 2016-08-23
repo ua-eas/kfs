@@ -43,12 +43,12 @@ public class AuthorizationExceptionHandler extends ExceptionHandler {
      * Logs the AuthorizationException before forwarding the user to the explanation page.
      *
      * @see org.apache.struts.action.ExceptionHandler#execute(
-     *      java.lang.Exception, org.apache.struts.config.ExceptionConfig, org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     *java.lang.Exception, org.apache.struts.config.ExceptionConfig, org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(Exception exception, ExceptionConfig exceptionConfig, ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) {
+                                 HttpServletResponse response) {
 
         if (LOG.isTraceEnabled()) {
             String message = String.format("ENTRY %s", exception.getMessage());

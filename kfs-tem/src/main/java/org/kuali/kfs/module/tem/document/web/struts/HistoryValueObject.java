@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.io.Serializable;
-
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
 import org.kuali.kfs.module.tem.document.TravelReimbursementDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
 
 public class HistoryValueObject implements Serializable {
     private String documentNumber;
@@ -38,13 +38,13 @@ public class HistoryValueObject implements Serializable {
             setDate(document.getTripBegin().toString());
         }
         setStatus(document.getAppDocStatus());
-        if(document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.REIMB_HELD)) {
+        if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.REIMB_HELD)) {
             setOnHold("" + true);
         } else {
             setOnHold("" + false);
         }
 
-        if(document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.CANCELLED)) {
+        if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.CANCELLED)) {
             setCancel("" + true);
         } else {
             setCancel("" + false);

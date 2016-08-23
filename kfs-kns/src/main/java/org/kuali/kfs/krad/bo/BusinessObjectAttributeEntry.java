@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.krad.bo;
 
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
  * Business Object Attribute Entry Business Object
- *
- *
  */
 public class BusinessObjectAttributeEntry extends PersistableBusinessObjectBase {
 

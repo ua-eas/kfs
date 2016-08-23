@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -30,9 +33,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Business Prerules applicable to purchase order document.
@@ -59,11 +59,11 @@ public class PurchaseOrderDocumentPreRules extends PurchasingDocumentPreRulesBas
         }
 
         if (isDocumentInStateToReceiveNextFyWarning(purchaseOrderDocument) &&
-                (StringUtils.isBlank(event.getQuestionContext()) || StringUtils.equals(question, PurapConstants.PO_NEXT_FY_WARNING))) {
+            (StringUtils.isBlank(event.getQuestionContext()) || StringUtils.equals(question, PurapConstants.PO_NEXT_FY_WARNING))) {
             preRulesOK &= confirmNextFYPriorToApoAllowedDate(purchaseOrderDocument);
         }
 
-        if (!purchaseOrderDocument.isUseTaxIndicator()){
+        if (!purchaseOrderDocument.isUseTaxIndicator()) {
             preRulesOK &= checkForTaxRecalculation(purchaseOrderDocument);
         }
 
@@ -76,9 +76,9 @@ public class PurchaseOrderDocumentPreRules extends PurchasingDocumentPreRulesBas
      * @param poDocument
      * @return boolean
      */
-    protected boolean isDocumentInStateToReceiveNextFyWarning(PurchaseOrderDocument poDocument){
+    protected boolean isDocumentInStateToReceiveNextFyWarning(PurchaseOrderDocument poDocument) {
         return (PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(poDocument.getApplicationDocumentStatus()) ||
-                PurapConstants.PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(poDocument.getApplicationDocumentStatus()));
+            PurapConstants.PurchaseOrderStatuses.APPDOC_AWAIT_PURCHASING_REVIEW.equals(poDocument.getApplicationDocumentStatus()));
     }
 
     /**
@@ -87,7 +87,7 @@ public class PurchaseOrderDocumentPreRules extends PurchasingDocumentPreRulesBas
      *
      * @param purchaseOrderDocument The current PurchaseOrderDocument
      * @return True if the 'Not-to-exceed' amount is to be overridden or if the total dollar amount is less than the purchase order
-     *         total dollar limit.
+     * total dollar limit.
      */
     protected boolean confirmNotToExceedOverride(PurchaseOrderDocument purchaseOrderDocument) {
 
@@ -150,7 +150,7 @@ public class PurchaseOrderDocumentPreRules extends PurchasingDocumentPreRulesBas
             // Set a marker to record that this method has been used.
             if (confirmOverride && StringUtils.isBlank(event.getQuestionContext())) {
                 event.setQuestionContext(PurapConstants.PO_NEXT_FY_WARNING);
-}
+            }
             if (!confirmOverride) {
                 event.setActionForwardName(KFSConstants.MAPPING_BASIC);
                 return false;

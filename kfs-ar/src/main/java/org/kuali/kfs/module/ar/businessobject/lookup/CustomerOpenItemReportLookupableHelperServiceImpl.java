@@ -18,15 +18,17 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerOpenItemReportDetail;
@@ -37,17 +39,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerOpenItemReportLookupableHelperServiceImpl.class);
@@ -68,11 +68,11 @@ public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLook
         setBackLocation(fieldValues.get(KFSConstants.BACK_LOCATION));
         setDocFormKey(fieldValues.get(KFSConstants.DOC_FORM_KEY));
 
-        String reportName =getParameters().get(KFSConstants.CustomerOpenItemReport.REPORT_NAME)[0];
-        if  (StringUtils.equals(reportName, KFSConstants.CustomerOpenItemReport.HISTORY_REPORT_NAME)) {
+        String reportName = getParameters().get(KFSConstants.CustomerOpenItemReport.REPORT_NAME)[0];
+        if (StringUtils.equals(reportName, KFSConstants.CustomerOpenItemReport.HISTORY_REPORT_NAME)) {
             String customerNumber = getParameters().get(KFSConstants.CustomerOpenItemReport.CUSTOMER_NUMBER)[0];
             results = getCustomerOpenItemReportService().getPopulatedReportDetails(customerNumber);
-        } else if (StringUtils.equals(reportName, KFSConstants.CustomerOpenItemReport.UNPAID_UNAPPLIED_AMOUNT_REPORT)){
+        } else if (StringUtils.equals(reportName, KFSConstants.CustomerOpenItemReport.UNPAID_UNAPPLIED_AMOUNT_REPORT)) {
             String customerNumber = getParameters().get(KFSConstants.CustomerOpenItemReport.CUSTOMER_NUMBER)[0];
             String documentNumber = getParameters().get(KFSConstants.CustomerOpenItemReport.DOCUMENT_NUMBER)[0];
             results = getCustomerOpenItemReportService().getPopulatedUnpaidUnappliedAmountReportDetails(customerNumber, documentNumber);
@@ -133,11 +133,9 @@ public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLook
      * @param kualiLookupable
      * @param resultTable
      * @param bounded
-     * @return
-     *
-     * KRAD Conversion: Performs the conditional formatting of the columns in the
+     * @return KRAD Conversion: Performs the conditional formatting of the columns in the
      * display results set.  Also sets customized property urls for the columns.
-     *
+     * <p>
      * Data dictionary is used to retrieve properties of the fields.
      */
     @Override
@@ -155,13 +153,13 @@ public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLook
         Collection<String> refDocumentNumbers = getCustomerOpenItemReportService().getDocumentNumbersOfReferenceReports(customerNumber);
 
         // iterate through result list and wrap rows with return url and action urls
-        for (Iterator iter = displayList.iterator(); iter.hasNext();) {
+        for (Iterator iter = displayList.iterator(); iter.hasNext(); ) {
             BusinessObject element = (BusinessObject) iter.next();
 
             String returnUrl = "";
             String actionUrls = "";
             List<Column> columns = getColumns();
-            for (Iterator iterator = columns.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = columns.iterator(); iterator.hasNext(); ) {
 
                 Column col = (Column) iterator.next();
                 Formatter formatter = col.getFormatter();
@@ -191,9 +189,9 @@ public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLook
 
                         String propertyURL = UrlFactory.parameterizeUrl(baseUrl, parameters);
                         col.setPropertyURL(propertyURL);
-                    } else if (StringUtils.equals(KFSConstants.CustomerOpenItemReport.UNPAID_UNAPPLIED_AMOUNT, col.getPropertyName())){
+                    } else if (StringUtils.equals(KFSConstants.CustomerOpenItemReport.UNPAID_UNAPPLIED_AMOUNT, col.getPropertyName())) {
                         String documentNumber = ObjectUtils.getPropertyValue(element, KFSConstants.CustomerOpenItemReport.DOCUMENT_NUMBER).toString();
-                        if (refDocumentNumbers.contains(documentNumber)){
+                        if (refDocumentNumbers.contains(documentNumber)) {
                             Properties params = new Properties();
                             params.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, CustomerOpenItemReportDetail.class.getName());
                             params.put(KFSConstants.RETURN_LOCATION_PARAMETER, StringUtils.EMPTY);
@@ -206,12 +204,10 @@ public class CustomerOpenItemReportLookupableHelperServiceImpl extends KualiLook
                             params.put(KFSConstants.DOC_FORM_KEY, "88888888");
                             String href = UrlFactory.parameterizeUrl(ArConstants.UrlActions.CUSTOMER_OPEN_ITEM_REPORT_LOOKUP, params);
                             col.setPropertyURL(href);
-                        }
-                        else {
+                        } else {
                             col.setPropertyURL("");
                         }
-                    }
-                    else {
+                    } else {
                         col.setPropertyURL("");
                     }
                 }

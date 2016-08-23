@@ -30,8 +30,8 @@ public class SufficientFundRebuildDaoJdbc extends PlatformAwareDaoBaseJdbc imple
      * @see org.kuali.kfs.gl.dataaccess.SufficientFundRebuildDao#populateSufficientFundRebuild()
      */
     public void populateSufficientFundRebuild() {
-       getSimpleJdbcTemplate().update("INSERT INTO GL_SF_REBUILD_T (FIN_COA_CD, ACCT_NBR_FOBJ_CD, acct_fobj_typ_cd, obj_id, ver_nbr) "+
-               "(SELECT FIN_COA_CD, ACCOUNT_NBR, 'A', obj_id, 1 FROM CA_ACCOUNT_T WHERE ACCT_CLOSED_IND = 'N')");
+        getSimpleJdbcTemplate().update("INSERT INTO GL_SF_REBUILD_T (FIN_COA_CD, ACCT_NBR_FOBJ_CD, acct_fobj_typ_cd, obj_id, ver_nbr) " +
+            "(SELECT FIN_COA_CD, ACCOUNT_NBR, 'A', obj_id, 1 FROM CA_ACCOUNT_T WHERE ACCT_CLOSED_IND = 'N')");
 
     }
 

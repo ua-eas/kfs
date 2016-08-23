@@ -19,24 +19,22 @@
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.UifConstants.Position;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.view.View;
 
 import java.util.List;
 
 /**
  * Contains a label for another <code>Field</code> instance
- *
+ * <p>
  * <p>
  * The <code>LabelField</code> exists so that the label can be placed separate
  * from the component in a layout manager such as the
  * <code>GridLayoutManager</code>. It addition it can be used to style the label
  * (from the inherited styleClass and style properties)
  * </p>
- *
- *
  */
 public class LabelField extends FieldBase {
     private static final long serialVersionUID = -6491546893195180114L;
@@ -56,14 +54,14 @@ public class LabelField extends FieldBase {
     }
 
     /**
-	 * The following finalization is performed:
-	 *
-	 * <ul>
-	 * <li>If label text is blank, set render to false for field</li>
-	 *
-	 * @see ComponentBase#performFinalize(View,
-	 *      java.lang.Object, Component)
-	 */
+     * The following finalization is performed:
+     * <p>
+     * <ul>
+     * <li>If label text is blank, set render to false for field</li>
+     *
+     * @see ComponentBase#performFinalize(View,
+     * java.lang.Object, Component)
+     */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
         super.performFinalize(view, model, parent);
@@ -132,7 +130,7 @@ public class LabelField extends FieldBase {
      * or value
      *
      * @return boolean true if a colon should be rendered, false if it should
-     *         not be
+     * not be
      */
     public boolean isRenderColon() {
         return this.renderColon;
@@ -149,7 +147,7 @@ public class LabelField extends FieldBase {
 
     /**
      * <code>MessageField</code> instance that will display a required indicator
-     *
+     * <p>
      * <p>
      * To indicate a field must have a value (required input) the required
      * message field can be set to display an indicator or message along with

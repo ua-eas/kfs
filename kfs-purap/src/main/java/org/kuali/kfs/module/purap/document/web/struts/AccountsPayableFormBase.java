@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.module.purap.util.PurApItemUtils;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Struts Action Form for Accounts Payable documents.

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.Date;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -32,9 +32,9 @@ import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Date;
+import java.util.Set;
 
 /**
  * Contracts & Grants Invoice Document Presentation Controller class.
@@ -90,13 +90,14 @@ public class ContractsGrantsInvoiceDocumentPresentationController extends Custom
 
     /**
      * CINVs created by the Letter of Credit process should be forever read only
+     *
      * @see org.kuali.rice.krad.document.DocumentPresentationControllerBase#canEdit(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canEdit(Document document) {
         final boolean canEdit = super.canEdit(document);
         if (canEdit) {
-            final ContractsGrantsInvoiceDocument contractsGrantsInvoice = (ContractsGrantsInvoiceDocument)document;
+            final ContractsGrantsInvoiceDocument contractsGrantsInvoice = (ContractsGrantsInvoiceDocument) document;
             if (ArConstants.BillingFrequencyValues.isLetterOfCredit(contractsGrantsInvoice.getInvoiceGeneralDetail().getAward())) {
                 return false;
             }
@@ -107,11 +108,10 @@ public class ContractsGrantsInvoiceDocumentPresentationController extends Custom
 
     public boolean canProrate(ContractsGrantsInvoiceDocument document) {
         return canEdit(document) &&
-                getParameterService().getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_ALL.class, ArConstants.CG_PRORATE_BILL_IND) &&
-                !ArConstants.BillingFrequencyValues.isMilestone(document.getInvoiceGeneralDetail()) &&
-                !ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail());
+            getParameterService().getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_ALL.class, ArConstants.CG_PRORATE_BILL_IND) &&
+            !ArConstants.BillingFrequencyValues.isMilestone(document.getInvoiceGeneralDetail()) &&
+            !ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail());
     }
-
 
 
     public boolean canModifyTransmissionDate(ContractsGrantsInvoiceDocument document) {

@@ -28,8 +28,8 @@ public interface SubAccountService {
      * Retrieves a SubAccount object based on primary key.
      *
      * @param chartOfAccountsCode - Chart of Accounts Code
-     * @param accountNumber - Account Number
-     * @param subAccountNumber - Sub Account Number
+     * @param accountNumber       - Account Number
+     * @param subAccountNumber    - Sub Account Number
      * @return SubAccount
      * @see SubAccountService
      */

@@ -30,7 +30,9 @@ public class AwardFundManager implements ContractsAndGrantsFundManager {
     private String projectTitle;
     private Person fundManager;
 
-    public AwardFundManager() { }
+    public AwardFundManager() {
+    }
+
     public AwardFundManager(String proposalNumber, String principalId) {
         this.proposalNumber = proposalNumber;
         this.principalId = principalId;
@@ -54,7 +56,8 @@ public class AwardFundManager implements ContractsAndGrantsFundManager {
     }
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getPrincipalId() {

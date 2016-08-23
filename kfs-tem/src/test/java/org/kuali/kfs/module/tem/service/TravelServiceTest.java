@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-
 import org.junit.Test;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
@@ -31,16 +30,16 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
- *
  * This class tests the TravelService class
  */
 @ConfigureContext
-public class TravelServiceTest extends KualiTestBase{
+public class TravelServiceTest extends KualiTestBase {
 
     private TravelService travelService;
     private DateTimeService dateTimeService;
@@ -59,7 +58,6 @@ public class TravelServiceTest extends KualiTestBase{
     }
 
     /**
-     *
      * This method tests {@link TravelService#validatePhoneNumber(String)}
      */
     @Test
@@ -70,25 +68,23 @@ public class TravelServiceTest extends KualiTestBase{
     }
 
     /**
-     *
      * This method tests {@link TravelService#validatePhoneNumber(String, String)}
      */
     @Test
     public void testValidatePhoneNumber_byCountryCodeAndPhoneNumber() {
         // validate International phone numbers
-        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber(null,null,TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK","555-1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK","555-1234 x1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber(null, null, TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK", "555-1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK", "555-1234 x1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
 
         // validate US phone numbers
         PhoneNumberValidationPattern pattern = new PhoneNumberValidationPattern();
-        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","1",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","123-555-1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","123-555-1234 x1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "1", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "123-555-1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "123-555-1234 x1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
     }
 
     /**
-     *
      * This method tests {@link TravelService#findTemProfileByPrincipalId(String)}
      */
     @Test

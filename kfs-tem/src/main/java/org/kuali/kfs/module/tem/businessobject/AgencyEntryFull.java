@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.springframework.beans.BeanUtils;
+
+import java.util.LinkedHashMap;
 
 public class AgencyEntryFull extends AgencyStagingData {
 
@@ -43,6 +43,7 @@ public class AgencyEntryFull extends AgencyStagingData {
 
     /**
      * Gets the entryId attribute.
+     *
      * @return Returns the entryId.
      */
     public Integer getEntryId() {
@@ -51,6 +52,7 @@ public class AgencyEntryFull extends AgencyStagingData {
 
     /**
      * Sets the entryId attribute value.
+     *
      * @param entryId The entryId to set.
      */
     public void setEntryId(Integer entryId) {

@@ -20,9 +20,6 @@ package org.kuali.kfs.kns.util;
 
 /**
  * KRA Audit Error class.
- *
- *
- *
  */
 public class AuditError {
 

@@ -23,12 +23,12 @@ import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
-public class PurchasingUpdateCamsViewValidation extends GenericValidation{
+public class PurchasingUpdateCamsViewValidation extends GenericValidation {
 
     CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
 
     public boolean validate(AttributedDocumentEvent event) {
-        PurchasingDocument purchasingdocument = (PurchasingDocument)event.getDocument();
+        PurchasingDocument purchasingdocument = (PurchasingDocument) event.getDocument();
         return capitalAssetBuilderModuleService.validateUpdateCAMSView(purchasingdocument);
     }
 

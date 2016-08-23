@@ -18,7 +18,8 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,34 +27,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 /**
  * Special Circumstances Business Object
- *
  */
 @Entity
-@Table(name="TEM_SPCL_CRCMSNCS_Q_T")
+@Table(name = "TEM_SPCL_CRCMSNCS_Q_T")
 public class SpecialCircumstancesQuestion extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     @Id
-    @GeneratedValue(generator="TEM_SPCL_CRCMSNCS_Q_ID_SEQ")
-    @SequenceGenerator(name="TEM_SPCL_CRCMSNCS_Q_SEQ",sequenceName="TEM_SPCL_CRCMSNCS_Q_ID_SEQ", allocationSize=5)
-    @Column(name="ID",nullable=false)
+    @GeneratedValue(generator = "TEM_SPCL_CRCMSNCS_Q_ID_SEQ")
+    @SequenceGenerator(name = "TEM_SPCL_CRCMSNCS_Q_SEQ", sequenceName = "TEM_SPCL_CRCMSNCS_Q_ID_SEQ", allocationSize = 5)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(name="TEXT",length=255,nullable=false)
+    @Column(name = "TEXT", length = 255, nullable = false)
     private String text;
 
-    @Column(name="TXT_IND",nullable=false,length=1)
+    @Column(name = "TXT_IND", nullable = false, length = 1)
     private boolean free = Boolean.FALSE;
 
-    @Column(name="ACTIVE_IND",nullable=false,length=1)
+    @Column(name = "ACTIVE_IND", nullable = false, length = 1)
     private boolean active = Boolean.TRUE;
 
-    @Column(name="DOCUMENT_TYPE",nullable=false,length=4)
+    @Column(name = "DOCUMENT_TYPE", nullable = false, length = 4)
     private String documentType;
 
     public Long getId() {

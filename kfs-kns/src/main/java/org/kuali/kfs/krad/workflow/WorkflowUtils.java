@@ -18,23 +18,22 @@
  */
 package org.kuali.kfs.krad.workflow;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kew.engine.RouteContext;
-import org.kuali.rice.kew.rule.xmlrouting.WorkflowFunctionResolver;
-import org.kuali.rice.kew.rule.xmlrouting.WorkflowNamespaceContext;
 import org.kuali.kfs.kns.util.FieldUtils;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.kew.engine.RouteContext;
+import org.kuali.rice.kew.rule.xmlrouting.WorkflowFunctionResolver;
+import org.kuali.rice.kew.rule.xmlrouting.WorkflowNamespaceContext;
 import org.w3c.dom.Document;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public final class WorkflowUtils {
@@ -44,18 +43,16 @@ public final class WorkflowUtils {
     public static final String XSTREAM_MATCH_ANYWHERE_PREFIX = "//";
     public static final String XSTREAM_MATCH_RELATIVE_PREFIX = "./";
 
-	private WorkflowUtils() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    private WorkflowUtils() {
+        throw new UnsupportedOperationException("do not call");
+    }
 
     /**
-     *
      * This method sets up the XPath with the correct workflow namespace and resolver initialized. This ensures that the XPath
      * statements can use required workflow functions as part of the XPath statements.
      *
      * @param document - document
      * @return a fully initialized XPath instance that has access to the workflow resolver and namespace.
-     *
      */
     public final static XPath getXPath(Document document) {
         XPath xpath = getXPath(RouteContext.getCurrentRouteContext());
@@ -82,9 +79,9 @@ public final class WorkflowUtils {
      * String result, and will return such. If an XPathExpressionException is thrown, this will be re-thrown within a
      * RuntimeException.
      *
-     * @param xpath A correctly initialized XPath instance.
+     * @param xpath           A correctly initialized XPath instance.
      * @param xpathExpression Your XPath Expression that needs to be wrapped in an xstreamSafe wrapper and run.
-     * @param item The document contents you will be searching within.
+     * @param item            The document contents you will be searching within.
      * @return The string value of the xpath.evaluate().
      */
     public static final String xstreamSafeEval(XPath xpath, String xpathExpression, Object item) {
@@ -92,8 +89,7 @@ public final class WorkflowUtils {
         String evalResult = "";
         try {
             evalResult = xpath.evaluate(xstreamSafeXPath, item);
-        }
-        catch (XPathExpressionException e) {
+        } catch (XPathExpressionException e) {
             throw new RuntimeException("XPathExpressionException occurred on xpath: " + xstreamSafeXPath, e);
         }
         return evalResult;
@@ -114,7 +110,7 @@ public final class WorkflowUtils {
      * This method returns a label from the data dictionary service
      *
      * @param businessObjectClass - class where the label should come from
-     * @param attributeName - name of the attribute you need the label for
+     * @param attributeName       - name of the attribute you need the label for
      * @return the label from the data dictionary for the given Class and attributeName or null if not found
      */
     public static final String getBusinessObjectAttributeLabel(Class businessObjectClass, String attributeName) {
@@ -125,12 +121,12 @@ public final class WorkflowUtils {
     /**
      * This method builds a workflow-lookup-screen Row of type TEXT, with no quickfinder/lookup.
      *
-     * @param propertyClass The Class of the BO that this row is based on. For example, Account.class for accountNumber.
-     * @param boPropertyName The property name on the BO that this row is based on. For example, accountNumber for
-     *        Account.accountNumber.
+     * @param propertyClass       The Class of the BO that this row is based on. For example, Account.class for accountNumber.
+     * @param boPropertyName      The property name on the BO that this row is based on. For example, accountNumber for
+     *                            Account.accountNumber.
      * @param workflowPropertyKey The workflow-lookup-screen property key. For example, account_nbr for Account.accountNumber. This
-     *        key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
-     *        everything links up correctly.
+     *                            key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
+     *                            everything links up correctly.
      * @return A populated and ready-to-use workflow lookupable.Row.
      */
     public static Row buildTextRow(Class propertyClass, String boPropertyName, String workflowPropertyKey) {
@@ -153,12 +149,12 @@ public final class WorkflowUtils {
     /**
      * This method builds a workflow-lookup-screen Row of type TEXT, with the attached lookup icon and functionality.
      *
-     * @param propertyClass The Class of the BO that this row is based on. For example, Account.class for accountNumber.
-     * @param boPropertyName The property name on the BO that this row is based on. For example, accountNumber for
-     *        Account.accountNumber.
+     * @param propertyClass       The Class of the BO that this row is based on. For example, Account.class for accountNumber.
+     * @param boPropertyName      The property name on the BO that this row is based on. For example, accountNumber for
+     *                            Account.accountNumber.
      * @param workflowPropertyKey The workflow-lookup-screen property key. For example, account_nbr for Account.accountNumber. This
-     *        key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
-     *        everything links up correctly.
+     *                            key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
+     *                            everything links up correctly.
      * @return A populated and ready-to-use workflow lookupable.Row, which includes both the property field and the lookup icon.
      */
     public static Row buildTextRowWithLookup(Class propertyClass, String boPropertyName, String workflowPropertyKey) {
@@ -168,14 +164,14 @@ public final class WorkflowUtils {
     /**
      * This method builds a workflow-lookup-screen Row of type TEXT, with the attached lookup icon and functionality.
      *
-     * @param propertyClass The Class of the BO that this row is based on. For example, Account.class for accountNumber.
-     * @param boPropertyName The property name on the BO that this row is based on. For example, accountNumber for
-     *        Account.accountNumber.
-     * @param workflowPropertyKey The workflow-lookup-screen property key. For example, account_nbr for Account.accountNumber. This
-     *        key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
-     *        everything links up correctly.
+     * @param propertyClass                    The Class of the BO that this row is based on. For example, Account.class for accountNumber.
+     * @param boPropertyName                   The property name on the BO that this row is based on. For example, accountNumber for
+     *                                         Account.accountNumber.
+     * @param workflowPropertyKey              The workflow-lookup-screen property key. For example, account_nbr for Account.accountNumber. This
+     *                                         key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
+     *                                         everything links up correctly.
      * @param fieldConversionsByBoPropertyName A list of extra field conversions where the key is the business object property name
-     *        and the value is the workflow property key
+     *                                         and the value is the workflow property key
      * @return A populated and ready-to-use workflow lookupable.Row, which includes both the property field and the lookup icon.
      */
     public static Row buildTextRowWithLookup(Class propertyClass, String boPropertyName, String workflowPropertyKey, Map fieldConversionsByBoPropertyName) {
@@ -199,13 +195,13 @@ public final class WorkflowUtils {
     /**
      * This method builds a workflow-lookup-screen Row of type DROPDOWN.
      *
-     * @param propertyClass The Class of the BO that this row is based on. For example, Account.class for accountNumber.
-     * @param boPropertyName The property name on the BO that this row is based on. For example, accountNumber for
-     *        Account.accountNumber.
+     * @param propertyClass       The Class of the BO that this row is based on. For example, Account.class for accountNumber.
+     * @param boPropertyName      The property name on the BO that this row is based on. For example, accountNumber for
+     *                            Account.accountNumber.
      * @param workflowPropertyKey The workflow-lookup-screen property key. For example, account_nbr for Account.accountNumber. This
-     *        key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
-     *        everything links up correctly.
-     * @param optionMap The map of value, text pairs that will be used to constuct the dropdown list.
+     *                            key can be anything, but needs to be consistent with what is used for the row/field key on the java attribute, so
+     *                            everything links up correctly.
+     * @param optionMap           The map of value, text pairs that will be used to constuct the dropdown list.
      * @return A populated and ready-to-use workflow lookupable.Row.
      */
     public static Row buildDropdownRow(Class propertyClass, String boPropertyName, String workflowPropertyKey, Map<String, String> optionMap, boolean addBlankRow) {

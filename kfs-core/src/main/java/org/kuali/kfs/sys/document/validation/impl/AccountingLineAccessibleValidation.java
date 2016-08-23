@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -42,9 +41,10 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.DeleteAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A validation that checks whether the given accounting line is accessible to the given user or not
@@ -70,6 +70,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
     /**
      * Validates that the given accounting line is accessible for editing by the current user.
      * <strong>This method expects a document as the first parameter and an accounting line as the second</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     @Override
@@ -77,7 +78,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
 
         if (accountingDocumentForValidation instanceof Correctable) {
-            final String errorDocumentNumber = ((FinancialSystemDocumentHeader)accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
+            final String errorDocumentNumber = ((FinancialSystemDocumentHeader) accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
             if (StringUtils.isNotBlank(errorDocumentNumber)) {
                 return true;
             }
@@ -102,7 +103,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
             // report errors
             final String principalName = currentUser.getPrincipalName();
 
-            final String[] accountErrorParams = new String[] { getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.ACCOUNT_NUMBER), accountingLineForValidation.getChartOfAccountsCode()+"-"+accountingLineForValidation.getAccountNumber(), principalName };
+            final String[] accountErrorParams = new String[]{getDataDictionaryService().getAttributeLabel(accountingLineForValidation.getClass(), KFSPropertyConstants.ACCOUNT_NUMBER), accountingLineForValidation.getChartOfAccountsCode() + "-" + accountingLineForValidation.getAccountNumber(), principalName};
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT_NUMBER, convertEventToMessage(event), accountErrorParams);
         }
 
@@ -140,6 +141,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Returns the name of the accounting line group which holds the proper authorizer to do the KIM check
+     *
      * @return the name of the accouting line group to get the authorizer from
      */
     protected String getGroupName() {
@@ -151,14 +153,12 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
      */
     protected AccountingLineAuthorizer lookupAccountingLineAuthorizer() {
         final String groupName = getGroupName();
-        final Map<String, AccountingLineGroupDefinition> groups = ((FinancialSystemTransactionalDocumentEntry)dataDictionaryService.getDataDictionary().getDictionaryObjectEntry(accountingDocumentForValidation.getClass().getName())).getAccountingLineGroups();
+        final Map<String, AccountingLineGroupDefinition> groups = ((FinancialSystemTransactionalDocumentEntry) dataDictionaryService.getDataDictionary().getDictionaryObjectEntry(accountingDocumentForValidation.getClass().getName())).getAccountingLineGroups();
 
-        if (groups.isEmpty())
-         {
+        if (groups.isEmpty()) {
             return new AccountingLineAuthorizerBase(); // no groups? just use the default...
         }
-        if (groups.containsKey(groupName))
-         {
+        if (groups.containsKey(groupName)) {
             return groups.get(groupName).getAccountingLineAuthorizer(); // we've got the group
         }
 
@@ -170,6 +170,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Determines the property of the accounting line collection from the error prefixes
+     *
      * @return the accounting line collection property
      */
     protected String getAccountingLineCollectionProperty() {
@@ -190,6 +191,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Determines what error message should be shown based on the event that required this validation
+     *
      * @param event the event to use to determine the error message
      * @return the key of the error message to display
      */
@@ -207,6 +209,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -215,6 +218,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -223,6 +227,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -231,6 +236,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -239,6 +245,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -247,6 +254,7 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

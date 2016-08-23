@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.ExtractionUnit;
 import org.kuali.kfs.pdp.businessobject.PaymentDetail;
@@ -30,7 +26,11 @@ import org.kuali.kfs.pdp.dataaccess.PaymentDetailDao;
 import org.kuali.kfs.pdp.service.PaymentDetailService;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @NonTransactional
 public class PaymentDetailServiceImpl implements PaymentDetailService {
@@ -52,7 +52,7 @@ public class PaymentDetailServiceImpl implements PaymentDetailService {
 
         Map fieldValues = new HashMap();
         fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_NUMBER, disbursementNumber);
-        List<PaymentDetail> paymentDetailByDisbursementNumberList= (List<PaymentDetail>)this.businessObjectService.findMatching(PaymentDetail.class, fieldValues);
+        List<PaymentDetail> paymentDetailByDisbursementNumberList = (List<PaymentDetail>) this.businessObjectService.findMatching(PaymentDetail.class, fieldValues);
         DynamicCollectionComparator.sort(paymentDetailByDisbursementNumberList, PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_FINANCIAL_DOCUMENT_TYPE_CODE, PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_CUST_PAYMENT_DOC_NBR);
 
         return paymentDetailByDisbursementNumberList.iterator();
@@ -60,10 +60,11 @@ public class PaymentDetailServiceImpl implements PaymentDetailService {
 
     /**
      * Returns all PaymentDetail records with the given disbursement number and a group with the given process id, disbursement type, and bank code
+     *
      * @param disbursementNumber the disbursement number of the payment details to find
-     * @param processId the process id of the payment group of payment details to find
-     * @param disbursementType the disbursement type of the payment group of payment details to find
-     * @param bankCode the bank code of the payment group of payment details to find
+     * @param processId          the process id of the payment group of payment details to find
+     * @param disbursementType   the disbursement type of the payment group of payment details to find
+     * @param bankCode           the bank code of the payment group of payment details to find
      * @return an iterator of PaymentDetail records matching the given criteria
      */
     @Override
@@ -74,10 +75,10 @@ public class PaymentDetailServiceImpl implements PaymentDetailService {
 
         Map fieldValues = new HashMap();
         fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_NUMBER, disbursementNumber);
-        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP+"."+PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PROCESS_ID, processId);
-        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP+"."+PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_DISBURSEMENT_TYPE_CODE, disbursementType);
-        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP+"."+PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_BANK_CODE, bankCode);
-        List<PaymentDetail> paymentDetailByDisbursementNumberList= (List<PaymentDetail>)this.businessObjectService.findMatching(PaymentDetail.class, fieldValues);
+        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP + "." + PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_PROCESS_ID, processId);
+        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP + "." + PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_DISBURSEMENT_TYPE_CODE, disbursementType);
+        fieldValues.put(PdpPropertyConstants.PaymentDetail.PAYMENT_GROUP + "." + PdpPropertyConstants.PaymentGroup.PAYMENT_GROUP_BANK_CODE, bankCode);
+        List<PaymentDetail> paymentDetailByDisbursementNumberList = (List<PaymentDetail>) this.businessObjectService.findMatching(PaymentDetail.class, fieldValues);
         DynamicCollectionComparator.sort(paymentDetailByDisbursementNumberList, PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_FINANCIAL_DOCUMENT_TYPE_CODE, PdpPropertyConstants.PaymentDetail.PAYMENT_DISBURSEMENT_CUST_PAYMENT_DOC_NBR);
 
         return paymentDetailByDisbursementNumberList.iterator();

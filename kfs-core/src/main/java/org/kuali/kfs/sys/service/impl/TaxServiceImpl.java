@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.SalesTax;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.TaxDetail;
 import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.service.TaxRegionService;
 import org.kuali.kfs.sys.service.TaxService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 public class TaxServiceImpl implements TaxService {
@@ -44,7 +44,7 @@ public class TaxServiceImpl implements TaxService {
 
     /**
      * @see org.kuali.kfs.sys.service.TaxService#getSalesTaxDetails(java.lang.String, java.lang.String,
-     *      org.kuali.rice.core.api.util.type.KualiDecimal)
+     * org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public List<TaxDetail> getSalesTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
@@ -66,7 +66,7 @@ public class TaxServiceImpl implements TaxService {
 
     /**
      * @see org.kuali.kfs.sys.service.TaxService#getUseTaxDetails(java.lang.String, java.lang.String,
-     *      org.kuali.rice.core.api.util.type.KualiDecimal)
+     * org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public List<TaxDetail> getUseTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
@@ -87,7 +87,7 @@ public class TaxServiceImpl implements TaxService {
 
     /**
      * @see org.kuali.kfs.sys.service.TaxService#getTotalSalesTaxAmount(java.lang.String, java.lang.String,
-     *      org.kuali.rice.core.api.util.type.KualiDecimal)
+     * org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public KualiDecimal getTotalSalesTaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
@@ -181,13 +181,14 @@ public class TaxServiceImpl implements TaxService {
 
     protected Integer postalCodeDigitsToUse() {
         String digits = parameterService.getParameterValueAsString(SalesTax.class,
-                POSTAL_CODE_DIGITS_PASSED_TO_SALES_TAX_REGION_SERVICE);
-        if (StringUtils.isBlank(digits)) { return null; }
+            POSTAL_CODE_DIGITS_PASSED_TO_SALES_TAX_REGION_SERVICE);
+        if (StringUtils.isBlank(digits)) {
+            return null;
+        }
         Integer digitsToUse;
         try {
             digitsToUse = new Integer(digits);
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             throw new RuntimeException("The value returned for Parameter " + POSTAL_CODE_DIGITS_PASSED_TO_SALES_TAX_REGION_SERVICE + " was non-numeric and cannot be processed.", ex);
         }
         return digitsToUse;
@@ -196,6 +197,7 @@ public class TaxServiceImpl implements TaxService {
     public void setTaxRegionService(TaxRegionService taxRegionService) {
         this.taxRegionService = taxRegionService;
     }
+
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }

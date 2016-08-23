@@ -22,9 +22,9 @@
  */
 package org.kuali.kfs.pdp.dataaccess;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.pdp.businessobject.GlPendingTransaction;
+
+import java.util.Iterator;
 
 /**
  * DAO Interface for <code>GlPendingTransaction</code>

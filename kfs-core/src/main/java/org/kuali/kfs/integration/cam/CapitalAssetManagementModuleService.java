@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.integration.cam;
 
-import java.util.List;
-
-import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.AccountingDocument;
+
+import java.util.List;
 
 public interface CapitalAssetManagementModuleService {
     /**
@@ -73,14 +73,14 @@ public interface CapitalAssetManagementModuleService {
      */
     boolean isAssetLocked(List<Long> assetNumbers, String documentTypeName, String excludingDocumentNumber);
 
-	/**
-	 * Generate asset locks for FP document if it collects capital
-	 * asset number(s) and has capital asset transactions eligible for CAB
-	 * batch. Creating asset lock is based on each capital asset line rather
-	 * than the whole FP document.
-	 *
-	 * @param document
-	 */
+    /**
+     * Generate asset locks for FP document if it collects capital
+     * asset number(s) and has capital asset transactions eligible for CAB
+     * batch. Creating asset lock is based on each capital asset line rather
+     * than the whole FP document.
+     *
+     * @param document
+     */
     public void generateCapitalAssetLock(Document document, String documentTypeNames);
 
     /**

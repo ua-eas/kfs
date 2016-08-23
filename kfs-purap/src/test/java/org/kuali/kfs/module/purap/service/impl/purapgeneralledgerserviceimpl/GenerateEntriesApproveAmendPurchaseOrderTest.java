@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.purap.service.impl.purapgeneralledgerserviceimpl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.Before;
@@ -40,6 +35,11 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GenerateEntriesApproveAmendPurchaseOrderTest {
     private PurapGeneralLedgerServiceImpl purapGeneralLedgerService;
@@ -88,14 +88,14 @@ public class GenerateEntriesApproveAmendPurchaseOrderTest {
 
     private void execute() {
         EasyMock.replay(oldPo, newPo, purapAccountingService, generalLedgerPendingEntryService, businessObjectService,
-                    purchaseOrderService);
+            purchaseOrderService);
         for (Object mock : dynamicMocks) {
             EasyMock.replay(mock);
         }
 
         purapGeneralLedgerService.generateEntriesApproveAmendPurchaseOrder(newPo);
         EasyMock.verify(oldPo, newPo, purapAccountingService, generalLedgerPendingEntryService, businessObjectService,
-                purchaseOrderService);
+            purchaseOrderService);
         for (Object mock : dynamicMocks) {
             EasyMock.verify(mock);
         }
@@ -122,8 +122,8 @@ public class GenerateEntriesApproveAmendPurchaseOrderTest {
     }
 
     private void prepareItem(Double quantity, Double invoicedQuantity, Double outstandingQuantity,
-            Double unitPrice, Double invoicedAmount, Double taxAmount, Double outstandingAmount,
-            List<PurApAccountingLine> accountingLines, boolean active) {
+                             Double unitPrice, Double invoicedAmount, Double taxAmount, Double outstandingAmount,
+                             List<PurApAccountingLine> accountingLines, boolean active) {
         PurchaseOrderItem item = EasyMock.createMock(PurchaseOrderItem.class);
 
         EasyMock.expect(item.getItemQuantity()).andReturn(doubleToKualiDecimal(quantity)).anyTimes();
@@ -241,7 +241,7 @@ public class GenerateEntriesApproveAmendPurchaseOrderTest {
         EasyMock.expect(purapAccountingService.generateSummaryWithNoZeroTotalsUsingAlternateAmount(newPoActiveItems))
             .andReturn(newSummaryAccountingLines);
         EasyMock.expect(purapAccountingService.generateSummaryWithNoZeroTotalsUsingAlternateAmount(oldPoItems))
-        .andReturn(oldSummaryAccountingLines);
+            .andReturn(oldSummaryAccountingLines);
         EasyMock.expect(generalLedgerPendingEntryService.generateGeneralLedgerPendingEntries(newPo)).andReturn(true);
         EasyMock.expect(businessObjectService.save(glpes)).andReturn(null);
     }
@@ -280,13 +280,12 @@ public class GenerateEntriesApproveAmendPurchaseOrderTest {
 
     /**
      * Argument matcher that verifies the list of summary accounting lines match, without worrying about order
-     *
      */
     private static class SummaryAccountingListEquals implements IArgumentMatcher {
 
         private List<SourceAccountingLine> expected;
 
-        public SummaryAccountingListEquals (List<SourceAccountingLine> expected) {
+        public SummaryAccountingListEquals(List<SourceAccountingLine> expected) {
             this.expected = expected;
         }
 
@@ -307,7 +306,7 @@ public class GenerateEntriesApproveAmendPurchaseOrderTest {
                 SourceAccountingLine expectedItem = expected.get(i);
                 SourceAccountingLine actualItem = actual.get(i);
                 if (!expectedItem.getFinancialObjectCode().equals(actualItem.getFinancialObjectCode())
-                        || !expectedItem.getAmount().equals(actualItem.getAmount())) {
+                    || !expectedItem.getAmount().equals(actualItem.getAmount())) {
                     return false;
                 }
             }

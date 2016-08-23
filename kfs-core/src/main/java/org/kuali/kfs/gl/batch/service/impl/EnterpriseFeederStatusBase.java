@@ -41,8 +41,7 @@ public abstract class EnterpriseFeederStatusBase implements EnterpriseFeederStat
                 return getDefaultStatusDescription();
             }
             return description;
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             LOG.error("Error occured trying to retrieve status description for class: " + getClass().getName(), e);
             return getDefaultStatusDescription();
         }

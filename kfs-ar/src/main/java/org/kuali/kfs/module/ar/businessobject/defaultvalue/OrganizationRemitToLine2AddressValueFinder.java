@@ -30,7 +30,7 @@ public class OrganizationRemitToLine2AddressValueFinder extends SystemInformatio
      */
     public String getValue() {
 
-        return (systemInformation != null)? systemInformation.getOrganizationRemitToLine2StreetAddress(): "";
+        return (systemInformation != null) ? systemInformation.getOrganizationRemitToLine2StreetAddress() : "";
     }
 
 }

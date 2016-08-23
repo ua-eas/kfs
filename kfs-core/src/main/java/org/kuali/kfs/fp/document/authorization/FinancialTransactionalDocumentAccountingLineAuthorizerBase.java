@@ -34,6 +34,7 @@ public class FinancialTransactionalDocumentAccountingLineAuthorizerBase extends 
 
     /**
      * adds refresh method to the action map.
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.document.web.AccountingLineRenderingContext, java.lang.String, java.lang.Integer, java.lang.String)
      */
     @Override

@@ -18,95 +18,88 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
+import java.util.LinkedHashMap;
 
 
 public class CustomerType extends PersistableBusinessObjectBase implements MutableInactivatable, AccountsReceivableCustomerType {
 
-	private String customerTypeCode;
-	private String customerTypeDescription;
-	private boolean active;
+    private String customerTypeCode;
+    private String customerTypeDescription;
+    private boolean active;
 
-	/**
-	 * Gets the customerTypeCode attribute.
-	 *
-	 * @return Returns the customerTypeCode
-	 *
-	 */
-	@Override
+    /**
+     * Gets the customerTypeCode attribute.
+     *
+     * @return Returns the customerTypeCode
+     */
+    @Override
     public String getCustomerTypeCode() {
-		return customerTypeCode;
-	}
+        return customerTypeCode;
+    }
 
-	/**
-	 * Sets the customerTypeCode attribute.
-	 *
-	 * @param customerTypeCode The customerTypeCode to set.
-	 *
-	 */
-	public void setCustomerTypeCode(String customerTypeCode) {
-		this.customerTypeCode = customerTypeCode;
-	}
+    /**
+     * Sets the customerTypeCode attribute.
+     *
+     * @param customerTypeCode The customerTypeCode to set.
+     */
+    public void setCustomerTypeCode(String customerTypeCode) {
+        this.customerTypeCode = customerTypeCode;
+    }
 
 
-	/**
-	 * Gets the customerTypeDescription attribute.
-	 *
-	 * @return Returns the customerTypeDescription
-	 *
-	 */
-	@Override
+    /**
+     * Gets the customerTypeDescription attribute.
+     *
+     * @return Returns the customerTypeDescription
+     */
+    @Override
     public String getCustomerTypeDescription() {
-		return customerTypeDescription;
-	}
+        return customerTypeDescription;
+    }
 
-	/**
-	 * Sets the customerTypeDescription attribute.
-	 *
-	 * @param customerTypeDescription The customerTypeDescription to set.
-	 *
-	 */
-	@Override
+    /**
+     * Sets the customerTypeDescription attribute.
+     *
+     * @param customerTypeDescription The customerTypeDescription to set.
+     */
+    @Override
     public void setCustomerTypeDescription(String customerTypeDescription) {
-		this.customerTypeDescription = customerTypeDescription;
-	}
+        this.customerTypeDescription = customerTypeDescription;
+    }
 
 
-	/**
-	 * Gets the active attribute.
-	 *
-	 * @return Returns the active
-	 *
-	 */
-	@Override
+    /**
+     * Gets the active attribute.
+     *
+     * @return Returns the active
+     */
+    @Override
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
-	/**
-	 * Sets the active attribute.
-	 *
-	 * @param active The active to set.
-	 *
-	 */
-	@Override
+    /**
+     * Sets the active attribute.
+     *
+     * @param active The active to set.
+     */
+    @Override
     public void setActive(boolean active) {
-		this.active = active;
-	}
+        this.active = active;
+    }
 
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
     @SuppressWarnings("unchecked")
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("customerTypeCode", this.customerTypeCode);
-	    return m;
+        return m;
     }
 }

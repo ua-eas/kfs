@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ExpenseImportByTravelerService {
 
     /**
-     *
      * This method checks to see if the following fields are present in the {@link AgencyStagingData}:
      * Traveler ID, Ticket Number, Agency Name, Transaction Date, Transaction Amount, Invoice Number
+     *
      * @param agencyData
      * @return
      */
     public List<ErrorMessage> validateMandatoryFieldsPresent(AgencyStagingData agencyData);
 
     /**
-     *
      * This method performs the validation on the {@link AgencyStagingData} object.
+     *
      * @param agencyData
      * @return
      */
@@ -62,20 +62,20 @@ public interface ExpenseImportByTravelerService {
     public TemProfile getTraveler(AgencyStagingData agencyData);
 
     /**
-     *
      * This method validates the Account Number Sub-account Number, Project Code, Object Code and Sub-object Code.
      * It also creates a TripAccountingInfo and adds it to the AgencyStagingData.
+     *
      * @param agencyData
      * @return
      */
     public List<ErrorMessage> validateAccountingInfo(AgencyStagingData agencyData);
 
-    public Map<String,ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine);
+    public Map<String, ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine);
 
     /**
-     *
      * This method checks to see if the agencyData already exists in the staging table, based on the following properties:
      * Traveler ID, Ticket Number, Agency Name, Transaction Date, Transaction Amount, Invoice Number
+     *
      * @param agencyData
      * @return
      */
@@ -90,8 +90,8 @@ public interface ExpenseImportByTravelerService {
     public List<ErrorMessage> validateCreditCardAgency(AgencyStagingData agencyData);
 
     /**
-     *
      * This method a {@link HistoricalTravelExpense} based on the imported {@link AgencyStagingData}.
+     *
      * @param agencyData
      * @param sequenceHelper
      * @return

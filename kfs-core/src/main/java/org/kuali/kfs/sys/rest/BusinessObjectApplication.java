@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sys.rest;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-
 import com.sun.jersey.api.container.filter.LoggingFilter;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
 
 @ApplicationPath("api/v1/business-object")
 public class BusinessObjectApplication extends Application {

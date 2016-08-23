@@ -19,8 +19,8 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * This transient business object represents the Capital Accounting Lines

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * This step will call a service method to route cgin documents that are in 'I' status.
@@ -41,8 +41,7 @@ public class ContractsGrantsInvoiceRouteDocumentsStep extends AbstractStep {
             try {
 
                 Thread.sleep(300000);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 

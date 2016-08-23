@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
+
+import java.util.List;
 
 /**
  * Defines methods that need to be implemented by SalaryExpenseTransferTransactionAgeServiceImpl.
@@ -34,7 +34,7 @@ public interface SalaryExpenseTransferTransactionAgeService {
      * @param accountingLines
      * @param periodsFromParameter
      * @return true if all of the transaction dates are younger by fiscal periods than specified in the appropriate parameter; false
-     *         otherwise
+     * otherwise
      */
     public boolean defaultNumberOfFiscalPeriodsCheck(List<LaborLedgerExpenseTransferAccountingLine> accountingLines, Integer periodsFromParameter);
 

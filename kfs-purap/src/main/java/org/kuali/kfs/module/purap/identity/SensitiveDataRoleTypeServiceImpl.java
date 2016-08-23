@@ -18,28 +18,24 @@
  */
 package org.kuali.kfs.module.purap.identity;
 
-import java.util.Arrays;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.Arrays;
+import java.util.Map;
 
 
 public class SensitiveDataRoleTypeServiceImpl extends RoleTypeServiceBase {
 
 
-
-
-
-
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
-        if ( qualification == null ) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
+        if (qualification == null) {
             return false;
         }
-        String[] codes = StringUtils.split(qualification.get(PurapKimAttributes.SENSITIVE_DATA_CODE),';');
-        if ( codes == null ) {
+        String[] codes = StringUtils.split(qualification.get(PurapKimAttributes.SENSITIVE_DATA_CODE), ';');
+        if (codes == null) {
             return false;
         }
-        return Arrays.asList( codes ).contains(roleQualifier.get(PurapKimAttributes.SENSITIVE_DATA_CODE));
+        return Arrays.asList(codes).contains(roleQualifier.get(PurapKimAttributes.SENSITIVE_DATA_CODE));
     }
 }

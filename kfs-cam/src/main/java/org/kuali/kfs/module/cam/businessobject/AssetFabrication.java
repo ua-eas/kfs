@@ -21,8 +21,6 @@ package org.kuali.kfs.module.cam.businessobject;
 /**
  * This BO subclasses Asset and is the same table. We have it so that the maintenance document framework lets us set a different
  * document type code and title for this document.
- *
- *
  */
 public class AssetFabrication extends Asset {
     private AssetOrganization assetOrganization;

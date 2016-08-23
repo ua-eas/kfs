@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.uif.control;
 /**
  * Indicates <code>Control</code> types that can be configured with a static value to submit, as opposed to pulling
  * the value from the underlying property
- *
+ * <p>
  * <p>
  * Examples of this are {@link CheckboxControl}, which can be configured with a value that will be submitted when the
  * checkbox is checked. For example, suppose we had a model property of type Set<String> that represents selected car
@@ -29,8 +29,6 @@ package org.kuali.kfs.krad.uif.control;
  * each checkbox will be the model type of the associated role: 'Ford', 'GM', 'Honda'. For each checkbox selected the
  * associated value will be submitted and populated into the Set<String> on the model.
  * </p>
- *
- *
  */
 public interface ValueConfiguredControl {
 

@@ -25,14 +25,11 @@ import org.w3c.dom.Element;
 
 /**
  * This class is used to define Kuali searchable attributes
- *
- *
- *
  */
 public class KualiXmlSearchableAttributeImpl extends StandardGenericXMLSearchableAttribute implements KualiXmlAttribute {
     private static final long serialVersionUID = -5759823164605651979L;
 
-	/**
+    /**
      * Constructs a KualiXmlRuleAttributeImpl.java.
      */
     public KualiXmlSearchableAttributeImpl() {

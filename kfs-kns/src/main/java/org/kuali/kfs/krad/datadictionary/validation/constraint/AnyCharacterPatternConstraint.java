@@ -86,6 +86,7 @@ public class AnyCharacterPatternConstraint extends ValidCharactersPatternConstra
      * When set to true, omit new line characters from the set of valid characters.  This flag
      * will only have an effect if the allowWhitespace flag is true, otherwise all whitespace
      * including new lines characters are omitted.
+     *
      * @param omitNewline
      */
     public void setOmitNewline(boolean omitNewline) {

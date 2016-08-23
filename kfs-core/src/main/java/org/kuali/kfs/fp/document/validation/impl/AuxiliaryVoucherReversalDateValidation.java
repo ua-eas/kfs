@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_INVALID_ACCRUAL_REVERSAL_DATE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
-
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSKeyConstants.AuxiliaryVoucher.ERROR_INVALID_ACCRUAL_REVERSAL_DATE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
 
 /**
  * A validation that checks the reversal date on the AuxiliaryVoucher.
@@ -34,6 +34,7 @@ public class AuxiliaryVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * This method verifies that the user entered a reversal date, but only if it's an accrual.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -47,6 +48,7 @@ public class AuxiliaryVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * Gets the auxiliaryVoucherDocumentForValidation attribute.
+     *
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {
@@ -55,6 +57,7 @@ public class AuxiliaryVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * Sets the auxiliaryVoucherDocumentForValidation attribute value.
+     *
      * @param auxiliaryVoucherDocumentForValidation The auxiliaryVoucherDocumentForValidation to set.
      */
     public void setAuxiliaryVoucherDocumentForValidation(AuxiliaryVoucherDocument auxiliaryVoucherForValidation) {

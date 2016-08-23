@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -34,6 +30,10 @@ import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocument {
     protected String travelReimbursementDocumentNumber;
 
@@ -44,19 +44,18 @@ public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocumen
 
     @Override
     public boolean generateDocumentGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
-        if (isTripGenerateEncumbrance()){
+        if (isTripGenerateEncumbrance()) {
             List<GeneralLedgerPendingEntry> reimbursementPendingEntries = null;
             if (!StringUtils.isBlank(getTravelReimbursementDocumentNumber())) { // we were spawned by a TR; let's find the GLPE's for that
                 Map<String, String> fieldValues = new HashMap<String, String>();
                 fieldValues.put(KFSPropertyConstants.DOCUMENT_NUMBER, getTravelReimbursementDocumentNumber());
-                reimbursementPendingEntries = (List<GeneralLedgerPendingEntry>)getBusinessObjectService().findMatching(GeneralLedgerPendingEntry.class, fieldValues);
+                reimbursementPendingEntries = (List<GeneralLedgerPendingEntry>) getBusinessObjectService().findMatching(GeneralLedgerPendingEntry.class, fieldValues);
             }
 
             getTravelEncumbranceService().disencumberTravelAuthorizationClose(this, sequenceHelper, reimbursementPendingEntries);
         }
         return true;
     }
-
 
 
     /**
@@ -76,8 +75,7 @@ public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocumen
             try {
                 updateAndSaveAppDocStatus(TravelAuthorizationStatusCodeKeys.CLOSED);
                 documentAttributeIndexingQueue.indexDocument(getDocumentNumber());
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException("Workflow document exception while updating related documents", we);
             }
         }
@@ -85,13 +83,16 @@ public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocumen
 
     /**
      * Override to do nothing - travel auth close's don't have advances or payments associated with those
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#initiateAdvancePaymentAndLines()
      */
     @Override
-    protected void initiateAdvancePaymentAndLines() {}
+    protected void initiateAdvancePaymentAndLines() {
+    }
 
     /**
      * Always return true - we always need to do extra work on document copy to revert this to the original TA
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#shouldRevertToOriginalAuthorizationOnCopy()
      */
     @Override
@@ -108,6 +109,7 @@ public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocumen
 
     /**
      * Sets the document number of the final travel reimburement document which spawned this document
+     *
      * @param travelReimbursementDocumentNumber the document number to set
      */
     public void setTravelReimbursementDocumentNumber(String travelReimbursementDocumentNumber) {
@@ -120,10 +122,12 @@ public class TravelAuthorizationCloseDocument extends TravelAuthorizationDocumen
     }
 
     @Override
-    public void setTripProgenitor(boolean tripProgenitor) {}
+    public void setTripProgenitor(boolean tripProgenitor) {
+    }
 
     /**
      * It's pointless to mask the trip identifier on the close - it's already known
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#maskTravelDocumentIdentifierAndOrganizationDocNumber()
      */
     @Override

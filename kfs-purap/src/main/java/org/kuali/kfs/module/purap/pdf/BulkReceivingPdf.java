@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.module.purap.pdf;
 
-import java.io.ByteArrayOutputStream;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
-import org.kuali.kfs.sys.KFSConstants;
-
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -37,6 +29,13 @@ import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Base class to handle pdf for bulk receiving ticket.
@@ -54,8 +53,8 @@ public class BulkReceivingPdf extends PurapPdf {
      * Overrides the method in PdfPageEventHelper from itext to create and set the headerTable and set its logo image if
      * there is a logoImage to be used, creates and sets the nestedHeaderTable and its content.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onOpenDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     public void onOpenDocument(PdfWriter writer, Document document) {
@@ -69,15 +68,15 @@ public class BulkReceivingPdf extends PurapPdf {
             // initialization of the font
             helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ExceptionConverter(e);
         }
     }
 
     private void loadHeaderTable()
-    throws Exception {
+        throws Exception {
 
-        float[] headerWidths = { 0.20f, 0.80f };
+        float[] headerWidths = {0.20f, 0.80f};
 
         headerTable = new PdfPTable(headerWidths);
         headerTable.setWidthPercentage(100);
@@ -94,15 +93,14 @@ public class BulkReceivingPdf extends PurapPdf {
             logo = Image.getInstance(logoImage);
             logo.scalePercent(3, 3);
             headerTable.addCell(new Phrase(new Chunk(logo, 0, 0)));
-        }
-        else {
+        } else {
             headerTable.addCell(new Phrase(new Chunk("")));
         }
 
         /**
          * Nested table in tableHeader to display title and doc number
          */
-        float[] nestedHeaderWidths = { 0.70f, 0.30f };
+        float[] nestedHeaderWidths = {0.70f, 0.30f};
         nestedHeaderTable = new PdfPTable(nestedHeaderWidths);
         nestedHeaderTable.setSplitLate(false);
         PdfPCell cell;
@@ -146,8 +144,8 @@ public class BulkReceivingPdf extends PurapPdf {
     /**
      * Generates the pdf document based on the data in the given BulkReceivingDocument
      *
-     * @param blkRecDoc   The BulkReceivingDocument to be used to generate the pdf.
-     * @param byteStream  The ByteArrayOutputStream where the pdf document will be written to.
+     * @param blkRecDoc  The BulkReceivingDocument to be used to generate the pdf.
+     * @param byteStream The ByteArrayOutputStream where the pdf document will be written to.
      */
     public void generatePdf(BulkReceivingDocument blkRecDoc,
                             ByteArrayOutputStream byteStream,
@@ -182,10 +180,10 @@ public class BulkReceivingPdf extends PurapPdf {
 
             document.close();
 
-        }catch (Exception de) {
+        } catch (Exception de) {
             throw new RuntimeException("Document Exception when trying to save a Bulk Receiving PDF", de);
-        }finally{
-            if (document != null && document.isOpen()){
+        } finally {
+            if (document != null && document.isOpen()) {
                 document.close();
             }
         }
@@ -194,12 +192,12 @@ public class BulkReceivingPdf extends PurapPdf {
         }
     }
 
-    private PdfPTable createVendorAndDeliveryDetailsTable(){
+    private PdfPTable createVendorAndDeliveryDetailsTable() {
 
         PdfPCell cell;
         Paragraph p = new Paragraph();
 
-        float[] infoWidths = { 0.50f, 0.50f };
+        float[] infoWidths = {0.50f, 0.50f};
         PdfPTable infoTable = new PdfPTable(infoWidths);
 
         infoTable.setWidthPercentage(100);
@@ -210,26 +208,26 @@ public class BulkReceivingPdf extends PurapPdf {
         infoTable.addCell(getPDFCell("Delivery", getFormattedDeliveryAddress()));
         infoTable.addCell(getPDFCell("Reference Number\n", blkRecDoc.getShipmentReferenceNumber()));
 
-        if (blkRecDoc.getCarrier() != null){
+        if (blkRecDoc.getCarrier() != null) {
             infoTable.addCell(getPDFCell("Carrier\n", blkRecDoc.getCarrier().getCarrierDescription()));
-        }else{
+        } else {
             infoTable.addCell(getPDFCell("Carrier\n", StringUtils.EMPTY));
         }
 
         infoTable.addCell(getPDFCell("Tracking/Pro Number\n", blkRecDoc.getTrackingNumber()));
 
-        if (blkRecDoc.getPurchaseOrderIdentifier() != null){
+        if (blkRecDoc.getPurchaseOrderIdentifier() != null) {
             infoTable.addCell(getPDFCell("PO\n", blkRecDoc.getPurchaseOrderIdentifier().toString()));
-        }else{
+        } else {
             infoTable.addCell(getPDFCell("PO\n", StringUtils.EMPTY));
         }
 
         infoTable.addCell(getPDFCell("# of Pieces\n", "" + blkRecDoc.getNoOfCartons()));
         infoTable.addCell(getPDFCell("Shipment Received Date\n", blkRecDoc.getShipmentReceivedDate().toString()));
 
-        if (blkRecDoc.getShipmentWeight() != null){
+        if (blkRecDoc.getShipmentWeight() != null) {
             infoTable.addCell(getPDFCell("Weight\n", blkRecDoc.getShipmentWeight().toString()));
-        }else{
+        } else {
             infoTable.addCell(getPDFCell("Weight\n", StringUtils.EMPTY));
         }
 
@@ -239,14 +237,14 @@ public class BulkReceivingPdf extends PurapPdf {
     }
 
     private PdfPCell getPDFCell(String fieldTitle,
-                                String fieldValue){
+                                String fieldValue) {
 
         Paragraph p = new Paragraph();
         p.add(new Chunk("  " + fieldTitle, ver_5_normal));
 
-        if (StringUtils.isNotEmpty(fieldValue)){
+        if (StringUtils.isNotEmpty(fieldValue)) {
             p.add(new Chunk("     " + fieldValue, cour_10_normal));
-        }else{
+        } else {
             p.add(new Chunk("  "));
         }
 
@@ -256,7 +254,7 @@ public class BulkReceivingPdf extends PurapPdf {
         return cell;
     }
 
-    private String getFormattedVendorAddress(){
+    private String getFormattedVendorAddress() {
 
         StringBuffer vendorInfo = new StringBuffer();
         vendorInfo.append("\n");
@@ -265,7 +263,7 @@ public class BulkReceivingPdf extends PurapPdf {
          * GoodsDeliveredVendorNumber will be null if it the doc is not for a specific PO
          */
         if (blkRecDoc.getGoodsDeliveredVendorNumber() == null ||
-            blkRecDoc.getGoodsDeliveredVendorNumber().equals(blkRecDoc.getVendorNumber())){
+            blkRecDoc.getGoodsDeliveredVendorNumber().equals(blkRecDoc.getVendorNumber())) {
 
             if (StringUtils.isNotBlank(blkRecDoc.getVendorName())) {
                 vendorInfo.append("     " + blkRecDoc.getVendorName() + "\n");
@@ -293,17 +291,17 @@ public class BulkReceivingPdf extends PurapPdf {
 
             if (StringUtils.isNotBlank(blkRecDoc.getVendorPostalCode())) {
                 vendorInfo.append(" " + blkRecDoc.getVendorPostalCode() + "\n");
-            }else {
+            } else {
                 vendorInfo.append("\n");
             }
 
             if (!KFSConstants.COUNTRY_CODE_UNITED_STATES.equalsIgnoreCase(blkRecDoc.getVendorCountryCode()) && blkRecDoc.getVendorCountry() != null) {
                 vendorInfo.append("     " + blkRecDoc.getVendorCountry().getName() + "\n\n");
-            }else {
+            } else {
                 vendorInfo.append("\n\n");
             }
 
-        }else{
+        } else {
 
             if (StringUtils.isNotBlank(blkRecDoc.getAlternateVendorDetail().getVendorName())) {
                 vendorInfo.append("     " + blkRecDoc.getAlternateVendorDetail().getVendorName() + "\n");
@@ -331,13 +329,13 @@ public class BulkReceivingPdf extends PurapPdf {
 
             if (StringUtils.isNotBlank(blkRecDoc.getAlternateVendorDetail().getDefaultAddressPostalCode())) {
                 vendorInfo.append(" " + blkRecDoc.getAlternateVendorDetail().getDefaultAddressPostalCode() + "\n");
-            }else {
+            } else {
                 vendorInfo.append("\n");
             }
 
             if (!KFSConstants.COUNTRY_CODE_UNITED_STATES.equalsIgnoreCase(blkRecDoc.getAlternateVendorDetail().getDefaultAddressCountryCode()) && blkRecDoc.getAlternateVendorDetail().getDefaultAddressCountryCode() != null) {
                 vendorInfo.append("     " + blkRecDoc.getAlternateVendorDetail().getDefaultAddressCountryCode() + "\n\n");
-            }else {
+            } else {
                 vendorInfo.append("\n\n");
             }
         }
@@ -345,26 +343,26 @@ public class BulkReceivingPdf extends PurapPdf {
         return vendorInfo.toString();
     }
 
-    private String getFormattedDeliveryAddress(){
+    private String getFormattedDeliveryAddress() {
 
         StringBuffer shipToInfo = new StringBuffer();
 
         shipToInfo.append("\n");
 
-        if (StringUtils.isNotBlank(blkRecDoc.getDeliveryToName())){
+        if (StringUtils.isNotBlank(blkRecDoc.getDeliveryToName())) {
             shipToInfo.append("     " + StringUtils.defaultString(blkRecDoc.getDeliveryToName()) + "\n");
         }
 
         String deliveryBuildingName = blkRecDoc.getDeliveryBuildingName();
 
-        if(StringUtils.isNotBlank(blkRecDoc.getDeliveryBuildingRoomNumber())){
-            if (StringUtils.isBlank(deliveryBuildingName)){
+        if (StringUtils.isNotBlank(blkRecDoc.getDeliveryBuildingRoomNumber())) {
+            if (StringUtils.isBlank(deliveryBuildingName)) {
                 shipToInfo.append("     Room #" + blkRecDoc.getDeliveryBuildingRoomNumber() + "\n");
-            }else{
+            } else {
                 shipToInfo.append("     " + deliveryBuildingName + " Room #" + blkRecDoc.getDeliveryBuildingRoomNumber() + "\n");
             }
-        }else{
-            if (StringUtils.isNotBlank(deliveryBuildingName)){
+        } else {
+            if (StringUtils.isNotBlank(deliveryBuildingName)) {
                 shipToInfo.append("     " + deliveryBuildingName + "\n");
             }
         }
@@ -376,15 +374,15 @@ public class BulkReceivingPdf extends PurapPdf {
         }
 
         shipToInfo.append("     " + blkRecDoc.getDeliveryCityName() + ", " +
-                                    blkRecDoc.getDeliveryStateCode() + " " +
-                                    blkRecDoc.getDeliveryPostalCode() + "\n\n");
+            blkRecDoc.getDeliveryStateCode() + " " +
+            blkRecDoc.getDeliveryPostalCode() + "\n\n");
 
         return shipToInfo.toString();
     }
 
-    private PdfPTable createAdditionalDetailsTable(){
+    private PdfPTable createAdditionalDetailsTable() {
 
-        float[] additionalInfoWidths = { 0.25f, 0.75f };
+        float[] additionalInfoWidths = {0.25f, 0.75f};
         PdfPTable additionalInfoTable = new PdfPTable(additionalInfoWidths);
         additionalInfoTable.setWidthPercentage(100);
         additionalInfoTable.setSplitLate(false);
@@ -439,7 +437,7 @@ public class BulkReceivingPdf extends PurapPdf {
         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
         additionalInfoTable.addCell(cell);
 
-        updateRequestorInfo(blkRecDoc,additionalInfoTable);
+        updateRequestorInfo(blkRecDoc, additionalInfoTable);
 
         String campusCode = blkRecDoc.getDeliveryCampusCode();
 
@@ -528,7 +526,7 @@ public class BulkReceivingPdf extends PurapPdf {
     }
 
     private void updateRequestorInfo(BulkReceivingDocument blkRecDoc,
-                                     PdfPTable additionalInfoTable){
+                                     PdfPTable additionalInfoTable) {
         /**
          * Requestor Name
          */

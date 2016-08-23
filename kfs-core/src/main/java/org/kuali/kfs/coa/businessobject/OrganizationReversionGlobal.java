@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The representation of a Global Organization Reversion. A Global Organization Reversion is made up of three sections: 1. The
@@ -348,7 +348,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * @see org.kuali.rice.krad.bo.GlobalBusinessObject#generateDeactivationsToPersist() As global organization reversions only update
-     *      existing records, deactivations will never be produced by creating one; thus, this method always returns an empty list.
+     * existing records, deactivations will never be produced by creating one; thus, this method always returns an empty list.
      */
     public List<PersistableBusinessObject> generateDeactivationsToPersist() {
         return null;
@@ -356,7 +356,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * @see org.kuali.rice.krad.bo.GlobalBusinessObject#generateGlobalChangesToPersist() This creates a list of changes to be made to the
-     *      existing Organization Reversion records impacted by this global reversion.
+     * existing Organization Reversion records impacted by this global reversion.
      */
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
         List<PersistableBusinessObject> persistingChanges = new ArrayList<PersistableBusinessObject>();
@@ -369,7 +369,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
             OrganizationReversion currOrgRev = SpringContext.getBean(OrganizationReversionService.class).getByPrimaryId(this.getUniversityFiscalYear(), orgRevOrg.getChartOfAccountsCode(), orgRevOrg.getOrganizationCode());
 
             if (currOrgRev != null) { // only proceed if there's a pre-existing org reversion; we don't want to insert any new
-                                        // records
+                // records
                 if (!StringUtils.isBlank(this.getBudgetReversionChartOfAccountsCode())) {
                     currOrgRev.setBudgetReversionChartOfAccountsCode(this.getBudgetReversionChartOfAccountsCode());
                 }
@@ -426,7 +426,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * @see org.kuali.rice.krad.bo.GlobalBusinessObject#getAllDetailObjects() This returns a list of all the detail objects held within
-     *      this main global organization reversion container.
+     * this main global organization reversion container.
      */
     public List<? extends GlobalBusinessObjectDetail> getAllDetailObjects() {
         List<GlobalBusinessObjectDetail> detailObjects = new ArrayList<GlobalBusinessObjectDetail>();
@@ -437,8 +437,8 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * @see org.kuali.rice.krad.bo.GlobalBusinessObject#isPersistable() returns whether this global object reversion can be stored in the
-     *      database, which is really a question of whether it and all of its details have all of their appropriate primary keys
-     *      set.
+     * database, which is really a question of whether it and all of its details have all of their appropriate primary keys
+     * set.
      */
     public boolean isPersistable() {
         PersistenceStructureService persistenceStructureService = SpringContext.getBean(PersistenceStructureService.class);
@@ -470,8 +470,8 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
     public List buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
 
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getOrganizationReversionGlobalDetails() ) );
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getOrganizationReversionGlobalOrganizations() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getOrganizationReversionGlobalDetails()));
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getOrganizationReversionGlobalOrganizations()));
 
         return managedLists;
     }

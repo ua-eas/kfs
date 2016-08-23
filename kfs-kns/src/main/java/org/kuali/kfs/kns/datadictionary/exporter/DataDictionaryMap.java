@@ -20,9 +20,9 @@ package org.kuali.kfs.kns.datadictionary.exporter;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
@@ -38,7 +38,7 @@ public class DataDictionaryMap extends DataDictionaryMapBase {
     MaintenanceDocumentEntryMapper maintDocMapper = new MaintenanceDocumentEntryMapper();
     TransactionalDocumentEntryMapper transDocMapper = new TransactionalDocumentEntryMapper();
 
-    Map<String,Map> ddMap = new HashMap<String,Map>();
+    Map<String, Map> ddMap = new HashMap<String, Map>();
 
     public DataDictionaryMap(DataDictionaryService dataDictionaryService) {
         super();
@@ -46,27 +46,27 @@ public class DataDictionaryMap extends DataDictionaryMapBase {
     }
 
     public Object get(Object key) {
-        Map subMap = ddMap.get( key );
-        if ( subMap == null ) { // need to load from DD
-            synchronized( this ) { // ensure only one update access happening at a time
-                subMap = ddMap.get( key );
-                if ( subMap == null ) { // recheck in case it was loaded by another thread while this one was blocked
-                    DataDictionaryEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry( key.toString() );
+        Map subMap = ddMap.get(key);
+        if (subMap == null) { // need to load from DD
+            synchronized (this) { // ensure only one update access happening at a time
+                subMap = ddMap.get(key);
+                if (subMap == null) { // recheck in case it was loaded by another thread while this one was blocked
+                    DataDictionaryEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry(key.toString());
                     // if that fails try just using the simple name if a full class name was passed
-                    if ( entry == null && key.toString().contains(".")) {
-                    	entry = dataDictionaryService.getDataDictionary().getDictionaryObjectEntry( StringUtils.substringAfterLast( key.toString(), "." ) );
+                    if (entry == null && key.toString().contains(".")) {
+                        entry = dataDictionaryService.getDataDictionary().getDictionaryObjectEntry(StringUtils.substringAfterLast(key.toString(), "."));
                     }
-                    if ( entry != null ) {
-                        if ( entry instanceof BusinessObjectEntry ) {
-                            subMap = boMapper.mapEntry( (BusinessObjectEntry)entry ).getExportData();
-                        } else if ( entry instanceof MaintenanceDocumentEntry ) {
-                            subMap = maintDocMapper.mapEntry( (MaintenanceDocumentEntry)entry ).getExportData();
-                        } else if ( entry instanceof TransactionalDocumentEntry ) {
-                            subMap = transDocMapper.mapEntry( (TransactionalDocumentEntry)entry ).getExportData();
+                    if (entry != null) {
+                        if (entry instanceof BusinessObjectEntry) {
+                            subMap = boMapper.mapEntry((BusinessObjectEntry) entry).getExportData();
+                        } else if (entry instanceof MaintenanceDocumentEntry) {
+                            subMap = maintDocMapper.mapEntry((MaintenanceDocumentEntry) entry).getExportData();
+                        } else if (entry instanceof TransactionalDocumentEntry) {
+                            subMap = transDocMapper.mapEntry((TransactionalDocumentEntry) entry).getExportData();
                         }
                     }
-                    if ( subMap != null ) {
-                        ddMap.put( key.toString(), subMap );
+                    if (subMap != null) {
+                        ddMap.put(key.toString(), subMap);
                     }
                 }
             }

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.businessobject.GlAccountLineGroup;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class declares the service method for CAB Reconciliation service. Expected to be used by {@link BatchExtractService}. This
@@ -71,7 +71,7 @@ public interface ReconciliationService {
      * Main reconciliation service which will apply the formula where PURAP transaction amounts are compared using
      * <li>GL_ENTRY_T = (AP_PMT_RQST_ACCT_CHG_T or AP_CRDT_MEMO_ACCT_CHG_T) </li>
      *
-     * @param glEntries Purap GL Entries
+     * @param glEntries        Purap GL Entries
      * @param purapAcctEntries Purap Account Entries
      */
     void reconcile(Collection<Entry> glEntries, Collection<PurApAccountingLineBase> purapAcctEntries);

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAdministrativePost;
 import org.kuali.kfs.module.bc.service.BudgetConstructionAdministrativePostService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * implements the service methods defined in BudgetConstructionAdministrativePostService
@@ -36,7 +36,7 @@ public class BudgetConstructionAdministrativePostServiceImpl implements BudgetCo
 
     /**
      * @see org.kuali.kfs.module.bc.service.BudgetConstructionAdministrativePostService#getByPrimaryId(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public BudgetConstructionAdministrativePost getByPrimaryId(String emplid, String positionNumber) {
         Map<String, Object> primaryKeys = new HashMap<String, Object>();

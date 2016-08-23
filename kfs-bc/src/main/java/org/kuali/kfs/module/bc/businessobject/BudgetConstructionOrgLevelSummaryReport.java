@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
 
 /**
  * Budget Construction Organization Account Summary Report Business Object.

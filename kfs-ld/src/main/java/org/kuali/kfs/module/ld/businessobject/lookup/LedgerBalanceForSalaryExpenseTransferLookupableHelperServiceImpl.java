@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants.SalaryExpenseTransfer;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.util.ConsolidationUtil;
@@ -34,11 +33,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of LedgerBalanceForSalaryExpenseTransferLookupableHelperService. The class is the front-end for the
@@ -112,8 +112,7 @@ public class LedgerBalanceForSalaryExpenseTransferLookupableHelperServiceImpl ex
         SystemOptions options;
         if (fiscalYearString == null) {
             options = optionsService.getCurrentYearOptions();
-        }
-        else {
+        } else {
             Integer fiscalYear = Integer.valueOf(fiscalYearString.trim());
             options = optionsService.getOptions(fiscalYear);
         }

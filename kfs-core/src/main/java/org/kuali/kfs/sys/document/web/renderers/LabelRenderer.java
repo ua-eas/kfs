@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.KRADConstants;
+import java.io.IOException;
 
 /**
  * This renders a label (and not, as I was about to write labels a render).  It's main job
@@ -45,6 +44,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the attributeEntryForHelp attribute.
+     *
      * @return Returns the attributeEntryForHelp.
      */
     public String getAttributeEntryForHelp() {
@@ -53,6 +53,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the attributeEntryForHelp attribute value.
+     *
      * @param attributeEntryForHelp The attributeEntryForHelp to set.
      */
     public void setAttributeEntryForHelp(String attributeEntryForHelp) {
@@ -61,6 +62,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the fullClassNameForHelp attribute.
+     *
      * @return Returns the fullClassNameForHelp.
      */
     public String getFullClassNameForHelp() {
@@ -69,6 +71,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the fullClassNameForHelp attribute value.
+     *
      * @param fullClassNameForHelp The fullClassNameForHelp to set.
      */
     public void setFullClassNameForHelp(String fullClassNameForHelp) {
@@ -77,6 +80,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the label attribute.
+     *
      * @return Returns the label.
      */
     public String getLabel() {
@@ -85,6 +89,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the label attribute value.
+     *
      * @param label The label to set.
      */
     public void setLabel(String label) {
@@ -93,6 +98,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the required attribute.
+     *
      * @return Returns the required.
      */
     public boolean isRequired() {
@@ -101,6 +107,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the required attribute value.
+     *
      * @param required The required to set.
      */
     public void setRequired(boolean required) {
@@ -109,6 +116,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the readOnly attribute.
+     *
      * @return Returns the readOnly.
      */
     public boolean isReadOnly() {
@@ -117,6 +125,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the readOnly attribute value.
+     *
      * @param readOnly The readOnly to set.
      */
     public void setReadOnly(boolean readOnly) {
@@ -125,6 +134,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Gets the labelFor attribute.
+     *
      * @return Returns the labelFor.
      */
     public String getLabelFor() {
@@ -133,6 +143,7 @@ public class LabelRenderer implements Renderer {
 
     /**
      * Sets the labelFor attribute value.
+     *
      * @param labelFor The labelFor to set.
      */
     public void setLabelFor(String labelFor) {
@@ -140,7 +151,6 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -155,21 +165,20 @@ public class LabelRenderer implements Renderer {
     private static String APPLICATION_URL;
 
     protected String getApplicationURL() {
-        if ( APPLICATION_URL == null ) {
+        if (APPLICATION_URL == null) {
             APPLICATION_URL = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
         }
         return APPLICATION_URL;
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         try {
             JspWriter out = pageContext.getOut();
             if (!StringUtils.isBlank(labelFor)) {
-                out.write("<label for=\""+labelFor+"\">");
+                out.write("<label for=\"" + labelFor + "\">");
             }
             if (required) {
                 out.write(KFSConstants.REQUIRED_FIELD_SYMBOL);
@@ -191,8 +200,7 @@ public class LabelRenderer implements Renderer {
             if (!StringUtils.isBlank(labelFor)) {
                 out.write("</label>");
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering label", ioe);
         }
     }

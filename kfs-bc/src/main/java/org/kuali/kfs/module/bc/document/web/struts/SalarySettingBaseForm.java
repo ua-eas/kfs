@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReason;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
@@ -38,8 +36,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * the base Struts form for salary setting
@@ -152,19 +152,18 @@ public abstract class SalarySettingBaseForm extends BudgetExpansionForm {
      *
      * @param appointmentFunding
      */
-    public void applyDefaultReasonAmountIfEmpty (PendingBudgetConstructionAppointmentFunding appointmentFunding){
-        if (!appointmentFunding.getBudgetConstructionAppointmentFundingReason().isEmpty()){
+    public void applyDefaultReasonAmountIfEmpty(PendingBudgetConstructionAppointmentFunding appointmentFunding) {
+        if (!appointmentFunding.getBudgetConstructionAppointmentFundingReason().isEmpty()) {
             BudgetConstructionAppointmentFundingReason afReason = appointmentFunding.getBudgetConstructionAppointmentFundingReason().get(0);
-            if (ObjectUtils.isNotNull(afReason)){
-                if (afReason.getAppointmentFundingReasonAmount() == null){
+            if (ObjectUtils.isNotNull(afReason)) {
+                if (afReason.getAppointmentFundingReasonAmount() == null) {
                     afReason.setAppointmentFundingReasonAmount(KualiInteger.ZERO);
                 }
-                if (afReason.getAppointmentFundingReasonCode() != null){
+                if (afReason.getAppointmentFundingReasonCode() != null) {
                     afReason.refreshReferenceObject(BCPropertyConstants.APPOINTMENT_FUNDING_REASON);
                 }
             }
-        }
-        else {
+        } else {
             appointmentFunding.getBudgetConstructionAppointmentFundingReason().add(new BudgetConstructionAppointmentFundingReason());
         }
     }
@@ -174,11 +173,11 @@ public abstract class SalarySettingBaseForm extends BudgetExpansionForm {
      *
      * @param appointmentFunding
      */
-    public void applyDefaultTotalIntendedAmountIfEmpty (PendingBudgetConstructionAppointmentFunding appointmentFunding){
-        if (appointmentFunding.getAppointmentTotalIntendedAmount() == null){
+    public void applyDefaultTotalIntendedAmountIfEmpty(PendingBudgetConstructionAppointmentFunding appointmentFunding) {
+        if (appointmentFunding.getAppointmentTotalIntendedAmount() == null) {
             appointmentFunding.setAppointmentTotalIntendedAmount(KualiInteger.ZERO);
         }
-        if (appointmentFunding.getAppointmentTotalIntendedFteQuantity() == null){
+        if (appointmentFunding.getAppointmentTotalIntendedFteQuantity() == null) {
             appointmentFunding.setAppointmentTotalIntendedFteQuantity(BigDecimal.ZERO);
         }
     }

@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_FUND_GROUP_SET_DOES_NOT_BALANCE;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -34,8 +30,12 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseCons
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_FUND_GROUP_SET_DOES_NOT_BALANCE;
 
 /**
  * Validation for Transfer of Funds document that tests if the fund groups represented by a given document are in balance.
@@ -47,6 +47,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
     /**
      * This is a helper method that wraps the fund group balancing check. This check can be configured by updating the
      * application parameter table that is associated with this check. See the document's specification for details.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -77,7 +78,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
         // iterate over each accounting line and if it has an account with a
         // fund group that should be balanced, then add that lines amount to the bucket
-        for (Iterator i = lines.iterator(); i.hasNext();) {
+        for (Iterator i = lines.iterator(); i.hasNext(); ) {
             AccountingLine line = (AccountingLine) i.next();
             String fundGroupCode = line.getAccount().getSubFundGroup().getFundGroupCode();
 
@@ -86,8 +87,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
                 KualiDecimal glpeLineAmount = tranDoc.getGeneralLedgerPendingEntryAmountForDetail(line);
                 if (line.isSourceAccountingLine()) {
                     sourceLinesTotal = sourceLinesTotal.add(glpeLineAmount);
-                }
-                else {
+                } else {
                     targetLinesTotal = targetLinesTotal.add(glpeLineAmount);
                 }
             }
@@ -101,7 +101,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
             // creating an evaluator to just format the fund codes into a nice string
             ParameterEvaluator evaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(componentClass, parameterName, "");
-            GlobalVariables.getMessageMap().putError("document.sourceAccountingLines", ERROR_DOCUMENT_FUND_GROUP_SET_DOES_NOT_BALANCE, new String[] { tranDoc.getSourceAccountingLinesSectionTitle(), tranDoc.getTargetAccountingLinesSectionTitle(), evaluator.getParameterValuesForMessage() });
+            GlobalVariables.getMessageMap().putError("document.sourceAccountingLines", ERROR_DOCUMENT_FUND_GROUP_SET_DOES_NOT_BALANCE, new String[]{tranDoc.getSourceAccountingLinesSectionTitle(), tranDoc.getTargetAccountingLinesSectionTitle(), evaluator.getParameterValuesForMessage()});
         }
 
         return isValid;
@@ -109,6 +109,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -117,6 +118,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -125,6 +127,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -133,6 +136,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

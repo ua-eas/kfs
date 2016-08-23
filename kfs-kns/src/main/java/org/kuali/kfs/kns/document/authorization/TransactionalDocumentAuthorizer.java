@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.kns.document.authorization;
 
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ import java.util.Set;
  * Extension to DocumentAuthorizer interface which adds transactional-document-specific methods.
  */
 public interface TransactionalDocumentAuthorizer extends DocumentAuthorizer {
-	/**
+    /**
      * @param document
      * @return Map of operations that allow to take on that document.
      */

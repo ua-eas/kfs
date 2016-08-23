@@ -20,51 +20,50 @@ package org.kuali.kfs.krad.dao.impl;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.dao.DocumentHeaderDao;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 /**
  * This class is the OJB implementation of the DocumentHeaderDao interface.
- *
  */
 public class DocumentHeaderDaoOjb extends PlatformAwareDaoBaseOjb implements DocumentHeaderDao {
-	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentHeaderDaoOjb.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentHeaderDaoOjb.class);
 
-	private Class documentHeaderBaseClass = DocumentHeader.class;
+    private Class documentHeaderBaseClass = DocumentHeader.class;
 
-	/**
-	 * Default constructor
-	 */
-	public DocumentHeaderDaoOjb() {
-		super();
-	}
+    /**
+     * Default constructor
+     */
+    public DocumentHeaderDaoOjb() {
+        super();
+    }
 
-	/**
-	 * @see DocumentHeaderDao#getByDocumentHeaderId(java.lang.String)
-	 */
-	public DocumentHeader getByDocumentHeaderId(String id) {
-		Criteria criteria = new Criteria();
-		criteria.addEqualTo(KRADPropertyConstants.DOCUMENT_NUMBER, id);
+    /**
+     * @see DocumentHeaderDao#getByDocumentHeaderId(java.lang.String)
+     */
+    public DocumentHeader getByDocumentHeaderId(String id) {
+        Criteria criteria = new Criteria();
+        criteria.addEqualTo(KRADPropertyConstants.DOCUMENT_NUMBER, id);
 
-		return (DocumentHeader) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(getDocumentHeaderBaseClass(), criteria));
-	}
+        return (DocumentHeader) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(getDocumentHeaderBaseClass(), criteria));
+    }
 
-	/**
-	 * Method used to define the {@link DocumentHeader} object to use in case clients need to override the class.  Default value is {@link DocumentHeader}.
-	 *
-	 * @see DocumentHeaderDao#getDocumentHeaderBaseClass()
-	 */
-	public Class getDocumentHeaderBaseClass() {
-		return this.documentHeaderBaseClass;
-	}
+    /**
+     * Method used to define the {@link DocumentHeader} object to use in case clients need to override the class.  Default value is {@link DocumentHeader}.
+     *
+     * @see DocumentHeaderDao#getDocumentHeaderBaseClass()
+     */
+    public Class getDocumentHeaderBaseClass() {
+        return this.documentHeaderBaseClass;
+    }
 
-	/**
-	 * @param documentHeaderBaseClass the documentHeaderBaseClass to set
-	 */
-	public void setDocumentHeaderBaseClass(Class documentHeaderBaseClass) {
-		this.documentHeaderBaseClass = documentHeaderBaseClass;
-	}
+    /**
+     * @param documentHeaderBaseClass the documentHeaderBaseClass to set
+     */
+    public void setDocumentHeaderBaseClass(Class documentHeaderBaseClass) {
+        this.documentHeaderBaseClass = documentHeaderBaseClass;
+    }
 
 }

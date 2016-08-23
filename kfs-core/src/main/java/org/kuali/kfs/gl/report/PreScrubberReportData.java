@@ -36,24 +36,31 @@ public class PreScrubberReportData {
     public int getInputRecords() {
         return inputRecords;
     }
+
     public void setInputRecords(int inputRecords) {
         this.inputRecords = inputRecords;
     }
+
     public int getOutputRecords() {
         return outputRecords;
     }
+
     public void setOutputRecords(int outputRecords) {
         this.outputRecords = outputRecords;
     }
+
     public Set<String> getAccountsWithNoCharts() {
         return accountsWithNoCharts;
     }
+
     public void setAccountsWithNoCharts(Set<String> accountsWithNoCharts) {
         this.accountsWithNoCharts = accountsWithNoCharts;
     }
+
     public Set<String> getAccountsWithMultipleCharts() {
         return accountsWithMultipleCharts;
     }
+
     public void setAccountsWithMultipleCharts(Set<String> accountsWithMultipleCharts) {
         this.accountsWithMultipleCharts = accountsWithMultipleCharts;
     }

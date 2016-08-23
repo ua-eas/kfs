@@ -36,42 +36,42 @@ public class GetSufficientFundsObjectCodeTest {
     public void testNoChecking() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_NO_CHECKING);
 
-        Assert.assertEquals(KFSConstants.NOT_AVAILABLE_STRING,objectCode);
+        Assert.assertEquals(KFSConstants.NOT_AVAILABLE_STRING, objectCode);
     }
 
     @Test
     public void testAccount() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_ACCOUNT);
 
-        Assert.assertEquals("    ",objectCode);
+        Assert.assertEquals("    ", objectCode);
     }
 
     @Test
     public void testCashAtAccount() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_CASH_AT_ACCOUNT);
 
-        Assert.assertEquals("    ",objectCode);
+        Assert.assertEquals("    ", objectCode);
     }
 
     @Test
     public void testObject() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_OBJECT);
 
-        Assert.assertEquals("1234",objectCode);
+        Assert.assertEquals("1234", objectCode);
     }
 
     @Test
     public void testLevel() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_LEVEL);
 
-        Assert.assertEquals("2345",objectCode);
+        Assert.assertEquals("2345", objectCode);
     }
 
     @Test
     public void testConsolidation() {
         String objectCode = sufficientFundsService.getSufficientFundsObjectCode(SufficientFundsTestFixtures.getTestObjectCode(), KFSConstants.SF_TYPE_CONSOLIDATION);
 
-        Assert.assertEquals("3456",objectCode);
+        Assert.assertEquals("3456", objectCode);
     }
 
     @Test

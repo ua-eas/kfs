@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.module.cg.identity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.kfs.sys.identity.RoleTestBase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 @ConfigureContext
 public class CgKFSApplicationRoleTest extends RoleTestBase {
 
@@ -36,15 +37,15 @@ public class CgKFSApplicationRoleTest extends RoleTestBase {
 
     public void testAccountDerivedRoleTypeService() {
         AccountService accountService = SpringContext.getBean(AccountService.class);
-        Map<String,String> roleQualifications = new HashMap<String,String>();
+        Map<String, String> roleQualifications = new HashMap<String, String>();
 
         // 5. test award secondary director
         roleQualifications.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, ACCOUNT_DERIVED_AWARD_CHART);
         roleQualifications.put(KfsKimAttributes.ACCOUNT_NUMBER, ACCOUNT_DERIVED_AWARD_ACCOUNT);
 
         assertUserIsRoleMember(getPrincipalIdByName(ACCOUNT_DERIVED_AWARD_PROJECT_DIRECTOR),
-                KFSConstants.ParameterNamespaces.KFS,
-                KFSConstants.SysKimApiConstants.AWARD_SECONDARY_DIRECTOR_KIM_ROLE_NAME, roleQualifications);
+            KFSConstants.ParameterNamespaces.KFS,
+            KFSConstants.SysKimApiConstants.AWARD_SECONDARY_DIRECTOR_KIM_ROLE_NAME, roleQualifications);
     }
 
 }

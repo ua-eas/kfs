@@ -22,10 +22,10 @@ package org.kuali.kfs.coa.dataaccess;
 public interface AccountDelegateGlobalDao {
 
     /**
-     *
      * This method returns the document number of any locking records.
+     *
      * @param lockingRepresentation String representation of the MaintenanceLock created by the AccountDelegateGlobal
-     * @param documentNumber the document number of the Document being checked against.
+     * @param documentNumber        the document number of the Document being checked against.
      * @return The document number of the locking record, or null if none.
      */
 

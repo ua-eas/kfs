@@ -30,8 +30,8 @@ public interface ReportGenerationService {
     /**
      * generate a report as PDF file with the given file name
      *
-     * @param reportData the data being written into the PDF report file
-     * @param template the report template full file name
+     * @param reportData     the data being written into the PDF report file
+     * @param template       the report template full file name
      * @param reportFileName the full name of the generated PDF file
      */
     public void generateReportToPdfFile(Map<String, Object> reportData, String template, String reportFileName);
@@ -39,9 +39,9 @@ public interface ReportGenerationService {
     /**
      * generate a report as PDF file with the given file name
      *
-     * @param reportData the data being written into the PDF report file
-     * @param dataSource the data source being used for the PDF report
-     * @param template the report template full file name
+     * @param reportData     the data being written into the PDF report file
+     * @param dataSource     the data source being used for the PDF report
+     * @param template       the report template full file name
      * @param reportFileName the full name of the generated PDF file
      */
     public void generateReportToPdfFile(Map<String, Object> reportData, Object dataSource, String template, String reportFileName);
@@ -51,8 +51,8 @@ public interface ReportGenerationService {
      *
      * @param reportData the data being written into the PDF report file
      * @param dataSource the data source being used for the PDF report
-     * @param template the report template full file name
-     * @param baos the output stream for sending back contents
+     * @param template   the report template full file name
+     * @param baos       the output stream for sending back contents
      */
     public void generateReportToOutputStream(Map<String, Object> reportData, Object dataSource, String template, OutputStream baos);
 
@@ -60,9 +60,9 @@ public interface ReportGenerationService {
      * build a full file name with the given information. The format of the file name is <absolute path><filename>_<timestamp>.<extension>
      *
      * @param directory the directory where the file would be located
-     * @param fileName the given file name without file extension
+     * @param fileName  the given file name without file extension
      * @param extension the given file extension
-     * @param runDate the run date which is used to generate a timestamp
+     * @param runDate   the run date which is used to generate a timestamp
      * @return a full file name built from the given information.
      */
     public String buildFullFileName(Date runDate, String directory, String fileName, String extension);

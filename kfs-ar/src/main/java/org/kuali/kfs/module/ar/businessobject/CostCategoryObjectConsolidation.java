@@ -35,38 +35,49 @@ public class CostCategoryObjectConsolidation extends PersistableBusinessObjectBa
     public String getCategoryCode() {
         return categoryCode;
     }
+
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
     }
+
     @Override
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getFinConsolidationObjectCode() {
         return finConsolidationObjectCode;
     }
+
     public void setFinConsolidationObjectCode(String finConsolidationObjectCode) {
         this.finConsolidationObjectCode = finConsolidationObjectCode;
     }
+
     public Chart getChart() {
         return chart;
     }
+
     public void setChart(Chart chart) {
         this.chart = chart;
     }
+
     public ObjectConsolidation getObjectConsolidation() {
         return objectConsolidation;
     }
+
     public void setObjectConsolidation(ObjectConsolidation objectConsolidation) {
         this.objectConsolidation = objectConsolidation;
     }
+
     @Override
     public boolean isActive() {
         return active;
     }
+
     @Override
     public void setActive(boolean active) {
         this.active = active;

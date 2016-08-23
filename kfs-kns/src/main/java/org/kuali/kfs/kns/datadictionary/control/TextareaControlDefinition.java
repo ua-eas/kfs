@@ -22,14 +22,14 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-    The textarea element defines an HTML textarea control element.
-    The rows and cols attributes define the size of the field.
+ * The textarea element defines an HTML textarea control element.
+ * The rows and cols attributes define the size of the field.
  */
 @Deprecated
 public class TextareaControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = 8378481767935057649L;
 
-	public TextareaControlDefinition() {
+    public TextareaControlDefinition() {
     }
 
     /**

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 
 public interface FileManager {
     public String getJobName();
+
     public String getStepName();
 
     // public List<BatchFile> getBatchFilesMatchingCriteria(Map<String, String> criteria);

@@ -22,17 +22,15 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.lookup.SelectiveReferenceRefresher;
@@ -43,6 +41,8 @@ import org.kuali.kfs.krad.service.KualiExceptionIncidentService;
 import org.kuali.kfs.krad.service.MaintenanceDocumentService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -161,7 +161,7 @@ public final class MaintenanceUtils {
             field.setFieldConversions(maintainableFieldDefinition.getOverrideFieldConversions());
             field.setBaseLookupUrl(LookupUtils.getBaseLookupUrl(false));
             field.setReferencesToRefresh(LookupUtils.convertReferencesToSelectCollectionToString(
-                    srr.getAffectedReferencesFromLookup(businessObject, attributeName, "")));
+                srr.getAffectedReferencesFromLookup(businessObject, attributeName, "")));
             return field;
         }
         if (maintainableFieldDefinition.isNoLookup()) {
@@ -188,7 +188,7 @@ public final class MaintenanceUtils {
                 field.setFieldConversions(prefixedFieldConversions);
                 field.setBaseLookupUrl(LookupUtils.getBaseLookupUrl(false));
                 field.setReferencesToRefresh(LookupUtils.convertReferencesToSelectCollectionToString(
-                        maintainable.getAffectedReferencesFromLookup(businessObject, attributeName, collectionPrefix)));
+                    maintainable.getAffectedReferencesFromLookup(businessObject, attributeName, collectionPrefix)));
             }
             return field;
         }
@@ -196,7 +196,7 @@ public final class MaintenanceUtils {
             return field;
         }
         return LookupUtils.setFieldQuickfinder(businessObject, collectionName, addLine, index,
-                attributeName, field, displayedFieldNames, maintainable);
+            attributeName, field, displayedFieldNames, maintainable);
     }
 
     private static String prefixFieldConversionsDestinationsWithCollectionPrefix(String originalFieldConversions, String collectionPrefix) {
@@ -304,7 +304,7 @@ public final class MaintenanceUtils {
         //String blockingDocId = getMaintenanceDocumentService().getLockingDocumentId(maintainable, null);
         String blockingDocId = maintainable.getLockingDocumentId();
         org.kuali.kfs.krad.maintenance.MaintenanceUtils
-                .checkDocumentBlockingDocumentId(blockingDocId, throwExceptionIfLocked);
+            .checkDocumentBlockingDocumentId(blockingDocId, throwExceptionIfLocked);
     }
 
     private static MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {

@@ -18,6 +18,25 @@
  */
 package org.kuali.kfs.sys.context;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.InquiryDefinition;
+import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
+import org.kuali.kfs.kns.datadictionary.LookupDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.document.datadictionary.FinancialSystemMaintenanceDocumentEntry;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.BeanDefinition;
+
+import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,26 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.document.datadictionary.FinancialSystemMaintenanceDocumentEntry;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.datadictionary.InquiryDefinition;
-import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.kfs.kns.datadictionary.LookupDefinition;
-import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
 
 @ConfigureContext
 public class DataDictionaryConfigurationTest extends KualiTestBase {
@@ -78,8 +77,7 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
                 }
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw (e);
         }
         // Using HashSet since duplicate objects would otherwise be returned
@@ -88,26 +86,25 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
         for (DocumentEntry documentEntry : documentEntries) {
             String name = documentEntry.getDocumentTypeName();
             String testName = new String(" ");
-            if (documentEntry instanceof FinancialSystemMaintenanceDocumentEntry){
-                testName=((FinancialSystemMaintenanceDocumentEntry)documentEntry).getBusinessObjectClass().getName();
-            }else{
-                testName=documentEntry.getDocumentClass().getName();
+            if (documentEntry instanceof FinancialSystemMaintenanceDocumentEntry) {
+                testName = ((FinancialSystemMaintenanceDocumentEntry) documentEntry).getBusinessObjectClass().getName();
+            } else {
+                testName = documentEntry.getDocumentClass().getName();
             }
             if (!workflowDocumentTypeNames.contains(name) && !"RiceUserMaintenanceDocument".equals(name) && !testName.contains("rice")) {
                 ddEntriesWithMissingTypes.add(name);
-            }
-            else {
+            } else {
                 workflowDocumentTypeNames.remove(name);
             }
         }
 
         if (workflowDocumentTypeNames.size() > 0) {
-            try{
+            try {
                 //If documents are parent docs, then they aren't superfluous.
                 String queryString = "select distinct doc_typ_nm from KREW_DOC_TYP_T"
-                    +" where doc_typ_id in (select parnt_id from KREW_DOC_TYP_T"
-                    +" where actv_ind = 1"
-                    +" and cur_ind = 1)";
+                    + " where doc_typ_id in (select parnt_id from KREW_DOC_TYP_T"
+                    + " where actv_ind = 1"
+                    + " and cur_ind = 1)";
                 Statement dbAsk = dbCon.createStatement();
                 ResultSet dbAnswer = dbAsk.executeQuery(queryString);
                 while (dbAnswer.next()) {
@@ -116,94 +113,97 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
                         workflowDocumentTypeNames.remove(docName);
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw (e);
             }
 
-        System.err.print("superfluousTypesDefinedInWorkflowDatabase: " + workflowDocumentTypeNames);
+            System.err.print("superfluousTypesDefinedInWorkflowDatabase: " + workflowDocumentTypeNames);
+        }
+        assertEquals("documentTypesNotDefinedInWorkflowDatabase: " + ddEntriesWithMissingTypes, 0, ddEntriesWithMissingTypes.size());
     }
-    assertEquals("documentTypesNotDefinedInWorkflowDatabase: " + ddEntriesWithMissingTypes, 0, ddEntriesWithMissingTypes.size());
-}
 
     private final static List<String> INACTIVATEABLE_LOOKUP_IGNORE_CLASSES = new ArrayList<String>();
+
     static {
         // org.kuali.kfs.coa.businessobject.Account is excepted from testActiveFieldExistInLookupAndResultSection because it uses the active-derived Closed? indicator instead (KFSMI-1393)
-        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add( "org.kuali.kfs.coa.businessobject.Account" );
-        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add( "org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition" );
-        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add( "org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding" );
-    }
-    private static final List<String> INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES = new ArrayList<String>();
-    static {
-        INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.add( "org.kuali.kfs.pdp.businessobject" );
-        INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.add( "org.kuali.kfs.module.external.kc.businessobject" );
+        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add("org.kuali.kfs.coa.businessobject.Account");
+        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add("org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition");
+        INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.add("org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding");
     }
 
-    public void testActiveFieldExistInLookupAndResultSection() throws Exception{
+    private static final List<String> INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES = new ArrayList<String>();
+
+    static {
+        INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.add("org.kuali.kfs.pdp.businessobject");
+        INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.add("org.kuali.kfs.module.external.kc.businessobject");
+    }
+
+    public void testActiveFieldExistInLookupAndResultSection() throws Exception {
         List<Class<?>> noActiveFieldClassList = new ArrayList<Class<?>>();
         List<Class<?>> notImplementInactivatableList = new ArrayList<Class<?>>();
         List<Class<?>> defaultValueWrongList = new ArrayList<Class<?>>();
 
-        for(org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
+        for (org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry : dataDictionary.getBusinessObjectEntries().values()) {
             BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) kradBusinessObjectEntry;
-            if ( !businessObjectEntry.getBusinessObjectClass().getName().startsWith(RICE_PACKAGE_NAME_PREFIX)
-                    && !INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.contains(businessObjectEntry.getBusinessObjectClass().getName())
-                    && !INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.contains(businessObjectEntry.getBusinessObjectClass().getPackage().getName()) ) {
+            if (!businessObjectEntry.getBusinessObjectClass().getName().startsWith(RICE_PACKAGE_NAME_PREFIX)
+                && !INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.contains(businessObjectEntry.getBusinessObjectClass().getName())
+                && !INACTIVATEABLE_LOOKUP_IGNORE_PACKAGES.contains(businessObjectEntry.getBusinessObjectClass().getPackage().getName())) {
                 try {
                     LookupDefinition lookupDefinition = businessObjectEntry.getLookupDefinition();
                     // Class implements MutableInactivatable but active field not used on Lookup.
-                    if(Class.forName(INACTIVATEABLE_INTERFACE_CLASS).isAssignableFrom(businessObjectEntry.getBusinessObjectClass())) {
-                        if(lookupDefinition != null && !(lookupDefinition.getLookupFieldNames().contains(ACTIVE_FIELD_NAME) && lookupDefinition.getResultFieldNames().contains(ACTIVE_FIELD_NAME))){
+                    if (Class.forName(INACTIVATEABLE_INTERFACE_CLASS).isAssignableFrom(businessObjectEntry.getBusinessObjectClass())) {
+                        if (lookupDefinition != null && !(lookupDefinition.getLookupFieldNames().contains(ACTIVE_FIELD_NAME) && lookupDefinition.getResultFieldNames().contains(ACTIVE_FIELD_NAME))) {
                             noActiveFieldClassList.add(businessObjectEntry.getBusinessObjectClass());
-                            if ( lookupDefinition.getLookupField(ACTIVE_FIELD_NAME) != null ) {
+                            if (lookupDefinition.getLookupField(ACTIVE_FIELD_NAME) != null) {
                                 //Default must be 'Y' not 'true'
                                 if (!StringUtils.equals(lookupDefinition.getLookupField(ACTIVE_FIELD_NAME).getDefaultValue(), "Y")) {
                                     defaultValueWrongList.add(businessObjectEntry.getBusinessObjectClass());
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         // Lookup show active flag, but class does not implement MutableInactivatable.
-                        if(lookupDefinition != null && (lookupDefinition.getLookupFieldNames().contains(ACTIVE_FIELD_NAME) || lookupDefinition.getResultFieldNames().contains(ACTIVE_FIELD_NAME))){
+                        if (lookupDefinition != null && (lookupDefinition.getLookupFieldNames().contains(ACTIVE_FIELD_NAME) || lookupDefinition.getResultFieldNames().contains(ACTIVE_FIELD_NAME))) {
                             notImplementInactivatableList.add(businessObjectEntry.getBusinessObjectClass());
                         }
                     }
-                }
-                catch (ClassNotFoundException e) {
-                    throw(e);
+                } catch (ClassNotFoundException e) {
+                    throw (e);
                 }
             }
         }
         String errorString = "";
-        if (noActiveFieldClassList.size()!=0) errorString=errorString+"Missing Active Field: "+formatErrorStringGroupByModule(noActiveFieldClassList);
-        if (notImplementInactivatableList.size()!=0) errorString=errorString+"Inactivatable not implemented: "+formatErrorStringGroupByModule(notImplementInactivatableList);
-        if (defaultValueWrongList.size()!=0) errorString=errorString+"Wrong default value: "+formatErrorStringGroupByModule(defaultValueWrongList);
-        assertEquals(errorString, 0, noActiveFieldClassList.size()+notImplementInactivatableList.size()+defaultValueWrongList.size());
+        if (noActiveFieldClassList.size() != 0) errorString = errorString + "Missing Active Field: " + formatErrorStringGroupByModule(noActiveFieldClassList);
+        if (notImplementInactivatableList.size() != 0) errorString = errorString + "Inactivatable not implemented: " + formatErrorStringGroupByModule(notImplementInactivatableList);
+        if (defaultValueWrongList.size() != 0) errorString = errorString + "Wrong default value: " + formatErrorStringGroupByModule(defaultValueWrongList);
+        assertEquals(errorString, 0, noActiveFieldClassList.size() + notImplementInactivatableList.size() + defaultValueWrongList.size());
     }
-    private String formatErrorStringGroupByModule(List<Class<?>> failedList){
-        Map<String,Set<String>> listMap = new HashMap<String, Set<String>>();
+
+    private String formatErrorStringGroupByModule(List<Class<?>> failedList) {
+        Map<String, Set<String>> listMap = new HashMap<String, Set<String>>();
         String module = null;
         String itemName = null;
-        for (Class<?> item :failedList){
-            itemName=item.getName();
+        for (Class<?> item : failedList) {
+            itemName = item.getName();
             module = itemName.substring(0, itemName.lastIndexOf('.'));
-            if (!listMap.keySet().contains(module)){
+            if (!listMap.keySet().contains(module)) {
                 listMap.put(module, new HashSet<String>());
             }
-            listMap.get(module).add(itemName.substring(itemName.lastIndexOf('.')+1));
+            listMap.get(module).add(itemName.substring(itemName.lastIndexOf('.') + 1));
         }
-        String tempString="";
-        for (String moduleName : listMap.keySet()){
-            tempString = tempString+"Module :"+moduleName+"\n";
-            for (String errorClass : (Set<String>)listMap.get(moduleName)){
-                tempString = tempString + "     "+errorClass+"\n";
+        String tempString = "";
+        for (String moduleName : listMap.keySet()) {
+            tempString = tempString + "Module :" + moduleName + "\n";
+            for (String errorClass : (Set<String>) listMap.get(moduleName)) {
+                tempString = tempString + "     " + errorClass + "\n";
             }
         }
-        return "\n"+tempString;
+        return "\n" + tempString;
     }
 
     public void testAllBusinessObjectsHaveObjectLabel() throws Exception {
         List<Class<?>> noObjectLabelClassList = new ArrayList<Class<?>>();
-        for(org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
+        for (org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry : dataDictionary.getBusinessObjectEntries().values()) {
             BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) kradBusinessObjectEntry;
             if (StringUtils.isBlank(businessObjectEntry.getObjectLabel())) {
                 noObjectLabelClassList.add(businessObjectEntry.getBusinessObjectClass());
@@ -215,21 +215,21 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
     public void testAllParentBeansAreAbstract() throws Exception {
         Field f = dataDictionary.getClass().getDeclaredField("ddBeans");
         f.setAccessible(true);
-        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory)f.get(dataDictionary);
+        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory) f.get(dataDictionary);
         List<String> failingBeanNames = new ArrayList<String>();
-        for ( String beanName : ddBeans.getBeanDefinitionNames() ) {
+        for (String beanName : ddBeans.getBeanDefinitionNames()) {
             BeanDefinition beanDef = ddBeans.getMergedBeanDefinition(beanName);
             String beanClass = beanDef.getBeanClassName();
             // skip Rice classes
-            if ( beanClass != null && beanClass.startsWith("org.kuali.rice") ) {
+            if (beanClass != null && beanClass.startsWith("org.kuali.rice")) {
                 continue;
             }
-            if ( (beanName.endsWith("-parentBean") || beanName.endsWith("-baseBean"))
-                    && !beanDef.isAbstract() ) {
-                failingBeanNames.add(beanName + " : " + beanDef.getResourceDescription()+"\n");
+            if ((beanName.endsWith("-parentBean") || beanName.endsWith("-baseBean"))
+                && !beanDef.isAbstract()) {
+                failingBeanNames.add(beanName + " : " + beanDef.getResourceDescription() + "\n");
             }
         }
-        assertEquals( "The following parent beans are not defined as abstract:\n" + failingBeanNames, 0, failingBeanNames.size() );
+        assertEquals("The following parent beans are not defined as abstract:\n" + failingBeanNames, 0, failingBeanNames.size());
     }
 
     public void testBusinessObjectEntriesShouldHaveParentBeans() throws Exception {
@@ -241,25 +241,26 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
     }
 
     protected static final List<String> EXCLUDED_ATTRIBUTE_DEFINITIONS = new ArrayList<String>();
+
     static {
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "Country-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "County-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "State-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "PostalCode-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "PersonImpl-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "RoleMemberBo-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "KimAttributes-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "KimDocRoleMember-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "DocRoleMember-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "Responsibility-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "PermissionBo-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "PermissionImpl-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "UberPermission-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "ReviewResponsibility-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "ResponsibilityImpl-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "UberPermissionBo-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "RuleTemplateAttribute-" );
-        EXCLUDED_ATTRIBUTE_DEFINITIONS.add( "-versionNumber" );
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("Country-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("County-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("State-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("PostalCode-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("PersonImpl-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("RoleMemberBo-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("KimAttributes-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("KimDocRoleMember-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("DocRoleMember-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("Responsibility-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("PermissionBo-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("PermissionImpl-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("UberPermission-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("ReviewResponsibility-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("ResponsibilityImpl-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("UberPermissionBo-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("RuleTemplateAttribute-");
+        EXCLUDED_ATTRIBUTE_DEFINITIONS.add("-versionNumber");
     }
 
     public void testAttributeDefinitionsShouldHaveParentBeans() throws Exception {
@@ -279,44 +280,44 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
     }
 
     public void testInquiryDefinitionsShouldHaveParentBeans() throws Exception {
-        somethingShouldHaveParentBeans(InquiryDefinition.class, new ArrayList<String>() );
+        somethingShouldHaveParentBeans(InquiryDefinition.class, new ArrayList<String>());
     }
 
-    protected boolean doesBeanNameMatchList( String beanName, List<String> exclusions ) {
-        for ( String excl : exclusions ) {
-            if ( beanName.contains(excl) ) {
+    protected boolean doesBeanNameMatchList(String beanName, List<String> exclusions) {
+        for (String excl : exclusions) {
+            if (beanName.contains(excl)) {
                 return true;
             }
         }
         return false;
     }
 
-    protected void somethingShouldHaveParentBeans( Class<?> baseClass, List<String> exclusions ) throws Exception {
+    protected void somethingShouldHaveParentBeans(Class<?> baseClass, List<String> exclusions) throws Exception {
         Field f = dataDictionary.getClass().getDeclaredField("ddBeans");
         f.setAccessible(true);
-        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory)f.get(dataDictionary);
+        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory) f.get(dataDictionary);
         List<String> failingBeanNames = new ArrayList<String>();
 
-        for ( String beanName : ddBeans.getBeanDefinitionNames() ) {
-            if ( doesBeanNameMatchList(beanName, exclusions)) {
-                continue ;
+        for (String beanName : ddBeans.getBeanDefinitionNames()) {
+            if (doesBeanNameMatchList(beanName, exclusions)) {
+                continue;
             }
             BeanDefinition beanDef = ddBeans.getMergedBeanDefinition(beanName);
             String beanClass = beanDef.getBeanClassName();
-            if ( beanClass == null ) {
-                System.err.println( "ERROR: Bean " + beanName + " has a null class." );
+            if (beanClass == null) {
+                System.err.println("ERROR: Bean " + beanName + " has a null class.");
             }
-            if ( !beanDef.isAbstract()
-                    && beanClass != null
-                    && baseClass.isAssignableFrom(Class.forName(beanClass) ) ) {
+            if (!beanDef.isAbstract()
+                && beanClass != null
+                && baseClass.isAssignableFrom(Class.forName(beanClass))) {
                 try {
                     BeanDefinition parentBean = ddBeans.getBeanDefinition(beanName + "-parentBean");
-                } catch ( NoSuchBeanDefinitionException ex ) {
-                    failingBeanNames.add(beanName + " : " + beanDef.getResourceDescription() +"\n");
+                } catch (NoSuchBeanDefinitionException ex) {
+                    failingBeanNames.add(beanName + " : " + beanDef.getResourceDescription() + "\n");
                 }
             }
         }
-        assertEquals( "The following " + baseClass.getSimpleName() + " beans do not have \"-parentBean\"s:\n" + failingBeanNames, 0, failingBeanNames.size() );
+        assertEquals("The following " + baseClass.getSimpleName() + " beans do not have \"-parentBean\"s:\n" + failingBeanNames, 0, failingBeanNames.size());
     }
 
     private void reportErrorAttribute(Map<String, Set<String>> reports, AttributeDefinition attributeDefinition, String boClassName) {
@@ -327,9 +328,9 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
 
     private StringBuilder convertReportsAsText(Map<String, Set<String>> reports) {
         StringBuilder reportsAsText = new StringBuilder();
-        for(String key : new TreeSet<String>(reports.keySet())) {
+        for (String key : new TreeSet<String>(reports.keySet())) {
             reportsAsText.append(key + "\n");
-            for(String value : reports.get(key)) {
+            for (String value : reports.get(key)) {
                 reportsAsText.append("\t--").append(value).append("\n");
             }
         }

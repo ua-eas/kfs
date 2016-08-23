@@ -24,8 +24,6 @@ import org.kuali.rice.core.api.criteria.QueryByCriteria;
 
 /**
  * Defines basic methods that CriteriaLookup Dao's must provide
- *
- *
  */
 public interface CriteriaLookupDao {
 
@@ -33,8 +31,8 @@ public interface CriteriaLookupDao {
      * Looks up a type based on a query criteria.
      *
      * @param queryClass the class to lookup
-     * @param criteria the criteria to lookup against. cannot be null.
-     * @param <T> the type that is being looked up.
+     * @param criteria   the criteria to lookup against. cannot be null.
+     * @param <T>        the type that is being looked up.
      * @return the results. will never be null.
      * @throws IllegalArgumentException if the criteria is null
      */
@@ -44,8 +42,8 @@ public interface CriteriaLookupDao {
      * Looks up a type based on a query criteria.
      *
      * @param queryClass the class to lookup
-     * @param criteria the criteria to lookup against. cannot be null.
-     * @param <T> the type that is being looked up.
+     * @param criteria   the criteria to lookup against. cannot be null.
+     * @param <T>        the type that is being looked up.
      * @return the results. will never be null.
      * @throws IllegalArgumentException if the criteria is null
      */

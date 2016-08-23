@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.dataaccess.impl;
 
-import org.kuali.kfs.sys.datatools.liquimongo.businessobject.DocumentStoreChange;
-import org.kuali.kfs.sys.datatools.liquimongo.dataaccess.DocumentStoreUpdateProcessDao;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.kuali.kfs.sys.datatools.liquimongo.businessobject.DocumentStoreChange;
+import org.kuali.kfs.sys.datatools.liquimongo.dataaccess.DocumentStoreUpdateProcessDao;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -38,7 +38,7 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         Query q = new Query();
         q.addCriteria(Criteria.where("locked").is(true));
 
-        return (mongoTemplate.findOne(q, DBObject.class,CHANGE_SCHEMA) != null);
+        return (mongoTemplate.findOne(q, DBObject.class, CHANGE_SCHEMA) != null);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         LOG.debug("lockSchemaChange() started");
 
         DBObject lock = (DBObject) JSON.parse("{ \"locked\": true }");
-        mongoTemplate.save(lock,CHANGE_SCHEMA);
+        mongoTemplate.save(lock, CHANGE_SCHEMA);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         Query q = new Query();
         q.addCriteria(Criteria.where("locked").is(true));
 
-        mongoTemplate.remove(q,CHANGE_SCHEMA);
+        mongoTemplate.remove(q, CHANGE_SCHEMA);
     }
 
     @Override
@@ -68,14 +68,14 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         q.addCriteria(Criteria.where("changeId").is(change.getChangeId()));
         q.addCriteria(Criteria.where("hash").is(change.getHash()));
 
-        return ( mongoTemplate.findOne(q,DocumentStoreChange.class,CHANGE_SCHEMA) != null );
+        return (mongoTemplate.findOne(q, DocumentStoreChange.class, CHANGE_SCHEMA) != null);
     }
 
     @Override
     public void saveSchemaChange(DocumentStoreChange change) {
         LOG.debug("saveSchemaChange() started");
 
-        mongoTemplate.save(change,CHANGE_SCHEMA);
+        mongoTemplate.save(change, CHANGE_SCHEMA);
     }
 
     @Override

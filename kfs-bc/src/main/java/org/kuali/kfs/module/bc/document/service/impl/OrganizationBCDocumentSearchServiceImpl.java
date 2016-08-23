@@ -34,7 +34,7 @@ public class OrganizationBCDocumentSearchServiceImpl implements OrganizationBCDo
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.OrganizationBCDocumentSearchService#buildAccountSelectPullList(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public int buildAccountSelectPullList(String principalName, Integer universityFiscalYear) {
         organizationBCDocumentSearchDao.cleanAccountSelectPullList(principalName);
@@ -44,7 +44,7 @@ public class OrganizationBCDocumentSearchServiceImpl implements OrganizationBCDo
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.OrganizationBCDocumentSearchService#buildBudgetedAccountsAbovePointsOfView(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     public int buildBudgetedAccountsAbovePointsOfView(String principalName, Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode) {
         organizationBCDocumentSearchDao.cleanAccountSelectPullList(principalName);
@@ -63,7 +63,7 @@ public class OrganizationBCDocumentSearchServiceImpl implements OrganizationBCDo
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.OrganizationBCDocumentSearchService#cleanAccountSelectPullList(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public void cleanAccountSelectPullList(String principalName, Integer universityFiscalYear) {
         organizationBCDocumentSearchDao.cleanAccountSelectPullList(principalName);

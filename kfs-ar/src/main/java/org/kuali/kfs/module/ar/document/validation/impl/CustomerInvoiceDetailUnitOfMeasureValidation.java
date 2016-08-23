@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -29,9 +29,9 @@ import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerInvoiceDetailUnitOfMeasureValidation extends GenericValidation {
 
@@ -41,7 +41,7 @@ public class CustomerInvoiceDetailUnitOfMeasureValidation extends GenericValidat
     public boolean validate(AttributedDocumentEvent event) {
 
         if (StringUtils.isNotEmpty(customerInvoiceDetail.getInvoiceItemUnitOfMeasureCode())) {
-            Map<String,String> criteria = new HashMap<String,String>();
+            Map<String, String> criteria = new HashMap<String, String>();
             criteria.put("itemUnitOfMeasureCode", customerInvoiceDetail.getInvoiceItemUnitOfMeasureCode());
             if (ObjectUtils.isNull(SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(UnitOfMeasure.class, criteria))) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceDocumentFields.UNIT_OF_MEASURE_CODE, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DOCUMENT_INVALID_UNIT_OF_MEASURE_CD);

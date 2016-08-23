@@ -52,7 +52,7 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        batchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
     }
 
@@ -80,13 +80,13 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
     /*
      * Ensure generated file contains all lines as expected.
      */
-    private boolean linesGeneratedCorrectly(File generatedIcrEncumbranceFeedFile){
+    private boolean linesGeneratedCorrectly(File generatedIcrEncumbranceFeedFile) {
 
         // Pull the test data into a list
         List<String> expectedLines = null;
         try {
             expectedLines = IOUtils.readLines(IcrEncumbranceFeedStepTest.class.getClassLoader().getResourceAsStream(ICR_ENCUMBRANCE_TEST_DATA_FILE_PATH));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -94,7 +94,7 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
         List<String> generatedLines = null;
         try {
             generatedLines = IOUtils.readLines(new FileReader(generatedIcrEncumbranceFeedFile));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -110,8 +110,8 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
         generatedSet.addAll(generatedLines);
 
         // Check that all test data lines are present in service generated lines
-        for(String line : expectedSet){
-            if(!generatedSet.contains(line)){
+        for (String line : expectedSet) {
+            if (!generatedSet.contains(line)) {
                 // The generated lines should contain all test data lines, this is a failure
                 return false;
             }
@@ -126,17 +126,17 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
      * this is necessary since the IcrEncumbrabceService uses "now" as the
      * posting date, whereas the test data is 2009-03-14.
      */
-    private List<String> replaceGeneratedDates(List<String> lines){
+    private List<String> replaceGeneratedDates(List<String> lines) {
         // Format the data to the format of "YYYY-MM-dd"
         String dateStringFormat = "%04d-%02d-%02d";
-        String dateString = String.format(dateStringFormat, FIXTURE_CALENDAR_YEAR, FIXTURE_MONTH+1, FIXTURE_DAY);
+        String dateString = String.format(dateStringFormat, FIXTURE_CALENDAR_YEAR, FIXTURE_MONTH + 1, FIXTURE_DAY);
 
         /*
          * The format of a line are fixed positions, and the date position
          * starts at 118 to 128, 0-based, inclusive.
          */
         List<String> results = new ArrayList<String>(lines.size());
-        for(String line : lines){
+        for (String line : lines) {
             String beginning = line.substring(0, 118);
             String middle = dateString;
             String end = line.substring(128, line.length());
@@ -151,16 +151,15 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
     /*
      * Checks that the input file has at least one non-blank line
      */
-    private boolean isFileEmpty(File file){
+    private boolean isFileEmpty(File file) {
         BufferedReader reader = null;
         String testLine = null;
         try {
             reader = new BufferedReader(new FileReader(file));
             testLine = reader.readLine();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally{
+        } finally {
             IOUtils.closeQuietly(reader);
         }
 

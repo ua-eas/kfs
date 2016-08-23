@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.KualiMaintainableImpl;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.service.CacheService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.KualiMaintainableImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class...
@@ -50,6 +50,7 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
     /**
      * Constructs a FinancialSystemMaintainable, allowing the PersistableBusinessObject from KualiMaintainableImpl
      * to be inherited
+     *
      * @param businessObject a business object to set
      */
     public FinancialSystemMaintainable(PersistableBusinessObject businessObject) {
@@ -57,7 +58,6 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
     }
 
     /**
-     *
      * @param nodeName
      * @return
      * @throws UnsupportedOperationException
@@ -123,7 +123,7 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
             Map.Entry<String, String> entry = chartAccountPairs.next();
             String coaCodeName = entry.getKey();
             String acctNumName = entry.getValue();
-            String accountNumber = (String)ObjectUtils.getPropertyValue(bo, acctNumName);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(bo, acctNumName);
             String coaCode = null;
             Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
@@ -131,9 +131,8 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
             }
             try {
                 ObjectUtils.setObjectProperty(bo, coaCodeName, coaCode);
-            }
-            catch (Exception e) {
-                LOG.error("Error in setting property value for " + coaCodeName,e);
+            } catch (Exception e) {
+                LOG.error("Error in setting property value for " + coaCodeName, e);
             }
         }
 
@@ -146,16 +145,15 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
 
             // here we can use hard-coded chartOfAccountsCode and accountNumber field name
             // since all reference account types do follow the standard naming pattern
-            String accountNumber = (String)ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
             String coaCode = null;
             Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
                 coaCode = account.getChartOfAccountsCode();
                 try {
                     ObjectUtils.setObjectProperty(newAccount, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, coaCode);
-                }
-                catch (Exception e) {
-                    LOG.error("Error in setting chartOfAccountsCode property value in account collection " + accountCollName,e);
+                } catch (Exception e) {
+                    LOG.error("Error in setting chartOfAccountsCode property value in account collection " + accountCollName, e);
                 }
             }
         }
@@ -169,17 +167,16 @@ public class FinancialSystemMaintainable extends KualiMaintainableImpl {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getSections(MaintenanceDocument,Maintainable)
+     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getSections(MaintenanceDocument, Maintainable)
      *
-    @Override
-    public List getSections(MaintenanceDocument document, Maintainable oldMaintainable) {
-        // if accounts can't cross charts, populate chart code fields according to corresponding account number fields
-        if (!SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
-            populateChartOfAccountsCodeFields();
-        }
+     @Override public List getSections(MaintenanceDocument document, Maintainable oldMaintainable) {
+     // if accounts can't cross charts, populate chart code fields according to corresponding account number fields
+     if (!SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
+     populateChartOfAccountsCodeFields();
+     }
 
-        return super.getSections(document, oldMaintainable);
-    }
-    */
+     return super.getSections(document, oldMaintainable);
+     }
+     */
 
 }

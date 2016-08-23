@@ -20,28 +20,28 @@
 
 <kul:documentPage showDocumentInfo="true" documentTypeName="IndirectCostAdjustmentDocument" htmlFormAction="financialIndirectCostAdjustment" renderMultipart="true" showTabButtons="true">
 
-	<sys:hiddenDocumentFields />
+    <sys:hiddenDocumentFields/>
 
     <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
     <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
              helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-			<sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
-		</sys-java:accountingLines>
-	</kul:tab>
+        <sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
+            <sys-java:accountingLineGroup newLinePropertyName="newTargetLine" collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
+        </sys-java:accountingLines>
+    </kul:tab>
 
-	<gl:generalLedgerPendingEntries/>
+    <gl:generalLedgerPendingEntries/>
 
-	<kul:notes/>
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog/>
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}" />
+    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

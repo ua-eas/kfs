@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
+import org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService;
+import org.kuali.rice.kew.api.document.DocumentStatus;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
-import org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kew.api.document.DocumentStatus;
 
 /**
  * This step will populate the initiator principal id, document status code, application document status, and document type name
@@ -58,7 +58,7 @@ public class PopulateFinancialSystemDocumentHeadersFromKewStep extends AbstractS
                     return batchSize;
                 }
             } catch (NumberFormatException nfe) {
-                LOG.warn("This is legal, but the value of KFS-SYS / PopulateFinancialSystemDocumentHeadersFromKewStep / BATCH_SIZE is not numeric; that should likely be corrected.  Process will continue using batch size of "+DEFAULT_BATCH_SIZE);
+                LOG.warn("This is legal, but the value of KFS-SYS / PopulateFinancialSystemDocumentHeadersFromKewStep / BATCH_SIZE is not numeric; that should likely be corrected.  Process will continue using batch size of " + DEFAULT_BATCH_SIZE);
             }
         }
         return DEFAULT_BATCH_SIZE;

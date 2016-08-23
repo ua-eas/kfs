@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ec.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.integration.ec.EffortCertificationReport;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
+
+import java.util.List;
 
 /**
  * Provides interface for data operations on the EffortCertificationReportDefinition table
@@ -47,7 +47,7 @@ public interface EffortCertificationReportDefinitionDao {
      * Retrieves all EffortCertificationReportDefinition records that have a begin or end period fiscal year equal to the given
      * fiscal year, and report on pay given by the position object group code.
      *
-     * @param fiscalYear - fiscal year for being or end period
+     * @param fiscalYear         - fiscal year for being or end period
      * @param positionObjectCode - position object group code for report definition
      * @return effort report definitions with a period in the given year and report for given position code
      */

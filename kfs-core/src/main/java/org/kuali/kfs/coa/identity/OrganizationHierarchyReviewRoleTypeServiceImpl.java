@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
@@ -32,6 +26,12 @@ import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.type.KimAttributeField;
 import org.kuali.rice.kim.util.KimCommonUtils;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class OrganizationHierarchyReviewRoleTypeServiceImpl extends OrganizationHierarchyAwareRoleTypeServiceBase {
 
@@ -42,18 +42,18 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
      * document type hierarchy
      *
      * @see org.kuali.kfs.coa.identity.OrganizationOptionalHierarchyRoleTypeServiceImpl#performMatch(org.kuali.rice.kim.bo.types.dto.AttributeSet,
-     *      org.kuali.rice.kim.bo.types.dto.AttributeSet)
+     * org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         if (isParentOrg(qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), qualification.get(KfsKimAttributes.ORGANIZATION_CODE), roleQualifier.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), roleQualifier.get(KfsKimAttributes.ORGANIZATION_CODE), true)) {
             Set<String> potentialParentDocumentTypeNames = new HashSet<String>(1);
             if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {
                 potentialParentDocumentTypeNames.add(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME));
             }
             return potentialParentDocumentTypeNames.isEmpty()
-                    || StringUtils.equalsIgnoreCase( qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME), roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
-                    || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
+                || StringUtils.equalsIgnoreCase(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME), roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
+                || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
         }
         return false;
     }
@@ -84,7 +84,7 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
                 KimAttributeField.Builder nonRequiredAttribute = KimAttributeField.Builder.create(nonRequiredAttributeBuilder, definition.getId());
                 nonRequiredAttribute.setUnique(definition.isUnique());
                 attributeDefinitionList.add(nonRequiredAttribute.build());
-            }else{
+            } else {
                 attributeDefinitionList.add(definition);
             }
         }

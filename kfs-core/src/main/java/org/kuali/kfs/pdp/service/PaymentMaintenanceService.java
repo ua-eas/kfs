@@ -31,10 +31,11 @@ public interface PaymentMaintenanceService {
     /**
      * This method cancels the pending payment of the given payment id if the following rules apply. -
      * Payment status must be: "open", "held", or "pending/ACH".
-     * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be canceled belongs to.
+     *
+     * @param paymentGroupId  Primary key of the PaymentGroup that the Payment Detail to be canceled belongs to.
      * @param paymentDetailId Primary key of the PaymentDetail that was actually canceled.
-     * @param note Change note text entered by user.
-     * @param user The user that cancels the payment
+     * @param note            Change note text entered by user.
+     * @param user            The user that cancels the payment
      * @return true if cancel payment succesful, false otherwise
      */
     public boolean cancelPendingPayment(Integer paymentGroupId, Integer paymentDetailId, String note, Person user);
@@ -42,9 +43,10 @@ public interface PaymentMaintenanceService {
     /**
      * This method holds pending payment of the given payment id if the following rules apply. - Payment status
      * must be: "open".
+     *
      * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be held belongs to.
-     * @param note Change note text entered by user.
-     * @param user The user that holds the payment
+     * @param note           Change note text entered by user.
+     * @param user           The user that holds the payment
      */
     public boolean holdPendingPayment(Integer paymentGroupId, String note, Person user);
 
@@ -53,44 +55,48 @@ public interface PaymentMaintenanceService {
      * apply. - Payment status must be: "held".
      *
      * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be un-held belongs to
-     * @param note  Change note text entered by user.
-     * @param user the user that removes hold on payment
+     * @param note           Change note text entered by user.
+     * @param user           the user that removes hold on payment
      */
     public boolean removeHoldPendingPayment(Integer paymentGroupId, String note, Person user);
 
     /**
      * This method cancels all disbursements with the same disbursment number as that of the given payment id
      * if the following rules apply. - Payment status must be: "extr".
-     * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be cancelled belongs to.
+     *
+     * @param paymentGroupId  Primary key of the PaymentGroup that the Payment Detail to be cancelled belongs to.
      * @param paymentDetailId Primary key of the PaymentDetail that was actually cancelled.
-     * @param note Change note text entered by user.
-     * @param user The user that cancels the disbursement
+     * @param note            Change note text entered by user.
+     * @param user            The user that cancels the disbursement
      */
     public boolean cancelDisbursement(Integer paymentGroupId, Integer paymentDetailId, String note, Person user);
 
     /**
      * This method re-opens all disbursements with the same disbursment number as that of
      * the given payment id if the following rules apply. - Payment status must be: "cdis".
+     *
      * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be canceled/reissued belongs to.
-     * @param changeText Change note text entered by user.
-     * @param user The user that cancels/reissues disbursement
+     * @param changeText     Change note text entered by user.
+     * @param user           The user that cancels/reissues disbursement
      */
     public boolean reissueDisbursement(Integer paymentGroupId, String changeText, Person user);
 
     /**
      * This method cancels and re-opens all disbursements with the same disbursment number as that of
      * the given payment id if the following rules apply. - Payment status must be: "extr".
+     *
      * @param paymentGroupId Primary key of the PaymentGroup that the Payment Detail to be canceled/reissued belongs to.
-     * @param changeText Change note text entered by user.
-     * @param user The user that cancels/reissues disbursement
+     * @param changeText     Change note text entered by user.
+     * @param user           The user that cancels/reissues disbursement
      */
     public boolean cancelReissueDisbursement(Integer paymentGroupId, String changeText, Person user);
 
     /**
      * This method changes the immediate flag
+     *
      * @param paymentGroupId the payment group id
-     * @param changeText the change text
-     * @param user the user that changes the immediate flag
+     * @param changeText     the change text
+     * @param user           the user that changes the immediate flag
      */
     public void changeImmediateFlag(Integer paymentGroupId, String changeText, Person user);
 }

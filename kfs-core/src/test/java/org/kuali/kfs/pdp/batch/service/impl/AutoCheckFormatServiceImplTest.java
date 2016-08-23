@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.easymock.EasyMock;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -39,8 +30,15 @@ import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatSelection;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.location.api.campus.Campus;
-import org.kuali.rice.location.api.campus.CampusService;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class AutoCheckFormatServiceImplTest {
 
@@ -51,7 +49,7 @@ public class AutoCheckFormatServiceImplTest {
     private static FormatSelection fs = new FormatSelection();
 
     @BeforeClass
-    public static void setUp() throws Exception{
+    public static void setUp() throws Exception {
         fs = EasyMock.createMock(FormatSelection.class);
     }
 
@@ -118,27 +116,27 @@ public class AutoCheckFormatServiceImplTest {
     }
 
     @Test
-	public void testProcessChecksByCustomerProfileWhenProfileIDisNull() throws Exception {
-    	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(null);
+    public void testProcessChecksByCustomerProfileWhenProfileIDisNull() throws Exception {
+        boolean results = autoCheckFormatServ.processChecksByCustomerProfile(null);
 
-    	// Job should finish when customer profile ID parameter is blank blank
-		assertTrue(results);
-	}
+        // Job should finish when customer profile ID parameter is blank blank
+        assertTrue(results);
+    }
 
     @Test
-	public void testProcessChecksByCustomerProfileWhenNoCustomerProfileExist() throws Exception {
-    	String profileId = "10001";
+    public void testProcessChecksByCustomerProfileWhenNoCustomerProfileExist() throws Exception {
+        String profileId = "10001";
 
-    	BusinessObjectService bos = EasyMock.createMock(BusinessObjectService.class);
-		EasyMock.expect(bos.findBySinglePrimaryKey(CustomerProfile.class, profileId)).andReturn(null);
-    	EasyMock.replay(bos);
+        BusinessObjectService bos = EasyMock.createMock(BusinessObjectService.class);
+        EasyMock.expect(bos.findBySinglePrimaryKey(CustomerProfile.class, profileId)).andReturn(null);
+        EasyMock.replay(bos);
 
-    	autoCheckFormatServ.setBusinessObjectService(bos);
+        autoCheckFormatServ.setBusinessObjectService(bos);
 
-    	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(profileId);
+        boolean results = autoCheckFormatServ.processChecksByCustomerProfile(profileId);
 
-		assertFalse(results);
-	}
+        assertFalse(results);
+    }
 
     @Test
     public void testCreateAutoCheckFormatHasSetFormatSelectionData() throws Exception {

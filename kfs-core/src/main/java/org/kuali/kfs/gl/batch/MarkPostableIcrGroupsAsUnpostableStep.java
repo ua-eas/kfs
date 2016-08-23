@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.TestingStep;
+
+import java.util.Date;
 
 /**
  * This step, which would only be run in testing or extraordinary production circumstances, stops the posting of all indirect cost
@@ -34,7 +34,7 @@ public class MarkPostableIcrGroupsAsUnpostableStep extends AbstractStep implemen
     /**
      * Marks all postable ICR groups as unpostable
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job is being run
      * @return true if the step completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)

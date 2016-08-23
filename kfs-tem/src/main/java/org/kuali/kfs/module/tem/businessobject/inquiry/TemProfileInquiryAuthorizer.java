@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject.inquiry;
 
+import org.kuali.kfs.kns.inquiry.InquiryAuthorizer;
+import org.kuali.kfs.module.tem.document.authorization.TemProfileAuthorizerAssistant;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.kuali.kfs.module.tem.document.authorization.TemProfileAuthorizerAssistant;
-import org.kuali.kfs.kns.inquiry.InquiryAuthorizer;
 
 public class TemProfileInquiryAuthorizer extends TemProfileAuthorizerAssistant implements InquiryAuthorizer {
     /**
      * Returns an empty set
+     *
      * @see org.kuali.rice.kns.bo.authorization.InquiryOrMaintenanceDocumentAuthorizer#getSecurePotentiallyHiddenSectionIds()
      */
     @Override

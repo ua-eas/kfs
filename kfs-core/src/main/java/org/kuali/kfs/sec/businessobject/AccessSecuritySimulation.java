@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sec.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * Holds fields needed to run a security simulation and the display results

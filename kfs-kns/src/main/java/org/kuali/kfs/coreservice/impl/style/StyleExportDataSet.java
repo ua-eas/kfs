@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.coreservice.impl.style;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.rice.core.api.impex.ExportDataSet;
 
 import javax.xml.namespace.QName;
-
-import org.kuali.rice.core.api.impex.ExportDataSet;
-import org.kuali.kfs.coreservice.impl.style.StyleBo;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A utility class for managing an {@link ExportDataSet} containing StyleBo
@@ -36,55 +34,55 @@ import org.kuali.kfs.coreservice.impl.style.StyleBo;
  */
 public class StyleExportDataSet {
 
-	public static final QName STYLES = new QName("CORE", "styles");
+    public static final QName STYLES = new QName("CORE", "styles");
 
-	private List<StyleBo> styles = new ArrayList<StyleBo>();
+    private List<StyleBo> styles = new ArrayList<StyleBo>();
 
-	public List<StyleBo> getStyles() {
-		return styles;
-	}
+    public List<StyleBo> getStyles() {
+        return styles;
+    }
 
-	/**
-	 * Populates the given {@link ExportDataSet} with the data from this data set.
-	 *
-	 * @param exportDataSet the data set to populate the data into
-	 */
-	public void populateExportDataSet(ExportDataSet exportDataSet) {
-		if (styles != null && !styles.isEmpty()) {
-			exportDataSet.addDataSet(STYLES, styles);
-		}
-	}
+    /**
+     * Populates the given {@link ExportDataSet} with the data from this data set.
+     *
+     * @param exportDataSet the data set to populate the data into
+     */
+    public void populateExportDataSet(ExportDataSet exportDataSet) {
+        if (styles != null && !styles.isEmpty()) {
+            exportDataSet.addDataSet(STYLES, styles);
+        }
+    }
 
-	/**
-	 * Converts this data set to a standard {@link ExportDataSet}, populating
-	 * it with the data from this data set.
-	 *
-	 * @return the populated ExportDataSet
-	 */
-	public ExportDataSet createExportDataSet() {
-		ExportDataSet exportDataSet = new ExportDataSet();
-		populateExportDataSet(exportDataSet);
-		return exportDataSet;
-	}
+    /**
+     * Converts this data set to a standard {@link ExportDataSet}, populating
+     * it with the data from this data set.
+     *
+     * @return the populated ExportDataSet
+     */
+    public ExportDataSet createExportDataSet() {
+        ExportDataSet exportDataSet = new ExportDataSet();
+        populateExportDataSet(exportDataSet);
+        return exportDataSet;
+    }
 
-	/**
-	 * A static utility for creating a {@link StyleExportDataSet} from an
-	 * {@link ExportDataSet}.  This method will only populate the returned
-	 * style data set with style data from the given export data set.  The
-	 * rest of the data in the given export data set will be ignored.
-	 *
-	 * @param exportDataSet the ExportDataSet to pull style data from
-	 * @return a StyleExportDataSet with any style data from the given exportDataSet populated
-	 */
-	public static StyleExportDataSet fromExportDataSet(ExportDataSet exportDataSet) {
-		StyleExportDataSet coreExportDataSet = new StyleExportDataSet();
+    /**
+     * A static utility for creating a {@link StyleExportDataSet} from an
+     * {@link ExportDataSet}.  This method will only populate the returned
+     * style data set with style data from the given export data set.  The
+     * rest of the data in the given export data set will be ignored.
+     *
+     * @param exportDataSet the ExportDataSet to pull style data from
+     * @return a StyleExportDataSet with any style data from the given exportDataSet populated
+     */
+    public static StyleExportDataSet fromExportDataSet(ExportDataSet exportDataSet) {
+        StyleExportDataSet coreExportDataSet = new StyleExportDataSet();
 
-		List<StyleBo> styles = (List<StyleBo>)exportDataSet.getDataSets().get(STYLES);
-		if (styles != null) {
-			coreExportDataSet.getStyles().addAll(styles);
-		}
+        List<StyleBo> styles = (List<StyleBo>) exportDataSet.getDataSets().get(STYLES);
+        if (styles != null) {
+            coreExportDataSet.getStyles().addAll(styles);
+        }
 
-		return coreExportDataSet;
-	}
+        return coreExportDataSet;
+    }
 
 }

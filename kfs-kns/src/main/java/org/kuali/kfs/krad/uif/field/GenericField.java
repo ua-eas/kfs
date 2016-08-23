@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.uif.field;
 /**
  * Field whose output is produced by invoking a method or template and has no
  * properties (generic)
- *
- *
  */
 public class GenericField extends FieldBase {
     private static final long serialVersionUID = -7756170771822430903L;

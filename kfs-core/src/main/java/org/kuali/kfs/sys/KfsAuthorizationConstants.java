@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys;
 
-public class KfsAuthorizationConstants  {
+public class KfsAuthorizationConstants {
 
-    public static class TransactionalEditMode{
+    public static class TransactionalEditMode {
         public static final String EXPENSE_ENTRY = "expenseEntry";
         public static final String IMMEDIATE_DISBURSEMENT_ENTRY = "immediateDisbursementEntryMode";
         public static final String FRN_ENTRY = "frnEntry";
@@ -37,7 +37,7 @@ public class KfsAuthorizationConstants  {
         public static final String SPECIAL_HANDLING_CHANGING_ENTRY = "specialHandlingChangingEntry";
         public static final String PAYMENT_REASON_EDIT_MODE = "paymentReasonEditMode";
         public static final String EXTRACT_NOW = "extractNow";
-		public static final String ACH_ACCOUNT_INFO_DISPLAYED = "achAccountInfoDisplayed";
+        public static final String ACH_ACCOUNT_INFO_DISPLAYED = "achAccountInfoDisplayed";
     }
 
     public static class DistributionOfIncomeAndExpenseEditMode {

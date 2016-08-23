@@ -18,11 +18,11 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <xsd:schema elementFormDefault="qualified"
-    targetNamespace="http://www.kuali.org/kfs/pdp/payment"
-    xmlns:kfs="http://www.kuali.org/kfs/sys/types"
-    xmlns="http://www.kuali.org/kfs/pdp/payment" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            targetNamespace="http://www.kuali.org/kfs/pdp/payment"
+            xmlns:kfs="http://www.kuali.org/kfs/sys/types"
+            xmlns="http://www.kuali.org/kfs/pdp/payment" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="classpath:org/kuali/kfs/sys/types.xsd" />
+    <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="classpath:org/kuali/kfs/sys/types.xsd"/>
     <!-- simple data types -->
     <xsd:simpleType name="versionType">
         <xsd:restriction base="xsd:string">
@@ -55,7 +55,7 @@
     <xsd:element name="payment_date" type="xsd:normalizedString"/>
     <xsd:element name="invoice_date" type="xsd:normalizedString"/>
     <xsd:element name="attachment_ind" type="xsd:normalizedString"/>
-	<xsd:element name="immediate_ind" type="xsd:normalizedString"/>
+    <xsd:element name="immediate_ind" type="xsd:normalizedString"/>
     <xsd:element name="special_handling_ind" type="xsd:normalizedString"/>
     <xsd:element name="taxable_ind" type="xsd:normalizedString"/>
     <xsd:element name="orig_invoice_amt" type="xsd:decimal"/>
@@ -68,7 +68,7 @@
     <xsd:element name="combine_group_ind" type="xsd:normalizedString"/>
     <xsd:element name="coa_cd" type="xsd:normalizedString"/>
     <xsd:element name="account_nbr" type="xsd:normalizedString"/>
-    <xsd:element name="sub_account_nbr"  type="xsd:normalizedString"/>
+    <xsd:element name="sub_account_nbr" type="xsd:normalizedString"/>
     <xsd:element name="object_cd" type="xsd:normalizedString"/>
     <xsd:element name="sub_object_cd" type="xsd:normalizedString"/>
     <xsd:element name="org_ref_id" type="xsd:normalizedString"/>
@@ -79,7 +79,7 @@
     <xsd:element name="detail_tot_amt" type="xsd:decimal"/>
     <xsd:element name="bank_code" type="xsd:normalizedString"/>
     <xsd:element name="fs_origin_cd" type="xsd:normalizedString"/>
-    <xsd:element name="fdoc_typ_cd"  type="xsd:normalizedString"/>
+    <xsd:element name="fdoc_typ_cd" type="xsd:normalizedString"/>
 
     <!-- definition of attributes -->
 
@@ -147,7 +147,7 @@
                 <xsd:element maxOccurs="1" minOccurs="0" ref="campus_address_ind"/>
                 <xsd:element maxOccurs="1" minOccurs="0" ref="payment_date"/>
                 <xsd:element maxOccurs="1" minOccurs="0" ref="attachment_ind"/>
-				<xsd:element maxOccurs="1" minOccurs="0" ref="immediate_ind"/>
+                <xsd:element maxOccurs="1" minOccurs="0" ref="immediate_ind"/>
                 <xsd:element maxOccurs="1" minOccurs="0" ref="special_handling_ind"/>
                 <xsd:element maxOccurs="1" minOccurs="0" ref="taxable_ind"/>
                 <xsd:element maxOccurs="1" minOccurs="0" ref="nra_ind"/>

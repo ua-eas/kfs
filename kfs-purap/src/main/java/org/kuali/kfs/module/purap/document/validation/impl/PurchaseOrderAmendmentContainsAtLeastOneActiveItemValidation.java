@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -29,7 +28,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class PurchaseOrderAmendmentContainsAtLeastOneActiveItemValidation extends GenericValidation {
 
@@ -40,7 +40,7 @@ public class PurchaseOrderAmendmentContainsAtLeastOneActiveItemValidation extend
      * @return True if the document contains at least one active item
      */
     public boolean validate(AttributedDocumentEvent event) {
-        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)event.getDocument();
+        PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) event.getDocument();
         List<PurApItem> items = purapDocument.getItems();
         for (PurApItem item : items) {
             if (((PurchaseOrderItem) item).isItemActiveIndicator() && (!((PurchaseOrderItem) item).isEmpty() && item.getItemType().isLineItemIndicator())) {
@@ -54,7 +54,7 @@ public class PurchaseOrderAmendmentContainsAtLeastOneActiveItemValidation extend
     }
 
     protected String getDocumentTypeLabel(String documentTypeName) {
-            return SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(documentTypeName).getLabel();
+        return SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(documentTypeName).getLabel();
 
     }
 

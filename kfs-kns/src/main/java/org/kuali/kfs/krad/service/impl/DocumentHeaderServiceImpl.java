@@ -28,9 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * This is an implementation of {@link DocumentHeaderService} that facilitates
  * document header management and customization
- *
- *
- *
  */
 @Transactional
 public class DocumentHeaderServiceImpl implements DocumentHeaderService {
@@ -42,7 +39,7 @@ public class DocumentHeaderServiceImpl implements DocumentHeaderService {
      */
     public Class<? extends DocumentHeader> getDocumentHeaderBaseClass() {
         Class documentHeaderClass = documentHeaderDao.getDocumentHeaderBaseClass();
-        if ( (documentHeaderClass == null) || (!DocumentHeader.class.isAssignableFrom(documentHeaderClass)) ) {
+        if ((documentHeaderClass == null) || (!DocumentHeader.class.isAssignableFrom(documentHeaderClass))) {
             throw new RuntimeException("invalid document header base class '" + documentHeaderClass + "' returned by dao '" + documentHeaderDao.getClass().getName() + "'");
         }
         return documentHeaderClass;

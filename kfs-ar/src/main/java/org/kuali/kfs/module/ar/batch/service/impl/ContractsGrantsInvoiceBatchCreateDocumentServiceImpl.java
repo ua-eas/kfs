@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.module.ar.batch.service.ContractsGrantsInvoiceBatchCreateDocumentService;
+import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -26,14 +34,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.module.ar.batch.service.ContractsGrantsInvoiceBatchCreateDocumentService;
-import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.util.ErrorMessage;
 
 /**
  * Default implementation of the ContractsGrantsInvoiceBatchCreateDocumentServiceImpl interface
@@ -58,7 +58,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceImpl implements Con
             try {
                 outputFileStream = new PrintStream(errOutPutfile);
                 for (ErrorMessage errorMessage : errorMessages) {
-                    outputFileStream.printf("%s\n", MessageFormat.format(getConfigurationService().getPropertyValueAsString(errorMessage.getErrorKey()), (Object[])errorMessage.getMessageParameters()));
+                    outputFileStream.printf("%s\n", MessageFormat.format(getConfigurationService().getPropertyValueAsString(errorMessage.getErrorKey()), (Object[]) errorMessage.getMessageParameters()));
                 }
             } catch (IOException ex) {
                 throw new RuntimeException("Could not write error entries for batch Contracts & Grants Invoice document creation", ex);
@@ -72,6 +72,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceImpl implements Con
 
     /**
      * Retrieves the awards, validates them, and then creates documents for all valid awards
+     *
      * @see org.kuali.kfs.module.ar.batch.service.ContractsGrantsInvoiceCreateDocumentService#processBatchInvoiceDocumentCreation(java.lang.String, java.lang.String)
      */
     @Override

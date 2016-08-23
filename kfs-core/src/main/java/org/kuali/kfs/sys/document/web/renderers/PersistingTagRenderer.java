@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.apache.struts.taglib.html.HiddenTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.struts.taglib.html.HiddenTag;
 
 /**
  * A renderer which renders a String - but also renders a hidden tag to persist the value
@@ -35,13 +35,16 @@ public class PersistingTagRenderer extends StringRenderer {
 
     /**
      * Gets the persistingProperty attribute.
+     *
      * @return Returns the persistingProperty.
      */
     public String getPersistingProperty() {
         return persistingProperty;
     }
+
     /**
      * Sets the persistingProperty attribute value.
+     *
      * @param persistingProperty The persistingProperty to set.
      */
     public void setPersistingProperty(String persistingProperty) {
@@ -50,18 +53,22 @@ public class PersistingTagRenderer extends StringRenderer {
 
     /**
      * Gets the valueToPersist attribute.
+     *
      * @return Returns the valueToPersist.
      */
     public String getValueToPersist() {
         return valueToPersist;
     }
+
     /**
      * Sets the valueToPersist attribute value.
+     *
      * @param valueToPersist The valueToPersist to set.
      */
     public void setValueToPersist(String valueToPersist) {
         this.valueToPersist = valueToPersist;
     }
+
     /**
      * @see org.kuali.kfs.sys.document.web.renderers.StringRenderer#clear()
      */

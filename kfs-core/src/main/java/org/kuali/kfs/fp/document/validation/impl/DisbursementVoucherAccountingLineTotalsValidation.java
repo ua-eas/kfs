@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
@@ -32,10 +32,10 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineGroupTotalsUnchangedValidation;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class DisbursementVoucherAccountingLineTotalsValidation extends AccountingLineGroupTotalsUnchangedValidation {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherAccountingLineTotalsValidation.class);
@@ -88,7 +88,7 @@ public class DisbursementVoucherAccountingLineTotalsValidation extends Accountin
     /**
      * determine whether the give user has permission to any edit mode defined in the given candidate edit modes
      *
-     * @param currentEditModes the edit modes currently available to the given user on the document
+     * @param currentEditModes       the edit modes currently available to the given user on the document
      * @param candidateEditEditModes the given candidate edit modes
      * @return true if the give user has permission to any edit mode defined in the given candidate edit modes; otherwise, false
      */
@@ -104,7 +104,8 @@ public class DisbursementVoucherAccountingLineTotalsValidation extends Accountin
 
     /**
      * Retrieves the current edit modes from the document
-     * @param accountingDocument the document to find edit modes of
+     *
+     * @param accountingDocument  the document to find edit modes of
      * @param financialSystemUser the user requesting the edit modes
      * @return the Set of current edit modes
      */
@@ -136,6 +137,7 @@ public class DisbursementVoucherAccountingLineTotalsValidation extends Accountin
 
     /**
      * get foreign draft And wire transfer edit mode names, as well as tax if the payee is a non-resident alien
+     *
      * @param dvDocument the document we're validating
      * @return foreign draft And wire transfer edit mode names
      */
@@ -154,6 +156,7 @@ public class DisbursementVoucherAccountingLineTotalsValidation extends Accountin
     /**
      * Determines whether the tax edit mode should be allowed to change the accounting line totals,
      * based on whether the payee is a non-resident alient or not
+     *
      * @param dvDocument the document to check
      * @return true if the tax entry mode can change accounting line totals, false otherwise
      */

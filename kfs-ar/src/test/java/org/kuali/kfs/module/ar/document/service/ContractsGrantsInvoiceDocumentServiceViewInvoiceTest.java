@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -33,7 +29,11 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * This class tests the ContractsGrantsInvoiceDocumentService
@@ -91,7 +91,7 @@ public class ContractsGrantsInvoiceDocumentServiceViewInvoiceTest extends KualiT
         qualifications.put(ArKimAttributes.PROCESSING_CHART_OF_ACCOUNTS_CODE, "BL");
         qualifications.put(ArKimAttributes.PROCESSING_ORGANIZATION_CODE, "ACAC");
         roleService.assignPrincipalToRole(PRINCIPAL_ID5, ArConstants.AR_NAMESPACE_CODE, KFSConstants.SysKimApiConstants.ACCOUNTS_RECEIVABLE_COLLECTOR, qualifications);
-}
+    }
 
     public void testCanViewInvoiceBilling() {
         invoice.setCustomerName("ABERCROMBIE");

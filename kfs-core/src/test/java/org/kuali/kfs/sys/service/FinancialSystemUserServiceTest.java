@@ -36,8 +36,8 @@ public class FinancialSystemUserServiceTest extends KualiTestBase {
 
     public void testIsActiveFinancialSystemUserPrincipal() {
         final FinancialSystemUserService fsUserService = SpringContext.getBean(FinancialSystemUserService.class);
-        assertTrue(ACTIVE_SYSTEM_USER_PRINCIPAL_NAME+" should be an active Financial System user", fsUserService.isActiveFinancialSystemUser(getActiveSystemUserPrincipalId()));
-        assertFalse(NON_ACTIVE_SYSTEM_USER_PRINCIPAL_NAME+" should not be an active Financial System User", fsUserService.isActiveFinancialSystemUser(NON_ACTIVE_SYSTEM_USER_PRINCIPAL_NAME));
+        assertTrue(ACTIVE_SYSTEM_USER_PRINCIPAL_NAME + " should be an active Financial System user", fsUserService.isActiveFinancialSystemUser(getActiveSystemUserPrincipalId()));
+        assertFalse(NON_ACTIVE_SYSTEM_USER_PRINCIPAL_NAME + " should not be an active Financial System User", fsUserService.isActiveFinancialSystemUser(NON_ACTIVE_SYSTEM_USER_PRINCIPAL_NAME));
     }
 
 //    public void testIsActiveFinancialSystemUserPerson() {

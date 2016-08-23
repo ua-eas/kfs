@@ -24,8 +24,6 @@ import org.kuali.kfs.krad.document.Document;
  * This class represents the blanketApprove event that is part of an eDoc in Kuali. This could be triggered when a user presses the
  * blanketApprove button for a given document enroute or it could happen when another piece of code calls the blanketApprove method
  * in the document service.
- *
- *
  */
 public final class BlanketApproveDocumentEvent extends ApproveDocumentEvent {
     /**

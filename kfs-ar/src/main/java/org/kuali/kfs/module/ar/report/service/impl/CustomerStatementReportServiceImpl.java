@@ -18,13 +18,7 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.CustomerStatementReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerStatementReportDataHolder;
@@ -32,6 +26,11 @@ import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -70,7 +69,7 @@ public class CustomerStatementReportServiceImpl implements CustomerStatementRepo
 
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
-        File report = new File(fullReportFileName+".pdf");
+        File report = new File(fullReportFileName + ".pdf");
         reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
         return report;
     }

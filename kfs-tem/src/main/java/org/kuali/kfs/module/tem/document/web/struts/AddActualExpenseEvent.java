@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINE;
-
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
@@ -33,7 +29,11 @@ import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.KualiRuleService;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINE;
 
 
 public class AddActualExpenseEvent implements Observer {
@@ -52,7 +52,7 @@ public class AddActualExpenseEvent implements Observer {
         final TravelDocument document = wrapper.getTravelDocument();
         final ActualExpense newActualExpenseLine = wrapper.getNewActualExpenseLine();
 
-        if(newActualExpenseLine != null){
+        if (newActualExpenseLine != null) {
             newActualExpenseLine.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
         }
 
@@ -61,8 +61,8 @@ public class AddActualExpenseEvent implements Observer {
         // check any business rules
         rulePassed &= getRuleService().applyRules(new AddActualExpenseLineEvent<ActualExpense>(NEW_ACTUAL_EXPENSE_LINE, document, newActualExpenseLine));
 
-        if (rulePassed){
-            if(newActualExpenseLine != null){
+        if (rulePassed) {
+            if (newActualExpenseLine != null) {
                 document.addExpense(newActualExpenseLine);
             }
 

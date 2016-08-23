@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="docTitle">
     <bean:message key="${KualiForm.titleKey}"/>
@@ -24,18 +24,18 @@
 
 <kul:page
         showDocumentInfo="false"
-	    headerTitle="Batch File Set Upload"
+        headerTitle="Batch File Set Upload"
         docTitle="${docTitle}"
         renderMultipart="true"
-	    transactionalDocument="false"
+        transactionalDocument="false"
         htmlFormAction="batchUploadFileSet"
         errorKey="foo"
         alternativeHelp="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Fbatch.htm">
 
-    <html:hidden property="batchUpload.batchInputTypeName" />
-    <c:set var="batchUploadAttributes" value="${DataDictionary.BatchUpload.attributes}" />
+    <html:hidden property="batchUpload.batchInputTypeName"/>
+    <c:set var="batchUploadAttributes" value="${DataDictionary.BatchUpload.attributes}"/>
 
-	<kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
+    <kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
         <div class="tab-container">
             <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:" displayInDiv="true"/>
 
@@ -74,5 +74,5 @@
                 </c:forEach>
             </table>
         </div>
-	</kul:tabTop>
+    </kul:tabTop>
 </kul:page>

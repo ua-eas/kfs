@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ClassOfService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClassOfServiceValuesFinder extends KeyValuesBase {
 
@@ -47,12 +47,11 @@ public class ClassOfServiceValuesFinder extends KeyValuesBase {
         List<KeyValue> keyValues = new ArrayList<KeyValue>();
 
         Collection<ClassOfService> bos = null;
-        if(ObjectUtils.isNotNull(expenseTypeMetaCategoryCode)){
+        if (ObjectUtils.isNotNull(expenseTypeMetaCategoryCode)) {
             Map<String, Object> searchMap = new HashMap<String, Object>();
             searchMap.put(TemPropertyConstants.ClassOfService.EXPENSE_TYPE_META_CATEGORY_CODE, expenseTypeMetaCategoryCode);
             bos = getKeyValuesService().findMatching(ClassOfService.class, searchMap);
-        }
-        else{
+        } else {
             bos = getKeyValuesService().findAll(ClassOfService.class);
         }
 

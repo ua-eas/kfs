@@ -18,18 +18,23 @@
  */
 package org.kuali.kfs.module.cg.businessobject.inquiry;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule;
+import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
+import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.kns.web.ui.SectionBridge;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
@@ -37,18 +42,13 @@ import org.kuali.kfs.module.cg.service.ContractsAndGrantsBillingService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.kfs.kns.web.ui.SectionBridge;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Used for wiring up {@link Award} for inquiries.
@@ -98,7 +98,7 @@ public class AwardInquirableImpl extends KualiInquirableImpl {
      * (Milestone Schedule for Milestone billing, Predetermined Billing Schedule for PDBS billing, or none).
      *
      * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getSections(org.kuali.rice.krad.bo.BusinessObject)
-     *
+     * <p>
      * KRAD Conversion: Inquirable performs conditional display/hiding of the sections on the inquiry
      * But all field/section definitions are in data dictionary for bo Asset.
      */
@@ -113,26 +113,26 @@ public class AwardInquirableImpl extends KualiInquirableImpl {
         Award award = (Award) businessObject;
 
         InquiryRestrictions inquiryRestrictions = KNSServiceLocator.getBusinessObjectAuthorizationService()
-                .getInquiryRestrictions(businessObject, GlobalVariables.getUserSession().getPerson());
+            .getInquiryRestrictions(businessObject, GlobalVariables.getUserSession().getPerson());
 
         Collection<InquirySectionDefinition> inquirySections = getBusinessObjectDictionaryService().getInquirySections(
-                getBusinessObjectClass());
+            getBusinessObjectClass());
         Collection<?> sectionIdsToIgnore = getSectionIdsToIgnore();
-        for (Iterator<InquirySectionDefinition> iter = inquirySections.iterator(); iter.hasNext();) {
+        for (Iterator<InquirySectionDefinition> iter = inquirySections.iterator(); iter.hasNext(); ) {
             InquirySectionDefinition inquirySection = iter.next();
             String sectionId = inquirySection.getId();
             if (!inquiryRestrictions.isHiddenSectionId(sectionId) && !sectionIdsToIgnore.contains(sectionId)) {
                 if (StringUtils.equals(sectionId, CGPropertyConstants.SectionId.AWARD_PREDETERMINED_BILLING_SCHEDULE_SECTION_ID)) {
                     if (StringUtils.equals(award.getBillingFrequencyCode(), CGConstants.PREDETERMINED_BILLING_SCHEDULE_CODE) &&
                         SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasPredeterminedBillingSchedule(award.getProposalNumber())) {
-                            Section section = SectionBridge.toSection(this, inquirySection, businessObject, inquiryRestrictions);
-                            sections.add(section);
+                        Section section = SectionBridge.toSection(this, inquirySection, businessObject, inquiryRestrictions);
+                        sections.add(section);
                     }
                 } else if (StringUtils.equals(sectionId, CGPropertyConstants.SectionId.AWARD_MILESTONE_SCHEDULE_SECTION_ID)) {
                     if (StringUtils.equals(award.getBillingFrequencyCode(), CGConstants.MILESTONE_BILLING_SCHEDULE_CODE) &&
                         SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasMilestoneSchedule(award.getProposalNumber())) {
-                            Section section = SectionBridge.toSection(this, inquirySection, businessObject, inquiryRestrictions);
-                            sections.add(section);
+                        Section section = SectionBridge.toSection(this, inquirySection, businessObject, inquiryRestrictions);
+                        sections.add(section);
                     }
                 } else {
                     Section section = SectionBridge.toSection(this, inquirySection, businessObject, inquiryRestrictions);

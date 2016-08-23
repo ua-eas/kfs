@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.LinkedHashMap;
 
 public class AchAccountNumber extends TimestampedBusinessObjectBase {
 

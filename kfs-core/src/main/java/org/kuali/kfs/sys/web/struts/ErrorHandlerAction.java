@@ -38,10 +38,10 @@ public class ErrorHandlerAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("execute() started");
 
-        Exception exception = (Exception)request.getAttribute(Globals.EXCEPTION_KEY);
+        Exception exception = (Exception) request.getAttribute(Globals.EXCEPTION_KEY);
 
-        if ( exception instanceof DisplayMessageException) {
-            request.setAttribute("message",exception.getMessage());
+        if (exception instanceof DisplayMessageException) {
+            request.setAttribute("message", exception.getMessage());
             return mapping.findForward("display");
         }
 
@@ -49,7 +49,7 @@ public class ErrorHandlerAction extends Action {
         String productionEnvironmentCode = configurationService.getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
         String environmentCode = configurationService.getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
 
-        if ( productionEnvironmentCode.equals(environmentCode) ) {
+        if (productionEnvironmentCode.equals(environmentCode)) {
             return mapping.findForward("prd");
         } else {
             return mapping.findForward("tst");

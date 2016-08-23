@@ -17,30 +17,29 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:dd="http://rice.kuali.org/dd"
-    xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:dd="http://rice.kuali.org/dd"
+       xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
 http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
-<bean id="AccountMaintenanceDocument-parentBean" parent="AccountMaintenanceDocument-baseBean" abstract="true">
+    <bean id="AccountMaintenanceDocument-parentBean" parent="AccountMaintenanceDocument-baseBean" abstract="true">
 
-    <property name="defaultExistenceChecks">
-      <list merge="true">
-	      	<bean parent="ReferenceDefinition" p:attributeName="laborBenefitRateCategory" p:attributeToHighlightOnFail="laborBenefitRateCategoryCode" />
- 	    </list>
-    </property>
-  </bean>
+        <property name="defaultExistenceChecks">
+            <list merge="true">
+                <bean parent="ReferenceDefinition" p:attributeName="laborBenefitRateCategory" p:attributeToHighlightOnFail="laborBenefitRateCategoryCode"/>
+            </list>
+        </property>
+    </bean>
 
 
-
- <bean id="AccountMaintenanceDocument-AccountMaintenance" parent="AccountMaintenanceDocument-AccountMaintenance-parentBean">
- 	<property name="maintainableItems">
- 		<list merge="true">
- 		 	<dd:maintField attributeName="laborBenefitRateCategoryCode" required="false" />
- 		</list>
- 	</property>
- </bean>
+    <bean id="AccountMaintenanceDocument-AccountMaintenance" parent="AccountMaintenanceDocument-AccountMaintenance-parentBean">
+        <property name="maintainableItems">
+            <list merge="true">
+                <dd:maintField attributeName="laborBenefitRateCategoryCode" required="false"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

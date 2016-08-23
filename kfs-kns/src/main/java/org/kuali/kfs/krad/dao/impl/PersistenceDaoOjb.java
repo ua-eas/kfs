@@ -22,8 +22,8 @@ import org.apache.ojb.broker.Identity;
 import org.apache.ojb.broker.core.IdentityFactoryImpl;
 import org.apache.ojb.broker.core.proxy.IndirectionHandlerCGLIBImpl;
 import org.apache.ojb.broker.core.proxy.ProxyHelper;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.krad.dao.PersistenceDao;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
 public class PersistenceDaoOjb extends PlatformAwareDaoBaseOjb implements PersistenceDao {
 
@@ -57,13 +57,13 @@ public class PersistenceDaoOjb extends PlatformAwareDaoBaseOjb implements Persis
         getPersistenceBroker(true).retrieveReference(o, referenceName);
     }
 
-	/**
-	 * Asks ProxyHelper if the object is proxied
-	 *
-	 * @see PersistenceDao#isProxied(java.lang.Object)
-	 */
-	public boolean isProxied(Object object) {
-		return ProxyHelper.isProxy(object);
-	}
+    /**
+     * Asks ProxyHelper if the object is proxied
+     *
+     * @see PersistenceDao#isProxied(java.lang.Object)
+     */
+    public boolean isProxied(Object object) {
+        return ProxyHelper.isProxy(object);
+    }
 
 }

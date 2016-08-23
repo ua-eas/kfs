@@ -31,7 +31,6 @@ public class UpcomingMilestoneNotificationStep extends AbstractStep {
     protected UpcomingMilestoneNotificationService upcomingMilestoneNotificationService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     @Override

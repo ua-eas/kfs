@@ -18,51 +18,42 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-                           http://www.springframework.org/schema/util
-                           http://www.springframework.org/schema/util/spring-util-3.1.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-                           http://www.springframework.org/schema/cache
-                           http://www.springframework.org/schema/cache/spring-cache.xsd"
-	default-lazy-init="false">
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-lazy-init="false">
 
-	<!-- Redefine the properties - This is is a different spring context than the prior definitions of these beans. -->
-	<bean id="properties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean" />
+    <!-- Redefine the properties - This is is a different spring context than the prior definitions of these beans. -->
+    <bean id="properties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean"/>
 
-	<bean id="securityProperties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean" p:secureMode="true" />
+    <bean id="securityProperties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean" p:secureMode="true"/>
 
-	<bean id="propertyPlaceholderConfigurer" class="org.kuali.kfs.sys.context.ConfigPropertyPlaceholderConfigurer">
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-		<property name="propertiesArray">
-			<list>
-				<ref bean="properties" />
-				<ref bean="securityProperties" />
-			</list>
-		</property>
-	</bean>
+    <bean id="propertyPlaceholderConfigurer" class="org.kuali.kfs.sys.context.ConfigPropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="propertiesArray">
+            <list>
+                <ref bean="properties"/>
+                <ref bean="securityProperties"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Implement the identity management service for support of existing KFS code which
-		 is still using it. -->
-	<bean id="kimIdentityManagementService" class="org.kuali.rice.kim.service.impl.IdentityManagementServiceImpl" />
-	<alias name="kimIdentityManagementService" alias="identityManagementService" />
+    <!-- Implement the identity management service for support of existing KFS code which
+         is still using it. -->
+    <bean id="kimIdentityManagementService" class="org.kuali.rice.kim.service.impl.IdentityManagementServiceImpl"/>
+    <alias name="kimIdentityManagementService" alias="identityManagementService"/>
 
 
-	<!-- Special bean which prevents KSB errors when the remoting layer loses track
-		 of the current locale. -->
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver" lazy-init="true">
-		<property name="defaultLocale" value="${kfs.locale}" />
-	</bean>
+    <!-- Special bean which prevents KSB errors when the remoting layer loses track
+         of the current locale. -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver" lazy-init="true">
+        <property name="defaultLocale" value="${kfs.locale}"/>
+    </bean>
 
-	<!-- The parameter evaluator framework is no longer part of Rice, so we
-		 need to define it locally. -->
-	<bean id="parameterEvaluatorService" class="org.kuali.rice.core.impl.parameter.ParameterEvaluatorServiceImpl">
-		<property name="parameterService" ref="parameterService" />
-	</bean>
+    <!-- The parameter evaluator framework is no longer part of Rice, so we
+         need to define it locally. -->
+    <bean id="parameterEvaluatorService" class="org.kuali.rice.core.impl.parameter.ParameterEvaluatorServiceImpl">
+        <property name="parameterService" ref="parameterService"/>
+    </bean>
 
 </beans>

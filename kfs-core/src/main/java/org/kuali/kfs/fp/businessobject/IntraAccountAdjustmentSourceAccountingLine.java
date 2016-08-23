@@ -21,7 +21,6 @@ package org.kuali.kfs.fp.businessobject;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 
 /**
- *
  * This class represents Source Accounting lines in IAA document
  * This class is defined to make sure "referenceNumber", a required attribute in IAA, is validated for required-ness only in
  * case of an IAA document.

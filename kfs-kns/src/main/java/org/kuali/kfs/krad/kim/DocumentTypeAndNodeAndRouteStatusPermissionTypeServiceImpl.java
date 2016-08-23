@@ -40,44 +40,42 @@ public class DocumentTypeAndNodeAndRouteStatusPermissionTypeServiceImpl extends 
         return true;
     }
 
-	/**
-	 *
-	 *	consider the document type hierarchy - check for a permission that just specifies the document type first at each level
-	 *	- then if you don't find that, check for the doc type and the node, then the doc type and the Action Type.
-	 *
-	 */
-	@Override
-	protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
-			List<Permission> permissionsList) {
+    /**
+     * consider the document type hierarchy - check for a permission that just specifies the document type first at each level
+     * - then if you don't find that, check for the doc type and the node, then the doc type and the Action Type.
+     */
+    @Override
+    protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails,
+                                                        List<Permission> permissionsList) {
 
         List<Permission> matchingPermissions = new ArrayList<Permission>();
-		// loop over the permissions, checking the non-document-related ones
-		for ( Permission kpi : permissionsList ) {
+        // loop over the permissions, checking the non-document-related ones
+        for (Permission kpi : permissionsList) {
             PermissionBo bo = PermissionBo.from(kpi);
-			if ( (routeNodeMatches(requestedDetails, bo.getDetails())) &&
-				 (routeStatusMatches(requestedDetails, bo.getDetails())) ) {
-				matchingPermissions.add( kpi );
-			}
-		}
-		// now, filter the list to just those for the current document
-		matchingPermissions = super.performPermissionMatches( requestedDetails, matchingPermissions );
-		return matchingPermissions;
-	}
+            if ((routeNodeMatches(requestedDetails, bo.getDetails())) &&
+                (routeStatusMatches(requestedDetails, bo.getDetails()))) {
+                matchingPermissions.add(kpi);
+            }
+        }
+        // now, filter the list to just those for the current document
+        matchingPermissions = super.performPermissionMatches(requestedDetails, matchingPermissions);
+        return matchingPermissions;
+    }
 
-	protected boolean routeNodeMatches(Map<String, String> requestedDetails, Map<String, String> permissionDetails) {
-        if ( StringUtils.isBlank( permissionDetails.get(KimConstants.AttributeConstants.ROUTE_NODE_NAME) ) ) {
+    protected boolean routeNodeMatches(Map<String, String> requestedDetails, Map<String, String> permissionDetails) {
+        if (StringUtils.isBlank(permissionDetails.get(KimConstants.AttributeConstants.ROUTE_NODE_NAME))) {
             return true;
         }
         return StringUtils.equals(requestedDetails.get(KimConstants.AttributeConstants.ROUTE_NODE_NAME), permissionDetails.get(
-                KimConstants.AttributeConstants.ROUTE_NODE_NAME));
+            KimConstants.AttributeConstants.ROUTE_NODE_NAME));
     }
 
     protected boolean routeStatusMatches(Map<String, String> requestedDetails, Map<String, String> permissionDetails) {
-        if ( (StringUtils.isBlank(permissionDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE))) &&
-             (!(StringUtils.equals(KewApiConstants.ROUTE_HEADER_INITIATED_CD, requestedDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE))))) {
+        if ((StringUtils.isBlank(permissionDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE))) &&
+            (!(StringUtils.equals(KewApiConstants.ROUTE_HEADER_INITIATED_CD, requestedDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE))))) {
             return true;
         }
-        return StringUtils.equals( requestedDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE), permissionDetails.get(
-                KimConstants.AttributeConstants.ROUTE_STATUS_CODE));
+        return StringUtils.equals(requestedDetails.get(KimConstants.AttributeConstants.ROUTE_STATUS_CODE), permissionDetails.get(
+            KimConstants.AttributeConstants.ROUTE_STATUS_CODE));
     }
 }

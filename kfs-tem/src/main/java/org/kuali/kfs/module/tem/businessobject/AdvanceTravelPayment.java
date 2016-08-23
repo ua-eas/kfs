@@ -21,7 +21,8 @@ package org.kuali.kfs.module.tem.businessobject;
 /**
  * This class should not be referenced in code anywhere.  It exists only to provide different labels
  * to the data dictionary so the tab is a bit more informative.
- *
+ * <p>
  * Someday KRAD will fix this, I mean it!
  */
-public class AdvanceTravelPayment extends TravelPayment {}
+public class AdvanceTravelPayment extends TravelPayment {
+}

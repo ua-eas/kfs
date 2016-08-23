@@ -18,17 +18,12 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.batch.AutoDisapproveDocumentsStep;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -36,8 +31,13 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.aop.support.AopUtils;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 @ConfigureContext(session = kfs)
 public class AutoDisapproveDocumentsServiceImplTest extends KualiTestBase {
@@ -117,8 +117,7 @@ public class AutoDisapproveDocumentsServiceImplTest extends KualiTestBase {
             calendar.set(Calendar.MINUTE, 59);
             calendar.set(Calendar.SECOND, 59);
             compareDate = calendar.getTime();
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
         }
 
         return compareDate;

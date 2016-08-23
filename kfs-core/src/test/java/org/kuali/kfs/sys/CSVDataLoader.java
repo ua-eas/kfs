@@ -18,6 +18,9 @@
  */
 package org.kuali.kfs.sys;
 
+import org.apache.commons.lang.time.DateUtils;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,9 +32,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.time.DateUtils;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class CSVDataLoader {
     private Map<String, String[]> dataMap = new HashMap<String, String[]>();
@@ -69,7 +69,7 @@ public class CSVDataLoader {
         if (columnData == null || columnData.trim().length() == 0) {
             return null;
         }
-        return new Date(DateUtils.parseDate(columnData, new String[] { "MM/dd/yyyy hh:mm:ss a", "MM/dd/yyyy" }).getTime());
+        return new Date(DateUtils.parseDate(columnData, new String[]{"MM/dd/yyyy hh:mm:ss a", "MM/dd/yyyy"}).getTime());
     }
 
     public Integer getInteger(int pos, String column) {
@@ -109,7 +109,7 @@ public class CSVDataLoader {
         if (columnData == null || columnData.trim().length() == 0) {
             return null;
         }
-        return new Timestamp(DateUtils.parseDate(columnData, new String[] { "MM/dd/yyyy hh:mm:ss a", "MM/dd/yyyy" }).getTime());
+        return new Timestamp(DateUtils.parseDate(columnData, new String[]{"MM/dd/yyyy hh:mm:ss a", "MM/dd/yyyy"}).getTime());
     }
 
     public void loadData(String resourceName, boolean quoted) {
@@ -124,31 +124,26 @@ public class CSVDataLoader {
             while ((line = reader.readLine()) != null) {
                 if (quoted) {
                     dataCols = parseQuoted(line, ",");
-                }
-                else {
+                } else {
                     dataCols = line.split(",", -1);
                 }
                 if (pos == -1) {
                     for (String hdr : dataCols) {
                         headerMap.put(hdr.trim().toUpperCase(), headerPos++);
                     }
-                }
-                else {
+                } else {
                     dataMap.put(String.valueOf(pos), dataCols);
                 }
                 pos++;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             if (reader != null) {
                 try {
                     reader.close();
                     reader = null;
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }

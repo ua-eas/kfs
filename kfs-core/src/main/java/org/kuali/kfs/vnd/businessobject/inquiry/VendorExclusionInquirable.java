@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.vnd.businessobject.inquiry;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorAlias;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class VendorExclusionInquirable extends KualiInquirableImpl {
 
@@ -34,10 +34,10 @@ public class VendorExclusionInquirable extends KualiInquirableImpl {
     @SuppressWarnings("unchecked")
     @Override
     public BusinessObject getBusinessObject(Map fieldValues) {
-        DebarredVendorMatch match = (DebarredVendorMatch)super.getBusinessObject(fieldValues);
+        DebarredVendorMatch match = (DebarredVendorMatch) super.getBusinessObject(fieldValues);
         List<VendorAlias> vendorAliases = match.getVendorDetail().getVendorAliases();
         StringBuffer concatenatedAliases = new StringBuffer();
-        for(VendorAlias alias : vendorAliases) {
+        for (VendorAlias alias : vendorAliases) {
             concatenatedAliases.append(alias.getVendorAliasName());
             concatenatedAliases.append("/n");
         }

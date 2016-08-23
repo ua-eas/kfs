@@ -28,12 +28,12 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
  */
 public class StyleBo extends PersistableBusinessObjectBase implements StyleContract {
 
-	private static final long serialVersionUID = 2020611019976731725L;
+    private static final long serialVersionUID = 2020611019976731725L;
 
-	private String id;
-	private String name;
-	private String xmlContent;
-	private boolean active = true;
+    private String id;
+    private String name;
+    private String xmlContent;
+    private boolean active = true;
 
     /**
      * Converts the given StyleBo to a Style object.
@@ -42,11 +42,11 @@ public class StyleBo extends PersistableBusinessObjectBase implements StyleContr
      * @return the resulting Style object, or null if the given styleBo was null
      */
     static Style to(StyleBo styleBo) {
-    	if (styleBo == null) {
-    		return null;
-    	}
+        if (styleBo == null) {
+            return null;
+        }
 
-    	return Style.Builder.create(styleBo).build();
+        return Style.Builder.create(styleBo).build();
     }
 
     /**
@@ -56,18 +56,18 @@ public class StyleBo extends PersistableBusinessObjectBase implements StyleContr
      * @return the resulting StyleBo object, or null if the given style was null
      */
     static StyleBo from(Style style) {
-    	if (style == null) {
-    		return null;
-    	}
+        if (style == null) {
+            return null;
+        }
 
-    	StyleBo styleBo = new StyleBo();
-    	styleBo.setId(style.getId());
-    	styleBo.setName(style.getName());
-    	styleBo.setXmlContent(style.getXmlContent());
-    	styleBo.setActive(style.isActive());
-    	styleBo.setVersionNumber(style.getVersionNumber());
-    	styleBo.setObjectId(style.getObjectId());
-    	return styleBo;
+        StyleBo styleBo = new StyleBo();
+        styleBo.setId(style.getId());
+        styleBo.setName(style.getName());
+        styleBo.setXmlContent(style.getXmlContent());
+        styleBo.setActive(style.isActive());
+        styleBo.setVersionNumber(style.getVersionNumber());
+        styleBo.setObjectId(style.getObjectId());
+        return styleBo;
     }
 
     public static long getSerialVersionUID() {

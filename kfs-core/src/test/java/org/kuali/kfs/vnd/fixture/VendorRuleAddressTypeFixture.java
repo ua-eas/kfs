@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
@@ -29,13 +26,16 @@ import org.kuali.kfs.vnd.fixture.VendorTestConstants.AddressRequiredFields;
 import org.kuali.kfs.vnd.fixture.VendorTestConstants.AddressTypes;
 import org.kuali.kfs.vnd.fixture.VendorTestConstants.StatesZips;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is an enumeration of configurations of 'type codes' and 'address type codes' which should be useful for testing the code
  * validating the implementation of the business rules involving Vendor address types.
  */
 public enum VendorRuleAddressTypeFixture {
 
-    WITH_PO_TYPE_AND_PO_ADDR_TYPES(AddressTypes.poType, AddressTypes.poType, true, AddressTypes.poType, false), WITH_DV_TYPE_AND_RM_ADDR_TYPES(AddressTypes.dvType, AddressTypes.rmType, true, AddressTypes.rmType, false), WITH_PO_TYPE_AND_RM_ADDR_TYPES(AddressTypes.poType, AddressTypes.rmType, true, AddressTypes.rmType, false), WITH_PO_TYPE_AND_ONE_PO_AND_ONE_RM_ADDR_TYPES(AddressTypes.poType, AddressTypes.poType, true, AddressTypes.rmType, true), ;
+    WITH_PO_TYPE_AND_PO_ADDR_TYPES(AddressTypes.poType, AddressTypes.poType, true, AddressTypes.poType, false), WITH_DV_TYPE_AND_RM_ADDR_TYPES(AddressTypes.dvType, AddressTypes.rmType, true, AddressTypes.rmType, false), WITH_PO_TYPE_AND_RM_ADDR_TYPES(AddressTypes.poType, AddressTypes.rmType, true, AddressTypes.rmType, false), WITH_PO_TYPE_AND_ONE_PO_AND_ONE_RM_ADDR_TYPES(AddressTypes.poType, AddressTypes.poType, true, AddressTypes.rmType, true),;
 
     private String typeCode;
     private String addrTypeCode1;

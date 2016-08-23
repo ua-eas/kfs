@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationController;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.module.tem.businessobject.PerDiem;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 
 @SuppressWarnings("deprecation")
@@ -46,10 +46,9 @@ public class PerDiemLookupableHelperServiceImpl extends KualiLookupableHelperSer
 
         CollectionIncomplete collection = null;
         Integer limit = LookupUtils.getSearchResultsLimit(PerDiem.class);
-        if (results.size() > limit.intValue()){
+        if (results.size() > limit.intValue()) {
             collection = new CollectionIncomplete(results.subList(0, limit), (long) results.size());
-        }
-        else{
+        } else {
             collection = new CollectionIncomplete(results, (long) 0);
         }
         return collection;
@@ -60,7 +59,7 @@ public class PerDiemLookupableHelperServiceImpl extends KualiLookupableHelperSer
         String maintDocTypeName = getMaintenanceDocumentTypeName();
 
         if (StringUtils.isNotBlank(maintDocTypeName)) {
-            final MaintenanceDocumentPresentationController docPresentationController = (MaintenanceDocumentPresentationController)getDocumentDictionaryService().getDocumentPresentationController(maintDocTypeName);
+            final MaintenanceDocumentPresentationController docPresentationController = (MaintenanceDocumentPresentationController) getDocumentDictionaryService().getDocumentPresentationController(maintDocTypeName);
             final boolean allowsEdit = docPresentationController.canMaintain(businessObject);
             if (!allowsEdit) {
                 return false;

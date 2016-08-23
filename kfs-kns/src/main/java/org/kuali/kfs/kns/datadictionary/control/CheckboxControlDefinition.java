@@ -22,15 +22,14 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
-                        The checkbox element is used to render an HTML checkbox
-                        control.  It is used for boolean fields.
+ * The checkbox element is used to render an HTML checkbox
+ * control.  It is used for boolean fields.
  */
 @Deprecated
 public class CheckboxControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = -2658505826476098781L;
 
-	public CheckboxControlDefinition()
-    {
+    public CheckboxControlDefinition() {
         super();
     }
 

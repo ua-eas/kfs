@@ -22,9 +22,9 @@ import java.util.ArrayList;
 
 /**
  * This class is a base class to implement questions types.
- *
- *
- *         "confirmation questions") rather than specific questions.
+ * <p>
+ * <p>
+ * "confirmation questions") rather than specific questions.
  */
 
 public class QuestionBase implements Question {
@@ -35,7 +35,7 @@ public class QuestionBase implements Question {
      * default constructor
      *
      * @param question the question to assign to this question prompt
-     * @param buttons the buttons associated with it
+     * @param buttons  the buttons associated with it
      */
     public QuestionBase(String question, ArrayList buttons) {
         this.question = question;

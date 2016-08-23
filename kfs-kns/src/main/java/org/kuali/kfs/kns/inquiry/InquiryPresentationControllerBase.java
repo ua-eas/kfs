@@ -18,27 +18,27 @@
  */
 package org.kuali.kfs.kns.inquiry;
 
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.kuali.rice.krad.bo.BusinessObject;
-
 public class InquiryPresentationControllerBase implements InquiryPresentationController {
-	/**
-	 * Implement this method to hide fields based on specific data in the record being inquired into
-	 *
-	 * @return Set of property names that should be hidden
-	 */
-	public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
-		return new HashSet<String>();
-	}
+    /**
+     * Implement this method to hide fields based on specific data in the record being inquired into
+     *
+     * @return Set of property names that should be hidden
+     */
+    public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
+        return new HashSet<String>();
+    }
 
-	/**
-	 * Implement this method to hide sections based on specific data in the record being inquired into
-	 *
-	 * @return Set of section ids that should be hidden
-	 */
-	public Set<String> getConditionallyHiddenSectionIds(BusinessObject businessObject) {
-		return new HashSet<String>();
-	}
+    /**
+     * Implement this method to hide sections based on specific data in the record being inquired into
+     *
+     * @return Set of section ids that should be hidden
+     */
+    public Set<String> getConditionallyHiddenSectionIds(BusinessObject businessObject) {
+        return new HashSet<String>();
+    }
 }

@@ -16,39 +16,39 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="ProcurementCardDocument"
-	htmlFormAction="financialProcurementCard" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="ProcurementCardDocument"
+                  htmlFormAction="financialProcurementCard" renderMultipart="true"
+                  showTabButtons="true">
 
-	<sys:hiddenDocumentFields />
+    <sys:hiddenDocumentFields/>
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<fp:procurementCardTransactions
-		editingMode="${KualiForm.editingMode}"
-		editableAccounts="${KualiForm.editableAccounts}" />
+    <fp:procurementCardTransactions
+            editingMode="${KualiForm.editingMode}"
+            editableAccounts="${KualiForm.editableAccounts}"/>
 
-	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-  	<fp:capitalAccountingLines readOnly="${readOnly}"/>
+    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
+    <fp:capitalAccountingLines readOnly="${readOnly}"/>
 
-	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-	</c:if>
+    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
+        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
+    </c:if>
 
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
 
-	<gl:generalLedgerPendingEntries />
+    <gl:generalLedgerPendingEntries/>
 
-	<kul:notes />
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="true" />
+    <sys:documentControls transactionalDocument="true"/>
 
 </kul:documentPage>

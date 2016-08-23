@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewField;
 import org.kuali.kfs.sys.document.web.AccountingLineViewOverrideField;
-import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 
 /**
  * The definition of an override field associated with an accounting line view field
@@ -31,7 +31,8 @@ public class AccountingLineViewOverrideFieldDefinition extends MaintainableField
 
     /**
      * Creates an override field
-     * @param parentField the AccountingLineViewField which will own the created OverrideField
+     *
+     * @param parentField         the AccountingLineViewField which will own the created OverrideField
      * @param accountingLineClass the class of the AccountingLine being rendered
      * @return a properly created AccountingLineViewOverrideField
      */
@@ -41,6 +42,7 @@ public class AccountingLineViewOverrideFieldDefinition extends MaintainableField
 
     /**
      * Gets the allowEditDespiteReadOnlyParentWhenAccoutingLineEditable attribute.
+     *
      * @return Returns the allowEditDespiteReadOnlyParentWhenAccoutingLineEditable.
      */
     public boolean isAllowEditDespiteReadOnlyParentWhenAccoutingLineEditable() {
@@ -49,6 +51,7 @@ public class AccountingLineViewOverrideFieldDefinition extends MaintainableField
 
     /**
      * Sets the allowEditDespiteReadOnlyParentWhenAccoutingLineEditable attribute value.
+     *
      * @param allowEditDespiteReadOnlyParentWhenAccoutingLineEditable The allowEditDespiteReadOnlyParentWhenAccoutingLineEditable to set.
      */
     public void setAllowEditDespiteReadOnlyParentWhenAccoutingLineEditable(boolean allowOverrideWithReadOnlyParentWhenAccoutingLineEditable) {

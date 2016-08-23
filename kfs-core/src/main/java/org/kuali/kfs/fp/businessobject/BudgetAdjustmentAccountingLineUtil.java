@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.Map;
-
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.Map;
 
 
 /**
@@ -55,7 +55,7 @@ public class BudgetAdjustmentAccountingLineUtil {
     /**
      * Adds {@link BudgetAdjustmentAccountingLine} attributes to map
      *
-     * @param simpleValues map used to add values to
+     * @param simpleValues   map used to add values to
      * @param accountingLine accounting line that provides attributes to add to map
      * @return
      */
@@ -81,7 +81,7 @@ public class BudgetAdjustmentAccountingLineUtil {
     /**
      * Copies {@link BudgetAdjustmentAccountingLine} values
      *
-     * @param toLine the line to copy values to
+     * @param toLine   the line to copy values to
      * @param fromLine the line to take the values to use in writing to the toLine
      */
     public static void copyFrom(BudgetAdjustmentAccountingLine toLine, AccountingLine other) {

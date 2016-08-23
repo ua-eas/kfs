@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
-import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
-import org.kuali.kfs.module.bc.document.validation.DeleteMonthlySpreadRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
+import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
+import org.kuali.kfs.module.bc.document.validation.DeleteMonthlySpreadRule;
 
 /**
  * This class...
@@ -33,7 +33,7 @@ public class DeleteMonthlySpreadEvent extends KualiDocumentEventBase {
     private BudgetConstructionDocument budgetConstructionDocument;
     private MonthSpreadDeleteType monthSpreadDeleteType;
 
-    public DeleteMonthlySpreadEvent(Document document, MonthSpreadDeleteType monthSpreadDeleteType){
+    public DeleteMonthlySpreadEvent(Document document, MonthSpreadDeleteType monthSpreadDeleteType) {
         super("", "", document);
         this.budgetConstructionDocument = (BudgetConstructionDocument) document;
         this.monthSpreadDeleteType = monthSpreadDeleteType;
@@ -57,6 +57,7 @@ public class DeleteMonthlySpreadEvent extends KualiDocumentEventBase {
 
     /**
      * Gets the budgetConstructionDocument attribute.
+     *
      * @return Returns the budgetConstructionDocument.
      */
     public BudgetConstructionDocument getBudgetConstructionDocument() {
@@ -65,6 +66,7 @@ public class DeleteMonthlySpreadEvent extends KualiDocumentEventBase {
 
     /**
      * Sets the budgetConstructionDocument attribute value.
+     *
      * @param budgetConstructionDocument The budgetConstructionDocument to set.
      */
     public void setBudgetConstructionDocument(BudgetConstructionDocument budgetConstructionDocument) {

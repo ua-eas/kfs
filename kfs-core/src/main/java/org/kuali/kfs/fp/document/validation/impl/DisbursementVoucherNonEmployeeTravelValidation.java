@@ -19,11 +19,16 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeTravel;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherTravelService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -34,11 +39,6 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherNonEmployeeTravelValidation.class);
@@ -144,6 +144,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Determines if the given document has an income for tax
+     *
      * @param document document to check
      * @return true if it does have non-reportable income, false otherwise
      */
@@ -153,6 +154,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Determines if the tax on the document was gross up
+     *
      * @param document the document to check
      * @return true if the tax was gross up, false otherwise
      */
@@ -162,6 +164,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Determines if tax should be taken into consideration when checking the total travel amount, and validates that it matches the paid amount
+     *
      * @param document the document to validate the non-employee total travel amount of
      * @return true if the document validated perfectly, false otherwise
      */
@@ -186,7 +189,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
      * contains any values, the section is validated to ensure that all the required fields for this section are populated.
      *
      * @param document submitted disbursement voucher document
-     * @param errors map containing any generated errors
+     * @param errors   map containing any generated errors
      * @return true if per diem section is used by user and that all fields contain values.
      */
     private boolean validatePerDiemSection(DisbursementVoucherDocument document, MessageMap errors) {
@@ -223,7 +226,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
      * contains any values, the section is validated to ensure that all the required fields for this section are populated.
      *
      * @param document submitted disbursement voucher document
-     * @param errors map containing any generated errors
+     * @param errors   map containing any generated errors
      * @return true if per diem section is used by user and that all fields contain values.
      */
     private boolean validatePersonalVehicleSection(DisbursementVoucherDocument document, MessageMap errors) {
@@ -278,7 +281,6 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
      *
      * @param disbursementVoucherDocument submitted disbursement voucher document
      * @return true if payment reason is travel by a non-employee
-     *
      */
     private boolean isTravelNonEmplPaymentReason(DisbursementVoucherDocument disbursementVoucherDocument) {
         ParameterEvaluator travelNonEmplPaymentReasonEvaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.NONEMPLOYEE_TRAVEL_PAY_REASONS_PARM_NM, disbursementVoucherDocument.getDvPayeeDetail().getDisbVchrPaymentReasonCode());
@@ -296,6 +298,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -304,6 +307,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -312,6 +316,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Gets the disbursementVoucherTaxService attribute.
+     *
      * @return Returns the disbursementVoucherTaxService.
      */
     public DisbursementVoucherTaxService getDisbursementVoucherTaxService() {
@@ -320,6 +325,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Sets the disbursementVoucherTaxService attribute value.
+     *
      * @param disbursementVoucherTaxService The disbursementVoucherTaxService to set.
      */
     public void setDisbursementVoucherTaxService(DisbursementVoucherTaxService disbursementVoucherTaxService) {
@@ -328,6 +334,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Gets the disbursementVoucherTravelService attribute.
+     *
      * @return Returns the disbursementVoucherTravelService.
      */
     public DisbursementVoucherTravelService getDisbursementVoucherTravelService() {
@@ -336,6 +343,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Sets the disbursementVoucherTravelService attribute value.
+     *
      * @param disbursementVoucherTravelService The disbursementVoucherTravelService to set.
      */
     public void setDisbursementVoucherTravelService(DisbursementVoucherTravelService disbursementVoucherTravelService) {
@@ -344,6 +352,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Gets the dictionaryValidationService attribute.
+     *
      * @return Returns the dictionaryValidationService.
      */
     public DictionaryValidationService getDictionaryValidationService() {
@@ -352,6 +361,7 @@ public class DisbursementVoucherNonEmployeeTravelValidation extends GenericValid
 
     /**
      * Sets the dictionaryValidationService attribute value.
+     *
      * @param dictionaryValidationService The dictionaryValidationService to set.
      */
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {

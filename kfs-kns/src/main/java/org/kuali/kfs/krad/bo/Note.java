@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.krad.bo;
 
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,39 +42,39 @@ import java.util.Properties;
  * Represents a user note in the system.
  */
 @Entity
-@Table(name="KRNS_NTE_T")
+@Table(name = "KRNS_NTE_T")
 public class Note extends PersistableBusinessObjectBase {
     private static final long serialVersionUID = -7647166354016356770L;
 
     @Id
-    @GeneratedValue(generator="KRNS_NTE_S")
-	@Column(name="NTE_ID")
-	private Long noteIdentifier;
-    @Column(name="RMT_OBJ_ID")
-	private String remoteObjectIdentifier;
-    @Column(name="AUTH_PRNCPL_ID")
-	private String authorUniversalIdentifier;
-	@Column(name="POST_TS")
-	private Timestamp notePostedTimestamp;
-    @Column(name="NTE_TYP_CD")
-	private String noteTypeCode;
-    @Column(name="TXT")
-	private String noteText;
-    @Column(name="TPC_TXT")
-	private String noteTopicText;
-    @Column(name="PRG_CD")
-	private String notePurgeCode;
+    @GeneratedValue(generator = "KRNS_NTE_S")
+    @Column(name = "NTE_ID")
+    private Long noteIdentifier;
+    @Column(name = "RMT_OBJ_ID")
+    private String remoteObjectIdentifier;
+    @Column(name = "AUTH_PRNCPL_ID")
+    private String authorUniversalIdentifier;
+    @Column(name = "POST_TS")
+    private Timestamp notePostedTimestamp;
+    @Column(name = "NTE_TYP_CD")
+    private String noteTypeCode;
+    @Column(name = "TXT")
+    private String noteText;
+    @Column(name = "TPC_TXT")
+    private String noteTopicText;
+    @Column(name = "PRG_CD")
+    private String notePurgeCode;
     @Transient
     private String attachmentIdentifier;
 
-    @OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="NTE_TYP_CD", insertable=false, updatable=false)
-	private NoteType noteType;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "NTE_TYP_CD", insertable = false, updatable = false)
+    private NoteType noteType;
     @Transient
     private transient Person authorUniversal;
-    @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@JoinColumn(name = "NTE_ID", insertable = false, updatable = false)
-	private Attachment attachment;
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "NTE_ID", insertable = false, updatable = false)
+    private Attachment attachment;
     @Transient
     private AdHocRouteRecipient adHocRouteRecipient;
 
@@ -96,8 +96,8 @@ public class Note extends PersistableBusinessObjectBase {
      * Sets the {@link #setNotePostedTimestamp(Timestamp)} to the current time.
      */
     public void setNotePostedTimestampToCurrent() {
-    	final Timestamp now = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
-    	this.setNotePostedTimestamp(now);
+        final Timestamp now = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
+        this.setNotePostedTimestamp(now);
     }
 
     /**
@@ -369,9 +369,9 @@ public class Note extends PersistableBusinessObjectBase {
      */
     public String getAttachmentLink() {
         //getAttachment() is always return null.
-        if(KRADServiceLocator.getAttachmentService().getAttachmentByNoteId(this.getNoteIdentifier()) == null){
+        if (KRADServiceLocator.getAttachmentService().getAttachmentByNoteId(this.getNoteIdentifier()) == null) {
             return "";
-        }else{
+        } else {
             Properties params = new Properties();
             params.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.DOWNLOAD_BO_ATTACHMENT_METHOD);
             params.put(KRADConstants.DOC_FORM_KEY, "88888888");

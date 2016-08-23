@@ -18,17 +18,12 @@
  */
 package org.kuali.kfs.module.ld.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
@@ -46,9 +41,14 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is used to help generating pending entries for the given labor documents
@@ -59,7 +59,7 @@ public class LaborPendingEntryGenerator {
     /**
      * generate the expense pending entries based on the given document and accounting line
      *
-     * @param document the given accounting document
+     * @param document       the given accounting document
      * @param accountingLine the given accounting line
      * @param sequenceHelper the given sequence helper
      * @return a set of expense pending entries
@@ -85,7 +85,7 @@ public class LaborPendingEntryGenerator {
     /**
      * generate the benefit pending entries based on the given document and accounting line
      *
-     * @param document the given accounting document
+     * @param document       the given accounting document
      * @param accountingLine the given accounting line
      * @param sequenceHelper the given sequence helper
      * @return a set of benefit pending entries
@@ -118,11 +118,11 @@ public class LaborPendingEntryGenerator {
                 Boolean enableFringeBenefitCalculationByBenefitRate = parameterService.getParameterValueAsBoolean(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, LaborConstants.BenefitCalculation.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_PARAMETER);
 
                 //If fringeBenefitObjectCode is empty and its enable to use calculation by benefit rate
-                if(StringUtils.isEmpty(fringeBenefitObjectCode) && enableFringeBenefitCalculationByBenefitRate){
+                if (StringUtils.isEmpty(fringeBenefitObjectCode) && enableFringeBenefitCalculationByBenefitRate) {
 
                     String laborBenefitRateCategoryCode = positionObjectBenefit.getLaborBenefitRateCategoryCode();
-                     // Use parameter default if labor benefit rate category code is blank
-                    if(StringUtils.isBlank(laborBenefitRateCategoryCode)){
+                    // Use parameter default if labor benefit rate category code is blank
+                    if (StringUtils.isBlank(laborBenefitRateCategoryCode)) {
                         laborBenefitRateCategoryCode = parameterService.getParameterValueAsString(Account.class, LaborConstants.BenefitCalculation.DEFAULT_BENEFIT_RATE_CATEGORY_CODE_PARAMETER);
                     }
 
@@ -131,7 +131,7 @@ public class LaborPendingEntryGenerator {
                     fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, positionObjectBenefit.getUniversityFiscalYear());
                     fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, positionObjectBenefit.getChartOfAccountsCode());
                     fieldValues.put(LaborPropertyConstants.POSITION_BENEFIT_TYPE_CODE, positionObjectBenefit.getFinancialObjectBenefitsTypeCode());
-                    fieldValues.put(LaborPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE,laborBenefitRateCategoryCode);
+                    fieldValues.put(LaborPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE, laborBenefitRateCategoryCode);
                     BenefitsCalculation bc = (BenefitsCalculation) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(BenefitsCalculation.class, fieldValues);
 
                     fringeBenefitObjectCode = bc.getPositionFringeBenefitObjectCode();
@@ -149,10 +149,10 @@ public class LaborPendingEntryGenerator {
      * generate the benefit pending entries with the given benefit amount and finge benefit object code based on the given document
      * and accounting line
      *
-     * @param document the given accounting document
-     * @param accountingLine the given accounting line
-     * @param sequenceHelper the given sequence helper
-     * @param benefitAmount the given benefit amount
+     * @param document                the given accounting document
+     * @param accountingLine          the given accounting line
+     * @param sequenceHelper          the given sequence helper
+     * @param benefitAmount           the given benefit amount
      * @param fringeBenefitObjectCode the given fringe benefit object code
      * @return a set of benefit pending entries with the given benefit amount and fringe benefit object code
      */
@@ -178,9 +178,9 @@ public class LaborPendingEntryGenerator {
      * generate the benefit clearing pending entries with the given benefit amount and fringe benefit object code based on the given
      * document and accounting line
      *
-     * @param document the given accounting document
-     * @param sequenceHelper the given sequence helper
-     * @param accountNumber the given clearing account number
+     * @param document            the given accounting document
+     * @param sequenceHelper      the given sequence helper
+     * @param accountNumber       the given clearing account number
      * @param chartOfAccountsCode the given clearing chart of accounts code
      * @return a set of benefit clearing pending entries
      */
@@ -235,7 +235,7 @@ public class LaborPendingEntryGenerator {
      * update the benefit amount summary map based on the given accounting line
      *
      * @param benefitAmountSumByBenefitType the given benefit amount summary map
-     * @param accountingLine the given accounting line
+     * @param accountingLine                the given accounting line
      */
     protected static void updateBenefitAmountSum(Map<String, KualiDecimal> benefitAmountSumByBenefitType, ExpenseTransferAccountingLine accountingLine) {
         accountingLine.refreshReferenceObject(KFSPropertyConstants.LABOR_OBJECT);
@@ -268,10 +268,10 @@ public class LaborPendingEntryGenerator {
     /**
      * determine if the pay fiscal year and period from the accounting line match with its university fiscal year and period.
      *
-     * @param document the given document
+     * @param document       the given document
      * @param accountingLine the given accounting line of the document
      * @return true if the pay fiscal year and period from the accounting line match with its university fiscal year and period;
-     *         otherwise, false
+     * otherwise, false
      */
     protected static boolean isAccountingLinePayFYPeriodMatchesUniversityPayFYPeriod(LaborLedgerPostingDocument document, ExpenseTransferAccountingLine accountingLine) {
         Integer fiscalYear = document.getPostingYear();
@@ -298,7 +298,7 @@ public class LaborPendingEntryGenerator {
         BusinessObjectService bos = SpringContext.getBean(BusinessObjectService.class);
 
         //refresh nonupdateable references for financial object...
-        Map<String, String> primaryKeys = new HashMap<String,String>();
+        Map<String, String> primaryKeys = new HashMap<String, String>();
 
         for (LaborLedgerPendingEntry llpe : llpes) {
             primaryKeys.put("financialObjectCode", llpe.getFinancialObjectCode());

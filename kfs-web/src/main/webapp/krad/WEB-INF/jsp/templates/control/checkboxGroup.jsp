@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="control" classname="org.kuali.kfs.krad.uif.control.CheckboxGroupControl"/>
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.InputField"/>
@@ -27,6 +27,6 @@
  --%>
 
 <form:checkboxes id="${field.id}" path="${field.bindingInfo.bindingPath}" disabled="${control.disabled}"
-                   items="${control.options}" itemValue="key" itemLabel="value"
-                   cssClass="${control.styleClassesAsString}" delimiter="${control.delimiter}"
-                   tabindex="${control.tabIndex}"/>
+                 items="${control.options}" itemValue="key" itemLabel="value"
+                 cssClass="${control.styleClassesAsString}" delimiter="${control.delimiter}"
+                 tabindex="${control.tabIndex}"/>

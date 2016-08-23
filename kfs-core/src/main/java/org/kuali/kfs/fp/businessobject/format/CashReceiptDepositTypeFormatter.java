@@ -52,8 +52,7 @@ public class CashReceiptDepositTypeFormatter extends Formatter {
 
             if (StringUtils.equals(message, INTERIM_MSG)) {
                 result = INTERIM_CD;
-            }
-            else if (StringUtils.equals(message, FINAL_MSG)) {
+            } else if (StringUtils.equals(message, FINAL_MSG)) {
                 result = FINAL_CD;
             }
         }
@@ -72,8 +71,7 @@ public class CashReceiptDepositTypeFormatter extends Formatter {
 
             if (StringUtils.equals(statusCode, FINAL_CD)) {
                 formatted = FINAL_MSG;
-            }
-            else if (StringUtils.equals(statusCode, INTERIM_CD)) {
+            } else if (StringUtils.equals(statusCode, INTERIM_CD)) {
                 formatted = INTERIM_MSG;
             }
         }

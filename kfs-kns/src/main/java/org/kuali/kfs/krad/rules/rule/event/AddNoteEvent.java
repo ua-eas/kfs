@@ -26,8 +26,6 @@ import org.kuali.kfs.krad.rules.rule.BusinessRule;
 /**
  * This class represents the add note event that is part of an eDoc in Kuali. This is triggered when a user presses the add button
  * for a given note or it could happen when another piece of code calls the create note method in the document service.
- *
- *
  */
 public final class AddNoteEvent extends KualiDocumentEventBase {
     private Note note;

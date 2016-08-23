@@ -26,42 +26,44 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
-                The defaultSort element specifies the sequence in which the
-                lookup search results should be displayed.  It contains an
-                ascending/descending indicator and a list of attribute names.
-
-                DD: See SortDefinition.java
-
-                JSTL: defaultSort is a Map with the following keys:
-                * sortAscending (boolean String)
-                * sortAttributes (Map)
-
-                By the time JSTL export occurs, the optional attributeName from the defaultSort
-                tag will have been converted into the first contained sortAttribute
+ * The defaultSort element specifies the sequence in which the
+ * lookup search results should be displayed.  It contains an
+ * ascending/descending indicator and a list of attribute names.
+ * <p>
+ * DD: See SortDefinition.java
+ * <p>
+ * JSTL: defaultSort is a Map with the following keys:
+ * sortAscending (boolean String)
+ * sortAttributes (Map)
+ * <p>
+ * By the time JSTL export occurs, the optional attributeName from the defaultSort
+ * tag will have been converted into the first contained sortAttribute
  */
 public class SortDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = -1092811342186612461L;
 
-	protected boolean sortAscending = true;
+    protected boolean sortAscending = true;
     protected List<String> attributeNames = new ArrayList<String>();
 
-    public SortDefinition() {}
+    public SortDefinition() {
+    }
 
 
     /**
-                       The sortAttribute element defines one part of the sort key.
-                        The full sort key is comprised of the sortAttribute's in the
-                        order in which they have been defined.
-
-                        DD: See SortAttributesDefinition.java.
-
-                        JSTL: sortAttribute is a Map which is accessed using a
-                        key of the attributeName of the sortAttribute.
-                        It contains a single entry with the following key:
-                            * "attributeName"
-
-                        The associated value is the attributeName of the sortAttribute.
-                        See LookupMapBuilder.java
+     * The sortAttribute element defines one part of the sort key.
+     * The full sort key is comprised of the sortAttribute's in the
+     * order in which they have been defined.
+     * <p>
+     * DD: See SortAttributesDefinition.java.
+     * <p>
+     * JSTL: sortAttribute is a Map which is accessed using a
+     * key of the attributeName of the sortAttribute.
+     * It contains a single entry with the following key:
+     * "attributeName"
+     * <p>
+     * The associated value is the attributeName of the sortAttribute.
+     * See LookupMapBuilder.java
+     *
      * @throws IllegalArgumentException if the given attributeName is blank
      */
     public void setAttributeName(String attributeName) {
@@ -101,7 +103,7 @@ public class SortDefinition extends DataDictionaryDefinitionBase {
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
-        for ( String attributeName : attributeNames ) {
+        for (String attributeName : attributeNames) {
             if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, attributeName)) {
                 throw new AttributeValidationException("unable to find sort attribute '" + attributeName + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }
@@ -114,7 +116,7 @@ public class SortDefinition extends DataDictionaryDefinitionBase {
      */
     public String toString() {
         StringBuffer attrList = new StringBuffer("[");
-        for (Iterator<String> i = attributeNames.iterator(); i.hasNext();) {
+        for (Iterator<String> i = attributeNames.iterator(); i.hasNext(); ) {
             attrList.append(i.next());
             if (i.hasNext()) {
                 attrList.append(",");
@@ -127,14 +129,14 @@ public class SortDefinition extends DataDictionaryDefinitionBase {
 
 
     /**
-                     The sortAttributes element allows a multiple-part sort key
-                      to be defined
-
-                      JSTL: sortAttributes is a Map which is accessed using a
-                      key of "sortAttributes". This map contains an entry for
-                      sort attribute.  The key is:
-                      * attributeName of a sort field.
-                      The associated value is a sortAttribute ExportMap.
+     * The sortAttributes element allows a multiple-part sort key
+     * to be defined
+     * <p>
+     * JSTL: sortAttributes is a Map which is accessed using a
+     * key of "sortAttributes". This map contains an entry for
+     * sort attribute.  The key is:
+     * attributeName of a sort field.
+     * The associated value is a sortAttribute ExportMap.
      */
     public void setAttributeNames(List<String> attributeNames) {
         this.attributeNames = attributeNames;

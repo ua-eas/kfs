@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.report;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class BusinessObjectReportHelpTest extends KualiTestBase {
@@ -38,7 +38,7 @@ public class BusinessObjectReportHelpTest extends KualiTestBase {
     public void setUp() throws Exception {
         super.setUp();
 
-        summaryReportHelper = SpringContext.getBean(BusinessObjectReportHelper.class,"summaryReportHelperForTesting");
+        summaryReportHelper = SpringContext.getBean(BusinessObjectReportHelper.class, "summaryReportHelperForTesting");
     }
 
     public void testGetTableDefintion() throws Exception {

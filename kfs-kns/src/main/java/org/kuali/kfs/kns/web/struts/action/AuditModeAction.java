@@ -27,9 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * audit mode action marker
- *
- *
- *
  */
 public interface AuditModeAction {
     public ActionForward activate(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception;

@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.businessobject.LaborGeneralLedgerEntry;
 import org.kuali.kfs.module.ld.testdata.LaborTestDataPropertyConstants;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -32,7 +28,11 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class LaborGeneralLedgerEntryServiceTest extends KualiTestBase {
@@ -80,8 +80,7 @@ public class LaborGeneralLedgerEntryServiceTest extends KualiTestBase {
         try {
             laborGeneralLedgerEntryService.save(input2);
             fail();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 

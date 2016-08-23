@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.ws.WebServiceException;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
 import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.module.external.kc.KcConstants;
@@ -40,6 +31,14 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import javax.xml.ws.WebServiceException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class CfdaServiceImpl implements ExternalizableLookupableBusinessObjectService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CfdaServiceImpl.class);
@@ -56,8 +55,7 @@ public class CfdaServiceImpl implements ExternalizableLookupableBusinessObjectSe
             CfdaNumberSoapService soapService = null;
             try {
                 soapService = new CfdaNumberSoapService();
-            }
-            catch (MalformedURLException ex) {
+            } catch (MalformedURLException ex) {
                 LOG.error("Could not intialize CfdaNumberSoapService: " + ex.getMessage());
                 throw new RuntimeException("Could not intialize CfdaNumberSoapService: " + ex.getMessage());
             }
@@ -73,8 +71,7 @@ public class CfdaServiceImpl implements ExternalizableLookupableBusinessObjectSe
 
         if (cfda != null && cfda.iterator().hasNext()) {
             return (ContractsAndGrantsCfda) cfda.iterator().next();
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -84,7 +81,7 @@ public class CfdaServiceImpl implements ExternalizableLookupableBusinessObjectSe
         List<CfdaDTO> cfdas = null;
         java.util.List<HashMapElement> hashMapList = new ArrayList<HashMapElement>();
 
-        for (Iterator i = fieldValues.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = fieldValues.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry e = (Map.Entry) i.next();
 
             String key = (String) e.getKey();
@@ -100,9 +97,8 @@ public class CfdaServiceImpl implements ExternalizableLookupableBusinessObjectSe
 
         try {
             cfdas = getWebService().lookupCfda(hashMapList);
-        }
-        catch (WebServiceException ex) {
-            LOG.error("Could not retrieve cfda: "+ ex.getMessage());
+        } catch (WebServiceException ex) {
+            LOG.error("Could not retrieve cfda: " + ex.getMessage());
             GlobalVariablesExtractHelper.insertError(KcConstants.WEBSERVICE_UNREACHABLE, getConfigurationService().getPropertyValueAsString(KFSConstants.KC_APPLICATION_URL_KEY));
         }
 

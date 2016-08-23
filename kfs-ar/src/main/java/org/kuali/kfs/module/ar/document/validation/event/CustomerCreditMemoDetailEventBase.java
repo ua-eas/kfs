@@ -20,12 +20,12 @@ package org.kuali.kfs.module.ar.document.validation.event;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 
-public abstract class CustomerCreditMemoDetailEventBase extends KualiDocumentEventBase implements CustomerCreditMemoDetailEvent{
+public abstract class CustomerCreditMemoDetailEventBase extends KualiDocumentEventBase implements CustomerCreditMemoDetailEvent {
 
     private static final Logger LOG = Logger.getLogger(CustomerCreditMemoDetailEventBase.class);
     private final CustomerCreditMemoDetail customerCreditMemoDetail;
@@ -64,10 +64,9 @@ public abstract class CustomerCreditMemoDetailEventBase extends KualiDocumentEve
         // vary logging detail as needed
         if (customerCreditMemoDetail == null) {
             logMessage.append("null customerCreditMemoDetail");
-        }
-        else {
+        } else {
             logMessage.append(" customer credit memo detail# ");
-            logMessage.append( customerCreditMemoDetail.getReferenceInvoiceItemNumber() );
+            logMessage.append(customerCreditMemoDetail.getReferenceInvoiceItemNumber());
         }
 
         LOG.debug(logMessage);

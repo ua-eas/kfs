@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.sql.Date;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -29,7 +27,9 @@ import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Defines methods that must be implemented by classes providing a PurapService.
@@ -53,14 +53,14 @@ public interface PurapService {
     /**
      * Add the allowed below the line items to the given document
      *
-     * @param document   PurchasingAccountsPayableDocument
+     * @param document PurchasingAccountsPayableDocument
      */
     public void addBelowLineItems(PurchasingAccountsPayableDocument document);
 
     /**
      * Retrieves the below the line items allowed from the parameter table for the given document
      *
-     * @param document  PurchasingAccountsPayableDocument
+     * @param document PurchasingAccountsPayableDocument
      * @return Array list of below the line items
      */
     public String[] getBelowTheLineForDocument(PurchasingAccountsPayableDocument document);
@@ -70,7 +70,7 @@ public interface PurapService {
      * type)
      *
      * @param document the document
-     * @param iT the itemType
+     * @param iT       the itemType
      * @return below the line item by item type
      */
     public PurApItem getBelowTheLineByType(PurchasingAccountsPayableDocument document, ItemType iT);
@@ -79,7 +79,7 @@ public interface PurapService {
      * Return a Date object which is which is a given number of days away from today, in either direction.
      *
      * @param offsetDays
-     * @return  A java.sql.Date
+     * @return A java.sql.Date
      */
     public Date getDateFromOffsetFromToday(int offsetDays);
 
@@ -95,7 +95,7 @@ public interface PurapService {
      * Determine whether a given date is more than a given number of days away from the current date.
      *
      * @param compareDate An SQL date (not a DateFormatter date, or a util Date)
-     * @param daysAway An int, positive for future days, negative for past days
+     * @param daysAway    An int, positive for future days, negative for past days
      * @return True if the given date is more than the given number of days away in either direction.
      */
     public boolean isDateMoreThanANumberOfDaysAway(Date compareDate, int daysAway);
@@ -114,10 +114,10 @@ public interface PurapService {
      * then based on the {@link org.kuali.kfs.module.purap.businessobject.OrganizationParameter} associated with the given 'chart' and 'org' values.
      *
      * @param vendorContractGeneratedIdentifier
-     * @param chart chart code to use when looking up limit amount on {@link org.kuali.kfs.vnd.businessobject.VendorContract} and
-     *        {@link org.kuali.kfs.module.purap.businessobject.OrganizationParameter}
-     * @param org organization code to use when looking up limit amount on {@link org.kuali.kfs.vnd.businessobject.VendorContract} and
-     *        {@link org.kuali.kfs.module.purap.businessobject.OrganizationParameter}
+     * @param chart                             chart code to use when looking up limit amount on {@link org.kuali.kfs.vnd.businessobject.VendorContract} and
+     *                                          {@link org.kuali.kfs.module.purap.businessobject.OrganizationParameter}
+     * @param org                               organization code to use when looking up limit amount on {@link org.kuali.kfs.vnd.businessobject.VendorContract} and
+     *                                          {@link org.kuali.kfs.module.purap.businessobject.OrganizationParameter}
      * @return a KualiDecimal if a valid limit amount is found or null if one is not found
      */
     public KualiDecimal getApoLimit(Integer vendorContractGeneratedIdentifier, String chart, String org);
@@ -169,7 +169,7 @@ public interface PurapService {
     /**
      * Sort the below the line elements of the given document
      *
-     * @param document  PurchasingAccountsPayableDocument to be sorted
+     * @param document PurchasingAccountsPayableDocument to be sorted
      */
     public void sortBelowTheLine(PurchasingAccountsPayableDocument document);
 
@@ -177,7 +177,7 @@ public interface PurapService {
      * Remove items that have not been "entered" which means no data has been added to them so no more processing needs to continue
      * on these items.
      *
-     * @param apDocument  AccountsPayableDocument which contains list of items to be reviewed
+     * @param apDocument AccountsPayableDocument which contains list of items to be reviewed
      */
     public void deleteUnenteredItems(PurapItemOperations document);
 
@@ -211,101 +211,103 @@ public interface PurapService {
      *
      * @return List<Integer>
      */
-   public List<Integer> getAllowedFiscalYears();
+    public List<Integer> getAllowedFiscalYears();
 
-   /**
-    * Returns true if today is within the APO allowed date range. If the difference between today and this years closing date is
-    * less than or equal to the number of days allowed for APO.
-    *
-    * @return boolean
-    */
-   public boolean isTodayWithinApoAllowedRange();
+    /**
+     * Returns true if today is within the APO allowed date range. If the difference between today and this years closing date is
+     * less than or equal to the number of days allowed for APO.
+     *
+     * @return boolean
+     */
+    public boolean isTodayWithinApoAllowedRange();
 
-   /**
-    * Calculates sales or use tax for each item if sales tax enabled and item is taxable.
-    *
-    * @param purapDocument
-    */
-   public void calculateTax(PurchasingAccountsPayableDocument purapDocument);
+    /**
+     * Calculates sales or use tax for each item if sales tax enabled and item is taxable.
+     *
+     * @param purapDocument
+     */
+    public void calculateTax(PurchasingAccountsPayableDocument purapDocument);
 
-   /**
-    * Clears the tax from a document.  Useful when changing from use to sales
-    * @param purapDocument document
-    * @param useTax the whether to clear use or sales
-    */
-   public void clearTax(PurchasingAccountsPayableDocument purapDocument, boolean useTax);
+    /**
+     * Clears the tax from a document.  Useful when changing from use to sales
+     *
+     * @param purapDocument document
+     * @param useTax        the whether to clear use or sales
+     */
+    public void clearTax(PurchasingAccountsPayableDocument purapDocument, boolean useTax);
 
-   /**
-    * Updates the use tax field, clearing old values if it has changed
-    * @param purapDocument document
-    * @param newUseTaxIndicatorValue useTaxIndicator to change to
-    */
-   public void updateUseTaxIndicator(PurchasingAccountsPayableDocument purapDocument, boolean newUseTaxIndicatorValue);
+    /**
+     * Updates the use tax field, clearing old values if it has changed
+     *
+     * @param purapDocument           document
+     * @param newUseTaxIndicatorValue useTaxIndicator to change to
+     */
+    public void updateUseTaxIndicator(PurchasingAccountsPayableDocument purapDocument, boolean newUseTaxIndicatorValue);
 
-   /**
-    *
-    * Proation for Trade in and Full Order Discount miscellaneous items.
-    * @param purDoc
-    */
-   public void prorateForTradeInAndFullOrderDiscount(PurchasingAccountsPayableDocument purDoc);
+    /**
+     * Proation for Trade in and Full Order Discount miscellaneous items.
+     *
+     * @param purDoc
+     */
+    public void prorateForTradeInAndFullOrderDiscount(PurchasingAccountsPayableDocument purDoc);
 
-   /**
-    * Determines if the item is taxable based on a decision tree.
-    *
-    * @param useTaxIndicator
-    * @param deliveryState
-    * @param item
-    * @return
-    */
-   public boolean isTaxable(boolean useTaxIndicator, String deliveryState, PurApItem item);
+    /**
+     * Determines if the item is taxable based on a decision tree.
+     *
+     * @param useTaxIndicator
+     * @param deliveryState
+     * @param item
+     * @return
+     */
+    public boolean isTaxable(boolean useTaxIndicator, String deliveryState, PurApItem item);
 
-   /**
-    * Determines if the item is taxable based on a decision tree.
-    * Does not consider if item is entered, this is not used to calculate tax,
-    * just if the item is indeed taxable.
-    *
-    * @param useTaxIndicator
-    * @param deliveryState
-    * @param item
-    * @return
-    */
-   public boolean isTaxableForSummary(boolean useTaxIndicator, String deliveryState, PurApItem item);
+    /**
+     * Determines if the item is taxable based on a decision tree.
+     * Does not consider if item is entered, this is not used to calculate tax,
+     * just if the item is indeed taxable.
+     *
+     * @param useTaxIndicator
+     * @param deliveryState
+     * @param item
+     * @return
+     */
+    public boolean isTaxableForSummary(boolean useTaxIndicator, String deliveryState, PurApItem item);
 
-   /**
-    * Retrieves the delivery state from the document
-    *
-    * @param purapDocument
-    * @return
-    */
-   public String getDeliveryState(PurchasingAccountsPayableDocument purapDocument);
+    /**
+     * Retrieves the delivery state from the document
+     *
+     * @param purapDocument
+     * @return
+     */
+    public String getDeliveryState(PurchasingAccountsPayableDocument purapDocument);
 
-   /**
-    * Determines if the accounting line is taxable based on account and object code.
-    *
-    * @param acctLine
-    * @param deliveryStateTaxable
-    * @return
-    */
-   public boolean isAccountingLineTaxable(PurApAccountingLine acctLine, boolean deliveryStateTaxable);
+    /**
+     * Determines if the accounting line is taxable based on account and object code.
+     *
+     * @param acctLine
+     * @param deliveryStateTaxable
+     * @return
+     */
+    public boolean isAccountingLineTaxable(PurApAccountingLine acctLine, boolean deliveryStateTaxable);
 
-   /**
-    * Determines if the delivery state is taxable or not. If parameter is Allow and delivery state in list, or parameter is Denied
-    * and delivery state is not in list then state is taxable.
-    *
-    * @param deliveryState
-    * @return
-    */
-   public boolean isDeliveryStateTaxable(String deliveryState);
+    /**
+     * Determines if the delivery state is taxable or not. If parameter is Allow and delivery state in list, or parameter is Denied
+     * and delivery state is not in list then state is taxable.
+     *
+     * @param deliveryState
+     * @return
+     */
+    public boolean isDeliveryStateTaxable(String deliveryState);
 
-   public void clearAllTaxes(PurchasingAccountsPayableDocument apDoc);
+    public void clearAllTaxes(PurchasingAccountsPayableDocument apDoc);
 
-   /**
-    * Determines if the item type specified conflict with the Account tax policy.
-    *
-    * @param purchasingDocument purchasing document to check
-    * @param item item to check if in conflict with tax policy
-    * @return true if item is in conflict, false otherwise
-    */
-   public abstract boolean isItemTypeConflictWithTaxPolicy(PurchasingDocument purchasingDocument, PurApItem item);
+    /**
+     * Determines if the item type specified conflict with the Account tax policy.
+     *
+     * @param purchasingDocument purchasing document to check
+     * @param item               item to check if in conflict with tax policy
+     * @return true if item is in conflict, false otherwise
+     */
+    public abstract boolean isItemTypeConflictWithTaxPolicy(PurchasingDocument purchasingDocument, PurApItem item);
 }
 

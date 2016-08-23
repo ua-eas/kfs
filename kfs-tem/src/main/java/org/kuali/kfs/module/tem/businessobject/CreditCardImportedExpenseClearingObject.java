@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.tem.TemConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,17 +33,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.module.tem.TemConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObject;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-
-public class CreditCardImportedExpenseClearingObject extends PersistableBusinessObjectBase implements GlobalBusinessObject{
+public class CreditCardImportedExpenseClearingObject extends PersistableBusinessObjectBase implements GlobalBusinessObject {
     private String documentNumber;
-
 
 
     List<CreditCardImportedExpenseClearingDetail> expenses = new ArrayList<CreditCardImportedExpenseClearingDetail>();
@@ -74,7 +73,7 @@ public class CreditCardImportedExpenseClearingObject extends PersistableBusiness
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
         List<PersistableBusinessObject> historicalTravelExpenses = new ArrayList<PersistableBusinessObject>();
 
-        for(CreditCardImportedExpenseClearingDetail detail : getExpenses()){
+        for (CreditCardImportedExpenseClearingDetail detail : getExpenses()) {
             Map<String, Object> fieldValues = new HashMap<String, Object>();
             fieldValues.put("creditCardStagingDataId", detail.getCreditCardStagingDataId());
             List<HistoricalTravelExpense> expenseList = (List<HistoricalTravelExpense>) SpringContext.getBean(BusinessObjectService.class).findMatching(HistoricalTravelExpense.class, fieldValues);
@@ -111,7 +110,7 @@ public class CreditCardImportedExpenseClearingObject extends PersistableBusiness
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getExpenses() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getExpenses()));
         return managedLists;
     }
 }

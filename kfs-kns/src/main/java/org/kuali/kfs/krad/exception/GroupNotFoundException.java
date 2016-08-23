@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.exception;
 
 /**
  * This class represents an exception that is thrown when a given group can not be retrieved from workflow.
- *
- *
  */
 public class GroupNotFoundException extends Exception {
 

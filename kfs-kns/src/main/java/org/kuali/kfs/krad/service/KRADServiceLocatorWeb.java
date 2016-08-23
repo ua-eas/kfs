@@ -18,32 +18,30 @@
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.kfs.krad.lookup.Lookupable;
 import org.kuali.kfs.krad.uif.service.AttributeQueryService;
 import org.kuali.kfs.krad.uif.service.ExpressionEvaluatorService;
 import org.kuali.kfs.krad.uif.service.ViewDictionaryService;
 import org.kuali.kfs.krad.uif.service.ViewService;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
 /**
  * Service locator for the KRAD Web module
- *
- *
  */
 public class KRADServiceLocatorWeb {
 
     public static final class Namespaces {
         public static final String MODULE_NAME = "krad";
         public static final String KRAD_NAMESPACE_PREFIX =
-                CoreConstants.Namespaces.ROOT_NAMESPACE_PREFIX + "/" + MODULE_NAME;
+            CoreConstants.Namespaces.ROOT_NAMESPACE_PREFIX + "/" + MODULE_NAME;
 
         /**
          * Namespace for the krad module which is compatible with Kuali Rice 2.0.x.
          */
         public static final String KRAD_NAMESPACE_2_0 =
-                KRAD_NAMESPACE_PREFIX + "/" + CoreConstants.Versions.VERSION_2_0;
+            KRAD_NAMESPACE_PREFIX + "/" + CoreConstants.Versions.VERSION_2_0;
 
     }
 

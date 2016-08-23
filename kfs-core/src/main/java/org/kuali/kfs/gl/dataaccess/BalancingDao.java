@@ -25,6 +25,7 @@ package org.kuali.kfs.gl.dataaccess;
 public interface BalancingDao {
     /**
      * Populates AccountBalancesHistory with AccountBalances data based on the start fiscal year passed in
+     *
      * @param universityFiscalYear fiscal year the populate should start from
      * @return number of rows affected
      */
@@ -32,6 +33,7 @@ public interface BalancingDao {
 
     /**
      * Populates EncumbranceHistory with Encumbrance data based on the start fiscal year passed in
+     *
      * @param universityFiscalYear fiscal year the populate should start from
      * @return number of rows affected
      */

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.tem.document.TaxableRamificationDocument;
-import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.module.tem.document.TaxableRamificationDocument;
+import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
+
+import java.util.List;
+import java.util.Map;
 
 public class TaxableRamificationForm extends FinancialSystemTransactionalDocumentFormBase {
     private final static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TaxableRamificationForm.class);
@@ -43,6 +43,7 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the relatedDocuments attribute.
+     *
      * @return Returns the relatedDocuments.
      */
     public Map<String, List<Document>> getRelatedDocuments() {
@@ -51,6 +52,7 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Sets the relatedDocuments attribute value.
+     *
      * @param relatedDocuments The relatedDocuments to set.
      */
     public void setRelatedDocuments(Map<String, List<Document>> relatedDocuments) {
@@ -60,12 +62,13 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
     /**
      * get the tax ramification document
      */
-    public TaxableRamificationDocument getTaxableRamificationDocument(){
-        return (TaxableRamificationDocument)(this.getDocument());
+    public TaxableRamificationDocument getTaxableRamificationDocument() {
+        return (TaxableRamificationDocument) (this.getDocument());
     }
 
     /**
      * Gets the relatedDocumentNotes attribute.
+     *
      * @return Returns the relatedDocumentNotes.
      */
     public Map<String, List<Note>> getRelatedDocumentNotes() {
@@ -74,6 +77,7 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Sets the relatedDocumentNotes attribute value.
+     *
      * @param relatedDocumentNotes The relatedDocumentNotes to set.
      */
     public void setRelatedDocumentNotes(Map<String, List<Note>> relatedDocumentNotes) {
@@ -82,6 +86,7 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the canUnmask attribute.
+     *
      * @return Returns the canUnmask.
      */
     public boolean isCanUnmask() {
@@ -90,6 +95,7 @@ public class TaxableRamificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Sets the canUnmask attribute value.
+     *
      * @param canUnmask The canUnmask to set.
      */
     public void setCanUnmask(boolean canUnmask) {

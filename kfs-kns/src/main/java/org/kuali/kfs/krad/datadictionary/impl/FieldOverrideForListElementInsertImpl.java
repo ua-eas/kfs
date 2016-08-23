@@ -18,19 +18,16 @@
  */
 package org.kuali.kfs.krad.datadictionary.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.krad.datadictionary.FieldOverride;
+
+import java.util.List;
 
 /**
  * A Field Override used to insert elements into a Data Dictionary Bean.
- *
- *
- *
  */
-public class FieldOverrideForListElementInsertImpl extends FieldOverrideForListElementBase  implements FieldOverride{
+public class FieldOverrideForListElementInsertImpl extends FieldOverrideForListElementBase implements FieldOverride {
 
-	private Object insertBefore;
+    private Object insertBefore;
     private Object insertAfter;
 
     public Object getInsertBefore() {
@@ -51,35 +48,27 @@ public class FieldOverrideForListElementInsertImpl extends FieldOverrideForListE
     }
 
 
-    protected void varifyConfig()
-    {
-        if ( insertBefore != null && insertAfter != null )
-        {
+    protected void varifyConfig() {
+        if (insertBefore != null && insertAfter != null) {
             throw new RuntimeException("Configuration Error, insertBefore and insertAfter can not be both NOT-NULL");
         }
-        if ( insertBefore == null && insertAfter == null )
-        {
+        if (insertBefore == null && insertAfter == null) {
             throw new RuntimeException("Configuration Error, Either insertBefore or insertAfter should be NOT-NULL");
         }
     }
 
-    private Object getObjectToInsert()
-    {
+    private Object getObjectToInsert() {
         Object objToInsert = null;
-        if ( insertBefore != null )
-        {
+        if (insertBefore != null) {
             objToInsert = insertBefore;
         }
-        if ( insertAfter != null )
-        {
-            if ( objToInsert != null )
-            {
+        if (insertAfter != null) {
+            if (objToInsert != null) {
                 throw new RuntimeException("Configuration Error, insertBefore and insertAfter can not be both NOT-NULL");
             }
             objToInsert = insertAfter;
         }
-        if ( objToInsert == null )
-        {
+        if (objToInsert == null) {
             throw new RuntimeException("Configuration Error, Either insertBefore or insertAfter must be NOT-NULL");
         }
         return objToInsert;
@@ -88,28 +77,21 @@ public class FieldOverrideForListElementInsertImpl extends FieldOverrideForListE
     public Object performFieldOverride(Object bean, Object property) {
         Object objToInsert = getObjectToInsert();
 
-        List oldList = (List)property;
+        List oldList = (List) property;
 
         int insertPos = getElementPositionInList(getElement(), oldList);
 
-        if ( insertPos == -1 )
-        {
+        if (insertPos == -1) {
             insertPos = oldList.size();
-        }
-        else
-        {
-            if ( insertAfter != null )
-            {
+        } else {
+            if (insertAfter != null) {
                 insertPos = insertPos + 1;
             }
         }
 
-        if ( objToInsert instanceof List )
-        {
-            oldList.addAll(insertPos, (List)objToInsert);
-        }
-        else
-        {
+        if (objToInsert instanceof List) {
+            oldList.addAll(insertPos, (List) objToInsert);
+        } else {
             oldList.add(insertPos, objToInsert);
         }
         return oldList;

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject.datadictionary;
 
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.county.County;
@@ -50,30 +50,30 @@ public class KfsRelationshipDefinition extends RelationshipDefinition {
             // RICE20 - HACK ALERT!!!! - if the property class is one of the
             // ones we use via BOs, change the type to an EBO to attempt to
             // preserve the lookups
-            if ( Campus.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            if (Campus.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = CampusEbo.class;
-            } else if ( State.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (State.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = StateEbo.class;
-            } else if ( PostalCode.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (PostalCode.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = PostalCodeEbo.class;
-            } else if ( Country.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (Country.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = CountryEbo.class;
-            } else if ( County.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (County.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = CountyEbo.class;
-            } else if ( Role.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (Role.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = RoleEbo.class;
-            } else if ( Group.class.isAssignableFrom(propertyClass) ) {
-                LOG.error( "ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName );
+            } else if (Group.class.isAssignableFrom(propertyClass)) {
+                LOG.error("ALERT! : " + propertyClass.getName() + " Reference Unconverted to Ebo class: " + sourceClass.getName() + "." + objectAttributeName);
                 propertyClass = GroupEbo.class;
             } else {
                 if (!BusinessObject.class.isAssignableFrom(propertyClass)) {
-                    throw new AttributeValidationException("property '" + objectAttributeName + "' is not a BusinessObject (" + propertyClass.getName() + ") on sourceClass (" + sourceClass +")");
+                    throw new AttributeValidationException("property '" + objectAttributeName + "' is not a BusinessObject (" + propertyClass.getName() + ") on sourceClass (" + sourceClass + ")");
                 }
             }
 
@@ -85,8 +85,8 @@ public class KfsRelationshipDefinition extends RelationshipDefinition {
 
     @Override
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "Validating Relationships on BO: " + rootBusinessObjectClass.getSimpleName() + "." + objectAttributeName );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Validating Relationships on BO: " + rootBusinessObjectClass.getSimpleName() + "." + objectAttributeName);
         }
         // TODO Auto-generated method stub
         super.completeValidation(rootBusinessObjectClass, otherBusinessObjectClass);

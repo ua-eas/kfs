@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.HashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.easymock.EasyMock;
@@ -28,6 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kra.external.sponsor.SponsorCriteriaDto;
 import org.kuali.kra.external.sponsor.SponsorWebService;
+
+import java.util.HashMap;
 
 public class SponsorServiceImplTest {
 
@@ -51,7 +51,7 @@ public class SponsorServiceImplTest {
         EasyMock.expect(sponsorWebService.getMatchingSponsors(eqCriteria(criteria))).andReturn(null);
         EasyMock.replay(sponsorWebService);
 
-        HashMap<String, Object> fieldValues = new HashMap<String,Object>();
+        HashMap<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put("agencyNumber", "123");
         fieldValues.put("customerNumber", "234");
         fieldValues.put("reportingName", "Sponsor");

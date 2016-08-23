@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cab.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableActionHistory;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
@@ -32,6 +29,9 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PurApLineServiceTest extends KualiTestBase {

@@ -20,7 +20,6 @@ package org.kuali.kfs.krad.util.documentserializer;
 
 /**
  * Represents various types a property may be.
- *
  */
 public enum PropertyType {
     BUSINESS_OBJECT, PRIMITIVE, COLLECTION, MAP

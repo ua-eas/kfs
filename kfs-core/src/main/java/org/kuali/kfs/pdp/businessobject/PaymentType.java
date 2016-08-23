@@ -21,7 +21,6 @@ package org.kuali.kfs.pdp.businessobject;
 import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
- *
  * This class represents a payment type code
  */
 public class PaymentType extends KualiCodeBase {

@@ -25,7 +25,6 @@ import org.directwebremoting.extend.InboundVariable;
 import org.directwebremoting.extend.OutboundContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-
 import uk.ltd.getahead.dwr.compat.BaseV10Converter;
 
 /**
@@ -43,7 +42,7 @@ public class KualiNumberConverter extends BaseV10Converter implements Converter 
 
     /**
      * @see uk.ltd.getahead.dwr.Converter#convertInbound(java.lang.Class, java.util.List, uk.ltd.getahead.dwr.InboundVariable,
-     *      uk.ltd.getahead.dwr.InboundContext)
+     * uk.ltd.getahead.dwr.InboundContext)
      */
     public Object convertInbound(Class paramType, InboundVariable iv) throws ConversionException {
         String value = iv.getValue();
@@ -56,12 +55,11 @@ public class KualiNumberConverter extends BaseV10Converter implements Converter 
                 return new KualiInteger(value.trim());
             }
             String message = MessageBuilder.buildMessage("BigNumberConverter.NonPrimitive", paramType.getName()).getMessage();
-            throw new ConversionException(paramType,message);
-        }
-        catch (NumberFormatException ex) {
+            throw new ConversionException(paramType, message);
+        } catch (NumberFormatException ex) {
             String message = MessageBuilder.buildMessage("BigNumberConverter.FormatError", paramType.getName()).getMessage();
             throw new ConversionException(paramType, message, ex);
-         }
+        }
     }
 
     /*

@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.service;
 /**
  * This interface defines methods that an XmlObjectSerializer Service must provide. This will wrap our needs for xml to object and
  * object to xml functionality.
- *
- *
  */
 public interface XmlObjectSerializerService {
     /**

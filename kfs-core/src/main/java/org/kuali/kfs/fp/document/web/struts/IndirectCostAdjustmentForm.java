@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.IndirectCostAdjustmentDocument;
 import org.kuali.kfs.fp.document.validation.impl.IndirectCostAdjustmentDocumentRuleConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -28,7 +27,8 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.Map;
 
 /**
  * This class is the action form for Indirect Cost Adjustment Document

@@ -18,6 +18,22 @@
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
+import org.kuali.kfs.sys.batch.BatchInputFileSetType;
+import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
+import org.kuali.kfs.sys.batch.service.BatchInputFileSetService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.exception.FileStorageException;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,22 +47,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
-import org.kuali.kfs.sys.batch.BatchInputFileSetType;
-import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
-import org.kuali.kfs.sys.batch.service.BatchInputFileSetService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.exception.FileStorageException;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
-
 /**
  * Base implementation to manipulate batch input file sets from the batch upload screen
  */
@@ -58,10 +58,10 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
     /**
      * Generates the file name of a file (not the done file)
      *
-     * @param user the user who uploaded or will upload the file
-     * @param inputType the file set type
+     * @param user               the user who uploaded or will upload the file
+     * @param inputType          the file set type
      * @param fileUserIdentifier the file identifier
-     * @param fileType the file type
+     * @param fileType           the file type
      * @return the file name, starting with the directory path
      */
     protected String generateFileName(Person user, BatchInputFileSetType inputType, String fileUserIdentifier, String fileType, Date creationDate) {
@@ -74,10 +74,10 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
     /**
      * Generates the file name of a file (not the done file)
      *
-     * @param user the user who uploaded or will upload the file
-     * @param inputType the file set type
+     * @param user               the user who uploaded or will upload the file
+     * @param inputType          the file set type
      * @param fileUserIdentifier the file identifier
-     * @param fileType the file type
+     * @param fileType           the file type
      * @return the file name, starting with the directory path
      */
     protected String generateTempFileName(Person user, BatchInputFileSetType inputType, String fileUserIdentifier, String fileType, Date creationDate) {
@@ -86,13 +86,14 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
         }
         return getTempDirectoryName() + File.separator + inputType.getFileName(fileType, user.getPrincipalName(), fileUserIdentifier, creationDate);
     }
+
     /**
      * Generates the file name of the done file, if supported by the underlying input type
      *
-     * @param user the user who uploaded or will upload the file
-     * @param inputType the file set type
+     * @param user               the user who uploaded or will upload the file
+     * @param inputType          the file set type
      * @param fileUserIdentifier the file identifier
-     * @param fileType the file type
+     * @param fileType           the file type
      * @return the file name, starting with the directory path
      */
     protected String generateDoneFileName(Person user, BatchInputFileSetType inputType, String fileUserIdentifier, Date creationDate) {
@@ -110,7 +111,7 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
             LOG.error("an invalid(null) argument was given");
             throw new IllegalArgumentException("an invalid(null) argument was given");
         }
-        List<String> activeInputTypes = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, SystemGroupParameterNames.ACTIVE_INPUT_TYPES_PARAMETER_NAME) );
+        List<String> activeInputTypes = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, SystemGroupParameterNames.ACTIVE_INPUT_TYPES_PARAMETER_NAME));
 
         boolean activeBatchType = false;
         if (activeInputTypes.size() > 0 && activeInputTypes.contains(batchInputFileSetType.getFileSetTypeIdentifer())) {
@@ -122,7 +123,7 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
 
     /**
      * @see org.kuali.kfs.sys.batch.service.BatchInputFileSetService#save(org.kuali.rice.kim.api.identity.Person,
-     *      org.kuali.kfs.sys.batch.BatchInputFileSetType, java.lang.String, java.util.Map)
+     * org.kuali.kfs.sys.batch.BatchInputFileSetType, java.lang.String, java.util.Map)
      */
     public Map<String, String> save(Person user, BatchInputFileSetType inputType, String fileUserIdentifier, Map<String, InputStream> typeToStreamMap) throws AuthorizationException, FileStorageException {
         //add a step for file directory checking
@@ -157,14 +158,12 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
                     fileContents.close();
                     typeToFileNames.put(fileType, saveFileName);
                     typeToFiles.put(fileType, fileToSave);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     LOG.error("unable to save contents to file " + saveFileName, e);
                     throw new RuntimeException("errors encountered while writing file " + saveFileName, e);
                 }
             }
-        }
-        finally {
+        } finally {
             deleteTempFiles(typeToTempFiles);
         }
 
@@ -174,8 +173,7 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
             doneFile.createNewFile();
 
             typeToFiles.put(KFSConstants.DONE_FILE_TYPE, doneFile);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("unable to create done file", e);
             throw new RuntimeException("unable to create done file", e);
         }
@@ -186,7 +184,7 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
     }
 
     protected Map<String, File> copyStreamsToTemporaryDirectory(Person user, BatchInputFileSetType inputType,
-            String fileUserIdentifier, Map<String, InputStream> typeToStreamMap, Date creationDate) throws FileStorageException {
+                                                                String fileUserIdentifier, Map<String, InputStream> typeToStreamMap, Date creationDate) throws FileStorageException {
         Map<String, File> tempFiles = new HashMap<String, File>();
 
         String tempDirectoryName = getTempDirectoryName();
@@ -206,10 +204,9 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
                 copyInputStreamToFile(source, tempFile, buf);
                 tempFiles.put(fileType, tempFile);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("Error creating temporary files", e);
-            throw new FileStorageException("Error creating temporary files",e);
+            throw new FileStorageException("Error creating temporary files", e);
 
         }
         return tempFiles;
@@ -267,7 +264,9 @@ public class BatchInputFileSetServiceImpl extends InitiateDirectoryBase implemen
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>(){{add(getTempDirectoryName());}};
+        return new ArrayList<String>() {{
+            add(getTempDirectoryName());
+        }};
     }
 }
 

@@ -18,12 +18,8 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgSynchronizationProblemsReport;
@@ -35,9 +31,13 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationRe
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionSynchronizationProblemsReportService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -101,14 +101,12 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
         orgSynchronizationProblemsReportEntry.setOrganizationCode(positionFunding.getSelectedOrganizationCode());
         if (chartDesc == null) {
             orgSynchronizationProblemsReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSynchronizationProblemsReportEntry.setChartOfAccountDescription(chartDesc);
         }
         if (orgName == null) {
             orgSynchronizationProblemsReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgSynchronizationProblemsReportEntry.setOrganizationName(orgName);
         }
         orgSynchronizationProblemsReportEntry.setFiscalYear(prevFiscalyear.toString() + "-" + universityFiscalYear.toString().substring(2, 4));
@@ -134,22 +132,14 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
         orgSynchronizationProblemsReportEntry.setBudgetedPosition(booleanToString(budgetConstructionPosition.isBudgetedPosition()));
     }
 
-    protected String booleanToString(boolean boo){
-        if (boo){
+    protected String booleanToString(boolean boo) {
+        if (boo) {
             return BCConstants.Report.YES;
-        } else { return BCConstants.Report.NO; }
+        } else {
+            return BCConstants.Report.NO;
+        }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
     protected BudgetConstructionPosition getBudgetConstructionPosition(Integer universityFiscalYear, PendingBudgetConstructionAppointmentFunding appointmentFundingEntry) {

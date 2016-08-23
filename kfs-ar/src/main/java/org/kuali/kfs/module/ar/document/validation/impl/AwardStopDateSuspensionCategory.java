@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.validation.SuspensionCategoryBase;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Date;
 
 /**
  * Suspension Category that checks to if the award stop date is before today.

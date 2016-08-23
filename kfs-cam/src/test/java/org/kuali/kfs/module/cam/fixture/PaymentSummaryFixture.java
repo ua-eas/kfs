@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.sys.TestDataPreparator;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public enum PaymentSummaryFixture {
     ASSET(1), PAYMENT1(1), PAYMENT2(2), PAYMENT3(3), PAYMENT4(4);
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/payment_summary_service.properties";
         properties = new Properties();
         try {
             properties.load(PaymentSummaryFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }

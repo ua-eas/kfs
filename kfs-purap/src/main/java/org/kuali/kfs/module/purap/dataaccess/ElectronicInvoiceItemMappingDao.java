@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceItemMapping;
 import org.kuali.kfs.module.purap.businessobject.ItemType;
+
+import java.util.List;
 
 /**
  * This dao and its implementation is used for data retrieval/insertion/deletion by the
@@ -45,8 +45,8 @@ public interface ElectronicInvoiceItemMappingDao {
      * Get an ElectronicInvoiceItemMapping based on the 3 unique keys. This method is used to ensure that the user is not inserting
      * a row that contains the same 3 keys that have already existed in the database
      *
-     * @param headerId the vendorHeaderGeneratedId
-     * @param detailId the vendorDetailAssignedId
+     * @param headerId        the vendorHeaderGeneratedId
+     * @param detailId        the vendorDetailAssignedId
      * @param invoiceTypeCode the electronicInvoiceTypeCode
      * @return
      */

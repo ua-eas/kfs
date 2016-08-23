@@ -18,25 +18,24 @@
  */
 package org.kuali.kfs.sys.document.web.struts;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.Correctable;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
 import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.Correctable;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.util.RiceConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  * This class...
@@ -53,8 +52,7 @@ public class FinancialSystemTransactionalDocumentActionBase extends KualiTransac
      * @param request
      * @param response
      * @return ActionForward
-     * @throws Exception
-     * KRAD Conversion: Customizing the extra buttons on the form
+     * @throws Exception KRAD Conversion: Customizing the extra buttons on the form
      */
     public ActionForward correct(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiTransactionalDocumentFormBase tmpForm = (KualiTransactionalDocumentFormBase) form;
@@ -73,9 +71,9 @@ public class FinancialSystemTransactionalDocumentActionBase extends KualiTransac
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ActionForward returnForward =  super.execute(mapping, form, request, response);
-        if( isDocumentLocked(mapping, form, request)) {
-            String message  = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.PARAMETER_ALL_DETAIL_TYPE, KFSConstants.DOCUMENT_LOCKOUT_DEFAULT_MESSAGE);
+        ActionForward returnForward = super.execute(mapping, form, request, response);
+        if (isDocumentLocked(mapping, form, request)) {
+            String message = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.PARAMETER_ALL_DETAIL_TYPE, KFSConstants.DOCUMENT_LOCKOUT_DEFAULT_MESSAGE);
             request.setAttribute(MODULE_LOCKED_MESSAGE, message);
             returnForward = mapping.findForward(RiceConstants.MODULE_LOCKED_MAPPING);
         }
@@ -87,15 +85,15 @@ public class FinancialSystemTransactionalDocumentActionBase extends KualiTransac
     /**
      * KFSMI-4452
      */
-    protected boolean isDocumentLocked(ActionMapping mapping , ActionForm form, HttpServletRequest request) {
+    protected boolean isDocumentLocked(ActionMapping mapping, ActionForm form, HttpServletRequest request) {
         KualiTransactionalDocumentFormBase tmpForm = (KualiTransactionalDocumentFormBase) form;
         Document document = tmpForm.getDocument();
 
         if (document != null) {
-            boolean exists = SpringContext.getBean(ParameterService.class).parameterExists(document.getClass(),KFSConstants.DOCUMENT_LOCKOUT_PARM_NM );
-            if(exists) {
-                boolean documentLockedOut = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(document.getClass(),KFSConstants.DOCUMENT_LOCKOUT_PARM_NM );
-                if(documentLockedOut) {
+            boolean exists = SpringContext.getBean(ParameterService.class).parameterExists(document.getClass(), KFSConstants.DOCUMENT_LOCKOUT_PARM_NM);
+            if (exists) {
+                boolean documentLockedOut = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(document.getClass(), KFSConstants.DOCUMENT_LOCKOUT_PARM_NM);
+                if (documentLockedOut) {
                     return tmpForm.getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
                 }
             }

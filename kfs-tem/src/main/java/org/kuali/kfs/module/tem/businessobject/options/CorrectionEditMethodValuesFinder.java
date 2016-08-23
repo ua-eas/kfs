@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
-public class CorrectionEditMethodValuesFinder extends KeyValuesBase{
+import java.util.ArrayList;
+import java.util.List;
+
+public class CorrectionEditMethodValuesFinder extends KeyValuesBase {
 
     @Override
     public List<KeyValue> getKeyValues() {

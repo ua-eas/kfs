@@ -18,16 +18,14 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
+import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
-
 /**
  * Module service implementation for the Rice KRAD module
- *
- *
  */
 public class KRADModuleService extends ModuleServiceBase {
     protected List<String> businessObjects;
@@ -42,8 +40,8 @@ public class KRADModuleService extends ModuleServiceBase {
 
         if (ExternalizableBusinessObject.class.isAssignableFrom(businessObjectClass)) {
             Class externalizableBusinessObjectInterface =
-                    ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
-                            businessObjectClass);
+                ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
+                    businessObjectClass);
             if (externalizableBusinessObjectInterface != null) {
                 Map<Class, Class> validEBOs = getModuleConfiguration().getExternalizableBusinessObjectImplementations();
                 if (validEBOs != null) {

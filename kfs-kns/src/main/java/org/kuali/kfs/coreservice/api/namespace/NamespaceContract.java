@@ -34,7 +34,7 @@ public interface NamespaceContract extends Versioned, GloballyUnique, Inactivata
     /**
      * This the id of the application which owns this Namespace.  If this namespace has no application owner,
      * then this method will return null.
-     *
+     * <p>
      * <p>
      * It is a way of assigning the Namespace to a specific rice application or rice ecosystem.
      * </p>

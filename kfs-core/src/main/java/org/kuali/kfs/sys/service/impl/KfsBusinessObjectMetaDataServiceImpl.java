@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
 import org.apache.ojb.broker.metadata.ClassNotPersistenceCapableException;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.BusinessObjectComponent;
 import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
@@ -40,16 +40,16 @@ import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
 import org.kuali.kfs.sys.dataaccess.BusinessObjectMetaDataDao;
 import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.service.LookupService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @NonTransactional
 public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMetaDataService {
@@ -73,9 +73,8 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
     public BusinessObjectProperty getBusinessObjectProperty(String componentClass, String propertyName) {
         try {
             return new BusinessObjectProperty(getBusinessObjectComponent(Class.forName(componentClass)), dataDictionaryService.getDataDictionary().getBusinessObjectEntry(componentClass).getAttributeDefinition(propertyName));
-        }
-        catch (ClassNotFoundException ex) {
-            LOG.error( "Unable to resolve component class name: " + componentClass );
+        } catch (ClassNotFoundException ex) {
+            LOG.error("Unable to resolve component class name: " + componentClass);
         }
         return null;
     }
@@ -99,17 +98,16 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
         String propertyType = "";
         try {
             propertyType = PropertyUtils.getPropertyType(businessObjectEntry.getBusinessObjectClass().newInstance(), functionalFieldDescription.getPropertyName()).getSimpleName();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("KfsBusinessObjectMetaDataServiceImpl unable to get type of property: " + functionalFieldDescription.getPropertyName(), e);
             }
         }
         return new DataMappingFieldDefinition(functionalFieldDescription, (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) businessObjectEntry,
-                businessObjectEntry.getAttributeDefinition(functionalFieldDescription.getPropertyName()),
-                businessObjectMetaDataDao.getFieldMetaData(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()),
-                propertyType,
-                getReferenceComponentLabel(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()));
+            businessObjectEntry.getAttributeDefinition(functionalFieldDescription.getPropertyName()),
+            businessObjectMetaDataDao.getFieldMetaData(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()),
+            propertyType,
+            getReferenceComponentLabel(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()));
     }
 
     @Override
@@ -120,14 +118,13 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
             String patternStr = componentLabel.replace("*", ".*").toUpperCase();
             try {
                 componentLabelRegex = Pattern.compile(patternStr);
-            }
-            catch (PatternSyntaxException ex) {
+            } catch (PatternSyntaxException ex) {
                 LOG.error("KfsBusinessObjectMetaDataServiceImpl unable to parse componentLabel pattern, ignoring.", ex);
             }
         }
         for (BusinessObjectEntry businessObjectEntry : dataDictionaryService.getDataDictionary().getBusinessObjectEntries().values()) {
             if ((StringUtils.isBlank(namespaceCode) || namespaceCode.equals(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(businessObjectEntry.getBusinessObjectClass())))
-                    && ((componentLabelRegex == null) || (StringUtils.isNotBlank(businessObjectEntry.getObjectLabel()) && componentLabelRegex.matcher(businessObjectEntry.getObjectLabel().toUpperCase()).matches()))) {
+                && ((componentLabelRegex == null) || (StringUtils.isNotBlank(businessObjectEntry.getObjectLabel()) && componentLabelRegex.matcher(businessObjectEntry.getObjectLabel().toUpperCase()).matches()))) {
                 matchingBusinessObjectComponents.put(businessObjectEntry.getBusinessObjectClass(), new BusinessObjectComponent(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(businessObjectEntry.getBusinessObjectClass()), (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) businessObjectEntry));
             }
         }
@@ -143,8 +140,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
             String patternStr = propertyLabel.replace("*", ".*").toUpperCase();
             try {
                 propertyLabelRegex = Pattern.compile(patternStr);
-            }
-            catch (PatternSyntaxException ex) {
+            } catch (PatternSyntaxException ex) {
                 LOG.error("KfsBusinessObjectMetaDataServiceImpl unable to parse propertyLabel pattern, ignoring.", ex);
             }
         }
@@ -204,8 +200,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
                 String patternStr = tableNameSearchCriterion.replace("*", ".*").toUpperCase();
                 try {
                     tableNameRegex = Pattern.compile(patternStr);
-                }
-                catch (PatternSyntaxException ex) {
+                } catch (PatternSyntaxException ex) {
                     LOG.error("DataMappingFieldDefinitionLookupableHelperServiceImpl unable to parse tableName pattern, ignoring.", ex);
                 }
             }
@@ -214,14 +209,12 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
                 String patternStr = fieldNameSearchCriterion.replace("*", ".*").toUpperCase();
                 try {
                     fieldNameRegex = Pattern.compile(patternStr);
-                }
-                catch (PatternSyntaxException ex) {
+                } catch (PatternSyntaxException ex) {
                     LOG.error("DataMappingFieldDefinitionLookupableHelperServiceImpl unable to parse fieldName pattern, ignoring.", ex);
                 }
             }
             return ((tableNameRegex == null) || tableNameRegex.matcher(classDescriptor.getFullTableName().toUpperCase()).matches()) && ((fieldNameRegex == null) || ((classDescriptor.getFieldDescriptorByName(propertyName) != null) && fieldNameRegex.matcher(classDescriptor.getFieldDescriptorByName(propertyName).getColumnName().toUpperCase()).matches()));
-        }
-        catch (ClassNotPersistenceCapableException e) {
+        } catch (ClassNotPersistenceCapableException e) {
             return StringUtils.isBlank(tableNameSearchCriterion) && StringUtils.isBlank(fieldNameSearchCriterion);
         }
     }
@@ -231,8 +224,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
         DataObjectRelationship relationship = null;
         try {
             relationship = businessObjectMetaDataService.getBusinessObjectRelationship((BusinessObject) componentClass.newInstance(), propertyName);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("KfsBusinessObjectMetadataServiceImpl unable to instantiate componentClass: " + componentClass, e);
             }

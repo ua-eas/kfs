@@ -26,20 +26,17 @@ import java.util.ArrayList;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class MessageList extends ArrayList<ErrorMessage> {
-	public void add(String messageKey, String... messageParameters) {
-		add(new ErrorMessage(messageKey, messageParameters));
-	}
+    public void add(String messageKey, String... messageParameters) {
+        add(new ErrorMessage(messageKey, messageParameters));
+    }
 
-	public ActionMessages toActionMessages() {
-		ActionMessages actionMessages = new ActionMessages();
-		for (ErrorMessage errorMessage : this) {
-			actionMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(errorMessage.getErrorKey(), errorMessage.getMessageParameters()));
-		}
-		return actionMessages;
-	}
+    public ActionMessages toActionMessages() {
+        ActionMessages actionMessages = new ActionMessages();
+        for (ErrorMessage errorMessage : this) {
+            actionMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(errorMessage.getErrorKey(), errorMessage.getMessageParameters()));
+        }
+        return actionMessages;
+    }
 }

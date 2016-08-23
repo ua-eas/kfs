@@ -27,6 +27,7 @@ import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 public interface AccountingLineViewLineFillingDefinition extends AccountingLineViewRenderableElementDefinition {
     /**
      * Has the definition create not just a layout element, but a line filling layout element
+     *
      * @param accountingLineClass the class of the accounting line being rendered
      * @return an AccountingLineViewLineFillingElement based off of this definition
      */

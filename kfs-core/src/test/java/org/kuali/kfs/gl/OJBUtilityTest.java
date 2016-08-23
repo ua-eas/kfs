@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.gl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -31,10 +29,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test coverage of OJBUtility
+ *
  * @see org.kuali.kfs.gl.OJBUtility
  */
 @ConfigureContext
@@ -42,6 +43,7 @@ public class OJBUtilityTest extends KualiTestBase {
 
     /**
      * test cases for OJBUtility.buildPropertyMap method
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testBuildPropertyMap() throws Exception {
@@ -56,6 +58,7 @@ public class OJBUtilityTest extends KualiTestBase {
 
     /**
      * test cases for OJBUtility.buildCriteriaFromMap method
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testBuildCriteriaFromMap() throws Exception {
@@ -102,6 +105,7 @@ public class OJBUtilityTest extends KualiTestBase {
 
     /**
      * Builds a simple AccountBalance record, so the test doesn't fail
+     *
      * @return a fake AccountBalance record
      */
     private AccountBalance buildAccountBalanceFixture() {

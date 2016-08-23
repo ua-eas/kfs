@@ -18,20 +18,17 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
-import org.kuali.kfs.fp.batch.ProcurementCardInputFileType;
-import org.kuali.kfs.fp.businessobject.ProcurementCardTransaction;
-import org.kuali.kfs.gl.batch.CollectorXmlInputFileType;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.businessobject.HeaderLine;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests the flatFileParser.
@@ -55,7 +52,7 @@ public class FlatFileParserTest extends KualiTestBase {
         super.setUp();
 
         batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
-        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class,"sampleTestFlatFileInputFileType");
+        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class, "sampleTestFlatFileInputFileType");
 
 
         InputStream validFileStream = FlatFileParserTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "SampleValidFlatFile.txt");
@@ -72,7 +69,6 @@ public class FlatFileParserTest extends KualiTestBase {
 
     /**
      * Verifies the correct object graph is being built from the sample valid file contents
-     *
      */
     public final void testParseSampleValidContents() throws Exception {
         Object parsedObject = batchInputFileService.parse(sampleBatchInputFileType, sampleValidFileContents);
@@ -97,13 +93,12 @@ public class FlatFileParserTest extends KualiTestBase {
         boolean failedAsExpected = false;
         String errorMessage = "";
         try {
-            Object parsedObject =  batchInputFileService.parse(sampleBatchInputFileType, sampleInvalidPropertyFileContents);
-        }
-        catch (ParseException e) {
+            Object parsedObject = batchInputFileService.parse(sampleBatchInputFileType, sampleInvalidPropertyFileContents);
+        } catch (ParseException e) {
             errorMessage = e.getStackTrace().toString();
             failedAsExpected = true;
         }
-        assertTrue("exception thrown for invalid property " , failedAsExpected);
+        assertTrue("exception thrown for invalid property ", failedAsExpected);
 
     }
 
@@ -115,11 +110,10 @@ public class FlatFileParserTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.parse(sampleBatchInputFileType, sampleNoHeaderFileContents);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             failedAsExpected = true;
         }
-        assertTrue("exception thrown for the file with no header " , failedAsExpected);
+        assertTrue("exception thrown for the file with no header ", failedAsExpected);
 
     }
 

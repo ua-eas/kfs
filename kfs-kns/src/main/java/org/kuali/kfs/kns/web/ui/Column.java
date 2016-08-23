@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.kns.web.ui;
 
-import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.MultipleAnchorHtmlData;
+import org.kuali.rice.core.web.format.Formatter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,8 +29,6 @@ import java.util.List;
 
 /**
  * Represents a Column in a result table
- *
- *
  */
 @Deprecated
 public class Column implements java.io.Serializable, PropertyRenderingConfigElement {
@@ -44,7 +42,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     private HtmlData columnAnchor;
     private Formatter formatter;
     private Comparator comparator;
-    private boolean escapeXMLValue=true;
+    private boolean escapeXMLValue = true;
 
     private String alternateDisplayPropertyName;
     private String additionalDisplayPropertyName;
@@ -166,39 +164,39 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
         this.propertyURL = propertyURL;
     }
 
-	/**
-	 * @return the columnAnchor
-	 */
-	public HtmlData getColumnAnchor() {
-		return this.columnAnchor;
-	}
+    /**
+     * @return the columnAnchor
+     */
+    public HtmlData getColumnAnchor() {
+        return this.columnAnchor;
+    }
 
-	public boolean isMultipleAnchors(){
-		return this.columnAnchor instanceof MultipleAnchorHtmlData;
-	}
+    public boolean isMultipleAnchors() {
+        return this.columnAnchor instanceof MultipleAnchorHtmlData;
+    }
 
-	public List<AnchorHtmlData> getColumnAnchors(){
-		if(isMultipleAnchors())
-			return ((MultipleAnchorHtmlData)this.columnAnchor).getAnchorHtmlData();
-		List<AnchorHtmlData> htmlData = new ArrayList<AnchorHtmlData>();
-		htmlData.add((AnchorHtmlData)columnAnchor);
-		return htmlData;
-	}
+    public List<AnchorHtmlData> getColumnAnchors() {
+        if (isMultipleAnchors())
+            return ((MultipleAnchorHtmlData) this.columnAnchor).getAnchorHtmlData();
+        List<AnchorHtmlData> htmlData = new ArrayList<AnchorHtmlData>();
+        htmlData.add((AnchorHtmlData) columnAnchor);
+        return htmlData;
+    }
 
-	public int getNumberOfColumnAnchors(){
-		return getColumnAnchors().size();
-	}
+    public int getNumberOfColumnAnchors() {
+        return getColumnAnchors().size();
+    }
 
-	/**
-	 * @param columnAnchor the columnAnchor to set
-	 */
-	public void setColumnAnchor(HtmlData columnAnchor) {
-		this.columnAnchor = columnAnchor;
-		if(columnAnchor!=null)
-			setPropertyURL(((AnchorHtmlData)columnAnchor).getHref());
-	}
+    /**
+     * @param columnAnchor the columnAnchor to set
+     */
+    public void setColumnAnchor(HtmlData columnAnchor) {
+        this.columnAnchor = columnAnchor;
+        if (columnAnchor != null)
+            setPropertyURL(((AnchorHtmlData) columnAnchor).getHref());
+    }
 
-	/**
+    /**
      * @return Returns the propertyValue.
      */
     public String getPropertyValue() {
@@ -239,6 +237,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     /**
      * Returns the maximum column length.  If propertyValue's length exceeds this value, then
      * it will be truncated to this length when displayed
+     *
      * @return
      */
     public int getMaxLength() {
@@ -248,56 +247,57 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     /**
      * Sets the maximum column length.  If propertyValue's length exceeds this value, then
      * it will be truncated to this length when displayed
+     *
      * @param maxColumnLength
      */
     public void setMaxLength(int maxColumnLength) {
         this.maxLength = maxColumnLength;
     }
 
-	/**
-	 * @return the escapeXMLValue
-	 */
-	public boolean isEscapeXMLValue() {
-		return this.escapeXMLValue;
-	}
+    /**
+     * @return the escapeXMLValue
+     */
+    public boolean isEscapeXMLValue() {
+        return this.escapeXMLValue;
+    }
 
-	/**
-	 * @param escapeXMLValue the escapeXMLValue to set
-	 */
-	public void setEscapeXMLValue(boolean escapeXMLValue) {
-		this.escapeXMLValue = escapeXMLValue;
-	}
+    /**
+     * @param escapeXMLValue the escapeXMLValue to set
+     */
+    public void setEscapeXMLValue(boolean escapeXMLValue) {
+        this.escapeXMLValue = escapeXMLValue;
+    }
 
-	public String getAlternateDisplayPropertyName() {
-		return this.alternateDisplayPropertyName;
-	}
+    public String getAlternateDisplayPropertyName() {
+        return this.alternateDisplayPropertyName;
+    }
 
-	public void setAlternateDisplayPropertyName(String alternateDisplayPropertyName) {
-		this.alternateDisplayPropertyName = alternateDisplayPropertyName;
-	}
+    public void setAlternateDisplayPropertyName(String alternateDisplayPropertyName) {
+        this.alternateDisplayPropertyName = alternateDisplayPropertyName;
+    }
 
-	public String getAdditionalDisplayPropertyName() {
-		return this.additionalDisplayPropertyName;
-	}
+    public String getAdditionalDisplayPropertyName() {
+        return this.additionalDisplayPropertyName;
+    }
 
-	public void setAdditionalDisplayPropertyName(String additionalDisplayPropertyName) {
-		this.additionalDisplayPropertyName = additionalDisplayPropertyName;
-	}
+    public void setAdditionalDisplayPropertyName(String additionalDisplayPropertyName) {
+        this.additionalDisplayPropertyName = additionalDisplayPropertyName;
+    }
 
-	public boolean isTotal() {
-		return this.total;
-	}
+    public boolean isTotal() {
+        return this.total;
+    }
 
-	public void setTotal(boolean total) {
-		this.total = total;
-	}
+    public void setTotal(boolean total) {
+        this.total = total;
+    }
 
-	public Object getUnformattedPropertyValue() {
-		return this.unformattedPropertyValue;
-	}
+    public Object getUnformattedPropertyValue() {
+        return this.unformattedPropertyValue;
+    }
 
-	public void setUnformattedPropertyValue(Object unformattedPropertyValue) {
-		this.unformattedPropertyValue = unformattedPropertyValue;
-	}
+    public void setUnformattedPropertyValue(Object unformattedPropertyValue) {
+        this.unformattedPropertyValue = unformattedPropertyValue;
+    }
 
 }

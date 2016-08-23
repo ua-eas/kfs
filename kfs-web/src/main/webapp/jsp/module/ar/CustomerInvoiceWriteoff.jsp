@@ -16,50 +16,50 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="CustomerInvoiceWriteoffDocument"
-	htmlFormAction="arCustomerInvoiceWriteoff" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="CustomerInvoiceWriteoffDocument"
+                  htmlFormAction="arCustomerInvoiceWriteoff" renderMultipart="true"
+                  showTabButtons="true">
 
-	<c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request" />
+    <c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request"/>
 
-	<sys:hiddenDocumentFields isFinancialDocument="false" />
+    <sys:hiddenDocumentFields isFinancialDocument="false"/>
 
-	<!--  Display 1st screen -->
-	<c:if test="${displayInitTab}" >
-		<ar:customerInvoiceWriteoffInit />
-		<c:set var="globalButtonTabIndex" value="15"/>
-	</c:if>
+    <!-- Display 1st screen -->
+    <c:if test="${displayInitTab}">
+        <ar:customerInvoiceWriteoffInit/>
+        <c:set var="globalButtonTabIndex" value="15"/>
+    </c:if>
 
-	<!--  Display 2nd screen -->
-	<c:if test="${not displayInitTab}" >
-		<kul:documentOverview editingMode="${KualiForm.editingMode}" />
+    <!-- Display 2nd screen -->
+    <c:if test="${not displayInitTab}">
+        <kul:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-		<ar:customerInvoiceWriteoffHiddenFields />
+        <ar:customerInvoiceWriteoffHiddenFields/>
 
-		<ar:customerInvoiceSummary
-			customerInvoiceDocumentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"
-			documentAttributes="${DataDictionary.CustomerInvoiceWriteoffDocument.attributes}"
-			customerAttributes="${DataDictionary.Customer.attributes}"
-			customerAddressAttributes="${DataDictionary.CustomerAddress.attributes}"
-		 />
+        <ar:customerInvoiceSummary
+                customerInvoiceDocumentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"
+                documentAttributes="${DataDictionary.CustomerInvoiceWriteoffDocument.attributes}"
+                customerAttributes="${DataDictionary.Customer.attributes}"
+                customerAddressAttributes="${DataDictionary.CustomerAddress.attributes}"
+        />
 
-		<ar:customerInvoiceWriteoffDetails />
+        <ar:customerInvoiceWriteoffDetails/>
 
-      	<gl:generalLedgerPendingEntries />
-    	<kul:notes />
-		<kul:adHocRecipients />
-		<kul:routeLog />
-		<kul:superUserActions />
-	</c:if>
+        <gl:generalLedgerPendingEntries/>
+        <kul:notes/>
+        <kul:adHocRecipients/>
+        <kul:routeLog/>
+        <kul:superUserActions/>
+    </c:if>
 
-	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
-  	<kul:documentControls
-			transactionalDocument="true"
-			extraButtons="${extraButtons}"
-			suppressRoutingControls="${displayInitTab}"
-			tabindex="${globalButtonTabIndex}"/>
+    <c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
+    <kul:documentControls
+            transactionalDocument="true"
+            extraButtons="${extraButtons}"
+            suppressRoutingControls="${displayInitTab}"
+            tabindex="${globalButtonTabIndex}"/>
 
 </kul:documentPage>

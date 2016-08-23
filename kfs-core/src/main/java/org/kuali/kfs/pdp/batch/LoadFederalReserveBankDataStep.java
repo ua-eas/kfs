@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.pdp.batch;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.service.AchBankService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class LoadFederalReserveBankDataStep extends AbstractStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LoadFederalReserveBankDataStep.class);
@@ -38,7 +38,9 @@ public class LoadFederalReserveBankDataStep extends AbstractStep {
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(directoryName); }};
+        return new ArrayList<String>() {{
+            add(directoryName);
+        }};
     }
 
     /**

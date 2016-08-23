@@ -17,14 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /*
+/*
  * Given an form and an element name, returns the uppercased, trimmed value of that element
  */
-function cleanupElementValue( kualiForm, name ) {
-    var element = kualiForm.elements[ name ];
+function cleanupElementValue(kualiForm, name) {
+    var element = kualiForm.elements[name];
 
-    if ( typeof element == 'undefined' ) {
-        alert( 'undefined element "' + name + '"' );
+    if (typeof element == 'undefined') {
+        alert('undefined element "' + name + '"');
     }
 
     element.value = element.value.toUpperCase().trim();
@@ -47,14 +47,14 @@ function setTargetValue(kualiForm, targetBase, value, isError) {
     var containerHidden = kualiForm.elements[targetBase];
     var containerName = targetBase + '.div';
 
-    var containerDiv = document.getElementById( containerName );
+    var containerDiv = document.getElementById(containerName);
 
     if (containerDiv) {
         if (value == '') {
-			dwr.util.setValue( containerDiv.id, " " );
+            dwr.util.setValue(containerDiv.id, " ");
         } else {
-        	setRecipientValue(containerDiv.id, value, isError?null:{escapeHtml:true});
-		//	dwr.util.setValue( containerDiv.id, value, isError?null:{escapeHtml:true} );
+            setRecipientValue(containerDiv.id, value, isError ? null : {escapeHtml: true});
+            //	dwr.util.setValue( containerDiv.id, value, isError?null:{escapeHtml:true} );
         }
     }
     if (containerHidden) {
@@ -63,25 +63,25 @@ function setTargetValue(kualiForm, targetBase, value, isError) {
 }
 
 
-function loadBankInfo(kualiForm, bankCodeFieldName, bankNameFieldName ) {
-	var bankCode = cleanupElementValue( kualiForm, bankCodeFieldName );
+function loadBankInfo(kualiForm, bankCodeFieldName, bankNameFieldName) {
+    var bankCode = cleanupElementValue(kualiForm, bankCodeFieldName);
 
-	if (bankCode=='') {
-		clearTarget(kualiForm, bankNameFieldName);
-	} else {
-		var dwrReply = {
-			callback:function(data) {
-				if ( data != null && typeof data == 'object' ) {
-					setTargetValue( kualiForm, bankNameFieldName, data.bankName );
-				} else {
-					setTargetValue( kualiForm, bankNameFieldName, wrapError( "bank name not found" ), true );
-				}
-			},
-			errorHandler:function( errorMessage ) {
-				window.status = errorMessage;
-				setTargetValue( kualiForm, bankNameFieldName, wrapError( "bank name not found" ), true );
-			}
-		};
-		BankService.getByPrimaryId( bankCode, dwrReply );
-	}
+    if (bankCode == '') {
+        clearTarget(kualiForm, bankNameFieldName);
+    } else {
+        var dwrReply = {
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    setTargetValue(kualiForm, bankNameFieldName, data.bankName);
+                } else {
+                    setTargetValue(kualiForm, bankNameFieldName, wrapError("bank name not found"), true);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                window.status = errorMessage;
+                setTargetValue(kualiForm, bankNameFieldName, wrapError("bank name not found"), true);
+            }
+        };
+        BankService.getByPrimaryId(bankCode, dwrReply);
+    }
 }

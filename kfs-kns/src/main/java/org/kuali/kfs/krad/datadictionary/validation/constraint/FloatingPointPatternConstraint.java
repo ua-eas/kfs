@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.uif.UifConstants;
-
 /**
  * Validation pattern for matching floating point numbers, optionally matching negative numbers
- *
- *
  */
 public class FloatingPointPatternConstraint extends ConfigurationBasedRegexPatternConstraint {
 
@@ -75,11 +73,11 @@ public class FloatingPointPatternConstraint extends ConfigurationBasedRegexPatte
             ConfigurationService configService = KRADServiceLocator.getKualiConfigurationService();
             if (allowNegative) {
                 validationMessageParams.add(configService
-                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
-                                + "positiveOrNegative"));
+                    .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
+                        + "positiveOrNegative"));
             } else {
                 validationMessageParams.add(configService
-                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positive"));
+                    .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positive"));
             }
         }
         return validationMessageParams;

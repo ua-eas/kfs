@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.validation.PurapRuleTestBase;
@@ -33,10 +31,12 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.sys.document.validation.impl.CompositeValidation;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
-@ConfigureContext(session = parke, shouldCommitTransactions=true)
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+
+@ConfigureContext(session = parke, shouldCommitTransactions = true)
 public class PurchaseOrderCloseReopenVoidRuleTest extends PurapRuleTestBase {
 
     private Map<String, Validation> validations;
@@ -65,8 +65,7 @@ public class PurchaseOrderCloseReopenVoidRuleTest extends PurapRuleTestBase {
         po.prepareForSave();
         try {
             AccountingDocumentTestUtils.saveDocument(po, SpringContext.getBean(DocumentService.class));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Problems saving PO: " + e);
         }
     }
@@ -74,43 +73,42 @@ public class PurchaseOrderCloseReopenVoidRuleTest extends PurapRuleTestBase {
     public void PATCHFIX_testCloseValidate_Open() {
         po = PurchaseOrderChangeDocumentFixture.STATUS_OPEN.generatePO();
         savePO(po);
-        GlobalVariables.getUserSession().setBackdoorUser( "appleton" );
+        GlobalVariables.getUserSession().setBackdoorUser("appleton");
         PaymentRequestDocument preq = PaymentRequestDocumentFixture.PREQ_FOR_PO_CLOSE_DOC.createPaymentRequestDocument();
         preq.setPurchaseOrderIdentifier(po.getPurapDocumentIdentifier());
         try {
             AccountingDocumentTestUtils.saveDocument(preq, SpringContext.getBean(DocumentService.class));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Problems saving PREQ: " + e);
         }
         GlobalVariables.getUserSession().clearBackdoorUser();
 
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderClose-routeDocumentValidation");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", po)));
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderClose-routeDocumentValidation");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void PATCHFIX_testReopenValidate_Closed() {
         po = PurchaseOrderChangeDocumentFixture.STATUS_CLOSED.generatePO();
         savePO(po);
 
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderReopen-routeDocumentValidation");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", po)));
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderReopen-routeDocumentValidation");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void PATCHFIX_testVoidValidate_Open() {
         po = PurchaseOrderChangeDocumentFixture.STATUS_OPEN.generatePO();
         savePO(po);
 
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderVoid-routeDocumentValidation");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", po)));
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderVoid-routeDocumentValidation");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void PATCHFIX_testVoidValidate_PendingPrint() {
         po = PurchaseOrderChangeDocumentFixture.STATUS_PENDING_PRINT.generatePO();
         savePO(po);
 
-        CompositeValidation validation = (CompositeValidation)validations.get("PurchaseOrderVoid-routeDocumentValidation");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", po)));
+        CompositeValidation validation = (CompositeValidation) validations.get("PurchaseOrderVoid-routeDocumentValidation");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
 }

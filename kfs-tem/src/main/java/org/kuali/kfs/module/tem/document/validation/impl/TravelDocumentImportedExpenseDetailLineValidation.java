@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
@@ -28,8 +28,8 @@ import org.kuali.kfs.module.tem.document.validation.event.AddImportedExpenseDeta
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class TravelDocumentImportedExpenseDetailLineValidation extends GenericValidation {
     protected DictionaryValidationService dictionaryValidationService;
@@ -48,19 +48,19 @@ public class TravelDocumentImportedExpenseDetailLineValidation extends GenericVa
         boolean success = true;
         success = getDictionaryValidationService().isBusinessObjectValid(importedExpenseDetail, "");
 
-        if (success){
-            if (importedExpenseDetail.getExpenseAmount().isLessEqual(KualiDecimal.ZERO)){
+        if (success) {
+            if (importedExpenseDetail.getExpenseAmount().isLessEqual(KualiDecimal.ZERO)) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_TEM_DETAIL_LESS_THAN_ZERO);
                 return false;
             }
 
-            if (importedExpenseDetail.getCurrencyRate().equals(new KualiDecimal(1))){
+            if (importedExpenseDetail.getCurrencyRate().equals(new KualiDecimal(1))) {
                 /*
                  * Determine if the detail is an amount that doesn't go over the threshold (taking a buffer into account for conversions)
                  */
                 KualiDecimal total = importedExpense.getTotalDetailExpenseAmount();
                 KualiDecimal remainder = importedExpense.getConvertedAmount().subtract(total);
-                if (importedExpenseDetail.getConvertedAmount().isGreaterThan(remainder)){
+                if (importedExpenseDetail.getConvertedAmount().isGreaterThan(remainder)) {
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_TEM_DETAIL_GREATER_THAN_EXPENSE);
                     return false;
                 }
@@ -68,7 +68,7 @@ public class TravelDocumentImportedExpenseDetailLineValidation extends GenericVa
 
         }
 
-        if (success && !importedExpenseDetail.getCurrencyRate().equals(BigDecimal.ONE)){
+        if (success && !importedExpenseDetail.getCurrencyRate().equals(BigDecimal.ONE)) {
             GlobalVariables.getMessageMap().putInfo(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.INFO_TEM_IMPORT_CURRENCY_CONVERSION);
         }
         return success;

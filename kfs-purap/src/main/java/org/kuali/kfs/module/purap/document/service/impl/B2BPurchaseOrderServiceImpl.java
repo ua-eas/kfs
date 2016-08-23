@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.dataaccess.B2BDao;
@@ -41,14 +38,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @Transactional
 public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
@@ -119,7 +119,7 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
                 // find any additional error messages that might have been sent
                 List errorMessages = poResponse.getPOResponseErrorMessages();
                 if (ObjectUtils.isNotNull(errorMessages) && !errorMessages.isEmpty()) {
-                    for (Iterator iter = errorMessages.iterator(); iter.hasNext();) {
+                    for (Iterator iter = errorMessages.iterator(); iter.hasNext(); ) {
                         String errorMessage = (String) iter.next();
                         if (ObjectUtils.isNotNull(errorMessage)) {
                             LOG.error("sendPurchaseOrder(): Error message for po number " + purchaseOrder.getPurapDocumentIdentifier() + ": " + errorMessage);
@@ -128,16 +128,13 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
                     }
                 }
             }
-        }
-        catch (B2BConnectionException e) {
+        } catch (B2BConnectionException e) {
             LOG.error("sendPurchaseOrder() Error connecting to b2b", e);
             transmitErrors.append("Connection to vendor failed.");
-        }
-        catch (CxmlParseError e) {
+        } catch (CxmlParseError e) {
             LOG.error("sendPurchaseOrder() Error Parsing", e);
             transmitErrors.append("Unable to read cxml returned from vendor.");
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             LOG.error("sendPurchaseOrder() Unknown Error", e);
             transmitErrors.append("Unexpected error occurred while attempting to transmit Purchase Order.");
         }
@@ -147,8 +144,8 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.B2BPurchaseOrderService#getCxml(org.kuali.kfs.module.purap.document.PurchaseOrderDocument,
-     *      org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
-     *      java.lang.String, java.lang.String)
+     * org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
+     * java.lang.String, java.lang.String)
      */
     public String getCxml(PurchaseOrderDocument purchaseOrder, String requisitionInitiatorPrincipalId, String password, ContractManager contractManager, String contractManagerEmail, String vendorDuns) {
 
@@ -200,14 +197,12 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
         cxml.append("              <DeliverTo>").append(purchaseOrder.getDeliveryToName().trim()).append("</DeliverTo>\n");
         if (StringUtils.isNotEmpty(purchaseOrder.getInstitutionContactEmailAddress())) {
             cxml.append("              <DeliverTo><![CDATA[").append(purchaseOrder.getInstitutionContactEmailAddress()).append("]]></DeliverTo>\n");
-        }
-        else {
+        } else {
             cxml.append("              <DeliverTo><![CDATA[").append(purchaseOrder.getRequestorPersonEmailAddress()).append("]]></DeliverTo>\n");
         }
         if (StringUtils.isNotEmpty(purchaseOrder.getInstitutionContactPhoneNumber())) {
             cxml.append("              <DeliverTo><![CDATA[").append(purchaseOrder.getInstitutionContactPhoneNumber()).append("]]></DeliverTo>\n");
-        }
-        else {
+        } else {
             cxml.append("              <DeliverTo><![CDATA[").append(purchaseOrder.getRequestorPersonPhoneNumber()).append("]]></DeliverTo>\n");
         }
 
@@ -224,8 +219,7 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
             cxml.append("              <State>").append(purchaseOrder.getReceivingStateCode()).append("</State>\n");
             cxml.append("              <PostalCode>").append(purchaseOrder.getReceivingPostalCode()).append("</PostalCode>\n");
             cxml.append("              <Country isoCountryCode=\"").append(purchaseOrder.getReceivingCountryCode()).append("\">").append(purchaseOrder.getReceivingCountryCode()).append("</Country>\n");
-        }
-        else { //use final delivery address
+        } else { //use final delivery address
             if (StringUtils.isNotEmpty(purchaseOrder.getDeliveryBuildingName())) {
                 cxml.append("              <DeliverTo><![CDATA[").append(purchaseOrder.getDeliveryBuildingName()).append(" (").append(purchaseOrder.getDeliveryBuildingCode()).append(")]]></DeliverTo>\n");
             }
@@ -288,8 +282,7 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
             cxml.append("          <Classification domain=\"UNSPSC\"></Classification>\n");
             if (poi.getExternalOrganizationB2bProductTypeName().equals("Punchout")) {
                 cxml.append("          <ManufacturerPartID></ManufacturerPartID>\n");
-            }
-            else {
+            } else {
                 cxml.append("          <ManufacturerPartID>").append(poi.getExternalOrganizationB2bProductReferenceNumber()).append("</ManufacturerPartID>\n");
             }
             cxml.append("          <ManufacturerName>").append(poi.getExternalOrganizationB2bProductTypeName()).append("</ManufacturerName>\n");
@@ -310,8 +303,8 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.B2BPurchaseOrderService#verifyCxmlPOData(org.kuali.kfs.module.purap.document.PurchaseOrderDocument,
-     *      org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
-     *      java.lang.String, java.lang.String)
+     * org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
+     * java.lang.String, java.lang.String)
      */
     public String verifyCxmlPOData(PurchaseOrderDocument purchaseOrder, String requisitionInitiatorPrincipalId, String password, ContractManager contractManager, String contractManagerEmail, String vendorDuns) {
         StringBuffer errors = new StringBuffer();
@@ -417,7 +410,7 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
 
         // verify item data
         List detailList = purchaseOrder.getItems();
-        for (Iterator iter = detailList.iterator(); iter.hasNext();) {
+        for (Iterator iter = detailList.iterator(); iter.hasNext(); ) {
             PurchaseOrderItem poi = (PurchaseOrderItem) iter.next();
             if (ObjectUtils.isNotNull(poi.getItemType()) && poi.getItemType().isLineItemIndicator()) {
                 if (ObjectUtils.isNull(poi.getItemLineNumber())) {
@@ -480,7 +473,7 @@ public class B2BPurchaseOrderServiceImpl implements B2BPurchaseOrderService {
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;

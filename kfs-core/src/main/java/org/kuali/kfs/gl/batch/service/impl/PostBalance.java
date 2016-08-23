@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.batch.service.BalanceCalculator;
 import org.kuali.kfs.gl.batch.service.PostTransaction;
@@ -34,6 +30,10 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+
 /**
  * This implementation of PostTransaction updates the appropriate Balance
  */
@@ -43,6 +43,7 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
 
     private AccountingCycleCachingService accountingCycleCachingService;
     private static final KualiDecimal NEGATIVE_ONE = new KualiDecimal(-1);
+
     /**
      * Constructs a PostBalance instance
      */
@@ -53,9 +54,9 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
     /**
      * This posts the effect of the transaction upon the appropriate balance record.
      *
-     * @param t the transaction which is being posted
-     * @param mode the mode the poster is currently running in
-     * @param postDate the date this transaction should post to
+     * @param t                         the transaction which is being posted
+     * @param mode                      the mode the poster is currently running in
+     * @param postDate                  the date this transaction should post to
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return the accomplished post type
      * @see org.kuali.kfs.gl.batch.service.PostTransaction#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
@@ -96,13 +97,13 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
      * Given a list of balances, determines which one the given trsnaction should post to
      *
      * @param balanceList a Collection of balances
-     * @param t the transaction that is being posted
+     * @param t           the transaction that is being posted
      * @return the balance, either found from the list, or, if not present in the list, newly created
      * @see org.kuali.kfs.gl.batch.service.BalanceCalculator#findBalance(java.util.Collection, org.kuali.kfs.gl.businessobject.Transaction)
      */
     public Balance findBalance(Collection balanceList, Transaction t) {
         // Try to find one that already exists
-        for (Iterator iter = balanceList.iterator(); iter.hasNext();) {
+        for (Iterator iter = balanceList.iterator(); iter.hasNext(); ) {
             Balance b = (Balance) iter.next();
 
             if (b.getUniversityFiscalYear().equals(t.getUniversityFiscalYear()) && b.getChartOfAccountsCode().equals(t.getChartOfAccountsCode()) && b.getAccountNumber().equals(t.getAccountNumber()) && b.getSubAccountNumber().equals(t.getSubAccountNumber()) && b.getObjectCode().equals(t.getFinancialObjectCode()) && b.getSubObjectCode().equals(t.getFinancialSubObjectCode()) && b.getBalanceTypeCode().equals(t.getFinancialBalanceTypeCode()) && b.getObjectTypeCode().equals(t.getFinancialObjectTypeCode())) {

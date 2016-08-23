@@ -18,6 +18,9 @@
  */
 package org.kuali.kfs.sys.util;
 
+import org.kuali.kfs.sys.KFSConstants;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,10 +28,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.kuali.kfs.sys.KFSConstants;
 
 public class KfsWebUtils {
 
@@ -71,7 +70,7 @@ public class KfsWebUtils {
      * COPIED from KNS org.kuali.rice.kns.util.WebUtils so we can handle inline streams (for popups)
      * as well as attachments. Ideally we wouldn't need to duplicate Rice functionality in KFS, maybe
      * KRAD will help us here and make this method obsolete.
-     *
+     * <p>
      * A file that is not of type text/plain or text/html can be output through
      * the response using this method.
      *
@@ -83,15 +82,15 @@ public class KfsWebUtils {
      * @throws IOException
      */
     public static void saveMimeOutputStreamAsFile(HttpServletResponse response, String contentType,
-            ByteArrayOutputStream byteArrayOutputStream, String fileName, boolean useJavascript) throws IOException {
+                                                  ByteArrayOutputStream byteArrayOutputStream, String fileName, boolean useJavascript) throws IOException {
 
         // If there are quotes in the name, we should replace them to avoid issues.
         // The filename will be wrapped with quotes below when it is set in the header
         String updateFileName;
-        if(fileName.contains("\"")) {
+        if (fileName.contains("\"")) {
             updateFileName = fileName.replaceAll("\"", "");
         } else {
-            updateFileName =  fileName;
+            updateFileName = fileName;
         }
 
         String type = KFSConstants.HttpHeaderResponse.ATTACHMENT_CONTENT_TYPE;

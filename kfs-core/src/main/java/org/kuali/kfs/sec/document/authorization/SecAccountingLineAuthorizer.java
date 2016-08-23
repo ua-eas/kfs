@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sec.document.authorization;
 
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizer;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -30,6 +27,9 @@ import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -108,7 +108,7 @@ public class SecAccountingLineAuthorizer implements AccountingLineAuthorizer, Ca
     @Override
     public boolean determineEditPermissionOnFieldBypassCapitalCheck(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage) {
         if (lineAuthorizer instanceof CapitalAccountingLinesAuthorizer) {
-            return ((CapitalAccountingLinesAuthorizer)lineAuthorizer).determineEditPermissionOnFieldBypassCapitalCheck(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
+            return ((CapitalAccountingLinesAuthorizer) lineAuthorizer).determineEditPermissionOnFieldBypassCapitalCheck(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
         }
 
         // this should never be reached

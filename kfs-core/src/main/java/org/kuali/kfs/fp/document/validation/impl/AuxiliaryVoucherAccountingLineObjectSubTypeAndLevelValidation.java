@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.RESTRICTED_COMBINED_CODES;
-import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_INCORRECT_OBJ_CODE_WITH_SUB_TYPE_OBJ_LEVEL_AND_OBJ_TYPE;
-
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.service.ObjectTypeService;
 import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherDocumentRuleConstants.RESTRICTED_COMBINED_CODES;
+import static org.kuali.kfs.sys.KFSConstants.ACCOUNTING_LINE_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_INCORRECT_OBJ_CODE_WITH_SUB_TYPE_OBJ_LEVEL_AND_OBJ_TYPE;
 
 /**
  * Validates the sub object type and object level of an object code entered on an accounting line on an Auxiliary Voucher document.
@@ -41,13 +41,14 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
 
     /**
      * This method checks to see if there is a valid combination of sub type and object level
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         ObjectType objectType = getObjectType(accountingLineForValidation);
         StringBuffer combinedCodes = new StringBuffer(objectType.getCode()).append(',').append(accountingLineForValidation.getObjectCode().getFinancialObjectSubType().getCode()).append(',').append(accountingLineForValidation.getObjectCode().getFinancialObjectLevel().getFinancialObjectLevelCode());
         if (!/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(AuxiliaryVoucherDocument.class, RESTRICTED_COMBINED_CODES, combinedCodes.toString()).evaluationSucceeds()) {
-            String errorObjects[] = { accountingLineForValidation.getObjectCode().getFinancialObjectCode(), accountingLineForValidation.getObjectCode().getFinancialObjectLevel().getFinancialObjectLevelCode(), accountingLineForValidation.getObjectCode().getFinancialObjectSubType().getCode(), objectType.getCode() };
+            String errorObjects[] = {accountingLineForValidation.getObjectCode().getFinancialObjectCode(), accountingLineForValidation.getObjectCode().getFinancialObjectLevel().getFinancialObjectLevelCode(), accountingLineForValidation.getObjectCode().getFinancialObjectSubType().getCode(), objectType.getCode()};
             GlobalVariables.getMessageMap().putError(ACCOUNTING_LINE_ERRORS, ERROR_DOCUMENT_INCORRECT_OBJ_CODE_WITH_SUB_TYPE_OBJ_LEVEL_AND_OBJ_TYPE, errorObjects);
             return false;
         }
@@ -55,7 +56,6 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
     }
 
     /**
-     *
      * @param line
      * @return
      */
@@ -67,6 +67,7 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -75,6 +76,7 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -83,6 +85,7 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
 
     /**
      * Gets the objectTypeService attribute.
+     *
      * @return Returns the objectTypeService.
      */
     public ObjectTypeService getObjectTypeService() {
@@ -91,6 +94,7 @@ public class AuxiliaryVoucherAccountingLineObjectSubTypeAndLevelValidation exten
 
     /**
      * Sets the objectTypeService attribute value.
+     *
      * @param objectTypeService The objectTypeService to set.
      */
     public void setObjectTypeService(ObjectTypeService objectTypeService) {

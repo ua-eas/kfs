@@ -16,17 +16,18 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.krad.util.KRADConstants"%>
-<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ page import="org.kuali.kfs.krad.util.KRADConstants" %>
+<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp" %>
 <html>
 <head>
- <title>Module Locked</title>
- <link href="${ConfigProperties.kr.url}/css/kuali.css" rel="stylesheet" type="text/css">
- <script type="text/javascript" src="scripts/en-common.js"></script>
+    <title>Module Locked</title>
+    <link href="${ConfigProperties.kr.url}/css/kuali.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="scripts/en-common.js"></script>
 </head>
 <body>
- <div style="margin-top: 25px;">
-   <strong><%=request.getAttribute(KRADConstants.MODULE_LOCKED_MESSAGE_REQUEST_PARAMETER)%></strong>
- </div>
+<div style="margin-top: 25px;">
+    <strong><%=request.getAttribute(KRADConstants.MODULE_LOCKED_MESSAGE_REQUEST_PARAMETER)%>
+    </strong>
+</div>
 </body>
 </html>

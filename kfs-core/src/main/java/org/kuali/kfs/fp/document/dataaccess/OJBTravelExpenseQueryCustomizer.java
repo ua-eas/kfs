@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.fp.document.dataaccess;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.accesslayer.QueryCustomizer;
 import org.apache.ojb.broker.metadata.CollectionDescriptor;
@@ -28,6 +25,9 @@ import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Query customizer for to seperate out the pre-paid and non prepaid collections from the dv expense table.
@@ -39,14 +39,13 @@ public class OJBTravelExpenseQueryCustomizer implements QueryCustomizer {
 
     /**
      * @see org.apache.ojb.broker.accesslayer.QueryCustomizer#customizeQuery(java.lang.Object,
-     *      org.apache.ojb.broker.PersistenceBroker, org.apache.ojb.broker.metadata.CollectionDescriptor,
-     *      org.apache.ojb.broker.query.QueryByCriteria)
+     * org.apache.ojb.broker.PersistenceBroker, org.apache.ojb.broker.metadata.CollectionDescriptor,
+     * org.apache.ojb.broker.query.QueryByCriteria)
      */
     public Query customizeQuery(Object arg0, PersistenceBroker arg1, CollectionDescriptor arg2, QueryByCriteria arg3) {
         if ("TRUE".equals(getAttribute(prepaidAttributeName))) {
             arg3.getCriteria().addEqualTo(prepaidIndicatorField, KFSConstants.ACTIVE_INDICATOR);
-        }
-        else {
+        } else {
             arg3.getCriteria().addEqualTo(prepaidIndicatorField, KFSConstants.NON_ACTIVE_INDICATOR);
         }
         return arg3;

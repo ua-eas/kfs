@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.report.util;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class CustomerStatementResultHolder {
 

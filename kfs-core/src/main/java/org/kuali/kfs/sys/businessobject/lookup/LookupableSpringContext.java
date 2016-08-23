@@ -18,23 +18,23 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.sys.context.SpringContext;
 
 public class LookupableSpringContext {
     public static Lookupable getLookupable(String beanId) {
         try {
-            return SpringContext.getBean(Lookupable.class,beanId);
-        } catch ( RuntimeException ex ) {
+            return SpringContext.getBean(Lookupable.class, beanId);
+        } catch (RuntimeException ex) {
             return null;
         }
     }
 
     public static LookupableHelperService getLookupableHelperService(String beanId) {
         try {
-            return SpringContext.getBean(LookupableHelperService.class,beanId);
-        } catch ( RuntimeException ex ) {
+            return SpringContext.getBean(LookupableHelperService.class, beanId);
+        } catch (RuntimeException ex) {
             return null;
         }
     }

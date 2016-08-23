@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -38,6 +31,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An OJB implementation of the OriginEntryDao
@@ -95,7 +95,8 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Get the total amount of transactions in a group
-     * @param the id of the origin entry group to total
+     *
+     * @param the      id of the origin entry group to total
      * @param isCredit whether the total should be of credits or not
      * @return the sum of all queried origin entries
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getGroupTotal(java.lang.Integer, boolean)
@@ -107,26 +108,25 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         crit.addEqualTo(OriginEntryDaoOjb.ENTRY_GROUP_ID, groupId);
         if (isCredit) {
             crit.addEqualTo(OriginEntryDaoOjb.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_CREDIT_CODE);
-        }
-        else {
+        } else {
             crit.addNotEqualTo(OriginEntryDaoOjb.TRANSACTION_DEBIT_CREDIT_CODE, KFSConstants.GL_CREDIT_CODE);
         }
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(entryClass, crit);
-        q.setAttributes(new String[] { "SUM(" + OriginEntryDaoOjb.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" });
+        q.setAttributes(new String[]{"SUM(" + OriginEntryDaoOjb.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
 
         Iterator i = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         if (i.hasNext()) {
             Object[] data = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(i);
             return (KualiDecimal) data[0];
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     /**
      * Counts the number of entries in a group
+     *
      * @param the id of an origin entry group
      * @return the count of the entries in that group
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getGroupCount(java.lang.Integer)
@@ -138,7 +138,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         crit.addEqualTo(OriginEntryDaoOjb.ENTRY_GROUP_ID, groupId);
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(entryClass, crit);
-        q.setAttributes(new String[] { "count(*)" });
+        q.setAttributes(new String[]{"count(*)"});
 
         Iterator i = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         if (i.hasNext()) {
@@ -146,12 +146,10 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
             if (data[0] instanceof BigDecimal) {
                 return ((BigDecimal) data[0]).intValue();
-            }
-            else {
+            } else {
                 return ((Long) data[0]).intValue();
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -168,7 +166,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         Criteria crit = new Criteria();
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(entryClass, crit);
-        q.setAttributes(new String[] { ENTRY_GROUP_ID, "count(*)" });
+        q.setAttributes(new String[]{ENTRY_GROUP_ID, "count(*)"});
         q.addGroupBy(ENTRY_GROUP_ID);
 
         return getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
@@ -176,6 +174,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Delete an entry from the database
+     *
      * @param oe the entry to delete
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#deleteEntry(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
      */
@@ -199,7 +198,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         criteria.addEqualTo(ENTRY_GROUP_ID, oeg.getId());
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(entryClass, criteria);
-        q.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER, "financialDocumentTypeCode", "financialSystemOriginationCode" });
+        q.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER, "financialDocumentTypeCode", "financialSystemOriginationCode"});
 
         q.setDistinct(true);
 
@@ -217,7 +216,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         LOG.debug("getMatchingEntries() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -242,7 +241,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         }
 
         Collection ids = new ArrayList();
-        for (Iterator iter = groups.iterator(); iter.hasNext();) {
+        for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -280,8 +279,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
      * the required order by.
      *
      * @param OriginEntryGroup the originEntryGroup that holds the origin entries to find
-     * @param sort the sort order to sort entries by, defined in OriginEntryDao
-     *
+     * @param sort             the sort order to sort entries by, defined in OriginEntryDao
      * @return an Iterator of whichever flavor of OriginEntries this instance uses
      */
     public <T> Iterator<T> getEntriesByGroup(OriginEntryGroup oeg, int sort) {
@@ -322,8 +320,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
             qbc.addOrderByAscending(TRANSACTION_LEDGER_ENTRY_DESCRIPTION);
             qbc.addOrderByAscending(TRANSACTION_LEDGER_ENTRY_AMOUNT);
             qbc.addOrderByAscending(TRANSACTION_DEBIT_CREDIT_CODE);
-        }
-        else if (sort == OriginEntryDao.SORT_REPORT) {
+        } else if (sort == OriginEntryDao.SORT_REPORT) {
             qbc.addOrderByAscending(FINANCIAL_DOCUMENT_TYPE_CODE);
             qbc.addOrderByAscending(FINANCIAL_SYSTEM_ORIGINATION_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
@@ -331,8 +328,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
             qbc.addOrderByAscending(CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(ACCOUNT_NUMBER);
             qbc.addOrderByAscending(FINANCIAL_OBJECT_CODE);
-        }
-        else if (sort == OriginEntryDao.SORT_LISTING_REPORT) {
+        } else if (sort == OriginEntryDao.SORT_LISTING_REPORT) {
             qbc.addOrderByAscending(UNIVERSITY_FISCAL_YEAR);
             qbc.addOrderByAscending(CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(ACCOUNT_NUMBER);
@@ -344,8 +340,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
             qbc.addOrderByAscending(FINANCIAL_SYSTEM_ORIGINATION_CODE);
             qbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
             qbc.addOrderByAscending(TRANSACTION_LEDGER_ENTRY_DESCRIPTION);
-        }
-        else {
+        } else {
             qbc.addOrderByAscending(CHART_OF_ACCOUNTS_CODE);
             qbc.addOrderByAscending(ACCOUNT_NUMBER);
             qbc.addOrderByAscending(SUB_ACCOUNT_NUMBER);
@@ -386,7 +381,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         LOG.debug("deleteMatchingEntries() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -415,7 +410,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         }
 
         List ids = new ArrayList();
-        for (Iterator iter = groups.iterator(); iter.hasNext();) {
+        for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -443,7 +438,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         LOG.debug("getMatchingEntries() started");
 
         Criteria criteria = new Criteria();
-        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = searchCriteria.keySet().iterator(); iter.hasNext(); ) {
             String element = (String) iter.next();
             criteria.addEqualTo(element, searchCriteria.get(element));
         }
@@ -468,7 +463,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         }
 
         Collection ids = new ArrayList();
-        for (Iterator iter = groupIdList.iterator(); iter.hasNext();) {
+        for (Iterator iter = groupIdList.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -478,9 +473,9 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(entryClass, criteria);
 
-        String attributeList[] = { KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")", "count(*)" };
+        String attributeList[] = {KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")", "count(*)"};
 
-        String groupList[] = { KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE };
+        String groupList[] = {KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE};
 
         query.setAttributes(attributeList);
         query.addGroupBy(groupList);
@@ -507,8 +502,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         try {
             oe = (OriginEntryFull) getPersistenceBrokerTemplate().getObjectById(entryClass, entryId);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
 
         return oe;
@@ -529,7 +523,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
         }
 
         Collection ids = new ArrayList();
-        for (Iterator iter = groups.iterator(); iter.hasNext();) {
+        for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
             OriginEntryGroup element = (OriginEntryGroup) iter.next();
             ids.add(element.getId());
         }
@@ -540,9 +534,9 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
         ReportQueryByCriteria query = QueryFactory.newReportQuery(entryClass, criteria);
 
-        String attributeList[] = { KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, fundGroupCode, KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")" };
+        String attributeList[] = {KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, fundGroupCode, KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE, "sum(" + KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"};
 
-        String groupList[] = { KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, fundGroupCode, KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE };
+        String groupList[] = {KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSPropertyConstants.UNIVERSITY_FISCAL_PERIOD_CODE, fundGroupCode, KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE, KFSPropertyConstants.TRANSACTION_DEBIT_CREDIT_CODE};
 
         query.setAttributes(attributeList);
         query.addGroupBy(groupList);

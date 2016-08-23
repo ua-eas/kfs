@@ -30,7 +30,6 @@ public interface CommodityCodeDao {
      * will return true. If no matching found then this method returns false.
      *
      * @param wildCardCommodityCode The string containing wild card character to be queried to the database.
-     *
      * @return boolean true if the wildcardCommodityCode exists in the database.
      */
     public boolean wildCardCommodityCodeExists(String wildCardCommodityCode);

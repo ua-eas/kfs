@@ -28,11 +28,11 @@
 is omitted by default, but the link to it is still present, it can be shown as a clickable
 link again through jquery as in setPageBreadcrumb when needed --%>
 <c:if test="${(fn:length(crumbs) >= 1) || (widget.displayBreadcrumbsWhenOne && fn:length(crumbs) == 0)}">
-  <label id="breadcrumb_label" class="offScreen">Breadcrumbs</label>
-  <span class="${widget.styleClassesAsString}">
+    <label id="breadcrumb_label" class="offScreen">Breadcrumbs</label>
+    <span class="${widget.styleClassesAsString}">
     <ol id="breadcrumbs" role="navigation" aria-labelledby="breadcrumb_label">
       <c:forEach var="entry" items="${crumbs}">
-        <li><a href="${entry.url}">${entry.title}</a><span role="presentation"> &raquo; </span></li>
+          <li><a href="${entry.url}">${entry.title}</a><span role="presentation"> &raquo; </span></li>
       </c:forEach>
       <span class="kr-current" id="current_breadcrumb_span">${current.title}</span>
       <a style="display:none;" id="current_breadcrumb_anchor" href="${current.url}"/>${current.title}</a>

@@ -19,32 +19,39 @@
 package org.kuali.kfs.integration.cg.dto;
 
 public class KcObjectCode {
-    String  objectCodeName;
-    String  description;
+    String objectCodeName;
+    String description;
 
-     /**
+    /**
      * Gets the objectCodeName attribute.
+     *
      * @return Returns the objectCodeName.
      */
     public String getObjectCodeName() {
         return objectCodeName;
     }
+
     /**
      * Sets the objectCodeName attribute value.
+     *
      * @param objectCodeName The objectCodeName to set.
      */
     public void setObjectCodeName(String objectCodeName) {
         this.objectCodeName = objectCodeName;
     }
+
     /**
      * Gets the description attribute.
+     *
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
+
     /**
      * Sets the description attribute value.
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {

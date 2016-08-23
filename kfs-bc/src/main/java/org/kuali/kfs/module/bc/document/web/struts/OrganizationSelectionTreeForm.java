@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
+import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.KeyValue;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.service.PersistenceService;
 
 /**
  * ActionForm that supports the Organization Selection Tree page
@@ -91,7 +90,7 @@ public class OrganizationSelectionTreeForm extends BudgetExpansionForm {
         while (selectionOrgs.hasNext()) {
             BudgetConstructionPullup selectionOrg = selectionOrgs.next();
 
-            final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { "organization" }));
+            final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{"organization"}));
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(selectionOrg, REFRESH_FIELDS);
         }
 
@@ -102,7 +101,7 @@ public class OrganizationSelectionTreeForm extends BudgetExpansionForm {
         Iterator<BudgetConstructionPullup> previousBranchOrgs = getPreviousBranchOrgs().iterator();
         while (previousBranchOrgs.hasNext()) {
             BudgetConstructionPullup previousBranchOrg = previousBranchOrgs.next();
-            final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { "organization" }));
+            final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{"organization"}));
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(previousBranchOrg, REFRESH_FIELDS);
         }
 
@@ -322,7 +321,7 @@ public class OrganizationSelectionTreeForm extends BudgetExpansionForm {
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String,
-     *      javax.servlet.http.HttpServletRequest)
+     * javax.servlet.http.HttpServletRequest)
      */
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
@@ -335,15 +334,14 @@ public class OrganizationSelectionTreeForm extends BudgetExpansionForm {
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#reset(org.apache.struts.action.ActionMapping,
-     *      javax.servlet.http.HttpServletRequest) resets check box fields if not returning from a child expansion screen
+     * javax.servlet.http.HttpServletRequest) resets check box fields if not returning from a child expansion screen
      */
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
 
         if (this.isNoResetOnReturn()) {
             this.setNoResetOnReturn(false);
-        }
-        else {
+        } else {
             super.reset(mapping, request);
             for (BudgetConstructionPullup selectionSubTreeOrg : selectionSubTreeOrgs) {
                 selectionSubTreeOrg.setPullFlag(0);

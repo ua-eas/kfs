@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess;
 
+import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+
 import java.util.Collection;
 import java.util.Map;
-
-import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 
 
 /**
@@ -52,7 +52,7 @@ public interface ContractsGrantsInvoiceDocumentDao {
      * <li>Must be final or processed</li>
      * </ul>
      *
-     * @param fieldValues for search criteria.
+     * @param fieldValues            for search criteria.
      * @param excludedInvoiceNumbers Collection of invoice numbers to exclude from the result set.
      * @return Returns the invoices which matches the given field values.
      */

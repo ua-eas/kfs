@@ -55,10 +55,11 @@ public class AgencyAddress implements ContractsAndGrantsAgencyAddress {
 
     private CountryService countryService;
 
-    public AgencyAddress() { }
+    public AgencyAddress() {
+    }
 
     public AgencyAddress(Agency agency, RolodexDTO kcAddress) {
-        init(agency,kcAddress);
+        init(agency, kcAddress);
     }
 
     public void init(Agency agency, RolodexDTO kcAddress) {
@@ -92,10 +93,11 @@ public class AgencyAddress implements ContractsAndGrantsAgencyAddress {
         this.agencyFaxNumber = kcAddress.getFaxNumber();
         this.customerAddressTypeCode = ArConstants.AGENCY_PRIMARY_ADDRESSES_TYPE_CODE;
         this.primary = true;
-   }
+    }
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getAgencyNumber() {
@@ -295,7 +297,7 @@ public class AgencyAddress implements ContractsAndGrantsAgencyAddress {
     }
 
     private CountryService getCountryService() {
-        if ( countryService == null ) {
+        if (countryService == null) {
             countryService = LocationApiServiceLocator.getCountryService();
         }
         return countryService;

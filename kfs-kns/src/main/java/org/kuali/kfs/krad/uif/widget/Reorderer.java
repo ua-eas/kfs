@@ -19,16 +19,14 @@
 package org.kuali.kfs.krad.uif.widget;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.container.Group;
-import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
-import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 
 /**
  * Allows client-side reordering of the group contents
- *
- *
  */
 public class Reorderer extends WidgetBase {
     private static final long serialVersionUID = 6142957061046219120L;
@@ -41,7 +39,7 @@ public class Reorderer extends WidgetBase {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Adds the movable style class to each group item</li>
      * <li>Prepares the movable widget option based on the movable style class</li>
@@ -63,7 +61,7 @@ public class Reorderer extends WidgetBase {
             // add the default movable class to the selectors option if not already configured
             if (!getComponentOptions().containsKey(UifConstants.ReordererOptionKeys.SELECTORS)) {
                 String selectorsOption =
-                        "{" + UifConstants.ReordererOptionKeys.MOVABLES + " : 'span." + movableStyleClass + "' }";
+                    "{" + UifConstants.ReordererOptionKeys.MOVABLES + " : 'span." + movableStyleClass + "' }";
                 getComponentOptions().put(UifConstants.ReordererOptionKeys.SELECTORS, selectorsOption);
             }
         }
@@ -71,7 +69,7 @@ public class Reorderer extends WidgetBase {
 
     /**
      * Returns the style class for the item spans that will identify a movable element
-     *
+     * <p>
      * <p>
      * Given style class will be used to build a jQuery selector that is then passed to the
      * reorderer widget through the options

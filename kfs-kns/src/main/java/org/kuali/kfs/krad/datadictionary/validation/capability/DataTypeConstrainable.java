@@ -22,12 +22,10 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.DataTypeConstrain
 
 /**
  * Validation capability to constrain a value to be of a specific data type.
- *
- *
  */
 public interface DataTypeConstrainable extends Constrainable, DataTypeConstraint {
 
-	// To match up with legacy code for length and range constraints, data type constraints are imposed
-	// on the definition, making the capability a sub-interface of the constraint
+    // To match up with legacy code for length and range constraints, data type constraints are imposed
+    // on the definition, making the capability a sub-interface of the constraint
 
 }

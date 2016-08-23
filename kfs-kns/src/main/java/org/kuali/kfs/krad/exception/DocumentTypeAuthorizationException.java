@@ -26,8 +26,6 @@ import java.util.Map;
 /**
  * This class represents an exception that is thrown when a given user is not authorized to take a given action on the given
  * document type.
- *
- *
  */
 public class DocumentTypeAuthorizationException extends AuthorizationException {
     private static final long serialVersionUID = 1548057953855152103L;

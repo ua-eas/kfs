@@ -20,10 +20,10 @@
 function refreshPointOfView(form) {
 
     // setup an hidden input type to point to the desired methodToCall
-    fe=document.createElement("input");
-    fe.setAttribute("type","hidden");
-    fe.setAttribute("name","methodToCall");
-    fe.setAttribute("value","performBuildPointOfView");
+    fe = document.createElement("input");
+    fe.setAttribute("type", "hidden");
+    fe.setAttribute("name", "methodToCall");
+    fe.setAttribute("value", "performBuildPointOfView");
     form.appendChild(fe);
 
     submitForm();

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ld.batch.service.LaborNightlyOutService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Clean Labor Feed Batch Step.

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cam.document.web.struts;
 
+import org.kuali.kfs.sys.web.struts.KualiBatchInputFileSetForm;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sys.web.struts.KualiBatchInputFileSetForm;
 
 public class AssetBarCodeInventoryInputFileForm extends KualiBatchInputFileSetForm {
     private String uploadDescription;

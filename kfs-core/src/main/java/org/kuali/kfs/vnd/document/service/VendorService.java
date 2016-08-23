@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.vnd.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.businessobject.VendorRoutingComparable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface VendorService {
 
@@ -36,6 +36,7 @@ public interface VendorService {
 
     /**
      * get the vendor detail with the given vendor number
+     *
      * @param vendorNumber the given vendor number
      * @return the vendor detail with the given vendor number if the vendor exists, otherwise, return null
      */
@@ -52,12 +53,13 @@ public interface VendorService {
      *
      * @param vendorHeaderGeneratedIdentifier The Header Id in Integer form
      * @return The VendorDetail of the parent vendor associated with the corporate structure indicated by the given Header Id, or
-     *         null if there are no vendors associated with it.
+     * null if there are no vendors associated with it.
      */
     public VendorDetail getParentVendor(Integer vendorHeaderGeneratedIdentifier);
 
     /**
      * Retrieves the VendorDetail using its vendorDunsNumber.
+     *
      * @param vendorDunsNumber the vendor's DUN number.
      * @return
      */
@@ -79,11 +81,11 @@ public interface VendorService {
      * {@link org.kuali.kfs.vnd.businessobject.VendorContract} objects can be found for the given parameters this method will return null.
      *
      * @param contractId id used to find {@link org.kuali.kfs.vnd.businessobject.VendorContractOrganization} object and
-     *        {@link org.kuali.kfs.vnd.businessobject.VendorContract} object
-     * @param chart chart code for use in finding {@link org.kuali.kfs.vnd.businessobject.VendorContractOrganization} object
-     * @param org org code for use in finding {@link org.kuali.kfs.vnd.businessobject.VendorContractOrganization} object
+     *                   {@link org.kuali.kfs.vnd.businessobject.VendorContract} object
+     * @param chart      chart code for use in finding {@link org.kuali.kfs.vnd.businessobject.VendorContractOrganization} object
+     * @param org        org code for use in finding {@link org.kuali.kfs.vnd.businessobject.VendorContractOrganization} object
      * @return the automatic purchase order limit amount from the contract found using the parameters. If parameters do not find
-     *         valid vendor contract objects then null is returned.
+     * valid vendor contract objects then null is returned.
      */
     public KualiDecimal getApoLimitFromContract(Integer contractId, String chart, String org);
 
@@ -92,8 +94,8 @@ public interface VendorService {
      *
      * @param vendorHeaderId Integer - Header ID of vendor.
      * @param vendorDetailId Integer - Detail ID of vendor.
-     * @param addressType String - Address type of desired default.
-     * @param campus String - Campus of desired default.
+     * @param addressType    String - Address type of desired default.
+     * @param campus         String - Campus of desired default.
      * @return VendorAddress Desired default address; return null is possible if no defaults set.
      */
     public VendorAddress getVendorDefaultAddress(Integer vendorHeaderId, Integer vendorDetailId, String addressType, String campus);
@@ -104,9 +106,9 @@ public interface VendorService {
      * allDefaultAddress if found. 3) If campus passed in is not null, look in campus lists of addresses to see if given campus is
      * found for the given address type. If match found, return address. If no match found, return allDefaultAddress.
      *
-     * @param addresses List of addresses for a vendor.
+     * @param addresses   List of addresses for a vendor.
      * @param addressType String - Address type of the desired default sought.
-     * @param campus String - Campus of the desired default sought.
+     * @param campus      String - Campus of the desired default sought.
      * @return VendorAddress Desired default address; return null is possible if no defaults set.
      */
     public VendorAddress getVendorDefaultAddress(Collection<VendorAddress> addresses, String addressType, String campus);
@@ -128,7 +130,7 @@ public interface VendorService {
      * @param list_a A List which implements VendorRoutingComparable (specifies isEqualForRouting)
      * @param list_b Another such list
      * @return True if all the member objects in the given lists are equal (as far as routing is concerned) at the same locations in
-     *         the lists.
+     * the lists.
      */
     public boolean equalMemberLists(List<? extends VendorRoutingComparable> list_a, List<? extends VendorRoutingComparable> list_b);
 
@@ -152,7 +154,7 @@ public interface VendorService {
      *
      * @param vendorHeaderGeneratedIdentifier The Header Id in Integer form
      * @return true if the vendor identified by the <code>vendorHeaderGeneratedIdentifier</code> given is an employee of the
-     *         institution
+     * institution
      */
     public boolean isVendorInstitutionEmployee(Integer vendorHeaderGeneratedIdentifier);
 
@@ -162,7 +164,7 @@ public interface VendorService {
      *
      * @param vendorHeaderGeneratedIdentifier The Header Id in Integer form
      * @return true if the vendor identified by the <code>vendorHeaderGeneratedIdentifier</code> given is valid and is marked as a
-     *         foreign vendor
+     * foreign vendor
      */
     public boolean isVendorForeign(Integer vendorHeaderGeneratedIdentifier);
 
@@ -188,7 +190,7 @@ public interface VendorService {
      * This method retrieves the B2B Contract for the given Vendor (see method in VendorDao for criteria).
      *
      * @param vendorDetail Vendor info
-     * @param campus Campus
+     * @param campus       Campus
      * @return VendorContract B2B Contract for given vendor
      */
     public VendorContract getVendorB2BContract(VendorDetail vendorDetail, String campus);
@@ -213,11 +215,11 @@ public interface VendorService {
      *
      * @param vendorHeaderId Integer - Header ID of vendor.
      * @param vendorDetailId Integer - Detail ID of vendor.
-     * @param addressType String - Address type of desired default.
-     * @param campus String - Campus of desired default.
-     * @param activeCheck boolean - active indicator Check required or not.
+     * @param addressType    String - Address type of desired default.
+     * @param campus         String - Campus of desired default.
+     * @param activeCheck    boolean - active indicator Check required or not.
      * @return VendorAddress Desired default address; return null is possible if no defaults set.
      */
-    public VendorAddress getVendorDefaultAddress(Integer vendorHeaderId, Integer vendorDetailId, String addressType, String campus,boolean activeCheck);
+    public VendorAddress getVendorDefaultAddress(Integer vendorHeaderId, Integer vendorDetailId, String addressType, String campus, boolean activeCheck);
 
- }
+}

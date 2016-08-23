@@ -19,15 +19,15 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TravelPayment;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
 
@@ -41,6 +41,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
 
     /**
      * Validates that the special handling state and special handling country align
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -48,7 +49,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
         boolean isValid = true;
 
         MessageMap errors = GlobalVariables.getMessageMap();
-        errors.addToErrorPath(KFSPropertyConstants.DOCUMENT+"."+TemPropertyConstants.TRAVEL_PAYMENT);
+        errors.addToErrorPath(KFSPropertyConstants.DOCUMENT + "." + TemPropertyConstants.TRAVEL_PAYMENT);
 
         final String countryCode = getTravelPaymentForValidation().getSpecialHandlingCountryCode();
         final String stateCode = getTravelPaymentForValidation().getSpecialHandlingStateCode();
@@ -62,7 +63,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
             }
         }
 
-        errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT+"."+TemPropertyConstants.TRAVEL_PAYMENT);
+        errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT + "." + TemPropertyConstants.TRAVEL_PAYMENT);
 
         return isValid;
     }
@@ -76,6 +77,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
 
     /**
      * Sets the travel payment which should be validated
+     *
      * @param travelPaymentForValidation the travel payment which should be validated
      */
     public void setTravelPaymentForValidation(TravelPayment travelPaymentForValidation) {
@@ -91,6 +93,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
 
     /**
      * Sets the implementation of the StateService to use
+     *
      * @param stateService the implementation of the StateService to use
      */
     public void setStateService(StateService stateService) {
@@ -106,6 +109,7 @@ public class TravelPaymentSpecialHandlingStateCodeValidation extends GenericVali
 
     /**
      * Sets the implementation of the DataDictionaryService to use
+     *
      * @param dataDictionaryService the implementation of the DataDictionaryService to use
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

@@ -56,5 +56,6 @@ public class LetterOfCreditFundGroup implements ContractsAndGrantsLetterOfCredit
     }
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 }

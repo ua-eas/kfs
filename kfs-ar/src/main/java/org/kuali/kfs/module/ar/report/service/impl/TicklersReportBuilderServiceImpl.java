@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.TicklersReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.module.ar.report.TicklersReportDetailDataHolder;
 import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService for the Ticklers Report
@@ -35,13 +35,14 @@ public class TicklersReportBuilderServiceImpl implements ContractsGrantsReportDa
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
     public ContractsGrantsReportDataHolder buildReportDataHolder(List<? extends BusinessObject> displayList, String sortPropertyName) {
         ContractsGrantsReportDataHolder arTicklersReportDataHolder = new ContractsGrantsReportDataHolder();
         List<TicklersReportDetailDataHolder> ticklersReportDetails = arTicklersReportDataHolder.getDetails();
-        for (TicklersReport tr : (List<TicklersReport>)displayList) {
+        for (TicklersReport tr : (List<TicklersReport>) displayList) {
             TicklersReportDetailDataHolder trDataHolder = new TicklersReportDetailDataHolder(tr);
             ticklersReportDetails.add(trDataHolder);
         }
@@ -50,6 +51,7 @@ public class TicklersReportBuilderServiceImpl implements ContractsGrantsReportDa
 
     /**
      * Returns the class of TicklersReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

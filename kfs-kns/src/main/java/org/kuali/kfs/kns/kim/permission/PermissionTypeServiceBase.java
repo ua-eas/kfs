@@ -34,47 +34,46 @@ import java.util.Map;
 @Deprecated
 public class PermissionTypeServiceBase extends DataDictionaryTypeServiceBase implements PermissionTypeService {
 
-	@Override
-	public final List<Permission> getMatchingPermissions(Map<String, String> requestedDetails, List<Permission> permissionsList) {
-		requestedDetails = translateInputAttributes(requestedDetails);
-		validateRequiredAttributesAgainstReceived(requestedDetails);
-		return Collections.unmodifiableList(performPermissionMatches(requestedDetails, permissionsList));
-	}
+    @Override
+    public final List<Permission> getMatchingPermissions(Map<String, String> requestedDetails, List<Permission> permissionsList) {
+        requestedDetails = translateInputAttributes(requestedDetails);
+        validateRequiredAttributesAgainstReceived(requestedDetails);
+        return Collections.unmodifiableList(performPermissionMatches(requestedDetails, permissionsList));
+    }
 
-	/**
-	 * Internal method for matching permissions.  Override this method to customize the matching behavior.
-	 *
-	 * This base implementation uses the {@link #performMatch(Map, Map)} method
-	 * to perform an exact match on the permission details and return all that are equal.
-	 */
-	protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
-		List<Permission> matchingPermissions = new ArrayList<Permission>();
-		for (Permission permission : permissionsList) {
-			if ( performMatch(requestedDetails, permission.getAttributes()) ) {
-				matchingPermissions.add( permission );
-			}
-		}
-		return matchingPermissions;
-	}
+    /**
+     * Internal method for matching permissions.  Override this method to customize the matching behavior.
+     * <p>
+     * This base implementation uses the {@link #performMatch(Map, Map)} method
+     * to perform an exact match on the permission details and return all that are equal.
+     */
+    protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
+        List<Permission> matchingPermissions = new ArrayList<Permission>();
+        for (Permission permission : permissionsList) {
+            if (performMatch(requestedDetails, permission.getAttributes())) {
+                matchingPermissions.add(permission);
+            }
+        }
+        return matchingPermissions;
+    }
 
-	/**
-	 *
-	 * Internal method for checking if property name matches
-	 *
-	 * @param requestedDetailsPropertyName name of requested details property
-	 * @param permissionDetailsPropertyName name of permission details property
-	 * @return boolean
-	 */
-	protected boolean doesPropertyNameMatch(
-			String requestedDetailsPropertyName,
-			String permissionDetailsPropertyName) {
-		if (StringUtils.isBlank(permissionDetailsPropertyName)) {
-			return true;
-		}
-		if ( requestedDetailsPropertyName == null ) {
-		    requestedDetailsPropertyName = ""; // prevent NPE
-		}
-		return StringUtils.equals(requestedDetailsPropertyName, permissionDetailsPropertyName)
-				|| (requestedDetailsPropertyName.startsWith(permissionDetailsPropertyName+"."));
-	}
+    /**
+     * Internal method for checking if property name matches
+     *
+     * @param requestedDetailsPropertyName  name of requested details property
+     * @param permissionDetailsPropertyName name of permission details property
+     * @return boolean
+     */
+    protected boolean doesPropertyNameMatch(
+        String requestedDetailsPropertyName,
+        String permissionDetailsPropertyName) {
+        if (StringUtils.isBlank(permissionDetailsPropertyName)) {
+            return true;
+        }
+        if (requestedDetailsPropertyName == null) {
+            requestedDetailsPropertyName = ""; // prevent NPE
+        }
+        return StringUtils.equals(requestedDetailsPropertyName, permissionDetailsPropertyName)
+            || (requestedDetailsPropertyName.startsWith(permissionDetailsPropertyName + "."));
+    }
 }

@@ -45,7 +45,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
         loadPropertyList(props, SECURITY_PROPERTY_FILE_NAME_KEY);
 
         if (LOG.isDebugEnabled()) {
-            for (Object key: props.keySet()) {
+            for (Object key : props.keySet()) {
                 String value = (String) props.get(key);
                 LOG.debug(key + ": " + value);
             }
@@ -63,24 +63,22 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
 
     private static void loadPropertyList(Properties props, String listPropertyName) {
         for (String propertyFileName : getBaseListProperty(listPropertyName)) {
-            loadProperties(props,propertyFileName);
+            loadProperties(props, propertyFileName);
         }
     }
 
-    private static void loadProperties( Properties props, String propertyFileName) {
+    private static void loadProperties(Properties props, String propertyFileName) {
         InputStream propertyFileInputStream = null;
         try {
             try {
                 propertyFileInputStream = new DefaultResourceLoader(getDefaultClassLoader()).getResource(propertyFileName).getInputStream();
                 props.load(propertyFileInputStream);
-            }
-            finally {
+            } finally {
                 if (propertyFileInputStream != null) {
                     propertyFileInputStream.close();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error(e);
         }
     }
@@ -109,13 +107,14 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
 
     /**
      * Loads properties from an external file.  Also merges in all System properties
+     *
      * @param props the properties object
      */
     private static void loadExternalProperties(Properties props, String location) {
         String externalConfigLocationPaths = System.getProperty(location);
         if (StringUtils.isNotEmpty(externalConfigLocationPaths)) {
             String[] files = externalConfigLocationPaths.split(",");
-            for (String f: files) {
+            for (String f : files) {
                 if (StringUtils.isNotEmpty(f)) {
                     LOG.info("Loading properties from " + f);
                     loadProperties(props, new StringBuffer("file:").append(f).toString());

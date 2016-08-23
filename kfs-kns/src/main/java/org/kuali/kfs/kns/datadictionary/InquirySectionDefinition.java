@@ -28,17 +28,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *                  inquirySection defines the format and content of
-                 one section of the inquiry.
-                 DD:  See InquirySectionDefinition.java
-
-                numberOfColumns = the number of fields to be displayed in each row of the inquiry section.
-                For example, numberOfColumns = 2 indicates that the label and values for two fields will be
-                displayed in each row as follows:
-                    field1label field1value  |   field2label field2value
-                    field3label field3value  |   field4label field4value
-                etc.
-
+ * inquirySection defines the format and content of
+ * one section of the inquiry.
+ * DD:  See InquirySectionDefinition.java
+ * <p>
+ * numberOfColumns = the number of fields to be displayed in each row of the inquiry section.
+ * For example, numberOfColumns = 2 indicates that the label and values for two fields will be
+ * displayed in each row as follows:
+ * field1label field1value  |   field2label field2value
+ * field3label field3value  |   field4label field4value
+ * etc.
+ * <p>
  * Contains section-related information for inquiry sections
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
@@ -46,7 +46,7 @@ import java.util.Map;
 public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 1565114894539391362L;
 
-	protected String title;
+    protected String title;
     protected List<FieldDefinition> inquiryFields = new ArrayList<FieldDefinition>();
     protected Map<String, FieldDefinition> inquiryFieldMap = new LinkedHashMap<String, FieldDefinition>();
     protected Map inquiryCollections;
@@ -54,7 +54,8 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     protected Integer numberOfColumns = 2;
     protected boolean defaultOpen = true;
 
-    public InquirySectionDefinition() {}
+    public InquirySectionDefinition() {
+    }
 
 
     /**
@@ -76,7 +77,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return List of attributeNames of all FieldDefinitions associated with this InquirySection, in the order in
-     *         which they were added
+     * which they were added
      */
     public List<String> getInquiryFieldNames() {
         List<String> itemNames = new ArrayList<String>();
@@ -87,7 +88,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * @return Collection of all FieldDefinitions associated with this InquirySection, in the order in which they
-     *         were added
+     * were added
      */
     public List<FieldDefinition> getInquiryFields() {
         return inquiryFields;
@@ -99,7 +100,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
-        for (FieldDefinition inquiryField : inquiryFields ) {
+        for (FieldDefinition inquiryField : inquiryFields) {
             inquiryField.completeValidation(rootBusinessObjectClass, null);
         }
     }
@@ -113,22 +114,22 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-                   The inquiryCollection defines a collection within the Business Object which contains
-                   data that should be displayed with the BO when the inquiry is performed.
-
-                   Each inquiryCollection defines a set of data fields, nested inquiryCollections
-                   and summaryFields.  The summaryFields will be reported in the header of
-                   this inquiryCollection, .
-
-                   DD: See InquiryCollectionDefinition.java
-                   JSTL: The inquiryCollection element is a Map with the following keys:
-                       * name (String)
-                       * dataObjectClass (String)
-                       * numberOfColumns (String)
-                       * inquiryFields (Map)
-                       * inquiryCollections (Map, optional)
-                       * summaryTitle (String)
-                       * summaryFields (Map, optional)
+     * The inquiryCollection defines a collection within the Business Object which contains
+     * data that should be displayed with the BO when the inquiry is performed.
+     * <p>
+     * Each inquiryCollection defines a set of data fields, nested inquiryCollections
+     * and summaryFields.  The summaryFields will be reported in the header of
+     * this inquiryCollection, .
+     * <p>
+     * DD: See InquiryCollectionDefinition.java
+     * JSTL: The inquiryCollection element is a Map with the following keys:
+     * name (String)
+     * dataObjectClass (String)
+     * numberOfColumns (String)
+     * inquiryFields (Map)
+     * inquiryCollections (Map, optional)
+     * summaryTitle (String)
+     * summaryFields (Map, optional)
      */
     public void setInquiryCollections(Map inquiryCollections) {
         this.inquiryCollections = inquiryCollections;
@@ -139,12 +140,12 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-                numberOfColumns = the number of fields to be displayed in each row of the inquiry section.
-                For example, numberOfColumns = 2 indicates that the label and values for two fields will be
-                displayed in each row as follows:
-                    field1label field1value  |   field2label field2value
-                    field3label field3value  |   field4label field4value
-                etc.
+     * numberOfColumns = the number of fields to be displayed in each row of the inquiry section.
+     * For example, numberOfColumns = 2 indicates that the label and values for two fields will be
+     * displayed in each row as follows:
+     * field1label field1value  |   field2label field2value
+     * field3label field3value  |   field4label field4value
+     * etc.
      */
     public void setNumberOfColumns(Integer numberOfColumns) {
         this.numberOfColumns = numberOfColumns;
@@ -152,45 +153,45 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
 
 
     /**
-                JSTL: inquiryFields is a Map which is accessed using a
-                key of "inquiryFields".  This map contains the following types
-                of elements:
-                    * inquirySubSectionHeader
-                    * field
-                    * inquiryCollection
-                Each of these entries are keyed by "attributeName".
-                The associated value is the attributeName of the
-                mapped element.
-
-                  The inquirySubSectionHeader allows a separator containing text to
-                  separate groups of fields.  The name attribute is the displayed text.
-
-                  JSTL: inquirySubSectionHeader appears in the inquiryFields map as:
-                      * key = "attributeName"
-                      * value = name of inquirySubSectionHeader
-
-
-                    The field element defines the attributes of a single data field.
-
-                    DD:  See FieldDefinition.java
-                    JSTL: The field element is a Map which is accessed using
-                    a key of the attributeName.  This map contains the following keys:
-                        * attributeName (String)
-                        * forceInquiry (boolean String)
-                        * noInquiry (boolean String)
-                        * maxLength (String)
-
-                forceInquiry = true means that the displayed field value will
-                always be made inquirable (this attribute is not used within the code).
-
-                noInquiry = true means that the displayed field will never be made inquirable.
-
-                maxLength = the maximum allowable length of the field in the lookup result fields.  In other contexts,
-                like inquiries, this field has no effect.
+     * JSTL: inquiryFields is a Map which is accessed using a
+     * key of "inquiryFields".  This map contains the following types
+     * of elements:
+     * inquirySubSectionHeader
+     * field
+     * inquiryCollection
+     * Each of these entries are keyed by "attributeName".
+     * The associated value is the attributeName of the
+     * mapped element.
+     * <p>
+     * The inquirySubSectionHeader allows a separator containing text to
+     * separate groups of fields.  The name attribute is the displayed text.
+     * <p>
+     * JSTL: inquirySubSectionHeader appears in the inquiryFields map as:
+     * key = "attributeName"
+     * value = name of inquirySubSectionHeader
+     * <p>
+     * <p>
+     * The field element defines the attributes of a single data field.
+     * <p>
+     * DD:  See FieldDefinition.java
+     * JSTL: The field element is a Map which is accessed using
+     * a key of the attributeName.  This map contains the following keys:
+     * attributeName (String)
+     * forceInquiry (boolean String)
+     * noInquiry (boolean String)
+     * maxLength (String)
+     * <p>
+     * forceInquiry = true means that the displayed field value will
+     * always be made inquirable (this attribute is not used within the code).
+     * <p>
+     * noInquiry = true means that the displayed field will never be made inquirable.
+     * <p>
+     * maxLength = the maximum allowable length of the field in the lookup result fields.  In other contexts,
+     * like inquiries, this field has no effect.
      */
     public void setInquiryFields(List<FieldDefinition> inquiryFields) {
         inquiryFieldMap.clear();
-        for (FieldDefinition inquiryField : inquiryFields ) {
+        for (FieldDefinition inquiryField : inquiryFields) {
             if (inquiryField == null) {
                 throw new IllegalArgumentException("invalid (null) inquiryField");
             }
@@ -206,19 +207,19 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     }
 
 
-	/**
-	 * @return the defaultOpen
-	 */
-	public boolean isDefaultOpen() {
-		return this.defaultOpen;
-	}
+    /**
+     * @return the defaultOpen
+     */
+    public boolean isDefaultOpen() {
+        return this.defaultOpen;
+    }
 
 
-	/**
-	 * @param defaultOpen the defaultOpen to set
-	 */
-	public void setDefaultOpen(boolean defaultOpen) {
-		this.defaultOpen = defaultOpen;
-	}
+    /**
+     * @param defaultOpen the defaultOpen to set
+     */
+    public void setDefaultOpen(boolean defaultOpen) {
+        this.defaultOpen = defaultOpen;
+    }
 
 }

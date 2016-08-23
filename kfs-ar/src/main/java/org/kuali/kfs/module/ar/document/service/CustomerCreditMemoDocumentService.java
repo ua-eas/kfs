@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
+
+import java.util.Collection;
 
 public interface CustomerCreditMemoDocumentService {
 
     /**
-     *
      * Completes the work that needs to be done once a CreditMemo is fully approved,
      * such as generating invoicepaidapplieds, and closing the invoice if appropriate.
      *
@@ -35,6 +34,7 @@ public interface CustomerCreditMemoDocumentService {
 
     /**
      * This method recalculates customer credit memo document based on the user input
+     *
      * @return
      */
     public void recalculateCustomerCreditMemoDocument(CustomerCreditMemoDocument customerCreditMemoDocument, boolean blanketApproveDocumentEventFlag);
@@ -49,6 +49,7 @@ public interface CustomerCreditMemoDocumentService {
 
     /**
      * This method checks if there is no data to submit
+     *
      * @return
      */
     public boolean isThereNoDataToSubmit(CustomerCreditMemoDocument customerCreditMemoDocument);

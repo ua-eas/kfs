@@ -18,21 +18,19 @@
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public enum PurchaseOrderDocumentFixture {
 
     REC1 {
-
         @Override
         public PurchaseOrderDocument newRecord() {
             PurchaseOrderDocument obj = new PurchaseOrderDocument();
@@ -96,10 +94,11 @@ public enum PurchaseOrderDocumentFixture {
             obj.setUseTaxIndicator(true);
             obj.setDocumentHeader(FinancialSystemDocumentHeaderFixture.PO1.newRecord());
             return obj;
-        };
+        }
+
+        ;
     },
     REC2 {
-
         @Override
         public PurchaseOrderDocument newRecord() {
             PurchaseOrderDocument obj = new PurchaseOrderDocument();
@@ -163,10 +162,11 @@ public enum PurchaseOrderDocumentFixture {
             obj.setUseTaxIndicator(true);
             obj.setDocumentHeader(FinancialSystemDocumentHeaderFixture.PO2.newRecord());
             return obj;
-        };
+        }
+
+        ;
     },
     REC3 {
-
         @Override
         public PurchaseOrderDocument newRecord() {
             PurchaseOrderDocument obj = new PurchaseOrderDocument();
@@ -230,8 +230,11 @@ public enum PurchaseOrderDocumentFixture {
             obj.setUseTaxIndicator(true);
             obj.setDocumentHeader(FinancialSystemDocumentHeaderFixture.PO3.newRecord());
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract PurchaseOrderDocument newRecord();
 
     public static void setUpData() {

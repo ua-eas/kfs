@@ -19,11 +19,11 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.businessobject.Check;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation that makes sure a check amount is positive.
@@ -33,6 +33,7 @@ public class CashReceiptCheckAmountPositiveValidation extends GenericValidation 
 
     /**
      * Verifies that the amount on the check is not negative.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -45,6 +46,7 @@ public class CashReceiptCheckAmountPositiveValidation extends GenericValidation 
 
     /**
      * Gets the checkForValidation attribute.
+     *
      * @return Returns the checkForValidation.
      */
     public Check getCheckForValidation() {
@@ -53,6 +55,7 @@ public class CashReceiptCheckAmountPositiveValidation extends GenericValidation 
 
     /**
      * Sets the checkForValidation attribute value.
+     *
      * @param checkForValidation The checkForValidation to set.
      */
     public void setCheckForValidation(Check checkForValidation) {

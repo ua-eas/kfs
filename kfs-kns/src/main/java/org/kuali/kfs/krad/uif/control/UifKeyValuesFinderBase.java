@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.uif.control;
 
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import java.util.List;
 

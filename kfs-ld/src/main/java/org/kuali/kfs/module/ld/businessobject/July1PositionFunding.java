@@ -122,6 +122,7 @@ public class July1PositionFunding extends LedgerBalance {
 
     /**
      * Gets the person name.
+     *
      * @return the person name
      */
     public String getName() {

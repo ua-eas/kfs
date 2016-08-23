@@ -27,12 +27,14 @@ import org.kuali.kfs.sys.document.validation.Validation;
 public interface ActualExpenseDetailValidation extends Validation {
     /**
      * Sets the actual expense to validate
+     *
      * @param actualExpense the actual expense to validate
      */
     public abstract void setActualExpenseForValidation(ActualExpense actualExpense);
 
     /**
      * Sets the actual expense detail (which should be a detail of the set actual expense) to validate
+     *
      * @param actualExpenseDetail the actual expense detail to validate
      */
     public abstract void setActualExpenseDetailForValidation(ActualExpense actualExpenseDetail);

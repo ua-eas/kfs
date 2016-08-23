@@ -34,6 +34,7 @@ public class TableRenderer implements Renderer {
 
     /**
      * Clears out the table
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -41,7 +42,6 @@ public class TableRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -50,14 +50,14 @@ public class TableRenderer implements Renderer {
             out.write(buildBeginningTableTag());
             table.renderChildrenRows(pageContext, parentTag);
             out.write(buildEndingTableTag());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty with rendering inner table", ioe);
         }
     }
 
     /**
      * Builds the opening tag of the table, ie <table class="standard">
+     *
      * @return the String for the opening tag
      */
     protected String buildBeginningTableTag() {
@@ -66,6 +66,7 @@ public class TableRenderer implements Renderer {
 
     /**
      * Builds the closing tag of the table, ie </table>
+     *
      * @return the String for the closing tag
      */
     protected String buildEndingTableTag() {
@@ -74,6 +75,7 @@ public class TableRenderer implements Renderer {
 
     /**
      * Gets the table attribute.
+     *
      * @return Returns the table.
      */
     public AccountingLineTable getTable() {
@@ -82,6 +84,7 @@ public class TableRenderer implements Renderer {
 
     /**
      * Sets the table attribute value.
+     *
      * @param table The table to set.
      */
     public void setTable(AccountingLineTable table) {

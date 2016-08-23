@@ -40,8 +40,7 @@ public class OjbBCPositionActiveIndicatorConversion extends OjbCharBooleanConver
 
         if (INDICATOR_NO.equals(sqlValue)) {
             return BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_INACTIVE;
-        }
-        else if (INDICATOR_YES.equals(sqlValue)) {
+        } else if (INDICATOR_YES.equals(sqlValue)) {
             return BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE;
         }
 
@@ -58,14 +57,12 @@ public class OjbBCPositionActiveIndicatorConversion extends OjbCharBooleanConver
                 if (source != null) {
                     String s = (String) source;
                     return Boolean.valueOf(BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE.indexOf(s) >= 0);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
             return source;
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
             throw new RuntimeException("I have exploded converting types", t);
         }

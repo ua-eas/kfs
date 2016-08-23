@@ -22,9 +22,6 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * audit rule marker
- *
- *
- *
  */
 public interface DocumentAuditRule extends BusinessRule {
     public boolean processRunAuditBusinessRules(Document document);

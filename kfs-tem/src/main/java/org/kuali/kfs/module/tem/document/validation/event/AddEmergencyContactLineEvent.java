@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 public class AddEmergencyContactLineEvent extends AttributedDocumentEventBase implements EmergencyContactLineEvent {
 

@@ -18,12 +18,14 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.service.SessionDocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TravelerProfileForLookup;
@@ -34,14 +36,12 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.kfs.kns.util.FieldUtils;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.SessionDocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Overridden to filter results to only those available to the currently logged in user to use.  This will be used within TA, TR, ENT, and RELO
@@ -52,6 +52,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * Filters searched for profiles so they include only those the user should be able to access to use as a traveler on a travel, relocation, or entertainment document
+     *
      * @see org.kuali.kfs.module.tem.businessobject.lookup.TemProfileLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -60,7 +61,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
         final String currentUserPrincipalId = GlobalVariables.getUserSession().getPrincipalId();
         final String documentTypeName = updateAuthorizationDocumentType(getCurrentDocumentTypeName());
 
-        final List<TemProfile> allProfiles = (List<TemProfile>)super.getSearchResults(fieldValues);
+        final List<TemProfile> allProfiles = (List<TemProfile>) super.getSearchResults(fieldValues);
         List<TemProfile> qualifyingProfiles = new ArrayList<TemProfile>();
         for (TemProfile profile : allProfiles) {
             final Map<String, String> roleQualifier = getRoleQualifierForViewRecordsCheck(profile, documentTypeName);
@@ -82,6 +83,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * Pulls the principal id, home chart, and home organization codes from the profile to build a role qualifier
+     *
      * @param profile the profile to pull qualifications from
      * @return a role qualifier with attribute values from the profile
      */
@@ -102,16 +104,17 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * Looks in the form from KNSGlobalVariables to try to figure out what the document type of the current document is
+     *
      * @return
      */
     protected String getCurrentDocumentTypeName() {
         final KualiForm form = KNSGlobalVariables.getKualiForm();
         if (form != null) {
             if (form instanceof KualiDocumentFormBase) {
-                return ((KualiDocumentFormBase)KNSGlobalVariables.getKualiForm()).getDocTypeName();
+                return ((KualiDocumentFormBase) KNSGlobalVariables.getKualiForm()).getDocTypeName();
             } else if (form instanceof LookupForm) {
-                final String docNum = ((LookupForm)KNSGlobalVariables.getKualiForm()).getDocNum();
-                if(!StringUtils.isBlank(docNum)) {
+                final String docNum = ((LookupForm) KNSGlobalVariables.getKualiForm()).getDocNum();
+                if (!StringUtils.isBlank(docNum)) {
                     WorkflowDocument workflowDocument = SpringContext.getBean(SessionDocumentService.class).getDocumentFromSession(GlobalVariables.getUserSession(), docNum);
                     return workflowDocument.getDocumentTypeName();
                 }
@@ -122,18 +125,20 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * If the passed in document type represents one of the travel authorization child documents, upgrade to travel authorization document; otherwise return the given document type unmodified
+     *
      * @param documentType the document type name to filter
      * @return TA if TAC or TAA is passed in as the document type, otherwise the passed in document type
      */
     protected String updateAuthorizationDocumentType(String documentType) {
-       if (!StringUtils.isBlank(documentType) && (TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_CLOSE_DOCUMENT.equals(documentType) || TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT.equals(documentType))) {
-           return TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT;
-       }
-       return documentType;
+        if (!StringUtils.isBlank(documentType) && (TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_CLOSE_DOCUMENT.equals(documentType) || TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_AMEND_DOCUMENT.equals(documentType))) {
+            return TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT;
+        }
+        return documentType;
     }
 
     /**
      * Overridden to always return TemProfile
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getBusinessObjectClass()
      */
     @Override
@@ -143,6 +148,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * This lookup only occurs within documents; it should never have a supplemental menu bar
+     *
      * @see org.kuali.kfs.module.tem.businessobject.lookup.TemProfileLookupableHelperServiceImpl#getSupplementalMenuBar()
      */
     @Override
@@ -153,6 +159,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
     /**
      * Overrides set rows so that the _rows_ always look at TravelerProfileForLookup as the business object class - we want that lookup,
      * but we want to search for TemProfiles....
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#setRows()
      */
     @Override
@@ -161,7 +168,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
         final Class<? extends BusinessObject> businessObjectClazz = TravelerProfileForLookup.class;
         if (getBusinessObjectMetaDataService().isLookupable(businessObjectClazz)) {
             lookupFieldAttributeList = getBusinessObjectMetaDataService().getLookupableFieldNames(
-                    businessObjectClazz);
+                businessObjectClazz);
         }
         if (lookupFieldAttributeList == null) {
             throw new RuntimeException("Lookup not defined for business object " + getBusinessObjectClass());
@@ -171,7 +178,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
         List fields = new ArrayList();
         try {
             fields = FieldUtils.createAndPopulateFieldsForLookup(lookupFieldAttributeList, getReadOnlyFieldsList(),
-                    businessObjectClazz);
+                businessObjectClazz);
         } catch (InstantiationException e) {
             throw new RuntimeException("Unable to create instance of business object class" + e.getMessage());
         } catch (IllegalAccessException e) {
@@ -192,6 +199,7 @@ public class TravelerProfileDocLookupableHelperServiceImpl extends TemProfileLoo
 
     /**
      * Injects an implementation of KIM's PermissionService
+     *
      * @param permissionService an implementation of KIM's PermissionService
      */
     public void setPermissionService(PermissionService permissionService) {

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
 import org.kuali.kfs.gl.service.ScrubberService;
 import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
+
+import java.util.List;
 
 /**
  * A step to run the scrubber process.

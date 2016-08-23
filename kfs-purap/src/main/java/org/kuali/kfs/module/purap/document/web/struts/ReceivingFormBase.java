@@ -22,11 +22,11 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 
 public class ReceivingFormBase extends FinancialSystemTransactionalDocumentFormBase {
 
-    public ReceivingFormBase(){
+    public ReceivingFormBase() {
         super();
     }
 
-    public boolean isStateFinal(){
+    public boolean isStateFinal() {
         return this.getDocument().getDocumentHeader().getWorkflowDocument().isFinal();
     }
 }

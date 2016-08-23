@@ -27,7 +27,7 @@ import java.sql.Date;
 public class BarcodeInventory implements Serializable {
     private String campusTagNumber;
     private String inventoryScannedCode;
-    private Date   createDate;
+    private Date createDate;
     private String campusCode;
     private String buildingCode;
     private String buildingRoomNumber;

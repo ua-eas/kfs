@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.tem.dataaccess.impl;
 
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -27,6 +25,8 @@ import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.HistoricalTravelExpense;
 import org.kuali.kfs.module.tem.dataaccess.HistoricalTravelExpenseDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.List;
 
 public class HistoricalTravelExpenseDaoOjb extends PlatformAwareDaoBaseOjb implements HistoricalTravelExpenseDao {
 

@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-
 import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 /**
  * General Ledger business object for BalanceHistory.
@@ -59,22 +59,22 @@ public class BalanceHistory extends Balance implements LedgerBalanceHistory {
      */
     public boolean compareAmounts(Balance balance) {
         if (ObjectUtils.isNotNull(balance)
-                && balance.getAccountLineAnnualBalanceAmount().equals(this.getAccountLineAnnualBalanceAmount())
-                && balance.getBeginningBalanceLineAmount().equals(this.getBeginningBalanceLineAmount())
-                && balance.getContractsGrantsBeginningBalanceAmount().equals(this.getContractsGrantsBeginningBalanceAmount())
-                && balance.getMonth1Amount().equals(this.getMonth1Amount())
-                && balance.getMonth2Amount().equals(this.getMonth2Amount())
-                && balance.getMonth3Amount().equals(this.getMonth3Amount())
-                && balance.getMonth4Amount().equals(this.getMonth4Amount())
-                && balance.getMonth5Amount().equals(this.getMonth5Amount())
-                && balance.getMonth6Amount().equals(this.getMonth6Amount())
-                && balance.getMonth7Amount().equals(this.getMonth7Amount())
-                && balance.getMonth8Amount().equals(this.getMonth8Amount())
-                && balance.getMonth9Amount().equals(this.getMonth9Amount())
-                && balance.getMonth10Amount().equals(this.getMonth10Amount())
-                && balance.getMonth11Amount().equals(this.getMonth11Amount())
-                && balance.getMonth12Amount().equals(this.getMonth12Amount())
-                && balance.getMonth13Amount().equals(this.getMonth13Amount())) {
+            && balance.getAccountLineAnnualBalanceAmount().equals(this.getAccountLineAnnualBalanceAmount())
+            && balance.getBeginningBalanceLineAmount().equals(this.getBeginningBalanceLineAmount())
+            && balance.getContractsGrantsBeginningBalanceAmount().equals(this.getContractsGrantsBeginningBalanceAmount())
+            && balance.getMonth1Amount().equals(this.getMonth1Amount())
+            && balance.getMonth2Amount().equals(this.getMonth2Amount())
+            && balance.getMonth3Amount().equals(this.getMonth3Amount())
+            && balance.getMonth4Amount().equals(this.getMonth4Amount())
+            && balance.getMonth5Amount().equals(this.getMonth5Amount())
+            && balance.getMonth6Amount().equals(this.getMonth6Amount())
+            && balance.getMonth7Amount().equals(this.getMonth7Amount())
+            && balance.getMonth8Amount().equals(this.getMonth8Amount())
+            && balance.getMonth9Amount().equals(this.getMonth9Amount())
+            && balance.getMonth10Amount().equals(this.getMonth10Amount())
+            && balance.getMonth11Amount().equals(this.getMonth11Amount())
+            && balance.getMonth12Amount().equals(this.getMonth12Amount())
+            && balance.getMonth13Amount().equals(this.getMonth13Amount())) {
             return true;
         }
 
@@ -83,6 +83,7 @@ public class BalanceHistory extends Balance implements LedgerBalanceHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()
      */
     @Override
@@ -92,6 +93,7 @@ public class BalanceHistory extends Balance implements LedgerBalanceHistory {
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#setTimestamp(java.sql.Date)
      */
     @Override

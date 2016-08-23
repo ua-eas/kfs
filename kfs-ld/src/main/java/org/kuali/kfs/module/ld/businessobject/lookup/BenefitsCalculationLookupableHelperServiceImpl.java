@@ -18,33 +18,33 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.LaborEnterpriseFeedStep;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
@@ -74,14 +74,14 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
      */
     @Override
     public List<Column> getColumns() {
-        List<Column> columns =  super.getColumns();
+        List<Column> columns = super.getColumns();
 
         String offsetParmValue = parameterService.getParameterValueAsString(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
 
-        if(offsetParmValue.equalsIgnoreCase("n")) {
-            for(Iterator<Column> it = columns.iterator(); it.hasNext(); ) {
-                Column column = (Column)it.next();
-                if(column.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME) || column.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME)) {
+        if (offsetParmValue.equalsIgnoreCase("n")) {
+            for (Iterator<Column> it = columns.iterator(); it.hasNext(); ) {
+                Column column = (Column) it.next();
+                if (column.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME) || column.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME)) {
                     it.remove();
                 }
             }
@@ -95,15 +95,15 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
      */
     @Override
     public List<Row> getRows() {
-        List<Row> rows =  super.getRows();
+        List<Row> rows = super.getRows();
 
         String offsetParmValue = parameterService.getParameterValueAsString(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
 
-        if(offsetParmValue.equalsIgnoreCase("n")) {
-            for(Iterator<Row> it = rows.iterator(); it.hasNext(); ) {
-                Row row = (Row)it.next();
-                for(Field field : row.getFields()) {
-                    if(field.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME) || field.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME)) {
+        if (offsetParmValue.equalsIgnoreCase("n")) {
+            for (Iterator<Row> it = rows.iterator(); it.hasNext(); ) {
+                Row row = (Row) it.next();
+                for (Field field : row.getFields()) {
+                    if (field.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME) || field.getPropertyName().equalsIgnoreCase(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME)) {
                         it.remove();
                     }
                 }
@@ -133,7 +133,7 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
 
 
             if (accountNums == null || accountNums.size() <= 0) {
-                GlobalVariables.getMessageMap().putError("accountNumber", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Invalid Account Number: " + accountNumber });
+                GlobalVariables.getMessageMap().putError("accountNumber", KFSKeyConstants.ERROR_CUSTOM, new String[]{"Invalid Account Number: " + accountNumber});
                 throw new ValidationException("errors in search criteria");
             }
         }
@@ -146,7 +146,7 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
 
 
             if (objCodes == null || objCodes.size() <= 0) {
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, KFSKeyConstants.ERROR_CUSTOM, new String[] { "Invalid Object Code: " + objectCode });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, KFSKeyConstants.ERROR_CUSTOM, new String[]{"Invalid Object Code: " + objectCode});
                 throw new ValidationException("errors in search criteria");
             }
         }
@@ -154,6 +154,7 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -162,6 +163,7 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

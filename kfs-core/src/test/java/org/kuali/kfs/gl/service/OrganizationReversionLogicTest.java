@@ -18,18 +18,9 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.io.File;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.OrganizationReversionService;
 import org.kuali.kfs.coa.service.PriorYearAccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic;
 import org.kuali.kfs.gl.batch.service.OrganizationReversionProcess;
@@ -41,6 +32,7 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.businessobject.OriginEntryTestBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -49,8 +41,16 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.io.File;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Tests that the Organization Reversion process generates the proper origin entries under
@@ -111,8 +111,9 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         /**
          * Constructs a OrganizationReversionLogicTest.BALANCE_FIXTURE instance
+         *
          * @param balanceTypeCode the type code of the balance to create
-         * @param amount the amount of the balance to create
+         * @param amount          the amount of the balance to create
          */
         private BALANCE_FIXTURE(String balanceTypeCode, KualiDecimal amount) {
             this.balanceTypeCode = balanceTypeCode;
@@ -121,6 +122,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         /**
          * Sets the object code of the object (so the same fixture can be used for multiple categories)
+         *
          * @param objectCode the object code to set
          */
         public void setObjectCode(String objectCode) {
@@ -162,18 +164,20 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
                 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                 java.util.Date jud = sdf.parse(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM));
                 balance.setTimestamp(new java.sql.Date(jud.getTime()));
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 LOG.debug("Parse date exception while parsing transaction date");
             }
             balance.refresh();
             return balance;
         }
-    };
+    }
+
+    ;
 
     /**
      * Fixtures that have object codes that will go into certain categories.  OrganizationReversionMockServiceImpl
      * makes certain that each category represents different logic.
+     *
      * @see org.kuali.kfs.gl.batch.service.impl.OrganizationReversionMockServiceImpl
      */
     enum OBJECT_CODE_FIXTURE {
@@ -189,6 +193,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         /**
          * Constructs a OrganizationReversionLogicTest.OBJECT_CODE_FIXTURE instance
+         *
          * @param code the object code represented by this fixture
          */
         private OBJECT_CODE_FIXTURE(String code) {
@@ -197,6 +202,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         /**
          * Returns the object code
+         *
          * @return the object code
          */
         public String getCode() {
@@ -208,30 +214,32 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
      * Does the prelinary work of setting up the test...getting the org reversion mock, setting up
      * the parameters for the job, and creates the OrganizationReversionProcessImpl object that will actually
      * complete the job
+     *
      * @see org.kuali.kfs.gl.businessobject.OriginEntryTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
 
-        organizationReversionService = SpringContext.getBean(OrganizationReversionService.class,"glOrganizationReversionMockService");
+        organizationReversionService = SpringContext.getBean(OrganizationReversionService.class, "glOrganizationReversionMockService");
         DateTimeService dtService = SpringContext.getBean(DateTimeService.class);
         balanceService = SpringContext.getBean(BalanceService.class);
         cashOrganizationReversionCategoryLogic = SpringContext.getBean(CashOrganizationReversionCategoryLogic.class);
         priorYearAccountService = SpringContext.getBean(PriorYearAccountService.class);
         orgReversionUnitOfWorkService = SpringContext.getBean(OrganizationReversionUnitOfWorkService.class);
         organizationReversionProcessService = SpringContext.getBean(OrganizationReversionProcessService.class);
-        batchDirectory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory/originEntry";
+        batchDirectory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory/originEntry";
 
-        File batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory");
+        File batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory");
         batchDirectoryFile.mkdir();
         batchDirectoryFile = new File(batchDirectory);
         batchDirectoryFile.mkdir();
 
-        orgRevProcess = SpringContext.getBean(OrganizationReversionProcess.class,"glOrganizationReversionTestProcess");
+        orgRevProcess = SpringContext.getBean(OrganizationReversionProcess.class, "glOrganizationReversionTestProcess");
     }
 
     /**
      * Makes sure that a new OrganizationReversionProcessImpl will be used for the next test
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
@@ -242,7 +250,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
             f.delete();
         }
         batchDirectoryFile.delete();
-        batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory");
+        batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory");
         batchDirectoryFile.delete();
     }
 
@@ -262,8 +270,8 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // persistenceService.clearCache();
 
         Map<String, ?> jobParameters = organizationReversionProcessService.getJobParameters();
-        currentFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue() + 1);
-        previousFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue());
+        currentFiscalYear = new Integer(((Number) jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue() + 1);
+        previousFiscalYear = new Integer(((Number) jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue());
         Map<String, Integer> organizationReversionCounts = new HashMap<String, Integer>();
 
         for (Balance bal : balancesToTestAgainst) {
@@ -282,15 +290,16 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
     /**
      * Asserts that certain fields in the given origin entry equal given parameters
+     *
      * @param originEntry the actual origin entry
-     * @param fiscalYear the expected fiscal year
-     * @param periodCode the expected period code
-     * @param chart the expected chart
-     * @param account the expected account
-     * @param objectCode the expected object code
+     * @param fiscalYear  the expected fiscal year
+     * @param periodCode  the expected period code
+     * @param chart       the expected chart
+     * @param account     the expected account
+     * @param objectCode  the expected object code
      * @param balanceType the expected balance type
-     * @param objectType the expected object type
-     * @param amount the expected amount
+     * @param objectType  the expected object type
+     * @param amount      the expected amount
      */
     private void assertOriginEntry(OriginEntryInformation originEntry, Integer fiscalYear, String periodCode, String chart, String account, String objectCode, String balanceType, String objectType, KualiDecimal amount) {
         assertEquals("Origin Entry " + originEntry.toString() + " Fiscal Year", fiscalYear, originEntry.getUniversityFiscalYear());
@@ -332,6 +341,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 1 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 1, budget exceeds actual
      */
@@ -531,6 +541,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 2 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 2, actual exceeds budget
      */
@@ -730,6 +741,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 3 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 3, budget equals actual
      */
@@ -901,6 +913,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 4 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 4, budget exceeds actual + encumbrance
      */
@@ -1139,6 +1152,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 5 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 5, budget equals actual + encumbrance
      */
@@ -1373,6 +1387,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 6 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 6, Actual + encumbrance exceeds budget
      */
@@ -1607,6 +1622,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /*
      * ************** SCENARIO 7 *****************
      */
+
     /**
      * Tests that Logic A generates the correct origin entries for Scenario 7, Actual exceeds budget, and there's an encumbrance
      */

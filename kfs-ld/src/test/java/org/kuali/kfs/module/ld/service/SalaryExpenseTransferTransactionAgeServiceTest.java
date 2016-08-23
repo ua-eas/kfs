@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ld.LaborLedgerExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
@@ -36,7 +34,9 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.service.impl.UniversityDateServiceImpl;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The unit tests for methods in SalaryExpenseTransferTransactionAgeService. This specifically tests to make sure the correct

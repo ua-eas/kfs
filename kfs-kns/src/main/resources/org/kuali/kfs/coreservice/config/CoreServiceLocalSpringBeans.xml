@@ -18,157 +18,154 @@
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-                           http://www.springframework.org/schema/cache
-                           http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-  <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
-  <import resource="classpath:org/kuali/kfs/coreservice/config/_CoreServiceOjbSpringBeans.xml"/>
-  <import resource="classpath:org/kuali/kfs/coreservice/config/_CoreServiceCommonSpringBeans.xml"/>
+    <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
+    <import resource="classpath:org/kuali/kfs/coreservice/config/_CoreServiceOjbSpringBeans.xml"/>
+    <import resource="classpath:org/kuali/kfs/coreservice/config/_CoreServiceCommonSpringBeans.xml"/>
 
-  <bean id="cf.coreService.cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl">
-    <property name="cacheManager" ref="cf.coreServiceDistributedCacheManager" />
-  </bean>
+    <bean id="cf.coreService.cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl">
+        <property name="cacheManager" ref="cf.coreServiceDistributedCacheManager"/>
+    </bean>
 
-  <bean id="cf.coreServiceDistributedCacheManager" class="org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator">
-    <property name="cacheManager" ref="cf.coreServiceLocalCacheManager" />
-    <property name="serviceName" value="{http://kfs.kuali.org/core/v2_0}coreServiceCacheAdminService" />
-  </bean>
+    <bean id="cf.coreServiceDistributedCacheManager" class="org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator">
+        <property name="cacheManager" ref="cf.coreServiceLocalCacheManager"/>
+        <property name="serviceName" value="{http://kfs.kuali.org/core/v2_0}coreServiceCacheAdminService"/>
+    </bean>
 
-  <bean id="cf.namespaceService" class="org.kuali.kfs.coreservice.impl.namespace.NamespaceServiceImpl">
-    <property name="businessObjectService" ref="cf.businessObjectService"/>
-  </bean>
+    <bean id="cf.namespaceService" class="org.kuali.kfs.coreservice.impl.namespace.NamespaceServiceImpl">
+        <property name="businessObjectService" ref="cf.businessObjectService"/>
+    </bean>
 
-  <bean id="componentSetDao" class="org.kuali.kfs.coreservice.impl.component.ComponentSetDaoOjbImpl" lazy-init="true">
-    <property name="jcdAlias" value="coreServiceDataSource" />
-  </bean>
+    <bean id="componentSetDao" class="org.kuali.kfs.coreservice.impl.component.ComponentSetDaoOjbImpl" lazy-init="true">
+        <property name="jcdAlias" value="coreServiceDataSource"/>
+    </bean>
 
-  <bean id="componentService" class="org.kuali.kfs.coreservice.impl.component.ComponentServiceImpl">
-    <property name="businessObjectService" ref="cf.businessObjectService"/>
-    <property name="componentSetDao" ref="componentSetDao"/>
-  </bean>
+    <bean id="componentService" class="org.kuali.kfs.coreservice.impl.component.ComponentServiceImpl">
+        <property name="businessObjectService" ref="cf.businessObjectService"/>
+        <property name="componentSetDao" ref="componentSetDao"/>
+    </bean>
 
-  <!--bean id="cf.kualiModuleService" class="org.kuali.kfs.krad.service.impl.KualiModuleServiceImpl"/-->
+    <!--bean id="cf.kualiModuleService" class="org.kuali.kfs.krad.service.impl.KualiModuleServiceImpl"/-->
 
 
-  <bean id="cf.parameterRepositoryService" class="org.kuali.kfs.coreservice.impl.parameter.ParameterRepositoryServiceImpl">
-    <property name="businessObjectService" ref="cf.businessObjectService"/>
-    <property name="criteriaLookupService" ref="cf.criteriaLookupService"/>
-  </bean>
+    <bean id="cf.parameterRepositoryService" class="org.kuali.kfs.coreservice.impl.parameter.ParameterRepositoryServiceImpl">
+        <property name="businessObjectService" ref="cf.businessObjectService"/>
+        <property name="criteriaLookupService" ref="cf.criteriaLookupService"/>
+    </bean>
 
-  <bean id="cf.parameterService" class="org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl">
-    <property name="parameterRepositoryService" ref="cf.parameterRepositoryService"/>
-    <property name="kualiModuleService" ref="cf.kualiModuleService"/>
-    <property name="applicationId" value="${application.id}"/>
-  </bean>
+    <bean id="cf.parameterService" class="org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl">
+        <property name="parameterRepositoryService" ref="cf.parameterRepositoryService"/>
+        <property name="kualiModuleService" ref="cf.kualiModuleService"/>
+        <property name="applicationId" value="${application.id}"/>
+    </bean>
 
-  <bean id="cf.styleService" class="org.kuali.kfs.coreservice.impl.style.StyleServiceImpl">
-    <property name="styleRepositoryService" ref="cf.styleRepositoryService" />
-  </bean>
+    <bean id="cf.styleService" class="org.kuali.kfs.coreservice.impl.style.StyleServiceImpl">
+        <property name="styleRepositoryService" ref="cf.styleRepositoryService"/>
+    </bean>
 
-  <bean id="rice.coreService.import.dataDictionaryService"
-        class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-    <property name="serviceName" value="dataDictionaryService" />
-  </bean>
+    <bean id="rice.coreService.import.dataDictionaryService"
+          class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="dataDictionaryService"/>
+    </bean>
 
-  <bean id="rice.coreService.import.persistenceServiceOjb"
-        class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-    <property name="serviceName" value="persistenceServiceOjb" />
-  </bean>
+    <bean id="rice.coreService.import.persistenceServiceOjb"
+          class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="persistenceServiceOjb"/>
+    </bean>
 
-  <bean id="cf.styleRepositoryService" class="org.kuali.kfs.coreservice.impl.style.StyleRepositoryServiceImpl">
-    <property name="styleXmlParser" ref="cf.styleXmlLoader" />
-    <property name="styleDao" ref="styleDao" />
-  </bean>
+    <bean id="cf.styleRepositoryService" class="org.kuali.kfs.coreservice.impl.style.StyleRepositoryServiceImpl">
+        <property name="styleXmlParser" ref="cf.styleXmlLoader"/>
+        <property name="styleDao" ref="styleDao"/>
+    </bean>
 
-  <bean id="cf.styleXmlLoader" class="org.kuali.kfs.coreservice.impl.style.StyleXmlParserImpl">
-    <property name="styleRepositoryService" ref="cf.styleRepositoryService" />
-  </bean>
+    <bean id="cf.styleXmlLoader" class="org.kuali.kfs.coreservice.impl.style.StyleXmlParserImpl">
+        <property name="styleRepositoryService" ref="cf.styleRepositoryService"/>
+    </bean>
 
-  <bean id="cf.styleXmlExporter" class="org.kuali.kfs.coreservice.impl.style.StyleXmlExporter"/>
+    <bean id="cf.styleXmlExporter" class="org.kuali.kfs.coreservice.impl.style.StyleXmlExporter"/>
 
-  <bean id="rice.coreService.import.xmlImpexRegistry"
-        class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-    <property name="serviceName" value="xmlImpexRegistry" />
-  </bean>
+    <bean id="rice.coreService.import.xmlImpexRegistry"
+          class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="xmlImpexRegistry"/>
+    </bean>
 
-  <bean id="coreImpexRegistrations" class="org.kuali.rice.core.framework.impex.xml.XmlImpexRegistrationBean">
-    <property name="xmlImpexRegistry" ref="rice.coreService.import.xmlImpexRegistry" />
-    <property name="xmlLoadersToRegister">
-      <list>
-        <ref local="cf.styleXmlLoader" />
-      </list>
-    </property>
-    <property name="xmlExportersToRegister">
-      <list>
-        <ref local="cf.styleXmlExporter" />
-      </list>
-    </property>
-  </bean>
+    <bean id="coreImpexRegistrations" class="org.kuali.rice.core.framework.impex.xml.XmlImpexRegistrationBean">
+        <property name="xmlImpexRegistry" ref="rice.coreService.import.xmlImpexRegistry"/>
+        <property name="xmlLoadersToRegister">
+            <list>
+                <ref local="cf.styleXmlLoader"/>
+            </list>
+        </property>
+        <property name="xmlExportersToRegister">
+            <list>
+                <ref local="cf.styleXmlExporter"/>
+            </list>
+        </property>
+    </bean>
 
-  <bean id="cf.coreServiceServerModuleConfiguration"
-        class="org.kuali.kfs.krad.bo.ModuleConfiguration">
-    <property name="namespaceCode" value="KR-CR"/>
-    <property name="dataSourceName" value="coreServiceDataSource"/>
-    <property name="initializeDataDictionary" value="true"/>
-    <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
-    <property name="persistenceService" ref="cf.persistenceServiceOjb"/>
-    <property name="dataDictionaryPackages">
-      <list>
-        <value>classpath:org/kuali/kfs/coreservice/web/parameter/ParameterMaintenanceDocument.xml</value>
-        <!--value>classpath:org/kuali/rice/core/web/cache/CacheAdmin.xml</value-->
-      </list>
-    </property>
-    <property name="packagePrefixes">
-      <list>
-        <value>org.kuali.kfs.coreservice</value>
-        <value>org.kuali.kfs.coreservice.impl.namespace</value>
-        <value>org.kuali.kfs.coreservice.impl.parameter</value>
-        <value>org.kuali.kfs.coreservice.impl.component</value>
-      </list>
-    </property>
-	<property name="externalizableBusinessObjectImplementations">
-      <map>
-        <entry key="org.kuali.kfs.coreservice.framework.component.ComponentEbo"
-               value="org.kuali.kfs.coreservice.impl.component.ComponentBo"/>
-        <entry key="org.kuali.kfs.coreservice.framework.namespace.NamespaceEbo"
-               value="org.kuali.kfs.coreservice.impl.namespace.NamespaceBo"/>
-        <entry key="org.kuali.kfs.coreservice.framework.parameter.ParameterEbo"
-               value="org.kuali.kfs.coreservice.impl.parameter.ParameterBo"/>
-        <entry key="org.kuali.kfs.coreservice.framework.parameter.ParameterTypeEbo"
-               value="org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo"/>
-      </map>
-    </property>
-  </bean>
+    <bean id="cf.coreServiceServerModuleConfiguration"
+          class="org.kuali.kfs.krad.bo.ModuleConfiguration">
+        <property name="namespaceCode" value="KR-CR"/>
+        <property name="dataSourceName" value="coreServiceDataSource"/>
+        <property name="initializeDataDictionary" value="true"/>
+        <property name="dataDictionaryService" ref="cf.dataDictionaryService"/>
+        <property name="persistenceService" ref="cf.persistenceServiceOjb"/>
+        <property name="dataDictionaryPackages">
+            <list>
+                <value>classpath:org/kuali/kfs/coreservice/web/parameter/ParameterMaintenanceDocument.xml</value>
+                <!--value>classpath:org/kuali/rice/core/web/cache/CacheAdmin.xml</value-->
+            </list>
+        </property>
+        <property name="packagePrefixes">
+            <list>
+                <value>org.kuali.kfs.coreservice</value>
+                <value>org.kuali.kfs.coreservice.impl.namespace</value>
+                <value>org.kuali.kfs.coreservice.impl.parameter</value>
+                <value>org.kuali.kfs.coreservice.impl.component</value>
+            </list>
+        </property>
+        <property name="externalizableBusinessObjectImplementations">
+            <map>
+                <entry key="org.kuali.kfs.coreservice.framework.component.ComponentEbo"
+                       value="org.kuali.kfs.coreservice.impl.component.ComponentBo"/>
+                <entry key="org.kuali.kfs.coreservice.framework.namespace.NamespaceEbo"
+                       value="org.kuali.kfs.coreservice.impl.namespace.NamespaceBo"/>
+                <entry key="org.kuali.kfs.coreservice.framework.parameter.ParameterEbo"
+                       value="org.kuali.kfs.coreservice.impl.parameter.ParameterBo"/>
+                <entry key="org.kuali.kfs.coreservice.framework.parameter.ParameterTypeEbo"
+                       value="org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo"/>
+            </map>
+        </property>
+    </bean>
 
-  <bean id="cf.coreServiceServerModule" class="org.kuali.kfs.krad.service.impl.ModuleServiceBase">
-    <property name="moduleConfiguration" ref="cf.coreServiceServerModuleConfiguration"/>
-    <property name="kualiModuleService" ref="cf.kualiModuleService"/>
-  </bean>
+    <bean id="cf.coreServiceServerModule" class="org.kuali.kfs.krad.service.impl.ModuleServiceBase">
+        <property name="moduleConfiguration" ref="cf.coreServiceServerModuleConfiguration"/>
+        <property name="kualiModuleService" ref="cf.kualiModuleService"/>
+    </bean>
 
-  <bean id="rice.coreService.transaction-proxies"
-        class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-    <property name="interceptorNames">
-      <list>
-        <idref bean="matchAllTxInterceptor" />
-      </list>
-    </property>
-    <property name="beanNames">
-      <list>
-        <!--<idref local="namespaceService" />-->
-        <idref local="componentService" />
-        <idref local="cf.parameterRepositoryService" />
-        <idref local="cf.styleService" />
-        <idref local="cf.styleRepositoryService" />
-        <idref local="cf.styleXmlLoader" />
-        <idref local="cf.styleXmlExporter" />
-      </list>
-    </property>
-  </bean>
+    <bean id="rice.coreService.transaction-proxies"
+          class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="matchAllTxInterceptor"/>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <!--<idref local="namespaceService" />-->
+                <idref local="componentService"/>
+                <idref local="cf.parameterRepositoryService"/>
+                <idref local="cf.styleService"/>
+                <idref local="cf.styleRepositoryService"/>
+                <idref local="cf.styleXmlLoader"/>
+                <idref local="cf.styleXmlExporter"/>
+            </list>
+        </property>
+    </bean>
 
-  <bean id="cf.componentBo" class="org.kuali.kfs.coreservice.impl.component.ComponentBo">
-    <property name="namespaceService" ref="cf.namespaceService" />
-  </bean>
+    <bean id="cf.componentBo" class="org.kuali.kfs.coreservice.impl.component.ComponentBo">
+        <property name="namespaceService" ref="cf.namespaceService"/>
+    </bean>
 </beans>

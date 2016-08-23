@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cam.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
@@ -29,6 +26,9 @@ import org.kuali.kfs.module.cam.util.AssetSeparatePaymentDistributor;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ConfigureContext
 public class AssetSeparatePaymentDistributorTest extends KualiTestBase {

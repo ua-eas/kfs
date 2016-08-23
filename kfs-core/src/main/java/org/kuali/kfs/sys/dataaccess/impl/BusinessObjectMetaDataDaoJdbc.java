@@ -29,8 +29,7 @@ public class BusinessObjectMetaDataDaoJdbc extends PlatformAwareDaoBaseJdbc impl
     public FieldMetaData getFieldMetaData(Class businessObjectClass, String propertyName) {
         try {
             return (FieldMetaData) JdbcUtils.extractDatabaseMetaData(getDataSource(), new FieldMetaDataImpl(businessObjectClass, propertyName));
-        }
-        catch (MetaDataAccessException e) {
+        } catch (MetaDataAccessException e) {
             throw new RuntimeException(new StringBuffer("BusinessObjectMetaDataDaoJdbc unable to getFieldMetaData for businessObjectClass ").append(businessObjectClass).append(" propertyName ").append(propertyName).toString(), e);
         }
     }

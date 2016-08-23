@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.vnd.businessobject.options;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.CommodityCode;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.CommodityCode;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Values Finder for <code>CommodityCode</code>.
@@ -45,7 +45,7 @@ public class CommodityCodeValuesFinder extends KeyValuesBase {
         Collection sscs = boService.findAll(CommodityCode.class);
         List labels = new ArrayList();
         labels.add(new ConcreteKeyValue("", ""));
-        for (Iterator iter = sscs.iterator(); iter.hasNext();) {
+        for (Iterator iter = sscs.iterator(); iter.hasNext(); ) {
             CommodityCode cc = (CommodityCode) iter.next();
             labels.add(new ConcreteKeyValue(cc.getPurchasingCommodityCode(), cc.getCommodityDescription()));
         }

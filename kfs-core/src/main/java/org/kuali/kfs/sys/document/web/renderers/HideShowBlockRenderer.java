@@ -38,7 +38,6 @@ public class HideShowBlockRenderer implements Renderer {
     private KFSButtonTag showHideButton = new KFSButtonTag();
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -75,6 +74,7 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Renders the title row and forces the rendering of child content
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -105,14 +105,15 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Renders a hidden tag which holds the current tab state
+     *
      * @param pageContext the pageContext to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      * @throws JspException thrown if something goes wrong
      */
     protected void renderTabStateTag(PageContext pageContext, Tag parentTag) throws JspException {
         tabStateTag.setPageContext(pageContext);
         tabStateTag.setParent(parentTag);
-        tabStateTag.setProperty("tabStates("+hideShowBlock.getTabKey()+")");
+        tabStateTag.setProperty("tabStates(" + hideShowBlock.getTabKey() + ")");
         tabStateTag.setValue(hideShowBlock.getTabState());
 
         tabStateTag.doStartTag();
@@ -128,26 +129,27 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Renders the hide/show image button
+     *
      * @param pageContext the pageContext to render to
-     * @param parentTag the tag requesting all this rendering
+     * @param parentTag   the tag requesting all this rendering
      * @throws JspException thrown if something goes wrong
      */
     protected void renderShowHideButton(PageContext pageContext, Tag parentTag) throws JspException {
         showHideButton.setPageContext(pageContext);
         showHideButton.setParent(parentTag);
-        showHideButton.setProperty("methodToCall.toggleTab.tab"+hideShowBlock.getTabKey());
+        showHideButton.setProperty("methodToCall.toggleTab.tab" + hideShowBlock.getTabKey());
         showHideButton.setStyleClass("btn btn-default small");
-        showHideButton.setStyleId("tab-"+hideShowBlock.getTabKey()+"-imageToggle");
-        showHideButton.setOnclick("javascript: return toggleTab(document, '"+hideShowBlock.getTabKey()+"');");
+        showHideButton.setStyleId("tab-" + hideShowBlock.getTabKey() + "-imageToggle");
+        showHideButton.setOnclick("javascript: return toggleTab(document, '" + hideShowBlock.getTabKey() + "');");
 
         if (hideShowBlock.isShowing()) {
-            showHideButton.setAlt("Hide "+hideShowBlock.getFullLabel());
-            showHideButton.setTitle("Hide "+hideShowBlock.getFullLabel());
+            showHideButton.setAlt("Hide " + hideShowBlock.getFullLabel());
+            showHideButton.setTitle("Hide " + hideShowBlock.getFullLabel());
             showHideButton.setValue("Hide");
             showHideButton.setInnerHTML("Hide");
         } else {
-            showHideButton.setAlt("Show "+hideShowBlock.getFullLabel());
-            showHideButton.setTitle("Show "+hideShowBlock.getFullLabel());
+            showHideButton.setAlt("Show " + hideShowBlock.getFullLabel());
+            showHideButton.setTitle("Show " + hideShowBlock.getFullLabel());
             showHideButton.setValue("Show");
             showHideButton.setInnerHTML("Show");
         }
@@ -158,11 +160,12 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Creates the HTML for the hiding/showing div and inner table to display children in
+     *
      * @return the HTML for the opening of the inner table
      */
     protected String buildInnerTableOpening() {
         StringBuilder opening = new StringBuilder();
-        opening.append("<div id=\"tab-"+hideShowBlock.getTabKey()+"-div\" style=\"display: ");
+        opening.append("<div id=\"tab-" + hideShowBlock.getTabKey() + "-div\" style=\"display: ");
         opening.append(hideShowBlock.isShowing() ? "block" : "none");
         opening.append("\">");
 
@@ -173,6 +176,7 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Creates the HTML to close the inner table and hide/show div
+     *
      * @return the HTML for the closing of the inner table
      */
     protected String buildInnerTableClosing() {
@@ -182,6 +186,7 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Gets the hideShowBlock attribute.
+     *
      * @return Returns the hideShowBlock.
      */
     public HideShowBlock getHideShowBlock() {
@@ -190,6 +195,7 @@ public class HideShowBlockRenderer implements Renderer {
 
     /**
      * Sets the hideShowBlock attribute value.
+     *
      * @param hideShowBlock The hideShowBlock to set.
      */
     public void setHideShowBlock(HideShowBlock hideShowBlock) {

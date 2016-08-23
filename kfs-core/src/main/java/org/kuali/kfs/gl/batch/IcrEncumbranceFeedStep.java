@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.IcrEncumbranceService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
+import java.util.Date;
 
 /**
  * This step builds a file of ICR Encumbrance Entries
@@ -35,7 +35,7 @@ public class IcrEncumbranceFeedStep extends AbstractStep {
     /**
      * This step builds a file of ICR Encumbrance Entries for posting to the General Ledger
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job was started
      * @return true if the job completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)

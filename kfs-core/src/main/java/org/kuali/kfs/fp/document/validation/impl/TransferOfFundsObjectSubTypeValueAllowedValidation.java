@@ -20,12 +20,11 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.service.TransferOfFundsService;
-import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Override of standard accounting line value allowed definition to make sure that any object sub type on a transfer of funds is either mandatory transfer or non-mandatory transfer.
@@ -36,6 +35,7 @@ public class TransferOfFundsObjectSubTypeValueAllowedValidation extends Accounti
     /**
      * Overrides the parent to make sure that the chosen object code's object sub-type code is either Mandatory Transfer or
      * Non-Mandatory Transfer.
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -53,7 +53,7 @@ public class TransferOfFundsObjectSubTypeValueAllowedValidation extends Accounti
         }
 
         if (!transferOfFundsService.isMandatoryTransfersSubType(objectSubTypeCode) && !transferOfFundsService.isNonMandatoryTransfersSubType(objectSubTypeCode)) {
-            GlobalVariables.getMessageMap().putError("financialObjectCode", KFSKeyConstants.ERROR_DOCUMENT_TOF_OBJECT_SUB_TYPE_NOT_MANDATORY_OR_NON_MANDATORY_TRANSFER, new String[] { accountIdentifyingPropertyName, getAccountingLineForValidation().getObjectCode().getFinancialObjectSubType().getFinancialObjectSubTypeName(), getAccountingLineForValidation().getFinancialObjectCode() });
+            GlobalVariables.getMessageMap().putError("financialObjectCode", KFSKeyConstants.ERROR_DOCUMENT_TOF_OBJECT_SUB_TYPE_NOT_MANDATORY_OR_NON_MANDATORY_TRANSFER, new String[]{accountIdentifyingPropertyName, getAccountingLineForValidation().getObjectCode().getFinancialObjectSubType().getFinancialObjectSubTypeName(), getAccountingLineForValidation().getFinancialObjectCode()});
             return false;
         }
 
@@ -72,6 +72,7 @@ public class TransferOfFundsObjectSubTypeValueAllowedValidation extends Accounti
 
     /**
      * Gets the transferOfFundService attribute.
+     *
      * @return Returns the transferOfFundService.
      */
     public TransferOfFundsService getTransferOfFundsService() {
@@ -80,6 +81,7 @@ public class TransferOfFundsObjectSubTypeValueAllowedValidation extends Accounti
 
     /**
      * Sets the transferOfFundService attribute value.
+     *
      * @param transferOfFundService The transferOfFundService to set.
      */
     public void setTransferOfFundsService(TransferOfFundsService transferOfFundsService) {

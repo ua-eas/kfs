@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
 import org.kuali.kfs.kns.util.MessageList;
+
+import java.util.Collection;
 
 /**
  * define a set of service methods related to payment reason code
@@ -32,7 +32,7 @@ public interface DisbursementVoucherPaymentReasonService {
     /**
      * determine whether the given payee is qualified for the payment with the given reason code
      *
-     * @param payee the given payee
+     * @param payee             the given payee
      * @param paymentReasonCode the givne payment reason code
      * @return true if the given payee is qualified for the payment with the given reason code; otherwise, return false
      */
@@ -42,9 +42,9 @@ public interface DisbursementVoucherPaymentReasonService {
      * determine whether the given payee is qualified for the payment with the given reason code and the payee type must be in the
      * given payee type code list.
      *
-     * @param payee the given payee
+     * @param payee             the given payee
      * @param paymentReasonCode the givne payment reason code
-     * @param payeeTypeCodes the given payee type codes
+     * @param payeeTypeCodes    the given payee type codes
      * @return true if the given payee is qualified for the payment with the given reason code; otherwise, return false
      */
     public boolean isPayeeQualifiedForPayment(DisbursementPayee payee, String paymentReasonCode, Collection<String> payeeTypeCodes);
@@ -134,7 +134,7 @@ public interface DisbursementVoucherPaymentReasonService {
      * post the usage of the given payment reason code into error map
      *
      * @param paymentReasonCode the given payment reason code
-     * @param messageList the message list that will hold the usage of the given payment reason
+     * @param messageList       the message list that will hold the usage of the given payment reason
      */
     public void postPaymentReasonCodeUsage(String paymentReasonCode, MessageList messageList);
 

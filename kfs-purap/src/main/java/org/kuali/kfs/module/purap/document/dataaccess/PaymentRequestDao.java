@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Payment Request DAO Interface.
@@ -34,12 +34,12 @@ public interface PaymentRequestDao {
     /**
      * Get all the payment requests that need to be extracted that match a credit memo.
      *
-     * @param campusCode - limit results to a single chart
-     * @param paymentRequestIdentifier - Payment Request Identifier (can be null)
-     * @param purchaseOrderIdentifier - PO Identifier (can be null)
+     * @param campusCode                      - limit results to a single chart
+     * @param paymentRequestIdentifier        - Payment Request Identifier (can be null)
+     * @param purchaseOrderIdentifier         - PO Identifier (can be null)
      * @param vendorHeaderGeneratedIdentifier - Vendor Header ID
-     * @param vendorDetailAssignedIdentifier - Vendor Detail ID
-     * @param currentSqlDateMidnight current SQL date midnight
+     * @param vendorDetailAssignedIdentifier  - Vendor Detail ID
+     * @param currentSqlDateMidnight          current SQL date midnight
      * @return - list of payment requests that need to be extracted
      */
     public List<PaymentRequestDocument> getPaymentRequestsToExtract(String campusCode, Integer paymentRequestIdentifier, Integer purchaseOrderIdentifier, Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, Date currentSqlDateMidnight);
@@ -47,10 +47,10 @@ public interface PaymentRequestDao {
     /**
      * Get all the payment requests that need to be extracted that match a credit memo.
      *
-     * @param campusCode - limit results to a single chart
-     * @param vendor - Vendor Header ID, Vendor Detail ID, Country, Zip Code
+     * @param campusCode                      - limit results to a single chart
+     * @param vendor                          - Vendor Header ID, Vendor Detail ID, Country, Zip Code
      * @param onOrBeforePaymentRequestPayDate only payment requests with a pay date on or before this value will be returned in the
-     *        iterator
+     *                                        iterator
      * @return - list of payment requests that need to be extracted
      */
     public Collection<PaymentRequestDocument> getPaymentRequestsToExtractForVendor(String campusCode, VendorGroupingHelper vendor, Date onOrBeforePaymentRequestPayDate);
@@ -59,7 +59,7 @@ public interface PaymentRequestDao {
      * Get all the payment requests that need to be extracted to PDP.
      *
      * @param onlySpecialPayments - true only include special payments, False - include all
-     * @param chartCode - if not null, limit results to a single chart
+     * @param chartCode           - if not null, limit results to a single chart
      * @return - Collection of payment requests
      */
     public List<PaymentRequestDocument> getPaymentRequestsToExtract(boolean onlySpecialPayments, String chartCode, Date onOrBeforePaymentRequestPayDate);
@@ -105,8 +105,8 @@ public interface PaymentRequestDao {
      * Retrieves a list of Payment Requests with the given vendor id and invoice number.
      *
      * @param vendorHeaderGeneratedId - header id of the vendor id
-     * @param vendorDetailAssignedId - detail id of the vendor id
-     * @param invoiceNumber - invoice number as entered by AP
+     * @param vendorDetailAssignedId  - detail id of the vendor id
+     * @param invoiceNumber           - invoice number as entered by AP
      * @return - List of Payment Requests.
      */
     public List getActivePaymentRequestsByVendorNumberInvoiceNumber(Integer vendorHeaderGeneratedId, Integer vendorDetailAssignedId, String invoiceNumber);
@@ -115,7 +115,7 @@ public interface PaymentRequestDao {
      * Retrieves a list of Payment Requests with the given vendor id and invoice number.
      *
      * @param vendorHeaderGeneratedId - header id of the vendor id
-     * @param vendorDetailAssignedId - detail id of the vendor id
+     * @param vendorDetailAssignedId  - detail id of the vendor id
      * @return - List of Payment Requests.
      */
     public List getActivePaymentRequestsByVendorNumber(Integer vendorHeaderGeneratedId, Integer vendorDetailAssignedId);
@@ -123,9 +123,9 @@ public interface PaymentRequestDao {
     /**
      * Retrieves a list of Payment Requests with the given PO Id, invoice amount, and invoice date.
      *
-     * @param poId - purchase order ID
+     * @param poId          - purchase order ID
      * @param invoiceAmount - amount of the invoice as entered by AP
-     * @param invoiceDate - date of the invoice as entered by AP
+     * @param invoiceDate   - date of the invoice as entered by AP
      * @return - List of Pay Reqs.
      */
     public List getActivePaymentRequestsByPOIdInvoiceAmountInvoiceDate(Integer poId, KualiDecimal invoiceAmount, Date invoiceDate);

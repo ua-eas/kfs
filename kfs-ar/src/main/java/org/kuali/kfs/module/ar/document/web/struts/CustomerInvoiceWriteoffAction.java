@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
 import org.kuali.kfs.module.ar.document.service.CustomerService;
@@ -32,8 +31,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.KualiRuleService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalDocumentActionBase {
 
@@ -94,7 +94,7 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
 
     /**
      * Do initialization for a new customer invoice writeoff document
-     *
+     * <p>
      * TODO This initation stuff does the exact same thing as customer credit memo. this should really be abstracted out...
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#createDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
@@ -108,12 +108,12 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
     /**
      * Clears out init tab.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -128,12 +128,12 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
      * Handles continue request. This request comes from the initial screen which gives ref. invoice number.
      * Based on that, the customer credit memo is initially populated.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward continueCustomerInvoiceWriteoff(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -141,8 +141,8 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
 
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
-        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerInvoiceWriteoffDocumentEvent(errorPath,customerInvoiceWriteoffDocument));
-        if (rulePassed){
+        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerInvoiceWriteoffDocumentEvent(errorPath, customerInvoiceWriteoffDocument));
+        if (rulePassed) {
             SpringContext.getBean(CustomerInvoiceWriteoffDocumentService.class).setupDefaultValuesForNewCustomerInvoiceWriteoffDocument(customerInvoiceWriteoffDocument);
         }
 

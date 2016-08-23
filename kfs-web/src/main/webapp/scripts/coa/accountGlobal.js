@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function loadAccountName( acctField ) {
-    var elPrefix = findElPrefix( acctField.name );
+function loadAccountName(acctField) {
+    var elPrefix = findElPrefix(acctField.name);
     var nameFieldName = elPrefix + ".account.accountName";
 
-    loadAccountInfo( acctField.name, nameFieldName );
+    loadAccountInfo(acctField.name, nameFieldName);
 }

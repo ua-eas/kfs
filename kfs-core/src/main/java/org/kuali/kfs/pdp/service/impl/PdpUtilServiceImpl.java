@@ -33,15 +33,15 @@ public class PdpUtilServiceImpl implements PdpUtilService {
 
     @Override
     public boolean isDebit(PaymentAccountDetail paymentAccountDetail, boolean reversal) {
-    	boolean isDebit = true;
+        boolean isDebit = true;
         // Debits are positive for PREQ, VCM (since amount has been negated in PdpExtractServiceImpl.addAccounts()), DV and all PDP load files.
-		isDebit &= paymentAccountDetail.getAccountNetAmount().bigDecimalValue().signum() >= 0;
+        isDebit &= paymentAccountDetail.getAccountNetAmount().bigDecimalValue().signum() >= 0;
 
-    	if (reversal) {
-    		return !isDebit;
-    	}
+        if (reversal) {
+            return !isDebit;
+        }
 
-    	return isDebit;
+        return isDebit;
     }
 
 }

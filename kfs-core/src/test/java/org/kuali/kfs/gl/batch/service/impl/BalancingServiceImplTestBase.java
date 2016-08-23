@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.BalanceHistory;
@@ -32,6 +28,9 @@ import org.kuali.kfs.gl.dataaccess.LedgerBalanceBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -39,9 +38,10 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Is a Base class for GL and LD BalancingService test cases
@@ -178,7 +178,7 @@ public abstract class BalancingServiceImplTestBase extends KualiTestBase {
         Map<String, Integer> countCustomComparisionFailures = balancingService.customCompareHistory();
 
         if (ObjectUtils.isNotNull(countCustomComparisionFailures)) {
-            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext();) {
+            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext(); ) {
                 String name = names.next();
                 assertEquals(0, countCustomComparisionFailures.get(name).intValue());
             }
@@ -195,16 +195,17 @@ public abstract class BalancingServiceImplTestBase extends KualiTestBase {
         Map<String, Integer> countCustomComparisionFailures = balancingService.customCompareHistory();
 
         if (ObjectUtils.isNotNull(countCustomComparisionFailures)) {
-            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext();) {
+            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext(); ) {
                 String name = names.next();
                 assertNotSame(0, countCustomComparisionFailures.get(name).intValue());
             }
         }
     }
 
-     /**
+    /**
      * Test helper to generate obsolete fiscal year data if it does not exist. This method is messy. What it is doing is to check if the entries exist in
      * case there was an FY rollover but data wasn't updated yet. If not, it makes copies of the current. This corresponds to the entries getInputTransactions
+     *
      * @param obsoleteYear
      */
     protected void generateObsoleteYearData(Integer obsoleteYear) {

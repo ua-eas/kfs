@@ -18,11 +18,7 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobalDetail;
 import org.kuali.kfs.module.cam.businessobject.AssetType;
@@ -30,7 +26,11 @@ import org.kuali.kfs.module.cam.document.service.AssetLocationService.LocationFi
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class AssetLocationServiceTest extends KualiTestBase {
@@ -38,6 +38,7 @@ public class AssetLocationServiceTest extends KualiTestBase {
     private AssetGlobalDetail onCampusObject;
     private AssetGlobalDetail offcampusObject;
     private static final Map<LocationField, String> fieldMap = new HashMap<LocationField, String>();
+
     static {
         fieldMap.put(LocationField.CAMPUS_CODE, CamsPropertyConstants.AssetGlobalDetail.CAMPUS_CODE);
         fieldMap.put(LocationField.BUILDING_CODE, CamsPropertyConstants.AssetGlobalDetail.BUILDING_CODE);

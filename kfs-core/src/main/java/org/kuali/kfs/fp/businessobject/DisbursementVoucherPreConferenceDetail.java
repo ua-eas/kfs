@@ -19,15 +19,15 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class is used to represent a disbursement voucher pre-conference detail.
@@ -154,7 +154,7 @@ public class DisbursementVoucherPreConferenceDetail extends PersistableBusinessO
         KualiDecimal totalConferenceAmount = KualiDecimal.ZERO;
 
         if (dvPreConferenceRegistrants != null) {
-            for (Iterator iter = dvPreConferenceRegistrants.iterator(); iter.hasNext();) {
+            for (Iterator iter = dvPreConferenceRegistrants.iterator(); iter.hasNext(); ) {
                 DisbursementVoucherPreConferenceRegistrant registrantLine = (DisbursementVoucherPreConferenceRegistrant) iter.next();
                 totalConferenceAmount = totalConferenceAmount.add(registrantLine.getDisbVchrExpenseAmount());
             }

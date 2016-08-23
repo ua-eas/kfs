@@ -24,6 +24,7 @@ import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
+
 /**
  * Fixture class for Award
  */

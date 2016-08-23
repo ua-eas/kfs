@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cab.batch;
 
+import org.kuali.kfs.gl.businessobject.Entry;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.kuali.kfs.gl.businessobject.Entry;
 
 public class ExtractProcessLog {
     private Timestamp startTime;

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
 import java.beans.PropertyEditorSupport;
 import java.sql.Timestamp;
 import java.text.ParseException;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 // Created for Research Participant Upload
 public class TimestampPropertyEditor extends PropertyEditorSupport {
@@ -34,10 +34,9 @@ public class TimestampPropertyEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         try {
-            Timestamp time =  SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(text);
+            Timestamp time = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(text);
             setValue(time);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new IllegalArgumentException("Could not parse timestamp: " + ex.getMessage(), ex);
         }
     }

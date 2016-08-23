@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A cleaner way to conglomerate closely related rules together, this validation checks that
@@ -59,6 +59,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets whether the validation hutch should quit on the failure of the entire validation case failing.
+     *
      * @param b
      */
     public void setQuitOnFail(boolean b) {
@@ -76,6 +77,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Returns a list of all the validations the hutch has to pass in order to pass as a whole.
+     *
      * @return a List of Validations
      */
     protected List<Validation> getValidationGauntlet() {
@@ -107,14 +109,15 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     /**
      * Using the parameter property names set, finds the accounting document and accounting line to be validate
      * from the property, like an anteater getting tasty termites from a hill.  Yummy.
+     *
      * @param event the event to take properties from
      */
     protected void grabDocumentAndLineForValidationFromEvent(AttributedDocumentEvent event) {
         if (StringUtils.isNotBlank(accountingDocumentParameterPropertyName)) {
-            accountingDocumentForValidation = (AccountingDocument)ObjectUtils.getPropertyValue(event, accountingDocumentParameterPropertyName);
+            accountingDocumentForValidation = (AccountingDocument) ObjectUtils.getPropertyValue(event, accountingDocumentParameterPropertyName);
         }
         if (StringUtils.isNotBlank(accountingLineParameterPropertyName)) {
-            accountingLineForValidation = (AccountingLine)ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
+            accountingLineForValidation = (AccountingLine) ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
         }
     }
 
@@ -122,11 +125,11 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
      * Goes through each of the validations in the hutch, making sure each has the accounting document and accounting line to validate
      */
     protected void updateValidationsWithParameters() {
-        for (Validation v: getValidationGauntlet()) {
+        for (Validation v : getValidationGauntlet()) {
             if (v instanceof AccountingLineValueAllowedValidation) {
-                addParametersToValidation((AccountingLineValueAllowedValidation)v);
+                addParametersToValidation((AccountingLineValueAllowedValidation) v);
             } else if (v instanceof CompositeValidation) {
-                addParametersToValidation((CompositeValidation)v);
+                addParametersToValidation((CompositeValidation) v);
             } else {
                 throw new IllegalStateException("Validations in the AccountingLineValuesAllowedValidationHutch must either extend AccountingLineValueAllowedValidation or be a CompositeValidation made up of AccountingLineValueAllowedValidation instances");
             }
@@ -135,6 +138,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Adds the parameter properties to an instance of the AccountingLinevAlueAllowedValidation
+     *
      * @param validation the validation to add the correct properties to
      */
     protected void addParametersToValidation(AccountingLineValueAllowedValidation validation) {
@@ -144,14 +148,15 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Adds the parameter properties to the children validations of a CompositeValidation
+     *
      * @param validation the validation to add the correct parameters to
      */
     protected void addParametersToValidation(CompositeValidation validation) {
         for (Validation val : validation.getValidations()) {
             if (val instanceof CompositeValidation) {
-                addParametersToValidation((CompositeValidation)val);
+                addParametersToValidation((CompositeValidation) val);
             } else if (val instanceof AccountingLineValueAllowedValidation) {
-                addParametersToValidation((AccountingLineValueAllowedValidation)val);
+                addParametersToValidation((AccountingLineValueAllowedValidation) val);
             } else {
                 throw new IllegalStateException("Validations in the AccountingLineValuesAllowedValidationHutch must either extend AccountingLineValueAllowedValidation or be a CompositeValidation made up of AccountingLineValueAllowedValidation instances");
             }
@@ -159,7 +164,6 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -172,6 +176,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the fundGroupAllowedValidation attribute.
+     *
      * @return Returns the fundGroupAllowedValidation.
      */
     public Validation getFundGroupAllowedValidation() {
@@ -180,6 +185,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the fundGroupAllowedValidation attribute value.
+     *
      * @param fundGroupAllowedValidation The fundGroupAllowedValidation to set.
      */
     public void setFundGroupAllowedValidation(Validation fundGroupAllowedValidation) {
@@ -188,6 +194,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the objectCodeAllowedValidation attribute.
+     *
      * @return Returns the objectCodeAllowedValidation.
      */
     public Validation getObjectCodeAllowedValidation() {
@@ -196,6 +203,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the objectCodeAllowedValidation attribute value.
+     *
      * @param objectCodeAllowedValidation The objectCodeAllowedValidation to set.
      */
     public void setObjectCodeAllowedValidation(Validation objectCodeAllowedValidation) {
@@ -204,6 +212,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the objectConsolidationAllowedValidation attribute.
+     *
      * @return Returns the objectConsolidationAllowedValidation.
      */
     public Validation getObjectConsolidationAllowedValidation() {
@@ -212,6 +221,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the objectConsolidationAllowedValidation attribute value.
+     *
      * @param objectConsolidationAllowedValidation The objectConsolidationAllowedValidation to set.
      */
     public void setObjectConsolidationAllowedValidation(Validation objectConsolidationAllowedValidation) {
@@ -220,6 +230,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the objectLevelAllowedValidation attribute.
+     *
      * @return Returns the objectLevelAllowedValidation.
      */
     public Validation getObjectLevelAllowedValidation() {
@@ -228,6 +239,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the objectLevelAllowedValidation attribute value.
+     *
      * @param objectLevelAllowedValidation The objectLevelAllowedValidation to set.
      */
     public void setObjectLevelAllowedValidation(Validation objectLevelAllowedValidation) {
@@ -236,6 +248,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the objectSubTypeAllowedValidation attribute.
+     *
      * @return Returns the objectSubTypeAllowedValidation.
      */
     public Validation getObjectSubTypeAllowedValidation() {
@@ -244,6 +257,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the objectSubTypeAllowedValidation attribute value.
+     *
      * @param objectSubTypeAllowedValidation The objectSubTypeAllowedValidation to set.
      */
     public void setObjectSubTypeAllowedValidation(Validation objectSubTypeAllowedValidation) {
@@ -252,6 +266,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the objectTypeAllowedValidation attribute.
+     *
      * @return Returns the objectTypeAllowedValidation.
      */
     public Validation getObjectTypeAllowedValidation() {
@@ -260,6 +275,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the objectTypeAllowedValidation attribute value.
+     *
      * @param objectTypeAllowedValidation The objectTypeAllowedValidation to set.
      */
     public void setObjectTypeAllowedValidation(Validation objectTypeAllowedValidation) {
@@ -268,6 +284,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the subFundGroupAllowedValidation attribute.
+     *
      * @return Returns the subFundGroupAllowedValidation.
      */
     public Validation getSubFundGroupAllowedValidation() {
@@ -276,6 +293,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the subFundGroupAllowedValidation attribute value.
+     *
      * @param subFundGroupAllowedValidation The subFundGroupAllowedValidation to set.
      */
     public void setSubFundGroupAllowedValidation(Validation subFundGroupAllowedValidation) {
@@ -284,6 +302,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the accountingDocumentParameterPropertyName attribute.
+     *
      * @return Returns the accountingDocumentParameterPropertyName.
      */
     public String getAccountingDocumentParameterPropertyName() {
@@ -292,6 +311,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the accountingDocumentParameterPropertyName attribute value.
+     *
      * @param accountingDocumentParameterPropertyName The accountingDocumentParameterPropertyName to set.
      */
     public void setAccountingDocumentParameterPropertyName(String accountingDocumentParameterPropertyName) {
@@ -300,6 +320,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Gets the accountingLineParameterPropertyName attribute.
+     *
      * @return Returns the accountingLineParameterPropertyName.
      */
     public String getAccountingLineParameterPropertyName() {
@@ -308,6 +329,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
 
     /**
      * Sets the accountingLineParameterPropertyName attribute value.
+     *
      * @param accountingLineParameterPropertyName The accountingLineParameterPropertyName to set.
      */
     public void setAccountingLineParameterPropertyName(String accountingLineParameterPropertyName) {

@@ -19,12 +19,12 @@
 package org.kuali.kfs.krad.datadictionary.validation.processor;
 
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
-import org.kuali.kfs.krad.datadictionary.validation.constraint.PrerequisiteConstraint;
-import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.ValidationUtils;
 import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.PrerequisiteConstraint;
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
+import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
 
 /**
@@ -33,42 +33,42 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
  */
 public class PrerequisiteConstraintProcessor extends BasePrerequisiteConstraintProcessor<PrerequisiteConstraint> {
 
-	private static final String CONSTRAINT_NAME = "prerequisite constraint";
+    private static final String CONSTRAINT_NAME = "prerequisite constraint";
 
 
-	/**
-	 * @see ConstraintProcessor#process(DictionaryValidationResult, Object, org.kuali.rice.krad.datadictionary.validation.capability.Validatable, AttributeValueReader)
-	 */
-	@Override
-	public ProcessorResult process(DictionaryValidationResult result, Object value, PrerequisiteConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
+    /**
+     * @see ConstraintProcessor#process(DictionaryValidationResult, Object, org.kuali.rice.krad.datadictionary.validation.capability.Validatable, AttributeValueReader)
+     */
+    @Override
+    public ProcessorResult process(DictionaryValidationResult result, Object value, PrerequisiteConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
 
-		if (ValidationUtils.isNullOrEmpty(value))
-			return new ProcessorResult(result.addSkipped(attributeValueReader, CONSTRAINT_NAME));
+        if (ValidationUtils.isNullOrEmpty(value))
+            return new ProcessorResult(result.addSkipped(attributeValueReader, CONSTRAINT_NAME));
 
 
-		ConstraintValidationResult constraintValidationResult = processPrerequisiteConstraint(constraint, attributeValueReader);
+        ConstraintValidationResult constraintValidationResult = processPrerequisiteConstraint(constraint, attributeValueReader);
 
-        if(constraint != null){
+        if (constraint != null) {
             constraintValidationResult.setConstraintLabelKey(constraint.getLabelKey());
             constraintValidationResult.setErrorParameters(constraint.getValidationMessageParamsArray());
         }
 
-		result.addConstraintValidationResult(attributeValueReader, constraintValidationResult);
+        result.addConstraintValidationResult(attributeValueReader, constraintValidationResult);
 
-		return new ProcessorResult(constraintValidationResult);
-	}
+        return new ProcessorResult(constraintValidationResult);
+    }
 
-	@Override
-	public String getName() {
-		return CONSTRAINT_NAME;
-	}
+    @Override
+    public String getName() {
+        return CONSTRAINT_NAME;
+    }
 
-	/**
-	 * @see ConstraintProcessor#getConstraintType()
-	 */
-	@Override
-	public Class<? extends Constraint> getConstraintType() {
-		return PrerequisiteConstraint.class;
-	}
+    /**
+     * @see ConstraintProcessor#getConstraintType()
+     */
+    @Override
+    public Class<? extends Constraint> getConstraintType() {
+        return PrerequisiteConstraint.class;
+    }
 
 }

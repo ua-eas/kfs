@@ -18,24 +18,25 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
-
-import org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence;
-import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence;
+import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.util.KfsDateUtils;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class InvoiceRecurrencePreRules extends PromptBeforeValidationBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InvoiceRecurrencePreRules.class);
+
     /**
      * @see org.kuali.rice.kns.rules.PromptBeforeValidationBase#doRules(org.kuali.rice.krad.document.Document)
      */
@@ -64,14 +65,14 @@ public class InvoiceRecurrencePreRules extends PromptBeforeValidationBase {
         }
 
         try {
-            if ( SpringContext.getBean(DocumentService.class).documentExists(newInvoiceRecurrence.getInvoiceNumber()) ) {
-                CustomerInvoiceDocument customerInvoiceDocument = (CustomerInvoiceDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(newInvoiceRecurrence.getInvoiceNumber());
+            if (SpringContext.getBean(DocumentService.class).documentExists(newInvoiceRecurrence.getInvoiceNumber())) {
+                CustomerInvoiceDocument customerInvoiceDocument = (CustomerInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(newInvoiceRecurrence.getInvoiceNumber());
                 newInvoiceRecurrence.setCustomerNumber(customerInvoiceDocument.getCustomer().getCustomerNumber());
             }
-        } catch (WorkflowException ex ) {
-            LOG.error( "Unable to retrieve document " + newInvoiceRecurrence.getInvoiceNumber() + " from workflow.", ex );
-        } catch ( UnknownDocumentIdException ex ) {
-            LOG.error( "Document " + newInvoiceRecurrence.getInvoiceNumber() + " does not exist." );
+        } catch (WorkflowException ex) {
+            LOG.error("Unable to retrieve document " + newInvoiceRecurrence.getInvoiceNumber() + " from workflow.", ex);
+        } catch (UnknownDocumentIdException ex) {
+            LOG.error("Document " + newInvoiceRecurrence.getInvoiceNumber() + " does not exist.");
         }
 
         return true;
@@ -161,7 +162,7 @@ public class InvoiceRecurrencePreRules extends PromptBeforeValidationBase {
             addCounter = 3;
         }
         /* perform this loop while begin_date is less than or equal to end_date */
-        while (!(beginDate.after(endDate))){
+        while (!(beginDate.after(endDate))) {
             beginCalendar.setTime(beginDate);
             beginCalendar.add(Calendar.MONTH, addCounter);
             beginDate = KfsDateUtils.convertToSqlDate(beginCalendar.getTime());

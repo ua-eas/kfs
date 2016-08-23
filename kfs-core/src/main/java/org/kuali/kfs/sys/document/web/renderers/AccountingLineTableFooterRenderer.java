@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
+import java.io.IOException;
 
 /**
  * Renders the footer of an accounting line table
@@ -32,6 +31,7 @@ public class AccountingLineTableFooterRenderer implements Renderer {
 
     /**
      * There's nothing to clear for pooling for this renderer
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -40,6 +40,7 @@ public class AccountingLineTableFooterRenderer implements Renderer {
 
     /**
      * Renders the table footer
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -49,14 +50,14 @@ public class AccountingLineTableFooterRenderer implements Renderer {
             out.write(buildTableEnd());
             out.write(buildKualiElementsNotifier());
             out.write(buildDivEnd());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering accounting line table footer", ioe);
         }
     }
 
     /**
      * Builds the closing of the table
+     *
      * @return the closing of the table expressed in HTML
      */
     protected String buildTableEnd() {
@@ -65,6 +66,7 @@ public class AccountingLineTableFooterRenderer implements Renderer {
 
     /**
      * Builds the script that figures out all the KualiForm.eleemnts stuff
+     *
      * @return that strange script, expressed in HTML
      */
     protected String buildKualiElementsNotifier() {
@@ -78,6 +80,7 @@ public class AccountingLineTableFooterRenderer implements Renderer {
 
     /**
      * Builds the close of the tab-container div
+     *
      * @return the close of the div expressed as HTML
      */
     protected String buildDivEnd() {

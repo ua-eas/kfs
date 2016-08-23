@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.sys.datatools.handler;
 
-import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class DeleteDocumentsHandlerTest {
     private DeleteDocumentsHandler deleteDocumentsHandler;

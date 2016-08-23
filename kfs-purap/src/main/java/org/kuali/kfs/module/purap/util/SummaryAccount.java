@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.PurApSummaryItem;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * Summary Account.
  * This is a special class used to display summary information i.e. what items are associated
  * with this account.

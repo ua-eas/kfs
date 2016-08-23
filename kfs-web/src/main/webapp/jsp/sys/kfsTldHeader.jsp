@@ -19,25 +19,25 @@
 
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/fp" prefix="fp"%>
+<%@ taglib tagdir="/WEB-INF/tags/fp" prefix="fp" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/gl" prefix="gl"%>
+<%@ taglib tagdir="/WEB-INF/tags/gl" prefix="gl" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/gl/glcp" prefix="glcp"%>
+<%@ taglib tagdir="/WEB-INF/tags/gl/glcp" prefix="glcp" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/sys" prefix="sys"%>
+<%@ taglib tagdir="/WEB-INF/tags/sys" prefix="sys" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/bc" prefix="bc"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/bc" prefix="bc" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/ld" prefix="ld"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/ld" prefix="ld" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/purap" prefix="purap"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/purap" prefix="purap" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/cams" prefix="cams"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/cams" prefix="cams" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/cab" prefix="cab"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/cab" prefix="cab" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/module/ar" prefix="ar" %>
 
@@ -53,7 +53,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/relo" prefix="tem-relo" %>
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/expenses" prefix="tem-exp" %>
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/arranger" prefix="tem-arranger" %>
-<%@ taglib uri="/WEB-INF/tlds/tem-html.tld" prefix="tem-html"%>
+<%@ taglib uri="/WEB-INF/tlds/tem-html.tld" prefix="tem-html" %>
 
 <%-- utility web functions --%>
 <%@ taglib uri="/WEB-INF/tlds/kfsfunc.tld" prefix="kfsfunc" %>

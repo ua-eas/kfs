@@ -19,16 +19,14 @@
 package org.kuali.kfs.kns.datadictionary.validation.charlevel;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.CharacterLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 import java.util.regex.Pattern;
 
 /**
  * Pattern for matching any character in the given list (String)
- *
- *
  */
 public class CharsetValidationPattern extends CharacterLevelValidationPattern {
     protected String validChars;
@@ -86,29 +84,29 @@ public class CharsetValidationPattern extends CharacterLevelValidationPattern {
         exportMap.set("validChars", getValidChars());
     }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see CharacterLevelValidationPattern#getValidationErrorMessageParameters(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public String[] getValidationErrorMessageParameters(String attributeLabel) {
-		// build character list
-		StringBuilder buf = new StringBuilder();
-		for (int i = 0; i < validChars.length(); i++) {
-			buf.append(validChars.charAt(i));
-			if (i != validChars.length() - 1) {
-				buf.append(", ");
-			}
-		}
-		String characterList = buf.toString();
+    /**
+     * This overridden method ...
+     *
+     * @see CharacterLevelValidationPattern#getValidationErrorMessageParameters(java.lang.String, java.lang.String)
+     */
+    @Override
+    public String[] getValidationErrorMessageParameters(String attributeLabel) {
+        // build character list
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < validChars.length(); i++) {
+            buf.append(validChars.charAt(i));
+            if (i != validChars.length() - 1) {
+                buf.append(", ");
+            }
+        }
+        String characterList = buf.toString();
 
-		if (getMaxLength() != -1) {
-			return new String[] {attributeLabel, String.valueOf(getMaxLength()), characterList};
-		}
-		if (getExactLength() != -1) {
-			return new String[] {attributeLabel, String.valueOf(getExactLength()), characterList};
-		}
-		return new String[] {attributeLabel, "0", characterList};
-	}
+        if (getMaxLength() != -1) {
+            return new String[]{attributeLabel, String.valueOf(getMaxLength()), characterList};
+        }
+        if (getExactLength() != -1) {
+            return new String[]{attributeLabel, String.valueOf(getExactLength()), characterList};
+        }
+        return new String[]{attributeLabel, "0", characterList};
+    }
 }

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess;
 
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 
 /**
  * Provides data access methods for the fiscal year maker process
@@ -32,7 +32,7 @@ public interface FiscalYearMakersDao {
     /**
      * Clears out records for the new year and object being copied
      *
-     * @param baseYear fiscal year that we are copying
+     * @param baseYear              fiscal year that we are copying
      * @param objectFiscalYearMaker FiscalYearMaker implementation for the object we are copying
      */
     public void deleteNewYearRows(Integer baseYear, FiscalYearMaker objectFiscalYearMaker);
@@ -40,11 +40,11 @@ public interface FiscalYearMakersDao {
     /**
      * Populates records for the new year and object
      *
-     * @param baseYear fiscal year that we are copying
+     * @param baseYear              fiscal year that we are copying
      * @param objectFiscalYearMaker FiscalYearMaker implementation for the object we are copying
-     * @param replaceMode indicates whether records found for the new year should be replaced or left alone
-     * @param parentKeysWritten Map that contains class as key and Set of of primary key strings representing records written
-     * @param isParentClass indicates whether the class being copied is a parent to another FYM class that will be copied
+     * @param replaceMode           indicates whether records found for the new year should be replaced or left alone
+     * @param parentKeysWritten     Map that contains class as key and Set of of primary key strings representing records written
+     * @param isParentClass         indicates whether the class being copied is a parent to another FYM class that will be copied
      * @return Collection of error messages encountered while attempting to copy a record
      */
     public Collection<String> createNewYearRows(Integer baseYear, FiscalYearMaker objectFiscalYearMaker, boolean replaceMode, Map<Class<? extends FiscalYearBasedBusinessObject>, Set<String>> parentKeysWritten, boolean isParentClass) throws Exception;

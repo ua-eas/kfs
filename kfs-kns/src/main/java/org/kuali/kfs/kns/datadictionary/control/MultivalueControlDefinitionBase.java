@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.datadictionary.exception.CompletionException;
 public abstract class MultivalueControlDefinitionBase extends ControlDefinitionBase {
     private static final long serialVersionUID = -9164657952021540261L;
 
-	/**
+    /**
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     @Override

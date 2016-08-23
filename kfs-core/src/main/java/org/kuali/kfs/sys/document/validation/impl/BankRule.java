@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Evaluates business rules for editing or creation of a new bank record.
@@ -108,12 +108,12 @@ public class BankRule extends MaintenanceDocumentRuleBase {
     protected boolean validateBankAccountNumber() {
         // if the new bank is not blank *AND* has been changed
         // (I.e, never fire this edit if the account has not been changed)
-        if ( StringUtils.isNotBlank(newBank.getBankAccountNumber() )
-                && (oldBank == null ||
-                         !StringUtils.equals(oldBank.getBankAccountNumber(), newBank.getBankAccountNumber())) ) {
+        if (StringUtils.isNotBlank(newBank.getBankAccountNumber())
+            && (oldBank == null ||
+            !StringUtils.equals(oldBank.getBankAccountNumber(), newBank.getBankAccountNumber()))) {
             @SuppressWarnings("rawtypes")
             Collection existingBanks = getBoService().findMatching(Bank.class, Collections.singletonMap(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, newBank.getBankAccountNumber()));
-            if ( existingBanks != null && !existingBanks.isEmpty() ) {
+            if (existingBanks != null && !existingBanks.isEmpty()) {
                 putFieldError(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, KFSKeyConstants.Bank.ERROR_ACCOUNT_NUMBER_NOT_UNIQUE);
                 return false;
             }

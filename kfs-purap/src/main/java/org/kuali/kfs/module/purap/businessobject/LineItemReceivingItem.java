@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocumentBase;
 import org.kuali.kfs.module.purap.document.LineItemReceivingDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 
 public class LineItemReceivingItem extends ReceivingItemBase {
@@ -73,8 +73,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
         // TODO: Chris - look into this it appears this is null rather than zero on amendment, find out why!
         if (ObjectUtils.isNull(poi.getItemReceivedTotalQuantity())) {
             this.setItemReceivedPriorQuantity(KualiDecimal.ZERO);
-        }
-        else {
+        } else {
             this.setItemReceivedPriorQuantity(poi.getItemReceivedTotalQuantity());
         }
 
@@ -119,14 +118,12 @@ public class LineItemReceivingItem extends ReceivingItemBase {
             }
             if (poi != null) {
                 return poi;
-            }
-            else {
+            } else {
                 // LOG.debug("getPurchaseOrderItem() Returning null because PurchaseOrderItem object for line number" +
                 // getItemLineNumber() + "or itemType " + getItemTypeCode() + " is null");
                 return null;
             }
-        }
-        else {
+        } else {
             LOG.error("getPurchaseOrderItem() Returning null because paymentRequest object is null");
             throw new PurError("Receiving Line Object in Purchase Order item line number " + getItemLineNumber() + "or itemType " + getItemTypeCode() + " is null");
         }

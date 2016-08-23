@@ -30,48 +30,47 @@ import java.util.Map;
  * A class that implements a simple in memory storage map of constraint resolvers. This provides a convenient base class
  * from which other constraint providers can be derived.
  *
- *
  * @since 1.1
  */
 public abstract class BaseConstraintProvider<T extends Constrainable> implements ConstraintProvider<T> {
 
 
-	protected Map<String, ConstraintResolver<T>> resolverMap;
+    protected Map<String, ConstraintResolver<T>> resolverMap;
 
-	public void init() {
-		if (resolverMap == null)
-			resolverMap = new HashMap<String, ConstraintResolver<T>>();
+    public void init() {
+        if (resolverMap == null)
+            resolverMap = new HashMap<String, ConstraintResolver<T>>();
 
-	}
+    }
 
-	/**
-	 * @see ConstraintProvider#getConstraints(Constrainable, java.lang.Class)
-	 */
-	@Override
-	public List<Constraint> getConstraints(T definition, Class<? extends Constraint> constraintType) {
-		if (resolverMap == null)
-			init();
+    /**
+     * @see ConstraintProvider#getConstraints(Constrainable, java.lang.Class)
+     */
+    @Override
+    public List<Constraint> getConstraints(T definition, Class<? extends Constraint> constraintType) {
+        if (resolverMap == null)
+            init();
 
-		ConstraintResolver<T> resolver = resolverMap.get(constraintType.getName());
+        ConstraintResolver<T> resolver = resolverMap.get(constraintType.getName());
 
-		if (resolver == null)
-			return null;
+        if (resolver == null)
+            return null;
 
-		return resolver.resolve(definition);
-	}
+        return resolver.resolve(definition);
+    }
 
-	/**
-	 * @return the resolverMap
-	 */
-	public Map<String, ConstraintResolver<T>> getResolverMap() {
-		return this.resolverMap;
-	}
+    /**
+     * @return the resolverMap
+     */
+    public Map<String, ConstraintResolver<T>> getResolverMap() {
+        return this.resolverMap;
+    }
 
-	/**
-	 * @param resolverMap the resolverMap to set
-	 */
-	public void setResolverMap(Map<String, ConstraintResolver<T>> resolverMap) {
-		this.resolverMap = resolverMap;
-	}
+    /**
+     * @param resolverMap the resolverMap to set
+     */
+    public void setResolverMap(Map<String, ConstraintResolver<T>> resolverMap) {
+        this.resolverMap = resolverMap;
+    }
 
 }

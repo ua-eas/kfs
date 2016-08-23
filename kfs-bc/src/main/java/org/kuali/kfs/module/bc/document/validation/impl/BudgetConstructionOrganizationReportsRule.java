@@ -21,15 +21,15 @@ package org.kuali.kfs.module.bc.document.validation.impl;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationReportsService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocumentRuleBase {
 
@@ -138,8 +138,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
                 if ((newBCOrgReports.getReportsToChartOfAccountsCode().equals(newBCOrgReports.getChartOfAccountsCode())) && (newBCOrgReports.getReportsToOrganizationCode().equals(newBCOrgReports.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_CANNOT_BE_SAME_ORG);
                     success = false;
-                }
-                else {
+                } else {
                     // Don't allow a circular reference on Reports to Chart/Org
                     // terminate the search when a top-level org is found
                     lastReportsToChartOfAccountsCode = newBCOrgReports.getReportsToChartOfAccountsCode();
@@ -158,8 +157,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
                                 putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_EXIST);
                                 success = false;
                             }
-                        }
-                        else {
+                        } else {
                             {
                                 // LOG.info("Found Org = " + lastReportsToChartOfAccountsCode + "/" +
                                 // lastReportsToOrganizationCode);
@@ -184,8 +182,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
                 } // end else (checking for circular ref)
 
-            }
-            else { // org must report to self (university level organization)
+            } else { // org must report to self (university level organization)
                 if (!(newBCOrgReports.getReportsToChartOfAccountsCode().equals(newBCOrgReports.getChartOfAccountsCode()) && newBCOrgReports.getReportsToOrganizationCode().equals(newBCOrgReports.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_BE_SAME_ORG);
                     success = false;

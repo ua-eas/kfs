@@ -16,23 +16,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function loadCustomerInfo( customerNumberFieldName, customerNameFieldName ) {
-    var customerNumber = dwr.util.getValue( customerNumberFieldName ).toUpperCase();
+function loadCustomerInfo(customerNumberFieldName, customerNameFieldName) {
+    var customerNumber = dwr.util.getValue(customerNumberFieldName).toUpperCase();
 
-	if (customerNumber=='') {
-		clearRecipients(customerNameFieldName, "");
-	} else {
-		var dwrReply = {
-			callback:function(data) {
-			if ( data != null && typeof data == 'object' ) {
-				setRecipientValue( customerNameFieldName, data.customerName );
-			} else {
-				setRecipientValue( customerNameFieldName, wrapError( "customer not found" ), true );
-			} },
-			errorHandler:function( errorMessage ) {
-				setRecipientValue( customerNameFieldName, wrapError( "customer not found" ), true );
-			}
-		};
-		CustomerService.getByPrimaryKey( customerNumber, dwrReply );
-	}
+    if (customerNumber == '') {
+        clearRecipients(customerNameFieldName, "");
+    } else {
+        var dwrReply = {
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    setRecipientValue(customerNameFieldName, data.customerName);
+                } else {
+                    setRecipientValue(customerNameFieldName, wrapError("customer not found"), true);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                setRecipientValue(customerNameFieldName, wrapError("customer not found"), true);
+            }
+        };
+        CustomerService.getByPrimaryKey(customerNumber, dwrReply);
+    }
 }

@@ -18,35 +18,33 @@
  */
 package org.kuali.kfs.kns.lookup;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import javax.servlet.jsp.JspException;
-
 import org.displaytag.export.CsvView;
 import org.displaytag.model.TableModel;
 import org.kuali.kfs.krad.util.KRADConstants;
 
+import javax.servlet.jsp.JspException;
+import java.io.IOException;
+import java.io.Writer;
+
 /**
  * This class allows for plugging in custom CSV export into the Display Tag library.
- *
  */
 public class CustomCsvExportView extends CsvView {
 
-	private ExportViewHelper helper;
+    private ExportViewHelper helper;
 
-	@Override
-	public void setParameters(TableModel tableModel, boolean exportFullList,
-			boolean includeHeader, boolean decorateValues) {
-		this.helper = new ExportViewHelper(tableModel);
-		super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
-	}
+    @Override
+    public void setParameters(TableModel tableModel, boolean exportFullList,
+                              boolean includeHeader, boolean decorateValues) {
+        this.helper = new ExportViewHelper(tableModel);
+        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
+    }
 
-	@Override
-	public void doExport(Writer writer) throws IOException, JspException {
-		if (!helper.attemptCustomExport(writer, KRADConstants.CSV_FORMAT)) {
-			super.doExport(writer);
-		}
-	}
+    @Override
+    public void doExport(Writer writer) throws IOException, JspException {
+        if (!helper.attemptCustomExport(writer, KRADConstants.CSV_FORMAT)) {
+            super.doExport(writer);
+        }
+    }
 
 }

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class AgencyCorrectionCriteria extends PersistableBusinessObjectBase implements Comparable<AgencyCorrectionChange> {
 

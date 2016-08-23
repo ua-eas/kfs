@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess.impl;
 
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -29,6 +27,8 @@ import org.kuali.kfs.module.ar.document.CashControlDocument;
 import org.kuali.kfs.module.ar.document.dataaccess.CashControlDocumentDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Map;
 
 /**
  * Implementation class for CashControlDocumentDao

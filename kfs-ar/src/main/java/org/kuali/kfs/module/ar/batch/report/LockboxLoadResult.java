@@ -22,14 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * Represents one lockbox object from a batch file, and its results.
- *
  */
 
 public class LockboxLoadResult {
-	public enum ResultCode { SUCCESS, FAILURE, ERROR, INCOMPLETE }
-    public enum EntryType { INFO, ERROR }
+    public enum ResultCode {SUCCESS, FAILURE, ERROR, INCOMPLETE}
+
+    public enum EntryType {INFO, ERROR}
 
     private String filename;
     private String lockboxNumber;
@@ -51,8 +50,12 @@ public class LockboxLoadResult {
     public static String getEntryTypeString(EntryType type) {
         String result = "UNKNOWN";
         switch (type) {
-            case INFO: result = "INFO"; break;
-            case ERROR: result = "ERROR"; break;
+            case INFO:
+                result = "INFO";
+                break;
+            case ERROR:
+                result = "ERROR";
+                break;
         }
         return result;
     }
@@ -60,10 +63,18 @@ public class LockboxLoadResult {
     public static String getResultCodeString(ResultCode resultCode) {
         String result = "UNKNOWN";
         switch (resultCode) {
-            case SUCCESS: result = "SUCCESS"; break;
-            case FAILURE: result = "FAILURES"; break;
-            case ERROR: result = "ERROR"; break;
-            case INCOMPLETE: result = "INCOMPLETE"; break;
+            case SUCCESS:
+                result = "SUCCESS";
+                break;
+            case FAILURE:
+                result = "FAILURES";
+                break;
+            case ERROR:
+                result = "ERROR";
+                break;
+            case INCOMPLETE:
+                result = "INCOMPLETE";
+                break;
         }
         return result;
     }
@@ -101,19 +112,19 @@ public class LockboxLoadResult {
     }
 
     public String getLockboxNumber() {
-		return lockboxNumber;
-	}
+        return lockboxNumber;
+    }
 
-	public void setLockboxNumber(String lockboxNumber) {
-		this.lockboxNumber = lockboxNumber;
-	}
+    public void setLockboxNumber(String lockboxNumber) {
+        this.lockboxNumber = lockboxNumber;
+    }
 
-	public List<String[]> getMessages() {
+    public List<String[]> getMessages() {
         return messages;
     }
 
     private void addMessage(EntryType entryType, String message) {
-        this.messages.add(new String[] { getEntryTypeString(entryType), message });
+        this.messages.add(new String[]{getEntryTypeString(entryType), message});
     }
 
     public void addErrorMessage(String message) {

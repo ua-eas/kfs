@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
+
+import java.util.Set;
 
 
 /**

@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ar.identity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
@@ -30,6 +25,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class AccountsReceivableProcessingOrganizationRoleTypeServiceImplTest extends KualiTestBase {
@@ -62,29 +62,29 @@ public class AccountsReceivableProcessingOrganizationRoleTypeServiceImplTest ext
 
     }
 
-    protected Map<String,String> buildDocQualifier() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, AR_DOC_CHART );
-        qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, AR_DOC_ORG );
+    protected Map<String, String> buildDocQualifier() {
+        Map<String, String> qualification = new HashMap<String, String>();
+        qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, AR_DOC_CHART);
+        qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, AR_DOC_ORG);
         return qualification;
     }
 
-    protected Map<String,String> buildDocQualifier_2() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, AR_DOC_CHART_2 );
-        qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, AR_DOC_ORG_2 );
+    protected Map<String, String> buildDocQualifier_2() {
+        Map<String, String> qualification = new HashMap<String, String>();
+        qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, AR_DOC_CHART_2);
+        qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, AR_DOC_ORG_2);
         return qualification;
     }
 
     protected String getArUserPrincipalId() {
-        if ( arUserPrincipalId == null ) {
+        if (arUserPrincipalId == null) {
             arUserPrincipalId = SpringContext.getBean(IdentityManagementService.class).getPrincipalByPrincipalName(AR_DOC_USER).getPrincipalId();
         }
         return arUserPrincipalId;
     }
 
     protected String getArUserPrincipalId_2() {
-        if ( arUserPrincipalId2 == null ) {
+        if (arUserPrincipalId2 == null) {
             arUserPrincipalId2 = SpringContext.getBean(IdentityManagementService.class).getPrincipalByPrincipalName(AR_DOC_USER_2).getPrincipalId();
         }
         return arUserPrincipalId2;
@@ -106,54 +106,53 @@ public class AccountsReceivableProcessingOrganizationRoleTypeServiceImplTest ext
 //    }
 
     public void testPrincipalHasRole_Data1() {
-        List<String> tempRoleIdList = new ArrayList<String>( 1 );
-
+        List<String> tempRoleIdList = new ArrayList<String>(1);
 
 
         // qualification passed for an AR document for the BA-MOTR organization
-        Map<String,String> qualification = buildDocQualifier();
+        Map<String, String> qualification = buildDocQualifier();
 
         // find the AR Biller Role
         String billerRoleId = getRoleService().getRoleIdByNamespaceCodeAndName(AR_NAMESPACE, AR_BILLER_ROLE);
         assertNotNull("unable to find biller role", billerRoleId);
-        tempRoleIdList.add( billerRoleId );
+        tempRoleIdList.add(billerRoleId);
 
         boolean result = getRoleService().principalHasRole(getArUserPrincipalId(), tempRoleIdList, qualification);
-        assertTrue( "exact match on billing org should have passed", result );
+        assertTrue("exact match on billing org should have passed", result);
 
         // find the AR Processor Role
         String processorRoleId = getRoleService().getRoleIdByNamespaceCodeAndName(AR_NAMESPACE, AR_PROCESSOR_ROLE);
         assertNotNull("unable to find processor role", processorRoleId);
         tempRoleIdList.clear();
-        tempRoleIdList.add( processorRoleId );
+        tempRoleIdList.add(processorRoleId);
 
         result = getRoleService().principalHasRole(getArUserPrincipalId(), tempRoleIdList, qualification);
-        assertFalse( "test on main user for processing org should have failed - does not have processing org on KFS-SYS User role", result );
+        assertFalse("test on main user for processing org should have failed - does not have processing org on KFS-SYS User role", result);
 
     }
 
     public void testPrincipalHasRole_Data2() {
-        List<String> tempRoleIdList = new ArrayList<String>( 1 );
+        List<String> tempRoleIdList = new ArrayList<String>(1);
 
         // qualification passed for an AR document for the BA-MOTR organization
-        Map<String,String> qualification = buildDocQualifier_2();
+        Map<String, String> qualification = buildDocQualifier_2();
 
         // find the AR Biller Role
         String billerRoleId = getRoleService().getRoleIdByNamespaceCodeAndName(AR_NAMESPACE, AR_BILLER_ROLE);
         assertNotNull("unable to find biller role", billerRoleId);
-        tempRoleIdList.add( billerRoleId );
+        tempRoleIdList.add(billerRoleId);
 
         boolean result = getRoleService().principalHasRole(getArUserPrincipalId_2(), tempRoleIdList, qualification);
-        assertTrue( "exact match on billing org should have passed - user has processing org, not billing org, but all processors are also billers", result );
+        assertTrue("exact match on billing org should have passed - user has processing org, not billing org, but all processors are also billers", result);
 
         // find the AR Processor Role
         String processorRoleId = getRoleService().getRoleIdByNamespaceCodeAndName(AR_NAMESPACE, AR_PROCESSOR_ROLE);
         assertNotNull("unable to find processor role", processorRoleId);
         tempRoleIdList.clear();
-        tempRoleIdList.add( processorRoleId );
+        tempRoleIdList.add(processorRoleId);
 
         result = getRoleService().principalHasRole(getArUserPrincipalId_2(), tempRoleIdList, qualification);
-        assertTrue( "principalHasRole test for processor role should have passed - user has processing org on KFS-SYS User role", result );
+        assertTrue("principalHasRole test for processor role should have passed - user has processing org on KFS-SYS User role", result);
 
     }
 
@@ -161,7 +160,7 @@ public class AccountsReceivableProcessingOrganizationRoleTypeServiceImplTest ext
      * @return the roleService
      */
     public RoleService getRoleService() {
-        if (roleManagementService == null ) {
+        if (roleManagementService == null) {
             roleManagementService = KimApiServiceLocator.getRoleService();
         }
         return roleManagementService;

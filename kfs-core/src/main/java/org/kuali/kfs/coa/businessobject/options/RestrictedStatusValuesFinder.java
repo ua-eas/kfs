@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.RestrictedStatus;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class creates a new finder for our forms view (creates a drop-down of {@link RestrictedStatus}s)
@@ -45,7 +45,7 @@ public class RestrictedStatusValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (RestrictedStatus restrictedStatus : codes) {
-            if(restrictedStatus.isActive()) {
+            if (restrictedStatus.isActive()) {
                 labels.add(new ConcreteKeyValue(restrictedStatus.getAccountRestrictedStatusCode(), restrictedStatus.getCodeAndDescription()));
             }
         }

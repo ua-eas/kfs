@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.validation.SalarySettingRule;
-import org.kuali.kfs.krad.rules.rule.BusinessRule;
 
 /**
  * Event triggered when the detail salary setting screen is saved.
@@ -34,9 +34,9 @@ public class SaveSalarySettingEvent extends SalarySettingBaseEvent {
     /**
      * Constructs a SaveSalarySettingEvent.java.
      *
-     * @param description the given description
-     * @param errorPathPrefix the specified error path prefix
-     * @param document the specified budget construction document
+     * @param description        the given description
+     * @param errorPathPrefix    the specified error path prefix
+     * @param document           the specified budget construction document
      * @param appointmentFunding the current appointment funding being varified
      */
     public SaveSalarySettingEvent(String description, String errorPathPrefix, BudgetConstructionDocument document, PendingBudgetConstructionAppointmentFunding appointmentFunding, SynchronizationCheckType synchronizationCheckType) {

@@ -18,23 +18,21 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+
 @ConfigureContext(session = khuntley)
-public class BudgetAdjustmentServiceTest extends KualiTestBase
-{
+public class BudgetAdjustmentServiceTest extends KualiTestBase {
     private BudgetAdjustmentService budgetAdjustmentService;
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
     @Override
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         // Initialize service objects.
         budgetAdjustmentService =
             SpringContext.getBean(BudgetAdjustmentService.class);
@@ -45,20 +43,17 @@ public class BudgetAdjustmentServiceTest extends KualiTestBase
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
-    protected void tearDown() throws Exception
-    {
+    protected void tearDown() throws Exception {
         super.tearDown();
     }
 
     /**
      * This method tests the service locally
      */
-    public void testBudgetAdjustmentServiceLocally()
-    {
+    public void testBudgetAdjustmentServiceLocally() {
 
     }
 

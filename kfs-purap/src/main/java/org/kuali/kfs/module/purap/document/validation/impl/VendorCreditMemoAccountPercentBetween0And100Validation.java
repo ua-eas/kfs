@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -26,10 +29,7 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class VendorCreditMemoAccountPercentBetween0And100Validation extends GenericValidation {
 
@@ -37,7 +37,7 @@ public class VendorCreditMemoAccountPercentBetween0And100Validation extends Gene
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean isValid = true;
-        PurApAccountingLine account = (PurApAccountingLine)((AddAccountingLineEvent)event).getAccountingLine();
+        PurApAccountingLine account = (PurApAccountingLine) ((AddAccountingLineEvent) event).getAccountingLine();
 
         if (validateRequiredField(account, PurapPropertyConstants.ACCOUNT_LINE_PERCENT)) {
             double pct = account.getAccountLinePercent().doubleValue();
@@ -45,8 +45,7 @@ public class VendorCreditMemoAccountPercentBetween0And100Validation extends Gene
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ACCOUNT_LINE_PERCENT, PurapKeyConstants.ERROR_CREDIT_MEMO_LINE_PERCENT);
                 isValid = false;
             }
-        }
-        else {
+        } else {
             isValid = false;
         }
 
@@ -59,7 +58,7 @@ public class VendorCreditMemoAccountPercentBetween0And100Validation extends Gene
      * for the error required message param.
      *
      * @param businessObject - Business object to check for value
-     * @param fieldName - Name of the property in the business object
+     * @param fieldName      - Name of the property in the business object
      */
     protected boolean validateRequiredField(BusinessObject businessObject, String fieldName) {
         boolean valid = true;

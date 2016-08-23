@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
@@ -28,8 +26,10 @@ import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.UnknownDocumentTypeException;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,8 +39,6 @@ import java.util.regex.Pattern;
 
 /**
  * Defines the API for interacting with the data dictionary
- *
- *
  */
 public interface DataDictionaryService {
 
@@ -316,7 +314,7 @@ public interface DataDictionaryService {
     /**
      * returns a Map that specifies the attributes of the relationship
      *
-     * @param entryName - Name of the Business Object entry
+     * @param entryName        - Name of the Business Object entry
      * @param relationshipName - Name of the relationship
      * @return Map - Target field as key, source field as value
      */
@@ -325,7 +323,7 @@ public interface DataDictionaryService {
     /**
      * returns a list of names for all entries whose source parameter matches the parameter
      *
-     * @param entryName Name of the Business Object entry
+     * @param entryName           Name of the Business Object entry
      * @param sourceAttributeName name of the source attribute
      * @return the names of all entries that use the sourceAttributeName as a primitive attribute
      */
@@ -334,7 +332,7 @@ public interface DataDictionaryService {
     /**
      * returns a list of names for all entries whose source parameter matches the parameter
      *
-     * @param entryName Name of the Business Object entry
+     * @param entryName           Name of the Business Object entry
      * @param targetAttributeName name of the target attribute
      * @return the names of all entries that use the targetAttributeName as a primitive attribute
      */
@@ -343,7 +341,7 @@ public interface DataDictionaryService {
     /**
      * Determines whether there is a relationship defined for the given entry with the given name
      *
-     * @param entryName name of the BO entry
+     * @param entryName        name of the BO entry
      * @param relationshipName name of the relationship for the entry
      * @return true iff there is a relationship with the given name defined for the BO entry in the DD
      */
@@ -435,7 +433,7 @@ public interface DataDictionaryService {
      * @return a set of all registered inactivation blocks for a particular business object
      */
     public Set<InactivationBlockingMetadata> getAllInactivationBlockingDefinitions(
-            Class inactivationBlockedBusinessObjectClass);
+        Class inactivationBlockedBusinessObjectClass);
 
     /**
      * Returns the View entry identified by the given id
@@ -465,9 +463,9 @@ public interface DataDictionaryService {
      * Returns View instance identified by the view type name and index
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the
-     * indexer used to index the view initially and needs to identify
-     * an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the
+     *                     indexer used to index the view initially and needs to identify
+     *                     an unique view instance
      * @return View instance that matches the given index
      */
     public View getViewByTypeIndex(ViewType viewTypeName, Map<String, String> indexKey);

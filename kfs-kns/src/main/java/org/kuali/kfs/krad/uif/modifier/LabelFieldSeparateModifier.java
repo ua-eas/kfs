@@ -32,83 +32,80 @@ import java.util.Set;
 /**
  * Pulls <code>LabelField</code> instances out of a contained field so they will
  * be placed separately in the <code>LayoutManager</code>
- *
- *
  */
 public class LabelFieldSeparateModifier extends ComponentModifierBase {
-	private static final long serialVersionUID = -4304947796868636298L;
+    private static final long serialVersionUID = -4304947796868636298L;
 
-	public LabelFieldSeparateModifier() {
-		super();
-	}
+    public LabelFieldSeparateModifier() {
+        super();
+    }
 
-	/**
-	 * Iterates through the <code>Group</code> items and if the label field is
-	 * not null and should be rendered, adds it to the new field list
-	 * immediately before the <code>Field</code> item the label applies to.
-	 * Finally the new list of components is set on the group
-	 *
-	 * @see ComponentModifier#performModification(View,
-	 *      java.lang.Object, Component)
-	 */
-	@Override
-	public void performModification(View view, Object model, Component component) {
-		if ((component != null) && !(component instanceof Group)) {
-			throw new IllegalArgumentException("Compare field initializer only support Group components, found type: "
-					+ component.getClass());
-		}
+    /**
+     * Iterates through the <code>Group</code> items and if the label field is
+     * not null and should be rendered, adds it to the new field list
+     * immediately before the <code>Field</code> item the label applies to.
+     * Finally the new list of components is set on the group
+     *
+     * @see ComponentModifier#performModification(View,
+     * java.lang.Object, Component)
+     */
+    @Override
+    public void performModification(View view, Object model, Component component) {
+        if ((component != null) && !(component instanceof Group)) {
+            throw new IllegalArgumentException("Compare field initializer only support Group components, found type: "
+                + component.getClass());
+        }
 
-		if (component == null) {
-			return;
-		}
+        if (component == null) {
+            return;
+        }
 
-		// list that will be built
-		List<Component> groupFields = new ArrayList<Component>();
+        // list that will be built
+        List<Component> groupFields = new ArrayList<Component>();
 
-		Group group = (Group) component;
-		for (Component item : group.getItems()) {
-			if (item instanceof Field) {
-				Field field = (Field) item;
+        Group group = (Group) component;
+        for (Component item : group.getItems()) {
+            if (item instanceof Field) {
+                Field field = (Field) item;
 
-				// pull out label field
-				if (field.getLabelField() != null && field.getLabelField().isRender()) {
-				    field.getLabelField().addStyleClass("displayWith-" + field.getId());
+                // pull out label field
+                if (field.getLabelField() != null && field.getLabelField().isRender()) {
+                    field.getLabelField().addStyleClass("displayWith-" + field.getId());
                     if (!field.isRender() && StringUtils.isBlank(field.getProgressiveRender())) {
-                       field.getLabelField().setRender(false);
+                        field.getLabelField().setRender(false);
+                    } else if (!field.isRender() && StringUtils.isNotBlank(field.getProgressiveRender())) {
+                        field.getLabelField().setRender(true);
+                        String prefixStyle = "";
+                        if (StringUtils.isNotBlank(field.getLabelField().getStyle())) {
+                            prefixStyle = field.getLabelField().getStyle();
+                        }
+                        field.getLabelField().setStyle(prefixStyle + ";" + "display: none;");
                     }
-                    else if(!field.isRender() && StringUtils.isNotBlank(field.getProgressiveRender())){
-                       field.getLabelField().setRender(true);
-                       String prefixStyle = "";
-                       if(StringUtils.isNotBlank(field.getLabelField().getStyle())){
-                           prefixStyle = field.getLabelField().getStyle();
-                       }
-                       field.getLabelField().setStyle(prefixStyle + ";" + "display: none;");
-                    }
 
-					groupFields.add(field.getLabelField());
+                    groupFields.add(field.getLabelField());
 
-					// set boolean to indicate label field should not be
-					// rendered with the attribute
-					field.setLabelFieldRendered(true);
-				}
-			}
+                    // set boolean to indicate label field should not be
+                    // rendered with the attribute
+                    field.setLabelFieldRendered(true);
+                }
+            }
 
-			groupFields.add(item);
-		}
+            groupFields.add(item);
+        }
 
-		// update group
-		group.setItems(groupFields);
-	}
+        // update group
+        group.setItems(groupFields);
+    }
 
-	/**
-	 * @see ComponentModifier#getSupportedComponents()
-	 */
-	@Override
-	public Set<Class<? extends Component>> getSupportedComponents() {
-		Set<Class<? extends Component>> components = new HashSet<Class<? extends Component>>();
-		components.add(Group.class);
+    /**
+     * @see ComponentModifier#getSupportedComponents()
+     */
+    @Override
+    public Set<Class<? extends Component>> getSupportedComponents() {
+        Set<Class<? extends Component>> components = new HashSet<Class<? extends Component>>();
+        components.add(Group.class);
 
-		return components;
-	}
+        return components;
+    }
 
 }

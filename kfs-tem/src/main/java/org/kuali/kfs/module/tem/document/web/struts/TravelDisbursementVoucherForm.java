@@ -29,13 +29,14 @@ public class TravelDisbursementVoucherForm extends DisbursementVoucherForm {
     private Integer temDocID;
 
 
-    public TravelDisbursementVoucherForm(){
+    public TravelDisbursementVoucherForm() {
         super();
     }
 
     public Integer getTemDocID() {
         return temDocID;
     }
+
     public void setTemDocID(Integer temDocID) {
         this.temDocID = temDocID;
     }

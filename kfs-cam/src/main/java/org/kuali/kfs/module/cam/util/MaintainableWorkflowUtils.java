@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.module.cam.util;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * In situation where the Maintainable does not have access to the document,  this class is a utility which
  * will retrieve the workflow document
- *
  */
 public final class MaintainableWorkflowUtils {
 
@@ -65,20 +64,17 @@ public final class MaintainableWorkflowUtils {
         WorkflowDocumentService workflowDocumentService = KewApiServiceLocator.getWorkflowDocumentService();
         try {
             String principalId = null;
-            if(ObjectUtils.isNull(GlobalVariables.getUserSession())) {
+            if (ObjectUtils.isNull(GlobalVariables.getUserSession())) {
                 principalId = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER).getPrincipalId();
+            } else {
+                principalId = GlobalVariables.getUserSession().getPerson().getPrincipalId();
             }
-            else {
-               principalId = GlobalVariables.getUserSession().getPerson().getPrincipalId();
-            }
-	        workflowDocument = WorkflowDocumentFactory.loadDocument(principalId, documentNumber);
-        }
-        catch (Exception ex) {
+            workflowDocument = WorkflowDocumentFactory.loadDocument(principalId, documentNumber);
+        } catch (Exception ex) {
             throw new RuntimeException("Error to retrieve workflow document: " + documentNumber, ex);
         }
-         return workflowDocument ;
+        return workflowDocument;
     }
-
 
 
 }

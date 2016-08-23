@@ -18,17 +18,6 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -43,6 +32,11 @@ import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.businessobject.OriginEntrySource;
 import org.kuali.kfs.gl.report.CollectorReportData;
 import org.kuali.kfs.gl.service.CollectorDetailService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -51,11 +45,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Object representation of collector xml input.
@@ -350,7 +350,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
      * Sets defaults for fields not populated from file. Store an origin entry group, all gl entries and id billing entries from the
      * processed file. Also write the header for the duplicate file check.
      *
-     * @param originEntryGroup the group into which to store the origin entries
+     * @param originEntryGroup    the group into which to store the origin entries
      * @param collectorReportData report data
      */
     public void setDefaultsAndStore(CollectorReportData collectorReportData, String demergerOutputFileName, PrintStream originEntryOutputPs) {
@@ -376,15 +376,13 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             while ((line = inputFileReader.readLine()) != null) {
                 originEntryOutputPs.printf("%s\n", line);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("IO Error encountered trying to persist collector batch.", e);
-        }
-        finally {
+        } finally {
             IOUtils.closeQuietly(inputFileReader);
             inputFileReader = null;
         }
-        Date nowDate  = new Date(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime());
+        Date nowDate = new Date(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime());
         RunDateService runDateService = SpringContext.getBean(RunDateService.class);
         Date createDate = new java.sql.Date((runDateService.calculateRunDate(nowDate).getTime()));
 
@@ -396,9 +394,9 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         int countOfdetails = collectorDetails.size();
         for (int numSavedDetails = 0; numSavedDetails < countOfdetails; numSavedDetails++) {
             CollectorDetail idDetail = this.collectorDetails.get(numSavedDetails);
-          //  setDefaultsCollectorDetail(idDetail);
+            //  setDefaultsCollectorDetail(idDetail);
 
-            idDetail.setTransactionLedgerEntrySequenceNumber( ++sequenceNumber);
+            idDetail.setTransactionLedgerEntrySequenceNumber(++sequenceNumber);
             idDetail.setCreateDate(createDate);
             CollectorDetail foundIdDetail = (CollectorDetail) businessObjectService.retrieve(idDetail);
             if (foundIdDetail != null) {
@@ -652,15 +650,14 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     protected Date parseSqlDate(String date) throws ParseException {
         try {
             return new Date(new SimpleDateFormat("yy-MM-dd").parse(date).getTime());
-        }
-        catch (java.text.ParseException e) {
+        } catch (java.text.ParseException e) {
             throw new ParseException(e.getMessage(), e);
         }
     }
 
     protected String getValue(String headerLine, int s, int e) {
-          return org.springframework.util.StringUtils.trimTrailingWhitespace(StringUtils.substring(headerLine, s, e));
-      }
+        return org.springframework.util.StringUtils.trimTrailingWhitespace(StringUtils.substring(headerLine, s, e));
+    }
 
     /**
      * @return the static instance of the CollectorBatchHeaderFieldUtil
@@ -673,7 +670,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     }
 
     public void setFromTextFileForCollectorBatch(String headerLine) {
-        try{
+        try {
             final Map<String, Integer> pMap = getCollectorBatchHeaderFieldUtil().getFieldBeginningPositionMap();
 
             headerLine = org.apache.commons.lang.StringUtils.rightPad(headerLine, GeneralLedgerConstants.getSpaceAllCollectorBatchHeaderFields().length(), ' ');
@@ -684,8 +681,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             String transmissionDate = org.apache.commons.lang.StringUtils.trim(getValue(headerLine, pMap.get(KFSPropertyConstants.TRANSMISSION_DATE), pMap.get(KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE)));
             try {
                 setTransmissionDate(parseSqlDate(transmissionDate));
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.Collector.HEADER_BAD_TRANSMISSION_DATE_FORMAT, transmissionDate);
                 setTransmissionDate(null);
             }
@@ -702,7 +698,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             setMailingAddress(getValue(headerLine, pMap.get(KFSPropertyConstants.MAILING_ADDRESS), pMap.get(KFSPropertyConstants.CAMPUS_CODE)));
             setCampusCode(getValue(headerLine, pMap.get(KFSPropertyConstants.CAMPUS_CODE), pMap.get(KFSPropertyConstants.PHONE_NUMBER)));
             setPhoneNumber(org.apache.commons.lang.StringUtils.trim(getValue(headerLine, pMap.get(KFSPropertyConstants.PHONE_NUMBER), GeneralLedgerConstants.getSpaceAllCollectorBatchHeaderFields().length())));
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e + " occurred in CollectorBatch.setFromTextFileForCollectorBatch()");
         }
     }
@@ -727,8 +723,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
         try {
             setTotalAmount(trailerAmount);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             setTotalAmount(KualiDecimal.ZERO);
             getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CUSTOM, "Collector trailer total amount cannot be parsed on line " + lineNumber + " amount string " + trailerAmount);
         }

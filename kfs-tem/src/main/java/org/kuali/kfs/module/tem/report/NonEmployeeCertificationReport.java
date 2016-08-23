@@ -18,18 +18,7 @@
  */
 package org.kuali.kfs.module.tem.report;
 
-import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
-import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
-import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
-
-import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import net.sf.jasperreports.engine.JRDataSource;
-
 import org.kuali.kfs.module.tem.report.annotations.ColumnHeader;
 import org.kuali.kfs.module.tem.report.annotations.Crosstab;
 import org.kuali.kfs.module.tem.report.annotations.DetailSection;
@@ -42,10 +31,20 @@ import org.kuali.kfs.module.tem.report.annotations.TitleStyle;
 import org.kuali.kfs.sys.report.ReportInfoHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import static org.kuali.kfs.module.tem.TemConstants.Report.TEMPLATE_CLASSPATH;
+import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
+import static org.springframework.ui.jasperreports.JasperReportsUtils.convertReportData;
+
 @JasperReport
 @ReportStyle("standard")
 @TitleStyle("standard")
-public class NonEmployeeCertificationReport extends ReportInfoHolder{
+public class NonEmployeeCertificationReport extends ReportInfoHolder {
     private String documentId;
     private String eventId;
     private String eventName;
@@ -70,7 +69,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     private JRDataSource actualExpenses;
 
 
-    public NonEmployeeCertificationReport(){
+    public NonEmployeeCertificationReport() {
         setReportTemplateClassPath(TEMPLATE_CLASSPATH);
         setReportFileName("NonEmployeeCertification" + PDF_FILE_EXTENSION);
         setReportTitle("Non-Employee Certification #");
@@ -81,182 +80,182 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     }
 
     /**
-     *
      * This method...
+     *
      * @param argDocumentId
      */
-    public void setDocumentId(String argDocumentId){
+    public void setDocumentId(String argDocumentId) {
         documentId = argDocumentId;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getDocumentId(){
+    public String getDocumentId() {
         return documentId;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argEventId
      */
-    public void setEventId(String argEventId){
+    public void setEventId(String argEventId) {
         eventId = argEventId;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getEventId(){
+    public String getEventId() {
         return eventId;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argEventName
      */
-    public void setEventName(String argEventName){
+    public void setEventName(String argEventName) {
         eventName = argEventName;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getEventName(){
+    public String getEventName() {
         return eventName;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argEventType
      */
-    public void setEventType(String argEventType){
+    public void setEventType(String argEventType) {
         eventType = argEventType;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getEventType(){
+    public String getEventType() {
         return eventType;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argTraveler
      */
-    public void setTraveler(String argTraveler){
+    public void setTraveler(String argTraveler) {
         traveler = argTraveler;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getTraveler(){
+    public String getTraveler() {
         return traveler;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argApprovingDepartment
      */
-    public void setApprovingDepartment(String argApprovingDepartment){
+    public void setApprovingDepartment(String argApprovingDepartment) {
         approvingDepartment = argApprovingDepartment;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getApprovingDepartment(){
+    public String getApprovingDepartment() {
         return approvingDepartment;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argBeginDate
      */
-    public void setBeginDate(Date argBeginDate){
+    public void setBeginDate(Date argBeginDate) {
         beginDate = argBeginDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public Date getBeginDate(){
+    public Date getBeginDate() {
         return beginDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argEndDate
      */
-    public void setEndDate(Date argEndDate){
+    public void setEndDate(Date argEndDate) {
         endDate = argEndDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public Date getEndDate(){
+    public Date getEndDate() {
         return endDate;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argTotalExpense
      */
-    public void setTotalExpense(KualiDecimal argTotalExpense){
+    public void setTotalExpense(KualiDecimal argTotalExpense) {
         totalExpense = argTotalExpense;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public KualiDecimal getTotalExpense(){
+    public KualiDecimal getTotalExpense() {
         return totalExpense;
     }
 
     /**
-     *
      * This method...
+     *
      * @param argDestination
      */
-    public void setDestination(String argDestination){
+    public void setDestination(String argDestination) {
         destination = argDestination;
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
-    public String getDestination(){
+    public String getDestination() {
         return destination;
     }
 
@@ -406,52 +405,58 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
         }
     }
 
-	/**
-	 * Gets the barcodeImage attribute.
-	 * @return Returns the barcodeImage.
-	 */
-	public BufferedImage getBarcodeImage() {
-		return barcodeImage;
-	}
+    /**
+     * Gets the barcodeImage attribute.
+     *
+     * @return Returns the barcodeImage.
+     */
+    public BufferedImage getBarcodeImage() {
+        return barcodeImage;
+    }
 
-	/**
-	 * Sets the barcodeImage attribute value.
-	 * @param barcodeImage The barcodeImage to set.
-	 */
-	public void setBarcodeImage(BufferedImage barcodeImage) {
-		this.barcodeImage = barcodeImage;
-	}
+    /**
+     * Sets the barcodeImage attribute value.
+     *
+     * @param barcodeImage The barcodeImage to set.
+     */
+    public void setBarcodeImage(BufferedImage barcodeImage) {
+        this.barcodeImage = barcodeImage;
+    }
 
-	/**
-	 * Gets the certificationDescription attribute.
-	 * @return Returns the certificationDescription.
-	 */
-	public String getCertificationDescription() {
-		return certificationDescription;
-	}
+    /**
+     * Gets the certificationDescription attribute.
+     *
+     * @return Returns the certificationDescription.
+     */
+    public String getCertificationDescription() {
+        return certificationDescription;
+    }
 
-	/**
-	 * Sets the certificationDescription attribute value.
-	 * @param certificationDescription The certificationDescription to set.
-	 */
-	public void setCertificationDescription(String certificationDescription) {
-		this.certificationDescription = certificationDescription;
-	}
+    /**
+     * Sets the certificationDescription attribute value.
+     *
+     * @param certificationDescription The certificationDescription to set.
+     */
+    public void setCertificationDescription(String certificationDescription) {
+        this.certificationDescription = certificationDescription;
+    }
 
-	/**
-	 * Gets the expenseDetails attribute.
-	 * @return Returns the expenseDetails.
-	 */
-	public List<NonEmployeeCertificationReport.Detail> getExpenseDetails() {
-		return expenseDetails;
-	}
+    /**
+     * Gets the expenseDetails attribute.
+     *
+     * @return Returns the expenseDetails.
+     */
+    public List<NonEmployeeCertificationReport.Detail> getExpenseDetails() {
+        return expenseDetails;
+    }
 
-	/**
-	 * Sets the expenseDetails attribute value.
-	 * @param expenseDetails The expenseDetails to set.
-	 */
-	public void setExpenseDetails(List<NonEmployeeCertificationReport.Detail> expenseDetails) {
-		this.expenseDetails = expenseDetails;
-	}
+    /**
+     * Sets the expenseDetails attribute value.
+     *
+     * @param expenseDetails The expenseDetails to set.
+     */
+    public void setExpenseDetails(List<NonEmployeeCertificationReport.Detail> expenseDetails) {
+        this.expenseDetails = expenseDetails;
+    }
 
 }

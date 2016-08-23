@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class ResearchAdhocPermissionType extends PersistableBusinessObjectBase {
     private String permissionTypeCode;

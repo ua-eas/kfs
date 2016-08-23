@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coa.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.dataaccess.BalanceTypeDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Collection;
 
 /**
  * This class implements the {@link BalanceTypeDao} data access methods using Ojb
@@ -34,8 +34,8 @@ public class BalanceTypeDaoOjb extends PlatformAwareDaoBaseOjb implements Balanc
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BalanceTypeDaoOjb.class);
 
     /**
-     * @see org.kuali.kfs.coa.dataaccess.BalanceTypeDao#getEncumbranceBalanceTypes()
      * @return a list of {@link BalanceTyp} that hare tied to encumbrances
+     * @see org.kuali.kfs.coa.dataaccess.BalanceTypeDao#getEncumbranceBalanceTypes()
      */
     public Collection<BalanceType> getEncumbranceBalanceTypes() {
         LOG.debug("getEncumbranceBalanceTypes() started");

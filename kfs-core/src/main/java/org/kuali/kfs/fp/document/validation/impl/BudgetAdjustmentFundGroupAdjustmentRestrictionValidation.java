@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Validation for Budget Adjustment document that checks that the fund groups are correctly adjusted.
@@ -43,6 +43,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
     /**
      * Retrieves the fund group and sub fund group for each accounting line. Then verifies that the codes associated with the
      * 'Budget Adjustment Restriction Code' field are met.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -68,27 +69,24 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
         // first find the restriction level required by the fund or sub funds used on document
         String restrictionLevel = "";
-        for (Iterator iter = accountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
             SubFundGroup subFund = line.getAccount().getSubFundGroup();
             if (!KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_NONE.equals(subFund.getFundGroupBudgetAdjustmentRestrictionLevelCode())) {
                 restrictionLevel = subFund.getFundGroupBudgetAdjustmentRestrictionLevelCode();
                 restrictedToSubFund = true;
                 accountRestrictingSubFund = line.getAccountNumber();
-            }
-            else {
+            } else {
                 restrictionLevel = subFund.getFundGroup().getFundGroupBudgetAdjustmentRestrictionLevelCode();
             }
 
             if (KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_CHART.equals(restrictionLevel)) {
                 restrictedToChart = true;
                 accountRestrictingChart = line.getAccountNumber();
-            }
-            else if (KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_ORGANIZATION.equals(restrictionLevel)) {
+            } else if (KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_ORGANIZATION.equals(restrictionLevel)) {
                 restrictedToOrg = true;
                 accountRestrictingOrg = line.getAccountNumber();
-            }
-            else if (KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_ACCOUNT.equals(restrictionLevel)) {
+            } else if (KFSConstants.BudgetAdjustmentDocumentConstants.ADJUSTMENT_RESTRICTION_LEVEL_ACCOUNT.equals(restrictionLevel)) {
                 restrictedToAccount = true;
                 accountRestrictingAccount = line.getAccountNumber();
             }
@@ -110,7 +108,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
          * met
          */
         BudgetAdjustmentAccountingLine previousLine = null;
-        for (Iterator iter = accountingLines.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountingLines.iterator(); iter.hasNext(); ) {
             BudgetAdjustmentAccountingLine line = (BudgetAdjustmentAccountingLine) iter.next();
 
             if (previousLine != null) {
@@ -125,7 +123,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
                 if (restrictedToSubFund) {
                     if (!line.getAccount().getSubFundGroupCode().equals(previousLine.getAccount().getSubFundGroupCode())) {
-                        errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingSubFund, subFundLabel });
+                        errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingSubFund, subFundLabel});
                         isAdjustmentAllowed = false;
                         break;
                     }
@@ -134,10 +132,9 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
                 if (restrictedToChart) {
                     if (!line.getChartOfAccountsCode().equals(previousLine.getChartOfAccountsCode())) {
                         if (restrictedToSubFund) {
-                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingChart, subFundLabel + " and " + chartLabel });
-                        }
-                        else {
-                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingChart, fundLabel + " and " + chartLabel });
+                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingChart, subFundLabel + " and " + chartLabel});
+                        } else {
+                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingChart, fundLabel + " and " + chartLabel});
                         }
                         isAdjustmentAllowed = false;
                         break;
@@ -147,10 +144,9 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
                 if (restrictedToOrg) {
                     if (!line.getAccount().getOrganizationCode().equals(previousLine.getAccount().getOrganizationCode())) {
                         if (restrictedToSubFund) {
-                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingOrg, subFundLabel + " and " + orgLabel });
-                        }
-                        else {
-                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingOrg, fundLabel + " and " + orgLabel });
+                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingOrg, subFundLabel + " and " + orgLabel});
+                        } else {
+                            errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingOrg, fundLabel + " and " + orgLabel});
                         }
                         isAdjustmentAllowed = false;
                         break;
@@ -159,7 +155,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
                 if (restrictedToAccount) {
                     if (!line.getAccountNumber().equals(previousLine.getAccountNumber())) {
-                        errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[] { accountRestrictingAccount, acctLabel });
+                        errors.putErrorWithoutFullErrorPath(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_BA_RESTRICTION_LEVELS, new String[]{accountRestrictingAccount, acctLabel});
                         isAdjustmentAllowed = false;
                         break;
                     }
@@ -174,6 +170,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public BudgetAdjustmentDocument getAccountingDocumentForValidation() {
@@ -182,6 +179,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(BudgetAdjustmentDocument accountingDocumentForValidation) {
@@ -190,6 +188,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
     /**
      * Gets the accountingLineRuleHelperService attribute.
+     *
      * @return Returns the accountingLineRuleHelperService.
      */
     public AccountingLineRuleHelperService getAccountingLineRuleHelperService() {
@@ -198,6 +197,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
 
     /**
      * Sets the accountingLineRuleHelperService attribute value.
+     *
      * @param accountingLineRuleHelperService The accountingLineRuleHelperService to set.
      */
     public void setAccountingLineRuleHelperService(AccountingLineRuleHelperService accountingLineRuleHelperService) {

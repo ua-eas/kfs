@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.service;
 
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 
 /**
  * This class returns list of travel expense company value pairs.

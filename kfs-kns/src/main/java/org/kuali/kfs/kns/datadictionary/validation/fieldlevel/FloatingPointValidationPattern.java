@@ -18,14 +18,12 @@
  */
 package org.kuali.kfs.kns.datadictionary.validation.fieldlevel;
 
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 /**
  * Validation pattern for matching floating point numbers, optionally matching negative numbers
- *
- *
  */
 public class FloatingPointValidationPattern extends FieldLevelValidationPattern {
     protected boolean allowNegative;
@@ -81,16 +79,16 @@ public class FloatingPointValidationPattern extends FieldLevelValidationPattern 
         return exportMap;
     }
 
-	/**
-	 * @see FieldLevelValidationPattern#getValidationErrorMessageKey()
-	 */
-	@Override
-	public String getValidationErrorMessageKey() {
-		StringBuilder buf = new StringBuilder();
-		buf.append("error.format.").append(getClass().getName());
-		if (allowNegative) {
-			buf.append(".allowNegative");
-		}
-		return buf.toString();
-	}
+    /**
+     * @see FieldLevelValidationPattern#getValidationErrorMessageKey()
+     */
+    @Override
+    public String getValidationErrorMessageKey() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("error.format.").append(getClass().getName());
+        if (allowNegative) {
+            buf.append(".allowNegative");
+        }
+        return buf.toString();
+    }
 }

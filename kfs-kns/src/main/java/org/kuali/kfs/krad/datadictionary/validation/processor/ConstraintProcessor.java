@@ -20,9 +20,9 @@ package org.kuali.kfs.krad.datadictionary.validation.processor;
 
 
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
-import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.constraint.Constraint;
+import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
 
 /**
@@ -33,23 +33,21 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
  * the process() method into the Constraint marker interface and have each Constraint define its own processing, but that would
  * have forced business logic into what are naturally API classes (classes that implement Constraint). This strategy separates
  * the two functions.
- *
- *
  */
 public interface ConstraintProcessor<T, C extends Constraint> {
 
-	public ProcessorResult process(DictionaryValidationResult result, T value, C constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException;
+    public ProcessorResult process(DictionaryValidationResult result, T value, C constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException;
 
-	public String getName();
+    public String getName();
 
-	public Class<? extends Constraint> getConstraintType();
+    public Class<? extends Constraint> getConstraintType();
 
-	/**
-	 * This method return true if the processing of this constraint is something that can be opted out of by some pieces of code.
-	 * The only example of this in the version under development (1.1) is the existence constraint.
-	 *
-	 * @return true if this processor can be turned off by some pieces of code, false otherwise
-	 */
-	public boolean isOptional();
+    /**
+     * This method return true if the processing of this constraint is something that can be opted out of by some pieces of code.
+     * The only example of this in the version under development (1.1) is the existence constraint.
+     *
+     * @return true if this processor can be turned off by some pieces of code, false otherwise
+     */
+    public boolean isOptional();
 
 }

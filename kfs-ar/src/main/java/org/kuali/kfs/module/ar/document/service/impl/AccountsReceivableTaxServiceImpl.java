@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -30,10 +30,10 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.AccountsReceivableTaxService;
 import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 public class AccountsReceivableTaxServiceImpl implements AccountsReceivableTaxService {
@@ -49,13 +49,13 @@ public class AccountsReceivableTaxServiceImpl implements AccountsReceivableTaxSe
     public boolean isCustomerInvoiceDetailTaxable(CustomerInvoiceDocument customerInvoiceDocument, CustomerInvoiceDetail customerInvoiceDetail) {
 
         //check if sales tax is enabled
-        if( !parameterService.getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_DOCUMENT.class, ArConstants.ENABLE_SALES_TAX_IND) ){
+        if (!parameterService.getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_DOCUMENT.class, ArConstants.ENABLE_SALES_TAX_IND)) {
             return false;
         }
 
         //check if customer is tax exempt
-        if( ObjectUtils.isNotNull(customerInvoiceDocument.getCustomer() ) ){
-            if( customerInvoiceDocument.getCustomer().isCustomerTaxExemptIndicator()){
+        if (ObjectUtils.isNotNull(customerInvoiceDocument.getCustomer())) {
+            if (customerInvoiceDocument.getCustomer().isCustomerTaxExemptIndicator()) {
                 return false;
             }
         }
@@ -86,14 +86,13 @@ public class AccountsReceivableTaxServiceImpl implements AccountsReceivableTaxSe
         Integer shipToAddressIdentifier = document.getCustomerShipToAddressIdentifier();
 
         //if customer number or ship to address id isn't provided, go to org options
-        if (ObjectUtils.isNotNull(shipToAddressIdentifier) && StringUtils.isNotEmpty(customerNumber) ) {
+        if (ObjectUtils.isNotNull(shipToAddressIdentifier) && StringUtils.isNotEmpty(customerNumber)) {
 
             CustomerAddress customerShipToAddress = customerAddressService.getByPrimaryKey(customerNumber, shipToAddressIdentifier);
-            if( ObjectUtils.isNotNull(customerShipToAddress) ){
+            if (ObjectUtils.isNotNull(customerShipToAddress)) {
                 postalCode = customerShipToAddress.getCustomerZipCode();
             }
-        }
-        else {
+        } else {
             Map<String, String> criteria = new HashMap<String, String>();
             criteria.put("chartOfAccountsCode", document.getBillByChartOfAccountCode());
             criteria.put("organizationCode", document.getBilledByOrganizationCode());

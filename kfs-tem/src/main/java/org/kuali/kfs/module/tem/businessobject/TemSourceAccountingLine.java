@@ -18,17 +18,18 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.Map;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+
+import java.util.Map;
 
 public class TemSourceAccountingLine extends SourceAccountingLine implements TemAccountingLine {
     private String cardType;
 
     /**
      * Gets the cardType attribute.
+     *
      * @return Returns the cardType.
      */
     @Override
@@ -38,6 +39,7 @@ public class TemSourceAccountingLine extends SourceAccountingLine implements Tem
 
     /**
      * Sets the cardType attribute value.
+     *
      * @param cardType The cardType to set.
      */
     @Override

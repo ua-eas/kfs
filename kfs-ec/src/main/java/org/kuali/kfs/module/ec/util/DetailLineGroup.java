@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ec.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
@@ -30,6 +25,11 @@ import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.DynamicCollectionComparator.SortOrder;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * grouping a set of detail lines. The class is implemented to manage: summary line and delegating line.
@@ -147,7 +147,7 @@ public class DetailLineGroup {
      * group the given detail lines by the key fields
      *
      * @param detailLines the given detail lines
-     * @param keyFields the given key fields
+     * @param keyFields   the given key fields
      * @return the groups of detail lines
      */
     public static Map<String, DetailLineGroup> groupDetailLines(List<EffortCertificationDetail> detailLines) {
@@ -159,8 +159,7 @@ public class DetailLineGroup {
             if (detailLineGroupMap.containsKey(groupId)) {
                 DetailLineGroup group = detailLineGroupMap.get(groupId);
                 group.addNewLineIntoGroup(line, groupId);
-            }
-            else {
+            } else {
                 DetailLineGroup group = new DetailLineGroup(line);
                 detailLineGroupMap.put(groupId, group);
             }

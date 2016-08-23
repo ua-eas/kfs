@@ -19,9 +19,6 @@
 package org.kuali.kfs.kns.web.ui;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.ClassLoaderUtils;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.kfs.kns.datadictionary.CollectionDefinitionI;
 import org.kuali.kfs.kns.datadictionary.FieldDefinition;
 import org.kuali.kfs.kns.datadictionary.FieldDefinitionI;
@@ -37,7 +34,6 @@ import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.kns.util.FieldUtils;
 import org.kuali.kfs.kns.util.MaintenanceUtils;
 import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.keyvalues.PersistableBusinessObjectValuesFinder;
@@ -47,6 +43,10 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.ClassLoaderUtils;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,7 +64,7 @@ public class FieldBridge {
     /**
      * Sets additional properties for MaintainableField(s)
      *
-     * @param field The field to populate.
+     * @param field      The field to populate.
      * @param definition The DD specification for the field.
      */
     public static final void setupField(Field field, FieldDefinitionI definition, Set<String> conditionallyRequiredMaintenanceFields) {
@@ -74,7 +74,7 @@ public class FieldBridge {
             field.setFieldRequired(maintainableFieldDefinition.isRequired());
             field.setReadOnly(maintainableFieldDefinition.isUnconditionallyReadOnly());
             if (maintainableFieldDefinition.isLookupReadOnly()) {
-            	field.setFieldType(Field.LOOKUP_READONLY);
+                field.setFieldType(Field.LOOKUP_READONLY);
             }
 
             // set onblur and callback functions
@@ -86,36 +86,34 @@ public class FieldBridge {
                 field.setWebOnBlurHandlerCallback(maintainableFieldDefinition.getWebUILeaveFieldCallbackFunction());
             }
 
-            if (maintainableFieldDefinition.getWebUILeaveFieldFunctionParameters()!=null) {
+            if (maintainableFieldDefinition.getWebUILeaveFieldFunctionParameters() != null) {
                 field.setWebUILeaveFieldFunctionParameters(maintainableFieldDefinition.getWebUILeaveFieldFunctionParameters());
             }
 
-			if (StringUtils.isNotBlank(maintainableFieldDefinition.getAlternateDisplayAttributeName())) {
-				field.setAlternateDisplayPropertyName(maintainableFieldDefinition.getAlternateDisplayAttributeName());
-			}
+            if (StringUtils.isNotBlank(maintainableFieldDefinition.getAlternateDisplayAttributeName())) {
+                field.setAlternateDisplayPropertyName(maintainableFieldDefinition.getAlternateDisplayAttributeName());
+            }
 
-			if (StringUtils.isNotBlank(maintainableFieldDefinition.getAdditionalDisplayAttributeName())) {
-				field.setAdditionalDisplayPropertyName(maintainableFieldDefinition.getAdditionalDisplayAttributeName());
-			}
+            if (StringUtils.isNotBlank(maintainableFieldDefinition.getAdditionalDisplayAttributeName())) {
+                field.setAdditionalDisplayPropertyName(maintainableFieldDefinition.getAdditionalDisplayAttributeName());
+            }
 
             if (conditionallyRequiredMaintenanceFields != null && conditionallyRequiredMaintenanceFields.contains(field.getPropertyName())) {
-            	field.setFieldRequired(true);
+                field.setFieldRequired(true);
             }
 
             if (((MaintainableFieldDefinition) definition).isTriggerOnChange()) {
-            	field.setTriggerOnChange(true);
+                field.setTriggerOnChange(true);
             }
         }
     }
 
     /**
-	 * Uses reflection to populate the rows of the inquiry from the business
-	 * object value. Also formats if needed.
+     * Uses reflection to populate the rows of the inquiry from the business
+     * object value. Also formats if needed.
      *
-	 * @param field
-	 *            The Field to populate.
-	 * @param bo
-	 *            The BusinessObject from which the Field will be popualated.
+     * @param field The Field to populate.
+     * @param bo    The BusinessObject from which the Field will be popualated.
      */
     public static final void populateFieldFromBusinessObject(Field field, BusinessObject bo) {
         if (bo == null) {
@@ -128,62 +126,62 @@ public class FieldBridge {
         String propertyName = field.getPropertyName();
 
         // get the field type for the property
-		ControlDefinition fieldControl = getDataDictionaryService().getAttributeControlDefinition(bo.getClass(),
-				propertyName);
+        ControlDefinition fieldControl = getDataDictionaryService().getAttributeControlDefinition(bo.getClass(),
+            propertyName);
         try {
             Object prop = ObjectUtils.getPropertyValue(bo, field.getPropertyName());
 
-			// for select fields, display the associated label (unless we are
-			// already display an additonal attribute)
-			String propValue = KRADConstants.EMPTY_STRING;
-			if (fieldControl != null && fieldControl.isSelect()
-					&& StringUtils.isBlank(field.getAdditionalDisplayPropertyName())
-					&& StringUtils.isBlank(field.getAlternateDisplayPropertyName())) {
-				Class<? extends KeyValuesFinder> keyValuesFinderName = ClassLoaderUtils.getClass(fieldControl.getValuesFinderClass(), KeyValuesFinder.class);
+            // for select fields, display the associated label (unless we are
+            // already display an additonal attribute)
+            String propValue = KRADConstants.EMPTY_STRING;
+            if (fieldControl != null && fieldControl.isSelect()
+                && StringUtils.isBlank(field.getAdditionalDisplayPropertyName())
+                && StringUtils.isBlank(field.getAlternateDisplayPropertyName())) {
+                Class<? extends KeyValuesFinder> keyValuesFinderName = ClassLoaderUtils.getClass(fieldControl.getValuesFinderClass(), KeyValuesFinder.class);
                 KeyValuesFinder finder = keyValuesFinderName.newInstance();
-                if(formatter != null){
-                    prop = ObjectUtils.getFormattedPropertyValue(bo,propertyName,formatter);
+                if (formatter != null) {
+                    prop = ObjectUtils.getFormattedPropertyValue(bo, propertyName, formatter);
                 }
                 propValue = lookupFinderValue(fieldControl, prop, finder);
             } else {
-				propValue = ObjectUtils.getFormattedPropertyValue(bo, field.getPropertyName(), formatter);
-                    }
-			field.setPropertyValue(propValue);
+                propValue = ObjectUtils.getFormattedPropertyValue(bo, field.getPropertyName(), formatter);
+            }
+            field.setPropertyValue(propValue);
 
-			// set additional or alternate display property values if property
-			// name is specified
-			if (StringUtils.isNotBlank(field.getAlternateDisplayPropertyName())) {
-				String alternatePropertyValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(bo, field
-						.getAlternateDisplayPropertyName());
-				field.setAlternateDisplayPropertyValue(alternatePropertyValue);
-                }
-
-			if (StringUtils.isNotBlank(field.getAdditionalDisplayPropertyName())) {
-				String additionalPropertyValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(bo, field
-						.getAdditionalDisplayPropertyName());
-				field.setAdditionalDisplayPropertyValue(additionalPropertyValue);
+            // set additional or alternate display property values if property
+            // name is specified
+            if (StringUtils.isNotBlank(field.getAlternateDisplayPropertyName())) {
+                String alternatePropertyValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(bo, field
+                    .getAlternateDisplayPropertyName());
+                field.setAlternateDisplayPropertyValue(alternatePropertyValue);
             }
 
-			// for user fields, attempt to pull the principal ID and person's
-			// name from the source object
-            if ( fieldControl != null && fieldControl.isKualiUser() ) {
-            	// this is supplemental, so catch and log any errors
-            	try {
-            		if ( StringUtils.isNotBlank(field.getUniversalIdAttributeName()) ) {
-            			Object principalId = ObjectUtils.getNestedValue(bo, field.getUniversalIdAttributeName());
-            			if ( principalId != null ) {
-            				field.setUniversalIdValue(principalId.toString());
-            			}
-            		}
-            		if ( StringUtils.isNotBlank(field.getPersonNameAttributeName()) ) {
-            			Object personName = ObjectUtils.getNestedValue(bo, field.getPersonNameAttributeName());
-            			if ( personName != null ) {
-            				field.setPersonNameValue( personName.toString() );
-            			}
-            		}
-            	} catch ( Exception ex ) {
-            		LOG.warn( "Unable to get principal ID or person name property in FieldBridge.", ex );
-            	}
+            if (StringUtils.isNotBlank(field.getAdditionalDisplayPropertyName())) {
+                String additionalPropertyValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(bo, field
+                    .getAdditionalDisplayPropertyName());
+                field.setAdditionalDisplayPropertyValue(additionalPropertyValue);
+            }
+
+            // for user fields, attempt to pull the principal ID and person's
+            // name from the source object
+            if (fieldControl != null && fieldControl.isKualiUser()) {
+                // this is supplemental, so catch and log any errors
+                try {
+                    if (StringUtils.isNotBlank(field.getUniversalIdAttributeName())) {
+                        Object principalId = ObjectUtils.getNestedValue(bo, field.getUniversalIdAttributeName());
+                        if (principalId != null) {
+                            field.setUniversalIdValue(principalId.toString());
+                        }
+                    }
+                    if (StringUtils.isNotBlank(field.getPersonNameAttributeName())) {
+                        Object personName = ObjectUtils.getNestedValue(bo, field.getPersonNameAttributeName());
+                        if (personName != null) {
+                            field.setPersonNameValue(personName.toString());
+                        }
+                    }
+                } catch (Exception ex) {
+                    LOG.warn("Unable to get principal ID or person name property in FieldBridge.", ex);
+                }
             }
             if (fieldControl != null && fieldControl.isFile()) {
                 if (Field.FILE.equals(field.getFieldType())) {
@@ -194,13 +192,13 @@ public class FieldBridge {
                 }
             }
             FieldUtils.setInquiryURL(field, bo, propertyName);
-		} catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             LOG.error("Unable to get instance of KeyValuesFinder: " + e.getMessage());
             throw new RuntimeException("Unable to get instance of KeyValuesFinder: " + e.getMessage());
-		} catch (ClassNotFoundException e) {
-			LOG.error("Unable to get instance of KeyValuesFinder: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            LOG.error("Unable to get instance of KeyValuesFinder: " + e.getMessage());
             throw new RuntimeException("Unable to get instance of KeyValuesFinder: " + e.getMessage());
-		} catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             LOG.error("Unable to set columns: " + e.getMessage());
             throw new RuntimeException("Unable to set columns: " + e.getMessage());
         }
@@ -209,9 +207,10 @@ public class FieldBridge {
 
     /**
      * This method looks up a value in a finder class.
+     *
      * @param fieldControl the type of web control that is associated with this field.
-     * @param prop the property to look up - either a property name as a String, or a referenced object
-     * @param finder finder to look the value up in
+     * @param prop         the property to look up - either a property name as a String, or a referenced object
+     * @param finder       finder to look the value up in
      * @return the value that was returned from the lookup
      */
     private static String lookupFinderValue(ControlDefinition fieldControl, Object prop, KeyValuesFinder finder) {
@@ -223,26 +222,26 @@ public class FieldBridge {
             ((PersistableBusinessObjectValuesFinder) finder).setKeyAttributeName(fieldControl.getKeyAttribute());
             ((PersistableBusinessObjectValuesFinder) finder).setLabelAttributeName(fieldControl.getLabelAttribute());
             if (fieldControl.getIncludeBlankRow() != null) {
-            	((PersistableBusinessObjectValuesFinder) finder).setIncludeBlankRow(fieldControl.getIncludeBlankRow());
+                ((PersistableBusinessObjectValuesFinder) finder).setIncludeBlankRow(fieldControl.getIncludeBlankRow());
             }
             ((PersistableBusinessObjectValuesFinder) finder).setIncludeKeyInDescription(fieldControl.getIncludeKeyInLabel());
         }
         List<KeyValue> keyValues = finder.getKeyValues();
         propValue = getPropertyValueFromList(prop, keyValues);
-        if(propValue==null) {
-			propValue = lookupInactiveFinderValue(prop, finder);
-		}
+        if (propValue == null) {
+            propValue = lookupInactiveFinderValue(prop, finder);
+        }
         return propValue;
     }
 
-    private static String lookupInactiveFinderValue(Object property, KeyValuesFinder finder){
-    	List<KeyValue> keyValues = finder.getKeyValues(false);
-    	return getPropertyValueFromList(property, keyValues);
+    private static String lookupInactiveFinderValue(Object property, KeyValuesFinder finder) {
+        List<KeyValue> keyValues = finder.getKeyValues(false);
+        return getPropertyValueFromList(property, keyValues);
 
     }
 
-    private static String getPropertyValueFromList(Object property, List<KeyValue> keyValues){
-    	String propertyValue = null;
+    private static String getPropertyValueFromList(Object property, List<KeyValue> keyValues) {
+        String propertyValue = null;
         if (property != null) {
             for (Object element2 : keyValues) {
                 KeyValue element = (KeyValue) element2;
@@ -257,19 +256,19 @@ public class FieldBridge {
 
     /**
      * Determines whether field level help is enabled for the field corresponding to the dataObjectClass and attribute name
-     *
+     * <p>
      * If this value is true, then the field level help will be enabled.
      * If false, then whether a field is enabled is determined by the value returned by {@link #isMaintenanceFieldLevelHelpDisabled(Maintainable, MaintainableFieldDefinition)}
      * and the system-wide parameter setting.  Note that if a field is read-only, that may cause field-level help to not be rendered.
      *
      * @param businessObjectClass the looked up class
-     * @param attributeName the attribute for the field
+     * @param attributeName       the attribute for the field
      * @return true if field level help is enabled, false if the value of this method should NOT be used to determine whether this method's return value
      * affects the enablement of field level help
      */
     protected static boolean isMaintenanceFieldLevelHelpEnabled(Maintainable m, MaintainableFieldDefinition fieldDefinition) {
-        if ( fieldDefinition != null ) {
-            if ( fieldDefinition.isShowFieldLevelHelp() != null && fieldDefinition.isShowFieldLevelHelp() ) {
+        if (fieldDefinition != null) {
+            if (fieldDefinition.isShowFieldLevelHelp() != null && fieldDefinition.isShowFieldLevelHelp()) {
                 return true;
             }
         }
@@ -278,20 +277,20 @@ public class FieldBridge {
 
     /**
      * Determines whether field level help is disabled for the field corresponding to the dataObjectClass and attribute name
-     *
+     * <p>
      * If this value is true and {@link #isMaintenanceFieldLevelHelpEnabled(Maintainable, MaintainableFieldDefinition)} returns false,
      * then the field level help will not be rendered.  If both this and {@link #isMaintenanceFieldLevelHelpEnabled(Maintainable, MaintainableFieldDefinition)} return false,
      * then the system-wide setting will determine whether field level help is enabled.  Note that if a field is read-only, that may cause
      * field-level help to not be rendered.
      *
      * @param businessObjectClass the looked up class
-     * @param attributeName the attribute for the field
+     * @param attributeName       the attribute for the field
      * @return true if field level help is disabled, false if the value of this method should NOT be used to determine whether this method's return value
      * affects the enablement of field level help
      */
     protected static boolean isMaintenanceFieldLevelHelpDisabled(Maintainable m, MaintainableFieldDefinition fieldDefinition) {
-        if ( fieldDefinition != null ) {
-            if ( fieldDefinition.isShowFieldLevelHelp() != null && !fieldDefinition.isShowFieldLevelHelp() ) {
+        if (fieldDefinition != null) {
+            if (fieldDefinition.isShowFieldLevelHelp() != null && !fieldDefinition.isShowFieldLevelHelp()) {
                 return true;
             }
         }
@@ -301,17 +300,15 @@ public class FieldBridge {
     /**
      * This method creates a Field for display on a Maintenance Document.
      *
-     * @param id The DD definition for the Field (can be a Collection).
-     * @param sd The DD definition for the Section in which the field will be displayed.
-     * @param o The BusinessObject will be populated from this BO.
+     * @param id                          The DD definition for the Field (can be a Collection).
+     * @param sd                          The DD definition for the Section in which the field will be displayed.
+     * @param o                           The BusinessObject will be populated from this BO.
      * @param m
-     * @param s The Section in which the Field will be displayed.
-     * @param autoFillDefaultValues Should default values be filled in?
+     * @param s                           The Section in which the Field will be displayed.
+     * @param autoFillDefaultValues       Should default values be filled in?
      * @param autoFillBlankRequiredValues Should values be filled in for fields that are required but which were left blank when submitting the form from the UI?
-     * @param displayedFieldNames What fields are being displayed on the form in the UI?
-     *
+     * @param displayedFieldNames         What fields are being displayed on the form in the UI?
      * @return
-     *
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
@@ -323,10 +320,10 @@ public class FieldBridge {
             MaintainableFieldDefinition maintainableFieldDefinition = (MaintainableFieldDefinition) id;
             field = FieldUtils.getPropertyField(o.getClass(), maintainableFieldDefinition.getName(), false);
 
-			boolean translateCodes = getMaintenanceDocumentDictionaryService().translateCodes(o.getClass());
-			if (translateCodes) {
-				FieldUtils.setAdditionalDisplayPropertyForCodes(o.getClass(), field.getPropertyName(), field);
-			}
+            boolean translateCodes = getMaintenanceDocumentDictionaryService().translateCodes(o.getClass());
+            if (translateCodes) {
+                FieldUtils.setAdditionalDisplayPropertyForCodes(o.getClass(), field.getPropertyName(), field);
+            }
 
             setupField(field, maintainableFieldDefinition, conditionallyRequiredMaintenanceFields);
 
@@ -380,19 +377,18 @@ public class FieldBridge {
      * This should be customized in a subclass so the default behavior is to return nothing.
      *
      * @param collectionDefinition The DD definition for the Collection.
-     * @param o The BusinessObject form which the new Fields will be populated.
-     * @param document MaintenanceDocument instance which we ar building fields for
+     * @param o                    The BusinessObject form which the new Fields will be populated.
+     * @param document             MaintenanceDocument instance which we ar building fields for
      * @param m
-     * @param displayedFieldNames What Fields are being displayed on the form in the UI?
+     * @param displayedFieldNames  What Fields are being displayed on the form in the UI?
      * @param containerRowErrorKey The error key for the Container/Collection used for displaying error messages.
      * @param parents
-     * @param hideAdd Should the add line be hidden when displaying this Collection/Container in the UI?
-     * @param numberOfColumns How many columns the Fields in the Collection will be split into when displaying them in the UI.
-     *
+     * @param hideAdd              Should the add line be hidden when displaying this Collection/Container in the UI?
+     * @param numberOfColumns      How many columns the Fields in the Collection will be split into when displaying them in the UI.
      * @return The List of new Fields.
      */
     public static final List<Field> getNewFormFields(CollectionDefinitionI collectionDefinition, BusinessObject o, Maintainable m, List<String> displayedFieldNames, Set<String> conditionallyRequiredMaintenanceFields, StringBuffer containerRowErrorKey, String parents, boolean hideAdd, int numberOfColumns) {
-        LOG.debug( "getNewFormFields" );
+        LOG.debug("getNewFormFields");
         String collName = collectionDefinition.getName();
 
         List<Field> collFields = new ArrayList<Field>();
@@ -403,11 +399,11 @@ public class FieldBridge {
             collectionFields = collectionDefinition.getFields();
             collBO = m.getNewCollectionLine(parents + collName);
 
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "newBO for add line: " + collBO );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("newBO for add line: " + collBO);
             }
 
-            for ( FieldDefinitionI fieldDefinition : collectionFields  ) {
+            for (FieldDefinitionI fieldDefinition : collectionFields) {
                 // construct Field UI object from definition
                 Field collField = FieldUtils.getPropertyField(collectionDefinition.getBusinessObjectClass(), fieldDefinition.getName(), false);
 
@@ -431,14 +427,13 @@ public class FieldBridge {
                 BusinessObject collectionBoInstance = collectionDefinition.getBusinessObjectClass().newInstance();
                 FieldUtils.setInquiryURL(collField, collectionBoInstance, fieldDefinition.getName());
                 if (collectionDefinition instanceof MaintainableCollectionDefinition) {
-                    MaintenanceUtils.setFieldQuickfinder(collectionBoInstance, parents+collectionDefinition.getName(), true, 0, fieldDefinition.getName(), collField, displayedFieldNames, m, (MaintainableFieldDefinition) fieldDefinition);
+                    MaintenanceUtils.setFieldQuickfinder(collectionBoInstance, parents + collectionDefinition.getName(), true, 0, fieldDefinition.getName(), collField, displayedFieldNames, m, (MaintainableFieldDefinition) fieldDefinition);
                     MaintenanceUtils
-                            .setFieldDirectInquiry(collectionBoInstance, parents + collectionDefinition.getName(), true,
-                                    0, fieldDefinition.getName(), collField, displayedFieldNames, m,
-                                    (MaintainableFieldDefinition) fieldDefinition);
-                }
-                else {
-                    LookupUtils.setFieldQuickfinder(collectionBoInstance, parents+collectionDefinition.getName(), true, 0, fieldDefinition.getName(), collField, displayedFieldNames, m);
+                        .setFieldDirectInquiry(collectionBoInstance, parents + collectionDefinition.getName(), true,
+                            0, fieldDefinition.getName(), collField, displayedFieldNames, m,
+                            (MaintainableFieldDefinition) fieldDefinition);
+                } else {
+                    LookupUtils.setFieldQuickfinder(collectionBoInstance, parents + collectionDefinition.getName(), true, 0, fieldDefinition.getName(), collField, displayedFieldNames, m);
                     LookupUtils.setFieldDirectInquiry(collectionBoInstance, fieldDefinition.getName(), collField);
                 }
 
@@ -454,11 +449,11 @@ public class FieldBridge {
         }
 
         // populate field values from business object
-        collFields = FieldUtils.populateFieldsFromBusinessObject(collFields,collBO);
+        collFields = FieldUtils.populateFieldsFromBusinessObject(collFields, collBO);
 
         // need to append the prefix afterwards since the population command (above)
         // does not handle the prefixes on the property names
-        for ( Field field : collFields ) {
+        for (Field field : collFields) {
             // prefix name for add line
             field.setPropertyName(KRADConstants.MAINTENANCE_ADD_PREFIX + parents + collectionDefinition.getName() + "." + field.getPropertyName());
         }
@@ -471,7 +466,6 @@ public class FieldBridge {
     }
 
     /**
-     *
      * This method handles setting up a container field not including the add fields
      *
      * @param collectionDefinition
@@ -489,21 +483,21 @@ public class FieldBridge {
 
         // retrieve the summary label either from the override or from the DD
         String collectionElementLabel = collectionDefinition.getSummaryTitle();
-        if(StringUtils.isEmpty(collectionElementLabel)){
-            collectionElementLabel = getDataDictionaryService().getCollectionElementLabel(o.getClass().getName(), collectionDefinition.getName(),collectionDefinition.getBusinessObjectClass());
+        if (StringUtils.isEmpty(collectionElementLabel)) {
+            collectionElementLabel = getDataDictionaryService().getCollectionElementLabel(o.getClass().getName(), collectionDefinition.getName(), collectionDefinition.getBusinessObjectClass());
         }
 
         // container field
         Field containerField;
         containerField = FieldUtils.constructContainerField(collName, collectionLabel, collFields, numberOfColumns);
-        if(StringUtils.isNotEmpty(collectionElementLabel)) {
+        if (StringUtils.isNotEmpty(collectionElementLabel)) {
             containerField.setContainerElementName(collectionElementLabel);
         }
         collFields = new ArrayList();
         collFields.add(containerField);
 
         // field button for adding lines
-        if(!hideAdd  && collectionDefinition.getIncludeAddLine()) {
+        if (!hideAdd && collectionDefinition.getIncludeAddLine()) {
             Field field = new Field();
 
             String addButtonName = KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.ADD_LINE_METHOD + "." + parents + collectionDefinition.getName() + "." + KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL + collectionDefinition.getBusinessObjectClass().getName() + KRADConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL;
@@ -541,7 +535,6 @@ public class FieldBridge {
      * @param d The DD definition for the Field.
      * @param o The BusinessObject from which the Field will be populated.
      * @param s The Section in which the Field will be displayed.
-     *
      * @return The populated Field.
      */
     public static Field toField(FieldDefinition d, BusinessObject o, Section s) {
@@ -549,56 +542,55 @@ public class FieldBridge {
 
         FieldUtils.setInquiryURL(field, o, field.getPropertyName());
 
-		String alternateDisplayPropertyName = getBusinessObjectDictionaryService()
-				.getInquiryFieldAlternateDisplayAttributeName(o.getClass(), d.getAttributeName());
-		if (StringUtils.isNotBlank(alternateDisplayPropertyName)) {
-			field.setAlternateDisplayPropertyName(alternateDisplayPropertyName);
-		}
+        String alternateDisplayPropertyName = getBusinessObjectDictionaryService()
+            .getInquiryFieldAlternateDisplayAttributeName(o.getClass(), d.getAttributeName());
+        if (StringUtils.isNotBlank(alternateDisplayPropertyName)) {
+            field.setAlternateDisplayPropertyName(alternateDisplayPropertyName);
+        }
 
-		String additionalDisplayPropertyName = getBusinessObjectDictionaryService()
-				.getInquiryFieldAdditionalDisplayAttributeName(o.getClass(), d.getAttributeName());
-		if (StringUtils.isNotBlank(additionalDisplayPropertyName)) {
-			field.setAdditionalDisplayPropertyName(additionalDisplayPropertyName);
-		}
-		else {
-			boolean translateCodes = getBusinessObjectDictionaryService().tranlateCodesInInquiry(o.getClass());
-			if (translateCodes) {
-				FieldUtils.setAdditionalDisplayPropertyForCodes(o.getClass(), d.getAttributeName(), field);
-			}
-		}
+        String additionalDisplayPropertyName = getBusinessObjectDictionaryService()
+            .getInquiryFieldAdditionalDisplayAttributeName(o.getClass(), d.getAttributeName());
+        if (StringUtils.isNotBlank(additionalDisplayPropertyName)) {
+            field.setAdditionalDisplayPropertyName(additionalDisplayPropertyName);
+        } else {
+            boolean translateCodes = getBusinessObjectDictionaryService().tranlateCodesInInquiry(o.getClass());
+            if (translateCodes) {
+                FieldUtils.setAdditionalDisplayPropertyForCodes(o.getClass(), d.getAttributeName(), field);
+            }
+        }
 
         populateFieldFromBusinessObject(field, o);
 
         return field;
     }
 
-	public static DataDictionaryService getDataDictionaryService() {
-    	if (dataDictionaryService == null) {
-    		dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
-    	}
-		return dataDictionaryService;
-	}
+    public static DataDictionaryService getDataDictionaryService() {
+        if (dataDictionaryService == null) {
+            dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
+        }
+        return dataDictionaryService;
+    }
 
-	public static PersistenceStructureService getPersistenceStructureService() {
-    	if (persistenceStructureService == null) {
-    		persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
-    	}
-		return persistenceStructureService;
-	}
+    public static PersistenceStructureService getPersistenceStructureService() {
+        if (persistenceStructureService == null) {
+            persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
+        }
+        return persistenceStructureService;
+    }
 
-	public static BusinessObjectDictionaryService getBusinessObjectDictionaryService() {
-    	if (businessObjectDictionaryService == null) {
-    		businessObjectDictionaryService = KNSServiceLocator.getBusinessObjectDictionaryService();
-    	}
-		return businessObjectDictionaryService;
-	}
+    public static BusinessObjectDictionaryService getBusinessObjectDictionaryService() {
+        if (businessObjectDictionaryService == null) {
+            businessObjectDictionaryService = KNSServiceLocator.getBusinessObjectDictionaryService();
+        }
+        return businessObjectDictionaryService;
+    }
 
-	public static MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {
-    	if (maintenanceDocumentDictionaryService == null) {
-    		maintenanceDocumentDictionaryService = KNSServiceLocator.getMaintenanceDocumentDictionaryService();
-    	}
-		return maintenanceDocumentDictionaryService;
-	}
+    public static MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {
+        if (maintenanceDocumentDictionaryService == null) {
+            maintenanceDocumentDictionaryService = KNSServiceLocator.getMaintenanceDocumentDictionaryService();
+        }
+        return maintenanceDocumentDictionaryService;
+    }
 
 }
 

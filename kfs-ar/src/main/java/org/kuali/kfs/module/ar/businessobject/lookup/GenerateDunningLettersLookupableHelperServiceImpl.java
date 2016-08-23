@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,6 +25,18 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
@@ -52,19 +55,16 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Defines a lookupable helper service class for Generate Dunning Letters.
@@ -109,7 +109,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
                 InvoiceAccountDetail invoiceAccountDetail = new InvoiceAccountDetail();
 
                 // set invoice account detail
-                if (CollectionUtils.isNotEmpty(invoice.getAccountDetails())){
+                if (CollectionUtils.isNotEmpty(invoice.getAccountDetails())) {
                     invoiceAccountDetail = invoice.getAccountDetails().get(0);
                 }
 
@@ -117,12 +117,10 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
                     if (propertyName.equalsIgnoreCase(KFSPropertyConstants.ACCOUNT_NUMBER)) {
                         Account account = getAccountService().getByPrimaryId(invoiceAccountDetail.getChartOfAccountsCode(), invoiceAccountDetail.getAccountNumber());
                         subResultColumns.add(setupResultsColumn(account, propertyName, businessObjectRestrictions));
-                    }
-                    else if (propertyName.equalsIgnoreCase("dunningLetterTemplateSentDate")) {
+                    } else if (propertyName.equalsIgnoreCase("dunningLetterTemplateSentDate")) {
                         InvoiceGeneralDetail invoiceGeneralDetail = invoice.getInvoiceGeneralDetail();
                         subResultColumns.add(setupResultsColumn(invoiceGeneralDetail, propertyName, businessObjectRestrictions));
-                    }
-                    else {
+                    } else {
                         subResultColumns.add(setupResultsColumn(invoice, propertyName, businessObjectRestrictions));
                     }
                 }
@@ -184,7 +182,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             fieldValuesForInvoice.put(KFSPropertyConstants.DOCUMENT_NUMBER, invoiceDocumentNumber);
         }
         if (ObjectUtils.isNotNull(awardTotal) && StringUtils.isNotBlank(awardTotal) && StringUtils.isNotEmpty(awardTotal)) {
-            fieldValuesForInvoice.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL+"."+ArConstants.AWARD_TOTAL, awardTotal);
+            fieldValuesForInvoice.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArConstants.AWARD_TOTAL, awardTotal);
         }
         if (ObjectUtils.isNotNull(accountNumber) && StringUtils.isNotBlank(accountNumber) && StringUtils.isNotEmpty(accountNumber)) {
             fieldValuesForInvoice.put(ArPropertyConstants.ACCOUNT_DETAILS_ACCOUNT_NUMBER, accountNumber);
@@ -238,10 +236,10 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
         Collection<ContractsGrantsInvoiceDocument> eligibleInvoices = new ArrayList<ContractsGrantsInvoiceDocument>();
         for (ContractsGrantsInvoiceDocument invoice : cgInvoiceDocuments) {
             if (isInvoiceGenerallyEligibleForDunningLetter(invoice)
-                    && doesInvoiceMatchCollectorCriteria(invoice, collector, collectorPrincName)
-                    && contractsGrantsInvoiceDocumentService.canViewInvoice(invoice, user.getPrincipalId())
-                    && doesInvoiceMatchAwardCriteria(invoice, agencyNumber, campaignID)
-                    && doesInvoiceFitWithinAgingBucket(invoice, agingBucket, agingBucketStartValue, agingBucketEndValue, stateAgencyFinalCutOffDate)) {
+                && doesInvoiceMatchCollectorCriteria(invoice, collector, collectorPrincName)
+                && contractsGrantsInvoiceDocumentService.canViewInvoice(invoice, user.getPrincipalId())
+                && doesInvoiceMatchAwardCriteria(invoice, agencyNumber, campaignID)
+                && doesInvoiceFitWithinAgingBucket(invoice, agingBucket, agingBucketStartValue, agingBucketEndValue, stateAgencyFinalCutOffDate)) {
 
                 final String foundDunningLetterTemplate = findMatchingDunningLetterTemplate(invoice, cutoffdateFinal, stateAgencyFinalCutOffDate);
 
@@ -258,7 +256,8 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Parses the agingBucket to determine the start value and end value for the bucket
-     * @param agingBucket the aging bucket value to parse
+     *
+     * @param agingBucket     the aging bucket value to parse
      * @param cutoffDateFinal the final cutoff date, from a parameter
      * @return an array with the start value of the bucket in the first entry and the end value in the second, or null if the aging bucket value could not be parsed
      */
@@ -275,12 +274,10 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             else if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_FINAL) || agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
                 agingBucketStartValue = cutoffDateFinal + 1;
                 agingBucketEndValue = 0;
-            }
-            else if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_121)) {
+            } else if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_121)) {
                 agingBucketStartValue = 121;
                 agingBucketEndValue = cutoffDateFinal;
-            }
-            else {
+            } else {
                 agingBucketStartValue = new Integer(agingBucket.split("-")[0]);
                 agingBucketEndValue = new Integer(agingBucket.split("-")[1]);
             }
@@ -296,6 +293,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Checks if the given contracts & grants invoice passes general rules about whether it is eligible for dunning letter matching
+     *
      * @param invoice the contracts & grants invoice to check
      * @return true if the invoice is eligigle based on general rules, false otherwise
      */
@@ -318,8 +316,9 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Determines if the given contracts & grants invoice matches given collector criteria
-     * @param invoice the contracts & grants invoice to check
-     * @param collectorPrincipalIdParameter the collector principal id from the lookuop
+     *
+     * @param invoice                         the contracts & grants invoice to check
+     * @param collectorPrincipalIdParameter   the collector principal id from the lookuop
      * @param collectorPrincipalNameParameter the collector principal name from the lookup
      * @return true if the invoice matches, false otherwise
      */
@@ -333,8 +332,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             Person collectorObj = personService.getPersonByPrincipalName(collectorPrincipalNameParameter);
             if (collectorObj != null) {
                 collectorPrincipalId = collectorObj.getPrincipalId();
-            }
-            else {
+            } else {
                 isCollector = false;
             }
         }
@@ -348,9 +346,10 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Determines if the given contracts & grants invoice matches criteria associated with the invoice's award
-     * @param invoice the contracts & grants invoice to check
+     *
+     * @param invoice               the contracts & grants invoice to check
      * @param agencyNumberParameter the agency number from the lookup
-     * @param campaignIdParameter the campaign id from the lookup
+     * @param campaignIdParameter   the campaign id from the lookup
      * @return true if the invoice matches the criteria, false otherwise
      */
     protected boolean doesInvoiceMatchAwardCriteria(ContractsGrantsInvoiceDocument invoice, String agencyNumberParameter, String campaignIdParameter) {
@@ -365,10 +364,11 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Determines if the given invoice matches the criteria given associated with the aging bucket specified in the lookup
-     * @param invoice the contracts & grants invoice to check
-     * @param agingBucket the type of the specified aging bucket
-     * @param agingBucketStartValue the start age in days of the given aging bucket
-     * @param agingBucketEndValue the end age in days of the given aging bucket
+     *
+     * @param invoice                    the contracts & grants invoice to check
+     * @param agingBucket                the type of the specified aging bucket
+     * @param agingBucketStartValue      the start age in days of the given aging bucket
+     * @param agingBucketEndValue        the end age in days of the given aging bucket
      * @param stateAgencyFinalCutOffDate value, from a parameter, for a different cutoff date which applies only to state agencies
      * @return true if the invoice matches, false otherwise
      */
@@ -382,8 +382,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
                 agingBucketStart = new Integer(stateAgencyFinalCutOffDate) + 1;
                 agingBucketEnd = 0;
-            }
-            else if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_121)) {
+            } else if (agingBucket.equalsIgnoreCase(ArConstants.DunningLetters.DYS_PST_DUE_121)) {
                 agingBucketStart = 121;
                 agingBucketEnd = new Integer(stateAgencyFinalCutOffDate);
             }
@@ -393,13 +392,11 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             if (invoice.getInvoiceGeneralDetail().getAward().getAgency().isStateAgencyIndicator() || invoice.getAge().intValue() < agingBucketStart) {
                 return false;
             }
-        }
-        else if (StringUtils.equalsIgnoreCase(agingBucket, ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
+        } else if (StringUtils.equalsIgnoreCase(agingBucket, ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
             if (!invoice.getInvoiceGeneralDetail().getAward().getAgency().isStateAgencyIndicator() || invoice.getAge().intValue() < agingBucketStart) {
                 return false;
             }
-        }
-        else if (invoice.getAge().intValue() < agingBucketStart || invoice.getAge().intValue() > agingBucketEnd) {
+        } else if (invoice.getAge().intValue() < agingBucketStart || invoice.getAge().intValue() > agingBucketEnd) {
             return false;
         }
 
@@ -408,8 +405,9 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
 
     /**
      * Finds a matching dunning letter template from the distributions in the given campaign for the given invoice, or null if a matching dunning letter distribution could not be found
-     * @param invoice invoice to find dunning letter template for
-     * @param cutoffDateFinal the final cut-off age for contracts & grants invoices
+     *
+     * @param invoice                    invoice to find dunning letter template for
+     * @param cutoffDateFinal            the final cut-off age for contracts & grants invoices
      * @param stateAgencyFinalCutOffDate the state final cut-off age for contracts & grants invoices, which may be different from cutoffDateFinal
      * @return the name of the matching dunning letter template or null if no suitable template could be found
      */
@@ -434,29 +432,25 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_31_60)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_31_60)) {
                 if ((invoice.getAge().intValue() > 30) && (invoice.getAge().intValue() <= 60)) {
                     if (dunningLetterDistribution.isActiveIndicator() && dunningLetterDistribution.isSendDunningLetterIndicator() && dunningLetterTemplate.isActive() && ObjectUtils.isNotNull(dunningLetterTemplate.getFilename())) {
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_61_90)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_61_90)) {
                 if ((invoice.getAge().intValue() > 60) && (invoice.getAge().intValue() <= 90)) {
                     if (dunningLetterDistribution.isActiveIndicator() && dunningLetterDistribution.isSendDunningLetterIndicator() && dunningLetterTemplate.isActive() && ObjectUtils.isNotNull(dunningLetterTemplate.getFilename())) {
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_91_120)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_91_120)) {
                 if ((invoice.getAge().intValue() > 90) && (invoice.getAge().intValue() <= 120)) {
                     if (dunningLetterDistribution.isActiveIndicator() && dunningLetterDistribution.isSendDunningLetterIndicator() && dunningLetterTemplate.isActive() && ObjectUtils.isNotNull(dunningLetterTemplate.getFilename())) {
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_121)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_121)) {
                 int cutoffDate = cutoffDateFinal.intValue();
                 if (agency.isStateAgencyIndicator()) {// To replace final with state agency final value
                     cutoffDate = Integer.parseInt(stateAgencyFinalCutOffDate);
@@ -466,15 +460,13 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_FINAL)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_FINAL)) {
                 if (!agency.isStateAgencyIndicator() && invoice.getAge().intValue() > cutoffDateFinal.intValue()) {
                     if (dunningLetterDistribution.isActiveIndicator() && dunningLetterDistribution.isSendDunningLetterIndicator() && dunningLetterTemplate.isActive() && ObjectUtils.isNotNull(dunningLetterTemplate.getFilename())) {
                         return dunningLetterDistribution.getDunningLetterTemplate();
                     }
                 }
-            }
-            else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
+            } else if (StringUtils.equalsIgnoreCase(dunningLetterDistribution.getDaysPastDue(), ArConstants.DunningLetters.DYS_PST_DUE_STATE_AGENCY_FINAL)) {
                 int cutoffDate = cutoffDateFinal.intValue();
                 if (agency.isStateAgencyIndicator()) {// to replace final with state agency final value
                     cutoffDate = Integer.parseInt(stateAgencyFinalCutOffDate);
@@ -493,7 +485,7 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
      * build the search result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the search result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {
@@ -567,11 +559,9 @@ public class GenerateDunningLettersLookupableHelperServiceImpl extends AccountsR
             if (StringUtils.isNotBlank(propValue)) {
                 col.setColumnAnchor(getInquiryUrl(element, col.getPropertyName()));
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Unable to get new instance of formatter class for property " + col.getPropertyName(), ie);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", ex);
         }
         return col;

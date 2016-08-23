@@ -22,8 +22,6 @@ import java.io.Serializable;
 
 /**
  * This class is used to keep tab state whether it is open or closed.
- *
- *
  */
 
 public class TabState implements Serializable {

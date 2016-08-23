@@ -16,44 +16,44 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="CustomerCreditMemoDocument"
-	htmlFormAction="arCustomerCreditMemo" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="CustomerCreditMemoDocument"
+                  htmlFormAction="arCustomerCreditMemo" renderMultipart="true"
+                  showTabButtons="true">
 
-	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-	<c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request" />
+    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
+    <c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request"/>
 
-	<sys:hiddenDocumentFields isFinancialDocument="false" />
+    <sys:hiddenDocumentFields isFinancialDocument="false"/>
 
-	<ar:customerCreditMemoHiddenFields />
+    <ar:customerCreditMemoHiddenFields/>
 
-	<!--  Display 1st screen -->
-	<c:if test="${displayInitTab}" >
-		<ar:customerCreditMemoInit />
-		<c:set var="globalButtonTabIndex" value="15"/>
-	</c:if>
+    <!-- Display 1st screen -->
+    <c:if test="${displayInitTab}">
+        <ar:customerCreditMemoInit/>
+        <c:set var="globalButtonTabIndex" value="15"/>
+    </c:if>
 
-	<!--  Display 2nd screen -->
-	<c:if test="${not displayInitTab}" >
-		<kul:documentOverview editingMode="${KualiForm.editingMode}" />
+    <!-- Display 2nd screen -->
+    <c:if test="${not displayInitTab}">
+        <kul:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-		<ar:customerCreditMemoGeneral />
-      	<ar:customerCreditMemoDetails readOnly="${readOnly}" />
-      	<gl:generalLedgerPendingEntries />
-    	<kul:notes />
-		<kul:adHocRecipients />
-		<kul:routeLog />
-		<kul:superUserActions />
-	</c:if>
+        <ar:customerCreditMemoGeneral/>
+        <ar:customerCreditMemoDetails readOnly="${readOnly}"/>
+        <gl:generalLedgerPendingEntries/>
+        <kul:notes/>
+        <kul:adHocRecipients/>
+        <kul:routeLog/>
+        <kul:superUserActions/>
+    </c:if>
 
-	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
-  	<kul:documentControls
-			transactionalDocument="true"
-			extraButtons="${extraButtons}"
-			suppressRoutingControls="${displayInitTab}"
-			tabindex="${globalButtonTabIndex}"/>
+    <c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
+    <kul:documentControls
+            transactionalDocument="true"
+            extraButtons="${extraButtons}"
+            suppressRoutingControls="${displayInitTab}"
+            tabindex="${globalButtonTabIndex}"/>
 
 </kul:documentPage>

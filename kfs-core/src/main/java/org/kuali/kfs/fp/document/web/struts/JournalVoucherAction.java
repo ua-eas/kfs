@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -36,6 +29,9 @@ import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelperBase;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
 import org.kuali.kfs.fp.document.VoucherDocument;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -45,9 +41,12 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class piggy backs on all of the functionality in the FinancialSystemTransactionalDocumentActionBase but is necessary for
@@ -69,7 +68,7 @@ public class JournalVoucherAction extends VoucherAction {
      * types.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(ActionMapping mapping, ActionForm form, HttpServletRequest
-     *      request, HttpServletResponse response)
+     * request, HttpServletResponse response)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -87,8 +86,7 @@ public class JournalVoucherAction extends VoucherAction {
             // must call this here, because execute in the super method will never have control for this particular action
             // this is called in the parent by super.execute()
             this.populateAuthorizationFields(journalVoucherForm);
-        }
-        else { // otherwise call the super
+        } else { // otherwise call the super
             returnForward = super.execute(mapping, journalVoucherForm, request, response);
         }
         return returnForward;
@@ -99,7 +97,7 @@ public class JournalVoucherAction extends VoucherAction {
      * document, then calls super's route method.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -143,7 +141,7 @@ public class JournalVoucherAction extends VoucherAction {
      * error correction.
      *
      * @see org.kuali.kfs.fp.document.web.struts.VoucherAction#correct(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward correct(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -187,13 +185,11 @@ public class JournalVoucherAction extends VoucherAction {
             // or the person choose the "cancel" or "no" button otherwise we have control
             if (returnForward != null) {
                 return returnForward;
-            }
-            else {
+            } else {
                 // deal with balance type changes first amount change
                 if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
                     switchFromCreditDebitModeToSingleAmountMode(journalVoucherForm);
-                }
-                else if (balanceTypeAmountChangeMode == SINGLE_AMT_TO_CREDIT_DEBIT_MODE) {
+                } else if (balanceTypeAmountChangeMode == SINGLE_AMT_TO_CREDIT_DEBIT_MODE) {
                     switchFromSingleAmountModeToCreditDebitMode(journalVoucherForm);
                 }
 
@@ -225,8 +221,7 @@ public class JournalVoucherAction extends VoucherAction {
         // figure out which ways we are switching the modes first deal with amount changes
         if (origBalType.isFinancialOffsetGenerationIndicator() && !newBalType.isFinancialOffsetGenerationIndicator()) { // credit/debit
             balanceTypeAmountChangeMode = CREDIT_DEBIT_TO_SINGLE_AMT_MODE;
-        }
-        else if (!origBalType.isFinancialOffsetGenerationIndicator() && newBalType.isFinancialOffsetGenerationIndicator()) { // single
+        } else if (!origBalType.isFinancialOffsetGenerationIndicator() && newBalType.isFinancialOffsetGenerationIndicator()) { // single
             balanceTypeAmountChangeMode = SINGLE_AMT_TO_CREDIT_DEBIT_MODE;
         }
 
@@ -251,8 +246,7 @@ public class JournalVoucherAction extends VoucherAction {
         // then deal with external encumbrance changes
         if (origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && !newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
             balanceTypeExternalEncumbranceChangeMode = EXT_ENCUMB_TO_NON_EXT_ENCUMB;
-        }
-        else if (!origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
+        } else if (!origBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE) && newBalType.getCode().equals(KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE)) {
             balanceTypeExternalEncumbranceChangeMode = NON_EXT_ENCUMB_TO_EXT_ENCUMB;
         }
 
@@ -285,8 +279,7 @@ public class JournalVoucherAction extends VoucherAction {
 
                 // now transfer control over to the question component
                 return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_CHANGE_BALANCE_TYPE_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.CHANGE_JOURNAL_VOUCHER_BALANCE_TYPE_METHOD, "");
-            }
-            else {
+            } else {
                 String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if ((KFSConstants.JOURNAL_VOUCHER_CHANGE_BALANCE_TYPE_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                     // if no button clicked keep the old value and reload doc
@@ -325,28 +318,23 @@ public class JournalVoucherAction extends VoucherAction {
             String newMessage = new String("");
             if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
                 newMessage = StringUtils.replace(message, "{3}", kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_SINGLE_AMT_TO_EXT_ENCUMB_CREDIT_DEBIT_MODE));
-            }
-            else {
+            } else {
                 newMessage = StringUtils.replace(message, "{3}", "");
             }
             message = new String(newMessage);
-        }
-        else if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
+        } else if (balanceTypeAmountChangeMode == CREDIT_DEBIT_TO_SINGLE_AMT_MODE) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_CREDIT_DEBIT_TO_SINGLE_AMT_MODE);
             // see if we need the extra bit about the external encumbrance
             String newMessage = new String("");
             if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
                 newMessage = StringUtils.replace(message, "{3}", kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_EXT_ENCUMB_CREDIT_DEBIT_TO_SINGLE_AMT_MODE));
-            }
-            else {
+            } else {
                 newMessage = StringUtils.replace(message, "{3}", "");
             }
             message = new String(newMessage);
-        }
-        else if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
+        } else if (balanceTypeExternalEncumbranceChangeMode == EXT_ENCUMB_TO_NON_EXT_ENCUMB) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_EXT_ENCUMB_TO_NON_EXT_ENCUMB);
-        }
-        else if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
+        } else if (balanceTypeExternalEncumbranceChangeMode == NON_EXT_ENCUMB_TO_EXT_ENCUMB) {
             message = kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_CHANGE_JV_BAL_TYPE_FROM_NON_EXT_ENCUMB_TO_EXT_ENCUMB);
         }
 
@@ -520,15 +508,13 @@ public class JournalVoucherAction extends VoucherAction {
             if (jvDoc.getBalanceType().isFinancialOffsetGenerationIndicator()) {
                 message = StringUtils.replace(kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_ROUTE_OUT_OF_BALANCE_JV_DOC), "{0}", currencyFormattedDebitTotal);
                 message = StringUtils.replace(message, "{1}", currencyFormattedCreditTotal);
-            }
-            else {
+            } else {
                 message = StringUtils.replace(kualiConfiguration.getPropertyValueAsString(KFSKeyConstants.QUESTION_ROUTE_OUT_OF_BALANCE_JV_DOC_SINGLE_AMT_MODE), "{0}", currencyFormattedTotal);
             }
 
             // now transfer control over to the question component
             return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.ROUTE_METHOD, "");
-        }
-        else {
+        } else {
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.MESSAGE_JV_CANCELLED_ROUTE);

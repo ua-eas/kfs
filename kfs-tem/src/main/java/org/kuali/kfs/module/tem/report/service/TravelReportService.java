@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.tem.report.service;
 
-import java.io.ByteArrayOutputStream;
-
 import org.kuali.kfs.sys.report.ReportInfo;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Service interface for travel reports.

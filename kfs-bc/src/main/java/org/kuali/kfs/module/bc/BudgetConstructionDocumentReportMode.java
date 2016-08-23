@@ -31,14 +31,14 @@ public enum BudgetConstructionDocumentReportMode {
     public final String jasperFileName;
     public final boolean dump;
 
-    private BudgetConstructionDocumentReportMode(String reportModeName, String reportDesc, String jasperFileName){
+    private BudgetConstructionDocumentReportMode(String reportModeName, String reportDesc, String jasperFileName) {
         this.reportModeName = reportModeName;
         this.reportDesc = reportDesc;
         this.jasperFileName = jasperFileName;
         this.dump = false;
     }
 
-    private BudgetConstructionDocumentReportMode(String reportModeName, String reportDesc,  boolean dump){
+    private BudgetConstructionDocumentReportMode(String reportModeName, String reportDesc, boolean dump) {
         this.reportModeName = reportModeName;
         this.reportDesc = reportDesc;
         this.jasperFileName = "";
@@ -47,6 +47,7 @@ public enum BudgetConstructionDocumentReportMode {
 
     /**
      * Gets the reportDesc attribute.
+     *
      * @return Returns the reportDesc.
      */
     public String getReportDesc() {
@@ -55,6 +56,7 @@ public enum BudgetConstructionDocumentReportMode {
 
     /**
      * Gets the dump attribute.
+     *
      * @return Returns the dump.
      */
     public boolean isDump() {
@@ -63,6 +65,7 @@ public enum BudgetConstructionDocumentReportMode {
 
     /**
      * Gets the jasperFileName attribute.
+     *
      * @return Returns the jasperFileName.
      */
     public String getJasperFileName() {
@@ -71,6 +74,7 @@ public enum BudgetConstructionDocumentReportMode {
 
     /**
      * Gets the reportModeName attribute.
+     *
      * @return Returns the reportModeName.
      */
     public String getReportModeName() {

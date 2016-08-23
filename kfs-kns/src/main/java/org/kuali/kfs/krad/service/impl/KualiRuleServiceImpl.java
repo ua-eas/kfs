@@ -18,17 +18,14 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.rules.TransactionalDocumentRuleBase;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
@@ -42,6 +39,9 @@ import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a rule evaluator for Kuali. This class is to be used for evaluating business rule checks. The class defines
@@ -63,17 +63,17 @@ public class KualiRuleServiceImpl implements KualiRuleService {
         }
 
         event.validate();
-        if ( LOG.isDebugEnabled() ) {
-        	LOG.debug("calling applyRules for event " + event);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("calling applyRules for event " + event);
         }
 
         BusinessRule rule = getBusinessRulesInstance(event.getDocument(), event.getRuleInterfaceClass());
 
         boolean success = true;
         if (rule != null) {
-        	if ( LOG.isDebugEnabled() ) {
-        		LOG.debug("processing " + event.getName() + " with rule " + rule.getClass().getName());
-        	}
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("processing " + event.getName() + " with rule " + rule.getClass().getName());
+            }
             increaseErrorPath(event.getErrorPathPrefix());
 
             // get any child events and apply rules
@@ -89,14 +89,13 @@ public class KualiRuleServiceImpl implements KualiRuleService {
 
             // report failures
             if (!success) {
-            	if ( LOG.isDebugEnabled() ) { // NO, this is not a type - only log if in debug mode - this is not an error in production
-            		LOG.debug(event.getName() + " businessRule " + rule.getClass().getName() + " failed");
-            	}
-            }
-            else {
-            	if ( LOG.isDebugEnabled() ) {
-            		LOG.debug("processed " + event.getName() + " for rule " + rule.getClass().getName());
-            	}
+                if (LOG.isDebugEnabled()) { // NO, this is not a type - only log if in debug mode - this is not an error in production
+                    LOG.debug(event.getName() + " businessRule " + rule.getClass().getName() + " failed");
+                }
+            } else {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("processed " + event.getName() + " for rule " + rule.getClass().getName());
+                }
             }
 
         }
@@ -116,7 +115,7 @@ public class KualiRuleServiceImpl implements KualiRuleService {
 
         for (int i = 0; i < adHocRoutePersons.size(); i++) {
             events.add(new AddAdHocRoutePersonEvent(
-                    KRADConstants.EXISTING_AD_HOC_ROUTE_PERSON_PROPERTY_NAME + "[" + i + "]", document, adHocRoutePersons.get(i)));
+                KRADConstants.EXISTING_AD_HOC_ROUTE_PERSON_PROPERTY_NAME + "[" + i + "]", document, adHocRoutePersons.get(i)));
         }
 
         return events;
@@ -135,22 +134,18 @@ public class KualiRuleServiceImpl implements KualiRuleService {
 
         for (int i = 0; i < adHocRouteWorkgroups.size(); i++) {
             events.add(new AddAdHocRouteWorkgroupEvent(
-                    KRADConstants.EXISTING_AD_HOC_ROUTE_WORKGROUP_PROPERTY_NAME + "[" + i + "]", document, adHocRouteWorkgroups.get(i)));
+                KRADConstants.EXISTING_AD_HOC_ROUTE_WORKGROUP_PROPERTY_NAME + "[" + i + "]", document, adHocRouteWorkgroups.get(i)));
         }
 
         return events;
     }
 
 
-
-
-
-
     /**
      * @param document
      * @param ruleInterface
      * @return instance of the businessRulesClass for the given document's type, if that businessRulesClass implements the given
-     *         ruleInterface
+     * ruleInterface
      */
     public BusinessRule getBusinessRulesInstance(Document document, Class<? extends BusinessRule> ruleInterface) {
         // get the businessRulesClass
@@ -162,16 +157,14 @@ public class KualiRuleServiceImpl implements KualiRuleService {
             if (businessRulesClass == null) {
                 return new TransactionalDocumentRuleBase(); // default to a generic rule that will enforce Required fields
             }
-        }
-        else if (document instanceof MaintenanceDocument) {
+        } else if (document instanceof MaintenanceDocument) {
             MaintenanceDocument maintenanceDocument = (MaintenanceDocument) document;
 
             businessRulesClass = getDocumentDictionaryService().getBusinessRulesClass(maintenanceDocument);
             if (businessRulesClass == null) {
                 return new MaintenanceDocumentRuleBase(); // default to a generic rule that will enforce Required fields
             }
-        }
-        else {
+        } else {
             LOG.error("unable to get businessRulesClass for unknown document type '" + document.getClass().getName() + "'");
         }
 
@@ -182,11 +175,9 @@ public class KualiRuleServiceImpl implements KualiRuleService {
                 if (ruleInterface.isAssignableFrom(businessRulesClass)) {
                     rule = businessRulesClass.newInstance();
                 }
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new InfrastructureException("error processing business rules", e);
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new InfrastructureException("error processing business rules", e);
             }
         }

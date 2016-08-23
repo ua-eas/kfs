@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.CorrectionChange;
+
+import java.util.List;
 
 /**
  * A DAO interface for CorrectionChange business objects to interact with the databse
@@ -37,7 +37,7 @@ public interface CorrectionChangeDao {
     /**
      * Finds CorrectionChanges associated with the given document and group
      *
-     * @param documentHeaderId the document number of a GLCP document
+     * @param documentHeaderId          the document number of a GLCP document
      * @param correctionGroupLineNumber the line number of the group within the GLCP document to find correction chagnes for
      * @return a List of correction changes
      */

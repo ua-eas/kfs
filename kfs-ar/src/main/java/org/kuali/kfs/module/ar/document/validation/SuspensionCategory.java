@@ -22,12 +22,11 @@ import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 
 /**
  * Interface for suspension categories to be used for Suspension Category Validation of Contracts & Grants Invoices.
- *
+ * <p>
  * To add a new Suspension Category, extend SuspensionCategoryBase which implements this interface, and implement the
  * shouldSuspend method with the validation logic for the new suspension category. Create a bean definition for the
  * new Suspension Category class in spring-ar.xml and add to the suspensionCategories list that is injected into the
  * ContractsGrantsInvoiceDocumentServiceImpl class.
- *
  */
 public interface SuspensionCategory {
 
@@ -41,6 +40,7 @@ public interface SuspensionCategory {
 
     /**
      * Getter for code for this Suspension Category
+     *
      * @return code
      */
     public String getCode();

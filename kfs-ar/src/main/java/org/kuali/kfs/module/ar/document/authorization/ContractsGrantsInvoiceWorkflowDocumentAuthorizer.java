@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -32,9 +32,9 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
@@ -53,9 +53,8 @@ public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends CfDocument
         if (StringUtils.isNotBlank(documentNumber)) {
             ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = null;
             try {
-                contractsGrantsInvoiceDocument = (ContractsGrantsInvoiceDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException ex) {
+                contractsGrantsInvoiceDocument = (ContractsGrantsInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentNumber);
+            } catch (WorkflowException ex) {
                 // Couldn't get the document, just continue on
             }
             if (ObjectUtils.isNotNull(contractsGrantsInvoiceDocument)) {
@@ -83,7 +82,7 @@ public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends CfDocument
 
         if (useKimPermission(KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KewApiConstants.INITIATE_PERMISSION, permissionDetails, true)) {
             return getPermissionService().isAuthorizedByTemplate(principalId, KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
-                    KewApiConstants.INITIATE_PERMISSION, permissionDetails, qualificationDetails);
+                KewApiConstants.INITIATE_PERMISSION, permissionDetails, qualificationDetails);
         }
         return true;
     }

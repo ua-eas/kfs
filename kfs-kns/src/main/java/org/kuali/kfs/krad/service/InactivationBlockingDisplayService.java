@@ -18,24 +18,21 @@
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.List;
 
 /**
  * A service that helps to print out records that block the inactivation of another BO
- *
- *
- *
  */
 public interface InactivationBlockingDisplayService {
-	/**
-	 * Retrieves a List of Strings representing each record that blocks the inactivation of blockedBo
-	 *
-	 * @param blockedBo
-	 * @param inactivationBlockingMetadata the blocking relationship
-	 * @return
-	 */
-	public List<String> listAllBlockerRecords(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata);
+    /**
+     * Retrieves a List of Strings representing each record that blocks the inactivation of blockedBo
+     *
+     * @param blockedBo
+     * @param inactivationBlockingMetadata the blocking relationship
+     * @return
+     */
+    public List<String> listAllBlockerRecords(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata);
 }

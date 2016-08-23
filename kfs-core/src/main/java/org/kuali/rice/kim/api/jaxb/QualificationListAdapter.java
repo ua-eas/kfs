@@ -18,23 +18,22 @@
  */
 package org.kuali.rice.kim.api.jaxb;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
 
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An XML adapter that converts between QualificationList objects and Map<String, String> objects.
  * Unmarshalled keys and values will automatically be trimmed if non-null.
- *
+ * <p>
  * <p>This adapter will throw an exception during unmarshalling if blank or duplicate keys are encountered.
  */
-public class QualificationListAdapter extends XmlAdapter<QualificationList,Map<String, String>> {
+public class QualificationListAdapter extends XmlAdapter<QualificationList, Map<String, String>> {
 
     /**
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)

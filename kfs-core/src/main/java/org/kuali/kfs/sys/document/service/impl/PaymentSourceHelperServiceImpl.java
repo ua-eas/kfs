@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.businessobject.PaymentNoteText;
 import org.kuali.kfs.pdp.businessobject.PurchasingPaymentDetail;
@@ -51,12 +50,13 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
+import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
 
 public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperService {
     org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentSourceHelperServiceImpl.class);
@@ -93,6 +93,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Retrieves the wire charge for fiscal year based on the given date or null if one cannot be found
+     *
      * @param date the date to find a wire charge for
      * @return the wire charge for the fiscal year of the given date, or null if the wire charge cannot be found
      */
@@ -105,7 +106,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
         WireCharge wireCharge = new WireCharge();
         wireCharge.setUniversityFiscalYear(dateFiscalYear);
-        wireCharge = (WireCharge)getBusinessObjectService().retrieve(wireCharge);
+        wireCharge = (WireCharge) getBusinessObjectService().retrieve(wireCharge);
         return wireCharge;
     }
 
@@ -113,9 +114,9 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
      * Builds an explicit and offset for the wire charge debit. The account associated with the first accounting is used for the
      * debit. The explicit and offset entries for the first accounting line and copied and customized for the wire charge.
      *
-     * @param dvDocument submitted disbursement voucher document
+     * @param dvDocument     submitted disbursement voucher document
      * @param sequenceHelper helper class to keep track of GLPE sequence
-     * @param wireCharge wireCharge object from current fiscal year
+     * @param wireCharge     wireCharge object from current fiscal year
      * @return GeneralLedgerPendingEntry generated wire charge debit
      */
     @Override
@@ -137,8 +138,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
         if (KFSConstants.COUNTRY_CODE_UNITED_STATES.equals(paymentSource.getWireTransfer().getBankCountryCode())) {
             explicitEntry.setTransactionLedgerEntryAmount(wireCharge.getDomesticChargeAmt());
-        }
-        else {
+        } else {
             explicitEntry.setTransactionLedgerEntryAmount(wireCharge.getForeignChargeAmt());
         }
 
@@ -162,10 +162,10 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
      * Builds an explicit and offset for the wire charge credit. The account and income object code found in the wire charge table
      * is used for the entry.
      *
-     * @param dvDocument submitted disbursement voucher document
+     * @param dvDocument     submitted disbursement voucher document
      * @param sequenceHelper helper class to keep track of GLPE sequence
-     * @param chargeEntry GLPE charge
-     * @param wireCharge wireCharge object from current fiscal year
+     * @param chargeEntry    GLPE charge
+     * @param wireCharge     wireCharge object from current fiscal year
      */
     @Override
     public void processWireChargeCreditEntries(PaymentSource paymentSource, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, WireCharge wireCharge, GeneralLedgerPendingEntry chargeEntry) {
@@ -205,7 +205,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
     /**
      * If bank specification is enabled generates bank offsetting entries for the document amount
      *
-     * @param sequenceHelper helper class to keep track of GLPE sequence
+     * @param sequenceHelper    helper class to keep track of GLPE sequence
      * @param paymentMethodCode the payment method of this DV
      */
     @Override
@@ -272,6 +272,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Builds a link to a PurchasingPaymentDetail object
+     *
      * @see org.kuali.kfs.sys.document.service.PaymentSourceHelperService#getDisbursementInfoUrl()
      */
     @Override
@@ -289,169 +290,164 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
         return lookupUrl;
     }
+
     /**
-    *
-    * @see org.kuali.kfs.sys.batch.service.PaymentSourceExtractionService#buildNoteForCheckStubText(java.lang.String)
-    */
-   @Override
-   public PaymentNoteText buildNoteForCheckStubText(String text, int previousLineCount) {
-       PaymentNoteText pnt = null;
-       final String maxNoteLinesParam = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_ALL.class, PdpParameterConstants.MAX_NOTE_LINES);
+     * @see org.kuali.kfs.sys.batch.service.PaymentSourceExtractionService#buildNoteForCheckStubText(java.lang.String)
+     */
+    @Override
+    public PaymentNoteText buildNoteForCheckStubText(String text, int previousLineCount) {
+        PaymentNoteText pnt = null;
+        final String maxNoteLinesParam = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_ALL.class, PdpParameterConstants.MAX_NOTE_LINES);
 
-       int maxNoteLines;
-       try {
-           maxNoteLines = Integer.parseInt(maxNoteLinesParam);
-       }
-       catch (NumberFormatException nfe) {
-           throw new IllegalArgumentException("Invalid Max Notes Lines parameter, value: "+maxNoteLinesParam+" cannot be converted to an integer");
-       }
+        int maxNoteLines;
+        try {
+            maxNoteLines = Integer.parseInt(maxNoteLinesParam);
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("Invalid Max Notes Lines parameter, value: " + maxNoteLinesParam + " cannot be converted to an integer");
+        }
 
-       // The WordUtils should be sufficient for the majority of cases.  This method will
-       // word wrap the whole string based on the MAX_NOTE_LINE_SIZE, separating each wrapped
-       // word by a newline character.  The 'wrap' method adds line feeds to the end causing
-       // the character length to exceed the max length by 1, hence the need for the replace
-       // method before splitting.
-       String   wrappedText = WordUtils.wrap(text, KFSConstants.MAX_NOTE_LINE_SIZE);
-       String[] noteLines   = wrappedText.replaceAll("[\r]", "").split("\\n");
+        // The WordUtils should be sufficient for the majority of cases.  This method will
+        // word wrap the whole string based on the MAX_NOTE_LINE_SIZE, separating each wrapped
+        // word by a newline character.  The 'wrap' method adds line feeds to the end causing
+        // the character length to exceed the max length by 1, hence the need for the replace
+        // method before splitting.
+        String wrappedText = WordUtils.wrap(text, KFSConstants.MAX_NOTE_LINE_SIZE);
+        String[] noteLines = wrappedText.replaceAll("[\r]", "").split("\\n");
 
-       // Loop through all the note lines.
-       for (String noteLine : noteLines) {
-           if (previousLineCount < (maxNoteLines - 3) && !StringUtils.isEmpty(noteLine)) {
+        // Loop through all the note lines.
+        for (String noteLine : noteLines) {
+            if (previousLineCount < (maxNoteLines - 3) && !StringUtils.isEmpty(noteLine)) {
 
-               // This should only happen if we encounter a word that is greater than the max length.
-               // The only concern I have for this occurring is with URLs/email addresses.
-               if (noteLine.length() >KFSConstants.MAX_NOTE_LINE_SIZE) {
-                   for (String choppedWord : chopWord(noteLine, KFSConstants.MAX_NOTE_LINE_SIZE)) {
+                // This should only happen if we encounter a word that is greater than the max length.
+                // The only concern I have for this occurring is with URLs/email addresses.
+                if (noteLine.length() > KFSConstants.MAX_NOTE_LINE_SIZE) {
+                    for (String choppedWord : chopWord(noteLine, KFSConstants.MAX_NOTE_LINE_SIZE)) {
 
-                       // Make sure we're still under the maximum number of note lines.
-                       if (previousLineCount < (maxNoteLines - 3) && !StringUtils.isEmpty(choppedWord)) {
-                           pnt = new PaymentNoteText();
-                           pnt.setCustomerNoteLineNbr(new KualiInteger(previousLineCount++));
-                           pnt.setCustomerNoteText(choppedWord.replaceAll("\\n", "").trim());
-                       }
-                       // We can't add any additional note lines, or we'll exceed the maximum, therefore
-                       // just break out of the loop early - there's nothing left to do.
-                       else {
-                           break;
-                       }
-                   }
-               }
-               // This should be the most common case.  Simply create a new PaymentNoteText,
-               // add the line at the correct line location.
-               else {
-                   pnt = new PaymentNoteText();
-                   pnt.setCustomerNoteLineNbr(new KualiInteger(previousLineCount++));
-                   pnt.setCustomerNoteText(noteLine.replaceAll("\\n", "").trim());
-               }
-           }
-       }
-       return pnt;
-   }
+                        // Make sure we're still under the maximum number of note lines.
+                        if (previousLineCount < (maxNoteLines - 3) && !StringUtils.isEmpty(choppedWord)) {
+                            pnt = new PaymentNoteText();
+                            pnt.setCustomerNoteLineNbr(new KualiInteger(previousLineCount++));
+                            pnt.setCustomerNoteText(choppedWord.replaceAll("\\n", "").trim());
+                        }
+                        // We can't add any additional note lines, or we'll exceed the maximum, therefore
+                        // just break out of the loop early - there's nothing left to do.
+                        else {
+                            break;
+                        }
+                    }
+                }
+                // This should be the most common case.  Simply create a new PaymentNoteText,
+                // add the line at the correct line location.
+                else {
+                    pnt = new PaymentNoteText();
+                    pnt.setCustomerNoteLineNbr(new KualiInteger(previousLineCount++));
+                    pnt.setCustomerNoteText(noteLine.replaceAll("\\n", "").trim());
+                }
+            }
+        }
+        return pnt;
+    }
 
-   /**
-    * This method will take a word and simply chop into smaller
-    * text segments that satisfy the limit requirements.  All words
-    * brute force chopped, with no regard to preserving whole words.
-    *
-    * For example:
-    *
-    *      "Java is a fun programming language!"
-    *
-    * Might be chopped into:
-    *
-    *      "Java is a fun prog"
-    *      "ramming language!"
-    *
-    * @param word The word that needs chopping
-    * @param limit Number of character that should represent a chopped word
-    * @return String [] of chopped words
-    */
-   protected String[] chopWord(String word, int limit) {
-       StringBuilder builder = new StringBuilder();
-       if (word != null && word.trim().length() > 0) {
+    /**
+     * This method will take a word and simply chop into smaller
+     * text segments that satisfy the limit requirements.  All words
+     * brute force chopped, with no regard to preserving whole words.
+     * <p>
+     * For example:
+     * <p>
+     * "Java is a fun programming language!"
+     * <p>
+     * Might be chopped into:
+     * <p>
+     * "Java is a fun prog"
+     * "ramming language!"
+     *
+     * @param word  The word that needs chopping
+     * @param limit Number of character that should represent a chopped word
+     * @return String [] of chopped words
+     */
+    protected String[] chopWord(String word, int limit) {
+        StringBuilder builder = new StringBuilder();
+        if (word != null && word.trim().length() > 0) {
 
-           char[] chars = word.toCharArray();
-           int index = 0;
+            char[] chars = word.toCharArray();
+            int index = 0;
 
-           // First process all the words that fit into the limit.
-           for (int i = 0; i < chars.length/limit; i++) {
-               builder.append(String.copyValueOf(chars, index, limit));
-               builder.append("\n");
+            // First process all the words that fit into the limit.
+            for (int i = 0; i < chars.length / limit; i++) {
+                builder.append(String.copyValueOf(chars, index, limit));
+                builder.append("\n");
 
-               index += limit;
-           }
+                index += limit;
+            }
 
-           // Not all words will fit perfectly into the limit amount, so
-           // calculate the modulus value to determine any remaining characters.
-           int modValue =  chars.length%limit;
-           if (modValue > 0) {
-               builder.append(String.copyValueOf(chars, index, modValue));
-           }
+            // Not all words will fit perfectly into the limit amount, so
+            // calculate the modulus value to determine any remaining characters.
+            int modValue = chars.length % limit;
+            if (modValue > 0) {
+                builder.append(String.copyValueOf(chars, index, modValue));
+            }
 
-       }
+        }
 
-       // Split the chopped words into individual segments.
-       return builder.toString().split("\\n");
-   }
+        // Split the chopped words into individual segments.
+        return builder.toString().split("\\n");
+    }
 
-   /**
-    * @see org.kuali.kfs.sys.document.service.PaymentSourceHelperService#oppositifyAndSaveEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
-    */
-   @Override
-   public void oppositifyAndSaveEntry(GeneralLedgerPendingEntry glpe, GeneralLedgerPendingEntrySequenceHelper glpeSeqHelper) {
-       if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
-           glpe.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-       }
-       else if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
-           glpe.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-       }
-       if (glpeSeqHelper != null) {
-           glpe.setTransactionLedgerEntrySequenceNumber(glpeSeqHelper.getSequenceCounter());
-           glpeSeqHelper.increment();
-       }
-       glpe.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
-       businessObjectService.save(glpe);
-   }
+    /**
+     * @see org.kuali.kfs.sys.document.service.PaymentSourceHelperService#oppositifyAndSaveEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     */
+    @Override
+    public void oppositifyAndSaveEntry(GeneralLedgerPendingEntry glpe, GeneralLedgerPendingEntrySequenceHelper glpeSeqHelper) {
+        if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
+            glpe.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
+        } else if (glpe.getTransactionDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
+            glpe.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
+        }
+        if (glpeSeqHelper != null) {
+            glpe.setTransactionLedgerEntrySequenceNumber(glpeSeqHelper.getSequenceCounter());
+            glpeSeqHelper.increment();
+        }
+        glpe.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
+        businessObjectService.save(glpe);
+    }
 
-   /**
-    *
-    * @see org.kuali.kfs.sys.document.service.PaymentSourceHelperService#handleEntryCancellation(org.kuali.kfs.sys.document.PaymentSource)
-    */
-   @Override
-   public void handleEntryCancellation(PaymentSource paymentSource, PaymentSourceToExtractService<?> extractionService) {
-       if (ObjectUtils.isNull(paymentSource.getGeneralLedgerPendingEntries()) || paymentSource.getGeneralLedgerPendingEntries().size() == 0) {
-           // generate all the pending entries for the document
-           getGeneralLedgerPendingEntryService().generateGeneralLedgerPendingEntries(paymentSource);
-           // for each pending entry, opposite-ify it and reattach it to the document
-           for (GeneralLedgerPendingEntry glpe : paymentSource.getGeneralLedgerPendingEntries()) {
-               if (extractionService.shouldRollBackPendingEntry(glpe)) {
-                   oppositifyAndSaveEntry(glpe, null);
-               }
-           }
-       }
-       else {
-           List<GeneralLedgerPendingEntry> newGLPEs = new ArrayList<GeneralLedgerPendingEntry>();
-           GeneralLedgerPendingEntrySequenceHelper glpeSeqHelper = new GeneralLedgerPendingEntrySequenceHelper(paymentSource.getGeneralLedgerPendingEntries().size() + 1);
-           for (GeneralLedgerPendingEntry glpe : paymentSource.getGeneralLedgerPendingEntries()) {
-               glpe.refresh();
-               if (extractionService.shouldRollBackPendingEntry(glpe)) {
-                   if (glpe.getFinancialDocumentApprovedCode().equals(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.PROCESSED)) {
-                       // damn! it got processed! well, make a copy, oppositify, and save
-                       GeneralLedgerPendingEntry undoer = new GeneralLedgerPendingEntry(glpe);
-                       oppositifyAndSaveEntry(undoer, glpeSeqHelper);
-                       newGLPEs.add(undoer);
-                   }
-                   else {
-                       // just delete the GLPE before anything happens to it
-                       businessObjectService.delete(glpe);
-                   }
-               } else {
-                   newGLPEs.add(glpe);
-               }
-           }
-           paymentSource.setGeneralLedgerPendingEntries(newGLPEs);
-       }
-   }
+    /**
+     * @see org.kuali.kfs.sys.document.service.PaymentSourceHelperService#handleEntryCancellation(org.kuali.kfs.sys.document.PaymentSource)
+     */
+    @Override
+    public void handleEntryCancellation(PaymentSource paymentSource, PaymentSourceToExtractService<?> extractionService) {
+        if (ObjectUtils.isNull(paymentSource.getGeneralLedgerPendingEntries()) || paymentSource.getGeneralLedgerPendingEntries().size() == 0) {
+            // generate all the pending entries for the document
+            getGeneralLedgerPendingEntryService().generateGeneralLedgerPendingEntries(paymentSource);
+            // for each pending entry, opposite-ify it and reattach it to the document
+            for (GeneralLedgerPendingEntry glpe : paymentSource.getGeneralLedgerPendingEntries()) {
+                if (extractionService.shouldRollBackPendingEntry(glpe)) {
+                    oppositifyAndSaveEntry(glpe, null);
+                }
+            }
+        } else {
+            List<GeneralLedgerPendingEntry> newGLPEs = new ArrayList<GeneralLedgerPendingEntry>();
+            GeneralLedgerPendingEntrySequenceHelper glpeSeqHelper = new GeneralLedgerPendingEntrySequenceHelper(paymentSource.getGeneralLedgerPendingEntries().size() + 1);
+            for (GeneralLedgerPendingEntry glpe : paymentSource.getGeneralLedgerPendingEntries()) {
+                glpe.refresh();
+                if (extractionService.shouldRollBackPendingEntry(glpe)) {
+                    if (glpe.getFinancialDocumentApprovedCode().equals(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.PROCESSED)) {
+                        // damn! it got processed! well, make a copy, oppositify, and save
+                        GeneralLedgerPendingEntry undoer = new GeneralLedgerPendingEntry(glpe);
+                        oppositifyAndSaveEntry(undoer, glpeSeqHelper);
+                        newGLPEs.add(undoer);
+                    } else {
+                        // just delete the GLPE before anything happens to it
+                        businessObjectService.delete(glpe);
+                    }
+                } else {
+                    newGLPEs.add(glpe);
+                }
+            }
+            paymentSource.setGeneralLedgerPendingEntries(newGLPEs);
+        }
+    }
 
     /**
      * @return the implementation of the UniversityDateService to use
@@ -462,6 +458,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the UniversityDateService to use
+     *
      * @param universityDateService the implementation of the UniversityDateService to use
      */
     public void setUniversityDateService(UniversityDateService universityDateService) {
@@ -477,6 +474,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the BusinessObjectService to use
+     *
      * @param businessObjectService the implementation of the BusinessObjectService to use
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -492,6 +490,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the GeneralLedgerPendingEntryService to use
+     *
      * @param generalLedgerPendingEntryService the implementation of the GeneralLedgerPendingEntryService to use
      */
     public void setGeneralLedgerPendingEntryService(GeneralLedgerPendingEntryService generalLedgerPendingEntryService) {
@@ -507,6 +506,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the BankService to use
+     *
      * @param bankService the implementation of the BankService to use
      */
     public void setBankService(BankService bankService) {
@@ -522,6 +522,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the AccountingDocumentRuleHelperService to use
+     *
      * @param accountingDocumentRuleService the implementation of the AccountingDocumentRuleHelperService to use
      */
     public void setAccountingDocumentRuleHelperService(AccountingDocumentRuleHelperService accountingDocumentRuleService) {
@@ -537,6 +538,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the ParameterService to use
+     *
      * @param parameterService the implementation of the ParameterService to use
      */
     public void setParameterService(ParameterService parameterService) {
@@ -552,6 +554,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Sets the implementation of the ConfigurationService to use
+     *
      * @param configurationService the implementation of the ConfigurationService to use
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -567,6 +570,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Injects the implementation of DocumentService to use
+     *
      * @param documentService an implementation of DocumentService
      */
     public void setDocumentService(DocumentService documentService) {
@@ -582,6 +586,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Injects the implementation of OptionsService to use
+     *
      * @param optionsService an implementation of OptionsService
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -597,6 +602,7 @@ public class PaymentSourceHelperServiceImpl implements PaymentSourceHelperServic
 
     /**
      * Injects the implementation of HomeOriginationService to use
+     *
      * @param homeOriginationService an implementation of HomeOriginationService
      */
     public void setHomeOriginationService(HomeOriginationService homeOriginationService) {

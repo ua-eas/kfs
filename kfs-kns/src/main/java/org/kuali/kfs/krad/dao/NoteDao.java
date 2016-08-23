@@ -18,15 +18,13 @@
  */
 package org.kuali.kfs.krad.dao;
 
-import java.util.List;
-
 import org.kuali.kfs.krad.bo.Note;
+
+import java.util.List;
 
 
 /**
  * The data access interface for NOte objects.
- *
- *
  */
 public interface NoteDao {
     /**

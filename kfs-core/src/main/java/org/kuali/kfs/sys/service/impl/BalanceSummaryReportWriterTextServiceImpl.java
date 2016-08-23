@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.io.File;
-
 import org.kuali.kfs.sys.service.FiscalYearAwareReportWriterService;
+
+import java.io.File;
 
 /**
  * Ensures that balance summary reports have the fiscal year included in the filename.
@@ -60,8 +60,7 @@ public class BalanceSummaryReportWriterTextServiceImpl extends ReportWriterTextS
         }
         if (isAggregationModeOn()) {
             return filePath + File.separator + this.fileNamePrefix + fiscalYear.toString() + fileNameSuffix;
-        }
-        else {
+        } else {
             return filePath + File.separator + this.fileNamePrefix + fiscalYear.toString() + "_" + dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate()) + fileNameSuffix;
         }
     }

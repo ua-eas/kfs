@@ -19,14 +19,15 @@
 package org.kuali.kfs.sys.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class SubObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLabelGenerator {
 
     /**
      * If the subObjectCode reference on the line is refreshable, returns the sub object code's name; otherwise returns null
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelFieldName(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelValue(AccountingLine line, String accountingLineProperty) {
@@ -39,6 +40,7 @@ public class SubObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLa
 
     /**
      * Builds the proper call to loadSubObjectInfo
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelOnBlur(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelOnBlur(AccountingLine line, String accountingLineProperty) {
@@ -54,10 +56,11 @@ public class SubObjectCodeDynamicNameLabelGeneratorImpl implements DynamicNameLa
 
     /**
      * Always returns accountingLineProperty+".subObjectCode.financialSubObjectCodeName"
+     *
      * @see org.kuali.kfs.sys.document.service.DynamicNameLabelGenerator#getDynamicNameLabelName(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     public String getDynamicNameLabelFieldName(AccountingLine line, String accountingLineProperty) {
-        return accountingLineProperty+".subObjectCode.financialSubObjectCodeName";
+        return accountingLineProperty + ".subObjectCode.financialSubObjectCodeName";
     }
 
 }

@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents the transient balance inquiry attributes which is typically used as a "dummy business object"
@@ -292,7 +292,6 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
 
 
     /**
-     *
      * Gets the debitCreditOption attribute value.
      *
      * @return Returns the debitCreditOption
@@ -302,8 +301,8 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
     }
 
     /**
-     *
      * Sets the debitCreditOption attribute
+     *
      * @param debitCreditOption The debitCreditOption to set.
      */
     public void setDebitCreditOption(String debitCreditOption) {
@@ -319,6 +318,7 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
 
     /**
      * Sets the include option for encumbrances which have gone to zero
+     *
      * @param includeZeroEncumbranceOption the include option for encumbrances which have gone to zero
      */
     public void setZeroEncumbranceOption(String zeroEncumbranceOption) {

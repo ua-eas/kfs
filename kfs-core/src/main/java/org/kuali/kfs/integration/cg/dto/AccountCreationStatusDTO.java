@@ -31,10 +31,12 @@ public class AccountCreationStatusDTO implements Serializable {
     protected String chartOfAccountsCode;
     protected String status;
 
-    public AccountCreationStatusDTO() {}
+    public AccountCreationStatusDTO() {
+    }
 
     /**
      * Gets the errorCodes attribute.
+     *
      * @return Returns the errorCodes.
      */
     public List<String> getErrorMessages() {
@@ -43,6 +45,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Sets the errorCodes attribute value.
+     *
      * @param errorCodes The errorCodes to set.
      */
     public void setErrorMessages(List<String> errorMessages) {
@@ -51,6 +54,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -59,6 +63,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -67,6 +72,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Gets the accountNumber attribute.
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -75,6 +81,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Sets the accountNumber attribute value.
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -83,6 +90,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Gets the chartOfAccountsCode attribute.
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -91,6 +99,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -99,6 +108,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Gets the status attribute.
+     *
      * @return Returns the status.
      */
     public String getStatus() {
@@ -107,6 +117,7 @@ public class AccountCreationStatusDTO implements Serializable {
 
     /**
      * Sets the status attribute value.
+     *
      * @param status The status to set.
      */
     public void setStatus(String status) {

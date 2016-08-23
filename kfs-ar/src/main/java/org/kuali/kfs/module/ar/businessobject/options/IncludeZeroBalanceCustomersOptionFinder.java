@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IncludeZeroBalanceCustomersOptionFinder extends KeyValuesBase implements ValueFinder {
 
     /**
      * Returns the default value for this ValueFinder
+     *
      * @return a String with the default key
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
@@ -41,6 +42,7 @@ public class IncludeZeroBalanceCustomersOptionFinder extends KeyValuesBase imple
 
     /**
      * Returns a list of possible values for this ValueFinder
+     *
      * @return a List of key/value pairs to populate radio buttons
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */

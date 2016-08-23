@@ -30,5 +30,4 @@ public class LaborOriginEntryGroupServiceImpl extends OriginEntryGroupServiceImp
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborOriginEntryGroupServiceImpl.class);
 
 
-
 }

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.validation.PurchasingAccountsPayableItemPreCalculationRule;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class PurchasingAccountsPayablesItemPreCalculateDocumentRule extends DocumentRuleBase implements PurchasingAccountsPayableItemPreCalculationRule {
 
@@ -54,8 +54,7 @@ public class PurchasingAccountsPayablesItemPreCalculateDocumentRule extends Docu
         for (PurApAccountingLine account : item.getSourceAccountingLines()) {
             if (account.getAccountLinePercent() != null) {
                 totalPercent = totalPercent.add(account.getAccountLinePercent());
-            }
-            else {
+            } else {
                 totalPercent = totalPercent.add(BigDecimal.ZERO);
             }
         }
@@ -69,25 +68,24 @@ public class PurchasingAccountsPayablesItemPreCalculateDocumentRule extends Docu
 
     /**
      * Verifies account total. If the total does not equal item total,
-     *  the validation fails.
+     * the validation fails.
      */
     public boolean validateTotalAmount(PurApItem item) {
         boolean valid = true;
 
-     // validate that the amount total
+        // validate that the amount total
         BigDecimal totalAmount = BigDecimal.ZERO;
         BigDecimal desiredAmount =
             (item.getTotalAmount() == null) ? new BigDecimal(0) : item.getTotalAmount().bigDecimalValue();
         for (PurApAccountingLine account : item.getSourceAccountingLines()) {
             if (account.getAmount() != null) {
                 totalAmount = totalAmount.add(account.getAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 totalAmount = totalAmount.add(BigDecimal.ZERO);
             }
         }
         if (desiredAmount.compareTo(totalAmount) != 0) {
-            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(),desiredAmount.toString());
+            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, item.getItemIdentifierString(), desiredAmount.toString());
             valid = false;
         }
 

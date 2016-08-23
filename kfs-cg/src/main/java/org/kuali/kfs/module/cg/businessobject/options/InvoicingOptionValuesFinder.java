@@ -32,12 +32,12 @@ public class InvoicingOptionValuesFinder extends EnumValuesFinder {
 
     @Override
     protected String getEnumKey(Enum enm) {
-        return ((CGIntegrationConstants.AwardInvoicingOption.Types)enm).getCode();
+        return ((CGIntegrationConstants.AwardInvoicingOption.Types) enm).getCode();
     }
 
     @Override
     protected String getEnumLabel(Enum enm) {
-        return ((CGIntegrationConstants.AwardInvoicingOption.Types)enm).getName();
+        return ((CGIntegrationConstants.AwardInvoicingOption.Types) enm).getName();
     }
 
 }

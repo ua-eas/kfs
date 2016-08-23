@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 
 /**
  * This class converts field values from G/L Business Objects to G?L transactions
@@ -173,7 +173,7 @@ public class BusinessObjectFieldConverter {
      * This method retrieves a name of the given property name from the given mapping table
      *
      * @param propertyMappingTable the property mapping table
-     * @param propertyName the property name of a normal business object
+     * @param propertyName         the property name of a normal business object
      * @return the property name of GL transaction
      */
     private static String convertPropertyName(Map propertyMappingTable, String propertyName) {
@@ -188,9 +188,9 @@ public class BusinessObjectFieldConverter {
     /**
      * Escapes any special characters in map name/property values
      *
-     * @param fieldValues map of field keys and their values
+     * @param fieldValues      map of field keys and their values
      * @param specialCharacter special characters to replace
-     * @param replacement value to replace special characters with
+     * @param replacement      value to replace special characters with
      */
     public static void escapeSpecialCharacter(Map fieldValues, String specialCharacter, String replacement) {
         Iterator propsIter = fieldValues.keySet().iterator();
@@ -207,6 +207,7 @@ public class BusinessObjectFieldConverter {
 
     /**
      * Escapes any single quotes in map name/property values
+     *
      * @param fieldValues
      */
     public static void escapeSingleQuote(Map fieldValues) {

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.service;
 
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+
 import java.sql.Date;
 import java.util.Collection;
-
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 
 /**
  * This service interface defines methods necessary for retrieving fully populated AccountingPeriod business objects from the

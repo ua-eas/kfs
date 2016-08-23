@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.integration;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.sys.service.impl.KfsModuleServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class UnimplementedKfsModuleServiceImpl extends KfsModuleServiceImpl {
 
@@ -42,7 +42,7 @@ public class UnimplementedKfsModuleServiceImpl extends KfsModuleServiceImpl {
 
     @SuppressWarnings("unchecked")
     public List<? extends ExternalizableBusinessObject> retrieveExternalizableBusinessObjectsList(
-            BusinessObject businessObject, String externalizableRelationshipName, Class externalizableClazz) {
+        BusinessObject businessObject, String externalizableRelationshipName, Class externalizableClazz) {
         return Collections.emptyList();
     }
 
@@ -60,7 +60,9 @@ public class UnimplementedKfsModuleServiceImpl extends KfsModuleServiceImpl {
 
     public <T extends ExternalizableBusinessObject> T retrieveExternalizableBusinessObjectIfNecessary(BusinessObject businessObject, T currentInstanceExternalizableBO, String externalizableRelationshipName) {
         return currentInstanceExternalizableBO;
-    };
+    }
+
+    ;
 
     @SuppressWarnings("unchecked")
     @Override

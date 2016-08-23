@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.sys;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -25,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.io.FileUtils;
 
 /**
  * This class provides a set of facilities that can be used to work with files
@@ -38,6 +38,7 @@ public class FileUtil {
 
     /**
      * In directory looks for a pattern matching filenameFilter and returns the filename with the highest lastModified()
+     *
      * @param directory
      * @param filenameFilter to filter filenames in batchFileDirectoryName for
      * @return File with highest lastModified()
@@ -54,7 +55,7 @@ public class FileUtil {
                 if (newestFile == null) {
                     newestFile = file;
                 } else {
-                    if (newestFile.lastModified() < file.lastModified()){
+                    if (newestFile.lastModified() < file.lastModified()) {
                         newestFile = file;
                     }
                 }
@@ -71,7 +72,9 @@ public class FileUtil {
      * @param directoryPath
      */
     public static void createDirectory(final String directoryPath) {
-        createDirectories(new ArrayList<String>(){{add(directoryPath);}});
+        createDirectories(new ArrayList<String>() {{
+            add(directoryPath);
+        }});
     }
 
     /**
@@ -81,7 +84,7 @@ public class FileUtil {
      */
     public static void createDirectories(List<String> directoryPathList) {
         File directoryToCheck;
-        for (String path : directoryPathList){
+        for (String path : directoryPathList) {
             if (path != null) {
                 directoryToCheck = new File(path);
                 if (!directoryToCheck.isDirectory() && !createdDirectory.contains(path)) {
@@ -91,8 +94,7 @@ public class FileUtil {
 
                         //store locally to avoid future redundant IO check
                         createdDirectory.add(path);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         LOG.warn("Unable to create directory [" + path + "]", ex);
                     }
                 }

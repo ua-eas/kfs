@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.service;
 
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.BadPdfFormatException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.BadPdfFormatException;
 
 /**
  * Defines utility methods web tier.

@@ -16,33 +16,33 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="readOnly"
-	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+       value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
 <kul:documentPage showDocumentInfo="true"
-	documentTypeName="ContractsGrantsCollectionActivityDocument"
-	htmlFormAction="arContractsGrantsCollectionActivity" renderMultipart="true"
-	showTabButtons="true">
+                  documentTypeName="ContractsGrantsCollectionActivityDocument"
+                  htmlFormAction="arContractsGrantsCollectionActivity" renderMultipart="true"
+                  showTabButtons="true">
 
-	<sys:hiddenDocumentFields isFinancialDocument="false" />
+    <sys:hiddenDocumentFields isFinancialDocument="false"/>
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<ar:contractsGrantsCollectionActivityAwardInformation readOnly="${readOnly}" />
-	<ar:contractsGrantsCollectionActivityGlobalCollectionEvent readOnly="${readOnly}"/>
-	<ar:contractsGrantsCollectionActivityInvoiceList readOnly="${readOnly}"/>
+    <ar:contractsGrantsCollectionActivityAwardInformation readOnly="${readOnly}"/>
+    <ar:contractsGrantsCollectionActivityGlobalCollectionEvent readOnly="${readOnly}"/>
+    <ar:contractsGrantsCollectionActivityInvoiceList readOnly="${readOnly}"/>
 
-	<kul:notes />
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<sys:documentControls transactionalDocument="true"
-		extraButtons="${KualiForm.extraButtons}" />
+    <sys:documentControls transactionalDocument="true"
+                          extraButtons="${KualiForm.extraButtons}"/>
 
 </kul:documentPage>

@@ -29,23 +29,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="KRCR_PARM_TYP_T")
+@Table(name = "KRCR_PARM_TYP_T")
 public class ParameterTypeBo extends PersistableBusinessObjectBase implements ParameterTypeEbo {
 
     private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="PARM_TYP_CD")
-	private String code;
+    @Id
+    @Column(name = "PARM_TYP_CD")
+    private String code;
 
-	@Column(name="NM")
+    @Column(name = "NM")
     private String name;
 
-	@Column(name="ACTV_IND")
+    @Column(name = "ACTV_IND")
     private boolean active = true;
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -59,6 +60,7 @@ public class ParameterTypeBo extends PersistableBusinessObjectBase implements Pa
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -72,7 +74,7 @@ public class ParameterTypeBo extends PersistableBusinessObjectBase implements Pa
         bo.setCode(im.getCode());
         bo.setName(im.getName());
         bo.setVersionNumber(im.getVersionNumber());
-		bo.setObjectId(im.getObjectId());
+        bo.setObjectId(im.getObjectId());
         return bo;
     }
 

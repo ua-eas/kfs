@@ -36,8 +36,8 @@ public interface AwardAccountService {
     @ResponseWrapper(localName = "getAwardAccountsResponse", targetNamespace = KcConstants.KC_NAMESPACE_URI, className = "kc.GetAwardAccountsResponse")
     public java.util.List<AwardAccountDTO> getAwardAccounts(
         @WebParam(name = "financialAccountNumber", targetNamespace = "")
-        java.lang.String financialAccountNumber,
+            java.lang.String financialAccountNumber,
         @WebParam(name = "chartOfAccounts", targetNamespace = "")
-        java.lang.String chartOfAccounts
+            java.lang.String chartOfAccounts
     );
 }

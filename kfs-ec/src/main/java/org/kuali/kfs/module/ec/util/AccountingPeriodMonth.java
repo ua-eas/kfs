@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ec.util;
 
+import org.kuali.kfs.sys.KFSConstants;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.KFSConstants;
 
 /**
  * To enumerate the accounting periods as months and provides a set of utilities to manage the period code.
@@ -36,6 +36,7 @@ public enum AccountingPeriodMonth {
 
     /**
      * Constructs a AccountingPeriodMonth.java.
+     *
      * @param periodCode a period code
      */
     private AccountingPeriodMonth(String periodCode) {
@@ -61,12 +62,12 @@ public enum AccountingPeriodMonth {
      * find all accounting periods between the given begin period and end period. Here, a period can be represented by the
      * combination of year and period code. The begin perid should be no later than the end period.
      *
-     * @param beginYear the begin year
+     * @param beginYear       the begin year
      * @param beginPeriodCode the begin period code
-     * @param endYear the end year
-     * @param endPeriodCode the end period code
+     * @param endYear         the end year
+     * @param endPeriodCode   the end period code
      * @return all accounting periods between the given begin period and end period. The returning results are stored in a map,
-     *         whose keys is year and whose values are period code set.
+     * whose keys is year and whose values are period code set.
      */
     public static Map<Integer, Set<String>> findAccountingPeriodsBetween(Integer beginYear, String beginPeriodCode, Integer endYear, String endPeriodCode) {
         Map<Integer, Set<String>> accountingPeriods = new HashMap<Integer, Set<String>>();
@@ -83,11 +84,9 @@ public enum AccountingPeriodMonth {
             }
 
             accountingPeriods.put(endYear, buildPeriodCodeSetWithinRange(AccountingPeriodMonth.MONTH1, endPeriod));
-        }
-        else if (difference == 0) {
+        } else if (difference == 0) {
             accountingPeriods.put(beginYear, buildPeriodCodeSetWithinRange(beginPeriod, endPeriod));
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("The begin year " + beginYear + "should be no later than the end year " + endYear);
         }
         return accountingPeriods;
@@ -98,9 +97,9 @@ public enum AccountingPeriodMonth {
      * otherwise, IllegalArgumentException occurs.
      *
      * @param beginPeriod the begin period
-     * @param endPeriod the end period
+     * @param endPeriod   the end period
      * @return the period codes between the begin period and the end period. The returning codes include The codes of begin and end
-     *         periods.
+     * periods.
      */
     public static Set<String> buildPeriodCodeSetWithinRange(AccountingPeriodMonth beginPeriod, AccountingPeriodMonth endPeriod) {
         if (beginPeriod.compareTo(endPeriod) > 0) {

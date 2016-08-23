@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys;
 
+import org.kuali.kfs.sys.fixture.UserNameFixture;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import org.kuali.kfs.sys.fixture.UserNameFixture;
 
 /**
  * Use this annotation to configure the appropriate context for the methods in a test that extends KualiTestBase.
@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
  * @see ShouldCommitTransactions
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface ConfigureContext {
     /**
      * This method returns the UserNameFixture that should be used to create the appropriate UserSession.

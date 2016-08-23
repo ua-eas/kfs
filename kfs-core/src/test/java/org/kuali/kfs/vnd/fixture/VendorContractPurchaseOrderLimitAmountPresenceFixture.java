@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorContractOrganization;
 import org.kuali.kfs.vnd.fixture.VendorTestConstants.ContractPOLimitAmts;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum VendorContractPurchaseOrderLimitAmountPresenceFixture {
 
     NO_EXCLUDES(ContractPOLimitAmts.highLimit, ContractPOLimitAmts.lowLimit, null, null, null, null),
     TWO_N_EXCLUDES_ON_FIRST_TWO_LIMITS(ContractPOLimitAmts.highLimit, ContractPOLimitAmts.lowLimit, false, false, false, false),
     TWO_N_EXCLUDES_ON_FIRST_LIMIT_ON_FIRST(ContractPOLimitAmts.highLimit, null, false, false, null, null),
-    ONE_Y_EXCLUDE_ON_FIRST_NO_LIMIT_ON_FIRST(null, null, true, false, null, null), ;
+    ONE_Y_EXCLUDE_ON_FIRST_NO_LIMIT_ON_FIRST(null, null, true, false, null, null),;
 
     private KualiDecimal limit1;
     private KualiDecimal limit2;

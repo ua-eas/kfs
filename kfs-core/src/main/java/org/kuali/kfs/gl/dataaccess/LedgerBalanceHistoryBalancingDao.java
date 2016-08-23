@@ -21,7 +21,6 @@ package org.kuali.kfs.gl.dataaccess;
 import java.util.List;
 
 
-
 /**
  * The DAO interface that declares methods needed for the balancing process. This is for the GL and Labor BalanceHistory BO.
  */

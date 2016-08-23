@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.util.ObjectModification;
@@ -31,7 +28,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.krad.bo.BusinessObject;
 
-public class ImportRequestDaoOjb extends PlatformAwareDaoBaseOjb  implements ImportRequestDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ImportRequestDaoOjb extends PlatformAwareDaoBaseOjb implements ImportRequestDao {
 
     public void save(BusinessObject businessObject, boolean isUpdate) {
         getPersistenceBroker(true).store(businessObject, isUpdate ? ObjectModification.UPDATE : ObjectModification.INSERT);
@@ -39,7 +39,6 @@ public class ImportRequestDaoOjb extends PlatformAwareDaoBaseOjb  implements Imp
 
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.document.dataaccess.ImportRequestDao#findAllNonErrorCodeRecords()
      */
     public List<BudgetConstructionRequestMove> findAllNonErrorCodeRecords(String principalId) {
@@ -59,7 +58,7 @@ public class ImportRequestDaoOjb extends PlatformAwareDaoBaseOjb  implements Imp
         criteria.addEqualTo(KFSPropertyConstants.ACCOUNT_NUMBER, record.getAccountNumber());
         criteria.addEqualTo(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, record.getSubAccountNumber());
         criteria.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, budgetYear);
-        BudgetConstructionHeader header = (BudgetConstructionHeader)getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(BudgetConstructionHeader.class, criteria));
+        BudgetConstructionHeader header = (BudgetConstructionHeader) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(BudgetConstructionHeader.class, criteria));
 
         return header;
     }

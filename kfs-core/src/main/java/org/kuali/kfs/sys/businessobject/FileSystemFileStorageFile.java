@@ -21,13 +21,11 @@ package org.kuali.kfs.sys.businessobject;
 import org.kuali.kfs.sys.exception.FileStorageException;
 
 import java.io.Closeable;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 
-public class FileSystemFileStorageFile implements FileStorageFile,Closeable,AutoCloseable {
+public class FileSystemFileStorageFile implements FileStorageFile, Closeable, AutoCloseable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FileSystemFileStorageFile.class);
 
     private String filename;
@@ -44,14 +42,14 @@ public class FileSystemFileStorageFile implements FileStorageFile,Closeable,Auto
             outputStream = new FileOutputStream(filename);
             return outputStream;
         } catch (IOException e) {
-            LOG.error("getOutputStream() Unable to get output stream",e);
+            LOG.error("getOutputStream() Unable to get output stream", e);
             throw new FileStorageException("Unable to get output stream: " + e.getMessage());
         }
     }
 
     public void close() {
         LOG.debug("close() started");
-        if ( outputStream != null ) {
+        if (outputStream != null) {
             try {
                 outputStream.close();
             } catch (IOException e) {

@@ -28,6 +28,7 @@ import org.kuali.kfs.sys.document.web.TableJoining;
 public interface AccountingLineViewRenderableElementDefinition {
     /**
      * Returns the TableJoining element that this definition requires to be part of the accounting line view
+     *
      * @return a properly created TableJoining element
      */
     public abstract TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass);

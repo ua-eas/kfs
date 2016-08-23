@@ -19,10 +19,10 @@
 package org.kuali.kfs.module.ar.web.struts;
 
 
+import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
 
 /**
  * Form Class for Generate Dunning Letters Lookup.

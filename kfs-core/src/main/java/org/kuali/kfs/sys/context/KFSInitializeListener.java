@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.Arrays;
+import org.kuali.rice.core.web.listener.KualiInitializeListener;
 
 import javax.servlet.ServletContextEvent;
-
-import org.kuali.rice.core.web.listener.KualiInitializeListener;
+import java.util.Arrays;
 
 public class KFSInitializeListener extends KualiInitializeListener {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KFSInitializeListener.class);
@@ -31,17 +30,17 @@ public class KFSInitializeListener extends KualiInitializeListener {
     public void contextInitialized(ServletContextEvent sce) {
         Log4jConfigurer.configureLogging(true);
 
-        LOG.info( "Updating relational database." );
+        LOG.info("Updating relational database.");
         SpringContext.updateDatabase();
-        LOG.info( "Initializing Web Context" );
-        LOG.info( "Calling KualiInitializeListener.contextInitialized" );
+        LOG.info("Initializing Web Context");
+        LOG.info("Calling KualiInitializeListener.contextInitialized");
         super.contextInitialized(sce);
-        LOG.info( "Completed KualiInitializeListener.contextInitialized" );
+        LOG.info("Completed KualiInitializeListener.contextInitialized");
 
         // the super implementation above will handle the loading of Spring
 
         SpringContext.finishInitializationAfterRiceStartup();
-        LOG.info( "Loaded Spring Context from the following locations: " + Arrays.asList( getContext().getConfigLocations() ) );
+        LOG.info("Loaded Spring Context from the following locations: " + Arrays.asList(getContext().getConfigLocations()));
 
         SpringContext.initMemoryMonitor();
         SpringContext.initMonitoringThread();
@@ -56,7 +55,7 @@ public class KFSInitializeListener extends KualiInitializeListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        LOG.info( "Shutting Down KFS Web Application");
+        LOG.info("Shutting Down KFS Web Application");
         SpringContext.close();
         SpringContext.applicationContext = null;
         super.contextDestroyed(sce);

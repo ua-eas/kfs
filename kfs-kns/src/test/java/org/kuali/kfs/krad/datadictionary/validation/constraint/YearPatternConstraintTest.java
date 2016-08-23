@@ -19,11 +19,6 @@
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
 
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +33,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. empty value check. (failure) {@link #testValueInvalidYearEmpty()}
  * 2. value with valid year. (success) {@link #testValueValidYear()}
  * 3. value with valid year. (success) {@link #testValueValidYear1()}
@@ -47,132 +42,130 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 6. value with invalid year. (failure) {@link #testValueInvalidYear1()}
  * 7. value with invalid year. (failure) {@link #testValueInvalidYear2()}
  * 8. value with invalid year. (failure) {@link #testValueInvalidYear3()}
- *
- *
  */
 public class YearPatternConstraintTest {
 
-	private final String PATTERN_CONSTRAINT = "validationPatternRegex.year";
+    private final String PATTERN_CONSTRAINT = "validationPatternRegex.year";
 
-	private AttributeDefinition yearDefinition;
+    private AttributeDefinition yearDefinition;
 
-	private DictionaryValidationResult dictionaryValidationResult;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private String validYear;
-	private String validYear1;
-	private String validYear2;
-	private String invalidYearEmpty;
-	private String invalidYear;
-	private String invalidYear1;
-	private String invalidYear2;
-	private String invalidYear3;
+    private String validYear;
+    private String validYear1;
+    private String validYear2;
+    private String invalidYearEmpty;
+    private String invalidYear;
+    private String invalidYear1;
+    private String invalidYear2;
+    private String invalidYear3;
 
-	private ConfigurationBasedRegexPatternConstraint yearPatternConstraint;
+    private ConfigurationBasedRegexPatternConstraint yearPatternConstraint;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
+        String regex = ApplicationResources.getProperty(PATTERN_CONSTRAINT);
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		validYear = "1901";
-		validYear1 = "2050";
-		validYear2 = "1837";
-		invalidYearEmpty = "";
-		invalidYear = "00";
-		invalidYear1 = "337";
-		invalidYear2 = "2300";
-		invalidYear3 = "99999";
+        validYear = "1901";
+        validYear1 = "2050";
+        validYear2 = "1837";
+        invalidYearEmpty = "";
+        invalidYear = "00";
+        invalidYear1 = "337";
+        invalidYear2 = "2300";
+        invalidYear3 = "99999";
 
-		yearPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
-		yearPatternConstraint.setValue(regex);
+        yearPatternConstraint = new ConfigurationBasedRegexPatternConstraint();
+        yearPatternConstraint.setValue(regex);
 
-		yearDefinition = new AttributeDefinition();
-		yearDefinition.setName("year");
-		yearDefinition.setValidCharactersConstraint(yearPatternConstraint);
-	}
+        yearDefinition = new AttributeDefinition();
+        yearDefinition.setName("year");
+        yearDefinition.setValidCharactersConstraint(yearPatternConstraint);
+    }
 
-	@Test
-	public void testValueInvalidYearEmpty() {
-		ConstraintValidationResult result = process(invalidYearEmpty, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidYearEmpty() {
+        ConstraintValidationResult result = process(invalidYearEmpty, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.INAPPLICABLE, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidYear() {
-		ConstraintValidationResult result = process(validYear, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidYear() {
+        ConstraintValidationResult result = process(validYear, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidYear1() {
-		ConstraintValidationResult result = process(validYear1, "Myear", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidYear1() {
+        ConstraintValidationResult result = process(validYear1, "Myear", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueValidYear2() {
-		ConstraintValidationResult result = process(validYear2, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueValidYear2() {
+        ConstraintValidationResult result = process(validYear2, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidYear() {
-		ConstraintValidationResult result = process(invalidYear, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidYear() {
+        ConstraintValidationResult result = process(invalidYear, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidYear1() {
-		ConstraintValidationResult result = process(invalidYear1, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidYear1() {
+        ConstraintValidationResult result = process(invalidYear1, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidYear2() {
-		ConstraintValidationResult result = process(invalidYear2, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidYear2() {
+        ConstraintValidationResult result = process(invalidYear2, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	@Test
-	public void testValueInvalidYear3() {
-		ConstraintValidationResult result = process(invalidYear3, "year", yearPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueInvalidYear3() {
+        ConstraintValidationResult result = process(invalidYear3, "year", yearPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new SingleAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", attributeName,  yearDefinition);
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new SingleAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", attributeName, yearDefinition);
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 }

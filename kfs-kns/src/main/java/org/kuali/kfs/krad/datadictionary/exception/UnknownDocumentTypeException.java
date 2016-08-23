@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.datadictionary.exception;
 
 /**
  * This class represents an UnknownDocumentTypeException.
- *
- *
  */
 public class UnknownDocumentTypeException extends RuntimeException {
     private static final long serialVersionUID = -148438432691990699L;

@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.batch.dataaccess.ReconciliationDao;
 import org.kuali.kfs.gl.batch.service.impl.ColumnReconciliation;
@@ -34,6 +30,10 @@ import org.kuali.kfs.sys.Message;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Default implementation of ReconciliationService
@@ -108,11 +108,11 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Performs the reconciliation on origin entries using the data from the {@link ReconciliationBlock} parameter
      *
-     * @param entries origin entries
-     * @param reconBlock reconciliation data
+     * @param entries       origin entries
+     * @param reconBlock    reconciliation data
      * @param errorMessages a non-null list onto which error messages will be appended. This list will be modified by reference.
      * @see org.kuali.kfs.gl.batch.service.ReconciliationService#reconcile(java.util.Iterator,
-     *      org.kuali.kfs.gl.batch.service.impl.ReconciliationBlock, java.util.List)
+     * org.kuali.kfs.gl.batch.service.impl.ReconciliationBlock, java.util.List)
      */
     public void reconcile(Iterator<LaborOriginEntry> entries, ReconciliationBlock reconBlock, List<Message> errorMessages) {
         List<ColumnReconciliation> columns = reconBlock.getColumns();
@@ -155,19 +155,16 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
                             if (fieldValue == null) {
                                 // what to do about nulls?
-                            }
-                            else {
+                            } else {
                                 if (TypeUtils.isIntegralClass(fieldValue.getClass()) || TypeUtils.isDecimalClass(fieldValue.getClass())) {
                                     KualiDecimal castValue;
                                     if (fieldValue instanceof KualiDecimal) {
                                         castValue = (KualiDecimal) fieldValue;
-                                    }
-                                    else {
+                                    } else {
                                         castValue = new KualiDecimal(fieldValue.toString());
                                     }
                                     columnValue = columnValue.add(castValue);
-                                }
-                                else {
+                                } else {
                                     throw new LoadException("The value for " + columns.get(c).getTokenizedFieldNames()[f] + " is not a numeric value.");
                                 }
                             }
@@ -176,8 +173,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
                     }
                     numEntriesSuccessfullyLoaded++;
                 }
-            }
-            catch (LoadException e) {
+            } catch (LoadException e) {
                 loadExceptionEncountered = true;
                 LOG.error("Line " + numEntriesAttemptedToLoad + " parse error: " + e.getMessage(), e);
                 Message newMessage = new Message("Line " + numEntriesAttemptedToLoad + " parse error: " + e.getMessage(), Message.TYPE_FATAL);
@@ -185,8 +181,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
                 numEntriesAttemptedToLoad++;
                 continue;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // entriesFullyIterated will stay false when we break out
 
                 // encountered a potentially serious problem, abort reading of the data
@@ -206,8 +201,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
                 LOG.error("Reconciliation check failed because some origin entry lines could not be parsed.");
                 Message newMessage = new Message("Reconciliation check failed because some origin entry lines could not be parsed.", Message.TYPE_FATAL);
                 errorMessages.add(newMessage);
-            }
-            else {
+            } else {
                 // see if the rowcount matches
                 if (numEntriesSuccessfullyLoaded != reconBlock.getRowCount()) {
                     Message newMessage = generateRowCountMismatchMessage(reconBlock, numEntriesSuccessfullyLoaded);
@@ -231,7 +225,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Generates the error message for the sum of column(s) not matching the reconciliation value
      *
-     * @param column the column reconciliation data (recall that this "column" can be the sum of several columns)
+     * @param column      the column reconciliation data (recall that this "column" can be the sum of several columns)
      * @param actualValue the value of the column(s)
      * @return the message
      */
@@ -254,7 +248,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Generates the error message for the number of entries reconciled being unequal to the expected value
      *
-     * @param block The file reconciliation data
+     * @param block          The file reconciliation data
      * @param actualRowCount the number of rows encountered
      * @return the message
      */
@@ -275,11 +269,11 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Performs basic checking to ensure that values are set up so that reconciliation can proceed
      *
-     * @param columns the columns generated by the {@link org.kuali.kfs.gl.batch.service.ReconciliationParserService}
+     * @param columns            the columns generated by the {@link org.kuali.kfs.gl.batch.service.ReconciliationParserService}
      * @param javaAttributeNames the java attribute names corresponding to each field in columns. (see
-     *        {@link #resolveJavaAttributeNames(List)})
-     * @param columnSums a list of KualiDecimals used to store column sums as reconciliation iterates through the origin entries
-     * @param errorMessages a list to which error messages will be appended.
+     *                           {@link #resolveJavaAttributeNames(List)})
+     * @param columnSums         a list of KualiDecimals used to store column sums as reconciliation iterates through the origin entries
+     * @param errorMessages      a list to which error messages will be appended.
      * @return true if there are no problems, false otherwise
      */
     protected boolean performSanityChecks(List<ColumnReconciliation> columns, List<JavaAttributeAugmentedColumnReconciliation> javaAttributeNames, KualiDecimal[] columnSums, List<Message> errorMessages) {
@@ -324,8 +318,8 @@ public class ReconciliationServiceImpl implements ReconciliationService {
      *
      * @param columns columns parsed by the {@link org.kuali.kfs.gl.batch.service.ReconciliationParserService}
      * @return a list of {@link JavaAttributeAugmentedColumnReconciliation} (see class description) objects. The returned list will
-     *         have the same size as the parameter, and each element in one list corresponds to the element at the same position in
-     *         the other list
+     * have the same size as the parameter, and each element in one list corresponds to the element at the same position in
+     * the other list
      */
     protected List<JavaAttributeAugmentedColumnReconciliation> resolveJavaAttributeNames(List<ColumnReconciliation> columns) {
         List<JavaAttributeAugmentedColumnReconciliation> attributes = new ArrayList<JavaAttributeAugmentedColumnReconciliation>();

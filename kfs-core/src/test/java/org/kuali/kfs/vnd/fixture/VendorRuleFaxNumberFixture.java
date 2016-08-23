@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.fixture.VendorTestConstants.FaxNumbers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum VendorRuleFaxNumberFixture {
 
-    TWO_DEFAULT_FORMATS(FaxNumbers.defaultFormat, FaxNumbers.defaultFormat), TWO_SHORT_FAXES(FaxNumbers.shortFax, FaxNumbers.shortFax), ONE_DEFAULT_ONE_SHORT_FAX(FaxNumbers.defaultFormat, FaxNumbers.shortFax), ;
+    TWO_DEFAULT_FORMATS(FaxNumbers.defaultFormat, FaxNumbers.defaultFormat), TWO_SHORT_FAXES(FaxNumbers.shortFax, FaxNumbers.shortFax), ONE_DEFAULT_ONE_SHORT_FAX(FaxNumbers.defaultFormat, FaxNumbers.shortFax),;
 
     public final String fax1;
     public final String fax2;

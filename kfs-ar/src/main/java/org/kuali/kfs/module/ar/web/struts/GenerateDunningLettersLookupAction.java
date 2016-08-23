@@ -18,21 +18,20 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
-import org.kuali.kfs.kns.web.ui.ResultRow;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Action class for the Generate Dunning Letters Lookup.
@@ -43,7 +42,7 @@ public class GenerateDunningLettersLookupAction extends ContractsGrantsMultipleV
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiMultipleValueLookupAction#search(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -73,6 +72,7 @@ public class GenerateDunningLettersLookupAction extends ContractsGrantsMultipleV
 
     /**
      * Collects ids from the lookup that are selected; checks children rows for DunningLetterDistributionResultRows
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsMultipleValueLookupAction#collectSelectedObjectIds(java.util.List)
      */
     @Override
@@ -86,8 +86,7 @@ public class GenerateDunningLettersLookupAction extends ContractsGrantsMultipleV
                     String objId = subResultRow.getObjectId();
                     selectedObjectIds.put(objId, objId);
                 }
-            }
-            else {
+            } else {
                 String objId = row.getObjectId();
                 selectedObjectIds.put(objId, objId);
             }
@@ -97,6 +96,7 @@ public class GenerateDunningLettersLookupAction extends ContractsGrantsMultipleV
 
     /**
      * Returns "arDunningLetterDistributionSummary.do"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsMultipleValueLookupAction#getActionUrl()
      */
     @Override

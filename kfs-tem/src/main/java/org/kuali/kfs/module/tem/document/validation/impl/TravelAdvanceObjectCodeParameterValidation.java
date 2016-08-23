@@ -19,6 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -27,8 +29,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * This checks, simply, that the object code for accounting lines has been set
@@ -38,13 +38,14 @@ public class TravelAdvanceObjectCodeParameterValidation extends GenericValidatio
 
     /**
      * Determines if the object code for travel advances has been set; if not, relays an error message
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
-        final TravelAuthorizationDocument travelAuthorization = (TravelAuthorizationDocument)event.getDocument();
+        final TravelAuthorizationDocument travelAuthorization = (TravelAuthorizationDocument) event.getDocument();
         if (travelAuthorization.shouldProcessAdvanceForDocument() && StringUtils.isBlank(getParameterService().getParameterValueAsString(TravelAuthorizationDocument.class, TemConstants.TravelAuthorizationParameters.TRAVEL_ADVANCE_OBJECT_CODE, KFSConstants.EMPTY_STRING))) {
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT+"."+TemPropertyConstants.TRAVEL_ADVANCES, TemKeyConstants.ERROR_AUTHORIZATION_ADVANCE_OBJECT_CODE_PARAMETER_NOT_SET);
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT + "." + TemPropertyConstants.TRAVEL_ADVANCES, TemKeyConstants.ERROR_AUTHORIZATION_ADVANCE_OBJECT_CODE_PARAMETER_NOT_SET);
             return false;
         }
         return true;
@@ -59,6 +60,7 @@ public class TravelAdvanceObjectCodeParameterValidation extends GenericValidatio
 
     /**
      * Injects an implementation of the ParameterService
+     *
      * @param parameterService the implementation of ParameterService to inject
      */
     public void setParameterService(ParameterService parameterService) {

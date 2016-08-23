@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.PerDiemExpense;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class TravelAuthTripDetailLodgingValidation extends GenericValidation {
 
@@ -31,7 +31,7 @@ public class TravelAuthTripDetailLodgingValidation extends GenericValidation {
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean rulePassed = true;
-        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument)event.getDocument();
+        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument) event.getDocument();
 
         // check for negative amounts
         for (PerDiemExpense estimate : taDocument.getPerDiemExpenses()) {

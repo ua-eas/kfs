@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class...
@@ -84,7 +84,7 @@ public class SystemInformationServiceImpl implements SystemInformationService {
      * Grabs all of the SystemInformation records associated with the given lockbox id; filters out records associated with the given processing
      * chart and organization code.  We do the filtering in Java so a) we could use BusinessObjectService and b) because filtering the records in Java
      * should be cheaper than doing two counts and subtracting - at least that's what Explain Plan told us.
-     *
+     * <p>
      * In the best of all worlds, this method always returns 0.
      *
      * @see org.kuali.kfs.module.ar.document.service.SystemInformationService#getCountByChartOrgAndLockboxNumber(java.lang.String, java.lang.String, java.lang.String)
@@ -95,7 +95,7 @@ public class SystemInformationServiceImpl implements SystemInformationService {
         fieldValues.put(ArPropertyConstants.SystemInformationFields.LOCKBOX_NUMBER, lockboxNumber);
         final Collection<SystemInformation> sysInfos = getBusinessObjectService().findMatching(SystemInformation.class, fieldValues);
         List<SystemInformation> filteredSysInfos = new ArrayList<SystemInformation>();
-        for (SystemInformation sysInfo: sysInfos) {
+        for (SystemInformation sysInfo : sysInfos) {
             if (!StringUtils.equals(sysInfo.getProcessingChartOfAccountCode(), processingChartCode) && !StringUtils.equals(sysInfo.getProcessingOrganizationCode(), processingOrgCode)) {
                 filteredSysInfos.add(sysInfo);
             }

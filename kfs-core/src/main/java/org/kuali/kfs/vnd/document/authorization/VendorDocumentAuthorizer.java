@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.vnd.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
+
+import java.util.Set;
 
 /**
  * Authorizer class for Vendor maintenance document

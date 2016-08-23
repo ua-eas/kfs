@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.JsonPath;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class DeleteNodeHandler extends AbstractNodeChangeHandler implements DocumentStoreChangeHandler {
 
@@ -39,9 +38,9 @@ public class DeleteNodeHandler extends AbstractNodeChangeHandler implements Docu
     public void makeChange(JsonNode change) {
         LOG.debug("makeChange() started");
 
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-        verifyKeyExistence(change,PATH);
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change, QUERY);
+        verifyKeyExistence(change, PATH);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
         String path = change.get(PATH).asText();

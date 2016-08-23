@@ -18,15 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
@@ -35,9 +32,12 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 @Transactional
 public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb implements AssetDepreciationUtilDao {
@@ -48,13 +48,13 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
         Criteria criteria = new Criteria();
         ReportQueryByCriteria query = QueryFactory.newReportQuery(FinancialSystemDocumentHeader.class, new Criteria());
 
-        query.setAttributes(new String[] { "max(" + KRADPropertyConstants.DOCUMENT_NUMBER + ")" });
+        query.setAttributes(new String[]{"max(" + KRADPropertyConstants.DOCUMENT_NUMBER + ")"});
         Iterator iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         String maxDocumentNumber = "";
         if (iterator.hasNext()) {
             Object[] data = (Object[]) TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);
             if (data[0] != null) {
-                maxDocumentNumber= (String) data[0];
+                maxDocumentNumber = (String) data[0];
             }
         }
         return maxDocumentNumber;
@@ -71,7 +71,7 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     public Collection<AssetPayment> getAssetPayments(List<Asset> assets) {
         List<Long> capitalAssetNumbers = new ArrayList<Long>();
 
-        for(Asset asset : assets) {
+        for (Asset asset : assets) {
             capitalAssetNumbers.add(asset.getCapitalAssetNumber());
         }
 
@@ -86,12 +86,11 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteAssetPayment()
      */
     public void deleteAssetPayment(List<Asset> assets) {
         List<Long> capitalAssetNumbers = new ArrayList<Long>();
-        for(Asset asset : assets) {
+        for (Asset asset : assets) {
             capitalAssetNumbers.add(asset.getCapitalAssetNumber());
         }
 
@@ -101,12 +100,11 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteAssets(java.util.List)
      */
     public void deleteAssets(List<Asset> assets) {
         List<Long> capitalAssetNumbers = new ArrayList<Long>();
-        for(Asset asset : assets) {
+        for (Asset asset : assets) {
             capitalAssetNumbers.add(asset.getCapitalAssetNumber());
         }
         Criteria criteria = new Criteria();
@@ -116,7 +114,6 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteGLPEs()
      */
     public void deleteGLPEs() {

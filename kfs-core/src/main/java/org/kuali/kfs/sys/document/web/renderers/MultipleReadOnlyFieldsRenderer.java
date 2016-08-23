@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-import java.util.List;
+import org.kuali.kfs.kns.web.ui.Field;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.kns.web.ui.Field;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Renders a set of read only fields to a table cell
@@ -36,7 +35,6 @@ public class MultipleReadOnlyFieldsRenderer implements Renderer {
     private ReadOnlyRenderer readOnlyRenderer = new ReadOnlyRenderer();
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -44,7 +42,6 @@ public class MultipleReadOnlyFieldsRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      * KRAD Conversion: Customization of render with fieldsand inquiry urls.
      */
@@ -70,8 +67,7 @@ public class MultipleReadOnlyFieldsRenderer implements Renderer {
             } else {
                 out.write(renderEmptyCell());
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Could not render MultipleReadOnlyFields", ioe);
         }
     }
@@ -116,7 +112,7 @@ public class MultipleReadOnlyFieldsRenderer implements Renderer {
 
     /**
      * @return the current list of fields to render through this render pass
-     *
+     * <p>
      * KRAD Conversion: getting fields
      */
     public List<Field> getFields() {
@@ -125,9 +121,10 @@ public class MultipleReadOnlyFieldsRenderer implements Renderer {
 
     /**
      * Associate fields with this render pass of the renderer
-     * @param fields the fields to render through this render pass
      *
-     * KRAD Conversion: setting fields
+     * @param fields the fields to render through this render pass
+     *               <p>
+     *               KRAD Conversion: setting fields
      */
     public void setFields(List<Field> fields) {
         this.fields = fields;

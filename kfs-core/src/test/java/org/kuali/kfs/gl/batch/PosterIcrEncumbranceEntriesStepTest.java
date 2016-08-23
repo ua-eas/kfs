@@ -18,13 +18,8 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -33,7 +28,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class tests posting of ICR Encumbrance entries to the general ledger table.
@@ -57,7 +57,7 @@ public class PosterIcrEncumbranceEntriesStepTest extends IcrEncumbranceStepTestB
     public void setUp() throws Exception {
         super.setUp();
 
-        batchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        batchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         batchDirectoryHelper.createBatchDirectory();
 
         // Init services
@@ -78,13 +78,13 @@ public class PosterIcrEncumbranceEntriesStepTest extends IcrEncumbranceStepTestB
      * Populate a list of OriginEntryFull objects from the lines
      * contained in a generated feed file.
      */
-    private List<OriginEntryFull> getOriginEntriesFromFile(File feedFile){
+    private List<OriginEntryFull> getOriginEntriesFromFile(File feedFile) {
 
         List<String> lines = getLinesFromFile(feedFile);
 
         List<OriginEntryFull> entryList = new ArrayList<OriginEntryFull>();
         int lineNumber = 1;
-        for(String line : lines){
+        for (String line : lines) {
             OriginEntryFull entry = new OriginEntryFull();
             entry.setFromTextFileForBatch(line, lineNumber);
             entryList.add(entry);
@@ -99,15 +99,15 @@ public class PosterIcrEncumbranceEntriesStepTest extends IcrEncumbranceStepTestB
      * Helper method to pull lines from a file and create one
      * String for each line.
      */
-    private List<String> getLinesFromFile(File feedFile){
+    private List<String> getLinesFromFile(File feedFile) {
         Reader feedReader = null;
         List<String> lines = null;
         try {
             feedReader = new FileReader(feedFile);
             lines = IOUtils.readLines(feedReader);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally{
+        } finally {
             IOUtils.closeQuietly(feedReader);
         }
 
@@ -116,7 +116,7 @@ public class PosterIcrEncumbranceEntriesStepTest extends IcrEncumbranceStepTestB
 
     /**
      * This method tests the execute() mehthod of the PosterIcrEncumbranceEntriesStep.
-     *
+     * <p>
      * The sequence of steps for the ICR Encumbrance posting job is:
      * 1.) icrEncumbranceFeedStep
      * 2.) icrEncumbranceSortStep

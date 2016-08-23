@@ -28,8 +28,6 @@ import java.lang.reflect.Method;
 /**
  * Extends <code>MethodInvoker</code> to add properties for specifying
  * a method for invocation within the UIF
- *
- *
  */
 public class MethodInvokerConfig extends MethodInvoker implements Serializable {
 
@@ -81,7 +79,7 @@ public class MethodInvokerConfig extends MethodInvoker implements Serializable {
             int lastDotIndex = this.staticMethod.lastIndexOf('.');
             if (lastDotIndex == -1 || lastDotIndex == this.staticMethod.length()) {
                 throw new IllegalArgumentException("staticMethod must be a fully qualified class plus method name: " +
-                        "e.g. 'example.MyExampleClass.myExampleMethod'");
+                    "e.g. 'example.MyExampleClass.myExampleMethod'");
             }
             String className = this.staticMethod.substring(0, lastDotIndex);
             String methodName = this.staticMethod.substring(lastDotIndex + 1);

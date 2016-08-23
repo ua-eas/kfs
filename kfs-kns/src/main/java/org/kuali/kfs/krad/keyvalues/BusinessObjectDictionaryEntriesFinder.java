@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.krad.keyvalues;
 
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +34,9 @@ public class BusinessObjectDictionaryEntriesFinder extends KeyValuesBase {
      * @see org.kuali.kfs.krad.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
+    public List<KeyValue> getKeyValues() {
         List<String> businessObjects =
-                KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectClassNames();
+            KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectClassNames();
         List<KeyValue> boKeyLabels = new ArrayList<KeyValue>();
 
         for (String string : businessObjects) {

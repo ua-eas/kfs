@@ -222,7 +222,7 @@ public class OrganizationBCDocumentSearchDaoJdbc extends BudgetConstructionDaoJd
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.OrganizationBCDocumentSearchDao#buildAccountSelectPullList(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public int buildAccountSelectPullList(String principalName, Integer universityFiscalYear) {
         LOG.debug("buildAccountSelectPullList() started");
@@ -233,7 +233,7 @@ public class OrganizationBCDocumentSearchDaoJdbc extends BudgetConstructionDaoJd
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.OrganizationBCDocumentSearchDao#buildBudgetedAccountsAbovePointsOfView(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String)
      */
     public int buildBudgetedAccountsAbovePointsOfView(String principalName, Integer universityFiscalYear, String chartOfAccountsCode, String organizationCode) {
         LOG.debug("buildBudgetedAccountsAbovePointsOfView() started");
@@ -244,7 +244,7 @@ public class OrganizationBCDocumentSearchDaoJdbc extends BudgetConstructionDaoJd
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.OrganizationBCDocumentSearchDao#buildAccountManagerDelegateList(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public int buildAccountManagerDelegateList(String principalName, Integer universityFiscalYear) {
         int rowsAffected = getSimpleJdbcTemplate().update(buildAccountManagerDelegateListTemplates[0], principalName, universityFiscalYear, principalName, KFSConstants.FinancialDocumentTypeCodes.BUDGET_CONSTRUCTION, BCConstants.DOCUMENT_TYPE_CODE_ALL, principalName, universityFiscalYear, principalName);

@@ -19,9 +19,7 @@
 package org.kuali.kfs.fp.batch.service;
 
 /**
- *
  * Service interface for implementing methods to create procurement card documents.
- *
  */
 public interface ProcurementCardCreateDocumentService {
 

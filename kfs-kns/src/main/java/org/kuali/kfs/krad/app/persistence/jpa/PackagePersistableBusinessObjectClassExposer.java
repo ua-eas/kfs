@@ -26,25 +26,22 @@ import java.util.Set;
 
 /**
  * Abstract class which exposes as JPA managed classes all of the business objects in a given package
- *
- *
- *
  */
 public abstract class PackagePersistableBusinessObjectClassExposer implements
-		PersistableBusinessObjectClassExposer {
+    PersistableBusinessObjectClassExposer {
 
-	/**
-	 * Exposes all of the JPA annotated entities in the package given by the getPackageNameToExpose method
-	 * to be managed by the PersistenceUnit calling this
-	 *
-	 * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
-	 */
-	@Override
-	public Set<String> exposePersistableBusinessObjectClassNames() {
-		Set<String> exposedClassNames = new HashSet<String>();
+    /**
+     * Exposes all of the JPA annotated entities in the package given by the getPackageNameToExpose method
+     * to be managed by the PersistenceUnit calling this
+     *
+     * @see PersistableBusinessObjectClassExposer#exposePersistableBusinessObjectClassNames()
+     */
+    @Override
+    public Set<String> exposePersistableBusinessObjectClassNames() {
+        Set<String> exposedClassNames = new HashSet<String>();
 
-		for (String packageNameToExpose: getPackageNamesToExpose()) {
-			/*Reflections reflections = new Reflections(packageNameToExpose);
+        for (String packageNameToExpose : getPackageNamesToExpose()) {
+            /*Reflections reflections = new Reflections(packageNameToExpose);
 			final Set<Class<?>> entities = reflections.getTypesAnnotatedWith(Entity.class);
 			for (Class<?> entityClass : entities) {
 				exposedClassNames.add(entityClass.getName());
@@ -60,13 +57,13 @@ public abstract class PackagePersistableBusinessObjectClassExposer implements
 				// may this loop never be entered
 				exposedClassNames.add(embeddableClass.getName());
 			}*/
-		}
-		return exposedClassNames;
-	}
+        }
+        return exposedClassNames;
+    }
 
-	/**
-	 * @return the name of the package to expose all JPA annotated entities in
-	 */
-	public abstract List<String> getPackageNamesToExpose();
+    /**
+     * @return the name of the package to expose all JPA annotated entities in
+     */
+    public abstract List<String> getPackageNamesToExpose();
 
 }

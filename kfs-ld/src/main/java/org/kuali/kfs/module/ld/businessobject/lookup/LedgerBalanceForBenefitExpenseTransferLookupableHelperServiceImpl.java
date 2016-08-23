@@ -18,15 +18,11 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants.BenefitExpenseTransfer;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.util.ConsolidationUtil;
@@ -36,8 +32,11 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The class is the front-end for the balance inquiry of Ledger Balance For Benefit Expense Transfer processing.
@@ -118,8 +117,7 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
         SystemOptions options;
         if (fiscalYearString == null) {
             options = optionsService.getCurrentYearOptions();
-        }
-        else {
+        } else {
             Integer fiscalYear = Integer.valueOf(fiscalYearString.trim());
             options = optionsService.getOptions(fiscalYear);
         }
@@ -159,7 +157,6 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
         if (!accountService.accountsCanCrossCharts()) fieldValues.remove(CHART_OF_ACCOUNTS_CODE);
         super.validateSearchParameters(fieldValues);
     }
-
 
 
 }

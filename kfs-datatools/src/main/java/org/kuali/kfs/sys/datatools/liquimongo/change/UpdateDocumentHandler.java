@@ -21,7 +21,6 @@ package org.kuali.kfs.sys.datatools.liquimongo.change;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
 import org.springframework.data.mongodb.core.query.Query;
 
 /**

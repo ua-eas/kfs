@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
 
+import org.kuali.kfs.module.purap.dataaccess.B2BDao;
+import org.kuali.kfs.module.purap.exception.B2BConnectionException;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,11 +32,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import org.kuali.kfs.module.purap.dataaccess.B2BDao;
-import org.kuali.kfs.module.purap.exception.B2BConnectionException;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-
-public class B2BDaoImpl  extends PlatformAwareDaoBaseOjb  implements B2BDao {
+public class B2BDaoImpl extends PlatformAwareDaoBaseOjb implements B2BDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(B2BDaoImpl.class);
 
     /**
@@ -69,20 +69,16 @@ public class B2BDaoImpl  extends PlatformAwareDaoBaseOjb  implements B2BDao {
                 i = inp.read();
             }
             return response.toString();
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             LOG.error("postPunchOutSetupRequestMessage() Error posting setup", e);
             throw new B2BConnectionException("Unable to connect to remote site for punchout.", e);
-        }
-        catch (ProtocolException e) {
+        } catch (ProtocolException e) {
             LOG.error("postPunchOutSetupRequestMessage() Error posting setup", e);
             throw new B2BConnectionException("Unable to connect to remote site for punchout.", e);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             LOG.error("postPunchOutSetupRequestMessage() Error posting setup", e);
             throw new B2BConnectionException("Unable to connect to remote site for punchout.", e);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("postPunchOutSetupRequestMessage() Error posting setup", e);
             throw new B2BConnectionException("Unable to connect to remote site for punchout.", e);
         }

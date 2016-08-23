@@ -20,6 +20,8 @@ package org.kuali.kfs.module.ld.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ErrorCertification;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
@@ -35,8 +37,6 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.service.impl.UniversityDateServiceImpl;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * The unit tests for methods in SalaryExpenseTransferErrorCertificationValidation. Note that this validation also depends on
@@ -68,7 +68,9 @@ public class SalaryExpenseTransferErrorCertificationValidationTest extends Kuali
 
     private enum TabState {
         FULL, PARTIAL, EMPTY
-    };
+    }
+
+    ;
 
     private enum CrossFY {
         YES, NO

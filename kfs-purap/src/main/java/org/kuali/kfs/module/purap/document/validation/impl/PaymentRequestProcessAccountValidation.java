@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PaymentRequestProcessAccountValidation extends GenericValidation {
 
@@ -45,14 +45,14 @@ public class PaymentRequestProcessAccountValidation extends GenericValidation {
         hasAccountsValidation.setItemForValidation(itemForValidation);
         valid &= hasAccountsValidation.validate(event);
 
-        if(valid){
+        if (valid) {
             accountPercentValidation.setItemForValidation(itemForValidation);
             valid &= accountPercentValidation.validate(event);
         }
 
-        if(valid){
-                accountTotalValidation.setItemForValidation(itemForValidation);
-                valid &= accountTotalValidation.validate(event);
+        if (valid) {
+            accountTotalValidation.setItemForValidation(itemForValidation);
+            valid &= accountTotalValidation.validate(event);
         }
 
         accountingStringsValidation.setItemForValidation(itemForValidation);
@@ -63,7 +63,7 @@ public class PaymentRequestProcessAccountValidation extends GenericValidation {
             valid &= getAccountHasAtlestOnePercentValidation().validate(event);
         }
 
-        if(valid){
+        if (valid) {
             for (PurApAccountingLine account : itemForValidation.getSourceAccountingLines()) {
                 getAccountLineAmountValidation().setUpdatedAccountingLine(account);
                 valid &= getAccountLineAmountValidation().validate(event);

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionDetail;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.List;
 
 /**
  * PreRules checks for the {@link OrganizationReversion} that needs to occur while still in the Struts processing. This includes defaults
@@ -34,12 +34,14 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
 
     private transient OrganizationReversionService organizationReversionService;
+
     public OrganizationReversionPreRules() {
 
     }
 
     /**
      * This calls the {@link OrganizationReversionPreRules#copyKeyAttributesToDetail(OrganizationReversion)}
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -53,10 +55,10 @@ public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     *
      * This copies the chart of accounts, and the fiscal year from the parent {@link OrganizationReversion} to the
      * {@link OrganizationReversionDetail} objects and refreshes the reference object on them if the values have
      * been filled out
+     *
      * @param orgRev
      */
     protected void copyKeyAttributesToDetail(OrganizationReversion orgRev) {
@@ -75,9 +77,9 @@ public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     *
      * This copies the object code from system parameter to the Organization Reversion object code field if the
      * "Carry Forward by Object Code" indicator is set to true
+     *
      * @param orgRev
      */
     protected void copyDefaultObjectcodeIfNoCarryForwardByObjectCode(OrganizationReversion orgRev) {
@@ -90,7 +92,7 @@ public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
 
         List<OrganizationReversionDetail> details = orgRev.getOrganizationReversionDetail();
         for (OrganizationReversionDetail dtl : details) {
-            if (ObjectUtils.isNull(dtl.getOrganizationReversionObjectCode()))  {
+            if (ObjectUtils.isNull(dtl.getOrganizationReversionObjectCode())) {
                 dtl.setOrganizationReversionObjectCode(objectCode);
             }
         }

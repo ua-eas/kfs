@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.web.AccountingLineViewMultipleReadOnlyFields;
-import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.kfs.kns.util.FieldUtils;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.web.AccountingLineViewMultipleReadOnlyFields;
+import org.kuali.kfs.sys.document.web.TableJoining;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The definition for an accounting line component which displays multiple fields from the command line, but
@@ -38,21 +38,23 @@ public class AccountingLineViewMultipleReadOnlyFieldsDefinition extends DataDict
 
     /**
      * Makes sure that the number of fields set is greater than 0
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
         if (fieldNames.isEmpty()) {
-            throw new AttributeValidationException("Please specify one or more field names when defining AccountingLineViewMultipleReadOnlyFields "+getId());
+            throw new AttributeValidationException("Please specify one or more field names when defining AccountingLineViewMultipleReadOnlyFields " + getId());
         }
     }
 
     /**
      * Creates a new AccountingLineViewMultipleReadOnlyField
+     *
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewRenderableElementDefinition#createLayoutElement(java.lang.Class)
      */
     public TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
         List<Field> fields = new ArrayList<Field>();
-        for (String fieldName: fieldNames) {
+        for (String fieldName : fieldNames) {
             fields.add(getKNSFieldForDefinition(accountingLineClass, fieldName));
         }
         return new AccountingLineViewMultipleReadOnlyFields(this, fields);
@@ -60,8 +62,9 @@ public class AccountingLineViewMultipleReadOnlyFieldsDefinition extends DataDict
 
     /**
      * Creates a KNS Field for an AccountingLineViewField definition
+     *
      * @param accountingLineClass the class of the accounting line used by this definition
-     * @param fieldName the name of the field to initialize
+     * @param fieldName           the name of the field to initialize
      * @return a properly initialized KNS field
      */
     public Field getKNSFieldForDefinition(Class<? extends AccountingLine> accountingLineClass, String fieldName) {
@@ -78,6 +81,7 @@ public class AccountingLineViewMultipleReadOnlyFieldsDefinition extends DataDict
 
     /**
      * Sets the field names to display in the field, in top-down order
+     *
      * @param fieldNames the field names to display
      */
     public void setFieldNames(List<String> fieldNames) {

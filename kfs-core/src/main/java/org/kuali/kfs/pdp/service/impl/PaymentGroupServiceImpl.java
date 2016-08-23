@@ -18,16 +18,11 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
@@ -39,11 +34,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Transactional
 public class PaymentGroupServiceImpl implements PaymentGroupService {
@@ -52,7 +52,7 @@ public class PaymentGroupServiceImpl implements PaymentGroupService {
     private PaymentGroupDao paymentGroupDao;
     private ParameterService parameterService;
     private DataDictionaryService dataDictionaryService;
-    private Map<Integer,ParameterEvaluator> sortGroupSelectionParameters;
+    private Map<Integer, ParameterEvaluator> sortGroupSelectionParameters;
     private BusinessObjectService businessObjectService;
 
     public void setPaymentGroupDao(PaymentGroupDao c) {
@@ -62,7 +62,7 @@ public class PaymentGroupServiceImpl implements PaymentGroupService {
     /**
      * @see org.kuali.kfs.pdp.service.PaymentGroupService#getDisbursementNumbersByDisbursementType(java.lang.Integer, java.lang.String)
      */
-    public List<Integer> getDisbursementNumbersByDisbursementType(Integer pid,String disbursementType) {
+    public List<Integer> getDisbursementNumbersByDisbursementType(Integer pid, String disbursementType) {
         LOG.debug("getDisbursementNumbersByDisbursementType() started");
 
         return paymentGroupDao.getDisbursementNumbersByDisbursementType(pid, disbursementType);
@@ -160,7 +160,7 @@ public class PaymentGroupServiceImpl implements PaymentGroupService {
 
     /**
      * @see org.kuali.kfs.pdp.service.PaymentGroupService#processCancelledGroup(org.kuali.kfs.pdp.businessobject.PaymentGroup,
-     *      java.sql.Date)
+     * java.sql.Date)
      */
     public void processCancelledGroup(PaymentGroup group, Date processDate) {
         LOG.debug("processCancelledGroup() started");
@@ -189,7 +189,7 @@ public class PaymentGroupServiceImpl implements PaymentGroupService {
             String constrainedValue = String.valueOf(ObjectUtils.getPropertyValue(paymentGroup, StringUtils.substringBefore(getSortGroupSelectionParameters().get(sortGroupId).getValue(), "=")));
             if ((getSortGroupSelectionParameters().get(sortGroupId).constraintIsAllow() && parameterValues.contains(constrainedValue))
                 || (!getSortGroupSelectionParameters().get(sortGroupId).constraintIsAllow() && !parameterValues.contains(constrainedValue))) {
-                    return sortGroupId;
+                return sortGroupId;
             }
         }
 
@@ -221,19 +221,18 @@ public class PaymentGroupServiceImpl implements PaymentGroupService {
      *
      * @return
      */
-    protected Map<Integer,ParameterEvaluator> getSortGroupSelectionParameters() {
+    protected Map<Integer, ParameterEvaluator> getSortGroupSelectionParameters() {
         String SORT_GROUP_SELECTION_PARAMETER_PREFIX = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PdpKeyConstants.SORT_GROUP_SELECTION_PARAMETER_PREFIX);
 
         if (sortGroupSelectionParameters == null) {
-            sortGroupSelectionParameters = new TreeMap<Integer,ParameterEvaluator>();
+            sortGroupSelectionParameters = new TreeMap<Integer, ParameterEvaluator>();
             boolean moreParameters = true;
             int i = 1;
             while (moreParameters) {
                 if (parameterService.parameterExists(PaymentGroup.class, SORT_GROUP_SELECTION_PARAMETER_PREFIX + i)) {
                     sortGroupSelectionParameters.put(i, /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(PaymentGroup.class, SORT_GROUP_SELECTION_PARAMETER_PREFIX + i, null));
                     i++;
-                }
-                else {
+                } else {
                     moreParameters = false;
                 }
             }

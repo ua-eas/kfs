@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.businessobject.defaultvalue;
 
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Gets the current date from the DateTimeService.

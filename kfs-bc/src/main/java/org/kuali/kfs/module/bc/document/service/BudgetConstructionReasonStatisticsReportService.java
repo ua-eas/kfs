@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgReasonStatisticsReport;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings;
+
+import java.util.Collection;
 
 /**
  * defines the methods for BudgetConstructionAccountFundingDetailReports
@@ -37,7 +37,6 @@ public interface BudgetConstructionReasonStatisticsReportService {
 
 
     /**
-     *
      * builds BudgetConstructionAccountFundingDetailReports
      *
      * @param universityFiscalYear

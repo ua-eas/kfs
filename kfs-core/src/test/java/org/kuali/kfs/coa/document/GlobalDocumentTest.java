@@ -18,28 +18,28 @@
  */
 package org.kuali.kfs.coa.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobalDetail;
 import org.kuali.kfs.coa.businessobject.AccountGlobal;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @SuppressWarnings("deprecation")
 @ConfigureContext(session = khuntley)
@@ -149,7 +149,7 @@ public class GlobalDocumentTest extends KualiTestBase {
         bo.addAccount(account);
         SpringContext.getBean(DocumentService.class).saveDocument(document);
 
-        document = (MaintenanceDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(document.getDocumentNumber());
+        document = (MaintenanceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(document.getDocumentNumber());
 
         // now that it worked, lets cancel the doc so it doesnt lock for others
         SpringContext.getBean(DocumentService.class).cancelDocument(document, "cancelling test document");
@@ -229,7 +229,7 @@ public class GlobalDocumentTest extends KualiTestBase {
         assertEquals("AccountDetail list should contain 3 elements.", 3, accounts.size());
 
         // make sure all the accounts are non-null and at least have the Chart populated
-        for (Iterator iter = accounts.iterator(); iter.hasNext();) {
+        for (Iterator iter = accounts.iterator(); iter.hasNext(); ) {
             AccountGlobalDetail accountDetail = (AccountGlobalDetail) iter.next();
 
             assertNotNull("AccountDetailChange should not be null.", accountDetail);

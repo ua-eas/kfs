@@ -33,8 +33,6 @@ import java.util.List;
 
 /**
  * This class compares the two beans using multiple property names.
- *
- *
  */
 public class BeanPropertyComparator implements Comparator, Serializable {
     private static final long serialVersionUID = -2675700473766186018L;
@@ -60,7 +58,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
      * in the order in which they are listed. Case will be ignored if ignoreCase is true.
      *
      * @param propertyNames List of property names (as Strings) used to compare beans
-     * @param ignoreCase if true, case will be ignored during String comparisons
+     * @param ignoreCase    if true, case will be ignored during String comparisons
      */
     public BeanPropertyComparator(List propertyNames, boolean ignoreCase) {
         if (propertyNames == null) {
@@ -74,8 +72,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
 
         if (ignoreCase) {
             this.stringComparator = String.CASE_INSENSITIVE_ORDER;
-        }
-        else {
+        } else {
             this.stringComparator = ComparableComparator.getInstance();
         }
         this.booleanComparator = new Comparator() {
@@ -88,8 +85,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
                 if (!b1.equals(b2)) {
                     if (b1.equals(Boolean.FALSE)) {
                         compared = -1;
-                    }
-                    else {
+                    } else {
                         compared = 1;
                     }
                 }
@@ -113,7 +109,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
         int compared = 0;
 
         try {
-            for (Iterator i = propertyNames.iterator(); (compared == 0) && i.hasNext();) {
+            for (Iterator i = propertyNames.iterator(); (compared == 0) && i.hasNext(); ) {
                 String currentProperty = i.next().toString();
 
                 // choose appropriate comparator
@@ -123,15 +119,12 @@ public class BeanPropertyComparator implements Comparator, Serializable {
                     Class propertyClass = propertyDescriptor.getPropertyType();
                     if (propertyClass.equals(String.class)) {
                         currentComparator = this.stringComparator;
-                    }
-                    else if (TypeUtils.isBooleanClass(propertyClass)) {
+                    } else if (TypeUtils.isBooleanClass(propertyClass)) {
                         currentComparator = this.booleanComparator;
-                    }
-                    else {
+                    } else {
                         currentComparator = this.genericComparator;
                     }
-                }
-                catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     throw new BeanComparisonException("unable to find property '" + o1.getClass().getName() + "." + currentProperty + "'", e);
                 }
 
@@ -139,23 +132,20 @@ public class BeanPropertyComparator implements Comparator, Serializable {
                 Object value1 = PropertyUtils.getProperty(o1, currentProperty);
                 Object value2 = PropertyUtils.getProperty(o2, currentProperty);
                 /* Fix for KULRICE-5170 : BeanPropertyComparator throws exception when a null value is found in sortable non-string data type column */
-                if ( value1 == null && value2 == null)
+                if (value1 == null && value2 == null)
                     return 0;
-                else if ( value1 == null)
+                else if (value1 == null)
                     return -1;
-                else if ( value2 == null )
+                else if (value2 == null)
                     return 1;
                 /* End KULRICE-5170 Fix*/
                 compared = currentComparator.compare(value1, value2);
             }
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new BeanComparisonException("unable to compare property values", e);
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new BeanComparisonException("unable to compare property values", e);
-        }
-        catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             throw new BeanComparisonException("unable to compare property values", e);
         }
 

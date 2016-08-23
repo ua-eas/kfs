@@ -39,8 +39,7 @@ public class DescendOrganizationAccessPermissionEvaluatorImpl extends AccessPerm
 
         if (StringUtils.equalsIgnoreCase(value, matchValue)) {
             match = true;
-        }
-        else {
+        } else {
             String chartCode = (String) otherKeyFieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
             match = SpringContext.getBean(OrganizationService.class).isParentOrganization(chartCode, value, chartCode, matchValue);
         }

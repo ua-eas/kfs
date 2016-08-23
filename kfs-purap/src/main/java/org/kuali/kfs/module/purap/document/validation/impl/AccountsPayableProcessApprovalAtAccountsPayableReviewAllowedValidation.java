@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.AccountsPayableStatuses;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -27,7 +28,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class AccountsPayableProcessApprovalAtAccountsPayableReviewAllowedValidation extends GenericValidation {
 
@@ -44,15 +44,14 @@ public class AccountsPayableProcessApprovalAtAccountsPayableReviewAllowedValidat
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
-        if (((AccountsPayableDocument)event.getDocument()).isDocumentStoppedInRouteNode(AccountsPayableStatuses.NODE_ACCOUNT_PAYABLE_REVIEW)) {
-            if (!((AccountsPayableDocument)event.getDocument()).approvalAtAccountsPayableReviewAllowed()) {
+        if (((AccountsPayableDocument) event.getDocument()).isDocumentStoppedInRouteNode(AccountsPayableStatuses.NODE_ACCOUNT_PAYABLE_REVIEW)) {
+            if (!((AccountsPayableDocument) event.getDocument()).approvalAtAccountsPayableReviewAllowed()) {
                 valid &= false;
                 WorkflowDocument workflowDoc = event.getDocument().getDocumentHeader().getWorkflowDocument();
-                if(PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(workflowDoc.getDocumentTypeName())) {
+                if (PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(workflowDoc.getDocumentTypeName())) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, PurapKeyConstants.ERROR_CREDIT_MEMO_REQUIRES_ATTACHMENT);
-                }
-                else {
-                        GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, PurapKeyConstants.ERROR_AP_REQUIRES_ATTACHMENT);
+                } else {
+                    GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, PurapKeyConstants.ERROR_AP_REQUIRES_ATTACHMENT);
                 }
 
 

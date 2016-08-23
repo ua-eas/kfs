@@ -18,29 +18,29 @@
  */
 package org.kuali.kfs.module.cam.util.distribution;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentAssetDetail;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentDetail;
 import org.kuali.kfs.module.cam.document.AssetPaymentDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class is a calculator which will distribute the payment amounts by ratio. Inputs received are
  * <li>Asset Payment Details</li>
  * <li>Asset Details</li>
  * <li>total historical cost for asset</li>
- *
+ * <p>
  * It provides a table mapping of asset payment distributions key off of AssetPaymentDetail and
  * AssetPaymentAssetDetail
- *
+ * <p>
  * Logic is best explained as below
  * <li>Compute the asset ratio of amount to be distributed per asset</li>
  * <li>For each Asset Payment Details, create proportional asset payments base on the asset ratio</li>
- *      <li>* Keep track of unallocated amount within each asset payment loop* <li>
- *      <li>* For the last asset in each payment detail iteration, use the rest of unallocated amount</li>
+ * <li>* Keep track of unallocated amount within each asset payment loop* <li>
+ * <li>* For the last asset in each payment detail iteration, use the rest of unallocated amount</li>
  */
 public class AssetPaymentDistributionByTotalCost extends AssetDistribution {
 
@@ -53,7 +53,7 @@ public class AssetPaymentDistributionByTotalCost extends AssetDistribution {
      * Constructor and instantiate the detai lists as empty
      */
     public AssetPaymentDistributionByTotalCost(AssetPaymentDocument doc) {
-    	super(doc);
+        super(doc);
         this.totalHistoricalCost = doc.getAssetsTotalHistoricalCost();
 
         //init method
@@ -62,17 +62,17 @@ public class AssetPaymentDistributionByTotalCost extends AssetDistribution {
 
     /**
      * Pre-calculate the asset payments base on AssetPaymentDetail(AccountSouceLines) and AssetPaymentAssetDetails
-     *
+     * <p>
      * This will iterate by the AssetPaymentDetail as the outer iterator such that payment totals will match up by the AccountingSouceLines
      * in (GL).  The unallocated payment amount will be depleted per each AssetPaymentDetails
-     *
-     *  NOTE: reversing the iteration sequence will cause a discrepancy in the AssetPaymentDetail totals
+     * <p>
+     * NOTE: reversing the iteration sequence will cause a discrepancy in the AssetPaymentDetail totals
      *
      * @param document
      * @param assetPaymentDetailLines
      * @param assetPaymentAssetDetails
      */
-    private void calculateAssetPaymentDistributions(){
+    private void calculateAssetPaymentDistributions() {
 
         Map<String, Map<AssetPaymentAssetDetail, KualiDecimal>> assetPaymentAssetDetailMap = new HashMap<String, Map<AssetPaymentAssetDetail, KualiDecimal>>();
 
@@ -103,8 +103,7 @@ public class AssetPaymentDistributionByTotalCost extends AssetDistribution {
                 if (paymentCount-- == 1) {
                     // Deplete the rest of the payment for last payment
                     amount = unallocatedAmount;
-                }
-                else {
+                } else {
                     // Normal payment will be calculated by asset percentage
                     Double paymentAmount = new Double(assetPaymentDetail.getAmount().toString());
                     amount = new KualiDecimal(paymentAmount.doubleValue() * percentage.doubleValue());
@@ -137,13 +136,13 @@ public class AssetPaymentDistributionByTotalCost extends AssetDistribution {
         KualiDecimal allocation, total;
 
         //iterate all the distributions
-        for (Map<AssetPaymentAssetDetail, KualiDecimal> assetDistrbution : getAssetPaymentDistributions().values()){
+        for (Map<AssetPaymentAssetDetail, KualiDecimal> assetDistrbution : getAssetPaymentDistributions().values()) {
 
-            for (AssetPaymentAssetDetail assetDetail : assetDistrbution.keySet()){
+            for (AssetPaymentAssetDetail assetDetail : assetDistrbution.keySet()) {
                 allocation = assetDistrbution.get(assetDetail);
                 total = assetTotalAllocationMap.get(assetDetail);
 
-                assetTotalAllocationMap.put(assetDetail, total == null? allocation : total.add(allocation));
+                assetTotalAllocationMap.put(assetDetail, total == null ? allocation : total.add(allocation));
             }
         }
         return assetTotalAllocationMap;

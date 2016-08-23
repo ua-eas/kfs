@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.fp.document.CashManagementDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.KimConstants;
+
+import java.util.Map;
 
 /**
  * DocumentAuthorizer containing authorization code for CashManagement documents
@@ -34,7 +34,7 @@ public class CashManagementDocumentAuthorizer extends FinancialSystemTransaction
 
     /**
      * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizerBase#addRoleQualification(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> attributes) {

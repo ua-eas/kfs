@@ -18,14 +18,6 @@
  */
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
@@ -38,6 +30,14 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Iterator;
 
 @Transactional
 public class ExtractTransactionsServiceImpl implements ExtractTransactionsService {
@@ -69,8 +69,7 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
 
         try {
             extractTGlTransactionPS = new PrintStream(extractTGlTransactionFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("extract transaction file doesn't exist " + extractTGlTransactionFileName);
         }
 
@@ -97,17 +96,16 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
             if (!extractTGlTransactionDoneFile.exists()) {
                 try {
                     extractTGlTransactionDoneFile.createNewFile();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     throw new RuntimeException();
                 }
             }
 
             String reportTitle = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.EXTRACT_TRANSACTION_SERVICE_REPORT_TITLE);
-            reportTitle = MessageFormat.format(reportTitle, new Object[] { null });
+            reportTitle = MessageFormat.format(reportTitle, new Object[]{null});
 
             String reportFilename = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.EXTRACT_TRANSACTION_SERVICE_REPORT_FILENAME);
-            reportFilename = MessageFormat.format(reportFilename, new Object[] { null });
+            reportFilename = MessageFormat.format(reportFilename, new Object[]{null});
 
             // Run a report
             extractGlSummaryReport.writeReport(reportWriterService);

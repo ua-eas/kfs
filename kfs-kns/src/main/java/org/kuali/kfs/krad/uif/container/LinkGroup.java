@@ -21,14 +21,12 @@ package org.kuali.kfs.krad.uif.container;
 /**
  * Special <code>Group</code> that presents a grouping on links, which can
  * also include nested groupings of links
- *
+ * <p>
  * <p>
  * Generally this group outputs a list of <code>LinkField</code> instances, however
  * it can be configured to place separates between the fields and also delimiters
  * for the grouping
  * </p>
- *
- *
  */
 public class LinkGroup extends Group {
     private static final long serialVersionUID = -4173031543626881250L;
@@ -44,12 +42,12 @@ public class LinkGroup extends Group {
 
     /**
      * String that will be rendered before the group of links are rendered
-     *
+     * <p>
      * <p>
      * If the list of links is empty, the start delimiter will not be
      * rendered but instead the #emptyLinkGroupString will be outputted
      * </p>
-     *
+     * <p>
      * e.g. '['
      *
      * @return String group begin delimiter
@@ -69,12 +67,12 @@ public class LinkGroup extends Group {
 
     /**
      * String that will be rendered after the group of links are rendered
-     *
+     * <p>
      * <p>
      * If the list of links is empty, the end delimiter will not be
      * rendered but instead the #emptyLinkGroupString will be outputted
      * </p>
-     *
+     * <p>
      * e.g. ']'
      *
      * @return String group end delimiter
@@ -94,7 +92,7 @@ public class LinkGroup extends Group {
 
     /**
      * String that will be rendered between each rendered link
-     *
+     * <p>
      * e.g. '|'
      *
      * @return String link separator

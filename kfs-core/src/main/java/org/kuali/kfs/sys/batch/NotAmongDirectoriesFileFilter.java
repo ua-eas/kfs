@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.io.filefilter.IOFileFilter;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.filefilter.IOFileFilter;
 
 /**
  * A file filter which does not allow any files through which belong to one of the directories by the CustomAgeFileFilter
@@ -33,6 +33,7 @@ public class NotAmongDirectoriesFileFilter implements IOFileFilter {
 
     /**
      * Constructs a NotAmongDirectoriesFileFilter which will avoid any of the directories associated with the given custom ages
+     *
      * @param customAges the custom ages to avoid directories of
      */
     public NotAmongDirectoriesFileFilter(List<FilePurgeCustomAge> customAges) {
@@ -43,7 +44,6 @@ public class NotAmongDirectoriesFileFilter implements IOFileFilter {
     }
 
     /**
-     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File)
      */
     public boolean accept(File file) {
@@ -52,11 +52,10 @@ public class NotAmongDirectoriesFileFilter implements IOFileFilter {
     }
 
     /**
-     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
      */
     public boolean accept(File directory, String fileName) {
-        File file = new File(directory.getName()+File.separator+fileName);
+        File file = new File(directory.getName() + File.separator + fileName);
         if (file.isDirectory()) return true;
         return !directoriesToAvoid.contains(directory.getName());
     }

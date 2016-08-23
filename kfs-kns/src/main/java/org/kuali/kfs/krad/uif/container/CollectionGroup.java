@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.krad.uif.container;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
+import org.kuali.kfs.krad.uif.component.ComponentSecurity;
 import org.kuali.kfs.krad.uif.component.DataBinding;
 import org.kuali.kfs.krad.uif.field.ActionField;
 import org.kuali.kfs.krad.uif.field.DataField;
@@ -35,28 +34,27 @@ import org.kuali.kfs.krad.uif.util.ComponentUtils;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.widget.QuickFinder;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
-import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.component.ComponentSecurity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Group that holds a collection of objects and configuration for presenting the
  * collection in the UI. Supports functionality such as add line, line actions,
  * and nested collections.
- *
+ * <p>
  * <p>
  * Note the standard header/footer can be used to give a header to the
  * collection as a whole, or to provide actions that apply to the entire
  * collection
  * </p>
- *
+ * <p>
  * <p>
  * For binding purposes the binding path of each row field is indexed. The name
  * property inherited from <code>ComponentBase</code> is used as the collection
  * name. The collectionObjectClass property is used to lookup attributes from
  * the data dictionary.
  * </p>
- *
- *
  */
 public class CollectionGroup extends Group implements DataBinding {
     private static final long serialVersionUID = -6496712566071542452L;
@@ -107,7 +105,7 @@ public class CollectionGroup extends Group implements DataBinding {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Set fieldBindModelPath to the collection model path (since the fields
      * have to belong to the same model as the collection)</li>
@@ -119,7 +117,7 @@ public class CollectionGroup extends Group implements DataBinding {
      * </ul>
      *
      * @see ComponentBase#performInitialization(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performInitialization(View view, Object model) {
@@ -218,7 +216,7 @@ public class CollectionGroup extends Group implements DataBinding {
      * necessary components based on the collection data
      *
      * @see ContainerBase#performApplyModel(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performApplyModel(View view, Object model, Component parent) {
@@ -247,7 +245,7 @@ public class CollectionGroup extends Group implements DataBinding {
         List<ActionField> actionFields = ComponentUtils.getComponentsOfTypeDeep(components, ActionField.class);
         for (ActionField actionField : actionFields) {
             actionField.addActionParameter(UifParameters.SELLECTED_COLLECTION_PATH,
-                    this.getBindingInfo().getBindingPath());
+                this.getBindingInfo().getBindingPath());
         }
     }
 
@@ -260,12 +258,12 @@ public class CollectionGroup extends Group implements DataBinding {
      * model must be a subclass of <code>UifFormBase</code> in order to find the
      * Map.
      *
-     * @param model - Model instance that contains the new collection lines Map
+     * @param model             - Model instance that contains the new collection lines Map
      * @param clearExistingLine - boolean that indicates whether the line should be set to a
-     * new instance if it already exists
+     *                          new instance if it already exists
      */
     public void initializeNewCollectionLine(View view, Object model, CollectionGroup collectionGroup,
-            boolean clearExistingLine) {
+                                            boolean clearExistingLine) {
         getCollectionGroupBuilder().initializeNewCollectionLine(view, model, collectionGroup, clearExistingLine);
     }
 
@@ -404,7 +402,7 @@ public class CollectionGroup extends Group implements DataBinding {
      * Indicates whether an add line should be rendered for the collection
      *
      * @return boolean true if add line should be rendered, false if it should
-     *         not be
+     * not be
      */
     public boolean isRenderAddLine() {
         return this.renderAddLine;
@@ -558,7 +556,7 @@ public class CollectionGroup extends Group implements DataBinding {
     /**
      * Indicates whether lines of the collection group should be selected by rendering a
      * field for each line that will allow selection
-     *
+     * <p>
      * <p>
      * For example, having the select field enabled could allow selecting multiple lines from a search
      * to return (multi-value lookup)
@@ -582,14 +580,14 @@ public class CollectionGroup extends Group implements DataBinding {
     /**
      * When {@link #isRenderSelectField()} is true, gives the name of the property the select field
      * should bind to
-     *
+     * <p>
      * <p>
      * Note if no prefix is given in the property name, such as 'form.', it is assumed the property is
      * contained on the collection line. In this case the binding path to the collection line will be
      * appended. In other cases, it is assumed the property is a list or set of String that will hold the
      * selected identifier strings
      * </p>
-     *
+     * <p>
      * <p>
      * This property is not required. If not the set the framework will use a property contained on
      * <code>UifFormBase</code>
@@ -612,7 +610,7 @@ public class CollectionGroup extends Group implements DataBinding {
 
     /**
      * Instance of the <code>QuickFinder</code> widget that configures a multi-value lookup for the collection
-     *
+     * <p>
      * <p>
      * If the collection lookup is enabled (by the render property of the quick finder), {@link
      * #getCollectionObjectClass()} will be used as the data object class for the lookup (if not set). Field
@@ -636,7 +634,7 @@ public class CollectionGroup extends Group implements DataBinding {
 
     /**
      * Indicates whether inactive collections lines should be displayed
-     *
+     * <p>
      * <p>
      * Setting only applies when the collection line type implements the
      * <code>Inactivatable</code> interface. If true and showInactive is
@@ -719,7 +717,7 @@ public class CollectionGroup extends Group implements DataBinding {
 
     /**
      * Suffix for IDs that identifies the collection line the sub-collection belongs to
-     *
+     * <p>
      * <p>
      * Built by the framework as the collection lines are being generated
      * </p>
@@ -758,7 +756,7 @@ public class CollectionGroup extends Group implements DataBinding {
     public void setComponentSecurity(ComponentSecurity componentSecurity) {
         if (!(componentSecurity instanceof CollectionGroupSecurity)) {
             throw new RiceRuntimeException(
-                    "Component security for CollectionGroup should be instance of CollectionGroupSecurity");
+                "Component security for CollectionGroup should be instance of CollectionGroupSecurity");
         }
 
         super.setComponentSecurity(componentSecurity);

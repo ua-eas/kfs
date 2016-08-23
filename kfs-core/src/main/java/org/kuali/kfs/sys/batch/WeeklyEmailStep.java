@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.mail.service.ActionListEmailService;
+
+import java.util.Date;
 
 /**
  * Batch step implementation for the Weekly Email

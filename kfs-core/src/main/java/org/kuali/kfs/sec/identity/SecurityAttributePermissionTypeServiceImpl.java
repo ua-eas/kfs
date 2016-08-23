@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sec.identity;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.permission.Permission;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.permission.Permission;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 /**
  * Type service for Access Security Permissions that restrict based on property name
@@ -33,16 +33,12 @@ import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 public class SecurityAttributePermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
 
-
-
-
-
     /**
      * @see org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
-    protected List<Permission> performPermissionMatches(Map<String,String> requestedDetails, List<Permission> permissionsList) {
+    protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
         List<Permission> matchingPermissions = new ArrayList<Permission>();
 
         for (Permission kpi : permissionsList) {
@@ -57,11 +53,11 @@ public class SecurityAttributePermissionTypeServiceImpl extends PermissionTypeSe
     /**
      * Performs match on property name
      *
-     * @param requestedDetails Map<String,String> containing details to match on
+     * @param requestedDetails  Map<String,String> containing details to match on
      * @param permissionDetails Map<String,String> containing details associated with permission
      * @return boolean true if details match, false otherwise
      */
-    protected boolean isDetailMatch(Map<String,String> requestedDetails, Map<String,String> permissionDetails) {
+    protected boolean isDetailMatch(Map<String, String> requestedDetails, Map<String, String> permissionDetails) {
         String propertyNameMatch = requestedDetails.get(KimConstants.AttributeConstants.PROPERTY_NAME);
         String propertyName = permissionDetails.get(KimConstants.AttributeConstants.PROPERTY_NAME);
 

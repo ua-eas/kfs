@@ -16,22 +16,23 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <form action="batchFileUpload" method="POST"
       enctype="multipart/form-data">
 
-	<input type="hidden" name="<csrf:tokenname/>" value="<csrf:tokenvalue/>"/>
+    <input type="hidden" name="<csrf:tokenname/>" value="<csrf:tokenvalue/>"/>
 
-    ${message}<br />
-    <br />
-	<select name="uploadDir">
-		<c:forEach var="dir" items="${directories}">
-			<option value="${dir}">${dir}</option>option>
-		</c:forEach>
-	</select>
-	<br />
-	<input type="file" name="uploadFile" /><br />
-	<br />
-	<input type="submit" />
+    ${message}<br/>
+    <br/>
+    <select name="uploadDir">
+        <c:forEach var="dir" items="${directories}">
+            <option value="${dir}">${dir}</option>
+            option>
+        </c:forEach>
+    </select>
+    <br/>
+    <input type="file" name="uploadFile"/><br/>
+    <br/>
+    <input type="submit"/>
 </form>

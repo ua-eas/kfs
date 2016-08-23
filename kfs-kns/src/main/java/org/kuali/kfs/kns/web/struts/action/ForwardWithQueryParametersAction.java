@@ -28,25 +28,24 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * ForwardAction subclass that interprets path as module-relative
- *
  */
 public class ForwardWithQueryParametersAction extends Action {
 
-	public ActionForward execute(
-	        ActionMapping mapping,
-	        ActionForm form,
-	        HttpServletRequest request,
-	        HttpServletResponse response)
-	        throws Exception {
+    public ActionForward execute(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws Exception {
 
-	        String path = mapping.getParameter();
-	        if (request.getQueryString() != null) {
-	        	path = path + "?" + request.getQueryString();
-	        }
-	        ActionForward retVal = new ActionForward(path);
-	        retVal.setModule("");
+        String path = mapping.getParameter();
+        if (request.getQueryString() != null) {
+            path = path + "?" + request.getQueryString();
+        }
+        ActionForward retVal = new ActionForward(path);
+        retVal.setModule("");
 
-	        return retVal;
-	    }
+        return retVal;
+    }
 
 }

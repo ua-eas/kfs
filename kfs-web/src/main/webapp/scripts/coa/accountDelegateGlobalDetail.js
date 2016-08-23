@@ -17,36 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function principalNameLookup( userIdField ) {
+function principalNameLookup(userIdField) {
     var userIdFieldName = userIdField.name;
-    var elPrefix = findElPrefix( userIdFieldName );
-	var userNameFieldName = elPrefix + ".name";
-	var universalIdFieldName = findElPrefix( elPrefix ) + ".principalId";
+    var elPrefix = findElPrefix(userIdFieldName);
+    var userNameFieldName = elPrefix + ".name";
+    var universalIdFieldName = findElPrefix(elPrefix) + ".principalId";
 
-	loadPrincipalInfo( userIdFieldName, universalIdFieldName, userNameFieldName );
+    loadPrincipalInfo(userIdFieldName, universalIdFieldName, userNameFieldName);
 }
 
-function loadPrincipalInfo( userIdFieldName, universalIdFieldName, userNameFieldName ) {
-    var userId = dwr.util.getValue( userIdFieldName ).trim();
+function loadPrincipalInfo(userIdFieldName, universalIdFieldName, userNameFieldName) {
+    var userId = dwr.util.getValue(userIdFieldName).trim();
 
     if (userId == "") {
-        clearRecipients( universalIdFieldName );
-        clearRecipients( userNameFieldName );
+        clearRecipients(universalIdFieldName);
+        clearRecipients(userNameFieldName);
     } else {
         var dwrReply = {
-            callback:function(data) {
-                if ( data != null && typeof data == 'object' ) {
-                    setRecipientValue( universalIdFieldName, data.principalId );
-                    setRecipientValue( userNameFieldName, data.name );
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    setRecipientValue(universalIdFieldName, data.principalId);
+                    setRecipientValue(userNameFieldName, data.name);
                 } else {
-                    clearRecipients( universalIdFieldName );
-                    setRecipientValue( userNameFieldName, wrapError( "User Name not found" ), true );
-                } },
-            errorHandler:function( errorMessage ) {
-                clearRecipients( universalIdFieldName );
-                setRecipientValue( userNameFieldName, wrapError( "user Name not found" ), true );
+                    clearRecipients(universalIdFieldName);
+                    setRecipientValue(userNameFieldName, wrapError("User Name not found"), true);
+                }
+            },
+            errorHandler: function (errorMessage) {
+                clearRecipients(universalIdFieldName);
+                setRecipientValue(userNameFieldName, wrapError("user Name not found"), true);
             }
         };
-        PersonService.getPersonByPrincipalName( userId, dwrReply );
+        PersonService.getPersonByPrincipalName(userId, dwrReply);
     }
 }

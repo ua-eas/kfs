@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.gl.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
 import org.kuali.kfs.sys.document.GeneralLedgerPostingDocument;
+
+import java.util.List;
 
 
 /**
@@ -51,7 +51,7 @@ public interface SufficientFundsService {
      * This operation derives the acct_sf_finobj_cd which is used to populate the General Ledger Pending entry table, so that later
      * we can do Suff Fund checking against that entry
      *
-     * @param financialObject the object code being checked against
+     * @param financialObject            the object code being checked against
      * @param accountSufficientFundsCode the kind of sufficient funds checking turned on in this system
      * @return the object code that should be used for the sufficient funds inquiry, or a blank String
      */
@@ -61,7 +61,7 @@ public interface SufficientFundsService {
      * Purge the sufficient funds balance table by year/chart
      *
      * @param chart chart of sufficient fund balances to purge
-     * @param year fiscal year of sufficent fund balances to purge
+     * @param year  fiscal year of sufficent fund balances to purge
      */
     public void purgeYearByChart(String chart, int year);
 }

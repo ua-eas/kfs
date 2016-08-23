@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess;
 
+import org.apache.ojb.broker.query.Criteria;
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.ojb.broker.query.Criteria;
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 
 /**
  * Defines methods that must be implemented for a DAO making an entity for a new fiscal year
@@ -35,10 +35,10 @@ public interface FiscalYearMaker {
      * fiscal year field should be updated an minimum.
      *
      * @param baseFiscalYear fiscal year of the base record
-     * @param currentRecord business object of type (@see org.kuali.kfs.coa.dataaccess.FiscalYearMakerDao.getBusinessObjectClass())
-     *        populated with the current year record data
+     * @param currentRecord  business object of type (@see org.kuali.kfs.coa.dataaccess.FiscalYearMakerDao.getBusinessObjectClass())
+     *                       populated with the current year record data
      * @return business object of type (@see org.kuali.kfs.coa.dataaccess.FiscalYearMakerDao.getBusinessObjectClass()) populated
-     *         with data for the new fiscal year record
+     * with data for the new fiscal year record
      */
     public void changeForNewYear(Integer baseFiscalYear, FiscalYearBasedBusinessObject currentRecord);
 
@@ -64,7 +64,7 @@ public interface FiscalYearMaker {
      * Hook to do custom new population for a business object
      *
      * @param baseFiscalYear fiscal year of the base record
-     * @param firstCopyYear boolean that indicates whether this is the first year being copied (useful for two year copies)
+     * @param firstCopyYear  boolean that indicates whether this is the first year being copied (useful for two year copies)
      */
     public void performCustomProcessing(Integer baseFiscalYear, boolean firstCopyYear);
 
@@ -108,10 +108,14 @@ public interface FiscalYearMaker {
     Criteria createNextYearSelectionCriteria(Integer fiscalYear);
 
     List<String> getPrimaryKeyPropertyNames();
+
     List<String> getPropertyNames();
+
     @SuppressWarnings("rawtypes")
-    Map<String,Class> getReferenceObjectProperties();
+    Map<String, Class> getReferenceObjectProperties();
+
     @SuppressWarnings("rawtypes")
-    Map<String,Class> getCollectionProperties();
-    Map<String,String> getForeignKeyMappings( String referenceName );
+    Map<String, Class> getCollectionProperties();
+
+    Map<String, String> getForeignKeyMappings(String referenceName);
 }

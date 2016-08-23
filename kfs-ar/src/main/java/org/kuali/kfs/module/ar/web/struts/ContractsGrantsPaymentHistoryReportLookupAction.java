@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsPaymentHistoryReport;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -29,6 +29,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 public class ContractsGrantsPaymentHistoryReportLookupAction extends ContractsGrantsReportLookupAction {
     /**
      * This report has no title
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#generateReportTitle(org.kuali.rice.kns.web.struts.form.LookupForm)
      */
     @Override
@@ -38,6 +39,7 @@ public class ContractsGrantsPaymentHistoryReportLookupAction extends ContractsGr
 
     /**
      * Returns "contractsGrantsPaymentHistoryReportBuilderService"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getReportBuilderServiceBeanName()
      */
     @Override
@@ -47,6 +49,7 @@ public class ContractsGrantsPaymentHistoryReportLookupAction extends ContractsGr
 
     /**
      * Returns the sort field for this report's pdf generation, "ContractsGrantsPaymentHistoryReport"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getSortFieldName()
      */
     @Override
@@ -56,6 +59,7 @@ public class ContractsGrantsPaymentHistoryReportLookupAction extends ContractsGr
 
     /**
      * Returns the class of ContractsGrantsPaymentHistoryReport
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getPrintSearchCriteriaClass()
      */
     @Override

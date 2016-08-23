@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ld.dataaccess;
 
+import org.kuali.kfs.module.ld.businessobject.LaborObject;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.module.ld.businessobject.LaborObject;
 
 /**
  * This is the data access object for Labor Object
@@ -33,7 +33,8 @@ public interface LaborObjectDao {
 
     /**
      * find all labor object codes in the given position groups
-     * @param fieldValues the given search search criteria
+     *
+     * @param fieldValues        the given search search criteria
      * @param positionGroupCodes the given position group codes
      * @return all labor object codes in the given position groups
      */

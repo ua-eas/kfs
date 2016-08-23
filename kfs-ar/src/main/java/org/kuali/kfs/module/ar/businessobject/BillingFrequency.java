@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 /**
@@ -46,8 +46,6 @@ public class BillingFrequency extends PersistableBusinessObjectBase implements A
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
-
-
 
 
     @Override
@@ -83,13 +81,10 @@ public class BillingFrequency extends PersistableBusinessObjectBase implements A
     }
 
 
-
-
     @Override
     public boolean isActive() {
         return active;
     }
-
 
 
     @Override

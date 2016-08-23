@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.io.File;
-import java.util.Calendar;
-
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.kuali.kfs.sys.batch.service.FilePurgeService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.util.Calendar;
 
 /**
  * A file filter which only accepts any directory or files older than a set age
@@ -42,6 +42,7 @@ public class MaxAgePurgeFileFilter implements IOFileFilter {
 
     /**
      * Constructs a MaxAgePurgeFileFilter, using the time set with the parameter associated with the given file purge custom age to get rid of files from
+     *
      * @param filePurgeCustomAge the custom age to get a max file age from
      */
     public MaxAgePurgeFileFilter(FilePurgeCustomAge filePurgeCustomAge) {
@@ -51,17 +52,19 @@ public class MaxAgePurgeFileFilter implements IOFileFilter {
 
     /**
      * Determines the timestamp any older files should be purged on
+     *
      * @param daysPastToPurge the number of days a file should exist before purging
      * @return the timestamp of that number of days earlier than "now" (as defined by DateTimeService) that is
      */
     private long calculateMinTimestamp(int daysPastToPurge) {
         Calendar purgeFilesBeforeDate = SpringContext.getBean(DateTimeService.class).getCurrentCalendar();
-        purgeFilesBeforeDate.add(Calendar.DATE, -1*daysPastToPurge);
+        purgeFilesBeforeDate.add(Calendar.DATE, -1 * daysPastToPurge);
         return purgeFilesBeforeDate.getTimeInMillis();
     }
 
     /**
      * Accepts any directory and any file older than our min timestamp
+     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File)
      */
     public boolean accept(File file) {
@@ -71,10 +74,11 @@ public class MaxAgePurgeFileFilter implements IOFileFilter {
 
     /**
      * Accepts any directory, and any file which is older than our min timestamp
+     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
      */
     public boolean accept(File directory, String fileName) {
-        final File file = new File(directory.getName()+File.separator+fileName);
+        final File file = new File(directory.getName() + File.separator + fileName);
         if (file.isDirectory()) return true;
         return (file.lastModified() < this.minTimestamp);
     }

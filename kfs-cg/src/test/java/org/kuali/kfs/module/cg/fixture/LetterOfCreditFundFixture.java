@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.cg.businessobject.LetterOfCreditFund;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 /**
  * Fixture class for LetterOfCreditFund

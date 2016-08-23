@@ -16,19 +16,19 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
- <!-- This a property that can be placed on a spring bean AttributeDefinition -->
+<!-- This a property that can be placed on a spring bean AttributeDefinition -->
 
- 	<property name="caseConstraint">
-		<bean parent="caseConstraint">
-			<property name="whenConstraint">
-				<bean parent="whenConstraint">
-					<property name="value" value="USA"/>
-					<property name="constraint">
-						<bean parent="prequisiteConstraint">
-							<property name="propertyName" value="origin"/>
-						</bean>
-					</property>
-				</bean>
-			</property>
-		</bean>
-	</property>
+<property name="caseConstraint">
+    <bean parent="caseConstraint">
+        <property name="whenConstraint">
+            <bean parent="whenConstraint">
+                <property name="value" value="USA"/>
+                <property name="constraint">
+                    <bean parent="prequisiteConstraint">
+                        <property name="propertyName" value="origin"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+</property>

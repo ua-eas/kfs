@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.exception;
 
+import org.kuali.kfs.coa.businessobject.Account;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.kuali.kfs.coa.businessobject.Account;
-
 
 public class PaymentRequestInitializationValidationErrors implements Serializable {
 
-//    public List errorMessages = new ArrayList();
+    //    public List errorMessages = new ArrayList();
     private List expiredAccounts = new ArrayList();
     private List closedAccounts = new ArrayList();
     private Integer purchaseOrderNumberToUse;
@@ -37,7 +37,7 @@ public class PaymentRequestInitializationValidationErrors implements Serializabl
     private List<PREQCreationFailure> PREQCreationFailures = new ArrayList<PREQCreationFailure>();
 
     public void addPREQCreationFailure(String rejectReasonCode,
-                                       String extraDescription){
+                                       String extraDescription) {
 
         PREQCreationFailure rejectReason = new PREQCreationFailure();
         rejectReason.setRejectReasonCode(rejectReasonCode);
@@ -45,11 +45,11 @@ public class PaymentRequestInitializationValidationErrors implements Serializabl
         PREQCreationFailures.add(rejectReason);
     }
 
-    public PREQCreationFailure[] getPREQCreationFailures(){
-        if (PREQCreationFailures.size() > 0){
+    public PREQCreationFailure[] getPREQCreationFailures() {
+        if (PREQCreationFailures.size() > 0) {
             PREQCreationFailure[] rejectReasons = new PREQCreationFailure[this.PREQCreationFailures.size()];
             return this.PREQCreationFailures.toArray(rejectReasons);
-        }else {
+        } else {
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class PaymentRequestInitializationValidationErrors implements Serializabl
     }
 
     public boolean isListMembersValid(List l) {
-        for (Iterator i = l.iterator(); i.hasNext();) {
+        for (Iterator i = l.iterator(); i.hasNext(); ) {
             AccountContinuation acctCont = (AccountContinuation) i.next();
             if (acctCont.getReplacementAccountValid() == null || acctCont.getReplacementAccountValid().equals(Boolean.FALSE)) {
                 return false;
@@ -168,12 +168,15 @@ public class PaymentRequestInitializationValidationErrors implements Serializabl
         public String getExtraDescription() {
             return extraDescription;
         }
+
         public void setExtraDescription(String extraDescription) {
             this.extraDescription = extraDescription;
         }
+
         public String getRejectReasonCode() {
             return rejectReasonCode;
         }
+
         public void setRejectReasonCode(String rejectReasonCode) {
             this.rejectReasonCode = rejectReasonCode;
         }

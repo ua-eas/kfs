@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -30,6 +26,10 @@ import org.kuali.kfs.module.ar.businessobject.Lockbox;
 import org.kuali.kfs.module.ar.dataaccess.LockboxDao;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class LockboxDaoOjb extends PlatformAwareDaoBaseOjb implements LockboxDao {
 
@@ -51,7 +51,7 @@ public class LockboxDaoOjb extends PlatformAwareDaoBaseOjb implements LockboxDao
     public Long getMaxLockboxSequenceNumber() {
         Criteria crit = new Criteria();
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(Lockbox.class, crit);
-        reportQuery.setAttributes(new String[] { "MAX(AR_INV_SEQ_NBR)" });
+        reportQuery.setAttributes(new String[]{"MAX(AR_INV_SEQ_NBR)"});
 
         Iterator<?> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);
         if (iter.hasNext()) {
@@ -60,12 +60,10 @@ public class LockboxDaoOjb extends PlatformAwareDaoBaseOjb implements LockboxDao
 
             if (max == null) {
                 return new Long(0);
-            }
-            else {
+            } else {
                 return new Long(max.longValue());
             }
-        }
-        else {
+        } else {
             return new Long(0);
         }
     }

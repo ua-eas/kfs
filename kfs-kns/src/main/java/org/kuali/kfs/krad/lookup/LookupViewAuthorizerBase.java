@@ -18,26 +18,24 @@
  */
 package org.kuali.kfs.krad.lookup;
 
-import org.kuali.kfs.krad.uif.view.LookupView;
-import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.view.LookupView;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
 import org.kuali.kfs.krad.uif.view.ViewAuthorizerBase;
 import org.kuali.kfs.krad.uif.view.ViewModel;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.web.form.LookupForm;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.Map;
 
 /**
  * Implementation of {@link ViewAuthorizer} for
  * {@link LookupView} instances
- *
- *
  */
 public class LookupViewAuthorizerBase extends ViewAuthorizerBase {
     private static final long serialVersionUID = 3755133641536256283L;
@@ -57,17 +55,17 @@ public class LookupViewAuthorizerBase extends ViewAuthorizerBase {
             Map<String, String> additionalPermissionDetails;
             try {
                 additionalPermissionDetails = KRADUtils.getNamespaceAndComponentSimpleName(Class.forName(
-                        lookupForm.getDataObjectClassName()));
+                    lookupForm.getDataObjectClassName()));
             } catch (ClassNotFoundException e) {
                 throw new RiceRuntimeException(
-                        "Unable to create class for lookup class name: " + lookupForm.getDataObjectClassName());
+                    "Unable to create class for lookup class name: " + lookupForm.getDataObjectClassName());
             }
 
             if (permissionExistsByTemplate(model, KRADConstants.KNS_NAMESPACE,
-                    KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, additionalPermissionDetails)) {
+                KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, additionalPermissionDetails)) {
                 canOpen = isAuthorizedByTemplate(model, KRADConstants.KNS_NAMESPACE,
-                        KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, user.getPrincipalId(),
-                        additionalPermissionDetails, null);
+                    KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, user.getPrincipalId(),
+                    additionalPermissionDetails, null);
             }
         }
 
@@ -78,7 +76,7 @@ public class LookupViewAuthorizerBase extends ViewAuthorizerBase {
      * Check if user is allowed to initiate the document
      *
      * @param lookupForm - The lookup form of the document
-     * @param user - user we are authorizing the actions for
+     * @param user       - user we are authorizing the actions for
      * @return true if user is authorized to initiate the document, false otherwise
      */
     public boolean canInitiateDocument(LookupForm lookupForm, Person user) {
@@ -88,10 +86,10 @@ public class LookupViewAuthorizerBase extends ViewAuthorizerBase {
             Class<?> dataObjectClass = Class.forName(lookupForm.getDataObjectClassName());
             // check if creating documents is allowed
             String documentTypeName = KRADServiceLocatorWeb.getDocumentDictionaryService()
-                    .getMaintenanceDocumentTypeName(dataObjectClass);
+                .getMaintenanceDocumentTypeName(dataObjectClass);
             if ((documentTypeName != null) &&
-                    KRADServiceLocatorWeb.getDocumentDictionaryService().getDocumentAuthorizer(documentTypeName)
-                            .canInitiate(documentTypeName, user)) {
+                KRADServiceLocatorWeb.getDocumentDictionaryService().getDocumentAuthorizer(documentTypeName)
+                    .canInitiate(documentTypeName, user)) {
                 canInitiateDocument = true;
             }
         } catch (ClassNotFoundException e) {

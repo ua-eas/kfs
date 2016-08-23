@@ -32,8 +32,7 @@ public class CalculatedSalaryFoundationTrackerOverrideServiceImpl implements Cal
         }
         if (emplid.equals("VACANT")) {
             return true;
-        }
-        else {
+        } else {
             /* institution specific check for valid appointment */
             return true;
         }
@@ -43,8 +42,7 @@ public class CalculatedSalaryFoundationTrackerOverrideServiceImpl implements Cal
     public boolean isValidPosition(Integer universityFiscalYear, String positionNumber) {
         if (positionNumber == null || universityFiscalYear == null) {
             return false;
-        }
-        else {
+        } else {
             /* institution specific check for valid position */
             return true;
         }

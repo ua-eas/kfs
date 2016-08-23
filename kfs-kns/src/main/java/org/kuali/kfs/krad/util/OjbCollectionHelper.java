@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.krad.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.springframework.orm.ObjectRetrievalFailureException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Helper object to deal with persisting collections.
  */
 public class OjbCollectionHelper {
-	private static final Logger LOG = Logger.getLogger(OjbCollectionHelper.class);
+    private static final Logger LOG = Logger.getLogger(OjbCollectionHelper.class);
+
     /**
      * OJB RemovalAwareLists do not survive through the response/request lifecycle. This method is a work-around to forcibly remove
      * business objects that are found in Collections stored in the database but not in memory.
@@ -65,8 +66,7 @@ public class OjbCollectionHelper {
                     List<PersistableBusinessObject> list = findUnwantedElements(copySource, origSource);
                     cleanse(template, origSource, list);
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -107,8 +107,7 @@ public class OjbCollectionHelper {
                     List<PersistableBusinessObject> list = findUnwantedElements(copySource, origSource);
                     cleanse(template, origSource, list);
                 }
-            }
-            catch (ObjectRetrievalFailureException orfe) {
+            } catch (ObjectRetrievalFailureException orfe) {
                 // object wasn't found, must be pre-save
             }
         }
@@ -117,16 +116,16 @@ public class OjbCollectionHelper {
     /**
      * This method deletes unwanted objects from the database as well as from the given input List
      *
-     * @param origSource - list containing unwanted business objects
+     * @param origSource    - list containing unwanted business objects
      * @param unwantedItems - business objects to be permanently removed
      * @param template
      */
     private void cleanse(OjbCollectionAware template, Collection<PersistableBusinessObject> origSource, List<PersistableBusinessObject> unwantedItems) {
         if (unwantedItems.size() > 0) {
-        	for (PersistableBusinessObject unwantedItem : unwantedItems) {
-            	if ( LOG.isDebugEnabled() ) {
-            		LOG.debug( "cleansing " + unwantedItem);
-            	}
+            for (PersistableBusinessObject unwantedItem : unwantedItems) {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("cleansing " + unwantedItem);
+                }
                 template.getPersistenceBrokerTemplate().delete(unwantedItem);
             }
         }
@@ -145,7 +144,7 @@ public class OjbCollectionHelper {
         List<PersistableBusinessObject> toRemove = new ArrayList<PersistableBusinessObject>();
 
         for (PersistableBusinessObject fromObject : fromList) {
-        	if (!ObjectUtils.collectionContainsObjectWithIdentitcalKey(controlList, fromObject)) {
+            if (!ObjectUtils.collectionContainsObjectWithIdentitcalKey(controlList, fromObject)) {
                 toRemove.add(fromObject);
             }
         }

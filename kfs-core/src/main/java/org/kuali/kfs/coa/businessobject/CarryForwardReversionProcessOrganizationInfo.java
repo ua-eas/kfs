@@ -63,6 +63,7 @@ public interface CarryForwardReversionProcessOrganizationInfo {
 
     /**
      * Retrieves an organization reversion detail by category code
+     *
      * @param categoryCode category code to find detail for
      * @return the organization reversion detail, or null if no active detail record for the given category code could be found
      */

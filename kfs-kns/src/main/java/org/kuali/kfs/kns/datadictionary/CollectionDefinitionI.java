@@ -25,12 +25,20 @@ import java.util.List;
 @Deprecated
 public interface CollectionDefinitionI {
     public String getName();
+
     public boolean getIncludeAddLine();
+
     public List<? extends CollectionDefinitionI> getCollections();
+
     public List<? extends FieldDefinitionI> getFields();
+
     public String getSummaryTitle();
+
     public Class<? extends BusinessObject> getBusinessObjectClass();
+
     public boolean hasSummaryField(String key);
+
     public List<? extends FieldDefinitionI> getSummaryFields();
+
     public boolean isAlwaysAllowCollectionDeletion();
 }

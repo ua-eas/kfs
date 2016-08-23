@@ -18,28 +18,24 @@
  */
 package org.kuali.kfs.krad.dao;
 
-import java.util.List;
-
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+
+import java.util.List;
 
 /**
  * This interface defines basic methods that MaintenanceDocument Dao's must provide
- *
- *
  */
 public interface MaintenanceDocumentDao {
 
 //    public Collection getPendingDocumentsForClass(Class dataObjectClass);
 
     /**
-     *
      * This method looks for a document that is locking the given lockingRepresentation. If one is found, then it
      * retrieves the documentNumber, and returns it.
      *
      * @param lockingRepresentation - locking representation to check for
-     * @param documentNumber - document number to ignore, optional argument
+     * @param documentNumber        - document number to ignore, optional argument
      * @return returns an empty string if no locking document is found, otherwise returns the documentNumber of the locking document
-     *
      */
     public String getLockingDocumentNumber(String lockingRepresentation, String documentNumber);
 

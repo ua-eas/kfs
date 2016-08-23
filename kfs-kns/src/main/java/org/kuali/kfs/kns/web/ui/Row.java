@@ -83,20 +83,20 @@ public class Row implements java.io.Serializable {
         return (Field) fields.get(index);
     }
 
-    public String toString(){
-    	StringBuffer sRet = new StringBuffer();
-    	sRet.append("[");
+    public String toString() {
+        StringBuffer sRet = new StringBuffer();
+        sRet.append("[");
 
-    	if(fields != null){
-    		for(Field f: fields){
-    			sRet.append(f.getPropertyName() + ", ");
-    		}
+        if (fields != null) {
+            for (Field f : fields) {
+                sRet.append(f.getPropertyName() + ", ");
+            }
 
-    		sRet.delete(sRet.length()-2, sRet.length());
-    	}
-    	sRet.append("]");
+            sRet.delete(sRet.length() - 2, sRet.length());
+        }
+        sRet.append("]");
 
-    	return sRet.toString();
+        return sRet.toString();
 
     }
 }

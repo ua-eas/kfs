@@ -23,12 +23,12 @@ import org.kuali.kfs.coa.businessobject.ObjectLevel;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ObjectLevelService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 /**
- *
  * This class implements the business rules for {@link ObjectCons}
  */
 public class ObjectConsRule extends MaintenanceDocumentRuleBase {
@@ -38,7 +38,6 @@ public class ObjectConsRule extends MaintenanceDocumentRuleBase {
     protected static ObjectCodeService objectCodeService;
 
     /**
-     *
      * Constructs a {@link ObjectConsRule}
      * Pseudo-injects some services
      */
@@ -56,6 +55,7 @@ public class ObjectConsRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectConsRule#checkObjLevelCode(ObjectCons)}</li>
      * </ul>
      * This rule does not fail on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -72,6 +72,7 @@ public class ObjectConsRule extends MaintenanceDocumentRuleBase {
      * <li>{@link ObjectConsRule#checkObjLevelCode(ObjectCons)}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override

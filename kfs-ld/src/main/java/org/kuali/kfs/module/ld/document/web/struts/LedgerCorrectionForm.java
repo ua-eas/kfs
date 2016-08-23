@@ -246,7 +246,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
      * Gets the TableRenderColumnMetadata attribute.
      *
      * @return Returns the TableRenderColumnMetadata.
-     *
+     * <p>
      * KRAD Conversion: gets the column metadata.
      */
     public List<Column> getTableRenderColumnMetadata() {

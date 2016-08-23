@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.util.List;
-
 import org.apache.struts.upload.FormFile;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
+
+import java.util.List;
 
 /**
  * Defines an abstraction for parsing serialized <code>PurApItem</code> lines.
@@ -41,50 +41,50 @@ public interface ItemParser {
      * @param itemClass the class of the items to be imported
      * @return the concatenation of the actual property names of the items to be imported
      */
-    public String getExpectedItemFormatAsString( Class<? extends PurApItem> itemClass );
+    public String getExpectedItemFormatAsString(Class<? extends PurApItem> itemClass);
 
     /**
      * Parses the specified item line into an instance of the specified PurApItem subclass.
      *
-     * @param itemLine the item line string to be parsed
-     * @param itemClass the subclass of the item to be generated
+     * @param itemLine       the item line string to be parsed
+     * @param itemClass      the subclass of the item to be generated
      * @param documentNumber the number of the docment that contains the item to be generated
      * @return the generated item
      */
-    public PurApItem parseItem( String itemLine, Class<? extends PurApItem> itemClass, String documentNumber );
+    public PurApItem parseItem(String itemLine, Class<? extends PurApItem> itemClass, String documentNumber);
 
     /**
      * Parses the items from the specified import file line by line,
      * and generates items of the specified type from the parsed data.
      *
-     * @param itemFile the input file from which items are parsed
-     * @param itemClass a subclass of PurApItem, of which new items shall be generated
+     * @param itemFile       the input file from which items are parsed
+     * @param itemClass      a subclass of PurApItem, of which new items shall be generated
      * @param documentNumber the number of the docment that contains the items to be imported
      * @return a list of items of a subclass of PurApItem.
      */
-    public List<PurApItem> importItems( FormFile itemFile, Class<? extends PurApItem> itemClass, String documentNumber );
+    public List<PurApItem> importItems(FormFile itemFile, Class<? extends PurApItem> itemClass, String documentNumber);
 
 /****
  *
  */
-  /**
-   * Reads lines of <code>PurApItem</code> fields from the <code>InputStream</code> and parses them.
-   *
-   * @param inputStream The <code>{@link InputStream}</code> to read data from.
-   * @param itemClass The subclass of <code>PurApItem</code> which parsed items belong to.
-   * @return A list of <code>{@link PurApItem}</code> instances.
-   * @exception IOException
-   *
-  public List importItemLines(InputStream inputStream, Class<? extends PurApItem> itemClass)
-      throws IOException, IllegalAccessException, InstantiationException;
+    /**
+     * Reads lines of <code>PurApItem</code> fields from the <code>InputStream</code> and parses them.
+     *
+     * @param inputStream The <code>{@link InputStream}</code> to read data from.
+     * @param itemClass The subclass of <code>PurApItem</code> which parsed items belong to.
+     * @return A list of <code>{@link PurApItem}</code> instances.
+     * @exception IOException
+     *
+    public List importItemLines(InputStream inputStream, Class<? extends PurApItem> itemClass)
+    throws IOException, IllegalAccessException, InstantiationException;
 
-  /**
-   * Determines the number of fields to be parsed.
-   *
-   * @return int number of fields expected.
-   *
-  public int getExpectedFieldCount();
+    /**
+     * Determines the number of fields to be parsed.
+     *
+     * @return int number of fields expected.
+     *
+    public int getExpectedFieldCount();
 
-****/
+     ****/
 }
 

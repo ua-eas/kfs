@@ -49,8 +49,7 @@ public class DocumentSerializerServiceImpl extends SerializerServiceBase impleme
         String xml;
         if (propertySerizabilityEvaluator instanceof AlwaysTruePropertySerializibilityEvaluator) {
             xml = getXmlObjectSerializerService().toXml(xmlWrapper);
-        }
-        else {
+        } else {
             xml = xstream.toXML(xmlWrapper);
         }
 

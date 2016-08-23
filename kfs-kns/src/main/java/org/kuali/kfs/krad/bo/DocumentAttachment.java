@@ -25,13 +25,13 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="KRNS_MAINT_DOC_ATT_T")
+@Table(name = "KRNS_MAINT_DOC_ATT_T")
 public class DocumentAttachment extends org.kuali.kfs.krad.bo.PersistableAttachmentBase {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="DOC_HDR_ID")
+    @Column(name = "DOC_HDR_ID")
     private String documentNumber;
 
     public String getDocumentNumber() {

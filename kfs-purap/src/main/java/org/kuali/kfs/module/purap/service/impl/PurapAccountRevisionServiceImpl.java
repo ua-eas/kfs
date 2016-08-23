@@ -18,13 +18,7 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableItemBase;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoItem;
@@ -35,7 +29,13 @@ import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.module.purap.service.PurapAccountRevisionService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionService {
     private BusinessObjectService businessObjectService;
@@ -43,7 +43,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
 
     /**
      * @see org.kuali.kfs.module.purap.service.PurapAccountHistoryService#savePaymentRequestAccountHistories(java.util.List,
-     *      java.lang.Integer, java.lang.String)
+     * java.lang.Integer, java.lang.String)
      */
     public void savePaymentRequestAccountRevisions(List<PaymentRequestItem> paymentRequestItems, Integer postingYear, String postingPeriodCode) {
         List<PaymentRequestAccountRevision> accountHistories = new ArrayList<PaymentRequestAccountRevision>();
@@ -57,8 +57,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
                 if (currGroup != null) {
                     // adjust the amount value
                     histGroup.setChangeAmount(currGroup.getAmount().subtract(histGroup.getAmount()));
-                }
-                else {
+                } else {
                     // negate the amount if acct line is deleted
                     histGroup.setChangeAmount(histGroup.getAmount().negated());
                 }
@@ -101,7 +100,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
 
     /**
      * @see org.kuali.kfs.module.purap.service.PurapAccountHistoryService#saveCreditMemoAccountHistories(java.util.List,
-     *      java.lang.Integer, java.lang.String)
+     * java.lang.Integer, java.lang.String)
      */
     public void saveCreditMemoAccountRevisions(List<CreditMemoItem> creditMemoItems, Integer postingYear, String postingPeriodCode) {
         List<CreditMemoAccountRevision> accountHistories = new ArrayList<CreditMemoAccountRevision>();
@@ -115,8 +114,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
                 if (currGroup != null) {
                     // adjust the amount
                     histGroup.setChangeAmount(currGroup.getAmount().subtract(histGroup.getAmount()));
-                }
-                else {
+                } else {
                     // negate the amount if line is deleted
                     histGroup.setChangeAmount(histGroup.getAmount().negated());
                 }
@@ -160,8 +158,8 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
     /**
      * Builds account history grouping data based on given list of purap account lines
      *
-     * @param item PurAp Item
-     * @param postingYear Posting year
+     * @param item              PurAp Item
+     * @param postingYear       Posting year
      * @param postingPeriodCode Posting period
      * @return
      */
@@ -173,8 +171,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
             lineGroup.setPostingPeriodCode(postingPeriodCode);
             if ((accountLineGroups.get(lineGroup)) == null) {
                 accountLineGroups.put(lineGroup, lineGroup);
-            }
-            else {
+            } else {
                 accountLineGroups.get(lineGroup).combineEntry((PurApAccountingLineBase) account);
             }
         }
@@ -184,10 +181,10 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
     /**
      * Builds account history group based on existing account history lines
      *
-     * @param item PurAp item
-     * @param postingYear Posting year
+     * @param item              PurAp item
+     * @param postingYear       Posting year
      * @param postingPeriodCode Posting period code
-     * @param clazz History class
+     * @param clazz             History class
      * @return Map of account history groups
      */
     protected Map<PurapAccountRevisionGroup, PurapAccountRevisionGroup> buildAccountHistoryGroups(AccountsPayableItemBase item, Integer postingYear, String postingPeriodCode, Class<? extends PurApAccountingLineBase> clazz) {
@@ -203,8 +200,7 @@ public class PurapAccountRevisionServiceImpl implements PurapAccountRevisionServ
                 historyGroup.setPostingPeriodCode(postingPeriodCode);
                 if ((historyGroups.get(historyGroup)) == null) {
                     historyGroups.put(historyGroup, historyGroup);
-                }
-                else {
+                } else {
                     historyGroups.get(historyGroup).combineEntry((PaymentRequestAccount) existAcct);
                 }
             }

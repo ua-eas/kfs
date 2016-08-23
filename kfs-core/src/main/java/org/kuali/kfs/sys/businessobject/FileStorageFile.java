@@ -19,12 +19,10 @@
 package org.kuali.kfs.sys.businessobject;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 
 
-public interface FileStorageFile extends Closeable,AutoCloseable {
+public interface FileStorageFile extends Closeable, AutoCloseable {
     /**
      * Get an output stream to the file
      *

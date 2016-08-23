@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.vnd.businessobject.ContractManager;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.kuali.kfs.vnd.businessobject.ContractManager;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
  * Purchase Order Quote List Business Object.
  */
-public class PurchaseOrderQuoteList extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class PurchaseOrderQuoteList extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Integer purchaseOrderQuoteListIdentifier;
     private String purchaseOrderQuoteListName;
@@ -86,8 +86,8 @@ public class PurchaseOrderQuoteList extends PersistableBusinessObjectBase implem
     }
 
     /**
-     * @deprecated
      * @param contractManager
+     * @deprecated
      */
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;

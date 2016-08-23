@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class HigherEducationFunction extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -202,6 +202,7 @@ public class HigherEducationFunction extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
@@ -211,6 +212,7 @@ public class HigherEducationFunction extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override

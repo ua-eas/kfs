@@ -23,7 +23,6 @@ import org.kuali.kfs.krad.document.Document;
 /**
  * Implementations of this interface are able to serialize documents into XML that's used by the workflow engine to perform routing, searches,
  * etc.
- *
  */
 public interface DocumentSerializerService extends org.kuali.kfs.krad.service.SerializerService {
     /**

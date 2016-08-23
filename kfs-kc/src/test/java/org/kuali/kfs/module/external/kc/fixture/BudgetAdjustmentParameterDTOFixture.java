@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.external.kc.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum BudgetAdjustmentParameterDTOFixture {
 
-    CONTROL_1(UserNameFixture.khuntley,"Award ID 0"," Auto Mock BudgetAdjustment test data","TEST","odn"),
-    CONTROL_2(UserNameFixture.khuntley,"Award ID 1","Auto Mock BudgetAdjustment test data","TEST","odn"),
-    CONTROL_3(UserNameFixture.khuntley,"Award ID 1","Auto Mock BudgetAdjustment test data","TEST","odn");
+    CONTROL_1(UserNameFixture.khuntley, "Award ID 0", " Auto Mock BudgetAdjustment test data", "TEST", "odn"),
+    CONTROL_2(UserNameFixture.khuntley, "Award ID 1", "Auto Mock BudgetAdjustment test data", "TEST", "odn"),
+    CONTROL_3(UserNameFixture.khuntley, "Award ID 1", "Auto Mock BudgetAdjustment test data", "TEST", "odn");
 
     private UserNameFixture initiator;
     private String description;
@@ -36,13 +36,13 @@ public enum BudgetAdjustmentParameterDTOFixture {
     private String sponsorTypeCode;
     private String orgDocNumber;
 
-    private BudgetAdjustmentParameterDTOFixture(UserNameFixture initiator, String description, String explanation,String sponsorType, String odm) {
+    private BudgetAdjustmentParameterDTOFixture(UserNameFixture initiator, String description, String explanation, String sponsorType, String odm) {
         this.initiator = initiator;
         this.description = description;
         this.explanation = explanation;
         this.sponsorTypeCode = sponsorType;
         this.orgDocNumber = odm;
-     }
+    }
 
     public BudgetAdjustmentParametersDTO createBudgetAdjustmentParameters() {
 

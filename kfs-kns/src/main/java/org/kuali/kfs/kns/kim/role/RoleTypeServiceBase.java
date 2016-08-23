@@ -19,6 +19,7 @@
 package org.kuali.kfs.kns.kim.role;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.type.DataDictionaryTypeServiceBase;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
@@ -26,7 +27,6 @@ import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.framework.common.delegate.DelegationTypeService;
 import org.kuali.rice.kim.framework.role.RoleTypeService;
-import org.kuali.kfs.kns.kim.type.DataDictionaryTypeServiceBase;
 
 import javax.jws.WebParam;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -42,13 +42,13 @@ import java.util.Map;
 @Deprecated
 public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implements RoleTypeService, DelegationTypeService {
 
-	/**
-	 * Performs a simple check that the qualifier on the role matches the qualification.
-	 * Extra qualification attributes are ignored.
-	 */
+    /**
+     * Performs a simple check that the qualifier on the role matches the qualification.
+     * Extra qualification attributes are ignored.
+     */
     @Override
-	public boolean doesRoleQualifierMatchQualification(Map<String, String> qualification, Map<String, String> roleQualifier) {
-		if (qualification == null) {
+    public boolean doesRoleQualifierMatchQualification(Map<String, String> qualification, Map<String, String> roleQualifier) {
+        if (qualification == null) {
             throw new RiceIllegalArgumentException("qualification was null or blank");
         }
 
@@ -57,14 +57,14 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         Map<String, String> translatedQualification = translateInputAttributes(qualification);
-		validateRequiredAttributesAgainstReceived(translatedQualification);
-		return performMatch(translatedQualification, roleQualifier);
-	}
+        validateRequiredAttributesAgainstReceived(translatedQualification);
+        return performMatch(translatedQualification, roleQualifier);
+    }
 
     @Override
-	public List<RoleMembership> getMatchingRoleMemberships(Map<String, String> qualification,
-            List<RoleMembership> roleMemberList) {
-		if (qualification == null) {
+    public List<RoleMembership> getMatchingRoleMemberships(Map<String, String> qualification,
+                                                           List<RoleMembership> roleMemberList) {
+        if (qualification == null) {
             throw new RiceIllegalArgumentException("qualification was null or blank");
         }
 
@@ -73,23 +73,22 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         Map<String, String> translatedQualification = translateInputAttributes(qualification);
-		validateRequiredAttributesAgainstReceived(translatedQualification);
-		List<RoleMembership> matchingMemberships = new ArrayList<RoleMembership>();
-		for ( RoleMembership roleMembership : roleMemberList ) {
-			if ( performMatch( translatedQualification, roleMembership.getQualifier() ) ) {
-				matchingMemberships.add( roleMembership );
-			}
-		}
-		return Collections.unmodifiableList(matchingMemberships);
-	}
+        validateRequiredAttributesAgainstReceived(translatedQualification);
+        List<RoleMembership> matchingMemberships = new ArrayList<RoleMembership>();
+        for (RoleMembership roleMembership : roleMemberList) {
+            if (performMatch(translatedQualification, roleMembership.getQualifier())) {
+                matchingMemberships.add(roleMembership);
+            }
+        }
+        return Collections.unmodifiableList(matchingMemberships);
+    }
 
-	/**
-	 * Return an empty list since this method should not be called by the role service for this service type.
-	 * Subclasses which are application role types should override this method.
-	 *
-	 */
+    /**
+     * Return an empty list since this method should not be called by the role service for this service type.
+     * Subclasses which are application role types should override this method.
+     */
     @Override
-	public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
+    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
 
         if (StringUtils.isBlank(namespaceCode)) {
             throw new RiceIllegalArgumentException("namespaceCode was null or blank");
@@ -104,21 +103,20 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         validateRequiredAttributesAgainstReceived(qualification);
-		if ( !isDerivedRoleType() ) {
-			throw new UnsupportedOperationException( this.getClass().getName() + " is not an application role." );
-		} else {
-			throw new UnsupportedOperationException( this.getClass().getName() + " is an application role type but has not overridden this method." );
-		}
-	}
+        if (!isDerivedRoleType()) {
+            throw new UnsupportedOperationException(this.getClass().getName() + " is not an application role.");
+        } else {
+            throw new UnsupportedOperationException(this.getClass().getName() + " is an application role type but has not overridden this method.");
+        }
+    }
 
-	/**
-	 * This simple initial implementation just calls
-	 * {@link #getRoleMembersFromApplicationRole(String, String, Map<String, String>)} and checks the results.
-	 *
-	 */
+    /**
+     * This simple initial implementation just calls
+     * {@link #getRoleMembersFromApplicationRole(String, String, Map<String, String>)} and checks the results.
+     */
     @Override
-	public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
-	    if (StringUtils.isBlank(principalId)) {
+    public boolean hasDerivedRole(String principalId, List<String> groupIds, String namespaceCode, String roleName, Map<String, String> qualification) {
+        if (StringUtils.isBlank(principalId)) {
             throw new RiceIllegalArgumentException("principalId was null or blank");
         }
 
@@ -138,48 +136,48 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
             throw new RiceIllegalArgumentException("qualification was null or blank");
         }
 
-        if ( !isDerivedRoleType() ) {
-			throw new UnsupportedOperationException( this.getClass().getName() + " is not an application role." );
-		}
-		// if principal ID given, check if it is in the list generated from the getPrincipalIdsFromApplicationRole method
-		if ( StringUtils.isNotBlank( principalId ) ) {
-		    List<RoleMembership> members = getRoleMembersFromDerivedRole(namespaceCode, roleName, qualification);
-		    for ( RoleMembership rm : members ) {
-		    	if ( StringUtils.isBlank( rm.getMemberId() ) ) {
-		    		continue;
-		    	}
-		        if ( MemberType.PRINCIPAL.equals(rm.getType()) ) {
-		            if ( rm.getMemberId().equals( principalId ) ) {
-		                return true;
-		            }
-		        } else { // groups
-		            if ( groupIds != null
-		                    && groupIds.contains(rm.getMemberId())) {
-		                return true;
-		            }
-		        }
-			}
-		}
-		return false;
-	}
+        if (!isDerivedRoleType()) {
+            throw new UnsupportedOperationException(this.getClass().getName() + " is not an application role.");
+        }
+        // if principal ID given, check if it is in the list generated from the getPrincipalIdsFromApplicationRole method
+        if (StringUtils.isNotBlank(principalId)) {
+            List<RoleMembership> members = getRoleMembersFromDerivedRole(namespaceCode, roleName, qualification);
+            for (RoleMembership rm : members) {
+                if (StringUtils.isBlank(rm.getMemberId())) {
+                    continue;
+                }
+                if (MemberType.PRINCIPAL.equals(rm.getType())) {
+                    if (rm.getMemberId().equals(principalId)) {
+                        return true;
+                    }
+                } else { // groups
+                    if (groupIds != null
+                        && groupIds.contains(rm.getMemberId())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Default to not being a derived role type.  Always returns false.
-	 *
-	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#isDerivedRoleType()
-	 */
+    /**
+     * Default to not being a derived role type.  Always returns false.
+     *
+     * @see org.kuali.rice.kim.framework.role.RoleTypeService#isDerivedRoleType()
+     */
     @Override
-	public boolean isDerivedRoleType() {
-		return false;
-	}
+    public boolean isDerivedRoleType() {
+        return false;
+    }
 
-	/**
-	 * This base implementation simply returns the passed in Attributes.
-	 *
-	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#convertQualificationForMemberRoles(String, String, String, String, Map<String, String>)
-	 */
+    /**
+     * This base implementation simply returns the passed in Attributes.
+     *
+     * @see org.kuali.rice.kim.framework.role.RoleTypeService#convertQualificationForMemberRoles(String, String, String, String, Map<String, String>)
+     */
     @Override
-	public Map<String, String> convertQualificationForMemberRoles(String namespaceCode, String roleName, String memberRoleNamespaceCode, String memberRoleName, Map<String, String> qualification) {
+    public Map<String, String> convertQualificationForMemberRoles(String namespaceCode, String roleName, String memberRoleNamespaceCode, String memberRoleName, Map<String, String> qualification) {
 
         if (StringUtils.isBlank(namespaceCode)) {
             throw new RiceIllegalArgumentException("namespaceCode was null or blank");
@@ -202,16 +200,15 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         return Collections.unmodifiableMap(new HashMap<String, String>(qualification));
-	}
+    }
 
-	/**
-	 * Performs a simple check that the qualifier on the delegation matches the qualification.
-	 * Extra qualification attributes are ignored.
-	 *
-	 */
+    /**
+     * Performs a simple check that the qualifier on the delegation matches the qualification.
+     * Extra qualification attributes are ignored.
+     */
     @Override
-	public boolean doesDelegationQualifierMatchQualification(Map<String, String> qualification, Map<String, String> roleQualifier) {
-		if (qualification == null) {
+    public boolean doesDelegationQualifierMatchQualification(Map<String, String> qualification, Map<String, String> roleQualifier) {
+        if (qualification == null) {
             throw new RiceIllegalArgumentException("qualification was null or blank");
         }
 
@@ -220,18 +217,18 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         Map<String, String> translatedQualification = translateInputAttributes(qualification);
-		validateRequiredAttributesAgainstReceived(translatedQualification);
-		return performMatch(translatedQualification, roleQualifier);
-	}
+        validateRequiredAttributesAgainstReceived(translatedQualification);
+        return performMatch(translatedQualification, roleQualifier);
+    }
 
-	/**
-	 * Returns false as a default
-	 *
-	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#dynamicRoleMembership(java.lang.String, java.lang.String)
-	 */
+    /**
+     * Returns false as a default
+     *
+     * @see org.kuali.rice.kim.framework.role.RoleTypeService#dynamicRoleMembership(java.lang.String, java.lang.String)
+     */
     @Override
-	public boolean dynamicRoleMembership(String namespaceCode, String roleName) {
-		if (StringUtils.isBlank(namespaceCode)) {
+    public boolean dynamicRoleMembership(String namespaceCode, String roleName) {
+        if (StringUtils.isBlank(namespaceCode)) {
             throw new RiceIllegalArgumentException("namespaceCode was null or blank");
         }
 
@@ -240,42 +237,42 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
         }
 
         return false;
-	}
+    }
 
     @Override
-	public List<String> getQualifiersForExactMatch() {
-		return Collections.emptyList();
-	}
+    public List<String> getQualifiersForExactMatch() {
+        return Collections.emptyList();
+    }
 
     /**
      * Base implementation: no sorting.  Just returns the input list.
      */
-	@Override
-	public List<RoleMembership> sortRoleMembers(List<RoleMembership> roleMembers)
-			throws RiceIllegalArgumentException {
-		return roleMembers;
-	}
+    @Override
+    public List<RoleMembership> sortRoleMembers(List<RoleMembership> roleMembers)
+        throws RiceIllegalArgumentException {
+        return roleMembers;
+    }
 
-	@Override
-	public Map<String, String> convertQualificationForMemberRolesAndMemberAttributes(
-			@WebParam(name = "namespaceCode") String namespaceCode, @WebParam(name = "roleName") String roleName,
-			@WebParam(name = "memberRoleNamespaceCode") String memberRoleNamespaceCode,
-			@WebParam(name = "memberRoleName") String memberRoleName, @WebParam(name = "qualification") @XmlJavaTypeAdapter(
-			value = MapStringStringAdapter.class) Map<String, String> qualification, @WebParam(name = "memberQualification") @XmlJavaTypeAdapter(
-			value = MapStringStringAdapter.class) Map<String, String> memberQualification) throws RiceIllegalArgumentException {
-		if (memberQualification == null) {
-			throw new RiceIllegalArgumentException("memberQualification was null");
-		}
+    @Override
+    public Map<String, String> convertQualificationForMemberRolesAndMemberAttributes(
+        @WebParam(name = "namespaceCode") String namespaceCode, @WebParam(name = "roleName") String roleName,
+        @WebParam(name = "memberRoleNamespaceCode") String memberRoleNamespaceCode,
+        @WebParam(name = "memberRoleName") String memberRoleName, @WebParam(name = "qualification") @XmlJavaTypeAdapter(
+        value = MapStringStringAdapter.class) Map<String, String> qualification, @WebParam(name = "memberQualification") @XmlJavaTypeAdapter(
+        value = MapStringStringAdapter.class) Map<String, String> memberQualification) throws RiceIllegalArgumentException {
+        if (memberQualification == null) {
+            throw new RiceIllegalArgumentException("memberQualification was null");
+        }
 
-		return convertQualificationForMemberRoles(namespaceCode, roleName, memberRoleNamespaceCode, memberRoleName, qualification);
-	}
+        return convertQualificationForMemberRoles(namespaceCode, roleName, memberRoleNamespaceCode, memberRoleName, qualification);
+    }
 
-	@Override
-	public void roleMemberRemoved(RoleMember roleMember) {
-		// Default implementation does nothing when a member is removed from a role
-	}
+    @Override
+    public void roleMemberRemoved(RoleMember roleMember) {
+        // Default implementation does nothing when a member is removed from a role
+    }
 
-	@Override
+    @Override
     public boolean shouldValidateQualifiersForMemberType(MemberType memberType) {
         return false;
     }

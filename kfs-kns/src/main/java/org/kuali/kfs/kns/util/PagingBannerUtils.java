@@ -26,38 +26,37 @@ import java.util.Enumeration;
 
 /**
  * Utility for that is used along with the tableRenderPagingBanner.tag.
- *
- *
- *
  */
 public final class PagingBannerUtils {
 
-	/** do not call. */
-	private PagingBannerUtils() {
-		throw new UnsupportedOperationException("do not call");
-	}
+    /**
+     * do not call.
+     */
+    private PagingBannerUtils() {
+        throw new UnsupportedOperationException("do not call");
+    }
 
     /**
      * find the number string in a method to call parameter with the following format parameterPrefix.1 or
      * parameterPrefix.1.bleh
      *
-     * @param paramPrefix the
+     * @param paramPrefix    the
      * @param parameterNames the parameter names.
      * @return the numerical value or -1
      */
     public static int getNumbericalValueAfterPrefix(String paramPrefix, Enumeration<String> parameterNames) {
 
-    	for (String parameterName : CollectionUtils.toIterable(parameterNames)) {
-    		if (parameterName.startsWith(paramPrefix)) {
-            	parameterName = WebUtils.endsWithCoordinates(parameterName) ? parameterName : parameterName + ".x";
-            	String numberStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
-            	if (NumberUtils.isDigits(numberStr)) {
-            		return Integer.parseInt(numberStr);
-            	}
+        for (String parameterName : CollectionUtils.toIterable(parameterNames)) {
+            if (parameterName.startsWith(paramPrefix)) {
+                parameterName = WebUtils.endsWithCoordinates(parameterName) ? parameterName : parameterName + ".x";
+                String numberStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
+                if (NumberUtils.isDigits(numberStr)) {
+                    return Integer.parseInt(numberStr);
+                }
             }
         }
 
-    	return -1;
+        return -1;
     }
 
     /**

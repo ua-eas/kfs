@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.List;
-
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -29,41 +27,40 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.List;
+
 /**
  * Authorizer for accounting lines associated with the travel advance
  */
 public class TravelAdvanceAccountingLineAuthorizer extends TemAccountingLineAuthorizer {
     /**
-     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#isGroupEditable(org.kuali.kfs.sys.document.AccountingDocument, java.util.List, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public boolean isGroupEditable(AccountingDocument accountingDocument, List<? extends AccountingLineRenderingContext> accountingLineRenderingContexts, Person currentUser) {
-        if (!((TravelAuthorizationDocument)accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
+        if (!((TravelAuthorizationDocument) accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
             return super.isGroupEditable(accountingDocument, accountingLineRenderingContexts, currentUser);
         }
         return false;
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#renderNewLine(org.kuali.kfs.sys.document.AccountingDocument, java.lang.String)
      */
     @Override
     public boolean renderNewLine(AccountingDocument accountingDocument, String accountingGroupProperty) {
-        if (!((TravelAuthorizationDocument)accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
+        if (!((TravelAuthorizationDocument) accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
             return super.renderNewLine(accountingDocument, accountingGroupProperty);
         }
         return false;
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.authorization.TemAccountingLineAuthorizer#determineEditPermissionOnLine(org.kuali.kfs.sys.document.AccountingDocument, org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String, boolean, boolean)
      */
     @Override
     public boolean determineEditPermissionOnLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, boolean currentUserIsDocumentInitiator, boolean pageIsEditable) {
-        if (!((TravelAuthorizationDocument)accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
+        if (!((TravelAuthorizationDocument) accountingDocument).allParametersForAdvanceAccountingLinesSet() && TemConstants.TravelStatusCodeKeys.AWAIT_FISCAL.equals(accountingDocument.getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
             return super.determineEditPermissionOnLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUserIsDocumentInitiator, pageIsEditable);
         }
         return false;
@@ -71,6 +68,7 @@ public class TravelAdvanceAccountingLineAuthorizer extends TemAccountingLineAuth
 
     /**
      * If the parameters for the advance are set, don't allow editing of chart, account, or object code
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField(org.kuali.kfs.sys.document.AccountingDocument, org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String, java.lang.String, boolean)
      */
     @Override
@@ -78,7 +76,7 @@ public class TravelAdvanceAccountingLineAuthorizer extends TemAccountingLineAuth
         if (KFSPropertyConstants.FINANCIAL_OBJECT_CODE.equals(fieldName)) {
             return false; // you can never change the object code
         }
-        if (((TravelAuthorizationDocument)accountingDocument).allParametersForAdvanceAccountingLinesSet()) {
+        if (((TravelAuthorizationDocument) accountingDocument).allParametersForAdvanceAccountingLinesSet()) {
             return false;
         }
         // parameters aren't set - so only fiscal officer should check
@@ -90,6 +88,7 @@ public class TravelAdvanceAccountingLineAuthorizer extends TemAccountingLineAuth
 
     /**
      * Returns "advanceAccounting", the "infix" of the group
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionInfixForNewAccountingLine(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     @Override
@@ -102,6 +101,7 @@ public class TravelAdvanceAccountingLineAuthorizer extends TemAccountingLineAuth
 
     /**
      * Returns "advanceAccoutingLines", the "infix" of the existing lines
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionInfixForExtantAccountingLine(org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String)
      */
     @Override

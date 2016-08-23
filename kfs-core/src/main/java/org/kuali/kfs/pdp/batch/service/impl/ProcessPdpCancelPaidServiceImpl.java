@@ -18,15 +18,9 @@
  */
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.batch.service.ProcessPdpCancelPaidService;
 import org.kuali.kfs.pdp.businessobject.ExtractionUnit;
@@ -39,10 +33,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.PaymentSource;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation of ProcessPdpCancelPaidService
@@ -81,14 +81,13 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
             boolean primaryCancel = paymentDetail.getPrimaryCancelledPayment();
             boolean disbursedPayment = PdpConstants.PaymentStatusCodes.CANCEL_DISBURSEMENT.equals(paymentDetail.getPaymentGroup().getPaymentStatusCode());
 
-            if(purchasingAccountsPayableModuleService.isPurchasingBatchDocument(documentTypeCode)) {
+            if (purchasingAccountsPayableModuleService.isPurchasingBatchDocument(documentTypeCode)) {
                 purchasingAccountsPayableModuleService.handlePurchasingBatchCancels(documentNumber, documentTypeCode, primaryCancel, disbursedPayment);
-            }
-            else {
+            } else {
                 PaymentSourceToExtractService<PaymentSource> extractService = getPaymentSourceToExtractService(paymentDetail);
                 if (extractService != null) {
                     try {
-                        PaymentSource dv = (PaymentSource)getDocumentService().getByDocumentHeaderId(documentNumber);
+                        PaymentSource dv = (PaymentSource) getDocumentService().getByDocumentHeaderId(documentNumber);
                         if (dv != null) {
                             if (disbursedPayment || primaryCancel) {
                                 extractService.cancelPayment(dv, processDate);
@@ -97,7 +96,7 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
                             }
                         }
                     } catch (WorkflowException we) {
-                        throw new RuntimeException("Could not retrieve document #"+documentNumber, we);
+                        throw new RuntimeException("Could not retrieve document #" + documentNumber, we);
                     }
                 } else {
                     LOG.warn("processPdpCancels() Unknown document type (" + documentTypeCode + ") for document ID: " + documentNumber);
@@ -126,17 +125,16 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
             String documentTypeCode = paymentDetail.getFinancialDocumentTypeCode();
             String documentNumber = paymentDetail.getCustPaymentDocNbr();
 
-            if(purchasingAccountsPayableModuleService.isPurchasingBatchDocument(documentTypeCode)) {
+            if (purchasingAccountsPayableModuleService.isPurchasingBatchDocument(documentTypeCode)) {
                 purchasingAccountsPayableModuleService.handlePurchasingBatchPaids(documentNumber, documentTypeCode, processDate);
-            }
-            else {
+            } else {
                 PaymentSourceToExtractService<PaymentSource> extractService = getPaymentSourceToExtractService(paymentDetail);
                 if (extractService != null) {
                     try {
-                        PaymentSource dv = (PaymentSource)getDocumentService().getByDocumentHeaderId(documentNumber);
+                        PaymentSource dv = (PaymentSource) getDocumentService().getByDocumentHeaderId(documentNumber);
                         extractService.markAsPaid(dv, processDate);
                     } catch (WorkflowException we) {
-                        throw new RuntimeException("Could not retrieve document #"+documentNumber, we);
+                        throw new RuntimeException("Could not retrieve document #" + documentNumber, we);
                     }
                 } else {
                     LOG.warn("processPdpPaids() Unknown document type (" + documentTypeCode + ") for document ID: " + documentNumber);
@@ -175,6 +173,7 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
 
     /**
      * Looks up the PaymentSourceToExtractService which can act upon the given PaymentDetail, based on the PaymentDetail's document type
+     *
      * @param paymentDetail the payment detail to find an extraction service to act upon
      * @return the matching PaymentSourceToExtractService, or null if a matching service could not be found (which would be weird, because _something_ created this PaymentDetail, but...whatever)
      */
@@ -189,6 +188,7 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
 
     /**
      * Loops through the PaymentSourceToExtractService List and builds ExtractionUnits for each
+     *
      * @return a List of ExtractionUnits for each customer profile organization and sub-organization handled by PaymentSourceToExtractServices
      */
     protected List<ExtractionUnit> getExtractionUnitsForPaymentSourceToExtractServices() {
@@ -243,6 +243,7 @@ public class ProcessPdpCancelPaidServiceImpl implements ProcessPdpCancelPaidServ
 
     /**
      * Sets the implementation of the DocumentService to use
+     *
      * @param documentService the implementation of the DocumentService to use
      */
     public void setDocumentService(DocumentService documentService) {

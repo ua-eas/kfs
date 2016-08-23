@@ -18,24 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
@@ -57,19 +50,25 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PaymentApplicationAction extends FinancialSystemTransactionalDocumentActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -101,7 +100,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
 
     /**
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, ServletRequest request, ServletResponse response) throws Exception {
@@ -116,7 +115,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
      * This is overridden in order to recalculate the invoice totals before doing the submit.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -379,19 +378,20 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
      */
     protected List<InvoicePaidApplied> filterTempInvoicePaidApplieds(PaymentApplicationForm paymentApplicationForm) {
         PaymentApplicationDocument paymentApplicationDocument = paymentApplicationForm.getPaymentApplicationDocument();
-        List <InvoicePaidApplied> filteredInvoicePaidApplieds = new ArrayList <InvoicePaidApplied>();
+        List<InvoicePaidApplied> filteredInvoicePaidApplieds = new ArrayList<InvoicePaidApplied>();
 
         List<InvoicePaidApplied> invoicePaidApplieds = paymentApplicationDocument.getInvoicePaidApplieds(); // jira fix
         // add only entries that do not have the loaded customer number
         String currentCustomerNumber = findCustomerNumber(paymentApplicationForm);
         for (InvoicePaidApplied invoicePaidApplied : invoicePaidApplieds) {
-                filteredInvoicePaidApplieds.add(invoicePaidApplied);
+            filteredInvoicePaidApplieds.add(invoicePaidApplied);
         }
         return filteredInvoicePaidApplieds;
     }
 
     /**
      * figure out the current customer Number on the form
+     *
      * @param paymentApplicationForm
      * @return
      */
@@ -409,6 +409,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
 
     /**
      * checks if the invoice is valid
+     *
      * @param paymentApplicationForm
      * @return
      */
@@ -430,7 +431,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
 
                 String documentNumber, String refInvoiceDocNumber, Integer invoiceSequenceNumber, KualiDecimal appliedAmount, Integer paidAppliedItemNumber) {
     */
-    protected boolean containsIdentical(CustomerInvoiceDetail customerInvoiceDetail,  KualiDecimal amountApplied, List<InvoicePaidApplied> invoicePaidApplieds ) {
+    protected boolean containsIdentical(CustomerInvoiceDetail customerInvoiceDetail, KualiDecimal amountApplied, List<InvoicePaidApplied> invoicePaidApplieds) {
         boolean identicalFlag = false;
         String custRefInvoiceDocNumber = customerInvoiceDetail.getDocumentNumber();
         Integer custInvoiceSequenceNumber = customerInvoiceDetail.getInvoiceItemNumber();
@@ -655,12 +656,10 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
                     payAppForm.setSelectedCustomerNumber(payAppDoc.getCashControlDetail().getCustomerNumber());
                     arDocHeader.setCustomerNumber(payAppDoc.getCashControlDetail().getCustomerNumber());
                 }
-            }
-            else {
+            } else {
                 payAppForm.setSelectedCustomerNumber(arDocHeader.getCustomerNumber());
             }
-        }
-        else {
+        } else {
             arDocHeader.setCustomerNumber(payAppForm.getSelectedCustomerNumber());
         }
         String customerNumber = payAppForm.getSelectedCustomerNumber();
@@ -706,10 +705,9 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
                         try {
                             List<Document> docs = documentService.getDocumentsByListOfDocumentHeaderIds(PaymentApplicationDocument.class, controlDocNumbers);
                             for (Document doc : docs) {
-                                nonAppliedControlDocs.add((PaymentApplicationDocument)doc);
+                                nonAppliedControlDocs.add((PaymentApplicationDocument) doc);
                             }
-                        }
-                        catch (WorkflowException e) {
+                        } catch (WorkflowException e) {
                             throw new RuntimeException("A runtimeException was thrown when trying to retrieve a list of documents.", e);
                         }
                     }
@@ -732,8 +730,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
             // open invoices
             if (payAppDoc.isFinal()) {
                 openInvoicesForCustomer = payAppDoc.getInvoicesPaidAgainst();
-            }
-            else {
+            } else {
                 openInvoicesForCustomer = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerNumber(customerNumber);
             }
             payAppForm.setInvoices(new ArrayList<CustomerInvoiceDocument>(openInvoicesForCustomer));
@@ -744,8 +741,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
         if (StringUtils.isNotBlank(customerNumber) && StringUtils.isBlank(currentInvoiceNumber)) {
             if (payAppForm.getInvoices() == null || payAppForm.getInvoices().isEmpty()) {
                 currentInvoiceNumber = null;
-            }
-            else {
+            } else {
                 currentInvoiceNumber = payAppForm.getInvoices().get(0).getDocumentNumber();
             }
         }
@@ -787,30 +783,29 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
         if (payAppDoc.getNonAppliedHolding() != null) {
             payAppForm.setNonAppliedHoldingCustomerNumber(payAppDoc.getNonAppliedHolding().getCustomerNumber());
             payAppForm.setNonAppliedHoldingAmount(payAppDoc.getNonAppliedHolding().getFinancialDocumentLineAmount());
-        }
-        else {
+        } else {
             // clear any NonAppliedHolding information from the form vars if it's empty
             payAppForm.setNonAppliedHoldingCustomerNumber(null);
             payAppForm.setNonAppliedHoldingAmount(null);
         }
 
-      //Presort this list to not reload in the jsp - https://jira.kuali.org/browse/KFSCNTRB-1377
+        //Presort this list to not reload in the jsp - https://jira.kuali.org/browse/KFSCNTRB-1377
         payAppForm.setInvoiceApplications(sortInvoiceApplications(payAppForm.getInvoiceApplications()));
     }
 
-    protected List<PaymentApplicationInvoiceApply> sortInvoiceApplications(List<PaymentApplicationInvoiceApply> invoiceApplications){
+    protected List<PaymentApplicationInvoiceApply> sortInvoiceApplications(List<PaymentApplicationInvoiceApply> invoiceApplications) {
         EntryHolderComparator entryHolderComparator = new EntryHolderComparator();
-        List <EntryHolder> entryHoldings = new ArrayList<EntryHolder>();
-       for (PaymentApplicationInvoiceApply paymentApplicationInvoiceApply : invoiceApplications){
-           entryHoldings.add(new EntryHolder(paymentApplicationInvoiceApply.getInvoice().getDocumentHeader().getWorkflowDocument().getDateCreated().toDate(), paymentApplicationInvoiceApply));
-       }
-       if (entryHoldings.size() > 0) {
-        Collections.sort(entryHoldings, entryHolderComparator);
-    }
-       List <PaymentApplicationInvoiceApply> results = new ArrayList<PaymentApplicationInvoiceApply>();
-       for (EntryHolder entryHolder : entryHoldings) {
-           results.add((PaymentApplicationInvoiceApply) entryHolder.getHolder());
-       }
+        List<EntryHolder> entryHoldings = new ArrayList<EntryHolder>();
+        for (PaymentApplicationInvoiceApply paymentApplicationInvoiceApply : invoiceApplications) {
+            entryHoldings.add(new EntryHolder(paymentApplicationInvoiceApply.getInvoice().getDocumentHeader().getWorkflowDocument().getDateCreated().toDate(), paymentApplicationInvoiceApply));
+        }
+        if (entryHoldings.size() > 0) {
+            Collections.sort(entryHoldings, entryHolderComparator);
+        }
+        List<PaymentApplicationInvoiceApply> results = new ArrayList<PaymentApplicationInvoiceApply>();
+        for (EntryHolder entryHolder : entryHoldings) {
+            results.add((PaymentApplicationInvoiceApply) entryHolder.getHolder());
+        }
         return results;
     }
 
@@ -823,19 +818,20 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
 
         /**
          * Constructs a NonAppliedHolding.EntryHolder
+         *
          * @param NonAppliedHolding the entry to point to
-         * @param Date of doc
+         * @param Date              of doc
          */
         public EntryHolder(Date date, Object holder) {
             this.date = date;
             this.holder = holder;
         }
 
-         public Date getDate() {
+        public Date getDate() {
             return this.date;
         }
 
-         public Object getHolder() {
+        public Object getHolder() {
             return this.holder;
         }
     }
@@ -847,12 +843,13 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
 
         /**
          * Compares two Objects based on their creation date
+         *
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         @Override
         public int compare(EntryHolder rosencrantz, EntryHolder guildenstern) {
-             return rosencrantz.getDate().compareTo(guildenstern.getDate());
-      }
+            return rosencrantz.getDate().compareTo(guildenstern.getDate());
+        }
     }
 
     /**
@@ -932,7 +929,7 @@ public class PaymentApplicationAction extends FinancialSystemTransactionalDocume
      * Cancel the document.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.sys.batch.BatchInputFileSetType;
 import org.kuali.kfs.sys.businessobject.BatchUpload;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the form used for the batch upload for file sets

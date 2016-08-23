@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Organization;
@@ -36,10 +30,16 @@ import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionProcessorService
  */
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public class BudgetConstructionProcessorServiceImpl implements BudgetConstructionProcessorService {
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(BudgetConstructionProcessorServiceImpl.class);
 
@@ -50,9 +50,9 @@ public class BudgetConstructionProcessorServiceImpl implements BudgetConstructio
      */
     public List<Organization> getProcessorOrgs(Person person) {
         List<Organization> processorOrgs = new ArrayList<Organization>();
-        Map<String, String> qualification = new HashMap<String,String>();
-        List<Map<String,String>> allQualifications = getRoleService().getNestedRoleQualifersForPrincipalByNamespaceAndRolename(person.getPrincipalId(), BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME, qualification);
-        for (Map<String,String> attributeSet : allQualifications) {
+        Map<String, String> qualification = new HashMap<String, String>();
+        List<Map<String, String>> allQualifications = getRoleService().getNestedRoleQualifersForPrincipalByNamespaceAndRolename(person.getPrincipalId(), BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME, qualification);
+        for (Map<String, String> attributeSet : allQualifications) {
             String chartOfAccountsCode = attributeSet.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
             String organizationCode = attributeSet.get(KfsKimAttributes.ORGANIZATION_CODE);
 
@@ -69,10 +69,10 @@ public class BudgetConstructionProcessorServiceImpl implements BudgetConstructio
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionProcessorService#isOrgProcessor(java.lang.String,
-     *      java.lang.String, org.kuali.rice.kim.api.identity.Person)
+     * java.lang.String, org.kuali.rice.kim.api.identity.Person)
      */
     public boolean isOrgProcessor(String chartOfAccountsCode, String organizationCode, Person person) {
-        Map<String,String> qualification = new HashMap<String,String>();
+        Map<String, String> qualification = new HashMap<String, String>();
         qualification.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
         qualification.put(KfsKimAttributes.ORGANIZATION_CODE, organizationCode);
 
@@ -81,13 +81,12 @@ public class BudgetConstructionProcessorServiceImpl implements BudgetConstructio
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionProcessorService#isOrgProcessor(org.kuali.kfs.coa.businessobject.Organization,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     public boolean isOrgProcessor(Organization organization, Person person) {
         try {
             return isOrgProcessor(organization.getChartOfAccountsCode(), organization.getOrganizationCode(), person);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             String errorMessage = String.format("Fail to determine if %s is an approver for %s. ", person, organization);
             LOG.info(errorMessage, e);
         }
@@ -99,7 +98,7 @@ public class BudgetConstructionProcessorServiceImpl implements BudgetConstructio
      * @return role id for the budget processor role
      */
     protected List<String> getBudgetProcessorRoleIds() {
-        return Collections.singletonList( getRoleService().getRoleIdByNamespaceCodeAndName(BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME));
+        return Collections.singletonList(getRoleService().getRoleIdByNamespaceCodeAndName(BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME));
     }
 
     protected RoleService getRoleService() {

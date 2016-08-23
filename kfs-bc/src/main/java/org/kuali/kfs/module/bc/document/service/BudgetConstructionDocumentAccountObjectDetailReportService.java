@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountObjectDetailReport;
+
+import java.util.Collection;
 
 /**
  * This interface defines the methods for BudgetConstructionLevelSummaryReports
@@ -31,7 +31,6 @@ public interface BudgetConstructionDocumentAccountObjectDetailReportService {
     public void updateDocumentAccountObjectDetailReportTable(String principalName, String documentNumber, Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String subAccountNumber);
 
     /**
-     *
      * builds BudgetConstructionLevelSummaryReports
      *
      * @param universityFiscalYear

@@ -19,6 +19,15 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.exception.AccountingLineParserException;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Map;
+
 import static org.kuali.kfs.sys.KFSKeyConstants.AccountingLineParser.ERROR_INVALID_PROPERTY_VALUE;
 import static org.kuali.kfs.sys.KFSPropertyConstants.ACCOUNT_NUMBER;
 import static org.kuali.kfs.sys.KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE;
@@ -31,20 +40,11 @@ import static org.kuali.kfs.sys.KFSPropertyConstants.ORGANIZATION_REFERENCE_ID;
 import static org.kuali.kfs.sys.KFSPropertyConstants.PROJECT_CODE;
 import static org.kuali.kfs.sys.KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
 
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.exception.AccountingLineParserException;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-
 /**
  * This class is used to parse an <code>AuxiliaryVocherDocument</code> accounting line.
  */
 public class AuxiliaryVoucherAccountingLineParser extends AccountingLineParserBase {
-    protected static final String[] AV_FORMAT = { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, FINANCIAL_DOCUMENT_LINE_DESCRIPTION, DEBIT, CREDIT };
+    protected static final String[] AV_FORMAT = {CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, FINANCIAL_DOCUMENT_LINE_DESCRIPTION, DEBIT, CREDIT};
 
     /**
      * Constructs a AuxiliaryVoucherAccountingLineParser.java.
@@ -70,9 +70,8 @@ public class AuxiliaryVoucherAccountingLineParser extends AccountingLineParserBa
             if (StringUtils.isNotBlank(debitValue)) {
                 debitAmount = new KualiDecimal(debitValue);
             }
-        }
-        catch (NumberFormatException e) {
-            String[] errorParameters = { debitValue, retrieveAttributeLabel(sourceAccountingLine.getClass(), DEBIT), accountingLineAsString };
+        } catch (NumberFormatException e) {
+            String[] errorParameters = {debitValue, retrieveAttributeLabel(sourceAccountingLine.getClass(), DEBIT), accountingLineAsString};
             throw new AccountingLineParserException("invalid (NaN) '" + DEBIT + "=" + debitValue + " for " + accountingLineAsString, ERROR_INVALID_PROPERTY_VALUE, errorParameters);
         }
         KualiDecimal creditAmount = null;
@@ -80,9 +79,8 @@ public class AuxiliaryVoucherAccountingLineParser extends AccountingLineParserBa
             if (StringUtils.isNotBlank(creditValue)) {
                 creditAmount = new KualiDecimal(creditValue);
             }
-        }
-        catch (NumberFormatException e) {
-            String[] errorParameters = { creditValue, retrieveAttributeLabel(sourceAccountingLine.getClass(), CREDIT), accountingLineAsString };
+        } catch (NumberFormatException e) {
+            String[] errorParameters = {creditValue, retrieveAttributeLabel(sourceAccountingLine.getClass(), CREDIT), accountingLineAsString};
             throw new AccountingLineParserException("invalid (NaN) '" + CREDIT + "=" + creditValue + " for " + accountingLineAsString, ERROR_INVALID_PROPERTY_VALUE, errorParameters);
         }
 

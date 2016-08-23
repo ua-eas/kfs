@@ -22,7 +22,6 @@ import org.kuali.kfs.module.bc.document.dataaccess.OrganizationSalarySettingSear
 
 /**
  * This class...
- *
  */
 public class OrganizationSalarySettingSearchDaoJdbc extends BudgetConstructionDaoJdbcBase implements OrganizationSalarySettingSearchDao {
 
@@ -196,7 +195,7 @@ public class OrganizationSalarySettingSearchDaoJdbc extends BudgetConstructionDa
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.OrganizationSalarySettingSearchDao#buildIntendedIncumbentSelect(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     @Override
     public void buildIntendedIncumbentSelect(String principalName, Integer universityFiscalYear) {
@@ -252,8 +251,7 @@ public class OrganizationSalarySettingSearchDaoJdbc extends BudgetConstructionDa
             if (rowsAffected > 0) {
                 populateSelectedPositionOrgsSubTree(currentLevel, sessionId);
             }
-        }
-        else {
+        } else {
             // overrun problem
             LOG.warn(String.format("\nWarning: One or more selected organizations have reporting organizations more than maxlevel of %d deep.", MAXLEVEL));
         }

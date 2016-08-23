@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.AgencyMatchProcessParameter;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
@@ -39,10 +39,10 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
@@ -69,7 +69,6 @@ public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
 
 
     /**
-     *
      * This method tests {@link ExpenseImportByTravelerService#validateAccountingInfo(TemProfile, AgencyStagingData)}
      */
     @Test
@@ -87,7 +86,7 @@ public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
         // success case
         expenseImportByTravelerService.validateAccountingInfo(agency);
         assertTrue(agency.getErrorCode().equals(AgencyStagingDataErrorCodes.AGENCY_NO_ERROR));
-        assertTrue(agency.getTripAccountingInformation().size()==1);
+        assertTrue(agency.getTripAccountingInformation().size() == 1);
         TripAccountingInformation accountingInfo = agency.getTripAccountingInformation().get(0);
         assertTrue(StringUtils.equals(accountingInfo.getTripAccountNumber(), profile.getDefaultAccount()));
         assertTrue(StringUtils.equals(accountingInfo.getTripSubAccountNumber(), profile.getDefaultSubAccount()));
@@ -95,7 +94,6 @@ public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests {@link ExpenseImportByTravelerService#validateTraveler(AgencyStagingData)}
      */
     @Test
@@ -134,7 +132,6 @@ public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests {@link ExpenseImportByTravelerService#isDuplicate(AgencyStagingData)}
      */
     @Test
@@ -155,7 +152,6 @@ public class ExpenseImportByTravelerServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method tests {@link ExpenseImportByTravelerService#areMandatoryFieldsPresent(AgencyStagingData)}
      */
     @Test

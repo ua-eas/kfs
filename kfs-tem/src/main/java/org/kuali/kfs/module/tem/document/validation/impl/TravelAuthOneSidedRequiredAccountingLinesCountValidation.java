@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * Validation which checks a one-sided Travel document source accounting line match the minimum criteria base on
@@ -47,11 +47,11 @@ public class TravelAuthOneSidedRequiredAccountingLinesCountValidation extends Ge
         boolean validated = true;
         TravelAuthorizationDocument travelDocument = (TravelAuthorizationDocument) event.getDocument();
 
-        if (travelDocument.isTripGenerateEncumbrance()){
+        if (travelDocument.isTripGenerateEncumbrance()) {
             validated = validateSourceAccountingLineMeetMinimum(travelDocument);
-        }else{
+        } else {
             //accounting line is required for non-enumbrance trip if there are imported expenses in the document
-            if (!travelDocument.getImportedExpenses().isEmpty()){
+            if (!travelDocument.getImportedExpenses().isEmpty()) {
                 validated = validateSourceAccountingLineMeetMinimum(travelDocument);
             }
         }
@@ -64,8 +64,8 @@ public class TravelAuthOneSidedRequiredAccountingLinesCountValidation extends Ge
      * @param travelDocument
      * @return
      */
-    private boolean validateSourceAccountingLineMeetMinimum(TravelDocument travelDocument){
-        final int REQUIRED_MINIMUM= 1;
+    private boolean validateSourceAccountingLineMeetMinimum(TravelDocument travelDocument) {
+        final int REQUIRED_MINIMUM = 1;
         boolean validated = true;
 
         if (travelDocument.getSourceAccountingLines().size() < REQUIRED_MINIMUM && !travelDocument.getBlanketTravel()) {

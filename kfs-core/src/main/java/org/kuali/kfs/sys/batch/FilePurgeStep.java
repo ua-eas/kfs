@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.sys.batch.service.FilePurgeService;
+
 import java.util.Date;
 import java.util.List;
 
-import org.kuali.kfs.sys.batch.service.FilePurgeService;
-
 /**
- *
  * Purges old files from the reports directory specified in build.properties
  */
 public class FilePurgeStep extends AbstractStep {
@@ -56,6 +55,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Gets the directories attribute.
+     *
      * @return Returns the directories.
      */
     public List<String> getDirectories() {
@@ -64,6 +64,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Sets the directories attribute value.
+     *
      * @param directories The directories to set.
      */
     public void setDirectories(List<String> directories) {
@@ -72,6 +73,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Gets the customAges attribute.
+     *
      * @return Returns the customAges.
      */
     public List<FilePurgeCustomAge> getCustomAges() {
@@ -80,6 +82,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Sets the customAges attribute value.
+     *
      * @param customAges The customAges to set.
      */
     public void setCustomAges(List<FilePurgeCustomAge> customAge) {
@@ -88,6 +91,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Gets the filePurgeService attribute.
+     *
      * @return Returns the filePurgeService.
      */
     public FilePurgeService getFilePurgeService() {
@@ -96,6 +100,7 @@ public class FilePurgeStep extends AbstractStep {
 
     /**
      * Sets the filePurgeService attribute value.
+     *
      * @param filePurgeService The filePurgeService to set.
      */
     public void setFilePurgeService(FilePurgeService filePurgeService) {

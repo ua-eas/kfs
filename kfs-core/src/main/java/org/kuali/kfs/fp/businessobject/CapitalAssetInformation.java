@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
-import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
@@ -252,9 +252,8 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     public String getVendorName() {
         if (ObjectUtils.isNotNull(vendorDetail)) {
             vendorName = vendorDetail.getVendorName();
-        }
-        else if (StringUtils.isNotBlank(vendorName) && vendorName.indexOf(" > ") > 0){
-                vendorName = vendorName.substring(vendorName.indexOf(" > ") + 2, vendorName.length());
+        } else if (StringUtils.isNotBlank(vendorName) && vendorName.indexOf(" > ") > 0) {
+            vendorName = vendorName.substring(vendorName.indexOf(" > ") + 2, vendorName.length());
         }
 
         return vendorName;
@@ -307,6 +306,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetLineNumber attribute.
+     *
      * @return Returns the capitalAssetLineNumber.
      */
     public Integer getCapitalAssetLineNumber() {
@@ -315,6 +315,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetLineNumber attribute value.
+     *
      * @param capitalAssetLineNumber The capitalAssetLineNumber to set.
      */
     public void setCapitalAssetLineNumber(Integer capitalAssetLineNumber) {
@@ -327,8 +328,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     public KualiDecimal getCapitalAssetLineAmount() {
         if (ObjectUtils.isNull(capitalAssetLineAmount)) {
             return KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             return capitalAssetLineAmount;
         }
     }
@@ -339,8 +339,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     public void setCapitalAssetLineAmount(KualiDecimal capitalAssetLineAmount) {
         if (ObjectUtils.isNull(capitalAssetLineAmount)) {
             this.capitalAssetLineAmount = KualiDecimal.ZERO;
-        }
-        else {
+        } else {
             this.capitalAssetLineAmount = capitalAssetLineAmount;
         }
 

@@ -27,6 +27,7 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 
 /**
  * A generic implementation of OrganizationReversionCategoryLogic; it is completely based off of parameters
+ *
  * @see org.kuali.kfs.gl.batch.service.OrganizationReversionCategoryLogic
  */
 public class GenericOrganizationReversionCategory implements OrganizationReversionCategoryLogic {

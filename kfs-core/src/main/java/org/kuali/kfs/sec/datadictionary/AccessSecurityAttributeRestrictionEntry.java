@@ -19,11 +19,11 @@
 package org.kuali.kfs.sec.datadictionary;
 
 
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.sec.service.AccessPermissionEvaluator;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.kuali.kfs.sec.service.AccessPermissionEvaluator;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 
 
 /**
@@ -110,7 +110,6 @@ public class AccessSecurityAttributeRestrictionEntry {
     public void setOtherKeyFields(Map<String, AttributeDefinition> otherKeyFields) {
         this.otherKeyFields = otherKeyFields;
     }
-
 
 
 }

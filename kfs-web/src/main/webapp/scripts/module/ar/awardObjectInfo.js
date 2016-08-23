@@ -18,8 +18,8 @@
  */
 
 function clearDate(booleanFieldName, dateFieldName) {
-	var clearDate = dwr.util.getValue( booleanFieldName );
-	if (!clearDate) {
-		document.getElementById(dateFieldName).value = "";
-	}
+    var clearDate = dwr.util.getValue(booleanFieldName);
+    if (!clearDate) {
+        document.getElementById(dateFieldName).value = "";
+    }
 }

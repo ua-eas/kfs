@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public abstract class TimestampedBusinessObjectBase extends PersistableBusinessObjectBase implements TimestampedBusinessObject {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TimestampedBusinessObjectBase.class);
@@ -73,14 +73,16 @@ public abstract class TimestampedBusinessObjectBase extends PersistableBusinessO
         this.lastUpdate = lastUpdate;
     }
 
-    @Override protected void prePersist() {
+    @Override
+    protected void prePersist() {
         super.prePersist();
 
         lastUpdate = new Timestamp((new Date()).getTime());
         lastUpdateUserId = GlobalVariables.getUserSession().getPerson().getPrincipalName();
     }
 
-    @Override protected void preUpdate() {
+    @Override
+    protected void preUpdate() {
         super.preUpdate();
 
         lastUpdate = new Timestamp((new Date()).getTime());

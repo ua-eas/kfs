@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 
 /**
  * Calculate event for Commodity Codes for distribution
- *
  */
 public final class AttributedPayDateNotOverThresholdDaysAwayEvent extends AttributedDocumentEventBase {
 
@@ -31,7 +30,7 @@ public final class AttributedPayDateNotOverThresholdDaysAwayEvent extends Attrib
      * Constructs a CommodityCodesForDistributionEvent with the given errorPathPrefix, document, and item.
      *
      * @param errorPathPrefix the error path
-     * @param document document the event was invoked upon
+     * @param document        document the event was invoked upon
      */
     public AttributedPayDateNotOverThresholdDaysAwayEvent(String errorPathPrefix, Document document) {
         super("Determing commodity codes for distribution on document " + getDocumentId(document), errorPathPrefix, document);

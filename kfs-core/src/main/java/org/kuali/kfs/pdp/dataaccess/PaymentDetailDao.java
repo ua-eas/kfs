@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.pdp.dataaccess;
 
-import java.sql.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.pdp.businessobject.DailyReport;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.ExtractionUnit;
 import org.kuali.kfs.pdp.businessobject.PaymentDetail;
 
+import java.sql.Date;
+import java.util.Iterator;
+import java.util.List;
+
 public interface PaymentDetailDao {
     /**
      * @param custPaymentDocNbr
      * @param fdocTypeCode
-     * @param orgCode the value of the system parameter PURAP_PDP_ORG_CODE
-     * @param subUnitCode the value of the system parameter PURAP_PDP_SUB_UNIT_CODE
+     * @param orgCode           the value of the system parameter PURAP_PDP_ORG_CODE
+     * @param subUnitCode       the value of the system parameter PURAP_PDP_SUB_UNIT_CODE
      * @return
      */
     public PaymentDetail getDetailForEpic(String custPaymentDocNbr, String fdocTypeCode, String orgCode, String subUnitCode);
@@ -56,6 +56,7 @@ public interface PaymentDetailDao {
 
     /**
      * This will return an iterator of all the cancelled payment details that haven't already been processed
+     *
      * @param extractionUnits a List of ExtractionUnit objects to represent each of the unit/sub-unit combinations to get PaymentDetails for
      * @return
      */
@@ -70,6 +71,7 @@ public interface PaymentDetailDao {
 
     /**
      * This will return an iterator of all the paid payment details that haven't already been processed
+     *
      * @param extractionUnits a List of ExtractionUnit objects to represent each of the unit/sub-unit combinations to get PaymentDetails for
      * @return
      */

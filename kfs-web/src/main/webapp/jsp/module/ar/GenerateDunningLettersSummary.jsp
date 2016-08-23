@@ -16,35 +16,35 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page headerTitle="Generate Dunning Letters Summary"
-	transactionalDocument="false" showDocumentInfo="false"
-	htmlFormAction="arGenerateDunningLettersSummary"
-	docTitle="Generate Dunning Letters Summary">
+          transactionalDocument="false" showDocumentInfo="false"
+          htmlFormAction="arGenerateDunningLettersSummary"
+          docTitle="Generate Dunning Letters Summary">
 
-	<div>
-		<c:choose>
-			<c:when test ="${KualiForm.dunningLettersGenerated}">
-				<html:submit
-					value="Return"
-					styleClass="btn btn-default" property="methodToCall.cancel"
-					title="return" alt="return" />
-			</c:when>
-			<c:otherwise>
-				<ar:documentSummaryResults lookupResultsProperty="generateDunningLettersLookupResults" lookupResultTitleProperties="proposalNumber" tabTitleName="Award">
-					<ar:generateDunningLettersSummaryResultContent/>
-				</ar:documentSummaryResults>
-				<html:submit
-					value="Create"
-					styleClass="btn btn-default"
-					property="methodToCall.generateDunningLetters.number${KualiForm.lookupResultsSequenceNumber}"
-					title="generate_DunningLetters" alt="generate_DunningLetters" onclick="excludeSubmitRestriction=true"/>
-				<html:submit
-					value="Cancel"
-					styleClass="btn btn-default" property="methodToCall.cancel"
-					title="cancel" alt="cancel" />
-			</c:otherwise>
-		</c:choose>
-	</div>
+    <div>
+        <c:choose>
+            <c:when test="${KualiForm.dunningLettersGenerated}">
+                <html:submit
+                        value="Return"
+                        styleClass="btn btn-default" property="methodToCall.cancel"
+                        title="return" alt="return"/>
+            </c:when>
+            <c:otherwise>
+                <ar:documentSummaryResults lookupResultsProperty="generateDunningLettersLookupResults" lookupResultTitleProperties="proposalNumber" tabTitleName="Award">
+                    <ar:generateDunningLettersSummaryResultContent/>
+                </ar:documentSummaryResults>
+                <html:submit
+                        value="Create"
+                        styleClass="btn btn-default"
+                        property="methodToCall.generateDunningLetters.number${KualiForm.lookupResultsSequenceNumber}"
+                        title="generate_DunningLetters" alt="generate_DunningLetters" onclick="excludeSubmitRestriction=true"/>
+                <html:submit
+                        value="Cancel"
+                        styleClass="btn btn-default" property="methodToCall.cancel"
+                        title="cancel" alt="cancel"/>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </kul:page>

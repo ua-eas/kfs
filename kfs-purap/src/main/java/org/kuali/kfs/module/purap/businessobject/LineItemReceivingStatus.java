@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class LineItemReceivingStatus extends PersistableBusinessObjectBase {
 
-    private  String lineItemReceivingStatusCode;
-    private  String lineItemReceivingStatusDescription;
+    private String lineItemReceivingStatusCode;
+    private String lineItemReceivingStatusDescription;
 
     public String getLineItemReceivingStatusCode() {
         return lineItemReceivingStatusCode;

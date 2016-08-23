@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Calendar;
-
-import javax.xml.namespace.QName;
-
 import org.kuali.kfs.integration.cg.dto.AccountCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.AccountParametersDTO;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -31,6 +25,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+
+import javax.xml.namespace.QName;
+import java.util.Calendar;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class AccountCreationServiceTest extends KualiTestBase {
@@ -66,19 +65,19 @@ public class AccountCreationServiceTest extends KualiTestBase {
 
 
         Calendar cal = Calendar.getInstance();
-        cal.set( Calendar.YEAR, 2012 );
-        cal.set( Calendar.MONTH, Calendar.DECEMBER);
-        cal.set( Calendar.DATE, 1 );
-        cal.set( Calendar.HOUR_OF_DAY, 0 );
-        cal.set( Calendar.MINUTE, 0 );
-        cal.set( Calendar.SECOND, 0 );
-        cal.set( Calendar.MILLISECOND, 0 );
-        accountParameters.setExpirationDate(new java.sql.Date(cal.getTime().getTime()) );
+        cal.set(Calendar.YEAR, 2012);
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DATE, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        accountParameters.setExpirationDate(new java.sql.Date(cal.getTime().getTime()));
 
-        cal.set( Calendar.YEAR, 2010 );
-        cal.set( Calendar.MONTH, Calendar.JANUARY );
-        cal.set( Calendar.DATE, 1 );
-        accountParameters.setEffectiveDate(new java.sql.Date(cal.getTime().getTime()) );
+        cal.set(Calendar.YEAR, 2010);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DATE, 1);
+        accountParameters.setEffectiveDate(new java.sql.Date(cal.getTime().getTime()));
 
         accountParameters.setOffCampusIndicator(false);
         accountParameters.setPrincipalId(UserNameFixture.khuntley.getPerson().getPrincipalId());
@@ -87,7 +86,6 @@ public class AccountCreationServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override

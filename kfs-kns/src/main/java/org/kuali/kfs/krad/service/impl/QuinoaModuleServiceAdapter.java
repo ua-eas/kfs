@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
-import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 import org.kuali.kfs.krad.datadictionary.PrimitiveAttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.QuinoaMaskFormatterAdapter;
 import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
+import org.kuali.kfs.krad.datadictionary.SupportAttributeDefinition;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.SupportAttributeDefinition;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
@@ -299,10 +299,11 @@ public class QuinoaModuleServiceAdapter implements ModuleService {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {}
+    public void afterPropertiesSet() throws Exception {
+    }
 
-	@Override
-	public boolean isExternal(Class boClass) {
-		return true;
-	}
+    @Override
+    public boolean isExternal(Class boClass) {
+        return true;
+    }
 }

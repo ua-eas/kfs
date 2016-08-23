@@ -22,13 +22,11 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 
 
 /**
- *
  * This class represents Target Accounting lines in IAA document
  * This class is defined to make sure "referenceNumber", a required attribute in IAA, is validated for required-ness only in
  * case of an IAA document.
  */
 public class IntraAccountAdjustmentTargetAccountingLine extends TargetAccountingLine {
-
 
 
 }

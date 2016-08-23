@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.Set;
-
-import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
-import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
-import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
+import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
+
+import java.util.Set;
 
 
 public class BulkReceivingDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
@@ -56,7 +55,7 @@ public class BulkReceivingDocumentPresentationController extends PurchasingAccou
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)document;
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) document;
 
         // if vendor has been selected from DB, certain vendor fields are not allowed to be edited
         if (ObjectUtils.isNotNull(bulkReceivingDocument.getVendorHeaderGeneratedIdentifier())) {

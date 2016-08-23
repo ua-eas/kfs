@@ -19,14 +19,13 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a pending balances move
- *
  */
 public class PendingBalancesMove extends PersistableBusinessObjectBase {
 

@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * On Travel Authorization documents, gives a warning or error if the document is a blanket document
@@ -37,15 +37,16 @@ public class TravelAuthBlanketTripExpenseValidation extends GenericValidation {
      * Checks if the event is a travel authorization and is set to blanket travel; then - if the event is adding an expense, then warns about it;
      * otherwise, checks if there are any actual or imported (imported shouldn't happen but we're trying to be safe) events on the document and if so,
      * gives an error about it
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         if (event.getDocument() instanceof TravelAuthorizationDocument) {
-            final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument)event.getDocument();
+            final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument) event.getDocument();
             if (travelAuth.getBlanketTravel().booleanValue()) {
                 if (isAlwaysErrorEvent(event) || (travelAuth.getActualExpenses() != null && !travelAuth.getActualExpenses().isEmpty()) || (travelAuth.getImportedExpenses() != null && !travelAuth.getImportedExpenses().isEmpty())) {
-                    GlobalVariables.getMessageMap().putError(TemPropertyConstants.ACTUAL_EXPENSES+"[0]."+TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_TRAVEL_DOCUMENT_EXPENSES_ON_BLANKET_TRAVEL);
+                    GlobalVariables.getMessageMap().putError(TemPropertyConstants.ACTUAL_EXPENSES + "[0]." + TemPropertyConstants.EXPENSE_TYPE_CODE, TemKeyConstants.ERROR_TRAVEL_DOCUMENT_EXPENSES_ON_BLANKET_TRAVEL);
                     return false;
                 }
             }
@@ -55,6 +56,7 @@ public class TravelAuthBlanketTripExpenseValidation extends GenericValidation {
 
     /**
      * Determines if we should always error out on the given event
+     *
      * @param event the event to error out on
      * @return true if the event should always error out on, false otherwise
      */

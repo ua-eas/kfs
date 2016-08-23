@@ -18,19 +18,12 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.PrintStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.PriorYearAccount;
 import org.kuali.kfs.coa.service.BalanceTypeService;
 import org.kuali.kfs.coa.service.PriorYearAccountService;
 import org.kuali.kfs.coa.service.SubFundGroupService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.ObjectHelper;
 import org.kuali.kfs.gl.batch.service.impl.exception.NonFatalErrorException;
@@ -38,6 +31,7 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.service.OriginEntryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -47,8 +41,14 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.io.PrintStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class to hold significant state for a balance forward job; it also has the methods that actually accomplish the job
@@ -189,9 +189,9 @@ public class BalanceForwardRuleHelper {
         //Obtain list of charts to for the balance forwarding from Parameter ANNUAL_CLOSING_CHARTS_PARAM.
         //If no parameter value exists, act on all charts which is the default action in the delivered foundation code.
         annualClosingCharts = new ArrayList<String>();
-        Collection<String> annualClosingChartaParamValues =  parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_CHARTS_PARAM);
+        Collection<String> annualClosingChartaParamValues = parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_CHARTS_PARAM);
 
-        if (ObjectUtils.isNotNull(annualClosingChartaParamValues)&& (!annualClosingChartaParamValues.isEmpty())) {
+        if (ObjectUtils.isNotNull(annualClosingChartaParamValues) && (!annualClosingChartaParamValues.isEmpty())) {
 
             annualClosingCharts.addAll(annualClosingChartaParamValues);
 
@@ -234,9 +234,9 @@ public class BalanceForwardRuleHelper {
      * Constructs a BalanceForwardRuleHelper, but this one goes whole hog: initializes all of the relevant parameters and the
      * balance types to process
      *
-     * @param closingFiscalYear the fiscal year to close
-     * @param transactionDate the date this job is being run
-     * @param closedPriorYearAccountGroup the group to put balance forwarding origin entries with closed accounts into
+     * @param closingFiscalYear             the fiscal year to close
+     * @param transactionDate               the date this job is being run
+     * @param closedPriorYearAccountGroup   the group to put balance forwarding origin entries with closed accounts into
      * @param unclosedPriorYearAccountGroup the group to put balance forwarding origin entries with open accounts into
      */
     public BalanceForwardRuleHelper(Integer closingFiscalYear, Date transactionDate, String balanceForwardsclosedFileName, String balanceForwardsUnclosedFileName) {
@@ -259,20 +259,18 @@ public class BalanceForwardRuleHelper {
     /**
      * The balance to create a general balance forward origin entry for
      *
-     * @param balance a balance to create an origin entry for
-     * @param closedPriorYearAccountGroup the group to put balance forwarding origin entries with closed accounts into
+     * @param balance                       a balance to create an origin entry for
+     * @param closedPriorYearAccountGroup   the group to put balance forwarding origin entries with closed accounts into
      * @param unclosedPriorYearAccountGroup the group to put balance forwarding origin entries with open accounts into
      * @throws FatalErrorException
      */
     public void processGeneralForwardBalance(Balance balance, PrintStream closedPs, PrintStream unclosedPs) {
         if (ObjectUtils.isNull(balance.getPriorYearAccount())) {
             LOG.info(("COULD NOT RETRIEVE INFORMATION ON ACCOUNT " + balance.getChartOfAccountsCode() + "-" + balance.getAccountNumber()));
-        }
-        else {
+        } else {
             if ((ObjectUtils.isNull(balance.getAccountNumber()) && ObjectUtils.isNull(state.getAccountNumberHold())) || (ObjectUtils.isNotNull(balance.getAccountNumber()) && balance.getAccountNumber().equals(state.getAccountNumberHold()))) {
                 state.incrementSequenceNumber();
-            }
-            else {
+            } else {
                 state.setSequenceNumber(1);
             }
             state.incrementGlobalSelectCount();
@@ -284,15 +282,14 @@ public class BalanceForwardRuleHelper {
     /**
      * This method creates an origin entry for a cumulative balance forward and saves it in its proper origin entry group
      *
-     * @param balance a balance which needs to have a cumulative origin entry generated for it
-     * @param closedPriorYearAccountGroup the origin entry group where forwarding origin entries with closed prior year accounts go
+     * @param balance                       a balance which needs to have a cumulative origin entry generated for it
+     * @param closedPriorYearAccountGroup   the origin entry group where forwarding origin entries with closed prior year accounts go
      * @param unclosedPriorYearAcocuntGroup the origin entry group where forwarding origin entries with open prior year accounts go
      */
     public void processCumulativeForwardBalance(Balance balance, PrintStream closedPs, PrintStream unclosedPs) {
         if ((null == balance.getAccountNumber() && null == state.getAccountNumberHold()) || (null != balance.getAccountNumber() && balance.getAccountNumber().equals(state.getAccountNumberHold()))) {
             state.incrementSequenceNumber();
-        }
-        else {
+        } else {
             state.setSequenceNumber(1);
         }
         state.incrementGlobalSelectCount();
@@ -319,8 +316,7 @@ public class BalanceForwardRuleHelper {
 
         try {
             flexibleOffsetAccountService.updateOffset(activeEntry);
-        }
-        catch (InvalidFlexibleOffsetException e) {
+        } catch (InvalidFlexibleOffsetException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("processBalance() Balance Forward Flexible Offset Error: " + e.getMessage());
             }
@@ -333,17 +329,15 @@ public class BalanceForwardRuleHelper {
         activeEntry.setTransactionLedgerEntryDescription(new StringBuffer("BEG C & G BAL BROUGHT FORWARD FROM ").append(closingFiscalYear).toString());
         activeEntry.setTransactionLedgerEntryAmount(balance.getAccountLineAnnualBalanceAmount().add(balance.getContractsGrantsBeginningBalanceAmount()));
         if (KFSConstants.BALANCE_TYPE_CURRENT_BUDGET.equals(balance.getBalanceTypeCode())
-                || KFSConstants.BALANCE_TYPE_BASE_BUDGET.equals(balance.getBalanceTypeCode())  ) {
+            || KFSConstants.BALANCE_TYPE_BASE_BUDGET.equals(balance.getBalanceTypeCode())) {
             activeEntry.setTransactionDebitCreditCode(null);
-        }
-        else {
+        } else {
 
             String wsFinancialObjectTypeDebitCreditCode = null;
 
             try {
                 wsFinancialObjectTypeDebitCreditCode = getFinancialObjectTypeDebitCreditCode(balance);
-            }
-            catch (NonFatalErrorException nfee) {
+            } catch (NonFatalErrorException nfee) {
                 getState().incrementNonFatalCount();
                 wsFinancialObjectTypeDebitCreditCode = KFSConstants.GL_CREDIT_CODE;
                 LOG.info(nfee.getMessage());
@@ -351,12 +345,10 @@ public class BalanceForwardRuleHelper {
             if (activeEntry.getTransactionLedgerEntryAmount().isNegative()) {
                 if (KFSConstants.GL_CREDIT_CODE.equals(wsFinancialObjectTypeDebitCreditCode)) {
                     activeEntry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
-                }
-                else {
+                } else {
                     activeEntry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
                 }
-            }
-            else {
+            } else {
                 activeEntry.setTransactionDebitCreditCode(wsFinancialObjectTypeDebitCreditCode);
             }
 
@@ -372,8 +364,7 @@ public class BalanceForwardRuleHelper {
         String transactionEncumbranceUpdateCode = null;
         try {
             transactionEncumbranceUpdateCode = getTransactionEncumbranceUpdateCode(balance);
-        }
-        catch (NonFatalErrorException nfee) {
+        } catch (NonFatalErrorException nfee) {
             getState().incrementNonFatalCount();
             LOG.info(nfee.getMessage());
         }
@@ -409,8 +400,7 @@ public class BalanceForwardRuleHelper {
         entry.setFinancialBalanceTypeCode(balance.getBalanceTypeCode());
         if (currentYearOptions.getFinObjTypeExpendNotExpCode().equals(balance.getObjectTypeCode())) {
             entry.setFinancialObjectTypeCode(currentYearOptions.getFinancialObjectTypeAssetsCd());
-        }
-        else {
+        } else {
             entry.setFinancialObjectTypeCode(balance.getObjectTypeCode());
         }
         entry.setUniversityFiscalPeriodCode(KFSConstants.PERIOD_CODE_BEGINNING_BALANCE);
@@ -427,8 +417,7 @@ public class BalanceForwardRuleHelper {
         String transactionEncumbranceUpdateCode = null;
         try {
             transactionEncumbranceUpdateCode = getTransactionEncumbranceUpdateCode(balance);
-        }
-        catch (NonFatalErrorException nfee) {
+        } catch (NonFatalErrorException nfee) {
             getState().incrementNonFatalCount();
             LOG.info(nfee.getMessage());
         }
@@ -439,8 +428,7 @@ public class BalanceForwardRuleHelper {
         String wsFinancialObjectTypeDebitCreditCode = null;
         try {
             wsFinancialObjectTypeDebitCreditCode = getFinancialObjectTypeDebitCreditCode(balance);
-        }
-        catch (NonFatalErrorException nfee) {
+        } catch (NonFatalErrorException nfee) {
             getState().incrementNonFatalCount();
             wsFinancialObjectTypeDebitCreditCode = KFSConstants.GL_CREDIT_CODE;
             LOG.info(nfee.getMessage());
@@ -449,12 +437,10 @@ public class BalanceForwardRuleHelper {
         if (transactionLedgerEntryAmount.isNegative()) {
             if (KFSConstants.GL_DEBIT_CODE.equals(wsFinancialObjectTypeDebitCreditCode)) {
                 entry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
-            }
-            else {
+            } else {
                 entry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             }
-        }
-        else {
+        } else {
             entry.setTransactionDebitCreditCode(wsFinancialObjectTypeDebitCreditCode);
         }
         entry.setTransactionDate(transactionDate);
@@ -490,8 +476,7 @@ public class BalanceForwardRuleHelper {
         Boolean encumIndicator = this.balanceTypeEncumbranceIndicators.get(balance.getBalanceTypeCode());
         if (encumIndicator == null) {
             throw new NonFatalErrorException(new StringBuffer(" ERROR ").append(balance.getBalanceTypeCode()).append(" NOT ON TABLE ").toString());
-        }
-        else if (encumIndicator.booleanValue()) {
+        } else if (encumIndicator.booleanValue()) {
             updateCode = KFSConstants.ENCUMB_UPDT_NO_ENCUMBRANCE_CD;
         }
 
@@ -510,14 +495,12 @@ public class BalanceForwardRuleHelper {
         String wsFinancialObjectTypeDebitCreditCode = null;
 
         if (null != balanceObjectTypeDebitCreditCode) {
-            if (ObjectHelper.isOneOf(balanceObjectTypeDebitCreditCode, new String[] { KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE })) {
+            if (ObjectHelper.isOneOf(balanceObjectTypeDebitCreditCode, new String[]{KFSConstants.GL_CREDIT_CODE, KFSConstants.GL_DEBIT_CODE})) {
                 wsFinancialObjectTypeDebitCreditCode = balanceObjectTypeDebitCreditCode;
-            }
-            else {
+            } else {
                 wsFinancialObjectTypeDebitCreditCode = KFSConstants.GL_CREDIT_CODE;
             }
-        }
-        else {
+        } else {
             throw new NonFatalErrorException(new StringBuffer("FIN OBJ TYP CODE ").append(balance.getObjectTypeCode()).append(" NOT IN TABLE").toString());
         }
         return wsFinancialObjectTypeDebitCreditCode;
@@ -526,16 +509,16 @@ public class BalanceForwardRuleHelper {
     /**
      * Saves a generated origin entry to the database, within the proper group
      *
-     * @param balance the original balance, which still has the account to check if it is closed or not
-     * @param entry the origin entry to save
-     * @param closedPriorYearAccountGroup the group to put balance forwarding origin entries with closed accounts into
+     * @param balance                       the original balance, which still has the account to check if it is closed or not
+     * @param entry                         the origin entry to save
+     * @param closedPriorYearAccountGroup   the group to put balance forwarding origin entries with closed accounts into
      * @param unclosedPriorYearAccountGroup the group to put balance forwarding origin entries with open accounts into
      */
     private void saveForwardingEntry(Balance balance, OriginEntryFull entry, PrintStream closedPs, PrintStream unclosedPs) {
         final PriorYearAccount account = priorYearAccountService.getByPrimaryKey(balance.getChartOfAccountsCode(), balance.getAccountNumber());
         if (ObjectUtils.isNotNull(account) && !account.isClosed()) {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Prior Year Account "+account.getChartOfAccountsCode()+"-"+account.getAccountNumber()+" is not closed");
+                LOG.debug("Prior Year Account " + account.getChartOfAccountsCode() + "-" + account.getAccountNumber() + " is not closed");
             }
             originEntryService.createEntry(entry, unclosedPs);
             state.incrementSequenceWriteCount();
@@ -544,13 +527,12 @@ public class BalanceForwardRuleHelper {
             if (0 == state.getSequenceWriteCount() % 1000) {
                 LOG.info("  SEQUENTIAL RECORDS WRITTEN = " + state.getSequenceWriteCount());
             }
-        }
-        else {
+        } else {
             if (LOG.isDebugEnabled()) {
                 if (ObjectUtils.isNull(account)) {
-                    LOG.debug("Prior Year Account for "+balance.getChartOfAccountsCode()+"-"+balance.getAccountNumber()+" cannot be found");
+                    LOG.debug("Prior Year Account for " + balance.getChartOfAccountsCode() + "-" + balance.getAccountNumber() + " cannot be found");
                 } else {
-                    LOG.debug("Prior Year Account "+account.getChartOfAccountsCode()+"-"+account.getAccountNumber()+" is closed");
+                    LOG.debug("Prior Year Account " + account.getChartOfAccountsCode() + "-" + account.getAccountNumber() + " is closed");
                 }
             }
             originEntryService.createEntry(entry, closedPs);
@@ -564,6 +546,7 @@ public class BalanceForwardRuleHelper {
 
     /**
      * Writes the ledger report for general balance forward entries to the given reportWriterService
+     *
      * @param reportWriteService the reportWriterService to write to
      */
     public void writeOpenAccountBalanceForwardLedgerSummaryReport(ReportWriterService reportWriterService) {
@@ -572,6 +555,7 @@ public class BalanceForwardRuleHelper {
 
     /**
      * Writes the ledger report for cumulative balance forward entries to the given reportWriterService
+     *
      * @param reportWriteService the reportWriterService to write to
      */
     public void writeClosedAccountBalanceForwardLedgerSummaryReport(ReportWriterService reportWriterService) {
@@ -637,6 +621,7 @@ public class BalanceForwardRuleHelper {
 
     /**
      * Gets the glOriginationCode attribute.
+     *
      * @return Returns the glOriginationCode.
      */
     public String getGlOriginationCode() {
@@ -645,21 +630,23 @@ public class BalanceForwardRuleHelper {
 
     /**
      * Gets the annualClosingDocType attribute.
+     *
      * @return Returns the annualClosingDocType.
      */
     public String getAnnualClosingDocType() {
         return annualClosingDocType;
     }
 
-    public List <String> getAnnualClosingCharts() {
+    public List<String> getAnnualClosingCharts() {
         return annualClosingCharts;
     }
 
     /**
      * Returns the boolean from the chart parameter list being empty
+     *
      * @return isEmpty boolean value for chart List
      */
-    public boolean isAnnualClosingChartParamterBlank(){
+    public boolean isAnnualClosingChartParamterBlank() {
         return annualClosingCharts.isEmpty();
     }
 }

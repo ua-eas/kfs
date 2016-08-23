@@ -35,14 +35,12 @@ import java.util.List;
 
 /**
  * Utility class for trimming component instances for storage
- *
+ * <p>
  * <p>
  * Invoked to trim the view instance before storing on the form as the post view. Certain information is keep
  * around to support post methods that need to operate on the previous view configuration. Examples include component
  * refresh and collection add/delete line.
  * </p>
- *
- *
  */
 public class ViewCleaner {
 

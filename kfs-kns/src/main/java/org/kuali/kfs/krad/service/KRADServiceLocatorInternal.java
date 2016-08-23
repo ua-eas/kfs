@@ -34,50 +34,50 @@ public class KRADServiceLocatorInternal {
     public static final String VALIDATION_COMPLETION_UTILS = "validationCompletionUtils";
 
     public static <T extends Object> T getService(String serviceName) {
-    	return GlobalResourceLoader.<T>getService(serviceName);
+        return GlobalResourceLoader.<T>getService(serviceName);
     }
 
 
     public static final String MAIL_SERVICE = "cf.mailService";
 
     public static final MailService getMailService() {
-	return (MailService) getService(MAIL_SERVICE);
+        return (MailService) getService(MAIL_SERVICE);
     }
 
     public static final String POST_PROCESSOR_SERVICE = "cf.postProcessorService";
 
     public static PostProcessorService getPostProcessorService() {
-	return (PostProcessorService) getService(POST_PROCESSOR_SERVICE);
+        return (PostProcessorService) getService(POST_PROCESSOR_SERVICE);
     }
 
     public static final String NAMESPACE_SERVICE = "namespaceService";
 
     public static NamespaceService getNamespaceService() {
-	return (NamespaceService) getService(NAMESPACE_SERVICE);
+        return (NamespaceService) getService(NAMESPACE_SERVICE);
     }
 
     public static final String OJB_COLLECTION_HELPER = "cf.ojbCollectionHelper";
 
     public static OjbCollectionHelper getOjbCollectionHelper() {
-	return (OjbCollectionHelper) getService(OJB_COLLECTION_HELPER);
+        return (OjbCollectionHelper) getService(OJB_COLLECTION_HELPER);
     }
 
     public static final String TRANSACTION_MANAGER = "transactionManager";
 
     public static PlatformTransactionManager getTransactionManager() {
-	return (PlatformTransactionManager) getService(TRANSACTION_MANAGER);
+        return (PlatformTransactionManager) getService(TRANSACTION_MANAGER);
     }
 
     public static final String TRANSACTION_TEMPLATE = "transactionTemplate";
 
     public static TransactionTemplate getTransactionTemplate() {
-	return (TransactionTemplate) getService(TRANSACTION_TEMPLATE);
+        return (TransactionTemplate) getService(TRANSACTION_TEMPLATE);
     }
 
     public static final String INACTIVATION_BLOCKING_DISPLAY_SERVICE = "inactivationBlockingDisplayService";
 
     public static InactivationBlockingDisplayService getInactivationBlockingDisplayService() {
-    	return (InactivationBlockingDisplayService) getService(INACTIVATION_BLOCKING_DISPLAY_SERVICE);
+        return (InactivationBlockingDisplayService) getService(INACTIVATION_BLOCKING_DISPLAY_SERVICE);
     }
 
     public static final String DATA_DICTIONARY_COMPONENT_PUBLISHER_SERVICE = "cf.dataDictionaryComponentPublisherService";
@@ -100,7 +100,7 @@ public class KRADServiceLocatorInternal {
     }
 
 
-   public static final String DB_PLATFORM = "dbPlatform";
+    public static final String DB_PLATFORM = "dbPlatform";
 
     public static DatabasePlatform getDatabasePlatform() {
         return (DatabasePlatform) getService(DB_PLATFORM);
@@ -109,19 +109,19 @@ public class KRADServiceLocatorInternal {
     public static final String MAINTENANCE_DOCUMENT_AUTHORIZATION_SERVICE = "maintenanceDocumentAuthorizationService";
 
     public static BusinessObjectAuthorizationService getMaintenanceDocumentAuthorizationService() {
-    	return (BusinessObjectAuthorizationService) getService(MAINTENANCE_DOCUMENT_AUTHORIZATION_SERVICE);
+        return (BusinessObjectAuthorizationService) getService(MAINTENANCE_DOCUMENT_AUTHORIZATION_SERVICE);
     }
 
     public static final String WORKFLOW_ATTRIBUTE_PROPERTY_RESOLUTION_SERVICE = "cf.workflowAttributePropertyResolutionService";
 
     public static WorkflowAttributePropertyResolutionService getWorkflowAttributePropertyResolutionService() {
-    	return (WorkflowAttributePropertyResolutionService) getService(WORKFLOW_ATTRIBUTE_PROPERTY_RESOLUTION_SERVICE);
+        return (WorkflowAttributePropertyResolutionService) getService(WORKFLOW_ATTRIBUTE_PROPERTY_RESOLUTION_SERVICE);
     }
 
     public static final String INACTIVATEABLE_FROM_TO_SERVICE = "inactivateableFromToService";
 
     public static InactivateableFromToService getInactivateableFromToService() {
-    	return (InactivateableFromToService) getService(INACTIVATEABLE_FROM_TO_SERVICE);
+        return (InactivateableFromToService) getService(INACTIVATEABLE_FROM_TO_SERVICE);
     }
 
 }

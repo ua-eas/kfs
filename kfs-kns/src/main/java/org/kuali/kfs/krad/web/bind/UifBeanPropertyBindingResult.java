@@ -25,18 +25,17 @@ import org.springframework.validation.BeanPropertyBindingResult;
 
 /**
  * This is a description of what this class does - swgibson don't forget to fill this in.
- *
- *
  */
 public class UifBeanPropertyBindingResult extends BeanPropertyBindingResult {
     private static final long serialVersionUID = -3740046436620585003L;
 
-    public UifBeanPropertyBindingResult(Object target, String objectName,  boolean autoGrowNestedPaths, int autoGrowCollectionLimit) {
+    public UifBeanPropertyBindingResult(Object target, String objectName, boolean autoGrowNestedPaths, int autoGrowCollectionLimit) {
         super(target, objectName, autoGrowNestedPaths, autoGrowCollectionLimit);
     }
 
     /**
      * Create a new {@link BeanWrapper} for the underlying target object.
+     *
      * @see #getTarget()
      */
     @Override

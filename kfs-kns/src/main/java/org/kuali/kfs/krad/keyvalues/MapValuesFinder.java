@@ -27,7 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** a simple values finder that uses a map as the key/value source. */
+/**
+ * a simple values finder that uses a map as the key/value source.
+ */
 public class MapValuesFinder implements org.kuali.kfs.krad.keyvalues.KeyValuesFinder {
 
     private Map<String, String> keyValues;

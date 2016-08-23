@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
+import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
+
 import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.ACCOUNT_NUMBER;
 import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.AMOUNT;
 import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.CHART_OF_ACCOUNTS_CODE;
@@ -33,25 +35,22 @@ import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.
 import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.SUB_ACCOUNT_NUMBER;
 import static org.kuali.kfs.module.cam.CamsPropertyConstants.AssetPaymentDetail.SUB_OBJECT_CODE;
 
-import org.kuali.kfs.sys.businessobject.AccountingLineParserBase;
-
 public class AssetPaymentAccountingLineParser extends AccountingLineParserBase {
     protected static final String[] AP_FORMAT =
-    { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, AMOUNT,
-        PURCHASE_ORDER,
-        REQUISITION_NUMBER,
-        ORIGINATION_CODE,
-        DOCUMENT_NUMBER,
-        DOCUMENT_TYPE_CODE,
-        DOCUMENT_POSTING_DATE
-    };
+        {CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, AMOUNT,
+            PURCHASE_ORDER,
+            REQUISITION_NUMBER,
+            ORIGINATION_CODE,
+            DOCUMENT_NUMBER,
+            DOCUMENT_TYPE_CODE,
+            DOCUMENT_POSTING_DATE
+        };
 
     public AssetPaymentAccountingLineParser() {
         super();
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.businessobject.AccountingLineParserBase#getSourceAccountingLineFormat()
      */
     @Override

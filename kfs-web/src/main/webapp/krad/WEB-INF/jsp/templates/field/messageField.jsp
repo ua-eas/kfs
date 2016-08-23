@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.MessageField"/>
 
@@ -26,10 +26,10 @@
 
 <krad:span component="${field}">
 
-  <krad:fieldLabel field="${field}">
+    <krad:fieldLabel field="${field}">
 
-    ${field.messageText}
+        ${field.messageText}
 
-  </krad:fieldLabel>
+    </krad:fieldLabel>
 
 </krad:span>

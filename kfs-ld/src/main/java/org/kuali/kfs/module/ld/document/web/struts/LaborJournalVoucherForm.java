@@ -70,8 +70,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 //            else {
 //                sourceLine.setEncumbranceUpdateCode(null);
 //            }
-        }
-        else {
+        } else {
             // it's the first time in, the form will be empty the first time in set up default selection value
             selectedBalanceType = SpringContext.getBean(BalanceTypeService.class).getBalanceTypeByCode(KFSConstants.BALANCE_TYPE_ACTUAL);
             setSelectedBalanceType(selectedBalanceType);

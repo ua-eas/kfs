@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
 
 public class CustomEditorConfigurer implements InitializingBean {
     protected static final Logger LOG = Logger.getLogger(CustomEditorConfigurer.class);
@@ -50,8 +50,7 @@ public class CustomEditorConfigurer implements InitializingBean {
             PropertyEditor value = (PropertyEditor) customEditors.get(key);
             try {
                 PropertyEditorManager.registerEditor(Class.forName(key), value.getClass());
-            }
-            catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 LOG.debug("Cannot register property editor " + value + " for class " + key, e);
             }
         }

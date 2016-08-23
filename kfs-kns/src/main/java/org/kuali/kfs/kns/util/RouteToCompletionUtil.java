@@ -19,9 +19,9 @@
 package org.kuali.kfs.kns.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.rice.kew.api.KewApiConstants;
 
 import java.util.List;
 import java.util.ListIterator;

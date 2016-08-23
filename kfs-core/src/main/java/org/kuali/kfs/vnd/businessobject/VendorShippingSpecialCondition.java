@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Relationship between a Vendor and a <code>ShippingSpecialCondition</code>.
@@ -120,8 +120,7 @@ public class VendorShippingSpecialCondition extends PersistableBusinessObjectBas
     public boolean isEqualForRouting(Object toCompare) {
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorShippingSpecialCondition)) {
             return false;
-        }
-        else {
+        } else {
             VendorShippingSpecialCondition vssc = (VendorShippingSpecialCondition) toCompare;
 
             return new EqualsBuilder().append(this.getVendorHeaderGeneratedIdentifier(), vssc.getVendorHeaderGeneratedIdentifier()).append(this.getVendorDetailAssignedIdentifier(), vssc.getVendorDetailAssignedIdentifier()).append(this.getVendorShippingSpecialConditionCode(), vssc.getVendorShippingSpecialConditionCode()).isEquals();

@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Collection;
-
+import com.lowagie.text.DocumentException;
 import org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate;
 import org.kuali.kfs.module.ar.businessobject.GenerateDunningLettersLookupResult;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.rice.kim.api.identity.Person;
 
-import com.lowagie.text.DocumentException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Collection;
 
 public interface DunningLetterService {
 
@@ -53,13 +52,14 @@ public interface DunningLetterService {
      * Determines if the given DunningLetterTemplate's organization is valid for the given user.
      *
      * @param template the template to check the organization of
-     * @param user the user attempting to use the template
+     * @param user     the user attempting to use the template
      * @return true if the current user can use the template, false otherwise
      */
     public boolean isValidOrganizationForTemplate(DunningLetterTemplate template, Person user);
 
     /**
      * This helper method returns a list of award lookup results based on the Generate Dunning Letters lookup
+     *
      * @param invoices the invoices to convert into DunningLetterDistributionLookupResult data transfer objects
      * @return a Collection of DunningLetterDistributionLookupResult data transfer objects
      */

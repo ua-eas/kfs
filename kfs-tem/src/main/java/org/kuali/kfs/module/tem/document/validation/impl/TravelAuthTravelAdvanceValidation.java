@@ -18,17 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_TRVL_REQ_GRTR_THAN_ZERO;
-
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.document.DocumentPresentationController;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -49,14 +47,16 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.document.DocumentPresentationController;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TA_TRVL_REQ_GRTR_THAN_ZERO;
 
 public class TravelAuthTravelAdvanceValidation extends GenericValidation {
     protected TemProfileService temProfileService;
@@ -68,19 +68,19 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
     public boolean validate(AttributedDocumentEvent event) {
         boolean success = true;
 
-        TravelAuthorizationDocument document = (TravelAuthorizationDocument)event.getDocument();
+        TravelAuthorizationDocument document = (TravelAuthorizationDocument) event.getDocument();
 
-        if (document.getTraveler() == null){
+        if (document.getTraveler() == null) {
             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRAVELER_TYPE, TemKeyConstants.ERROR_TA_TRVL_ADV_MISSING_PROFILE);
             return false;
         }
 
         if (event instanceof AttributedRouteDocumentEvent
-                || event instanceof AttributedApproveDocumentEvent
-                || event instanceof AttributedBlanketApproveDocumentEvent){
+            || event instanceof AttributedApproveDocumentEvent
+            || event instanceof AttributedBlanketApproveDocumentEvent) {
             if (document.shouldProcessAdvanceForDocument()) {
                 success = isTravelAdvanceValid(document, document.getTravelAdvance());
-                success = success && validateAdvanceAmount((TravelDocument)event.getDocument());
+                success = success && validateAdvanceAmount((TravelDocument) event.getDocument());
             }
         }
 
@@ -90,19 +90,18 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
     private boolean isTravelAdvanceValid(TravelAuthorizationDocument document, TravelAdvance advance) {
         boolean success = true;
 
-        GlobalVariables.getMessageMap().addToErrorPath(KRADPropertyConstants.DOCUMENT+"."+TravelAuthorizationFields.TRVL_ADV + ".");
+        GlobalVariables.getMessageMap().addToErrorPath(KRADPropertyConstants.DOCUMENT + "." + TravelAuthorizationFields.TRVL_ADV + ".");
 
-        if(advance.getTravelAdvanceRequested() != null) {
+        if (advance.getTravelAdvanceRequested() != null) {
             KualiDecimal advReq = advance.getTravelAdvanceRequested();
-            if(advReq.isLessEqual(KualiDecimal.ZERO)) {
+            if (advReq.isLessEqual(KualiDecimal.ZERO)) {
                 success = false;
             }
-        }
-        else{
+        } else {
             success = false;
         }
 
-        if(!success) {
+        if (!success) {
             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV_REQUESTED, ERROR_TA_TRVL_REQ_GRTR_THAN_ZERO);
         }
 
@@ -112,38 +111,37 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
 
         String travelerID = document.getTraveler().getPrincipalId();
         Boolean checkPolicy = Boolean.FALSE;
-        if (travelerID != null){
+        if (travelerID != null) {
             //traveler must accept policy, if initiator is arranger, the traveler will have to accept later.
             checkPolicy = GlobalVariables.getUserSession().getPrincipalId().equals(travelerID);
-        }
-        else{ //Non-kim traveler, arranger accepts policy
+        } else { //Non-kim traveler, arranger accepts policy
             checkPolicy = Boolean.TRUE;
         }
 
-        if (checkPolicy){
-            if (!advance.getTravelAdvancePolicy()){
+        if (checkPolicy) {
+            if (!advance.getTravelAdvancePolicy()) {
                 success = false;
                 GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV_POLICY, TemKeyConstants.ERROR_TA_TRVL_ADV_POLICY);
             }
         }
 
         boolean testCards = getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TravelAuthorizationParameters.CASH_ADVANCE_WARNING_IND);
-        if (testCards){
+        if (testCards) {
             Collection<String> cardTypes = getParameterService().getParameterValuesAsString(TravelAuthorizationDocument.class, TravelAuthorizationParameters.CASH_ADVANCE_CREDIT_CARD_TYPES);
-            Map<String,String> cardTypeMap = new HashMap<String, String>();
-            for (String cardType : cardTypes){
+            Map<String, String> cardTypeMap = new HashMap<String, String>();
+            for (String cardType : cardTypes) {
                 cardTypeMap.put(cardType.toUpperCase(), cardType.toUpperCase());
             }
 
             TemProfile temProfile = document.getTemProfile();
-            if (temProfile == null && travelerID != null){
+            if (temProfile == null && travelerID != null) {
                 temProfile = temProfileService.findTemProfileByPrincipalId(travelerID);
             }
 
-            if (temProfile != null && temProfile.getAccounts() != null && temProfile.getAccounts().size() > 0){
-                for (TemProfileAccount account  : temProfile.getAccounts()){
-                    if (cardTypeMap.containsKey(account.getName().toUpperCase())){
-                        if (StringUtils.isBlank(advance.getAdditionalJustification())){
+            if (temProfile != null && temProfile.getAccounts() != null && temProfile.getAccounts().size() > 0) {
+                for (TemProfileAccount account : temProfile.getAccounts()) {
+                    if (cardTypeMap.containsKey(account.getName().toUpperCase())) {
+                        if (StringUtils.isBlank(advance.getAdditionalJustification())) {
                             success = false;
 
                             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV_ADD_JUST, TemKeyConstants.ERROR_TA_TRVL_ADV_ADD_JUST);
@@ -153,13 +151,14 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
             }
         }
 
-        GlobalVariables.getMessageMap().removeFromErrorPath(KRADPropertyConstants.DOCUMENT+"."+TravelAuthorizationFields.TRVL_ADV + ".");
+        GlobalVariables.getMessageMap().removeFromErrorPath(KRADPropertyConstants.DOCUMENT + "." + TravelAuthorizationFields.TRVL_ADV + ".");
 
         return success;
     }
 
     /**
      * Runs a number of rules against the due date of the advance: whether it has been filled it, that it's not in the past, that both it and the trip end must be filled in, and that the advance's due date is before the end of hte trip
+     *
      * @param advance the travel advance to validate
      * @param tripEnd the specified end of the trip
      * @return true if the advance passed this gauntlet of validations, false otherwise
@@ -177,47 +176,45 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
             }
         }
 
-        if (advance.getDueDate() != null && tripEnd == null){
+        if (advance.getDueDate() != null && tripEnd == null) {
             GlobalVariables.getMessageMap().putError(TemPropertyConstants.TRIP_END_DT, TemKeyConstants.ERROR_TA_TRVL_TRIP_END_MISSING);
             success = false;
-        }
-        else if (advance.getDueDate() != null && advance.getDueDate().after(tripEnd)) {
+        } else if (advance.getDueDate() != null && advance.getDueDate().after(tripEnd)) {
             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV_DUE_DATE, TemKeyConstants.ERROR_TA_TRVL_ADV_DUE_DATE_INVALID);
             success = false;
         }
         return success;
     }
 
-    protected boolean validateAdvanceAmount(TravelDocument  document ) {
+    protected boolean validateAdvanceAmount(TravelDocument document) {
         boolean success = true;
-        TravelAuthorizationDocument travelAuthorizationDocument = (TravelAuthorizationDocument)document;
+        TravelAuthorizationDocument travelAuthorizationDocument = (TravelAuthorizationDocument) document;
         KualiDecimal totalAdvanceRequested = KualiDecimal.ZERO;
-        GlobalVariables.getMessageMap().addToErrorPath(KRADPropertyConstants.DOCUMENT+"."+TravelAuthorizationFields.TRVL_ADV + ".");
+        GlobalVariables.getMessageMap().addToErrorPath(KRADPropertyConstants.DOCUMENT + "." + TravelAuthorizationFields.TRVL_ADV + ".");
 
         totalAdvanceRequested = totalAdvanceRequested.add(travelAuthorizationDocument.getAdvanceTotal());
 
         // get total advance requested on TAA and TAC
         List<TravelAdvance> advances = travelDocumentService.getTravelAdvancesForTrip(document.getTravelDocumentIdentifier());
-       for (TravelAdvance advance : advances) {
-           totalAdvanceRequested = totalAdvanceRequested.add(advance.getTravelAdvanceRequested());
-       }
+        for (TravelAdvance advance : advances) {
+            totalAdvanceRequested = totalAdvanceRequested.add(advance.getTravelAdvanceRequested());
+        }
 
 
-
-       KualiDecimal totalTripAmount = travelAuthorizationDocument.getEncumbranceTotal();
-       if(totalAdvanceRequested.isGreaterThan(totalTripAmount)) {
-           GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV, TemKeyConstants.ERROR_TA_TRVL_ADV_EXCCED_TOTAL_TRIP_AMOUNT);
-           success = false;
-       }
-
+        KualiDecimal totalTripAmount = travelAuthorizationDocument.getEncumbranceTotal();
+        if (totalAdvanceRequested.isGreaterThan(totalTripAmount)) {
+            GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.TRVL_ADV, TemKeyConstants.ERROR_TA_TRVL_ADV_EXCCED_TOTAL_TRIP_AMOUNT);
+            success = false;
+        }
 
 
-       return success;
+        return success;
 
     }
 
     /**
      * Uses the presentation controller and the authorizer for the travel auth doc to determine if the current user can edit the doc and if they have full edit edit mode
+     *
      * @return true if the doc is editable for the current user, false otherwise
      */
     protected boolean canCurrentUserEditDocument(TravelAuthorizationDocument doc) {
@@ -225,8 +222,8 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
         final String documentTypeName = getDocumentDictionaryService().getDocumentTypeByClass(doc.getClass());
         final DocumentPresentationController presController = getDocumentDictionaryService().getDocumentPresentationController(documentTypeName);
         final DocumentAuthorizer authorizer = getDocumentDictionaryService().getDocumentAuthorizer(documentTypeName);
-        final Set<String> presControllerEditModes = ((TransactionalDocumentPresentationController)presController).getEditModes(doc);
-        final Set<String> editModes = ((TransactionalDocumentAuthorizer)authorizer).getEditModes(doc, GlobalVariables.getUserSession().getPerson(), presControllerEditModes);
+        final Set<String> presControllerEditModes = ((TransactionalDocumentPresentationController) presController).getEditModes(doc);
+        final Set<String> editModes = ((TransactionalDocumentAuthorizer) authorizer).getEditModes(doc, GlobalVariables.getUserSession().getPerson(), presControllerEditModes);
         return editModes.contains(TemConstants.TravelEditMode.FULL_ENTRY) && presController.canEdit(doc) && authorizer.canEdit(doc, GlobalVariables.getUserSession().getPerson());
     }
 
@@ -247,6 +244,7 @@ public class TravelAuthTravelAdvanceValidation extends GenericValidation {
 
     /**
      * Injects an implementation of the document dictionary service
+     *
      * @param documentDictionaryService an implementation of the document dictionary service to inject
      */
     public void setDocumentDictionaryService(DocumentDictionaryService documentDictionaryService) {

@@ -24,18 +24,15 @@ import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class InactivationBlockingDefinition extends DataDictionaryDefinitionBase implements InactivationBlockingMetadata {
-	private static final long serialVersionUID = -8765429636173190984L;
+    private static final long serialVersionUID = -8765429636173190984L;
 
-	protected  Class<? extends BusinessObject> blockingReferenceBusinessObjectClass;
-    protected  String blockedReferencePropertyName;
-    protected  Class<? extends BusinessObject> blockedBusinessObjectClass;
-    protected  String inactivationBlockingDetectionServiceBeanName;
-    protected  String relationshipLabel;
+    protected Class<? extends BusinessObject> blockingReferenceBusinessObjectClass;
+    protected String blockedReferencePropertyName;
+    protected Class<? extends BusinessObject> blockedBusinessObjectClass;
+    protected String inactivationBlockingDetectionServiceBeanName;
+    protected String relationshipLabel;
     protected Class<? extends BusinessObject> businessObjectClass;
 
     public InactivationBlockingDefinition() {
@@ -47,22 +44,22 @@ public class InactivationBlockingDefinition extends DataDictionaryDefinitionBase
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     @SuppressWarnings("unchecked")
-	public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
+    public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
         if (StringUtils.isBlank(inactivationBlockingDetectionServiceBeanName)) {
-        	if (StringUtils.isBlank(blockedReferencePropertyName)) {
-	        	// the default inactivation blocking detection service (used when inactivationBlockingDetectionServiceBeanName is blank) requires that the property name be set
-	            throw new AttributeValidationException("inactivationBlockingDetectionServiceBeanName and  blockedReferencePropertyName can't both be blank in InactivationBlockingDefinition for class " +
-	                    rootBusinessObjectClass.getClass().getName());
-        	}
+            if (StringUtils.isBlank(blockedReferencePropertyName)) {
+                // the default inactivation blocking detection service (used when inactivationBlockingDetectionServiceBeanName is blank) requires that the property name be set
+                throw new AttributeValidationException("inactivationBlockingDetectionServiceBeanName and  blockedReferencePropertyName can't both be blank in InactivationBlockingDefinition for class " +
+                    rootBusinessObjectClass.getClass().getName());
+            }
         }
         if (getBlockedBusinessObjectClass() == null) {
-        	throw new AttributeValidationException("Unable to determine blockedReferenceBusinessObjectClass in InactivationBlockingDefinition for class " +
-	                    rootBusinessObjectClass.getClass().getName());
+            throw new AttributeValidationException("Unable to determine blockedReferenceBusinessObjectClass in InactivationBlockingDefinition for class " +
+                rootBusinessObjectClass.getClass().getName());
         }
         if (!BusinessObject.class.isAssignableFrom(getBlockedBusinessObjectClass())) {
             throw new AttributeValidationException("InactivationBlockingDefinitions must block a reference of type BusinessObject.  Class name: " +
-                    rootBusinessObjectClass.getClass().getName() + " blockedReferencePropertyName " + blockedReferencePropertyName +
-                    " class that should have been a BusinessObject: " + getBlockedBusinessObjectClass());
+                rootBusinessObjectClass.getClass().getName() + " blockedReferencePropertyName " + blockedReferencePropertyName +
+                " class that should have been a BusinessObject: " + getBlockedBusinessObjectClass());
         }
     }
 
@@ -118,26 +115,26 @@ public class InactivationBlockingDefinition extends DataDictionaryDefinitionBase
         this.blockingReferenceBusinessObjectClass = blockingReferenceBusinessObjectClass;
     }
 
-	public String getRelationshipLabel() {
-		return this.relationshipLabel;
-	}
+    public String getRelationshipLabel() {
+        return this.relationshipLabel;
+    }
 
-	public void setRelationshipLabel(String relationshipLabel) {
-		this.relationshipLabel = relationshipLabel;
-	}
+    public void setRelationshipLabel(String relationshipLabel) {
+        this.relationshipLabel = relationshipLabel;
+    }
 
-	public Class<? extends BusinessObject> getBusinessObjectClass() {
-		return this.businessObjectClass;
-	}
+    public Class<? extends BusinessObject> getBusinessObjectClass() {
+        return this.businessObjectClass;
+    }
 
-	public void setBusinessObjectClass(Class<? extends BusinessObject> businessObjectClass) {
-		this.businessObjectClass = businessObjectClass;
-	}
+    public void setBusinessObjectClass(Class<? extends BusinessObject> businessObjectClass) {
+        this.businessObjectClass = businessObjectClass;
+    }
 
-	@Override
-	public String toString() {
-		return "InactivationBlockingDefinition: blockedClass=" + blockedBusinessObjectClass.getName()
-				+ " /blockingReferenceProperty=" + blockedReferencePropertyName
-				+ " /blockingClass=" + blockingReferenceBusinessObjectClass.getName();
-	}
+    @Override
+    public String toString() {
+        return "InactivationBlockingDefinition: blockedClass=" + blockedBusinessObjectClass.getName()
+            + " /blockingReferenceProperty=" + blockedReferencePropertyName
+            + " /blockingClass=" + blockingReferenceBusinessObjectClass.getName();
+    }
 }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.sys.document.AccountingDocument;
+
 import java.io.InputStream;
 import java.util.List;
-
-import org.kuali.kfs.sys.document.AccountingDocument;
 
 /**
  * Defines an abstraction for parsing serialized <code>AccountingLines</code>

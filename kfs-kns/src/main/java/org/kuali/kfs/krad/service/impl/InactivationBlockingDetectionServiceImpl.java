@@ -19,16 +19,16 @@
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.bo.InactivatableFromTo;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingDefinition;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataObjectMetaDataService;
 import org.kuali.kfs.krad.service.InactivationBlockingDetectionService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -39,8 +39,6 @@ import java.util.Map;
 
 /**
  * Performs checking of inactivation blocking
- *
- *
  */
 @Transactional
 public class InactivationBlockingDetectionServiceImpl implements InactivationBlockingDetectionService {
@@ -51,96 +49,96 @@ public class InactivationBlockingDetectionServiceImpl implements InactivationBlo
 
     /**
      * Note we are checking the active getting after retrieving potential blocking records instead of setting criteria on the
-	 * active field. This is because some implementations of {@link org.kuali.rice.core.api.mo.common.active.MutableInactivatable} might not have the active field, for example
-	 * instances of {@link InactivatableFromTo}
-	 *
+     * active field. This is because some implementations of {@link org.kuali.rice.core.api.mo.common.active.MutableInactivatable} might not have the active field, for example
+     * instances of {@link InactivatableFromTo}
+     *
      * @see InactivationBlockingDetectionService#listAllBlockerRecords(InactivationBlockingDefinition)
      * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable
      */
     @SuppressWarnings("unchecked")
-	public Collection<BusinessObject> listAllBlockerRecords(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
-		Collection<BusinessObject> blockingRecords = new ArrayList<BusinessObject>();
+    public Collection<BusinessObject> listAllBlockerRecords(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
+        Collection<BusinessObject> blockingRecords = new ArrayList<BusinessObject>();
 
-		Map<String, String> queryMap = buildInactivationBlockerQueryMap(blockedBo, inactivationBlockingMetadata);
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("Checking for blocker records for object: " + blockedBo);
-			LOG.debug("    With Metadata: " + inactivationBlockingMetadata);
-			LOG.debug("    Resulting Query Map: " + queryMap);
-		}
+        Map<String, String> queryMap = buildInactivationBlockerQueryMap(blockedBo, inactivationBlockingMetadata);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Checking for blocker records for object: " + blockedBo);
+            LOG.debug("    With Metadata: " + inactivationBlockingMetadata);
+            LOG.debug("    Resulting Query Map: " + queryMap);
+        }
 
-		if (queryMap != null) {
-			Collection potentialBlockingRecords = businessObjectService.findMatching(
-					inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
-			for (Iterator iterator = potentialBlockingRecords.iterator(); iterator.hasNext();) {
-				MutableInactivatable businessObject = (MutableInactivatable) iterator.next();
-				if (businessObject.isActive()) {
-					blockingRecords.add((BusinessObject) businessObject);
-				}
-			}
-		}
+        if (queryMap != null) {
+            Collection potentialBlockingRecords = businessObjectService.findMatching(
+                inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
+            for (Iterator iterator = potentialBlockingRecords.iterator(); iterator.hasNext(); ) {
+                MutableInactivatable businessObject = (MutableInactivatable) iterator.next();
+                if (businessObject.isActive()) {
+                    blockingRecords.add((BusinessObject) businessObject);
+                }
+            }
+        }
 
-		return blockingRecords;
-	}
+        return blockingRecords;
+    }
 
-	/**
-	 * Note we are checking the active getting after retrieving potential blocking records instead of setting criteria on the
-	 * active field. This is because some implementations of {@link org.kuali.rice.core.api.mo.common.active.MutableInactivatable} might not have the active field, for example
-	 * instances of {@link InactivatableFromTo}
-	 *
-	 * @see InactivationBlockingDetectionService#hasABlockingRecord(org.kuali.rice.krad.bo.BusinessObject,
-	 *      InactivationBlockingMetadata)
-	 * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable
-	 */
-	public boolean hasABlockingRecord(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
-		boolean hasBlockingRecord = false;
+    /**
+     * Note we are checking the active getting after retrieving potential blocking records instead of setting criteria on the
+     * active field. This is because some implementations of {@link org.kuali.rice.core.api.mo.common.active.MutableInactivatable} might not have the active field, for example
+     * instances of {@link InactivatableFromTo}
+     *
+     * @see InactivationBlockingDetectionService#hasABlockingRecord(org.kuali.rice.krad.bo.BusinessObject,
+     * InactivationBlockingMetadata)
+     * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable
+     */
+    public boolean hasABlockingRecord(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
+        boolean hasBlockingRecord = false;
 
-		Map<String, String> queryMap = buildInactivationBlockerQueryMap(blockedBo, inactivationBlockingMetadata);
-		if (queryMap != null) {
-			Collection potentialBlockingRecords = businessObjectService.findMatching(
-					inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
-			for (Iterator iterator = potentialBlockingRecords.iterator(); iterator.hasNext();) {
-				MutableInactivatable businessObject = (MutableInactivatable) iterator.next();
-				if (businessObject.isActive()) {
-					hasBlockingRecord = true;
-					break;
-				}
-			}
-		}
+        Map<String, String> queryMap = buildInactivationBlockerQueryMap(blockedBo, inactivationBlockingMetadata);
+        if (queryMap != null) {
+            Collection potentialBlockingRecords = businessObjectService.findMatching(
+                inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass(), queryMap);
+            for (Iterator iterator = potentialBlockingRecords.iterator(); iterator.hasNext(); ) {
+                MutableInactivatable businessObject = (MutableInactivatable) iterator.next();
+                if (businessObject.isActive()) {
+                    hasBlockingRecord = true;
+                    break;
+                }
+            }
+        }
 
-		// if queryMap were null, means that we couldn't perform a query, and hence, need to return false
-		return hasBlockingRecord;
-	}
+        // if queryMap were null, means that we couldn't perform a query, and hence, need to return false
+        return hasBlockingRecord;
+    }
 
-	protected Map<String, String> buildInactivationBlockerQueryMap(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
-		BusinessObject blockingBo = (BusinessObject) ObjectUtils.createNewObjectFromClass(inactivationBlockingMetadata
-				.getBlockingReferenceBusinessObjectClass());
+    protected Map<String, String> buildInactivationBlockerQueryMap(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
+        BusinessObject blockingBo = (BusinessObject) ObjectUtils.createNewObjectFromClass(inactivationBlockingMetadata
+            .getBlockingReferenceBusinessObjectClass());
 
-		DataObjectRelationship dataObjectRelationship = dataObjectMetaDataService
-				.getDataObjectRelationship(blockingBo, blockedBo.getClass(),
-                        inactivationBlockingMetadata.getBlockedReferencePropertyName(), "", true, false, false);
+        DataObjectRelationship dataObjectRelationship = dataObjectMetaDataService
+            .getDataObjectRelationship(blockingBo, blockedBo.getClass(),
+                inactivationBlockingMetadata.getBlockedReferencePropertyName(), "", true, false, false);
 
-		// note, this method assumes that all PK fields of the blockedBo have a non-null and, for strings, non-blank values
-		if (dataObjectRelationship != null) {
-			Map<String, String> parentToChildReferences = dataObjectRelationship.getParentToChildReferences();
-			Map<String, String> queryMap = new HashMap<String, String>();
-			for (Map.Entry<String, String> parentToChildReference : parentToChildReferences.entrySet()) {
-				String fieldName = parentToChildReference.getKey();
-				Object fieldValue = ObjectUtils.getPropertyValue(blockedBo, parentToChildReference.getValue());
-				if (fieldValue != null && StringUtils.isNotBlank(fieldValue.toString())) {
-					queryMap.put(fieldName, fieldValue.toString());
-				} else {
-					LOG.error("Found null value for foreign key field " + fieldName
-							+ " while building inactivation blocking query map.");
-					throw new RuntimeException("Found null value for foreign key field '" + fieldName
-							+ "' while building inactivation blocking query map.");
-				}
-			}
+        // note, this method assumes that all PK fields of the blockedBo have a non-null and, for strings, non-blank values
+        if (dataObjectRelationship != null) {
+            Map<String, String> parentToChildReferences = dataObjectRelationship.getParentToChildReferences();
+            Map<String, String> queryMap = new HashMap<String, String>();
+            for (Map.Entry<String, String> parentToChildReference : parentToChildReferences.entrySet()) {
+                String fieldName = parentToChildReference.getKey();
+                Object fieldValue = ObjectUtils.getPropertyValue(blockedBo, parentToChildReference.getValue());
+                if (fieldValue != null && StringUtils.isNotBlank(fieldValue.toString())) {
+                    queryMap.put(fieldName, fieldValue.toString());
+                } else {
+                    LOG.error("Found null value for foreign key field " + fieldName
+                        + " while building inactivation blocking query map.");
+                    throw new RuntimeException("Found null value for foreign key field '" + fieldName
+                        + "' while building inactivation blocking query map.");
+                }
+            }
 
-			return queryMap;
-		}
+            return queryMap;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
     public void setDataObjectMetaDataService(DataObjectMetaDataService dataObjectMetaDataService) {
         this.dataObjectMetaDataService = dataObjectMetaDataService;

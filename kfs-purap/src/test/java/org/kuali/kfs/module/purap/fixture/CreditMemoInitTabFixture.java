@@ -18,25 +18,24 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.CMInit;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PREQInvoice;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.Date;
+
 public enum CreditMemoInitTabFixture {
 
-    WITH_INVOICE_WITH_DATE_WITH_AMOUNT(PREQInvoice.INVOICE_NUMBER,PREQInvoice.INVOICE_DATE,PREQInvoice.AMOUNT),
-    NO_INVOICE_WITH_DATE_WITH_AMOUNT(null,PREQInvoice.INVOICE_DATE,PREQInvoice.AMOUNT),
-    WITH_INVOICE_NO_DATE_WITH_AMOUNT(PREQInvoice.INVOICE_NUMBER,null,PREQInvoice.AMOUNT),
-    WITH_INVOICE_WITH_DATE_NO_AMOUNT(PREQInvoice.INVOICE_NUMBER,PREQInvoice.INVOICE_DATE,null),
+    WITH_INVOICE_WITH_DATE_WITH_AMOUNT(PREQInvoice.INVOICE_NUMBER, PREQInvoice.INVOICE_DATE, PREQInvoice.AMOUNT),
+    NO_INVOICE_WITH_DATE_WITH_AMOUNT(null, PREQInvoice.INVOICE_DATE, PREQInvoice.AMOUNT),
+    WITH_INVOICE_NO_DATE_WITH_AMOUNT(PREQInvoice.INVOICE_NUMBER, null, PREQInvoice.AMOUNT),
+    WITH_INVOICE_WITH_DATE_NO_AMOUNT(PREQInvoice.INVOICE_NUMBER, PREQInvoice.INVOICE_DATE, null),
     WITH_VENDOR_NUMBER(CMInit.INITIAL_VENDOR_NUMBER),
-    HI_AMOUNT_LO_TOTAL(CMInit.HIGH_AMOUNT,CMInit.LOW_AMOUNT),
-    LO_AMOUNT_HI_TOTAL(CMInit.LOW_AMOUNT,CMInit.HIGH_AMOUNT),
-    HI_AMOUNT_HI_TOTAL(CMInit.HIGH_AMOUNT,CMInit.HIGH_AMOUNT),
-    HI_AMOUNT_ZERO_TOTAL(CMInit.HIGH_AMOUNT,CMInit.ZERO_AMOUNT),
-    ;
+    HI_AMOUNT_LO_TOTAL(CMInit.HIGH_AMOUNT, CMInit.LOW_AMOUNT),
+    LO_AMOUNT_HI_TOTAL(CMInit.LOW_AMOUNT, CMInit.HIGH_AMOUNT),
+    HI_AMOUNT_HI_TOTAL(CMInit.HIGH_AMOUNT, CMInit.HIGH_AMOUNT),
+    HI_AMOUNT_ZERO_TOTAL(CMInit.HIGH_AMOUNT, CMInit.ZERO_AMOUNT),;
 
     private String invoice_num;
     private Date invoice_date;

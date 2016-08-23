@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.text.ParseException;
-
 import org.quartz.CronTrigger;
 import org.quartz.Trigger;
+
+import java.text.ParseException;
 
 public class CronTriggerDescriptor extends TriggerDescriptor {
     private String cronExpression;
@@ -35,12 +35,10 @@ public class CronTriggerDescriptor extends TriggerDescriptor {
             ((CronTrigger) trigger).setTimeZone(getDateTimeService().getCurrentCalendar().getTimeZone());
             if (!isTestMode()) {
                 ((CronTrigger) trigger).setCronExpression(cronExpression);
-            }
-            else {
+            } else {
                 ((CronTrigger) trigger).setCronExpression("0 59 23 31 12 ? 2099");
             }
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Caught exception while trying to set the cronExpression attribute of a CronTrigger: " + getJobName(), e);
         }
     }

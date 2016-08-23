@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.bc.businessobject.lookup;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Base lookupable helper service for budget selection lookups.
@@ -66,11 +66,11 @@ public class SelectLookupableHelperServiceImpl extends KualiLookupableHelperServ
      * around the issue.
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
-        AnchorHtmlData inquiryHref = (AnchorHtmlData)super.getInquiryUrl(bo, propertyName);
+        AnchorHtmlData inquiryHref = (AnchorHtmlData) super.getInquiryUrl(bo, propertyName);
         inquiryHref.setHref(StringUtils.replace(inquiryHref.getHref(), KRADConstants.INQUIRY_ACTION, KFSConstants.INQUIRY_ACTION));
 
         return inquiryHref;

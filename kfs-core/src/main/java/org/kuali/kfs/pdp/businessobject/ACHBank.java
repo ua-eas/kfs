@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ACHBank extends PersistableBusinessObjectBase implements MutableInactivatable {
 
@@ -402,18 +402,18 @@ public class ACHBank extends PersistableBusinessObjectBase implements MutableIna
      * @return Returns the bankState.
      */
     public StateEbo getBankState() {
-        if ( StringUtils.isBlank(bankStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(bankStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             bankState = null;
         } else {
-            if ( bankState == null || !StringUtils.equals( bankState.getCode(),bankStateCode) || !StringUtils.equals(bankState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (bankState == null || !StringUtils.equals(bankState.getCode(), bankStateCode) || !StringUtils.equals(bankState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, bankStateCode);
                     bankState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -426,18 +426,18 @@ public class ACHBank extends PersistableBusinessObjectBase implements MutableIna
      * @return Returns the postalCode.
      */
     public PostalCodeEbo getPostalCode() {
-        if ( StringUtils.isBlank(bankZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(bankZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             postalCode = null;
         } else {
-            if ( postalCode == null || !StringUtils.equals( postalCode.getCode(),bankZipCode) || !StringUtils.equals(postalCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (postalCode == null || !StringUtils.equals(postalCode.getCode(), bankZipCode) || !StringUtils.equals(postalCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, bankZipCode);
                     postalCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -445,7 +445,6 @@ public class ACHBank extends PersistableBusinessObjectBase implements MutableIna
     }
 
     /**
-     *
      * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable#isActive()
      */
     @Override
@@ -454,7 +453,6 @@ public class ACHBank extends PersistableBusinessObjectBase implements MutableIna
     }
 
     /**
-     *
      * @see org.kuali.rice.core.api.mo.common.active.MutableInactivatable#setActive(boolean)
      */
     @Override

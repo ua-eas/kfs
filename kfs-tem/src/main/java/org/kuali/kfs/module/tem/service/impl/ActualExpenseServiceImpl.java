@@ -18,11 +18,9 @@
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
 import org.kuali.kfs.module.tem.businessobject.TemExpense;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -30,7 +28,9 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TemExpenseService;
 import org.kuali.kfs.module.tem.util.ExpenseUtils;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Map;
 
 public class ActualExpenseServiceImpl extends ExpenseServiceBase implements TemExpenseService {
 
@@ -40,16 +40,15 @@ public class ActualExpenseServiceImpl extends ExpenseServiceBase implements TemE
      * @see org.kuali.kfs.module.tem.service.impl.ExpenseServiceBase#calculateDistributionTotals(org.kuali.kfs.module.tem.document.TravelDocument, java.util.Map, java.util.List)
      */
     @Override
-    public void calculateDistributionTotals(TravelDocument document, Map<String, AccountingDistribution> distributionMap, List<? extends TemExpense> expenses){
+    public void calculateDistributionTotals(TravelDocument document, Map<String, AccountingDistribution> distributionMap, List<? extends TemExpense> expenses) {
 
         //calculate the distribution map for all actual expenses
         for (TemExpense expense : expenses) {
 
-            if (expense.getExpenseDetails() != null && expense.getExpenseDetails().size() > 0){
+            if (expense.getExpenseDetails() != null && expense.getExpenseDetails().size() > 0) {
                 //calculate using detail as it might have different details' object code
                 calculateDistributionTotals(document, distributionMap, expense.getExpenseDetails());
-            }
-            else {
+            } else {
                 if (!ObjectUtils.isNull(expense.getExpenseTypeObjectCode()) && !expense.getExpenseTypeObjectCode().getExpenseType().isPrepaidExpense() && !expense.getNonReimbursable()) {
 
                     boolean skipDistribution = false;
@@ -57,13 +56,13 @@ public class ActualExpenseServiceImpl extends ExpenseServiceBase implements TemE
 
                     if (document.isTravelAuthorizationDoc()) {
                         //check trip generate encumbrance
-                        if (((TravelAuthorizationDocument)document).isTripGenerateEncumbrance()) {
+                        if (((TravelAuthorizationDocument) document).isTripGenerateEncumbrance()) {
                             financialObjectCode = document.getTripType().getEncumbranceObjCode();
-                        }else{
+                        } else {
                             //non encumbrance actual expense in TA are informational only - no need to distribute
                             skipDistribution = true;
                         }
-                    }else {
+                    } else {
                         financialObjectCode = !ObjectUtils.isNull(expense.getExpenseTypeObjectCode()) ? expense.getExpenseTypeObjectCode().getFinancialObjectCode() : null;
                     }
 
@@ -72,11 +71,10 @@ public class ActualExpenseServiceImpl extends ExpenseServiceBase implements TemE
                         AccountingDistribution distribution = null;
 
                         String key = objCode.getCode() + "-" + document.getDefaultCardTypeCode();
-                        if (distributionMap.containsKey(key)){
+                        if (distributionMap.containsKey(key)) {
                             distributionMap.get(key).setSubTotal(distributionMap.get(key).getSubTotal().add(expense.getConvertedAmount()));
                             distributionMap.get(key).setRemainingAmount(distributionMap.get(key).getRemainingAmount().add(expense.getConvertedAmount()));
-                        }
-                        else{
+                        } else {
                             distribution = new AccountingDistribution();
                             distribution.setObjectCode(objCode.getCode());
                             distribution.setObjectCodeName(objCode.getName());
@@ -114,7 +112,7 @@ public class ActualExpenseServiceImpl extends ExpenseServiceBase implements TemE
      */
     @Override
     public void updateExpense(TravelDocument travelDocument) {
-      //do nothing
+        //do nothing
     }
 
 }

@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.module.purap.document.service.AccountsPayableService;
 import org.kuali.kfs.module.purap.document.service.CreditMemoCreateService;
 import org.kuali.kfs.module.purap.document.service.CreditMemoService;
@@ -26,7 +27,6 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.module.purap.service.PurapAccountingService;
 import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 
 
 /**

@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.uif.widget;
 /**
  * Used for rendering a lightbox in the UI to display the result of a submit in
  * a light box. This is used for the quickfinder lookup.
- *
- *
  */
 public class LightBoxLookup extends WidgetBase {
     private static final long serialVersionUID = -8571541274489677888L;
@@ -36,8 +34,7 @@ public class LightBoxLookup extends WidgetBase {
     /**
      * Setter for the action parameter map javascript string
      *
-     * @param the
-     *            action parameter map javascript string
+     * @param the action parameter map javascript string
      */
     public void setActionParameterMapString(String actionParameterMapString) {
         this.actionParameterMapString = actionParameterMapString;

@@ -25,8 +25,6 @@ import org.kuali.kfs.kns.inquiry.Inquirable;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
 import org.kuali.kfs.krad.bo.Exporter;
 import org.kuali.kfs.krad.datadictionary.exception.UnknownBusinessClassAttributeException;
 import org.kuali.kfs.krad.service.DataDictionaryService;
@@ -34,6 +32,8 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
@@ -59,14 +59,14 @@ public class InquiryForm extends KualiForm {
     private boolean canExport;
 
     @Override
-    public void addRequiredNonEditableProperties(){
-    	super.addRequiredNonEditableProperties();
-    	registerRequiredNonEditableProperty(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
-    	registerRequiredNonEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
-    	registerRequiredNonEditableProperty(KRADConstants.DOC_FORM_KEY);
-    	registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
-    	registerRequiredNonEditableProperty(KRADConstants.FIELDS_CONVERSION_PARAMETER);
-    	registerRequiredNonEditableProperty(KRADConstants.BACK_LOCATION);
+    public void addRequiredNonEditableProperties() {
+        super.addRequiredNonEditableProperties();
+        registerRequiredNonEditableProperty(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
+        registerRequiredNonEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
+        registerRequiredNonEditableProperty(KRADConstants.DOC_FORM_KEY);
+        registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
+        registerRequiredNonEditableProperty(KRADConstants.FIELDS_CONVERSION_PARAMETER);
+        registerRequiredNonEditableProperty(KRADConstants.BACK_LOCATION);
     }
 
     /**
@@ -93,8 +93,8 @@ public class InquiryForm extends KualiForm {
 
     @Override
     public void populate(HttpServletRequest request) {
-    // set to null for security reasons (so POJO form base can't access it), then we'll make an new instance of it after
-    // POJO form base is done
+        // set to null for security reasons (so POJO form base can't access it), then we'll make an new instance of it after
+        // POJO form base is done
         this.inquirable = null;
         super.populate(request);
         if (request.getParameter("returnLocation") != null) {
@@ -104,24 +104,24 @@ public class InquiryForm extends KualiForm {
             setFormKey(request.getParameter(KRADConstants.DOC_FORM_KEY));
         }
         //if the action is download attachment then skip the following populate logic
-        if(!KRADConstants.DOWNLOAD_BO_ATTACHMENT_METHOD.equals(getMethodToCall())){
-        	inquirable = getInquirable(getBusinessObjectClassName());
+        if (!KRADConstants.DOWNLOAD_BO_ATTACHMENT_METHOD.equals(getMethodToCall())) {
+            inquirable = getInquirable(getBusinessObjectClassName());
 
-        	// the following variable is true if the method to call is not start, meaning that we already called start
-        	boolean passedFromPreviousInquiry = !KRADConstants.START_METHOD.equals(getMethodToCall()) && !KRADConstants.CONTINUE_WITH_INQUIRY_METHOD_TO_CALL.equals(getMethodToCall()) && !KRADConstants
-                    .DOWNLOAD_CUSTOM_BO_ATTACHMENT_METHOD.equals(getMethodToCall());
+            // the following variable is true if the method to call is not start, meaning that we already called start
+            boolean passedFromPreviousInquiry = !KRADConstants.START_METHOD.equals(getMethodToCall()) && !KRADConstants.CONTINUE_WITH_INQUIRY_METHOD_TO_CALL.equals(getMethodToCall()) && !KRADConstants
+                .DOWNLOAD_CUSTOM_BO_ATTACHMENT_METHOD.equals(getMethodToCall());
 
-        	// There is no requirement that an inquiry screen must display the primary key values.  However, when clicking on hide/show (without javascript) and
-        	// hide/show inactive, the PK values are needed to allow the server to properly render results after the user clicks on a hide/show button that results
-        	// in server processing.  This line will populate the form with the PK values so that they may be used in subsequent requests.  Note that encrypted
-        	// values will remain encrypted in this map.
-        	this.inquiryPrimaryKeys = new HashMap<String, String>();
-        	this.inquiryDecryptedPrimaryKeys = new HashMap<String, String>();
+            // There is no requirement that an inquiry screen must display the primary key values.  However, when clicking on hide/show (without javascript) and
+            // hide/show inactive, the PK values are needed to allow the server to properly render results after the user clicks on a hide/show button that results
+            // in server processing.  This line will populate the form with the PK values so that they may be used in subsequent requests.  Note that encrypted
+            // values will remain encrypted in this map.
+            this.inquiryPrimaryKeys = new HashMap<String, String>();
+            this.inquiryDecryptedPrimaryKeys = new HashMap<String, String>();
 
-        	populatePKFieldValues(request, getBusinessObjectClassName(), passedFromPreviousInquiry);
+            populatePKFieldValues(request, getBusinessObjectClassName(), passedFromPreviousInquiry);
 
-        	populateInactiveRecordsInIntoInquirable(inquirable, request);
-        	populateExportCapabilities(request, getBusinessObjectClassName());
+            populateInactiveRecordsInIntoInquirable(inquirable, request);
+            populateExportCapabilities(request, getBusinessObjectClassName());
         }
     }
 
@@ -132,15 +132,14 @@ public class InquiryForm extends KualiForm {
             try {
                 BusinessObjectEntry entry = (BusinessObjectEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(boClassName);
                 customInquirableClass = entry.getInquiryDefinition().getInquirableClass();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to correlate business object class with maintenance document entry");
             }
 
             Inquirable kualiInquirable = KNSServiceLocator.getKualiInquirable(); // get inquirable impl from Spring
 
             if (customInquirableClass != null) {
-                Class[] defaultConstructor = new Class[] {};
+                Class[] defaultConstructor = new Class[]{};
                 Constructor cons = customInquirableClass.getConstructor(defaultConstructor);
                 kualiInquirable = (Inquirable) cons.newInstance();
             }
@@ -148,8 +147,7 @@ public class InquiryForm extends KualiForm {
             kualiInquirable.setBusinessObjectClass(Class.forName(boClassName));
 
             return kualiInquirable;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Error attempting to retrieve inquirable.", e);
             throw new RuntimeException("Error attempting to retrieve inquirable.");
         }
@@ -162,12 +160,12 @@ public class InquiryForm extends KualiForm {
      * @return the alt keys
      */
     private List<List<String>> getAltkeys(Class<?> clazz) {
-    	final KualiModuleService kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();
-    	final ModuleService moduleService = kualiModuleService.getResponsibleModuleService(clazz);
+        final KualiModuleService kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();
+        final ModuleService moduleService = kualiModuleService.getResponsibleModuleService(clazz);
 
         List<List<String>> altKeys = null;
         if (moduleService != null) {
-        	altKeys = moduleService.listAlternatePrimaryKeyFieldNames(clazz);
+            altKeys = moduleService.listAlternatePrimaryKeyFieldNames(clazz);
         }
 
         return altKeys != null ? altKeys : new ArrayList<List<String>>();
@@ -178,9 +176,9 @@ public class InquiryForm extends KualiForm {
             EncryptionService encryptionService = CoreApiServiceLocator.getEncryptionService();
             DataDictionaryService dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
             BusinessObjectAuthorizationService businessObjectAuthorizationService = KNSServiceLocator
-                    .getBusinessObjectAuthorizationService();
+                .getBusinessObjectAuthorizationService();
             BusinessObjectMetaDataService businessObjectMetaDataService = KNSServiceLocator
-                    .getBusinessObjectMetaDataService();
+                .getBusinessObjectMetaDataService();
 
             Class businessObjectClass = Class.forName(boClassName);
 
@@ -190,20 +188,20 @@ public class InquiryForm extends KualiForm {
 
             altKeys.add(boPKeys);
             boolean bFound = false;
-            for(List<String> boKeys : altKeys ){
-            	if(bFound)
-            		break;
-	            int keyCount = boKeys.size();
-	            int foundCount = 0;
+            for (List<String> boKeys : altKeys) {
+                if (bFound)
+                    break;
+                int keyCount = boKeys.size();
+                int foundCount = 0;
                 for (String boKey : boKeys) {
                     String pkParamName = boKey;
-	                if (passedFromPreviousInquiry) {
-	                    pkParamName = KRADConstants.INQUIRY_PK_VALUE_PASSED_FROM_PREVIOUS_REQUEST_PREFIX + pkParamName;
-	                }
+                    if (passedFromPreviousInquiry) {
+                        pkParamName = KRADConstants.INQUIRY_PK_VALUE_PASSED_FROM_PREVIOUS_REQUEST_PREFIX + pkParamName;
+                    }
 
-	                if (request.getParameter(pkParamName) != null) {
-	                	foundCount++;
-	                	String parameter = request.getParameter(pkParamName);
+                    if (request.getParameter(pkParamName) != null) {
+                        foundCount++;
+                        String parameter = request.getParameter(pkParamName);
 
                         Boolean forceUppercase = Boolean.FALSE;
                         try {
@@ -216,21 +214,20 @@ public class InquiryForm extends KualiForm {
                         }
                         String parameterCopy = parameter;
                         if (forceUppercase) {
-	                		parameter = parameter.toUpperCase();
-	                	}
+                            parameter = parameter.toUpperCase();
+                        }
 
                         inquiryPrimaryKeys.put(boKey, parameter);
                         if (businessObjectAuthorizationService.attributeValueNeedsToBeEncryptedOnFormsAndLinks(businessObjectClass, boKey)) {
                             try {
-                                if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                                if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                                     inquiryDecryptedPrimaryKeys.put(boKey, encryptionService.decrypt(parameterCopy));
                                 }
                             } catch (GeneralSecurityException e) {
                                 LOG.error("BO class " + businessObjectClassName + " property " + boKey + " should have been encrypted, but there was a problem decrypting it.");
                                 throw e;
                             }
-                        }
-                        else {
+                        } else {
                             inquiryDecryptedPrimaryKeys.put(boKey, parameter);
                         }
                     }
@@ -239,18 +236,16 @@ public class InquiryForm extends KualiForm {
                     bFound = true;
                 }
             }
-            if(!bFound){
+            if (!bFound) {
                 LOG.error("All keys not given to lookup for bo class name " + businessObjectClass.getName());
                 throw new RuntimeException("All keys not given to lookup for bo class name " + businessObjectClass.getName());
             }
-        }
-        catch (ClassNotFoundException e) {
-        	LOG.error("Can't instantiate class: " + boClassName, e);
-        	throw new RuntimeException("Can't instantiate class: " + boClassName);
-        }
-        catch (GeneralSecurityException e) {
-        	LOG.error("Can't decrypt value", e);
-        	throw new RuntimeException("Can't decrypt value");
+        } catch (ClassNotFoundException e) {
+            LOG.error("Can't instantiate class: " + boClassName, e);
+            throw new RuntimeException("Can't instantiate class: " + boClassName);
+        } catch (GeneralSecurityException e) {
+            LOG.error("Can't decrypt value", e);
+            throw new RuntimeException("Can't decrypt value");
         }
     }
 
@@ -259,20 +254,20 @@ public class InquiryForm extends KualiForm {
      * XML export or not and set's canExport appropriately.
      */
     protected void populateExportCapabilities(HttpServletRequest request, String boClassName) {
-    	setCanExport(false);
-    	BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(boClassName);
-    	Class<? extends Exporter> exporterClass = businessObjectEntry.getExporterClass();
-    	if (exporterClass != null) {
-    		try {
-    			Exporter exporter = exporterClass.newInstance();
-    			if (exporter.getSupportedFormats(businessObjectEntry.getBusinessObjectClass()).contains(KRADConstants.XML_FORMAT)) {
-    				setCanExport(true);
-    			}
-    		} catch (Exception e) {
-    			LOG.error("Failed to locate or create exporter class: " + exporterClass, e);
-    			throw new RuntimeException("Failed to locate or create exporter class: " + exporterClass);
-    		}
-    	}
+        setCanExport(false);
+        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(boClassName);
+        Class<? extends Exporter> exporterClass = businessObjectEntry.getExporterClass();
+        if (exporterClass != null) {
+            try {
+                Exporter exporter = exporterClass.newInstance();
+                if (exporter.getSupportedFormats(businessObjectEntry.getBusinessObjectClass()).contains(KRADConstants.XML_FORMAT)) {
+                    setCanExport(true);
+                }
+            } catch (Exception e) {
+                LOG.error("Failed to locate or create exporter class: " + exporterClass, e);
+                throw new RuntimeException("Failed to locate or create exporter class: " + exporterClass);
+            }
+        }
     }
 
 
@@ -337,7 +332,7 @@ public class InquiryForm extends KualiForm {
 
     /**
      * Gets the map used to pass primary key values between invocations of the inquiry screens after the start method has been called.  All fields will be decrypted
-     *
+     * <p>
      * Purposely not named as a getter, to make it harder for POJOFormBase to access it
      *
      * @return
@@ -369,7 +364,7 @@ public class InquiryForm extends KualiForm {
     }
 
     protected void populateInactiveRecordsInIntoInquirable(Inquirable inquirable, HttpServletRequest request) {
-        for (Enumeration e = request.getParameterNames(); e.hasMoreElements();) {
+        for (Enumeration e = request.getParameterNames(); e.hasMoreElements(); ) {
             String paramName = (String) e.nextElement();
             if (paramName.startsWith(KRADConstants.INACTIVE_RECORD_DISPLAY_PARAM_PREFIX)) {
                 String collectionName = StringUtils.substringAfter(paramName, KRADConstants.INACTIVE_RECORD_DISPLAY_PARAM_PREFIX);
@@ -387,19 +382,19 @@ public class InquiryForm extends KualiForm {
         this.formKey = formKey;
     }
 
-	/**
-	 * Returns true if this Inquiry supports XML export of the BusinessObject.
-	 */
-	public boolean isCanExport() {
-		return this.canExport;
-	}
+    /**
+     * Returns true if this Inquiry supports XML export of the BusinessObject.
+     */
+    public boolean isCanExport() {
+        return this.canExport;
+    }
 
-	/**
-	 * Sets whether or not this Inquiry supports XML export of it's BusinessObject.
-	 */
-	public void setCanExport(boolean canExport) {
-		this.canExport = canExport;
-	}
+    /**
+     * Sets whether or not this Inquiry supports XML export of it's BusinessObject.
+     */
+    public void setCanExport(boolean canExport) {
+        this.canExport = canExport;
+    }
 
 
 }

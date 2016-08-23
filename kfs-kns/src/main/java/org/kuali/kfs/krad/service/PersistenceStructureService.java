@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.service;
 
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtension;
 import org.kuali.kfs.krad.exception.ClassNotPersistableException;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.util.ForeignKeyFieldsPopulationState;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public interface PersistenceStructureService {
     /**
      * @param clazz Class whose primary key field names you want to list
      * @return a List of field names for the given class which are designated as key fields in the OJB repository file
-     * @throws IllegalArgumentException if the given Class is null
+     * @throws IllegalArgumentException     if the given Class is null
      * @throws ClassNotPersistableException if the given object is of a type not described in the OJB repository
      */
     public List listPrimaryKeyFieldNames(Class clazz);
@@ -50,7 +50,7 @@ public interface PersistenceStructureService {
     /**
      * @param clazz Class whose field names you want to list
      * @return a List of field names for the given class in the OJB repository file
-     * @throws IllegalArgumentException if the given Class is null
+     * @throws IllegalArgumentException     if the given Class is null
      * @throws ClassNotPersistableException if the given object is of a type not described in the OJB repository
      */
     public List listFieldNames(Class clazz);
@@ -68,22 +68,20 @@ public interface PersistenceStructureService {
 	*/
 
     /**
-     *
      * This method returns a List of Strings, each containing the field name of one of the primary keys, as defined in the ORM
      * layer.
      *
      * @param clazz - Class whose primary key field names are requested
      * @return A List of Strings, each containing the field name of the primary key
-     * @throws IllegalArgumentException if the given Object is null
+     * @throws IllegalArgumentException     if the given Object is null
      * @throws ClassNotPersistableException if the given object is of a type not described in the OJB repository
-     *
      */
     public List getPrimaryKeys(Class clazz);
 
     /**
      * @param persistableObject
      * @return true if all primary key fields of the string have a non-null (and non-empty, for Strings) value
-     * @throws IllegalArgumentException if the given Object is null
+     * @throws IllegalArgumentException     if the given Object is null
      * @throws ClassNotPersistableException if the given object is of a type not described in the OJB repository
      */
     public boolean hasPrimaryKeyFieldValues(Object persistableObject);
@@ -91,7 +89,7 @@ public interface PersistenceStructureService {
     /**
      * @param persistableObject object whose primary key fields need to be cleared
      * @return the object whose primary key fields have just been cleared
-     * @throws IllegalArgumentException if the given Object is null
+     * @throws IllegalArgumentException     if the given Object is null
      * @throws ClassNotPersistableException if the given object is of a type not described in the OJB repository
      */
     public Object clearPrimaryKeyFields(Object persistableObject);
@@ -106,16 +104,16 @@ public interface PersistenceStructureService {
 
     /**
      * @param persistableClass
-     * @param attributeName Name of an attribute used in the relationship
+     * @param attributeName    Name of an attribute used in the relationship
      * @return BusinessObjectRelationship object containing information about the object type related via the named relationship of the
-     *         given class, or null if the persistence service can find no object type related via the named relationship
-     * @throws IllegalArgumentException if the given Class is null
-     * @throws IllegalArgumentException if the given relationshipName is blanks
+     * given class, or null if the persistence service can find no object type related via the named relationship
+     * @throws IllegalArgumentException     if the given Class is null
+     * @throws IllegalArgumentException     if the given relationshipName is blanks
      * @throws ClassNotPersistableException if the given Class is a type not described in the OJB repository
      */
-    public Map<String,DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName, String attributePrefix );
+    public Map<String, DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName, String attributePrefix);
 
-    public Map<String,DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName);
+    public Map<String, DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName);
 
     public String getForeignKeyFieldName(Class persistableObjectClass, String attributeName, String pkName);
 
@@ -127,28 +125,25 @@ public interface PersistenceStructureService {
      * @param attributeName
      * @return Map with attribue name as key of map and class as value
      */
-    public Map<String,Class> getReferencesForForeignKey(Class persistableObjectClass, String attributeName);
+    public Map<String, Class> getReferencesForForeignKey(Class persistableObjectClass, String attributeName);
 
     /**
-     *
      * This method will return a Map of all the foreign key fields and the corresponding primary key fields for a given reference.
-     *
+     * <p>
      * The Map structure is: Key(String fkFieldName) => Value(String pkFieldName)
      *
-     * @param clazz - Class that contains the named reference
+     * @param clazz         - Class that contains the named reference
      * @param attributeName - Name of the member that is the reference you want foreign keys for
      * @return returns a Map populated as described above, with one entry per foreign key field
-     *
      */
     public Map getForeignKeysForReference(Class clazz, String attributeName);
 
     /**
-     *
      * This method is a PersistableBusinessObject specifific utility method. If the Class clazz passed in is a descendent of PersistableBusinessObject,
      * and if the attributeName specified exists on the object, then the class of this
      * attribute named will be returned.
      *
-     * @param clazz - class to be examined for the attribute's class
+     * @param clazz         - class to be examined for the attribute's class
      * @param attributeName - name of the class' attribute to be examined
      * @return the class of the named attribute, if no exceptions occur
      */
@@ -163,67 +158,63 @@ public interface PersistenceStructureService {
     public Map getNestedForeignKeyMap(Class persistableObjectClass);
 
     /**
-     *
      * This method checks the foreign keys for a reference on a given BO, and tests that all fk fields are populated if any are
      * populated.
-     *
+     * <p>
      * In other words, for a given reference, it finds all the attributes of the BO that make up the foreign keys, and checks to see
      * if they all have values. It also keeps a list of all the fieldNames that do not have values.
      *
-     * @param bo - A populated BusinessObject descendent. Must contain an attributed named referenceName.
+     * @param bo            - A populated BusinessObject descendent. Must contain an attributed named referenceName.
      * @param referenceName - The name of the field that is a reference we are analyzing.
      * @return A populated ForeignKeyFieldsPopulation object which represents the state of population for the foreign key fields.
      */
     public ForeignKeyFieldsPopulationState getForeignKeyFieldsPopulationState(PersistableBusinessObject bo, String referenceName);
 
     /**
-     *
      * This method uses the persistence layer to determine the list of reference objects contained within this parent object. For
      * example, an Account object contains sub-objects such as Chart, as well as the key that connects the two, String
      * chartOfAccountsCode.
-     *
+     * <p>
      * The return structure is: Map<referenceName, referenceClass>.
-     *
+     * <p>
      * As an example, an Account object passed into this would return:
-     *
+     * <p>
      * 0:['chartOfAccounts', org.kuali.module.chart.bo.Chart] 1:['organization', org.kuali.module.chart.bo.Org] etc.
      *
      * @param boClass Class that would like to be analyzed for reference names
      * @return Map containing the reference name for the key as a string, and the class of the reference as the value. If the object
-     *         contains no references, then this Map will be empty.
-     *
+     * contains no references, then this Map will be empty.
      */
     public Map<String, Class> listReferenceObjectFields(Class boClass);
 
     /**
-     *
      * This method uses the persistence layer to determine the list of reference objects contained within this parent object. For
      * example, an Account object contains sub-objects such as Chart, as well as the key that connects the two, String
      * chartOfAccountsCode.
-     *
+     * <p>
      * The return structure is: Map<referenceName, referenceClass>.
-     *
+     * <p>
      * As an example, an Account object passed into this would return:
-     *
+     * <p>
      * 0:['chartOfAccounts', org.kuali.module.chart.bo.Chart] 1:['organization', org.kuali.module.chart.bo.Org] etc.
      *
      * @param bo BusinessObject (or subclass) instance that would like to be analyzed for reference names
      * @return Map containing the reference name for the key as a string, and the class of the reference as the value. If the object
-     *         contains no references, then this Map will be empty.
-     *
+     * contains no references, then this Map will be empty.
      */
     public Map<String, Class> listReferenceObjectFields(PersistableBusinessObject bo);
 
     public Map<String, Class> listCollectionObjectTypes(Class boClass);
+
     public Map<String, Class> listCollectionObjectTypes(PersistableBusinessObject bo);
 
     /**
      * Returns whether there is a reference defined in the persistence layer with the given name.
      * Depending on the type of underlying persistence mechanism, this method may or may not return true
      * when the referenceName really refers to a collection type.
-     *
+     * <p>
      * To determine whether a reference is a collection, use the hasCollection method instead.
-     *
+     * <p>
      * In OJB, this method will return false for collection references.
      *
      * @param boClass
@@ -243,15 +234,16 @@ public interface PersistenceStructureService {
     public boolean hasCollection(Class boClass, String collectionName);
 
     public boolean isReferenceUpdatable(Class boClass, String referenceName);
+
     public boolean isCollectionUpdatable(Class boClass, String collectionName);
 
     /**
      * Returns a listing of the FK field mappings between a BO and the elements in a collection. Since this is in effect a
      * 1:n relationship, only the complete primary key set of the parent BO will be returned.
-     *
+     * <p>
      * for example, assume Account BO has an "acctNbrForAcct" PK, and it has a list of subAccounts,
      * each of which has a ("acctNbrForSubAcct", "subAcctNbr") PK pair.
-     *
+     * <p>
      * the Account PK will be mapped to some of the PK fields of the element list.
      * When called on the Account BO class with the "subAccounts" collection name, his method should return
      * a map with a mapping of "acctNbrForAcct" (key) => "acctNbrForSubAcct"

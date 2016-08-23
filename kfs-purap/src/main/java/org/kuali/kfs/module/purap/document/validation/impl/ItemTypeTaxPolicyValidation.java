@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
@@ -26,14 +28,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ItemTypeTaxPolicyValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ItemTypeTaxPolicyValidation.class);
     protected PurapService purapService;
 
-    public static final String ERROR_INVALID_ITEM_TYPE_FOR_ACCOUNT_TAX_POLICY="error.itemTypeCode.taxPolicy";
+    public static final String ERROR_INVALID_ITEM_TYPE_FOR_ACCOUNT_TAX_POLICY = "error.itemTypeCode.taxPolicy";
     public static final String FIELD_NAME_ITEM_TYPE_CODE = "itemTypeCode";
 
 
@@ -42,7 +42,7 @@ public class ItemTypeTaxPolicyValidation extends GenericValidation {
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean isValid = true;
-        PurchasingDocument purchasingDocument = (PurchasingDocument)event.getDocument();
+        PurchasingDocument purchasingDocument = (PurchasingDocument) event.getDocument();
 
         boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
         boolean useTaxIndicator = purchasingDocument.isUseTaxIndicator();
@@ -51,16 +51,15 @@ public class ItemTypeTaxPolicyValidation extends GenericValidation {
         boolean callCode = false;
 
         //if sales tax or use tax is enabled, attempt tax check
-        if( callCode && (salesTaxInd || useTaxIndicator) ){
+        if (callCode && (salesTaxInd || useTaxIndicator)) {
             String errorPath = "document.items";
             GlobalVariables.getMessageMap().clearErrorPath();
             GlobalVariables.getMessageMap().addToErrorPath(errorPath);
-            for ( PurApItem item : purchasingDocument.getItems() )
-            {
-                if ( getPurapService().isItemTypeConflictWithTaxPolicy(purchasingDocument, item)) {
+            for (PurApItem item : purchasingDocument.getItems()) {
+                if (getPurapService().isItemTypeConflictWithTaxPolicy(purchasingDocument, item)) {
                     String itemIdentifier = item.getItemIdentifierString();
 
-                    GlobalVariables.getMessageMap().putError(FIELD_NAME_ITEM_TYPE_CODE, ERROR_INVALID_ITEM_TYPE_FOR_ACCOUNT_TAX_POLICY, itemIdentifier );
+                    GlobalVariables.getMessageMap().putError(FIELD_NAME_ITEM_TYPE_CODE, ERROR_INVALID_ITEM_TYPE_FOR_ACCOUNT_TAX_POLICY, itemIdentifier);
                     isValid = false;
                 }
             }

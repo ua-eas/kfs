@@ -19,6 +19,9 @@
 package org.kuali.kfs.krad.uif.view;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.UifConstants.ViewStatus;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.component.ReferenceCopy;
@@ -36,9 +39,6 @@ import org.kuali.kfs.krad.uif.util.BooleanMap;
 import org.kuali.kfs.krad.uif.util.ClientValidationUtils;
 import org.kuali.kfs.krad.uif.widget.BreadCrumbs;
 import org.kuali.kfs.krad.uif.widget.Growls;
-import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.UifConstants.ViewStatus;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.web.form.UifFormBase;
 
@@ -53,27 +53,25 @@ import java.util.Set;
  * Root of the component tree which encompasses a set of related
  * <code>GroupContainer</code> instances tied together with a common page layout
  * and navigation.
- *
+ * <p>
  * <p>
  * The <code>View</code> component ties together all the components and
  * configuration of the User Interface for a piece of functionality. In Rice
  * applications the view is typically associated with a <code>Document</code>
  * instance.
  * </p>
- *
+ * <p>
  * <p>
  * The view template lays out the common header, footer, and navigation for the
  * related pages. In addition the view renders the HTML head element bringing in
  * common script files and style sheets, along with optionally rendering a form
  * element for pages that need to post data back to the server.
  * </p>
- *
+ * <p>
  * <p>
  * Configuration of UIF features such as model validation is also done through
  * the <code>View</code>
  * </p>
- *
- *
  */
 public class View extends ContainerBase {
     private static final long serialVersionUID = -1220009725554576953L;
@@ -172,7 +170,7 @@ public class View extends ContainerBase {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>If a single paged view, set items in page group and put the page in
      * the items list</li>
@@ -208,14 +206,14 @@ public class View extends ContainerBase {
 
     /**
      * The following is performed:
-     *
+     * <p>
      * <ul>
      * <li>Adds to its document ready script the setupValidator js function for setting
      * up the validator for this view</li>
      * </ul>
      *
      * @see ContainerBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -240,7 +238,7 @@ public class View extends ContainerBase {
         }
 
         this.setOnDocumentReadyScript(prefixScript + "jQuery.extend(jQuery.validator.messages, " +
-                ClientValidationUtils.generateValidatorMessagesOption() + ");");
+            ClientValidationUtils.generateValidatorMessagesOption() + ");");
     }
 
     /**
@@ -304,7 +302,7 @@ public class View extends ContainerBase {
         if (!singlePageView) {
             for (Group group : this.getItems()) {
                 if ((group instanceof PageGroup) && !StringUtils.equals(group.getId(), getCurrentPageId()) && components
-                        .contains(group)) {
+                    .contains(group)) {
                     components.remove(group);
                 }
             }
@@ -362,7 +360,7 @@ public class View extends ContainerBase {
 
     /**
      * Namespace code the view should be associated with
-     *
+     * <p>
      * <p>
      * The namespace code is used within the framework in such places as permission checks and parameter
      * retrieval
@@ -412,7 +410,7 @@ public class View extends ContainerBase {
 
     /**
      * Header for the application containing the view
-     *
+     * <p>
      * <p>
      * When deploying outside a portal, the application header and footer property can be configured to
      * display a consistent header/footer across all views. Here application logos, menus, login controls
@@ -436,7 +434,7 @@ public class View extends ContainerBase {
 
     /**
      * Footer for the application containing the view
-     *
+     * <p>
      * <p>
      * When deploying outside a portal, the application header and footer property can be configured to
      * display a consistent header/footer across all views. Here such things as application links, copyrights
@@ -509,7 +507,7 @@ public class View extends ContainerBase {
     /**
      * The id for the page within the view that should be displayed in the UI.
      * Other pages of the view will not be rendered
-     *
+     * <p>
      * <p>
      * If current page id is not set, it is set to the configured entry page or first item in list id
      * </p>
@@ -609,7 +607,7 @@ public class View extends ContainerBase {
     /**
      * Configures the concrete classes that will be used for properties in the
      * form object graph that have an abstract or interface type
-     *
+     * <p>
      * <p>
      * For properties that have an abstract or interface type, it is not
      * possible to perform operations like getting/settings property values and
@@ -617,7 +615,7 @@ public class View extends ContainerBase {
      * encountered in the object graph, this <code>Map</code> will be consulted
      * to determine the concrete type to use.
      * </p>
-     *
+     * <p>
      * <p>
      * e.g. Suppose we have a property document.accountingLine.accountNumber and
      * the accountingLine property on the document instance has an interface
@@ -707,7 +705,7 @@ public class View extends ContainerBase {
 
     /**
      * View type name the view is associated with the view instance
-     *
+     * <p>
      * <p>
      * Views that share common features and functionality can be grouped by the
      * view type. Usually view types extend the <code>View</code> class to
@@ -816,7 +814,7 @@ public class View extends ContainerBase {
 
     /**
      * PresentationController that should be used for the <code>View</code> instance
-     *
+     * <p>
      * <p>
      * The presentation controller is consulted to determine component (group,
      * field) state such as required, read-only, and hidden. The presentation
@@ -846,13 +844,13 @@ public class View extends ContainerBase {
      * @param presentationControllerClass
      */
     public void setPresentationControllerClass(
-            Class<? extends ViewPresentationController> presentationControllerClass) {
+        Class<? extends ViewPresentationController> presentationControllerClass) {
         this.presentationController = ObjectUtils.newInstance(presentationControllerClass);
     }
 
     /**
      * Authorizer that should be used for the <code>View</code> instance
-     *
+     * <p>
      * <p>
      * The authorizer class is consulted to determine component (group, field)
      * state such as required, read-only, and hidden based on the users
@@ -968,7 +966,7 @@ public class View extends ContainerBase {
      * of configuration and also can drive other configuration like styling.
      *
      * @return boolean true if the view only contains one page group, false if
-     *         it contains multple pages
+     * it contains multple pages
      */
     public boolean isSinglePageView() {
         return this.singlePageView;
@@ -1094,7 +1092,7 @@ public class View extends ContainerBase {
      */
     public boolean isInitialized() {
         return StringUtils.equals(viewStatus, ViewStatus.INITIALIZED) ||
-                StringUtils.equals(viewStatus, ViewStatus.FINAL);
+            StringUtils.equals(viewStatus, ViewStatus.FINAL);
     }
 
     /**
@@ -1159,14 +1157,14 @@ public class View extends ContainerBase {
     /**
      * Indicates whether the breadcrumbs are rendered in the application header and should not
      * be rendered as part of the view template
-     *
+     * <p>
      * <p>
      * For layout purposes it is sometimes necessary to render the breadcrumbs in the application header. This flag
      * indicates that is being done and therefore should not be rendered in the view template.
      * </p>
      *
      * @return boolean true if breadcrumbs are rendered in the application header, false if not and they should be
-     *         rendered with the view
+     * rendered with the view
      */
     public boolean isBreadcrumbsInApplicationHeader() {
         return breadcrumbsInApplicationHeader;
@@ -1222,7 +1220,7 @@ public class View extends ContainerBase {
 
     /**
      * Indicates whether the form should be validated for dirtyness
-     *
+     * <p>
      * <p>
      * For FormView, it's necessary to validate when the user tries to navigate out of the form. If set, all the
      * InputFields will be validated on refresh, navigate, cancel or close Action or on form
@@ -1264,7 +1262,7 @@ public class View extends ContainerBase {
     /**
      * The property name to be used to determine what will be used in the
      * breadcrumb title of this view
-     *
+     * <p>
      * <p>
      * The title can be determined from a combination of this and viewLabelFieldbindingInfo: If only
      * viewLabelFieldPropertyName is set, the title we be determined against the
@@ -1315,7 +1313,7 @@ public class View extends ContainerBase {
 
     /**
      * Map of key name/value pairs that will be exposed on the client with JavaScript
-     *
+     * <p>
      * <p>
      * Any state contained in the Map will be in addition to general state added by the
      * <code>ViewHelperService</code> and also state generated from the component properties
@@ -1343,9 +1341,9 @@ public class View extends ContainerBase {
      * Adds a variable name/value pair to the client side state map associated with the given
      * component id
      *
-     * @param componentId - id of the component the state is associated with
+     * @param componentId  - id of the component the state is associated with
      * @param variableName - name to expose the state as
-     * @param value - initial value for the variable on the client
+     * @param value        - initial value for the variable on the client
      */
     public void addToClientSideState(String componentId, String variableName, Object value) {
         Map<String, Object> componentClientState = new HashMap<String, Object>();
@@ -1368,7 +1366,7 @@ public class View extends ContainerBase {
     /**
      * Indicates whether the view allows read only fields to be specified on the request URL which will
      * override the view setting
-     *
+     * <p>
      * <p>
      * If enabled, the readOnlyFields request parameter can be sent to indicate fields that should be set read only
      * </p>
@@ -1390,7 +1388,7 @@ public class View extends ContainerBase {
 
     /**
      * Script that is executed at the beginning of page load (before any other script)
-     *
+     * <p>
      * <p>
      * Many used to set server variables client side
      * </p>
@@ -1412,6 +1410,7 @@ public class View extends ContainerBase {
 
     /**
      * The theme which contains stylesheets for this view
+     *
      * @return
      */
     public ViewTheme getTheme() {
@@ -1420,6 +1419,7 @@ public class View extends ContainerBase {
 
     /**
      * Setter for The theme which contains stylesheets for this view
+     *
      * @return
      */
     public void setTheme(ViewTheme theme) {

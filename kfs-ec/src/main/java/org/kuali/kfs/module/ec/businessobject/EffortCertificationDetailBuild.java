@@ -19,13 +19,12 @@
 
 package org.kuali.kfs.module.ec.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Business Object for the Effort Certification Detail Build Table.

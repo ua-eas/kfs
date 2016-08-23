@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectPick;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgSalaryStatisticsReport;
@@ -37,9 +32,14 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionSalaryStatisti
 import org.kuali.kfs.module.bc.report.BudgetConstructionReportHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -55,7 +55,7 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
     protected PersistenceService persistenceServiceOjb;
 
     public void updateSalaryStatisticsReport(String principalName, Integer universityFiscalYear) {
-        budgetConstructionSalaryStatisticsReportDao.updateReportsSalaryStatisticsTable(principalName, universityFiscalYear-1);
+        budgetConstructionSalaryStatisticsReportDao.updateReportsSalaryStatisticsTable(principalName, universityFiscalYear - 1);
     }
 
     public Collection<BudgetConstructionOrgSalaryStatisticsReport> buildReports(Integer universityFiscalYear, String principalName) {
@@ -112,16 +112,14 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
         orgSalaryStatisticsReportEntry.setOrganizationCode(salaryTotalEntry.getOrganizationCode());
         if (orgName == null) {
             orgSalaryStatisticsReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgSalaryStatisticsReportEntry.setOrganizationName(orgName);
         }
         // set ChartCode and Desc
         if (chart == null) {
             orgSalaryStatisticsReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
             orgSalaryStatisticsReportEntry.setChartOfAccountsCode(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSalaryStatisticsReportEntry.setChartOfAccountsCode(chart.getChartOfAccountsCode());
             orgSalaryStatisticsReportEntry.setChartOfAccountDescription(chart.getFinChartOfAccountDescription());
         }
@@ -194,6 +192,7 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the budgetConstructionReportsServiceHelper attribute value.
+     *
      * @param budgetConstructionReportsServiceHelper The budgetConstructionReportsServiceHelper to set.
      */
     public void setBudgetConstructionReportsServiceHelper(BudgetConstructionReportsServiceHelper budgetConstructionReportsServiceHelper) {

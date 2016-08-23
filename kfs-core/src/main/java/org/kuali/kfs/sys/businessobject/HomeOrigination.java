@@ -19,11 +19,10 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSConstants;
 
+import java.util.LinkedHashMap;
 
 
 public class HomeOrigination extends PersistableBusinessObjectBase {

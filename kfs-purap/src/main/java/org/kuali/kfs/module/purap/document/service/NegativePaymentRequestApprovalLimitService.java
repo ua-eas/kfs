@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
 
 public interface NegativePaymentRequestApprovalLimitService {
 

@@ -23,9 +23,8 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * Helper interface to bridge between trip and traveler implementations of travel agency auditing
- *
  */
-public interface AgencyStagingDataRuleHelper  {
+public interface AgencyStagingDataRuleHelper {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)

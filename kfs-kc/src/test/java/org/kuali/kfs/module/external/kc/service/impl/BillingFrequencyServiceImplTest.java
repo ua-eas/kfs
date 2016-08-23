@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.easymock.EasyMock;
 import org.eclipse.persistence.jpa.jpql.Assert;
@@ -32,6 +27,11 @@ import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.external.kc.dto.BillingFrequencyDTO;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BillingFrequencyServiceImplTest {
 
@@ -64,7 +64,7 @@ public class BillingFrequencyServiceImplTest {
 
         BillingFrequency expected = createSampleBillingFrequency();
         Assert.isTrue(compareBillingFrequencies(result, expected),
-                "Expected result was " + ToStringBuilder.reflectionToString(expected) +
+            "Expected result was " + ToStringBuilder.reflectionToString(expected) +
                 " but got " + ToStringBuilder.reflectionToString(result));
     }
 
@@ -89,7 +89,7 @@ public class BillingFrequencyServiceImplTest {
 
         BillingFrequency expected = createSampleBillingFrequency();
         Assert.isTrue(compareBillingFrequencies(result, expected),
-                "Expected result was " + ToStringBuilder.reflectionToString(expected) +
+            "Expected result was " + ToStringBuilder.reflectionToString(expected) +
                 " but got " + ToStringBuilder.reflectionToString(result));
     }
 
@@ -106,7 +106,7 @@ public class BillingFrequencyServiceImplTest {
 
         BillingFrequency expected = createSampleBillingFrequency();
         Assert.isTrue(compareBillingFrequencies(result, expected),
-                "Expected result was " + ToStringBuilder.reflectionToString(expected) +
+            "Expected result was " + ToStringBuilder.reflectionToString(expected) +
                 " but got " + ToStringBuilder.reflectionToString(result));
     }
 
@@ -130,8 +130,8 @@ public class BillingFrequencyServiceImplTest {
 
     private boolean compareBillingFrequencies(BillingFrequencyDTO result, BillingFrequency expected) {
         return expected.isActive() == result.isActive() &&
-                expected.getFrequency().equals(result.getFrequency()) &&
-                expected.getFrequencyDescription().equals(result.getFrequencyDescription()) &&
-                expected.getGracePeriodDays().equals(result.getGracePeriodDays());
+            expected.getFrequency().equals(result.getFrequency()) &&
+            expected.getFrequencyDescription().equals(result.getFrequencyDescription()) &&
+            expected.getGracePeriodDays().equals(result.getGracePeriodDays());
     }
 }

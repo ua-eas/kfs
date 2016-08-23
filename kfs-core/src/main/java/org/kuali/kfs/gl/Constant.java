@@ -90,19 +90,20 @@ public final class Constant {
 
     public static final String SEARCH_RESULTS = "searchResults";
 
-    public enum DocumentApprovedCode{
+    public enum DocumentApprovedCode {
         APPROVED(DOCUMENT_APPROVED_CODE_APPROVED, "APPROVED"), PENDING(DOCUMENT_APPROVED_CODE_PENDING, "PENDING"), PROCESSED(DOCUMENT_APPROVED_CODE_PROCESSED, "PROCESSED");
 
         public String code;
         public String description;
+
         private DocumentApprovedCode(String code, String description) {
             this.code = code;
             this.description = description;
         }
 
         public static String getDescription(String code) {
-            for(DocumentApprovedCode approvedCode : DocumentApprovedCode.values()) {
-                if(approvedCode.code.equals(code)) {
+            for (DocumentApprovedCode approvedCode : DocumentApprovedCode.values()) {
+                if (approvedCode.code.equals(code)) {
                     return approvedCode.description;
                 }
             }

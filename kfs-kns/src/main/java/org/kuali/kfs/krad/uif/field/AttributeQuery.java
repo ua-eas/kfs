@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Holds configuration for executing a dynamic query on an <code>InputField</code> to
  * pull data for updating the UI
- *
+ * <p>
  * <p>
  * There are two types of query types that can be configured and executed. The first is provided
  * completely by the framework using the <code>LookupService</code> and will perform a query
@@ -40,8 +40,6 @@ import java.util.Map;
  * queryMethodToCall (if the method is on the view helper service), or using the queryMethodInvoker if
  * the method is on another class or object.
  * </p>
- *
- *
  */
 public class AttributeQuery implements Serializable {
     private static final long serialVersionUID = -4569905665441735255L;
@@ -228,7 +226,7 @@ public class AttributeQuery implements Serializable {
     /**
      * Configures the query parameters by mapping fields in the view
      * to properties on the data object class for the query
-     *
+     * <p>
      * <p>
      * Each map entry configures one parameter for the query, where
      * the map key is the field name to pull the value from, and the
@@ -254,7 +252,7 @@ public class AttributeQuery implements Serializable {
     /**
      * Maps properties from the result object of the query to
      * fields in the view
-     *
+     * <p>
      * <p>
      * Each map entry configures one return mapping, where the map
      * key is the field name for the field to populate, and the map
@@ -378,7 +376,7 @@ public class AttributeQuery implements Serializable {
     /**
      * Configures the name of the method that should be invoked to perform
      * the query
-     *
+     * <p>
      * <p>
      * Should contain only the method name (no parameters or return type). If only
      * the query method name is configured it is assumed to be on the <code>ViewHelperService</code>
@@ -402,7 +400,7 @@ public class AttributeQuery implements Serializable {
 
     /**
      * List of field names that should be passed as arguments to the query method
-     *
+     * <p>
      * <p>
      * Each entry in the list maps to a method parameter, in the other contained within
      * the list. The value for the field within the view will be pulled and passed
@@ -426,7 +424,7 @@ public class AttributeQuery implements Serializable {
 
     /**
      * Configures the query method target class/object and method name
-     *
+     * <p>
      * <p>
      * When the query method is not contained on the <code>ViewHelperService</code>, this
      * can be configured for declaring the target class/object and method. The target class

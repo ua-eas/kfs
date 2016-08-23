@@ -86,8 +86,8 @@ public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTran
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
      */
     protected void addExtraButton(String property, String source, String altText) {
         addExtraButton(property, source, altText, StringUtils.EMPTY);
@@ -97,9 +97,9 @@ public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTran
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
-     * @param onClick - onclick property for the button
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
+     * @param onClick  - onclick property for the button
      */
     protected void addExtraButton(String property, String source, String altText, String onClick) {
         ExtraButton newButton = new ExtraButton();

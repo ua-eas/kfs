@@ -18,20 +18,21 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.Observable;
-import java.util.Observer;
-
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.KualiRuleService;
 
-public class RemoveDistributionAccountingLineEvent  implements Observer {
-    private static final int WRAPPER_ARG_IDX       = 0;
+import java.util.Observable;
+import java.util.Observer;
+
+public class RemoveDistributionAccountingLineEvent implements Observer {
+    private static final int WRAPPER_ARG_IDX = 0;
     private static final int SELECTED_LINE_ARG_IDX = 1;
+
     @Override
     public void update(Observable arg0, Object arg1) {
         if (!(arg1 instanceof Object[])) {
@@ -51,7 +52,7 @@ public class RemoveDistributionAccountingLineEvent  implements Observer {
         int lineNumber = wrapper.getAccountDistributionnextSourceLineNumber() - 1;
         wrapper.setAccountDistributionnextSourceLineNumber(lineNumber);
         int counter = 1;
-        for (AccountingLine line : wrapper.getAccountDistributionsourceAccountingLines()){
+        for (AccountingLine line : wrapper.getAccountDistributionsourceAccountingLines()) {
             line.setSequenceNumber(new Integer(counter));
             counter++;
         }

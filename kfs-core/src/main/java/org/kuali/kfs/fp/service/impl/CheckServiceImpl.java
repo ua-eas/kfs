@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.fp.service.impl;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.CheckBase;
 import org.kuali.kfs.fp.dataaccess.CheckDao;
 import org.kuali.kfs.fp.service.CheckService;
 import org.kuali.kfs.sys.service.NonTransactional;
 
+import java.util.Collection;
+
 /**
- *
  * This is the default implementation of the CheckService interface.
  */
 
@@ -51,8 +50,10 @@ public class CheckServiceImpl implements CheckService {
     }
 
     // Spring injection
+
     /**
      * Sets the checkDao attribute.
+     *
      * @param The CheckDao to be set.
      */
     public void setCheckDao(CheckDao d) {
@@ -61,6 +62,7 @@ public class CheckServiceImpl implements CheckService {
 
     /**
      * Gets the checkDao attribute.
+     *
      * @return An instance of the checkDao attribute.
      */
     public CheckDao getCheckDao() {

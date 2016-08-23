@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewHideShowLinesDefinition;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewHideShowLinesDefinition;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * The layout element for a hide/show wrapper of other elements
@@ -36,6 +36,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Returns the name of the child element - if that gets removed, then we need to be removed as well
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
@@ -44,6 +45,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * All hide/show elements fit into one row
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -52,6 +54,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Joins the header label row with a cell that colspans the width of the row and that spans 2
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerLabelRow, AccountingLineTableRow row) {
@@ -66,6 +69,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * This layout element should be stretched
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#stretchToFillLine()
      */
     public boolean shouldStretchToFillLine() {
@@ -73,7 +77,6 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -82,6 +85,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Creates the hide/show block
+     *
      * @param headerRowCount the number of header rows
      * @return the hide show block
      */
@@ -98,6 +102,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Returns the total number of rows requested by each child line
+     *
      * @return the total number of rows requested
      */
     protected int getRowsRequested() {
@@ -110,6 +115,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Creates empty rows to populate the content of the hide/show block
+     *
      * @param cellCount the number of rows which will be returned
      * @return a List of empty rows
      */
@@ -125,7 +131,8 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Causes child lines to join the given set of rows
-     * @param rows the List of rows which child lines can join
+     *
+     * @param rows           the List of rows which child lines can join
      * @param headerRowCount the number of header rows
      */
     protected void haveLinesJoinRows(List<AccountingLineTableRow> rows, int headerRowCount) {
@@ -133,7 +140,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
         for (AccountingLineViewLineFillingElement line : lines) {
 
             if (line.getRequestedRowCount() > 1) {
-                line.joinRow(rows.get(count), rows.get(count+1));
+                line.joinRow(rows.get(count), rows.get(count + 1));
                 count += 2;
             } else {
                 line.joinRow(rows.get(count), null);
@@ -144,6 +151,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Has the inner content perform any field transformations
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
@@ -154,6 +162,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Has the inner content read onlyize any blocks it needs to
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
     public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {
@@ -164,6 +173,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Shuffles the responsibility off to the inner content
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeAllActionBlocks()
      */
     public void removeAllActionBlocks() {
@@ -174,6 +184,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Passes the unviewable blocks off the inner content
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks(java.util.Set)
      */
     public void removeUnviewableBlocks(Set<String> unviewableBlocks) {
@@ -190,6 +201,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Gets the lines attribute.
+     *
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingElement> getLines() {
@@ -198,6 +210,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Sets the lines attribute value.
+     *
      * @param lines The lines to set.
      */
     public void setLines(List<AccountingLineViewLineFillingElement> lines) {
@@ -206,6 +219,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Adds a single line to this element's list of lines
+     *
      * @param line the line to add
      */
     public void addLine(AccountingLineViewLineFillingElement line) {
@@ -217,6 +231,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Gets the definition attribute.
+     *
      * @return Returns the definition.
      */
     public AccountingLineViewHideShowLinesDefinition getDefinition() {
@@ -225,6 +240,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Sets the definition attribute value.
+     *
      * @param definition The definition to set.
      */
     public void setDefinition(AccountingLineViewHideShowLinesDefinition definition) {
@@ -233,6 +249,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Checks that all child lines are read only; if none are, then this must be read only too
+     *
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#isReadOnly()
      */
     public boolean isReadOnly() {
@@ -244,6 +261,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Read-onlyizes child lines
+     *
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#readOnlyize()
      */
     public void readOnlyize() {
@@ -254,6 +272,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
 
     /**
      * Always returns 1; this will appear in one table cell
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#getDisplayingFieldWidth()
      */
     public int getDisplayingFieldWidth() {

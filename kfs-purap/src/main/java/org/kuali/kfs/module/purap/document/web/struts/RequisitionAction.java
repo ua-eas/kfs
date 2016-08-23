@@ -18,17 +18,21 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
@@ -46,18 +50,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.VendorCommodityCode;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action for Requisition document.
@@ -68,6 +67,7 @@ public class RequisitionAction extends PurchasingActionBase {
 
     /**
      * save the document without any validations.....
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#save(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -121,7 +121,7 @@ public class RequisitionAction extends PurchasingActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -138,17 +138,17 @@ public class RequisitionAction extends PurchasingActionBase {
      * Adds a PurchasingItemCapitalAsset (a container for the Capital Asset Number) to the selected
      * item's list.
      *
-     * @param mapping       An ActionMapping
-     * @param form          The Form
-     * @param request       An HttpServletRequest
-     * @param response      The HttpServletResponse
-     * @return      An ActionForward
+     * @param mapping  An ActionMapping
+     * @param form     The Form
+     * @param request  An HttpServletRequest
+     * @param response The HttpServletResponse
+     * @return An ActionForward
      * @throws Exception
      */
     public ActionForward addAsset(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequisitionForm rqForm = (RequisitionForm) form;
         RequisitionDocument document = (RequisitionDocument) rqForm.getDocument();
-        RequisitionItem item = (RequisitionItem)document.getItemByLineNumber(getSelectedLine(request) + 1);
+        RequisitionItem item = (RequisitionItem) document.getItemByLineNumber(getSelectedLine(request) + 1);
         //TODO: Add a new way to add assets to the system.
         //item.addAsset();
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -177,9 +177,9 @@ public class RequisitionAction extends PurchasingActionBase {
     /**
      * Clears the vendor selection from the Requisition.  NOTE, this functionality is only available on Requisition and not PO.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request A HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  A HttpServletRequest
      * @param response A HttpServletResponse
      * @return An ActionForward
      * @throws Exception
@@ -212,7 +212,7 @@ public class RequisitionAction extends PurchasingActionBase {
      * blanket approve.
      *
      * @see org.kuali.kfs.module.purap.document.web.struts.PurchasingActionBase#blanketApprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -224,18 +224,18 @@ public class RequisitionAction extends PurchasingActionBase {
     /**
      * Add a new item to the document.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     @Override
     public ActionForward addItem(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchasingFormBase purchasingForm = (PurchasingFormBase) form;
         PurApItem item = purchasingForm.getNewPurchasingItemLine();
-        RequisitionItem requisitionItem = (RequisitionItem)item;
+        RequisitionItem requisitionItem = (RequisitionItem) item;
         PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
 
         if (StringUtils.isBlank(requisitionItem.getPurchasingCommodityCode())) {
@@ -243,7 +243,7 @@ public class RequisitionAction extends PurchasingActionBase {
 
             if (commCodeParam) {
                 if (purchasingForm instanceof RequisitionForm) {
-                    RequisitionDocument reqs =(RequisitionDocument)purchasingForm.getDocument();
+                    RequisitionDocument reqs = (RequisitionDocument) purchasingForm.getDocument();
                     VendorDetail dtl = reqs.getVendorDetail();
                     if (ObjectUtils.isNotNull(dtl)) {
                         List<VendorCommodityCode> vcc = dtl.getVendorCommodities();
@@ -285,8 +285,7 @@ public class RequisitionAction extends PurchasingActionBase {
                     GlobalVariables.getMessageMap().putWarning(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapConstants.REQ_NO_ACCOUNTING_LINES);
                     return refresh(mapping, form, request, response);
                 }
-            }
-            else {
+            } else {
                 /*We have an empty item and we have a content reviewer. We will now ask the user
                  * if he wants to ignore the empty item (and let the content reviewer take care of it later).
                  */
@@ -296,15 +295,15 @@ public class RequisitionAction extends PurchasingActionBase {
         return super.route(mapping, form, request, response);
     }
 
-    protected boolean shouldWarnIfNoAccountingLines(ActionForm form){
+    protected boolean shouldWarnIfNoAccountingLines(ActionForm form) {
         RequisitionDocument doc = (RequisitionDocument) ((PurchasingFormBase) form).getDocument();
         RequisitionService reqs = getRequisitionService();
         return (doc.isMissingAccountingLines() && reqs.hasContentReviewer(doc.getOrganizationCode(), doc.getChartOfAccountsCode()));
     }
 
 
-    protected synchronized RequisitionService getRequisitionService(){
-        if (this.requisitionService == null){
+    protected synchronized RequisitionService getRequisitionService() {
+        if (this.requisitionService == null) {
             this.requisitionService = SpringContext.getBean(RequisitionService.class);
         }
         return this.requisitionService;

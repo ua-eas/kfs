@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class provides services related to the customer invoice document

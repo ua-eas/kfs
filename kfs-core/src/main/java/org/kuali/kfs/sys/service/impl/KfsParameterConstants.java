@@ -23,8 +23,7 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.NAMESPAC
 import org.kuali.kfs.krad.util.KRADConstants;
 
 
-
-public class KfsParameterConstants  {
+public class KfsParameterConstants {
 
     public static final String NERVOUS_SYSTEM_NAMESPACE = KRADConstants.KNS_NAMESPACE;
     public static final String ALL_COMPONENT = "All";

@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorStipulation;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -37,6 +31,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 @ConfigureContext(session = UserNameFixture.parke)
 public class PurchaseOrderDocumentRuleTest extends PurapRuleTestBase {
@@ -63,27 +63,27 @@ public class PurchaseOrderDocumentRuleTest extends PurapRuleTestBase {
     public void testValidateEmptyItemWithAccounts_NullItemWithAccount() {
         PurchaseOrderItem poItem = ItemAccountsFixture.NULL_ITEM_WITH_ACCOUNT.populateItem();
 
-        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation)validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
+        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation) validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
         validation.setItemForValidation(poItem);
-        assertFalse( validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)) );
+        assertFalse(validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)));
     }
 
     @ConfigureContext(session = parke)
     public void testValidateEmptyItemWithAccounts_WithItemWithAccount() {
         PurchaseOrderItem poItem = ItemAccountsFixture.WITH_QUANTITY_WITH_PRICE_WITH_ACCOUNT.populateItem();
 
-        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation)validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
+        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation) validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
         validation.setItemForValidation(poItem);
-        assertTrue( validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)) );
+        assertTrue(validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)));
     }
 
     @ConfigureContext(session = parke)
     public void testValidateEmptyItemWithAccounts_WithItemWithoutAccount() {
         PurchaseOrderItem poItem = ItemAccountsFixture.WITH_QUANTITY_WITH_PRICE_NULL_ACCOUNT.populateItem();
 
-        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation)validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
+        PurchaseOrderEmptyItemWithAccountsValidation validation = (PurchaseOrderEmptyItemWithAccountsValidation) validations.get("PurchaseOrder-emptyItemWithAccountsValidation");
         validation.setItemForValidation(poItem);
-        assertTrue( validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)) );
+        assertTrue(validation.validate(new AttributedAddPurchasingAccountsPayableItemEvent("", po, poItem)));
     }
 
     /*
@@ -118,8 +118,8 @@ public class PurchaseOrderDocumentRuleTest extends PurapRuleTestBase {
         stipulations.add(stip);
         po.setPurchaseOrderVendorStipulations(stipulations);
 
-        PurchaseOrderProcessVendorStipulationValidation validation = (PurchaseOrderProcessVendorStipulationValidation)validations.get("PurchaseOrder-processVendorStipulationValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", po)) );
+        PurchaseOrderProcessVendorStipulationValidation validation = (PurchaseOrderProcessVendorStipulationValidation) validations.get("PurchaseOrder-processVendorStipulationValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void testProcessVendorStipulationValidation_Blank() {
@@ -130,8 +130,8 @@ public class PurchaseOrderDocumentRuleTest extends PurapRuleTestBase {
         stipulations.add(stip);
         po.setPurchaseOrderVendorStipulations(stipulations);
 
-        PurchaseOrderProcessVendorStipulationValidation validation = (PurchaseOrderProcessVendorStipulationValidation)validations.get("PurchaseOrder-processVendorStipulationValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", po)) );
+        PurchaseOrderProcessVendorStipulationValidation validation = (PurchaseOrderProcessVendorStipulationValidation) validations.get("PurchaseOrder-processVendorStipulationValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     /*
@@ -139,26 +139,26 @@ public class PurchaseOrderDocumentRuleTest extends PurapRuleTestBase {
      */
     public void testValidateSplit_OneMovingOneRemaining() {
         po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
-        ((PurchaseOrderItem)po.getItems().get(0)).setMovingToSplit(true);
+        ((PurchaseOrderItem) po.getItems().get(0)).setMovingToSplit(true);
 
-        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation)validations.get("PurchaseOrder-splitValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("", "", po)) );
+        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation) validations.get("PurchaseOrder-splitValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void testValidateSplit_NoneMovingTwoRemaining() {
         po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
 
-        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation)validations.get("PurchaseOrder-splitValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", po)) );
+        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation) validations.get("PurchaseOrder-splitValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 
     public void testValidateSplit_TwoMovingNoneRemaining() {
         po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
-        ((PurchaseOrderItem)po.getItems().get(0)).setMovingToSplit(true);
-        ((PurchaseOrderItem)po.getItems().get(1)).setMovingToSplit(true);
+        ((PurchaseOrderItem) po.getItems().get(0)).setMovingToSplit(true);
+        ((PurchaseOrderItem) po.getItems().get(1)).setMovingToSplit(true);
 
-        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation)validations.get("PurchaseOrder-splitValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("", "", po)) );
+        PurchaseOrderSplitValidation validation = (PurchaseOrderSplitValidation) validations.get("PurchaseOrder-splitValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", po)));
     }
 }
 

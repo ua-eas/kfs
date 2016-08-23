@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business object for American Institute of Certified Public Accountants (AICPA) function
@@ -89,6 +89,7 @@ public class AICPAFunction extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -97,6 +98,7 @@ public class AICPAFunction extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

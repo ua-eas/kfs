@@ -18,21 +18,16 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
@@ -47,18 +42,15 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
-import org.kuali.kfs.sys.util.KfsWebUtils;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.file.Files;
 
 public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
 
@@ -68,13 +60,13 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
      * Overriding to make it easier to distinguish discount lines and lines that are associated to discounts
      *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         CustomerInvoiceForm customerInvoiceForm = (CustomerInvoiceForm) form;
         CustomerInvoiceDocument customerInvoiceDocument = customerInvoiceForm.getCustomerInvoiceDocument();
-        if(StringUtils.isBlank(customerInvoiceDocument.getDocumentNumber())) {
+        if (StringUtils.isBlank(customerInvoiceDocument.getDocumentNumber())) {
             String docId = request.getParameter(KFSConstants.PARAMETER_DOC_ID);
             customerInvoiceDocument.setDocumentNumber(docId);
             customerInvoiceDocument.refresh();
@@ -85,8 +77,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
             customerInvoiceForm.getCustomerInvoiceDocument().updateDiscountAndParentLineReferences();
             ActionForward result = super.execute(mapping, form, request, response);
             return result;
-        }
-        finally {
+        } finally {
             // update it again for display purposes
             customerInvoiceForm.getCustomerInvoiceDocument().updateDiscountAndParentLineReferences();
         }
@@ -94,7 +85,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
 
     /**
      * Called when customer invoice document is initiated.
-     *
+     * <p>
      * Makes a call to parent's createDocument method, but also defaults values for customer invoice document. Line which inserts
      * Customer Invoice Detail (i.e. insertSourceLine) has its values defaulted by
      * CustomerInvoiceForm.createNewSourceAccountingLine()
@@ -151,7 +142,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
         forward = super.copy(mapping, form, request, response);
         // KFSCNTRB-1737- We don't want to copy the closed date if the (copied) invoice isn't closed.
         if (customerInvoiceDocument.isOpenInvoiceIndicator()) {
-                customerInvoiceDocument.setClosedDate(null);
+            customerInvoiceDocument.setClosedDate(null);
         }
         return forward;
     }
@@ -172,13 +163,13 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
     protected ActionForward performInvoiceWithDiscountsCheck(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, CustomerInvoiceDocument customerInvoiceDocument) throws Exception {
         ActionForward forward = null;
 
-        if( customerInvoiceDocument.hasAtLeastOneDiscount() ){
+        if (customerInvoiceDocument.hasAtLeastOneDiscount()) {
 
             Object question = request.getParameter(KFSConstants.QUESTION_INST_ATTRIBUTE_NAME);
             if (question == null) {
                 return this.performQuestionWithoutInput(mapping, form, request, response, ArConstants.COPY_CUSTOMER_INVOICE_DOCUMENT_WITH_DISCOUNTS_QUESTION,
-                        "This document contains a discount line.  Are you sure you want to copy this document?", KFSConstants.CONFIRMATION_QUESTION,
-                        KFSConstants.ROUTE_METHOD, "");
+                    "This document contains a discount line.  Are you sure you want to copy this document?", KFSConstants.CONFIRMATION_QUESTION,
+                    KFSConstants.ROUTE_METHOD, "");
             }
 
             Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
@@ -297,7 +288,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
      * class. If so just use the parent class' insertSourceLine method.
      *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#insertSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -349,8 +340,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
         CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail) customerInvoiceDocument.getSourceAccountingLine(deleteIndex);
         if (customerInvoiceDetail.isDiscountLineParent()) {
             customerInvoiceDocument.removeDiscountLineBasedOnParentLineIndex(deleteIndex);
-        }
-        else if (customerInvoiceDocument.isDiscountLineBasedOnSequenceNumber(customerInvoiceDetail.getSequenceNumber())) {
+        } else if (customerInvoiceDocument.isDiscountLineBasedOnSequenceNumber(customerInvoiceDetail.getSequenceNumber())) {
 
             // if line to delete is a discount line, set discount line reference for parent to null
             CustomerInvoiceDetail parentCustomerInvoiceDetail = customerInvoiceDetail.getParentDiscountCustomerInvoiceDetail();
@@ -374,6 +364,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
 
     /**
      * This method refresh the ShipToAddress CustomerAddress object
+     *
      * @param mapping
      * @param form
      * @param request
@@ -429,6 +420,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
 
     /**
      * This method refresh the ShipToAddress CustomerAddress object
+     *
      * @param mapping
      * @param form
      * @param request
@@ -461,8 +453,8 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
     }
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request

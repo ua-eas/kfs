@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPayRateHolding;
 import org.kuali.kfs.module.bc.document.dataaccess.PayrateExportDao;
 import org.kuali.kfs.module.bc.document.service.PayrateExportService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PayrateExportServiceImpl implements PayrateExportService {
     protected BusinessObjectService businessObjectService;
@@ -39,10 +39,9 @@ public class PayrateExportServiceImpl implements PayrateExportService {
     protected int exportCount;
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.service.PayrateExportService#buildExportFile()
      */
-    @Transactional(propagation=Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public StringBuilder buildExportFile(Integer budgetYear, String positionUnionCode, String csfFreezeDate, String principalId) {
         this.exportCount = 0;
         Map payRateHoldingPersonUniversalIdentifierKey = new HashMap();
@@ -65,7 +64,6 @@ public class PayrateExportServiceImpl implements PayrateExportService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.document.service.PayrateExportService#isValidPositionUnionCode(java.lang.String)
      */
     @Transactional
@@ -75,7 +73,6 @@ public class PayrateExportServiceImpl implements PayrateExportService {
     }
 
     /**
-     *
      * @param businessObjectService
      */
     @NonTransactional
@@ -84,8 +81,6 @@ public class PayrateExportServiceImpl implements PayrateExportService {
     }
 
     /**
-     *
-     *
      * @param payrateExportDao
      */
     @NonTransactional
@@ -138,8 +133,7 @@ public class PayrateExportServiceImpl implements PayrateExportService {
         if (stringToPad.length() < fieldSize) {
             if (leftJustifiy) return StringUtils.rightPad(stringToPad, fieldSize);
             else return StringUtils.leftPad(stringToPad, fieldSize);
-        }
-        else if (stringToPad.length() > fieldSize) return stringToPad.substring(0, fieldSize - 1);
+        } else if (stringToPad.length() > fieldSize) return stringToPad.substring(0, fieldSize - 1);
 
         return stringToPad;
     }

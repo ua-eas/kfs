@@ -19,14 +19,12 @@
 package org.kuali.kfs.module.cam.document.validation.impl;
 
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -36,12 +34,14 @@ import org.kuali.kfs.module.cam.service.AssetLockService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.state.StateContract;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class EquipmentLoanOrReturnDocumentRule extends TransactionalDocumentRuleBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EquipmentLoanOrReturnDocumentRule.class);
@@ -202,12 +202,11 @@ public class EquipmentLoanOrReturnDocumentRule extends TransactionalDocumentRule
 
         String storageCountryCode = equipmentLoanOrReturnDocument.getBorrowerStorageCountryCode();
         String storageAddress = equipmentLoanOrReturnDocument.getBorrowerStorageAddress();
-        if (StringUtils.isNotBlank(storageAddress)&& StringUtils.isNotBlank(storageCountryCode) && storageCountryCode.equals(KFSConstants.COUNTRY_CODE_UNITED_STATES)){
+        if (StringUtils.isNotBlank(storageAddress) && StringUtils.isNotBlank(storageCountryCode) && storageCountryCode.equals(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             if (StringUtils.isBlank(equipmentLoanOrReturnDocument.getBorrowerStorageStateCode())) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + CamsPropertyConstants.EquipmentLoanOrReturnDocument.BORROWER_STAORAGE_STATE_CODE, CamsKeyConstants.EquipmentLoanOrReturn.ERROR_BORROWER_STORAGE_STATE_REQUIRED, equipmentLoanOrReturnDocument.getBorrowerCountryCode());
                 valid = false;
-            }
-            else {
+            } else {
                 StateContract borrowStorageStateCode = equipmentLoanOrReturnDocument.getBorrowerStorageState();
                 if (ObjectUtils.isNull(borrowStorageStateCode)) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + CamsPropertyConstants.EquipmentLoanOrReturnDocument.BORROWER_STAORAGE_STATE_CODE, CamsKeyConstants.EquipmentLoanOrReturn.ERROR_INVALID_BORROWER_STORAGE_STATE, equipmentLoanOrReturnDocument.getBorrowerStorageStateCode());

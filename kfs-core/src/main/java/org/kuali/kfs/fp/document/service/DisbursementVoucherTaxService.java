@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.List;
+
 /**
- *
  * This service interface defines the methods that a DisbursementVoucherTaxService implementation must provide.
- *
+ * <p>
  * Handles queries and validation on tax id numbers.
- *
  */
 public interface DisbursementVoucherTaxService {
 
     /**
      * Returns the vendor id number whose tax number matches the number passed in, or null if no vendor is found.
      *
-     * @param taxIDNumber A vendor tax id number.
+     * @param taxIDNumber      A vendor tax id number.
      * @param taxpayerTypeCode A vendor tax payer type code.
      * @return The id of the vendor found with a matching tax id number and payer type code, or null if no vendor is found.
      */
@@ -44,7 +42,7 @@ public interface DisbursementVoucherTaxService {
     /**
      * Returns the employee id number whose tax number matches the number passed in, or null if no employee is found.
      *
-     * @param taxIDNumber A vendor tax id number.
+     * @param taxIDNumber      A vendor tax id number.
      * @param taxpayerTypeCode A vendor tax payer type code.
      * @return The universal id of the employee found with a matching tax id number and payer type code, or null if no employee is found.
      */

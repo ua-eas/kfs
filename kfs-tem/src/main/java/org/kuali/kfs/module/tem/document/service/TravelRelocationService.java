@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
 import org.kuali.kfs.module.tem.pdf.Coversheet;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.Collection;
 
 public interface TravelRelocationService {
 
@@ -42,7 +42,7 @@ public interface TravelRelocationService {
      */
     public Collection<TravelRelocationDocument> findByIdentifier(String travelDocumentIdentifier);
 
-    public TravelRelocationDocument find(final String documentNumber)throws WorkflowException;
+    public TravelRelocationDocument find(final String documentNumber) throws WorkflowException;
 
     /**
      * This method uses the values provided to build and populate a cover sheet associated with a given {@link Document}.

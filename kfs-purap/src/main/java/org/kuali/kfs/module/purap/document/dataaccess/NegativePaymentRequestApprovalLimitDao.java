@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
 
 /**
  * Negative Payment Request Approval Limit DAO Interface.
@@ -39,7 +39,7 @@ public interface NegativePaymentRequestApprovalLimitDao {
     /**
      * Find limits by chart and account.
      *
-     * @param chartCode - chart of accounts code
+     * @param chartCode     - chart of accounts code
      * @param accountNumber
      * @return - collection of negative payment request approval limits
      */
@@ -48,7 +48,7 @@ public interface NegativePaymentRequestApprovalLimitDao {
     /**
      * Find limits by chart and organization.
      *
-     * @param chartCode - chart of accounts code
+     * @param chartCode        - chart of accounts code
      * @param organizationCode - organization code
      * @return - collection of negative payment request approval limits
      */

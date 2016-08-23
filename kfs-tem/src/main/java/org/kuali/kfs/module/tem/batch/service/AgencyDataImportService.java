@@ -19,15 +19,15 @@
 package org.kuali.kfs.module.tem.batch.service;
 
 
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.businessobject.AgencyImportData;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface AgencyDataImportService {
 
@@ -48,7 +48,6 @@ public interface AgencyDataImportService {
     public boolean importAgencyDataFile(String dataFileName, BatchInputFileType inputFileType);
 
     /**
-     *
      * @param agencyData
      * @param dataFileName
      * @return
@@ -56,14 +55,13 @@ public interface AgencyDataImportService {
     public List<AgencyStagingData> validateAgencyData(AgencyImportData agencyData, String dataFileName);
 
     /**
-     *
      * This method gets all valid Agency Staging data and moves it to the historical expense table.
+     *
      * @return
      */
     boolean moveAgencyDataToHistoricalExpenseTable();
 
     /**
-     *
      * @param agency
      * @param sequenceHelper
      */
@@ -71,6 +69,7 @@ public interface AgencyDataImportService {
 
     /**
      * Gets the currently existing GLPEs for the document we're going to add GLPEs to
+     *
      * @param agencyStagingData
      * @return
      */

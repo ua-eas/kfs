@@ -18,17 +18,10 @@
  */
 package org.kuali.kfs.sec.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
@@ -39,7 +32,13 @@ import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
 import org.kuali.kfs.sys.document.web.RenderableAccountingLineContainer;
 import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -62,8 +61,8 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      * container if view is not allowed
      *
      * @see org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl#initialize(org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition,
-     *      org.kuali.kfs.sys.document.AccountingDocument, java.util.List, java.lang.String, java.lang.String, java.util.Map,
-     *      java.util.Map, java.util.Map, boolean)
+     * org.kuali.kfs.sys.document.AccountingDocument, java.util.List, java.lang.String, java.lang.String, java.util.Map,
+     * java.util.Map, java.util.Map, boolean)
      */
     @Override
     public void initialize(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, List<RenderableAccountingLineContainer> containers, String collectionPropertyName, String collectionItemPropertyName, Map<String, Object> displayedErrors, Map<String, Object> displayedWarnings, Map<String, Object> displayedInfo, boolean canEdit) {
@@ -74,7 +73,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
         List<RenderableAccountingLineContainer> unviewableContainers = new ArrayList<RenderableAccountingLineContainer>();
         for (RenderableAccountingLineContainer container : containers) {
             boolean lineHasError = false;
-            for (Object errorKeyAsObject : GlobalVariables.getMessageMap().getErrorMessages().keySet() ) {
+            for (Object errorKeyAsObject : GlobalVariables.getMessageMap().getErrorMessages().keySet()) {
                 if (((String) errorKeyAsObject).startsWith(collectionItemPropertyName)) {
                     lineHasError = true;
                 }
@@ -88,8 +87,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
             if (!viewAllowed) {
                 unviewableContainers.add(container);
                 hasViewRestrictions = true;
-            }
-            else {
+            } else {
                 boolean editAllowed = accessSecurityService.canEditDocumentAccountingLine(accountingDocument, container.getAccountingLine(), currentUser);
 
                 if (container.isEditableLine() && !editAllowed) {
@@ -111,7 +109,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      * Adds info message if we have restricted view of any accounting lines and adds an additional key to match on
      *
      * @see org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl#renderErrors(javax.servlet.jsp.PageContext,
-     *      javax.servlet.jsp.tagext.Tag)
+     * javax.servlet.jsp.tagext.Tag)
      */
     @Override
     protected void renderErrors(PageContext pageContext, Tag parentTag) throws JspException {
@@ -125,7 +123,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      *
      * @param pageContext
      * @param parentTag
-     * @param messageKey - key for messages to display
+     * @param messageKey  - key for messages to display
      * @throws JspException
      */
     protected void renderMessages(PageContext pageContext, Tag parentTag, String messageKey) throws JspException {
@@ -167,8 +165,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
 
             if (hasViewRestrictions) {
                 requestErrors.add(secErrorKey, new ActionMessage(SecKeyConstants.MESSAGE_ACCOUNTING_LINE_VIEW_RESTRICTED));
-            }
-            else {
+            } else {
                 requestErrors.add(secErrorKey, new ActionMessage(SecKeyConstants.MESSAGE_ACCOUNTING_LINE_EDIT_RESTRICTED));
             }
 

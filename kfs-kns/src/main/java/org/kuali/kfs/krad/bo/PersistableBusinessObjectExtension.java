@@ -19,6 +19,6 @@
 package org.kuali.kfs.krad.bo;
 
 public interface PersistableBusinessObjectExtension extends
-		PersistableBusinessObject {
+    PersistableBusinessObject {
 
 }

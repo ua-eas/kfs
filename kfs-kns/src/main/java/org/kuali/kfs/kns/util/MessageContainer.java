@@ -30,28 +30,25 @@ import java.util.Set;
 
 /**
  * An adapter whose subclasses will make either an {@link MessageMap}'s warning or info messages available to the JSP layer
- *
- *
- *
  */
 public abstract class MessageContainer implements Serializable {
-	private MessageMap errorMap;
+    private MessageMap errorMap;
 
-	protected MessageContainer(MessageMap errorMap) {
-		this.errorMap = errorMap;
-	}
+    protected MessageContainer(MessageMap errorMap) {
+        this.errorMap = errorMap;
+    }
 
-	protected MessageMap getMessageMap() {
-		return errorMap;
-	}
+    protected MessageMap getMessageMap() {
+        return errorMap;
+    }
 
     public ActionMessages getRequestMessages() {
         ActionMessages requestErrors = new ActionMessages();
-        for (Iterator<String> iter = getMessagePropertyNames().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = getMessagePropertyNames().iterator(); iter.hasNext(); ) {
             String property = iter.next();
             List errorList = (List) getMessagesForProperty(property);
 
-            for (Iterator iterator = errorList.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = errorList.iterator(); iterator.hasNext(); ) {
                 ErrorMessage errorMessage = (ErrorMessage) iterator.next();
 
                 // add ActionMessage with any parameters

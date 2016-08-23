@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.purap.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Struts action form for the b2b shopping
@@ -43,7 +43,7 @@ public class B2BForm extends KualiForm {
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
         if (KRADConstants.DISPATCH_REQUEST_PARAMETER.equals(methodToCallParameterName) &&
-           ("shopCatalogs".equals(methodToCallParameterValue) || "returnFromShopping".equals(methodToCallParameterValue))) {
+            ("shopCatalogs".equals(methodToCallParameterValue) || "returnFromShopping".equals(methodToCallParameterValue))) {
             return true;
         }
         return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);

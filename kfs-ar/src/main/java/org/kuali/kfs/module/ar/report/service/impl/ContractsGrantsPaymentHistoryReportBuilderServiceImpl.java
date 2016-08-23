@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsPaymentHistoryReport;
 import org.kuali.kfs.module.ar.report.ContractsGrantsPaymentHistoryReportDetailDataHolder;
@@ -33,7 +28,12 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An implementation of ContractsGrantsReportDataBuilderService for the Contracts & Grants Payment History Report
@@ -44,22 +44,23 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
 
     /**
      * Builds the report
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#buildReportDataHolder(java.util.List, java.lang.String)
      */
     @Override
     public ContractsGrantsReportDataHolder buildReportDataHolder(List<? extends BusinessObject> displayList, String sortPropertyName) {
-     // check field is valid for subtotal
+        // check field is valid for subtotal
         boolean isFieldSubtotalRequired = ArConstants.ReportsConstants.cgPaymentHistoryReportSubtotalFieldsList.contains(sortPropertyName);
         Map<String, List<KualiDecimal>> subTotalMap = new HashMap<String, List<KualiDecimal>>();
 
         if (isFieldSubtotalRequired) {
-            subTotalMap = buildSubTotalMap((List<ContractsGrantsPaymentHistoryReport>)displayList, sortPropertyName);
+            subTotalMap = buildSubTotalMap((List<ContractsGrantsPaymentHistoryReport>) displayList, sortPropertyName);
         }
 
         ContractsGrantsReportDataHolder cgPaymentHistoryReportDataHolder = new ContractsGrantsReportDataHolder();
         List<ContractsGrantsPaymentHistoryReportDetailDataHolder> details = cgPaymentHistoryReportDataHolder.getDetails();
 
-        for (ContractsGrantsPaymentHistoryReport cgPaymentHistoryReportEntry : (List<ContractsGrantsPaymentHistoryReport>)displayList) {
+        for (ContractsGrantsPaymentHistoryReport cgPaymentHistoryReportEntry : (List<ContractsGrantsPaymentHistoryReport>) displayList) {
             ContractsGrantsPaymentHistoryReportDetailDataHolder reportDetail = new ContractsGrantsPaymentHistoryReportDetailDataHolder();
             // set report data
             setReportDate(cgPaymentHistoryReportEntry, reportDetail);
@@ -71,8 +72,7 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
                 // set subTotal from subTotalMap
                 reportDetail.setInvoiceSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgPaymentHistoryReportEntry, sortPropertyName)).get(0).bigDecimalValue());
                 reportDetail.setPaymentSubTotal(subTotalMap.get(getContractsGrantsReportHelperService().getPropertyValue(cgPaymentHistoryReportEntry, sortPropertyName)).get(1).bigDecimalValue());
-            }
-            else {
+            } else {
                 // set this to empty string for not displaying subtotal
                 reportDetail.setDisplaySubtotal(false);
             }
@@ -84,6 +84,7 @@ public class ContractsGrantsPaymentHistoryReportBuilderServiceImpl implements Co
 
     /**
      * Returns the class of ContractsGrantsPaymentHistoryReport
+     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderService#getDetailsClass()
      */
     @Override

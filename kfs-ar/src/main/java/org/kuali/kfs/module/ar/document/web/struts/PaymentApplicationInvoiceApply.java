@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentApplicationInvoiceApply implements Serializable {
 

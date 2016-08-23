@@ -18,7 +18,7 @@
  */
 
 function onblur_customerCreationOptionCode(customerCreationOptionCodeField) {
-	// submitting the form to bring dynamic sections
-	document.forms[0].submit();
+    // submitting the form to bring dynamic sections
+    document.forms[0].submit();
 
 }

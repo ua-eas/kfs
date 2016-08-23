@@ -24,7 +24,7 @@ import java.sql.Timestamp;
 
 public class ComponentSetBo implements Serializable {
 
-	private String componentSetId;
+    private String componentSetId;
     private Timestamp lastUpdateTimestamp;
     private String checksum;
     private Long versionNumber;

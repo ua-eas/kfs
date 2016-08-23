@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
@@ -29,7 +26,10 @@ import org.kuali.kfs.module.purap.service.PurapAccountingService;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends GenericValidation {
 
@@ -37,7 +37,7 @@ public class PurchasingAccountsPayableCheckNegativeAccountsValidation extends Ge
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PurchasingAccountsPayableDocument document = (PurchasingAccountsPayableDocument)event.getDocument();
+        PurchasingAccountsPayableDocument document = (PurchasingAccountsPayableDocument) event.getDocument();
 
         GlobalVariables.getMessageMap().clearErrorPath();
         //GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);

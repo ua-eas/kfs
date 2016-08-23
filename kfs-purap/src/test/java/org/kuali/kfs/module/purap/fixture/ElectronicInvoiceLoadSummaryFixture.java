@@ -18,38 +18,37 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceLoadSummary;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Timestamp;
 
 public enum ElectronicInvoiceLoadSummaryFixture {
 
     EILS_BASIC(
-            "123456789", // vendorDunsNumber
-            1000, // vendorHeaderGeneratedIdentifier
-            0, // vendorDetailAssignedIdentifier
-            "Test Vendor", //vendorName
-            new Integer(1), // invoiceLoadSuccessCount
-            new KualiDecimal(10.00), // invoiceLoadSuccessAmount
-            new Integer(0), // invoiceLoadFailCount
-            new KualiDecimal(0.00), // invoiceLoadFailAmount
-            Boolean.TRUE, // isEmpty
-            new Timestamp(new java.util.Date().getTime()) // fileProcessTimestamp
+        "123456789", // vendorDunsNumber
+        1000, // vendorHeaderGeneratedIdentifier
+        0, // vendorDetailAssignedIdentifier
+        "Test Vendor", //vendorName
+        new Integer(1), // invoiceLoadSuccessCount
+        new KualiDecimal(10.00), // invoiceLoadSuccessAmount
+        new Integer(0), // invoiceLoadFailCount
+        new KualiDecimal(0.00), // invoiceLoadFailAmount
+        Boolean.TRUE, // isEmpty
+        new Timestamp(new java.util.Date().getTime()) // fileProcessTimestamp
     ),
     EILS_MATCHING(
-            "002254837", // vendorDunsNumber
-            1001, // vendorHeaderGeneratedIdentifier
-            0, // vendorDetailAssignedIdentifier
-            "Kuali University", //vendorName
-            new Integer(1), // invoiceLoadSuccessCount
-            new KualiDecimal(10.00), // invoiceLoadSuccessAmount
-            new Integer(0), // invoiceLoadFailCount
-            new KualiDecimal(0.00), // invoiceLoadFailAmount
-            Boolean.TRUE, // isEmpty
-            new Timestamp(new java.util.Date().getTime()) // fileProcessTimestamp
-    ),
-    ;
+        "002254837", // vendorDunsNumber
+        1001, // vendorHeaderGeneratedIdentifier
+        0, // vendorDetailAssignedIdentifier
+        "Kuali University", //vendorName
+        new Integer(1), // invoiceLoadSuccessCount
+        new KualiDecimal(10.00), // invoiceLoadSuccessAmount
+        new Integer(0), // invoiceLoadFailCount
+        new KualiDecimal(0.00), // invoiceLoadFailAmount
+        Boolean.TRUE, // isEmpty
+        new Timestamp(new java.util.Date().getTime()) // fileProcessTimestamp
+    ),;
 
     private Integer invoiceLoadSummaryIdentifier;
     private String vendorDunsNumber; // this is string constant if DUNS not found
@@ -64,8 +63,8 @@ public enum ElectronicInvoiceLoadSummaryFixture {
     private Timestamp fileProcessTimestamp;
 
     private ElectronicInvoiceLoadSummaryFixture(String vendorDunsNumber,
-        Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String vendorName, Integer invoiceLoadSuccessCount,
-        KualiDecimal invoiceLoadSuccessAmount, Integer invoiceLoadFailCount, KualiDecimal invoiceLoadFailAmount, Boolean isEmpty, Timestamp fileProcessTimestamp) {
+                                                Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String vendorName, Integer invoiceLoadSuccessCount,
+                                                KualiDecimal invoiceLoadSuccessAmount, Integer invoiceLoadFailCount, KualiDecimal invoiceLoadFailAmount, Boolean isEmpty, Timestamp fileProcessTimestamp) {
 
         this.vendorDunsNumber = vendorDunsNumber;
         this.vendorHeaderGeneratedIdentifier = vendorHeaderGeneratedIdentifier;

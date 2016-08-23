@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.Set;
 
 /**
  * AssetAuthorizer for Asset edit.
@@ -33,7 +33,7 @@ public class AssetRetirementGlobalAuthorizer extends FinancialSystemMaintenanceD
 
     /**
      * @see org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.rice.kns.document.Document,
-     *      org.kuali.rice.kim.bo.Person, java.util.Set)
+     * org.kuali.rice.kim.bo.Person, java.util.Set)
      */
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActionsFromPresentationController) {

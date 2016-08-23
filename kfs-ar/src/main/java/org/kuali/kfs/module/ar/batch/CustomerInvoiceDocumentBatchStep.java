@@ -18,19 +18,17 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.service.LockboxService;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
@@ -47,17 +45,19 @@ import org.kuali.kfs.sys.batch.Job;
 import org.kuali.kfs.sys.batch.TestingStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.api.parameter.ParameterType;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements TestingStep {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceDocumentBatchStep.class);
@@ -99,10 +99,10 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
             Date billingDate = getDateTimeService().getCurrentDate();
             List<String> customernames;
 
-            if ((jobName.length() <=8 ) && (jobName.length() >= 4)) {
+            if ((jobName.length() <= 8) && (jobName.length() >= 4)) {
                 customernames = Arrays.asList(jobName);
             } else {
-                customernames = Arrays.asList("ABB2", "3MC17500","ACE21725","ANT7297","CAR23612", "CON19567", "DEL14448", "EAT17609", "GAP17272");
+                customernames = Arrays.asList("ABB2", "3MC17500", "ACE21725", "ANT7297", "CAR23612", "CON19567", "DEL14448", "EAT17609", "GAP17272");
             }
 
             // create non-random data
@@ -128,15 +128,14 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
 
             // create lockboxes for the non-random invoices
             Long seqNbr = findAvailableLockboxBaseSeqNbr();
-            int scenarioNbr =1;
-            for (String createdInvoice : createdInvoices){
+            int scenarioNbr = 1;
+            for (String createdInvoice : createdInvoices) {
                 createLockboxesForFunctionalTesting(createdInvoice, seqNbr, scenarioNbr);
                 Thread.sleep(500);
                 seqNbr++;
-                if (scenarioNbr<=6) {
+                if (scenarioNbr <= 6) {
                     scenarioNbr++;
-                }
-                else {
+                } else {
                     scenarioNbr = 1;
                 }
             }
@@ -159,7 +158,6 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
 //            }
 
 
-
             // save runParameter as "N" so that the job won't run until DB has been cleared
             setInitiatedParameter();
         }
@@ -171,7 +169,7 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
     }
 
     private boolean dupLockboxRecordExists(Long seqNbr) {
-        Map<String,Long> pks = new HashMap<String,Long>();
+        Map<String, Long> pks = new HashMap<String, Long>();
         pks.put("invoiceSequenceNumber", seqNbr);
         Lockbox dupLockBox = businessObjectService.findByPrimaryKey(Lockbox.class, pks);
         return (dupLockBox != null);
@@ -189,8 +187,7 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
             newParm.setDescription(RUN_INDICATOR_PARAMETER_DESCRIPTION);
             newParm.setValue("N");
             getParameterService().createParameter(newParm.build());
-        }
-        else {
+        } else {
             Parameter.Builder newParm = Parameter.Builder.create(runIndicatorParameter);
             newParm.setValue("N");
             getParameterService().updateParameter(newParm.build());
@@ -269,9 +266,8 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         String writeoffDocNumber;
         try {
             writeoffDocNumber = writeoffService.createCustomerInvoiceWriteoffDocument(invoiceNumberToWriteOff,
-                    "Created by CustomerInvoiceDocumentBatch process.");
-        }
-        catch (WorkflowException e) {
+                "Created by CustomerInvoiceDocumentBatch process.");
+        } catch (WorkflowException e) {
             throw new RuntimeException("A WorkflowException was thrown when trying to create a new Invoice Writeoff document.", e);
         }
 
@@ -279,17 +275,15 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         CustomerInvoiceWriteoffDocument writeoff;
         try {
             writeoff = (CustomerInvoiceWriteoffDocument) documentService.getByDocumentHeaderId(writeoffDocNumber);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("A WorkflowException was thrown when trying to load Invoice Writeoff doc #" + writeoffDocNumber + ".", e);
         }
 
         boolean wentToFinal = false;
         try {
-            wentToFinal = waitForStatusChange(60, writeoff.getDocumentHeader().getWorkflowDocument(), new String[] {"F", "P"});
-        }
-        catch (Exception e) {
-            throw new RuntimeException("An Exception was thrown when trying to monitor writeoff doc #" + writeoffDocNumber +" going to FINAL.", e);
+            wentToFinal = waitForStatusChange(60, writeoff.getDocumentHeader().getWorkflowDocument(), new String[]{"F", "P"});
+        } catch (Exception e) {
+            throw new RuntimeException("An Exception was thrown when trying to monitor writeoff doc #" + writeoffDocNumber + " going to FINAL.", e);
         }
 
         //  if the doc didnt go to final, then blanket approve the doc, bypassing all rules
@@ -299,18 +293,16 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
 
                 }
                 writeoff.getDocumentHeader().getWorkflowDocument().blanketApprove("BlanketApproved by CustomerInvoiceDocumentBatch process.");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("A WorkflowException was thrown when trying to blanketApprove Invoice Writeoff doc #" + writeoffDocNumber + ".", e);
             }
 
             //  wait for it to go to final
             wentToFinal = false;
             try {
-                wentToFinal = waitForStatusChange(60, writeoff.getDocumentHeader().getWorkflowDocument(), new String[] {"F", "P"});
-            }
-            catch (Exception e) {
-                throw new RuntimeException("An Exception was thrown when trying to monitor writeoff doc #" + writeoffDocNumber +" going to FINAL.", e);
+                wentToFinal = waitForStatusChange(60, writeoff.getDocumentHeader().getWorkflowDocument(), new String[]{"F", "P"});
+            } catch (Exception e) {
+                throw new RuntimeException("An Exception was thrown when trying to monitor writeoff doc #" + writeoffDocNumber + " going to FINAL.", e);
             }
         }
 
@@ -328,7 +320,7 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
      * Iterates, with pauseSeconds seconds between iterations, until either the given ChangeMonitor's valueChanged method returns
      * true, or at least maxWaitSeconds seconds have passed.
      *
-     * @param monitor ChangeMonitor instance which watches for whatever change your test is waiting for
+     * @param monitor        ChangeMonitor instance which watches for whatever change your test is waiting for
      * @param maxWaitSeconds
      * @param pauseSeconds
      * @return true if the the ChangeMonitor's valueChanged method returned true before time ran out
@@ -347,8 +339,7 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         while (!interrupted && !valueChanged && (System.currentTimeMillis() < endTimeMs)) {
             try {
                 Thread.sleep(pauseMs);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 interrupted = true;
             }
             valueChanged = monitor.valueChanged();
@@ -356,12 +347,12 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         return valueChanged;
     }
 
-    public void createCustomerInvoiceDocumentForFunctionalTesting(String customerNumber, Date billingDate, int numinvoicedetails,  KualiDecimal nonrandomquantity, BigDecimal nonrandomunitprice, String accountnumber, String chartcode, String invoiceitemcode) {
+    public void createCustomerInvoiceDocumentForFunctionalTesting(String customerNumber, Date billingDate, int numinvoicedetails, KualiDecimal nonrandomquantity, BigDecimal nonrandomunitprice, String accountnumber, String chartcode, String invoiceitemcode) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
         CustomerInvoiceDocument customerInvoiceDocument;
         try {
-            customerInvoiceDocument = (CustomerInvoiceDocument)documentService.getNewDocument(CustomerInvoiceDocument.class);
+            customerInvoiceDocument = (CustomerInvoiceDocument) documentService.getNewDocument(CustomerInvoiceDocument.class);
             LOG.info("Created customer invoice document " + customerInvoiceDocument.getDocumentNumber());
         } catch (WorkflowException e) {
             throw new RuntimeException("Customer Invoice Document creation failed.");
@@ -389,15 +380,14 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         customerInvoiceDocument.setBillingInternationalMailCode(customerBillToAddress.getCustomerInternationalMailCode());
         customerInvoiceDocument.setBillingEmailAddress(customerBillToAddress.getCustomerEmailAddress());
 
-        if (ObjectUtils.isNotNull(nonrandomquantity)&&ObjectUtils.isNotNull(nonrandomunitprice)&&numinvoicedetails>=1) {
+        if (ObjectUtils.isNotNull(nonrandomquantity) && ObjectUtils.isNotNull(nonrandomunitprice) && numinvoicedetails >= 1) {
             for (int i = 0; i < numinvoicedetails; i++) {
                 customerInvoiceDocument.addSourceAccountingLine(createCustomerInvoiceDetailForFunctionalTesting(customerInvoiceDocument, nonrandomquantity, nonrandomunitprice, accountnumber, chartcode, invoiceitemcode));
             }
         } else {
-            int randomnuminvoicedetails = (int) (Math.random()*9); // add up to 9
-            if (randomnuminvoicedetails==0)
-             {
-                randomnuminvoicedetails=1; // add at least one
+            int randomnuminvoicedetails = (int) (Math.random() * 9); // add up to 9
+            if (randomnuminvoicedetails == 0) {
+                randomnuminvoicedetails = 1; // add at least one
             }
             for (int i = 0; i < randomnuminvoicedetails; i++) {
                 customerInvoiceDocument.addSourceAccountingLine(createCustomerInvoiceDetailForFunctionalTesting(customerInvoiceDocument, null, null, accountnumber, chartcode, invoiceitemcode));
@@ -406,24 +396,24 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         try {
             documentService.blanketApproveDocument(customerInvoiceDocument, null, null);
             createdInvoices.add(customerInvoiceDocument.getDocumentNumber());
-            LOG.info("Submitted customer invoice document " + customerInvoiceDocument.getDocumentNumber()+" for "+customerNumber+" - "+sdf.format(billingDate)+"\n\n");
-        } catch (WorkflowException e){
+            LOG.info("Submitted customer invoice document " + customerInvoiceDocument.getDocumentNumber() + " for " + customerNumber + " - " + sdf.format(billingDate) + "\n\n");
+        } catch (WorkflowException e) {
             throw new RuntimeException("Customer Invoice Document routing failed.");
         }
     }
 
-    public CustomerInvoiceDetail createCustomerInvoiceDetailForFunctionalTesting(CustomerInvoiceDocument customerInvoiceDocument, KualiDecimal nonrandomquantity, BigDecimal nonrandomunitprice, String accountnumber, String chartcode, String invoiceitemcode){
+    public CustomerInvoiceDetail createCustomerInvoiceDetailForFunctionalTesting(CustomerInvoiceDocument customerInvoiceDocument, KualiDecimal nonrandomquantity, BigDecimal nonrandomunitprice, String accountnumber, String chartcode, String invoiceitemcode) {
 
         KualiDecimal quantity;
         BigDecimal unitprice;
 
         if (ObjectUtils.isNull(nonrandomquantity)) {
-            quantity = new KualiDecimal(100*Math.random()); // random number 0 to 100 total items      // TODO FIXME  <-- InvoiceItemQuantities of more than 2 decimal places cause rule errors; BigDecimal values such as 5.3333333333 should be valid InvoiceItemQuantities
+            quantity = new KualiDecimal(100 * Math.random()); // random number 0 to 100 total items      // TODO FIXME  <-- InvoiceItemQuantities of more than 2 decimal places cause rule errors; BigDecimal values such as 5.3333333333 should be valid InvoiceItemQuantities
         } else {
             quantity = nonrandomquantity;
         }
         if (ObjectUtils.isNull(nonrandomunitprice)) {
-        unitprice = new BigDecimal(1); // 0.00 to 100.00 dollars per item
+            unitprice = new BigDecimal(1); // 0.00 to 100.00 dollars per item
         } else {
             unitprice = nonrandomunitprice;
         }
@@ -523,7 +513,7 @@ public class CustomerInvoiceDocumentBatchStep extends AbstractStep implements Te
         public DocWorkflowStatusMonitor(DocumentService documentService, String docHeaderId, String desiredWorkflowStatus) {
             this.documentService = documentService;
             this.docHeaderId = docHeaderId;
-            this.desiredWorkflowStates = new String[] { desiredWorkflowStatus };
+            this.desiredWorkflowStates = new String[]{desiredWorkflowStatus};
         }
 
         public DocWorkflowStatusMonitor(DocumentService documentService, String docHeaderId, String[] desiredWorkflowStates) {

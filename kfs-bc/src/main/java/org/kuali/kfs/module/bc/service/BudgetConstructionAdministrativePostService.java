@@ -29,7 +29,7 @@ public interface BudgetConstructionAdministrativePostService {
     /**
      * retrieve a Budget Construction Administrative Post object by its primary key.
      *
-     * @param emplid the given employee id
+     * @param emplid         the given employee id
      * @param positionNumber the given position number
      * @return a Budget Construction Administrative Post object retrived by its primary key
      */

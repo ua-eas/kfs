@@ -17,22 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 function setIframeAnchor(iframeName) {
-  var iframeWin = window.frames[iframeName];
-  try {
-    // For security reasons the browsers will not allow cross server scripts and
-    // throw an exception instead.
-    // Note that bad browsers (e.g. google chrome) will not catch the exception
-    if (iframeWin && iframeWin.location.href.indexOf("#") > -1) {
-      iframeWin.location.replace(iframeWin.location);
+    var iframeWin = window.frames[iframeName];
+    try {
+        // For security reasons the browsers will not allow cross server scripts and
+        // throw an exception instead.
+        // Note that bad browsers (e.g. google chrome) will not catch the exception
+        if (iframeWin && iframeWin.location.href.indexOf("#") > -1) {
+            iframeWin.location.replace(iframeWin.location);
+        }
     }
-  }
-  catch (e) {
-      // ignoring error
-  }
+    catch (e) {
+        // ignoring error
+    }
 }
 
-function jumpToAnchorName(anchor){
-	var anchors = document.getElementsByName(anchor);
-	if (anchors != null)
-		location.href = '#'+anchors[0].name;
+function jumpToAnchorName(anchor) {
+    var anchors = document.getElementsByName(anchor);
+    if (anchors != null)
+        location.href = '#' + anchors[0].name;
 }

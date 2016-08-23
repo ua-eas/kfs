@@ -22,15 +22,9 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
@@ -41,8 +35,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class PaymentDetail extends TimestampedBusinessObjectBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentDetail.class);
@@ -106,8 +106,8 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
             if (PdpConstants.PaymentStatusCodes.EXTRACTED.equals(paymentGroup.getPaymentStatus().getCode())) {
                 return false;
             }
-        return true;
-    }
+            return true;
+        }
 
         String daysStr = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PaymentDetail.class, PdpParameterConstants.DISBURSEMENT_CANCELLATION_DAYS);
         int days = Integer.valueOf(daysStr);
@@ -202,7 +202,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
             pnt.setPaymentDetail(this);
             notes.add(pnt);
         } else {
-            LOG.warn("Did not add note to payment detail build from Document #: "+(!StringUtils.isBlank(custPaymentDocNbr) ? custPaymentDocNbr : "")+" because note was empty");
+            LOG.warn("Did not add note to payment detail build from Document #: " + (!StringUtils.isBlank(custPaymentDocNbr) ? custPaymentDocNbr : "") + " because note was empty");
         }
     }
 
@@ -225,9 +225,9 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_DTL_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_DTL_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;

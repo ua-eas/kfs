@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Negative Payment Request Approval Limit Business Object. Maintenance document for setting limits for the auto-approve PREQ batch
  * job.
  */
-public class NegativePaymentRequestApprovalLimit extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class NegativePaymentRequestApprovalLimit extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Integer negativePaymentRequestApprovalLimitIdentifier;
     private String chartOfAccountsCode;

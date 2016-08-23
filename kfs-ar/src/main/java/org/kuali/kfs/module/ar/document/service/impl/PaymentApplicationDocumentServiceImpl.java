@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.AppliedPayment;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -42,20 +43,20 @@ import org.kuali.kfs.module.ar.document.service.SystemInformationService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Service method implementations for Payment Application Document.
  */
 @Transactional
 public class PaymentApplicationDocumentServiceImpl implements PaymentApplicationDocumentService {
-    private static Logger LOG = org.apache.log4j.Logger.getLogger(PaymentApplicationDocumentServiceImpl.class);;
+    private static Logger LOG = org.apache.log4j.Logger.getLogger(PaymentApplicationDocumentServiceImpl.class);
+    ;
 
     private DocumentService documentService;
     private BusinessObjectService businessObjectService;
@@ -72,7 +73,6 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
     private KualiRuleService kualiRuleService;
 
     /**
-     *
      * @param customerInvoiceDocument
      * @return
      * @throws WorkflowException
@@ -189,7 +189,6 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#getCashControlDocumentForPaymentApplicationDocument(org.kuali.kfs.module.ar.document.PaymentApplicationDocument)
      */
     @Override
@@ -202,7 +201,6 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#getCashControlDocumentForPayAppDocNumber(java.lang.String)
      */
     @Override
@@ -217,8 +215,7 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
         CashControlDocument cashControlDocument = null;
         try {
             cashControlDocument = (CashControlDocument) documentService.getByDocumentHeaderId(cashControlDetail.getDocumentNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             // TODO we may need to swallow this ...
             throw new RuntimeException("A workflow exception was thrown when trying to retrieve document [" + cashControlDetail.getDocumentNumber() + "].", e);
         }
@@ -239,7 +236,6 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#getCashControlDetailForPayAppDocNumber(java.lang.String)
      */
     @Override
@@ -260,7 +256,7 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#createInvoicePaidAppliedsForEntireInvoiceDocument(org.kuali.kfs.module.ar.document.CustomerInvoiceDocument,
-     *      org.kuali.kfs.module.ar.document.PaymentApplicationDocument)
+     * org.kuali.kfs.module.ar.document.PaymentApplicationDocument)
      */
     @Override
     public PaymentApplicationDocument createInvoicePaidAppliedsForEntireInvoiceDocument(CustomerInvoiceDocument customerInvoiceDocument, PaymentApplicationDocument paymentApplicationDocument) {
@@ -283,7 +279,7 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#createInvoicePaidAppliedForInvoiceDetail(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail,
-     *      org.kuali.rice.core.api.util.type.KualiDecimal)
+     * org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public InvoicePaidApplied createInvoicePaidAppliedForInvoiceDetail(CustomerInvoiceDetail customerInvoiceDetail, PaymentApplicationDocument paymentApplicationDocument, Integer paidAppliedItemNumber) {
@@ -310,7 +306,7 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentService#customerInvoiceDetailPairsWithInvoicePaidApplied(org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail,
-     *      org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied)
+     * org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied)
      */
     @Override
     public boolean customerInvoiceDetailPairsWithInvoicePaidApplied(CustomerInvoiceDetail customerInvoiceDetail, InvoicePaidApplied invoicePaidApplied) {

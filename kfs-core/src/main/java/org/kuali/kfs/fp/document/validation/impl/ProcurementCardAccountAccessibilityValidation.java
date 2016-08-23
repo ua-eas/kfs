@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ProcurementCardAccountAccessibilityValidation extends AccountingLineAccessibleValidation {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardAccountAccessibilityValidation.class);
@@ -29,6 +29,7 @@ public class ProcurementCardAccountAccessibilityValidation extends AccountingLin
      * KFSCNTRB-1677
      * Overrides to deal with the special case with PCDO on source and target accounting lines, where the propertyName is
      * something like "newTargetLines[i]", instead of "newTargetLines".
+     *
      * @return the accounting line collection property
      */
     @Override

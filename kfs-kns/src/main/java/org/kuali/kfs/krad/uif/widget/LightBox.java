@@ -25,8 +25,6 @@ import java.util.HashMap;
 /**
  * Used for rendering a lightbox in the UI to display action links in dialog
  * popups
- *
- *
  */
 public class LightBox extends WidgetBase {
 
@@ -89,7 +87,7 @@ public class LightBox extends WidgetBase {
         return width;
     }
 
-     /**
+    /**
      * Setter for the width of the light box
      * Can be percentage. ie. 75%
      *
@@ -99,7 +97,7 @@ public class LightBox extends WidgetBase {
         this.width = width;
     }
 
-     /**
+    /**
      * @see ComponentBase#getComponentOptionsJSString()
      */
     @Override
@@ -126,7 +124,7 @@ public class LightBox extends WidgetBase {
         return lookupReturnByScript;
     }
 
-/**
+    /**
      * Setter for the flag to indicate that lookups will return the value
      * by script and not a post
      *

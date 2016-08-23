@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.uif.component.ClientSideState;
 
 /**
  * Decorates a group with collapse/expand functionality
- *
- *
  */
 public class Disclosure extends WidgetBase {
     private static final long serialVersionUID = 1238789480161901850L;
@@ -104,7 +102,7 @@ public class Disclosure extends WidgetBase {
      * Indicates whether the group should be initially open
      *
      * @return boolean true if group should be initially open, false if it
-     *         should be closed
+     * should be closed
      */
     public boolean isDefaultOpen() {
         return this.defaultOpen;

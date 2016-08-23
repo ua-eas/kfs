@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.businessobject.BusinessObjectComponent;
 import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
 import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
 import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
+
+import java.util.List;
 
 public interface KfsBusinessObjectMetaDataService {
     public BusinessObjectProperty getBusinessObjectProperty(String componentClass, String propertyName);

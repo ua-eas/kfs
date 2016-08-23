@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
+
+import java.math.BigDecimal;
 
 public class IndirectCostRecoveryAccountDistributionMetadata {
 
@@ -36,21 +36,27 @@ public class IndirectCostRecoveryAccountDistributionMetadata {
         this.indirectCostRecoveryAccountNumber = icrAccount.getIndirectCostRecoveryAccountNumber();
         this.accountLinePercent = icrAccount.getAccountLinePercent();
     }
+
     public String getIndirectCostRecoveryFinCoaCode() {
         return indirectCostRecoveryFinCoaCode;
     }
+
     public String getIndirectCostRecoveryAccountNumber() {
         return indirectCostRecoveryAccountNumber;
     }
+
     public BigDecimal getAccountLinePercent() {
         return accountLinePercent;
     }
+
     public void setIndirectCostRecoveryFinCoaCode(String indirectCostRecoveryFinCoaCode) {
         this.indirectCostRecoveryFinCoaCode = indirectCostRecoveryFinCoaCode;
     }
+
     public void setIndirectCostRecoveryAccountNumber(String indirectCostRecoveryAccountNumber) {
         this.indirectCostRecoveryAccountNumber = indirectCostRecoveryAccountNumber;
     }
+
     public void setAccountLinePercent(BigDecimal accountLinePercent) {
         this.accountLinePercent = accountLinePercent;
     }

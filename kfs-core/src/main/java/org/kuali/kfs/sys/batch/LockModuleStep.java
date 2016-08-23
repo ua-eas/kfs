@@ -18,33 +18,30 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Date;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.service.LockModuleService;
+
+import java.util.Date;
 
 /***
  * The step to lock or unlock module for the batch
  */
-public class LockModuleStep extends AbstractStep{
+public class LockModuleStep extends AbstractStep {
 
     private boolean lockModule;
     private LockModuleService lockModuleService;
     private String namespaceCode;
 
     public boolean execute(String jobName, Date jobRunDate)
-    throws InterruptedException {
-            String openStr = "lock";
-            if(!lockModule) {
-                openStr = "unlock";
-            }
-            lockModuleService.lockModule(namespaceCode, lockModule);
-            return true;
+        throws InterruptedException {
+        String openStr = "lock";
+        if (!lockModule) {
+            openStr = "unlock";
+        }
+        lockModuleService.lockModule(namespaceCode, lockModule);
+        return true;
     }
 
     /**
-     *
      * @return true if module to be locked , otherwise false
      */
     public boolean isLockModule() {
@@ -53,6 +50,7 @@ public class LockModuleStep extends AbstractStep{
 
     /**
      * set to true if module to be locked, otheriwse false
+     *
      * @param lockModule
      */
     public void setLockModule(boolean lockModule) {

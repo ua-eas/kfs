@@ -19,8 +19,8 @@
 
 package org.kuali.kfs.vnd.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * Alternate name for a Vendor.

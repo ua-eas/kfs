@@ -23,7 +23,6 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 
 /**
  * This service interface defines methods that an AccountPresenceService implementation must provide.
- *
  */
 public interface AccountPresenceService {
 
@@ -31,7 +30,7 @@ public interface AccountPresenceService {
      * Checks the given account for presence control turned on. If turned on, the object code must have a budget record in the gl
      * balance table, otherwise this method returns false. If presence control is turned off, method returns true.
      *
-     * @param account The account to be checked for presense control.
+     * @param account    The account to be checked for presense control.
      * @param objectCode The object code to be looked up in the gl balance table.
      * @return True if presence control is turned on and obj code is in gl balance table, false otherwise.
      */

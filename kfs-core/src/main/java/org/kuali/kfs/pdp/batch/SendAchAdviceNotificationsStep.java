@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.pdp.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.pdp.batch.service.AchAdviceNotificationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Batch step for sending ACH Advice notifications to payees receiving an ACH payment

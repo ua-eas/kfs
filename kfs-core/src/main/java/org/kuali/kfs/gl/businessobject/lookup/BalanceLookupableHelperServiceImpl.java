@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.OJBUtility;
@@ -32,14 +26,20 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.gl.businessobject.inquiry.BalanceInquirableImpl;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support balance lookups
@@ -51,7 +51,8 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * Returns the url for any drill down links within the lookup
-     * @param bo the business object with a property being drilled down on
+     *
+     * @param bo           the business object with a property being drilled down on
      * @param propertyName the name of the property being drilled down on
      * @return a String with the URL of the property
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
@@ -63,10 +64,11 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * Generates the list of search results for this inquiry
+     *
      * @param fieldValues the field values of the query to carry out
      * @return List the search results returned by the lookup
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable modifies the search results based on the fields consolidated.
      * But all field definitions are in data dictionary.
      */
@@ -85,7 +87,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
         boolean isConsolidated = isConsolidationSelected(fieldValues);
 
         // KFSMI-410: added one more node for consolidationOption
-        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
+        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)) {
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
         }
@@ -114,8 +116,8 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * This method builds the balance collection based on the input iterator
      *
-     * @param iterator the iterator of search results of balance
-     * @param isConsolidated determine if the consolidated result is desired
+     * @param iterator           the iterator of search results of balance
+     * @param isConsolidated     determine if the consolidated result is desired
      * @param pendingEntryOption the given pending entry option that can be no, approved or all
      * @return the balance collection
      */
@@ -124,8 +126,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
         if (isConsolidated) {
             balanceCollection = buildConsolidatedBalanceCollection(iterator, pendingEntryOption);
-        }
-        else {
+        } else {
             balanceCollection = buildDetailedBalanceCollection(iterator, pendingEntryOption);
         }
         return balanceCollection;
@@ -134,7 +135,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * This method builds the balance collection with consolidation option from an iterator
      *
-     * @param iterator th iterator of balance results
+     * @param iterator           th iterator of balance results
      * @param pendingEntryOption the selected pending entry option
      * @return the consolidated balance collection
      */
@@ -193,7 +194,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * This method builds the balance collection with detail option from an iterator
      *
-     * @param iterator the balance iterator
+     * @param iterator           the balance iterator
      * @param pendingEntryOption the selected pending entry option
      * @return the detailed balance collection
      */
@@ -215,12 +216,12 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
      * This method updates the balance collection with accumulated amounts if required (isAccumulated is true)
      *
      * @param balanceCollection the balance collection to be updated
-     * @param isAccumulated determine if the accumulated result is desired
+     * @param isAccumulated     determine if the accumulated result is desired
      */
     protected void accumulate(Collection balanceCollection, boolean isAccumulated) {
 
         if (isAccumulated) {
-            for (Iterator iterator = balanceCollection.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = balanceCollection.iterator(); iterator.hasNext(); ) {
                 Balance balance = (Balance) (iterator.next());
                 accumulateByBalance(balance, isAccumulated);
             }
@@ -230,7 +231,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * This method computes the accumulate amount of the given balance and updates its fields
      *
-     * @param balance the given balance object
+     * @param balance       the given balance object
      * @param isAccumulated determine if the accumulated result is desired
      */
     private void accumulateByBalance(Balance balance, boolean isAccumulated) {
@@ -296,8 +297,8 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * This method converts the amount from String and adds it with the input addend
      *
-     * @param stringAugend a String-type augend
-     * @param addend an addend
+     * @param stringAugend  a String-type augend
+     * @param addend        an addend
      * @param isAccumulated determine if the accumulated result is desired
      * @return the accumulated amount if accumulate option is selected; otherwise, the input amount itself
      */
@@ -313,13 +314,13 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
     /**
      * Updates pending entries before their results are included in the lookup results
      *
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     public void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareInclusive) {
 

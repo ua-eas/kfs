@@ -61,7 +61,10 @@ public class SensitiveData implements PurchasingAccountsPayableSensitiveData {
         this.active = active;
     }
 
-    public void prepareForWorkflow() {}
-    public void refresh() {}
+    public void prepareForWorkflow() {
+    }
+
+    public void refresh() {
+    }
 
 }

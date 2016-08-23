@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectPick;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReasonCodePick;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionSubFundPick;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Struts Action Form for the Organization Report Selection Screen.
@@ -211,13 +210,13 @@ public class OrganizationReportSelectionForm extends BudgetExpansionForm {
     public void reset(ActionMapping mapping, HttpServletRequest request) {
 
         super.reset(mapping, request);
-        for (BudgetConstructionObjectPick budgetConstructionObjectPick : objectCodePickList){
+        for (BudgetConstructionObjectPick budgetConstructionObjectPick : objectCodePickList) {
             budgetConstructionObjectPick.setSelectFlag(0);
         }
-        for (BudgetConstructionSubFundPick budgetConstructionSubFundPick : subFundPickList){
+        for (BudgetConstructionSubFundPick budgetConstructionSubFundPick : subFundPickList) {
             budgetConstructionSubFundPick.setReportFlag(0);
         }
-        for (BudgetConstructionReasonCodePick budgetConstructionReasonCodePick : reasonCodePickList){
+        for (BudgetConstructionReasonCodePick budgetConstructionReasonCodePick : reasonCodePickList) {
             budgetConstructionReasonCodePick.setSelectFlag(0);
         }
         budgetConstructionReportThresholdSettings.setUseThreshold(false);

@@ -18,15 +18,8 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerCreditMemo;
@@ -39,6 +32,14 @@ import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
 import org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions;
 import org.kuali.kfs.integration.ar.AccountsReceivableSystemInformation;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants.CustomerTypeFields;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
@@ -64,17 +65,16 @@ import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStra
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.krad.UserSession;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * The KFS AR module implementation of the AccountsReceivableModuleService
@@ -233,8 +233,8 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
      */
     @Override
     public AccountsReceivableCustomer findCustomer(String customerNumber) {
-    	Map<String, Object> primaryKey = new HashMap<String, Object>();
-    	primaryKey.put(KFSPropertyConstants.CUSTOMER_NUMBER, customerNumber);
+        Map<String, Object> primaryKey = new HashMap<String, Object>();
+        primaryKey.put(KFSPropertyConstants.CUSTOMER_NUMBER, customerNumber);
         Customer customer = getKualiModuleService().getResponsibleModuleService(Customer.class).getExternalizableBusinessObject(Customer.class, primaryKey);
         return customer;
     }
@@ -246,10 +246,10 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
     public Collection<AccountsReceivableCustomerAddress> searchForCustomerAddresses(Map<String, String> fieldValues) {
         Collection<AccountsReceivableCustomerAddress> arCustomerAddresses = new ArrayList<AccountsReceivableCustomerAddress>();
         Collection<CustomerAddress> customerAddresses = getBusinessObjectService().findMatching(CustomerAddress.class, fieldValues);
-        for (CustomerAddress customerAddress : customerAddresses){
+        for (CustomerAddress customerAddress : customerAddresses) {
             arCustomerAddresses.add(customerAddress);
         }
-    	return arCustomerAddresses;
+        return arCustomerAddresses;
     }
 
     /**
@@ -304,7 +304,6 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
     }
 
     /**
-     *
      * @see org.kuali.kfs.integration.ar.AccountsReceivableModuleService#cancelInvoicesForTrip(java.lang.String)
      */
     @Override
@@ -317,30 +316,31 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
 
     /**
      * Finds all the customer invoice documents associated with the given trip id
+     *
      * @param tripId the trip id to find customer invoice documetns for
      * @return a Collection of invoice documents
      */
     protected Collection<CustomerInvoiceDocument> getInvoicesForTrip(String tripId) {
         Map<String, String> query = new HashMap<String, String>();
-        query.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.ORGANIZATION_DOCUMENT_NUMBER, tripId);
+        query.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.ORGANIZATION_DOCUMENT_NUMBER, tripId);
 
         return getBusinessObjectService().findMatching(CustomerInvoiceDocument.class, query);
     }
 
     /**
      * Creates a credit memo to reverse the effects of a customer invoice that paid off an advance
-     * @param invoice the invoice to reverse
-     * @param tripId the trip id of the trip to reverse
+     *
+     * @param invoice             the invoice to reverse
+     * @param tripId              the trip id of the trip to reverse
      * @param organizationOptions the organization options from the travel module
      * @return a CustomerCreditMemo document which will reverse the effect the given invoice
      */
     protected CustomerCreditMemoDocument createCreditMemoForTripInvoice(CustomerInvoiceDocument invoice, String tripId, AccountsReceivableOrganizationOptions organizationOptions) {
         CustomerCreditMemoDocument creditMemo;
         try {
-            creditMemo = (CustomerCreditMemoDocument)getDocumentService().getNewDocument(CustomerCreditMemoDocument.class);
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not create Customer Credit Memo for trip invoice, trip: "+tripId+"; invoice document #"+invoice.getDocumentNumber(), we);
+            creditMemo = (CustomerCreditMemoDocument) getDocumentService().getNewDocument(CustomerCreditMemoDocument.class);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not create Customer Credit Memo for trip invoice, trip: " + tripId + "; invoice document #" + invoice.getDocumentNumber(), we);
         }
 
         AccountsReceivableDocumentHeader arDocHeader = accountsReceivableDocumentHeaderService.getNewAccountsReceivableDocumentHeader(organizationOptions.getProcessingChartOfAccountCode(), organizationOptions.getProcessingOrganizationCode());
@@ -356,13 +356,14 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
 
     /**
      * Blanket approves the given credit memo as the KFS system user
+     *
      * @param creditMemo the credit memo to blanket approve
-     * @param tripId the trip id of the credit memo
+     * @param tripId     the trip id of the credit memo
      */
     protected void blanketApproveCreditMemoForTripInvoice(final CustomerCreditMemoDocument creditMemo, final String tripId) {
-        final String blanketApproveAnnotation= String.format("Blanket Approved CRM Doc # %s by Trip ID # %s", creditMemo.getDocumentNumber(), tripId);
+        final String blanketApproveAnnotation = String.format("Blanket Approved CRM Doc # %s by Trip ID # %s", creditMemo.getDocumentNumber(), tripId);
         try {
-        GlobalVariables.doInNewGlobalVariables(new UserSession(KFSConstants.SYSTEM_USER), new Callable<Object>() {
+            GlobalVariables.doInNewGlobalVariables(new UserSession(KFSConstants.SYSTEM_USER), new Callable<Object>() {
                 /**
                  * Blanket approves the credit memo
                  * @see java.util.concurrent.Callable#call()
@@ -370,14 +371,15 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
                 @Override
                 public Object call() {
                     try {
-                    blanketApproveCustomerCreditMemoDocument(creditMemo, blanketApproveAnnotation);
-                    return null;
+                        blanketApproveCustomerCreditMemoDocument(creditMemo, blanketApproveAnnotation);
+                        return null;
                     } catch (WorkflowException we) {
-                        throw new RuntimeException("Could not blanket approve credit memo (doc #"+creditMemo.getDocumentNumber()+")to reverse invoice for trip: "+tripId, we);
+                        throw new RuntimeException("Could not blanket approve credit memo (doc #" + creditMemo.getDocumentNumber() + ")to reverse invoice for trip: " + tripId, we);
                     }
-                }});
+                }
+            });
         } catch (Exception e) {
-            throw new RuntimeException("Could not blanket approve credit memo (doc #"+creditMemo.getDocumentNumber()+")to reverse invoice for trip: "+tripId, e);
+            throw new RuntimeException("Could not blanket approve credit memo (doc #" + creditMemo.getDocumentNumber() + ")to reverse invoice for trip: " + tripId, e);
         }
     }
 
@@ -428,7 +430,7 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
 
         List<AccountsReceivableCustomerType> arCustomerTypes = new ArrayList<AccountsReceivableCustomerType>();
         Collection<CustomerType> customerTypes = getBusinessObjectService().findMatching(CustomerType.class, fieldMap);
-        for (CustomerType customerType : customerTypes){
+        for (CustomerType customerType : customerTypes) {
             arCustomerTypes.add(customerType);
         }
         return arCustomerTypes;
@@ -535,14 +537,14 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
         Collection<CustomerInvoiceDocument> result = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerNumber(customerNumber);
 
         // if the trip id is not blank, perform a comparison with the Org Doc Num, otherwise add the entire collection into the result
-        if (StringUtils.isNotBlank(travelDocId)){
-            for (CustomerInvoiceDocument invoice : result){
-                if (invoice.getDocumentHeader().getOrganizationDocumentNumber().equals(travelDocId)){
+        if (StringUtils.isNotBlank(travelDocId)) {
+            for (CustomerInvoiceDocument invoice : result) {
+                if (invoice.getDocumentHeader().getOrganizationDocumentNumber().equals(travelDocId)) {
                     invoices.add(invoice);
                 }
             }
-        }else{
-          invoices.addAll(result);
+        } else {
+            invoices.addAll(result);
         }
 
         return invoices;
@@ -563,8 +565,7 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
     public AccountsReceivableCustomerInvoice createCustomerInvoiceDocument() {
         try {
             return (CustomerInvoiceDocument) getDocumentService().getNewDocument(CustomerInvoiceDocument.class);
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             LOG.error("problem during AccountsReceivableModuleServiceImpl.createCustomerInvoiceDocument()", ex);
             throw new RuntimeException("Could not create customer invoice document", ex);
         }
@@ -577,9 +578,8 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
     public AccountsReceivableCustomerCreditMemo createCustomerCreditMemoDocument() {
         CustomerCreditMemoDocument crmDocument = new CustomerCreditMemoDocument();
         try {
-            crmDocument = (CustomerCreditMemoDocument)getDocumentService().getNewDocument(CustomerCreditMemoDocument.class);
-        }
-        catch (WorkflowException ex) {
+            crmDocument = (CustomerCreditMemoDocument) getDocumentService().getNewDocument(CustomerCreditMemoDocument.class);
+        } catch (WorkflowException ex) {
             LOG.error("problem during AccountsReceivableModuleServiceImpl.createCustomerCreditMemoDocument()", ex);
             throw new RuntimeException("Could not create new customer credit memo document", ex);
         }
@@ -592,7 +592,7 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
     @Override
     public AccountsReceivableCustomerCreditMemo populateCustomerCreditMemoDocumentDetails(AccountsReceivableCustomerCreditMemo arCrmDocument, String invoiceNumber, KualiDecimal creditAmount) {
 
-        CustomerCreditMemoDocument crmDocument = (CustomerCreditMemoDocument)arCrmDocument;
+        CustomerCreditMemoDocument crmDocument = (CustomerCreditMemoDocument) arCrmDocument;
 
         //set invoice number
         crmDocument.setFinancialDocumentReferenceInvoiceNumber(invoiceNumber);
@@ -614,7 +614,7 @@ public class AccountsReceivableModuleServiceImpl implements AccountsReceivableMo
      */
     @Override
     public Document blanketApproveCustomerCreditMemoDocument(AccountsReceivableCustomerCreditMemo creditMemoDocument, String annotation) throws WorkflowException {
-        return getDocumentService().blanketApproveDocument((CustomerCreditMemoDocument)creditMemoDocument, annotation, null);
+        return getDocumentService().blanketApproveDocument((CustomerCreditMemoDocument) creditMemoDocument, annotation, null);
     }
 
     /**

@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -29,7 +26,10 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Validates that an accounting document's balances by object codes are unchanged
@@ -53,7 +53,7 @@ public class SalaryExpenseTransferObjectCodeBalancesUnchangedValidation extends 
         boolean unBalanced = approvalObjectCodeBalances != null && approvalObjectCodeBalances.isEmpty();
 
         Map<String, KualiDecimal> unbalancedObjectCodes = salaryExpenseTransferDocument.getUnbalancedObjectCodes();
-        unBalanced &= (unbalancedObjectCodes ==null || !unbalancedObjectCodes.isEmpty());
+        unBalanced &= (unbalancedObjectCodes == null || !unbalancedObjectCodes.isEmpty());
 
         if (unBalanced || !isObjectCodeBalancesUnchanged(salaryExpenseTransferDocument)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, LaborKeyConstants.ERROR_TRANSFER_AMOUNT_BY_OBJECT_APPROVAL_CHANGE);
@@ -87,6 +87,7 @@ public class SalaryExpenseTransferObjectCodeBalancesUnchangedValidation extends 
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

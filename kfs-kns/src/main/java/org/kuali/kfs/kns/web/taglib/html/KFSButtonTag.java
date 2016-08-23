@@ -21,14 +21,13 @@ package org.kuali.kfs.kns.web.taglib.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.taglib.html.ButtonTag;
-import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
 
 import javax.servlet.jsp.JspException;
 
 /**
  * Renders an actual HTML BUTTON tag not an INPUT with type of button.
- *
  */
 public class KFSButtonTag extends ButtonTag {
 
@@ -57,7 +56,7 @@ public class KFSButtonTag extends ButtonTag {
             String name = prepareName();
             if (StringUtils.isNotBlank(name)) {
                 ActionForm form = WebUtils.getKualiForm(pageContext);
-                if(form!=null && form instanceof PojoForm) {
+                if (form != null && form instanceof PojoForm) {
                     ((PojoForm) form).registerEditableProperty(name);
                 }
             }

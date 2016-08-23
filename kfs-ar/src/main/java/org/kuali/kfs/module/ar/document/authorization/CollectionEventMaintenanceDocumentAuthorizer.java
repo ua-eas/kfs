@@ -19,12 +19,12 @@
 package org.kuali.kfs.module.ar.document.authorization;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CollectionEvent;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Authorizer class for ResearchRiskTypeMaintenanceDocument - allows for targeted field disabling.
@@ -33,12 +33,12 @@ public class CollectionEventMaintenanceDocumentAuthorizer extends FinancialSyste
 
     @Override
     public boolean canMaintain(Object dataObject, Person user) {
-        CollectionEvent collectionEvent = (CollectionEvent)dataObject;
+        CollectionEvent collectionEvent = (CollectionEvent) dataObject;
 
         if (super.canMaintain(dataObject, user) && ObjectUtils.isNotNull(collectionEvent) &&
-                StringUtils.isNotBlank(collectionEvent.getInvoiceNumber()) &&
-                ObjectUtils.isNotNull(collectionEvent.getInvoiceDocument()) &&
-                SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class).canViewInvoice(collectionEvent.getInvoiceDocument(), user.getPrincipalId())) {
+            StringUtils.isNotBlank(collectionEvent.getInvoiceNumber()) &&
+            ObjectUtils.isNotNull(collectionEvent.getInvoiceDocument()) &&
+            SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class).canViewInvoice(collectionEvent.getInvoiceDocument(), user.getPrincipalId())) {
             return true;
         } else {
             return false;

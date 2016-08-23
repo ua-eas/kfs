@@ -18,9 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.ItemFields;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
@@ -41,10 +42,9 @@ import org.kuali.kfs.sys.document.validation.impl.BusinessObjectDataDictionaryVa
 import org.kuali.kfs.sys.document.validation.impl.CompositeValidation;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentRequestProcessItemValidation extends GenericValidation {
 
@@ -59,7 +59,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
         boolean valid = true;
         this.event = event;
 
-        PaymentRequestDocument paymentRequestDocument = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument paymentRequestDocument = (PaymentRequestDocument) event.getDocument();
         PaymentRequestItem preqItem = (PaymentRequestItem) itemForValidation;
 
         valid &= validateEachItem(paymentRequestDocument, preqItem);
@@ -87,8 +87,8 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
      * Such as, above the line, items without accounts, items with accounts.
      *
      * @param paymentRequestDocument - payment request document
-     * @param item - payment request item
-     * @param identifierString - identifier string used to mark in an error map
+     * @param item                   - payment request item
+     * @param identifierString       - identifier string used to mark in an error map
      * @return
      */
     public boolean validateItem(PaymentRequestDocument paymentRequestDocument, PaymentRequestItem item, String identifierString) {
@@ -96,7 +96,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
         // only run item validations if before full entry
         if (!purapService.isFullDocumentEntryCompleted(paymentRequestDocument)) {
             if (item.getItemType().isLineItemIndicator()) {
-                valid &= validateAboveTheLineItems(item, identifierString,paymentRequestDocument.isReceivingDocumentRequiredIndicator(),paymentRequestDocument);
+                valid &= validateAboveTheLineItems(item, identifierString, paymentRequestDocument.isReceivingDocumentRequiredIndicator(), paymentRequestDocument);
             }
             valid &= validateItemWithoutAccounts(item, identifierString);
         }
@@ -108,8 +108,8 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
     /**
      * Validates above the line items.
      *
-     * @param item - payment request item
-     * @param identifierString - identifier string used to mark in an error map
+     * @param item                    - payment request item
+     * @param identifierString        - identifier string used to mark in an error map
      * @param paymentRequestDocument, Payment Request Document for items
      * @return
      */
@@ -126,10 +126,10 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
                 valid = false;
                 errorMap.putError(PurapConstants.ITEM_TAB_ERRORS, PurapKeyConstants.ERROR_ITEM_AMOUNT_BELOW_ZERO, ItemFields.INVOICE_QUANTITY, identifierString);
             }
-            if (!isReceivingDocumentRequiredIndicator){
+            if (!isReceivingDocumentRequiredIndicator) {
                 if (item.getPoOutstandingQuantity().isLessThan(item.getItemQuantity())) {
                     valid = false;
-                   errorMap.putError(PurapConstants.ITEM_TAB_ERRORS, PurapKeyConstants.ERROR_ITEM_QUANTITY_TOO_MANY, ItemFields.INVOICE_QUANTITY, identifierString, ItemFields.OPEN_QUANTITY);
+                    errorMap.putError(PurapConstants.ITEM_TAB_ERRORS, PurapKeyConstants.ERROR_ITEM_QUANTITY_TOO_MANY, ItemFields.INVOICE_QUANTITY, identifierString, ItemFields.OPEN_QUANTITY);
                 }
             }
         }
@@ -178,8 +178,8 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
      * the extended price on the item.
      *
      * @param paymentRequestDocument - payment request document
-     * @param item - payment request item to validate
-     * @param identifierString - identifier string used to mark in an error map
+     * @param item                   - payment request item to validate
+     * @param identifierString       - identifier string used to mark in an error map
      * @return
      */
     public boolean validateItemAccounts(PaymentRequestDocument paymentRequestDocument, PaymentRequestItem item, String identifierString) {
@@ -231,7 +231,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
         this.itemForValidation = itemForValidation;
     }
 
-    protected boolean reviewAccountingLineValidation(PaymentRequestDocument document, PurApAccountingLine accountingLine){
+    protected boolean reviewAccountingLineValidation(PaymentRequestDocument document, PurApAccountingLine accountingLine) {
         boolean valid = true;
         List<Validation> gauntlet = new ArrayList<Validation>();
         this.preqDocument = document;
@@ -249,15 +249,15 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
     protected void createGauntlet(CompositeValidation validation) {
         for (Validation val : validation.getValidations()) {
             if (val instanceof CompositeValidation) {
-                createGauntlet((CompositeValidation)val);
+                createGauntlet((CompositeValidation) val);
             } else if (val instanceof BusinessObjectDataDictionaryValidation) {
-                addParametersToValidation((BusinessObjectDataDictionaryValidation)val);
+                addParametersToValidation((BusinessObjectDataDictionaryValidation) val);
             } else if (val instanceof AccountingLineAmountPositiveValidation) {
-                addParametersToValidation((AccountingLineAmountPositiveValidation)val);
+                addParametersToValidation((AccountingLineAmountPositiveValidation) val);
             } else if (val instanceof AccountingLineDataDictionaryValidation) {
-                addParametersToValidation((AccountingLineDataDictionaryValidation)val);
+                addParametersToValidation((AccountingLineDataDictionaryValidation) val);
             } else if (val instanceof AccountingLineValuesAllowedValidationHutch) {
-                addParametersToValidation((AccountingLineValuesAllowedValidationHutch)val);
+                addParametersToValidation((AccountingLineValuesAllowedValidationHutch) val);
             } else {
                 throw new IllegalStateException("Validations in the PaymentRequestProcessItemValidation must contain specific instances of validation");
             }
@@ -304,6 +304,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Gets the event attribute.
+     *
      * @return Returns the event.
      */
     protected AttributedDocumentEvent getEvent() {
@@ -312,6 +313,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Sets the event attribute value.
+     *
      * @param event The event to set.
      */
     protected void setEvent(AttributedDocumentEvent event) {
@@ -320,6 +322,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Gets the preqDocument attribute.
+     *
      * @return Returns the preqDocument.
      */
     protected PaymentRequestDocument getPreqDocument() {
@@ -328,6 +331,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Sets the preqDocument attribute value.
+     *
      * @param preqDocument The preqDocument to set.
      */
     protected void setPreqDocument(PaymentRequestDocument preqDocument) {
@@ -336,6 +340,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Gets the preqAccountingLine attribute.
+     *
      * @return Returns the preqAccountingLine.
      */
     protected PurApAccountingLine getPreqAccountingLine() {
@@ -344,6 +349,7 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
 
     /**
      * Sets the preqAccountingLine attribute value.
+     *
      * @param preqAccountingLine The preqAccountingLine to set.
      */
     protected void setPreqAccountingLine(PurApAccountingLine preqAccountingLine) {

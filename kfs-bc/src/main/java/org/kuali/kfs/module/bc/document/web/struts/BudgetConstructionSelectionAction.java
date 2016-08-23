@@ -18,25 +18,21 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.OrgSelOpMode;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.OrgSelOpMode;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountSelect;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionHeader;
@@ -52,12 +48,15 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -68,7 +67,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -111,8 +110,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
             if (question == null) {
                 // ask question if not already asked
                 return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.DOCUMENT_DELETE_QUESTION, kualiConfiguration.getPropertyValueAsString(BCKeyConstants.QUESTION_CONFIRM_CLEANUP), KFSConstants.CONFIRMATION_QUESTION, "loadExpansionScreen", "");
-            }
-            else {
+            } else {
                 Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if ((KFSConstants.DOCUMENT_DELETE_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
                     // clear out all BC related Objects(forms) stored in GlobalVariables.UserSession
@@ -123,8 +121,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
                     HttpSession sess = request.getSession(Boolean.FALSE);
                     sess.removeAttribute(BCConstants.MAPPING_ATTRIBUTE_KUALI_FORM);
 
-                }
-                else {
+                } else {
                     budgetConstructionSelectionForm.setSessionInProgressDetected(true);
                     KNSGlobalVariables.getMessageList().add(BCKeyConstants.MESSAGE_BUDGET_PREVIOUS_SESSION_NOTCLEANED);
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -146,12 +143,10 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
             budgetConstructionSelectionForm.setUniversityFiscalYear(null);
             if (activeBCYears.size() < 1) {
                 KNSGlobalVariables.getMessageList().add(BCKeyConstants.MESSAGE_BUDGET_SYSTEM_NOT_ACTIVE);
-            }
-            else {
+            } else {
                 KNSGlobalVariables.getMessageList().add(BCKeyConstants.MESSAGE_BUDGET_SYSTEM_MULTIPLE_ACTIVE);
             }
-        }
-        else {
+        } else {
             budgetConstructionSelectionForm.setUniversityFiscalYear(activeBCYears.get(0));
         }
 
@@ -184,8 +179,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
         String subAccountNumber;
         if (StringUtils.isBlank(bcHeader.getSubAccountNumber())) {
             subAccountNumber = KFSConstants.getDashSubAccountNumber();
-        }
-        else {
+        } else {
             subAccountNumber = bcHeader.getSubAccountNumber();
         }
 
@@ -199,7 +193,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
             budgetConstructionDocument.setChartOfAccountsCode(chartOfAccountsCode);
             budgetConstructionDocument.setAccountNumber(accountNumber);
             budgetConstructionDocument.setSubAccountNumber(subAccountNumber);
-            List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[] { KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT }));
+            List refreshFields = Collections.unmodifiableList(Arrays.asList(new String[]{KFSPropertyConstants.ACCOUNT, KFSPropertyConstants.SUB_ACCOUNT}));
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(budgetConstructionDocument, refreshFields);
 
             boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AddBudgetConstructionDocumentEvent(BCPropertyConstants.BUDGET_CONSTRUCTION_HEADER, budgetConstructionDocument));
@@ -219,12 +213,10 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
 
                     GlobalVariables.getMessageMap().putError("budgetConstructionHeader", KFSKeyConstants.ERROR_EXISTENCE, "BC Document");
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
-                }
-                else {
+                } else {
                     // drop to open the newly created document
                 }
-            }
-            else {
+            } else {
                 return mapping.findForward(KFSConstants.MAPPING_BASIC);
             }
         }
@@ -248,7 +240,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -258,7 +250,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
 
         // returning from account lookup sets refreshCaller to accountLookupable, due to setting in account.xml
         if (refreshCaller != null && (refreshCaller.toUpperCase().endsWith(KFSConstants.LOOKUPABLE_SUFFIX.toUpperCase()))) {
-            final List REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { "chartOfAccounts", "account", "subAccount", "budgetConstructionAccountReports" }));
+            final List REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{"chartOfAccounts", "account", "subAccount", "budgetConstructionAccountReports"}));
             SpringContext.getBean(PersistenceService.class).retrieveReferenceObjects(budgetConstructionSelectionForm.getBudgetConstructionHeader(), REFRESH_FIELDS);
         }
 
@@ -377,7 +369,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
      * unlock action and sets the show action column property accordingly.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward performLockMonitor(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BudgetConstructionSelectionForm budgetConstructionSelectionForm = (BudgetConstructionSelectionForm) form;
@@ -430,7 +422,7 @@ public class BudgetConstructionSelectionAction extends BudgetExpansionAction {
      * display the results.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward performMyAccounts(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BudgetConstructionSelectionForm budgetConstructionSelectionForm = (BudgetConstructionSelectionForm) form;

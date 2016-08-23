@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.gl.service.CollectorDetailService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A step to purge old collector details from the database.
@@ -40,17 +40,17 @@ public class PurgeCollectorDetailStep extends AbstractStep {
      * each within their own transaction so database transaction logs don't get completely filled up when doing this. This step
      * class should NOT be transactional.
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date the job was started
      * @return true if the job completed successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
      */
     public boolean execute(String jobName, Date jobRunDate) {
         String yearStr = getParameterService().getParameterValueAsString(getClass(), KFSConstants.SystemGroupParameterNames.PURGE_GL_ID_BILL_T_BEFORE_YEAR);
-        LOG.info("PurgeCollectorDetailStep was run with year = "+yearStr);
+        LOG.info("PurgeCollectorDetailStep was run with year = " + yearStr);
         int year = Integer.parseInt(yearStr);
         List charts = chartService.getAllChartCodes();
-        for (Iterator iter = charts.iterator(); iter.hasNext();) {
+        for (Iterator iter = charts.iterator(); iter.hasNext(); ) {
             String chart = (String) iter.next();
             collectorDetailService.purgeYearByChart(chart, year);
         }

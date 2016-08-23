@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.YearEndService;
 import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.springframework.util.StopWatch;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The step that runs the year end nominal activity closing process.
@@ -61,8 +61,7 @@ public class NominalActivityClosingStep extends AbstractWrappedBatchStep {
                 try {
                     DateFormat transactionDateFormat = new SimpleDateFormat(TRANSACTION_DATE_FORMAT_STRING);
                     varTransactionDate = new Date(transactionDateFormat.parse(getParameterService().getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM)).getTime());
-                }
-                catch (ParseException e) {
+                } catch (ParseException e) {
                     LOG.error("forwardBalances() Unable to parse transaction date", e);
                     throw new IllegalArgumentException("Unable to parse transaction date");
                 }

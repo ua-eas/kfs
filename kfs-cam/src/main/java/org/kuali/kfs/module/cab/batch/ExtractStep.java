@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cab.batch;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.cab.batch.service.BatchExtractReportService;
 import org.kuali.kfs.module.cab.batch.service.BatchExtractService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class ExtractStep extends AbstractStep {
     private static final Logger LOG = Logger.getLogger(ExtractStep.class);
@@ -60,14 +60,12 @@ public class ExtractStep extends AbstractStep {
             processLog.setStartTime(startTs);
             batchExtractService.performExtract(processLog);
             processLog.setFinishTime(dateTimeService.getCurrentTimestamp());
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             processLog.setSuccess(false);
             processLog.setErrorMessage("Unexpected error occured while performing CAB Extract. " + e.toString());
             LOG.error("Unexpected error occured while performing CAB Extract.", e);
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             batchExtractReportService.generateStatusReportPDF(processLog);
             // create mismatch report if necessary
             if (processLog.getMismatchedGLEntries() != null && !processLog.getMismatchedGLEntries().isEmpty()) {

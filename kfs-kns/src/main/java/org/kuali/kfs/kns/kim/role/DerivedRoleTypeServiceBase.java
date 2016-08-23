@@ -34,8 +34,8 @@ import java.util.Map;
 @Deprecated
 public class DerivedRoleTypeServiceBase extends RoleTypeServiceBase {
 
-	@Override
-	public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
+    @Override
+    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         if (StringUtils.isBlank(namespaceCode)) {
             throw new RiceIllegalArgumentException("namespaceCode was null or blank");
         }
@@ -45,14 +45,14 @@ public class DerivedRoleTypeServiceBase extends RoleTypeServiceBase {
         }
 
         return Collections.emptyList();
-	}
+    }
 
-	/**
-	 * @see RoleTypeServiceBase#isDerivedRoleType()
-	 */
-	@Override
-	public boolean isDerivedRoleType() {
-		return true;
-	}
+    /**
+     * @see RoleTypeServiceBase#isDerivedRoleType()
+     */
+    @Override
+    public boolean isDerivedRoleType() {
+        return true;
+    }
 
 }

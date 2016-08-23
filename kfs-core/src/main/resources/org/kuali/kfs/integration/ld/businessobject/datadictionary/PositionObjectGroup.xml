@@ -18,66 +18,66 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	<bean id="PositionObjectGroup" parent="PositionObjectGroup-parentBean" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="PositionObjectGroup" parent="PositionObjectGroup-parentBean"/>
 
-	<bean id="PositionObjectGroup-parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.integration.ld.businessobject.PositionObjectGroup" />
-		<property name="objectLabel" value="Position Object Group" />
+    <bean id="PositionObjectGroup-parentBean" abstract="true"
+          parent="BusinessObjectEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.integration.ld.businessobject.PositionObjectGroup"/>
+        <property name="objectLabel" value="Position Object Group"/>
 
-		<property name="titleAttribute" value="positionObjectGroupCode" />
-		<property name="attributes">
-			<list>
-				<ref bean="PositionObjectGroup-positionObjectGroupCode" />
-				<ref bean="PositionObjectGroup-positionObjectGroupName" />
-				<ref bean="PositionObjectGroup-active" />
-			</list>
-		</property>
-	</bean>
+        <property name="titleAttribute" value="positionObjectGroupCode"/>
+        <property name="attributes">
+            <list>
+                <ref bean="PositionObjectGroup-positionObjectGroupCode"/>
+                <ref bean="PositionObjectGroup-positionObjectGroupName"/>
+                <ref bean="PositionObjectGroup-active"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
 
-	<bean id="PositionObjectGroup-positionObjectGroupCode" parent="PositionObjectGroup-positionObjectGroupCode-parentBean" />
+    <bean id="PositionObjectGroup-positionObjectGroupCode" parent="PositionObjectGroup-positionObjectGroupCode-parentBean"/>
 
-	<bean id="PositionObjectGroup-positionObjectGroupCode-parentBean"
-		abstract="true" parent="AttributeDefinition">
-		<property name="name" value="positionObjectGroupCode" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Labor Position Object Group Code" />
-		<property name="shortLabel" value="Code" />
-		<property name="maxLength" value="2" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterValidation" />
-		</property>
-		<property name="control">
-			<ref bean="FourCharacterTextControl" />
-		</property>
-	</bean>
-	<bean id="PositionObjectGroup-positionObjectGroupName" parent="PositionObjectGroup-positionObjectGroupName-parentBean" />
+    <bean id="PositionObjectGroup-positionObjectGroupCode-parentBean"
+          abstract="true" parent="AttributeDefinition">
+        <property name="name" value="positionObjectGroupCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Labor Position Object Group Code"/>
+        <property name="shortLabel" value="Code"/>
+        <property name="maxLength" value="2"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="FourCharacterTextControl"/>
+        </property>
+    </bean>
+    <bean id="PositionObjectGroup-positionObjectGroupName" parent="PositionObjectGroup-positionObjectGroupName-parentBean"/>
 
-	<bean id="PositionObjectGroup-positionObjectGroupName-parentBean"
-		abstract="true" parent="AttributeDefinition">
-		<property name="name" value="positionObjectGroupName" />
-		<property name="forceUppercase" value="false" />
-		<property name="label" value="Labor Position Object Group Name" />
-		<property name="shortLabel" value="Name" />
-		<property name="maxLength" value="40" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="42" />
-		</property>
-	</bean>
+    <bean id="PositionObjectGroup-positionObjectGroupName-parentBean"
+          abstract="true" parent="AttributeDefinition">
+        <property name="name" value="positionObjectGroupName"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Labor Position Object Group Name"/>
+        <property name="shortLabel" value="Name"/>
+        <property name="maxLength" value="40"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="42"/>
+        </property>
+    </bean>
 
-	<bean id="PositionObjectGroup-active" parent="PositionObjectGroup-active-parentBean" />
-	<bean id="PositionObjectGroup-active-parentBean" abstract="true"
-		parent="GenericAttributes-activeIndicator">
-		<property name="name" value="active" />
-	</bean>
+    <bean id="PositionObjectGroup-active" parent="PositionObjectGroup-active-parentBean"/>
+    <bean id="PositionObjectGroup-active-parentBean" abstract="true"
+          parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+    </bean>
 
 </beans>

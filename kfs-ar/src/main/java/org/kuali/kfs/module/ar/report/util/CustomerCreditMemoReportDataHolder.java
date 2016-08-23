@@ -27,7 +27,7 @@ import java.util.Map;
  * To group and hold the data presented to working reports of extract process
  */
 public class CustomerCreditMemoReportDataHolder {
-  //  private CustomerCreditMemoReportDefinition reportDefinition;
+    //  private CustomerCreditMemoReportDefinition reportDefinition;
     private Map<String, String> creditmemo;
     private Map<String, String> invoice;
     private Map<String, String> customer;
@@ -46,7 +46,7 @@ public class CustomerCreditMemoReportDataHolder {
      * Constructs a ExtractProcessReportDataHolder.java.
      */
     public CustomerCreditMemoReportDataHolder() {
-      //this(null);
+        //this(null);
 
         this.creditmemo = new HashMap<String, String>();
         this.invoice = new HashMap<String, String>();
@@ -75,6 +75,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the creditmemo attribute.
+     *
      * @return Returns the creditmemo.
      */
     public Map<String, String> getCreditmemo() {
@@ -83,6 +84,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the creditmemo attribute value.
+     *
      * @param creditmemo The creditmemo to set.
      */
     public void setCreditmemo(Map<String, String> creditmemo) {
@@ -91,6 +93,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the invoice attribute.
+     *
      * @return Returns the invoice.
      */
     public Map<String, String> getInvoice() {
@@ -99,6 +102,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the invoice attribute value.
+     *
      * @param invoice The invoice to set.
      */
     public void setInvoice(Map<String, String> invoice) {
@@ -107,6 +111,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the customer attribute.
+     *
      * @return Returns the customer.
      */
     public Map<String, String> getCustomer() {
@@ -115,6 +120,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the customer attribute value.
+     *
      * @param customer The customer to set.
      */
     public void setCustomer(Map<String, String> customer) {
@@ -123,6 +129,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the sysinfo attribute.
+     *
      * @return Returns the sysinfo.
      */
     public Map<String, String> getSysinfo() {
@@ -131,6 +138,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the sysinfo attribute value.
+     *
      * @param sysinfo The sysinfo to set.
      */
     public void setSysinfo(Map<String, String> sysinfo) {
@@ -140,6 +148,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the details attribute.
+     *
      * @return Returns the details.
      */
     public List<CustomerCreditMemoDetailReportDataHolder> getDetails() {
@@ -148,6 +157,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the details attribute value.
+     *
      * @param details The details to set.
      */
     public void setDetails(List<CustomerCreditMemoDetailReportDataHolder> details) {
@@ -156,6 +166,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Gets the reportData attribute.
+     *
      * @return Returns the reportData.
      */
     public Map<String, Object> getReportData() {
@@ -165,7 +176,7 @@ public class CustomerCreditMemoReportDataHolder {
         reportData.put(KEY_OF_CUSTOMER_ENTRY, customer);
         reportData.put(KEY_OF_SYSINFO_ENTRY, sysinfo);
         reportData.put(KEY_OF_DETAILS_ENTRY, details);
-      //  reportData.put(arg0, arg1);
+        //  reportData.put(arg0, arg1);
 
         return reportData;
     }
@@ -173,6 +184,7 @@ public class CustomerCreditMemoReportDataHolder {
 
     /**
      * Sets the reportData attribute value.
+     *
      * @param reportData The reportData to set.
      */
     public void setReportData(Map<String, Object> reportData) {

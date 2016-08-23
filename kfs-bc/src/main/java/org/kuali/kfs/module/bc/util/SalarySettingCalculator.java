@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.bc.util;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionCalculatedSalaryFoundationTracker;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SalarySettingCalculator {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SalarySettingCalculator.class);
@@ -273,10 +273,10 @@ public class SalarySettingCalculator {
     /**
      * calculate the changing percent between the requested amount and the base amount
      *
-     * @param baseAmount the given base amount
+     * @param baseAmount      the given base amount
      * @param requestedAmount the requested amount
      * @return the changing percent between the requested amount and the base amount if both of amounts are numbers; otherwise,
-     *         return null
+     * return null
      */
     public static KualiDecimal getPercentChange(KualiInteger baseAmount, KualiInteger requestedAmount) {
         KualiDecimal percentChange = null;

@@ -20,6 +20,9 @@ package org.kuali.kfs.module.purap.document;
 
 import junit.framework.Assert;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItem;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentFixture;
@@ -36,16 +39,15 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.kuali.kfs.module.purap.fixture.PurchaseOrderItemAccountsFixture.WITH_DESC_WITH_UOM_WITH_PRICE_WITH_ACCOUNT;
 import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.*;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rjweiss;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.rorenfro;
 
 /**
  * Used to create and test populated Purchase Order Documents of various kinds.
@@ -81,24 +83,24 @@ public class PurchaseOrderDocumentTest extends KualiTestBase {
         AccountingDocumentTestUtils.testConvertIntoErrorCorrection_documentAlreadyCorrected(buildSimpleDocument(), SpringContext.getBean(TransactionalDocumentDictionaryService.class));
     }
 
-    @ConfigureContext(session = UserNameFixture.parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = UserNameFixture.parke, shouldCommitTransactions = true)
     public final void testConvertIntoErrorCorrection() throws Exception {
         AccountingDocumentTestUtils.testConvertIntoErrorCorrection(buildSimpleDocument(), getExpectedPrePeCount(), SpringContext.getBean(DocumentService.class), SpringContext.getBean(TransactionalDocumentDictionaryService.class));
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testRouteDocument() throws Exception {
         PurchaseOrderDocument poDocument = buildSimpleDocument();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);
         poDocument.prepareForSave();
-        assertFalse("Document should not have been in ENROUTE status.",DocumentStatus.ENROUTE.equals(poDocument.getDocumentHeader().getWorkflowDocument().getStatus()));
+        assertFalse("Document should not have been in ENROUTE status.", DocumentStatus.ENROUTE.equals(poDocument.getDocumentHeader().getWorkflowDocument().getStatus()));
         AccountingDocumentTestUtils.routeDocument(poDocument, "test annotation", null, documentService);
         WorkflowTestUtils.waitForDocumentApproval(poDocument.getDocumentNumber());
-        WorkflowDocument workflowDocument = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(poDocument.getDocumentNumber(), UserNameFixture.kfs.getPerson() );
+        WorkflowDocument workflowDocument = SpringContext.getBean(WorkflowDocumentService.class).loadWorkflowDocument(poDocument.getDocumentNumber(), UserNameFixture.kfs.getPerson());
         assertTrue("Document should now be final.", workflowDocument.isFinal());
     }
 
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public final void testSaveDocument() throws Exception {
         PurchaseOrderDocument poDocument = buildSimpleDocument();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);

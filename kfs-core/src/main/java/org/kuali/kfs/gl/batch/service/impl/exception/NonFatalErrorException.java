@@ -32,8 +32,9 @@ public class NonFatalErrorException extends Exception {
 
     /**
      * Constructs a NonFatalErrorException instance
+     *
      * @param message the message this exception should use to report itself in the logs
-     * @param cause the original problem
+     * @param cause   the original problem
      */
     public NonFatalErrorException(String message, Throwable cause) {
         super(message, cause);
@@ -41,6 +42,7 @@ public class NonFatalErrorException extends Exception {
 
     /**
      * Constructs a NonFatalErrorException instance
+     *
      * @param message the message this exception should use to report itself in the logs
      */
     public NonFatalErrorException(String message) {
@@ -49,6 +51,7 @@ public class NonFatalErrorException extends Exception {
 
     /**
      * Constructs a NonFatalErrorException instance
+     *
      * @param cause the original problem
      */
     public NonFatalErrorException(Throwable cause) {

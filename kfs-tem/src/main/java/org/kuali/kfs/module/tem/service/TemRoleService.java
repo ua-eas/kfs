@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.role.RoleMembership;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Ideally, this service would not exist - everything would be done via permissions
@@ -70,10 +70,10 @@ public interface TemRoleService {
 
     /**
      * First check if the user is the initiator, if its not,
-     *
+     * <p>
      * check from the document profile that whether the user has the arranger access by checking the two roles:
      * 1) Assigned Profile Arranger and 2) Org Profile Arranger
-     *
+     * <p>
      * NOTE: This does NOT check on manager type role access
      *
      * @param travelDocument
@@ -84,13 +84,13 @@ public interface TemRoleService {
 
     /**
      * Check to see if the user is a travel arranger
-     *
+     * <p>
      * documentType & profileId are the qualifications required to check for arranger role:
      * Assigned Profile Arranger
-     *
+     * <p>
      * primary department code is to check for org role:
      * Organization Profile Arranger
-     *
+     * <p>
      * NOTE: When profileId is not specified, Assigned Profile Arranger role check if the user exists in the Profile
      * Arranger table
      *
@@ -118,17 +118,15 @@ public interface TemRoleService {
     public boolean isTravelManager(final Person user);
 
     /**
-     *
      * @param user
      * @param role
      * @param parameterNamespace
      * @param qualification
      * @return
      */
-    public boolean checkUserRole(final Person user, String role, String parameterNamespace, Map<String,String> qualification);
+    public boolean checkUserRole(final Person user, String role, String parameterNamespace, Map<String, String> qualification);
 
     /**
-     *
      * @param user
      * @param role
      * @param parameterNamespace

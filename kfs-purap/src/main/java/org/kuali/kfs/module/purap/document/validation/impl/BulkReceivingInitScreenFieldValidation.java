@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class BulkReceivingInitScreenFieldValidation extends GenericValidation {
 
@@ -32,13 +32,13 @@ public class BulkReceivingInitScreenFieldValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
 
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)event.getDocument();
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) event.getDocument();
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
-        dictionaryValidationService.validateAttributeFormat("BulkReceivingDocument","shipmentPackingSlipNumber",bulkReceivingDocument.getShipmentPackingSlipNumber(),KFSKeyConstants.ERROR_INVALID_FORMAT);
-        dictionaryValidationService.validateAttributeFormat("BulkReceivingDocument","shipmentBillOfLadingNumber",bulkReceivingDocument.getShipmentBillOfLadingNumber(),KFSKeyConstants.ERROR_INVALID_FORMAT);
+        dictionaryValidationService.validateAttributeFormat("BulkReceivingDocument", "shipmentPackingSlipNumber", bulkReceivingDocument.getShipmentPackingSlipNumber(), KFSKeyConstants.ERROR_INVALID_FORMAT);
+        dictionaryValidationService.validateAttributeFormat("BulkReceivingDocument", "shipmentBillOfLadingNumber", bulkReceivingDocument.getShipmentBillOfLadingNumber(), KFSKeyConstants.ERROR_INVALID_FORMAT);
 
         return true;
     }

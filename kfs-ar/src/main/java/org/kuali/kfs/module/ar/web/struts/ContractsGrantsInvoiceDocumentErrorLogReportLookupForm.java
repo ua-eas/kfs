@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.ar.web.struts;
 
 
-
 /**
  * Form class for Contracts & Grants Invoice Report Lookup screen.
  */

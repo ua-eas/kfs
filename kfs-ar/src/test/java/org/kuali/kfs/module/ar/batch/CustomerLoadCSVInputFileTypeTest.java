@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerLoadCSVInputFileTypeTest extends KualiTestBase {
@@ -49,8 +49,7 @@ public class CustomerLoadCSVInputFileTypeTest extends KualiTestBase {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(CSV_SAMPLE_DIRECTORY + CSV_TEST_FILE);
         try {
             byteArraybyteArray = IOUtils.toByteArray(inputStream);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);
             throw new RuntimeException(ex);
         }
@@ -62,9 +61,8 @@ public class CustomerLoadCSVInputFileTypeTest extends KualiTestBase {
     public void testContentParsing() {
         Object parsedContent = null;
         try {
-            parsedContent =batchInput.parse(byteArraybyteArray);
-        }
-        catch (ParseException pe){
+            parsedContent = batchInput.parse(byteArraybyteArray);
+        } catch (ParseException pe) {
             LOG.error(pe.getMessage(), pe);
         }
         assertNotNull(parsedContent);
@@ -72,14 +70,12 @@ public class CustomerLoadCSVInputFileTypeTest extends KualiTestBase {
 
     /**
      * Test object to VO conversion
-     *
      */
     public void testObjectVOConversion() {
         List<CustomerDigesterVO> customerVOs = new ArrayList<CustomerDigesterVO>();
-        try{
-            customerVOs = (List<CustomerDigesterVO>)batchInput.parse(byteArraybyteArray);
-        }
-        catch(Exception e){
+        try {
+            customerVOs = (List<CustomerDigesterVO>) batchInput.parse(byteArraybyteArray);
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
         final int customerSize = 7;
@@ -92,10 +88,9 @@ public class CustomerLoadCSVInputFileTypeTest extends KualiTestBase {
      */
     public void testValidation() {
         List<CustomerDigesterVO> customerVOs = new ArrayList<CustomerDigesterVO>();
-        try{
-            customerVOs = (List<CustomerDigesterVO>)batchInput.parse(byteArraybyteArray);
-        }
-        catch(Exception e){
+        try {
+            customerVOs = (List<CustomerDigesterVO>) batchInput.parse(byteArraybyteArray);
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
 

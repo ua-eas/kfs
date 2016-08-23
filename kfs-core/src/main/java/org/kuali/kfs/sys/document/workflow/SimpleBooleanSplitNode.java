@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.sys.document.workflow;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemDocument;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
@@ -29,8 +28,9 @@ import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.RouteHelper;
 import org.kuali.rice.kew.engine.node.SplitNode;
 import org.kuali.rice.kew.engine.node.SplitResult;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleBooleanSplitNode implements SplitNode {
 
@@ -44,10 +44,10 @@ public class SimpleBooleanSplitNode implements SplitNode {
         Document document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(documentID);
         if (document instanceof FinancialSystemDocument) {
             String nodeName = context.getNodeInstance().getRouteNode().getRouteNodeName();
-            boolean ret = ((FinancialSystemDocument)document).answerSplitNodeQuestion(nodeName);
+            boolean ret = ((FinancialSystemDocument) document).answerSplitNodeQuestion(nodeName);
             result = booleanToSplitResult(ret);
         } else {
-            throw new IllegalArgumentException("Document "+document.getDocumentTitle() +" with id " + documentID + " is not an instance of " + FinancialSystemMaintenanceDocument.class + " or " + FinancialSystemTransactionalDocument.class);
+            throw new IllegalArgumentException("Document " + document.getDocumentTitle() + " with id " + documentID + " is not an instance of " + FinancialSystemMaintenanceDocument.class + " or " + FinancialSystemTransactionalDocument.class);
         }
 
         return result;
@@ -55,6 +55,7 @@ public class SimpleBooleanSplitNode implements SplitNode {
 
     /**
      * Converts a boolean value to SplitResult where the branch name is "True" or "False" based on the value of the given boolean
+     *
      * @param b a boolean to convert to a SplitResult
      * @return the converted SplitResult
      */

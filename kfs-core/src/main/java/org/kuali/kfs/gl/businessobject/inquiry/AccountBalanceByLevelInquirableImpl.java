@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.gl.businessobject.inquiry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.AccountBalanceByLevel;
 import org.kuali.kfs.gl.businessobject.AccountBalanceByObject;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class is used to generate the URL for the user-defined attributes for the account balace by level screen. It is entended the
@@ -47,6 +47,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Builds the keys for this inquiry.
+     *
      * @return a List of Strings, holding the keys of this inquiry
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#buildUserDefinedAttributeKeyList()
      */
@@ -68,6 +69,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * The addition of the link button
+     *
      * @return a Map of user defined attributes
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getUserDefinedAttributeMap()
      */
@@ -79,6 +81,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Changes the name of attributes on the fly...in this case, turns the link button to display its name as object code
+     *
      * @param attributeName the attribute to rename
      * @return a String with the new attribute name
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getAttributeName(java.lang.String)
@@ -92,7 +95,8 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * If the key name sent in represents an "exclusive field", returns "" as the key value
-     * @param keyName the name of the key that may be changed
+     *
+     * @param keyName  the name of the key that may be changed
      * @param keyValue the value of the key that may be changed
      * @return an Object with the perhaps modified value for the key
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getKeyValue(java.lang.String, java.lang.Object)
@@ -106,6 +110,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Justs returns the key name given
+     *
      * @param keyName a key name
      * @return the key name given
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getKeyName(java.lang.String)
@@ -116,6 +121,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Return a Spring bean for the lookup
+     *
      * @return the name of the Spring bean of the lookup
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getLookupableImplAttributeName()
      */
@@ -125,6 +131,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Return the page name of this lookup
+     *
      * @return the page name for all GL lookups
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getBaseUrl()
      */
@@ -134,6 +141,7 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Retrieves the business class to use as the basis of an inquiry for the given attribute
+     *
      * @param attributeName the name to build the inquiry link to
      * @return the Class of the business object that should be inquired on
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#getInquiryBusinessObjectClass(String)
@@ -143,13 +151,12 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
         /*
          * if("financialObject.financialObjectLevel.financialConsolidationObjectCode".equals(attributeName)) { c =
          * AccountBalanceByConsolidation.class; } else
-         */if (GeneralLedgerConstants.BalanceInquiryDrillDowns.OBJECT_LEVEL_CODE.equals(attributeName)) {
+         */
+        if (GeneralLedgerConstants.BalanceInquiryDrillDowns.OBJECT_LEVEL_CODE.equals(attributeName)) {
             c = AccountBalance.class;
-        }
-        else if (KFSPropertyConstants.OBJECT_CODE.equals(attributeName)) {
+        } else if (KFSPropertyConstants.OBJECT_CODE.equals(attributeName)) {
             c = AccountBalanceByObject.class;
-        }
-        else {
+        } else {
             c = AccountBalanceByLevel.class;
         }
 
@@ -158,7 +165,8 @@ public class AccountBalanceByLevelInquirableImpl extends AbstractGeneralLedgerIn
 
     /**
      * Addes the lookup impl attribute to the parameters
-     * @param parameter the parameters used in the lookup
+     *
+     * @param parameter     the parameters used in the lookup
      * @param attributeName the attribute name that an inquiry URL is being built for
      * @see org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl#addMoreParameters(java.util.Properties, java.lang.String)
      */

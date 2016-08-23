@@ -20,13 +20,13 @@ package org.kuali.kfs.module.purap.document.validation.event;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Event Base class for Purchasing Accounts Payable Item
- *
+ * <p>
  * contains the base methods for item events
  */
 public abstract class AttributedPurchasingAccountsPayableItemEventBase extends AttributedDocumentEventBase implements AttributedPurchasingAccountsPayableItemEvent {
@@ -38,10 +38,10 @@ public abstract class AttributedPurchasingAccountsPayableItemEventBase extends A
     /**
      * Copies the item and calls the super constructor
      *
-     * @param description the description of the event
+     * @param description     the description of the event
      * @param errorPathPrefix the error path
-     * @param document the document the event is being called on
-     * @param item the item that is having the event called on
+     * @param document        the document the event is being called on
+     * @param item            the item that is having the event called on
      */
     public AttributedPurchasingAccountsPayableItemEventBase(String description, String errorPathPrefix, Document document, PurApItem item) {
         super(description, errorPathPrefix, document);
@@ -52,7 +52,6 @@ public abstract class AttributedPurchasingAccountsPayableItemEventBase extends A
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.validation.event.PurchasingAccountsPayableItemEvent#getItem()
      */
     public PurApItem getItem() {
@@ -80,8 +79,7 @@ public abstract class AttributedPurchasingAccountsPayableItemEventBase extends A
         // vary logging detail as needed
         if (item == null) {
             logMessage.append("null item");
-        }
-        else {
+        } else {
             logMessage.append(" item# ");
             logMessage.append(item.getItemIdentifier());
         }

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.OrganizationType;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class creates a new finder for our forms view (creates a drop-down of {@link OrgType}s)
@@ -50,10 +50,10 @@ public class OrgTypeValuesFinder extends KeyValuesBase {
         // get a list of all OrgTypes
         List<OrganizationType> codes = (List<OrganizationType>) SpringContext.getBean(KeyValuesService.class).findAll(OrganizationType.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( codes == null ) {
+        if (codes == null) {
             codes = new ArrayList<OrganizationType>(0);
         } else {
-            codes = new ArrayList<OrganizationType>( codes );
+            codes = new ArrayList<OrganizationType>(codes);
         }
 
         // sort using comparator.
@@ -64,7 +64,7 @@ public class OrgTypeValuesFinder extends KeyValuesBase {
         labels.add(new ConcreteKeyValue("", "")); // blank first entry
 
         for (OrganizationType orgType : codes) {
-            if(orgType.isActive()) {
+            if (orgType.isActive()) {
                 labels.add(new ConcreteKeyValue(orgType.getOrganizationTypeCode(), orgType.getOrganizationTypeCode() + " - " + orgType.getOrganizationTypeName()));
             }
         }

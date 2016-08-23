@@ -119,12 +119,12 @@ public class VendorPropertyConstants {
     public static final String VENDOR_COMMODITIES_CODE_PURCHASING_COMMODITY_CODE = "vendorCommodities." + PURCHASING_COMMODITY_CODE;
     public static final String VENDOR_COMMODITIES_DEFAULT_INDICATOR = "commodityDefaultIndicator";
 
-     //Purchase order cost source
+    //Purchase order cost source
     public static final String ITEM_UNIT_PRICE_UPPER_VARIANCE_PERCENT = "itemUnitPriceUpperVariancePercent";
     public static final String ITEM_UNIT_PRICE_LOWER_VARIANCE_PERCENT = "itemUnitPriceLowerVariancePercent";
 
     public static final String PURCHASING_DEPARTMENT_STATE = "purchasingDepartmentStateCode";
     public static final String PURCHASING_DEPARTMENT_POSTAL_CODE = "purchasingDepartmentZipCode";
 
-    public static final String VENDOR_DOC_ADDRESS    = "document.vendorAddress";
+    public static final String VENDOR_DOC_ADDRESS = "document.vendorAddress";
 }

@@ -18,24 +18,19 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.TemplateBase;
@@ -45,13 +40,17 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 
 /**
  * Base class for Accounts Receivable Template Upload Actions.
@@ -77,7 +76,7 @@ public class AccountsReceivableTemplateUploadAction extends KualiAction {
      * GlobalVariables.errorMap, which is checked and set for display by the request processor.
      */
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        AccountsReceivableTemplateUploadForm newForm = (AccountsReceivableTemplateUploadForm)form;
+        AccountsReceivableTemplateUploadForm newForm = (AccountsReceivableTemplateUploadForm) form;
         FormFile uploadedFile = newForm.getUploadedFile();
 
         // validations performed on the required values for saving the template
@@ -151,7 +150,7 @@ public class AccountsReceivableTemplateUploadAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward download(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        AccountsReceivableTemplateUploadForm newForm = (AccountsReceivableTemplateUploadForm)form;
+        AccountsReceivableTemplateUploadForm newForm = (AccountsReceivableTemplateUploadForm) form;
         String templateFolderPath = getFinancialSystemModuleConfiguration().getTemplateFileDirectories().get(KFSConstants.TEMPLATES_DIRECTORY_KEY);
         String filePath = templateFolderPath + File.separator + newForm.getFileName();
         File file = new File(filePath).getAbsoluteFile();
@@ -176,8 +175,7 @@ public class AccountsReceivableTemplateUploadAction extends KualiAction {
         try {
             streamOut = new FileOutputStream(destinationFile);
             IOUtils.copy(fileContents, streamOut);
-        }
-        finally {
+        } finally {
             if (streamOut != null) {
                 streamOut.close();
             }
@@ -217,7 +215,7 @@ public class AccountsReceivableTemplateUploadAction extends KualiAction {
 
     public FinancialSystemModuleConfiguration getFinancialSystemModuleConfiguration() {
         if (financialSystemModuleConfiguration == null) {
-            financialSystemModuleConfiguration = (FinancialSystemModuleConfiguration)SpringContext.getBean(KualiModuleService.class).getModuleServiceByNamespaceCode(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE).getModuleConfiguration();
+            financialSystemModuleConfiguration = (FinancialSystemModuleConfiguration) SpringContext.getBean(KualiModuleService.class).getModuleServiceByNamespaceCode(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE).getModuleConfiguration();
         }
         return financialSystemModuleConfiguration;
     }

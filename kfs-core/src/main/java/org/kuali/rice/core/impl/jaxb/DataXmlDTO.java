@@ -18,15 +18,6 @@
  */
 package org.kuali.rice.core.impl.jaxb;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.kuali.rice.core.api.CoreConstants;
 import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
 import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
@@ -34,29 +25,38 @@ import org.kuali.rice.kim.impl.jaxb.PermissionDataXmlDTO;
 import org.kuali.rice.kim.impl.jaxb.RoleDataXmlDTO;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.List;
+
 /**
  * This class represents the root &lt;data&gt; XML element.
- *
+ * <p>
  * <p>Please see the Javadocs for PermissionDataXmlDTO and RoleDataXmlDTO for more information
  * on their expected structure.
  */
-@XmlRootElement(name="data")
+@XmlRootElement(name = "data")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="DataType", propOrder={"permissionData", "roleData", CoreConstants.CommonElements.FUTURE_ELEMENTS})
-public class DataXmlDTO  extends AbstractDataTransferObject implements RiceXmlListAdditionListener<Element> {
+@XmlType(name = "DataType", propOrder = {"permissionData", "roleData", CoreConstants.CommonElements.FUTURE_ELEMENTS})
+public class DataXmlDTO extends AbstractDataTransferObject implements RiceXmlListAdditionListener<Element> {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="permissionData")
+    @XmlElement(name = "permissionData")
     private PermissionDataXmlDTO permissionData;
 
-    @XmlElement(name="roleData")
+    @XmlElement(name = "roleData")
     private RoleDataXmlDTO roleData;
 
     @XmlAnyElement
     private final List<Element> _futureElements = null;
 
-    public DataXmlDTO() {}
+    public DataXmlDTO() {
+    }
 
     public DataXmlDTO(PermissionDataXmlDTO permissionData, RoleDataXmlDTO roleData) {
         this.permissionData = permissionData;

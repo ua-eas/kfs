@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+
+import java.util.LinkedHashMap;
 
 public class BusinessObjectProperty extends TransientBusinessObjectBase {
     private String namespaceCode;

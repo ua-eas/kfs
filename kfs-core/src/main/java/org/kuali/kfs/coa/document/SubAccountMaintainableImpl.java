@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -27,16 +25,18 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.A21SubAccountService;
 import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentRestrictions;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Map;
 
 /**
  * This class...
@@ -54,7 +54,7 @@ public class SubAccountMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -86,7 +86,7 @@ public class SubAccountMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#populateChartOfAccountsCodeFields()
-     *
+     * <p>
      * Special treatment is needed to populate chart code fields from account number fields
      * in nested reference accounts a21SubAccount.costShareAccount
      * when accounts can't cross charts.
@@ -97,10 +97,10 @@ public class SubAccountMaintainableImpl extends FinancialSystemMaintainable {
         PersistableBusinessObject bo = getBusinessObject();
         AccountService acctService = SpringContext.getBean(AccountService.class);
 
-        for (int i=0; i<COA_CODE_NAMES.length; i++) {
+        for (int i = 0; i < COA_CODE_NAMES.length; i++) {
             String coaCodeName = COA_CODE_NAMES[i];
             String acctNumName = ACCOUNT_NUMBER_NAMES[i];
-            String accountNumber = (String)ObjectUtils.getPropertyValue(bo, acctNumName);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(bo, acctNumName);
             String coaCode = null;
             Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
@@ -108,8 +108,7 @@ public class SubAccountMaintainableImpl extends FinancialSystemMaintainable {
             }
             try {
                 ObjectUtils.setObjectProperty(bo, coaCodeName, coaCode);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Error in setting property value for " + coaCodeName);
             }
         }

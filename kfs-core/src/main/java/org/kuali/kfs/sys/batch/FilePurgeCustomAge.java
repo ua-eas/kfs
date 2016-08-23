@@ -31,27 +31,34 @@ public class FilePurgeCustomAge {
 
     /**
      * Gets the directory attribute.
+     *
      * @return Returns the directory.
      */
     public String getDirectory() {
         return directory;
     }
+
     /**
      * Sets the directory attribute value.
+     *
      * @param directory The directory to set.
      */
     public void setDirectory(String directory) {
         this.directory = directory;
     }
+
     /**
      * Gets the parameterPrefix attribute.
+     *
      * @return Returns the parameterPrefix.
      */
     public String getParameterPrefix() {
         return parameterPrefix;
     }
+
     /**
      * Sets the parameterPrefix attribute value.
+     *
      * @param parameterPrefix The parameterPrefix to set.
      */
     public void setParameterPrefix(String parameterPrefix) {

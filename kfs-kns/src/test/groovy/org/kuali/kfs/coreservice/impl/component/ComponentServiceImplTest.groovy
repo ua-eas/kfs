@@ -311,7 +311,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_null_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents(null, [ component ])
+            service.publishDerivedComponents(null, [component])
         }
     }
 
@@ -319,7 +319,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_empty_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("", [ component ])
+            service.publishDerivedComponents("", [component])
         }
     }
 
@@ -327,7 +327,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_blank_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("  ", [ component ])
+            service.publishDerivedComponents("  ", [component])
         }
     }
 
@@ -338,7 +338,7 @@ class ComponentServiceImplTest {
         builder.setComponentSetId("myComponentSet")
         // should fail, componentSetIds don't match!
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("blah", [ builder.build() ])
+            service.publishDerivedComponents("blah", [builder.build()])
         }
     }
 
@@ -349,7 +349,7 @@ class ComponentServiceImplTest {
         componentSetDaoMock.demand.getComponentSet { id -> null }
         componentSetDaoMock.demand.saveIgnoreLockingFailure { cs -> savedComponentSet = cs; return true }
         boServiceMock.demand.deleteMatching { clazz, crit -> assert crit.containsKey("componentSetId") }
-        boServiceMock.demand.findMatching { clazz, crit -> []}
+        boServiceMock.demand.findMatching { clazz, crit -> [] }
 
         injectBusinessObjectService()
         injectComponentSetDao()
@@ -370,14 +370,14 @@ class ComponentServiceImplTest {
     @Test
     void test_publishDerivedComponents_empty_components_withExisting_componentSet() {
 
-        ComponentSetBo existingComponentSet = new ComponentSetBo(componentSetId:"myComponentSet", checksum:"blah",
-                lastUpdateTimestamp:new Timestamp(System.currentTimeMillis()), versionNumber:500)
+        ComponentSetBo existingComponentSet = new ComponentSetBo(componentSetId: "myComponentSet", checksum: "blah",
+                lastUpdateTimestamp: new Timestamp(System.currentTimeMillis()), versionNumber: 500)
         ComponentSetBo savedComponentSet = null;
 
         componentSetDaoMock.demand.getComponentSet { id -> existingComponentSet }
         componentSetDaoMock.demand.saveIgnoreLockingFailure { cs -> cs.versionNumber++; savedComponentSet = cs; return true }
         boServiceMock.demand.deleteMatching { clazz, crit -> assert crit.containsKey("componentSetId") }
-        boServiceMock.demand.findMatching { clazz, crit -> []}
+        boServiceMock.demand.findMatching { clazz, crit -> [] }
 
         injectBusinessObjectService()
         injectComponentSetDao()
@@ -408,7 +408,7 @@ class ComponentServiceImplTest {
 
         List<Component> components = service.getDerivedComponentSet("myComponentSet")
         assert components.isEmpty()
-        service.publishDerivedComponents("myComponentSet", [ component ])
+        service.publishDerivedComponents("myComponentSet", [component])
         components = service.getDerivedComponentSet("myComponentSet")
         assert components.size() == 1
 

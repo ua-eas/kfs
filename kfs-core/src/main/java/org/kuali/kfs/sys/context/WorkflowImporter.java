@@ -83,12 +83,12 @@ public class WorkflowImporter {
             String trimmedFile = file.trim();
             if (!trimmedFile.isEmpty()) {
                 if (trimmedFile.endsWith(".xml")) {
-                   try {
+                    try {
                         for (Resource resource : ResourcePatternUtils.getResourcePatternResolver(applicationContext).getResources(trimmedFile)) {
                             if (resource.exists()) {
                                 final String resourcePath = ResourceLoaderUtil.parseResourcePathFromUrl(resource);
                                 if (!StringUtils.isBlank(resourcePath)) {
-                                    LOG.info("Attempting to ingest: "+ resourcePath);
+                                    LOG.info("Attempting to ingest: " + resourcePath);
                                     ruleAttributeService.loadXml(resource.getInputStream(), "KFS");
                                     documentTypeService.loadXml(resource.getInputStream(), "KFS");
                                 }

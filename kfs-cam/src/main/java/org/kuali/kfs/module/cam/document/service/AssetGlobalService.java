@@ -18,13 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.Date;
-import java.util.List;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.document.gl.CamsGeneralLedgerPendingEntrySourceBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+
+import java.util.List;
 
 
 /**
@@ -82,6 +81,7 @@ public interface AssetGlobalService {
 
     /**
      * Returns assets for save for create new assets
+     *
      * @param assetGlobal
      * @return
      */
@@ -89,6 +89,7 @@ public interface AssetGlobalService {
 
     /**
      * Returns assets for save for asset separate
+     *
      * @param assetGlobal
      * @return
      */
@@ -98,10 +99,12 @@ public interface AssetGlobalService {
      * @return the parameter value for the new acquisition type code
      */
     public String getNewAcquisitionTypeCode();
+
     /**
      * @return the parameter value for the capital object acquisition code group
      */
     public String getCapitalObjectAcquisitionCodeGroup();
+
     /**
      * @return the parameter value for the not new acquisition code group
      */
@@ -110,6 +113,7 @@ public interface AssetGlobalService {
     /**
      * Gets the FISCAL_YEAR_END_MONTH_AND_DAY system parameter
      * TODO This should be refactored to a generic parm accessible to any module.
+     *
      * @return FISCAL_YEAR_END_MONTH_AND_DAY value
      */
     public String getFiscalYearEndDayAndMonth();

@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * BO for the Labor Benefit Rate Category Fringe Benefit
- *
  */
 public class LaborBenefitRateCategory extends PersistableBusinessObjectBase implements org.kuali.kfs.integration.ld.LaborBenefitRateCategory, MutableInactivatable {
 
@@ -38,27 +37,28 @@ public class LaborBenefitRateCategory extends PersistableBusinessObjectBase impl
 
     /**
      * Getter method to get the laborBenefitRateCategoryCode
+     *
      * @return laborBenefitRateCategoryCode
      */
-	@Override
+    @Override
     public String getLaborBenefitRateCategoryCode() {
-		return laborBenefitRateCategoryCode;
-	}
+        return laborBenefitRateCategoryCode;
+    }
 
     /**
-     *
      * Method to set the code
+     *
      * @param code
      */
     @Override
     public void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode) {
-		this.laborBenefitRateCategoryCode = laborBenefitRateCategoryCode;
-	}
+        this.laborBenefitRateCategoryCode = laborBenefitRateCategoryCode;
+    }
 
 
     /**
-     *
      * Getter method for the code's description
+     *
      * @return codeDesc
      */
     @Override
@@ -66,15 +66,16 @@ public class LaborBenefitRateCategory extends PersistableBusinessObjectBase impl
         return codeDesc;
     }
 
-	/**
-	 *
-	 * Sets the codeDesc
-	 * @param codeDesc
-	 */
+    /**
+     * Sets the codeDesc
+     *
+     * @param codeDesc
+     */
     @Override
     public void setCodeDesc(String codeDesc) {
         this.codeDesc = codeDesc;
     }
+
     protected LinkedHashMap toStringMapper() {
         LinkedHashMap m = new LinkedHashMap();
 
@@ -82,7 +83,7 @@ public class LaborBenefitRateCategory extends PersistableBusinessObjectBase impl
         m.put("codeDesc", this.codeDesc);
 
         return m;
-	}
+    }
 
     @Override
     public boolean isActive() {

@@ -16,30 +16,30 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-   package org.kuali.kfs.module.tem.document.validation.impl;
+package org.kuali.kfs.module.tem.document.validation.impl;
 
-   import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
-   public class TravelAuthOtherExpenseBlanketTripTypeValidation extends GenericValidation {
+public class TravelAuthOtherExpenseBlanketTripTypeValidation extends GenericValidation {
     @Override
     public boolean validate(AttributedDocumentEvent event) {
-           boolean rulePassed = true;
-           TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument)event.getDocument();
+        boolean rulePassed = true;
+        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument) event.getDocument();
 
-           if (taDocument.isBlanketTravel()) {
-              // If the user selects Blanket Trip Type, expenses are not required since there will be nothing to encumber.
-              // (NOTE: Blanket Travel implies in-state travel)
-              GlobalVariables.getMessageMap().putError(TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINE, TemKeyConstants.ERROR_TA_BLANKET_TYPE_NO_EXPENSES);
-              taDocument.logErrors();
-              rulePassed = false;
-           }
+        if (taDocument.isBlanketTravel()) {
+            // If the user selects Blanket Trip Type, expenses are not required since there will be nothing to encumber.
+            // (NOTE: Blanket Travel implies in-state travel)
+            GlobalVariables.getMessageMap().putError(TemPropertyConstants.NEW_ACTUAL_EXPENSE_LINE, TemKeyConstants.ERROR_TA_BLANKET_TYPE_NO_EXPENSES);
+            taDocument.logErrors();
+            rulePassed = false;
+        }
 
-           return rulePassed;
-       }
+        return rulePassed;
+    }
 
-   }
+}

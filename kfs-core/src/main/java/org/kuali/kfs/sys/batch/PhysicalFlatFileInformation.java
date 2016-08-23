@@ -32,6 +32,7 @@ public class PhysicalFlatFileInformation {
 
     /**
      * Constructs a PhysicalFlatFileInformation
+     *
      * @param fileName the name of the file this encapsulates
      */
     public PhysicalFlatFileInformation(String fileName) {
@@ -41,31 +42,33 @@ public class PhysicalFlatFileInformation {
     }
 
     public void addFileErrorMessages(List<String> messages) {
-        for(String message : messages) {
-            this.messages.add(new String[] { FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.ERROR), message });
+        for (String message : messages) {
+            this.messages.add(new String[]{FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.ERROR), message});
         }
     }
 
     /**
      * Adds an error message applicable to the entire file
+     *
      * @param message
      */
     public void addFileErrorMessage(String message) {
-        this.messages.add(new String[] { FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.ERROR), message });
+        this.messages.add(new String[]{FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.ERROR), message});
     }
 
     public void addFileInfoMessage(List<String> messages) {
-        for(String message : messages) {
-            this.messages.add(new String[] { FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.INFO), message });
+        for (String message : messages) {
+            this.messages.add(new String[]{FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.INFO), message});
         }
     }
 
     /**
      * Adds an informative message applicable to the entire file
+     *
      * @param message
      */
     public void addFileInfoMessage(String message) {
-        this.messages.add(new String[] { FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.INFO), message });
+        this.messages.add(new String[]{FlatFileTransactionInformation.getEntryTypeString(FlatFileTransactionInformation.EntryType.INFO), message});
     }
 
     /**
@@ -77,6 +80,7 @@ public class PhysicalFlatFileInformation {
 
     /**
      * Sets the file name of the physical file encapsulated in this PhysicalFlatFileInformation object
+     *
      * @param fileName the file name of the physical file encapsulated in this PhysicalFlatFileInformation object
      */
     public void setFileName(String fileName) {
@@ -92,7 +96,7 @@ public class PhysicalFlatFileInformation {
 
     public String getAllMessages() {
         StringBuffer message = new StringBuffer();
-        for(String[] resultMessage : getMessages()) {
+        for (String[] resultMessage : getMessages()) {
             message.append(resultMessage[1]);
             message.append("\n");
         }
@@ -101,6 +105,7 @@ public class PhysicalFlatFileInformation {
 
     /**
      * Sets a List of messages associated with the physical file as a whole
+     *
      * @param messages a List of messages
      */
     public void setMessages(List<String[]> messages) {
@@ -118,6 +123,7 @@ public class PhysicalFlatFileInformation {
 
     /**
      * Sets the List of FlatFileInformation objects, each representing a logical file within the encapsulated physical file
+     *
      * @param flatFileInfomationList
      */
     public void setFlatFileInfomationList(List<FlatFileInformation> flatFileInfomationList) {

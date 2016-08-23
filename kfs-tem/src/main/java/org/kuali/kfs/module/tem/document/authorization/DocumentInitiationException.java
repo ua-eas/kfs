@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.text.MessageFormat;
-
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.exception.KualiException;
+
+import java.text.MessageFormat;
 
 public class DocumentInitiationException extends KualiException {
     public DocumentInitiationException(String messageKey, Object[] messageParameters) {

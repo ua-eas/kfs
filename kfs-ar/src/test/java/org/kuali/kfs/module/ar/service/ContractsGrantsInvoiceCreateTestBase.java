@@ -152,11 +152,11 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         awardAccount_1.refreshReferenceObject("account");
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         award = ARAwardFixture.CG_AWARD_MONTHLY_BILLED_DATE_VALID.setAwardOrganizationFromFixture((Award) award);
         AwardFundManager awardFundManager = ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager();
-        ((Award)award).getAwardFundManagers().add(awardFundManager);
-        ((Award)award).setAwardPrimaryFundManager(ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager());
+        ((Award) award).getAwardFundManagers().add(awardFundManager);
+        ((Award) award).setAwardPrimaryFundManager(ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager());
         awards.add(award);
 
         return awards;
@@ -172,11 +172,11 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         awardAccount_1.refreshReferenceObject("account");
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         award = ARAwardFixture.CG_AWARD_MONTHLY_BILLED_DATE_VALID.setAwardOrganizationFromFixture((Award) award);
         AwardFundManager awardFundManager = ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager();
-        ((Award)award).getAwardFundManagers().add(awardFundManager);
-        ((Award)award).setAwardPrimaryFundManager(ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager());
+        ((Award) award).getAwardFundManagers().add(awardFundManager);
+        ((Award) award).setAwardPrimaryFundManager(ARAwardFundManagerFixture.AWD_FND_MGR1.createAwardFundManager());
         awards.add(award);
 
         return awards;

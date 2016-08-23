@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
+import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.service.KfsNotificationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.kfs.krad.service.MailService;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * implement the service methods defined in KFS notification service
@@ -65,8 +65,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
             this.setupForNonProductionEnviroment(mailMessage);
 
             mailService.sendMessage(mailMessage);
-        }
-        catch (Exception iae) {
+        } catch (Exception iae) {
             String invalidMailAddressMessage = "[Invalid email address: " + mailMessage.getToAddresses() + "]";
             LOG.error(invalidMailAddressMessage, iae);
 
@@ -78,8 +77,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
             try {
                 mailService.sendMessage(mailMessage);
-            }
-            catch (Exception e1) {
+            } catch (Exception e1) {
                 LOG.error("Failed to send the email: \n" + this.mailMessageToString(mailMessage));
             }
         }
@@ -108,7 +106,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
         }
     }
 
-    protected String mailMessageToString(MailMessage mailMessage){
+    protected String mailMessageToString(MailMessage mailMessage) {
         List<String> keyFields = new ArrayList<String>();
         keyFields.add(TO_ADDRESSES);
         keyFields.add(FROM_ADDRESS);
@@ -120,6 +118,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Gets the velocityEngine attribute.
+     *
      * @return Returns the velocityEngine.
      */
     public VelocityEngine getVelocityEngine() {
@@ -128,6 +127,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Sets the velocityEngine attribute value.
+     *
      * @param velocityEngine The velocityEngine to set.
      */
     public void setVelocityEngine(VelocityEngine velocityEngine) {
@@ -136,6 +136,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Gets the kualiConfigurationService attribute.
+     *
      * @return Returns the kualiConfigurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -144,6 +145,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Sets the kualiConfigurationService attribute value.
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -152,6 +154,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Gets the mailService attribute.
+     *
      * @return Returns the mailService.
      */
     public MailService getMailService() {
@@ -160,6 +163,7 @@ public class KfsNotificationServiceImpl implements KfsNotificationService {
 
     /**
      * Sets the mailService attribute value.
+     *
      * @param mailService The mailService to set.
      */
     public void setMailService(MailService mailService) {

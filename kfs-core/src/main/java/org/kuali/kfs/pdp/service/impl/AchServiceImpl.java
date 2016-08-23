@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.pdp.PdpPropertyConstants;
+import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
+import org.kuali.kfs.pdp.service.AchService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.pdp.PdpPropertyConstants;
-import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
-import org.kuali.kfs.pdp.service.AchService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * @see org.kuali.kfs.pdp.service.AchService
@@ -58,8 +58,7 @@ public class AchServiceImpl implements AchService {
             }
 
             return null;
-        }
-        else {
+        } else {
             LOG.debug("getAchInformation() found");
 
             return rows.iterator().next();

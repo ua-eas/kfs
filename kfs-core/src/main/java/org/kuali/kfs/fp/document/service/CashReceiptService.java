@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.List;
+
 /**
- *
  * This service interface defines the methods that a CashReceiptService implementation must provide.
  */
 public interface CashReceiptService {
     /**
      * This method retrieves the cash receipt verification unit for the given user.
-     *
+     * <p>
      * TODO: change this to do something other than return null (which will require updating CashReceiptDocumentAuthorizer, since
      * that's the one place I'm sure that returning a null is interpreted to mean that a user is a member of no verificationUnit)
      *
@@ -43,7 +42,7 @@ public interface CashReceiptService {
      * Returns a List of CashReceiptDocuments for the given verification unit whose status matches the given status code.
      *
      * @param verificationUnit A verification unit for a cash receipt.
-     * @param statusCode A cash receipt status code.
+     * @param statusCode       A cash receipt status code.
      * @return List of CashReceiptDocument instances.
      * @throws IllegalArgumentException Thrown if verificationUnit is blank
      * @throws IllegalArgumentException Thrown if statusCode is blank
@@ -55,7 +54,7 @@ public interface CashReceiptService {
      * given String[].
      *
      * @param verificationUnit A verification unit for a cash receipt.
-     * @param statii A collection of potential cash receipt document statuses.
+     * @param statii           A collection of potential cash receipt document statuses.
      * @return List of CashReceiptDocument instances.
      * @throws IllegalArgumentException Thrown if verificationUnit is blank
      * @throws IllegalArgumentException Thrown if statii is null or empty or contains any blank statusCodes
@@ -83,9 +82,9 @@ public interface CashReceiptService {
     /**
      * Checks whether the CashReceiptDocument's detail and total amounts in each category is invalid, generating global errors if so.
      * A Cash Receipt document is considered containing invalid amount if any of the following is true:
-     *  1. The total check amount is negative;
-     *  2. The total currency amount or coin amount is negative;
-     *  3. The total change currency or coin amount is negative.
+     * 1. The total check amount is negative;
+     * 2. The total currency amount or coin amount is negative;
+     * 3. The total change currency or coin amount is negative.
      * We are not checking the net total here, because that will be checked when the document routes.
      * Note:
      * This method now is optional, since we've added DD validation for each currency/coin roll/count field, to only allow

@@ -24,14 +24,12 @@ import org.kuali.rice.core.api.exception.KualiException;
 
 /**
  * This class represents an FileUploadLimitExceededException.
- *
- *
  */
 
 public class FileUploadLimitExceededException extends KualiException {
 
-	private ActionForm actionForm;
-	private ActionMapping actionMapping;
+    private ActionForm actionForm;
+    private ActionMapping actionMapping;
 
     /**
      * Create an FileUploadLimitExceededException with the given message
@@ -54,18 +52,18 @@ public class FileUploadLimitExceededException extends KualiException {
         super(message, cause);
     }
 
-	/**
-	 * @return the actionForm
-	 */
-	public ActionForm getActionForm() {
-		return this.actionForm;
-	}
+    /**
+     * @return the actionForm
+     */
+    public ActionForm getActionForm() {
+        return this.actionForm;
+    }
 
-	/**
-	 * @return the actionMapping
-	 */
-	public ActionMapping getActionMapping() {
-		return this.actionMapping;
-	}
+    /**
+     * @return the actionMapping
+     */
+    public ActionMapping getActionMapping() {
+        return this.actionMapping;
+    }
 
 }

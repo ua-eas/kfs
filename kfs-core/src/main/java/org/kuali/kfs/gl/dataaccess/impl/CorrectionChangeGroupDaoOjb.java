@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -27,6 +25,8 @@ import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
 import org.kuali.kfs.gl.dataaccess.CorrectionChangeGroupDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Collection;
 
 /**
  * The OJB implementation of CorrectionChangeGroupDao
@@ -65,11 +65,11 @@ public class CorrectionChangeGroupDaoOjb extends PlatformAwareDaoBaseOjb impleme
     /**
      * Finds the specific group associated with the given document with the given group number
      *
-     * @param documentNumber the document number of the correction change group to retrieve
+     * @param documentNumber              the document number of the correction change group to retrieve
      * @param CorrectionChangeGroupNumber the number of the group to retrieve
      * @return the found CorrectionChangeGroup, or null if not found
      * @see org.kuali.kfs.gl.dataaccess.CorrectionChangeGroupDao#findByDocumentNumberAndCorrectionChangeGroupNumber(java.lang.String,
-     *      java.lang.Integer)
+     * java.lang.Integer)
      */
     public CorrectionChangeGroup findByDocumentNumberAndCorrectionChangeGroupNumber(String documentNumber, Integer CorrectionChangeGroupNumber) {
         LOG.debug("findByDocumentNumberAndCorrectionChangeGroupNumber() started");

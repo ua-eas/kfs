@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
+import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
+
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 
 /*
  * This is a simple java bean class created for
@@ -43,42 +43,55 @@ public class PaymentHeader extends TimestampedBusinessObjectBase {
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getUnit() {
         return unit;
     }
+
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
     public String getSubUnit() {
         return subUnit;
     }
+
     public void setSubUnit(String subUnit) {
         this.subUnit = subUnit;
     }
+
     public Timestamp getCreationDate() {
         return creationDate;
     }
+
     public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
+
     public String getVendorOrEmployee() {
         return vendorOrEmployee;
     }
+
     public void setVendorOrEmployee(String vendorOrEmployee) {
         this.vendorOrEmployee = vendorOrEmployee;
     }
+
     public String getSourceDocNumber() {
         return sourceDocNumber;
     }
+
     public void setSourceDocNumber(String sourceDocNumber) {
         this.sourceDocNumber = sourceDocNumber;
     }
+
     public Date getPaymentDate() {
         return paymentDate;
     }
+
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }

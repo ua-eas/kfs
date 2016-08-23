@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.REVERSAL_DATE;
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * A validation of the reversal date on a Journal Voucher document
@@ -37,6 +37,7 @@ public class JournalVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * Checks that if the reveral date for the document is not null, that the reversal date has not already occurred
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,6 +51,7 @@ public class JournalVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * Gets the journalVoucherForValidation attribute.
+     *
      * @return Returns the journalVoucherForValidation.
      */
     public JournalVoucherDocument getJournalVoucherForValidation() {
@@ -58,6 +60,7 @@ public class JournalVoucherReversalDateValidation extends GenericValidation {
 
     /**
      * Sets the journalVoucherForValidation attribute value.
+     *
      * @param journalVoucherForValidation The journalVoucherForValidation to set.
      */
     public void setJournalVoucherForValidation(JournalVoucherDocument journalVoucherForDocument) {

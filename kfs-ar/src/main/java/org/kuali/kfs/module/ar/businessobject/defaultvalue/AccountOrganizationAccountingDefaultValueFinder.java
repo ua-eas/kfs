@@ -28,6 +28,6 @@ public class AccountOrganizationAccountingDefaultValueFinder extends Organizatio
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
     public String getValue() {
-        return (organizationAccountingDefault != null)? organizationAccountingDefault.getDefaultInvoiceAccountNumber() : "";
+        return (organizationAccountingDefault != null) ? organizationAccountingDefault.getDefaultInvoiceAccountNumber() : "";
     }
 }

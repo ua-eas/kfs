@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.sys.dataaccess.impl;
 
-import java.sql.Date;
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -29,6 +26,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
 
 /**
  * The OJB implementation of the UniversityDateDao
@@ -61,7 +60,7 @@ public class UniversityDateDaoOjb extends PlatformAwareDaoBaseOjb implements Uni
 
         subCrit.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, fiscalYear);
         subQuery = QueryFactory.newReportQuery(UniversityDate.class, subCrit);
-        subQuery.setAttributes(new String[] { "max(univ_dt)" });
+        subQuery.setAttributes(new String[]{"max(univ_dt)"});
 
         crit.addGreaterOrEqualThan(KFSPropertyConstants.UNIVERSITY_DATE, subQuery);
 
@@ -85,7 +84,7 @@ public class UniversityDateDaoOjb extends PlatformAwareDaoBaseOjb implements Uni
 
         subCrit.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, fiscalYear);
         subQuery = QueryFactory.newReportQuery(UniversityDate.class, subCrit);
-        subQuery.setAttributes(new String[] { "min(univ_dt)" });
+        subQuery.setAttributes(new String[]{"min(univ_dt)"});
 
         crit.addGreaterOrEqualThan(KFSPropertyConstants.UNIVERSITY_DATE, subQuery);
 

@@ -16,10 +16,10 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page docTitle="Dashboard" showDocumentInfo="false"
           headerTitle="Dashboard" transactionalDocument="false"
           renderInnerDiv="true" openNav="true">
-	<sys:motd/>
+    <sys:motd/>
 </kul:page>

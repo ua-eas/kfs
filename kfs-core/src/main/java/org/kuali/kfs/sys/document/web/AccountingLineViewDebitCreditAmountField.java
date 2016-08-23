@@ -18,22 +18,20 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
 import org.kuali.kfs.fp.document.web.struts.VoucherForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewFieldDefinition;
 import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
 import org.kuali.kfs.sys.document.web.renderers.FieldRenderer;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import java.util.List;
 
 /**
- *
  * This class...
  */
 public class AccountingLineViewDebitCreditAmountField implements RenderableElement, ElementNamable {
@@ -46,6 +44,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Constructs a AccountingLineViewDebitOrCreditAmountField
+     *
      * @param debitOrCreditField
      * @param definition
      * @param isDebit
@@ -62,7 +61,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
-     *
+     * <p>
      * KRAD Conversion: Customization of the fields - Adding fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -71,6 +70,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * This is not an action block
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
@@ -79,6 +79,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * This isn't empty
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isEmpty()
      */
     public boolean isEmpty() {
@@ -87,6 +88,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * This is not hidden
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isHidden()
      */
     public boolean isHidden() {
@@ -109,7 +111,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
         }
         FieldRenderer renderer = SpringContext.getBean(AccountingLineRenderingService.class).getFieldRendererForField(getDebitOrCreditField(), renderingContext.getAccountingLine());
         if (renderer != null) {
-            prepareFieldForRendering(getDebitOrCreditField(), (VoucherForm)renderingContext.getForm(), renderingContext.getCurrentLineCount());
+            prepareFieldForRendering(getDebitOrCreditField(), (VoucherForm) renderingContext.getForm(), renderingContext.getCurrentLineCount());
             renderer.setField(getDebitOrCreditField());
             renderer.render(pageContext, parentTag);
             renderer.clear();
@@ -118,11 +120,12 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Sets up the field for rendering by setting the right property name and zeroing out amounts which aren't needed
-     * @param field the field to prepare
-     * @param accountingLine the accounting line being rendered
-     * @param count the count of the current line in the source lines, or null if it's a new line
      *
-     * KRAD Conversion: Customization of preparing the fields for rendering - No use of data dictionary
+     * @param field          the field to prepare
+     * @param accountingLine the accounting line being rendered
+     * @param count          the count of the current line in the source lines, or null if it's a new line
+     *                       <p>
+     *                       KRAD Conversion: Customization of preparing the fields for rendering - No use of data dictionary
      */
     protected void prepareFieldForRendering(Field field, VoucherForm form, Integer count) {
         getDebitOrCreditField().setPropertyPrefix(null);
@@ -132,7 +135,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
             field.setPropertyName(getNewLineProperty());
         } else {
             final String subPropertyName = isDebit ? "debit" : "credit";
-            field.setPropertyName(getCollectionProperty()+"["+count.toString()+"]."+subPropertyName);
+            field.setPropertyName(getCollectionProperty() + "[" + count.toString() + "]." + subPropertyName);
         }
 
         // get the value from the form
@@ -141,6 +144,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the arbitrarilyHighIndex attribute.
+     *
      * @return Returns the arbitrarilyHighIndex.
      */
     public int getArbitrarilyHighIndex() {
@@ -149,6 +153,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the collectionProperty attribute.
+     *
      * @return Returns the collectionProperty.
      */
     public String getCollectionProperty() {
@@ -157,6 +162,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the debitOrCreditField attribute.
+     *
      * @return Returns the debitOrCreditField.
      */
     public Field getDebitOrCreditField() {
@@ -165,6 +171,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the definition attribute.
+     *
      * @return Returns the definition.
      */
     public AccountingLineViewFieldDefinition getDefinition() {
@@ -173,6 +180,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the isDebit attribute.
+     *
      * @return Returns the isDebit.
      */
     public boolean isDebit() {
@@ -181,6 +189,7 @@ public class AccountingLineViewDebitCreditAmountField implements RenderableEleme
 
     /**
      * Gets the newLineProperty attribute.
+     *
      * @return Returns the newLineProperty.
      */
     public String getNewLineProperty() {

@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.module.ld.util;
 
+import junit.framework.TestCase;
+import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
+import org.kuali.kfs.sys.ObjectUtil;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.api.util.type.KualiInteger;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import junit.framework.TestCase;
-
-import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
-import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.api.util.type.KualiInteger;
 
 public class ObjectUtilTest extends TestCase {
 
@@ -50,7 +49,7 @@ public class ObjectUtilTest extends TestCase {
         assertFalse(targetAddress.equals(sourceAddress));
 
         targetAddress = new SimpleAddress(null, null, null, 9999);
-        String[] sourceAddressArray = { "1000 Main Street", "Source City", "Kuali", "10000" };
+        String[] sourceAddressArray = {"1000 Main Street", "Source City", "Kuali", "10000"};
         propertyList.clear();
         propertyList.add("street");
         propertyList.add("city");
@@ -177,7 +176,7 @@ public class ObjectUtilTest extends TestCase {
     }
 
     public void testConvertLineToBusinessObjectBasedOnFieldLength() throws Exception {
-        int[] fieldLength = { 6, 4, 5, 5 };
+        int[] fieldLength = {6, 4, 5, 5};
         String line = "StreetCityState10000";
 
         List<String> propertyList = new ArrayList<String>();
@@ -196,7 +195,7 @@ public class ObjectUtilTest extends TestCase {
     }
 
     public void testConvertLineToBusinessObjectBasedOnFieldLength_WithWhiteSpace() throws Exception {
-        int[] fieldLength = { 8, 6, 7, 7 };
+        int[] fieldLength = {8, 6, 7, 7};
         String line = "Street  City  State  10000  ";
 
         List<String> propertyList = new ArrayList<String>();
@@ -228,8 +227,8 @@ public class ObjectUtilTest extends TestCase {
 
     public void testValueOfInteger() throws Exception {
         String integerType = "Integer";
-        String[] value = { "-100", "0", "100", "", "12.9", "bad value" };
-        String[] expected = { "-100", "0", "100", null, null, null };
+        String[] value = {"-100", "0", "100", "", "12.9", "bad value"};
+        String[] expected = {"-100", "0", "100", null, null, null};
         for (int i = 0; i < value.length; i++) {
             String tempvalue = expected[i];
             Integer expectedValue = tempvalue != null ? Integer.valueOf(expected[i]) : null;
@@ -239,8 +238,8 @@ public class ObjectUtilTest extends TestCase {
 
     public void testValueOfKualiDecimal() throws Exception {
         String type = "KualiDecimal";
-        String[] value = { "-100.00", "0", "100", "100.00", "", "bad value" };
-        String[] expected = { "-100", "0", "100", "100", null, null };
+        String[] value = {"-100.00", "0", "100", "100.00", "", "bad value"};
+        String[] expected = {"-100", "0", "100", "100", null, null};
         for (int i = 0; i < value.length; i++) {
             String tempvalue = expected[i];
             KualiDecimal expectedValue = tempvalue != null ? new KualiDecimal(expected[i]) : null;
@@ -250,8 +249,8 @@ public class ObjectUtilTest extends TestCase {
 
     public void testValueOfKualiInteger() throws Exception {
         String type = "KualiInteger";
-        String[] value = { "-100", "0", "100", "100.00", "", "bad value" };
-        String[] expected = { "-100", "0", "100", null, null, null };
+        String[] value = {"-100", "0", "100", "100.00", "", "bad value"};
+        String[] expected = {"-100", "0", "100", null, null, null};
         for (int i = 0; i < value.length; i++) {
             String tempvalue = expected[i];
             KualiInteger expectedValue = tempvalue != null ? new KualiInteger(expected[i]) : null;
@@ -261,8 +260,8 @@ public class ObjectUtilTest extends TestCase {
 
     public void testValueOfDate() throws Exception {
         String type = "Date";
-        String[] value = { "2000-01-31", "2000/1/1", "1/1/2000", "", "bad value" };
-        String[] expected = { "2000-01-31", null, null, null, null };
+        String[] value = {"2000-01-31", "2000/1/1", "1/1/2000", "", "bad value"};
+        String[] expected = {"2000-01-31", null, null, null, null};
         for (int i = 0; i < value.length; i++) {
             String tempvalue = expected[i];
             Date expectedValue = tempvalue != null ? Date.valueOf(expected[i]) : null;
@@ -272,8 +271,8 @@ public class ObjectUtilTest extends TestCase {
 
     public void testValueOfTimestamp() throws Exception {
         String type = "Timestamp";
-        String[] value = { "2000-01-31 00:12:00.55", "2000-01-31", "2000/1/1", "1/1/2000", "", "bad value" };
-        String[] expected = { "2000-01-31 00:12:00.55", "2000-01-31 00:00:00.0", null, null, null, null };
+        String[] value = {"2000-01-31 00:12:00.55", "2000-01-31", "2000/1/1", "1/1/2000", "", "bad value"};
+        String[] expected = {"2000-01-31 00:12:00.55", "2000-01-31 00:00:00.0", null, null, null, null};
         for (int i = 0; i < value.length; i++) {
             String tempvalue = expected[i];
             Timestamp expectedValue = tempvalue != null ? Timestamp.valueOf(expected[i]) : null;

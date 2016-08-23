@@ -16,48 +16,48 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="advanceDepositAttributes"
-	value="${DataDictionary['AdvanceDepositDocument'].attributes}" />
+       value="${DataDictionary['AdvanceDepositDocument'].attributes}"/>
 <c:set var="readOnly"
-	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+       value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
 <kul:documentPage showDocumentInfo="true"
-	htmlFormAction="financialAdvanceDeposit"
-	documentTypeName="AdvanceDepositDocument" renderMultipart="true"
-	showTabButtons="true">
-	<sys:hiddenDocumentFields />
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
-	<SCRIPT type="text/javascript">
-	    <!--
-	        function submitForm() {
-	            document.forms[0].submit();
-	        }
-	    //-->
-	</SCRIPT>
+                  htmlFormAction="financialAdvanceDeposit"
+                  documentTypeName="AdvanceDepositDocument" renderMultipart="true"
+                  showTabButtons="true">
+    <sys:hiddenDocumentFields/>
+    <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
+    <SCRIPT type="text/javascript">
+        <!--
+        function submitForm() {
+            document.forms[0].submit();
+        }
+        //-->
+    </SCRIPT>
 
-	<fp:advanceDeposits editingMode="${KualiForm.editingMode}" />
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS},newSourceLine*"
-			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
-		<sys-java:accountingLines>
-			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-		</sys-java:accountingLines>
-	</kul:tab>
+    <fp:advanceDeposits editingMode="${KualiForm.editingMode}"/>
+    <kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS},newSourceLine*"
+             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
+        <sys-java:accountingLines>
+            <sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source"/>
+        </sys-java:accountingLines>
+    </kul:tab>
 
-	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-  	<fp:capitalAccountingLines readOnly="${readOnly}"/>
+    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
+    <fp:capitalAccountingLines readOnly="${readOnly}"/>
 
-	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
-		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
-	</c:if>
+    <c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
+        <fp:capitalAssetCreateTab readOnly="${readOnly}"/>
+    </c:if>
 
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+    <fp:capitalAssetModifyTab readOnly="${readOnly}"/>
 
-	<gl:generalLedgerPendingEntries />
-	<kul:notes />
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
-	<sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}"  extraButtons="${KualiForm.extraButtons}" />
+    <gl:generalLedgerPendingEntries/>
+    <kul:notes/>
+    <kul:adHocRecipients/>
+    <kul:routeLog/>
+    <kul:superUserActions/>
+    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}"/>
 </kul:documentPage>

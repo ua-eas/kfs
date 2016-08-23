@@ -19,6 +19,16 @@
 
 package org.kuali.kfs.module.ec.businessobject;
 
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.integration.ec.EffortCertificationReport;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.ec.EffortPropertyConstants;
+import org.kuali.kfs.module.ec.util.AccountingPeriodMonth;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,16 +36,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.integration.ec.EffortCertificationReport;
-import org.kuali.kfs.module.ec.EffortPropertyConstants;
-import org.kuali.kfs.module.ec.util.AccountingPeriodMonth;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Business Object for the Effort Certification Report Definition Table.
@@ -314,6 +314,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * gets expenseTrasferYear
+     *
      * @return
      */
     public SystemOptions getExpenseTransferYear() {
@@ -322,6 +323,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * sets expenseTrasferYear attribute
+     *
      * @param expenseTransferYear
      */
     @Deprecated
@@ -330,8 +332,8 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     *
      * gets reportBeginFiscalYear attribute value
+     *
      * @return
      */
     public SystemOptions getReportBeginFiscalYear() {
@@ -339,8 +341,8 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     *
      * sets the reportBeginFiscalYear attribute
+     *
      * @param reportBeginFiscalYear
      */
     @Deprecated
@@ -349,8 +351,8 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     *
      * gets reportEndFiscalYear attribute
+     *
      * @return
      */
     public SystemOptions getReportEndFiscalYear() {
@@ -358,8 +360,8 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     *
      * sets reportEndFiscalYear attribute
+     *
      * @param reportEndFiscalYear
      */
     @Deprecated
@@ -368,8 +370,8 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     *
      * gets reportBeginPeriod
+     *
      * @return
      */
     public AccountingPeriod getReportBeginPeriod() {
@@ -379,6 +381,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     /**
      * sets reportBeginFiscalPeriod
      * This method...
+     *
      * @param reportBeginPeriod
      */
     @Deprecated
@@ -388,6 +391,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * gets reporEndPeriod
+     *
      * @return
      */
     public AccountingPeriod getReportEndPeriod() {
@@ -396,6 +400,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * sets reportEndPeriod
+     *
      * @param reportEndPeriod
      */
     @Deprecated
@@ -516,7 +521,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
      * build a primary key field map for a report definition from the given values
      *
      * @param universityFiscalYear the given fiscal year
-     * @param reportNumber the given report number
+     * @param reportNumber         the given report number
      * @return a primary key field map for a report definition
      */
     public static Map<String, String> buildKeyMap(Integer universityFiscalYear, String reportNumber) {
@@ -543,6 +548,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the reportPeriods attribute.
+     *
      * @return Returns the reportPeriods.
      */
     public Map<Integer, Set<String>> getReportPeriods() {
@@ -554,6 +560,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the reportPeriods attribute value.
+     *
      * @param reportPeriods The reportPeriods to set.
      */
     public void setReportPeriods(Map<Integer, Set<String>> reportPeriods) {

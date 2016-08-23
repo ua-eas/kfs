@@ -18,17 +18,21 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.io.*;
-
 import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Tests the CollecterStep. DEPENDENCIES: Collector card xml file transaction1.xml must be in /opt/kuali/dev/staging/collector/ this
@@ -61,9 +65,9 @@ public class CollectorStepTest extends KualiTestBase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        originEntryBatchDirectoryHelper = new BatchDirectoryHelper("gl","originEntry");
+        originEntryBatchDirectoryHelper = new BatchDirectoryHelper("gl", "originEntry");
         originEntryBatchDirectoryHelper.createBatchDirectory();
-        collectorXmlBatchDirectoryHelper = new BatchDirectoryHelper("gl","collectorXml");
+        collectorXmlBatchDirectoryHelper = new BatchDirectoryHelper("gl", "collectorXml");
         collectorXmlBatchDirectoryHelper.createBatchDirectory();
 
         // copy fixture files to directory
@@ -171,8 +175,7 @@ public class CollectorStepTest extends KualiTestBase {
 
             assertTrue("collector step did not exit with pass", goodExit);
             assertFalse("done file was not removed", isDoneFileExists());
-        }
-        finally {
+        } finally {
             deleteDoneFile();
         }
     }

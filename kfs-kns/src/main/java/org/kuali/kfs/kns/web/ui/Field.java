@@ -19,14 +19,14 @@
 package org.kuali.kfs.kns.web.ui;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.krad.datadictionary.mask.Mask;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kew.api.KewApiConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +38,6 @@ import java.util.Set;
 
 /**
  * Represents a Field (form field or read only)
- *
- *
  */
 @Deprecated
 public class Field implements java.io.Serializable, PropertyRenderingConfigElement {
@@ -799,14 +797,14 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
     /**
      * @param fieldConversionsMap The fieldConversions to set.
      */
-    public void setFieldConversions(Map<String,String> fieldConversionsMap) {
+    public void setFieldConversions(Map<String, String> fieldConversionsMap) {
         List<String> keyValuePairStrings = new ArrayList<String>();
         for (String key : fieldConversionsMap.keySet()) {
             String mappedField = fieldConversionsMap.get(key);
-            keyValuePairStrings.add(key + ":" + mappedField) ;
+            keyValuePairStrings.add(key + ":" + mappedField);
         }
-        String commaDelimitedConversions = StringUtils.join(keyValuePairStrings,",");
-        setFieldConversions(commaDelimitedConversions );
+        String commaDelimitedConversions = StringUtils.join(keyValuePairStrings, ",");
+        setFieldConversions(commaDelimitedConversions);
     }
 
 
@@ -891,7 +889,7 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
      */
     public void setLookupParameters(Map lookupParametersMap) {
         String lookupParameterString = "";
-        for (Iterator iter = lookupParametersMap.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = lookupParametersMap.keySet().iterator(); iter.hasNext(); ) {
             String field = (String) iter.next();
             String mappedField = (String) lookupParametersMap.get(field);
             lookupParameterString += field + ":" + mappedField;
@@ -1406,7 +1404,6 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
      * MV lookup is performed
      *
      * @param multipleValueLookedUpCollectionName
-     *
      */
     public void setMultipleValueLookedUpCollectionName(String multipleValueLookedUpCollectionName) {
         this.multipleValueLookedUpCollectionName = multipleValueLookedUpCollectionName;
@@ -1462,7 +1459,7 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
      * parameter setting.  Note that if a field is read-only, that may cause field-level help to not be rendered.
      *
      * @return true if field level help is enabled, false if the value of this method should NOT be used to determine whether this method's return value
-     *         affects the enablement of field level help
+     * affects the enablement of field level help
      */
     public boolean isFieldLevelHelpEnabled() {
         return this.fieldLevelHelpEnabled;
@@ -1478,7 +1475,7 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
      * setting will determine whether field level help is enabled.  Note that if a field is read-only, that may cause field-level help to not be rendered.
      *
      * @return true if field level help is disabled, false if the value of this method should NOT be used to determine whether this method's return value
-     *         affects the enablement of field level help
+     * affects the enablement of field level help
      */
     public boolean isFieldLevelHelpDisabled() {
         return this.fieldLevelHelpDisabled;
@@ -1519,7 +1516,7 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
     }
 
     public boolean getHasLookupable() {
-        if (StringUtils.isBlank(quickFinderClassNameImpl) ) {
+        if (StringUtils.isBlank(quickFinderClassNameImpl)) {
             return false;
         } else {
             return true;
@@ -1695,11 +1692,10 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
     }
 
     /**
-     * @param webUILeaveFieldFunctionParameters
-     *         the webUILeaveFieldFunctionParameters to set
+     * @param webUILeaveFieldFunctionParameters the webUILeaveFieldFunctionParameters to set
      */
     public void setWebUILeaveFieldFunctionParameters(
-            List<String> webUILeaveFieldFunctionParameters) {
+        List<String> webUILeaveFieldFunctionParameters) {
         this.webUILeaveFieldFunctionParameters = webUILeaveFieldFunctionParameters;
     }
 

@@ -28,25 +28,22 @@ import javax.servlet.jsp.JspException;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class KNSELTextareaTag extends ELTextareaTag {
-	/**
-	 * @see org.apache.struts.taglib.html.BaseInputTag#doEndTag()
-	 */
-	@Override
+    /**
+     * @see org.apache.struts.taglib.html.BaseInputTag#doEndTag()
+     */
+    @Override
     public int doEndTag() throws JspException {
         int returnVal = super.doEndTag();
         if (!getDisabled() && !getReadonly()) {
-        	String name = prepareName();
-        	if (StringUtils.isNotBlank(name)) {
-	        	ActionForm form = WebUtils.getKualiForm(pageContext);
-	            if(form!=null && form instanceof PojoForm) {
-	            	((PojoForm) form).registerEditableProperty(name);
-	            }
-        	}
+            String name = prepareName();
+            if (StringUtils.isNotBlank(name)) {
+                ActionForm form = WebUtils.getKualiForm(pageContext);
+                if (form != null && form instanceof PojoForm) {
+                    ((PojoForm) form).registerEditableProperty(name);
+                }
+            }
         }
         return returnVal;
     }

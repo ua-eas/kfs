@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.fp.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CheckBase;
+
+import java.util.Collection;
 
 /**
  * The data access interface for persisting Check objects.

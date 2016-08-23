@@ -18,20 +18,20 @@
  */
 package org.kuali.rice.core.util.jaxb;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
+
 import javax.xml.bind.MarshalException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 
 /**
  * An XML adapter that simply validates the NameAndNamespacePair to ensure that the name and namespace are non-blank
  * and that the namespace code maps to a valid namespace in the system. This adapter will also pass the name to
  * a NormalizedStringAdapter instance for marshalling/unmarshalling.
  */
-public class NameAndNamespacePairValidatingAdapter extends XmlAdapter<NameAndNamespacePair,NameAndNamespacePair> {
+public class NameAndNamespacePairValidatingAdapter extends XmlAdapter<NameAndNamespacePair, NameAndNamespacePair> {
 
     /**
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
@@ -44,9 +44,10 @@ public class NameAndNamespacePairValidatingAdapter extends XmlAdapter<NameAndNam
                 throw new UnmarshalException("Cannot import a name-and-namespace pair with a blank name");
             } else if (StringUtils.isBlank(v.getNamespaceCode())) {
                 throw new UnmarshalException("Cannot import a name-and-namespace pair with a blank namespace code");
-            } if (CoreServiceApiServiceLocator.getNamespaceService().getNamespace(v.getNamespaceCode()) == null) {
+            }
+            if (CoreServiceApiServiceLocator.getNamespaceService().getNamespace(v.getNamespaceCode()) == null) {
                 throw new UnmarshalException("Cannot import a name-and-namespace pair with invalid or unknown namespace \"" +
-                        v.getNamespaceCode() + "\"");
+                    v.getNamespaceCode() + "\"");
             }
 
             v.setName(new NormalizedStringAdapter().unmarshal(v.getName()));

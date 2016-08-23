@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.GENERIC_CODE_PROPERTY_NAME;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.sys.KFSConstants;
@@ -30,6 +28,8 @@ import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
+import static org.kuali.kfs.sys.KFSConstants.GENERIC_CODE_PROPERTY_NAME;
+
 /**
  * Validates that a labor journal voucher document's accounting lines have valid encumbrance code
  */
@@ -38,16 +38,17 @@ public class LaborJournalVoucherExternalEncumbranceValidation extends GenericVal
 
     /**
      * Validates that the accounting line in the labor journal voucher document for valid encumbrance code
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
 
-        AccountingLine accountingLineForValidation = getAccountingLineForValidation() ;
+        AccountingLine accountingLineForValidation = getAccountingLineForValidation();
         if (!externalEncumbranceSpecificBusinessRulesValid(accountingLineForValidation)) {
-            result = false ;
+            result = false;
         }
-        return result ;
+        return result;
     }
 
     /**
@@ -57,19 +58,18 @@ public class LaborJournalVoucherExternalEncumbranceValidation extends GenericVal
      * @return True if accountingLineForValidation has the valid encumbrance code, false otherwise.
      */
     protected boolean externalEncumbranceSpecificBusinessRulesValid(AccountingLine accountingLineForValidation) {
-        boolean externalEncumbranceValid  = true ;
+        boolean externalEncumbranceValid = true;
 
         accountingLineForValidation.refreshReferenceObject(KFSPropertyConstants.BALANCE_TYP);
         BalanceType balanceTyp = accountingLineForValidation.getBalanceTyp();
-        AccountingDocumentRuleHelperService journalVoucherRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class) ;
+        AccountingDocumentRuleHelperService journalVoucherRuleUtil = SpringContext.getBean(AccountingDocumentRuleHelperService.class);
         if (!journalVoucherRuleUtil.isValidBalanceType(balanceTyp, GENERIC_CODE_PROPERTY_NAME)) {
-            externalEncumbranceValid = false ;
-        }
-        else if (balanceTyp.isFinBalanceTypeEncumIndicator() && KFSConstants.ENCUMB_UPDT_DOCUMENT_CD.equals(accountingLineForValidation.getEncumbranceUpdateCode())) {
+            externalEncumbranceValid = false;
+        } else if (balanceTyp.isFinBalanceTypeEncumIndicator() && KFSConstants.ENCUMB_UPDT_DOCUMENT_CD.equals(accountingLineForValidation.getEncumbranceUpdateCode())) {
             externalEncumbranceValid = this.isRequiredReferenceFieldsValid(accountingLineForValidation);
         }
 
-        return externalEncumbranceValid ;
+        return externalEncumbranceValid;
     }
 
     /**
@@ -96,6 +96,7 @@ public class LaborJournalVoucherExternalEncumbranceValidation extends GenericVal
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -104,6 +105,7 @@ public class LaborJournalVoucherExternalEncumbranceValidation extends GenericVal
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

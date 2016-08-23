@@ -18,9 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -38,10 +40,8 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Date;
 
 public class TravelAuthTripInformationValidation extends GenericValidation {
     private TravelService travelService;
@@ -57,7 +57,7 @@ public class TravelAuthTripInformationValidation extends GenericValidation {
         if ((!StringUtils.isBlank(document.getTraveler().getPhoneNumber())) && (!StringUtils.isBlank(document.getTraveler().getCountryCode()))) {
             String errorMessage = getTravelService().validatePhoneNumber(document.getTraveler().getCountryCode(), document.getTraveler().getPhoneNumber(), TemKeyConstants.ERROR_PHONE_NUMBER);
             if (!StringUtils.isBlank(errorMessage)) {
-                GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + TravelAuthorizationFields.TRAVELER_PHONENUMBER, errorMessage, new String[] { "Traveler Phone Number" });
+                GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_PROPERTY_NAME + "." + TravelAuthorizationFields.TRAVELER_PHONENUMBER, errorMessage, new String[]{"Traveler Phone Number"});
                 rulePassed = false;
             }
         }
@@ -89,7 +89,7 @@ public class TravelAuthTripInformationValidation extends GenericValidation {
             }
 
             //validate the primary destination if selected indicator
-            if (!document.getPrimaryDestinationIndicator()){
+            if (!document.getPrimaryDestinationIndicator()) {
                 PrimaryDestination destination = document.getPrimaryDestination();
                 //primary destination trip type code should match the document
                 if (!ObjectUtils.isNull(destination.getRegion()) && !document.getTripTypeCode().equals(destination.getRegion().getTripTypeCode())) {

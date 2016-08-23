@@ -34,21 +34,22 @@ public class AdHocRouteWorkgroupId implements Serializable {
 
     private static final long serialVersionUID = -3782889247235043846L;
 
-	@Column(name="RECIP_TYP_CD")
+    @Column(name = "RECIP_TYP_CD")
     private Integer type;
     @Id
-    @Column(name="ACTN_RQST_CD")
+    @Column(name = "ACTN_RQST_CD")
     private String actionRequested;
     @Id
-    @Column(name="ACTN_RQST_RECIP_ID")
+    @Column(name = "ACTN_RQST_RECIP_ID")
     private String id;
 
-    public AdHocRouteWorkgroupId() {}
+    public AdHocRouteWorkgroupId() {
+    }
 
     public AdHocRouteWorkgroupId(Integer type, String actionRequested, String id) {
-    	this.type = type;
-    	this.actionRequested = actionRequested;
-    	this.id = id;
+        this.type = type;
+        this.actionRequested = actionRequested;
+        this.id = id;
     }
 
     public Integer getType() {
@@ -72,7 +73,7 @@ public class AdHocRouteWorkgroupId implements Serializable {
     }
 
     public int hashCode() {
-    	return new HashCodeBuilder().append(type).append(actionRequested).append(id).toHashCode();
+        return new HashCodeBuilder().append(type).append(actionRequested).append(id).toHashCode();
     }
 
 }

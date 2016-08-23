@@ -18,18 +18,16 @@
  */
 package org.kuali.kfs.kns.datadictionary.exporter;
 
-import java.util.Iterator;
-
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.datadictionary.FieldDefinition;
 import org.kuali.kfs.kns.datadictionary.InquiryDefinition;
 import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
+
+import java.util.Iterator;
 
 /**
  * InquiryMapBuilder
- *
- *
  */
 @Deprecated
 public class InquiryMapBuilder {
@@ -44,33 +42,33 @@ public class InquiryMapBuilder {
     /**
      * @param inquiry
      * @return ExportMap containing the standard entries for the entry's InquiryDefinition, or null if the given entry has no
-     *         inquiryDefinition
+     * inquiryDefinition
      */
     public ExportMap buildInquiryMap(BusinessObjectEntry entry) {
-    	try {
-	        ExportMap inquiryMap = null;
+        try {
+            ExportMap inquiryMap = null;
 
-	        if (entry.hasInquiryDefinition()) {
-	            InquiryDefinition inquiryDefinition = entry.getInquiryDefinition();
-	            inquiryMap = new ExportMap("inquiry");
+            if (entry.hasInquiryDefinition()) {
+                InquiryDefinition inquiryDefinition = entry.getInquiryDefinition();
+                inquiryMap = new ExportMap("inquiry");
 
-	            inquiryMap.set("title", inquiryDefinition.getTitle());
+                inquiryMap.set("title", inquiryDefinition.getTitle());
 
-	            inquiryMap.set(buildInquiryFieldsMap(inquiryDefinition));
-	        }
+                inquiryMap.set(buildInquiryFieldsMap(inquiryDefinition));
+            }
 
-	        return inquiryMap;
-    	} catch ( Exception ex ) {
-    		throw new RuntimeException( "Unable to build inquiry Map for " + entry, ex );
-    	}
+            return inquiryMap;
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to build inquiry Map for " + entry, ex);
+        }
     }
 
     private ExportMap buildInquiryFieldsMap(InquiryDefinition inquiryDefinition) {
         ExportMap inquiryFieldsMap = new ExportMap("inquiryFields");
 
-        for (Iterator i = inquiryDefinition.getInquirySections().iterator(); i.hasNext();) {
+        for (Iterator i = inquiryDefinition.getInquirySections().iterator(); i.hasNext(); ) {
             InquirySectionDefinition inquirySection = (InquirySectionDefinition) i.next();
-            for (Iterator iter = inquirySection.getInquiryFields().iterator(); iter.hasNext();) {
+            for (Iterator iter = inquirySection.getInquiryFields().iterator(); iter.hasNext(); ) {
                 FieldDefinition FieldDefinition = (FieldDefinition) iter.next();
                 inquiryFieldsMap.set(MapperUtils.buildFieldMap(FieldDefinition));
             }

@@ -21,14 +21,12 @@ package org.kuali.kfs.krad.dao.impl;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
+import org.kuali.kfs.krad.bo.Attachment;
 import org.kuali.kfs.krad.dao.AttachmentDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.bo.Attachment;
 
 /**
  * This class is the OJB implementation of the NoteDao interface.
- *
- *
  */
 public class AttachmentDaoOjb extends PlatformAwareDaoBaseOjb implements AttachmentDao {
     private static Logger LOG = Logger.getLogger(AttachmentDaoOjb.class);

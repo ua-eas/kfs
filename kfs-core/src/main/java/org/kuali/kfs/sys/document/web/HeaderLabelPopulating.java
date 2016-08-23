@@ -24,7 +24,8 @@ package org.kuali.kfs.sys.document.web;
 public interface HeaderLabelPopulating {
     /**
      * Asks that the HeaderLabelPopulating implementor populate the header label
-     * @param label the header label to populate
+     *
+     * @param label            the header label to populate
      * @param renderingContext the rendering context the label will be populated in
      */
     public abstract void populateHeaderLabel(HeaderLabel label, AccountingLineRenderingContext renderingContext);

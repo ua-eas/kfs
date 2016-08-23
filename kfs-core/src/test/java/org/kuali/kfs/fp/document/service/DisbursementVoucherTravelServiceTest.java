@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.fp.document.service;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Collection;
-
 import org.joda.time.DateTime;
 import org.kuali.kfs.fp.businessobject.TravelMileageRate;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.dataaccess.TravelMileageRateDao;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * This class tests the DisbursementVoucherTravel service.
@@ -153,7 +153,7 @@ public class DisbursementVoucherTravelServiceTest extends KualiTestBase {
      * @throws Exception
      */
     public void testCalculateMileageAmount() throws Exception {
-        Timestamp effectiveDate = new Timestamp( DateTime.parse("2004-01-01").toDateMidnight().toDate().getTime() );
+        Timestamp effectiveDate = new Timestamp(DateTime.parse("2004-01-01").toDateMidnight().toDate().getTime());
 
         runMileageAmountTest(new Integer(0), KualiDecimal.ZERO, effectiveDate);
         runMileageAmountTest(new Integer(1), new KualiDecimal(.38), effectiveDate);
@@ -174,7 +174,7 @@ public class DisbursementVoucherTravelServiceTest extends KualiTestBase {
     }
 
     public void testCalculateMileageAmount_2012_100miles() throws Exception {
-        Timestamp effectiveDate = new Timestamp( DateTime.parse("2012-12-01").toDateMidnight().toDate().getTime() );
+        Timestamp effectiveDate = new Timestamp(DateTime.parse("2012-12-01").toDateMidnight().toDate().getTime());
 
         runMileageAmountTest(100, KualiDecimal.ZERO, effectiveDate);
         runMileageAmountTest(500, KualiDecimal.ZERO, effectiveDate);
@@ -186,9 +186,9 @@ public class DisbursementVoucherTravelServiceTest extends KualiTestBase {
         assertEquals("Mileage amount not correct miles=" + totalMiles + " / date = " + effectiveDate, expectedMileageAmount, SpringContext.getBean(DisbursementVoucherTravelService.class).calculateMileageAmount(totalMiles, effectiveDate));
     }
 
-    protected TravelMileageRate createRate( DateTime effectiveDate, int mileageLimit, BigDecimal rateAmount ) {
+    protected TravelMileageRate createRate(DateTime effectiveDate, int mileageLimit, BigDecimal rateAmount) {
         TravelMileageRate rate = new TravelMileageRate();
-        rate.setDisbursementVoucherMileageEffectiveDate(new Date( effectiveDate.toDateMidnight().toDate().getTime() ));
+        rate.setDisbursementVoucherMileageEffectiveDate(new Date(effectiveDate.toDateMidnight().toDate().getTime()));
         rate.setMileageLimitAmount(mileageLimit);
         rate.setMileageRate(rateAmount);
         return rate;
@@ -196,35 +196,35 @@ public class DisbursementVoucherTravelServiceTest extends KualiTestBase {
 
     protected void setupMileageRates() {
         sqlDao.sqlCommand("DELETE FROM FP_DV_MLG_T");
-        businessObjectService.save( createRate( DateTime.parse("2012-10-30"), 100, new BigDecimal("5") ) );
-        businessObjectService.save( createRate( DateTime.parse("2012-10-25"), 500, new BigDecimal("0.5") ) );
-        businessObjectService.save( createRate( DateTime.parse("2012-11-01"), 500, new BigDecimal("0.5") ) );
-        businessObjectService.save( createRate( DateTime.parse("2003-07-01"), 0, new BigDecimal("0.375") ) );
-        businessObjectService.save( createRate( DateTime.parse("2003-07-01"), 500, new BigDecimal("0.18") ) );
-        businessObjectService.save( createRate( DateTime.parse("2003-07-01"), 3000, new BigDecimal("0") ) );
-        businessObjectService.save( createRate( DateTime.parse("2012-10-29"), 500, new BigDecimal("0.5") ) );
+        businessObjectService.save(createRate(DateTime.parse("2012-10-30"), 100, new BigDecimal("5")));
+        businessObjectService.save(createRate(DateTime.parse("2012-10-25"), 500, new BigDecimal("0.5")));
+        businessObjectService.save(createRate(DateTime.parse("2012-11-01"), 500, new BigDecimal("0.5")));
+        businessObjectService.save(createRate(DateTime.parse("2003-07-01"), 0, new BigDecimal("0.375")));
+        businessObjectService.save(createRate(DateTime.parse("2003-07-01"), 500, new BigDecimal("0.18")));
+        businessObjectService.save(createRate(DateTime.parse("2003-07-01"), 3000, new BigDecimal("0")));
+        businessObjectService.save(createRate(DateTime.parse("2012-10-29"), 500, new BigDecimal("0.5")));
     }
 
     public void testRetrievedRatesAllHaveSameDate_1() {
-        Date travelStartDate = new Date( DateTime.parse("2012-12-01").toDateMidnight().toDate().getTime() );
-        Collection<TravelMileageRate> rates = rateDao.retrieveMostEffectiveMileageRates( travelStartDate );
-        assertFalse( "rates should have been returned", rates.isEmpty() );
-        System.err.println( rates );
+        Date travelStartDate = new Date(DateTime.parse("2012-12-01").toDateMidnight().toDate().getTime());
+        Collection<TravelMileageRate> rates = rateDao.retrieveMostEffectiveMileageRates(travelStartDate);
+        assertFalse("rates should have been returned", rates.isEmpty());
+        System.err.println(rates);
         Date returnedDate = rates.iterator().next().getDisbursementVoucherMileageEffectiveDate();
-        for ( TravelMileageRate rate : rates ) {
-            assertEquals( "All returned rates should have the same date: " + rate, returnedDate, rate.getDisbursementVoucherMileageEffectiveDate() );
+        for (TravelMileageRate rate : rates) {
+            assertEquals("All returned rates should have the same date: " + rate, returnedDate, rate.getDisbursementVoucherMileageEffectiveDate());
         }
     }
 
     public void testRetrievedRatesAllHaveSameDate_2() {
         DateTime date = new DateTime(2004, 1, 1, 0, 0);
-        Date travelStartDate = new Date( date.toDateMidnight().toDate().getTime() );
-        Collection<TravelMileageRate> rates = rateDao.retrieveMostEffectiveMileageRates( travelStartDate );
-        assertFalse( "rates should have been returned", rates.isEmpty() );
-        System.err.println( rates );
+        Date travelStartDate = new Date(date.toDateMidnight().toDate().getTime());
+        Collection<TravelMileageRate> rates = rateDao.retrieveMostEffectiveMileageRates(travelStartDate);
+        assertFalse("rates should have been returned", rates.isEmpty());
+        System.err.println(rates);
         Date returnedDate = rates.iterator().next().getDisbursementVoucherMileageEffectiveDate();
-        for ( TravelMileageRate rate : rates ) {
-            assertEquals( "All returned rates should have the same date: " + rate, returnedDate, rate.getDisbursementVoucherMileageEffectiveDate() );
+        for (TravelMileageRate rate : rates) {
+            assertEquals("All returned rates should have the same date: " + rate, returnedDate, rate.getDisbursementVoucherMileageEffectiveDate());
         }
     }
 }

@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.module.ec.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.ec.businessobject.DuplicateCertificationsReport;
-import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.module.ec.businessobject.DuplicateCertificationsReport;
+import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Searches for documents that are not approved.
@@ -74,7 +74,7 @@ public class DuplicateCertificationsLookupableHelperServiceImpl extends KualiLoo
             String reportNumber = effortCertificationDocumentBuild.getEffortCertificationReportNumber();
             String emplid = effortCertificationDocumentBuild.getEmplid();
 
-            if ( employeeIdReportNumberMap.get(emplid).size() >1 ) {
+            if (employeeIdReportNumberMap.get(emplid).size() > 1) {
                 DuplicateCertificationsReport temp = new DuplicateCertificationsReport();
 
                 temp.setEffortCertificationReportNumber(effortCertificationDocumentBuild.getEffortCertificationReportNumber());

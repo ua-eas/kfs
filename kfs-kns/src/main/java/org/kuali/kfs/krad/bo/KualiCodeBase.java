@@ -28,13 +28,13 @@ import javax.persistence.MappedSuperclass;
 public class KualiCodeBase extends PersistableBusinessObjectBase implements KualiCode {
 
     private static final long serialVersionUID = 1194744068788100482L;
-	// Code and Name will be overridden by Column annotations in their children classes
+    // Code and Name will be overridden by Column annotations in their children classes
     @Id
-    @Column(name="CODE")
+    @Column(name = "CODE")
     protected String code;
-    @Column(name="NM")
+    @Column(name = "NM")
     protected String name;
-    @Column(name="ACTV_IND")
+    @Column(name = "ACTV_IND")
     protected boolean active;
 
     public KualiCodeBase() {
@@ -96,23 +96,23 @@ public class KualiCodeBase extends PersistableBusinessObjectBase implements Kual
      * @return Returns the code and description in format: xx - xxxxxxxxxxxxxxxx
      */
     public String getCodeAndDescription() {
-    	return KualiCodeBase.getCodeAndDescription(getCode(), getName());
+        return KualiCodeBase.getCodeAndDescription(getCode(), getName());
     }
 
     /**
      * Static helper method to allow other classes to provide consistent "code and description"
      * behavior, even if not extending from this class.
      */
-	public static String getCodeAndDescription(String code, String desc) {
-		if (code != null) {
-			if (desc == null) {
-				return code;
-			} else {
-				return code + " - " + desc;
-			}
-		}
-		return "";
-	}
+    public static String getCodeAndDescription(String code, String desc) {
+        if (code != null) {
+            if (desc == null) {
+                return code;
+            } else {
+                return code + " - " + desc;
+            }
+        }
+        return "";
+    }
 
     /**
      * Implements equals comparing code to code.

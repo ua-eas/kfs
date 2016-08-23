@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.integration.ld;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.lookup.HtmlData;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This interface is exposing the service methods that may be used by the modules outside of labor
@@ -42,10 +42,10 @@ public interface LaborModuleService {
      * find the employees who were paid based on a set of specified pay type within the given report periods. Here, a pay type can
      * be determined by earn code and pay group.
      *
-     * @param payPeriods the given pay periods
-     * @param balanceTypes the specified balance type codes
+     * @param payPeriods          the given pay periods
+     * @param balanceTypes        the specified balance type codes
      * @param earnCodePayGroupMap the combination of earn codes and pay groups, where pay group is the key and earn code set is the
-     *        value
+     *                            value
      * @return the employees who were paid based on a set of specified pay type within the given report periods
      */
     public List<String> findEmployeesWithPayType(Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap);
@@ -54,23 +54,23 @@ public interface LaborModuleService {
      * determine whether the given employee was paid based on a set of specified pay type within the given report periods. Here, a
      * pay type can be determined by earn code and pay group.
      *
-     * @param emplid the given employee id
-     * @param payPeriods the given pay periods
-     * @param balanceTypes the specified balance type codes
+     * @param emplid              the given employee id
+     * @param payPeriods          the given pay periods
+     * @param balanceTypes        the specified balance type codes
      * @param earnCodePayGroupMap the combination of earn codes and pay groups, where pay group is the key and earn code set is the
-     *        value
+     *                            value
      * @return true if the given employee was paid based on a set of specified pay type within the given report periods; otherwise,
-     *         false
+     * false
      */
     public boolean isEmployeeWithPayType(String emplid, Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap);
 
     /**
      * find all ledger balances matching the given criteria within the given fiscal years
      *
-     * @param fieldValues the given field values
-     * @param excludedFieldValues the given field values that must not be matched
-     * @param fiscalYears the given fiscal years
-     * @param balanceTypeList the given balance type code list
+     * @param fieldValues              the given field values
+     * @param excludedFieldValues      the given field values that must not be matched
+     * @param fiscalYears              the given fiscal years
+     * @param balanceTypeList          the given balance type code list
      * @param positionObjectGroupCodes the specified position obejct group codes
      * @return all ledger balances matching the given criteria within the given fiscal years
      */
@@ -80,7 +80,7 @@ public interface LaborModuleService {
      * calculate the fringe benefit amount for the given labor object and salary amount
      *
      * @param laborLedgerObject the given labor object
-     * @param salaryAmount the given salary amount
+     * @param salaryAmount      the given salary amount
      * @param account
      * @return the fringe benefit amount for the given labor object and salary amount
      */
@@ -89,10 +89,10 @@ public interface LaborModuleService {
     /**
      * calculate the fringe benefit amount for the given object code and salary amount
      *
-     * @param fiscalYear the year for object code record
-     * @param chartCode the chart for object code record
-     * @param objectCode the object code
-     * @param salaryAmount amount to calculate benefits for
+     * @param fiscalYear       the year for object code record
+     * @param chartCode        the chart for object code record
+     * @param objectCode       the object code
+     * @param salaryAmount     amount to calculate benefits for
      * @param accountNumber
      * @param subAccountNumber
      * @return the fringe benefit amount
@@ -102,10 +102,10 @@ public interface LaborModuleService {
     /**
      * create and approve a salary expense transfer document generated from the given accounting lines
      *
-     * @param documentDescription the description about the generated document
-     * @param explanation the explanation for the document
-     * @param annotation the annotation as acknowledgement
-     * @param adHocRecipients the given ad-hoc recipients who will be acknowledged about the document
+     * @param documentDescription  the description about the generated document
+     * @param explanation          the explanation for the document
+     * @param annotation           the annotation as acknowledgement
+     * @param adHocRecipients      the given ad-hoc recipients who will be acknowledged about the document
      * @param sourceAccoutingLines the given source accounting lines used to populate document
      * @param targetAccoutingLines the given target accounting lines used to populate document
      * @throws WorkflowException occurs if the document is failed to be routed for approval
@@ -123,9 +123,9 @@ public interface LaborModuleService {
     /**
      * retrieves a specific LaborLedgerObject from the database using primary key
      *
-     * @param fiscalYear the given fiscal year
+     * @param fiscalYear          the given fiscal year
      * @param chartOfAccountsCode the given chart of accounts code
-     * @param objectCode the given object code
+     * @param objectCode          the given object code
      * @return a labor object retrieved based on the given information
      */
     public LaborLedgerObject retrieveLaborLedgerObject(Integer fiscalYear, String chartOfAccountsCode, String objectCode);
@@ -141,9 +141,9 @@ public interface LaborModuleService {
     /**
      * Retrieves LaborLedgerPositionObjectBenefits for a LaborLedgerObject key
      *
-     * @param fiscalYear the given fiscal year
+     * @param fiscalYear          the given fiscal year
      * @param chartOfAccountsCode the given chart of accounts code
-     * @param objectCode the given object code
+     * @param objectCode          the given object code
      * @return a labor position object benefit retrieved based on the given information
      */
     public List<LaborLedgerPositionObjectBenefit> retrieveLaborPositionObjectBenefits(Integer fiscalYear, String chartOfAccountsCode, String objectCode);
@@ -161,7 +161,7 @@ public interface LaborModuleService {
     /**
      * Determines whether the given set of accounting lines have object codes that receieve fringe benefits
      *
-     * @param fiscalYear the fiscal year of the document
+     * @param fiscalYear          the fiscal year of the document
      * @param chartOfAccountsCode chart of accounts code to check
      * @param financialObjectCode financialObjectCode to check
      * @return true if the lines include lines with labor object codes, false otherwise
@@ -186,6 +186,7 @@ public interface LaborModuleService {
 
     /**
      * A list of the origin codes which will appear in GL entries which should be linked to a labor ledger lookup
+     *
      * @return a list of labor ledger oriented origin codes which appear on general ledger entries
      */
     public Collection<String> getLaborLedgerGLOriginCodes();
@@ -193,17 +194,22 @@ public interface LaborModuleService {
     /**
      * When handed a GeneralLedger, determines and returns the url which will point to the labor ledger entries "inquiry" related to the given entry.
      * The url will be linked via the document number
+     *
      * @param entry an entry to find a labor ledger inquiry on the document number was
      * @return the inquiry HtmlData for the given general ledger entry
      */
     public HtmlData getInquiryUrlForGeneralLedgerEntryDocumentNumber(Entry entry);
 
     public String getBenefitRateCategoryCode(String chartOfAccountsCode, String accountNumber, String subAccountNumber);
+
     public String getCostSharingSourceAccountNumber();
+
     public String getCostSharingSourceSubAccountNumber();
+
     public String getCostSharingSourceChartOfAccountsCode();
 
     public AccountingLineOverride determineNeededOverrides(AccountingDocument document, AccountingLine line);
+
     /**
      * @deprecated use {@link determineNeededOverrides(AccountingDocument document, AccountingLine line)} instead.
      */

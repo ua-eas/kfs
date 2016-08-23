@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business Object for Dunning Letter Distribution
@@ -173,7 +173,6 @@ public class DunningLetterDistribution extends PersistableBusinessObjectBase {
     public void setActiveIndicator(boolean activeIndicator) {
         this.activeIndicator = activeIndicator;
     }
-
 
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {

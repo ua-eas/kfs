@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch.service;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.module.tem.document.TaxableRamificationDocument;
+
+import java.sql.Date;
 
 /**
  * define the taxable ramification notification service
@@ -36,7 +36,7 @@ public interface TaxableRamificationNotificationService {
     /**
      * send taxable ramification reports to the traveler, who have outstanding travel advance
      *
-     * @param travelAdvance the given travel advance
+     * @param travelAdvance                       the given travel advance
      * @param taxableRamificationNotificationDate the given taxable ramification notification date, which will be applied to travel advance
      */
     void sendTaxableRamificationReport(TaxableRamificationDocument taxableRamificationDocument);
@@ -44,7 +44,7 @@ public interface TaxableRamificationNotificationService {
     /**
      * create and route taxable ramification reports to the traveler, who have outstanding travel advance
      *
-     * @param travelAdvance the given travel advance
+     * @param travelAdvance                       the given travel advance
      * @param taxableRamificationNotificationDate the given taxable ramification notification date, which will be applied to travel advance
      */
     TaxableRamificationDocument createTaxableRamificationDocument(TravelAdvance travelAdvance, Date taxableRamificationNotificationDate);

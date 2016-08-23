@@ -19,11 +19,6 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -37,6 +32,7 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -46,7 +42,11 @@ import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 /**
  * The general ledger pending entry structure holds financial transaction info that will post to the general ledger as an entry.
@@ -170,13 +170,13 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
     }
 
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( referenceFinancialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(referenceFinancialDocumentTypeCode)) {
             referenceFinancialSystemDocumentTypeCode = null;
         } else {
-            if ( referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName() ) ) {
+            if (referenceFinancialSystemDocumentTypeCode == null || !StringUtils.equals(referenceFinancialDocumentTypeCode, referenceFinancialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(referenceFinancialDocumentTypeCode);
-                if ( temp != null ) {
-                    referenceFinancialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    referenceFinancialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     referenceFinancialSystemDocumentTypeCode = null;
                 }
@@ -774,8 +774,7 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
         m.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
         if (transactionLedgerEntrySequenceNumber == null) {
             m.put("transactionLedgerEntrySequenceNumber", null);
-        }
-        else {
+        } else {
             m.put("transactionLedgerEntrySequenceNumber", this.transactionLedgerEntrySequenceNumber.toString());
         }
         return m;
@@ -783,17 +782,18 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     @Override
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }

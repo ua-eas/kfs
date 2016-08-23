@@ -38,38 +38,49 @@ public class CostCategoryObjectCode extends PersistableBusinessObjectBase implem
     public String getCategoryCode() {
         return categoryCode;
     }
+
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
     }
+
     @Override
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getFinancialObjectCode() {
         return financialObjectCode;
     }
+
     public void setFinancialObjectCode(String financialObjectCode) {
         this.financialObjectCode = financialObjectCode;
     }
+
     public Chart getChart() {
         return chart;
     }
+
     public void setChart(Chart chart) {
         this.chart = chart;
     }
+
     public ObjectCodeCurrent getObjectCodeCurrent() {
         return objectCodeCurrent;
     }
+
     public void setObjectCodeCurrent(ObjectCodeCurrent objectCodeCurrent) {
         this.objectCodeCurrent = objectCodeCurrent;
     }
+
     @Override
     public boolean isActive() {
         return active;
     }
+
     @Override
     public void setActive(boolean active) {
         this.active = active;

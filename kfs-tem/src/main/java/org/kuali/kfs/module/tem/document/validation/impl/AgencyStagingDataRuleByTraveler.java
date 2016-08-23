@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.LODGING_NUMBER;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.TRAVELER_DATA;
-
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.module.tem.TemKeyConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
-import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTravelerService;
-import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
-import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
-import org.kuali.kfs.module.tem.document.service.AgencyStagingDataRuleHelper;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
+import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTravelerService;
+import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
+import org.kuali.kfs.module.tem.businessobject.TripAccountingInformation;
+import org.kuali.kfs.module.tem.document.service.AgencyStagingDataRuleHelper;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.LODGING_NUMBER;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TravelAgencyAuditReportFields.TRAVELER_DATA;
 
 /**
  * Business rules validation for the Travel Agency Audit and Correction using the UCD method of importing
@@ -83,15 +83,15 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
 
         //validate accounting line before it's added to the document
         if (collectionName.equals(TemPropertyConstants.TravelAgencyAuditReportFields.ACCOUNTING_INFO)) {
-            TripAccountingInformation accountingLine = (TripAccountingInformation)line;
+            TripAccountingInformation accountingLine = (TripAccountingInformation) line;
 
-            Map<String,ErrorMessage> errorMap = getExpenseImportByTravelerService().validateAccountingInfoLine(accountingLine);
+            Map<String, ErrorMessage> errorMap = getExpenseImportByTravelerService().validateAccountingInfoLine(accountingLine);
 
-            if(!errorMap.isEmpty()) {
-                for(String errorProperty : errorMap.keySet()) {
+            if (!errorMap.isEmpty()) {
+                for (String errorProperty : errorMap.keySet()) {
                     ErrorMessage error = errorMap.get(errorProperty);
                     if (ObjectUtils.isNotNull(error)) {
-                        putFieldError(ADD_LINE_ERROR_PREFIX + ACCOUNTING_INFO +"."+ errorProperty, error.getErrorKey(), error.getMessageParameters());
+                        putFieldError(ADD_LINE_ERROR_PREFIX + ACCOUNTING_INFO + "." + errorProperty, error.getErrorKey(), error.getMessageParameters());
                     }
                 }
                 result &= false;
@@ -103,6 +103,7 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
 
     /**
      * Gets the expenseImportByTravelerService attribute.
+     *
      * @return Returns the expenseImportByTravelerService.
      */
     public ExpenseImportByTravelerService getExpenseImportByTravelerService() {
@@ -111,6 +112,7 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
 
     /**
      * Sets the expenseImportByTravelerService attribute value.
+     *
      * @param expenseImportByTravelerService The expenseImportByTravelerService to set.
      */
     public void setExpenseImportByTravelerService(final ExpenseImportByTravelerService expenseImportByTravelerService) {
@@ -118,14 +120,12 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
     }
 
     /**
-     *
      * This method is a convenience method to add a property-specific error to the global errors list. This method makes sure that
      * the correct prefix is added to the property name so that it will display correctly on maintenance documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as errored in
-     *        the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     *
      */
     protected void putFieldError(String propertyName, String errorConstant, String... errorParameters) {
         if (!errorAlreadyExists(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant)) {
@@ -134,15 +134,13 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
     }
 
     /**
-     *
      * Convenience method to determine whether the field already has the message indicated.
-     *
+     * <p>
      * This is useful if you want to suppress duplicate error messages on the same field.
      *
-     * @param propertyName - propertyName you want to test on
+     * @param propertyName  - propertyName you want to test on
      * @param errorConstant - errorConstant you want to test
      * @return returns True if the propertyName indicated already has the errorConstant indicated, false otherwise
-     *
      */
     protected boolean errorAlreadyExists(String propertyName, String errorConstant) {
         return GlobalVariables.getMessageMap().fieldHasMessage(propertyName, errorConstant);
@@ -172,14 +170,14 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
             }
 
             int i = 0;
-            for(TripAccountingInformation account : data.getTripAccountingInformation()) {
-                Map<String,ErrorMessage> errorMap = getExpenseImportByTravelerService().validateAccountingInfoLine(account);
+            for (TripAccountingInformation account : data.getTripAccountingInformation()) {
+                Map<String, ErrorMessage> errorMap = getExpenseImportByTravelerService().validateAccountingInfoLine(account);
 
-                if(!errorMap.isEmpty()) {
-                    for(String errorProperty : errorMap.keySet()) {
+                if (!errorMap.isEmpty()) {
+                    for (String errorProperty : errorMap.keySet()) {
                         ErrorMessage error = errorMap.get(errorProperty);
                         if (ObjectUtils.isNotNull(error)) {
-                            putFieldError(ACCOUNTING_INFO +"["+i+"]."+ errorProperty, error.getErrorKey(), error.getMessageParameters());
+                            putFieldError(ACCOUNTING_INFO + "[" + i + "]." + errorProperty, error.getErrorKey(), error.getMessageParameters());
                             result &= false;
                         }
                     }
@@ -198,13 +196,12 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
                 errorMessages = getExpenseImportByTravelerService().validateDuplicateData(data);
                 if (!errorMessages.isEmpty()) {
                     if (isErrorListContainsErrorKey(errorMessages, TemKeyConstants.MESSAGE_AGENCY_DATA_NO_MANDATORY_FIELDS) ||
-                            isErrorListContainsErrorKey(errorMessages, TemKeyConstants.MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING)) {
+                        isErrorListContainsErrorKey(errorMessages, TemKeyConstants.MESSAGE_AGENCY_DATA_AIR_LODGING_RENTAL_MISSING)) {
                         result &= false;
-                    }
-                    else {
+                    } else {
 
                         putFieldError(TRAVELER_DATA, TemKeyConstants.MESSAGE_AGENCY_DATA_TRAVELER_DUPLICATE_RECORD, data.getTravelerId(), data.getItineraryDataString(),
-                                data.getCreditCardOrAgencyCode(), data.getTransactionPostingDate().toString(), data.getTripExpenseAmount().toString(), data.getTripInvoiceNumber());
+                            data.getCreditCardOrAgencyCode(), data.getTransactionPostingDate().toString(), data.getTripExpenseAmount().toString(), data.getTripInvoiceNumber());
                         result &= false;
                     }
                 }
@@ -216,7 +213,7 @@ public class AgencyStagingDataRuleByTraveler implements AgencyStagingDataRuleHel
     }
 
     protected boolean isErrorListContainsErrorKey(List<ErrorMessage> errors, String errorKey) {
-        for(ErrorMessage error : errors) {
+        for (ErrorMessage error : errors) {
             if (error.getErrorKey().equals(errorKey)) {
                 return true;
             }

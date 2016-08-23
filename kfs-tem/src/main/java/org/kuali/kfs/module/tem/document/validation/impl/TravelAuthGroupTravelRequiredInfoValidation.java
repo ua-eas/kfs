@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -36,8 +36,8 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class TravelAuthGroupTravelRequiredInfoValidation extends GenericValidation {
     protected PersonService personService;
@@ -51,8 +51,7 @@ public class TravelAuthGroupTravelRequiredInfoValidation extends GenericValidati
         if (ObjectUtils.isNull(groupTraveler.getGroupTravelerTypeCode())) {
             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.GROUP_TRVL_TYPE_CODE, KFSKeyConstants.ERROR_REQUIRED, "Traveler Type Code");
             valid = false;
-        }
-        else {
+        } else {
             if (StringUtils.isBlank(groupTraveler.getGroupTravelerEmpId()) && (groupTraveler.getGroupTravelerTypeCode().equals(TemConstants.GroupTravelerType.EMPLOYEE.getCode()) || groupTraveler.getGroupTravelerTypeCode().equals(TemConstants.GroupTravelerType.STUDENT.getCode()) || groupTraveler.getGroupTravelerTypeCode().equals(TemConstants.GroupTravelerType.CUSTOMER.getCode()))) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.GROUP_TRAVELER_EMP_ID, KFSKeyConstants.ERROR_REQUIRED, "Group Traveler Emp Id");
                 valid = false;
@@ -78,7 +77,7 @@ public class TravelAuthGroupTravelRequiredInfoValidation extends GenericValidati
             GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.GROUP_TRAVELER_NAME, KFSKeyConstants.ERROR_REQUIRED, "Name");
             valid = false;
         } else {
-            TravelDocument document = (TravelDocument)event.getDocument();
+            TravelDocument document = (TravelDocument) event.getDocument();
             List<GroupTraveler> groupTravelers = document.getGroupTravelers();
             for (GroupTraveler gt : groupTravelers) {
                 if (StringUtils.equalsIgnoreCase(gt.getName(), groupTraveler.getName()) || StringUtils.equalsIgnoreCase(gt.getGroupTravelerEmpId(), groupTraveler.getGroupTravelerEmpId())) {

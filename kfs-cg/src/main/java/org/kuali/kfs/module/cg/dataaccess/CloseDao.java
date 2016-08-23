@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.cg.dataaccess;
 
-import java.sql.Date;
-import java.util.Collection;
-
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.Proposal;
 import org.kuali.kfs.module.cg.document.ProposalAwardCloseDocument;
+
+import java.sql.Date;
+import java.util.Collection;
 
 /**
  * Implementations of this interface provide access to persisted Close instances.

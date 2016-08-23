@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.integration.ld;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -28,12 +25,15 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
-public interface LaborLedgerBalance extends PersistableBusinessObject{
+import java.sql.Date;
+import java.sql.Timestamp;
+
+public interface LaborLedgerBalance extends PersistableBusinessObject {
 
     /**
      * Gets the account attribute.

@@ -18,14 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.PurApItemUseTax;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.fixture.RequisitionDocumentFixture;
@@ -38,9 +34,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class PurapServiceTest extends KualiTestBase {
@@ -54,7 +54,7 @@ public class PurapServiceTest extends KualiTestBase {
     private ParameterService parameterService;
     private String NAMESPACE = "KFS-PURAP";
 
-    private static final String[] TAXABLE_PARM_NMs = { "TAXABLE_DELIVERY_STATES", "TAXABLE_FUND_GROUPS_FOR_NON_TAXABLE_STATES", "TAXABLE_FUND_GROUPS_FOR_TAXABLE_STATES", "TAXABLE_OBJECT_CONSOLIDATIONS_FOR_NON_TAXABLE_STATES", "TAXABLE_OBJECT_CONSOLIDATIONS_FOR_TAXABLE_STATES", "TAXABLE_OBJECT_LEVELS_FOR_NON_TAXABLE_STATES", "TAXABLE_OBJECT_LEVELS_FOR_TAXABLE_STATES", "TAXABLE_SUB_FUND_GROUPS_FOR_NON_TAXABLE_STATES", "TAXABLE_SUB_FUND_GROUPS_FOR_TAXABLE_STATES" };
+    private static final String[] TAXABLE_PARM_NMs = {"TAXABLE_DELIVERY_STATES", "TAXABLE_FUND_GROUPS_FOR_NON_TAXABLE_STATES", "TAXABLE_FUND_GROUPS_FOR_TAXABLE_STATES", "TAXABLE_OBJECT_CONSOLIDATIONS_FOR_NON_TAXABLE_STATES", "TAXABLE_OBJECT_CONSOLIDATIONS_FOR_TAXABLE_STATES", "TAXABLE_OBJECT_LEVELS_FOR_NON_TAXABLE_STATES", "TAXABLE_OBJECT_LEVELS_FOR_TAXABLE_STATES", "TAXABLE_SUB_FUND_GROUPS_FOR_NON_TAXABLE_STATES", "TAXABLE_SUB_FUND_GROUPS_FOR_TAXABLE_STATES"};
 
     @Override
     protected void setUp() throws Exception {
@@ -104,13 +104,13 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxHappyPath() {
         try {
-            TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202, TaxFixture.TaxRegionPostalCodeFixture.PO_46202_SHORT }, null);
+            TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202, TaxFixture.TaxRegionPostalCodeFixture.PO_46202_SHORT}, null);
             businessObjectService.save(taxRegionPostalCode);
         } catch (Exception e) {
             // in case the database has the missing data added back in, I do not want this fix to break the test. This will allow the the test
             // to recover if the data mysteriously gets back to the previous state
             try {
-                TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+                TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
                 businessObjectService.save(taxRegionPostalCode);
             } catch (Exception e2) {
                 // consume
@@ -124,7 +124,7 @@ public class PurapServiceTest extends KualiTestBase {
     }
 
     public void testUseTaxHappyPath() {
-        TaxRegion taxRegionState = TaxFixture.TaxRegionFixture.TAX_REGION_WITH_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_07 }, null, new TaxFixture.TaxRegionStateFixture[] { TaxFixture.TaxRegionStateFixture.IN });
+        TaxRegion taxRegionState = TaxFixture.TaxRegionFixture.TAX_REGION_WITH_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_07}, null, new TaxFixture.TaxRegionStateFixture[]{TaxFixture.TaxRegionStateFixture.IN});
         businessObjectService.save(taxRegionState);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.UseTaxHappyPathTest);
@@ -144,7 +144,7 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxWithItemTypeNotTaxable() {
 
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxItemTypeNotTaxableTest);
@@ -156,7 +156,7 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxWithItemTaxFieldNull() {
 
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxItemTaxFieldNullTest);
@@ -170,7 +170,7 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxWithCommodityCodeNull() throws Exception {
         enableParameterConstraints(false);
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxCommodityCodeNullTest);
@@ -183,13 +183,13 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxWithDeliveryStateNotTaxable() {
         try {
-            TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202, TaxFixture.TaxRegionPostalCodeFixture.PO_46202_SHORT }, null);
+            TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202, TaxFixture.TaxRegionPostalCodeFixture.PO_46202_SHORT}, null);
             businessObjectService.save(taxRegionPostalCode);
         } catch (Exception e) {
             // in case the database has the missing data added back in, I do not want this fix to break the test. This will allow the the test
             // to recover if the data mysteriously gets back to the previous state
             try {
-                TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+                TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
                 businessObjectService.save(taxRegionPostalCode);
             } catch (Exception e2) {
                 // consume
@@ -205,7 +205,7 @@ public class PurapServiceTest extends KualiTestBase {
     }
 
     public void testSalesTaxDeliveryStateExemptWithNonTaxableFund() {
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         boolean isExists = SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, "TAXABLE_DELIVERY_STATES");
@@ -218,7 +218,7 @@ public class PurapServiceTest extends KualiTestBase {
     }
 
     public void testSalesTaxWithAccountNotTaxable() {
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxAccountNotTaxableTest);
@@ -229,7 +229,7 @@ public class PurapServiceTest extends KualiTestBase {
     }
 
     public void testSalesTaxWithObjectCodeNotTaxable() {
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxObjectCodeNotTaxableTest);
@@ -240,7 +240,7 @@ public class PurapServiceTest extends KualiTestBase {
     }
 
     public void testUseTaxItemTypeNotTaxable() {
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.UseTaxItemTypeNotTaxableTest);
@@ -251,7 +251,7 @@ public class PurapServiceTest extends KualiTestBase {
 
     public void testSalesTaxWithSalesTaxParamDisabled() {
 
-        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[] { TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05 }, new TaxFixture.TaxRegionPostalCodeFixture[] { TaxFixture.TaxRegionPostalCodeFixture.PO_46202 }, null);
+        TaxRegion taxRegionPostalCode = TaxFixture.TaxRegionFixture.TAX_REGION_NO_USE_TAX.createTaxRegion(new TaxFixture.TaxRegionRateFixture[]{TaxFixture.TaxRegionRateFixture.TAX_REGION_RATE_05}, new TaxFixture.TaxRegionPostalCodeFixture[]{TaxFixture.TaxRegionPostalCodeFixture.PO_46202}, null);
         businessObjectService.save(taxRegionPostalCode);
 
         RequisitionDocument reqDoc = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS.createRequisitionDocumentForTax(TaxFixture.TaxTestCaseFixture.SalesTaxParamDisabledTest);
@@ -264,6 +264,7 @@ public class PurapServiceTest extends KualiTestBase {
     /**
      * This method ensures that the database entries upon which the test was designed have good values. This
      * is safe because whatever changes are made for this test are rolled back before the next test.
+     *
      * @param enabled true to set the constraint indicator to Allow; false is Disallow.
      */
     private void enableParameterConstraints(boolean enabled) {

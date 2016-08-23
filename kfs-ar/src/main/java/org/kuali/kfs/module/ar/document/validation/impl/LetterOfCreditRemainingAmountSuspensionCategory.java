@@ -33,7 +33,7 @@ public class LetterOfCreditRemainingAmountSuspensionCategory extends SuspensionC
     @Override
     public boolean shouldSuspend(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
         if (ArConstants.BillingFrequencyValues.isLetterOfCredit(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward()) &&
-                (contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward().getLetterOfCreditFund().getLetterOfCreditFundAmount().isLessThan(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getTotalAmountBilledToDate()))) {
+            (contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward().getLetterOfCreditFund().getLetterOfCreditFundAmount().isLessThan(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getTotalAmountBilledToDate()))) {
             return true;
         }
 

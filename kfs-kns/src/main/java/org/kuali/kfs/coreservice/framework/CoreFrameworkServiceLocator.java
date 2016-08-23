@@ -19,8 +19,8 @@
 package org.kuali.kfs.coreservice.framework;
 
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.core.framework.impex.xml.XmlImpexRegistry;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.core.framework.impex.xml.XmlImpexRegistry;
 
 public class CoreFrameworkServiceLocator {
 
@@ -36,6 +36,6 @@ public class CoreFrameworkServiceLocator {
     }
 
     public static XmlImpexRegistry getXmlImpexRegistry() {
-    	return getService(XML_IMPEX_REGISTRY);
+        return getService(XML_IMPEX_REGISTRY);
     }
 }

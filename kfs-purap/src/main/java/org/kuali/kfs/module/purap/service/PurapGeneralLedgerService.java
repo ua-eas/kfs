@@ -38,13 +38,13 @@ public interface PurapGeneralLedgerService {
     /**
      * Customize the given general ledger entry based on the document type.
      *
-     * @param purapDocument Document creating entries
-     * @param accountingLine AccountingLine from document used to create the pending entry
-     * @param explicitEntry GeneralLedgerPendingEntry that has been created with account info
+     * @param purapDocument           Document creating entries
+     * @param accountingLine          AccountingLine from document used to create the pending entry
+     * @param explicitEntry           GeneralLedgerPendingEntry that has been created with account info
      * @param referenceDocumentNumber Number of the referenced document
-     * @param debitCreditCode String field indicating if the entry is a debit or credit
-     * @param docType Document type creating the pending entries
-     * @param isEncumbrance Boolean to indicate if the entry is an encumbrance
+     * @param debitCreditCode         String field indicating if the entry is a debit or credit
+     * @param docType                 Document type creating the pending entries
+     * @param isEncumbrance           Boolean to indicate if the entry is an encumbrance
      */
     public void customizeGeneralLedgerPendingEntry(PurchasingAccountsPayableDocument purapDocument, AccountingLine accountingLine, GeneralLedgerPendingEntry explicitEntry, Integer referenceDocumentNumber, String debitCreditCode, String docType, boolean isEncumbrance);
 

@@ -18,44 +18,42 @@
  */
 package org.kuali.kfs.krad.datadictionary;
 
-import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.core.api.config.ConfigurationException;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
 
 /**
  * Puts a data dictionary file location in the data dictionary
- *
- *
  */
 public class DataDictionaryLocationConfigurer implements InitializingBean {
 
-	private List<String> dataDictionaryPackages;
+    private List<String> dataDictionaryPackages;
 
-	private DataDictionaryService dataDictionaryService;
+    private DataDictionaryService dataDictionaryService;
 
-	public DataDictionaryLocationConfigurer(DataDictionaryService dataDictionaryService){
-		this.dataDictionaryService = dataDictionaryService;
-	}
+    public DataDictionaryLocationConfigurer(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
+    }
 
-	public void afterPropertiesSet() throws Exception {
-		if (dataDictionaryPackages == null || dataDictionaryPackages.isEmpty()) {
-			throw new ConfigurationException("datatDictionaryPackages empty when initializing DataDictionaryLocation bean.");
-		}
-		if(dataDictionaryService!=null)
-			dataDictionaryService.addDataDictionaryLocations(getDataDictionaryPackages());
-		else
-			KRADServiceLocatorWeb.getDataDictionaryService().addDataDictionaryLocations(getDataDictionaryPackages());
-	}
+    public void afterPropertiesSet() throws Exception {
+        if (dataDictionaryPackages == null || dataDictionaryPackages.isEmpty()) {
+            throw new ConfigurationException("datatDictionaryPackages empty when initializing DataDictionaryLocation bean.");
+        }
+        if (dataDictionaryService != null)
+            dataDictionaryService.addDataDictionaryLocations(getDataDictionaryPackages());
+        else
+            KRADServiceLocatorWeb.getDataDictionaryService().addDataDictionaryLocations(getDataDictionaryPackages());
+    }
 
-	public List<String> getDataDictionaryPackages() {
-		return dataDictionaryPackages;
-	}
+    public List<String> getDataDictionaryPackages() {
+        return dataDictionaryPackages;
+    }
 
-	public void setDataDictionaryPackages(List<String> dataDictionaryPackages) {
-		this.dataDictionaryPackages = dataDictionaryPackages;
-	}
+    public void setDataDictionaryPackages(List<String> dataDictionaryPackages) {
+        this.dataDictionaryPackages = dataDictionaryPackages;
+    }
 
 }

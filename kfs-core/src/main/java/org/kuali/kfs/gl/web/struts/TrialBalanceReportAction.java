@@ -18,35 +18,33 @@
  */
 package org.kuali.kfs.gl.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.gl.service.TrialBalanceService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
-import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.kfs.krad.util.GlobalVariables;
-
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BadPdfFormatException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.gl.service.TrialBalanceService;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.RiceConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Actions for Trial Balance Report
@@ -60,7 +58,7 @@ public class TrialBalanceReportAction extends KualiLookupAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#search(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -170,8 +168,7 @@ public class TrialBalanceReportAction extends KualiLookupAction {
             }
 
             return null;
-        }
-        else {
+        } else {
             lookupForm.setMessage("No data found.");
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
@@ -206,7 +203,7 @@ public class TrialBalanceReportAction extends KualiLookupAction {
 
         // step 4: we add content
         PdfImportedPage page;
-        for (int i = 0; i < n;) {
+        for (int i = 0; i < n; ) {
             ++i;
             page = writer.getImportedPage(reader, i);
             writer.addPage(page);

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.businessobject.datadictionary;
 
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.sec.datadictionary.AccessSecurityAttributeRestrictionEntry;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sec.datadictionary.AccessSecurityAttributeRestrictionEntry;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 
 /**
  * Overrides KNS BusinessObjectEntry to add access security configuration properties

@@ -20,10 +20,10 @@ package org.kuali.kfs.module.tem.businessobject;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class GroupTravelerForLookup extends TransientBusinessObjectBase implements MutableInactivatable {
     private String customerNumber;
@@ -123,6 +123,7 @@ public class GroupTravelerForLookup extends TransientBusinessObjectBase implemen
 
     /**
      * Sets the name on this GroupTravelerForLookup
+     *
      * @param name the name to set
      */
     public void setName(String name) {

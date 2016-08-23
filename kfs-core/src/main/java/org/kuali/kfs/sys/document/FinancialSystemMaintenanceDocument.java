@@ -18,10 +18,11 @@
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -31,9 +32,8 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
 
 /**
  * This class is used by the system to use financial specific objects and data for maintenance documents
@@ -41,7 +41,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase implements FinancialSystemDocument {
     private static final Logger LOG = Logger.getLogger(FinancialSystemMaintenanceDocument.class);
 
-    private transient Map<String,Boolean> canEditCache;
+    private transient Map<String, Boolean> canEditCache;
 
     /**
      * Constructs a FinancialSystemMaintenanceDocument.java.
@@ -52,6 +52,7 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
 
     /**
      * Constructs a FinancialSystemMaintenanceDocument.java.
+     *
      * @param documentTypeName
      */
     public FinancialSystemMaintenanceDocument(String documentTypeName) {
@@ -103,8 +104,7 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
 
         if (getDocumentHeader().getWorkflowDocument().isCanceled()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.CANCELLED);
-        }
-        else if (getDocumentHeader().getWorkflowDocument().isEnroute()) {
+        } else if (getDocumentHeader().getWorkflowDocument().isEnroute()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.ENROUTE);
         }
         if (getDocumentHeader().getWorkflowDocument().isDisapproved()) {
@@ -114,7 +114,7 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
             getFinancialSystemDocumentHeader().setProcessedDate(new java.sql.Timestamp(new java.util.Date().getTime()));
         }
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Status is: " + getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode());
         }
 
@@ -127,16 +127,17 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
             throw new UnsupportedOperationException("Cannot access Maintainable class to answer split node question");
         }
         if (getNewMaintainableObject() instanceof FinancialSystemMaintainable) {
-            return ((FinancialSystemMaintainable)getNewMaintainableObject()).answerSplitNodeQuestion(nodeName);
+            return ((FinancialSystemMaintainable) getNewMaintainableObject()).answerSplitNodeQuestion(nodeName);
         } else if (getNewMaintainableObject() instanceof FinancialSystemGlobalMaintainable) {
-            return ((FinancialSystemGlobalMaintainable)getNewMaintainableObject()).answerSplitNodeQuestion(nodeName);
+            return ((FinancialSystemGlobalMaintainable) getNewMaintainableObject()).answerSplitNodeQuestion(nodeName);
         } else {
-            throw new UnsupportedOperationException("Maintainable for "+getNewMaintainableObject().getBoClass().getName()+" does not extend org.kuali.kfs.sys.document.FinancialSystemMaintainable nor org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable and therefore cannot answer split node question");
+            throw new UnsupportedOperationException("Maintainable for " + getNewMaintainableObject().getBoClass().getName() + " does not extend org.kuali.kfs.sys.document.FinancialSystemMaintainable nor org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable and therefore cannot answer split node question");
         }
     }
 
     /**
      * This method is used for routing and simply returns the initiator's Chart code.
+     *
      * @return The Chart code of the document initiator
      */
     public String getInitiatorChartOfAccountsCode() {
@@ -146,6 +147,7 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
 
     /**
      * This method is used for routing and simply returns the initiator's Organization code.
+     *
      * @return The Organization code of the document initiator
      */
     public String getInitiatorOrganizationCode() {
@@ -154,15 +156,15 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
     }
 
     /**
-     *
      * This method is a utility method that returns a String array containing the document initiator's
      * ChartCode in the first index and the OrganizationCode in the second.
+     *
      * @return a String array.
      */
     protected String[] getInitiatorPrimaryDepartmentCode() {
 
         String netID = documentHeader.getWorkflowDocument().getInitiatorPrincipalId();
-        Person person =  KimApiServiceLocator.getPersonService().getPerson(netID);
+        Person person = KimApiServiceLocator.getPersonService().getPerson(netID);
 
         String deptCode = person.getPrimaryDepartmentCode();
         String[] chartOrg = deptCode.split("-");
@@ -172,10 +174,10 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
 
     @Override
     public FinancialSystemDocumentHeader getFinancialSystemDocumentHeader() {
-        return (FinancialSystemDocumentHeader)documentHeader;
+        return (FinancialSystemDocumentHeader) documentHeader;
     }
 
-	@Override
+    @Override
     public void prepareForSave() {
         if (StringUtils.isBlank(getFinancialSystemDocumentHeader().getInitiatorPrincipalId())) {
             getFinancialSystemDocumentHeader().setInitiatorPrincipalId(getFinancialSystemDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId());

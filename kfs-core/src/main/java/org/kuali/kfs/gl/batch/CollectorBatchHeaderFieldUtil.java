@@ -29,6 +29,7 @@ public class CollectorBatchHeaderFieldUtil extends BusinessObjectStringParserFie
 
     /**
      * Returns the class to parse into - CollectorBatch
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getBusinessObjectClass()
      */
     @Override
@@ -38,23 +39,24 @@ public class CollectorBatchHeaderFieldUtil extends BusinessObjectStringParserFie
 
     /**
      * Returns the fields to be parsed from a String, in order, to form a CollectorBatch
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getOrderedProperties()
      */
     @Override
     public String[] getOrderedProperties() {
-        return new String[] {
-                KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
-                KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
-                KFSPropertyConstants.ORGANIZATION_CODE,
-                KFSPropertyConstants.TRANSMISSION_DATE,
-                KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE,
-                KFSPropertyConstants.BATCH_SEQUENCE_NUMBER,
-                KFSPropertyConstants.KUALI_USER_PERSON_EMAIL_ADDRESS,
-                KFSPropertyConstants.COLLECTOR_BATCH_PERSON_USER_ID,
-                KFSPropertyConstants.DEPARTMENT_NAME,
-                KFSPropertyConstants.MAILING_ADDRESS,
-                KFSPropertyConstants.CAMPUS_CODE,
-                KFSPropertyConstants.PHONE_NUMBER
+        return new String[]{
+            KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
+            KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
+            KFSPropertyConstants.ORGANIZATION_CODE,
+            KFSPropertyConstants.TRANSMISSION_DATE,
+            KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE,
+            KFSPropertyConstants.BATCH_SEQUENCE_NUMBER,
+            KFSPropertyConstants.KUALI_USER_PERSON_EMAIL_ADDRESS,
+            KFSPropertyConstants.COLLECTOR_BATCH_PERSON_USER_ID,
+            KFSPropertyConstants.DEPARTMENT_NAME,
+            KFSPropertyConstants.MAILING_ADDRESS,
+            KFSPropertyConstants.CAMPUS_CODE,
+            KFSPropertyConstants.PHONE_NUMBER
         };
     }
 }

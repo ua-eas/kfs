@@ -63,20 +63,20 @@ public class KualiTransactionalDocumentActionBase extends KualiDocumentActionBas
     }
 
     @SuppressWarnings("unchecked")
-	protected void populateAuthorizationFields(KualiDocumentFormBase formBase){
-    	super.populateAuthorizationFields(formBase);
-    	Document document = formBase.getDocument();
-    	Map editMode = new HashMap();
+    protected void populateAuthorizationFields(KualiDocumentFormBase formBase) {
+        super.populateAuthorizationFields(formBase);
+        Document document = formBase.getDocument();
+        Map editMode = new HashMap();
 
-    	if (formBase.isFormDocumentInitialized()) {
-        	Person user = GlobalVariables.getUserSession().getPerson();
+        if (formBase.isFormDocumentInitialized()) {
+            Person user = GlobalVariables.getUserSession().getPerson();
 
-        	TransactionalDocumentPresentationController documentPresentationController = (TransactionalDocumentPresentationController) getDocumentHelperService().getDocumentPresentationController(document);
+            TransactionalDocumentPresentationController documentPresentationController = (TransactionalDocumentPresentationController) getDocumentHelperService().getDocumentPresentationController(document);
             TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) KNSServiceLocator
-                    .getDocumentHelperService().getDocumentAuthorizer(document);
+                .getDocumentHelperService().getDocumentAuthorizer(document);
             Set<String> editModes = documentAuthorizer.getEditModes(document, user, documentPresentationController.getEditModes(document));
             editMode = this.convertSetToMap(editModes);
-    	}
-    	formBase.setEditingMode(editMode);
+        }
+        formBase.setEditingMode(editMode);
     }
 }

@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
@@ -29,14 +28,15 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * determine whether the given accounting line has already been in the given document
  *
  * @param accountingDocument the given document
- * @param accountingLine the given accounting line
+ * @param accountingLine     the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferAccountLineTotalsMatchValidation extends GenericValidation {
@@ -44,6 +44,7 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -83,13 +84,13 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
         KualiDecimal targetLinesAmount = KualiDecimal.ZERO;
 
         // sum source lines
-        for (Iterator i = sourceLines.iterator(); i.hasNext();) {
+        for (Iterator i = sourceLines.iterator(); i.hasNext(); ) {
             line = (ExpenseTransferAccountingLine) i.next();
             sourceLinesAmount = sourceLinesAmount.add(line.getAmount());
         }
 
         // sum target lines
-        for (Iterator i = targetLines.iterator(); i.hasNext();) {
+        for (Iterator i = targetLines.iterator(); i.hasNext(); ) {
             line = (ExpenseTransferAccountingLine) i.next();
             targetLinesAmount = targetLinesAmount.add(line.getAmount());
         }
@@ -104,6 +105,7 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -112,6 +114,7 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

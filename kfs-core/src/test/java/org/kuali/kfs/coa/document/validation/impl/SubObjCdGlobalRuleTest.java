@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobal;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeGlobalDetail;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapSize;
 
 @ConfigureContext
 public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
@@ -206,7 +206,7 @@ public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
         SubObjectCodeGlobal socChangeDocument = new SubObjectCodeGlobal();
         SubObjectCodeGlobalDetail socChangeDetail = new SubObjectCodeGlobalDetail();
 
-        socChangeDocument.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting()-1);
+        socChangeDocument.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting() - 1);
         socChangeDocument.refreshNonUpdateableReferences();
 
         socChangeDetail.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
@@ -260,7 +260,7 @@ public class SubObjCdGlobalRuleTest extends ChartRuleTestBase {
         socChangeDetail.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
         socChangeDetail.refreshNonUpdateableReferences();
 
-        socChangeDetail2.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting()-1);
+        socChangeDetail2.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting() - 1);
         socChangeDetail2.refreshNonUpdateableReferences();
 
         List<SubObjectCodeGlobalDetail> socDetails = new ArrayList<SubObjectCodeGlobalDetail>();

@@ -18,16 +18,18 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
@@ -36,17 +38,15 @@ import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl extends AccountsReceivableLookupableHelperServiceImplBase {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl.class);
@@ -60,10 +60,8 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
      * @param kualiLookupable
      * @param resultTable
      * @param bounded
-     * @return
-     *
-     * KRAD Conversion: Lookupable performs customization of the display results.
-     *
+     * @return KRAD Conversion: Lookupable performs customization of the display results.
+     * <p>
      * No use of data dictionary.
      */
     @Override
@@ -103,7 +101,7 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
             Collection<Column> columns = getColumns(element, businessObjectRestrictions);
             HtmlData returnUrl = getReturnUrl(element, lookupForm, returnKeys, businessObjectRestrictions);
             ContractsGrantsLookupResultRow row = new ContractsGrantsLookupResultRow((List<Column>) columns, subResultRows,
-                    returnUrl.constructCompleteHtmlTag(), getActionUrls(element, pkNames, businessObjectRestrictions));
+                returnUrl.constructCompleteHtmlTag(), getActionUrls(element, pkNames, businessObjectRestrictions));
             resultTable.add(row);
         }
 
@@ -127,7 +125,7 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
      * build the search result list from the given collection and the number of all qualified search results
      *
      * @param searchResultsCollection the given search results, which may be a subset of the qualified search results
-     * @param actualSize the number of all qualified search results
+     * @param actualSize              the number of all qualified search results
      * @return the serach result list with the given results and actual size
      */
     protected List buildSearchResultList(Collection searchResultsCollection, Long actualSize) {
@@ -146,9 +144,9 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
      * @param element
      * @param attributeName
      * @return Column
-     *
+     * <p>
      * KRAD Conversion: setup up the results column in the display results set.
-     *
+     * <p>
      * No use of data dictionary.
      */
     protected Column setupResultsColumn(BusinessObject element, String attributeName, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -197,11 +195,9 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
             if (StringUtils.isNotBlank(propValue)) {
                 col.setColumnAnchor(getInquiryUrl(element, col.getPropertyName()));
             }
-        }
-        catch (InstantiationException ie) {
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Unable to get new instance of formatter class for property " + col.getPropertyName(), ie);
-        }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             throw new RuntimeException("Cannot access PropertyType for property " + "'" + col.getPropertyName() + "' " + " on an instance of '" + element.getClass().getName() + "'.", ex);
         }
         return col;
@@ -213,9 +209,9 @@ public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl exte
      *
      * @param bo
      * @return Collection<Column>
-     *
+     * <p>
      * KRAD Conversion: Gets column names.
-     *
+     * <p>
      * Data dictionary is using the bo to look up the attribute names for the columns.
      */
     protected Collection<Column> getColumns(BusinessObject bo, BusinessObjectRestrictions businessObjectRestrictions) {

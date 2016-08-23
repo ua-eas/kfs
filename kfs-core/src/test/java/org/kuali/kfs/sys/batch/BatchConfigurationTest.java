@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-
 /**
  * Tests the spring configuration for batch jobs.
  */
-@ConfigureContext(initializeBatchSchedule=true)
+@ConfigureContext(initializeBatchSchedule = true)
 public class BatchConfigurationTest extends KualiTestBase {
     private List<ModuleService> moduleServices;
     private Collection<JobDescriptor> jobDescriptors;
@@ -59,8 +59,7 @@ public class BatchConfigurationTest extends KualiTestBase {
             for (String jobName : module.getModuleConfiguration().getJobNames()) {
                 try {
                     BatchSpringContext.getJobDescriptor(jobName);
-                }
-                catch (NoSuchBeanDefinitionException e) {
+                } catch (NoSuchBeanDefinitionException e) {
                     nonExistentJobNames.add(jobName);
                     errorMessage.append("\n\t").append(module.getModuleConfiguration().getNamespaceCode()).append(": ").append(jobName);
                 }
@@ -79,8 +78,7 @@ public class BatchConfigurationTest extends KualiTestBase {
             for (String triggerName : module.getModuleConfiguration().getTriggerNames()) {
                 try {
                     BatchSpringContext.getTriggerDescriptor(triggerName);
-                }
-                catch (NoSuchBeanDefinitionException e) {
+                } catch (NoSuchBeanDefinitionException e) {
                     nonExistentTriggerNames.add(triggerName);
                     errorMessage.append("\n\t").append(module.getModuleConfiguration().getNamespaceCode()).append(": ").append(triggerName);
                 }
@@ -143,8 +141,7 @@ public class BatchConfigurationTest extends KualiTestBase {
             for (String dependencyJobName : jobDescriptor.getDependencies().keySet()) {
                 try {
                     BatchSpringContext.getJobDescriptor(dependencyJobName);
-                }
-                catch (NoSuchBeanDefinitionException e) {
+                } catch (NoSuchBeanDefinitionException e) {
                     nonExistentDependencies.add(dependencyJobName);
                     errorMessage.append("\n\t").append(jobDescriptor.getJobDetail().getFullName()).append("depends on: ").append(dependencyJobName);
                 }

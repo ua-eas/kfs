@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.sql.Date;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.sql.Date;
 
 /**
  * Represents an origin entry

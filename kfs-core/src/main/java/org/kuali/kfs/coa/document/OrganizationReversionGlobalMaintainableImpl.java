@@ -18,13 +18,6 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionCategory;
@@ -32,10 +25,6 @@ import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalDetail;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalOrganization;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.lookup.LookupResultsService;
 import org.kuali.kfs.kns.web.ui.Column;
@@ -43,6 +32,17 @@ import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides some specific functionality for the {@link OrganizationReversionGlobal} maintenance document inner class for
@@ -161,8 +161,7 @@ public class OrganizationReversionGlobalMaintainableImpl extends FinancialSystem
     protected boolean isRelationshipRefreshable(Class boClass, String relationshipName) {
         if (relationshipName.equals("organizationReversionGlobalDetails")) {
             return false;
-        }
-        else {
+        } else {
             return super.isRelationshipRefreshable(boClass, relationshipName);
         }
     }
@@ -182,17 +181,16 @@ public class OrganizationReversionGlobalMaintainableImpl extends FinancialSystem
     }
 
     /**
-     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @SuppressWarnings("unchecked")
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
         super.refresh(refreshCaller, fieldValues, document);
-        final String lookupBusinessObjectClassName = (String)fieldValues.get(KFSConstants.LOOKUP_RESULTS_BO_CLASS_NAME);
+        final String lookupBusinessObjectClassName = (String) fieldValues.get(KFSConstants.LOOKUP_RESULTS_BO_CLASS_NAME);
         if (!StringUtils.isBlank(lookupBusinessObjectClassName)) {
             if (lookupBusinessObjectClassName.equals(OrganizationReversion.class.getName())) {
-                final String lookupResultsSequenceNumber = (String)fieldValues.get(KFSConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER);
+                final String lookupResultsSequenceNumber = (String) fieldValues.get(KFSConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER);
                 if (!StringUtils.isBlank(lookupResultsSequenceNumber)) {
                     final LookupResultsService lookupResultsService = SpringContext.getBean(LookupResultsService.class);
                     try {
@@ -204,13 +202,12 @@ public class OrganizationReversionGlobalMaintainableImpl extends FinancialSystem
                                     final String universityFiscalYearAsString = column.getPropertyValue();
                                     final Integer universityFiscalYear = Integer.parseInt(universityFiscalYearAsString);
 
-                                    final OrganizationReversionGlobal orgRevGlobal = ((OrganizationReversionGlobal)document.getNewMaintainableObject().getBusinessObject());
+                                    final OrganizationReversionGlobal orgRevGlobal = ((OrganizationReversionGlobal) document.getNewMaintainableObject().getBusinessObject());
                                     orgRevGlobal.setUniversityFiscalYear(universityFiscalYear);
                                 }
                             }
                         }
-                    }
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         throw new RuntimeException("Could not retrieve lookup results to populate fiscal year", ex);
                     }
 
@@ -227,7 +224,7 @@ public class OrganizationReversionGlobalMaintainableImpl extends FinancialSystem
     }
 
     protected OrganizationReversionService getOrganizationReversionService() {
-        if ( organizationReversionService == null ) {
+        if (organizationReversionService == null) {
             organizationReversionService = SpringContext.getBean(OrganizationReversionService.class);
         }
         return organizationReversionService;

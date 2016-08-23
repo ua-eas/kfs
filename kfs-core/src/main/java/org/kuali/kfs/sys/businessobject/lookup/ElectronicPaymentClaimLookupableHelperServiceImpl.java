@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.AdvanceDepositDetail;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.dao.LookupDao;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A helper class that gives us the ability to do special lookups on electronic payment claims.
@@ -53,7 +53,6 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends AbstractL
     private LookupDao lookupDao;
 
     /**
-     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -127,10 +126,8 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends AbstractL
     /**
      * Turns a from amount and to amount into a lookupable criteria
      *
-     * @param fromAmount
-     *            the lower bound amount
-     * @param toAmount
-     *            the upper bound amount
+     * @param fromAmount the lower bound amount
+     * @param toAmount   the upper bound amount
      * @return a lookupable criteria
      */
     private String getAmountCriteria(String fromAmount, String toAmount) {
@@ -186,9 +183,7 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends AbstractL
      * @param kualiLookupable
      * @param resultTable
      * @param bounded
-     * @return
-     *
-     * KRAD Conversion: Lookupable performing customization of columns of the display list.
+     * @return KRAD Conversion: Lookupable performing customization of columns of the display list.
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
@@ -208,6 +203,7 @@ public class ElectronicPaymentClaimLookupableHelperServiceImpl extends AbstractL
 
     /**
      * Sets the lookupDao attribute value.
+     *
      * @param lookupDao The lookupDao to set.
      */
     public void setLookupDao(LookupDao lookupDao) {

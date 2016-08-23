@@ -27,9 +27,9 @@ public interface ItemUnitOfMeasureService {
     /**
      * Retrieves a unit of measure object by its primary key - the item unit of measure code.
      *
-     * @param  itemUnitOfMeasureCode
+     * @param itemUnitOfMeasureCode
      * @return UnitOfMeasure the unit of measure object which has the itemUnitOfMeasureCode
-     *         in the input parameter to match its the primary key.
+     * in the input parameter to match its the primary key.
      */
     public UnitOfMeasure getByPrimaryId(String itemUnitOfMeasureCode);
 

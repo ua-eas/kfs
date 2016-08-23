@@ -65,16 +65,16 @@ public class LetterOfCreditFund extends PersistableBusinessObjectBase implements
      *
      * @return Returns the letterOfCreditFundGroup.
      */
-     @Override
-     public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
-     return letterOfCreditFundGroup;
-     }
+    @Override
+    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+        return letterOfCreditFundGroup;
+    }
 
-     /*
-      * Sets the letterOfCreditFundGroup attribute value.
-      *
-      * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
-     */
+    /*
+     * Sets the letterOfCreditFundGroup attribute value.
+     *
+     * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
+    */
     public void setLetterOfCreditFundGroup(LetterOfCreditFundGroup letterOfCreditFundGroup) {
         this.letterOfCreditFundGroup = letterOfCreditFundGroup;
     }

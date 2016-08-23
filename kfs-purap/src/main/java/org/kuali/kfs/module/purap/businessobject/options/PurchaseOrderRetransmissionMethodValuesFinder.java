@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderTransmissionMethod;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Value Finder for Purchase Order Retransmission Methods.
@@ -46,12 +46,12 @@ public class PurchaseOrderRetransmissionMethodValuesFinder extends KeyValuesBase
     public List<KeyValue> getKeyValues() {
         KeyValuesService boService = SpringContext.getBean(KeyValuesService.class);
         Collection<PurchaseOrderTransmissionMethod> codes = boService.findAll(PurchaseOrderTransmissionMethod.class);
-        String retransmitTypes = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurchaseOrderDocument.class,PurapParameterConstants.PURAP_PO_RETRANSMIT_TRANSMISSION_METHOD_TYPES);
+        String retransmitTypes = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurchaseOrderDocument.class, PurapParameterConstants.PURAP_PO_RETRANSMIT_TRANSMISSION_METHOD_TYPES);
         List<KeyValue> labels = new ArrayList<KeyValue>();
-        if (retransmitTypes != null){
+        if (retransmitTypes != null) {
             for (PurchaseOrderTransmissionMethod purchaseOrderTransmissionMethod : codes) {
-                if (StringUtils.contains(retransmitTypes, StringUtils.left(purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodCode(),4)) &&
-                        purchaseOrderTransmissionMethod.isDisplayToUser()) {
+                if (StringUtils.contains(retransmitTypes, StringUtils.left(purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodCode(), 4)) &&
+                    purchaseOrderTransmissionMethod.isDisplayToUser()) {
                     labels.add(new ConcreteKeyValue(purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodCode(), purchaseOrderTransmissionMethod.getPurchaseOrderTransmissionMethodDescription()));
                 }
             }

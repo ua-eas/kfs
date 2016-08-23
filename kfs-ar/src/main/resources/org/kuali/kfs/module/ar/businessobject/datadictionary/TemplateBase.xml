@@ -18,94 +18,93 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="TemplateBase-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="objectLabel" value="Template Base" />
-		<property name="attributes">
-			<list>
-				<ref bean="TemplateBase-filename" />
-				<ref bean="TemplateBase-active" />
-				<ref bean="TemplateBase-restrictUseByChartOrg" />
-				<ref bean="TemplateBase-billByChartOfAccountCode" />
-				<ref bean="TemplateBase-billedByOrganizationCode" />
-				<ref bean="TemplateBase-uploadDate" />
-			</list>
-		</property>
-	</bean>
+    <bean id="TemplateBase-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="objectLabel" value="Template Base"/>
+        <property name="attributes">
+            <list>
+                <ref bean="TemplateBase-filename"/>
+                <ref bean="TemplateBase-active"/>
+                <ref bean="TemplateBase-restrictUseByChartOrg"/>
+                <ref bean="TemplateBase-billByChartOfAccountCode"/>
+                <ref bean="TemplateBase-billedByOrganizationCode"/>
+                <ref bean="TemplateBase-uploadDate"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
-	<bean id="TemplateBase-filename" parent="TemplateBase-filename-parentBean" />
+    <!-- Attribute Definitions -->
+    <bean id="TemplateBase-filename" parent="TemplateBase-filename-parentBean"/>
 
-	<bean id="TemplateBase-filename-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="filename" />
-		<property name="forceUppercase" value="false" />
-		<property name="label" value="File Name" />
-		<property name="shortLabel" value="File Name" />
-		<property name="maxLength" value="45" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="required" value="true" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="47" />
-		</property>
-	</bean>
+    <bean id="TemplateBase-filename-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="filename"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="File Name"/>
+        <property name="shortLabel" value="File Name"/>
+        <property name="maxLength" value="45"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="47"/>
+        </property>
+    </bean>
 
-	<bean id="TemplateBase-active" parent="TemplateBase-active-parentBean" />
+    <bean id="TemplateBase-active" parent="TemplateBase-active-parentBean"/>
 
-	<bean id="TemplateBase-active-parentBean" abstract="true"
-		parent="GenericAttributes-activeIndicator">
-		<property name="name" value="active" />
-	</bean>
+    <bean id="TemplateBase-active-parentBean" abstract="true"
+          parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+    </bean>
 
-	<bean id="TemplateBase-restrictUseByChartOrg" parent="TemplateBase-restrictUseByChartOrg-parentBean" />
+    <bean id="TemplateBase-restrictUseByChartOrg" parent="TemplateBase-restrictUseByChartOrg-parentBean"/>
 
-	<bean id="TemplateBase-restrictUseByChartOrg-parentBean" abstract="true"
-		parent="GenericAttributes-genericBoolean">
-		<property name="name" value="restrictUseByChartOrg" />
-		<property name="label" value="Restrict Use by Chart/Org" />
-		<property name="shortLabel" value="Restrict Use by Chart/Org" />
-	</bean>
+    <bean id="TemplateBase-restrictUseByChartOrg-parentBean" abstract="true"
+          parent="GenericAttributes-genericBoolean">
+        <property name="name" value="restrictUseByChartOrg"/>
+        <property name="label" value="Restrict Use by Chart/Org"/>
+        <property name="shortLabel" value="Restrict Use by Chart/Org"/>
+    </bean>
 
-	<bean id="TemplateBase-billByChartOfAccountCode" parent="TemplateBase-billByChartOfAccountCode-parentBean" />
+    <bean id="TemplateBase-billByChartOfAccountCode" parent="TemplateBase-billByChartOfAccountCode-parentBean"/>
 
-	<bean id="TemplateBase-billByChartOfAccountCode-parentBean"
-		abstract="true" parent="Chart-chartOfAccountsCode">
-		<property name="name" value="billByChartOfAccountCode" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Billing Chart Code" />
-		<property name="shortLabel" value="Billing Chart" />
-		<property name="control">
-			<ref bean="ChartSelectControl" />
-		</property>
-	</bean>
+    <bean id="TemplateBase-billByChartOfAccountCode-parentBean"
+          abstract="true" parent="Chart-chartOfAccountsCode">
+        <property name="name" value="billByChartOfAccountCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Billing Chart Code"/>
+        <property name="shortLabel" value="Billing Chart"/>
+        <property name="control">
+            <ref bean="ChartSelectControl"/>
+        </property>
+    </bean>
 
-	<bean id="TemplateBase-billedByOrganizationCode" parent="TemplateBase-billedByOrganizationCode-parentBean" />
+    <bean id="TemplateBase-billedByOrganizationCode" parent="TemplateBase-billedByOrganizationCode-parentBean"/>
 
-	<bean id="TemplateBase-billedByOrganizationCode-parentBean"
-		abstract="true" parent="Organization-organizationCode">
-		<property name="name" value="billedByOrganizationCode" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Billing Organization Code" />
-		<property name="shortLabel" value="Billing Org Code" />
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="6"/>
-    	</property>
-	</bean>
+    <bean id="TemplateBase-billedByOrganizationCode-parentBean"
+          abstract="true" parent="Organization-organizationCode">
+        <property name="name" value="billedByOrganizationCode"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Billing Organization Code"/>
+        <property name="shortLabel" value="Billing Org Code"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="6"/>
+        </property>
+    </bean>
 
-	<bean id="TemplateBase-uploadDate" parent="TemplateBase-uploadDate-parentBean" />
+    <bean id="TemplateBase-uploadDate" parent="TemplateBase-uploadDate-parentBean"/>
 
-	<bean id="TemplateBase-uploadDate-parentBean" abstract="true"
-		parent="GenericAttributes-genericTimestamp">
-		<property name="name" value="uploadDate" />
-		<property name="forceUppercase" value="false" />
-		<property name="label" value="Template Upload Date" />
-		<property name="shortLabel" value="Template Upload Date" />
-	    <property name="formatterClass" value="org.kuali.rice.core.web.format.TimestampAMPMFormatter"/>
-	</bean>
+    <bean id="TemplateBase-uploadDate-parentBean" abstract="true"
+          parent="GenericAttributes-genericTimestamp">
+        <property name="name" value="uploadDate"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Template Upload Date"/>
+        <property name="shortLabel" value="Template Upload Date"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.TimestampAMPMFormatter"/>
+    </bean>
 
 </beans>

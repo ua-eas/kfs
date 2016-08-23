@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 /**
  * Helper interface for use with the RiceXmlStreamingList class.
- *
+ * <p>
  * <p>If "streaming" of child elements is desired during JAXB unmarshalling, then the parent element
  * assigns an instance of RiceXmlStreamingList to the appropriate list field/property, and gives the
  * list an implementation of this interface for the list to invoke whenever it receives a

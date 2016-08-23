@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerInvoiceItemCodeMaintainableImplUtil {
 

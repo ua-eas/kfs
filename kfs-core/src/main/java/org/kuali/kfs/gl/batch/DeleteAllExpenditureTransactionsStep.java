@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.service.ExpenditureTransactionService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.TestingStep;
+
+import java.util.Date;
 
 /**
  * A step to remove all expenditure transactions held in the database
@@ -33,7 +33,7 @@ public class DeleteAllExpenditureTransactionsStep extends AbstractStep implement
     /**
      * Runs the process of deleting all expenditure transactions
      *
-     * @param jobName the name of the job this step is being run as part of
+     * @param jobName    the name of the job this step is being run as part of
      * @param jobRunDate the time/date when the job was started
      * @return true if the job finished successfully, false if otherwise
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)

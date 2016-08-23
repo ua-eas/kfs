@@ -18,13 +18,8 @@
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -32,8 +27,12 @@ import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements PaymentSummaryService
@@ -42,13 +41,14 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
 
     private static Map<Integer, Method> DEPR_AMT_FIELDS = new HashMap<Integer, Method>();
+
     /**
      * Map will store getter method mapped to each primary depreciation period column. Based on the current fiscal month, current
      * month depreciation column can be identified easily from this map
      */
     static {
         try {
-            Class<?>[] emptyParams = new Class[] {};
+            Class<?>[] emptyParams = new Class[]{};
             DEPR_AMT_FIELDS.put(1, AssetPayment.class.getMethod("getPeriod1Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(2, AssetPayment.class.getMethod("getPeriod2Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(3, AssetPayment.class.getMethod("getPeriod3Depreciation1Amount", emptyParams));
@@ -61,8 +61,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
             DEPR_AMT_FIELDS.put(10, AssetPayment.class.getMethod("getPeriod10Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(11, AssetPayment.class.getMethod("getPeriod11Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(12, AssetPayment.class.getMethod("getPeriod12Depreciation1Amount", emptyParams));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -111,7 +110,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
             }
             Collection<String> fedContrTypes = parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.FEDERAL_CONTRIBUTIONS_OBJECT_SUB_TYPES);
             if (!ObjectUtils.isNull(payment.getObjectCodeCurrent())
-                    && fedContrTypes.contains( payment.getObjectCodeCurrent().getFinancialObjectSubTypeCode())) {
+                && fedContrTypes.contains(payment.getObjectCodeCurrent().getFinancialObjectSubTypeCode())) {
                 amount = addAmount(amount, payment.getAccountChargeAmount());
             }
         }
@@ -271,13 +270,12 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
      * @return Depreciation Amount for current month
      */
     protected KualiDecimal getCurrentMonthDepreciationAmount(AssetPayment assetPayment) {
-        Object[] emptyParams = new Object[] {};
+        Object[] emptyParams = new Object[]{};
         Integer currPeriod = Integer.valueOf(universityDateService.getCurrentUniversityDate().getUniversityFiscalAccountingPeriod());
         KualiDecimal amount = null;
         try {
             amount = (KualiDecimal) (DEPR_AMT_FIELDS.get(currPeriod).invoke(assetPayment, emptyParams));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return amount;

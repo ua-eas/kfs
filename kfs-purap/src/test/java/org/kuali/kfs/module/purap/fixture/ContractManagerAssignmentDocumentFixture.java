@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.businessobject.ContractManagerAssignmentDetail;
 import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum ContractManagerAssignmentDocumentFixture {
-    ACM_DOCUMENT_VALID (new ContractManagerAssignmentDetailFixture[] {ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS, ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS_2 } ),
-    ACM_DOCUMENT_VALID_2 (new ContractManagerAssignmentDetailFixture[] {ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS_2 } ),
-    ACM_DOCUMENT_PERFORMANCE(new ContractManagerAssignmentDetailFixture[] {ContractManagerAssignmentDetailFixture.ACM_DETAIL_PERFORMANCE})
- ;
+    ACM_DOCUMENT_VALID(new ContractManagerAssignmentDetailFixture[]{ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS, ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS_2}),
+    ACM_DOCUMENT_VALID_2(new ContractManagerAssignmentDetailFixture[]{ContractManagerAssignmentDetailFixture.ACM_DETAIL_REQ_ONLY_REQUIRED_FIELDS_2}),
+    ACM_DOCUMENT_PERFORMANCE(new ContractManagerAssignmentDetailFixture[]{ContractManagerAssignmentDetailFixture.ACM_DETAIL_PERFORMANCE});
 
     private ContractManagerAssignmentDetailFixture[] acmDetailFixtures;
-    private List <ContractManagerAssignmentDetail> contractManagerAssignmentDetails;
+    private List<ContractManagerAssignmentDetail> contractManagerAssignmentDetails;
+
     private ContractManagerAssignmentDocumentFixture(ContractManagerAssignmentDetailFixture[] acmDetailFixtures) {
         this.acmDetailFixtures = acmDetailFixtures;
         contractManagerAssignmentDetails = new ArrayList();
@@ -53,8 +53,7 @@ public enum ContractManagerAssignmentDocumentFixture {
         try {
             doc = (ContractManagerAssignmentDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), ContractManagerAssignmentDocument.class);
             doc.setContractManagerAssignmentDetailss(contractManagerAssignmentDetails);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
         return doc;

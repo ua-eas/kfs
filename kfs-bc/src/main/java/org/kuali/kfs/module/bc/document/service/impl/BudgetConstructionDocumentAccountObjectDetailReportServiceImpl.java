@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
@@ -38,6 +33,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Service implementation of BudgetConstructionLevelSummaryReportService.
@@ -55,7 +55,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionLevelSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     @Override
     public Collection<BudgetConstructionAccountObjectDetailReport> buildReports(String principalName) {
@@ -64,8 +64,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         // build order list
         List<String> orderList = buildOrderByList();
         Collection<BudgetConstructionBalanceByAccount> balanceByAccountList = budgetConstructionReportsServiceHelper.getDataForBuildingReports(BudgetConstructionBalanceByAccount.class, principalName, orderList);
-
-
 
 
         List listForCalculateObject = BudgetConstructionReportHelper.deleteDuplicated((List) balanceByAccountList, fieldsForObject());
@@ -80,9 +78,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         accountObjectDetailTotalObjectList = calculateObjectTotal((List) balanceByAccountList, listForCalculateObject);
         accountObjectDetailTotalLevelList = calculateLevelTotal((List) balanceByAccountList, listForCalculateLevel);
         accountObjectDetailTotalTypeList = calculateTypeTotal((List) balanceByAccountList, listForCalculateType);
-
-
-
 
 
         for (BudgetConstructionBalanceByAccount balanceByAccount : balanceByAccountList) {
@@ -118,8 +113,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         String orgName = null;
         try {
             orgName = balanceByAccount.getAccount().getOrganization().getOrganizationName();
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
         }
         String accountName = balanceByAccount.getAccount().getAccountName();
         String fundGroupCode = balanceByAccount.getAccount().getSubFundGroup().getFundGroupCode();
@@ -128,39 +122,34 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
         if (orgName == null) {
             accountObjectDetailReport.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             accountObjectDetailReport.setOrganizationName(orgName);
         }
 
         if (fundGroupCode == null) {
             accountObjectDetailReport.setFundGroupCode(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_CODE));
-        }
-        else {
+        } else {
             accountObjectDetailReport.setFundGroupCode(fundGroupCode);
         }
 
         if (fundGroupName == null) {
             accountObjectDetailReport.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             accountObjectDetailReport.setFundGroupName(fundGroupName);
         }
 
 
         if (accountName == null) {
             accountObjectDetailReport.setAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ACCOUNT_DESCRIPTION));
-        }
-        else {
+        } else {
             accountObjectDetailReport.setAccountName(accountName);
         }
 
         String chartOfAccountDescription = "";
-        if (balanceByAccount.getChartOfAccounts() != null){
+        if (balanceByAccount.getChartOfAccounts() != null) {
             try {
                 chartOfAccountDescription = balanceByAccount.getChartOfAccounts().getFinChartOfAccountDescription();
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 chartOfAccountDescription = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION);
             }
         } else {
@@ -171,11 +160,10 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
         String subAccountName = "";
 
-        if (!balanceByAccount.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())){
+        if (!balanceByAccount.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
             try {
                 subAccountName = balanceByAccount.getSubAccount().getSubAccountName();
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 subAccountName = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION);
             }
         }
@@ -196,10 +184,9 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
     protected void buildReportsBody(BudgetConstructionBalanceByAccount balanceByAccount, BudgetConstructionAccountObjectDetailReport accountObjectDetailReport) {
         accountObjectDetailReport.setFinancialObjectCode(balanceByAccount.getFinancialObjectCode());
 
-        if (balanceByAccount.getFinancialSubObjectCode().equals(KFSConstants.getDashFinancialSubObjectCode())){
+        if (balanceByAccount.getFinancialSubObjectCode().equals(KFSConstants.getDashFinancialSubObjectCode())) {
             accountObjectDetailReport.setFinancialObjectName(balanceByAccount.getFinancialObject().getFinancialObjectCodeName());
-        }
-        else {
+        } else {
             accountObjectDetailReport.setFinancialObjectName(balanceByAccount.getFinancialSubObject().getFinancialSubObjectCodeName());
         }
 
@@ -220,9 +207,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         accountObjectDetailReport.setPercentChange(BudgetConstructionReportHelper.calculatePercent(changeAmount, accountObjectDetailReport.getFinancialBeginningBalanceLineAmount()));
 
     }
-
-
-
 
 
     /**
@@ -266,14 +250,12 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         }
 
 
-
         for (BudgetConstructionAccountObjectDetailReportTotal typeTotal : accountObjectDetailTotalTypeList) {
             if (BudgetConstructionReportHelper.isSameEntry(balanceByAccount, typeTotal.getBudgetConstructionBalanceByAccount(), fieldsForType())) {
 
                 if (balanceByAccount.getTypeFinancialReportSortCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
                     accountObjectDetailReport.setTotalTypeDescription(BCConstants.Report.TOTAL_REVENUES);
-                }
-                else {
+                } else {
                     accountObjectDetailReport.setTotalTypeDescription(BCConstants.Report.TOTAL_EXPENDITURES_MARGIN);
                 }
                 accountObjectDetailReport.setTotalTypePositionCsfLeaveFteQuantity(BudgetConstructionReportHelper.setDecimalDigit(typeTotal.getTotalTypePositionCsfLeaveFteQuantity(), 2, true));
@@ -291,9 +273,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
 
     }
-
-
-
 
 
     protected List calculateObjectTotal(List<BudgetConstructionBalanceByAccount> balanceByAccountList, List<BudgetConstructionBalanceByAccount> simpleList) {
@@ -341,8 +320,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
         return returnList;
 
     }
-
-
 
 
     protected List calculateLevelTotal(List<BudgetConstructionBalanceByAccount> balanceByAccountList, List<BudgetConstructionBalanceByAccount> simpleList) {
@@ -437,11 +414,6 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
     }
 
 
-
-
-
-
-
     /**
      * builds orderByList for sort order.
      *
@@ -461,6 +433,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
     /**
      * builds list of fields for comparing entry of Object
+     *
      * @return List<String>
      */
     protected List<String> fieldsForObject() {
@@ -472,6 +445,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
     /**
      * builds list of fields for comparing entry of Level
+     *
      * @return List<String>
      */
     protected List<String> fieldsForLevel() {
@@ -483,6 +457,7 @@ public class BudgetConstructionDocumentAccountObjectDetailReportServiceImpl impl
 
     /**
      * builds list of fields for comparing entry of GexpAndType
+     *
      * @return List<String>
      */
     protected List<String> fieldsForType() {

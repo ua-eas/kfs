@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
+
 import java.io.IOException;
 import java.util.Properties;
-
-import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 
 public enum AssetGlobalMaintainableFixture {
     GLOBAL1(1);
@@ -29,13 +29,13 @@ public enum AssetGlobalMaintainableFixture {
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/asset_global.properties";
         properties = new Properties();
         try {
             properties.load(ClassLoader.getSystemResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
@@ -49,7 +49,7 @@ public enum AssetGlobalMaintainableFixture {
         String propertyKey = "assetGlobal.testData" + testDataPos;
         String deliminator = properties.getProperty("deliminator");
         String fieldNames = properties.getProperty("assetGlobal.fieldNames");
-        AssetGlobal  assetGlobal = CamsFixture.DATA_POPULATOR.buildTestDataObject(AssetGlobal.class, properties, propertyKey, fieldNames, deliminator);
+        AssetGlobal assetGlobal = CamsFixture.DATA_POPULATOR.buildTestDataObject(AssetGlobal.class, properties, propertyKey, fieldNames, deliminator);
         return assetGlobal;
     }
 }

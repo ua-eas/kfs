@@ -27,7 +27,7 @@ import org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution;
 
 public enum DunningLetterDistributionFixture {
 
-    AR_DLD1("DC1", new Long (1), "CURRENT", true, "CURRENT");
+    AR_DLD1("DC1", new Long(1), "CURRENT", true, "CURRENT");
 
     private String campaignID;
     private Long dunningLetterDistributionID;

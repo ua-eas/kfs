@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.rice.core.api.config.module.RunMode;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.framework.config.module.ModuleConfigurer;
 import org.kuali.rice.core.framework.config.module.WebModuleConfiguration;
 import org.springframework.beans.factory.InitializingBean;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class KFSConfigurer extends ModuleConfigurer implements InitializingBean {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KFSConfigurer.class);
@@ -36,34 +36,34 @@ public class KFSConfigurer extends ModuleConfigurer implements InitializingBean 
 
     public KFSConfigurer() {
         super("KFS");
-        LOG.info( "KFSConfigurer instantiated" );
+        LOG.info("KFSConfigurer instantiated");
         setValidRunModes(Arrays.asList(RunMode.LOCAL));
     }
 
     @Override
     protected void doAdditionalModuleStartLogic() throws Exception {
-        LOG.info( "*********************************************************" );
-        LOG.info( "KFS Starting Module" );
-        LOG.info( "*********************************************************" );
+        LOG.info("*********************************************************");
+        LOG.info("KFS Starting Module");
+        LOG.info("*********************************************************");
         super.doAdditionalModuleStartLogic();
     }
 
     @Override
     protected void doAdditionalModuleStopLogic() throws Exception {
-        LOG.info( "*********************************************************" );
-        LOG.info( "KFS Stopping Module" );
-        LOG.info( "*********************************************************" );
+        LOG.info("*********************************************************");
+        LOG.info("KFS Stopping Module");
+        LOG.info("*********************************************************");
         super.doAdditionalModuleStopLogic();
     }
 
     @Override
     public List<String> getPrimarySpringFiles() {
         String files = ConfigContext.getCurrentContextConfig().getProperty("spring.source.files");
-        if ( testMode ) {
+        if (testMode) {
             files = files + "," + ConfigContext.getCurrentContextConfig().getProperty("spring.test.files");
         }
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info( "KFS Spring Files Requested.  Returning: " + files );
+        if (LOG.isInfoEnabled()) {
+            LOG.info("KFS Spring Files Requested.  Returning: " + files);
         }
         return files == null ? Collections.<String>emptyList() : parseFileList(files);
     }

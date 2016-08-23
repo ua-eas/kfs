@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 /**
@@ -94,7 +93,7 @@ public class PredeterminedBillingSchedule extends PersistableBusinessObjectBase 
     @Override
     public KualiDecimal getTotalAmountScheduled() {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Bill bill: bills) {
+        for (Bill bill : bills) {
             if (ObjectUtils.isNotNull(bill.getEstimatedAmount()) && bill.isActive()) {
                 total = total.add(bill.getEstimatedAmount());
             }

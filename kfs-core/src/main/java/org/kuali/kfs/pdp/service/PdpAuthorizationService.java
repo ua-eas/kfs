@@ -22,6 +22,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks if person has 'Cancel Payment' permission.
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */
@@ -29,6 +30,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks if the principal has 'Format' permission.
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */
@@ -36,6 +38,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks that the principal has the 'Hold Payment / Remove Non-Tax Payment Hold' permission.
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */
@@ -43,6 +46,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks that the principal has the 'Remove Format Lock' permission.
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */
@@ -50,6 +54,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks that the principal has 'Remove Payment Tax Hold' permission
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */
@@ -57,6 +62,7 @@ public interface PdpAuthorizationService {
 
     /**
      * This method checks that the principal has 'Set as Immmediate Pay' permission.
+     *
      * @param principalId Principal ID
      * @return true if it has permission, false otherwise
      */

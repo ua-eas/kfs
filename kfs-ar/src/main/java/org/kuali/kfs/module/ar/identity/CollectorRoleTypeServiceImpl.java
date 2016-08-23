@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.identity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.identity.OrganizationHierarchyAwareRoleTypeServiceBase;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.rice.core.api.uif.RemotableAttributeError;
 import org.kuali.rice.core.api.uif.RemotableAttributeError.Builder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Role Type Service for the CGB Collector role, used to perform validation and matching of role qualifiers.
@@ -40,7 +40,7 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#performMatch(java.util.Map, java.util.Map)
      */
     @Override
-    public boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    public boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         boolean matches = false;
 
         matches = doesCustomerMatch(qualification, roleQualifier);
@@ -52,9 +52,9 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
         // only test chart/org if either billing chart/org or processing chart/org are populated
         // otherwise we only care if customer matches
         if ((StringUtils.isNotBlank(billingChartOfAccountsCode) && StringUtils.isNotBlank(billingOrganizationCode) ||
-                (StringUtils.isNotBlank(processingChartOfAccountsCode) && StringUtils.isNotBlank(processingOrganizationCode)))) {
+            (StringUtils.isNotBlank(processingChartOfAccountsCode) && StringUtils.isNotBlank(processingOrganizationCode)))) {
             matches &= (doesOrgMatch(billingChartOfAccountsCode, billingOrganizationCode, ArKimAttributes.BILLING_CHART_OF_ACCOUNTS_CODE, ArKimAttributes.BILLING_ORGANIZATION_CODE, roleQualifier)
-                    || doesOrgMatch(processingChartOfAccountsCode, processingOrganizationCode, ArKimAttributes.PROCESSING_CHART_OF_ACCOUNTS_CODE, ArKimAttributes.PROCESSING_ORGANIZATION_CODE, roleQualifier));
+                || doesOrgMatch(processingChartOfAccountsCode, processingOrganizationCode, ArKimAttributes.PROCESSING_CHART_OF_ACCOUNTS_CODE, ArKimAttributes.PROCESSING_ORGANIZATION_CODE, roleQualifier));
         }
 
         return matches;
@@ -65,8 +65,8 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
      * on the role qualifier. Is org hierarchy aware and descends the org hierarchy to do this check.
      *
      * @param chartOfAccountsCode chart code to check against billing or processing chart in role qualifiers
-     * @param organizationCode org code to check against billing or processing org in role qualifiers
-     * @param roleQualifier role qualifier containing either billing chart/org or processing chart/org
+     * @param organizationCode    org code to check against billing or processing org in role qualifiers
+     * @param roleQualifier       role qualifier containing either billing chart/org or processing chart/org
      * @return true if the passed in chart/org match, false otherwise
      */
     protected boolean doesOrgMatch(String chartOfAccountsCode, String organizationCode, String chartOfAccountsCodeKey, String organizationCodeKey, Map<String, String> roleQualifier) {
@@ -78,8 +78,8 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
         // only billing chart/org or processing chart/org will be populated, and we don't want to call isParentOrg
         // with null values, so we need to check for empty values first before calling isParentOrg
         if (StringUtils.isNotEmpty(chart) && StringUtils.isNotEmpty(org) &&
-                StringUtils.isNotEmpty(chartOfAccountsCode) && StringUtils.isNotEmpty(organizationCode) &&
-                isParentOrg(chartOfAccountsCode, organizationCode, chart, org, true)) {
+            StringUtils.isNotEmpty(chartOfAccountsCode) && StringUtils.isNotEmpty(organizationCode) &&
+            isParentOrg(chartOfAccountsCode, organizationCode, chart, org, true)) {
             orgMatches = true;
         }
 
@@ -88,11 +88,11 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
 
     /**
      * Check if customer name matches customer name starting letter and ending letter
-     *
+     * <p>
      * If customer name isn't passed in the role qualification or customer name starting letter and
      * customer name ending letter qualifiers aren't in the roleQualifier, return true because we want
      * to match all customers in that case.
-     *
+     * <p>
      * If the customer name and starting/ending letter qualifiers are passed in, check to see if the first letter
      * of the customer name falls between the starting and ending letter qualifiers - if not, return false as the
      * name doesn't match the qualifiers, otherwise return true for a match.
@@ -114,7 +114,7 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
 
                 if (StringUtils.isNotEmpty(startingQualifierLetter) && StringUtils.isNotEmpty(endingQualifierLetter)) {
                     if (startingQualificationLetter < startingQualifierLetter.charAt(0) ||
-                            endingQualificationLetter > endingQualifierLetter.charAt(0)) {
+                        endingQualificationLetter > endingQualifierLetter.charAt(0)) {
                         customerMatches = false;
                     }
                 }
@@ -131,7 +131,7 @@ public class CollectorRoleTypeServiceImpl extends OrganizationHierarchyAwareRole
      * @see org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase#validateAttributes(java.lang.String, java.util.Map)
      */
     @Override
-    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String,String> attributes) {
+    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String, String> attributes) {
         List<RemotableAttributeError> errors = new ArrayList<RemotableAttributeError>();
         errors.addAll(super.validateAttributes(kimTypeId, attributes));
 

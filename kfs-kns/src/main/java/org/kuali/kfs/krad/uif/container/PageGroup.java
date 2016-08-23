@@ -33,7 +33,7 @@ public class PageGroup extends Group {
      * setupValidator js function for setting up the validator for this view.
      *
      * @see ContainerBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -46,8 +46,7 @@ public class PageGroup extends Group {
 
         if (view instanceof FormView && ((FormView) view).isValidateClientSide()) {
             this.setOnDocumentReadyScript(prefixScript + "\nsetupPage(true);");
-        }
-        else{
+        } else {
             this.setOnDocumentReadyScript(prefixScript + "\nsetupPage(false);");
         }
     }

@@ -19,8 +19,8 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * This class is used to represent a travel expense type code business object.

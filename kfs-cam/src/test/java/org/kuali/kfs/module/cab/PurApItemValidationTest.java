@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.cab;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ObjectLevel;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
 import org.kuali.kfs.module.cab.businessobject.AssetTransactionType;
 import org.kuali.kfs.module.purap.fixture.PurchasingCapitalAssetFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.MessageList;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class PurApItemValidationTest extends MaintenanceRuleTestBase {
@@ -41,7 +40,7 @@ public class PurApItemValidationTest extends MaintenanceRuleTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         KNSGlobalVariables.setMessageList(new MessageList());
-        if( null == cabModuleService ) {
+        if (null == cabModuleService) {
             cabModuleService = SpringContext.getBean(CapitalAssetBuilderModuleService.class);
         }
     }

@@ -18,19 +18,9 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_AND_LAST_YEAR;
-import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_LOWER;
-import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_UPPER;
-
-import java.io.File;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.PosterSummaryReportStep;
 import org.kuali.kfs.gl.businessobject.GlSummary;
@@ -48,7 +38,17 @@ import org.kuali.kfs.sys.service.FiscalYearAwareReportWriterService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_AND_LAST_YEAR;
+import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_LOWER;
+import static org.kuali.kfs.gl.GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_UPPER;
 
 /**
  * Implements a set of methods that can generate labor balance summary reports
@@ -106,7 +106,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     // generate a set of balance summary reports for actual, budget and encumbrance balances
     protected void generateBalanceSummaryReports(Integer fiscalYear, Date runDate) {
         SystemOptions options = optionsService.getOptions(fiscalYear);
-        if(options == null) {
+        if (options == null) {
             LOG.fatal("The data for " + fiscalYear + "have NOT been setup.");
             return;
         }
@@ -126,14 +126,14 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
         List<GlSummary> summaryList = new ArrayList<GlSummary>(balanceSummary);
 
         GlSummary totals = new LaborBalanceSummary();
-        for(GlSummary summaryLine : summaryList) {
+        for (GlSummary summaryLine : summaryList) {
             totals.add(summaryLine);
         }
         totals.setFundGroup("Total");
 
         try {
             reportWriterService.setFiscalYear(fiscalYear);
-            ((WrappingBatchService)reportWriterService).initialize();
+            ((WrappingBatchService) reportWriterService).initialize();
             reportWriterService.writeSubTitle("Balance Type of " + balanceTypes + " for Fiscal Year " + fiscalYear);
             reportWriterService.writeNewLines(1);
 
@@ -142,9 +142,8 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
             reportWriterService.writeTableRowSeparationLine(totals);
             reportWriterService.writeTableRow(totals);
-        }
-        finally {
-            ((WrappingBatchService)reportWriterService).destroy();
+        } finally {
+            ((WrappingBatchService) reportWriterService).destroy();
         }
     }
 
@@ -165,7 +164,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
                 posterOutputSummaryReport.summarize(originEntry);
             }
         } else {
-            LOG.warn("Could not Main Poster Input file, "+ LaborConstants.BatchFileSystem.POSTER_INPUT_FILE + ", for tabulation in the Poster Output Summary Report");
+            LOG.warn("Could not Main Poster Input file, " + LaborConstants.BatchFileSystem.POSTER_INPUT_FILE + ", for tabulation in the Poster Output Summary Report");
         }
 
         posterOutputSummaryReport.writeReport(laborPosterOutputSummaryReportWriterService);
@@ -222,10 +221,10 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     /**
      * determine if the given date is within the year end period
      *
-     * @param runDate the given date
+     * @param runDate                 the given date
      * @param yearEndPeriodLowerBound the lower bound date of year end period
      * @param yearEndPeriodUpperBound the upper bound date of year end period
-     * @param lastDayOfFiscalYear the last day of the current fiscal year
+     * @param lastDayOfFiscalYear     the last day of the current fiscal year
      * @return true if the given date is within the lower bound of year end period; otherwise, false
      */
     protected boolean isInYearEndPeriod(Date runDate, String yearEndPeriodLowerBound, String yearEndPeriodUpperBound, String lastDayOfFiscalYear) {
@@ -235,9 +234,9 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     /**
      * determine if the given date is within the lower bound of year end period
      *
-     * @param runDate the given date
+     * @param runDate                 the given date
      * @param yearEndPeriodLowerBound the lower bound date of year end period
-     * @param lastDayOfFiscalYear the last day of the current fiscal year
+     * @param lastDayOfFiscalYear     the last day of the current fiscal year
      * @return true if the given date is within the lower bound of year end period; otherwise, false
      */
     protected boolean isInYearEndLowerBound(Date runDate, String yearEndPeriodLowerBound, String lastDayOfFiscalYear) {
@@ -249,9 +248,9 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     /**
      * determine if the given date is within the upper bound of year end period
      *
-     * @param runDate the given date
+     * @param runDate                 the given date
      * @param yearEndPeriodUpperBound the upper bound date of year end period
-     * @param lastDayOfFiscalYear the last day of the current fiscal year
+     * @param lastDayOfFiscalYear     the last day of the current fiscal year
      * @return true if the given date is within the upper bound of year end period; otherwise, false
      */
     protected boolean isInYearEndUpperBound(Date runDate, String yearEndPeriodUpperBound, String lastDayOfFiscalYear) {
@@ -290,6 +289,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -298,6 +298,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the laborLedgerBalanceService attribute value.
+     *
      * @param laborLedgerBalanceService The laborLedgerBalanceService to set.
      */
     public void setLaborLedgerBalanceService(LaborLedgerBalanceService laborLedgerBalanceService) {
@@ -306,6 +307,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the laborActualBalanceSummaryReportWriterService attribute value.
+     *
      * @param laborActualBalanceSummaryReportWriterService The laborActualBalanceSummaryReportWriterService to set.
      */
     public void setLaborActualBalanceSummaryReportWriterService(FiscalYearAwareReportWriterService laborActualBalanceSummaryReportWriterService) {
@@ -314,6 +316,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the laborBudgetBalanceSummaryReportWriterService attribute value.
+     *
      * @param laborBudgetBalanceSummaryReportWriterService The laborBudgetBalanceSummaryReportWriterService to set.
      */
     public void setLaborBudgetBalanceSummaryReportWriterService(FiscalYearAwareReportWriterService laborBudgetBalanceSummaryReportWriterService) {
@@ -322,6 +325,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the laborEncumbranceSummaryReportWriterService attribute value.
+     *
      * @param laborEncumbranceSummaryReportWriterService The laborEncumbranceSummaryReportWriterService to set.
      */
     public void setLaborEncumbranceSummaryReportWriterService(FiscalYearAwareReportWriterService laborEncumbranceSummaryReportWriterService) {
@@ -330,6 +334,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the laborPosterOutputSummaryReportWriterService attribute value.
+     *
      * @param laborPosterOutputSummaryReportWriterService The laborPosterOutputSummaryReportWriterService to set.
      */
     public void setLaborPosterOutputSummaryReportWriterService(ReportWriterService laborPosterOutputSummaryReportWriterService) {
@@ -338,6 +343,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

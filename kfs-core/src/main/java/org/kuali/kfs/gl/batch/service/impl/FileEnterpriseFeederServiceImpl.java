@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
@@ -40,6 +31,15 @@ import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class iterates through the files in the enterprise feeder staging directory, which is injected by Spring. Note: this class
@@ -137,12 +137,10 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
 
                         fileEnterpriseFeederHelperService.feedOnFile(doneFile, dataFile, reconFile, enterpriseFeedPs, processName, reconciliationTableId, statusAndErrors, ledgerSummaryReport);
                     }
-                }
-                catch (RuntimeException e) {
+                } catch (RuntimeException e) {
                     // we need to be extremely resistant to a file load failing so that it doesn't prevent other files from loading
                     LOG.error("Caught exception when feeding done file: " + doneFile.getAbsolutePath());
-                }
-                finally {
+                } finally {
                     statusAndErrorsList.add(statusAndErrors);
                     boolean doneFileDeleted = doneFile.delete();
                     if (!doneFileDeleted) {
@@ -158,8 +156,8 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
             generateReport(statusAndErrorsList, ledgerSummaryReport, glOriginEntryDirectoryName + File.separator + enterpriseFeedFileName);
 
             String enterpriseFeedDoneFileName = enterpriseFeedFileName.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
-            File enterpriseFeedDoneFile = new File (glOriginEntryDirectoryName + File.separator + enterpriseFeedDoneFileName);
-            if (!enterpriseFeedDoneFile.exists()){
+            File enterpriseFeedDoneFile = new File(glOriginEntryDirectoryName + File.separator + enterpriseFeedDoneFileName);
+            if (!enterpriseFeedDoneFile.exists()) {
                 try {
                     enterpriseFeedDoneFile.createNewFile();
                 } catch (IOException e) {
@@ -383,6 +381,7 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
 
     /**
      * Sets the reportWriterService attribute value.
+     *
      * @param reportWriterService The reportWriterService to set.
      */
     public void setReportWriterService(ReportWriterService reportWriterService) {
@@ -394,6 +393,8 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(getDirectoryName()); }};
+        return new ArrayList<String>() {{
+            add(getDirectoryName());
+        }};
     }
 }

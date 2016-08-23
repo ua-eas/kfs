@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.coa.businessobject.BudgetAggregationCode;
+
+import java.util.Comparator;
 
 /**
  * This class allows us to compare two {@link BudgetAggregationCode} objects using their codes for comparison

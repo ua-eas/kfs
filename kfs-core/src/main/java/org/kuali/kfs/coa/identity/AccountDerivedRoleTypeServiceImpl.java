@@ -18,21 +18,17 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.service.AccountDelegateService;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.MailService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -43,16 +39,20 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 
@@ -74,14 +74,14 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
      * String accountNumber) method on the contracts and grants module service
      *
      * @see org.kuali.kfs.kns.kim.role.RoleTypeServiceBase#getPrincipalIdsFromApplicationRole(java.lang.String,
-     *      java.lang.String, org.kuali.kfs.kim.bo.types.dto.AttributeSet)
+     * java.lang.String, org.kuali.kfs.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String,String> qualification) {
+    public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         // validate received attributes
         validateRequiredAttributesAgainstReceived(qualification);
         List<RoleMembership> members = new ArrayList<RoleMembership>();
-        if(qualification!=null && !qualification.isEmpty()){
+        if (qualification != null && !qualification.isEmpty()) {
             String chartOfAccountsCode = qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
             String accountNumber = qualification.get(KfsKimAttributes.ACCOUNT_NUMBER);
 
@@ -97,13 +97,13 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                 totalDollarAmount = getDefaultTotalAmount();
             }
 
-            Map<String,String> roleQualifier = new HashMap<String,String>();
+            Map<String, String> roleQualifier = new HashMap<String, String>();
             roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
             roleQualifier.put(KfsKimAttributes.ACCOUNT_NUMBER, accountNumber);
 
             if (chartOfAccountsCode == null && accountNumber == null && StringUtils.isNotBlank(principalId)) {
                 RoleMembership roleMembershipInfo = getRoleMembershipWhenAccountInfoUnavailable(roleName, principalId, roleQualifier);
-                if(ObjectUtils.isNotNull(roleMembershipInfo)) {
+                if (ObjectUtils.isNotNull(roleMembershipInfo)) {
                     members.add(roleMembershipInfo);
                 }
             }
@@ -117,8 +117,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                 if (StringUtils.isNotBlank(accountSupervisorPrincipalID) && (account == null || !StringUtils.equals(accountSupervisorPrincipalID, account.getAccountsSupervisorySystemsIdentifier()))) {
                     members.add(RoleMembership.Builder.create(null, null, accountSupervisorPrincipalID, MemberType.PRINCIPAL, roleQualifier).build());
                 }
-            }
-            else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
+            } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
                 Account account = getAccount(chartOfAccountsCode, accountNumber);
                 if (account != null) {
                     members.add(RoleMembership.Builder.create(null, null, account.getAccountFiscalOfficerSystemIdentifier(), MemberType.PRINCIPAL, roleQualifier).build());
@@ -127,8 +126,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                 if (StringUtils.isNotBlank(fiscalOfficerPrincipalID) && (account == null || !StringUtils.equals(fiscalOfficerPrincipalID, account.getAccountFiscalOfficerSystemIdentifier()))) {
                     members.add(RoleMembership.Builder.create(null, null, fiscalOfficerPrincipalID, MemberType.PRINCIPAL, roleQualifier).build());
                 }
-            }
-            else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+            } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
                 AccountDelegate delegate = getPrimaryDelegate(chartOfAccountsCode, accountNumber, financialSystemDocumentTypeCodeCode, totalDollarAmount);
                 if (delegate != null) {
                     roleQualifier.put(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE, delegate.getFinancialDocumentTypeCode());
@@ -136,8 +134,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                     roleQualifier.put(KfsKimAttributes.TO_AMOUNT, (delegate.getFinDocApprovalToThisAmount() == null) ? "NOLIMIT" : delegate.getFinDocApprovalToThisAmount().toString());
                     members.add(RoleMembership.Builder.create(null, null, delegate.getAccountDelegateSystemId(), MemberType.PRINCIPAL, roleQualifier).build());
                 }
-            }
-            else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+            } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
                 List<AccountDelegate> delegates = getSecondaryDelegates(chartOfAccountsCode, accountNumber, financialSystemDocumentTypeCodeCode, totalDollarAmount);
                 for (AccountDelegate delegate : delegates) {
                     roleQualifier.put(KfsKimAttributes.FINANCIAL_SYSTEM_DOCUMENT_TYPE_CODE, delegate.getFinancialDocumentTypeCode());
@@ -145,8 +142,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                     roleQualifier.put(KfsKimAttributes.TO_AMOUNT, (delegate.getFinDocApprovalToThisAmount() == null) ? "NOLIMIT" : delegate.getFinDocApprovalToThisAmount().toString());
                     members.add(RoleMembership.Builder.create(null, null, delegate.getAccountDelegateSystemId(), MemberType.PRINCIPAL, roleQualifier).build());
                 }
-            }
-            else if (KFSConstants.SysKimApiConstants.AWARD_SECONDARY_DIRECTOR_KIM_ROLE_NAME.equals(roleName)) {
+            } else if (KFSConstants.SysKimApiConstants.AWARD_SECONDARY_DIRECTOR_KIM_ROLE_NAME.equals(roleName)) {
                 Person person = getProjectDirectorForAccount(chartOfAccountsCode, accountNumber);
                 if (person != null) {
                     members.add(RoleMembership.Builder.create(null, null, person.getPrincipalId(), MemberType.PRINCIPAL, roleQualifier).build());
@@ -157,7 +153,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
     }
 
     // build memebership information based on the given role name for the given principal when account information is unavailable
-    protected RoleMembership getRoleMembershipWhenAccountInfoUnavailable(String roleName, String principalId, Map<String,String> roleQualifier) {
+    protected RoleMembership getRoleMembershipWhenAccountInfoUnavailable(String roleName, String principalId, Map<String, String> roleQualifier) {
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         Map<String, Object> fieldValues = new HashMap<String, Object>();
 
@@ -169,16 +165,14 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
             if (businessObjectService.countMatching(Account.class, fieldValues) > 0) {
                 roleMembership = RoleMembership.Builder.create(null, null, principalId, MemberType.PRINCIPAL, roleQualifier).build();
             }
-        }
-        else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
             fieldValues.put(KFSPropertyConstants.ACCOUNT_DELEGATE_SYSTEM_ID, principalId);
             fieldValues.put(KFSPropertyConstants.ACCOUNTS_DELEGATE_PRMRT_INDICATOR, Boolean.TRUE);
 
             if (businessObjectService.countMatching(AccountDelegate.class, fieldValues) > 0) {
                 roleMembership = RoleMembership.Builder.create(null, null, principalId, MemberType.PRINCIPAL, roleQualifier).build();
             }
-        }
-        else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
             fieldValues.put(KFSPropertyConstants.ACCOUNT_DELEGATE_SYSTEM_ID, principalId);
             fieldValues.put(KFSPropertyConstants.ACCOUNTS_DELEGATE_PRMRT_INDICATOR, Boolean.FALSE);
 
@@ -252,6 +246,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Sets the accountDelegateService attribute value.
+     *
      * @param accountDelegateService The accountDelegateService to set.
      */
     public void setAccountDelegateService(AccountDelegateService accountDelegateService) {
@@ -308,26 +303,23 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
     /**
      * @see org.kuali.rice.kns.kim.role.RoleTypeServiceBase#principalInactivated(java.lang.String, java.lang.String, java.lang.String)
      */
- //   @Override
+    //   @Override
     public void principalInactivated(String principalId, String namespaceCode, String roleName) {
-    //    super.principalInactivated(principalId, namespaceCode, roleName);
+        //    super.principalInactivated(principalId, namespaceCode, roleName);
 
         if (KFSConstants.SysKimApiConstants.ACCOUNT_SUPERVISOR_KIM_ROLE_NAME.equals(roleName)) {
             if (getAccountService().isPrincipalInAnyWayShapeOrFormAccountSupervisor(principalId)) {
                 handleAccountSupervisorInactivation(principalId, namespaceCode, roleName);
             }
-        }
-        else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
             if (getAccountService().isPrincipalInAnyWayShapeOrFormFiscalOfficer(principalId)) {
                 handleFiscalOfficerInactivation(principalId, namespaceCode, roleName);
             }
-        }
-        else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
             if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormPrimaryAccountDelegate(principalId)) {
                 handlePrimaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
             }
-        }
-        else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
             if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormSecondaryAccountDelegate(principalId)) {
                 handleSecondaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
             }
@@ -336,9 +328,10 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Notifies the specified list that the given principal is being inactivated, listing any active or expired accounts the principal is fiscal officer of
-     * @param principalId the principal id of the inactivating person
+     *
+     * @param principalId   the principal id of the inactivating person
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      */
     protected void handleFiscalOfficerInactivation(String principalId, String roleNamespace, String roleName) {
         // build the message
@@ -359,18 +352,18 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
             MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
             // send it
             getMailService().sendMessage(mailMessage);
-        }
-        catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to "+toAddress);
+        } catch (Exception iae) {
+            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
         }
 
     }
 
     /**
      * Notifies the specified list that the given principal is being inactivated, listing any active or expired accounts the principal is account supervisor of
-     * @param principalId the principal id of the inactivating person
+     *
+     * @param principalId   the principal id of the inactivating person
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      */
     protected void handleAccountSupervisorInactivation(String principalId, String roleNamespace, String roleName) {
         // build the message
@@ -391,17 +384,17 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
             MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
             // send it
             getMailService().sendMessage(mailMessage);
-        }
-        catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to "+toAddress);
+        } catch (Exception iae) {
+            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
         }
     }
 
     /**
      * Does the logic for the inactivation of a secondary delegate
-     * @param principalId the principal id of the inactivating person
+     *
+     * @param principalId   the principal id of the inactivating person
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      */
     protected void handlePrimaryAccountDelegateInactivation(String principalId, String roleNamespace, String roleName) {
         handleAccountDelegateInactivation(principalId, roleNamespace, roleName, true);
@@ -409,9 +402,10 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Does the logic for the inactivation of a secondary delegate
-     * @param principalId the principal id of the inactivating person
+     *
+     * @param principalId   the principal id of the inactivating person
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      */
     protected void handleSecondaryAccountDelegateInactivation(String principalId, String roleNamespace, String roleName) {
         handleAccountDelegateInactivation(principalId, roleNamespace, roleName, false);
@@ -419,10 +413,11 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Handles the inactivation of account delegates when their principal is inactivated
-     * @param principalId the principal id of the inactivating person
+     *
+     * @param principalId   the principal id of the inactivating person
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
-     * @param primary whether primary delegates should be inactivated, rather than secondary
+     * @param roleName      the name of the role the inactivated principal is leaving
+     * @param primary       whether primary delegates should be inactivated, rather than secondary
      */
     protected void handleAccountDelegateInactivation(String principalId, String roleNamespace, String roleName, boolean primary) {
         List<String> accountDisdelegations = new ArrayList<String>();
@@ -444,6 +439,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Returns the document number of a maintenance document which would block the inactivation of the given account delegate
+     *
      * @param delegate the account delegate to check
      * @return the document id of the maintenance document blocking the inactivation of the given account delegate, null otherwise
      */
@@ -454,6 +450,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Inactivates an account delegate
+     *
      * @param delegate the account delegate to inactivate
      */
     protected void inactivateDelegation(AccountDelegate delegate) {
@@ -463,40 +460,43 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Converts information from the given AccountDelegate record into an informative String
+     *
      * @param accountDelegate the account delegate to report on
      * @return the report on the given account delegate
      */
     protected String getAccountDisdelegationInformationForAccountDelegate(AccountDelegate accountDelegate) {
         final CurrencyFormatter formatter = new CurrencyFormatter();
-        final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_ACCOUNT_DELEGATE_INACTIVATED_INFORMATION, accountDelegate.getChartOfAccountsCode(), accountDelegate.getAccountNumber(), accountDelegate.getFinancialDocumentTypeCode(), (String)(accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), (String)(accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""));
+        final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_ACCOUNT_DELEGATE_INACTIVATED_INFORMATION, accountDelegate.getChartOfAccountsCode(), accountDelegate.getAccountNumber(), accountDelegate.getFinancialDocumentTypeCode(), (String) (accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), (String) (accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""));
         return message;
     }
 
     /**
      * Converts information from the given AccountDelegate record into an informative String
+     *
      * @param accountDelegate the account delegate to report on
      * @return the report on the given account delegate
      */
     protected String getBlockedAccountDisdelegationInformationForAccountDelegate(AccountDelegate accountDelegate, String blockingDocumentId) {
         final CurrencyFormatter formatter = new CurrencyFormatter();
-        final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_ACCOUNT_DELEGATE_BLOCKED_INACTIVATION_INFORMATION, accountDelegate.getChartOfAccountsCode(), accountDelegate.getAccountNumber(), accountDelegate.getFinancialDocumentTypeCode(), (String)(accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), (String)(accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), blockingDocumentId);
+        final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_ACCOUNT_DELEGATE_BLOCKED_INACTIVATION_INFORMATION, accountDelegate.getChartOfAccountsCode(), accountDelegate.getAccountNumber(), accountDelegate.getFinancialDocumentTypeCode(), (String) (accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), (String) (accountDelegate.getFinDocApprovalFromThisAmt() != null ? formatter.format(accountDelegate.getFinDocApprovalFromThisAmt()) : ""), blockingDocumentId);
         return message;
     }
 
     /**
      * Fires an e-mail off the specified e-mail listserv about the account delegates inactivated by a
-     * @param principalId the principal being inactivated
-     * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
-     * @param accountsDisdelegated the account delegate records which were inactivated
+     *
+     * @param principalId           the principal being inactivated
+     * @param roleNamespace         the namespace of the role the inactivated principal is leaving
+     * @param roleName              the name of the role the inactivated principal is leaving
+     * @param accountsDisdelegated  the account delegate records which were inactivated
      * @param blockedDisdelegations the account delegate records which could not be inactivated because of locking maintenance documents
-     * @param primary whether the account delegations being reported on were primary delegations, as opposed to secondary delegations
+     * @param primary               whether the account delegations being reported on were primary delegations, as opposed to secondary delegations
      */
     protected void notifyListAboutAccountDelegateInactivations(String principalId, String roleNamespace, String roleName, List<String> accountsDisdelegated, List<String> blockedDisdelegations, boolean primary) {
         // build message
         final Principal principal = getIdentityManagementService().getPrincipal(principalId);
 
-        final String message = getMessage((primary ? KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_PRIMARY_DELEGATE_NOTIFICATION : KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_SECONARY_DELEGATE_NOTIFICATION), roleNamespace, roleName, principal.getPrincipalName(), StringUtils.join(accountsDisdelegated,'\n'), StringUtils.join(blockedDisdelegations, '\n'));
+        final String message = getMessage((primary ? KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_PRIMARY_DELEGATE_NOTIFICATION : KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_SECONARY_DELEGATE_NOTIFICATION), roleNamespace, roleName, principal.getPrincipalName(), StringUtils.join(accountsDisdelegated, '\n'), StringUtils.join(blockedDisdelegations, '\n'));
 
         String toAddress = getDeactivationInterestAddress();
         try {
@@ -504,25 +504,26 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
             MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
             // send it
             getMailService().sendMessage(mailMessage);
-        }
-        catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to "+toAddress);
+        } catch (Exception iae) {
+            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
         }
     }
 
     /**
      * Retrieves message from configuration service and formats it directly
+     *
      * @param messageConstant the property to find the message under
-     * @param parameters the parameters to interpolate into the message
+     * @param parameters      the parameters to interpolate into the message
      * @return a formatted String
      */
-    protected String getMessage(String messageConstant, String...parameters) {
+    protected String getMessage(String messageConstant, String... parameters) {
         final String messagePattern = getConfigurationService().getPropertyValueAsString(messageConstant);
-        return MessageFormat.format(messagePattern, (Object[])parameters);
+        return MessageFormat.format(messagePattern, (Object[]) parameters);
     }
 
     /**
      * Joins an Iterator of accounts into a meaningful String
+     *
      * @param accounts the accounts to join
      * @return a String of account information
      */
@@ -535,7 +536,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
             if (count > 0) {
                 s.append('\n');
             }
-            s.append(account.getChartOfAccountsCode()+"-"+account.getAccountNumber());
+            s.append(account.getChartOfAccountsCode() + "-" + account.getAccountNumber());
             count += 1;
         }
         return s.toString();
@@ -543,11 +544,12 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Builds a MailMessage to send out a notification e-mail
-     * @param toAddress the address to send the notification to
-     * @param message the body of the notification
-     * @param principalId the principal being inactivated
+     *
+     * @param toAddress     the address to send the notification to
+     * @param message       the body of the notification
+     * @param principalId   the principal being inactivated
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      * @return an appropriately constructed MailMessage
      */
     protected MailMessage buildMailMessage(String toAddress, String message, String roleNamespace, String roleName, String principalId) {
@@ -564,9 +566,10 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
     /**
      * Builds a subject line for an e-mail
-     * @param principalId the principal being inactivated
+     *
+     * @param principalId   the principal being inactivated
      * @param roleNamespace the namespace of the role the inactivated principal is leaving
-     * @param roleName the name of the role the inactivated principal is leaving
+     * @param roleName      the name of the role the inactivated principal is leaving
      * @return a suitable subject line for the notification e-mail
      */
     protected String getMailMessageSubject(String roleNamespace, String roleName, String principalId) {

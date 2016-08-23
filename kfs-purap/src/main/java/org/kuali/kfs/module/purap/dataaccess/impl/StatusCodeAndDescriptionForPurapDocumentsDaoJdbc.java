@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.dataaccess.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.module.purap.dataaccess.StatusCodeAndDescriptionForPurapDocumentsDao;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class to do the database queries needed to prepare documents status codes and descriptions.

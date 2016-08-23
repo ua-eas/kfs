@@ -24,6 +24,7 @@ package org.kuali.kfs.sys.document.web;
 public interface TableJoiningWithHeader extends TableJoining {
     /**
      * Returns the property of the accounting line business object that can be used to find the label for the given renderable element
+     *
      * @param renderingContext the context the header will be rendered to
      * @return the property to lookup the label in the data dictionary
      */
@@ -31,6 +32,7 @@ public interface TableJoiningWithHeader extends TableJoining {
 
     /**
      * Will this table joining element actually end up hidden?  Then we best not create a header cell for it
+     *
      * @return true if the table joiner will be hidden, false otherwise - in which case a header cell will be rendered
      */
     public abstract boolean isHidden();

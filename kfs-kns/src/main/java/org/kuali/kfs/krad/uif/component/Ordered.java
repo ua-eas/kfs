@@ -20,17 +20,15 @@ package org.kuali.kfs.krad.uif.component;
 
 /**
  * Extends <code>Ordered</code> interface to add setter for the order property
- *
- *
  */
 public interface Ordered extends org.springframework.core.Ordered {
-	public static final int INITIAL_ORDER_VALUE = 0;
+    public static final int INITIAL_ORDER_VALUE = 0;
 
-	/**
-	 * Setter for the order value
-	 *
-	 * @param order
-	 * @see org.springframework.core.Ordered.getOrder()
-	 */
-	public void setOrder(int order);
+    /**
+     * Setter for the order value
+     *
+     * @param order
+     * @see org.springframework.core.Ordered.getOrder()
+     */
+    public void setOrder(int order);
 }

@@ -37,8 +37,7 @@ public class PreScrubberReportWriterTextServiceImpl extends ScrubberListingRepor
         if (preScrubberService.deriveChartOfAccountsCodeIfSpaces()) {
             enabled = true;
             super.initialize();
-        }
-        else {
+        } else {
             enabled = false;
         }
     }

@@ -74,12 +74,14 @@ public interface ReceivingItem {
 
     /**
      * Gets the itemType attribute.
+     *
      * @return Returns the itemType.
      */
     public ItemType getItemType();
 
     /**
      * Sets the itemType attribute value.
+     *
      * @param itemType The itemType to set.
      * @deprecated
      */
@@ -87,12 +89,14 @@ public interface ReceivingItem {
 
     /**
      * Gets the itemUnitOfMeasure attribute.
+     *
      * @return Returns the itemUnitOfMeasure.
      */
     public UnitOfMeasure getItemUnitOfMeasure();
 
     /**
      * Sets the itemUnitOfMeasure attribute value.
+     *
      * @param itemUnitOfMeasure The itemUnitOfMeasure to set.
      * @deprecated
      */
@@ -106,7 +110,7 @@ public interface ReceivingItem {
 
     public void setItemOriginalReturnedTotalQuantity(KualiDecimal itemOriginalReturnedTotalQuantity);
 
-    public KualiDecimal getItemOriginalDamagedTotalQuantity() ;
+    public KualiDecimal getItemOriginalDamagedTotalQuantity();
 
     public void setItemOriginalDamagedTotalQuantity(KualiDecimal itemOriginalDamagedTotalQuantity);
 

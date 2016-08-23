@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.businessobject.CashieringItemInProcess;
@@ -42,6 +36,14 @@ import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.exception.CashDrawerStateException;
 import org.kuali.kfs.fp.exception.InvalidCashReceiptState;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CashDrawerConstants;
 import org.kuali.kfs.sys.KFSConstants.CurrencyCoinSources;
@@ -58,15 +60,13 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the default implementation of the CashManagementService interface.
@@ -94,7 +94,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentId The id of the cash receipt document linked to the cash management document.
      * @return An instance of a CashManagementDocument matching the provided search criteria, or null if no value is found.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#getCashManagementDocumentForCashReceiptId(java.lang.String)
      */
     @Override
@@ -130,18 +129,17 @@ public class CashManagementServiceImpl implements CashManagementService {
      * <li>Make sure the drawer is closed, force the drawer closed if it is not already closed.</li>
      * <li>Create the cash management document, set the provided values to the document and link it to the cash drawer</li>
      * </ul>
-     *
+     * <p>
      * If the campusCode or docDescription values are null, an IllegalArgumentException will be thrown.
-     *
+     * <p>
      * TODO - annotation is not used or set at all in this method, remove it if appropriate.
      *
-     * @param campusCode The campus code of the cash drawer.
+     * @param campusCode     The campus code of the cash drawer.
      * @param docDescription The document description to be set on the new cash management document.
      * @param annotation
      * @return A new instance of a CashManagementDocument (not persisted).
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#createCashManagementDocument(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Override
     public CashManagementDocument createCashManagementDocument(String campusCode, String docDescription, String annotation) {
@@ -160,7 +158,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         // check cash drawer
         CashDrawer cd = cashDrawerService.getByCampusCode(campusCode);
         if (cd == null) {
-            throw new RuntimeException("No cash drawer exists for campus code "+campusCode+"; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus "+campusCode);
+            throw new RuntimeException("No cash drawer exists for campus code " + campusCode + "; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus " + campusCode);
         }
         String controllingDocId = cd.getReferenceFinancialDocumentNumber();
 
@@ -176,8 +174,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
             if (StringUtils.isBlank(controllingDocId)) {
                 forceDrawerClosed = true;
-            }
-            else if (!documentService.documentExists(controllingDocId)) {
+            } else if (!documentService.documentExists(controllingDocId)) {
                 forceDrawerClosed = true;
             }
 
@@ -185,7 +182,7 @@ public class CashManagementServiceImpl implements CashManagementService {
                 cashDrawerService.closeCashDrawer(cd);
                 cd = cashDrawerService.getByCampusCode(campusCode);
                 if (cd == null) {
-                    throw new RuntimeException("No cash drawer exists for campus code "+campusCode+"; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus "+campusCode);
+                    throw new RuntimeException("No cash drawer exists for campus code " + campusCode + "; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus " + campusCode);
                 }
             }
         }
@@ -202,12 +199,10 @@ public class CashManagementServiceImpl implements CashManagementService {
                 cmDoc.getCurrentTransaction().setCampusCode(cmDoc.getCampusCode());
                 cmDoc.getCurrentTransaction().setReferenceFinancialDocumentNumber(cmDoc.getDocumentNumber());
                 cmDoc.getCurrentTransaction().setOpenItemsInProcess(getOpenItemsInProcess(cmDoc));
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new InfrastructureException("unable to create CashManagementDocument", e);
             }
-        }
-        else {
+        } else {
             CashDrawerStatusCodeFormatter f = new CashDrawerStatusCodeFormatter();
 
             throw new CashDrawerStateException(campusCode, controllingDocId, (String) f.format(CashDrawerConstants.STATUS_CLOSED), (String) f.format(cd.getStatusCode()));
@@ -219,7 +214,7 @@ public class CashManagementServiceImpl implements CashManagementService {
     /**
      * This method creates new cumulative currency and coin details for the document given.
      *
-     * @param cmDoc The cash management document the cumulative details will be associated with.
+     * @param cmDoc            The cash management document the cumulative details will be associated with.
      * @param cashieringSource The cashiering record source for the new details.
      */
     @Override
@@ -252,15 +247,14 @@ public class CashManagementServiceImpl implements CashManagementService {
      * <li>The drawer is unlocked
      * <ul>
      *
-     * @param cashManagementDoc The document to have the deposit added to.
-     * @param depositTicketNumber The ticket number of the deposit being added.
-     * @param bankAccount The bank account on the deposit.
-     * @param selectedCashReceipts The collection of cash receipts associated with the new deposit.
+     * @param cashManagementDoc        The document to have the deposit added to.
+     * @param depositTicketNumber      The ticket number of the deposit being added.
+     * @param bankAccount              The bank account on the deposit.
+     * @param selectedCashReceipts     The collection of cash receipts associated with the new deposit.
      * @param selectedCashieringChecks The collection of checks associated with the new deposit.
-     * @param isFinalDeposit A flag used to identify if a deposit is the final deposit to be added to a cash management document.
-     *
+     * @param isFinalDeposit           A flag used to identify if a deposit is the final deposit to be added to a cash management document.
      * @see org.kuali.kfs.fp.document.service.CashManagementService#addInterimDeposit(org.kuali.kfs.fp.document.CashManagementDocument,
-     *      java.lang.String, org.kuali.kfs.fp.businessobject.BankAccount, java.util.List)
+     * java.lang.String, org.kuali.kfs.fp.businessobject.BankAccount, java.util.List)
      */
     @Override
     @SuppressWarnings("deprecation")
@@ -279,8 +273,8 @@ public class CashManagementServiceImpl implements CashManagementService {
         Map<Integer, Check> checks = getUndepositedChecksAsMap(cashManagementDoc);
         List<Check> checksToSave = new ArrayList<Check>();
         if (selectedCashieringChecks != null) {
-            for (Object o: selectedCashieringChecks) {
-                Integer sequenceId = (Integer)o;
+            for (Object o : selectedCashieringChecks) {
+                Integer sequenceId = (Integer) o;
                 Check check = checks.get(sequenceId);
                 checksToSave.add(check);
             }
@@ -296,7 +290,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         // associate the CashReceipts with the deposit
         List dccList = new ArrayList();
-        for (Iterator i = selectedCashReceipts.iterator(); i.hasNext();) {
+        for (Iterator i = selectedCashReceipts.iterator(); i.hasNext(); ) {
             CashReceiptDocument crDoc = (CashReceiptDocument) i.next();
             FinancialSystemDocumentHeader dh = crDoc.getFinancialSystemDocumentHeader();
 
@@ -321,7 +315,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         businessObjectService.save(dccList);
 
         // make sure all checks have the right deposit line number
-        for (Check check: checksToSave) {
+        for (Check check : checksToSave) {
             check.setFinancialDocumentDepositLineNumber(deposit.getFinancialDocumentDepositLineNumber());
         }
         businessObjectService.save(checksToSave);
@@ -335,18 +329,16 @@ public class CashManagementServiceImpl implements CashManagementService {
     /**
      * Validates the given Deposit parameters, throwing various (runtime) exceptions if errors exist.
      *
-     * @param cashManagementDoc The document the deposit will be added to.
-     * @param bank The bank account of the deposit being added.
+     * @param cashManagementDoc    The document the deposit will be added to.
+     * @param bank                 The bank account of the deposit being added.
      * @param selectedCashReceipts The collection of cash receipts associated with the new deposit.
      */
     protected void validateDepositParams(CashManagementDocument cashManagementDoc, Bank bank, List<CashReceiptDocument> selectedCashReceipts) {
         if (cashManagementDoc == null) {
             throw new IllegalArgumentException("invalid (null) cashManagementDoc");
-        }
-        else if (!cashManagementDoc.getDocumentHeader().getWorkflowDocument().isSaved()) {
+        } else if (!cashManagementDoc.getDocumentHeader().getWorkflowDocument().isSaved()) {
             throw new IllegalStateException("cashManagementDoc '" + cashManagementDoc.getDocumentNumber() + "' is not in 'saved' state");
-        }
-        else if (cashManagementDoc.hasFinalDeposit()) {
+        } else if (cashManagementDoc.hasFinalDeposit()) {
             throw new IllegalStateException("cashManagementDoc '" + cashManagementDoc.getDocumentNumber() + "' hasFinalDeposit");
         }
         if (bank == null) {
@@ -355,8 +347,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         if (selectedCashReceipts == null) {
             throw new IllegalArgumentException("invalid (null) cashReceipts list");
-        }
-        else {
+        } else {
             for (CashReceiptDocument cashReceipt : selectedCashReceipts) {
                 String statusCode = cashReceipt.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode();
                 //if (!StringUtils.equals(statusCode, DocumentStatusCodes.CashReceipt.VERIFIED)) {
@@ -368,14 +359,13 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     /**
-     *
      * This method builds a new deposit object from the parameters provided.
      *
-     * @param cashManagementDoc The cash management document the deposit will be added to.
-     * @param depositTypeCode The type code associated with the deposit.
-     * @param depositTicketNumber The deposit ticket number to be set on the deposit object.
-     * @param bank The bank account of the deposit.
-     * @param selectedCashReceipts The cash receipts that make up the deposit.
+     * @param cashManagementDoc        The cash management document the deposit will be added to.
+     * @param depositTypeCode          The type code associated with the deposit.
+     * @param depositTicketNumber      The deposit ticket number to be set on the deposit object.
+     * @param bank                     The bank account of the deposit.
+     * @param selectedCashReceipts     The cash receipts that make up the deposit.
      * @param selectedCashieringChecks The cashiering checks that make up the deposit.
      * @return A new instance of a deposit generated from all the parameters provided.
      */
@@ -400,15 +390,15 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         // total up the cash receipts
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Iterator i = selectedCashReceipts.iterator(); i.hasNext();) {
+        for (Iterator i = selectedCashReceipts.iterator(); i.hasNext(); ) {
             CashReceiptDocument crDoc = (CashReceiptDocument) i.next();
             if (crDoc.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode().equalsIgnoreCase(CashReceipt.VERIFIED)) {
                 total = total.add(crDoc.getTotalConfirmedCheckAmount());
             }
         }
         Check currCheck;
-        for (Object checkObj: selectedCashieringChecks) {
-            currCheck = (Check)checkObj;
+        for (Object checkObj : selectedCashieringChecks) {
+            currCheck = (Check) checkObj;
             total = total.add(currCheck.getAmount());
         }
         deposit.setDepositAmount(total);
@@ -427,7 +417,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         Map<Integer, Check> checks = new HashMap<Integer, Check>();
         List<Check> checkList = cashManagementDao.selectUndepositedCashieringChecks(cmDoc.getDocumentNumber());
         if (checkList != null && checkList.size() > 0) {
-            for (Check check: checkList) {
+            for (Check check : checkList) {
                 checks.put(check.getSequenceId(), check);
             }
         }
@@ -446,7 +436,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      * NOTE: Method should only be called after the appropriate CashManagementDocumentRule has been successfully passed.
      *
      * @param cmDoc The CashManagementDocument to be canceled.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#cancelCashManagementDocument(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -457,7 +446,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         // cancel each deposit (which also deletes the records connecting the Deposit to a CashManagementDoc
         List deposits = cmDoc.getDeposits();
-        for (Iterator i = deposits.iterator(); i.hasNext();) {
+        for (Iterator i = deposits.iterator(); i.hasNext(); ) {
             Deposit deposit = (Deposit) i.next();
 
             cancelDeposit(deposit);
@@ -472,7 +461,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         cmDoc.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(DocumentStatusCodes.CANCELLED);
 
         // kill off cumulative currency/coin detail records for this document (canceling the deposits kills the deposit records)
-        String[] cashieringSourcesToDelete = { KFSConstants.CurrencyCoinSources.CASH_RECEIPTS, CashieringTransaction.DETAIL_DOCUMENT_TYPE, KFSConstants.CurrencyCoinSources.CASH_MANAGEMENT_IN, KFSConstants.CurrencyCoinSources.CASH_MANAGEMENT_OUT };
+        String[] cashieringSourcesToDelete = {KFSConstants.CurrencyCoinSources.CASH_RECEIPTS, CashieringTransaction.DETAIL_DOCUMENT_TYPE, KFSConstants.CurrencyCoinSources.CASH_MANAGEMENT_IN, KFSConstants.CurrencyCoinSources.CASH_MANAGEMENT_OUT};
         for (String cashieringSourceToDelete : cashieringSourcesToDelete) {
             CurrencyDetail currencyDetail = cashManagementDao.findCurrencyDetailByCashieringStatus(cmDoc.getDocumentNumber(), CashieringTransaction.DETAIL_DOCUMENT_TYPE, cashieringSourceToDelete);
             if (currencyDetail != null) {
@@ -511,7 +500,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         // update every CashReceipt associated with this Deposit
         List depositCashReceiptControls = deposit.getDepositCashReceiptControl();
-        for (Iterator j = depositCashReceiptControls.iterator(); j.hasNext();) {
+        for (Iterator j = depositCashReceiptControls.iterator(); j.hasNext(); ) {
             DepositCashReceiptControl dcc = (DepositCashReceiptControl) j.next();
             if (!ObjectUtils.isNull(dcc)) {
                 dcc.refreshReferenceObject("cashReceiptDocument");
@@ -521,7 +510,7 @@ public class CashManagementServiceImpl implements CashManagementService {
                     FinancialSystemDocumentHeader crdh = crDoc.getFinancialSystemDocumentHeader();
                     if (!ObjectUtils.isNull(crdh)) {
                         if (!(deposit.getDepositTypeCode().equalsIgnoreCase(DepositConstants.DEPOSIT_TYPE_FINAL)
-                                && crdh.getFinancialDocumentStatusCode().equalsIgnoreCase(CashReceipt.INTERIM))) {
+                            && crdh.getFinancialDocumentStatusCode().equalsIgnoreCase(CashReceipt.INTERIM))) {
                             crdh.setFinancialDocumentStatusCode(CashReceipt.VERIFIED);
                         }
                         documentService.updateDocument(crDoc);
@@ -532,14 +521,14 @@ public class CashManagementServiceImpl implements CashManagementService {
 
         // un-deposit all cashiering checks associated with the deposit
         List<Check> depositedChecks = selectCashieringChecksForDeposit(deposit.getDocumentNumber(), deposit.getFinancialDocumentDepositLineNumber());
-        for (Check check: depositedChecks) {
+        for (Check check : depositedChecks) {
             check.setFinancialDocumentDepositLineNumber(null);
         }
         businessObjectService.save(depositedChecks);
 
         // unlock the cashDrawer, if needed
         if (LOG.isDebugEnabled()) {
-            LOG.debug("deposit deposit type = "+deposit.getDepositTypeCode()+"; constant = "+KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL+"; are they equal? "+deposit.getDepositTypeCode().equals(KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL));
+            LOG.debug("deposit deposit type = " + deposit.getDepositTypeCode() + "; constant = " + KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL + "; are they equal? " + deposit.getDepositTypeCode().equals(KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL));
         }
         if (deposit.getDepositTypeCode().equals(KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL)) {
             CashDrawer drawer = cashDrawerService.getByCampusCode(deposit.getCashManagementDocument().getCampusCode());
@@ -568,12 +557,11 @@ public class CashManagementServiceImpl implements CashManagementService {
      * <li>Generate the master currency and coin details and persist them.
      * <li>Update the CashManagementDocument status to APPROVED.
      * </ul>
-     *
+     * <p>
      * <br>
      * NOTE: Method should only be called after the appropriate CashManagementDocumentRule has been successfully passed
      *
      * @param cmDoc The CashManagementDocument to be finalized.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#finalizeCashManagementDocument(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -628,8 +616,8 @@ public class CashManagementServiceImpl implements CashManagementService {
     public boolean allVerifiedCashReceiptsAreDeposited(CashManagementDocument cmDoc) {
         boolean result = true;
         List verifiedReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(cmDoc.getCampusCode(), CashReceipt.VERIFIED);
-        for (Object o: verifiedReceipts) {
-            if (!verifyCashReceiptIsDeposited(cmDoc, (CashReceiptDocument)o)) {
+        for (Object o : verifiedReceipts) {
+            if (!verifyCashReceiptIsDeposited(cmDoc, (CashReceiptDocument) o)) {
                 result = false;
                 break;
             }
@@ -642,28 +630,26 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param deposit The deposit to retrieve all the cash receipts for.
      * @return A collection of cash receipts associated with the deposit given.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#retrieveCashReceipts(org.kuali.kfs.fp.businessobject.Deposit)
      */
     @Override
     public List<CashReceiptDocument> retrieveCashReceipts(Deposit deposit) {
         List<CashReceiptDocument> cashReceiptDocuments = new ArrayList<CashReceiptDocument>();
 
-        if (ObjectUtils.isNull(deposit.getDepositCashReceiptControl()) || deposit.getDepositCashReceiptControl().isEmpty() ) {
+        if (ObjectUtils.isNull(deposit.getDepositCashReceiptControl()) || deposit.getDepositCashReceiptControl().isEmpty()) {
             deposit.refreshReferenceObject("depositCashReceiptControl");
         }
 
         Map pkMap = new HashMap();
         for (Object dcrcAsObject : deposit.getDepositCashReceiptControl()) {
-            final DepositCashReceiptControl dcrc = (DepositCashReceiptControl)dcrcAsObject;
+            final DepositCashReceiptControl dcrc = (DepositCashReceiptControl) dcrcAsObject;
             try {
-                CashReceiptDocument crDoc = (CashReceiptDocument)documentService.getByDocumentHeaderId(dcrc.getFinancialDocumentCashReceiptNumber());
+                CashReceiptDocument crDoc = (CashReceiptDocument) documentService.getByDocumentHeaderId(dcrc.getFinancialDocumentCashReceiptNumber());
                 final WorkflowDocument headerWorkflowDoc = crDoc.getDocumentHeader().getWorkflowDocument();
                 crDoc.refreshReferenceObject("documentHeader");
                 crDoc.getDocumentHeader().setWorkflowDocument(headerWorkflowDoc);
                 cashReceiptDocuments.add(crDoc);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException("Could not retrieve related Cash Receipts", we);
             }
         }
@@ -681,7 +667,7 @@ public class CashManagementServiceImpl implements CashManagementService {
     @Override
     public boolean verifyCashReceiptIsDeposited(CashManagementDocument cmDoc, CashReceiptDocument crDoc) {
         boolean thisCRDeposited = false;
-        for (Deposit deposit: cmDoc.getDeposits()) {
+        for (Deposit deposit : cmDoc.getDeposits()) {
             if (deposit.containsCashReceipt(crDoc)) {
                 thisCRDeposited = true;
                 break;
@@ -695,7 +681,7 @@ public class CashManagementServiceImpl implements CashManagementService {
      * a final deposit by updating the deposit type code.
      * <br>
      * NOTE: This method throws an IllegalStateException if a final deposit already exists for this document or if there
-     *       are any undeposited cash receipts.
+     * are any undeposited cash receipts.
      *
      * @param cmDoc The cash management document to take deposits from for finalization.
      */
@@ -703,14 +689,14 @@ public class CashManagementServiceImpl implements CashManagementService {
     public void finalizeLastInterimDeposit(CashManagementDocument cmDoc) {
         // if there's already a final deposit, throw an IllegalStateException
         if (cmDoc.hasFinalDeposit()) {
-            throw new IllegalStateException("CashManagementDocument #"+cmDoc.getDocumentNumber()+" already has a final deposit");
+            throw new IllegalStateException("CashManagementDocument #" + cmDoc.getDocumentNumber() + " already has a final deposit");
         }
         // if there are still verified un-deposited cash receipts, throw an IllegalStateException
         List verifiedReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(cmDoc.getCampusCode(), CashReceipt.VERIFIED);
-        for (Object o: verifiedReceipts) {
-            CashReceiptDocument crDoc = (CashReceiptDocument)o;
+        for (Object o : verifiedReceipts) {
+            CashReceiptDocument crDoc = (CashReceiptDocument) o;
             if (!verifyCashReceiptIsDeposited(cmDoc, crDoc)) {
-                throw new IllegalStateException("Verified Cash Receipt Document #"+crDoc.getDocumentNumber()+" must be deposited for this to be a final deposit");
+                throw new IllegalStateException("Verified Cash Receipt Document #" + crDoc.getDocumentNumber() + " must be deposited for this to be a final deposit");
             }
         }
         // lock the cash drawer
@@ -731,8 +717,8 @@ public class CashManagementServiceImpl implements CashManagementService {
      */
     protected void finalizeCashReceiptsForDeposit(Deposit deposit) {
         List cashReceipts = this.retrieveCashReceipts(deposit);
-        for (Object o: cashReceipts) {
-            CashReceiptDocument crDoc = (CashReceiptDocument)o;
+        for (Object o : cashReceipts) {
+            CashReceiptDocument crDoc = (CashReceiptDocument) o;
             crDoc.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(CashReceipt.FINAL);
             documentService.updateDocument(crDoc);
         }
@@ -770,7 +756,7 @@ public class CashManagementServiceImpl implements CashManagementService {
      * "money out" portion of the cash drawer out.
      *
      * @param drawer The cash drawer to operate on.
-     * @param trans The transaction that is the operation.
+     * @param trans  The transaction that is the operation.
      */
     protected void updateCashDrawer(CashDrawer drawer, CashieringTransaction trans) {
         // add money in to cash drawer
@@ -793,7 +779,6 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     /**
-     *
      * This method completes the new item in process by setting the item remaining amount equal to the item amount.
      *
      * @param trans The transaction being performed.
@@ -801,21 +786,19 @@ public class CashManagementServiceImpl implements CashManagementService {
     protected void completeNewItemInProcess(CashieringTransaction trans) {
         if (trans.getNewItemInProcess().isPopulated()) {
             trans.getNewItemInProcess().setItemRemainingAmount(trans.getNewItemInProcess().getItemAmount());
-        }
-        else {
+        } else {
             trans.setNewItemInProcess(null); // we don't want to save it or deal with it
         }
     }
 
     /**
-     *
      * This method retrieves all the checks for the given document and persists them.
      *
      * @param cmDoc The cash management document the checks will be saved against.
      */
     protected void saveChecks(CashManagementDocument cmDoc) {
         if (cmDoc.getChecks() != null) {
-            for (Check check: cmDoc.getChecks()) {
+            for (Check check : cmDoc.getChecks()) {
                 check.setDocumentNumber(cmDoc.getDocumentNumber());
                 check.setFinancialDocumentTypeCode(CashieringTransaction.DETAIL_DOCUMENT_TYPE);
                 check.setCashieringStatus(KFSConstants.CheckSources.CASH_MANAGEMENT);
@@ -825,14 +808,13 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     /**
-     *
      * This method retrieves the checks from the transaction and adds them to the cash management document.
      *
      * @param cmDoc The document the checks will be transferred to.
      * @param trans The transaction the checks are associated with.
      */
     protected void transferChecksToCashManagementDocument(CashManagementDocument cmDoc, CashieringTransaction trans) {
-        for (Check check: trans.getMoneyInChecks()) {
+        for (Check check : trans.getMoneyInChecks()) {
             check.setFinancialDocumentTypeCode(CashieringTransaction.DETAIL_DOCUMENT_TYPE);
             check.setCashieringStatus(KFSConstants.CheckSources.CASH_MANAGEMENT);
             check.setDocumentNumber(cmDoc.getDocumentNumber());
@@ -859,8 +841,7 @@ public class CashManagementServiceImpl implements CashManagementService {
             CashDrawer drawer = cmDoc.getCashDrawer();
             if (drawer.getFinancialDocumentMiscellaneousAdvanceAmount() == null) {
                 drawer.setFinancialDocumentMiscellaneousAdvanceAmount(trans.getNewItemInProcess().getItemAmount());
-            }
-            else {
+            } else {
                 drawer.setFinancialDocumentMiscellaneousAdvanceAmount(drawer.getFinancialDocumentMiscellaneousAdvanceAmount().add(trans.getNewItemInProcess().getItemAmount()));
             }
         }
@@ -877,7 +858,7 @@ public class CashManagementServiceImpl implements CashManagementService {
         if (trans.getOpenItemsInProcess() != null) {
             CashDrawer drawer = cmDoc.getCashDrawer();
 
-            for (CashieringItemInProcess itemInProc: trans.getOpenItemsInProcess()) {
+            for (CashieringItemInProcess itemInProc : trans.getOpenItemsInProcess()) {
                 if (itemInProc.getCurrentPayment() != null && !itemInProc.getCurrentPayment().equals(KualiDecimal.ZERO)) {
                     itemInProc.setItemRemainingAmount(itemInProc.getItemRemainingAmount().subtract(itemInProc.getCurrentPayment()));
                     itemInProc.setItemReducedAmount(itemInProc.getItemReducedAmount().add(itemInProc.getCurrentPayment()));
@@ -895,7 +876,6 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     /**
-     *
      * This method retrieves the amount of cash in the "money in" portion of the transaction and saves it to the
      * cash management document.
      *
@@ -916,7 +896,6 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     /**
-     *
      * This method retrieves the amount of cash in the "money out" portion of the transaction and saves it to the
      * cash management document.
      *
@@ -939,7 +918,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param cmDoc The document the open items in process will be retrieved from.
      * @return The collection of open items.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#getOpenItemsInProcess(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -954,7 +932,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param cmDoc The cash management document the recently closed items will be retrieved from.
      * @return The collection of recently closed items.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#getRecentlyClosedItemsInProcess(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -974,7 +951,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param cmDoc The document the master coin detail will be generated from.
      * @return The resulting coin detail.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#generateMasterCoinDetail(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -1022,7 +998,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param cmDoc The document the master currency detail will be generated from.
      * @return The resulting currency detail.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#generateMasterCurrencyDetail(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -1067,7 +1042,7 @@ public class CashManagementServiceImpl implements CashManagementService {
     public void populateCashDetailsForDeposit(CashManagementDocument cmDoc) {
         // if this ever gets changed so that each deposit has currency/coin lines, then
         // we can just do this with the ORM, which would be *much* easier
-        for (Deposit d: cmDoc.getDeposits()) {
+        for (Deposit d : cmDoc.getDeposits()) {
             if (d.getDepositTypeCode().equals(DepositConstants.DEPOSIT_TYPE_FINAL)) {
                 if (d.getDepositedCurrency() == null) {
                     d.setDepositedCurrency(cashManagementDao.findCurrencyDetailByCashieringStatus(cmDoc.getDocumentNumber(), CashieringTransaction.DETAIL_DOCUMENT_TYPE, CurrencyCoinSources.DEPOSITS));
@@ -1082,10 +1057,9 @@ public class CashManagementServiceImpl implements CashManagementService {
     /**
      * This method retrieves the collection of cashiering checks associated with a given deposit.
      *
-     * @param documentNumber The id of the document to search for the deposit within.
+     * @param documentNumber    The id of the document to search for the deposit within.
      * @param depositLineNumber The line number of the deposit to be found.
      * @return A collection of checks for the deposit and document given.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#selectCashieringChecksForDeposit(java.lang.String, java.lang.Integer)
      */
     @Override
@@ -1098,7 +1072,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentNumber The id of the document to search for the undeposited checks within.
      * @return A collection of any undeposited checks for the document given.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#selectUndepositedCashieringChecks(java.lang.String)
      */
     @Override
@@ -1111,7 +1084,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentNumber The document to retrieve the deposited checks from.
      * @return A collection of all deposited checks for the document given.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#selectDepositedCashieringChecks(java.lang.String)
      */
     @Override
@@ -1129,7 +1101,7 @@ public class CashManagementServiceImpl implements CashManagementService {
     @Override
     public KualiDecimal calculateDepositedCheckTotal(String documentNumber) {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Check check: cashManagementDao.selectDepositedCashieringChecks(documentNumber)) {
+        for (Check check : cashManagementDao.selectDepositedCashieringChecks(documentNumber)) {
             if (check != null && check.getAmount() != null && check.getAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 total = total.add(check.getAmount());
             }
@@ -1142,13 +1114,12 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentNumber The id of the cash management document to pull the undeposited checks from.
      * @return The total amount of all undeposited checks for the document given.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#calculateUndepositedCheckTotal(java.lang.String)
      */
     @Override
     public KualiDecimal calculateUndepositedCheckTotal(String documentNumber) {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Check check: cashManagementDao.selectUndepositedCashieringChecks(documentNumber)) {
+        for (Check check : cashManagementDao.selectUndepositedCashieringChecks(documentNumber)) {
             if (check != null && check.getAmount() != null && check.getAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 total = total.add(check.getAmount());
             }
@@ -1166,7 +1137,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param cmDoc The document that would be canceled.
      * @return True if the document can be canceled, false otherwise.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#allowDocumentCancellation(org.kuali.kfs.fp.document.CashManagementDocument)
      */
     @Override
@@ -1182,7 +1152,7 @@ public class CashManagementServiceImpl implements CashManagementService {
      */
     protected boolean existCashReceipts(CashManagementDocument cmDoc) {
         List<CashReceiptDocument> cashReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(cmDoc.getCampusCode(),
-        		new String[] {CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL} );
+            new String[]{CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL});
         return cashReceipts != null && cashReceipts.size() > 0;
     }
 
@@ -1196,14 +1166,14 @@ public class CashManagementServiceImpl implements CashManagementService {
         boolean result = false;
         List<CurrencyDetail> currencyDetails = cashManagementDao.getAllCurrencyDetails(cmDoc.getDocumentNumber());
         if (currencyDetails != null && currencyDetails.size() > 0) {
-            for (CurrencyDetail detail: currencyDetails) {
+            for (CurrencyDetail detail : currencyDetails) {
                 result |= !detail.isEmpty();
             }
         }
         if (!result) {
             List<CoinDetail> coinDetails = cashManagementDao.getAllCoinDetails(cmDoc.getDocumentNumber());
             if (coinDetails != null && coinDetails.size() > 0) {
-                for (CoinDetail detail: coinDetails) {
+                for (CoinDetail detail : coinDetails) {
                     result |= !detail.isEmpty();
                 }
             }
@@ -1228,7 +1198,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentNumber The document to get the next check line number from.
      * @return The next available check line number.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#selectNextAvailableCheckLineNumber(java.lang.String)
      */
     @Override
@@ -1243,7 +1212,6 @@ public class CashManagementServiceImpl implements CashManagementService {
      *
      * @param documentNumber The document the details will be generated from.
      * @return A map of the resulting cash details.  This map is keyed by the detail class object.
-     *
      * @see org.kuali.kfs.fp.document.service.CashManagementService#getCashDetailsForFinalDeposit(java.lang.String)
      */
     @Override
@@ -1262,6 +1230,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
     /**
      * This method pulls out the master currency and coin details and sets them to the cashManagementDocument
+     *
      * @param cmDoc
      * @param masterCurrencyDetail
      * @param masterCoinDetail
@@ -1286,6 +1255,7 @@ public class CashManagementServiceImpl implements CashManagementService {
     }
 
     // injected dependencies
+
     /**
      * Getter for retrieving an instance of the BusinessObjectService attribute.
      *
@@ -1386,6 +1356,7 @@ public class CashManagementServiceImpl implements CashManagementService {
 
     /**
      * Sets the data dictionary service implementation
+     *
      * @param dataDictionaryService the implementation of the data dictionary service to use
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

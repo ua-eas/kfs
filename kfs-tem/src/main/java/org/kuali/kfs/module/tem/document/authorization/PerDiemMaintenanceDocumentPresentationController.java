@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Calendar;
-
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Calendar;
 
 /**
  * Prevents records created in the past from being edited
@@ -33,13 +33,12 @@ public class PerDiemMaintenanceDocumentPresentationController extends FinancialS
     protected volatile static DateTimeService dateTimeService;
 
     /**
-     *
      * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase#canMaintain(java.lang.Object)
      */
     @Override
     public boolean canMaintain(Object dataObject) {
         if (dataObject instanceof PerDiem) {
-            final PerDiem perDiem = (PerDiem)dataObject;
+            final PerDiem perDiem = (PerDiem) dataObject;
             if (perDiem.getEffectiveToDate() != null) {
                 Calendar now = Calendar.getInstance();
                 now.setTimeInMillis(KfsDateUtils.clearTimeFields(getDateTimeService().getCurrentDate()).getTime());

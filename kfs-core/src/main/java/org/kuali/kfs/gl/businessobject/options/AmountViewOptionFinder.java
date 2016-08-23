@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.Constant;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An implementation of ValuesFinder that allows GL inquiries to select either monthly totals or accumulated totals on balance inquiries
@@ -33,6 +33,7 @@ public class AmountViewOptionFinder extends KeyValuesBase implements ValueFinder
 
     /**
      * Returns the default value of this ValueFinder: here, MONTHLY
+     *
      * @return the default value for this finder, which should be "monthly totals"
      * @see org.kuali.rice.krad.valuefinder.ValueFinder#getValue()
      */
@@ -42,6 +43,7 @@ public class AmountViewOptionFinder extends KeyValuesBase implements ValueFinder
 
     /**
      * Returns a list of key values to populate a drop down to choose between monthly totals and accumulated totals
+     *
      * @return a List of key value pairs
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */

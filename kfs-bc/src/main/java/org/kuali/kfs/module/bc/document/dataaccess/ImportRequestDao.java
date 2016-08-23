@@ -18,20 +18,18 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionHeader;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionRequestMove;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.util.List;
+
 /**
  * Facilates Budget Construction Import requests
- *
  */
 public interface ImportRequestDao {
 
     /**
-     *
      * @return header record or null if record does not exist.
      */
     public BudgetConstructionHeader getHeaderRecord(BudgetConstructionRequestMove record, Integer budgetYear);

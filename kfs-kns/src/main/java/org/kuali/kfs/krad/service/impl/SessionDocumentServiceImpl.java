@@ -19,9 +19,6 @@
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.UserSessionUtils;
 import org.kuali.kfs.krad.bo.SessionDocument;
@@ -32,6 +29,9 @@ import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.SessionDocumentService;
 import org.kuali.kfs.krad.web.form.DocumentFormBase;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.kew.api.WorkflowDocument;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
@@ -44,8 +44,6 @@ import java.util.HashMap;
 /**
  * Implementation of <code>SessionDocumentService</code> that persists the document form
  * contents to the underlying database
- *
- *
  */
 @Transactional
 public class SessionDocumentServiceImpl implements SessionDocumentService {
@@ -64,7 +62,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
 
     @Override
     public DocumentFormBase getDocumentForm(String documentNumber, String docFormKey, UserSession userSession,
-            String ipAddress) {
+                                            String ipAddress) {
         DocumentFormBase documentForm = null;
 
         LOG.debug("getDocumentForm DocumentFormBase from db");
@@ -74,18 +72,18 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
 
             //re-store workFlowDocument into session
             WorkflowDocument workflowDocument =
-                    documentForm.getDocument().getDocumentHeader().getWorkflowDocument();
+                documentForm.getDocument().getDocumentHeader().getWorkflowDocument();
             UserSessionUtils.addWorkflowDocument(userSession, workflowDocument);
         } catch (Exception e) {
             LOG.error("getDocumentForm failed for SessId/DocNum/PrinId/IP:" + userSession.getKualiSessionId() + "/" +
-                    documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress, e);
+                documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress, e);
         }
 
         return documentForm;
     }
 
     protected Object retrieveDocumentForm(UserSession userSession, String sessionId, String documentNumber,
-            String ipAddress) throws Exception {
+                                          String ipAddress) throws Exception {
         HashMap<String, String> primaryKeys = new HashMap<String, String>(4);
         primaryKeys.put(SESSION_ID, sessionId);
         if (documentNumber != null) {
@@ -116,7 +114,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
 
     /**
      * @see SessionDocumentService#addDocumentToUserSession(UserSession,
-     *      org.kuali.rice.kew.api.WorkflowDocument)
+     * org.kuali.rice.kew.api.WorkflowDocument)
      */
     @Override
     public void addDocumentToUserSession(UserSession userSession, WorkflowDocument document) {
@@ -125,7 +123,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
 
     /**
      * @see SessionDocumentService#purgeDocumentForm(String, String,
-     *      UserSession, String)
+     * UserSession, String)
      */
     @Override
     public void purgeDocumentForm(String documentNumber, String docFormKey, UserSession userSession, String ipAddress) {
@@ -143,7 +141,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
                 getBusinessObjectService().deleteMatching(SessionDocument.class, primaryKeys);
             } catch (Exception e) {
                 LOG.error("purgeDocumentForm failed for SessId/DocNum/PrinId/IP:" + userSession.getKualiSessionId() +
-                        "/" + documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress, e);
+                    "/" + documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress, e);
             }
         }
     }
@@ -166,7 +164,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
     }
 
     protected void persistDocumentForm(DocumentFormBase form, UserSession userSession, String ipAddress,
-            String sessionId, String documentNumber) {
+                                       String sessionId, String documentNumber) {
         try {
             LOG.debug("set Document Form into database");
 
@@ -179,7 +177,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
             byte[] formAsBytes = baos.toByteArray();
             boolean encryptContent = false;
             DocumentEntry documentEntry =
-                    getDataDictionaryService().getDataDictionary().getDocumentEntry(form.getDocTypeName());
+                getDataDictionaryService().getDataDictionary().getDocumentEntry(form.getDocTypeName());
             if (documentEntry != null) {
                 encryptContent = documentEntry.isEncryptDocumentDataInPersistentSessionStorage();
             }
@@ -197,7 +195,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
             primaryKeys.put(IP_ADDRESS, ipAddress);
 
             SessionDocument sessionDocument =
-                    getBusinessObjectService().findByPrimaryKey(SessionDocument.class, primaryKeys);
+                getBusinessObjectService().findByPrimaryKey(SessionDocument.class, primaryKeys);
             if (sessionDocument == null) {
                 sessionDocument = new SessionDocument();
                 sessionDocument.setSessionId(sessionId);
@@ -213,7 +211,7 @@ public class SessionDocumentServiceImpl implements SessionDocumentService {
         } catch (Exception e) {
             final String className = form != null ? form.getClass().getName() : "null";
             LOG.error("setDocumentForm failed for SessId/DocNum/PrinId/IP/class:" + userSession.getKualiSessionId() +
-                    "/" + documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress + "/" + className, e);
+                "/" + documentNumber + "/" + userSession.getPrincipalId() + "/" + ipAddress + "/" + className, e);
         }
     }
 

@@ -21,14 +21,14 @@ package org.kuali.kfs.module.bc.document.dataaccess;
 public interface BudgetConstructionAccountFundingDetailReportDao {
 
     /**
-     *  cleans out Account Funding Detail table for the principalName in question.
+     * cleans out Account Funding Detail table for the principalName in question.
      *
      * @param principalName
      */
     public void cleanReportsAccountFundingDetailTable(String principalName);
 
     /**
-     *  cleans and updates Account Funding Detail table for a new report for the principalName in question.
+     * cleans and updates Account Funding Detail table for a new report for the principalName in question.
      *
      * @param principalName
      */

@@ -31,8 +31,9 @@ import java.util.List;
 
 public class MemberTypeValuesFinder extends KeyValuesBase {
     private static final List<KeyValue> LABELS;
+
     static {
-        final List<KeyValue> labels = new ArrayList<KeyValue>( 3 );
+        final List<KeyValue> labels = new ArrayList<KeyValue>(3);
         labels.add(new ConcreteKeyValue(MemberType.PRINCIPAL.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_PRINCIPAL));
         labels.add(new ConcreteKeyValue(MemberType.GROUP.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_GROUP));
         labels.add(new ConcreteKeyValue(MemberType.ROLE.getCode(), KimConstants.KimUIConstants.MEMBER_TYPE_ROLE));

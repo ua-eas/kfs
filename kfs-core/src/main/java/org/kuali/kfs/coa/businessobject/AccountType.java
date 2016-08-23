@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class AccountType extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -84,6 +84,7 @@ public class AccountType extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -92,6 +93,7 @@ public class AccountType extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

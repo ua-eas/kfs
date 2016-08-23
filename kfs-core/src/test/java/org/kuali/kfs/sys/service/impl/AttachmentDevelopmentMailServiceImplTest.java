@@ -18,24 +18,21 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.mail.MessagingException;
-
-import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
 import org.kuali.rice.core.api.mail.MailMessage;
+
+import javax.mail.MessagingException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class AttachmentDevelopmentMailServiceImplTest {
 

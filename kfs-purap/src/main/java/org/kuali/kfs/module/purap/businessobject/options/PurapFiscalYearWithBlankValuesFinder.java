@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
+
+import java.util.List;
 
 public class PurapFiscalYearWithBlankValuesFinder extends PurapFiscalYearValuesFinder {
 

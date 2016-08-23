@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
+
+import java.util.regex.Pattern;
 
 /**
  * FlatFileObjectSpecification for files which match lines to objects via regular expression patterns
@@ -35,13 +35,16 @@ public class FlatFileRegexObjectSpecification extends AbstractFlatFileObjectSpec
     public String getRegexPattern() {
         return regexPattern;
     }
+
     /**
      * Sets a regex pattern to match lines with
+     *
      * @param regexPattern the regular expression pattern to match lines with
      */
     public void setRegexPattern(String regexPattern) {
         this.regexPattern = regexPattern;
     }
+
     /**
      * @return the Pattern to match lines for this object specification
      */

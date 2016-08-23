@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailUnitOfMeasureValidationTest extends KualiTestBase {
@@ -48,12 +48,12 @@ public class CustomerInvoiceDetailUnitOfMeasureValidationTest extends KualiTestB
         super.tearDown();
     }
 
-    public void testValidUnitOfMeasure_True(){
+    public void testValidUnitOfMeasure_True() {
         validation.getCustomerInvoiceDetail().setInvoiceItemUnitOfMeasureCode(VALID_UNIT_OF_MEASURE_CODE);
         assertTrue(validation.validate(null));
     }
 
-    public void testValidUnitOfMeasure_False(){
+    public void testValidUnitOfMeasure_False() {
         validation.getCustomerInvoiceDetail().setInvoiceItemUnitOfMeasureCode(INVALID_UNIT_OF_MEASURE_CODE);
         assertFalse(validation.validate(null));
     }

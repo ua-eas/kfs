@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -42,11 +40,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Struts Action Form for Purchasing and Accounts Payable documents.
@@ -74,8 +73,7 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
 
         if (PurapConstants.AccountDistributionMethodCodes.PROPORTIONAL_CODE.equalsIgnoreCase(defaultDistributionMethod) || PurapConstants.AccountDistributionMethodCodes.SEQUENTIAL_CODE.equalsIgnoreCase(defaultDistributionMethod)) {
             this.setReadOnlyAccountDistributionMethod(true);
-        }
-        else {
+        } else {
             this.setReadOnlyAccountDistributionMethod(false);
         }
     }
@@ -118,7 +116,7 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
     @Override
     public void populate(HttpServletRequest request) {
         super.populate(request);
-        PurchasingAccountsPayableDocument purapDoc = (PurchasingAccountsPayableDocument)this.getDocument();
+        PurchasingAccountsPayableDocument purapDoc = (PurchasingAccountsPayableDocument) this.getDocument();
 
         //fix document item/account references if necessary
         purapDoc.fixItemReferences();
@@ -136,10 +134,10 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
     }
 
     /**
-    * KRAD Conversion: Performs customization of an extra button.
-    *
-    * No data dictionary is involved.
-    */
+     * KRAD Conversion: Performs customization of an extra button.
+     * <p>
+     * No data dictionary is involved.
+     */
     protected void addExtraButton(String property, String source, String altText) {
 
         ExtraButton newButton = new ExtraButton();
@@ -153,6 +151,7 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
 
     /**
      * This method builds the url for the disbursement info on the purap documents.
+     *
      * @return the disbursement info url
      */
     public String getDisbursementInfoUrl() {
@@ -179,6 +178,7 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
 
     /**
      * overridden to make sure accounting lines on items are repopulated
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase#populateAccountingLinesForResponse(java.lang.String, java.util.Map)
      */
     @Override
@@ -190,19 +190,20 @@ public class PurchasingAccountsPayableFormBase extends KualiAccountingDocumentFo
 
     /**
      * Populates accounting lines for each item on the Purchasing AP document
+     *
      * @param parameterMap the map of parameters
      */
     protected void populateItemAccountingLines(Map parameterMap) {
-       int itemCount = 0;
-       for (PurApItem item : ((PurchasingAccountsPayableDocument)getDocument()).getItems()) {
-           populateAccountingLine(item.getNewSourceLine(), KFSPropertyConstants.DOCUMENT+"."+KFSPropertyConstants.ITEM+"["+itemCount+"]."+KFSPropertyConstants.NEW_SOURCE_LINE, parameterMap);
+        int itemCount = 0;
+        for (PurApItem item : ((PurchasingAccountsPayableDocument) getDocument()).getItems()) {
+            populateAccountingLine(item.getNewSourceLine(), KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.ITEM + "[" + itemCount + "]." + KFSPropertyConstants.NEW_SOURCE_LINE, parameterMap);
 
-           int sourceLineCount = 0;
-           for (PurApAccountingLine purApLine : item.getSourceAccountingLines()) {
-               populateAccountingLine(purApLine, KFSPropertyConstants.DOCUMENT+"."+KFSPropertyConstants.ITEM+"["+itemCount+"]."+KFSPropertyConstants.SOURCE_ACCOUNTING_LINE+"["+sourceLineCount+"]", parameterMap);
-               sourceLineCount += 1;
-           }
-       }
+            int sourceLineCount = 0;
+            for (PurApAccountingLine purApLine : item.getSourceAccountingLines()) {
+                populateAccountingLine(purApLine, KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.ITEM + "[" + itemCount + "]." + KFSPropertyConstants.SOURCE_ACCOUNTING_LINE + "[" + sourceLineCount + "]", parameterMap);
+                sourceLineCount += 1;
+            }
+        }
     }
 
     /**

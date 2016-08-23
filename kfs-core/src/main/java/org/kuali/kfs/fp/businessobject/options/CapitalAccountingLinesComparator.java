@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.fp.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
+
+import java.util.Comparator;
 
 public class CapitalAccountingLinesComparator implements Comparator {
 

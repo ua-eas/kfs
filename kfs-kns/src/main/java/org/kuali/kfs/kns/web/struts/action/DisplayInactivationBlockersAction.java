@@ -22,15 +22,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.kns.web.struts.form.DisplayInactivationBlockersForm;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.InactivationBlockingDisplayService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,51 +41,46 @@ import java.util.TreeMap;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in.
- *
- *
- *
  */
 public class DisplayInactivationBlockersAction extends org.kuali.kfs.kns.web.struts.action.KualiAction {
 
-	public ActionForward displayAllInactivationBlockers(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DisplayInactivationBlockersForm displayInactivationBlockersForm = (DisplayInactivationBlockersForm) form;
-		DataDictionaryService dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
-		InactivationBlockingDisplayService inactivationBlockingDisplayService = KRADServiceLocatorInternal.getInactivationBlockingDisplayService();
+    public ActionForward displayAllInactivationBlockers(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        DisplayInactivationBlockersForm displayInactivationBlockersForm = (DisplayInactivationBlockersForm) form;
+        DataDictionaryService dataDictionaryService = KRADServiceLocatorWeb.getDataDictionaryService();
+        InactivationBlockingDisplayService inactivationBlockingDisplayService = KRADServiceLocatorInternal.getInactivationBlockingDisplayService();
 
-		Class blockedBoClass = Class.forName(displayInactivationBlockersForm.getBusinessObjectClassName());
-		BusinessObject blockedBo = (BusinessObject) blockedBoClass.newInstance();
-		for (String key : displayInactivationBlockersForm.getPrimaryKeyFieldValues().keySet()) {
-			ObjectUtils.setObjectProperty(blockedBo, key, displayInactivationBlockersForm.getPrimaryKeyFieldValues().get(key));
-		}
+        Class blockedBoClass = Class.forName(displayInactivationBlockersForm.getBusinessObjectClassName());
+        BusinessObject blockedBo = (BusinessObject) blockedBoClass.newInstance();
+        for (String key : displayInactivationBlockersForm.getPrimaryKeyFieldValues().keySet()) {
+            ObjectUtils.setObjectProperty(blockedBo, key, displayInactivationBlockersForm.getPrimaryKeyFieldValues().get(key));
+        }
 
-		Map<String, List<String>> allBlockers = new TreeMap<String, List<String>>();
+        Map<String, List<String>> allBlockers = new TreeMap<String, List<String>>();
 
-		Set<InactivationBlockingMetadata> inactivationBlockers = dataDictionaryService.getAllInactivationBlockingDefinitions(blockedBoClass);
-		for (InactivationBlockingMetadata inactivationBlockingMetadata : inactivationBlockers) {
-			String blockingBoLabel = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass().getName()).getObjectLabel();
-			String relationshipLabel = inactivationBlockingMetadata.getRelationshipLabel();
-			String displayLabel;
-			if (StringUtils.isEmpty(relationshipLabel)) {
-				displayLabel = blockingBoLabel;
-			}
-			else {
-				displayLabel = blockingBoLabel + " (" + relationshipLabel + ")";
-			}
-			List<String> blockerObjectList = inactivationBlockingDisplayService.listAllBlockerRecords(blockedBo, inactivationBlockingMetadata);
+        Set<InactivationBlockingMetadata> inactivationBlockers = dataDictionaryService.getAllInactivationBlockingDefinitions(blockedBoClass);
+        for (InactivationBlockingMetadata inactivationBlockingMetadata : inactivationBlockers) {
+            String blockingBoLabel = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(inactivationBlockingMetadata.getBlockingReferenceBusinessObjectClass().getName()).getObjectLabel();
+            String relationshipLabel = inactivationBlockingMetadata.getRelationshipLabel();
+            String displayLabel;
+            if (StringUtils.isEmpty(relationshipLabel)) {
+                displayLabel = blockingBoLabel;
+            } else {
+                displayLabel = blockingBoLabel + " (" + relationshipLabel + ")";
+            }
+            List<String> blockerObjectList = inactivationBlockingDisplayService.listAllBlockerRecords(blockedBo, inactivationBlockingMetadata);
 
-			if (!blockerObjectList.isEmpty()) {
-				List<String> existingList = allBlockers.get(displayLabel);
-				if (existingList != null) {
-					existingList.addAll(blockerObjectList);
-				}
-				else {
-					allBlockers.put(displayLabel, blockerObjectList);
-				}
-			}
-		}
+            if (!blockerObjectList.isEmpty()) {
+                List<String> existingList = allBlockers.get(displayLabel);
+                if (existingList != null) {
+                    existingList.addAll(blockerObjectList);
+                } else {
+                    allBlockers.put(displayLabel, blockerObjectList);
+                }
+            }
+        }
 
-		displayInactivationBlockersForm.setBlockingValues(allBlockers);
+        displayInactivationBlockersForm.setBlockingValues(allBlockers);
 
-		return mapping.findForward(RiceConstants.MAPPING_BASIC);
-	}
+        return mapping.findForward(RiceConstants.MAPPING_BASIC);
+    }
 }

@@ -25,8 +25,6 @@ import java.util.regex.Pattern;
 
 /**
  * Abstraction of the regular expressions used to validate attribute values.
- *
- *
  */
 @Deprecated
 abstract public class FieldLevelValidationPattern extends ValidationPattern {
@@ -40,12 +38,12 @@ abstract public class FieldLevelValidationPattern extends ValidationPattern {
      */
     protected String getRegexString() {
         return (String) KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                "validationPatternRegex." + getPatternTypeName());
+            "validationPatternRegex." + getPatternTypeName());
     }
 
     /**
      * @return the key used to retrieve the validationPattern's type name, which is used as the suffix of the regex property key, as
-     *         the type entry in the exportMap, etc.
+     * the type entry in the exportMap, etc.
      */
     abstract protected String getPatternTypeName();
 
@@ -54,7 +52,7 @@ abstract public class FieldLevelValidationPattern extends ValidationPattern {
      * @return regular expression Pattern generated using the individual ValidationPattern subclass
      */
     public final Pattern getRegexPattern() {
-        if ( regexPattern == null ) {
+        if (regexPattern == null) {
             StringBuffer completeRegex = new StringBuffer("^");
             completeRegex.append(getRegexString());
             completeRegex.append("$");
@@ -75,15 +73,15 @@ abstract public class FieldLevelValidationPattern extends ValidationPattern {
         return exportMap;
     }
 
-	/**
-	 * This overridden method ...
-	 *
-	 * @see ValidationPattern#getValidationErrorMessageKey()
-	 */
-	@Override
-	public String getValidationErrorMessageKey() {
-		StringBuilder buf = new StringBuilder();
-		buf.append("error.format.").append(getClass().getName());
-		return buf.toString();
-	}
+    /**
+     * This overridden method ...
+     *
+     * @see ValidationPattern#getValidationErrorMessageKey()
+     */
+    @Override
+    public String getValidationErrorMessageKey() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("error.format.").append(getClass().getName());
+        return buf.toString();
+    }
 }

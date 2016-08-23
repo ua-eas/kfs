@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Value Finder for Units Of Measure.
@@ -45,7 +45,7 @@ public class UnitOfMeasureValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (UnitOfMeasure uom : results) {
-            if(uom.isActive()) {
+            if (uom.isActive()) {
                 labels.add(new ConcreteKeyValue(uom.getItemUnitOfMeasureCode(), uom.getItemUnitOfMeasureDescription()));
             }
         }

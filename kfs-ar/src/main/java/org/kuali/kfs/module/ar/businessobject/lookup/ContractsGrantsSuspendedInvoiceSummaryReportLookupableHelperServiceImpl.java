@@ -18,15 +18,11 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceSummaryReport;
@@ -34,10 +30,14 @@ import org.kuali.kfs.module.ar.businessobject.InvoiceSuspensionCategory;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * Defines a custom lookup for the Suspense Activity Report.
@@ -70,13 +70,13 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
         Map<String, String> lookupFields = new HashMap<>();
         Map<String, String> suspensionCategoryDescriptions = new HashMap<String, String>();
 
-        final String suspensionCategoryCodeFromLookup = (String)lookupFormFields.get(ArPropertyConstants.SuspensionCategoryReportFields.SUSPENSION_CATEGORY_CODE);
+        final String suspensionCategoryCodeFromLookup = (String) lookupFormFields.get(ArPropertyConstants.SuspensionCategoryReportFields.SUSPENSION_CATEGORY_CODE);
         if (StringUtils.isNotBlank(suspensionCategoryCodeFromLookup)) {
             lookupFields.put(ArPropertyConstants.SuspensionCategoryReportFields.CONTRACTS_GRANTS_INVOICE_DOCUMENT_SUSPENSION_CATEGORY_CODE, suspensionCategoryCodeFromLookup);
         }
 
         final String processingDocumentStatuses = buildProcessingDocumentStatusesForLookup();
-        lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, processingDocumentStatuses);
+        lookupFields.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, processingDocumentStatuses);
         Collection<ContractsGrantsInvoiceDocument> cgInvoiceDocuments = getLookupService().findCollectionBySearchHelper(ContractsGrantsInvoiceDocument.class, lookupFields, true);
 
         for (ContractsGrantsInvoiceDocument cgInvoiceDoc : cgInvoiceDocuments) {
@@ -90,7 +90,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
                     }
 
                     if (StringUtils.isBlank(suspensionCategoryCodeFromLookup) ||
-                            (suspensionCategoryCodePattern != null && suspensionCategoryCodePattern.matcher(suspensionCategoryCode).matches())) {
+                        (suspensionCategoryCodePattern != null && suspensionCategoryCodePattern.matcher(suspensionCategoryCode).matches())) {
                         if (!suspensionCategoryDescriptions.containsKey(suspensionCategoryCode)) {
                             suspensionCategoryDescriptions.put(suspensionCategoryCode, configurationService.getPropertyValueAsString(ArKeyConstants.INVOICE_DOCUMENT_SUSPENSION_CATEGORY + suspensionCategoryCode));
                         }
@@ -99,8 +99,7 @@ public class ContractsGrantsSuspendedInvoiceSummaryReportLookupableHelperService
                             List<String> documentNumbers = new ArrayList<String>();
                             documentNumbers.add(invoiceSuspensionCategory.getDocumentNumber());
                             documentNumbersByCategory.put(suspensionCategoryCode, documentNumbers);
-                        }
-                        else {
+                        } else {
                             documentNumbersByCategory.get(suspensionCategoryCode).add(invoiceSuspensionCategory.getDocumentNumber());
                         }
                     }

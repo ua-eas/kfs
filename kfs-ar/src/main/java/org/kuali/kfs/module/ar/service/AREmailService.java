@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.ar.service;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.mail.MessagingException;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.module.ar.businessobject.Milestone;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
+
+import javax.mail.MessagingException;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Defines methods for sending AR emails.

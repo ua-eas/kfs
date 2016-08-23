@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.integration.ld.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.ld.LaborBenefitRateCategory;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
+import java.util.LinkedHashMap;
+
 /**
  * BO for the Labor Benefit Rate Category Fringe Benefit
- *
  */
 public class BenefitRateCategory implements LaborBenefitRateCategory, MutableInactivatable {
 
@@ -38,27 +37,28 @@ public class BenefitRateCategory implements LaborBenefitRateCategory, MutableIna
 
     /**
      * Getter method to get the laborBenefitRateCategoryCode
+     *
      * @return laborBenefitRateCategoryCode
      */
-	@Override
+    @Override
     public String getLaborBenefitRateCategoryCode() {
-		return laborBenefitRateCategoryCode;
-	}
+        return laborBenefitRateCategoryCode;
+    }
 
     /**
-     *
      * Method to set the code
+     *
      * @param code
      */
     @Override
     public void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode) {
-		this.laborBenefitRateCategoryCode = laborBenefitRateCategoryCode;
-	}
+        this.laborBenefitRateCategoryCode = laborBenefitRateCategoryCode;
+    }
 
 
     /**
-     *
      * Getter method for the active indicator
+     *
      * @return activeIndicator
      */
     public Boolean getActiveIndicator() {
@@ -66,8 +66,8 @@ public class BenefitRateCategory implements LaborBenefitRateCategory, MutableIna
     }
 
     /**
-     *
      * Sets the activeIndicator
+     *
      * @param activeIndicator
      */
     public void setActiveIndicator(Boolean activeIndicator) {
@@ -75,8 +75,8 @@ public class BenefitRateCategory implements LaborBenefitRateCategory, MutableIna
     }
 
     /**
-     *
      * Getter method for the code's description
+     *
      * @return codeDesc
      */
     @Override
@@ -84,15 +84,16 @@ public class BenefitRateCategory implements LaborBenefitRateCategory, MutableIna
         return codeDesc;
     }
 
-	/**
-	 *
-	 * Sets the codeDesc
-	 * @param codeDesc
-	 */
+    /**
+     * Sets the codeDesc
+     *
+     * @param codeDesc
+     */
     @Override
     public void setCodeDesc(String codeDesc) {
         this.codeDesc = codeDesc;
     }
+
     protected LinkedHashMap toStringMapper() {
         LinkedHashMap m = new LinkedHashMap();
 
@@ -100,7 +101,7 @@ public class BenefitRateCategory implements LaborBenefitRateCategory, MutableIna
         m.put("codeDesc", this.codeDesc);
 
         return m;
-	}
+    }
 
     @Override
     public boolean isActive() {

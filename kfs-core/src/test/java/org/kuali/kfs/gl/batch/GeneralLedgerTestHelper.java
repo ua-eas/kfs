@@ -53,7 +53,7 @@ public class GeneralLedgerTestHelper {
      *
      * @param nameOfOutputOriginEntryFileFromFis the name of the file to load
      * @return a List of origin entries
-     * @throws IOException  thrown if the file cannot be read
+     * @throws IOException thrown if the file cannot be read
      */
     static public List loadOutputOriginEntriesFromClasspath(String nameOfOutputOriginEntryFileFromFis, Date date) throws IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -79,8 +79,7 @@ public class GeneralLedgerTestHelper {
                 // converts leading 0 characters for amount to spaces
                 if ('0' != lineChars[idx]) {
                     break;
-                }
-                else {
+                } else {
                     lineChars[idx] = ' ';
                 }
             } while (103 > idx++);

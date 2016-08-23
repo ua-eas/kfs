@@ -32,11 +32,10 @@ public class TransactionalDocumentPresentationControllerBase extends DocumentPre
     private static Log LOG = LogFactory.getLog(TransactionalDocumentPresentationControllerBase.class);
 
     /**
-     *
      * @see DocumentPresentationController#getEditMode(Document)
      */
-    public Set<String> getEditModes(Document document){
-    	Set<String> editModes = new HashSet();
-    	return editModes;
+    public Set<String> getEditModes(Document document) {
+        Set<String> editModes = new HashSet();
+        return editModes;
     }
 }

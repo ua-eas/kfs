@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.validation.event;
 
-import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
 
-public interface GroupTravelLineEvent extends KualiDocumentEvent{
+public interface GroupTravelLineEvent extends KualiDocumentEvent {
 
     /**
-     *
      * This method returns the group traveler object associated with this event
+     *
      * @return group traveler
      */
     public GroupTraveler getGroupTraveler();

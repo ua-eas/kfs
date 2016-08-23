@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
-import java.util.List;
-import java.util.Properties;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.TaxRegion;
-import org.kuali.kfs.sys.businessobject.TaxRegionType;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.TaxRegion;
+import org.kuali.kfs.sys.businessobject.TaxRegionType;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Properties;
 
 public class TaxRegionTypeLookupableServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -42,7 +42,7 @@ public class TaxRegionTypeLookupableServiceImpl extends KualiLookupableHelperSer
      * If so, create customer link to tax region maint doc. Otherwise, just use the normal returnUrl.
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.Map, java.lang.String, java.util.List)
+     * java.util.Map, java.lang.String, java.util.List)
      */
     @SuppressWarnings("rawtypes")
     // KFSMI-5158
@@ -62,11 +62,10 @@ public class TaxRegionTypeLookupableServiceImpl extends KualiLookupableHelperSer
                 SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TITLE_RETURN_URL_PREPENDTEXT_PROPERTY);
             AnchorHtmlData anchor = new AnchorHtmlData(href, HtmlData.getTitleText(returnUrlAnchorLabel, businessObject, returnKeys, restrictions));
             anchor.setDisplayText(returnUrlAnchorLabel);
-           return anchor;
-       }
-       else {
-           return super.getReturnUrl(businessObject, lookupForm, returnKeys, restrictions);
-       }
+            return anchor;
+        } else {
+            return super.getReturnUrl(businessObject, lookupForm, returnKeys, restrictions);
+        }
     }
 
     @SuppressWarnings("rawtypes")

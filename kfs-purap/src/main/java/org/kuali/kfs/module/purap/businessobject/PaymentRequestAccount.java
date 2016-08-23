@@ -45,7 +45,7 @@ public class PaymentRequestAccount extends PurApAccountingLineBase {
      * Constructor.
      *
      * @param item - payment request item
-     * @param poa - purchase order account
+     * @param poa  - purchase order account
      */
     public PaymentRequestAccount(PaymentRequestItem item, PurchaseOrderAccount poa) {
         // copy base attributes
@@ -75,13 +75,14 @@ public class PaymentRequestAccount extends PurApAccountingLineBase {
 
     /**
      * Caller of this method should take care of creating PaymentRequestItems
+     *
      * @see org.kuali.kfs.sys.businessobject.AccountingLineBase#copyFrom(org.kuali.kfs.sys.businessobject.AccountingLine)
      */
     @Override
     public void copyFrom(AccountingLine other) {
         super.copyFrom(other);
         if (other instanceof PaymentRequestAccount) {
-            PaymentRequestAccount preqOther = (PaymentRequestAccount)other;
+            PaymentRequestAccount preqOther = (PaymentRequestAccount) other;
             setDisencumberedAmount(preqOther.getDisencumberedAmount());
         }
     }

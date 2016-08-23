@@ -24,8 +24,6 @@ import javax.persistence.MappedSuperclass;
 
 /**
  * Controller that handles requests coming from a <code>TransactionalDocumentView</code>
- *
- *
  */
 @MappedSuperclass
 public abstract class TransactionalDocumentBase extends DocumentBase implements TransactionalDocument, SessionDocument {
@@ -40,12 +38,12 @@ public abstract class TransactionalDocumentBase extends DocumentBase implements 
 
     /**
      * @see TransactionalDocument#getAllowsCopy()
-     *      Checks if copy is set to true in data dictionary and the document instance implements
-     *      Copyable.
+     * Checks if copy is set to true in data dictionary and the document instance implements
+     * Copyable.
      */
     public boolean getAllowsCopy() {
         return KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsCopy(this).booleanValue() &&
-                this instanceof Copyable;
+            this instanceof Copyable;
     }
 
     /**

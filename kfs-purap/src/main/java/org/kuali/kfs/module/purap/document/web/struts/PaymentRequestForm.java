@@ -90,8 +90,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
 
         if (ObjectUtils.isNotNull(this.getPaymentRequestDocument().getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.PaymentRequestDocument.attributes.purapDocumentIdentifier", ((PaymentRequestDocument) this.getDocument()).getPurapDocumentIdentifier().toString()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.PaymentRequestDocument.attributes.purapDocumentIdentifier", "Not Available"));
         }
 
@@ -116,9 +115,9 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
      * Build additional payment request specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs customization of an extra button.
-     *
+     * <p>
      * No data dictionary is involved.
      */
     @Override
@@ -131,8 +130,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
         if (canContinue()) {
             addExtraButton("methodToCall.continuePREQ", externalImageURL + "buttonsmall_continue.gif", "Continue");
             addExtraButton("methodToCall.clearInitFields", externalImageURL + "buttonsmall_clear.gif", "Clear");
-        }
-        else {
+        } else {
             if (getEditingMode().containsKey(PaymentRequestEditMode.HOLD)) {
                 addExtraButton("methodToCall.addHoldOnPayment", appExternalImageURL + "buttonsmall_hold.gif", "Hold");
             }
@@ -154,14 +152,13 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_PROCESSOR_CANCEL) ||
-                    getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_MANAGER_CANCEL)) {
+                getEditingMode().containsKey(PaymentRequestEditMode.ACCOUNTS_PAYABLE_MANAGER_CANCEL)) {
                 if (PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(paymentRequestDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
                     //if the PO is CLOSED, show the 'open order' button; but only if there are no pending actions on the PO
                     if (!paymentRequestDocument.getPurchaseOrderDocument().isPendingActionIndicator()) {
                         addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Open Order");
                     }
-                }
-                else {
+                } else {
                     if (!paymentRequestDocument.getFinancialSystemDocumentHeader().getWorkflowDocument().isDisapproved()) {
                         addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                     }
@@ -218,7 +215,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
         if (KRADConstants.DISPATCH_REQUEST_PARAMETER.equals(methodToCallParameterName) &&
-           ("changeUseTaxIndicator".equals(methodToCallParameterValue))) {
+            ("changeUseTaxIndicator".equals(methodToCallParameterValue))) {
             return true;
         }
         return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
@@ -229,8 +226,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
 
         if (parameterService.parameterExists(PaymentRequestDocument.class, PurapParameterConstants.SHOW_CLEAR_AND_LOAD_QTY_BUTTONS_IND)) {
             return parameterService.getParameterValueAsBoolean(PaymentRequestDocument.class, PurapParameterConstants.SHOW_CLEAR_AND_LOAD_QTY_BUTTONS_IND);
-        }
-        else {
+        } else {
             return false;
         }
 

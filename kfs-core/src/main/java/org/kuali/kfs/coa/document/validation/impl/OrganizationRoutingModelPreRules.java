@@ -23,7 +23,6 @@ import org.kuali.kfs.coa.businessobject.AccountDelegateModelDetail;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 /**
- *
  * This class...
  */
 public class OrganizationRoutingModelPreRules extends MaintenancePreRulesBase {
@@ -35,6 +34,7 @@ public class OrganizationRoutingModelPreRules extends MaintenancePreRulesBase {
      * <ul>
      * <li>{@link OrganizationRoutingModelPreRules#copyKeyAttributesToModelDetail(OrganizationRoutingModelName)}</li>
      * </ul>
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -45,9 +45,9 @@ public class OrganizationRoutingModelPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     *
      * This copies the chart of accounts, object code, and organization model name from the parent {@link OrganizationRoutingModelName} to the
      * {@link OrganizationRoutingModel} objects
+     *
      * @param model
      */
     protected void copyKeyAttributesToModelDetail(AccountDelegateModel model) {

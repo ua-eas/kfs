@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -32,9 +32,9 @@ import org.kuali.kfs.module.cam.document.service.AssetService;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class validates object sub type code for the financial object for which payment is being made
@@ -62,16 +62,16 @@ public class AssetPaymentObjectCodeValidation extends GenericValidation {
         AssetPaymentDetail assetPaymentDetail = (AssetPaymentDetail) getAccountingLineForValidation();
         boolean result = true;
 
-        List<String> validSubtypeCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(AssetGlobal.class, CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES) );
+        List<String> validSubtypeCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(AssetGlobal.class, CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES));
 
         String parameterDetail = "(module:" + KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(AssetGlobal.class) + "/component:" + AssetGlobal.class.getSimpleName() + ")";
         boolean capitalAssetFound = false;
 
         List<AssetPaymentAssetDetail> assetPaymentAssetDetails = assetPaymentDocument.getAssetPaymentAssetDetail();
-        for(AssetPaymentAssetDetail assetPaymentAssetDetail:assetPaymentAssetDetails) {
+        for (AssetPaymentAssetDetail assetPaymentAssetDetail : assetPaymentAssetDetails) {
             if (assetService.isCapitalAsset(assetPaymentAssetDetail.getAsset())) {
                 if (!validSubtypeCodes.contains(assetPaymentDetail.getObjectCode().getFinancialObjectSubTypeCode())) {
-                    GlobalVariables.getMessageMap().putError(CamsPropertyConstants.AssetPaymentDetail.FINANCIAL_OBJECT_CODE, CamsKeyConstants.Payment.ERROR_INVALID_OBJECT_SUBTYPE, new String[] { assetPaymentDetail.getFinancialObjectCode(), assetPaymentDetail.getObjectCode().getFinancialObjectSubTypeCode(), CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES +" "+parameterDetail,validSubtypeCodes.toString() });
+                    GlobalVariables.getMessageMap().putError(CamsPropertyConstants.AssetPaymentDetail.FINANCIAL_OBJECT_CODE, CamsKeyConstants.Payment.ERROR_INVALID_OBJECT_SUBTYPE, new String[]{assetPaymentDetail.getFinancialObjectCode(), assetPaymentDetail.getObjectCode().getFinancialObjectSubTypeCode(), CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES + " " + parameterDetail, validSubtypeCodes.toString()});
                     result = false;
                     break;
                 }

@@ -97,7 +97,7 @@
                                     attributeEntry="${DataDictionary.AuxiliaryVoucherDocument.attributes.reversalDate}"
                                     horizontal="true"
                                     width="35%"
-                                    />
+                            />
                             <td class="datacell-nowrap">
                                 <kul:htmlControlAttribute
                                         attributeEntry="${DataDictionary.AuxiliaryVoucherDocument.attributes.reversalDate}"
@@ -105,7 +105,7 @@
                                         property="document.reversalDate"
                                         readOnly="${reversalReadOnly}"
                                         readOnlyAlternateDisplay="${fn:escapeXml(KualiForm.formattedReversalDate)}"
-                                        />
+                                />
                             </td>
                         </tr>
                     </c:otherwise>

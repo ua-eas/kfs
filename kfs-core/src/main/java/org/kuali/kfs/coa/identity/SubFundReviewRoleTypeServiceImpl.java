@@ -18,22 +18,22 @@
  */
 package org.kuali.kfs.coa.identity;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class SubFundReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
     private DocumentTypeService documentTypeService;
 
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         if (KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KfsKimAttributes.SUB_FUND_GROUP_CODE)) {
             Set<String> potentialParentDocumentTypeNames = new HashSet<String>(1);
             if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {

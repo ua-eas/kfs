@@ -27,7 +27,7 @@ public interface PersistedLookupMetadataDao {
      * the parameter
      *
      * @param expirationDate all LookupResults having a lookup date before this date
-     * will be removed
+     *                       will be removed
      */
     public void deleteOldLookupResults(Timestamp expirationDate);
 
@@ -36,7 +36,7 @@ public interface PersistedLookupMetadataDao {
      * the parameter
      *
      * @param expirationDate all LookupResults having a lookup date before this date
-     * will be removed
+     *                       will be removed
      */
     public void deleteOldSelectedObjectIds(Timestamp expirationDate);
 }

@@ -25,7 +25,7 @@ import org.kuali.rice.core.api.util.type.KualiPercent;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-public interface LaborBenefitsCalculation extends ExternalizableBusinessObject  {
+public interface LaborBenefitsCalculation extends ExternalizableBusinessObject {
 
     /**
      * Gets the universityFiscalYear attribute.
@@ -132,7 +132,7 @@ public interface LaborBenefitsCalculation extends ExternalizableBusinessObject  
      *
      * @return Returns the positionBenefitType.
      */
-   // public abstract BenefitsType getPositionBenefitType();
+    // public abstract BenefitsType getPositionBenefitType();
 
     /**
      * Sets the positionBenefitType attribute value.
@@ -154,7 +154,7 @@ public interface LaborBenefitsCalculation extends ExternalizableBusinessObject  
      *
      * @param laborObject The laborObject to set.
      */
-   // @Deprecated
+    // @Deprecated
     //public abstract void setLaborObject(LaborObject laborObject);
 
     /**
@@ -205,24 +205,28 @@ public interface LaborBenefitsCalculation extends ExternalizableBusinessObject  
 
     /**
      * Gets the laborBenefitRateCategory attribute.
+     *
      * @return Returns the laborBenefitRateCategory.
      */
     public abstract LaborBenefitRateCategory getLaborBenefitRateCategory();
 
     /**
      * Sets the laborBenefitRateCategory attribute value.
+     *
      * @param laborBenefitRateCategory The laborBenefitRateCategory to set.
      */
     public abstract void setLaborBenefitRateCategory(LaborBenefitRateCategory laborBenefitRateCategory);
 
     /**
      * Gets the laborBenefitRateCategoryCode attribute.
+     *
      * @return Returns the laborBenefitRateCategoryCode.
      */
     public abstract String getLaborBenefitRateCategoryCode();
 
     /**
      * Sets the laborBenefitRateCategoryCode attribute value.
+     *
      * @param laborBenefitRateCategoryCode The laborBenefitRateCategoryCode to set.
      */
     public abstract void setLaborBenefitRateCategoryCode(String laborBenefitRateCategoryCode);

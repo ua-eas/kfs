@@ -20,8 +20,8 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
 
 
 /**

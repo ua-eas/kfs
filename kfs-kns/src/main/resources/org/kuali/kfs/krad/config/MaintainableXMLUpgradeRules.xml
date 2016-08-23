@@ -292,7 +292,7 @@
             </pattern>
         </pattern>
         <pattern>
-        	<!--  Unfortunately, ICR Account information can't be converted this way -->
+            <!--  Unfortunately, ICR Account information can't be converted this way -->
             <class>org.kuali.kfs.coa.businessobject.Account</class>
             <pattern>
                 <match>indirectCostRcvyFinCoaCode</match>
@@ -304,7 +304,7 @@
             </pattern>
         </pattern>
         <pattern>
-        	<!--  Unfortunately, ICR Account information can't be converted this way -->
+            <!--  Unfortunately, ICR Account information can't be converted this way -->
             <class>org.kuali.kfs.coa.businessobject.A21SubAccount</class>
             <pattern>
                 <match>indirectCostRcvyFinCoaCode</match>
@@ -391,7 +391,7 @@
          cannot be converted without significantly more complex logic.
     -->
     <rule name="maint_doc_classname_removals">
-		<pattern>
+        <pattern>
             <match>org.kuali.rice.kim.bo.impl.PersonImpl</match>
         </pattern>
         <pattern>

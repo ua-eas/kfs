@@ -22,12 +22,12 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
 import org.kuali.kfs.module.cg.businessobject.Agency;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
-import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
@@ -147,7 +147,7 @@ public enum ARAwardFixture {
 
     public Award setAgencyFromFixture(Award award) {
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
-        award.setAgency((Agency)agency);
+        award.setAgency((Agency) agency);
         award.setAgencyNumber(agency.getAgencyNumber());
         return award;
     }

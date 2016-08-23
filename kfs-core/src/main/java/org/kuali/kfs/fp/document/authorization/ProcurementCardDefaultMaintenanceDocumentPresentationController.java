@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.batch.ProcurementCardCreateDocumentsStep;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Set;
 
 /**
  * Presentation controller for the ProcurementCardDefault Maintenance Document
@@ -38,6 +38,7 @@ public class ProcurementCardDefaultMaintenanceDocumentPresentationController ext
     /**
      * Displays or hides the KFS-FP_ProcurementCardDefault-EditProcurementCardHolder and KFS-FP_ProcurementCardDefault-EditProcurementCardAccounting
      * sections based on if parameters for use are turned on
+     *
      * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase#getConditionallyHiddenSectionIds(org.kuali.rice.kns.bo.BusinessObject)
      */
     @Override

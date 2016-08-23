@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -39,6 +33,12 @@ import org.kuali.kfs.module.ld.util.ConsolidationUtil;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the data access object for calculated salary foundation tracker
@@ -65,8 +65,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
             while (queryResults != null && queryResults.hasNext()) {
                 csfTrackerCollection.add(this.marshalCSFTracker(queryResults.next()));
             }
-        }
-        else {
+        } else {
             csfTrackerCollection.addAll(findDetailedCSFTrackerRawData(fieldValues));
         }
         return csfTrackerCollection;
@@ -92,7 +91,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborCalculatedSalaryFoundationTrackerDao#findCSFTrackersAsEmployeeFunding(java.util.Map,
-     *      boolean)
+     * boolean)
      */
     @Override
     public List<EmployeeFunding> findCSFTrackersAsEmployeeFunding(Map fieldValues, boolean isConsolidated) {
@@ -201,8 +200,7 @@ public class LaborCalculatedSalaryFoundationTrackerDaoOjb extends PlatformAwareD
         if (!isAttributeNameNeeded) {
             attributeList.add(ConsolidationUtil.sum(KFSPropertyConstants.CSF_FULL_TIME_EMPLOYMENT_QUANTITY));
             attributeList.add(ConsolidationUtil.sum(KFSPropertyConstants.CSF_AMOUNT));
-        }
-        else {
+        } else {
             attributeList.add(KFSPropertyConstants.CSF_FULL_TIME_EMPLOYMENT_QUANTITY);
             attributeList.add(KFSPropertyConstants.CSF_AMOUNT);
         }

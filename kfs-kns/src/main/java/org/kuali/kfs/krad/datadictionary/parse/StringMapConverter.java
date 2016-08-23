@@ -30,8 +30,6 @@ import java.util.Set;
  * Converts a string configured in the dictionary for a map property type to a Map
  * object using the convention of commas to separate map entries and a colon to separate
  * the key value pair
- *
- *
  */
 public class StringMapConverter implements GenericConverter {
 

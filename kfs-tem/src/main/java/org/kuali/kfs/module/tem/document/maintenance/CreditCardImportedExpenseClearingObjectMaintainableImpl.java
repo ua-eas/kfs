@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.tem.document.maintenance;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.module.tem.businessobject.CreditCardImportedExpenseClearingDetail;
 import org.kuali.kfs.module.tem.businessobject.CreditCardImportedExpenseClearingObject;
 import org.kuali.kfs.module.tem.businessobject.HistoricalTravelExpense;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class overrides the base {@link KualiGlobalMaintainableImpl} to generate the specific maintenance locks for Global accounts
@@ -41,7 +41,7 @@ public class CreditCardImportedExpenseClearingObjectMaintainableImpl extends Fin
      */
     @Override
     public List<MaintenanceLock> generateMaintenanceLocks() {
-        CreditCardImportedExpenseClearingObject cardImportedExpenseClearingObject =  (CreditCardImportedExpenseClearingObject) getBusinessObject();
+        CreditCardImportedExpenseClearingObject cardImportedExpenseClearingObject = (CreditCardImportedExpenseClearingObject) getBusinessObject();
         List<MaintenanceLock> maintenanceLocks = new ArrayList();
 
         for (CreditCardImportedExpenseClearingDetail detail : cardImportedExpenseClearingObject.getExpenses()) {

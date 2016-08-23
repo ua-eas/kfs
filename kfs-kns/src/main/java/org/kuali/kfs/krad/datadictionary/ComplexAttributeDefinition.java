@@ -21,42 +21,40 @@ package org.kuali.kfs.krad.datadictionary;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
- *  A complex attribute definition in the DataDictictionary. This can be be used to define
- *  an attribute for a DataObjectEntry's attribute list which is represented by another
- *  object entry definition. It will
- *
- *
+ * A complex attribute definition in the DataDictictionary. This can be be used to define
+ * an attribute for a DataObjectEntry's attribute list which is represented by another
+ * object entry definition. It will
  */
-public class ComplexAttributeDefinition extends AttributeDefinitionBase{
+public class ComplexAttributeDefinition extends AttributeDefinitionBase {
 
-	protected DataDictionaryEntry dataObjectEntry;
-
-
-	/**
-	 * @return the dataObjectEntry
-	 */
-	public DataDictionaryEntry getDataObjectEntry() {
-		return this.dataObjectEntry;
-	}
-
-	/**
-	 * @param dataObjectEntry the dataObjectEntry to set
-	 */
-	public void setDataObjectEntry(DataDictionaryEntry dataObjectEntry) {
-		this.dataObjectEntry = dataObjectEntry;
-	}
+    protected DataDictionaryEntry dataObjectEntry;
 
 
-	/**
-	 * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
-	 */
-	@Override
-	public void completeValidation(Class<?> rootObjectClass, Class<?> otherObjectClass) {
-		if (getDataObjectEntry() == null){
-			throw new AttributeValidationException("complex property '" + getName() + "' in class '"
-					+ rootObjectClass.getName() + " does not have a dataObjectClass defined");
+    /**
+     * @return the dataObjectEntry
+     */
+    public DataDictionaryEntry getDataObjectEntry() {
+        return this.dataObjectEntry;
+    }
 
-		}
-	}
+    /**
+     * @param dataObjectEntry the dataObjectEntry to set
+     */
+    public void setDataObjectEntry(DataDictionaryEntry dataObjectEntry) {
+        this.dataObjectEntry = dataObjectEntry;
+    }
+
+
+    /**
+     * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
+     */
+    @Override
+    public void completeValidation(Class<?> rootObjectClass, Class<?> otherObjectClass) {
+        if (getDataObjectEntry() == null) {
+            throw new AttributeValidationException("complex property '" + getName() + "' in class '"
+                + rootObjectClass.getName() + " does not have a dataObjectClass defined");
+
+        }
+    }
 
 }

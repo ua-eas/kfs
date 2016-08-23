@@ -18,11 +18,12 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
@@ -32,10 +33,9 @@ import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.pdp.service.ResearchParticipantPaymentValidationService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 public class ResearchParticipantPaymentValidationServiceImpl implements ResearchParticipantPaymentValidationService {
 
@@ -50,7 +50,7 @@ public class ResearchParticipantPaymentValidationServiceImpl implements Research
     public boolean validatePaymentAccount(PaymentFileLoad paymentFile, MessageMap errorMap) {
         PaymentAccountDetail accountDetail = this.getPaymentAccountDetail(paymentFile);
 
-        if(ObjectUtils.isNull(accountDetail)){
+        if (ObjectUtils.isNull(accountDetail)) {
             return true;
         }
 
@@ -63,27 +63,27 @@ public class ResearchParticipantPaymentValidationServiceImpl implements Research
     public PaymentAccountDetail getPaymentAccountDetail(PaymentFileLoad paymentFile) {
 
         List<PaymentGroup> paymentGroups = paymentFile.getPaymentGroups();
-        if(ObjectUtils.isNull(paymentGroups) || paymentGroups.isEmpty()){
+        if (ObjectUtils.isNull(paymentGroups) || paymentGroups.isEmpty()) {
             return null;
         }
 
         PaymentGroup firstPaymentGroup = paymentGroups.get(0);
-        if(ObjectUtils.isNull(firstPaymentGroup)){
+        if (ObjectUtils.isNull(firstPaymentGroup)) {
             return null;
         }
 
         List<PaymentDetail> paymentDetails = firstPaymentGroup.getPaymentDetails();
-        if(ObjectUtils.isNull(paymentDetails) || paymentDetails.isEmpty()){
+        if (ObjectUtils.isNull(paymentDetails) || paymentDetails.isEmpty()) {
             return null;
         }
 
         PaymentDetail firstPaymentDetail = paymentDetails.get(0);
-        if(ObjectUtils.isNull(firstPaymentDetail)){
+        if (ObjectUtils.isNull(firstPaymentDetail)) {
             return null;
         }
 
         List<PaymentAccountDetail> paymentAccountDetails = firstPaymentDetail.getAccountDetail();
-        if(ObjectUtils.isNull(paymentAccountDetails) || paymentAccountDetails.isEmpty()){
+        if (ObjectUtils.isNull(paymentAccountDetails) || paymentAccountDetails.isEmpty()) {
             return null;
         }
 
@@ -104,8 +104,7 @@ public class ResearchParticipantPaymentValidationServiceImpl implements Research
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_RESEARCH_PAYMENT_LOAD_INVALID_PROJECT_CODE, projectCode);
 
             return false;
-        }
-        else if (!project.isActive()) {
+        } else if (!project.isActive()) {
             errorMap.putError(KFSConstants.GLOBAL_ERRORS, PdpKeyConstants.ERROR_RESEARCH_PAYMENT_LOAD_INACTIVE_PROJECT_CODE, projectCode);
 
             return false;
@@ -131,6 +130,7 @@ public class ResearchParticipantPaymentValidationServiceImpl implements Research
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -139,6 +139,7 @@ public class ResearchParticipantPaymentValidationServiceImpl implements Research
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

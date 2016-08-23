@@ -25,6 +25,7 @@ package org.kuali.kfs.sys.batch;
 public class FixedWidthFlatFileSpecification extends AbstractFlatFilePrefixSpecificationBase {
     /**
      * Parses a line by pulling out substrings given by the FlatFilePropertySpecification configuration objects passed in
+     *
      * @see org.kuali.kfs.sys.batch.FlatFileSpecification#parseLineIntoObject(FlatFilePrefixObjectSpecification, String, Object)
      */
     @Override

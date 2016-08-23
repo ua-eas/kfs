@@ -18,6 +18,28 @@
  */
 package org.kuali.kfs.fp.document.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
+import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
+import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService;
+import org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.MaintenanceDocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,31 +48,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
-import org.kuali.kfs.fp.businessobject.NonResidentAlienTaxPercent;
-import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
-import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
-import org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService;
-import org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.vnd.businessobject.VendorDetail;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MaintenanceDocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * This is the default implementation of the PaymentSourceExtractionService interface.
@@ -67,11 +64,10 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
      * This method retrieves the universal id of the individual or business entity who matches the tax id number and type
      * code given.
      *
-     * @param taxIDNumber The tax identification number of the user being retrieved.
+     * @param taxIDNumber      The tax identification number of the user being retrieved.
      * @param taxPayerTypeCode The tax payer type code of the user being retrieved.  See the TAX_TYPE_* constants defined in
      *                         DisbursementVoucherRuleConstants for examples of valid tax type codes.
      * @return The universal id of the individual who matches the tax id and type code given.  Null if no matching user is found.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#getEmployeeNumber(java.lang.String, java.lang.String)
      */
     public String getUniversalId(String taxIDNumber, String taxPayerTypeCode) {
@@ -92,11 +88,10 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
      * This method retrieves the vendor identification code for the vendor found who has a matching tax id and tax payer type
      * code.
      *
-     * @param taxIDNumber The tax id number used to retrieve the associated vendor.
+     * @param taxIDNumber      The tax id number used to retrieve the associated vendor.
      * @param taxPayerTypeCode The tax payer type code used to retrieve the associated vendor.  See the TAX_TYPE_* constants defined in
      *                         DisbursementVoucherRuleConstants for examples of valid tax type codes.
      * @return The id of the vendor found matching the tax id and type code provided.  Null if no matching vendor is found.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#getPayeeNumber(java.lang.String, java.lang.String)
      */
     public String getVendorId(String taxIDNumber, String taxPayerTypeCode) {
@@ -117,23 +112,22 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * This method generates non-resident alien (NRA) tax lines for the given disbursement voucher.
-     *
+     * <p>
      * The NRA tax lines consist of three possible sets of tax lines:
      * - Gross up tax lines
      * - Federal tax lines
      * - State tax lines
-     *
+     * <p>
      * Gross up tax lines are generated if the income tax gross up code is set on the DisbursementVoucherNonResidentAlienTax
      * attribute of the disbursement voucher.
-     *
+     * <p>
      * Federal tax lines are generated if the federal tax rate in the DisbursementVoucherNonResidentAlienTax attribute is
      * other than zero.
-     *
+     * <p>
      * State tax lines are generated if the state tax rate in the DisbursementVoucherNonResidentAlienTax attribute is
      * other than zero.
      *
      * @param document The disbursement voucher the NRA tax lines will be added to.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#generateNRATaxLines(org.kuali.kfs.fp.document.DisbursementVoucherDocument)
      */
     protected void generateNRATaxLines(DisbursementVoucherDocument document) {
@@ -147,11 +141,9 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
             AccountingLine grossLine = null;
             try {
                 grossLine = (SourceAccountingLine) document.getSourceAccountingLineClass().newInstance();
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new InfrastructureException("unable to access sourceAccountingLineClass", e);
-            }
-            catch (InstantiationException e) {
+            } catch (InstantiationException e) {
                 throw new InfrastructureException("unable to instantiate sourceAccountingLineClass", e);
             }
 
@@ -240,25 +232,23 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
     /**
      * Generates an accounting line for the chart, account, object code & tax percentage values given.
      *
-     * @param document The disbursement voucher the tax will be applied to.
-     * @param chart The chart code to be assigned to the accounting line generated.
-     * @param account The account code to be assigned to the accounting line generated.
-     * @param objectCode The object code used on the accounting line generated.
-     * @param taxPercent The tax rate to be used to calculate the tax amount.
+     * @param document      The disbursement voucher the tax will be applied to.
+     * @param chart         The chart code to be assigned to the accounting line generated.
+     * @param account       The account code to be assigned to the accounting line generated.
+     * @param objectCode    The object code used on the accounting line generated.
+     * @param taxPercent    The tax rate to be used to calculate the tax amount.
      * @param taxableAmount The total amount that is taxable.  This amount is used in conjunction with the tax percent
      *                      to calculate the amount for the accounting lined being generated.
      * @return A fully populated AccountingLine instance representing the amount of tax that will be applied to the
-     *         disbursement voucher provided.
+     * disbursement voucher provided.
      */
     protected AccountingLine generateTaxAccountingLine(DisbursementVoucherDocument document, String chart, String account, String objectCode, KualiDecimal taxPercent, KualiDecimal taxableAmount) {
         AccountingLine taxLine = null;
         try {
             taxLine = (SourceAccountingLine) document.getSourceAccountingLineClass().newInstance();
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new InfrastructureException("unable to access sourceAccountingLineClass", e);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new InfrastructureException("unable to instantiate sourceAccountingLineClass", e);
         }
 
@@ -284,9 +274,8 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
      *
      * @param document The disbursement voucher document the NRA tax information will be validated and the subsequent
      *                 tax lines generated for.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#processNonResidentAlienTax(org.kuali.kfs.fp.document.DisbursementVoucherDocument,
-     *      java.util.List)
+     * java.util.List)
      */
     public void processNonResidentAlienTax(DisbursementVoucherDocument document) {
         if (validateNRATaxInformation(document)) {
@@ -341,8 +330,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
                     // check if tax line was a positive amount, in which case we had a gross up
                     if ((KualiDecimal.ZERO).compareTo(line.getAmount()) < 0) {
                         previousGrossUp = true;
-                    }
-                    else {
+                    } else {
                         taxTotal = taxTotal.add(line.getAmount().abs());
                     }
                 }
@@ -354,12 +342,12 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
              * AccountingLineBase does not take amount into account when determining equality.
              * This lead to the issues described in KULRNE-6201.
              */
-            Iterator<SourceAccountingLine> saLineIter  = document.getSourceAccountingLines().iterator();
-            while(saLineIter.hasNext()) {
+            Iterator<SourceAccountingLine> saLineIter = document.getSourceAccountingLines().iterator();
+            while (saLineIter.hasNext()) {
                 SourceAccountingLine saLine = saLineIter.next();
-                for(SourceAccountingLine taxLine : taxLines) {
-                    if(saLine.equals(taxLine)) {
-                        if(saLine.getAmount().equals(taxLine.getAmount())) {
+                for (SourceAccountingLine taxLine : taxLines) {
+                    if (saLine.equals(taxLine)) {
+                        if (saLine.getAmount().equals(taxLine.getAmount())) {
                             saLineIter.remove();
                         }
                     }
@@ -385,8 +373,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
      *
      * @param document The disbursement voucher the NRA tax line amount will be calculated for.
      * @return The NRA tax amount applicable to the given disbursement voucher or zero if the voucher does not have any
-     *         NRA tax lines.
-     *
+     * NRA tax lines.
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#getNonResidentAlienTaxAmount(org.kuali.kfs.fp.document.DisbursementVoucherDocument)
      */
     public KualiDecimal getNonResidentAlienTaxAmount(DisbursementVoucherDocument document) {
@@ -400,7 +387,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
         // get tax line numbers
         List taxLineNumbers = getNRATaxLineNumbers(document.getDvNonResidentAlienTax().getFinancialDocumentAccountingLineText());
 
-        for (Iterator iter = document.getSourceAccountingLines().iterator(); iter.hasNext();) {
+        for (Iterator iter = document.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
             SourceAccountingLine line = (SourceAccountingLine) iter.next();
 
             // check if line is nra tax line
@@ -415,7 +402,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
     /**
      * This method performs a series of validation checks to ensure that the disbursement voucher given contains non-resident
      * alien specific information and non-resident alien tax lines are necessary.
-     *
+     * <p>
      * The following steps are taken to validate the disbursement voucher given:
      * - Set all percentages (ie. federal, state) to zero if their current value is null.
      * - Call DisbursementVoucherDocumentRule.validateNonResidentAlienInformation to perform more in-depth validation.
@@ -427,10 +414,8 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
      * - The total of the accounting lines is not negative.
      * - The total check amount is equal to the total of the accounting lines.
      *
-     *
      * @param document The disbursement voucher document to validate the tax lines for.
      * @return True if the information associated with non-resident alien tax is correct and valid, false otherwise.
-     *
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherTaxService#validateNRATaxInformation(org.kuali.kfs.fp.document.DisbursementVoucherDocument)
      * @see org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherDocumentRule#validateNonResidentAlienInformation(DisbursementVoucherDocument)
      */
@@ -441,7 +426,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
         dvNRA.setAccountingDocumentForValidation(document);
         dvNRA.setValidationType("GENERATE");
 
-        if(!dvNRA.validate(null)) {
+        if (!dvNRA.validate(null)) {
             return false;
         }
 
@@ -514,6 +499,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * This method sets the parameterService attribute to the value given.
+     *
      * @param parameterService The ParameterService to be set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -522,6 +508,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * Gets the value of the businessObjectService instance.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -530,6 +517,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * This method sets the businessObjectService attribute to the value given.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -538,6 +526,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * Gets the value of the maintenanceDocumentService instance.
+     *
      * @return Returns the maintenanceDocumentService.
      */
     public MaintenanceDocumentService getMaintenanceDocumentService() {
@@ -546,6 +535,7 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
 
     /**
      * This method sets the maintenanceDocumentService attribute to the value given.
+     *
      * @param maintenanceDocumentService The maintenanceDocumentService to set.
      */
     public void setMaintenanceDocumentService(MaintenanceDocumentService maintenanceDocumentService) {

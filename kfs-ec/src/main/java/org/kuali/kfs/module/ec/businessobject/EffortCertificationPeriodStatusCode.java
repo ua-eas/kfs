@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ec.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business Object for the Effort Certification Report Status Code Table.

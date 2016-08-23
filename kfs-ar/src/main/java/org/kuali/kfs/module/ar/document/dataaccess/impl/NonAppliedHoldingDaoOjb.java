@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
+import org.kuali.kfs.krad.util.OjbCollectionAware;
 import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
 import org.kuali.kfs.module.ar.document.dataaccess.NonAppliedHoldingDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.OjbCollectionAware;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class NonAppliedHoldingDaoOjb extends PlatformAwareDaoBaseOjb implements NonAppliedHoldingDao, OjbCollectionAware {
 

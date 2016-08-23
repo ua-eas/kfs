@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
-import org.kuali.kfs.krad.document.Document;
 
-public class AdvanceDepositDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase{
+import java.util.Set;
+
+public class AdvanceDepositDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
 
     @Override
     public Set<String> getDocumentActions(Document document) {

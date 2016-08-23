@@ -21,20 +21,18 @@ package org.kuali.kfs.module.purap.businessobject;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 
 
-
-
 public class PurchaseOrderCapitalAssetLocation extends PurchasingCapitalAssetLocationBase {
 
     protected CapitalAssetSystem purchaseOrderCapitalAssetSystem;
 
-	/**
-	 * Default constructor.
-	 */
-	public PurchaseOrderCapitalAssetLocation() {
-	    super();
-	}
+    /**
+     * Default constructor.
+     */
+    public PurchaseOrderCapitalAssetLocation() {
+        super();
+    }
 
-	public CapitalAssetSystem getPurchaseOrderCapitalAssetSystem() {
+    public CapitalAssetSystem getPurchaseOrderCapitalAssetSystem() {
         return purchaseOrderCapitalAssetSystem;
     }
 

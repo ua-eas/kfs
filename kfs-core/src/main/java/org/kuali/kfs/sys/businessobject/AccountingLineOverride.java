@@ -18,6 +18,16 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.document.service.AccountPresenceService;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,16 +35,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.service.AccountPresenceService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class helps implement AccountingLine overrides. It is not persisted itself, but it simplifies working with the persisted
@@ -74,7 +74,7 @@ public class AccountingLineOverride {
      * The names of the AccountingLine properties that the processForOutput() and determineNeededOverrides() methods use. Callers of
      * those methods may need to refresh these fields from OJB.
      */
-    public static final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[] { "account", "objectCode" }));
+    public static final List<String> REFRESH_FIELDS = Collections.unmodifiableList(Arrays.asList(new String[]{"account", "objectCode"}));
 
     /**
      * This holds an instance of every valid override, mapped by code.
@@ -88,19 +88,19 @@ public class AccountingLineOverride {
 
     static {
         // populate the code map
-        new AccountingLineOverride(CODE.BLANK, new Integer[] {});
-        new AccountingLineOverride(CODE.NONE, new Integer[] {});
+        new AccountingLineOverride(CODE.BLANK, new Integer[]{});
+        new AccountingLineOverride(CODE.NONE, new Integer[]{});
         new AccountingLineOverride(CODE.EXPIRED_ACCOUNT,
-        // todo: use JDK 1.5 ... args
-            new Integer[] { COMPONENT.EXPIRED_ACCOUNT });
-        new AccountingLineOverride(CODE.NON_BUDGETED_OBJECT, new Integer[] { COMPONENT.NON_BUDGETED_OBJECT });
-        new AccountingLineOverride(CODE.TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[] { COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET });
-        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_BUDGETED_OBJECT, new Integer[] { COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_BUDGETED_OBJECT });
-        new AccountingLineOverride(CODE.NON_BUDGETED_OBJECT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[] { COMPONENT.NON_BUDGETED_OBJECT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET });
-        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[] { COMPONENT.EXPIRED_ACCOUNT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET });
-        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_BUDGETED_OBJECT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[] { COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_BUDGETED_OBJECT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET });
-        new AccountingLineOverride(CODE.NON_FRINGE_ACCOUNT_USED, new Integer[] { COMPONENT.NON_FRINGE_ACCOUNT_USED });
-        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED, new Integer[] { COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_FRINGE_ACCOUNT_USED });
+            // todo: use JDK 1.5 ... args
+            new Integer[]{COMPONENT.EXPIRED_ACCOUNT});
+        new AccountingLineOverride(CODE.NON_BUDGETED_OBJECT, new Integer[]{COMPONENT.NON_BUDGETED_OBJECT});
+        new AccountingLineOverride(CODE.TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[]{COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET});
+        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_BUDGETED_OBJECT, new Integer[]{COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_BUDGETED_OBJECT});
+        new AccountingLineOverride(CODE.NON_BUDGETED_OBJECT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[]{COMPONENT.NON_BUDGETED_OBJECT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET});
+        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[]{COMPONENT.EXPIRED_ACCOUNT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET});
+        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_BUDGETED_OBJECT_AND_TRANSACTION_EXCEEDS_REMAINING_BUDGET, new Integer[]{COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_BUDGETED_OBJECT, COMPONENT.TRANSACTION_EXCEEDS_REMAINING_BUDGET});
+        new AccountingLineOverride(CODE.NON_FRINGE_ACCOUNT_USED, new Integer[]{COMPONENT.NON_FRINGE_ACCOUNT_USED});
+        new AccountingLineOverride(CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED, new Integer[]{COMPONENT.EXPIRED_ACCOUNT, COMPONENT.NON_FRINGE_ACCOUNT_USED});
     }
 
     private final String code;
@@ -161,7 +161,7 @@ public class AccountingLineOverride {
      *
      * @param mask
      * @return the AccountingLineOverride that has the components of this AccountingLineOverride minus any components not in the
-     *         given mask.
+     * given mask.
      * @throws IllegalArgumentException if there is no such valid combination of components
      */
     public AccountingLineOverride mask(AccountingLineOverride mask) {
@@ -285,9 +285,9 @@ public class AccountingLineOverride {
      *
      * @param line
      */
-    public static void processForOutput(AccountingDocument document ,AccountingLine line) {
+    public static void processForOutput(AccountingDocument document, AccountingLine line) {
         AccountingLineOverride fromCurrentCode = valueOf(line.getOverrideCode());
-        AccountingLineOverride needed = determineNeededOverrides(document,line);
+        AccountingLineOverride needed = determineNeededOverrides(document, line);
         line.setAccountExpiredOverride(fromCurrentCode.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
         line.setAccountExpiredOverrideNeeded(needed.hasComponent(COMPONENT.EXPIRED_ACCOUNT));
         line.setObjectBudgetOverride(fromCurrentCode.hasComponent(COMPONENT.NON_BUDGETED_OBJECT));
@@ -300,12 +300,12 @@ public class AccountingLineOverride {
      * @param line
      * @return what overrides the given line needs.
      */
-    public static AccountingLineOverride determineNeededOverrides(AccountingDocument document ,AccountingLine line) {
+    public static AccountingLineOverride determineNeededOverrides(AccountingDocument document, AccountingLine line) {
         boolean isDocumentFinalOrProcessed = false;
-       if(ObjectUtils.isNotNull(document)) {
-           AccountingDocument accountingDocument = document;
-           isDocumentFinalOrProcessed = accountingDocument.isDocumentFinalOrProcessed();
-       }
+        if (ObjectUtils.isNotNull(document)) {
+            AccountingDocument accountingDocument = document;
+            isDocumentFinalOrProcessed = accountingDocument.isDocumentFinalOrProcessed();
+        }
 
         Set neededOverrideComponents = new HashSet();
         if (needsExpiredAccountOverride(line, isDocumentFinalOrProcessed)) {
@@ -337,17 +337,15 @@ public class AccountingLineOverride {
      * @param account
      * @return whether the given account needs an expired account override.
      */
-    public static boolean needsExpiredAccountOverride(AccountingLine line, boolean isDocumentFinalOrProcessed ) {
-        if(isDocumentFinalOrProcessed){
-            if(CODE.EXPIRED_ACCOUNT.equals(line.getOverrideCode())) {
+    public static boolean needsExpiredAccountOverride(AccountingLine line, boolean isDocumentFinalOrProcessed) {
+        if (isDocumentFinalOrProcessed) {
+            if (CODE.EXPIRED_ACCOUNT.equals(line.getOverrideCode())) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        else {
-            return  !ObjectUtils.isNull(line.getAccount()) && line.getAccount().isActive() && line.getAccount().isExpired();
+        } else {
+            return !ObjectUtils.isNull(line.getAccount()) && line.getAccount().isActive() && line.getAccount().isExpired();
         }
     }
 
@@ -376,10 +374,10 @@ public class AccountingLineOverride {
         try {
             document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(line.getDocumentNumber());
 
-       }catch(WorkflowException exception) {
-           LOG.error("Unable to locate document for documentId :: " + line.getDocumentNumber() );
-       }
+        } catch (WorkflowException exception) {
+            LOG.error("Unable to locate document for documentId :: " + line.getDocumentNumber());
+        }
 
-       return document;
+        return document;
     }
 }

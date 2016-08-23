@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestItem;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
@@ -25,8 +27,6 @@ import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PaymentRequestTradeInWarningValidation extends GenericValidation {
 
@@ -36,7 +36,7 @@ public class PaymentRequestTradeInWarningValidation extends GenericValidation {
         boolean valid = true;
 
         if (itemForValidation.getItemType().isLineItemIndicator() && itemForValidation.getItemAssignedToTradeInIndicator()) {
-            PaymentRequestItem tradeInItem = (PaymentRequestItem) ((PaymentRequestDocument)event.getDocument()).getTradeInItem();
+            PaymentRequestItem tradeInItem = (PaymentRequestItem) ((PaymentRequestDocument) event.getDocument()).getTradeInItem();
             if (ObjectUtils.isNotNull(tradeInItem)) {
                 if (ObjectUtils.isNull(tradeInItem.getItemUnitPrice()) && tradeInItem.getPoOutstandingAmount().isLessThan(new KualiDecimal(0))) {
                     KNSGlobalVariables.getMessageList().add(PurapKeyConstants.WARNING_ITEM_TRADE_IN_AMOUNT_UNUSED);

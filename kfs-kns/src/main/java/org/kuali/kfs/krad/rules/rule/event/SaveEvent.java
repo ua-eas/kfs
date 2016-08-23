@@ -20,7 +20,6 @@ package org.kuali.kfs.krad.rules.rule.event;
 
 /**
  * This class is used to define Events that are allowed to be used as Custom Save events
- *
  */
 public interface SaveEvent {
 

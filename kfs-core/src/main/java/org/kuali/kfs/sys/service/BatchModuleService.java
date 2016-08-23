@@ -22,7 +22,6 @@ package org.kuali.kfs.sys.service;
 /**
  * This class defines methods needed for batch to run successfully when there are dependencies on jobs that are run on external systems.
  * Implementations of this interface are able to keep track of external job status and report it to the scheduler service.
- *
  */
 public interface BatchModuleService {
 

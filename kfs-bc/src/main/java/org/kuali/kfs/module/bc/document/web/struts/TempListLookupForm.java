@@ -18,22 +18,21 @@
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
-import org.kuali.kfs.module.bc.BCConstants;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
-import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
+import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Action Form for budget special lookup screens.
@@ -106,7 +105,7 @@ public class TempListLookupForm extends LookupForm {
     @Override
     public void populate(HttpServletRequest request) {
         String refreshCaller = getParameter(request, KRADConstants.REFRESH_CALLER);
-        if (StringUtils.isNotBlank(refreshCaller) && KRADConstants.QUESTION_REFRESH.equals(refreshCaller) ) {
+        if (StringUtils.isNotBlank(refreshCaller) && KRADConstants.QUESTION_REFRESH.equals(refreshCaller)) {
             setMethodToCall(WebUtils.parseMethodToCall(this, request));
             if (BCConstants.TEMP_LIST_UNLOCK_METHOD.equals(getMethodToCall())) {
                 String lookupImplID = SpringContext.getBean(BusinessObjectDictionaryService.class).getLookupableID(BudgetConstructionLockSummary.class);
@@ -441,6 +440,7 @@ public class TempListLookupForm extends LookupForm {
 
     /**
      * Gets the mainWindow attribute.
+     *
      * @return Returns the mainWindow.
      */
     public boolean isMainWindow() {
@@ -449,6 +449,7 @@ public class TempListLookupForm extends LookupForm {
 
     /**
      * Sets the mainWindow attribute value.
+     *
      * @param mainWindow The mainWindow to set.
      */
     public void setMainWindow(boolean mainWindow) {

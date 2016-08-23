@@ -18,18 +18,19 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
@@ -40,16 +41,15 @@ import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.module.tem.service.TravelerService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.datadictionary.FieldDefinition;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -134,14 +134,12 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
                     value = retval.get(key) + value;
                 }
                 if (key != null) {
-                    retval.put(prefix+key, value);
-                }
-                else {
+                    retval.put(prefix + key, value);
+                } else {
                     LOG.warn("Got a null key for attribute name " + attrName);
                 }
-            }
-            else if (containsAttribute(boClass, attrName)) {
-                retval.put(prefix+attrName, fieldValues.get(attrName));
+            } else if (containsAttribute(boClass, attrName)) {
+                retval.put(prefix + attrName, fieldValues.get(attrName));
             }
         }
 
@@ -176,8 +174,8 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
         return getDataDictionaryService().isAttributeDefined(boClass, attributeName);
     }
 
-    private Collection<FieldDefinition>  getLookupFieldsFor(String className) {
-        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry)getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
+    private Collection<FieldDefinition> getLookupFieldsFor(String className) {
+        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
         return businessObjectEntry.getLookupDefinition().getLookupFields();
     }
 
@@ -196,7 +194,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
         parameters.put("customerNumber", customerNumber);
 
 
-        Map<String,String> criteria = new HashMap<String,String>(2);
+        Map<String, String> criteria = new HashMap<String, String>(2);
         criteria.put("customerNumber", customerNumber);
 
         // If a TEM Profile doesn't exist, display a create link
@@ -206,8 +204,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
             String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, parameters);
             AnchorHtmlData anchorHtmlData = new AnchorHtmlData(href, "start", "create new profile");
             htmlDataList.add(anchorHtmlData);
-        }
-        else {
+        } else {
             // An active TEM Profile exists, display an edit link
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
 
@@ -221,6 +218,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Gets the travelerService attribute.
+     *
      * @return Returns the travelerService.
      */
     public TravelerService getTravelerService() {
@@ -229,6 +227,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Sets the travelerService attribute value.
+     *
      * @param travelerService The travelerService to set.
      */
     public void setTravelerService(TravelerService travelerService) {
@@ -237,6 +236,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Gets the travelerDao attribute.
+     *
      * @return Returns the travelerDao.
      */
     public TravelerDao getTravelerDao() {
@@ -245,6 +245,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Sets the travelerDao attribute value.
+     *
      * @param travelerDao The travelerDao to set.
      */
     public void setTravelerDao(TravelerDao travelerDao) {
@@ -253,6 +254,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Gets the temProfileService attribute.
+     *
      * @return Returns the temProfileService.
      */
     public TemProfileService getTemProfileService() {
@@ -261,6 +263,7 @@ public class TemProfileFromCustomerLookupableHelperServiceImpl extends KualiLook
 
     /**
      * Sets the temProfileService attribute value.
+     *
      * @param temProfileService The temProfileService to set.
      */
     public void setTemProfileService(TemProfileService temProfileService) {

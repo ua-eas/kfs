@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.cam.document.dataaccess;
 
 
-
 public interface AssetPaymentDao {
     /**
      * Gets the maximum asset payment sequence number column from database and sets the value

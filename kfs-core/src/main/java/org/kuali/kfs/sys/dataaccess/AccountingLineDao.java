@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.dataaccess;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
 
 /**
  * The data access interface for persisting AccountingLineBase objects.
@@ -47,8 +47,8 @@ public interface AccountingLineDao {
     /**
      * Retrieves a list of accounting lines associated with a given document by the line type
      *
-     * @param clazz the class of the accounting line to retrieve
-     * @param id the document number
+     * @param clazz    the class of the accounting line to retrieve
+     * @param id       the document number
      * @param lineType the financial line type code of the accounting lines to retrieve
      * @return a List of matching accounting lines
      */

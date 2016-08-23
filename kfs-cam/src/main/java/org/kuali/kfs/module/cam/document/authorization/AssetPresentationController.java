@@ -18,10 +18,12 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -35,14 +37,12 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Presentation Controller for Asset Maintenance Documents
@@ -88,8 +88,7 @@ public class AssetPresentationController extends FinancialSystemMaintenanceDocum
             fields.add(CamsPropertyConstants.Asset.ASSET_INVENTORY_STATUS);
             fields.add(CamsPropertyConstants.Asset.VENDOR_NAME);
             fields.add(CamsPropertyConstants.Asset.ACQUISITION_TYPE_CODE);
-        }
-        else {
+        } else {
             // acquisition type code is read-only during edit
             fields.add(CamsPropertyConstants.Asset.ACQUISITION_TYPE_CODE);
             // fabrication fields are read-only
@@ -136,8 +135,7 @@ public class AssetPresentationController extends FinancialSystemMaintenanceDocum
             fields.add(CamsConstants.Asset.SECTION_ID_REPAIR_HISTORY);
             fields.add(CamsConstants.Asset.SECTION_ID_COMPONENTS);
             fields.add(CamsConstants.Asset.SECTION_ID_MERGE_HISTORY);
-        }
-        else {
+        } else {
             // Asset edit
             if (asset.getEstimatedFabricationCompletionDate() == null) {
                 // hide fabrication only if asset is not fabricated through CAMS
@@ -225,33 +223,33 @@ public class AssetPresentationController extends FinancialSystemMaintenanceDocum
         return actions;
     }
 
-    private void hideInactiveAssetWarranty(Set<String> fields , Asset asset){
-        if(ObjectUtils.isNotNull(asset.getAssetWarranty())) {
-            if(!asset.getAssetWarranty().isActive()) {
+    private void hideInactiveAssetWarranty(Set<String> fields, Asset asset) {
+        if (ObjectUtils.isNotNull(asset.getAssetWarranty())) {
+            if (!asset.getAssetWarranty().isActive()) {
                 fields.add(CamsPropertyConstants.Asset.ASSET_WARRANTY);
             }
         }
     }
 
-    private  void hideInactiveAssetComponent(Set<String> fields , Asset asset){
-      List<AssetComponent> components = asset.getAssetComponents();
-      int i=0;
-      for(AssetComponent component : components ) {
-          if(!component.isActive()) {
-              fields.add(CamsPropertyConstants.Asset.ASSET_COMPONENTS + "[" + i + "]");
-          }
-          i++;
-      }
+    private void hideInactiveAssetComponent(Set<String> fields, Asset asset) {
+        List<AssetComponent> components = asset.getAssetComponents();
+        int i = 0;
+        for (AssetComponent component : components) {
+            if (!component.isActive()) {
+                fields.add(CamsPropertyConstants.Asset.ASSET_COMPONENTS + "[" + i + "]");
+            }
+            i++;
+        }
     }
 
 
-    private  void hideInactiveAssetRepairHistory(Set<String> fields , Asset asset) {
-        int i=0;
-        for(AssetRepairHistory assetRepairHistory : asset.getAssetRepairHistory()) {
-            if(!assetRepairHistory.isActive()) {
-                fields.add(CamsPropertyConstants.Asset.ASSET_REPAIR_HISTORY+ "[" + i + "]");
+    private void hideInactiveAssetRepairHistory(Set<String> fields, Asset asset) {
+        int i = 0;
+        for (AssetRepairHistory assetRepairHistory : asset.getAssetRepairHistory()) {
+            if (!assetRepairHistory.isActive()) {
+                fields.add(CamsPropertyConstants.Asset.ASSET_REPAIR_HISTORY + "[" + i + "]");
             }
-           i++;
+            i++;
         }
     }
 }

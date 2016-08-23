@@ -18,6 +18,18 @@
  */
 package org.kuali.kfs.gl.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.report.PreScrubberReportData;
+import org.kuali.kfs.gl.service.PreScrubberService;
+import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.kfs.sys.util.TransactionalServiceUtils;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
@@ -27,18 +39,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.service.AccountService;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.report.PreScrubberReportData;
-import org.kuali.kfs.gl.service.PreScrubberService;
-import org.kuali.kfs.sys.KFSConstants.SystemGroupParameterNames;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.util.TransactionalServiceUtils;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * This class assumes that an account number may only belong to one chart code (i.e. as if the account number were the only primary key column of the account table)
@@ -99,8 +99,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
                                     nonExistent = true;
                                     nonExistentAccountCache.add(accountNumber);
                                     LOG.warn("Could not find account record for account number " + accountNumber);
-                                }
-                                else {
+                                } else {
                                     Iterator<Account> accounts = results.iterator();
                                     Account account = accounts.next();
                                     if (accounts.hasNext()) {
@@ -108,8 +107,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
                                         TransactionalServiceUtils.exhaustIterator(accounts);
                                         multipleAccountCache.add(accountNumber);
                                         multipleFound = true;
-                                    }
-                                    else {
+                                    } else {
                                         replacementChartOfAccountsCode = account.getChartOfAccountsCode();
                                         chartCodeCache.put(accountNumber, replacementChartOfAccountsCode);
                                     }
@@ -129,8 +127,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
                 outputStream.printf("%s\n", outputLine);
                 outputLines++;
             }
-        }
-        finally {
+        } finally {
             outputStream.close();
         }
         return new PreScrubberReportData(inputLines, outputLines, nonExistentAccountCache, multipleAccountCache);
@@ -138,6 +135,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
 
     /**
      * Returns the position of the chart of accounts code on an origin entry line
+     *
      * @return
      */
     protected int getInclusiveChartOfAccountsCodeStartPosition() {
@@ -146,6 +144,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
 
     /**
      * Returns the position of the end of the chart of accounts code on an origin entry line,
+     *
      * @return
      */
     protected int getExclusiveChartOfAccountsCodeEndPosition() {
@@ -154,6 +153,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
 
     /**
      * Returns the position of the chart of accounts code on an origin entry line
+     *
      * @return
      */
     protected int getInclusiveAccountNumberStartPosition() {
@@ -162,6 +162,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
 
     /**
      * Returns the position of the end of the chart of accounts code on an origin entry line,
+     *
      * @return
      */
     protected int getExclusiveAccountNumberEndPosition() {
@@ -185,6 +186,7 @@ public class PreScrubberServiceImpl implements PreScrubberService {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

@@ -16,10 +16,9 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.kfs.krad.util.KRADConstants"%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <!-- Make sure it isn't a fabrication -->
 <c:if test="${Constants.MAINTENANCE_NEW_ACTION != KualiForm.document.oldMaintainableObject.maintenanceAction}">
-  <cams:assetPaymentsLookupLink capitalAssetNumber="${KualiForm.document.oldMaintainableObject.businessObject.capitalAssetNumber}" isTransactionalDocument="false"/>
+    <cams:assetPaymentsLookupLink capitalAssetNumber="${KualiForm.document.oldMaintainableObject.businessObject.capitalAssetNumber}" isTransactionalDocument="false"/>
 </c:if>

@@ -18,14 +18,9 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_IMPORTED_EXPENSE_LINES;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
@@ -35,13 +30,18 @@ import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.KualiRuleService;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Observable;
+import java.util.Observer;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_IMPORTED_EXPENSE_LINES;
 
 public class AddImportedExpenseDetailEvent implements Observer {
 
     public static Logger LOG = Logger.getLogger(AddImportedExpenseDetailEvent.class);
 
-    private static final int WRAPPER_ARG_IDX       = 0;
+    private static final int WRAPPER_ARG_IDX = 0;
     private static final int SELECTED_LINE_ARG_IDX = 1;
 
     @SuppressWarnings("null")
@@ -62,7 +62,7 @@ public class AddImportedExpenseDetailEvent implements Observer {
 
         final ImportedExpense newImportedExpenseLine = wrapper.getNewImportedExpenseLines().get(index);
 
-        if(newImportedExpenseLine != null){
+        if (newImportedExpenseLine != null) {
             newImportedExpenseLine.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
         }
 
@@ -70,10 +70,10 @@ public class AddImportedExpenseDetailEvent implements Observer {
         boolean rulePassed = true;
 
         // check any business rules
-        rulePassed &= getRuleService().applyRules(new AddImportedExpenseDetailLineEvent<ImportedExpense>(NEW_IMPORTED_EXPENSE_LINES + "["+index + "]", document, newImportedExpenseLine));
+        rulePassed &= getRuleService().applyRules(new AddImportedExpenseDetailLineEvent<ImportedExpense>(NEW_IMPORTED_EXPENSE_LINES + "[" + index + "]", document, newImportedExpenseLine));
 
-        if (rulePassed){
-            if(newImportedExpenseLine != null && line != null){
+        if (rulePassed) {
+            if (newImportedExpenseLine != null && line != null) {
                 newImportedExpenseLine.setExpenseLineTypeCode(null);
                 newImportedExpenseLine.setCardType(line.getCardType());
                 document.addExpenseDetail(newImportedExpenseLine, index);
@@ -89,24 +89,21 @@ public class AddImportedExpenseDetailEvent implements Observer {
                 newExpense.setExpenseParentId(newExpense.getId());
                 newExpense.setId(null);
                 newExpense.setNotes(null);
-            }
-            catch (IllegalAccessException ex) {
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            } catch (InvocationTargetException ex) {
                 throw new RuntimeException(ex);
             }
-            catch (InvocationTargetException ex) {
-                throw new RuntimeException(ex);
-            }
-            if (detailTotal.isLessThan(line.getExpenseAmount())){
+            if (detailTotal.isLessThan(line.getExpenseAmount())) {
                 KualiDecimal remainderExpense = line.getExpenseAmount().subtract(detailTotal);
                 KualiDecimal remainderConverted = line.getConvertedAmount().subtract(new KualiDecimal(detailTotal.bigDecimalValue().multiply(line.getCurrencyRate())));
                 newExpense.setExpenseAmount(remainderExpense);
                 newExpense.setConvertedAmount(remainderConverted);
-            }
-            else{
+            } else {
                 newExpense.setExpenseAmount(KualiDecimal.ZERO);
             }
-            wrapper.getNewImportedExpenseLines().add(index,newExpense);
-            wrapper.getNewImportedExpenseLines().remove(index+1);
+            wrapper.getNewImportedExpenseLines().add(index, newExpense);
+            wrapper.getNewImportedExpenseLines().remove(index + 1);
 
             wrapper.setDistribution(getAccountingDistributionService().buildDistributionFrom(document));
         }

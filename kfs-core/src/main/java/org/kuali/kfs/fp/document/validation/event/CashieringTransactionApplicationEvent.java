@@ -29,12 +29,14 @@ public interface CashieringTransactionApplicationEvent extends KualiDocumentEven
 
     /**
      * Returns the cashiering transaction to be validated
+     *
      * @return the cashiering transaction to be validated
      */
     public abstract CashieringTransaction getCashieringTransaction();
 
     /**
      * Returns the cash drawer that the cashiering transaction to validate will be applied to
+     *
      * @return the cash drawer's current state on the cash management document initiating the cashiering transaction
      */
     public abstract CashDrawer getCashDrawer();

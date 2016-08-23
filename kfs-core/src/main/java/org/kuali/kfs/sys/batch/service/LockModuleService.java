@@ -26,5 +26,5 @@ public interface LockModuleService {
      * @param namespace
      * @param lockModule
      */
-    public void lockModule(String namespaceCode , boolean lockModule);
+    public void lockModule(String namespaceCode, boolean lockModule);
 }

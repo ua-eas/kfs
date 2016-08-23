@@ -29,9 +29,9 @@ public interface IndirectCostRecoveryService {
      * This will determine if this transaction is an ICR eligible transaction
      *
      * @param transaction the transaction which is being determined to be ICR or not
-     * @param objectType the object type of the transaction
-     * @param account the account of the transaction
-     * @param objectCode the object code of the transaction
+     * @param objectType  the object type of the transaction
+     * @param account     the account of the transaction
+     * @param objectCode  the object code of the transaction
      * @return true if the transaction is an ICR transaction and therefore should have an expenditure transaction created for it; false if otherwise
      */
     public abstract boolean isIcrTransaction(Transaction transaction, ReportWriterService reportWriterService);

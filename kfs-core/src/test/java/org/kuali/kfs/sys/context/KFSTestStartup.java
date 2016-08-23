@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.util.Properties;
-
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Properties;
 
 
 public class KFSTestStartup {
@@ -33,7 +33,7 @@ public class KFSTestStartup {
     public static void initializeKfsTestContext() {
         long startInit = System.currentTimeMillis();
 
-        LOG.info( "Updating relational database." );
+        LOG.info("Updating relational database.");
         SpringContext.updateDatabase();
 
         LOG.info("Initializing Kuali Rice Application...");

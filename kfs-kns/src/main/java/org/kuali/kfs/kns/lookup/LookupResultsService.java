@@ -34,9 +34,9 @@ public interface LookupResultsService extends Serializable {
      * results set.  If results are persisted under the same sequence number, then the previously persisted list will be overwritten.
      *
      * @param lookupResultsSequenceNumber the lookup sequence number.  Every time a user clicks "search", a new sequence number should be generated
-     * @param resultTable A list of result rows.  Note that this list does not contain BOs, but the data necessary to render a lookup results screen
-     * @param personId the user that is performing the search.  This prevents a malicious user from passing someone else's sequence number
-     * (which he can guess) and eventually retrieving it, possibly exposing sensitive data
+     * @param resultTable                 A list of result rows.  Note that this list does not contain BOs, but the data necessary to render a lookup results screen
+     * @param personId                    the user that is performing the search.  This prevents a malicious user from passing someone else's sequence number
+     *                                    (which he can guess) and eventually retrieving it, possibly exposing sensitive data
      * @throws Exception
      */
     public void persistResultsTable(String lookupResultsSequenceNumber, List<ResultRow> resultTable, String personId) throws Exception;
@@ -47,9 +47,9 @@ public interface LookupResultsService extends Serializable {
      * sequence number, then the previously persisted list will be overwritten.
      *
      * @param lookupResultsSequenceNumber the lookup sequence number.  Every time a user clicks "search", a new sequence number should be generated
-     * @param selectedObjectIds A set of the object IDs of the selected rows.
-     * @param personId the user that is performing the search.  This prevents a malicious user from passing someone else's sequence number
-     * (which he can guess) and eventually retrieving it, possibly exposing sensitive data
+     * @param selectedObjectIds           A set of the object IDs of the selected rows.
+     * @param personId                    the user that is performing the search.  This prevents a malicious user from passing someone else's sequence number
+     *                                    (which he can guess) and eventually retrieving it, possibly exposing sensitive data
      * @throws Exception
      */
     public void persistSelectedObjectIds(String lookupResultsSequenceNumber, Set<String> selectedObjectIds, String personId) throws Exception;
@@ -58,8 +58,8 @@ public interface LookupResultsService extends Serializable {
      * Returns the list of result rows that was persisted under the passed in sequence number
      *
      * @param lookupResultsSequenceNumber the lookup sequence number that was used to persist
-     * @param personId the user id that was used to persist the results table.  This prevents a malicious user from passing someone else's sequence number
-     * (which he can guess) and eventually retrieving it, possibly exposing sensitive data
+     * @param personId                    the user id that was used to persist the results table.  This prevents a malicious user from passing someone else's sequence number
+     *                                    (which he can guess) and eventually retrieving it, possibly exposing sensitive data
      * @return
      * @throws Exception many reasons, including if the user id parameter does not match the user used to persist the results
      */
@@ -67,14 +67,14 @@ public interface LookupResultsService extends Serializable {
 
     /**
      * Returns the BOs that correspond to the selected objected IDs that were persisted under the given lookup results number
-     *
+     * <p>
      * DB data may have changed since the time the user clicked the "search" button (e.g. someone may have changed a value that was
      * used as a query criterion).  If so, implementations may or may not choose to handle this situation.
      *
      * @param lookupResultsSequenceNumber the lookup sequence number that was used to persist
-     * @param boClass The class of BO being retrieved from the lookup
-     * @param personId the user id that was used to persist the results table.  This prevents a malicious user from passing someone else's sequence number
-     * (which he can guess) and eventually retrieving it, possibly exposing sensitive data
+     * @param boClass                     The class of BO being retrieved from the lookup
+     * @param personId                    the user id that was used to persist the results table.  This prevents a malicious user from passing someone else's sequence number
+     *                                    (which he can guess) and eventually retrieving it, possibly exposing sensitive data
      * @return A list of BOs corresponding to the
      * @throws Exception many reasons, including if the user id parameter does not match the user used to persist the results
      */
@@ -84,7 +84,7 @@ public interface LookupResultsService extends Serializable {
      * Returns whether a user is allowed to view the lookup results of the given sequence number
      *
      * @param lookupResultsSequenceNumber the lookup sequence number that was used to persist the results table
-     * @param personId the user id that was used to persist the results table.
+     * @param personId                    the user id that was used to persist the results table.
      * @return if the user ID used to persist the lookup results is the same user ID as the parameter
      */
     public boolean isAuthorizedToAccessLookupResults(String lookupResultsSequenceNumber, String personId);
@@ -93,7 +93,7 @@ public interface LookupResultsService extends Serializable {
      * Returns whether a user is allowed to view the selected object IDs of the given sequence number
      *
      * @param lookupResultsSequenceNumber the lookup sequence number that was used to persist the selected object IDs
-     * @param personId the user id that was used to persist the selected object IDs
+     * @param personId                    the user id that was used to persist the selected object IDs
      * @return if the user ID used to persist the selected object IDs is the same user ID as the parameter
      */
     public boolean isAuthorizedToAccessSelectedObjectIds(String lookupResultsSequenceNumber, String personId);
@@ -119,7 +119,7 @@ public interface LookupResultsService extends Serializable {
      * the parameter
      *
      * @param expirationDate all LookupResults having a lookup date before this date
-     * will be removed
+     *                       will be removed
      */
     public void deleteOldLookupResults(Timestamp expirationDate);
 
@@ -128,7 +128,7 @@ public interface LookupResultsService extends Serializable {
      * the parameter
      *
      * @param expirationDate all LookupResults having a lookup date before this date
-     * will be removed
+     *                       will be removed
      */
     public void deleteOldSelectedObjectIds(Timestamp expirationDate);
 

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
+
+import java.util.List;
 
 /**
  * A contract of services that wish to transform accounting line renderable elements after their tablification
@@ -28,6 +28,7 @@ import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
 public interface AccountingLineTableTransformation {
     /**
      * Performs transformation to the tablified rows for an accounting line
+     *
      * @param rows the tablified rows that represent a renderable accounting line
      */
     public abstract void transformRows(List<AccountingLineTableRow> rows);

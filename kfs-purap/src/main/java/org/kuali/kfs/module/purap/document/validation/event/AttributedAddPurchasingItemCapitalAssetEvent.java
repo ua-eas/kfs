@@ -29,8 +29,8 @@ public final class AttributedAddPurchasingItemCapitalAssetEvent extends Attribut
     /**
      * Constructs an AddItemEvent with the given errorPathPrefix, document, and item.
      *
-     * @param errorPathPrefix the error path
-     * @param document document the event was invoked on
+     * @param errorPathPrefix  the error path
+     * @param document         document the event was invoked on
      * @param itemCapitalAsset the item being added
      */
     public AttributedAddPurchasingItemCapitalAssetEvent(String errorPathPrefix, Document document, ItemCapitalAsset itemCapitalAsset) {

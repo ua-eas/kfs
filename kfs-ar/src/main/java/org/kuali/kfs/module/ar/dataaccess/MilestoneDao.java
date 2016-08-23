@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.dataaccess;
 
+import org.kuali.kfs.module.ar.businessobject.Milestone;
+
 import java.util.Collection;
 import java.util.Date;
-
-import org.kuali.kfs.module.ar.businessobject.Milestone;
 
 /**
  * Implementations of this interface provide access to persisted Milestone instances.
@@ -30,7 +30,7 @@ public interface MilestoneDao {
 
     /**
      * This method returns a list of Milestones for sending notification email from batch job.
-     *
+     * <p>
      * Criteria: milestones are active and non-billed, with a null actual completion date and
      * an expected completion date <= the expected completion limit date.
      *

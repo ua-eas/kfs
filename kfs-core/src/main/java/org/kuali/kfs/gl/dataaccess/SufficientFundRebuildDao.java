@@ -20,7 +20,6 @@ package org.kuali.kfs.gl.dataaccess;
 
 
 /**
- *
  * This class...
  */
 public interface SufficientFundRebuildDao {

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.text.MessageFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.batch.service.CollectorReportService;
@@ -30,6 +28,8 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
+
+import java.text.MessageFormat;
 
 @ConfigureContext
 public class CollectorReportServiceImplTest extends KualiTestBase {
@@ -55,7 +55,7 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
         reportData.addBatch(batch1);
 
         String notificationMessage = configurationService.getPropertyValueAsString(KFSKeyConstants.Collector.NOTIFICATION_EMAIL_SENT);
-        String formattedMessage = MessageFormat.format(notificationMessage, new Object[] { batch1.getEmailAddress() });
+        String formattedMessage = MessageFormat.format(notificationMessage, new Object[]{batch1.getEmailAddress()});
         reportData.setEmailSendingStatusForParsedBatch(batch1, formattedMessage);
 
         // create some failure email status
@@ -67,7 +67,7 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
         reportData.addBatch(batch2);
 
         String errorMessage = configurationService.getPropertyValueAsString(KFSKeyConstants.Collector.EMAIL_SEND_ERROR);
-        formattedMessage = MessageFormat.format(errorMessage, new Object[] { batch2.getEmailAddress() });
+        formattedMessage = MessageFormat.format(errorMessage, new Object[]{batch2.getEmailAddress()});
         reportData.setEmailSendingStatusForParsedBatch(batch2, formattedMessage);
 
         CollectorBatch batch3 = new CollectorBatch();
@@ -77,7 +77,7 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
 
         reportData.addBatch(batch3);
 
-        formattedMessage = MessageFormat.format(errorMessage, new Object[] { batch3.getEmailAddress() });
+        formattedMessage = MessageFormat.format(errorMessage, new Object[]{batch3.getEmailAddress()});
         reportData.setEmailSendingStatusForParsedBatch(batch3, formattedMessage);
 
         collectorReportServiceImpl.sendEmailSendFailureNotice(reportData);

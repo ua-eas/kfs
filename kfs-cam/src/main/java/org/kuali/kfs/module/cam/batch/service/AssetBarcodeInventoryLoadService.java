@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.cam.batch.service;
 
-import java.io.File;
-
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
 import org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileForm;
-import org.kuali.kfs.krad.document.Document;
+
+import java.io.File;
 
 /**
  * This service interface defines the methods that a ProcurementCardLoadTransactionsService implementation must provide. Provides

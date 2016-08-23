@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.fixture;
 import org.kuali.kfs.fp.businessobject.OffsetAccount;
 
 public enum OffsetAccountFixture {
-    OFFSET_ACCOUNT1("BL", "2231401", "8000", "UA", "1912201"), ;
+    OFFSET_ACCOUNT1("BL", "2231401", "8000", "UA", "1912201"),;
 
     public final String accountNumber;
     public final String chartOfAccountsCode;

@@ -19,13 +19,13 @@
 package org.kuali.kfs.module.purap.document.validation.event;
 
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 /**
  * Event Base class for Purchasing Accounts Payable Item
- *
+ * <p>
  * contains the base methods for item events
  */
 public class PurchasingAccountsPayableItemPreCalculateEvent extends AttributedDocumentEventBase {
@@ -36,10 +36,10 @@ public class PurchasingAccountsPayableItemPreCalculateEvent extends AttributedDo
     /**
      * Copies the item and calls the super constructor
      *
-     * @param description the description of the event
+     * @param description     the description of the event
      * @param errorPathPrefix the error path
-     * @param document the document the event is being called on
-     * @param item the item that is having the event called on
+     * @param document        the document the event is being called on
+     * @param item            the item that is having the event called on
      */
     public PurchasingAccountsPayableItemPreCalculateEvent(Document document, PurApItem item) {
         super("PurAP Document Item PreCalculate Check for " + getDocumentId(document), "", document);
@@ -47,7 +47,6 @@ public class PurchasingAccountsPayableItemPreCalculateEvent extends AttributedDo
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.validation.event.PurchasingAccountsPayableItemEvent#getItem()
      */
     public PurApItem getItem() {

@@ -19,16 +19,12 @@
 package org.kuali.kfs.sys.context;
 
 import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl;
-import org.kuali.kfs.gl.businessobject.Balance;
-import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.service.impl.AutoDisapproveDocumentsServiceImpl;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * Yes, we need to test our test utilities since they seem to be misbehaving in some areas.
- *
  */
 @ConfigureContext
 public class TestUtilsTest extends KualiTestBase {
@@ -38,34 +34,34 @@ public class TestUtilsTest extends KualiTestBase {
 
     public void testSetSystemParameter1() throws Exception {
         String dbValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
-        assertEquals( "indicator must be true", "Y", dbValue );
+        assertEquals("indicator must be true", "Y", dbValue);
         TestUtils.setSystemParameter(TEST_PARAM_COMPONENT, TEST_PARAM_NAME, "N");
         String cachedValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
-        assertEquals( "indicator must be false when pulled after the set", "N", cachedValue );
+        assertEquals("indicator must be false when pulled after the set", "N", cachedValue);
     }
 
     public void testSetSystemParameter2() throws Exception {
         String dbValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
-        assertEquals( "indicator must be true", "Y", dbValue );
+        assertEquals("indicator must be true", "Y", dbValue);
     }
 
-    @ConfigureContext(shouldCommitTransactions=true)
+    @ConfigureContext(shouldCommitTransactions = true)
     public void testSetSystemParameterFailsWhenNonRollback() throws Exception {
         try {
             TestUtils.setSystemParameter(TEST_PARAM_COMPONENT, TEST_PARAM_NAME, "N");
-            fail( "TestUtils.setSystemParameter() did not fail when called from a committing test.");
-        } catch ( Exception ex ) {
-            System.err.println( ex.getMessage() );
+            fail("TestUtils.setSystemParameter() did not fail when called from a committing test.");
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
             // failed as expected
         }
     }
 
-    @ConfigureContext(shouldCommitTransactions=false)
+    @ConfigureContext(shouldCommitTransactions = false)
     public void testSetSystemParameterSucceedsWhenRollback() throws Exception {
         try {
             TestUtils.setSystemParameter(TEST_PARAM_COMPONENT, TEST_PARAM_NAME, "N");
-        } catch ( Exception ex ) {
-            fail( "TestUtils.setSystemParameter() failed when called from a non-committing test: " + ex.getMessage() );
+        } catch (Exception ex) {
+            fail("TestUtils.setSystemParameter() failed when called from a non-committing test: " + ex.getMessage());
         }
     }
 
@@ -73,8 +69,7 @@ public class TestUtilsTest extends KualiTestBase {
         try {
             AutoDisapproveDocumentsServiceImpl autoDisapproveDocumentsService = (AutoDisapproveDocumentsServiceImpl) TestUtils.getUnproxiedService("sysMockAutoDisapproveDocumentsService");
             assertNotNull(autoDisapproveDocumentsService);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue("testGetUnproxiedService failed due to stacktrace: " + e.getMessage(), false);
         }
     }

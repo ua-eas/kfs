@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.external.kc.dto;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableDunningCampaign;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.kfs.integration.ar.AccountsReceivableDunningCampaign;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "dunningCampaignDTO", propOrder = {
@@ -39,7 +39,8 @@ public class DunningCampaignDTO implements AccountsReceivableDunningCampaign, Mu
     private static final long serialVersionUID = 977773213908477631L;
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getCampaignID() {

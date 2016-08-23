@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectLevel;
+
+import java.util.List;
 
 /**
  * This service interface defines methods necessary for retrieving fully populated ObjLevel business objects from the database

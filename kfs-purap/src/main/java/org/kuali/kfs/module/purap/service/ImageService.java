@@ -26,9 +26,9 @@ public interface ImageService {
     /**
      * Get the purchasing director signature image. This will get the image from webdav and copy it to a temp directory.
      *
-     * @param key - Key for use in filename to make it unique
+     * @param key        - Key for use in filename to make it unique
      * @param campusCode - Campus code for image
-     * @param location - location of where image resides
+     * @param location   - location of where image resides
      * @return - Full path on the local box for image file name
      */
     public String getPurchasingDirectorImage(String key, String campusCode, String location);
@@ -36,9 +36,9 @@ public interface ImageService {
     /**
      * Get the contract manager signature image. This will get the image from webdav and copy it to a temp directory.
      *
-     * @param key - Key for use in filename to make it unique
+     * @param key        - Key for use in filename to make it unique
      * @param campusCode - Contract manager ID for image
-     * @param location - location of where image resides
+     * @param location   - location of where image resides
      * @return - Full path on the local box for image file name
      */
     public String getContractManagerImage(String key, Integer contractManagerId, String location);
@@ -46,9 +46,9 @@ public interface ImageService {
     /**
      * Get the campus logo image. This will get the image from webdav and copy it to a temp directory.
      *
-     * @param key - Key for use in filename to make it unique
+     * @param key        - Key for use in filename to make it unique
      * @param campusCode - Campus code for image
-     * @param location - location of where image resides
+     * @param location   - location of where image resides
      * @return - Full path on the local box for image file name
      */
     public String getLogo(String key, String campusCode, String location);

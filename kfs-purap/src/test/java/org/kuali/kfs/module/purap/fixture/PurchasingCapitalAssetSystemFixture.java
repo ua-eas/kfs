@@ -24,25 +24,24 @@ import org.kuali.kfs.module.purap.businessobject.RequisitionCapitalAssetLocation
 
 public enum PurchasingCapitalAssetSystemFixture {
 
-    ASSET_SYSTEM_BASIC_1 (
-            "Asset 1", //capitalAssetSystemDescription
-            false, //capitalAssetNotReceivedCurrentFiscalYearIndicator
-            "TYPE1", //capitalAssetTypeCode
-            "manufacturer", //capitalAssetManufacturerName
-            "description", //capitalAssetModelDescription
-            "note text", //capitalAssetNoteText
-            new PurchasingCapitalAssetLocationFixture[] {PurchasingCapitalAssetLocationFixture.LOCATION_BASIC} //location multifixtures
-            ),
-    ASSET_SYSTEM_BASIC_2(
-            "Asset 2", // capitalAssetSystemDescription
-            false, // capitalAssetNotReceivedCurrentFiscalYearIndicator
-            "TYPE2", // capitalAssetTypeCode
-            "manufacturer", // capitalAssetManufacturerName
-            "description", // capitalAssetModelDescription
-            "note text", // capitalAssetNoteText
-            new PurchasingCapitalAssetLocationFixture[] {PurchasingCapitalAssetLocationFixture.LOCATION_BASIC} //location multifixtures
+    ASSET_SYSTEM_BASIC_1(
+        "Asset 1", //capitalAssetSystemDescription
+        false, //capitalAssetNotReceivedCurrentFiscalYearIndicator
+        "TYPE1", //capitalAssetTypeCode
+        "manufacturer", //capitalAssetManufacturerName
+        "description", //capitalAssetModelDescription
+        "note text", //capitalAssetNoteText
+        new PurchasingCapitalAssetLocationFixture[]{PurchasingCapitalAssetLocationFixture.LOCATION_BASIC} //location multifixtures
     ),
-            ;
+    ASSET_SYSTEM_BASIC_2(
+        "Asset 2", // capitalAssetSystemDescription
+        false, // capitalAssetNotReceivedCurrentFiscalYearIndicator
+        "TYPE2", // capitalAssetTypeCode
+        "manufacturer", // capitalAssetManufacturerName
+        "description", // capitalAssetModelDescription
+        "note text", // capitalAssetNoteText
+        new PurchasingCapitalAssetLocationFixture[]{PurchasingCapitalAssetLocationFixture.LOCATION_BASIC} //location multifixtures
+    ),;
 
     private String capitalAssetSystemDescription;
     private boolean capitalAssetNotReceivedCurrentFiscalYearIndicator;
@@ -52,7 +51,7 @@ public enum PurchasingCapitalAssetSystemFixture {
     private String capitalAssetNoteText;
     private PurchasingCapitalAssetLocationFixture[] locations;
 
-    private PurchasingCapitalAssetSystemFixture (String capitalAssetSystemDescription, boolean capitalAssetNotReceivedCurrentFiscalYearIndicator, String capitalAssetTypeCode, String capitalAssetManufacturerName, String capitalAssetModelDescription, String capitalAssetNoteText, PurchasingCapitalAssetLocationFixture[] locations) {
+    private PurchasingCapitalAssetSystemFixture(String capitalAssetSystemDescription, boolean capitalAssetNotReceivedCurrentFiscalYearIndicator, String capitalAssetTypeCode, String capitalAssetManufacturerName, String capitalAssetModelDescription, String capitalAssetNoteText, PurchasingCapitalAssetLocationFixture[] locations) {
         this.capitalAssetSystemDescription = capitalAssetSystemDescription;
         this.capitalAssetNotReceivedCurrentFiscalYearIndicator = capitalAssetNotReceivedCurrentFiscalYearIndicator;
         this.capitalAssetTypeCode = capitalAssetTypeCode;
@@ -66,11 +65,9 @@ public enum PurchasingCapitalAssetSystemFixture {
         CapitalAssetSystem assetSystem = null;
         try {
             assetSystem = (CapitalAssetSystem) clazz.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("asset system creation failed. class = " + clazz);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("asset system creation failed. class = " + clazz);
         }
 

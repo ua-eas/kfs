@@ -19,8 +19,8 @@
 package org.kuali.kfs.krad.web.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * This simple controller loads the module locked view when a user accesses a
  * module which has been locked for maintenance.
- *
- *
  */
 @Controller
 public class ModuleLockedController {
@@ -51,7 +49,7 @@ public class ModuleLockedController {
         String messageParamName = KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_MESSAGE_PARM;
         String lockoutMessage = parameterSerivce.getParameterValueAsString(moduleNamespaceCode, messageParamComponentCode, messageParamName);
 
-        if(StringUtils.isBlank(lockoutMessage)) {
+        if (StringUtils.isBlank(lockoutMessage)) {
             String defaultMessageParamName = KRADConstants.SystemGroupParameterNames.OLTP_LOCKOUT_DEFAULT_MESSAGE;
             lockoutMessage = parameterSerivce.getParameterValueAsString(KRADConstants.KNS_NAMESPACE, messageParamComponentCode, defaultMessageParamName);
         }

@@ -21,8 +21,6 @@ package org.kuali.kfs.krad.exception;
 /**
  * This class represents an exception that is thrown when the persistence layer attempts to manipulate a class which has not been
  * marked as persistable.
- *
- *
  */
 
 public class ClassNotPersistableException extends RuntimeException {

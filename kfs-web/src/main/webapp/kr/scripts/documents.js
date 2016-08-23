@@ -28,72 +28,72 @@
 
 function isValidDate(s) {
     if (isEmpty(s))
-       if (isValidDate.arguments.length == 1) return defaultEmptyOK;
-       else return (isValidDate.arguments[1] == true);
+        if (isValidDate.arguments.length == 1) return defaultEmptyOK;
+        else return (isValidDate.arguments[1] == true);
 
-	var regex = "\\d(\\d)?[-/\\\\]?\\d(\\d)?[-/\\\\]?\\d\\d\(\\d\\d)?";
-	var delim = "";
-	var stringlength = s.length;
-	var datearray;
-	var daypart,monthpart,yearpart;
+    var regex = "\\d(\\d)?[-/\\\\]?\\d(\\d)?[-/\\\\]?\\d\\d\(\\d\\d)?";
+    var delim = "";
+    var stringlength = s.length;
+    var datearray;
+    var daypart, monthpart, yearpart;
 
 
-	// check that the string matches the basic format
-	if (!s.match(regex)) {
-		return false;
-	}
+    // check that the string matches the basic format
+    if (!s.match(regex)) {
+        return false;
+    }
 
-	// find the delimiter
-	if (s.indexOf("-") != -1) {
-		delim = "-";
-	} else if (s.indexOf("/") != -1) {
-		delim = "/";
-	} else if (s.indexOf("\\") != -1) {
-		delim = "\\";
-	} else if (s.indexOf(".") != -1) {
-		delim = ".";
-	}
+    // find the delimiter
+    if (s.indexOf("-") != -1) {
+        delim = "-";
+    } else if (s.indexOf("/") != -1) {
+        delim = "/";
+    } else if (s.indexOf("\\") != -1) {
+        delim = "\\";
+    } else if (s.indexOf(".") != -1) {
+        delim = ".";
+    }
 
-	// if there is no delimiter, (i.e. a date like
-	// 100104 (Oct 1, 2004)) we will are going to assume that it
-	// is a FRS style date.  FRS dates are either in the form MMDDYY
-	// or MMDDYYYY.  So we check that s is a date given this assumption.
-	if (delim == "") {
-		if (stringlength == 6) {
-			monthpart = s.substring(0,2);
-			daypart   = s.substring(2,4);
-			yearpart  = s.substring(4,7);
-			if (isDate(yearpart,monthpart,daypart)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (stringlength == 8) {
-			monthpart = s.substring(0,2);
-			daypart   = s.substring(2,4);
-			yearpart  = s.substring(4,8);
+    // if there is no delimiter, (i.e. a date like
+    // 100104 (Oct 1, 2004)) we will are going to assume that it
+    // is a FRS style date.  FRS dates are either in the form MMDDYY
+    // or MMDDYYYY.  So we check that s is a date given this assumption.
+    if (delim == "") {
+        if (stringlength == 6) {
+            monthpart = s.substring(0, 2);
+            daypart = s.substring(2, 4);
+            yearpart = s.substring(4, 7);
+            if (isDate(yearpart, monthpart, daypart)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (stringlength == 8) {
+            monthpart = s.substring(0, 2);
+            daypart = s.substring(2, 4);
+            yearpart = s.substring(4, 8);
 
-			if (isDate(yearpart,monthpart,daypart)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	} else if (delim != "") {
+            if (isDate(yearpart, monthpart, daypart)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } else if (delim != "") {
 
-		// split the string into its parts
-		datearray = s.split(delim);
+        // split the string into its parts
+        datearray = s.split(delim);
 
-		// check that all the parts taken together make a valid date.
-		// For this function the proper order of the parts is month, day, year
-		if (isDate(datearray[2],datearray[0],datearray[1])) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        // check that all the parts taken together make a valid date.
+        // For this function the proper order of the parts is month, day, year
+        if (isDate(datearray[2], datearray[0], datearray[1])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 // This is a function to return true if the string entered is a postive
@@ -101,15 +101,15 @@ function isValidDate(s) {
 // decimal fractions.
 function isPositiveCurrency(s) {
     if (isEmpty(s))
-       if (isPositiveCurrency.arguments.length == 1) return defaultEmptyOK;
-       else return (isPositiveCurrency.arguments[1] == true);
+        if (isPositiveCurrency.arguments.length == 1) return defaultEmptyOK;
+        else return (isPositiveCurrency.arguments[1] == true);
 
 
-	if ((isFloat(s)) && (s > 0)) {
-		return true;
-	} else {
-		return false;
-	}
+    if ((isFloat(s)) && (s > 0)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This function returns true is the string is in the right format for a
@@ -118,16 +118,16 @@ function isPositiveCurrency(s) {
 // added later.
 function isAccount(s) {
     if (isEmpty(s))
-       if (isAccount.arguments.length == 1) return defaultEmptyOK;
-       else return (isAccount.arguments[1] == true);
+        if (isAccount.arguments.length == 1) return defaultEmptyOK;
+        else return (isAccount.arguments[1] == true);
 
-	var regex = "\\d\\d\\d\\d\\d\\d\\d";
+    var regex = "\\d\\d\\d\\d\\d\\d\\d";
 
-	if (s.match(regex)) {
-		return true;
-	} else {
-		return false;
-	}
+    if (s.match(regex)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This function returns true is the string is in the right format for a
@@ -136,79 +136,79 @@ function isAccount(s) {
 // added later.
 function isObjCode(s) {
     if (isEmpty(s))
-       if (isObjCode.arguments.length == 1) return defaultEmptyOK;
-       else return (isObjCode.arguments[1] == true);
+        if (isObjCode.arguments.length == 1) return defaultEmptyOK;
+        else return (isObjCode.arguments[1] == true);
 
-	var regex = "\\d\\d\\d\\d";
+    var regex = "\\d\\d\\d\\d";
 
-	if (s.match(regex)) {
-		return true;
-	} else {
-		return false;
-	}
+    if (s.match(regex)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This fuction returns true if the string has an "F" (or "f") in
 // the first postion, and 6 numeric digits after it.
 function isDDFNumber(s) {
     if (isEmpty(s))
-       if (isDDFNumber.arguments.length == 1) return defaultEmptyOK;
-       else return (isDDFNumber.arguments[1] == true);
+        if (isDDFNumber.arguments.length == 1) return defaultEmptyOK;
+        else return (isDDFNumber.arguments[1] == true);
 
-	var regex = "[Ff]\\d\\d\\d\\d\\d\\d";
+    var regex = "[Ff]\\d\\d\\d\\d\\d\\d";
 
-	if (s.match(regex)) {
-		return true;
-	} else {
-		return false;
-	}
+    if (s.match(regex)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This function takes dates in MM/DD/YY(YY) format (hyphens, whacks and periods
 // are also ok) or MMDDYY(YY) (FRS format) and returns a javascript date object.
 function dateConvert(s) {
-	var monthpart,yearpart,daypart,datearray,convertedDate;
-	var stringlength = s.length;
-	var delim="";
+    var monthpart, yearpart, daypart, datearray, convertedDate;
+    var stringlength = s.length;
+    var delim = "";
 
-	// find the delimiter
-	if (s.indexOf("-") != -1) {
-		delim = "-";
-	} else if (s.indexOf("/") != -1) {
-		delim = "/";
-	} else if (s.indexOf("\\") != -1) {
-		delim = "\\";
-	} else if (s.indexOf(".") != -1) {
-		delim = ".";
-	}
+    // find the delimiter
+    if (s.indexOf("-") != -1) {
+        delim = "-";
+    } else if (s.indexOf("/") != -1) {
+        delim = "/";
+    } else if (s.indexOf("\\") != -1) {
+        delim = "\\";
+    } else if (s.indexOf(".") != -1) {
+        delim = ".";
+    }
 
-	// we need to capture the case of no delimiters
-	if (delim == "") {
-		if (stringlength == 6) {
-			monthpart = s.substring(0,2);
-			daypart   = s.substring(2,4);
-			yearpart  = s.substring(4,7);
+    // we need to capture the case of no delimiters
+    if (delim == "") {
+        if (stringlength == 6) {
+            monthpart = s.substring(0, 2);
+            daypart = s.substring(2, 4);
+            yearpart = s.substring(4, 7);
 
-			if (yearpart <= 70) {
-				yearpart = "20" + yearpart;
-			} else {
-				yearpart = "19" + yearpart;
-			}
-		} else if (stringlength == 6) {
-			monthpart = s.substring(0,2);
-			daypart   = s.substring(2,4);
-			yearpart  = s.substring(4,7);
-		}
+            if (yearpart <= 70) {
+                yearpart = "20" + yearpart;
+            } else {
+                yearpart = "19" + yearpart;
+            }
+        } else if (stringlength == 6) {
+            monthpart = s.substring(0, 2);
+            daypart = s.substring(2, 4);
+            yearpart = s.substring(4, 7);
+        }
 
-		convertedDate = new Date(yearpart,monthpart,daypart);
-		return convertedDate;
-	}
+        convertedDate = new Date(yearpart, monthpart, daypart);
+        return convertedDate;
+    }
 
-	// split the string into its parts
-	datearray = s.split(delim);
+    // split the string into its parts
+    datearray = s.split(delim);
 
-	convertedDate = new Date(datearray[2],datearray[0],datearray[1]);
-	return convertedDate;
+    convertedDate = new Date(datearray[2], datearray[0], datearray[1]);
+    return convertedDate;
 }
 
 
@@ -216,23 +216,23 @@ function dateConvert(s) {
 // While this is designed primarily for the trip.asp page, it can be used
 // for any page with a pair of date fields that need to be in a particular
 // order.
-function datesInCorrectOrder(first,second) {
-	var firstdate  = dateConvert(first);
-	var seconddate = dateConvert(second);
+function datesInCorrectOrder(first, second) {
+    var firstdate = dateConvert(first);
+    var seconddate = dateConvert(second);
 
-	if (firstdate.getTime() <= seconddate.getTime()) {
-		return true;
-	} else {
-		return false;
-	}
+    if (firstdate.getTime() <= seconddate.getTime()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This function forces the user to confirm that they want to delete something
 function confirmDelete() {
-	if (confirm("Are you sure that you want to remove this?")) {
-		return true;
-	} else {
-		return false;
-	}
+    if (confirm("Are you sure that you want to remove this?")) {
+        return true;
+    } else {
+        return false;
+    }
 }
 

@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -29,7 +28,8 @@ import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class PurchaseOrderAmendmentAccountValidation extends GenericValidation {
 
@@ -37,7 +37,7 @@ public class PurchaseOrderAmendmentAccountValidation extends GenericValidation {
     public boolean validate(AttributedDocumentEvent event) {
 
         boolean valid = true;
-        PurchaseOrderDocument poaDocument = (PurchaseOrderDocument)event.getDocument();
+        PurchaseOrderDocument poaDocument = (PurchaseOrderDocument) event.getDocument();
         List<PurApItem> items = poaDocument.getItemsActiveOnly();
 
         PurchaseOrderDocument po = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(poaDocument.getPurapDocumentIdentifier());
@@ -81,13 +81,13 @@ public class PurchaseOrderAmendmentAccountValidation extends GenericValidation {
 
             if (poItem.getItemTypeCode().equals(PurapConstants.ItemTypeCodes.ITEM_TYPE_ITEM_CODE) && poaItemId == poItem.getItemLineNumber().intValue()) {
                 // required fields so they cannot be null
-                if (poaItem.getItemQuantity() == null ||  poaItem.getItemQuantity().intValue() != poItem.getItemQuantity().intValue()) {
+                if (poaItem.getItemQuantity() == null || poaItem.getItemQuantity().intValue() != poItem.getItemQuantity().intValue()) {
                     changed = true;
                 }
                 if (!poaItem.getItemUnitOfMeasureCode().equals(poItem.getItemUnitOfMeasureCode())) {
                     changed = true;
                 }
-                if  (poaItem.getItemUnitPrice() == null || poaItem.getItemUnitPrice().floatValue() != poItem.getItemUnitPrice().floatValue()) {
+                if (poaItem.getItemUnitPrice() == null || poaItem.getItemUnitPrice().floatValue() != poItem.getItemUnitPrice().floatValue()) {
                     changed = true;
                 }
 
@@ -108,7 +108,7 @@ public class PurchaseOrderAmendmentAccountValidation extends GenericValidation {
                 }
                 if ((poaItem.getExtendedPrice() != null && poItem.getExtendedPrice() != null && poaItem.getExtendedPrice().floatValue() != poItem.getExtendedPrice().floatValue()) ||
                     (poaItem.getExtendedPrice() != null && poaItem.getExtendedPrice().floatValue() != 0 && poItem.getExtendedPrice() == null) ||
-                    (poaItem.getExtendedPrice() == null && poItem.getExtendedPrice() != null && poItem.getExtendedPrice().floatValue() != 0) ) {
+                    (poaItem.getExtendedPrice() == null && poItem.getExtendedPrice() != null && poItem.getExtendedPrice().floatValue() != 0)) {
                     changed = true;
                 }
                 if ((poaItem.getItemTaxAmount() != null && poItem.getItemTaxAmount() != null && poaItem.getItemTaxAmount().floatValue() != poItem.getItemTaxAmount().floatValue()) ||

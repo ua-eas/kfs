@@ -18,10 +18,7 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.document.AssetPaymentDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -30,13 +27,16 @@ import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssetPaymentAccountingLineAuthorizer extends AccountingLineAuthorizerBase {
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String, java.lang.String)
+     * org.kuali.kfs.sys.businessobject.AccountingLine, java.lang.String, java.lang.String)
      */
     @Override
     public boolean determineEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage) {
@@ -50,7 +50,7 @@ public class AssetPaymentAccountingLineAuthorizer extends AccountingLineAuthoriz
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#isGroupReadOnly(org.kuali.kfs.sys.document.AccountingDocument,
-     *      java.lang.String, org.kuali.rice.kim.api.identity.Person)
+     * java.lang.String, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public boolean isGroupEditable(AccountingDocument accountingDocument, List<? extends AccountingLineRenderingContext> accountingLineRenderingContexts, Person currentUser) {
@@ -74,8 +74,7 @@ public class AssetPaymentAccountingLineAuthorizer extends AccountingLineAuthoriz
         if (accountingLineIndex == null || accountingLineIndex < 0) {
             AccountingLineViewAction addAction = this.getAddAction(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, groupTitle);
             actionMap.put(KFSConstants.INSERT_METHOD, addAction);
-        }
-        else {
+        } else {
             if (!isFromCab && accountingLineRenderingContext.allowDelete()) {
                 AccountingLineViewAction deleteAction = this.getDeleteAction(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, accountingLineIndex, groupTitle);
                 actionMap.put(KRADConstants.DELETE_METHOD, deleteAction);

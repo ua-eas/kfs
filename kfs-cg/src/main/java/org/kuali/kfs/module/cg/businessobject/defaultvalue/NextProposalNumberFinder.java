@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.businessobject.defaultvalue;
 
-import org.kuali.kfs.module.cg.businessobject.Proposal;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.module.cg.businessobject.Proposal;
+import org.kuali.kfs.sys.context.SpringContext;
 
 /**
  * Returns the next Proposal number available.

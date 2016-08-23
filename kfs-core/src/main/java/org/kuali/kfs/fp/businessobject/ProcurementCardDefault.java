@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class is used to represent a procurement card holder, or the individual whose name is on the card.
@@ -76,7 +76,7 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
 
     }
 
-     public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -436,6 +436,7 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the project code associated with this card holder
+     *
      * @param projectCode the project code associated with this card holder
      */
     public void setProjectCode(String projectCode) {
@@ -443,8 +444,8 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     }
 
     /**
-     * @see org.kuali.rice.kns.bo.Inactivateable#isActive()
      * @return true if this procurement card holder detail is active, false otherwise
+     * @see org.kuali.rice.kns.bo.Inactivateable#isActive()
      */
     @Override
     public boolean isActive() {
@@ -523,16 +524,16 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
      *
      * @return Returns the objectCode
      */
-     public ObjectCode getObjectCode() {
+    public ObjectCode getObjectCode() {
         return objectCode;
     }
 
-     /**
-      * Sets the objectCode attribute.
-      *
-      * @param objectCode The objectCode to set.
-      * @deprecated
-      */
+    /**
+     * Sets the objectCode attribute.
+     *
+     * @param objectCode The objectCode to set.
+     * @deprecated
+     */
     @Deprecated
     public void setObjectCode(ObjectCode objectCode) {
         this.objectCode = objectCode;
@@ -567,6 +568,7 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the ProjectCode associated with this procurement card holder detail.  Deprecated because, basically, this method is meant for OJB.
+     *
      * @param project the project code for OJB to set.
      * @deprecated
      */

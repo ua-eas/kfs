@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.workflow;
 
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TemRoleService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.document.Document;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * TEM Security Attribute restrict doc search results and view route log
@@ -37,7 +37,7 @@ public class TravelAuthorizationDocumentSecurityAttribute extends TEMSecurityAtt
     private DocumentService documentService;
 
     /**
-     * @see org.kuali.kfs.module.tem.document.workflow.TEMSecurityAttribute#isAuthorizedForDocument(java.lang.String,org.kuali.rice.kew.api.document.Document)
+     * @see org.kuali.kfs.module.tem.document.workflow.TEMSecurityAttribute#isAuthorizedForDocument(java.lang.String, org.kuali.rice.kew.api.document.Document)
      */
     @Override
     public boolean isAuthorizedForDocument(String principalId, Document document) {

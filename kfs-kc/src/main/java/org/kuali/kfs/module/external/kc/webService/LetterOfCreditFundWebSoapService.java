@@ -30,11 +30,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @WebServiceClient(name = KcConstants.LetterOfCreditFund.SOAP_SERVICE_NAME,
-        wsdlLocation = "http://test.kc.kuali.org/kc-trunk/remoting/letterOfCreditFundWebService?wsdl",
-        targetNamespace = KcConstants.KC_NAMESPACE_URI)
+    wsdlLocation = "http://test.kc.kuali.org/kc-trunk/remoting/letterOfCreditFundWebService?wsdl",
+    targetNamespace = KcConstants.KC_NAMESPACE_URI)
 public class LetterOfCreditFundWebSoapService extends KfsKcSoapService {
 
     public final static QName LetterOfCreditFundWebServicePort = new QName(KcConstants.KC_NAMESPACE_URI, KcConstants.LetterOfCreditFund.SERVICE_PORT);
+
     static {
         try {
             getWsdl(KcConstants.LetterOfCreditFund.SERVICE);

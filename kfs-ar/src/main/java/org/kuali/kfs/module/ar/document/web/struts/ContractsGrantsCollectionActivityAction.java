@@ -81,8 +81,8 @@ public class ContractsGrantsCollectionActivityAction extends FinancialSystemTran
     /**
      * This method deletes an invoice from the list.
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -118,14 +118,15 @@ public class ContractsGrantsCollectionActivityAction extends FinancialSystemTran
 
     /**
      * Refreshes the multi-value lookup invoices
-     * @param colActDoc the documet the invoice information should appear on
+     *
+     * @param colActDoc                   the documet the invoice information should appear on
      * @param lookupResultsSequenceNumber the sequence number of the invoices returned from the lookup
      * @throws Exception if the invoices from the lookup cannot be retrieved for some reason
      */
     protected void refreshInvoices(ContractsGrantsCollectionActivityDocument colActDoc, String lookupResultsSequenceNumber) throws Exception {
         Set<String> selectedIds = getSegmentedLookupResultsService().retrieveSetOfSelectedObjectIds(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
         if (ObjectUtils.isNotNull(selectedIds) && CollectionUtils.isNotEmpty(selectedIds)) {
-            for (String invoiceDocumentNumber: selectedIds) {
+            for (String invoiceDocumentNumber : selectedIds) {
                 Map<String, String> criteria = new HashMap<String, String>();
                 criteria.put(KFSPropertyConstants.DOCUMENT_NUMBER, invoiceDocumentNumber);
                 ContractsGrantsInvoiceDocument cgInvoiceDocument = getBusinessObjectService().findByPrimaryKey(ContractsGrantsInvoiceDocument.class, criteria);
@@ -146,6 +147,7 @@ public class ContractsGrantsCollectionActivityAction extends FinancialSystemTran
 
     /**
      * Refreshes information on the C&G Collection Activity document related to the award
+     *
      * @param colActDoc the collection activity document
      */
     protected void refreshAward(ContractsGrantsCollectionActivityDocument colActDoc) {
@@ -158,8 +160,7 @@ public class ContractsGrantsCollectionActivityAction extends FinancialSystemTran
                     colActDoc.setCustomerNumber(award.getAgency().getCustomer().getCustomerNumber());
                     colActDoc.setCustomerName(award.getAgency().getCustomer().getCustomerName());
                 }
-            }
-            else {
+            } else {
                 colActDoc.setAgencyNumber("Award not found");
                 colActDoc.setAgencyName(KFSConstants.EMPTY_STRING);
                 colActDoc.setCustomerNumber(KFSConstants.EMPTY_STRING);

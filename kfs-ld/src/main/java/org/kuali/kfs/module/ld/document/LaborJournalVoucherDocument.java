@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborConstants.JournalVoucherOffsetType;
 import org.kuali.kfs.module.ld.businessobject.LaborJournalVoucherAccountingLineParser;
@@ -43,10 +42,12 @@ import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // @latex.ClassSignatureStart
+
 /**
  * Labor Document class for the Labor Ledger Journal Voucher.
  */
@@ -128,11 +129,11 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), documentHeader.getWorkflowDocument().getDocumentTypeName() ) ) {
+        if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), documentHeader.getWorkflowDocument().getDocumentTypeName())) {
             financialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(documentHeader.getWorkflowDocument().getDocumentTypeName()) ) {
+            if (StringUtils.isNotBlank(documentHeader.getWorkflowDocument().getDocumentTypeName())) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentHeader.getWorkflowDocument().getDocumentTypeName());
-                if ( docType != null ) {
+                if (docType != null) {
                     financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -160,8 +161,7 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
         super.doRouteStatusChange(statusChangeEvent);
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             changeLedgerPendingEntriesApprovedStatusCode();
-        }
-        else if (getDocumentHeader().getWorkflowDocument().isCanceled() || getDocumentHeader().getWorkflowDocument().isDisapproved()) {
+        } else if (getDocumentHeader().getWorkflowDocument().isCanceled() || getDocumentHeader().getWorkflowDocument().isDisapproved()) {
             removeLedgerPendingEntries();
         }
     }
@@ -193,7 +193,7 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
 
     /**
      * @see org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument#generateLaborLedgerPendingEntries(org.kuali.kfs.sys.businessobject.AccountingLine,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateLaborLedgerPendingEntries(AccountingLine accountingLine, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -230,8 +230,7 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
             this.getLaborLedgerPendingEntries().add(pendingLedgerEntry);
 
             sequenceHelper.increment();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Cannot add a Labor Ledger Pending Entry into the list");
             return false;
         }
@@ -267,7 +266,7 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
      * This is a "do nothing" version of the method - it just won't create GLPEs
      *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#generateGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {

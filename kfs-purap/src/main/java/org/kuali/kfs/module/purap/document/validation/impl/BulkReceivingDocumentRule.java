@@ -19,6 +19,11 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -30,11 +35,6 @@ import org.kuali.kfs.module.purap.document.validation.ContinuePurapRule;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.rules.DocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class BulkReceivingDocumentRule extends DocumentRuleBase implements ContinuePurapRule {
 
@@ -43,7 +43,7 @@ public class BulkReceivingDocumentRule extends DocumentRuleBase implements Conti
 
         boolean valid = true;
 
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)document;
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) document;
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -57,13 +57,13 @@ public class BulkReceivingDocumentRule extends DocumentRuleBase implements Conti
     public boolean processContinuePurapBusinessRules(TransactionalDocument document) {
 
         boolean valid = true;
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)document;
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument) document;
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
         valid = hasRequiredFieldsForContinue(bulkReceivingDocument) &&
-                canCreateBulkReceivingDocument(bulkReceivingDocument);
+            canCreateBulkReceivingDocument(bulkReceivingDocument);
 
         return valid;
     }
@@ -74,7 +74,7 @@ public class BulkReceivingDocumentRule extends DocumentRuleBase implements Conti
      * @param bulkReceivingDocument
      * @return
      */
-    protected boolean hasRequiredFieldsForContinue(BulkReceivingDocument bulkReceivingDocument){
+    protected boolean hasRequiredFieldsForContinue(BulkReceivingDocument bulkReceivingDocument) {
 
         boolean valid = true;
 
@@ -92,24 +92,24 @@ public class BulkReceivingDocumentRule extends DocumentRuleBase implements Conti
      * @param bulkReceivingDocument
      * @return
      */
-    protected boolean canCreateBulkReceivingDocument(BulkReceivingDocument bulkReceivingDocument){
+    protected boolean canCreateBulkReceivingDocument(BulkReceivingDocument bulkReceivingDocument) {
 
         boolean valid = true;
 
-        if (bulkReceivingDocument.getPurchaseOrderIdentifier() != null){
+        if (bulkReceivingDocument.getPurchaseOrderIdentifier() != null) {
             PurchaseOrderDocument po = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(bulkReceivingDocument.getPurchaseOrderIdentifier());
 
-            if (ObjectUtils.isNull(po)){
+            if (ObjectUtils.isNull(po)) {
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_BULK_RECEIVING_DOCUMENT_INVALID_PO, bulkReceivingDocument.getDocumentNumber(), bulkReceivingDocument.getPurchaseOrderIdentifier().toString());
                 valid = false;
-            }else{
+            } else {
                 if (!(po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN) ||
-                    po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED))){
+                    po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED))) {
                     valid &= false;
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_BULK_RECEIVING_PO_NOT_OPEN, bulkReceivingDocument.getDocumentNumber(), bulkReceivingDocument.getPurchaseOrderIdentifier().toString());
-                }else{
+                } else {
                     String docNumberInProcess = SpringContext.getBean(BulkReceivingService.class).getBulkReceivingDocumentNumberInProcessForPurchaseOrder(po.getPurapDocumentIdentifier(), bulkReceivingDocument.getDocumentNumber());
-                    if (StringUtils.isNotEmpty(docNumberInProcess)){
+                    if (StringUtils.isNotEmpty(docNumberInProcess)) {
                         valid &= false;
                         GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_BULK_RECEIVING_DOCUMENT_ACTIVE_FOR_PO, docNumberInProcess, bulkReceivingDocument.getPurchaseOrderIdentifier().toString());
                     }

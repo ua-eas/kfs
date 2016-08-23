@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.document.authorization;
 
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Set;
 
 public class AccountDocumentPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
 
@@ -60,41 +60,38 @@ public class AccountDocumentPresentationController extends FinancialSystemMainte
     }
 
     /**
-     *
      * @return
      */
-    protected Boolean getFridgeBenefitCalculationEnableIndicator(){
+    protected Boolean getFridgeBenefitCalculationEnableIndicator() {
         AccountService service = SpringContext.getBean(AccountService.class);
         return service.isFridgeBenefitCalculationEnable();
     }
 
     /**
-     *
      * Sets the Labor Benefit Rate Category Code, otherwise leave
      * it read/wrtie.
      *
      * @param readOnlyPropetyNames
      */
-    protected void setLaborBenefitRateCategoryCodeEditable(Set<String> readOnlyPropertyNames){
+    protected void setLaborBenefitRateCategoryCodeEditable(Set<String> readOnlyPropertyNames) {
         Boolean isFridgeBenefitCalcEnable = getFridgeBenefitCalculationEnableIndicator();
 
         //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable
-        if ( ! isFridgeBenefitCalcEnable ){
+        if (!isFridgeBenefitCalcEnable) {
             readOnlyPropertyNames.add(KFSPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE);
         }
     }
 
     /**
-     *
      * Hides the Labor Benefit Rate Category Code depending on the system parameter ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND
      *
      * @param hiddenPropetyNames
      */
-    protected void setLaborBenefitRateCategoryCodeHidden(Set<String> hiddenPropertyNames){
+    protected void setLaborBenefitRateCategoryCodeHidden(Set<String> hiddenPropertyNames) {
         Boolean isFridgeBenefitCalcEnable = getFridgeBenefitCalculationEnableIndicator();
 
         //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable
-        if ( ! isFridgeBenefitCalcEnable ){
+        if (!isFridgeBenefitCalcEnable) {
             hiddenPropertyNames.add(KFSPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE);
         }
     }

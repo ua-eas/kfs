@@ -19,18 +19,16 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-
-
 public class RequisitionCapitalAssetSystem extends PurchasingCapitalAssetSystemBase {
 
-	protected Integer purapDocumentIdentifier;
+    protected Integer purapDocumentIdentifier;
 
-	/**
-	 * Default constructor.
-	 */
-	public RequisitionCapitalAssetSystem() {
-	    super();
-	}
+    /**
+     * Default constructor.
+     */
+    public RequisitionCapitalAssetSystem() {
+        super();
+    }
 
 
     @Override

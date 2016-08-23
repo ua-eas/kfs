@@ -23,31 +23,30 @@ import org.kuali.kfs.module.purap.document.RequisitionDocument;
 public enum SystemParameterBelowTheLineItemRequisitionFixture {
 
     REQ_VALID_BELOW_LINE_ITEMS(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_VALID_FREIGHT_ITEM, RequisitionItemFixture.REQ_VALID_SHIPPING_AND_HANDLING_ITEM } // requisitionItemMultiFixtures
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_VALID_FREIGHT_ITEM, RequisitionItemFixture.REQ_VALID_SHIPPING_AND_HANDLING_ITEM} // requisitionItemMultiFixtures
     ),
 
     REQ_INVALID_BELOW_LINE_ITEMS(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_WITH_MISC_CREDIT_ITEM } // requisitionItemMultiFixtures
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_WITH_MISC_CREDIT_ITEM} // requisitionItemMultiFixtures
     ),
     REQ_WITH_NEGATIVE_BELOW_LINE_ITEMS(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_WITH_NEGATIVE_FREIGHT_ITEM, RequisitionItemFixture.REQ_WITH_NEGATIVE_SHIPPING_AND_HANDLING_ITEM } // requisitionItemMultiFixtures
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_WITH_NEGATIVE_FREIGHT_ITEM, RequisitionItemFixture.REQ_WITH_NEGATIVE_SHIPPING_AND_HANDLING_ITEM} // requisitionItemMultiFixtures
     ),
     REQ_WITH_ZERO_BELOW_LINE_ITEMS(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_WITH_ZERO_FREIGHT_ITEM, RequisitionItemFixture.REQ_WITH_ZERO_SHIPPING_AND_HANDLING_ITEM } // requisitionItemMultiFixtures
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_WITH_ZERO_FREIGHT_ITEM, RequisitionItemFixture.REQ_WITH_ZERO_SHIPPING_AND_HANDLING_ITEM} // requisitionItemMultiFixtures
     ),
     REQ_WITH_BELOW_LINE_ITEMS_WITHOUT_DESCRIPTION(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_WITH_MISC_ITEM_NO_DESC } // requisitionItemMultiFixtures
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_WITH_MISC_ITEM_NO_DESC} // requisitionItemMultiFixtures
     ),
 
     REQ_WITH_BELOW_LINE_ITEMS_WITH_DESCRIPTION(
-            new RequisitionItemFixture[] { RequisitionItemFixture.REQ_VALID_FREIGHT_ITEM, RequisitionItemFixture.REQ_VALID_SHIPPING_AND_HANDLING_ITEM } // requisitionItemMultiFixtures
-    )
-    ;
+        new RequisitionItemFixture[]{RequisitionItemFixture.REQ_VALID_FREIGHT_ITEM, RequisitionItemFixture.REQ_VALID_SHIPPING_AND_HANDLING_ITEM} // requisitionItemMultiFixtures
+    );
     private RequisitionItemFixture[] requisitionItemFixtures;
 
 
     private SystemParameterBelowTheLineItemRequisitionFixture(
-            RequisitionItemFixture[] requisitionItemFixtures) {
+        RequisitionItemFixture[] requisitionItemFixtures) {
         this.requisitionItemFixtures = requisitionItemFixtures;
     }
 

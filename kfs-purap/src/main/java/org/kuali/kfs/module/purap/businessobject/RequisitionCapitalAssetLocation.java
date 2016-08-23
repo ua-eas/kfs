@@ -19,15 +19,12 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 
-
-
-
 public class RequisitionCapitalAssetLocation extends PurchasingCapitalAssetLocationBase {
 
     /**
-	 * Default constructor.
-	 */
-	public RequisitionCapitalAssetLocation() {
-	    super();
-	}
+     * Default constructor.
+     */
+    public RequisitionCapitalAssetLocation() {
+        super();
+    }
 }

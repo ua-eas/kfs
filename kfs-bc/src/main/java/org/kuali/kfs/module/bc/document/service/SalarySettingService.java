@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger;
@@ -28,6 +25,9 @@ import org.kuali.kfs.module.bc.businessobject.SalarySettingExpansion;
 import org.kuali.kfs.module.bc.util.SalarySettingFieldsHolder;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * This class defines methods a Salary Setting Service must provide The Salary Setting Service supports functionality associated
@@ -49,7 +49,7 @@ public interface SalarySettingService {
      *
      * @param pendingBudgetConstructionGeneralLedger the given pending budget construction general ledger
      * @return true if the given given pending budget construction general ledger is paid at a biweekly or hourly rate; otherwise,
-     *         false
+     * false
      */
     public boolean isHourlyPaid(PendingBudgetConstructionGeneralLedger pendingBudgetConstructionGeneralLedger);
 
@@ -64,9 +64,9 @@ public interface SalarySettingService {
     /**
      * determine whehter the given object code is of a biweekly or hourly pay type
      *
-     * @param fiscalYear the given fiscal year
+     * @param fiscalYear          the given fiscal year
      * @param chartOfAccountsCode the given chart of accounts code
-     * @param objectCode the given object code
+     * @param objectCode          the given object code
      * @return true if the given object code is of a biweekly or hourly pay type; otherwise, false
      */
     public boolean isHourlyPaidObject(Integer fiscalYear, String chartOfAccountsCode, String objectCode);
@@ -105,8 +105,8 @@ public interface SalarySettingService {
     /**
      * calculate the FTE quantity through the given information
      *
-     * @param payMonth the given number of pay months
-     * @param fundingMonth the given number of funding months
+     * @param payMonth             the given number of pay months
+     * @param fundingMonth         the given number of funding months
      * @param requestedTimePercent the requested FTE time percent
      * @return the FTE quantity calculated from the given information
      */
@@ -123,8 +123,8 @@ public interface SalarySettingService {
     /**
      * calculate the CSF FTE quantity through the given information
      *
-     * @param payMonth the given number of pay months
-     * @param normalWorkMonth the given number of normal work months
+     * @param payMonth                the given number of pay months
+     * @param normalWorkMonth         the given number of normal work months
      * @param requestedCSFTimePercent the requested CSF time percent
      * @return the CSF FTE quantity from the given information
      */
@@ -142,7 +142,7 @@ public interface SalarySettingService {
      * determine whehter the given appointment funding can be vacated
      *
      * @param appointmentFundings the given appointment funding collection that the given appointment funding belongs to
-     * @param appointmentFunding the given appointment funding
+     * @param appointmentFunding  the given appointment funding
      * @return true if the given appointment funding can be vacated; otherwise, false
      */
     public boolean canBeVacant(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding);
@@ -160,7 +160,7 @@ public interface SalarySettingService {
      * into the given appointment funding collection
      *
      * @param appointmentFundings the given appointment funding collection that the given appointment funding belongs to
-     * @param appointmentFunding the given apporintment funding
+     * @param appointmentFunding  the given apporintment funding
      * @return a vacant appointment funding
      */
     public PendingBudgetConstructionAppointmentFunding vacateAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding);
@@ -176,10 +176,10 @@ public interface SalarySettingService {
      * find the appointment funding from the given appointment funding collection, which has the same key information as the
      * specified vacant appointment funding
      *
-     * @param appointmentFundings the given appointment funding collection
+     * @param appointmentFundings      the given appointment funding collection
      * @param vacantAppointmentFunding the given vacant apporintment funding
      * @return the appointment funding from the given appointment funding collection, which has the same key information as the
-     *         specified vacant appointment funding
+     * specified vacant appointment funding
      */
     public PendingBudgetConstructionAppointmentFunding findVacantAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding vacantAppointmentFunding);
 
@@ -187,10 +187,10 @@ public interface SalarySettingService {
      * find the appointment funding from the given appointment funding collection, which has the same key information as the
      * specified appointment funding
      *
-     * @param appointmentFundings the given appointment funding collection
+     * @param appointmentFundings      the given appointment funding collection
      * @param vacantAppointmentFunding the given apporintment funding
      * @return the appointment funding from the given appointment funding collection, which has the same key information as the
-     *         specified appointment funding
+     * specified appointment funding
      */
     public PendingBudgetConstructionAppointmentFunding findAppointmentFunding(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding);
 
@@ -257,7 +257,7 @@ public interface SalarySettingService {
      * revert the given appointment funding if it is just vacated
      *
      * @param appointmentFundings the given appointment funding collection
-     * @param appointmentFunding the given appointment funding
+     * @param appointmentFunding  the given appointment funding
      */
     public void revert(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding);
 
@@ -281,11 +281,11 @@ public interface SalarySettingService {
     /**
      * update the access flags of the given appointment funding according to the given information
      *
-     * @param appointmentFunding the given appointment funding
+     * @param appointmentFunding        the given appointment funding
      * @param salarySettingFieldsHolder the field holder that contains the values passed from the user
-     * @param budgetByObjectMode the budget by object mode flag
-     * @param hasDocumentEditAccess indicates whether the user has edit permission for the budget document (for budget by object)
-     * @param person the specified user
+     * @param budgetByObjectMode        the budget by object mode flag
+     * @param hasDocumentEditAccess     indicates whether the user has edit permission for the budget document (for budget by object)
+     * @param person                    the specified user
      * @return true if the access flags are updated successfully; otherwise, false
      */
     public boolean updateAccessOfAppointmentFunding(PendingBudgetConstructionAppointmentFunding appointmentFunding, SalarySettingFieldsHolder salarySettingFieldsHolder, boolean budgetByObjectMode, boolean hasDocumentEditAccess, Person person);
@@ -294,7 +294,7 @@ public interface SalarySettingService {
      * update the access flags of the given appointment funding according to the user level and document organization level
      *
      * @param appointmentFunding the given appointment funding
-     * @param person the specified user
+     * @param person             the specified user
      * @return true if the access flags are updated successfully; otherwsie, false
      */
     public boolean updateAccessOfAppointmentFundingByUserLevel(PendingBudgetConstructionAppointmentFunding appointmentFunding, Person person);

@@ -18,6 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.document.TravelDocument;
+import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
 import static org.kuali.kfs.module.tem.TemConstants.CONFIRM_AMENDMENT_QUESTION;
 import static org.kuali.kfs.module.tem.TemConstants.RETURN_TO_FO_NOTE_PREFIX;
 import static org.kuali.kfs.module.tem.TemConstants.RETURN_TO_FO_QUESTION;
@@ -29,25 +37,16 @@ import static org.kuali.kfs.sys.KFSConstants.BLANK_SPACE;
 import static org.kuali.kfs.sys.KFSConstants.NOTE_TEXT_PROPERTY_NAME;
 import static org.kuali.kfs.sys.KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.document.TravelDocument;
-import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 public class ReturnToFiscalOfficerQuestionHandler implements QuestionHandler<TravelDocument> {
     private ConfigurationService ConfigurationService;
     private DataDictionaryService dataDictionaryService;
     private TravelDocumentService travelDocumentService;
 
     @Override
-    public <T> T handleResponse(final Inquisitive<TravelDocument,?> asker) throws Exception {
+    public <T> T handleResponse(final Inquisitive<TravelDocument, ?> asker) throws Exception {
         if (asker.denied(RETURN_TO_FO_QUESTION)) {
             return (T) asker.back();
-        }
-        else if (asker.confirmed(CONFIRM_AMENDMENT_QUESTION)) {
+        } else if (asker.confirmed(CONFIRM_AMENDMENT_QUESTION)) {
             return (T) asker.end();
             // This is the case when the user clicks on "OK" in the end.
             // After we inform the user that the close has been rerouted, we'll redirect to the portal page.
@@ -60,7 +59,7 @@ public class ReturnToFiscalOfficerQuestionHandler implements QuestionHandler<Tra
         String question = StringUtils.replace(message, "{0}", RETURN_TO_FO_TEXT);
         if (StringUtils.isBlank(asker.getReason())) {
             return (T) asker.confirm(RETURN_TO_FO_QUESTION, question, true, ERROR_TA_REASON_REQUIRED, QUESTION_REASON_ATTRIBUTE_NAME, RETURN_TO_FO_TEXT);
-        }else if(noteStr.length() > noteTextMaxLength){
+        } else if (noteStr.length() > noteTextMaxLength) {
             return (T) asker.confirm(RETURN_TO_FO_QUESTION, question, true, ERROR_TA_REASON_PASTLIMIT, QUESTION_REASON_ATTRIBUTE_NAME, new Integer(noteStr.length() - noteTextMaxLength).toString());
         }
 
@@ -70,8 +69,8 @@ public class ReturnToFiscalOfficerQuestionHandler implements QuestionHandler<Tra
     }
 
     @Override
-    public <T> T askQuestion(final Inquisitive<TravelDocument,?> asker) throws Exception {
-        final String message  = getReturnToFiscalOfficerQuestion(RETURN_TO_FO_TEXT);
+    public <T> T askQuestion(final Inquisitive<TravelDocument, ?> asker) throws Exception {
+        final String message = getReturnToFiscalOfficerQuestion(RETURN_TO_FO_TEXT);
 
         T retval = (T) asker.confirm(RETURN_TO_FO_QUESTION, message, true);
         return retval;

@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
@@ -29,11 +28,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.CommodityContractManager;
 import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.web.format.DateViewDateObjectFormatter;
-import org.kuali.rice.core.web.format.DateViewTimestampObjectFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Assign Contract Manager Detail Business Object. Defines attributes in Assign Contract Manager tab.
@@ -62,7 +61,7 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
     /**
      * Constructs a ContractManagerAssignmentDetail object from an existing ContractManagerAssignmentDocument object.
      *
-     * @param acmDocument the ContractManagerAssignmentDocument to copy from.
+     * @param acmDocument         the ContractManagerAssignmentDocument to copy from.
      * @param requisitionDocument reference to the related requisition document.
      */
     public ContractManagerAssignmentDetail(ContractManagerAssignmentDocument acmDocument, RequisitionDocument requisitionDocument) {
@@ -104,7 +103,7 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
     public Integer getContractManagerCode() {
         String paramName = PurapParameterConstants.ENABLE_DEFAULT_CONTRACT_MANAGER_IND;
         String paramValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(ContractManagerAssignmentDocument.class, paramName);
-        if ( paramValue.equals("Y") && (contractManagerCode == null) && getFirstLineItem().getCommodityCode() != null) {
+        if (paramValue.equals("Y") && (contractManagerCode == null) && getFirstLineItem().getCommodityCode() != null) {
             List<CommodityContractManager> commodityContractManagers = getFirstLineItem().getCommodityCode().getCommodityContractManagers();
             if (commodityContractManagers != null && commodityContractManagers.size() > 0) {
                 int count = 0;
@@ -165,10 +164,10 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
      * @return
      * @throws WorkflowException
      */
-    public String getCreateDate() throws WorkflowException{
+    public String getCreateDate() throws WorkflowException {
         if (createDate == null) {
             Formatter formatter = new DateViewDateObjectFormatter();
-            createDate = (String)formatter.format(getRequisition().getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
+            createDate = (String) formatter.format(getRequisition().getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
         }
         return createDate;
     }
@@ -178,7 +177,7 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
     }
 
     private PurchasingItemBase getFirstLineItem() {
-        return (PurchasingItemBase)this.getRequisition().getItem(0);
+        return (PurchasingItemBase) this.getRequisition().getItem(0);
     }
 
     public String getDeliveryCampusCode() {

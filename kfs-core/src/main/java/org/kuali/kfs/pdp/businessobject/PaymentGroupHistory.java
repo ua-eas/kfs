@@ -22,16 +22,16 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
@@ -74,17 +74,17 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_GRP_HIST_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_GRP_HIST_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;
     }
 
     /**
-     * @hibernate.many-to-one column="PMT_GRP_ID" class="edu.iu.uis.pdp.bo.PaymentGroup"
      * @return Returns the paymentGroup.
+     * @hibernate.many-to-one column="PMT_GRP_ID" class="edu.iu.uis.pdp.bo.PaymentGroup"
      */
     public PaymentGroup getPaymentGroup() {
         return paymentGroup;
@@ -363,8 +363,8 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
-     * @hibernate.property column="PMT_CHG_USR_ID" length="11" not-null="true"
      * @return Returns the changeUserId.
+     * @hibernate.property column="PMT_CHG_USR_ID" length="11" not-null="true"
      */
     public String getChangeUserId() {
         return changeUserId;
@@ -372,6 +372,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the change user.
+     *
      * @return the changeUser
      */
     public Person getChangeUser() {
@@ -381,6 +382,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the changeUser.
+     *
      * @param changeUser
      */
     public void setChangeUser(Person changeUser) {

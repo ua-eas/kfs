@@ -25,9 +25,6 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
  * DocumentHeader class being used. Originally written to facilitate the Kuali
  * Financial System custom document header which included a 'total amount'
  * field.
- *
- *
- *
  */
 public interface DocumentHeaderService {
 

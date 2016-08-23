@@ -27,7 +27,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import java.util.Properties;
 
 @SuppressWarnings("deprecation")
-public class TravelRelocationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl{
+public class TravelRelocationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     @Override
     public String getSupplementalMenuBar() {
         String menuBar = super.getSupplementalMenuBar();

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionDetail;
-import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSKeyConstants;
+
+import java.util.List;
 
 /**
  * This class implements the business rules specific to the {@link OrganizationReversion} Maintenance Document.
@@ -51,6 +51,7 @@ public class OrganizationReversionRule extends MaintenanceDocumentRuleBase {
      * <li>{@link OrganizationReversionRule#validateDetailBusinessObjects(OrganizationReversion)}</li>
      * </ul>
      * This rule fails on business rule failures
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -96,8 +97,8 @@ public class OrganizationReversionRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * This checks to make sure that the organization reversion object on the detail object actually exists
+     *
      * @param detail
      * @return false if the organization reversion object doesn't exist
      */
@@ -111,7 +112,7 @@ public class OrganizationReversionRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNull(detail.getOrganizationReversionObject())) {
             LOG.debug("organization reversion finanical object = null");
             result = false;
-            GlobalVariables.getMessageMap().putError("organizationReversionObjectCode", KFSKeyConstants.ERROR_EXISTENCE, new String[] { "Financial Object Code: " + detail.getOrganizationReversionObjectCode() });
+            GlobalVariables.getMessageMap().putError("organizationReversionObjectCode", KFSKeyConstants.ERROR_EXISTENCE, new String[]{"Financial Object Code: " + detail.getOrganizationReversionObjectCode()});
         } else {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("organization reversion finanical object = " + detail.getOrganizationReversionObject().getName());
@@ -121,14 +122,12 @@ public class OrganizationReversionRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * Verifies that a reversion code exists when the
      * "Carry Forward by Object Code" indicator is selected.  If this indicator
      * isn't selected, then the reversion codes isn't required.
      *
      * @param reversion OrganizationReversion object
-     * @param detail OrganizationReversionDetail object
-     *
+     * @param detail    OrganizationReversionDetail object
      * @return true for successful validation
      */
     protected boolean validateOrganizationReversionCode(OrganizationReversion reversion, OrganizationReversionDetail detail) {

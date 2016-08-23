@@ -28,7 +28,8 @@ public interface CashManagingRule {
 
     /**
      * Validates a cashiering transaction before it is added to a document
-     * @param cashDrawer the cash drawer the transaction will be applied to
+     *
+     * @param cashDrawer            the cash drawer the transaction will be applied to
      * @param cashieringTransaction the cashering transaction which may be applied
      * @return true if the transaction would be valid, false otherwise
      */

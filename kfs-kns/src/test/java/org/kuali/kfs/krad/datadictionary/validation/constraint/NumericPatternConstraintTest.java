@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -35,75 +32,76 @@ import org.kuali.kfs.krad.datadictionary.validation.processor.ValidCharactersCon
 import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Things this test should check:
- *
+ * <p>
  * 1. value with all valid characters. (success) {@link #testValueAllValidChars()}
  * 2. value with invalid characters. (failure) {@link #testValueNotValidChars()}
- *
- *
  */
 public class NumericPatternConstraintTest {
 
-	private AttributeDefinition postalCodeDefinition;
+    private AttributeDefinition postalCodeDefinition;
 
-	private BusinessObjectEntry addressEntry;
-	private DictionaryValidationResult dictionaryValidationResult;
+    private BusinessObjectEntry addressEntry;
+    private DictionaryValidationResult dictionaryValidationResult;
 
-	private ValidCharactersConstraintProcessor processor;
+    private ValidCharactersConstraintProcessor processor;
 
-	private Address newYorkNYAddress = new Address("Presidential Street", "(A-123) Suite 800", "New York", "NY", "ZH 3456", "USA", null);
-	private Address sydneyAUSAddress = new Address("Presidential Street-Ave.", "Suite_800.", "Sydney", "ZZ", "999", "USA", null);
+    private Address newYorkNYAddress = new Address("Presidential Street", "(A-123) Suite 800", "New York", "NY", "ZH 3456", "USA", null);
+    private Address sydneyAUSAddress = new Address("Presidential Street-Ave.", "Suite_800.", "Sydney", "ZZ", "999", "USA", null);
 
-	private NumericPatternConstraint postalCodeNumericPatternConstraint;
+    private NumericPatternConstraint postalCodeNumericPatternConstraint;
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-		processor = new ValidCharactersConstraintProcessor();
+        processor = new ValidCharactersConstraintProcessor();
 
-		dictionaryValidationResult = new DictionaryValidationResult();
-		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
+        dictionaryValidationResult = new DictionaryValidationResult();
+        dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);
 
-		addressEntry = new BusinessObjectEntry();
+        addressEntry = new BusinessObjectEntry();
 
-		List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
+        List<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
 
-		postalCodeNumericPatternConstraint = new NumericPatternConstraint();
+        postalCodeNumericPatternConstraint = new NumericPatternConstraint();
 
-		postalCodeDefinition = new AttributeDefinition();
-		postalCodeDefinition.setName("postalCode");
-		postalCodeDefinition.setValidCharactersConstraint(postalCodeNumericPatternConstraint);
-		attributes.add(postalCodeDefinition);
+        postalCodeDefinition = new AttributeDefinition();
+        postalCodeDefinition.setName("postalCode");
+        postalCodeDefinition.setValidCharactersConstraint(postalCodeNumericPatternConstraint);
+        attributes.add(postalCodeDefinition);
 
-		addressEntry.setAttributes(attributes);
-	}
+        addressEntry.setAttributes(attributes);
+    }
 
-	@Test
-	public void testValueAllValidChars() {
-		ConstraintValidationResult result = process(sydneyAUSAddress, "postalCode", postalCodeNumericPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.OK, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueAllValidChars() {
+        ConstraintValidationResult result = process(sydneyAUSAddress, "postalCode", postalCodeNumericPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.OK, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
     @Ignore
-	@Test
-	public void testValueNotValidChars() {
-		ConstraintValidationResult result = process(newYorkNYAddress, "postalCode", postalCodeNumericPatternConstraint);
-		Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
-		Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
-		Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
-		Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
-	}
+    @Test
+    public void testValueNotValidChars() {
+        ConstraintValidationResult result = process(newYorkNYAddress, "postalCode", postalCodeNumericPatternConstraint);
+        Assert.assertEquals(0, dictionaryValidationResult.getNumberOfWarnings());
+        Assert.assertEquals(1, dictionaryValidationResult.getNumberOfErrors());
+        Assert.assertEquals(ErrorLevel.ERROR, result.getStatus());
+        Assert.assertEquals(new ValidCharactersConstraintProcessor().getName(), result.getConstraintName());
+    }
 
-	private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
-		AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
-		attributeValueReader.setAttributeName(attributeName);
+    private ConstraintValidationResult process(Object object, String attributeName, ValidCharactersConstraint constraint) {
+        AttributeValueReader attributeValueReader = new DictionaryObjectAttributeValueReader(object, "org.kuali.rice.kns.datadictionary.validation.MockAddress", addressEntry);
+        attributeValueReader.setAttributeName(attributeName);
 
-		Object value = attributeValueReader.getValue();
-		return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
-	}
+        Object value = attributeValueReader.getValue();
+        return processor.process(dictionaryValidationResult, value, constraint, attributeValueReader).getFirstConstraintValidationResult();
+    }
 }

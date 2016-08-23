@@ -27,32 +27,29 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * This is a description of what this class does - chang don't forget to fill this in.
- *
- *
- *
  */
 public class DocumentAttachmentTest {
 
-	DocumentAttachment dummyDocumentAttachment;
+    DocumentAttachment dummyDocumentAttachment;
 
-	@Before
-	public void setUp() throws Exception {
-		dummyDocumentAttachment = new DocumentAttachment();
-	}
+    @Before
+    public void setUp() throws Exception {
+        dummyDocumentAttachment = new DocumentAttachment();
+    }
 
-	/**
-	 * This method ...
-	 *
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		dummyDocumentAttachment = null;
-	}
+    /**
+     * This method ...
+     *
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        dummyDocumentAttachment = null;
+    }
 
-	@Test
-	public void testDocumentNumber(){
-		dummyDocumentAttachment.setDocumentNumber("c122");
-		assertEquals("Testing DocumentNumber in DocumnetAttchment", "c122", dummyDocumentAttachment.getDocumentNumber());
-	}
+    @Test
+    public void testDocumentNumber() {
+        dummyDocumentAttachment.setDocumentNumber("c122");
+        assertEquals("Testing DocumentNumber in DocumnetAttchment", "c122", dummyDocumentAttachment.getDocumentNumber());
+    }
 }

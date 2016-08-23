@@ -19,7 +19,6 @@
 package org.kuali.kfs.pdp;
 
 
-
 /**
  * Contains general PDP constants.
  */
@@ -42,7 +41,7 @@ public class PdpConstants {
     public static final int CHECK_NUMBER_PLACEHOLDER_VALUE = -1;
 
     public static class PayeeIdTypeCodes {
-		public static String CUSTOMER = "C";
+        public static String CUSTOMER = "C";
         public static String SSN = "S";
         public static String EMPLOYEE = "E";
         public static String ENTITY = "T";
@@ -86,13 +85,13 @@ public class PdpConstants {
         public static final String HELD_TAX_NRA_EMPL_CD = "HTXB";
     }
 
-    public static class Actions{
+    public static class Actions {
         public static final String BATCH_SEARCH_DETAIL_ACTION = "batchDetail.do";
         public static final String PAYMENT_DETAIL_ACTION = "pdp/paymentdetail.do";
         public static final String FORMAT_PROCESS_ACTION = "pdp/format.do";
     }
 
-    public static class ActionMethods{
+    public static class ActionMethods {
         public static final String CONFIRM_CANCEL_ACTION = "confirmAndCancel";
         public static final String CONFIRM_REMOVE_HOLD_ACTION = "confirmAndRemoveHold";
         public static final String CONFIRM_HOLD_ACTION = "confirmAndHold";
@@ -141,7 +140,7 @@ public class PdpConstants {
         public static final String AchBankTypeCode_2 = "2";
     }
 
-    public static class PermissionNames{
+    public static class PermissionNames {
         public static final String CANCEL_PAYMENT = "Cancel Payment";
         public static final String FORMAT = "Format";
         public static final String HOLD_PAYMENT_REMOVE_NON_TAX_PAYMENT_HOLD = "Hold Payment / Remove Non-Tax Payment Hold";
@@ -199,16 +198,16 @@ public class PdpConstants {
         public static final String AMOUNT = "amount";
     }
 
-    public static class PayeeACHAccountDocumentStrings{
+    public static class PayeeACHAccountDocumentStrings {
         public static final String PAYEE_NAME = "Payee Name";
         public static final String PAYEE_EMAIL_ADDRESS = "Email Address";
-        public static final String EDIT_PAYEE_ACH_ACCOUNT ="Edit Payee ACH Account";
+        public static final String EDIT_PAYEE_ACH_ACCOUNT = "Edit Payee ACH Account";
     }
 
-	public static class FormatCheckACHParameters {
-		public static final String PDP_FORMAT_CHECK_ACH_STEP = "FormatCheckACHStep";
-		public static final String PDP_FORMAT_CHECK_ACH_BY_CUST_PROF_STEP = "FormatCheckACHByCustomerProfileStep";
-		public static final String FORMAT_SUMMARY_TO_EMAIL_ADDRESSES = "FORMAT_SUMMARY_TO_EMAIL_ADDRESSES";
-		public static final String FORMAT_CUSTOMER_PROFILE_ID = "FORMAT_CUSTOMER_PROFILE_ID";
-	}
+    public static class FormatCheckACHParameters {
+        public static final String PDP_FORMAT_CHECK_ACH_STEP = "FormatCheckACHStep";
+        public static final String PDP_FORMAT_CHECK_ACH_BY_CUST_PROF_STEP = "FormatCheckACHByCustomerProfileStep";
+        public static final String FORMAT_SUMMARY_TO_EMAIL_ADDRESSES = "FORMAT_SUMMARY_TO_EMAIL_ADDRESSES";
+        public static final String FORMAT_CUSTOMER_PROFILE_ID = "FORMAT_CUSTOMER_PROFILE_ID";
+    }
 }

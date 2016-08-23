@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cg.service;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.cg.document.ProposalAwardCloseDocument;
+
+import java.sql.Date;
 
 /**
  * Intended to be initiated periodically via a batch process. The default implementation of this service finds all unclosed Awards

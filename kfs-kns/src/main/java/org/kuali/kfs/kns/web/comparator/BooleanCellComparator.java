@@ -47,8 +47,7 @@ public class BooleanCellComparator implements Comparator, Serializable {
         if (!b1.equals(b2)) {
             if (b1.equals(Boolean.FALSE)) {
                 compared = -1;
-            }
-            else {
+            } else {
                 compared = 1;
             }
         }

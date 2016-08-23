@@ -23,20 +23,19 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum PurchasingCapitalAssetLocationFixture {
 
-    LOCATION_BASIC (
-            null,  //capitalAssetSystemIdentifier
-            new KualiDecimal(1), //itemQuantity
-            "BL", //campusCode
-            false, //offCampusIndicator
-            "HTC", //buildingCode
-            "2", //buildingRoomNumber
-            "123 Hagadorn Rd", //capitalAssetLine1Address
-            "East Lansing", //capitalAssetCityName
-            "MI", //capitalAssetStateCode
-            "48823", //capitalAssetPostalCode
-            "US" //capitalAssetCountryCode
-            ),
-            ;
+    LOCATION_BASIC(
+        null,  //capitalAssetSystemIdentifier
+        new KualiDecimal(1), //itemQuantity
+        "BL", //campusCode
+        false, //offCampusIndicator
+        "HTC", //buildingCode
+        "2", //buildingRoomNumber
+        "123 Hagadorn Rd", //capitalAssetLine1Address
+        "East Lansing", //capitalAssetCityName
+        "MI", //capitalAssetStateCode
+        "48823", //capitalAssetPostalCode
+        "US" //capitalAssetCountryCode
+    ),;
 
     private Integer capitalAssetSystemIdentifier;
     private KualiDecimal itemQuantity;
@@ -50,7 +49,7 @@ public enum PurchasingCapitalAssetLocationFixture {
     private String capitalAssetPostalCode;
     private String capitalAssetCountryCode;
 
-    private PurchasingCapitalAssetLocationFixture (Integer capitalAssetSystemIdentifier, KualiDecimal itemQuantity, String campusCode, boolean offCampusIndicator, String buildingCode, String buildingRoomNumber, String capitalAssetLine1Address, String capitalAssetCityName, String capitalAssetStateCode, String capitalAssetPostalCode, String capitalAssetCountryCode) {
+    private PurchasingCapitalAssetLocationFixture(Integer capitalAssetSystemIdentifier, KualiDecimal itemQuantity, String campusCode, boolean offCampusIndicator, String buildingCode, String buildingRoomNumber, String capitalAssetLine1Address, String capitalAssetCityName, String capitalAssetStateCode, String capitalAssetPostalCode, String capitalAssetCountryCode) {
         this.capitalAssetSystemIdentifier = capitalAssetSystemIdentifier;
         this.itemQuantity = itemQuantity;
         this.campusCode = campusCode;
@@ -68,11 +67,9 @@ public enum PurchasingCapitalAssetLocationFixture {
         CapitalAssetLocation location = null;
         try {
             location = (CapitalAssetLocation) clazz.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("location creation failed. class = " + clazz);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("location creation failed. class = " + clazz);
         }
         location.setCapitalAssetSystemIdentifier(capitalAssetSystemIdentifier);

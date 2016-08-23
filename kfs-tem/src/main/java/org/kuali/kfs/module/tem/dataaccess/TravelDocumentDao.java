@@ -18,51 +18,46 @@
  */
 package org.kuali.kfs.module.tem.dataaccess;
 
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.module.tem.document.TEMReimbursementDocument;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 /**
  * This is the data access interface for Document objects.
- *
  */
 public interface TravelDocumentDao {
 
     /**
-     *
      * @param travelDocumentNumber to refer to for travel document results
      * @return
      */
     List<TravelDocument> findDocuments(final Class<?> travelDocumentClass, final String travelDocumentNumber);
 
     /**
-     *
      * @param travelDocumentNumber to refer to for travel document results
      * @return
      */
-	List<String> findDocumentNumbers(final Class<?> travelDocumentClass, final String travelDocumentNumber);
+    List<String> findDocumentNumbers(final Class<?> travelDocumentClass, final String travelDocumentNumber);
 
-	/**
-	 * PerDiem lookup base on search values
-	 *
-	 * PER_DIEM_LOOKUP_DATE can also be passed in for a custom date duration search
-	 *
-	 * @param primaryDestinationId the id of the primary destination to find dates for
-	 * @param perDiemDate the date of the per diem to find a PerDiem record for
-	 * @param effectiveDate the date we should use against the effective dates
-	 * @return
-	 *
-	 * deprecated because we're looking for a better way to do this
-	 */
-	@Deprecated
-	public List<PerDiem> findEffectivePerDiems(int primaryDestinationId, java.sql.Date effectiveDate);
+    /**
+     * PerDiem lookup base on search values
+     * <p>
+     * PER_DIEM_LOOKUP_DATE can also be passed in for a custom date duration search
+     *
+     * @param primaryDestinationId the id of the primary destination to find dates for
+     * @param perDiemDate          the date of the per diem to find a PerDiem record for
+     * @param effectiveDate        the date we should use against the effective dates
+     * @return deprecated because we're looking for a better way to do this
+     */
+    @Deprecated
+    public List<PerDiem> findEffectivePerDiems(int primaryDestinationId, java.sql.Date effectiveDate);
 
     /**
      * get all outstanding travel advances by the given invoice document numbers. The advances must have not been used to generate
@@ -83,7 +78,8 @@ public interface TravelDocumentDao {
 
     /**
      * Retrieves all Travel Reimbursement documents with the given financial system document header status
-     * @param statusCode the financial system document header status of the documents to retrieve
+     *
+     * @param statusCode     the financial system document header status of the documents to retrieve
      * @param immediatesOnly true if only those documents marked for immediate payment are to be retrieved, false if all documents at the status are to be retrieved
      * @return a Collection of qualifying Travel Reimbursement documents
      */
@@ -91,7 +87,8 @@ public interface TravelDocumentDao {
 
     /**
      * Retrieves all Travel Relocation documents with the given financial system document header status
-     * @param statusCode the financial system document header status of the documents to retrieve
+     *
+     * @param statusCode     the financial system document header status of the documents to retrieve
      * @param immediatesOnly true if only those documents marked for immediate payment are to be retrieved, false if all documents at the status are to be retrieved
      * @return a Collection of qualifying Travel Relocation documents
      */
@@ -99,7 +96,8 @@ public interface TravelDocumentDao {
 
     /**
      * Retrieves all Entertainment documents with the given financial system document header status
-     * @param statusCode the financial system document header status of the documents to retrieve
+     *
+     * @param statusCode     the financial system document header status of the documents to retrieve
      * @param immediatesOnly true if only those documents marked for immediate payment are to be retrieved, false if all documents at the status are to be retrieved
      * @return a Collection of qualifying Entertainment documents
      */
@@ -107,7 +105,8 @@ public interface TravelDocumentDao {
 
     /**
      * Retrieves all TravelAuthorization and TravelAuthorizationAmendment documents with the given financial system document header status
-     * @param statusCode the financial system document header status of the documents to retrieve
+     *
+     * @param statusCode     the financial system document header status of the documents to retrieve
      * @param immediatesOnly true if only those documents marked for immediate payment are to be retrieved, false if all documents at the status are to be retrieved
      * @return a Collection of qualifying authorization documents
      */
@@ -115,18 +114,21 @@ public interface TravelDocumentDao {
 
     /**
      * Retrieves all TravelReimbursement documents which have corporate card expenses and have not yet been extracted
+     *
      * @return a Collection of qualifying reimbursement documents
      */
     public abstract Collection<? extends TEMReimbursementDocument> getReimbursementDocumentsNeedingCorporateCardExtraction();
 
     /**
      * Retrieves all Entertainment documents which have corporate card expenses and have not yet been extracted
+     *
      * @return a Collection of qualifying reimbursement documents
      */
     public abstract Collection<? extends TEMReimbursementDocument> getEntertainmentDocumentsNeedingCorporateCardExtraction();
 
     /**
      * Retrieves all Moving & Relocation documents which have corporate card expenses and have not yet been extracted
+     *
      * @return a Collection of qualifying reimbursement documents
      */
     public abstract Collection<? extends TEMReimbursementDocument> getRelocationDocumentsNeedingCorporateCardExtraction();
@@ -139,5 +141,5 @@ public interface TravelDocumentDao {
      * @param tripEnd
      * @return
      */
-    public Collection<? extends TEMReimbursementDocument> findMatchingTrips (Integer temProfileId ,Timestamp tripBegin, Timestamp tripEnd) ;
+    public Collection<? extends TEMReimbursementDocument> findMatchingTrips(Integer temProfileId, Timestamp tripBegin, Timestamp tripEnd);
 }

@@ -21,13 +21,12 @@ package org.kuali.kfs.krad.datadictionary.validation.constraint;
 /**
  * A length constraint is one that restricts the length of a string to some predefined maximum (and/or minimum).
  *
- *
  * @since 1.1
  */
 public interface LengthConstraint extends DataTypeConstraint {
 
-	public Integer getMaxLength();
+    public Integer getMaxLength();
 
-	public Integer getMinLength();
+    public Integer getMinLength();
 
 }

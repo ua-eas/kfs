@@ -78,55 +78,44 @@ public interface MaintenanceDocument extends Document {
     public boolean isOldDataObjectInDocument();
 
     /**
-     *
      * Returns true if this maintenance document is creating a new Business Object, false if its an edit.
-     *
      */
     public boolean isNew();
 
     /**
-     *
      * Returns true if this maintenance document is editing an existing Business Object, false if its creating a new one.
-     *
      */
     public boolean isEdit();
 
     /**
-     *
      * Returns true if this maintenance document is creating a new Business Object out of an existing Business Object,
      * for example, a new division vendor out of an existing parent vendor.
-     *
      */
     public boolean isNewWithExisting();
 
     /**
-     *
      * A flag which indicates whether the primary keys have been cleared on a Copy-type of document. This will be true if the 'clear
      * keys on a copy' has been done, and it will be false if not.
      *
      * @return true if the primary keys have been cleared already, false if not.
-     *
      */
     public boolean isFieldsClearedOnCopy();
 
     /**
-     *
      * This method sets the value of the fieldsClearedOnCopy.
      *
      * @param fieldsClearedOnCopy - true or false
-     *
      */
     public void setFieldsClearedOnCopy(boolean keysClearedOnCopy);
 
     /**
-     *
      * This method...
+     *
      * @return
      */
     public boolean getDisplayTopicFieldInNotes();
 
     /**
-     *
      * This method...
      */
     public void setDisplayTopicFieldInNotes(boolean displayTopicFieldInNotes);

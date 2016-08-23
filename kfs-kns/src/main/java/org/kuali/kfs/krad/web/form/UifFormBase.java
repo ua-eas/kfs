@@ -24,15 +24,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.UifParameters;
+import org.kuali.kfs.krad.uif.service.ViewService;
 import org.kuali.kfs.krad.uif.view.History;
 import org.kuali.kfs.krad.uif.view.HistoryEntry;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.service.ViewService;
 import org.kuali.kfs.krad.uif.view.ViewModel;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -46,13 +46,11 @@ import java.util.UUID;
 
 /**
  * Base form class for views within the KRAD User Interface Framework
- *
+ * <p>
  * <p>
  * Holds properties necessary to determine the <code>View</code> instance that
  * will be used to render the UI
  * </p>
- *
- *
  */
 public class UifFormBase implements ViewModel {
     private static final long serialVersionUID = 8432543267099454434L;
@@ -124,7 +122,6 @@ public class UifFormBase implements ViewModel {
     protected String generateFormKey() {
         return UUID.randomUUID().toString();
     }
-
 
 
     /**
@@ -353,12 +350,12 @@ public class UifFormBase implements ViewModel {
 
     /**
      * Returns the action event that was sent in the action parameters (if any)
-     *
+     * <p>
      * <p>
      * The action event is a special action parameter that can be sent to indicate a type of action being taken. This
      * can be looked at by the view or components to render differently
      * </p>
-     *
+     * <p>
      * TODO: make sure action parameters are getting reinitialized on each request
      *
      * @return String action event name or blank if action event was not sent
@@ -394,7 +391,7 @@ public class UifFormBase implements ViewModel {
 
     /**
      * Key string that identifies the form instance in session storage
-     *
+     * <p>
      * <p>
      * When the view is posted, the previous form instance is retrieved and then
      * populated from the request parameters. This key string is retrieve the
@@ -509,7 +506,7 @@ public class UifFormBase implements ViewModel {
             homewardPathList = view.getBreadcrumbs().getHomewardPathList();
         }
 
-        HistoryEntry historyEntry = new HistoryEntry("","","Home",getReturnLocation(),"");
+        HistoryEntry historyEntry = new HistoryEntry("", "", "Home", getReturnLocation(), "");
         if (homewardPathList.isEmpty()) {
             homewardPathList.add(historyEntry);
         } else if (StringUtils.equals(homewardPathList.get(0).getTitle(), "Home")) {
@@ -600,7 +597,7 @@ public class UifFormBase implements ViewModel {
     /**
      * History parameter representing the History of views that have come before the
      * viewing of the current view
-     *
+     * <p>
      * <p>
      * Used for breadcrumb widget generation on the view and also for navigating back
      * to previous or hub locations
@@ -623,7 +620,7 @@ public class UifFormBase implements ViewModel {
 
     /**
      * Indicates whether the form should be validated for dirtyness
-     *
+     * <p>
      * <p>
      * For FormView, it's necessary to validate when the user tries to navigate out of the form. If set, all the
      * InputFields will be validated on refresh, navigate, cancel or close Action or on form

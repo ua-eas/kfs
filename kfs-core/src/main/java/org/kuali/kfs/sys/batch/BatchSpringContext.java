@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import org.kuali.kfs.kns.bo.Step;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.SpringContext;
 
 public class BatchSpringContext {
@@ -30,7 +30,7 @@ public class BatchSpringContext {
     }
 
     public static JobDescriptor getJobDescriptor(String beanId) {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("getJobDescriptor:::::" + beanId);
         }
         return SpringContext.getBeansOfType(JobDescriptor.class).get(beanId);

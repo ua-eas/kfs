@@ -48,31 +48,33 @@ public class CfAuthenticationServiceImpl implements CfAuthenticationService {
             return AuthenticationValidationResponse.INVALID_PRINCIPAL_DOES_NOT_EXIST;
         }
 
-        if ( !isAuthorizedToLogin(principal.getPrincipalId()) ) {
+        if (!isAuthorizedToLogin(principal.getPrincipalId())) {
             return AuthenticationValidationResponse.INVALID_PRINCIPAL_CANNOT_LOGIN;
         }
 
         return AuthenticationValidationResponse.VALID_AUTHENTICATION;
     }
 
-    /** checks if the passed in principalId is authorized to log in. */
+    /**
+     * checks if the passed in principalId is authorized to log in.
+     */
     protected boolean isAuthorizedToLogin(String principalId) {
         return getPermissionService().isAuthorized(
-                principalId,
-                KimConstants.KIM_TYPE_DEFAULT_NAMESPACE,
-                KimConstants.PermissionNames.LOG_IN,
-                Collections.singletonMap("principalId", principalId));
+            principalId,
+            KimConstants.KIM_TYPE_DEFAULT_NAMESPACE,
+            KimConstants.PermissionNames.LOG_IN,
+            Collections.singletonMap("principalId", principalId));
     }
 
     public IdentityService getIdentityService() {
-        if ( identityService == null ) {
+        if (identityService == null) {
             identityService = KimApiServiceLocator.getIdentityService();
         }
         return identityService;
     }
 
     public PermissionService getPermissionService() {
-        if ( permissionService == null ) {
+        if (permissionService == null) {
             permissionService = KimApiServiceLocator.getPermissionService();
         }
         return permissionService;

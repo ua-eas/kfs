@@ -23,8 +23,8 @@ import com.thoughtworks.xstream.mapper.MapperWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ojb.broker.core.proxy.ListProxyDefaultImpl;
-import org.kuali.kfs.krad.util.DateTimeConverter;
 import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.DateTimeConverter;
 
 import java.util.ArrayList;
 
@@ -33,13 +33,13 @@ import java.util.ArrayList;
  * delivered with Kuali. It utilizes the XStream open source libraries and framework.
  */
 public class XmlObjectSerializerIgnoreMissingFieldsServiceImpl extends XmlObjectSerializerServiceImpl {
-	private static final Log LOG = LogFactory.getLog(XmlObjectSerializerIgnoreMissingFieldsServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(XmlObjectSerializerIgnoreMissingFieldsServiceImpl.class);
 
-	private PersistenceService persistenceService;
+    private PersistenceService persistenceService;
 
-	private XStream xstream;
+    private XStream xstream;
 
-	public XmlObjectSerializerIgnoreMissingFieldsServiceImpl() {
+    public XmlObjectSerializerIgnoreMissingFieldsServiceImpl() {
 
         xstream = new XStream(new ProxyAwareJavaReflectionProvider()) {
             @Override
@@ -47,32 +47,32 @@ public class XmlObjectSerializerIgnoreMissingFieldsServiceImpl extends XmlObject
                 return new MapperWrapper(next) {
                     @Override
                     public boolean shouldSerializeMember(Class definedIn,
-                            String fieldName) {
+                                                         String fieldName) {
                         if (definedIn == Object.class) {
                             return false;
                         }
-                      return super.shouldSerializeMember(definedIn, fieldName);
-                   }
-               };
-           }
-       };
+                        return super.shouldSerializeMember(definedIn, fieldName);
+                    }
+                };
+            }
+        };
 
-		xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider() ));
-		xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
+        xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+        xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
         xstream.registerConverter(new DateTimeConverter());
-	}
+    }
 
     /**
      * @see org.kuali.rice.krad.service.XmlObjectSerializer#fromXml(java.lang.String)
-     *
-     *  Fields on the XML that do not exist on the class will be ignored.
+     * <p>
+     * Fields on the XML that do not exist on the class will be ignored.
      */
     public Object fromXml(String xml) {
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "fromXml() : \n" + xml );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fromXml() : \n" + xml);
         }
-        if ( xml != null ) {
-            xml = xml.replaceAll( "--EnhancerByCGLIB--[0-9a-f]{0,8}", "" );
+        if (xml != null) {
+            xml = xml.replaceAll("--EnhancerByCGLIB--[0-9a-f]{0,8}", "");
         }
         return xstream.fromXML(xml);
     }

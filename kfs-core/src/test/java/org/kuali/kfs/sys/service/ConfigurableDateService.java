@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.service;
 
-import java.util.Date;
-
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Date;
 
 /**
  * This is a timeDateService that allows tests to specify the date/time they need to run. Set the currentDate property in this class

@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.tem.batch.businessobject;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.businessobject.PerDiemMealIncidentalBreakDown;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStrategy {
 
@@ -39,10 +39,9 @@ public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStr
 
         PerDiemMealIncidentalBreakDown breakDown = this.getBusinessObjectService().findBySinglePrimaryKey(PerDiemMealIncidentalBreakDown.class, Float.valueOf(mealsAndIncidentals.floatValue()));
 
-        if(ObjectUtils.isNull(breakDown)){
+        if (ObjectUtils.isNull(breakDown)) {
             super.breakDown(perDiem, mealsAndIncidentals);
-        }
-        else{
+        } else {
             this.breakDown(perDiem, breakDown);
         }
     }
@@ -51,7 +50,7 @@ public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStr
      * break down meal and incidental by the given break down object
      */
     protected void breakDown(PerDiem perDiem, PerDiemMealIncidentalBreakDown breakDown) {
-        KualiDecimal breakfast =  breakDown.getBreakfast();
+        KualiDecimal breakfast = breakDown.getBreakfast();
         perDiem.setBreakfast(breakfast);
 
         KualiDecimal lunch = breakDown.getLunch();
@@ -66,6 +65,7 @@ public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStr
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -74,6 +74,7 @@ public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStr
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

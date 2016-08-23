@@ -18,9 +18,7 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.InvoicePaidApplied;
 import org.kuali.kfs.module.ar.businessobject.NonAppliedDistribution;
@@ -33,7 +31,9 @@ import org.kuali.kfs.module.ar.document.service.PaymentApplicationDocumentServic
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class...
@@ -41,7 +41,7 @@ import org.kuali.kfs.krad.service.DocumentService;
 public enum PaymentApplicationDocumentFixture {
 
     PAYMENT_APPLICATION(
-            null
+        null
 
     );
 
@@ -56,7 +56,6 @@ public enum PaymentApplicationDocumentFixture {
     private transient PaymentApplicationDocumentService paymentApplicationDocumentService;
 
     /**
-     *
      * Constructs a PaymentApplicationDocumentFixture.java.
      */
     private PaymentApplicationDocumentFixture(String customerNumber) {
@@ -70,13 +69,12 @@ public enum PaymentApplicationDocumentFixture {
      * @param customerInvoiceDetailFixtures
      * @return
      */
-    public PaymentApplicationDocument createPaymentApplicationDocument(){
+    public PaymentApplicationDocument createPaymentApplicationDocument() {
 
         PaymentApplicationDocument paymentApplicationDocument = null;
         try {
             paymentApplicationDocument = (PaymentApplicationDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), PaymentApplicationDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 

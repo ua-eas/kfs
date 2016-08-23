@@ -18,8 +18,6 @@
  */
 package org.kuali.rice.core.util.jaxb;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -27,24 +25,26 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 
 /**
  * An XML element that stores a name and namespace pair in its simple content and "namespaceCode" attribute.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="NameAndNamespaceType")
+@XmlType(name = "NameAndNamespaceType")
 public class NameAndNamespacePair implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlAttribute(name="namespaceCode", required=true)
+    @XmlAttribute(name = "namespaceCode", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String namespaceCode;
 
     @XmlValue
     private String name;
 
-    public NameAndNamespacePair() {}
+    public NameAndNamespacePair() {
+    }
 
     public NameAndNamespacePair(String namespaceCode, String name) {
         this.namespaceCode = namespaceCode;

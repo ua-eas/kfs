@@ -93,10 +93,10 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1000");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1000");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1000");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         EasyMock.expect(paymentRequestDocument.getPurchaseOrderDocument()).andReturn(purchaseOrderDocument);
         EasyMock.expect(purchaseOrderDocument.getApplicationDocumentStatus()).andReturn(PurapConstants.PurchaseOrderStatuses.APPDOC_CANCELLED);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("D");
@@ -113,11 +113,11 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
     @Test
     public void testItems() {
         List<PurApItem> items = new ArrayList<>();
-        PurApItem item1 = getPaymentRequestItem(paymentRequestDocument,1,KDONE,new BigDecimal("100.00"),ITEM);
+        PurApItem item1 = getPaymentRequestItem(paymentRequestDocument, 1, KDONE, new BigDecimal("100.00"), ITEM);
         items.add(item1);
 
         List<PurApAccountingLine> lines = new ArrayList<>();
-        lines.add(getPurchaseOrderAccount(KDTWO,KDONE));
+        lines.add(getPurchaseOrderAccount(KDTWO, KDONE));
         item1.setSourceAccountingLines(lines);
 
         EasyMock.expect(paymentRequestDocument.getItems()).andReturn(items).times(1);
@@ -129,10 +129,10 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1000");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1000");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1000");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         EasyMock.expect(paymentRequestDocument.getPurchaseOrderDocument()).andReturn(purchaseOrderDocument);
         EasyMock.expect(purchaseOrderDocument.getApplicationDocumentStatus()).andReturn(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
@@ -147,11 +147,11 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
     @Test
     public void testItemsAccountingLines() {
         List<PurApItem> items = new ArrayList<>();
-        PurApItem item1 = getPaymentRequestItem(paymentRequestDocument,1,KDONE,new BigDecimal("100.00"),ITEM);
+        PurApItem item1 = getPaymentRequestItem(paymentRequestDocument, 1, KDONE, new BigDecimal("100.00"), ITEM);
         items.add(item1);
 
         List<PurApAccountingLine> lines = new ArrayList<>();
-        lines.add(getPurchaseOrderAccount(KDTWO,KDONE));
+        lines.add(getPurchaseOrderAccount(KDTWO, KDONE));
         item1.setSourceAccountingLines(lines);
         EasyMock.expect(paymentRequestDocument.getItems()).andReturn(items).times(2);
 
@@ -170,18 +170,18 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1000");
         paymentRequestDocument.setGenerateEncumbranceEntries(false);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("C");
-        EasyMock.expect(paymentRequestDocument.generateGeneralLedgerPendingEntries(EasyMock.anyObject(),EasyMock.anyObject())).andReturn(true);
+        EasyMock.expect(paymentRequestDocument.generateGeneralLedgerPendingEntries(EasyMock.anyObject(), EasyMock.anyObject())).andReturn(true);
 
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1000");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(1);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1000");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(1);
 
         EasyMock.expect(paymentRequestDocument.getPurchaseOrderDocument()).andReturn(purchaseOrderDocument);
         EasyMock.expect(purchaseOrderDocument.getApplicationDocumentStatus()).andReturn(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(purapAccountingService.generateUseTaxAccount(paymentRequestDocument)).andReturn(new ArrayList<>());
         EasyMock.expect(paymentRequestDocument.getPurapDocumentIdentifier()).andReturn(1000);
-        purapAccountingService.deleteSummaryAccounts(1000,"PREQ");
+        purapAccountingService.deleteSummaryAccounts(1000, "PREQ");
 
         EasyMock.expect(SpringContext.getBean(AccountService.class)).andReturn(accountService);
         accountService.populateAccountingLineChartIfNeeded(EasyMock.anyObject());
@@ -192,8 +192,8 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(paymentRequestDocument.getPostingYearFromPendingGLEntries()).andReturn(2016);
         EasyMock.expect(paymentRequestDocument.getPostingPeriodCodeFromPendingGLEntries()).andReturn("01");
 
-        EasyMock.expect(businessObjectService.save( (List)EasyMock.anyObject())).andReturn(null).times(2);
-        purapAccountRevisionService.cancelPaymentRequestAccountRevisions(EasyMock.anyObject(),EasyMock.anyInt(),EasyMock.anyString());
+        EasyMock.expect(businessObjectService.save((List) EasyMock.anyObject())).andReturn(null).times(2);
+        purapAccountRevisionService.cancelPaymentRequestAccountRevisions(EasyMock.anyObject(), EasyMock.anyInt(), EasyMock.anyString());
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
         replayAll();
 
@@ -212,12 +212,12 @@ public class GenerateEntriesCancelPaymentRequestTest extends PurapGeneralLedgerT
     }
 
     private void replayAll() {
-        EasyMock.replay(paymentRequestDocument,purapAccountingService,businessObjectService,purapAccountRevisionService,purchaseOrderService,purchaseOrderDocument,accountService,dateTimeService);
+        EasyMock.replay(paymentRequestDocument, purapAccountingService, businessObjectService, purapAccountRevisionService, purchaseOrderService, purchaseOrderDocument, accountService, dateTimeService);
         PowerMock.replay(SpringContext.class);
     }
 
     private void verifyAll() {
-        EasyMock.verify(paymentRequestDocument,purapAccountingService,businessObjectService,purapAccountRevisionService,purchaseOrderService,purchaseOrderDocument,accountService,dateTimeService);
+        EasyMock.verify(paymentRequestDocument, purapAccountingService, businessObjectService, purapAccountRevisionService, purchaseOrderService, purchaseOrderDocument, accountService, dateTimeService);
         PowerMock.verify(SpringContext.class);
     }
 }

@@ -26,8 +26,6 @@ import java.util.List;
 
 /**
  * This class returns list of am/pm value pairs.
- *
- *
  */
 public class AMPMValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBase {
 
@@ -35,8 +33,8 @@ public class AMPMValuesFinder extends org.kuali.kfs.krad.keyvalues.KeyValuesBase
      * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
      */
     @Override
-	public List<KeyValue> getKeyValues() {
-    	List<KeyValue> keyValues = new ArrayList<KeyValue>();
+    public List<KeyValue> getKeyValues() {
+        List<KeyValue> keyValues = new ArrayList<KeyValue>();
         keyValues.add(new ConcreteKeyValue("No", "AM"));
         keyValues.add(new ConcreteKeyValue("Yes", "PM"));
 

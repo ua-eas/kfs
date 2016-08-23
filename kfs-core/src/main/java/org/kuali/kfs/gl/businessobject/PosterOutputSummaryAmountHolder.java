@@ -28,8 +28,8 @@ public interface PosterOutputSummaryAmountHolder {
      * This method adds an amounts to the correct totals for a poster output summary entry
      *
      * @param debitCreditCode credit code used to determine whether amounts is debit or credit
-     * @param objectTypeCode object type code associated with amount
-     * @param amount amount to add
+     * @param objectTypeCode  object type code associated with amount
+     * @param amount          amount to add
      */
     public void addAmount(String debitCreditCode, String objectTypeCode, KualiDecimal amount);
 }

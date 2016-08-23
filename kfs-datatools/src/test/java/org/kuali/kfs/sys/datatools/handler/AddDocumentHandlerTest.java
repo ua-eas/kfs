@@ -19,19 +19,15 @@
 package org.kuali.kfs.sys.datatools.handler;
 
 
-import org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.util.JSON;
-
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler;
+import org.springframework.data.mongodb.core.MongoOperations;
 
 public class AddDocumentHandlerTest {
     private AddDocumentHandler addDocumentHandler;

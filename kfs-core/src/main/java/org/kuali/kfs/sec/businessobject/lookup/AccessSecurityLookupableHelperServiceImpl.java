@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sec.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.sec.SecKeyConstants;
-import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sec.util.SecUtil;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sec.SecKeyConstants;
+import org.kuali.kfs.sec.service.AccessSecurityService;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**

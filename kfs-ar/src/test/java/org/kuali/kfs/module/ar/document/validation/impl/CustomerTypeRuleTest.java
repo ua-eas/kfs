@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerType;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerTypeRuleTest extends MaintenanceRuleTestBase {
@@ -61,7 +61,7 @@ public class CustomerTypeRuleTest extends MaintenanceRuleTestBase {
     }
 
     /**
-     *  This method tests if the validateCustomerTypeDescription rule returns false when customer type desc is set to a valuse that already exists in the database
+     * This method tests if the validateCustomerTypeDescription rule returns false when customer type desc is set to a valuse that already exists in the database
      */
     public void testValidateCustomerTypeDescription_False() {
 

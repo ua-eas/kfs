@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.LinkedHashMap;
 
 /**
  * Represents a GLCP criteria
@@ -133,12 +133,10 @@ public class CorrectionCriteria extends PersistableBusinessObjectBase implements
                 Integer thisCln = correctionCriteriaLineNumber == null ? 0 : correctionCriteriaLineNumber;
                 Integer thatCln = correctionCriteriaLineNumber == null ? 0 : cc.correctionCriteriaLineNumber;
                 return c = thisCln.compareTo(thatCln);
-            }
-            else {
+            } else {
                 return c;
             }
-        }
-        else {
+        } else {
             return c;
         }
     }

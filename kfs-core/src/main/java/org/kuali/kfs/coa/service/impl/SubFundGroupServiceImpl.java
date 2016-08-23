@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.coa.service.impl;
 
-import java.util.Collection;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.FundGroup;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.dataaccess.SubFundGroupDao;
 import org.kuali.kfs.coa.service.SubFundGroupService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
+
+import java.util.Collection;
 
 /**
  * This service implementation is the default implementation of the SubFundGroup service that is delivered with Kuali.
@@ -47,15 +47,13 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     public boolean isForContractsAndGrants(SubFundGroup subFundGroup) {
         if (ObjectUtils.isNull(subFundGroup)) {
             return false;
-        }
-        else if (fundGroupDenotesContractsAndGrants()) {
+        } else if (fundGroupDenotesContractsAndGrants()) {
             return /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE, subFundGroup.getFundGroupCode()).evaluationSucceeds();
-    //      return getContractsAndGrantsDenotingValue(subFundGroup.getFundGroupCode());
-        }
-        else {
+            //      return getContractsAndGrantsDenotingValue(subFundGroup.getFundGroupCode());
+        } else {
             return /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE, subFundGroup.getSubFundGroupCode()).evaluationSucceeds();
 
-           //return getContractsAndGrantsDenotingValue(subFundGroup.getSubFundGroupCode());
+            //return getContractsAndGrantsDenotingValue(subFundGroup.getSubFundGroupCode());
         }
     }
 
@@ -65,21 +63,18 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     public String getContractsAndGrantsDenotingAttributeLabel() {
         if (fundGroupDenotesContractsAndGrants()) {
             return dataDictionaryService.getAttributeLabel(FundGroup.class, KFSConstants.FUND_GROUP_CODE_PROPERTY_NAME);
-        }
-        else {
+        } else {
             return dataDictionaryService.getAttributeLabel(SubFundGroup.class, KFSConstants.SUB_FUND_GROUP_CODE_PROPERTY_NAME);
         }
     }
 
     /**
-     *
      * @see org.kuali.kfs.coa.service.SubFundGroupService#getContractsAndGrantsDenotingValue(org.kuali.kfs.coa.businessobject.SubFundGroup)
      */
     public String getContractsAndGrantsDenotingValue(SubFundGroup subFundGroup) {
         if (fundGroupDenotesContractsAndGrants()) {
             return subFundGroup.getFundGroupCode();
-        }
-        else {
+        } else {
             return subFundGroup.getSubFundGroupCode();
         }
     }
@@ -101,8 +96,8 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     }
 
     /**
-     *
      * This checks to see if there is a value for checking if a Fund Group denotes Contracts and Grants
+     *
      * @return false if there is no value
      */
     protected boolean fundGroupDenotesContractsAndGrants() {
@@ -113,7 +108,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
      * @see org.kuali.kfs.coa.service.SubFundGroupService#getByPrimaryId(java.lang.String)
      */
     public SubFundGroup getByPrimaryId(String subFundGroupCode) {
-        return (SubFundGroup)SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(SubFundGroup.class, subFundGroupCode);
+        return (SubFundGroup) SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(SubFundGroup.class, subFundGroupCode);
     }
 
     /**
@@ -124,8 +119,8 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     }
 
     /**
-     *
      * This method injects the ParameterService
+     *
      * @param parameterService
      */
     public void setParameterService(ParameterService parameterService) {

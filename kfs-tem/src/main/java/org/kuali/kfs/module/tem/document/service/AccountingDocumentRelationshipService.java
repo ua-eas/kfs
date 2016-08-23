@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
+import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
+
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
 
 public interface AccountingDocumentRelationshipService {
 
@@ -78,8 +78,8 @@ public interface AccountingDocumentRelationshipService {
     public void delete(AccountingDocumentRelationship accountingDocumentRelationship);
 
     /**
-     *
      * This method finds an accountingDocumentRelationship
+     *
      * @param adr
      * @return
      */
@@ -95,6 +95,7 @@ public interface AccountingDocumentRelationshipService {
 
     /**
      * Determines if the given document number represents a document which is a "child" of another document
+     *
      * @param documentNumber the document number to check for childishness
      * @return true if the document number represents a document which is the "related" document in any accounting document relationship; false otherwise
      */

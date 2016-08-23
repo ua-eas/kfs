@@ -18,21 +18,19 @@
  */
 package org.kuali.kfs.krad.uif.control;
 
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.uif.view.ViewModel;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 
 import java.util.List;
 
 /**
  * Values finder that can taken the {@link ViewModel} that provides data to the view
  * for conditionally setting the valid options
- *
+ * <p>
  * <p>
  * Values finder also allows configuration for a blank option that will be added by the framework
  * </p>
- *
- *
  */
 public interface UifKeyValuesFinder extends KeyValuesFinder {
 

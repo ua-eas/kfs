@@ -34,21 +34,22 @@ public class AdHocRoutePersonId implements Serializable {
 
     private static final long serialVersionUID = -2030160650786561367L;
 
-	@Column(name="RECIP_TYP_CD")
+    @Column(name = "RECIP_TYP_CD")
     private Integer type;
     @Id
-    @Column(name="ACTN_RQST_CD")
+    @Column(name = "ACTN_RQST_CD")
     private String actionRequested;
     @Id
-    @Column(name="ACTN_RQST_RECIP_ID")
+    @Column(name = "ACTN_RQST_RECIP_ID")
     private String id;
 
-    public AdHocRoutePersonId() {}
+    public AdHocRoutePersonId() {
+    }
 
     public AdHocRoutePersonId(Integer type, String actionRequested, String id) {
-    	this.type = type;
-    	this.actionRequested = actionRequested;
-    	this.id = id;
+        this.type = type;
+        this.actionRequested = actionRequested;
+        this.id = id;
     }
 
     public Integer getType() {
@@ -72,7 +73,7 @@ public class AdHocRoutePersonId implements Serializable {
     }
 
     public int hashCode() {
-    	return new HashCodeBuilder().append(type).append(actionRequested).append(id).toHashCode();
+        return new HashCodeBuilder().append(type).append(actionRequested).append(id).toHashCode();
     }
 
 }

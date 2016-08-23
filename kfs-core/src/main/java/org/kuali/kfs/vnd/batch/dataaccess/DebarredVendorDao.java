@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.vnd.batch.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
+
+import java.util.List;
 
 public interface DebarredVendorDao {
     /**
      * Match the vendors excluded in EPLS with the active vendors in EPIC based on their names, aliases, and addresses.
+     *
      * @return the match results as a list of vendor exclude confirmations.
      */
     public List<DebarredVendorMatch> match();

@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * Business object that represents a selected/unselected funding reason code for a user.

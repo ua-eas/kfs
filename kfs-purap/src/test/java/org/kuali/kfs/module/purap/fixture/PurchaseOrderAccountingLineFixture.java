@@ -29,10 +29,10 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  */
 public enum PurchaseOrderAccountingLineFixture {
     BASIC_PO_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
+        AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
     ),
     PO_APO_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE1 // AccountingLineFixture
+        AccountingLineFixture.APO_LINE1 // AccountingLineFixture
     );
 
     private PurApAccountingLineFixture purApAccountingLineFixture;
@@ -49,9 +49,9 @@ public enum PurchaseOrderAccountingLineFixture {
     /**
      * Creates a PurAp Accounting Line using the specified PurAp Accounting Line Fixture and Accounting Line Fixture.
      *
-     * @param clazz the Purchase Order Account class.
+     * @param clazz        the Purchase Order Account class.
      * @param puralFixture the specified PurAp Accounting Line Fixture.
-     * @param alFixture the specified Accounting Line Fixture.
+     * @param alFixture    the specified Accounting Line Fixture.
      * @return the created PurAp Accounting Line.
      */
     public PurApAccountingLine createPurApAccountingLine(Class clazz, PurApAccountingLineFixture puralFixture, AccountingLineFixture alFixture) {

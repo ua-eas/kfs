@@ -19,7 +19,6 @@
 package org.kuali.kfs.fp.document.web.struts;
 
 
-
 /**
  * This class handles Actions for the Distribution Income Expense objects.
  */

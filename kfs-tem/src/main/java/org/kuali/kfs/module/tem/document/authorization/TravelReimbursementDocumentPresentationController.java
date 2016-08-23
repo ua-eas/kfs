@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
 import org.kuali.kfs.module.tem.TemConstants.TravelReimbursementStatusCodeKeys;
@@ -41,16 +40,16 @@ import org.kuali.kfs.module.tem.document.web.struts.TravelReimbursementForm;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Travel Reimbursement Document Presentation Controller
- *
  */
 public class TravelReimbursementDocumentPresentationController extends TravelDocumentPresentationController {
 
@@ -85,13 +84,13 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
      */
     @Override
     public Set<String> getDocumentActions(Document document) {
-        TravelReimbursementDocument tr = (TravelReimbursementDocument)document;
+        TravelReimbursementDocument tr = (TravelReimbursementDocument) document;
         TravelAuthorizationDocument ta = null;
         ta = getTravelDocumentService().findCurrentTravelAuthorization(tr);
 
-        if (ta != null){
-            if(ta.getDelinquentAction() != null && ta.getDelinquentAction().equals(TemConstants.DELINQUENT_STOP) && !ta.getDelinquentTRException()){
-                throw new DocumentInitiationException(TemKeyConstants.ERROR_AUTHORIZATION_TR_DELINQUENT, new String[] { TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT }, true);
+        if (ta != null) {
+            if (ta.getDelinquentAction() != null && ta.getDelinquentAction().equals(TemConstants.DELINQUENT_STOP) && !ta.getDelinquentTRException()) {
+                throw new DocumentInitiationException(TemKeyConstants.ERROR_AUTHORIZATION_TR_DELINQUENT, new String[]{TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT}, true);
             }
         }
 
@@ -120,13 +119,13 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
 
         final String appDocStatus = document.getApplicationDocumentStatus();
         boolean statusCheck = (document.getDocumentHeader().getWorkflowDocument().isProcessed() || document.getDocumentHeader().getWorkflowDocument().isFinal())
-                && (appDocStatus.equals(TravelReimbursementStatusCodeKeys.DEPT_APPROVED));
+            && (appDocStatus.equals(TravelReimbursementStatusCodeKeys.DEPT_APPROVED));
 
         Person user = GlobalVariables.getUserSession().getPerson();
         boolean hasInitAccess = false;
-        if (getTemRoleService().canAccessTravelDocument(document, user) && !ObjectUtils.isNull(document.getTraveler()) && document.getTemProfileId() != null && !ObjectUtils.isNull(document.getTemProfile())){
+        if (getTemRoleService().canAccessTravelDocument(document, user) && !ObjectUtils.isNull(document.getTraveler()) && document.getTemProfileId() != null && !ObjectUtils.isNull(document.getTemProfile())) {
             //check if user also can init other docs
-            hasInitAccess = user.getPrincipalId().equals(document.getTraveler().getPrincipalId()) || getTemRoleService().isTravelDocumentArrangerForProfile(documentType, user.getPrincipalId(), document.getTemProfileId()) || getTemRoleService().isTravelArranger(user, document.getTemProfile().getHomeDepartment() , document.getTemProfileId().toString(), documentType);
+            hasInitAccess = user.getPrincipalId().equals(document.getTraveler().getPrincipalId()) || getTemRoleService().isTravelDocumentArrangerForProfile(documentType, user.getPrincipalId(), document.getTemProfileId()) || getTemRoleService().isTravelArranger(user, document.getTemProfile().getHomeDepartment(), document.getTemProfileId().toString(), documentType);
         }
 
         boolean checkRelatedDocs = true;
@@ -137,7 +136,7 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
             //don't display link if there are enroute TRs
             List<Document> docs = getTravelDocumentService().getDocumentsRelatedTo(document, documentType);
             for (Document doc : docs) {
-                TravelReimbursementDocument trDoc = (TravelReimbursementDocument)doc;
+                TravelReimbursementDocument trDoc = (TravelReimbursementDocument) doc;
                 if (trDoc.getDocumentHeader().getWorkflowDocument().isEnroute()) {
                     checkRelatedDocs &= false;
                 }
@@ -166,19 +165,19 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
         //check Trip Types to verify at least one type can initiate TR without TA
         initiateReimbursementWithoutAuthorization &= !getTravelReimbursementService().doAllReimbursementTripTypesRequireTravelAuthorization();
         if (!initiateReimbursementWithoutAuthorization) {
-            throw new DocumentInitiationException(TemKeyConstants.ERROR_TA_REQUIRED_FOR_TR_INIT,new String[] {},true);
+            throw new DocumentInitiationException(TemKeyConstants.ERROR_TA_REQUIRED_FOR_TR_INIT, new String[]{}, true);
         }
 
         KualiForm form = KNSGlobalVariables.getKualiForm();
         if (form instanceof TravelReimbursementForm) {
-            final TravelReimbursementForm reimbForm = (TravelReimbursementForm)form;
+            final TravelReimbursementForm reimbForm = (TravelReimbursementForm) form;
             if (!StringUtils.isBlank(reimbForm.getTravelDocumentIdentifier())) {
                 // we're basing this document off of another document; let's look for any other TR's in the trip to verify they are not enroute
                 final List<TravelReimbursementDocument> trDocsInTrip = getTravelReimbursementsInTrip(reimbForm.getTravelDocumentIdentifier());
                 if (!trDocsInTrip.isEmpty()) {
                     for (TravelReimbursementDocument trDoc : trDocsInTrip) {
                         if (StringUtils.equals(trDoc.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode(), KFSConstants.DocumentStatusCodes.ENROUTE)) {
-                            throw new DocumentInitiationException(TemKeyConstants.ERROR_TR_ENROUTE_DURING_TR_INIT, new String[] {reimbForm.getTravelDocumentIdentifier(), trDoc.getDocumentNumber()}, true);
+                            throw new DocumentInitiationException(TemKeyConstants.ERROR_TR_ENROUTE_DURING_TR_INIT, new String[]{reimbForm.getTravelDocumentIdentifier(), trDoc.getDocumentNumber()}, true);
                         }
                     }
                 }
@@ -190,6 +189,7 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
 
     /**
      * Look up any TravelReimbursementDocuments associated with the given trip
+     *
      * @param tripId the travel document identifier for the trip we're thinking about initiating a new TR for
      * @return a List of any existing TravelReimbursementDocuments in that trip
      */
@@ -229,13 +229,12 @@ public class TravelReimbursementDocumentPresentationController extends TravelDoc
     }
 
     protected boolean isReimbursementChildOfAuthorization(Document document) {
-        TravelReimbursementDocument tr = (TravelReimbursementDocument)document;
+        TravelReimbursementDocument tr = (TravelReimbursementDocument) document;
         List<TravelAuthorizationDocument> travelAuthorizations = getTravelDocumentService().findAuthorizationDocuments(tr.getTravelDocumentIdentifier());
 
         if (ObjectUtils.isNotNull(travelAuthorizations) && !travelAuthorizations.isEmpty()) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

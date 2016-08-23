@@ -32,15 +32,15 @@
  * limitations under the License.
  */
 
-#testValidationGroup1_layout td, #testValidationGroup1_layout th {              /* not sure this style will be carried forward */
-	margin: 0;
-	padding: 0;
-}
-#testValidationGroup1_layout td, #testValidationGroup1_layout th {
-	margin: 0px;
-	padding: 15px 15px 15px 0px;
+#testValidationGroup1_layout td, #testValidationGroup1_layout th { /* not sure this style will be carried forward */
+    margin: 0;
+    padding: 0;
 }
 
+#testValidationGroup1_layout td, #testValidationGroup1_layout th {
+    margin: 0px;
+    padding: 15px 15px 15px 0px;
+}
 
 /* Temporary classes for Course Offering screen */
 /*.uif-labelTop {

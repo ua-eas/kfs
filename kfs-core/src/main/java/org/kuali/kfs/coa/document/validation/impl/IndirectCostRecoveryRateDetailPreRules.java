@@ -21,9 +21,9 @@ package org.kuali.kfs.coa.document.validation.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
 
 /**
  * PreRules checks for the {@link IndirectCostRecoveryRateDetail} that needs to occur while still in the Struts processing. This includes

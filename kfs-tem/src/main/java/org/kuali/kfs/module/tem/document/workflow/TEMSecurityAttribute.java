@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.tem.document.workflow;
 
-import java.util.concurrent.Callable;
-
-import org.kuali.kfs.module.tem.document.TravelDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.workflow.SensitiveDataSecurityAttribute;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.document.TravelDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.workflow.SensitiveDataSecurityAttribute;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.IdentityService;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.concurrent.Callable;
 
 /**
  * TEM Security Attribute restrict doc search results and view route log
@@ -54,15 +54,15 @@ public class TEMSecurityAttribute extends SensitiveDataSecurityAttribute {
         if (authorized) {
             try {
                 final String principalName = getIdentityService().getPrincipal(principalId).getPrincipalName();
-                Boolean canOpen = GlobalVariables.doInNewGlobalVariables(new UserSession(principalName), new Callable<Boolean>(){
+                Boolean canOpen = GlobalVariables.doInNewGlobalVariables(new UserSession(principalName), new Callable<Boolean>() {
                     @Override
                     public Boolean call() {
-                        return canOpen(GlobalVariables.getUserSession().getPerson() , document.getDocumentTypeName(), document.getDocumentId());
+                        return canOpen(GlobalVariables.getUserSession().getPerson(), document.getDocumentTypeName(), document.getDocumentId());
                     }
                 });
-                return ObjectUtils.isNotNull(canOpen) && canOpen ;
+                return ObjectUtils.isNotNull(canOpen) && canOpen;
             } catch (Exception ex) {
-                LOG.error( "Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
+                LOG.error("Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
                 return false;
             }
         }
@@ -97,8 +97,7 @@ public class TEMSecurityAttribute extends SensitiveDataSecurityAttribute {
         TravelDocument document = null;
         try {
             document = (TravelDocument) getDocumentService().getByDocumentHeaderIdSessionless(documentNumber);
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             throw new RuntimeException(ex);
         }
         return document;

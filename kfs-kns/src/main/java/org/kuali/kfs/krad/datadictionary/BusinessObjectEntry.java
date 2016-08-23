@@ -24,10 +24,8 @@ import org.kuali.rice.krad.bo.BusinessObject;
 /**
  * A single BusinessObject entry in the DataDictionary, which contains information relating to the display, validation,
  * and general maintenance of a BusinessObject and its attributes.
- *
+ * <p>
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process
- *
- *
  */
 public class BusinessObjectEntry extends DataObjectEntry {
 
@@ -98,10 +96,10 @@ public class BusinessObjectEntry extends DataObjectEntry {
             for (InactivationBlockingDefinition ibd : inactivationBlockingDefinitions) {
                 ibd.setBusinessObjectClass(getBusinessObjectClass());
                 if (StringUtils.isNotBlank(ibd.getBlockedReferencePropertyName()) &&
-                        ibd.getBlockedBusinessObjectClass() == null) {
+                    ibd.getBlockedBusinessObjectClass() == null) {
                     // if the user didn't specify a class name for the blocked reference, determine it here
                     ibd.setBlockedBusinessObjectClass(DataDictionary
-                            .getAttributeClass(getDataObjectClass(), ibd.getBlockedReferencePropertyName()));
+                        .getAttributeClass(getDataObjectClass(), ibd.getBlockedReferencePropertyName()));
                 }
                 ibd.setBlockingReferenceBusinessObjectClass(getBusinessObjectClass());
             }

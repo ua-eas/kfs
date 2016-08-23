@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * Parent interface of all document-related events, which are used to drive the business rules evaluation process.
- *
- *
  */
 public interface KualiDocumentEvent {
     /**

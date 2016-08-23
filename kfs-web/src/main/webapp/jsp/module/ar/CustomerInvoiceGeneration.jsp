@@ -16,13 +16,13 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-	<c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}" />
+<c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}"/>
 
 <kul:page lookup="true" showDocumentInfo="false"
-	headerTitle="Customer Invoice Generation" docTitle="Customer Invoice Generation" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="arCustomerInvoiceGeneration" errorKey="foo">
+          headerTitle="Customer Invoice Generation" docTitle="Customer Invoice Generation" renderMultipart="true"
+          transactionalDocument="false" htmlFormAction="arCustomerInvoiceGeneration" errorKey="foo">
 
     <div class="headerarea-small" id="headerarea-small">
         <h1>Customer Invoice Generation</h1>
@@ -32,23 +32,23 @@
         <table class="standard" align="center" summary="Invoice Section">
             <tr>
                 <th>
-                    <label for="chartCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true" /></label>
+                    <label for="chartCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true"/></label>
                 </th>
                 <td>
-                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"  />
-                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Chart"  fieldConversions="chartOfAccountsCode:chartCode"  />
+                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"/>
+                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Chart" fieldConversions="chartOfAccountsCode:chartCode"/>
                 </td>
             </tr>
             <tr>
                 <th>
-                    <label for="orgCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true" /></label>
+                    <label for="orgCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true"/></label>
                 </th>
                 <td>
-                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.organizationCode}" property="orgCode"  />
-                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Organization"  fieldConversions="organizationCode:orgCode" lookupParameters="orgCode:organizationCode,chartCode:chartOfAccountsCode"/>
+                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.organizationCode}" property="orgCode"/>
+                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Organization" fieldConversions="organizationCode:orgCode" lookupParameters="orgCode:organizationCode,chartCode:chartOfAccountsCode"/>
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <th>
                     <label for="userId">User Id:</label>
                 </th>
@@ -56,7 +56,7 @@
                     <html-el:text property="userId"/>
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <th>
                     <label for="runDate">Print invoices for date:</label>
                 </th>
@@ -77,24 +77,24 @@
                 </td>
             </tr>
             <tr align="center">
-                <td height="30" colspan="4"  class="infoline">
+                <td height="30" colspan="4" class="infoline">
                     <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
                     <c:if test="${!empty extraButtons}">
                         <c:forEach items="${extraButtons}" var="extraButton">
                             <html:submit styleClass="tinybutton btn btn-default" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}" value="${extraButton.extraButtonAltText}"/>
                         </c:forEach>
                     </c:if>
-                 </td>
-             </tr>
+                </td>
+            </tr>
         </table>
     </div>
 
     <kul:stickyLookupButtons/>
 
-	<div>
-	  <c:if test="${!empty KualiForm.message }">
- 			${KualiForm.message }
-      </c:if>
-   </div>
+    <div>
+        <c:if test="${!empty KualiForm.message }">
+            ${KualiForm.message }
+        </c:if>
+    </div>
 
 </kul:page>

@@ -26,8 +26,7 @@ public abstract class AbstractWrappingBatchService implements WrappedBatchExecut
         try {
             initialize();
             batchTransactionExecutor.execute();
-        }
-        finally {
+        } finally {
             destroy();
         }
     }

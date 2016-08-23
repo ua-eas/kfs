@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -31,14 +25,20 @@ import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.SubFundGroupService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements the business rules specific to the {@link SubAccount} Maintenance Document.
@@ -143,9 +143,9 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
         refreshSubObjects(newSubAccount);
 
         //icr rule checking setup
-        if (newSubAccount.getA21SubAccount() != null){
+        if (newSubAccount.getA21SubAccount() != null) {
             List<IndirectCostRecoveryAccount> icrAccountList = new ArrayList<IndirectCostRecoveryAccount>(
-                    newSubAccount.getA21SubAccount().getA21ActiveIndirectCostRecoveryAccounts());
+                newSubAccount.getA21SubAccount().getA21ActiveIndirectCostRecoveryAccounts());
             setActiveIndirectCostRecoveryAccountList(icrAccountList);
             setBoFieldPath(KFSPropertyConstants.A21INDIRECT_COST_RECOVERY_ACCOUNTS);
         }
@@ -229,12 +229,12 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
 
                     // KULCOA-1116 - Check if CG CS and CG ICR are empty, if not throw an error
                     if (checkCgCostSharingIsEmpty() == false) {
-                        putFieldError("a21SubAccount.costShareChartOfAccountCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_CS_INVALID, new String[] { SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage() });
+                        putFieldError("a21SubAccount.costShareChartOfAccountCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_CS_INVALID, new String[]{SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage()});
                         success = false;
                     }
 
                     if (checkCgIcrIsEmpty() == false) {
-                        putFieldError("a21SubAccount.indirectCostRecoveryTypeCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_ICR_INVALID, new String[] { SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage() });
+                        putFieldError("a21SubAccount.indirectCostRecoveryTypeCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_ICR_INVALID, new String[]{SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage()});
                         success = false;
                     }
 
@@ -245,7 +245,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
                         newSubAccount.getA21SubAccount().refreshNonUpdateableReferences();
                         a21SubAccountRefreshed = true;
                         if (StringUtils.isEmpty(newSubAccount.getA21SubAccount().getSubAccountTypeCode()) || !newSubAccount.getA21SubAccount().getSubAccountTypeCode().equals(KFSConstants.SubAccountType.EXPENSE)) {
-                            putFieldError("a21SubAccount.subAccountTypeCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_SUB_ACCT_TYPE_CODE_INVALID, new String[] { SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage() });
+                            putFieldError("a21SubAccount.subAccountTypeCode", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_NON_FUNDED_ACCT_SUB_ACCT_TYPE_CODE_INVALID, new String[]{SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage()});
                             success = false;
                         }
                     }
@@ -271,7 +271,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
 
         if (!a21SubAccountRefreshed) {
             //preserve the ICRAccounts before refresh to prevent the list from dropping
-            List<A21IndirectCostRecoveryAccount>icrAccounts =a21.getA21IndirectCostRecoveryAccounts();
+            List<A21IndirectCostRecoveryAccount> icrAccounts = a21.getA21IndirectCostRecoveryAccounts();
             a21.refresh();
             a21.setA21IndirectCostRecoveryAccounts(icrAccounts);
 
@@ -304,7 +304,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
      * the chart of accounts code and account number) an error is recorded
      *
      * @return true if all cost share fields filled out correctly, false if the chart of accounts code and account number for cost
-     *         share are missing
+     * share are missing
      */
     protected boolean checkCgCostSharingRules() {
 
@@ -342,7 +342,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
         if (ObjectUtils.isNotNull(a21.getCostShareAccount())) {
             if (ObjectUtils.isNotNull(a21.getCostShareAccount().getSubFundGroup())) {
                 if (a21.getCostShareAccount().isForContractsAndGrants()) {
-                    putFieldError("a21SubAccount.costShareSourceAccountNumber", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_COST_SHARE_ACCOUNT_MAY_NOT_BE_CG_FUNDGROUP, new String[] { SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage() });
+                    putFieldError("a21SubAccount.costShareSourceAccountNumber", KFSKeyConstants.ERROR_DOCUMENT_SUBACCTMAINT_COST_SHARE_ACCOUNT_MAY_NOT_BE_CG_FUNDGROUP, new String[]{SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingAttributeLabel(), SpringContext.getBean(SubFundGroupService.class).getContractsAndGrantsDenotingValueForMessage()});
                     success &= false;
                 }
             }
@@ -365,7 +365,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
      */
     protected boolean checkCgIcrRules() {
         A21SubAccount a21 = newSubAccount.getA21SubAccount();
-        if(ObjectUtils.isNull(a21)) {
+        if (ObjectUtils.isNull(a21)) {
             return true;
         }
 
@@ -393,10 +393,9 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
                 String label = SpringContext.getBean(DataDictionaryService.class).getAttributeLabel(A21SubAccount.class, KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER);
                 putFieldError(KFSPropertyConstants.A21_SUB_ACCOUNT + "." + KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, KFSKeyConstants.ERROR_EXISTENCE, label + " (" + icrSeriesId + ")");
                 success = false;
-            }
-            else {
-                for(IndirectCostRecoveryRateDetail icrRateDetail : icrRateDetails) {
-                    if(ObjectUtils.isNull(icrRateDetail.getIndirectCostRecoveryRate())){
+            } else {
+                for (IndirectCostRecoveryRateDetail icrRateDetail : icrRateDetails) {
+                    if (ObjectUtils.isNull(icrRateDetail.getIndirectCostRecoveryRate())) {
                         putFieldError(KFSPropertyConstants.A21_SUB_ACCOUNT + "." + KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, KFSKeyConstants.IndirectCostRecovery.ERROR_DOCUMENT_ICR_RATE_NOT_FOUND, new String[]{fiscalYear, icrSeriesId});
                         success = false;
                         break;
@@ -406,10 +405,10 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
         }
 
         // existence check for ICR Account
-        for (A21IndirectCostRecoveryAccount account : a21.getA21ActiveIndirectCostRecoveryAccounts()){
+        for (A21IndirectCostRecoveryAccount account : a21.getA21ActiveIndirectCostRecoveryAccounts()) {
             if (StringUtils.isNotBlank(account.getIndirectCostRecoveryAccountNumber())
-                && StringUtils.isNotBlank(account.getIndirectCostRecoveryFinCoaCode())){
-                if(ObjectUtils.isNull(account.getIndirectCostRecoveryAccount())){
+                && StringUtils.isNotBlank(account.getIndirectCostRecoveryFinCoaCode())) {
+                if (ObjectUtils.isNull(account.getIndirectCostRecoveryAccount())) {
                     putFieldError(KFSPropertyConstants.A21INDIRECT_COST_RECOVERY_ACCOUNTS, KFSKeyConstants.ERROR_EXISTENCE, "ICR Account: " + account.getIndirectCostRecoveryFinCoaCode() + "-" + account.getIndirectCostRecoveryAccountNumber());
                     success = false;
                     break;
@@ -469,7 +468,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
     /**
      * This method tests the value entered, and if there is anything there it logs a new error, and returns false.
      *
-     * @param value - String value to be tested
+     * @param value     - String value to be tested
      * @param fieldName - name of the field being tested
      * @return false if there is any value in value, otherwise true
      */
@@ -486,8 +485,8 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
      * Note that the comparison is done after trimming both leading and trailing whitespace from both strings, and then doing a
      * case-insensitive comparison.
      *
-     * @param oldValue - the original String value of the field
-     * @param newValue - the new String value of the field
+     * @param oldValue  - the original String value of the field
+     * @param newValue  - the new String value of the field
      * @param fieldName - name of the field being tested
      * @return false if there is any difference between the old and new, true otherwise
      */

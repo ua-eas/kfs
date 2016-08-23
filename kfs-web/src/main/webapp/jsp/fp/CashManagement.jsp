@@ -16,14 +16,14 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <%--
   HACK: CashManagementDocument isn't a transactionalDocument, but its XML file claims that it is,
   which is why this JSP abuses some of the standard transactionalDocument tags
 --%>
-<c:set var="allowAdditionalDeposits" value="${KualiForm.editingMode['allowAdditionalDeposits']}" />
-<c:set var="showDeposits" value="${allowAdditionalDeposits || (!empty KualiForm.document.deposits)}" />
+<c:set var="allowAdditionalDeposits" value="${KualiForm.editingMode['allowAdditionalDeposits']}"/>
+<c:set var="showDeposits" value="${allowAdditionalDeposits || (!empty KualiForm.document.deposits)}"/>
 
 <kul:documentPage showDocumentInfo="true" htmlFormAction="financialCashManagement" documentTypeName="CashManagementDocument" renderMultipart="true" showTabButtons="true">
     <sys:hiddenDocumentFields isFinancialDocument="false"/>
@@ -31,34 +31,34 @@
     <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
     <c:if test="${!empty KualiForm.document.checks}">
-      <logic:iterate indexId="ctr" name="KualiForm" property="document.checks" id="currentCheck">
-        <fp:hiddenCheckLine propertyName="document.checks[${ctr}]" displayHidden="false" />
-      </logic:iterate>
+        <logic:iterate indexId="ctr" name="KualiForm" property="document.checks" id="currentCheck">
+            <fp:hiddenCheckLine propertyName="document.checks[${ctr}]" displayHidden="false"/>
+        </logic:iterate>
     </c:if>
 
     <fp:cashDrawerActivity/>
 
     <c:if test="${!showDeposits}">
-        <kul:hiddenTab forceOpen="true" />
+        <kul:hiddenTab forceOpen="true"/>
     </c:if>
     <c:if test="${showDeposits}">
         <fp:deposits editingMode="${KualiForm.editingMode}"/>
     </c:if>
 
-    <fp:cashieringActivity />
+    <fp:cashieringActivity/>
 
     <c:if test="${!empty KualiForm.recentlyClosedItemsInProcess}">
-      <fp:recentlyClosedMiscAdvances />
+        <fp:recentlyClosedMiscAdvances/>
     </c:if>
 
-    <c:if test="${KualiForm.document.bankCashOffsetEnabled}" >
-        <gl:generalLedgerPendingEntries />
+    <c:if test="${KualiForm.document.bankCashOffsetEnabled}">
+        <gl:generalLedgerPendingEntries/>
     </c:if>
 
     <kul:notes/>
-    <kul:adHocRecipients />
+    <kul:adHocRecipients/>
     <kul:routeLog/>
-    <kul:superUserActions />
+    <kul:superUserActions/>
 
     <sys:documentControls transactionalDocument="false"/>
 </kul:documentPage>

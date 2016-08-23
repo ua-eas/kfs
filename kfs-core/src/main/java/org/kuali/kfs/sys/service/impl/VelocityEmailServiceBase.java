@@ -49,10 +49,10 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
         try {
             final MailMessage mailMessage = constructMailMessage(templateVariables);
 
-            mailService.sendMessage(mailMessage,htmlMessage);
+            mailService.sendMessage(mailMessage, htmlMessage);
         } catch (Exception ex) {
             LOG.error("Exception received when send email ", ex);
-            throw new RuntimeException("Unable to send email",ex);
+            throw new RuntimeException("Unable to send email", ex);
         }
     }
 

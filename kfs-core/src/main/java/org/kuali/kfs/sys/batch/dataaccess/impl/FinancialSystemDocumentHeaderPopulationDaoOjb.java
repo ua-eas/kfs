@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -31,13 +29,14 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeaderMissingFromWorkflow;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.Collection;
+
 /**
  * Base implementation of the FinancialSystemDocumentHeaderPopulationDao DAO
  */
 public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAwareDaoBaseOjb implements FinancialSystemDocumentHeaderPopulationDao {
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.dataaccess.FinancialSystemDocumentHeaderPopulationDao#countTotalFinancialSystemDocumentHeadersToProcess()
      */
     @Override
@@ -50,6 +49,7 @@ public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAware
 
     /**
      * Reads in a set of FinancialSystemDocumentHeader records, limited by the indices, ordered by document number
+     *
      * @see org.kuali.kfs.sys.batch.dataaccess.FinancialSystemDocumentHeaderPopulationDao#getFinancialSystemDocumentHeadersForBatch(int, int)
      */
     @Override
@@ -79,7 +79,7 @@ public class FinancialSystemDocumentHeaderPopulationDaoOjb extends PlatformAware
      */
     protected Query buildFinancialSystemDocumentHeadersWithNoWorkflowHeadersSubQuery() {
         ReportQueryByCriteria query = QueryFactory.newReportQuery(FinancialSystemDocumentHeaderMissingFromWorkflow.class, new Criteria());
-        query.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        query.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER});
         return query;
     }
 }

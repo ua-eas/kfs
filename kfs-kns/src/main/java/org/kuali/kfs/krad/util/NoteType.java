@@ -23,15 +23,12 @@ import org.kuali.rice.core.api.mo.common.Coded;
 /**
  * Defines the different types of Notes which can be used with the notes
  * and attachments framework.
- *
- *
- *
  */
 public enum NoteType implements Coded {
 
-	BUSINESS_OBJECT("BO"), DOCUMENT_HEADER("DH");
+    BUSINESS_OBJECT("BO"), DOCUMENT_HEADER("DH");
 
-	private final String noteTypeCode;
+    private final String noteTypeCode;
 
     private NoteType(String noteTypeCode) {
         this.noteTypeCode = noteTypeCode;

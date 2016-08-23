@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.batch.vo;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 public class CustomerDigesterVO {
 
@@ -205,10 +205,10 @@ public class CustomerDigesterVO {
     /**
      * This is a convenience method that adds a populated CustomerAddress object directly
      * to the contained ArrayList.
-     *
+     * <p>
      * It's primarily used by the Customer Load batch process, for each of XML batch file
      * digesting, though it can be used generally.
-     *
+     * <p>
      * NOTE that it will attempt to wire the parent/child relationship by setting the
      * customerAddress.customerNumber to the customerNumber of 'this', if the number isnt
      * already set.

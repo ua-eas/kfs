@@ -18,20 +18,14 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
@@ -47,10 +41,16 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is used to get the services for PDF generation and other services for Collection Activity Report
@@ -73,19 +73,19 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
 
         List<CollectionActivityReport> displayList = new ArrayList<>();
 
-        Map<String,String> fieldValues = new HashMap<>();
+        Map<String, String> fieldValues = new HashMap<>();
 
-        String collectorPrincName = (String)lookupFormFields.get(ArPropertyConstants.COLLECTOR_PRINC_NAME);
-        String collector = (String)lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.COLLECTOR);
-        String proposalNumber = (String)lookupFormFields.get(KFSPropertyConstants.PROPOSAL_NUMBER);
-        String agencyNumber = (String)lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.AGENCY_NUMBER);
-        String invoiceNumber = (String)lookupFormFields.get(ArPropertyConstants.INVOICE_NUMBER);
-        String accountNumber = (String)lookupFormFields.get(KFSPropertyConstants.ACCOUNT_NUMBER);
-        String activityType = (String)lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.ACTIVITY_TYPE);
+        String collectorPrincName = (String) lookupFormFields.get(ArPropertyConstants.COLLECTOR_PRINC_NAME);
+        String collector = (String) lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.COLLECTOR);
+        String proposalNumber = (String) lookupFormFields.get(KFSPropertyConstants.PROPOSAL_NUMBER);
+        String agencyNumber = (String) lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.AGENCY_NUMBER);
+        String invoiceNumber = (String) lookupFormFields.get(ArPropertyConstants.INVOICE_NUMBER);
+        String accountNumber = (String) lookupFormFields.get(KFSPropertyConstants.ACCOUNT_NUMBER);
+        String activityType = (String) lookupFormFields.get(ArPropertyConstants.CollectionActivityReportFields.ACTIVITY_TYPE);
 
         // Getting final docs
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, StringUtils.join(getFinancialSystemDocumentService().getSuccessfulDocumentStatuses(), "|"));
-        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, StringUtils.join(getFinancialSystemDocumentService().getSuccessfulDocumentStatuses(), "|"));
+        fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_INVOICE);
 
         if (!StringUtils.isBlank(proposalNumber)) {
             fieldValues.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
@@ -98,7 +98,6 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
         if (!StringUtils.isBlank(accountNumber)) {
             fieldValues.put(ArPropertyConstants.CustomerInvoiceDocumentFields.ACCOUNT_NUMBER, accountNumber);
         }
-
 
 
         // Filter Invoice docs according to criteria.
@@ -118,13 +117,12 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
                 agencyNumbers = this.getMatchingAgencyNumbers(agencyNumber);
             }
 
-            for (Iterator<ContractsGrantsInvoiceDocument> iter = contractsGrantsInvoiceDocs.iterator(); iter.hasNext();) {
+            for (Iterator<ContractsGrantsInvoiceDocument> iter = contractsGrantsInvoiceDocs.iterator(); iter.hasNext(); ) {
                 ContractsGrantsInvoiceDocument document = iter.next();
 
                 if (!canDocumentBeViewed(document, collectorPrincipalId)) {
                     iter.remove();
-                }
-                else if (!CollectionUtils.isEmpty(agencyNumbers) && !matchesAgencyNumber(document, agencyNumbers)) {
+                } else if (!CollectionUtils.isEmpty(agencyNumbers) && !matchesAgencyNumber(document, agencyNumbers)) {
                     iter.remove();
                 }
             }
@@ -153,18 +151,20 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
 
     /**
      * Determines if the given CINV can be viewed for the given collector and by the current user
-     * @param document the CINV document to test
+     *
+     * @param document             the CINV document to test
      * @param collectorPrincipalId the collector principal id to test if it exists
      * @return true if the document can be viewed, false otherwise
      */
     protected boolean canDocumentBeViewed(ContractsGrantsInvoiceDocument document, String collectorPrincipalId) {
         final Person user = GlobalVariables.getUserSession().getPerson();
         return (StringUtils.isBlank(collectorPrincipalId) || contractsGrantsInvoiceDocumentService.canViewInvoice(document, collectorPrincipalId))
-                && contractsGrantsInvoiceDocumentService.canViewInvoice(document, user.getPrincipalId());
+            && contractsGrantsInvoiceDocumentService.canViewInvoice(document, user.getPrincipalId());
     }
 
     /**
      * Assuming that the given agencyNumberLookup may have wildcard characters, attempts to look up all matching agency numbers
+     *
      * @param agencyNumberLookup the agency number from the lookup to find agency numbers on actual awards for
      * @return any matching agency numbers from matching awards
      */
@@ -177,7 +177,7 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
         if (!CollectionUtils.isEmpty(awards)) {
             for (ContractsAndGrantsAward award : awards) {
                 if (award instanceof ContractsAndGrantsBillingAward) {
-                    matchingAgencyNumbers.add(((ContractsAndGrantsBillingAward)award).getAgencyNumber());
+                    matchingAgencyNumbers.add(((ContractsAndGrantsBillingAward) award).getAgencyNumber());
                 }
             }
         }
@@ -190,7 +190,8 @@ public class CollectionActivityReportServiceImpl implements CollectionActivityRe
 
     /**
      * Determines if the given document matches the passed in agency number
-     * @param document the document to check
+     *
+     * @param document     the document to check
      * @param agencyNumber the agency number to verify against
      * @return true if the document matches the given agency number, false otherwise
      */

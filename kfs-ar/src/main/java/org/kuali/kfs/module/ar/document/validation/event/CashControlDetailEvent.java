@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
 
 /**
  * Defines methods for all events related to cash control details
@@ -28,6 +28,7 @@ public interface CashControlDetailEvent extends KualiDocumentEvent {
 
     /**
      * This method returns the customer invoice related to the event
+     *
      * @return CustomerInvoiceDetail
      */
     public CashControlDetail getCashControlDetail();

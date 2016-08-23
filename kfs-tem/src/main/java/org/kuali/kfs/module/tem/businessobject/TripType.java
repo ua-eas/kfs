@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.coa.businessobject.BalanceType;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.kuali.kfs.coa.businessobject.BalanceType;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.KualiCodeBase;
+import java.util.LinkedHashMap;
 
 /**
  * Trip Type
- *
  */
 @Entity
-@Table(name="TEM_TRIP_TYP_T")
+@Table(name = "TEM_TRIP_TYP_T")
 public class TripType extends KualiCodeBase implements MutableInactivatable {
     private Boolean generateEncumbrance = Boolean.FALSE;
     private String encumbranceBalanceType;
@@ -49,7 +47,7 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
     private BalanceType balanceType;
     private ObjectCode objectCode;
 
-    @Column(name="gen_enc_ind",nullable=false,length=1)
+    @Column(name = "gen_enc_ind", nullable = false, length = 1)
     public boolean isGenerateEncumbrance() {
         return generateEncumbrance;
     }
@@ -58,7 +56,7 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
         this.generateEncumbrance = generateEncumbrance;
     }
 
-    @Column(name="enc_bal_typ",length=2)
+    @Column(name = "enc_bal_typ", length = 2)
     public String getEncumbranceBalanceType() {
         return encumbranceBalanceType;
     }
@@ -67,7 +65,7 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
         this.encumbranceBalanceType = encumbranceBalanceType;
     }
 
-    @Column(name="enc_obj_cd",length=4)
+    @Column(name = "enc_obj_cd", length = 4)
     public String getEncumbranceObjCode() {
         return encumbranceObjCode;
     }
@@ -76,7 +74,7 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
         this.encumbranceObjCode = encumbranceObjCode;
     }
 
-    @Column(name="cont_info_req_ind",nullable=false,length=1)
+    @Column(name = "cont_info_req_ind", nullable = false, length = 1)
     public boolean isContactInfoRequired() {
         return contactInfoRequired;
     }
@@ -85,7 +83,7 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
         this.contactInfoRequired = contactInfoRequired;
     }
 
-    @Column(name="blanket_ind",nullable=false,length=1)
+    @Column(name = "blanket_ind", nullable = false, length = 1)
     public boolean isBlanketTravel() {
         return blanketTravel;
     }
@@ -96,15 +94,17 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
 
     /**
      * Gets the autoTravelReimbursementLimit attribute.
+     *
      * @return Returns the autoTravelReimbursementLimit.
      */
-    @Column(name="AUTO_TR_LIMIT",precision=19,scale=2,nullable=false)
+    @Column(name = "AUTO_TR_LIMIT", precision = 19, scale = 2, nullable = false)
     public KualiDecimal getAutoTravelReimbursementLimit() {
         return autoTravelReimbursementLimit;
     }
 
     /**
      * Sets the autoTravelReimbursementLimit attribute value.
+     *
      * @param autoTravelReimbursementLimit The autoTravelReimbursementLimit to set.
      */
     public void setAutoTravelReimbursementLimit(KualiDecimal autoTravelReimbursementLimit) {
@@ -113,15 +113,17 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
 
     /**
      * Gets the usePerDiem attribute.
+     *
      * @return Returns the usePerDiem.
      */
-    @Column(name="USE_PER_DIEM",nullable=false,length=1)
+    @Column(name = "USE_PER_DIEM", nullable = false, length = 1)
     public boolean getUsePerDiem() {
         return usePerDiem;
     }
 
     /**
      * Sets the usePerDiem attribute value.
+     *
      * @param usePerDiem The usePerDiem to set.
      */
     public void setUsePerDiem(boolean usePerDiem) {
@@ -130,15 +132,17 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
 
     /**
      * Gets the travelAuthorizationRequired attribute.
+     *
      * @return Returns the travelAuthorizationRequired.
      */
-    @Column(name="TA_REQUIRED",nullable=false,length=1)
+    @Column(name = "TA_REQUIRED", nullable = false, length = 1)
     public boolean getTravelAuthorizationRequired() {
         return travelAuthorizationRequired;
     }
 
     /**
      * Sets the travelAuthorizationRequired attribute value.
+     *
      * @param travelAuthorizationRequired The travelAuthorizationRequired to set.
      */
     public void setTravelAuthorizationRequired(boolean travelAuthorizationRequired) {
@@ -147,15 +151,17 @@ public class TripType extends KualiCodeBase implements MutableInactivatable {
 
     /**
      * Gets the perDiemCalcMethod attribute.
+     *
      * @return Returns the perDiemCalcMethod.
      */
-    @Column(name="PER_DIEM_CALC_METHOD",nullable=false,length=1)
+    @Column(name = "PER_DIEM_CALC_METHOD", nullable = false, length = 1)
     public String getPerDiemCalcMethod() {
         return perDiemCalcMethod;
     }
 
     /**
      * Sets the perDiemCalcMethod attribute value.
+     *
      * @param perDiemCalcMethod The perDiemCalcMethod to set.
      */
     public void setPerDiemCalcMethod(String perDiemCalcMethod) {

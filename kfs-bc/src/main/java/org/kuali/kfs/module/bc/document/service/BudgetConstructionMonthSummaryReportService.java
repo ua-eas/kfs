@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgMonthSummaryReport;
+
+import java.util.Collection;
 
 /**
  * defines the methods for BudgetConstructionMonthSummaryReports
@@ -37,12 +37,11 @@ public interface BudgetConstructionMonthSummaryReportService {
     public void updateMonthSummaryReport(String principalName, boolean consolidateToObjectCodeLevel);
 
     /**
-     *
      * builds BudgetConstructionLevelSummaryReports
      *
      * @param universityFiscalYear
      * @param principalName
-     *  @param consolidateToObjectCodeLevel
+     * @param consolidateToObjectCodeLevel
      * @return Collection
      */
     public Collection<BudgetConstructionOrgMonthSummaryReport> buildReports(Integer universityFiscalYear, String principalName, boolean consolidateToObjectCodeLevel);

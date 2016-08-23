@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation;
 
-import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 
 public interface RecalculateCustomerCreditMemoDetailRule<F extends TransactionalDocument> extends CustomerCreditMemoDetailRule {
 

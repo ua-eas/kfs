@@ -18,9 +18,11 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
+import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
+import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
+import org.kuali.rice.kim.api.role.RoleContract;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
@@ -29,29 +31,27 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
-import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
-import org.kuali.rice.kim.api.role.RoleContract;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class represents a &lt;roles&gt; element.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="RolesType", propOrder={"roles"})
-public class RolesXmlDTO implements RiceXmlListAdditionListener<RoleXmlDTO>, RiceXmlListGetterListener<RoleXmlDTO,Object>, Serializable {
+@XmlType(name = "RolesType", propOrder = {"roles"})
+public class RolesXmlDTO implements RiceXmlListAdditionListener<RoleXmlDTO>, RiceXmlListGetterListener<RoleXmlDTO, Object>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="role")
+    @XmlElement(name = "role")
     private List<RoleXmlDTO> roles;
 
-    public RolesXmlDTO() {}
+    public RolesXmlDTO() {
+    }
 
     public RolesXmlDTO(List<? extends Object> rolesToExport) {
-        this.roles = new RiceXmlExportList<RoleXmlDTO,Object>(rolesToExport, this);
+        this.roles = new RiceXmlExportList<RoleXmlDTO, Object>(rolesToExport, this);
     }
 
     public List<RoleXmlDTO> getRoles() {
@@ -102,7 +102,7 @@ public class RolesXmlDTO implements RiceXmlListAdditionListener<RoleXmlDTO>, Ric
         if (!(nextItem instanceof RoleContract)) {
             throw new IllegalStateException("Object for exportation should have been a role");
         }
-        RoleContract role = ((RoleContract)nextItem);
+        RoleContract role = ((RoleContract) nextItem);
         return new RoleXmlDTO(role, new RoleMembersXmlDTO.WithinRole(role.getId()), new RolePermissionsXmlDTO.WithinRole(role.getId()));
     }
 }

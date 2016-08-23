@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.pdp.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.businessobject.ACHPayee;
@@ -34,12 +34,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Payee lookupable for PDP Payee ACH. Builds off of DV Payee lookup by taking off payment reason code, and adding adding entity id
@@ -49,10 +49,10 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
 
     /**
      * @see org.kuali.kfs.fp.businessobject.lookup.DisbursementPayeeLookupableHelperServiceImpl#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the search results and performs a sort
      * by retrieving the default sort columns using data dictionary service..
-     *
+     * <p>
      * Uses data dictionary.
      */
     @Override
@@ -66,11 +66,9 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
 
         if (StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.VENDOR_NUMBER)) || StringUtils.isNotBlank(fieldValues.get(KFSPropertyConstants.VENDOR_NAME)) || (StringUtils.isNotBlank(payeeTypeCode) && PdpConstants.PayeeIdTypeCodes.VENDOR_ID.equals(payeeTypeCode))) {
             searchResults.addAll(this.getVendorsAsPayees(fieldValues));
-        }
-        else if (StringUtils.isNotBlank(fieldValues.get(KIMPropertyConstants.Person.EMPLOYEE_ID)) || StringUtils.isNotBlank(fieldValues.get(KIMPropertyConstants.Person.ENTITY_ID)) || (StringUtils.isNotBlank(payeeTypeCode) && (PdpConstants.PayeeIdTypeCodes.EMPLOYEE.equals(payeeTypeCode) || PdpConstants.PayeeIdTypeCodes.ENTITY.equals(payeeTypeCode)))) {
+        } else if (StringUtils.isNotBlank(fieldValues.get(KIMPropertyConstants.Person.EMPLOYEE_ID)) || StringUtils.isNotBlank(fieldValues.get(KIMPropertyConstants.Person.ENTITY_ID)) || (StringUtils.isNotBlank(payeeTypeCode) && (PdpConstants.PayeeIdTypeCodes.EMPLOYEE.equals(payeeTypeCode) || PdpConstants.PayeeIdTypeCodes.ENTITY.equals(payeeTypeCode)))) {
             searchResults.addAll(this.getPersonAsPayees(fieldValues));
-        }
-        else {
+        } else {
             searchResults.addAll(this.getVendorsAsPayees(fieldValues));
             searchResults.addAll(this.getPersonAsPayees(fieldValues));
         }
@@ -91,7 +89,7 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
      * Override to set entity id as the payee id and set the pdp payee type
      *
      * @see org.kuali.kfs.fp.businessobject.lookup.DisbursementPayeeLookupableHelperServiceImpl#getPayeeFromPerson(org.kuali.rice.kim.api.identity.Person,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected DisbursementPayee getPayeeFromPerson(Person personDetail, Map<String, String> fieldValues) {
@@ -104,8 +102,7 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
         if (PdpConstants.PayeeIdTypeCodes.ENTITY.equals(payeeTypeCode)) {
             achPayee.setPayeeIdNumber(personDetail.getEntityId());
             achPayee.setPayeeTypeCode(PdpConstants.PayeeIdTypeCodes.ENTITY);
-        }
-        else {
+        } else {
             achPayee.setPayeeIdNumber(personDetail.getEmployeeId());
             achPayee.setPayeeTypeCode(PdpConstants.PayeeIdTypeCodes.EMPLOYEE);
         }
@@ -122,7 +119,7 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
 
     /**
      * @see org.kuali.kfs.fp.businessobject.lookup.DisbursementPayeeLookupableHelperServiceImpl#getPayeeFromVendor(org.kuali.kfs.vnd.businessobject.VendorDetail,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     protected DisbursementPayee getPayeeFromVendor(VendorDetail vendorDetail, Map<String, String> fieldValues) {
@@ -178,8 +175,7 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
             String payeeTypeLabel = this.getAttributeLabel(KFSPropertyConstants.PAYEE_TYPE_CODE);
 
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PAYEE_TYPE_CODE, messageKey, payeeTypeLabel, payeeTypeCode, employeeIdLabel, entityIdLabel);
-        }
-        else if (payeeTypeEntered && (PdpConstants.PayeeIdTypeCodes.EMPLOYEE.equals(payeeTypeCode) || PdpConstants.PayeeIdTypeCodes.ENTITY.equals(payeeTypeCode)) && isVendorInfoEntered) {
+        } else if (payeeTypeEntered && (PdpConstants.PayeeIdTypeCodes.EMPLOYEE.equals(payeeTypeCode) || PdpConstants.PayeeIdTypeCodes.ENTITY.equals(payeeTypeCode)) && isVendorInfoEntered) {
             String messageKey = PdpKeyConstants.ERROR_PAYEE_LOOKUP_VENDOR_EMPLOYEE_CONFUSION;
 
             String vendorNameLabel = this.getAttributeLabel(KFSPropertyConstants.VENDOR_NAME);
@@ -193,14 +189,15 @@ public class ACHPayeeLookupableHelperServiceImpl extends AbstractPayeeLookupable
             throw new ValidationException("errors in search criteria");
         }
     }
+
     /**
      * Override to not filter rows based on payment reason
      *
      * @see org.kuali.kfs.fp.businessobject.lookup.DisbursementPayeeLookupableHelperServiceImpl#filterReturnUrl(java.util.List,
-     *      java.util.List, java.lang.String)
-     *
+     * java.util.List, java.lang.String)
+     * <p>
      * KRAD Conversion: Performs customization of the result list of rows.
-     *
+     * <p>
      * No use of data dictionary
      */
     @Override

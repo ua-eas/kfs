@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.Collection;
 
 /**
  * This interface declares methods needed for posting transactions to the appropriate balance records.
@@ -32,7 +32,7 @@ public interface BalanceCalculator {
      * or creates a new balance record
      *
      * @param balanceList a Collection of balance records
-     * @param t the transaction to post
+     * @param t           the transaction to post
      * @return the balance to post against
      */
     public Balance findBalance(Collection balanceList, Transaction t);

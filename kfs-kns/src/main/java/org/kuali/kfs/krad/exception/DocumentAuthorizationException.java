@@ -26,8 +26,6 @@ import java.util.Map;
 /**
  * This class represents an exception that is thrown when a given user is not authorized to take a given action on the given
  * document type.
- *
- *
  */
 public class DocumentAuthorizationException extends AuthorizationException {
 

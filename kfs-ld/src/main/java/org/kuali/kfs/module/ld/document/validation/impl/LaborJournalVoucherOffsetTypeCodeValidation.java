@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.document.LaborJournalVoucherDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation which checks that the offset type for the document is a valid active, current accounting document type
@@ -34,7 +34,6 @@ public class LaborJournalVoucherOffsetTypeCodeValidation extends GenericValidati
     private FinancialSystemDocumentTypeService financialSystemDocumentTypeService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -48,6 +47,7 @@ public class LaborJournalVoucherOffsetTypeCodeValidation extends GenericValidati
 
     /**
      * Gets the laborJournalVoucherDocumentForValidation attribute.
+     *
      * @return Returns the laborJournalVoucherDocumentForValidation.
      */
     public LaborJournalVoucherDocument getLaborJournalVoucherDocumentForValidation() {
@@ -56,6 +56,7 @@ public class LaborJournalVoucherOffsetTypeCodeValidation extends GenericValidati
 
     /**
      * Sets the laborJournalVoucherDocumentForValidation attribute value.
+     *
      * @param laborJournalVoucherDocumentForValidation The laborJournalVoucherDocumentForValidation to set.
      */
     public void setLaborJournalVoucherDocumentForValidation(LaborJournalVoucherDocument laborJournalVoucherDocumentForValidation) {
@@ -64,6 +65,7 @@ public class LaborJournalVoucherOffsetTypeCodeValidation extends GenericValidati
 
     /**
      * Gets the financialSystemDocumentTypeService attribute.
+     *
      * @return Returns the financialSystemDocumentTypeService.
      */
     public FinancialSystemDocumentTypeService getFinancialSystemDocumentTypeService() {
@@ -72,6 +74,7 @@ public class LaborJournalVoucherOffsetTypeCodeValidation extends GenericValidati
 
     /**
      * Sets the financialSystemDocumentTypeService attribute value.
+     *
      * @param financialSystemDocumentTypeService The financialSystemDocumentTypeService to set.
      */
     public void setFinancialSystemDocumentTypeService(FinancialSystemDocumentTypeService financialSystemDocumentTypeService) {

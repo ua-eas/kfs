@@ -36,8 +36,8 @@ public interface BudgetConstructionObjectSummaryReportDao {
      * populate the table to feed the report with the rows which match the current request
      *
      * @param principalName--the user currently logged in making the on-line report request
-     * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
+     * @param expenditureINList  a SQL IN list containing the budget construction expenditure object types
+     * @param revenueINList      a SQL IN list containing the budget construction revenue object types
      */
     public void updateGeneralLedgerObjectSummaryTable(String principalName, String revenueINList, String expenditureINList);
 

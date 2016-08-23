@@ -18,15 +18,7 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rules;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -34,6 +26,13 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.exception.XmlErrorHandler;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class CustomerLoadDigesterTest extends TestCase {
 
@@ -66,14 +65,13 @@ public class CustomerLoadDigesterTest extends TestCase {
         Object parsedCustomers = null;
         try {
             parsedCustomers = digester.parse(sampleCustomerBatchFile);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ParseException("Error parsing xml contents: " + e.getMessage(), e);
         }
 
         assertNotNull("Parsed object should not be null.", parsedCustomers);
         assertTrue("Parsed object class [" + parsedCustomers.getClass().toString() + "] should be assignable to a List.",
-                parsedCustomers instanceof List);
+            parsedCustomers instanceof List);
 
         List parsedObjects = (List) parsedCustomers;
 
@@ -83,12 +81,12 @@ public class CustomerLoadDigesterTest extends TestCase {
 
         //  look at every item, make sure its of type Customer
         Integer i = 0;
-        for (Iterator iterator = parsedObjects.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = parsedObjects.iterator(); iterator.hasNext(); ) {
             Object item = (Object) iterator.next();
 
             assertNotNull("List item [" + i.toString() + "] should not be null.", item);
             assertTrue("List item [" + i.toString() + "] class [" + item.getClass().toString() + "] should be a Customer object.",
-                    item.getClass().equals(CustomerDigesterVO.class));
+                item.getClass().equals(CustomerDigesterVO.class));
 
             parsedCustomerList.add((CustomerDigesterVO) item);
 

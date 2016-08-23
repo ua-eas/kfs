@@ -25,7 +25,11 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.ScrubberStep;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
@@ -34,10 +38,6 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAccountingLineRuleHelperServiceImpl {
 
@@ -53,14 +53,14 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
         String docStatus = getDocument().getApplicationDocumentStatus();
 
         //if account exists
-        if(ObjectUtils.isNotNull(account)){
+        if (ObjectUtils.isNotNull(account)) {
             //after AP approval
-            if(PaymentRequestStatuses.APPDOC_AWAITING_SUB_ACCT_MGR_REVIEW.equals(docStatus) ||
+            if (PaymentRequestStatuses.APPDOC_AWAITING_SUB_ACCT_MGR_REVIEW.equals(docStatus) ||
                 PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW.equals(docStatus) ||
                 PaymentRequestStatuses.APPDOC_AWAITING_ORG_REVIEW.equals(docStatus) ||
                 PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW.equals(docStatus) ||
                 PaymentRequestStatuses.APPDOC_DEPARTMENT_APPROVED.equals(docStatus) ||
-                PaymentRequestStatuses.APPDOC_AUTO_APPROVED.equals(docStatus) ){
+                PaymentRequestStatuses.APPDOC_AUTO_APPROVED.equals(docStatus)) {
 
                 String expirationExtensionDays = SpringContext.getBean(ParameterService.class).getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET);
                 int expirationExtensionDaysInt = 3 * 30; // default to 90 days (approximately 3 months)
@@ -71,12 +71,12 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
                 }
 
                 //if account is expired, c&g and past 90 days, add error
-                if(account.isExpired() && account.isForContractsAndGrants() && (SpringContext.getBean(DateTimeService.class).dateDiff(account.getAccountExpirationDate(), SpringContext.getBean(DateTimeService.class).getCurrentDate(), true) > expirationExtensionDaysInt)){
+                if (account.isExpired() && account.isForContractsAndGrants() && (SpringContext.getBean(DateTimeService.class).dateDiff(account.getAccountExpirationDate(), SpringContext.getBean(DateTimeService.class).getCurrentDate(), true) > expirationExtensionDaysInt)) {
                     GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNT_NUMBER_PROPERTY_NAME, PurapKeyConstants.ERROR_ITEM_ACCOUNT_EXPIRED_REPLACE, account.getAccountNumber());
                     hasOverrides = false;
                 }
             }
-        }else{
+        } else {
             //account not valid, shouldn't happen but just in case
             hasOverrides = false;
         }
@@ -93,7 +93,7 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
             return false;
         }
 
-        Integer universityFiscalYear = ((PaymentRequestDocument)getDocument()).getPostingYearPriorOrCurrent();
+        Integer universityFiscalYear = ((PaymentRequestDocument) getDocument()).getPostingYearPriorOrCurrent();
         ObjectCode objectCodeForValidation = (SpringContext.getBean(ObjectCodeService.class).getByPrimaryId(universityFiscalYear, objectCode.getChartOfAccountsCode(), objectCode.getFinancialObjectCode()));
 
         // check active status
@@ -106,7 +106,6 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
     }
 
 
-
     public boolean isValidSubObjectCode(SubObjectCode subObjectCode, DataDictionary dataDictionary, String errorPropertyName) {
         String label = getSubObjectCodeLabel();
 
@@ -116,12 +115,12 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
             return false;
         }
 
-        Integer universityFiscalYear = ((PaymentRequestDocument)getDocument()).getPostingYearPriorOrCurrent();
+        Integer universityFiscalYear = ((PaymentRequestDocument) getDocument()).getPostingYearPriorOrCurrent();
         SubObjectCode subObjectCodeForValidation = (SpringContext.getBean(SubObjectCodeService.class).getByPrimaryId(universityFiscalYear, subObjectCode.getChartOfAccountsCode(), subObjectCode.getAccountNumber(), subObjectCode.getFinancialObjectCode(), subObjectCode.getFinancialSubObjectCode()));
 
         // check active flag
-        if(!subObjectCodeForValidation.isActive()) {
-            if( ((PaymentRequestDocument)getDocument()).getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW)){
+        if (!subObjectCodeForValidation.isActive()) {
+            if (((PaymentRequestDocument) getDocument()).getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW)) {
                 GlobalVariables.getMessageMap().putError(errorPropertyName, KFSKeyConstants.ERROR_INACTIVE, label);
                 return false;
             }
@@ -144,8 +143,8 @@ public class PaymentRequestAccountingLineRuleHelperServiceImpl extends PurapAcco
             GlobalVariables.getMessageMap().putError(errorPropertyName, KFSKeyConstants.ERROR_EXISTENCE, label);
             return false;
         }
-        if(!subAccount.isActive()){
-            if( ((PaymentRequestDocument)getDocument()).getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW)){
+        if (!subAccount.isActive()) {
+            if (((PaymentRequestDocument) getDocument()).getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW)) {
                 GlobalVariables.getMessageMap().putError(errorPropertyName, KFSKeyConstants.ERROR_INACTIVE, label);
                 return false;
             }

@@ -27,10 +27,12 @@ public class InstrumentType implements ContractsAndGrantsInstrumentType, Mutable
     private String instrumentTypeDescription;
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
-    public void setActive(boolean active) { }
+    public void setActive(boolean active) {
+    }
 
     @Override
     /**

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.document.PreEncumbranceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * Validates that an accounting line does not have a capital object object code
@@ -35,13 +35,14 @@ public class PreEncumbranceRequiredAccountingLinesCountValidation extends Generi
     /**
      * Validates that an accounting line does not have a capital object object code
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         List sourceAccountingLineList = this.accountingDocumentForValidation.getSourceAccountingLines();
         List targetAccountingLineList = this.accountingDocumentForValidation.getTargetAccountingLines();
-        if (sourceAccountingLineList.size() == 0 && targetAccountingLineList.size() == 0 ) {
-            GlobalVariables.getMessageMap().putError("sourceAccountingLines", KFSKeyConstants.ERROR_DOCUMENT_PRE_ENCUMBRANCE_SINGLE_SECTION_NO_ACCOUNTING_LINES, new String[] { null });
+        if (sourceAccountingLineList.size() == 0 && targetAccountingLineList.size() == 0) {
+            GlobalVariables.getMessageMap().putError("sourceAccountingLines", KFSKeyConstants.ERROR_DOCUMENT_PRE_ENCUMBRANCE_SINGLE_SECTION_NO_ACCOUNTING_LINES, new String[]{null});
             return false;
         }
 
@@ -50,6 +51,7 @@ public class PreEncumbranceRequiredAccountingLinesCountValidation extends Generi
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public PreEncumbranceDocument getAccountingDocumentForValidation() {
@@ -58,12 +60,12 @@ public class PreEncumbranceRequiredAccountingLinesCountValidation extends Generi
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(PreEncumbranceDocument accountingDocumentForValidation) {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
     }
-
 
 
 }

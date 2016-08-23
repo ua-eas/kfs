@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * This class...
@@ -32,6 +32,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class AdvanceDepositMinimumAdvanceDepositValidation extends GenericValidation {
     private AdvanceDepositDocument accountingDocumentForValidation;
     private int requiredMinimumCount;
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
@@ -43,29 +44,37 @@ public class AdvanceDepositMinimumAdvanceDepositValidation extends GenericValida
         }
         return true;
     }
+
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public AdvanceDepositDocument getAccountingDocumentForValidation() {
         return accountingDocumentForValidation;
     }
+
     /**
      * Sets the documentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AdvanceDepositDocument accountingDocumentForValidation) {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
     }
+
     /**
      * Gets the requiredMinimumCount attribute.
+     *
      * @return Returns the requiredMinimumCount.
      */
     public int getRequiredMinimumCount() {
         return requiredMinimumCount;
     }
+
     /**
      * Sets the requiredMinimumCount attribute value.
+     *
      * @param requiredMinimumCount The requiredMinimumCount to set.
      */
     public void setRequiredMinimumCount(int requiredMinimumCount) {

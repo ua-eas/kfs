@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.identity.PurapKimAttributes;
@@ -29,9 +29,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Map;
 
 public class PurchasingAccountsPayableTransactionalDocumentAuthorizerBase extends AccountingDocumentAuthorizerBase {
 
@@ -61,7 +61,7 @@ public class PurchasingAccountsPayableTransactionalDocumentAuthorizerBase extend
     @Override
     public boolean canEditDocumentOverview(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
     }
 
 }

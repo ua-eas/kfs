@@ -55,7 +55,6 @@ public class BudgetConstructionOrgSalarySummaryReportTotal {
     private BudgetConstructionSalarySocialSecurityNumber budgetConstructionSalarySocialSecurityNumber;
 
 
-
     public BudgetConstructionSalarySocialSecurityNumber getBudgetConstructionSalarySocialSecurityNumber() {
         return budgetConstructionSalarySocialSecurityNumber;
     }
@@ -248,4 +247,4 @@ public class BudgetConstructionOrgSalarySummaryReportTotal {
         this.personTiFlag = personTiFlag;
     }
 
-    }
+}

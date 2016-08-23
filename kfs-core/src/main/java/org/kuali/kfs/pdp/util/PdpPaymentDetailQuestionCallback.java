@@ -29,8 +29,8 @@ public interface PdpPaymentDetailQuestionCallback {
      * Hooks for performing different actions on payment detail after a question has been performed.
      *
      * @param paymentDetailId the id of the payment
-     * @param note a note from the user
-     * @param user the user that perfoms the action
+     * @param note            a note from the user
+     * @param user            the user that perfoms the action
      * @return true if succesful, false otherwise
      */
     public boolean doPostQuestion(int paymentDetailId, String note, Person user);

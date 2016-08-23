@@ -16,17 +16,17 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <%-- render component only --%>
 <html>
-	<s:nestedPath path="KualiForm">
+<s:nestedPath path="KualiForm">
     <%-- render errors field for page so they can be pulled and updated on the view --%>
     <krad:template component="${KualiForm.postedView.currentPage.errorsField}"/>
 
     <%-- now render the updated component wrapped in an update span --%>
-		<span id="${Component.id}_update">
+    <span id="${Component.id}_update">
 			<krad:template component="${Component}"/>
 		</span>
-	</s:nestedPath>
+</s:nestedPath>
 </html>

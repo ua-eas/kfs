@@ -25,7 +25,8 @@ import static org.junit.Assert.assertEquals;
 
 public class CellComparatorHelperTest {
 
-    @Test public void testExtractFromHref() {
+    @Test
+    public void testExtractFromHref() {
 
         String href = "<a style=\"color: red;\" href=\"inquiry.do?businessObjectClassName=org.kuali.rice.krad.bo.Options&amp;universityFiscalYear=2004&amp;methodToCall=start\" target=\"blank\">needle</a>";
 
@@ -35,7 +36,8 @@ public class CellComparatorHelperTest {
 
     }
 
-    @Test public void testExtractFromHrefAndRemoveNbsp() {
+    @Test
+    public void testExtractFromHrefAndRemoveNbsp() {
 
         String href = "<a href=\"haystack\">needle&nbsp;</a>";
 
@@ -45,7 +47,8 @@ public class CellComparatorHelperTest {
 
     }
 
-    @Test public void testRemoveNbsp() {
+    @Test
+    public void testRemoveNbsp() {
 
         String bad = "needle&nbsp;";
 
@@ -55,7 +58,8 @@ public class CellComparatorHelperTest {
 
     }
 
-    @Test public void testLeaveSimpleValueAlone() {
+    @Test
+    public void testLeaveSimpleValueAlone() {
 
         String good = "needle";
         Cell cell = new Cell(good);
@@ -63,7 +67,8 @@ public class CellComparatorHelperTest {
 
     }
 
-    @Test public void testMessyHref() {
+    @Test
+    public void testMessyHref() {
 
         String href = "<a onClick=\"foo();\" href=\"haystack\" class=\"my favorite class\" >needle</a>&nbsp;";
 

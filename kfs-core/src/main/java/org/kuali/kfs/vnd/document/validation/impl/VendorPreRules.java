@@ -20,6 +20,10 @@ package org.kuali.kfs.vnd.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.VendorConstants;
@@ -29,10 +33,6 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorType;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Business Prerules applicable to VendorDetail documents. These PreRules checks for the VendorDetail that needs to occur while
@@ -78,7 +78,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
         //check to page review ONLY if it is a new vendor
         if (newVendorDetail.getVendorHeaderGeneratedIdentifier() == null &&
-                newVendorDetail.getVendorDetailAssignedIdentifier() == null) {
+            newVendorDetail.getVendorDetailAssignedIdentifier() == null) {
             displayReview(document);
         }
         return true;
@@ -110,8 +110,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
             newVendorDetail.setVendorFirstName(removeDelimiter(newVendorDetail.getVendorFirstName()));
             newVendorDetail.setVendorLastName(removeDelimiter(newVendorDetail.getVendorLastName()));
 
-        }
-        else if (!StringUtils.isBlank(newVendorDetail.getVendorName()) && StringUtils.isBlank(newVendorDetail.getVendorFirstName()) && StringUtils.isBlank(newVendorDetail.getVendorLastName())) {
+        } else if (!StringUtils.isBlank(newVendorDetail.getVendorName()) && StringUtils.isBlank(newVendorDetail.getVendorFirstName()) && StringUtils.isBlank(newVendorDetail.getVendorLastName())) {
             newVendorDetail.setVendorFirstLastNameIndicator(false);
         }
     }
@@ -130,14 +129,13 @@ public class VendorPreRules extends MaintenancePreRulesBase {
         // If the Vendor Restricted Indicator will change, change the date and person id appropriately.
         if ((ObjectUtils.isNull(oldVendorRestrictedIndicator) || (!oldVendorRestrictedIndicator)) && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && newVendorDetail.getVendorRestrictedIndicator()) {
             // Indicator changed from (null or false) to true.
-            if(newVendorDetail.getVendorRestrictedDate() == null){
+            if (newVendorDetail.getVendorRestrictedDate() == null) {
                 newVendorDetail.setVendorRestrictedDate(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate());
             }
-            if(newVendorDetail.getVendorRestrictedPersonIdentifier() == null) {
+            if (newVendorDetail.getVendorRestrictedPersonIdentifier() == null) {
                 newVendorDetail.setVendorRestrictedPersonIdentifier(getPersonId());
             }
-        }
-        else if (ObjectUtils.isNotNull(oldVendorRestrictedIndicator) && oldVendorRestrictedIndicator && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && (!newVendorDetail.getVendorRestrictedIndicator())) {
+        } else if (ObjectUtils.isNotNull(oldVendorRestrictedIndicator) && oldVendorRestrictedIndicator && ObjectUtils.isNotNull(newVendorDetail.getVendorRestrictedIndicator()) && (!newVendorDetail.getVendorRestrictedIndicator())) {
             // Indicator changed from true to false.
             newVendorDetail.setVendorRestrictedDate(null);
             newVendorDetail.setVendorRestrictedPersonIdentifier(null);
@@ -163,7 +161,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
      * @param document - vendordetail document
      */
     public void displayReview(MaintenanceDocument document) {
-        VendorDetail vendorDetail = (VendorDetail)  document.getDocumentBusinessObject();
+        VendorDetail vendorDetail = (VendorDetail) document.getDocumentBusinessObject();
 
         VendorType vendorType = vendorDetail.getVendorHeader().getVendorType();
 
@@ -183,8 +181,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
 
                 if (vendorDetail.getVendorName() != null) {
                     questionText = questionText.replace("{0}", vendorDetail.getVendorName());
-                }
-                else {
+                } else {
                     questionText = questionText.replace("{0}", "(not entered)");
                 }
                 questionText = questionText.replace("{1}", document.getDocumentNumber());
@@ -197,7 +194,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
         }
     }
 
-   /**
+    /**
      * This method displays a review if indicated by the vendor type and the associated text from that type This method screens the
      * current document for changes from division vendor to parent vendor. If the document does contain such a change, the question
      * framework is invoked to obtain the user's confirmation for the change. If confirmation is obtained, a note is added to the
@@ -218,8 +215,7 @@ public class VendorPreRules extends MaintenancePreRulesBase {
             proceed = askOrAnalyzeYesNoQuestion(VendorConstants.CHANGE_TO_PARENT_QUESTION_ID, VendorUtils.buildMessageText(VendorKeyConstants.CONFIRM_VENDOR_CHANGE_TO_PARENT, oldVendorDetail.getVendorName() + "  (" + oldVendorDetail.getVendorNumber() + ")", oldParentVendorName + " (" + oldParentVendorNumber + ")"));
             if (proceed) {
                 newVendorDetail.setVendorParentIndicator(true);
-            }
-            else {
+            } else {
                 newVendorDetail.setVendorParentIndicator(false);
             }
         }

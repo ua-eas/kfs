@@ -19,16 +19,16 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * This business object represents the advance deposit detail business object that is used by the Advance Deposit Document.
@@ -230,15 +230,15 @@ public class AdvanceDepositDetail extends PersistableBusinessObjectBase {
      * @return AdvanceDepositDocument
      *
     public AdvanceDepositDocument getAdvanceDepositDocument() {
-        return advanceDepositDocument;
+    return advanceDepositDocument;
     }
     /**
      * @param advanceDepositDocument
      *
     public void setAdvanceDepositDocument(AdvanceDepositDocument advanceDepositDocument) {
-        this.advanceDepositDocument = advanceDepositDocument;
+    this.advanceDepositDocument = advanceDepositDocument;
     }
-    */
+     */
 
     /**
      * @return Bank

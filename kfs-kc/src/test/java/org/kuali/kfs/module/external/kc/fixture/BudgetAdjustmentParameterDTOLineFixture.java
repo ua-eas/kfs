@@ -38,24 +38,24 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
     DETAIL_T_LINE2("BA","6044900","6000","100.00",""),
     */
 
-    DETAIL_LINE1("BL","1031400","6200","20.00",""),
-    DETAIL_LINE2("BL","1031400","5002","30.00",""),
-    DETAIL_LINE3("BL","1031400","4620","100.00",""),
-    DETAIL_LINE4("BL","1031400","4087","50.00",""),
-    DETAIL_LINE5("BL","1031400","5500","4.00",""),
-    DETAIL_LINE6("BL","1031400","5500","0.50",""),
-    DETAIL_LINE7("BL","1031400","5500","4.00",""),
-    DETAIL_LINE8("BL","1031400","5047","1.08",""),
-    DETAIL_LINE9("BL","1031400","5600","0.32",""),
-    DETAIL_LINE10("BL","1031400","2003","100.00",""),
-    DETAIL_LINE11("BL","1031400","5500","135.50",""),
-    DETAIL_LINE12("BL","1031400","5500","8.00",""),
-    DETAIL_LINE13("BL","1031400","5500","11.14",""),
-    DETAIL_LINE14("BL","1031400","5500","1.00",""),
-    DETAIL_LINE15("BL","1031400","5500","8.00",""),
-    DETAIL_LINE16("BL","1031400","5500","185.50",""),
-    DETAIL_LINE17("BL","1031400","5500","25.00",""),
-    DETAIL_LINE18("BL","1031400","5047","2.00","");
+    DETAIL_LINE1("BL", "1031400", "6200", "20.00", ""),
+    DETAIL_LINE2("BL", "1031400", "5002", "30.00", ""),
+    DETAIL_LINE3("BL", "1031400", "4620", "100.00", ""),
+    DETAIL_LINE4("BL", "1031400", "4087", "50.00", ""),
+    DETAIL_LINE5("BL", "1031400", "5500", "4.00", ""),
+    DETAIL_LINE6("BL", "1031400", "5500", "0.50", ""),
+    DETAIL_LINE7("BL", "1031400", "5500", "4.00", ""),
+    DETAIL_LINE8("BL", "1031400", "5047", "1.08", ""),
+    DETAIL_LINE9("BL", "1031400", "5600", "0.32", ""),
+    DETAIL_LINE10("BL", "1031400", "2003", "100.00", ""),
+    DETAIL_LINE11("BL", "1031400", "5500", "135.50", ""),
+    DETAIL_LINE12("BL", "1031400", "5500", "8.00", ""),
+    DETAIL_LINE13("BL", "1031400", "5500", "11.14", ""),
+    DETAIL_LINE14("BL", "1031400", "5500", "1.00", ""),
+    DETAIL_LINE15("BL", "1031400", "5500", "8.00", ""),
+    DETAIL_LINE16("BL", "1031400", "5500", "185.50", ""),
+    DETAIL_LINE17("BL", "1031400", "5500", "25.00", ""),
+    DETAIL_LINE18("BL", "1031400", "5047", "2.00", "");
     /*
     DETAIL_LINE1("BL","9898989","4620","6538.44",""),
     DETAIL_LINE2("BL","9898989","6200","20.00",""),
@@ -70,16 +70,16 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
     private String currentBudgetAdjustAmount;
     private String projectCode;
 
-  private BudgetAdjustmentParameterDTOLineFixture( String chart,
-          String account, String objectCode, String currentBudgetAdjustAmount,String projCode) {
-      this.chart = chart;
-      this.account = account;
-      this.objectCode = objectCode;
-      this.currentBudgetAdjustAmount = currentBudgetAdjustAmount;
-      this.projectCode = projCode;
-  }
+    private BudgetAdjustmentParameterDTOLineFixture(String chart,
+                                                    String account, String objectCode, String currentBudgetAdjustAmount, String projCode) {
+        this.chart = chart;
+        this.account = account;
+        this.objectCode = objectCode;
+        this.currentBudgetAdjustAmount = currentBudgetAdjustAmount;
+        this.projectCode = projCode;
+    }
 
-  public BudgetAdjustmentParametersDTO.Details createBudgetAdjustmentParameterDTO() {
+    public BudgetAdjustmentParametersDTO.Details createBudgetAdjustmentParameterDTO() {
 
         BudgetAdjustmentParametersDTO.Details detail = new BudgetAdjustmentParametersDTO.Details();
         detail.setChart(this.chart);
@@ -88,6 +88,6 @@ public enum BudgetAdjustmentParameterDTOLineFixture {
         detail.setCurrentAmount(this.currentBudgetAdjustAmount);
         detail.setProjectCode(projectCode);
         return detail;
-     }
+    }
 
 }

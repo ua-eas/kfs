@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
+
+import java.util.Collection;
 
 public interface AccountsReceivableDocumentHeaderDao {
 

@@ -19,9 +19,9 @@
 package org.kuali.kfs.sys.context;
 
 
-import java.io.File;
-
 import org.apache.commons.io.filefilter.IOFileFilter;
+
+import java.io.File;
 
 /**
  * A file filter which only returns any directory or any files with the given extension
@@ -33,11 +33,12 @@ public class FileExtensionFileFilter implements IOFileFilter {
      * Constructs a FileExtensionFileFilter, using the extension to filter the files
      */
     public FileExtensionFileFilter(String extension) {
-    	this.suffix = extension;
+        this.suffix = extension;
     }
 
     /**
      * Accepts any directory and any file with the given extension
+     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File)
      */
     public boolean accept(File file) {
@@ -47,10 +48,11 @@ public class FileExtensionFileFilter implements IOFileFilter {
 
     /**
      * Accepts any directory, and any file with the given extension
+     *
      * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
      */
     public boolean accept(File directory, String fileName) {
-        final File file = new File(directory.getName()+File.separator+fileName);
+        final File file = new File(directory.getName() + File.separator + fileName);
         if (file.isDirectory()) return true;
         return (file.getName().endsWith(suffix));
     }

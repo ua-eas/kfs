@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.cg.batch.service.MaintenanceDocumentNotesMigrationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * Batch step to move agency and award maintenance document notes to their business objects
@@ -31,6 +31,7 @@ public class MoveAgencyAndAwardMaintDocNotesToBusinessObjectsStep extends Abstra
 
     /**
      * migrate the notes for agencies or awards
+     *
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     @Override

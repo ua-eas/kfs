@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
 
 public class PurchasingAccountsPayableAccountTotalValidation extends GenericValidation {
 
@@ -38,20 +38,19 @@ public class PurchasingAccountsPayableAccountTotalValidation extends GenericVali
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
 
-     // validate that the amount total
+        // validate that the amount total
         BigDecimal totalAmount = BigDecimal.ZERO;
         BigDecimal desiredAmount =
             (itemForValidation.getTotalAmount() == null) ? new BigDecimal(0) : itemForValidation.getTotalAmount().bigDecimalValue();
         for (PurApAccountingLine account : itemForValidation.getSourceAccountingLines()) {
             if (account.getAmount() != null) {
                 totalAmount = totalAmount.add(account.getAmount().bigDecimalValue());
-            }
-            else {
+            } else {
                 totalAmount = totalAmount.add(BigDecimal.ZERO);
             }
         }
         if (desiredAmount.compareTo(totalAmount) != 0) {
-            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, itemForValidation.getItemIdentifierString(),desiredAmount.toString());
+            GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_TOTAL_AMOUNT, itemForValidation.getItemIdentifierString(), desiredAmount.toString());
             valid = false;
         }
 

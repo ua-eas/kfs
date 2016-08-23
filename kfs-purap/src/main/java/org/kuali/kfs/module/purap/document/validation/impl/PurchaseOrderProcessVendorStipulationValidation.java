@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorStipulation;
@@ -28,7 +27,8 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 public class PurchaseOrderProcessVendorStipulationValidation extends GenericValidation {
 
@@ -40,7 +40,7 @@ public class PurchaseOrderProcessVendorStipulationValidation extends GenericVali
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        List<PurchaseOrderVendorStipulation> stipulations = ((PurchaseOrderDocument)event.getDocument()).getPurchaseOrderVendorStipulations();
+        List<PurchaseOrderVendorStipulation> stipulations = ((PurchaseOrderDocument) event.getDocument()).getPurchaseOrderVendorStipulations();
         for (int i = 0; i < stipulations.size(); i++) {
             PurchaseOrderVendorStipulation stipulation = stipulations.get(i);
             if (StringUtils.isBlank(stipulation.getVendorStipulationDescription())) {

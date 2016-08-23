@@ -18,18 +18,19 @@
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.coa.service.OrganizationService;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -50,20 +51,19 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssetRetirementServiceImpl implements AssetRetirementService {
 
     protected enum AmountCategory {
 
         CAPITALIZATION {
-	    @Override
+            @Override
             void setParams(AssetGlpeSourceDetail postable, AssetPayment assetPayment, AssetObjectCode assetObjectCode) {
                 postable.setCapitalization(true);
                 ParameterService parameterService = SpringContext.getBean(ParameterService.class);
@@ -72,10 +72,12 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
                 postable.setAmount(assetPayment.getAccountChargeAmount());
                 postable.setFinancialObjectCode(assetObjectCode.getCapitalizationFinancialObjectCode());
                 postable.setObjectCode(assetObjectCode.getCapitalizationFinancialObject());
-            };
+            }
+
+            ;
         },
         ACCUMMULATE_DEPRECIATION {
-		@Override
+            @Override
             void setParams(AssetGlpeSourceDetail postable, AssetPayment assetPayment, AssetObjectCode assetObjectCode) {
                 postable.setAccumulatedDepreciation(true);
                 ParameterService parameterService = SpringContext.getBean(ParameterService.class);
@@ -84,10 +86,12 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
                 postable.setAmount(assetPayment.getAccumulatedPrimaryDepreciationAmount());
                 postable.setFinancialObjectCode(assetObjectCode.getAccumulatedDepreciationFinancialObjectCode());
                 postable.setObjectCode(assetObjectCode.getAccumulatedDepreciationFinancialObject());
-            };
+            }
+
+            ;
         },
         OFFSET_AMOUNT {
-		@Override
+            @Override
             void setParams(AssetGlpeSourceDetail postable, AssetPayment assetPayment, AssetObjectCode assetObjectCode) {
                 postable.setCapitalizationOffset(true);
                 ParameterService parameterService = SpringContext.getBean(ParameterService.class);
@@ -110,7 +114,9 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
                 ObjectCode offsetFinancialObject = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(ObjectCode.class, pkMap);
 
                 postable.setObjectCode(offsetFinancialObject);
-            };
+            }
+
+            ;
         };
 
         abstract void setParams(AssetGlpeSourceDetail postable, AssetPayment assetPayment, AssetObjectCode assetObjectCode);
@@ -125,20 +131,20 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
     protected OrganizationService organizationService;
     protected ObjectCodeService objectCodeService;
 
-    public ObjectCodeService getObjectCodeService(){
-	    return objectCodeService;
+    public ObjectCodeService getObjectCodeService() {
+        return objectCodeService;
     }
 
-    public void setObjectCodeService(ObjectCodeService serv){
-	    this.objectCodeService = serv;
+    public void setObjectCodeService(ObjectCodeService serv) {
+        this.objectCodeService = serv;
     }
 
-    public OrganizationService getOrganizationService(){
-	    return this.organizationService;
+    public OrganizationService getOrganizationService() {
+        return this.organizationService;
     }
 
-    public void setOrganizationService(OrganizationService serv){
-	    this.organizationService = serv;
+    public void setOrganizationService(OrganizationService serv) {
+        this.organizationService = serv;
     }
 
     public ParameterService getParameterService() {
@@ -226,7 +232,7 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#isAssetRetiredByTheft(org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal)
      */
     @Override
-	public boolean isAssetRetiredByTheft(AssetRetirementGlobal assetRetirementGlobal) {
+    public boolean isAssetRetiredByTheft(AssetRetirementGlobal assetRetirementGlobal) {
         return CamsConstants.AssetRetirementReasonCode.THEFT.equalsIgnoreCase(assetRetirementGlobal.getRetirementReasonCode());
     }
 
@@ -234,16 +240,16 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#getAssetRetirementReasonName(org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal)
      */
     @Override
-	public String getAssetRetirementReasonName(AssetRetirementGlobal assetRetirementGlobal) {
+    public String getAssetRetirementReasonName(AssetRetirementGlobal assetRetirementGlobal) {
         return assetRetirementGlobal.getRetirementReason() == null ? new String() : assetRetirementGlobal.getRetirementReason().getRetirementReasonName();
     }
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#generateOffsetPaymentsForEachSource(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      java.util.List, java.lang.String)
+     * java.util.List, java.lang.String)
      */
     @Override
-	public void generateOffsetPaymentsForEachSource(Asset sourceAsset, List<PersistableBusinessObject> persistables, String currentDocumentNumber) {
+    public void generateOffsetPaymentsForEachSource(Asset sourceAsset, List<PersistableBusinessObject> persistables, String currentDocumentNumber) {
         List<AssetPayment> offsetPayments = new ArrayList<AssetPayment>();
         Integer maxSequenceNo = assetPaymentService.getMaxSequenceNumber(sourceAsset.getCapitalAssetNumber());
 
@@ -257,8 +263,7 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
                 assetPaymentService.adjustPaymentAmounts(offsetPayment, true, false);
                 offsetPayments.add(offsetPayment);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error occured while creating offset payment in retirement", e);
         }
         persistables.addAll(offsetPayments);
@@ -266,10 +271,10 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#generateNewPaymentForTarget(org.kuali.kfs.module.cam.businessobject.Asset,
-     *      org.kuali.kfs.module.cam.businessobject.Asset, java.util.List, java.lang.Integer, java.lang.String)
+     * org.kuali.kfs.module.cam.businessobject.Asset, java.util.List, java.lang.Integer, java.lang.String)
      */
     @Override
-	public Integer generateNewPaymentForTarget(Asset targetAsset, Asset sourceAsset, List<PersistableBusinessObject> persistables, Integer maxSequenceNo, String currentDocumentNumber) {
+    public Integer generateNewPaymentForTarget(Asset targetAsset, Asset sourceAsset, List<PersistableBusinessObject> persistables, Integer maxSequenceNo, String currentDocumentNumber) {
         List<AssetPayment> newPayments = new ArrayList<AssetPayment>();
         try {
             for (AssetPayment sourcePayment : sourceAsset.getAssetPayments()) {
@@ -282,8 +287,7 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
                 assetPaymentService.adjustPaymentAmounts(newPayment, false, false);
                 newPayments.add(newPayment);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error occured while creating new payment in retirement", e);
         }
         persistables.addAll(newPayments);
@@ -293,10 +297,10 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#isRetirementReasonCodeInGroup(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
-	public boolean isRetirementReasonCodeInGroup(String reasonCodeGroup, String reasonCode) {
+    public boolean isRetirementReasonCodeInGroup(String reasonCodeGroup, String reasonCode) {
         if (StringUtils.isBlank(reasonCodeGroup) || StringUtils.isBlank(reasonCode)) {
             return false;
         }
@@ -307,20 +311,20 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#isAllowedRetireMultipleAssets(java.lang.String)
      */
     @Override
-	public boolean isAllowedRetireMultipleAssets(MaintenanceDocument maintenanceDocument) {
+    public boolean isAllowedRetireMultipleAssets(MaintenanceDocument maintenanceDocument) {
         FinancialSystemMaintenanceDocumentAuthorizerBase documentAuthorizer = (FinancialSystemMaintenanceDocumentAuthorizerBase) SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(maintenanceDocument);
         boolean isAuthorized = documentAuthorizer.isAuthorized(maintenanceDocument, CamsConstants.CAM_MODULE_CODE,
-                CamsConstants.PermissionNames.RETIRE_MULTIPLE, GlobalVariables.getUserSession().getPerson().getPrincipalId());
+            CamsConstants.PermissionNames.RETIRE_MULTIPLE, GlobalVariables.getUserSession().getPerson().getPrincipalId());
 
         return isAuthorized;
     }
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetRetirementService#createGLPostables(org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal,
-     *      org.kuali.module.cams.gl.CamsGlPosterBase)
+     * org.kuali.module.cams.gl.CamsGlPosterBase)
      */
     @Override
-	public void createGLPostables(AssetRetirementGlobal assetRetirementGlobal, CamsGeneralLedgerPendingEntrySourceBase assetRetirementGlPoster) {
+    public void createGLPostables(AssetRetirementGlobal assetRetirementGlobal, CamsGeneralLedgerPendingEntrySourceBase assetRetirementGlPoster) {
 
         List<AssetRetirementGlobalDetail> assetRetirementGlobalDetails = assetRetirementGlobal.getAssetRetirementGlobalDetails();
 
@@ -414,7 +418,7 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @return
      */
     @Override
-	public ObjectCode getOffsetFinancialObject(String chartOfAccountsCode) {
+    public ObjectCode getOffsetFinancialObject(String chartOfAccountsCode) {
         Map pkMap = new HashMap();
         UniversityDateService universityDateService = SpringContext.getBean(UniversityDateService.class);
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
@@ -436,30 +440,30 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @return
      */
     protected Account getPlantFundAccount(AssetPayment payment) {
-	Account plantFundAccount = null;
+        Account plantFundAccount = null;
 
 	/*Don't check for null. If this fails, we are without hope.*/
-	payment.refreshReferenceObject(CamsPropertyConstants.AssetPayment.FINANCIAL_OBJECT);
-	String finObjectCode = payment.getFinancialObjectCode();
-	if (StringUtils.isNotEmpty(finObjectCode)){
-		ObjectCodeService obj = getObjectCodeService();
-		ObjectCode objectCode = obj.getByPrimaryIdForCurrentYear(payment.getChartOfAccountsCode(), finObjectCode);
+        payment.refreshReferenceObject(CamsPropertyConstants.AssetPayment.FINANCIAL_OBJECT);
+        String finObjectCode = payment.getFinancialObjectCode();
+        if (StringUtils.isNotEmpty(finObjectCode)) {
+            ObjectCodeService obj = getObjectCodeService();
+            ObjectCode objectCode = obj.getByPrimaryIdForCurrentYear(payment.getChartOfAccountsCode(), finObjectCode);
 
-		String financialObjectSubTypeCode = objectCode.getFinancialObjectSubTypeCode();
+            String financialObjectSubTypeCode = objectCode.getFinancialObjectSubTypeCode();
 
 		/*KFSCNTRB-1629 the plant fund account should be that from the payment's object code,
-		* not the asset's object code.*/
-		String coaCode = payment.getChartOfAccountsCode();
-		Account tempAcct = payment.getAccount();
-		String orgCode = tempAcct.getOrganizationCode();
-		Organization org = getOrganizationService().getByPrimaryId(coaCode, orgCode);
+        * not the asset's object code.*/
+            String coaCode = payment.getChartOfAccountsCode();
+            Account tempAcct = payment.getAccount();
+            String orgCode = tempAcct.getOrganizationCode();
+            Organization org = getOrganizationService().getByPrimaryId(coaCode, orgCode);
 
-		if (assetService.isAssetMovableCheckByPayment(financialObjectSubTypeCode)) {
-			plantFundAccount = org.getOrganizationPlantAccount();
-		} else {
-			plantFundAccount = org.getCampusPlantAccount();
-		}
-	}
+            if (assetService.isAssetMovableCheckByPayment(financialObjectSubTypeCode)) {
+                plantFundAccount = org.getOrganizationPlantAccount();
+            } else {
+                plantFundAccount = org.getCampusPlantAccount();
+            }
+        }
 
         return plantFundAccount;
     }
@@ -473,27 +477,27 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      * @return
      */
     @Override
-	public String generateCalculatedTotal(String salePrice, String handlingFeeAmount, String preventiveMaintenanceAmount) {
+    public String generateCalculatedTotal(String salePrice, String handlingFeeAmount, String preventiveMaintenanceAmount) {
         KualiDecimal calculatedTotal = KualiDecimal.ZERO;
 
         if (!salePrice.isEmpty()) {
             KualiDecimal testAmount = toKualiDecimal(salePrice);
-            if(testAmount.isZero()){
-              return "Please enter Sale Price in 1,234,567.00 Format";
+            if (testAmount.isZero()) {
+                return "Please enter Sale Price in 1,234,567.00 Format";
             }
             calculatedTotal = calculatedTotal.add(testAmount);
         }
         if (!handlingFeeAmount.isEmpty()) {
             KualiDecimal testAmount = toKualiDecimal(handlingFeeAmount);
-            if(testAmount.isZero()){
-               return "Please enter Handling Fee Amount in 1,234,567.00 Format";
+            if (testAmount.isZero()) {
+                return "Please enter Handling Fee Amount in 1,234,567.00 Format";
             }
             calculatedTotal = calculatedTotal.add(testAmount);
         }
         if (!preventiveMaintenanceAmount.isEmpty()) {
             KualiDecimal testAmount = toKualiDecimal(preventiveMaintenanceAmount);
-            if(testAmount.isZero()){
-              return "Please enter Preventive Maintenance Amount in 1,234,567.00 Format";
+            if (testAmount.isZero()) {
+                return "Please enter Preventive Maintenance Amount in 1,234,567.00 Format";
             }
             calculatedTotal = calculatedTotal.add(testAmount);
         }
@@ -509,9 +513,9 @@ public class AssetRetirementServiceImpl implements AssetRetirementService {
      */
     protected KualiDecimal toKualiDecimal(String amount) {
         KualiDecimal newAmount;
-        try{
+        try {
             newAmount = new KualiDecimal(java.lang.Double.parseDouble(amount));
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return KualiDecimal.ZERO;
         }
         return newAmount;

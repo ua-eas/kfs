@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.ld;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.math.BigDecimal;
+import java.sql.Date;
 
 
 public interface LaborLedgerPositionData extends ExternalizableBusinessObject {

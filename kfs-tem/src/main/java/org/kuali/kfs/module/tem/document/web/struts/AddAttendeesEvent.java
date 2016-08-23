@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.tem.businessobject.Attendee;
+import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
+import org.kuali.kfs.module.tem.document.service.TravelEntertainmentDocumentService;
+import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
+import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.kuali.kfs.module.tem.businessobject.Attendee;
-import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
-import org.kuali.kfs.module.tem.document.service.TravelEntertainmentDocumentService;
-import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
-import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
 
 public class AddAttendeesEvent implements Observer {
     private KualiRuleService kualiRuleService;
@@ -44,7 +44,7 @@ public class AddAttendeesEvent implements Observer {
         }
         final TravelEntertainmentMvcWrapperBean wrapper = (TravelEntertainmentMvcWrapperBean) arg;
 
-        final TravelEntertainmentDocument document = (TravelEntertainmentDocument)wrapper.getTravelDocument();
+        final TravelEntertainmentDocument document = (TravelEntertainmentDocument) wrapper.getTravelDocument();
         final Attendee newAttendeeLine = wrapper.getNewAttendeeLine();
 
         if (newAttendeeLine != null) {
@@ -53,7 +53,7 @@ public class AddAttendeesEvent implements Observer {
 
         getTravelEntertainmentDocumentService().handleNewAttendee(newAttendeeLine);
         int errCount = GlobalVariables.getMessageMap().getErrorCount();
-        if(errCount > 0) {
+        if (errCount > 0) {
             return;
         }
 
@@ -79,8 +79,7 @@ public class AddAttendeesEvent implements Observer {
                     selectedLine = 0;
                     attendeeLine = new Attendee();
                     newAttendeeLines.add(attendeeLine);
-                }
-                else {
+                } else {
                     if (attendeeLine.equals(newAttendee)) {
                         Attendee line = new Attendee();
                         line.setAttendeeType(attendeeLine.getAttendeeType());
@@ -89,8 +88,7 @@ public class AddAttendeesEvent implements Observer {
                         line.setName(attendeeLine.getName());
 
                         newAttendeeLines.add(line);
-                    }
-                    else {
+                    } else {
                         newAttendeeLines.add(attendeeLine);
                     }
                 }

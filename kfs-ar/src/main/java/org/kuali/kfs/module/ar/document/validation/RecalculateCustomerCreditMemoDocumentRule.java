@@ -22,5 +22,5 @@ import org.kuali.kfs.krad.document.TransactionalDocument;
 
 public interface RecalculateCustomerCreditMemoDocumentRule<F extends TransactionalDocument> {
 
-    public boolean processRecalculateCustomerCreditMemoDocumentRules(F financialDocument,boolean printErrMsgFlag);
+    public boolean processRecalculateCustomerCreditMemoDocumentRules(F financialDocument, boolean printErrMsgFlag);
 }

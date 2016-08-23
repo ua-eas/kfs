@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.coa.document;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.util.MaintenanceUtils;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMaintainable {
 
@@ -60,7 +60,7 @@ public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMai
                 IndirectCostRecoveryExclusionType templatedBo = (IndirectCostRecoveryExclusionType) ObjectUtils.createHybridBusinessObject(collectionClass, nextBo, template);
                 templatedBo.setNewCollectionRecord(true);
                 prepareBusinessObjectForAdditionFromMultipleValueLookup(collectionName, templatedBo);
-                if(!hasBusinessObjectExisted(templatedBo, existingIdentifierList, duplicateIdentifierFieldsFromDataDictionary)) {
+                if (!hasBusinessObjectExisted(templatedBo, existingIdentifierList, duplicateIdentifierFieldsFromDataDictionary)) {
                     maintCollection.add(templatedBo);
                 }
                 collectionItemNumber++;
@@ -68,8 +68,7 @@ public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMai
             }
             GlobalVariables.getMessageMap().removeFromErrorPath(DETAIL_ERROR_PATH);
             // putGlobalError(KFSKeyConstants.ERROR_DOCUMENT_ACCTDELEGATEMAINT_PRIMARY_ROUTE_ALREADY_EXISTS_FOR_DOCTYPE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Unable to add multiple value lookup results " + e.getMessage());
             throw new RuntimeException("Unable to add multiple value lookup results " + e.getMessage());
         }

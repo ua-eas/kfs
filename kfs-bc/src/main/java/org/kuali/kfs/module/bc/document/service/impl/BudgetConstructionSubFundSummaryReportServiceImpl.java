@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountSummary;
@@ -37,6 +32,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -61,7 +61,7 @@ public class BudgetConstructionSubFundSummaryReportServiceImpl implements Budget
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionSubFundSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     public Collection<BudgetConstructionOrgSubFundSummaryReport> buildReports(Integer universityFiscalYear, String principalName) {
         Collection<BudgetConstructionOrgSubFundSummaryReport> reportSet = new ArrayList();
@@ -107,36 +107,31 @@ public class BudgetConstructionSubFundSummaryReportServiceImpl implements Budget
         orgSubFundSummaryReportEntry.setOrgChartOfAccountsCode(subFundSummaryList.getOrganizationChartOfAccountsCode());
         if (orgChartDesc == null) {
             orgSubFundSummaryReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSubFundSummaryReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
         orgSubFundSummaryReportEntry.setOrganizationCode(subFundSummaryList.getOrganizationCode());
         if (orgName == null) {
             orgSubFundSummaryReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgSubFundSummaryReportEntry.setOrganizationName(orgName);
         }
         orgSubFundSummaryReportEntry.setChartOfAccountsCode(subFundSummaryList.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgSubFundSummaryReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSubFundSummaryReportEntry.setChartOfAccountDescription(chartDesc);
         }
         orgSubFundSummaryReportEntry.setFundGroupCode(subFundSummaryList.getFundGroupCode());
         if (subFundGroupName == null) {
             orgSubFundSummaryReportEntry.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             orgSubFundSummaryReportEntry.setFundGroupName(subFundGroupName);
         }
         orgSubFundSummaryReportEntry.setSubFundGroupCode(subFundSummaryList.getSubFundGroupCode());
         if (subFundGroupName == null) {
             orgSubFundSummaryReportEntry.setSubFundGroupDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUBFUNDGROUP_DESCRIPTION));
-        }
-        else {
+        } else {
             orgSubFundSummaryReportEntry.setSubFundGroupDescription(subFundGroupDes);
         }
         Integer prevPrevFiscalyear = prevFiscalyear - 1;
@@ -162,20 +157,16 @@ public class BudgetConstructionSubFundSummaryReportServiceImpl implements Budget
         // build income expense description
         if (subFundSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
             orgSubFundSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_REVENUE));
-        }
-        else if (subFundSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
+        } else if (subFundSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
             orgSubFundSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXP_GROSS));
-        }
-        else if (subFundSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
+        } else if (subFundSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
             trExist = true;
             orgSubFundSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_TRNFR_IN));
-        }
-        else {
+        } else {
             if (trExist) {
                 trExist = false;
                 orgSubFundSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXP_NET_TRNFR));
-            }
-            else {
+            } else {
                 orgSubFundSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXPENDITURE));
             }
         }
@@ -262,8 +253,7 @@ public class BudgetConstructionSubFundSummaryReportServiceImpl implements Budget
                     if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
                         subFundTotalRevenueBaseAmount = subFundTotalRevenueBaseAmount.subtract(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         subFundTotalRevenueReqAmount = subFundTotalRevenueReqAmount.subtract(bcasListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
                         subFundTotalRevenueBaseAmount = subFundTotalRevenueBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         subFundTotalRevenueReqAmount = subFundTotalRevenueReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
                     }
@@ -305,17 +295,14 @@ public class BudgetConstructionSubFundSummaryReportServiceImpl implements Budget
                     if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
                         totalRevenueBaseAmount = totalRevenueBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalRevenueReqAmount = totalRevenueReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
                         totalGrossBaseAmount = totalGrossBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalGrossReqAmount = totalGrossReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
 
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
                         totalTransferInBaseAmount = totalTransferInBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalTransferInReqAmount = totalTransferInReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
                         totalNetTransferBaseAmount = totalNetTransferBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalNetTransferReqAmount = totalNetTransferReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
                     }

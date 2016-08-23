@@ -21,11 +21,11 @@ package org.kuali.kfs.fp.document.validation.impl;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
 import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates an accounting line on a budget adjustment document whether the base amount on the line can be changed or not
@@ -37,6 +37,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Validate that, if a base amount is entered for a line, that it can be adjusted for the posting year
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -50,6 +51,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public BudgetAdjustmentAccountingLine getAccountingLineForValidation() {
@@ -58,6 +60,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(BudgetAdjustmentAccountingLine accountingLineForValidation) {
@@ -66,6 +69,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Gets the fiscalYearFunctionControlService attribute.
+     *
      * @return Returns the fiscalYearFunctionControlService.
      */
     public FiscalYearFunctionControlService getFiscalYearFunctionControlService() {
@@ -74,6 +78,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Sets the fiscalYearFunctionControlService attribute value.
+     *
      * @param fiscalYearFunctionControlService The fiscalYearFunctionControlService to set.
      */
     public void setFiscalYearFunctionControlService(FiscalYearFunctionControlService fiscalYearFunctionControlService) {
@@ -82,6 +87,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public BudgetAdjustmentDocument getAccountingDocumentForValidation() {
@@ -90,6 +96,7 @@ public class BudgetAdjustmentAccountingLineBaseAmountValidation extends GenericV
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(BudgetAdjustmentDocument accountingDocumentForValidation) {

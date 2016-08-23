@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.module.ar.batch.service.LetterOfCreditCreateService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * This step of LetterOFCreditJob would create and route a cash control document and payment application documents

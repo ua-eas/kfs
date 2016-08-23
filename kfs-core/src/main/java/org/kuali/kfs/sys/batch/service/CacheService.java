@@ -28,7 +28,7 @@ public interface CacheService {
      */
     void clearSystemCaches();
 
-    void clearNamedCache( String name );
+    void clearNamedCache(String name);
 
-    void clearKfsBusinessObjectCache( Class boClass );
+    void clearKfsBusinessObjectCache(Class boClass);
 }

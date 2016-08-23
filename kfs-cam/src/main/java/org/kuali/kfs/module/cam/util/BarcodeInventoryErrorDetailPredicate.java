@@ -26,7 +26,6 @@ import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
 import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
 
 /**
- *
  * Helps filter out records from a collection of BCIE and replace its elements with the inputted data
  */
 public class BarcodeInventoryErrorDetailPredicate implements Predicate, Closure {
@@ -34,8 +33,8 @@ public class BarcodeInventoryErrorDetailPredicate implements Predicate, Closure 
     private BarcodeInventoryErrorDocument doc;
 
     /**
-     *
      * Constructs a BarcodeInventoryErrorDetailPredicate.java.
+     *
      * @param form
      */
     public BarcodeInventoryErrorDetailPredicate(BarcodeInventoryErrorDocument doc) {
@@ -43,7 +42,6 @@ public class BarcodeInventoryErrorDetailPredicate implements Predicate, Closure 
     }
 
     /**
-     *
      * @see org.apache.commons.collections.Predicate#evaluate(java.lang.Object)
      */
     public boolean evaluate(Object object) {
@@ -94,8 +92,7 @@ public class BarcodeInventoryErrorDetailPredicate implements Predicate, Closure 
                         satisfies = false;
                     }
                 }
-            }
-            else {
+            } else {
                 satisfies = false;
             }
         }
@@ -103,7 +100,6 @@ public class BarcodeInventoryErrorDetailPredicate implements Predicate, Closure 
     }
 
     /**
-     *
      * @see org.apache.commons.collections.Closure#execute(java.lang.Object)
      */
     public void execute(Object object) {

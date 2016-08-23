@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.ar.report.service;
 
 
-
 /**
  * Services to support the Federal Financial Report
  */
@@ -34,23 +33,25 @@ public interface FederalFinancialReportService {
 
     /**
      * Validates the user input to the report.
-     * @param federalForm the type of federal form to validate
-     * @param proposalNumber the proposal number to validate
-     * @param fiscalYear the fiscal year to validate
+     *
+     * @param federalForm     the type of federal form to validate
+     * @param proposalNumber  the proposal number to validate
+     * @param fiscalYear      the fiscal year to validate
      * @param reportingPeriod the reporting period to validate
-     * @param agencyNumber the agency number to validate
+     * @param agencyNumber    the agency number to validate
      * @return error message if an error occurred; otherwise, a blank String
      */
     public String validate(String federalForm, String proposalNumber, String fiscalYear, String reportingPeriod, String agencyNumber);
 
     /**
      * Creates a URL to be used in printing the federal forms.
-     * @param basePath String: The base path of the current URL
-     * @param docId String: The document ID of the document to be printed
-     * @param period the accounting period of the document to be printed
-     * @param year the fiscal year of the document to be printed
+     *
+     * @param basePath     String: The base path of the current URL
+     * @param docId        String: The document ID of the document to be printed
+     * @param period       the accounting period of the document to be printed
+     * @param year         the fiscal year of the document to be printed
      * @param agencyNumber the agencyNumber of the document to be printed
-     * @param formType the formType of the document to be printed
+     * @param formType     the formType of the document to be printed
      * @param methodToCall String: The name of the method that will be invoked to do this particular print
      * @return The URL
      */

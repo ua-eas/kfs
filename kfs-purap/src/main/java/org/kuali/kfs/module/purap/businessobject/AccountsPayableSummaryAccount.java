@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.purap.PurapConstants.PurapDocTypeCodes;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Timestamp;
 
 /**
  * Payment Request Summary Account Business Object.
@@ -40,8 +40,7 @@ public class AccountsPayableSummaryAccount extends PaymentRequestAccount {
     public AccountsPayableSummaryAccount(SourceAccountingLine account, Integer purapDocumentIdentifier, String docType) {
         if (PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT.equals(docType)) {
             this.setPaymentRequestIdentifier(purapDocumentIdentifier);
-        }
-        else if (PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(docType)) {
+        } else if (PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(docType)) {
             this.setCreditMemoIdentifier(purapDocumentIdentifier);
         }
         this.setChartOfAccountsCode(account.getChartOfAccountsCode());

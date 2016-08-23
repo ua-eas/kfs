@@ -18,16 +18,17 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.document.validation.GenerateReferenceDocumentRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.ar.document.validation.GenerateReferenceDocumentRule;
 
 public class GenerateReferenceDocumentEvent extends KualiDocumentEventBase {
 
     /**
      * Constructs a GenerateReferenceDocumentEvent.java.
+     *
      * @param errorPathPrefix
      * @param document
      */

@@ -18,59 +18,57 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class AssetLocationGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 
-	private String documentNumber;
+    private String documentNumber;
     private DocumentHeader documentHeader;
     private List<AssetLocationGlobalDetail> assetLocationGlobalDetails;
 
-	/**
-	 * Default constructor.
-	 */
-	public AssetLocationGlobal() {
+    /**
+     * Default constructor.
+     */
+    public AssetLocationGlobal() {
         assetLocationGlobalDetails = new ArrayList<AssetLocationGlobalDetail>();
-	}
+    }
 
-	/**
-	 * Gets the documentNumber attribute.
-	 *
-	 * @return Returns the documentNumber
-	 *
-	 */
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
+    /**
+     * Gets the documentNumber attribute.
+     *
+     * @return Returns the documentNumber
+     */
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
 
-	/**
-	 * Sets the documentNumber attribute.
-	 *
-	 * @param documentNumber The documentNumber to set.
-	 *
-	 */
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
+    /**
+     * Sets the documentNumber attribute.
+     *
+     * @param documentNumber The documentNumber to set.
+     */
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 
-	/**
+    /**
      * Gets the documentHeader attribute.
+     *
      * @return Returns the documentHeader.
      */
     public DocumentHeader getDocumentHeader() {
@@ -79,6 +77,7 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the documentHeader attribute value.
+     *
      * @param documentHeader The documentHeader to set.
      * @deprecated
      */
@@ -88,6 +87,7 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the assetLocationGlobalDetails attribute.
+     *
      * @return Returns the assetLocationGlobalDetails.
      */
     public List<AssetLocationGlobalDetail> getAssetLocationGlobalDetails() {
@@ -96,6 +96,7 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the assetLocationGlobalDetails attribute value.
+     *
      * @param assetLocationGlobalDetails The assetLocationGlobalDetails to set.
      */
     public void setAssetLocationGlobalDetails(List<AssetLocationGlobalDetail> assetLocationGlobalDetails) {
@@ -127,22 +128,22 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
             // if we got a valid asset, do the processing
             if (asset != null) {
 
-                if (!StringUtils.equalsIgnoreCase(asset.getCampusCode(), detail.getCampusCode()) ) {
+                if (!StringUtils.equalsIgnoreCase(asset.getCampusCode(), detail.getCampusCode())) {
                     asset.setCampusCode(detail.getCampusCode());
                     isCampusCodeChanged = true;
                 }
 
-                if (!StringUtils.equalsIgnoreCase(asset.getBuildingCode(), detail.getBuildingCode()) ) {
+                if (!StringUtils.equalsIgnoreCase(asset.getBuildingCode(), detail.getBuildingCode())) {
                     asset.setBuildingCode(detail.getBuildingCode());
                     isBuildingCodeChanged = true;
                 }
 
-                if (!StringUtils.equalsIgnoreCase(asset.getBuildingRoomNumber(), detail.getBuildingRoomNumber()) ) {
+                if (!StringUtils.equalsIgnoreCase(asset.getBuildingRoomNumber(), detail.getBuildingRoomNumber())) {
                     asset.setBuildingRoomNumber(detail.getBuildingRoomNumber());
                     isBuildingRoomNumberChanged = true;
                 }
 
-                if (!StringUtils.equalsIgnoreCase(asset.getBuildingSubRoomNumber(), detail.getBuildingSubRoomNumber()) ) {
+                if (!StringUtils.equalsIgnoreCase(asset.getBuildingSubRoomNumber(), detail.getBuildingSubRoomNumber())) {
                     asset.setBuildingSubRoomNumber(detail.getBuildingSubRoomNumber());
                     isBuildingSubRoomNumberChanged = true;
                 }
@@ -155,8 +156,7 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
 
                 updateOffCampusWithOnCampusValues(asset);
 
-                if(isCampusCodeChanged || isBuildingCodeChanged || isBuildingRoomNumberChanged || isBuildingSubRoomNumberChanged || isCampusTagNumberChanged)
-                {
+                if (isCampusCodeChanged || isBuildingCodeChanged || isBuildingRoomNumberChanged || isBuildingSubRoomNumberChanged || isCampusTagNumberChanged) {
                     asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));
                 }
 
@@ -184,22 +184,22 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
                 boolean offCampus = CamsConstants.AssetLocationTypeCode.OFF_CAMPUS.equals(location.getAssetLocationTypeCode());
                 boolean buildingOrRoom = StringUtils.isNotBlank(asset.getBuildingCode()) || StringUtils.isNotBlank(asset.getBuildingRoomNumber());
                 if (offCampus && buildingOrRoom) {
-                  location.setAssetLocationContactName(null); // cm_ast_loc_t.ast_loc_cntnt_nm
-                  location.setAssetLocationStreetAddress(null); // cm_ast_loc_t.ast_loc_strt_addr
-                  location.setAssetLocationCityName(null); // cm_ast_loc_t.ast_loc_city_nm
-                  location.setAssetLocationStateCode(null); // cm_ast_loc_t.ast_loc_state_cd
-                  location.setAssetLocationCountryCode(null); // cm_ast_loc_t.ast_loc_cntry_cd
-                  location.setAssetLocationZipCode(null); // cm_ast_loc_t.ast_loc_zip_cd
+                    location.setAssetLocationContactName(null); // cm_ast_loc_t.ast_loc_cntnt_nm
+                    location.setAssetLocationStreetAddress(null); // cm_ast_loc_t.ast_loc_strt_addr
+                    location.setAssetLocationCityName(null); // cm_ast_loc_t.ast_loc_city_nm
+                    location.setAssetLocationStateCode(null); // cm_ast_loc_t.ast_loc_state_cd
+                    location.setAssetLocationCountryCode(null); // cm_ast_loc_t.ast_loc_cntry_cd
+                    location.setAssetLocationZipCode(null); // cm_ast_loc_t.ast_loc_zip_cd
 
-                  // this didn't work
-                  //toDelete.add(location);
+                    // this didn't work
+                    //toDelete.add(location);
                 }
             }
         }
 
         // this didn't work
         //asset.getAssetLocations().removeAll(toDelete);
-     }
+    }
 
     public boolean isPersistable() {
         return true;
@@ -210,11 +210,11 @@ public class AssetLocationGlobal extends PersistableBusinessObjectBase implement
     }
 
     /**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);
-	    return m;
+        return m;
     }
 }

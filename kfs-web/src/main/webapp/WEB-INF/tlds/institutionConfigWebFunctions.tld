@@ -23,22 +23,22 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
         version="2.0">
 
-  <description>Web Functions for Institution Configuration</description>
-  <display-name>Institution Config Web Functions</display-name>
-  <tlib-version>1.0</tlib-version>
-  <short-name>icwf</short-name>
-  <uri>https://kuali.co/financials/jsp/functions/instconfig</uri>
+    <description>Web Functions for Institution Configuration</description>
+    <display-name>Institution Config Web Functions</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>icwf</short-name>
+    <uri>https://kuali.co/financials/jsp/functions/instconfig</uri>
 
-  <function>
-    <description>
-      Check if the current user has permission to access the institution configuration page.
-    </description>
-    <name>hasPermission</name>
-    <function-class>org.kuali.kfs.sys.web.InstitutionConfigWebFunctions</function-class>
-    <function-signature>boolean hasPermission()</function-signature>
-    <example>
-      &lt;c:if test="${icwf:hasPermission()}" /&gt;
-    </example>
-  </function>
+    <function>
+        <description>
+            Check if the current user has permission to access the institution configuration page.
+        </description>
+        <name>hasPermission</name>
+        <function-class>org.kuali.kfs.sys.web.InstitutionConfigWebFunctions</function-class>
+        <function-signature>boolean hasPermission()</function-signature>
+        <example>
+            &lt;c:if test="${icwf:hasPermission()}" /&gt;
+        </example>
+    </function>
 
 </taglib>

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.tem.batch.service.PerDiemLoadService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 public class PerDiemLoadStep extends AbstractStep {
 
@@ -37,6 +37,7 @@ public class PerDiemLoadStep extends AbstractStep {
 
     /**
      * Gets the perDiemLoadService attribute.
+     *
      * @return Returns the perDiemLoadService.
      */
     public PerDiemLoadService getPerDiemLoadService() {
@@ -45,6 +46,7 @@ public class PerDiemLoadStep extends AbstractStep {
 
     /**
      * Sets the perDiemLoadService attribute value.
+     *
      * @param perDiemLoadService The perDiemLoadService to set.
      */
     public void setPerDiemLoadService(PerDiemLoadService perDiemLoadService) {

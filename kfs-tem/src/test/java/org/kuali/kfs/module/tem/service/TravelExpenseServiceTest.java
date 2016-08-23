@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
 import org.kuali.kfs.module.tem.dataaccess.ExpenseTypeObjectCodeDao;
 import org.kuali.kfs.module.tem.dataaccess.impl.ExpenseTypeObjectCodeDaoOjb;
@@ -29,6 +25,10 @@ import org.kuali.kfs.module.tem.service.impl.TravelExpenseServiceImpl;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @ConfigureContext
 public class TravelExpenseServiceTest extends KualiTestBase {
@@ -38,7 +38,7 @@ public class TravelExpenseServiceTest extends KualiTestBase {
     protected TravelExpenseService travelExpenseService;
 
     protected enum MockExpenseTypeObjectCode {
-        MONKEY("M","TT", "All", "All", "6000"),
+        MONKEY("M", "TT", "All", "All", "6000"),
         GIRAFFE_TT("G", "TT", "All", "All", "6001"),
         GIRAFFE_TA("G", "TA", "All", "All", "6002"),
         GIRAFFE_EMP_IN("G", "TA", "EMP", "IN", "6003"),
@@ -97,7 +97,7 @@ public class TravelExpenseServiceTest extends KualiTestBase {
                                 results.add(MockExpenseTypeObjectCode.GIRAFFE_TRIP_ALL.buildExpenseTypeObjectCode());
                             }
                         } else {
-                            throw new UnsupportedOperationException("Hey, I'm just a mock interface.  I only know about monkeys and giraffes, not an expense type code like: "+expenseTypeCode);
+                            throw new UnsupportedOperationException("Hey, I'm just a mock interface.  I only know about monkeys and giraffes, not an expense type code like: " + expenseTypeCode);
                         }
                         return results;
                     }

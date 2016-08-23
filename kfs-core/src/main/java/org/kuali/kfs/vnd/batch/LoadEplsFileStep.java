@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.vnd.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.vnd.batch.service.VendorExcludeService;
 
-public class LoadEplsFileStep extends AbstractStep{
+import java.util.Date;
+
+public class LoadEplsFileStep extends AbstractStep {
     VendorExcludeService vendorExcludeService;
 
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {

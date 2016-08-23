@@ -27,7 +27,7 @@ import java.util.List;
 public abstract class AbstractFlatFileObjectSpecification implements FlatFileObjectSpecification {
 
     protected Class<?> businessObjectClass;
-    protected List <FlatFilePropertySpecification> parseProperties;
+    protected List<FlatFilePropertySpecification> parseProperties;
     protected Class<?> parentBusinessObjectClass;
     protected String parentTargetProperty;
 
@@ -52,19 +52,19 @@ public abstract class AbstractFlatFileObjectSpecification implements FlatFileObj
     }
 
     public Class<?> getParentBusinessObjectClass() {
-    	return parentBusinessObjectClass;
+        return parentBusinessObjectClass;
     }
 
     public void setParentBusinessObjectClass(Class<?> parentBusinessObjectClass) {
-    	this.parentBusinessObjectClass = parentBusinessObjectClass;
+        this.parentBusinessObjectClass = parentBusinessObjectClass;
     }
 
     public String getParentTargetProperty() {
-    	return parentTargetProperty;
+        return parentTargetProperty;
     }
 
     public void setParentTargetProperty(String parentProperty) {
-    	this.parentTargetProperty = parentProperty;
+        this.parentTargetProperty = parentProperty;
     }
 
 }

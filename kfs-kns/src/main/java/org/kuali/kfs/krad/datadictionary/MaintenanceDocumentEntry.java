@@ -21,10 +21,10 @@ package org.kuali.kfs.krad.datadictionary;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.krad.datadictionary.exception.ClassValidationException;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.maintenance.Maintainable;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentBase;
-import org.kuali.kfs.krad.maintenance.Maintainable;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocumentPresentationControllerBase;
 
 import java.util.ArrayList;
@@ -32,8 +32,6 @@ import java.util.List;
 
 /**
  * Data dictionary entry class for <code>MaintenanceDocument</code>
- *
- *
  */
 public class MaintenanceDocumentEntry extends DocumentEntry {
     private static final long serialVersionUID = 4990040987835057251L;
@@ -103,7 +101,7 @@ public class MaintenanceDocumentEntry extends DocumentEntry {
 
     /**
      * @return List of all lockingKey fieldNames associated with this LookupDefinition, in the order in which they were
-     *         added
+     * added
      */
     public List<String> getLockingKeyFieldNames() {
         return lockingKeys;
@@ -138,8 +136,8 @@ public class MaintenanceDocumentEntry extends DocumentEntry {
         for (String lockingKey : lockingKeys) {
             if (!DataDictionary.isPropertyOf(dataObjectClass, lockingKey)) {
                 throw new AttributeValidationException(
-                        "unable to find attribute '" + lockingKey + "' for lockingKey in dataObjectClass '" +
-                                dataObjectClass.getName());
+                    "unable to find attribute '" + lockingKey + "' for lockingKey in dataObjectClass '" +
+                        dataObjectClass.getName());
             }
         }
 
@@ -149,11 +147,11 @@ public class MaintenanceDocumentEntry extends DocumentEntry {
 
 
         if (documentAuthorizerClass != null &&
-                !MaintenanceDocumentAuthorizer.class.isAssignableFrom(documentAuthorizerClass)) {
+            !MaintenanceDocumentAuthorizer.class.isAssignableFrom(documentAuthorizerClass)) {
             throw new ClassValidationException(
-                    "This maintenance document for '" + getDataObjectClass().getName() + "' has an invalid " +
-                            "documentAuthorizerClass ('" + documentAuthorizerClass.getName() + "').  " +
-                            "Maintenance Documents must use an implementation of MaintenanceDocumentAuthorizer.");
+                "This maintenance document for '" + getDataObjectClass().getName() + "' has an invalid " +
+                    "documentAuthorizerClass ('" + documentAuthorizerClass.getName() + "').  " +
+                    "Maintenance Documents must use an implementation of MaintenanceDocumentAuthorizer.");
         }
     }
 

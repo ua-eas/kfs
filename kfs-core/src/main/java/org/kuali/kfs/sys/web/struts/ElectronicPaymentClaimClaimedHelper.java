@@ -28,6 +28,7 @@ public class ElectronicPaymentClaimClaimedHelper {
 
     /**
      * Gets the electronicPaymentClaimRepresentation attribute.
+     *
      * @return Returns the electronicPaymentClaimRepresentation.
      */
     public String getElectronicPaymentClaimRepresentation() {
@@ -36,6 +37,7 @@ public class ElectronicPaymentClaimClaimedHelper {
 
     /**
      * Sets the electronicPaymentClaimRepresentation attribute value.
+     *
      * @param electronicPaymentClaimRepresentation The electronicPaymentClaimRepresentation to set.
      */
     public void setElectronicPaymentClaimRepresentation(String electronicPaymentClaimRepresentation) {

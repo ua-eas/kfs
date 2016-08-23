@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetLocation;
@@ -29,6 +26,9 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipmentLoanOrReturnServiceTest extends KualiTestBase {
     private EquipmentLoanOrReturnService equipmentLoanOrReturnService;

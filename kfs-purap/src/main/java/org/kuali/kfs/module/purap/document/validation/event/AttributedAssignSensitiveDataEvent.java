@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.document.validation.event;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.List;
 
 public final class AttributedAssignSensitiveDataEvent extends AttributedDocumentEventBase {
 
@@ -32,8 +32,8 @@ public final class AttributedAssignSensitiveDataEvent extends AttributedDocument
     /**
      * Constructs an AssignSensitiveDataEvent with the given errorPathPrefix, document, and sensitive data list.
      *
-     * @param errorPathPrefix the error path
-     * @param document document the event was invoked on
+     * @param errorPathPrefix        the error path
+     * @param document               document the event was invoked on
      * @param sensitiveDatasAssigned the sensitive data list to be checked for assignment
      */
     public AttributedAssignSensitiveDataEvent(String errorPathPrefix, Document document, String sensitiveDataAssignmentReason, List<SensitiveData> sensitiveDatasAssigned) {

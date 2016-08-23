@@ -18,16 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Set;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.kuali.kfs.module.external.kc.webService.KfsKcSoapService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
@@ -37,10 +27,20 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Set;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+
 @ConfigureContext(session = khuntley)
 public class WebServicesImplTest extends KualiTestBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(WebServicesImplTest.class);
     static final String TEST_BASE_PACKAGE = "org.kuali.kfs.module.external";
+
     /**
      * @see junit.framework.TestCase#setUp()
      */
@@ -66,8 +66,7 @@ public class WebServicesImplTest extends KualiTestBase {
             doc.getDocumentElement().normalize();
             LOG.debug("Root Element " + doc.getDocumentElement().getNodeName());
             return true;
-        }
-        catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException ex) {
             // TODO Auto-generated catch block
             ex.printStackTrace();
         }
@@ -87,8 +86,7 @@ public class WebServicesImplTest extends KualiTestBase {
                 KfsKcSoapService kfsServiceInst = kfsServiceClass.newInstance();
                 URL myWsdl = kfsServiceInst.getWsdl();
                 assertTrue(isValidfetchXML(myWsdl));
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 fail(ex.getMessage());
             }
         }

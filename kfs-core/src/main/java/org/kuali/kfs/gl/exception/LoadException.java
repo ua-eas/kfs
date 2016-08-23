@@ -31,6 +31,7 @@ public class LoadException extends RuntimeException {
 
     /**
      * Constructs a LoadException instance, encapsulating a messaging
+     *
      * @param msg a helpful message
      */
     public LoadException(String msg) {

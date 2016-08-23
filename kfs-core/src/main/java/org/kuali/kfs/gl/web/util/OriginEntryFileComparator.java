@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.web.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.File;
 import java.util.Comparator;
 import java.util.Date;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * An implementation of Comparator which compares origin entry Files by their name prefix and then by last modified date

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.gl.businessobject.Encumbrance;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.Collection;
 
 /**
  * An interface which declares the methods needed to post a transaction against an encumbrance
@@ -32,7 +32,7 @@ public interface EncumbranceCalculator {
      * return the Encumbrance row that is affected by the transaction.
      *
      * @param encumbranceList list of Encumbrance objects
-     * @param t A transaction
+     * @param t               A transaction
      * @return the matching Encumbrance from the list or null if not applicable
      */
     public Encumbrance findEncumbrance(Collection encumbranceList, Transaction t);
@@ -40,7 +40,7 @@ public interface EncumbranceCalculator {
     /**
      * This will update the amounts in an Encumbrance records based on the data in the transaction.
      *
-     * @param t the transaction to compare
+     * @param t   the transaction to compare
      * @param enc An encumbrance to update
      */
     public void updateEncumbrance(Transaction t, Encumbrance enc);

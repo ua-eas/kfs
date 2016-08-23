@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.purap.PurapKeyConstants;
-import org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.purap.PurapKeyConstants;
+import org.kuali.kfs.module.purap.businessobject.PurchaseOrderContractLanguage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Business rule(s) applicable to Purchase Order Contract Language maintenance document.
@@ -91,12 +91,12 @@ public class PurchaseOrderContractLanguageRule extends MaintenanceDocumentRuleBa
 
         if (oldContractLanguage.getPurchaseOrderContractLanguageIdentifier() != null &&
             newContractLanguage.getPurchaseOrderContractLanguageIdentifier() != null &&
-            StringUtils.equalsIgnoreCase(newContractLanguage.getCampusCode(),oldContractLanguage.getCampusCode()) &&
+            StringUtils.equalsIgnoreCase(newContractLanguage.getCampusCode(), oldContractLanguage.getCampusCode()) &&
             newContractLanguage.getPurchaseOrderContractLanguageIdentifier().equals(oldContractLanguage.getPurchaseOrderContractLanguageIdentifier()) &&
-            StringUtils.equalsIgnoreCase(newContractLanguage.getPurchaseOrderContractLanguageDescription(),oldContractLanguage.getPurchaseOrderContractLanguageDescription()) &&
-            newContractLanguage.getContractLanguageCreateDate().equals(oldContractLanguage.getContractLanguageCreateDate())){
+            StringUtils.equalsIgnoreCase(newContractLanguage.getPurchaseOrderContractLanguageDescription(), oldContractLanguage.getPurchaseOrderContractLanguageDescription()) &&
+            newContractLanguage.getContractLanguageCreateDate().equals(oldContractLanguage.getContractLanguageCreateDate())) {
             success = true;
-        }else{
+        } else {
             fieldValues.put("campusCode", newContractLanguage.getCampusCode());
             fieldValues.put("purchaseOrderContractLanguageDescription", newContractLanguage.getPurchaseOrderContractLanguageDescription());
             fieldValues.put("contractLanguageCreateDate", newContractLanguage.getContractLanguageCreateDate());

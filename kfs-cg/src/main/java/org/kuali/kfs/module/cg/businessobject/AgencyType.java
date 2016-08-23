@@ -19,8 +19,8 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.KualiCodeBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 /**
  * Extends KualiCodeBase with no changes.

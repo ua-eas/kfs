@@ -38,7 +38,7 @@ public interface LaborTransactionDescriptionService {
      * get the transaction description from the description map with the given key
      *
      * @param descriptionKey the given key that indexes a description in the description map, where the description map can be
-     *        defined and injected.
+     *                       defined and injected.
      * @return the transaction description indexed by the given key
      */
     public String getTransactionDescription(String descriptionKey);

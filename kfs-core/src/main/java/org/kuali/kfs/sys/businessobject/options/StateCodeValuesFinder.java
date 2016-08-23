@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.location.api.state.State;
 import org.kuali.rice.location.api.state.StateService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StateCodeValuesFinder extends KeyValuesBase {
 
@@ -39,7 +39,7 @@ public class StateCodeValuesFinder extends KeyValuesBase {
         List<KeyValue> labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (State state : codes) {
-            if(state.isActive()) {
+            if (state.isActive()) {
                 labels.add(new ConcreteKeyValue(state.getCode(), state.getCode()));
             }
         }

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.FinalBilledIndicatorEntry;
 import org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument;
-import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
 
 /**
  * Form class for Final Billed Indicator Document.

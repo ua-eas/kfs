@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

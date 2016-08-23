@@ -18,22 +18,18 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -55,13 +51,16 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Struts Action for Purchasing and Accounts Payable documents
@@ -136,12 +135,12 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
     /**
      * Invokes a service method to refresh the account summary.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward refreshAccountSummary(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PurchasingAccountsPayableFormBase purapForm = (PurchasingAccountsPayableFormBase) form;
@@ -152,39 +151,38 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
     }
 
     /**
-     * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#uploadAccountingLines(boolean,org.apache.struts.action.ActionForm)
+     * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#uploadAccountingLines(boolean, org.apache.struts.action.ActionForm)
      */
     @Override
     protected void uploadAccountingLines(boolean isSource, ActionForm form) throws FileNotFoundException, IOException {
         PurchasingAccountsPayableFormBase purapForm = (PurchasingAccountsPayableFormBase) form;
-        PurchasingAccountsPayableDocumentBase purapDocument = (PurchasingAccountsPayableDocumentBase)purapForm.getFinancialDocument();
-        PurApAccountingLineParser accountingLineParser = (PurApAccountingLineParser)purapDocument.getAccountingLineParser();
+        PurchasingAccountsPayableDocumentBase purapDocument = (PurchasingAccountsPayableDocumentBase) purapForm.getFinancialDocument();
+        PurApAccountingLineParser accountingLineParser = (PurApAccountingLineParser) purapDocument.getAccountingLineParser();
         List importedLines = null;
         String errorPathPrefix = PurapConstants.ACCOUNT_DISTRIBUTION_ERROR_KEY;
         //String errorPathPrefix = "accountDistributionnewSourceLine";
 
         // import the lines
         try {
-             FormFile sourceFile = purapForm.getSourceFile();
-             checkUploadFile(sourceFile);
-             GlobalVariables.getMessageMap().clearErrorPath();
-             GlobalVariables.getMessageMap().addToErrorPath(errorPathPrefix);
-             importedLines = accountingLineParser.importSourceAccountingLines(sourceFile.getFileName(), sourceFile.getInputStream(), purapDocument);
-             GlobalVariables.getMessageMap().removeFromErrorPath(errorPathPrefix);
-        }
-        catch (AccountingLineParserException e) {
+            FormFile sourceFile = purapForm.getSourceFile();
+            checkUploadFile(sourceFile);
+            GlobalVariables.getMessageMap().clearErrorPath();
+            GlobalVariables.getMessageMap().addToErrorPath(errorPathPrefix);
+            importedLines = accountingLineParser.importSourceAccountingLines(sourceFile.getFileName(), sourceFile.getInputStream(), purapDocument);
+            GlobalVariables.getMessageMap().removeFromErrorPath(errorPathPrefix);
+        } catch (AccountingLineParserException e) {
             GlobalVariables.getMessageMap().putError(errorPathPrefix, e.getErrorKey(), e.getErrorParameters());
         }
 
         // add to list those lines successfully imported
         if (importedLines != null) {
-            for (Iterator iter = importedLines.iterator(); iter.hasNext();) {
+            for (Iterator iter = importedLines.iterator(); iter.hasNext(); ) {
                 PurApAccountingLine importedLine = (PurApAccountingLine) iter.next();
                 //boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AddAccountingLineEvent(errorPathPrefix, purapForm.getDocument(), (AccountingLine) importedLine));
                 //if (rulePassed) {
                 // add accountingLine
                 SpringContext.getBean(PersistenceService.class).retrieveNonKeyFields(importedLine);
-                ((PurchasingFormBase)purapForm).addAccountDistributionsourceAccountingLine(importedLine);
+                ((PurchasingFormBase) purapForm).addAccountDistributionsourceAccountingLine(importedLine);
                 //}
             }
         }
@@ -192,7 +190,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#insertSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -214,11 +212,10 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
                 //SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(line);
                 errorPrefix = KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM + "[" + Integer.toString(itemIndex) + "]." + KFSConstants.NEW_SOURCE_ACCT_LINE_PROPERTY_NAME;
                 rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AddAccountingLineEvent(errorPrefix, purapForm.getDocument(), (AccountingLine) line));
-            }
-            else if (itemIndex == -2){
+            } else if (itemIndex == -2) {
                 //corrected: itemIndex == -2 is the only case for distribute account
                 //This is the case when we're inserting an accounting line for distribute account.
-                line = ((PurchasingFormBase)purapForm).getAccountDistributionnewSourceLine();
+                line = ((PurchasingFormBase) purapForm).getAccountDistributionnewSourceLine();
                 //SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(line);
                 errorPrefix = PurapPropertyConstants.ACCOUNT_DISTRIBUTION_NEW_SRC_LINE;
                 rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AddAccountingLineEvent(errorPrefix, purapForm.getDocument(), (AccountingLine) line));
@@ -227,14 +224,13 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
             if (rulePassed) {
                 // add accountingLine
                 SpringContext.getBean(PersistenceService.class).retrieveNonKeyFields(line);
-                if (itemIndex >=0) {
+                if (itemIndex >= 0) {
                     insertAccountingLine(purapForm, item, line);
                     // clear the temp account
                     item.resetAccount();
-                }
-                else if (itemIndex == -2) {
+                } else if (itemIndex == -2) {
                     //this is the case for distribute account
-                    ((PurchasingFormBase)purapForm).addAccountDistributionsourceAccountingLine(line);
+                    ((PurchasingFormBase) purapForm).addAccountDistributionsourceAccountingLine(line);
                 }
             }
         }
@@ -246,8 +242,8 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
      * Insert the given Accounting Line in several appropriate places in the given item and given form.
      *
      * @param financialDocumentForm A form that inherits from PurchasingAccountsPaybleFormBase
-     * @param item A PurApItem
-     * @param line A PurApAccountingLine
+     * @param item                  A PurApItem
+     * @param line                  A PurApAccountingLine
      */
     protected void insertAccountingLine(PurchasingAccountsPayableFormBase financialDocumentForm, PurApItem item, PurApAccountingLine line) {
         PurchasingAccountsPayableDocument preq = (PurchasingAccountsPayableDocument) financialDocumentForm.getDocument();
@@ -274,8 +270,8 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
      * Insert the given Accounting Line in several appropriate places in the given item and given form.
      *
      * @param financialDocumentForm A form that inherits from KualiAccountingDocumentFormBase
-     * @param item A PurApItem
-     * @param line A PurApAccountingLine
+     * @param item                  A PurApItem
+     * @param line                  A PurApAccountingLine
      */
     protected void insertAccountingLine(KualiAccountingDocumentFormBase financialDocumentForm, PurApItem item, PurApAccountingLine line) {
         // add it to the item
@@ -284,7 +280,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#deleteSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward deleteSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -305,7 +301,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#getSourceAccountingLine(org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest)
+     * javax.servlet.http.HttpServletRequest)
      */
     @Override
     public SourceAccountingLine getSourceAccountingLine(ActionForm form, HttpServletRequest request) {
@@ -316,8 +312,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
         SourceAccountingLine line;
         if (itemIndex == -2) {
             line = customAccountRetrieval(accountIndex, purchasingAccountsPayableForm);
-        }
-        else {
+        } else {
             PurApItem item = (PurApItem) ((PurchasingAccountsPayableDocument) purchasingAccountsPayableForm.getDocument()).getItem((itemIndex));
             line = (SourceAccountingLine) ObjectUtils.deepCopy(item.getSourceAccountingLines().get(accountIndex));
         }
@@ -327,7 +322,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
     /**
      * Perform custom processing on accounting lines. See <code>getSelectedLineForAccounts</code>.
      *
-     * @param accountIndex The index of the account into the request parameter
+     * @param accountIndex                  The index of the account into the request parameter
      * @param purchasingAccountsPayableForm A form which inherits from PurchasingAccountsPayableFormBase
      * @return A SourceAccountingLine
      */
@@ -357,7 +352,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
     /**
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#downloadBOAttachment(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward downloadBOAttachment(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -378,9 +373,9 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
     /**
      * Perform calculation on item line.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
      * @return An ActionForward
      */
@@ -413,19 +408,18 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
         Map<String, String> tabStates = kualiForm.getTabStates();
         Map<String, String> newTabStates = new HashMap<String, String>();
-        for (Entry<String, String> tabEntry: tabStates.entrySet()) {
-            if(tabEntry.getKey().startsWith(accountingLineTab)){
+        for (Entry<String, String> tabEntry : tabStates.entrySet()) {
+            if (tabEntry.getKey().startsWith(accountingLineTab)) {
                 newTabStates.put(tabEntry.getKey(), "OPEN");
-            }else{
+            } else {
                 if (tabEntry.getValue() instanceof String) {
                     value = tabEntry.getValue();
-                }
-                else {
+                } else {
                     //This is the case where the value is an Array of String,
                     //so we'll have to get the first element
                     Object result = tabEntry.getValue();
                     result.getClass();
-                    value = ((String[])result)[0];
+                    value = ((String[]) result)[0];
                 }
                 newTabStates.put(tabEntry.getKey(), value);
             }
@@ -451,19 +445,18 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
 
         Map<String, String> tabStates = kualiForm.getTabStates();
         Map<String, String> newTabStates = new HashMap<String, String>();
-        for (Entry<String, String> tabEntry: tabStates.entrySet()) {
-            if(tabEntry.getKey().startsWith(accountingLineTab)){
+        for (Entry<String, String> tabEntry : tabStates.entrySet()) {
+            if (tabEntry.getKey().startsWith(accountingLineTab)) {
                 newTabStates.put(tabEntry.getKey(), "CLOSE");
-            }else{
+            } else {
                 if (tabEntry.getValue() instanceof String) {
                     value = tabEntry.getValue();
-                }
-                else {
+                } else {
                     //This is the case where the value is an Array of String,
                     //so we'll have to get the first element
                     Object result = tabEntry.getValue();
                     result.getClass();
-                    value = ((String[])result)[0];
+                    value = ((String[]) result)[0];
                 }
                 newTabStates.put(tabEntry.getKey(), value);
             }
@@ -477,7 +470,7 @@ public class PurchasingAccountsPayableActionBase extends KualiAccountingDocument
      * associated with the note.
      *
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#insertBONote(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertBONote(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

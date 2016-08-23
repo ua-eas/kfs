@@ -37,7 +37,7 @@ public interface EntryDao {
      * Purge the entry table by chart/year
      *
      * @param chart the chart of accounts code of entries to purge
-     * @param year the university fiscal year of entries to purge
+     * @param year  the university fiscal year of entries to purge
      */
     public void purgeYearByChart(String chart, int year);
 }

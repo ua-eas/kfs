@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.integration.cg.dto.KcObjectCode;
-import org.kuali.kfs.module.external.kc.service.KcObjectCodeService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.external.kc.service.KcObjectCodeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Transactional
 public class KcObjectCodeServiceImpl implements KcObjectCodeService {
@@ -43,21 +43,21 @@ public class KcObjectCodeServiceImpl implements KcObjectCodeService {
      */
     @Override
     public List<KcObjectCode> lookupObjectCodes(java.util.List<HashMapElement> searchCriteria) {
-        HashMap <String, String> hashMap = new HashMap();
-        List <ObjectCode> objCodeList = new ArrayList<ObjectCode>();
+        HashMap<String, String> hashMap = new HashMap();
+        List<ObjectCode> objCodeList = new ArrayList<ObjectCode>();
 
         if ((searchCriteria == null) || (searchCriteria.size() == 0)) {
             objCodeList = (List<ObjectCode>) businessObjectService.findAll(ObjectCode.class);
 
         } else {
-            for (HashMapElement hashMapElement: searchCriteria) {
+            for (HashMapElement hashMapElement : searchCriteria) {
                 hashMap.put(hashMapElement.getKey(), hashMapElement.getValue());
             }
             objCodeList = (List<ObjectCode>) (businessObjectService.findMatching(ObjectCode.class, hashMap));
         }
-        List <KcObjectCode> kcObjectCodeList = new ArrayList();
+        List<KcObjectCode> kcObjectCodeList = new ArrayList();
         for (ObjectCode objectCode : objCodeList) {
-            kcObjectCodeList.add( createKcObjectCode(objectCode));
+            kcObjectCodeList.add(createKcObjectCode(objectCode));
         }
         return kcObjectCodeList;
     }

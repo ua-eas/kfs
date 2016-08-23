@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.cg.batch;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
-
-import javax.mail.MessagingException;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.module.cg.businessobject.CfdaUpdateResults;
 import org.kuali.kfs.module.cg.service.CfdaService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -32,9 +29,11 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.MailService;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * Parses data from a government web page listing the valid CFDA codes. The codes are then compared with what's in the CFDA table in
@@ -49,6 +48,7 @@ public class CfdaBatchStep extends AbstractStep {
     protected MailService mailService;
     protected ParameterService parameterService;
     protected ConfigurationService configurationService;
+
     /**
      * See the class description.
      *
@@ -101,26 +101,24 @@ public class CfdaBatchStep extends AbstractStep {
 
             for (String listserv : listservAddresses) {
                 if (LOG.isInfoEnabled()) {
-                    LOG.info("Mailing to: "+listserv);
+                    LOG.info("Mailing to: " + listserv);
                 }
                 message.addToAddress(listserv);
             }
 
-            message.setFromAddress(listservAddresses.iterator().next() );
+            message.setFromAddress(listservAddresses.iterator().next());
 
 
             message.setSubject(getConfigurationService().getPropertyValueAsString(KFSKeyConstants.CFDA_UPDATE_EMAIL_SUBJECT_LINE));
             message.setMessage(builder.toString());
             mailService.sendMessage(message);
 
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             LOG.warn("Exception while updating CFDA codes.", ioe);
             return false;
-        }
-        catch (MessagingException | InvalidAddressException ex) {
-           LOG.warn("The email address for "+CfdaBatchStep.class+":"+KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES+" is invalid.", ex);
-           return true;
+        } catch (MessagingException | InvalidAddressException ex) {
+            LOG.warn("The email address for " + CfdaBatchStep.class + ":" + KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES + " is invalid.", ex);
+            return true;
         }
         return true;
     }
@@ -155,6 +153,7 @@ public class CfdaBatchStep extends AbstractStep {
 
     /**
      * Gets the configurationService attribute.
+     *
      * @return Returns the configurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -163,6 +162,7 @@ public class CfdaBatchStep extends AbstractStep {
 
     /**
      * Sets the configurationService attribute value.
+     *
      * @param configurationService The configurationService to set.
      */
     public void setConfigurationService(ConfigurationService configurationService) {

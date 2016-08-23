@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ObjectTypeService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * The default implementation of the AccountingDocumentRuleHelperService
@@ -84,7 +84,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService#isValidBalanceType(org.kuali.kfs.coa.businessobject.BalanceTyp,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public boolean isValidBalanceType(BalanceType balanceType, String errorPropertyName) {
         return isValidBalanceType(balanceType, BalanceType.class, errorPropertyName, errorPropertyName);
@@ -93,7 +93,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
     /**
      * Looks up a label from the data dictionary
      *
-     * @param entryClass the class of the attribute to lookup the label for
+     * @param entryClass    the class of the attribute to lookup the label for
      * @param attributeName the attribute to look up the label for
      * @return the label
      */
@@ -111,7 +111,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService#isValidBalanceType(org.kuali.kfs.coa.businessobject.BalanceTyp,
-     *      java.lang.Class, java.lang.String, java.lang.String)
+     * java.lang.Class, java.lang.String, java.lang.String)
      */
     public boolean isValidBalanceType(BalanceType balanceType, Class entryClass, String attributeName, String errorPropertyName) {
         String label = getLabelFromDataDictionary(entryClass, attributeName);
@@ -129,7 +129,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService#isValidOpenAccountingPeriod(org.kuali.kfs.coa.businessobject.AccountingPeriod,
-     *      java.lang.Class, java.lang.String, java.lang.String)
+     * java.lang.Class, java.lang.String, java.lang.String)
      */
     public boolean isValidOpenAccountingPeriod(AccountingPeriod accountingPeriod, Class entryClass, String attribueName, String errorPropertyName) {
         // retrieve from system to make sure it exists
@@ -150,15 +150,14 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService#isValidReversalDate(java.sql.Date,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public boolean isValidReversalDate(Date reversalDate, String errorPropertyName) {
         java.sql.Date today = SpringContext.getBean(DateTimeService.class).getCurrentSqlDateMidnight();
         if (null != reversalDate && reversalDate.before(today)) {
             GlobalVariables.getMessageMap().putError(errorPropertyName, KFSKeyConstants.ERROR_DOCUMENT_INCORRECT_REVERSAL_DATE);
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -170,7 +169,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
      * @param propertyName
      * @param arguments
      * @return the formatted property (i.e., message), with any {@code {0}} replaced with the first argument, {@code {1}} with the
-     *         second argument, etc.
+     * second argument, etc.
      */
     public String formatProperty(String propertyName, Object... arguments) {
         return MessageFormat.format(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(propertyName), arguments);

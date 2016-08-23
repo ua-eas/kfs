@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.math.BigDecimal;
 import java.sql.Date;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class is used to represent a travel mileage rate business object.

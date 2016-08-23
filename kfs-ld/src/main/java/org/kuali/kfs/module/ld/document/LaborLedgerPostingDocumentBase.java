@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.service.LaborLedgerPendingEntryService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -29,8 +28,9 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Labor Document base class implementation for all labor eDocs that are transactional, meaning implementing
@@ -74,8 +74,7 @@ public abstract class LaborLedgerPostingDocumentBase extends AccountingDocumentB
         super.doRouteStatusChange(statusChangeEvent);
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             changeLedgerPendingEntriesApprovedStatusCode();
-        }
-        else if (getDocumentHeader().getWorkflowDocument().isCanceled() || getDocumentHeader().getWorkflowDocument().isDisapproved()) {
+        } else if (getDocumentHeader().getWorkflowDocument().isCanceled() || getDocumentHeader().getWorkflowDocument().isDisapproved()) {
             removeLedgerPendingEntries();
         }
     }
@@ -126,6 +125,7 @@ public abstract class LaborLedgerPostingDocumentBase extends AccountingDocumentB
 
     /**
      * This is a "do nothing" version of the method - it just won't create GLPEs
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#generateGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
@@ -136,6 +136,7 @@ public abstract class LaborLedgerPostingDocumentBase extends AccountingDocumentB
     /**
      * Labor docs never generate general ledger pending entries, and therefore, this method is never called, but we always return true, since
      * we're required to have a concrete representation
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#isDebit(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail)
      */
     @Override

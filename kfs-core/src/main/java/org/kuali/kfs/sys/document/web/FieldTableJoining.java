@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * Abstract class which contains functionality of table joining layout elements that will eventually render fields
@@ -32,6 +32,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * Always returns 1 - any field can live within 1 row.
+     *
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElement#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -40,6 +41,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * Creates a table cell that encapsulates this field
+     *
      * @return the created table cell
      */
     protected AccountingLineTableCell createTableCell() {
@@ -67,6 +69,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * Default: assumes the field is not hidden
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isHidden()
      */
     public boolean isHidden() {
@@ -75,6 +78,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * We're going to go out on a limb and bet that this isn't an action block
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
      */
     public boolean isActionBlock() {
@@ -83,6 +87,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * Joins ths field to the header row, spans the regular row
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerLabelRow, AccountingLineTableRow row) {
@@ -93,6 +98,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * This is a field.  It's never empty.
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isEmpty()
      */
     public boolean isEmpty() {
@@ -101,6 +107,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * This method really doesn't do much - it assumes there are no child fields to remove
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks()
      */
     public void removeUnviewableBlocks(Set<String> unviewableBlocks) {
@@ -109,11 +116,12 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
 
     /**
      * Sets this to read only if possible
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
     public void readOnlyizeReadOnlyBlocks(Set<String> readOnlyBlocks) {
         if (this instanceof ReadOnlyable && readOnlyBlocks.contains(getName())) {
-            ((ReadOnlyable)this).readOnlyize();
+            ((ReadOnlyable) this).readOnlyize();
         }
     }
 
@@ -122,7 +130,7 @@ public abstract class FieldTableJoining implements TableJoining, RenderableEleme
      */
     public void setEditableBlocks(Set<String> editableBlocks) {
         if (this instanceof ReadOnlyable && editableBlocks.contains(getName())) {
-            ((ReadOnlyable)this).setEditable();
+            ((ReadOnlyable) this).setEditable();
         }
     }
 

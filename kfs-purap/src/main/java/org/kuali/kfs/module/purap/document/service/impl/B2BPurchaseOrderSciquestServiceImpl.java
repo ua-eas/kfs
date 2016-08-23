@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.dataaccess.B2BDao;
@@ -39,14 +36,17 @@ import org.kuali.kfs.module.purap.util.cxml.PurchaseOrderResponse;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @Transactional
 public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderService {
@@ -117,7 +117,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
                 // find any additional error messages that might have been sent
                 List errorMessages = poResponse.getPOResponseErrorMessages();
                 if (ObjectUtils.isNotNull(errorMessages) && !errorMessages.isEmpty()) {
-                    for (Iterator iter = errorMessages.iterator(); iter.hasNext();) {
+                    for (Iterator iter = errorMessages.iterator(); iter.hasNext(); ) {
                         String errorMessage = (String) iter.next();
                         if (ObjectUtils.isNotNull(errorMessage)) {
                             LOG.error("sendPurchaseOrder(): SciQuest error message for po number " + purchaseOrder.getPurapDocumentIdentifier() + ": " + errorMessage);
@@ -126,16 +126,13 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
                     }
                 }
             }
-        }
-        catch (B2BConnectionException e) {
+        } catch (B2BConnectionException e) {
             LOG.error("sendPurchaseOrder() Error connecting to b2b", e);
             transmitErrors.append("Connection to Sciquest failed.");
-        }
-        catch (CxmlParseError e) {
+        } catch (CxmlParseError e) {
             LOG.error("sendPurchaseOrder() Error Parsing", e);
             transmitErrors.append("Unable to read cxml returned from Sciquest.");
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             LOG.error("sendPurchaseOrder() Unknown Error", e);
             transmitErrors.append("Unexpected error occurred while attempting to transmit Purchase Order.");
         }
@@ -145,8 +142,8 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.B2BPurchaseOrderService#getCxml(org.kuali.kfs.module.purap.document.PurchaseOrderDocument,
-     *      org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
-     *      java.lang.String, java.lang.String)
+     * org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
+     * java.lang.String, java.lang.String)
      */
     public String getCxml(PurchaseOrderDocument purchaseOrder, String requisitionInitiatorPrincipalId, String password, ContractManager contractManager, String contractManagerEmail, String vendorDuns) {
 
@@ -196,8 +193,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
         if (contractManager.getContractManagerPhoneNumber().length() > 4) {
             cxml.append("              <AreaCode>").append(contractManager.getContractManagerPhoneNumber().substring(0, 3)).append("</AreaCode>\n");
             cxml.append("              <Number>").append(contractManager.getContractManagerPhoneNumber().substring(3)).append("</Number>\n");
-        }
-        else {
+        } else {
             LOG.error("getCxml() The phone number is invalid for this contract manager: " + contractManager.getContractManagerUserIdentifier() + " " + contractManager.getContractManagerName());
             cxml.append("              <AreaCode>555</AreaCode>\n");
             cxml.append("              <Number>").append(contractManager.getContractManagerPhoneNumber()).append("</Number>\n");
@@ -244,14 +240,12 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
         cxml.append("          <Contact label=\"PurchasingEmail\" linenumber=\"2\"><![CDATA[").append(contractManagerEmail).append("]]></Contact>\n");
         if (ObjectUtils.isNotNull(purchaseOrder.getInstitutionContactEmailAddress())) {
             cxml.append("          <Contact label=\"ContactEmail\" linenumber=\"3\"><![CDATA[").append(purchaseOrder.getInstitutionContactEmailAddress()).append("]]></Contact>\n");
-        }
-        else {
+        } else {
             cxml.append("          <Contact label=\"ContactEmail\" linenumber=\"3\"><![CDATA[").append(purchaseOrder.getRequestorPersonEmailAddress()).append("]]></Contact>\n");
         }
         if (ObjectUtils.isNotNull(purchaseOrder.getInstitutionContactPhoneNumber())) {
             cxml.append("          <Contact label=\"Phone\" linenumber=\"4\"><![CDATA[").append(purchaseOrder.getInstitutionContactPhoneNumber().trim()).append("]]></Contact>\n");
-        }
-        else {
+        } else {
             cxml.append("          <Contact label=\"Phone\" linenumber=\"4\"><![CDATA[").append(purchaseOrder.getRequestorPersonPhoneNumber()).append("]]></Contact>\n");
         }
 
@@ -261,16 +255,14 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
             cxml.append("          <AddressLine label=\"Street2\" linenumber=\"2\"><![CDATA[").append(purchaseOrder.getReceivingLine1Address().trim()).append("]]></AddressLine>\n");
             if (ObjectUtils.isNull(purchaseOrder.getReceivingLine2Address())) {
                 cxml.append("          <AddressLine label=\"Street3\" linenumber=\"3\"><![CDATA[").append(" ").append("]]></AddressLine>\n");
-            }
-            else {
+            } else {
                 cxml.append("          <AddressLine label=\"Street3\" linenumber=\"3\"><![CDATA[").append(purchaseOrder.getReceivingLine2Address()).append("]]></AddressLine>\n");
             }
             cxml.append("          <City><![CDATA[").append(purchaseOrder.getReceivingCityName().trim()).append("]]></City>\n");
             cxml.append("          <State>").append(purchaseOrder.getReceivingStateCode()).append("</State>\n");
             cxml.append("          <PostalCode>").append(purchaseOrder.getReceivingPostalCode()).append("</PostalCode>\n");
             cxml.append("          <Country isocountrycode=\"").append(purchaseOrder.getReceivingCountryCode()).append("\">").append(purchaseOrder.getReceivingCountryCode()).append("</Country>\n");
-        }
-        else { //use final delivery address
+        } else { //use final delivery address
             /* replaced this with getBuildingLine so institutions can customize what info they need on this line
             if (StringUtils.isNotEmpty(purchaseOrder.getDeliveryBuildingName())) {
                 cxml.append("          <Contact label=\"Building\" linenumber=\"5\"><![CDATA[").append(purchaseOrder.getDeliveryBuildingName()).append(" (").append(purchaseOrder.getDeliveryBuildingCode()).append(")]]></Contact>\n");
@@ -282,8 +274,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
             cxml.append("          <AddressLine label=\"Company\" linenumber=\"4\"><![CDATA[").append(purchaseOrder.getBillingName().trim()).append("]]></AddressLine>\n");
             if (ObjectUtils.isNull(purchaseOrder.getDeliveryBuildingLine2Address())) {
                 cxml.append("          <AddressLine label=\"Street3\" linenumber=\"3\"><![CDATA[").append(" ").append("]]></AddressLine>\n");
-            }
-            else {
+            } else {
                 cxml.append("          <AddressLine label=\"Street3\" linenumber=\"3\"><![CDATA[").append(purchaseOrder.getDeliveryBuildingLine2Address()).append("]]></AddressLine>\n");
             }
             cxml.append("          <City><![CDATA[").append(purchaseOrder.getDeliveryCityName().trim()).append("]]></City>\n");
@@ -298,7 +289,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
 
         /** *** Items Section **** */
         List detailList = purchaseOrder.getItems();
-        for (Iterator iter = detailList.iterator(); iter.hasNext();) {
+        for (Iterator iter = detailList.iterator(); iter.hasNext(); ) {
             PurchaseOrderItem poi = (PurchaseOrderItem) iter.next();
             if ((ObjectUtils.isNotNull(poi.getItemType())) && poi.getItemType().isLineItemIndicator()) {
                 cxml.append("    <POLine linenumber=\"").append(poi.getItemLineNumber()).append("\">\n");
@@ -314,8 +305,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
                 // ProductReferenceNumber - Unique id for hosted products in SelectSite
                 if (poi.getExternalOrganizationB2bProductTypeName().equals("Punchout")) {
                     cxml.append("        <ProductReferenceNumber>null</ProductReferenceNumber>\n");
-                }
-                else {
+                } else {
                     cxml.append("        <ProductReferenceNumber>").append(poi.getExternalOrganizationB2bProductReferenceNumber()).append("</ProductReferenceNumber>\n");
                 }
                 // ProductType - Describes the type of the product or service. Valid values: Catalog, Form, Punchout. Mandatory.
@@ -345,8 +335,8 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.B2BPurchaseOrderService#verifyCxmlPOData(org.kuali.kfs.module.purap.document.PurchaseOrderDocument,
-     *      org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
-     *      java.lang.String, java.lang.String)
+     * org.kuali.rice.kim.api.identity.Person, java.lang.String, org.kuali.kfs.vnd.businessobject.ContractManager,
+     * java.lang.String, java.lang.String)
      */
     public String verifyCxmlPOData(PurchaseOrderDocument purchaseOrder, String requisitionInitiatorPrincipalName, String password, ContractManager contractManager, String contractManagerEmail, String vendorDuns) {
         StringBuffer errors = new StringBuffer();
@@ -452,7 +442,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
 
         // verify item data
         List detailList = purchaseOrder.getItems();
-        for (Iterator iter = detailList.iterator(); iter.hasNext();) {
+        for (Iterator iter = detailList.iterator(); iter.hasNext(); ) {
             PurchaseOrderItem poi = (PurchaseOrderItem) iter.next();
             if (ObjectUtils.isNotNull(poi.getItemType()) && poi.getItemType().isLineItemIndicator()) {
                 if (ObjectUtils.isNull(poi.getItemLineNumber())) {
@@ -529,7 +519,7 @@ public class B2BPurchaseOrderSciquestServiceImpl implements B2BPurchaseOrderServ
      * @return Returns the personService.
      */
     protected PersonService getPersonService() {
-        if(personService==null) {
+        if (personService == null) {
             personService = SpringContext.getBean(PersonService.class);
         }
         return personService;

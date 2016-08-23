@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
-import java.util.Map;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -27,8 +27,8 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Map;
 
 /**
  * target accounting lines must have the same amounts as source accounting lines for each object code in the document
@@ -41,6 +41,7 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
 
     /**
      * Validates before the document routes
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -64,7 +65,7 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
      *
      * @param accountingDocument the given accounting document
      * @return true if target accounting lines have the same amounts as source accounting lines for each object code; otherwise,
-     *         false
+     * false
      */
     protected boolean isValidAmountTransferredByObjectCode(AccountingDocument accountingDocument) {
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) accountingDocument;
@@ -81,6 +82,7 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
 
     /**
      * Gets the documentForValidation attribute.
+     *
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -89,6 +91,7 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param documentForValidation The documentForValidation to set.
      */
     public void setDocumentForValidation(Document documentForValidation) {

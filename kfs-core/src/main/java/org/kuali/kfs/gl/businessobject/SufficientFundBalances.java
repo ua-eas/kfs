@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents sufficient fund balances
@@ -63,6 +63,7 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
 
     /**
      * Constructs a SufficientFundBalances.java.
+     *
      * @param line
      */
     public SufficientFundBalances(String line) {
@@ -81,8 +82,7 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
 
         if (!GeneralLedgerConstants.getSpaceUniversityFiscalYear().equals(line.substring(0, 4))) {
             setUniversityFiscalYear(new Integer(line.substring(0, 4)));
-        }
-        else {
+        } else {
             setUniversityFiscalYear(null);
         }
         setChartOfAccountsCode(line.substring(4, 6).trim());
@@ -110,8 +110,7 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
         StringBuffer sb = new StringBuffer();
         if (universityFiscalYear == null) {
             sb.append(GeneralLedgerConstants.getSpaceUniversityFiscalYear());
-        }
-        else {
+        } else {
             sb.append(universityFiscalYear);
         }
         sb.append(getField(2, chartOfAccountsCode));
@@ -120,24 +119,21 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
         sb.append(getField(1, accountSufficientFundsCode));
         if (currentBudgetBalanceAmount == null) {
             sb.append(BLANKS);
-        }
-        else {
+        } else {
             String a = nf.format(currentBudgetBalanceAmount.doubleValue());
             sb.append(BLANKS.substring(0, 17 - a.length()));
             sb.append(a);
         }
         if (accountActualExpenditureAmt == null) {
             sb.append(BLANKS);
-        }
-        else {
+        } else {
             String a = nf.format(accountActualExpenditureAmt.doubleValue());
             sb.append(BLANKS.substring(0, 17 - a.length()));
             sb.append(a);
         }
         if (accountEncumbranceAmount == null) {
             sb.append(BLANKS);
-        }
-        else {
+        } else {
             String a = nf.format(accountEncumbranceAmount.doubleValue());
             sb.append(BLANKS.substring(0, 17 - a.length()));
             sb.append(a);
@@ -157,12 +153,10 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
     private String getField(int size, String value) {
         if (value == null) {
             return SPACES.substring(0, size);
-        }
-        else {
+        } else {
             if (value.length() < size) {
                 return value + SPACES.substring(0, size - value.length());
-            }
-            else {
+            } else {
                 return value;
             }
         }
@@ -178,16 +172,14 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
     private java.sql.Date parseDate(String sdate, boolean beLenientWithDates) {
         if ((sdate == null) || (sdate.trim().length() == 0)) {
             return null;
-        }
-        else {
+        } else {
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_STRING);
             sdf.setLenient(beLenientWithDates);
 
             try {
                 java.util.Date d = sdf.parse(sdate);
                 return new Date(d.getTime());
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 return null;
             }
         }
@@ -202,8 +194,7 @@ public class SufficientFundBalances extends PersistableBusinessObjectBase {
     private String formatDate(Date date) {
         if (date == null) {
             return "          ";
-        }
-        else {
+        } else {
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_STRING);
             return sdf.format(date);
         }

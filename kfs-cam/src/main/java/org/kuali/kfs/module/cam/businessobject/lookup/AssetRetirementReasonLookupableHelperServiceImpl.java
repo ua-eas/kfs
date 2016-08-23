@@ -18,11 +18,13 @@
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
@@ -31,14 +33,12 @@ import org.kuali.kfs.module.cam.businessobject.AssetRetirementReason;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrides the getReturnUrl, setFieldConversions and getActionUrls for
@@ -58,7 +58,7 @@ public class AssetRetirementReasonLookupableHelperServiceImpl extends KualiLooku
      * {@link KFSConstants.DISPATCH_REQUEST_PARAMETER}
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnUrl(org.kuali.rice.krad.bo.BusinessObject, java.util.Map,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions) {
@@ -101,8 +101,8 @@ public class AssetRetirementReasonLookupableHelperServiceImpl extends KualiLooku
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.MAINTENANCE_NEWWITHEXISTING_ACTION);
         parameters.put(KFSConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, AssetRetirementGlobal.class.getName());
         parameters.put(KFSConstants.OVERRIDE_KEYS, CamsPropertyConstants.AssetRetirementGlobal.RETIREMENT_REASON_CODE);
-        parameters.put(KFSConstants.REFRESH_CALLER, CamsPropertyConstants.AssetRetirementGlobal.RETIREMENT_REASON_CODE+"::"+assetRetirementReason.getRetirementReasonCode());
-        if(!lookupForm.isHideReturnLink()){
+        parameters.put(KFSConstants.REFRESH_CALLER, CamsPropertyConstants.AssetRetirementGlobal.RETIREMENT_REASON_CODE + "::" + assetRetirementReason.getRetirementReasonCode());
+        if (!lookupForm.isHideReturnLink()) {
             setBackLocation(KFSConstants.MAINTENANCE_ACTION);
         }
         return getReturnAnchorHtmlData(businessObject, parameters, lookupForm, returnKeys, businessObjectRestrictions);
@@ -130,8 +130,7 @@ public class AssetRetirementReasonLookupableHelperServiceImpl extends KualiLooku
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         if (!initializingAssetRetirement) {
             return super.getCustomActionUrls(businessObject, pkNames);
-        }
-        else {
+        } else {
             return super.getEmptyActionUrls();
         }
     }

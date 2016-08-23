@@ -22,10 +22,9 @@ import org.kuali.kfs.module.ar.batch.vo.CustomerInvoiceWriteoffBatchVO;
 import org.kuali.rice.kim.api.identity.Person;
 
 /**
- *
  * Accepts a write-off batch VO object, populated with a list of invoices to write off,
  * and creates the correct XML file and drops it in the batch system for processing.
- *
+ * <p>
  * Actual processing of this happens later, and asynchronously.
  *
  * @return Returns a true or false, depending on whether the call succeeded or not.
@@ -43,7 +42,7 @@ public interface CustomerInvoiceWriteoffBatchService {
      * Accepts a batch VO full of invoiceNumbers to be written off in batch.  Creates an XML file and
      * drops it in the batch service staging area, to be processed next time the job runs.
      *
-     * @param user KIM person who is credited with creating the batch file.
+     * @param user            KIM person who is credited with creating the batch file.
      * @param writeoffBatchVO Populated batch VO full of invoice numbers.
      * @return True if everything worked, False if it failed.
      */

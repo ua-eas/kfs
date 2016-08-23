@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,13 +27,16 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DisbursementVoucherAccountingLineAuthorizer extends AccountingLineAuthorizerBase {
     private static Log LOG = LogFactory.getLog(DisbursementVoucherAccountingLineAuthorizer.class);
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer#getEditableBlocksInReadOnlyLine(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.rice.kim.api.identity.Person)
-     *
+     * org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.rice.kim.api.identity.Person)
+     * <p>
      * Overridden to make amount read only for fiscal officer
      */
     @Override

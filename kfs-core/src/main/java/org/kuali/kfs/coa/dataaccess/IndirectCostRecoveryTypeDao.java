@@ -28,11 +28,11 @@ public interface IndirectCostRecoveryTypeDao {
     /**
      * This method looks up all
      *
-     * @{link IndirectCostRecoveryRateDetail} by the fiscal year, series ID, and balance type code
      * @param universityFiscalYear
      * @param financialSeriesId
      * @param balanceTypeCode
      * @return collection of
+     * @{link IndirectCostRecoveryRateDetail} by the fiscal year, series ID, and balance type code
      * @{link IndirectCostRecoveryRateDetail}s that match these criteria
      */
     public IndirectCostRecoveryType getByPrimaryKey(String code);

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.bc.document.validation.event;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.validation.SalarySettingRule;
-import org.kuali.kfs.krad.rules.rule.BusinessRule;
+
+import java.util.List;
 
 public class AddAppointmentFundingEvent extends SalarySettingBaseEvent {
     List<PendingBudgetConstructionAppointmentFunding> existingAppointmentFunding;
@@ -34,7 +34,7 @@ public class AddAppointmentFundingEvent extends SalarySettingBaseEvent {
     /**
      * Constructs a AddAppointmentFundingEvent.java.
      *
-     * @param errorPathPrefix the specified error path prefix
+     * @param errorPathPrefix     the specified error path prefix
      * @param appointmentFundings the given appointment funding
      */
     public AddAppointmentFundingEvent(String description, String errorPathPrefix, BudgetConstructionDocument document, List<PendingBudgetConstructionAppointmentFunding> existingAppointmentFunding, PendingBudgetConstructionAppointmentFunding appointmentFunding, SynchronizationCheckType synchronizationCheckType) {

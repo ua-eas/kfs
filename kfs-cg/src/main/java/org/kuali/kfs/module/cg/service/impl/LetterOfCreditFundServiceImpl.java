@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.LetterOfCreditFund;
 import org.kuali.kfs.module.cg.service.LetterOfCreditFundService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of the LetterOfCreditFundService

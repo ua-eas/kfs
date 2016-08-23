@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorChoice;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /*
  *
@@ -60,13 +60,13 @@ public class PurchaseOrderVendorChoiceRule extends MaintenanceDocumentRuleBase {
     protected boolean checkForSystemParametersExistence() {
         LOG.info("checkForSystemParametersExistence called");
         boolean success = true;
-        Collection<String> apoParameterValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.DEFAULT_APO_VENDOR_CHOICE) );
-        Collection<String> b2bParameterValues = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.DEFAULT_B2B_VENDOR_CHOICE) );
-        PurchaseOrderVendorChoice newVendorChoice = (PurchaseOrderVendorChoice)getNewBo();
-        PurchaseOrderVendorChoice oldVendorChoice= (PurchaseOrderVendorChoice)getOldBo();
+        Collection<String> apoParameterValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.DEFAULT_APO_VENDOR_CHOICE));
+        Collection<String> b2bParameterValues = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.DEFAULT_B2B_VENDOR_CHOICE));
+        PurchaseOrderVendorChoice newVendorChoice = (PurchaseOrderVendorChoice) getNewBo();
+        PurchaseOrderVendorChoice oldVendorChoice = (PurchaseOrderVendorChoice) getOldBo();
         //If the new funding source code matches with the funding source in the DEFAULT_FUNDING_SOURCE
         //system parameters then we can't inactivate this funding source, so return false.
-        if ((apoParameterValues.contains(newVendorChoice.getPurchaseOrderVendorChoiceCode()) || b2bParameterValues.contains(newVendorChoice.getPurchaseOrderVendorChoiceCode())) && ! newVendorChoice.isActive() && oldVendorChoice.isActive()) {
+        if ((apoParameterValues.contains(newVendorChoice.getPurchaseOrderVendorChoiceCode()) || b2bParameterValues.contains(newVendorChoice.getPurchaseOrderVendorChoiceCode())) && !newVendorChoice.isActive() && oldVendorChoice.isActive()) {
             success = false;
             String documentLabel = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByClass(newVendorChoice.getClass());
             putGlobalError(KFSKeyConstants.ERROR_CANNOT_INACTIVATE_USED_IN_SYSTEM_PARAMETERS, documentLabel);

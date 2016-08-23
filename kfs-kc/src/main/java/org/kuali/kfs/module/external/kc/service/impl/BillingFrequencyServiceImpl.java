@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.external.kc.dto.BillingFrequencyDTO;
 import org.kuali.kfs.module.external.kc.service.BillingFrequencyService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BillingFrequencyServiceImpl implements BillingFrequencyService {
 
@@ -55,7 +55,7 @@ public class BillingFrequencyServiceImpl implements BillingFrequencyService {
         return getBillingFrequencyDTO(billingFrequency);
     }
 
-    private List<BillingFrequencyDTO> find(Map<String,Object> criteria) {
+    private List<BillingFrequencyDTO> find(Map<String, Object> criteria) {
         if (getResponsibleModuleService() != null) {
             return getBillingFrequencyDTO(getResponsibleModuleService().getExternalizableBusinessObjectsListForLookup(AccountsReceivableBillingFrequency.class, criteria, true));
         } else {

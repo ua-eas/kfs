@@ -24,9 +24,8 @@ import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
 
 /**
  * This class represents the authorization restrictions (or lack of) for a given field.
- *
- *
  */
+
 /**
  * This is a description of what this class does - zjzhou don't forget to fill this in.
  *
@@ -40,6 +39,7 @@ public class FieldRestriction {
     private boolean partiallyMasked;
     private MaskFormatter maskFormatter;
     private boolean shouldBeEncrypted;
+
     /**
      * Constructs a FieldAuthorization.java.
      */
@@ -73,10 +73,10 @@ public class FieldRestriction {
     public FieldRestriction(String fieldName, String fieldAuthorizationFlag) {
         // if an invalid flag is passed in, the choke on it
         if (!fieldAuthorizationFlag.equals(Field.EDITABLE) && !fieldAuthorizationFlag.equals(Field.READONLY)
-        		&& !fieldAuthorizationFlag.equals(Field.HIDDEN) && !fieldAuthorizationFlag.equals(Field.MASKED)
-        		&& !fieldAuthorizationFlag.equals(Field.PARTIALLY_MASKED)) {
+            && !fieldAuthorizationFlag.equals(Field.HIDDEN) && !fieldAuthorizationFlag.equals(Field.MASKED)
+            && !fieldAuthorizationFlag.equals(Field.PARTIALLY_MASKED)) {
             throw new IllegalArgumentException("The only allowable values are " +
-            		"Field.HIDDEN, Field.READONLY, Field.EDITABLE, Field.MASKED and Field.PARTIALLY_MASKED");
+                "Field.HIDDEN, Field.READONLY, Field.EDITABLE, Field.MASKED and Field.PARTIALLY_MASKED");
         }
 
         this.fieldName = fieldName;
@@ -90,15 +90,15 @@ public class FieldRestriction {
         } else if (fieldAuthorizationFlag.equals(Field.HIDDEN)) {
             this.editable = false;
             this.viewable = false;
-        } else if(fieldAuthorizationFlag.equals(Field.MASKED)){
-			this.masked = true;
-			this.viewable = true;
-			this.editable = false;
-		} else if(fieldAuthorizationFlag.equals(Field.PARTIALLY_MASKED)){
-			this.partiallyMasked = true;
-			this.viewable = true;
-			this.editable = false;
-		}
+        } else if (fieldAuthorizationFlag.equals(Field.MASKED)) {
+            this.masked = true;
+            this.viewable = true;
+            this.editable = false;
+        } else if (fieldAuthorizationFlag.equals(Field.PARTIALLY_MASKED)) {
+            this.partiallyMasked = true;
+            this.viewable = true;
+            this.editable = false;
+        }
     }
 
     /**
@@ -116,8 +116,7 @@ public class FieldRestriction {
         }
         if (!editable && viewable) {
             return Field.READONLY;
-        }
-        else {
+        } else {
             return Field.EDITABLE;
         }
 
@@ -133,8 +132,7 @@ public class FieldRestriction {
     public boolean isRestricted() {
         if (!editable || !viewable) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -149,8 +147,7 @@ public class FieldRestriction {
     public boolean isHidden() {
         if (!editable && !viewable) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -165,8 +162,7 @@ public class FieldRestriction {
     public boolean isReadOnly() {
         if (!editable && viewable) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -246,15 +242,13 @@ public class FieldRestriction {
         sb.append(" [");
         if (this.editable) {
             sb.append("editable");
-        }
-        else {
+        } else {
             sb.append("not editable");
         }
         sb.append(",");
         if (this.viewable) {
             sb.append("viewable");
-        }
-        else {
+        } else {
             sb.append("not viewable");
         }
         sb.append("]");
@@ -289,48 +283,48 @@ public class FieldRestriction {
         return toString().hashCode();
     }
 
-	/**
-	 * @return the masked
-	 */
-	public boolean isMasked() {
-		return this.masked;
-	}
+    /**
+     * @return the masked
+     */
+    public boolean isMasked() {
+        return this.masked;
+    }
 
-	/**
-	 * @return the partiallyMasked
-	 */
-	public boolean isPartiallyMasked() {
-		return this.partiallyMasked;
-	}
+    /**
+     * @return the partiallyMasked
+     */
+    public boolean isPartiallyMasked() {
+        return this.partiallyMasked;
+    }
 
 
-	/**
-	 * @return the shouldBeEncrypted
-	 */
-	public boolean isShouldBeEncrypted() {
-		return this.shouldBeEncrypted;
-	}
+    /**
+     * @return the shouldBeEncrypted
+     */
+    public boolean isShouldBeEncrypted() {
+        return this.shouldBeEncrypted;
+    }
 
-	/**
-	 * @param shouldBeEncrypted the shouldBeEncrypted to set
-	 */
-	public void setShouldBeEncrypted(boolean shouldBeEncrypted) {
-		this.shouldBeEncrypted = shouldBeEncrypted;
-	}
+    /**
+     * @param shouldBeEncrypted the shouldBeEncrypted to set
+     */
+    public void setShouldBeEncrypted(boolean shouldBeEncrypted) {
+        this.shouldBeEncrypted = shouldBeEncrypted;
+    }
 
-	/**
-	 * @return the maskFormatter
-	 */
-	public MaskFormatter getMaskFormatter() {
-		return this.maskFormatter;
-	}
+    /**
+     * @return the maskFormatter
+     */
+    public MaskFormatter getMaskFormatter() {
+        return this.maskFormatter;
+    }
 
-	/**
-	 * @param maskFormatter the maskFormatter to set
-	 */
-	public void setMaskFormatter(MaskFormatter maskFormatter) {
-		this.maskFormatter = maskFormatter;
-	}
+    /**
+     * @param maskFormatter the maskFormatter to set
+     */
+    public void setMaskFormatter(MaskFormatter maskFormatter) {
+        this.maskFormatter = maskFormatter;
+    }
 
 
 }

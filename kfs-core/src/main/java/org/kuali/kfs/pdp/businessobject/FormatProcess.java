@@ -22,11 +22,11 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 public class FormatProcess extends TimestampedBusinessObjectBase {
 

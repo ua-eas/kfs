@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Class representing a ResearchRiskType.
@@ -101,8 +101,6 @@ public class ResearchRiskType extends PersistableBusinessObjectBase implements M
     }
 
 
-
-
     /**
      * Gets the researchRiskTypeSortNumber attribute.
      *
@@ -139,7 +137,6 @@ public class ResearchRiskType extends PersistableBusinessObjectBase implements M
     public void setResearchRiskTypeNotificationValue(String researchRiskTypeNotificationValue) {
         this.researchRiskTypeNotificationValue = researchRiskTypeNotificationValue;
     }
-
 
 
     /**

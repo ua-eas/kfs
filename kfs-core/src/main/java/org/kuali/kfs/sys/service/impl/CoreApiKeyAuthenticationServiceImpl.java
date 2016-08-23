@@ -58,7 +58,7 @@ public class CoreApiKeyAuthenticationServiceImpl implements CoreApiKeyAuthentica
 
     /**
      * Determine if system is configured to use core
-
+     *
      * @return true if core is configured
      */
     @Override
@@ -102,7 +102,7 @@ public class CoreApiKeyAuthenticationServiceImpl implements CoreApiKeyAuthentica
     }
 
     protected ClientResponse invokeWebResource(String authTokenValue) {
-        return getWebResource().header(AUTHORIZATION_HEADER_NAME,AUTHORIZATION_PREFIX + authTokenValue)
+        return getWebResource().header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_PREFIX + authTokenValue)
             .header("Content-Type", CONTENT_TYPE)
             .get(ClientResponse.class);
     }
@@ -116,13 +116,13 @@ public class CoreApiKeyAuthenticationServiceImpl implements CoreApiKeyAuthentica
     protected void initializeUrlOrThrow() {
         initializeUrl();
 
-        if ( ! coreAuthBaseUrl.isPresent() ) {
+        if (!coreAuthBaseUrl.isPresent()) {
             throw new RuntimeException("Core is not enabled");
         }
     }
 
     protected void initializeUrl() {
-        if ( coreAuthBaseUrl == null ) {
+        if (coreAuthBaseUrl == null) {
             coreAuthBaseUrl = Optional.ofNullable(configurationService.getPropertyValueAsString("core.authentication.filter.authBaseUrl"));
         }
     }

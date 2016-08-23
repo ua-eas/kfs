@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -29,11 +26,14 @@ import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.dataaccess.EntryDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryBalancingDao;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 /**
  * An OJB implementation of EntryDao
@@ -87,7 +87,7 @@ public class EntryDaoOjb extends PlatformAwareDaoBaseOjb implements EntryDao, Le
         crit.addEqualTo(KFSPropertyConstants.DOCUMENT_NUMBER, t.getDocumentNumber());
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(Entry.class, crit);
-        q.setAttributes(new String[] { "max(transactionLedgerEntrySequenceNumber)" });
+        q.setAttributes(new String[]{"max(transactionLedgerEntrySequenceNumber)"});
 
         Iterator iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         // would this work better? max = (BigDecimal) getPersistenceBrokerTemplate().getObjectByQuery(q);
@@ -98,8 +98,7 @@ public class EntryDaoOjb extends PlatformAwareDaoBaseOjb implements EntryDao, Le
         }
         if (max == null) {
             return 0;
-        }
-        else {
+        } else {
             return max.intValue();
         }
     }
@@ -108,7 +107,7 @@ public class EntryDaoOjb extends PlatformAwareDaoBaseOjb implements EntryDao, Le
      * Purge the entry table by chart/year
      *
      * @param chart the chart of accounts code of entries to purge
-     * @param year the university fiscal year of entries to purge
+     * @param year  the university fiscal year of entries to purge
      */
     public void purgeYearByChart(String chartOfAccountsCode, int year) {
         LOG.debug("purgeYearByChart() started");
@@ -138,8 +137,8 @@ public class EntryDaoOjb extends PlatformAwareDaoBaseOjb implements EntryDao, Le
         criteria.addEqualTo(KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE, transactionDebitCreditCode);
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(Entry.class, criteria);
-        reportQuery.setAttributes(new String[] { "count(*)", "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
-        reportQuery.addGroupBy(new String[] { KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_BALANCE_TYPE_CODE_PROPERTY_NAME, KFSConstants.UNIVERSITY_FISCAL_PERIOD_CODE_PROPERTY_NAME, KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE});
+        reportQuery.setAttributes(new String[]{"count(*)", "sum(" + KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT + ")"});
+        reportQuery.addGroupBy(new String[]{KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_BALANCE_TYPE_CODE_PROPERTY_NAME, KFSConstants.UNIVERSITY_FISCAL_PERIOD_CODE_PROPERTY_NAME, KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE});
 
         Iterator<Object[]> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);
         Object[] returnResult = TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);

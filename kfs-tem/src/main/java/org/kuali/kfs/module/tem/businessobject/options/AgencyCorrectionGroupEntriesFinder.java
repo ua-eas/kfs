@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.module.tem.businessobject.options;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class AgencyCorrectionGroupEntriesFinder extends KeyValuesBase {
 
@@ -43,7 +43,7 @@ public class AgencyCorrectionGroupEntriesFinder extends KeyValuesBase {
         AgencyEntryGroupService agencyEntryGroupService = SpringContext.getBean(AgencyEntryGroupService.class);
         File[] fileList = agencyEntryGroupService.getAllFileInBatchDirectory();
 
-        if(null != fileList) {
+        if (null != fileList) {
             List<File> sortedFileList = Arrays.asList(fileList);
             for (File file : sortedFileList) {
                 String fileName = file.getName();

@@ -30,27 +30,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="KRCR_NMSPC_T")
+@Table(name = "KRCR_NMSPC_T")
 @EqualsAndHashCode
 public class NamespaceBo extends PersistableBusinessObjectBase implements NamespaceEbo {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name="APPL_ID")
-	private String applicationId;
+    @Column(name = "APPL_ID")
+    private String applicationId;
 
     @Id
-    @Column(name="NMSPC_CD")
+    @Column(name = "NMSPC_CD")
     private String code;
 
-    @Column(name="NM")
+    @Column(name = "NM")
     private String name;
 
-    @Column(name="ACTV_IND")
+    @Column(name = "ACTV_IND")
     private boolean active = true;
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -64,6 +65,7 @@ public class NamespaceBo extends PersistableBusinessObjectBase implements Namesp
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -78,7 +80,7 @@ public class NamespaceBo extends PersistableBusinessObjectBase implements Namesp
         bo.setCode(im.getCode());
         bo.setName(im.getName());
         bo.setVersionNumber(im.getVersionNumber());
-		bo.setObjectId(im.getObjectId());
+        bo.setObjectId(im.getObjectId());
 
         return bo;
     }

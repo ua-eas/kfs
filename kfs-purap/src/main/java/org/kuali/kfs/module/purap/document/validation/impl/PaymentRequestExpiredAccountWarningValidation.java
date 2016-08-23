@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Date;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.ScrubberStep;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.KFSConstants;
@@ -29,8 +28,9 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
+
+import java.util.Date;
+import java.util.List;
 
 public class PaymentRequestExpiredAccountWarningValidation extends GenericValidation {
 
@@ -54,7 +54,7 @@ public class PaymentRequestExpiredAccountWarningValidation extends GenericValida
                 }
 
                 if (!accountingLine.getAccount().isForContractsAndGrants() ||
-                     dateTimeService.dateDiff(accountExpirationDate, current, false) < expirationExtensionDaysInt) {
+                    dateTimeService.dateDiff(accountExpirationDate, current, false) < expirationExtensionDaysInt) {
                     KNSGlobalVariables.getMessageList().add(KFSKeyConstants.ERROR_ACCOUNT_EXPIRED);
                     valid &= false;
                     break;

@@ -18,19 +18,6 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.tools.generic.NumberTool;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
@@ -88,9 +75,21 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 @Transactional
 public class FormatServiceImpl implements FormatService {
-	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FormatServiceImpl.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FormatServiceImpl.class);
 
     protected PaymentDetailDao paymentDetailDao;
     protected PaymentGroupDao paymentGroupDao;
@@ -126,10 +125,10 @@ public class FormatServiceImpl implements FormatService {
     }
 
     /**
-	 * @see org.kuali.kfs.pdp.service.FormatService#getDataForFormat(java.lang.String)
-	 */
-	@Override
-	public FormatSelection getDataForFormat(String campusCode) {
+     * @see org.kuali.kfs.pdp.service.FormatService#getDataForFormat(java.lang.String)
+     */
+    @Override
+    public FormatSelection getDataForFormat(String campusCode) {
         Date formatStartDate = getFormatProcessStartDate(campusCode);
 
         // create new FormatSelection object an set the campus code and the start date
@@ -144,7 +143,7 @@ public class FormatServiceImpl implements FormatService {
         }
 
         return formatSelection;
-	}
+    }
 
     /**
      * @see org.kuali.kfs.pdp.service.FormatService#getFormatProcessStartDate(java.lang.String)
@@ -161,8 +160,7 @@ public class FormatServiceImpl implements FormatService {
         if (formatProcess != null) {
             LOG.debug("getFormatProcessStartDate() found");
             return new Date(formatProcess.getBeginFormat().getTime());
-        }
-        else {
+        } else {
             LOG.debug("getFormatProcessStartDate() not found");
             return null;
         }
@@ -170,7 +168,7 @@ public class FormatServiceImpl implements FormatService {
 
     /**
      * @see org.kuali.kfs.pdp.service.FormatService#startFormatProcess(org.kuali.rice.kim.bo.Person, java.lang.String,
-     *      java.util.List, java.util.Date, java.lang.String)
+     * java.util.List, java.util.Date, java.lang.String)
      */
     @Override
     public FormatProcessSummary startFormatProcess(Person user, String campus, List<CustomerProfile> customers, Date paydate, String paymentTypes) {
@@ -220,8 +218,8 @@ public class FormatServiceImpl implements FormatService {
         PaymentStatus format = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.FORMAT);
 
         List customerIds = new ArrayList();
-        for (Iterator iter = customers.iterator(); iter.hasNext();) {
-        	CustomerProfile element = (CustomerProfile) iter.next();
+        for (Iterator iter = customers.iterator(); iter.hasNext(); ) {
+            CustomerProfile element = (CustomerProfile) iter.next();
             customerIds.add(element.getId());
         }
 
@@ -348,37 +346,37 @@ public class FormatServiceImpl implements FormatService {
 
     /**
      * Send format summary in email
+     *
      * @param postFormatProcessSummary
      */
     protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
-		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
-		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
+        HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
+        HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
 
-    	KualiInteger formatTotalCount = KualiInteger.ZERO;
-		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
-		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
-			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
-				addSummaryToCustomerProfileMap(achSummaryMap, procSum);
-			}
-			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
-				addSummaryToCustomerProfileMap(checkSummaryMap, procSum);
-			}
+        KualiInteger formatTotalCount = KualiInteger.ZERO;
+        KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
+        for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
+            if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
+                addSummaryToCustomerProfileMap(achSummaryMap, procSum);
+            } else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
+                addSummaryToCustomerProfileMap(checkSummaryMap, procSum);
+            }
 
-			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
-			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
-		}
+            formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
+            formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
+        }
 
 
-		final Map<String, Object> templateVariables = new HashMap<String, Object>();
+        final Map<String, Object> templateVariables = new HashMap<String, Object>();
 
-		DateFormatter dateFormatter = new DateFormatter();
+        DateFormatter dateFormatter = new DateFormatter();
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
 
         // set email subject message
-		String processId = postFormatProcessSummary.getProcessId().toString();
+        String processId = postFormatProcessSummary.getProcessId().toString();
 
-		String emailSubject = MessageFormat.format(getKualiConfigurationService()
-								.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[] { processId });
+        String emailSubject = MessageFormat.format(getKualiConfigurationService()
+            .getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[]{processId});
 
         templateVariables.put("emailSubject", emailSubject);
         templateVariables.put("achSummaryMap", achSummaryMap);
@@ -392,47 +390,48 @@ public class FormatServiceImpl implements FormatService {
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
 
-	}
+    }
 
-	/**
-	 * Add summary totals to customer profiles map
-	 * @param summaryByCustomerProfile
-	 * @param procSum
-	 * @return
-	 */
-	protected void addSummaryToCustomerProfileMap(Map<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
-		// Gate Keeper 1
-		if (ObjectUtils.isNull(summaryByCustomerProfile))
-			summaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
+    /**
+     * Add summary totals to customer profiles map
+     *
+     * @param summaryByCustomerProfile
+     * @param procSum
+     * @return
+     */
+    protected void addSummaryToCustomerProfileMap(Map<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+        // Gate Keeper 1
+        if (ObjectUtils.isNull(summaryByCustomerProfile))
+            summaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
 
-		// Gate Keeper 2
-		if(ObjectUtils.isNull(procSum) || ObjectUtils.isNull(procSum.getCustomer())) return;
+        // Gate Keeper 2
+        if (ObjectUtils.isNull(procSum) || ObjectUtils.isNull(procSum.getCustomer())) return;
 
-		CustomerProfile customerProfile = procSum.getCustomer();
+        CustomerProfile customerProfile = procSum.getCustomer();
 
-		List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
+        List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
 
-		// check if customer profile already exists in the map
-		if (summaryByCustomerProfile.containsKey(customerProfile)){
-			summary = summaryByCustomerProfile.get(customerProfile);
+        // check if customer profile already exists in the map
+        if (summaryByCustomerProfile.containsKey(customerProfile)) {
+            summary = summaryByCustomerProfile.get(customerProfile);
 
-			KualiDecimal totCount = summary.get(0).add(procSum.getProcessTotalCount().kualiDecimalValue());
-			KualiDecimal totAmount = summary.get(1).add(procSum.getProcessTotalAmount());
+            KualiDecimal totCount = summary.get(0).add(procSum.getProcessTotalCount().kualiDecimalValue());
+            KualiDecimal totAmount = summary.get(1).add(procSum.getProcessTotalAmount());
 
-			summary.set(0, totCount);
-			summary.set(1, totAmount);
+            summary.set(0, totCount);
+            summary.set(1, totAmount);
 
-		// if no key exists
-		} else {
-			summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
-			summary.add(procSum.getProcessTotalAmount());
-		}
+            // if no key exists
+        } else {
+            summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
+            summary.add(procSum.getProcessTotalAmount());
+        }
 
-		// add summary to customer profile
-		summaryByCustomerProfile.put(customerProfile, summary);
-	}
+        // add summary to customer profile
+        summaryByCustomerProfile.put(customerProfile, summary);
+    }
 
-	/**
+    /**
      * This method processes the payment group data.
      *
      * @param paymentGroup
@@ -481,8 +480,7 @@ public class FormatServiceImpl implements FormatService {
 
             disbursementType = businessObjectService.findBySinglePrimaryKey(DisbursementType.class, PdpConstants.DisbursementTypeCodes.CHECK);
             paymentGroup.setDisbursementType(disbursementType);
-        }
-        else {
+        } else {
             PaymentStatus paymentStatus = businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.PENDING_ACH);
             paymentGroup.setPaymentStatus(paymentStatus);
 
@@ -512,9 +510,9 @@ public class FormatServiceImpl implements FormatService {
      * bank is inactive then its continuation bank is used. If not valid bank to use is found an error is added to the global
      * message map.
      *
-     * @param paymentGroup group to set bank on
+     * @param paymentGroup     group to set bank on
      * @param disbursementType type of disbursement for given payment group
-     * @param customer customer profile for payment group
+     * @param customer         customer profile for payment group
      * @return boolean true if a valid bank is set on the payment group, false otherwise
      */
     protected boolean validateAndUpdatePaymentGroupBankCode(PaymentGroup paymentGroup, DisbursementType disbursementType, CustomerProfile customer) {
@@ -526,8 +524,7 @@ public class FormatServiceImpl implements FormatService {
             if (ObjectUtils.isNotNull(customerBank) && customerBank.isActive() && ObjectUtils.isNotNull(customerBank.getBank()) && customerBank.getBank().isActive()) {
                 paymentGroup.setBankCode(customerBank.getBankCode());
                 paymentGroup.setBank(customerBank.getBank());
-            }
-            else if (ObjectUtils.isNotNull(customerBank) && ObjectUtils.isNotNull(customerBank.getBank()) && ObjectUtils.isNotNull(customerBank.getBank().getContinuationBank()) && customerBank.getBank().getContinuationBank().isActive()) {
+            } else if (ObjectUtils.isNotNull(customerBank) && ObjectUtils.isNotNull(customerBank.getBank()) && ObjectUtils.isNotNull(customerBank.getBank().getContinuationBank()) && customerBank.getBank().getContinuationBank().isActive()) {
                 paymentGroup.setBankCode(customerBank.getBank().getContinuationBank().getBankCode());
                 paymentGroup.setBank(customerBank.getBank().getContinuationBank());
             }
@@ -602,8 +599,7 @@ public class FormatServiceImpl implements FormatService {
 
                 if (paymentGroup.getPymtAttachment().booleanValue() || paymentGroup.getProcessImmediate().booleanValue() || paymentGroup.getPymtSpecialHandling().booleanValue() || (!paymentGroup.getCombineGroups())) {
                     assignDisbursementNumber(campus, range, paymentGroup, postFormatProcessSummary);
-                }
-                else {
+                } else {
                     String paymentGroupKey = paymentGroup.toStringKey();
                     // check if there was another paymentGroup we can combine with
                     if (combinedChecksMap.containsKey(paymentGroupKey)) {
@@ -648,11 +644,9 @@ public class FormatServiceImpl implements FormatService {
                         combinedChecksMap.put(paymentGroupKey, paymentInfo);
                     }
                 }
-            }
-            else if (PdpConstants.DisbursementTypeCodes.ACH.equals(paymentGroup.getDisbursementType().getCode())) {
+            } else if (PdpConstants.DisbursementTypeCodes.ACH.equals(paymentGroup.getDisbursementType().getCode())) {
                 assignDisbursementNumber(campus, range, paymentGroup, postFormatProcessSummary);
-            }
-            else {
+            } else {
                 // if it isn't check or ach, we're in trouble
                 LOG.error("assignDisbursementNumbers() Payment group " + paymentGroup.getId() + " must be CHCK or ACH.  It is: " + paymentGroup.getDisbursementType());
                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, "assignDisbursementNumbers() Payment group " + paymentGroup.getId() + " must be CHCK or ACH.  It is: " + paymentGroup.getDisbursementType());
@@ -803,9 +797,9 @@ public class FormatServiceImpl implements FormatService {
      * Given the List of disbursement number ranges for the processing campus, finds matches for the bank code and disbursement type
      * code. If more than one match is found, the range with the latest start date (before or equal to today) will be returned.
      *
-     * @param ranges List of disbursement ranges to search (already filtered to processing campus, active, and start date before or
-     *        equal to today)
-     * @param bank bank code to find range for
+     * @param ranges               List of disbursement ranges to search (already filtered to processing campus, active, and start date before or
+     *                             equal to today)
+     * @param bank                 bank code to find range for
      * @param disbursementTypeCode disbursement type code to find range for
      * @return found <code>DisbursementNumberRange</code or null if one was not found
      */
@@ -994,11 +988,9 @@ public class FormatServiceImpl implements FormatService {
         message.setMessage("The PDP format for Process ID " + processId + " is complete. Please access the PDP Format Summary lookup for the final disbursement numbers and amounts");
         try {
             SpringContext.getBean(MailService.class).sendMessage(message);
-        }
-        catch (InvalidAddressException e) {
+        } catch (InvalidAddressException e) {
             LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        }
-        catch (MessagingException me) {
+        } catch (MessagingException me) {
             throw new RuntimeException("Could not send mail", me);
         }
     }
@@ -1017,41 +1009,39 @@ public class FormatServiceImpl implements FormatService {
         message.setMessage(msg.toString());
         try {
             SpringContext.getBean(MailService.class).sendMessage(message);
-        }
-        catch (InvalidAddressException e) {
+        } catch (InvalidAddressException e) {
             LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        }
-        catch (MessagingException me) {
+        } catch (MessagingException me) {
             throw new RuntimeException("Could not send mail", me);
         }
     }
 
-	/**
-	 * @return the formatCheckACHEmailService
-	 */
-	public FormatCheckACHEmailService getFormatCheckACHEmailService() {
-		return formatCheckACHEmailService;
-	}
+    /**
+     * @return the formatCheckACHEmailService
+     */
+    public FormatCheckACHEmailService getFormatCheckACHEmailService() {
+        return formatCheckACHEmailService;
+    }
 
-	/**
-	 * @param formatCheckACHEmailService the formatCheckACHEmailService to set
-	 */
-	public void setFormatCheckACHEmailService(FormatCheckACHEmailService formatCheckACHEmailService) {
-		this.formatCheckACHEmailService = formatCheckACHEmailService;
-	}
+    /**
+     * @param formatCheckACHEmailService the formatCheckACHEmailService to set
+     */
+    public void setFormatCheckACHEmailService(FormatCheckACHEmailService formatCheckACHEmailService) {
+        this.formatCheckACHEmailService = formatCheckACHEmailService;
+    }
 
-	/**
-	 * @return the kualiConfigurationService
-	 */
-	public ConfigurationService getKualiConfigurationService() {
-		return kualiConfigurationService;
-	}
+    /**
+     * @return the kualiConfigurationService
+     */
+    public ConfigurationService getKualiConfigurationService() {
+        return kualiConfigurationService;
+    }
 
-	/**
-	 * @param kualiConfigurationService the kualiConfigurationService to set
-	 */
-	public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
-		this.kualiConfigurationService = kualiConfigurationService;
-	}
+    /**
+     * @param kualiConfigurationService the kualiConfigurationService to set
+     */
+    public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
+        this.kualiConfigurationService = kualiConfigurationService;
+    }
 
 }

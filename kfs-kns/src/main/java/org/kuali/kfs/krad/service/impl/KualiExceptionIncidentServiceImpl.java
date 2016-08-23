@@ -33,12 +33,9 @@ import java.util.Map;
  * reported in the same way, but to potentially different email lists.  Part
  * of this refactor included moving the mailer and messageTemplate properties
  * and the emailReport and createMailMessage methods to the new parent class.
- *
- *
- *
  */
 public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl implements KualiExceptionIncidentService {
-    private Logger LOG=Logger.getLogger(KualiExceptionIncidentServiceImpl.class);
+    private Logger LOG = Logger.getLogger(KualiExceptionIncidentServiceImpl.class);
 
     /**
      * An list to send incident emails to.
@@ -53,7 +50,7 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
      * <param name="KualiReporterServiceImpl.REPORT_MAIL_LIST">a@y,b@z</param>
      * </code>
      */
-    public static final String REPORT_MAIL_LIST=String.format("%s.REPORT_MAIL_LIST", KualiExceptionIncidentServiceImpl.class.getSimpleName());
+    public static final String REPORT_MAIL_LIST = String.format("%s.REPORT_MAIL_LIST", KualiExceptionIncidentServiceImpl.class.getSimpleName());
 
     @Override
     protected String getToAddressesPropertyName() {
@@ -66,21 +63,21 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
      * @see KualiExceptionIncidentService#report(KualiExceptionIncident)
      */
     @Override
-	public void report(KualiExceptionIncident exceptionIncident) throws Exception {
+    public void report(KualiExceptionIncident exceptionIncident) throws Exception {
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s",
-                    (exceptionIncident==null)?"null":exceptionIncident.toString());
+            String lm = String.format("ENTRY %s",
+                (exceptionIncident == null) ? "null" : exceptionIncident.toString());
             LOG.trace(lm);
         }
 
         emailReport(
-                exceptionIncident.getProperty(
-                        KualiExceptionIncident.EXCEPTION_REPORT_SUBJECT),
-                exceptionIncident.getProperty(
-                        KualiExceptionIncident.EXCEPTION_REPORT_MESSAGE));
+            exceptionIncident.getProperty(
+                KualiExceptionIncident.EXCEPTION_REPORT_SUBJECT),
+            exceptionIncident.getProperty(
+                KualiExceptionIncident.EXCEPTION_REPORT_MESSAGE));
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT");
+            String lm = String.format("EXIT");
             LOG.trace(lm);
         }
 
@@ -97,18 +94,18 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
      */
     public List<String> split(String s, String token) {
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s;%s", s, token);
+            String lm = String.format("ENTRY %s;%s", s, token);
             LOG.trace(lm);
         }
 
-        String[] sarray=s.split(token);
-        List<String> list=new ArrayList<String>();
-        for (int i=0; i<sarray.length && sarray[i].length() > 0; i++) {
+        String[] sarray = s.split(token);
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < sarray.length && sarray[i].length() > 0; i++) {
             list.add(sarray[i]);
         }
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT %s", list.toString());
+            String lm = String.format("EXIT %s", list.toString());
             LOG.trace(lm);
         }
 
@@ -119,24 +116,24 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
      * This overridden method create an instance of the KualiExceptionIncident.
      *
      * @see KualiExceptionIncidentService#getExceptionIncident(
-     * java.lang.Exception,java.util.Map)
+     *java.lang.Exception, java.util.Map)
      */
     @Override
-	public KualiExceptionIncident getExceptionIncident(Exception exception,
-            Map<String, String> properties) {
-    	if ( exception == null ) {
-    		return getExceptionIncident(properties);
-    	}
+    public KualiExceptionIncident getExceptionIncident(Exception exception,
+                                                       Map<String, String> properties) {
+        if (exception == null) {
+            return getExceptionIncident(properties);
+        }
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s;%s", exception.getMessage(),
-                    properties.toString());
+            String lm = String.format("ENTRY %s;%s", exception.getMessage(),
+                properties.toString());
             LOG.trace(lm);
         }
 
-        KualiExceptionIncident ei=new ExceptionIncident(exception, properties);
+        KualiExceptionIncident ei = new ExceptionIncident(exception, properties);
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT %s", ei.toProperties().toString());
+            String lm = String.format("EXIT %s", ei.toProperties().toString());
             LOG.trace(lm);
         }
 
@@ -150,36 +147,38 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
      * @see KualiExceptionIncidentService#getExceptionIncident(java.util.Map)
      */
     @Override
-	public KualiExceptionIncident getExceptionIncident(Map<String, String> properties) {
+    public KualiExceptionIncident getExceptionIncident(Map<String, String> properties) {
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("ENTRY %s", properties.toString());
+            String lm = String.format("ENTRY %s", properties.toString());
             LOG.trace(lm);
         }
 
-        ExceptionIncident ei=new ExceptionIncident(properties);
+        ExceptionIncident ei = new ExceptionIncident(properties);
 
         if (LOG.isTraceEnabled()) {
-            String lm=String.format("EXIT %s", ei.toProperties().toString());
+            String lm = String.format("EXIT %s", ei.toProperties().toString());
             LOG.trace(lm);
         }
 
         return ei;
     }
 
-	/**
+    /**
      * Returns the incident report mailing list.
-	 * @return the incidentMailingList
-	 */
-	public String getIncidentMailingList() {
-		return this.incidentMailingList;
-	}
+     *
+     * @return the incidentMailingList
+     */
+    public String getIncidentMailingList() {
+        return this.incidentMailingList;
+    }
 
-	/**
+    /**
      * Sets the incident report mailing list.
-	 * @param incidentMailingList the incidentMailingList to set
-	 */
-	public void setIncidentMailingList(String incidentMailingList) {
-		this.incidentMailingList = incidentMailingList;
-	}
+     *
+     * @param incidentMailingList the incidentMailingList to set
+     */
+    public void setIncidentMailingList(String incidentMailingList) {
+        this.incidentMailingList = incidentMailingList;
+    }
 
 }

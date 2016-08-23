@@ -37,7 +37,6 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.ResourceLoaderUtil;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.expression.StandardBeanExpressionResolver;
@@ -60,13 +59,13 @@ import java.util.TreeMap;
  * Collection of named BusinessObjectEntry objects, each of which contains
  * information relating to the display, validation, and general maintenance of a
  * BusinessObject.
- *
+ * <p>
  * THIS OVERRIDE OF THE RICE DATA DICTIONARY IS A TOTAL BAND-AID.
  * It allows us to pass in the Spring ApplicationContext to retrieve resources, which means we can use file globs
  * to pull in those resources.  Hopefully, as KFS starts pulling in Rice client functionality, the Rice DataDictionary
  * will be improved to pull multiple files in.
  */
-public class DataDictionary  {
+public class DataDictionary {
 
     protected DefaultListableBeanFactory ddBeans = new DefaultListableBeanFactory();
     protected XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ddBeans);
@@ -99,19 +98,20 @@ public class DataDictionary  {
         this.configFileLocations = configFileLocations;
     }
 
-    public void addConfigFileLocation( String location ) throws IOException {
-        indexSource( location );
+    public void addConfigFileLocation(String location) throws IOException {
+        indexSource(location);
     }
 
     /**
      * ApplicationContext aware version of method
      */
-    public void addConfigFileLocation( String location, ApplicationContext applicationContext ) throws IOException {
-        indexSource( location, applicationContext );
+    public void addConfigFileLocation(String location, ApplicationContext applicationContext) throws IOException {
+        indexSource(location, applicationContext);
     }
 
     /**
      * Sets the DataDictionaryMapper
+     *
      * @param mapper the datadictionary mapper
      */
     public void setDataDictionaryMapper(DataDictionaryMapper mapper) {
@@ -123,7 +123,7 @@ public class DataDictionary  {
             throw new DataDictionaryException("Source Name given is null");
         }
 
-        if (!sourceName.endsWith(".xml") ) {
+        if (!sourceName.endsWith(".xml")) {
             Resource resource = ResourceLoaderUtil.getFileResource(sourceName);
             if (resource.exists()) {
                 indexSource(resource.getFile());
@@ -132,16 +132,16 @@ public class DataDictionary  {
                 throw new DataDictionaryException("DD Resource " + sourceName + " not found");
             }
         } else {
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("adding sourceName " + sourceName + " ");
             }
             Resource resource = ResourceLoaderUtil.getFileResource(sourceName);
-            if (! resource.exists()) {
+            if (!resource.exists()) {
                 throw new DataDictionaryException("DD Resource " + sourceName + " not found");
             }
 
             String indexName = sourceName.substring(sourceName.lastIndexOf("/") + 1, sourceName.indexOf(".xml"));
-            configFileLocations.add( sourceName );
+            configFileLocations.add(sourceName);
         }
     }
 
@@ -155,7 +155,7 @@ public class DataDictionary  {
 
         if (sourceName.endsWith(".xml")) {
             final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(applicationContext).getResources(sourceName);
-            for (Resource resource: resources) {
+            for (Resource resource : resources) {
                 if (resource.exists()) {
                     final String resourcePath = ResourceLoaderUtil.parseResourcePathFromUrl(resource);
                     if (!StringUtils.isBlank(resourcePath)) {
@@ -167,16 +167,16 @@ public class DataDictionary  {
                 }
             }
         } else {
-            if ( LOG.isDebugEnabled() ) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("adding sourceName " + sourceName + " ");
             }
             Resource resource = ResourceLoaderUtil.getFileResource(sourceName, applicationContext);
-            if (! resource.exists()) {
+            if (!resource.exists()) {
                 throw new DataDictionaryException("DD Resource " + sourceName + " not found");
             }
 
             String indexName = sourceName.substring(sourceName.lastIndexOf("/") + 1, sourceName.indexOf(".xml"));
-            configFileLocations.add( sourceName );
+            configFileLocations.add(sourceName);
         }
     }
 
@@ -184,17 +184,17 @@ public class DataDictionary  {
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
                 indexSource(file);
-            } else if (file.getName().endsWith(".xml") ) {
-                configFileLocations.add( "file:" + file.getAbsolutePath());
+            } else if (file.getName().endsWith(".xml")) {
+                configFileLocations.add("file:" + file.getAbsolutePath());
             } else {
-                if ( LOG.isDebugEnabled() ) {
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("Skipping non xml file " + file.getAbsolutePath() + " in DD load");
                 }
             }
         }
     }
 
-    public void parseDataDictionaryConfigurationFiles( boolean allowConcurrentValidation ) {
+    public void parseDataDictionaryConfigurationFiles(boolean allowConcurrentValidation) {
         // configure the bean factory, setup component decorator post processor
         // and allow Spring EL
         try {
@@ -243,14 +243,14 @@ public class DataDictionary  {
 
     static boolean validateEBOs = false;
 
-    public void validateDD( boolean validateEbos ) {
+    public void validateDD(boolean validateEbos) {
         DataDictionary.validateEBOs = validateEbos;
-        Map<String,DataObjectEntry> doBeans = ddBeans.getBeansOfType(DataObjectEntry.class);
-        for ( DataObjectEntry entry : doBeans.values() ) {
+        Map<String, DataObjectEntry> doBeans = ddBeans.getBeansOfType(DataObjectEntry.class);
+        for (DataObjectEntry entry : doBeans.values()) {
             entry.completeValidation();
         }
-        Map<String,DocumentEntry> docBeans = ddBeans.getBeansOfType(DocumentEntry.class);
-        for ( DocumentEntry entry : docBeans.values() ) {
+        Map<String, DocumentEntry> docBeans = ddBeans.getBeansOfType(DocumentEntry.class);
+        for (DocumentEntry entry : docBeans.values()) {
             entry.completeValidation();
         }
     }
@@ -264,7 +264,7 @@ public class DataDictionary  {
      * @return BusinessObjectEntry for the named class, or null if none exists
      */
     @Deprecated
-    public BusinessObjectEntry getBusinessObjectEntry(String className ) {
+    public BusinessObjectEntry getBusinessObjectEntry(String className) {
         return ddMapper.getBusinessObjectEntry(ddIndex, className);
     }
 
@@ -272,7 +272,7 @@ public class DataDictionary  {
      * @param className
      * @return BusinessObjectEntry for the named class, or null if none exists
      */
-    public DataObjectEntry getDataObjectEntry(String className ) {
+    public DataObjectEntry getDataObjectEntry(String className) {
         return ddMapper.getDataObjectEntry(ddIndex, className);
     }
 
@@ -282,7 +282,7 @@ public class DataDictionary  {
      * @param className
      * @return
      */
-    public BusinessObjectEntry getBusinessObjectEntryForConcreteClass(String className){
+    public BusinessObjectEntry getBusinessObjectEntryForConcreteClass(String className) {
         return ddMapper.getBusinessObjectEntryForConcreteClass(ddIndex, className);
     }
 
@@ -303,7 +303,7 @@ public class DataDictionary  {
     /**
      * @param className
      * @return DataDictionaryEntryBase for the named class, or null if none
-     *         exists
+     * exists
      */
     public DataDictionaryEntry getDictionaryObjectEntry(String className) {
         return ddMapper.getDictionaryObjectEntry(ddIndex, className);
@@ -324,19 +324,19 @@ public class DataDictionary  {
      * @param documentTypeDDKey the KEW/workflow document type name
      * @return the KNS DocumentEntry if it exists
      */
-    public DocumentEntry getDocumentEntry(String documentTypeDDKey ) {
+    public DocumentEntry getDocumentEntry(String documentTypeDDKey) {
         return ddMapper.getDocumentEntry(ddIndex, documentTypeDDKey);
     }
 
     /**
      * Note: only MaintenanceDocuments are indexed by businessObject Class
-     *
+     * <p>
      * This is a special case that is referenced in one location. Do we need
      * another map for this stuff??
      *
      * @param businessObjectClass
      * @return DocumentEntry associated with the given Class, or null if there
-     *         is none
+     * is none
      */
     public MaintenanceDocumentEntry getMaintenanceDocumentEntryForBusinessObjectClass(Class<?> businessObjectClass) {
         return ddMapper.getMaintenanceDocumentEntryForBusinessObjectClass(ddIndex, businessObjectClass);
@@ -359,12 +359,10 @@ public class DataDictionary  {
     /**
      * Returns View instance identified by the view type name and index
      *
-     * @param viewTypeName
-     *            - type name for the view
-     * @param indexKey
-     *            - Map of index key parameters, these are the parameters the
-     *            indexer used to index the view initially and needs to identify
-     *            an unique view instance
+     * @param viewTypeName - type name for the view
+     * @param indexKey     - Map of index key parameters, these are the parameters the
+     *                     indexer used to index the view initially and needs to identify
+     *                     an unique view instance
      * @return View instance that matches the given index
      */
     public View getViewByTypeIndex(ViewType viewTypeName, Map<String, String> indexKey) {
@@ -375,9 +373,9 @@ public class DataDictionary  {
      * Indicates whether a <code>View</code> exists for the given view type and index information
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the
-     * indexer used to index the view initially and needs to identify
-     * an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the
+     *                     indexer used to index the view initially and needs to identify
+     *                     an unique view instance
      * @return boolean true if view exists, false if not
      */
     public boolean viewByTypeExist(ViewType viewTypeName, Map<String, String> indexKey) {
@@ -388,10 +386,9 @@ public class DataDictionary  {
      * Gets all <code>View</code> prototypes configured for the given view type
      * name
      *
-     * @param viewTypeName
-     *            - view type name to retrieve
+     * @param viewTypeName - view type name to retrieve
      * @return List<View> view prototypes with the given type name, or empty
-     *         list
+     * list
      */
     public List<View> getViewsForType(ViewType viewTypeName) {
         return ddMapper.getViewsForType(uifIndex, viewTypeName);
@@ -419,7 +416,7 @@ public class DataDictionary  {
 
     /**
      * Retrieves the configured property values for the view bean definition associated with the given id
-     *
+     * <p>
      * <p>
      * Since constructing the View object can be expensive, when metadata only is needed this method can be used
      * to retrieve the configured property values. Note this looks at the merged bean definition
@@ -435,15 +432,15 @@ public class DataDictionary  {
     /**
      * Retrieves the configured property values for the view bean definition associated with the given type and
      * index
-     *
+     * <p>
      * <p>
      * Since constructing the View object can be expensive, when metadata only is needed this method can be used
      * to retrieve the configured property values. Note this looks at the merged bean definition
      * </p>
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the indexer used to index
-     * the view initially and needs to identify an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the indexer used to index
+     *                     the view initially and needs to identify an unique view instance
      * @return PropertyValues configured on the view bean definition, or null if view is not found
      */
     public PropertyValues getViewPropertiesByType(ViewType viewTypeName, Map<String, String> indexKey) {
@@ -497,7 +494,7 @@ public class DataDictionary  {
      * @return the persistenceStructureService
      */
     public static PersistenceStructureService getPersistenceStructureService() {
-        if ( persistenceStructureService == null ) {
+        if (persistenceStructureService == null) {
             persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
         }
         return persistenceStructureService;
@@ -507,7 +504,7 @@ public class DataDictionary  {
      * This method determines the Class of the attributeName passed in. Null will be returned if the member is not available, or if
      * a reflection exception is thrown.
      *
-     * @param boClass - Class that the attributeName property exists in.
+     * @param boClass       - Class that the attributeName property exists in.
      * @param attributeName - Name of the attribute you want a class for.
      * @return The Class of the attributeName, if the attribute exists on the rootClass. Null otherwise.
      */
@@ -521,7 +518,7 @@ public class DataDictionary  {
         //Implementing Externalizable Business Object Services...
         //The boClass can be an interface, hence handling this separately,
         //since the original method was throwing exception if the class could not be instantiated.
-        if(boClass.isInterface())
+        if (boClass.isInterface())
             return getAttributeClassWhenBOIsInterface(boClass, attributeName);
         else
             return getAttributeClassWhenBOIsClass(boClass, attributeName);
@@ -529,14 +526,13 @@ public class DataDictionary  {
     }
 
     /**
-     *
      * This method gets the property type of the given attributeName when the bo class is a concrete class
      *
      * @param boClass
      * @param attributeName
      * @return
      */
-    private static Class getAttributeClassWhenBOIsClass(Class boClass, String attributeName){
+    private static Class getAttributeClassWhenBOIsClass(Class boClass, String attributeName) {
         Object boInstance;
         try {
             boInstance = boClass.newInstance();
@@ -553,7 +549,6 @@ public class DataDictionary  {
     }
 
     /**
-     *
      * This method gets the property type of the given attributeName when the bo class is an interface
      * This method will also work if the bo class is not an interface,
      * but that case requires special handling, hence a separate method getAttributeClassWhenBOIsClass
@@ -562,7 +557,7 @@ public class DataDictionary  {
      * @param attributeName
      * @return
      */
-    private static Class getAttributeClassWhenBOIsInterface(Class boClass, String attributeName){
+    private static Class getAttributeClassWhenBOIsInterface(Class boClass, String attributeName) {
         if (boClass == null) {
             throw new IllegalArgumentException("invalid (null) boClass");
         }
@@ -584,18 +579,16 @@ public class DataDictionary  {
             if (propertyDescriptor != null) {
 
                 Class propertyType = propertyDescriptor.getPropertyType();
-                if ( propertyType.equals( PersistableBusinessObjectExtension.class ) ) {
-                    propertyType = getPersistenceStructureService().getBusinessObjectAttributeClass( currentClass, currentPropertyName );
+                if (propertyType.equals(PersistableBusinessObjectExtension.class)) {
+                    propertyType = getPersistenceStructureService().getBusinessObjectAttributeClass(currentClass, currentPropertyName);
                 }
                 if (Collection.class.isAssignableFrom(propertyType)) {
                     // TODO: determine property type using generics type definition
                     throw new AttributeValidationException("Can't determine the Class of Collection elements because when the business object is an (possibly ExternalizableBusinessObject) interface.");
-                }
-                else {
+                } else {
                     currentClass = propertyType;
                 }
-            }
-            else {
+            } else {
                 throw new AttributeValidationException("Can't find getter method of " + boClass.getName() + " for property " + attributeName);
             }
         }
@@ -605,7 +598,7 @@ public class DataDictionary  {
     /**
      * This method determines the Class of the elements in the collectionName passed in.
      *
-     * @param boClass Class that the collectionName collection exists in.
+     * @param boClass        Class that the collectionName collection exists in.
      * @param collectionName the name of the collection you want the element class for
      * @return
      */
@@ -622,7 +615,7 @@ public class DataDictionary  {
         String[] intermediateProperties = collectionName.split("\\.");
         Class currentClass = boClass;
 
-        for (int i = 0; i <intermediateProperties.length; ++i) {
+        for (int i = 0; i < intermediateProperties.length; ++i) {
 
             String currentPropertyName = intermediateProperties[i];
             propertyDescriptor = buildSimpleReadDescriptor(currentClass, currentPropertyName);
@@ -639,13 +632,11 @@ public class DataDictionary  {
                         collectionClasses = getPersistenceStructureService().listCollectionObjectTypes(currentClass);
                         currentClass = collectionClasses.get(currentPropertyName);
 
-                    }
-                    else {
+                    } else {
                         throw new RuntimeException("Can't determine the Class of Collection elements because persistenceStructureService.isPersistable(" + currentClass.getName() + ") returns false.");
                     }
 
-                }
-                else {
+                } else {
 
                     currentClass = propertyDescriptor.getPropertyType();
 
@@ -687,8 +678,8 @@ public class DataDictionary  {
                 if (propertyDescriptor != null) {
 
                     Class propertyType = propertyDescriptor.getPropertyType();
-                    if ( propertyType.equals( PersistableBusinessObjectExtension.class ) ) {
-                        propertyType = getPersistenceStructureService().getBusinessObjectAttributeClass( currentClass, currentPropertyName );
+                    if (propertyType.equals(PersistableBusinessObjectExtension.class)) {
+                        propertyType = getPersistenceStructureService().getBusinessObjectAttributeClass(currentClass, currentPropertyName);
                     }
                     if (Collection.class.isAssignableFrom(propertyType)) {
 
@@ -698,15 +689,13 @@ public class DataDictionary  {
                             collectionClasses = getPersistenceStructureService().listCollectionObjectTypes(currentClass);
                             currentClass = collectionClasses.get(currentPropertyName);
 
-                        }
-                        else {
+                        } else {
 
                             throw new RuntimeException("Can't determine the Class of Collection elements because persistenceStructureService.isPersistable(" + currentClass.getName() + ") returns false.");
 
                         }
 
-                    }
-                    else {
+                    } else {
 
                         currentClass = propertyType;
 
@@ -779,11 +768,10 @@ public class DataDictionary  {
      * This method gathers beans of type BeanOverride and invokes each one's performOverride() method.
      */
     // KULRICE-4513
-    public void performBeanOverrides()
-    {
+    public void performBeanOverrides() {
         Collection<BeanOverride> beanOverrides = ddBeans.getBeansOfType(BeanOverride.class).values();
 
-        if (beanOverrides.isEmpty()){
+        if (beanOverrides.isEmpty()) {
             LOG.info("DataDictionary.performOverrides(): No beans to override");
         }
         for (BeanOverride beanOverride : beanOverrides) {

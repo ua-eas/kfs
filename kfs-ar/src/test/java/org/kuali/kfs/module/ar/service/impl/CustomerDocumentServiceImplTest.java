@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Random;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.util.Random;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerDocumentServiceImplTest extends KualiTestBase {
@@ -69,8 +69,8 @@ public class CustomerDocumentServiceImplTest extends KualiTestBase {
 
     public void testTruncateField() {
         final int customerAddressNameLength = dataDictionaryService.getAttributeMaxLength(CustomerAddress.class, ArPropertyConstants.CustomerAddressFields.CUSTOMER_ADDRESS_NAME);
-        final String customerAddressNameShort = randomString(customerAddressNameLength-3);
-        final String customerAddressNameLong = randomString(customerAddressNameLength+7);
+        final String customerAddressNameShort = randomString(customerAddressNameLength - 3);
+        final String customerAddressNameLong = randomString(customerAddressNameLength + 7);
         final String customerAddressNameBabyBear = randomString(customerAddressNameLength);
 
         final String customerAddressNameShortTruncated = customerDocumentServiceImpl.truncateField(CustomerAddress.class, ArPropertyConstants.CustomerAddressFields.CUSTOMER_ADDRESS_NAME, customerAddressNameShort);

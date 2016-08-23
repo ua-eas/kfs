@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.context;
 
-import java.net.URL;
-import java.net.URLClassLoader;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.kuali.kfs.sys.KFSConstants;
+
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class Log4jConfigurer {
     private static final long MILLISECONDS_CONVERSION_MULTIPLIER = 60 * 1000;
@@ -34,8 +34,7 @@ public class Log4jConfigurer {
         long reloadMilliseconds = 5 * MILLISECONDS_CONVERSION_MULTIPLIER;
         try {
             reloadMilliseconds = Long.parseLong(reloadMinutes) * MILLISECONDS_CONVERSION_MULTIPLIER;
-        }
-        catch (NumberFormatException ignored) {
+        } catch (NumberFormatException ignored) {
             // default to 5 minutes
         }
         PropertyConfigurator.configureAndWatch(settingsFile, reloadMilliseconds);

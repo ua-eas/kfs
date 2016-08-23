@@ -24,14 +24,12 @@ import org.kuali.kfs.kns.web.struts.action.BackdoorAction;
  * A Struts ActionForm for the {@link BackdoorAction}.
  *
  * @see BackdoorAction
- *
- *
  */
 public class BackdoorForm extends org.kuali.kfs.kns.web.struts.form.KualiForm {
 
-	private static final long serialVersionUID = -2720178686804392055L;
+    private static final long serialVersionUID = -2720178686804392055L;
 
-	private String methodToCall = "";
+    private String methodToCall = "";
     private String backdoorId;
     private Boolean showBackdoorLogin;
     private Boolean isAdmin;
@@ -40,38 +38,48 @@ public class BackdoorForm extends org.kuali.kfs.kns.web.struts.form.KualiForm {
     //determines whether to show the backdoor login textbox in the backdoor links page
     private String backdoorLinksBackdoorLogin;
 
-    private String graphic="yes";
+    private String graphic = "yes";
 
     public String getBackdoorId() {
         return backdoorId;
     }
+
     public void setBackdoorId(String backdoorId) {
         this.backdoorId = backdoorId;
     }
+
     public String getMethodToCall() {
         return methodToCall;
     }
+
     public void setMethodToCall(String methodToCall) {
         this.methodToCall = methodToCall;
     }
+
     public Boolean getIsAdmin() {
         return isAdmin;
     }
+
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
     public Boolean getShowBackdoorLogin() {
         return showBackdoorLogin;
     }
+
     public void setShowBackdoorLogin(Boolean showBackdoorLogin) {
         this.showBackdoorLogin = showBackdoorLogin;
     }
+
     public String getLinkTarget() {
         return linkTarget;
     }
+
     public void setLinkTarget(String linkTarget) {
         this.linkTarget = linkTarget;
     }
+
     /*
     public String getTargetName() {
         return targetName;
@@ -80,20 +88,23 @@ public class BackdoorForm extends org.kuali.kfs.kns.web.struts.form.KualiForm {
         this.targetName = targetName;
     }
     */
-    public String getGraphic(){
-    	return this.graphic;
+    public String getGraphic() {
+        return this.graphic;
     }
-    public void setGraphic(String choice){
-    	if(!org.apache.commons.lang.StringUtils.isEmpty(choice)&&choice.trim().equals("no")){
-    		this.graphic="no";
-    	}else{
-    		this.graphic="yes";
-    	}
+
+    public void setGraphic(String choice) {
+        if (!org.apache.commons.lang.StringUtils.isEmpty(choice) && choice.trim().equals("no")) {
+            this.graphic = "no";
+        } else {
+            this.graphic = "yes";
+        }
     }
-	public String getBackdoorLinksBackdoorLogin() {
-		return backdoorLinksBackdoorLogin;
-	}
-	public void setBackdoorLinksBackdoorLogin(String backdoorLinksBackdoorLogin) {
-		this.backdoorLinksBackdoorLogin = backdoorLinksBackdoorLogin;
-	}
+
+    public String getBackdoorLinksBackdoorLogin() {
+        return backdoorLinksBackdoorLogin;
+    }
+
+    public void setBackdoorLinksBackdoorLogin(String backdoorLinksBackdoorLogin) {
+        this.backdoorLinksBackdoorLogin = backdoorLinksBackdoorLogin;
+    }
 }

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerRuleTest extends MaintenanceRuleTestBase {
@@ -139,8 +139,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
     /**
      * This method checks if checkAddresses returns true when customer has only one primary address.
      */
-    public void testCheckAddresses_True()
-    {
+    public void testCheckAddresses_True() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
         customer.getCustomerAddresses().add(customerAddress);
 
@@ -153,8 +152,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
     /**
      * This method checks if checkAddresses returns false when customer has more than one primary address.
      */
-    public void testCheckAddresses_HasMore_False()
-    {
+    public void testCheckAddresses_HasMore_False() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
         customer.getCustomerAddresses().add(customerAddress);
         customer.getCustomerAddresses().add(customerAddress);
@@ -167,8 +165,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
     /**
      * This method checks if checkAddresses returns false when customer has no primary address.
      */
-    public void testCheckAddresses_HasNone_False()
-    {
+    public void testCheckAddresses_HasNone_False() {
         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
         customer.getCustomerAddresses().add(customerAddress);
 

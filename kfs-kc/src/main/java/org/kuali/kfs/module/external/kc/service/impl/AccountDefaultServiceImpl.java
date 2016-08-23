@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
 import org.kuali.kfs.module.external.kc.service.AccountDefaultsService;
 import org.kuali.kfs.module.external.kc.util.KcUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AccountDefaultServiceImpl implements AccountDefaultsService {
 
@@ -62,9 +62,8 @@ public class AccountDefaultServiceImpl implements AccountDefaultsService {
             List<String> parentUnits = null;
             try {
                 parentUnits = contractsAndGrantsModuleService.getParentUnits(unitNumber);
-            }
-            catch (Exception ex) {
-                LOG.error( KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_ACCOUNT_PARAMS_UNIT_NOTFOUND, null) + ": " + ex.getMessage());
+            } catch (Exception ex) {
+                LOG.error(KcUtils.getErrorMessage(KcConstants.AccountCreationService.ERROR_KC_ACCOUNT_PARAMS_UNIT_NOTFOUND, null) + ": " + ex.getMessage());
 
                 GlobalVariables.getMessageMap().putError(KcConstants.AccountCreationService.ERROR_KC_ACCOUNT_PARAMS_UNIT_NOTFOUND, KcConstants.AccountCreationDefaults.KcUnit, ex.getMessage());
 

@@ -18,17 +18,9 @@
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrBuilder;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.batch.service.DataReportService;
 import org.kuali.kfs.module.tem.util.MessageUtils;
@@ -37,7 +29,15 @@ import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DataReportServiceImpl implements DataReportService {
     public static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataReportServiceImpl.class);
@@ -50,16 +50,16 @@ public class DataReportServiceImpl implements DataReportService {
      * @see org.kuali.kfs.module.tem.batch.service.DataReportService#writeToReport(java.io.PrintStream, org.kuali.kfs.module.tem.businessobject.AgencyStagingData, java.lang.String, org.kuali.kfs.sys.report.BusinessObjectReportHelper)
      */
     @Override
-    public <T extends BusinessObject> void writeToReport(PrintStream reportDataStream,T tableData, List<ErrorMessage> errors, BusinessObjectReportHelper reportHelper) {
+    public <T extends BusinessObject> void writeToReport(PrintStream reportDataStream, T tableData, List<ErrorMessage> errors, BusinessObjectReportHelper reportHelper) {
         String reportEntry = formatMessage(tableData, getMessageAsString(errors), reportHelper);
         reportDataStream.println(reportEntry);
     }
 
     /**
-     *  Return a String for the report
-     *
-     *  Using the report helper to display the table header , and then the table data values
-     *  If the errors string is not empty, additional errors (formated) will be displayed under the table
+     * Return a String for the report
+     * <p>
+     * Using the report helper to display the table header , and then the table data values
+     * If the errors string is not empty, additional errors (formated) will be displayed under the table
      *
      * @param tableData
      * @param errors
@@ -68,8 +68,8 @@ public class DataReportServiceImpl implements DataReportService {
      */
     private <T extends BusinessObject> String formatMessage(T tableData, String errors, BusinessObjectReportHelper reportHelper) {
         StringBuilder body = new StringBuilder();
-        Map<String, String> tableDefinition=new LinkedHashMap<String, String>();
-        List<String> propertyList =new ArrayList<String>();
+        Map<String, String> tableDefinition = new LinkedHashMap<String, String>();
+        List<String> propertyList = new ArrayList<String>();
         tableDefinition = reportHelper.getTableDefinition();
         propertyList = reportHelper.getTableCellValues(tableData, false);
 
@@ -79,7 +79,7 @@ public class DataReportServiceImpl implements DataReportService {
         body.append(fieldLine);
         body.append(BusinessObjectReportHelper.LINE_BREAK);
 
-        if (StringUtils.isNotEmpty(errors)){
+        if (StringUtils.isNotEmpty(errors)) {
             //append the error messages
             body.append("**** ERROR(S): **** ")
                 .append(BusinessObjectReportHelper.LINE_BREAK)
@@ -90,7 +90,6 @@ public class DataReportServiceImpl implements DataReportService {
     }
 
     /**
-     *
      * @param reportDataStream
      * @param fileName
      * @param importBy
@@ -121,8 +120,7 @@ public class DataReportServiceImpl implements DataReportService {
 
         try {
             return new PrintStream(outputfile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             String errorMessage = "Cannot find the output file: " + reportFileName;
             LOG.error(errorMessage);
             throw new RuntimeException(errorMessage, e);
@@ -133,15 +131,15 @@ public class DataReportServiceImpl implements DataReportService {
      * @see org.kuali.kfs.module.tem.batch.service.DataReportService#getMessageAsString(java.util.List)
      */
     @Override
-    public String getMessageAsString(List<ErrorMessage> errorMessages){
+    public String getMessageAsString(List<ErrorMessage> errorMessages) {
 
         List<String> messageList = new ArrayList<String>();
-        for (ErrorMessage error : errorMessages){
+        for (ErrorMessage error : errorMessages) {
             messageList.add(MessageUtils.getErrorMessage(error));
         }
         StrBuilder builder = new StrBuilder();
         builder.appendWithSeparators(messageList, BusinessObjectReportHelper.LINE_BREAK);
-       return  builder.toString();
+        return builder.toString();
     }
 
     public DateTimeService getDateTimeService() {

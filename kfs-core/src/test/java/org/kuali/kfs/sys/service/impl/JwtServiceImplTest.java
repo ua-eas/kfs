@@ -54,10 +54,10 @@ public class JwtServiceImplTest {
         Key key = decodeKey(KEY);
 
         Claims claims = Jwts.parser()
-                .setSigningKey(key)
-                .parseClaimsJws(jwt).getBody();
+            .setSigningKey(key)
+            .parseClaimsJws(jwt).getBody();
 
-        Assert.assertEquals("khuntley",claims.getSubject());
+        Assert.assertEquals("khuntley", claims.getSubject());
     }
 
     @Test
@@ -72,17 +72,17 @@ public class JwtServiceImplTest {
         Key key = decodeKey(KEY);
 
         Claims claims = Jwts.parser()
-                .setSigningKey(key)
-                .parseClaimsJws(jwt).getBody();
+            .setSigningKey(key)
+            .parseClaimsJws(jwt).getBody();
 
-        Assert.assertEquals("khuntley",claims.getSubject());
+        Assert.assertEquals("khuntley", claims.getSubject());
     }
 
     @Test
     public void testDecodeJwtWithKey() {
-        JwtData data = jwtService.decodeJwt(JWT,KEY);
+        JwtData data = jwtService.decodeJwt(JWT, KEY);
 
-        Assert.assertEquals("khuntley",data.getPrincipalName());
+        Assert.assertEquals("khuntley", data.getPrincipalName());
         Assert.assertNull(data.getExpired());
         Assert.assertNotNull(data.getIssuedAt());
     }
@@ -94,7 +94,7 @@ public class JwtServiceImplTest {
 
         JwtData data = jwtService.decodeJwt(JWT);
 
-        Assert.assertEquals("khuntley",data.getPrincipalName());
+        Assert.assertEquals("khuntley", data.getPrincipalName());
         Assert.assertNull(data.getExpired());
         Assert.assertNotNull(data.getIssuedAt());
 

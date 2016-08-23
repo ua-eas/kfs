@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.util.PurApItemUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
 
 /**
  * Base class for Accounts Payable Item Business Objects.
@@ -73,14 +73,12 @@ public abstract class AccountsPayableItemBase extends PurApItemBase implements A
                 if ((ObjectUtils.isNull(getItemQuantity())) && (ObjectUtils.isNull(getExtendedPrice()) || (allowsZero && getExtendedPrice().isZero()))) {
                     return false;
                 }
-            }
-            else {
+            } else {
                 if (ObjectUtils.isNull(getExtendedPrice()) || (allowsZero && getExtendedPrice().isZero())) {
                     return false;
                 }
             }
-        }
-        else {
+        } else {
             if ((ObjectUtils.isNull(getItemUnitPrice()) || (allowsZero && this.getItemUnitPrice().compareTo(new BigDecimal(0)) == 0)) && (StringUtils.isBlank(getItemDescription()))) {
                 return false;
             }
@@ -104,12 +102,12 @@ public abstract class AccountsPayableItemBase extends PurApItemBase implements A
         if (ObjectUtils.isNotNull(this.getItemUnitPrice()) && ObjectUtils.isNotNull(this.getItemType()) && this.getItemType().isAmountBasedGeneralLedgerIndicator()) {
             if (ObjectUtils.isNotNull(this.getItemUnitPrice())) {
                 extendedPrice = new KualiDecimal(this.getItemUnitPrice().toString());
-            }else{
+            } else {
                 extendedPrice = null;
             }
-        }else if (ObjectUtils.isNull(this.getItemUnitPrice()) && ObjectUtils.isNotNull(this.getItemType()) &&
-                  this.getItemType().isAmountBasedGeneralLedgerIndicator() &&
-                  this.getItemType().isAdditionalChargeIndicator()){ // This additional charges check is needed since non qty items also dont have unit price
+        } else if (ObjectUtils.isNull(this.getItemUnitPrice()) && ObjectUtils.isNotNull(this.getItemType()) &&
+            this.getItemType().isAmountBasedGeneralLedgerIndicator() &&
+            this.getItemType().isAdditionalChargeIndicator()) { // This additional charges check is needed since non qty items also dont have unit price
             // extendedPrice should be null if the unit price is null
             extendedPrice = null;
         }
@@ -130,11 +128,10 @@ public abstract class AccountsPayableItemBase extends PurApItemBase implements A
      * @see org.kuali.kfs.module.purap.businessobject.PurApItemBase#getSummaryItem()
      */
     @Override
-        public PurApSummaryItem getSummaryItem() {
+    public PurApSummaryItem getSummaryItem() {
         if (extendedPrice == null || extendedPrice.isZero()) {
             return null;
-        }
-        else {
+        } else {
             return super.getSummaryItem();
         }
     }
@@ -153,11 +150,9 @@ public abstract class AccountsPayableItemBase extends PurApItemBase implements A
     }
 
     public void setItemDescription(String itemDescription) {
-        if((itemDescription != null) && (itemDescription.length() > 100))
-        {
-           super.setItemDescription(itemDescription.substring(0, 100));
-        } else
-        {
+        if ((itemDescription != null) && (itemDescription.length() > 100)) {
+            super.setItemDescription(itemDescription.substring(0, 100));
+        } else {
             super.setItemDescription(itemDescription);
         }
 

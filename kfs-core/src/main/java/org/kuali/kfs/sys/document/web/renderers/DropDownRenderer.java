@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.document.web.util.RendererUtil;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.document.web.util.RendererUtil;
-import org.kuali.rice.core.api.util.KeyValue;
+import java.io.IOException;
 
 /**
  * This renders a drop down field to JSP
@@ -35,7 +34,6 @@ import org.kuali.rice.core.api.util.KeyValue;
 public class DropDownRenderer extends FieldRendererBase {
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -48,14 +46,14 @@ public class DropDownRenderer extends FieldRendererBase {
                 renderErrorIcon(pageContext);
             }
             RendererUtil.registerEditableProperty(pageContext, getFieldName());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering drop down control", ioe);
         }
     }
 
     /**
      * Builds a drop down control, based on the field
+     *
      * @param propertyPrefix the prefix of the property from the form to the business object
      * @return a String containing the HTML for the drop down control/select box
      */
@@ -93,13 +91,14 @@ public class DropDownRenderer extends FieldRendererBase {
 
     /**
      * Builds the options for the select box, given the valid values in the field
+     *
      * @return a String containing all the option tags for this drop down control
      */
     protected String buildOptions() {
         StringBuilder options = new StringBuilder();
 
         for (Object keyLabelPairAsObj : getField().getFieldValidValues()) {
-            options.append(buildOption((KeyValue)keyLabelPairAsObj));
+            options.append(buildOption((KeyValue) keyLabelPairAsObj));
         }
 
         return options.toString();
@@ -107,6 +106,7 @@ public class DropDownRenderer extends FieldRendererBase {
 
     /**
      * Builds an option tag for the given key label pair
+     *
      * @param keyLabelPair the key label pair to create an option tag from
      * @return the String with the option tag in it
      */
@@ -130,6 +130,7 @@ public class DropDownRenderer extends FieldRendererBase {
 
     /**
      * No quickfinder for us, thanks
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.FieldRenderer#renderQuickfinder()
      */
     public boolean renderQuickfinder() {

@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.List;
-
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.module.ld.businessobject.BenefitInquiry;
+
+import java.util.List;
 
 public class FringeBenefitInquiryForm extends KualiForm {
 
@@ -34,10 +34,10 @@ public class FringeBenefitInquiryForm extends KualiForm {
     private String subAccountNumber;
 
 
-
     public List<BenefitInquiry> getBenefitInquiry() {
         return benefitInquiry;
     }
+
     public void setBenefitInquiry(List<BenefitInquiry> benefitInquiry) {
         this.benefitInquiry = benefitInquiry;
     }
@@ -45,6 +45,7 @@ public class FringeBenefitInquiryForm extends KualiForm {
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
@@ -52,9 +53,11 @@ public class FringeBenefitInquiryForm extends KualiForm {
     public String getPayrollEndDateFiscalYear() {
         return payrollEndDateFiscalYear;
     }
-    public void setPayrollEndDateFiscalYear(String  payrollEndDateFiscalYear) {
+
+    public void setPayrollEndDateFiscalYear(String payrollEndDateFiscalYear) {
         this.payrollEndDateFiscalYear = payrollEndDateFiscalYear;
     }
+
     public String getFinancialObjectCode() {
         return financialObjectCode;
     }
@@ -66,18 +69,23 @@ public class FringeBenefitInquiryForm extends KualiForm {
     public String getAmount() {
         return amount;
     }
+
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
     public String getAccountNumber() {
         return accountNumber;
     }
+
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
     public String getSubAccountNumber() {
         return subAccountNumber;
     }
+
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
     }

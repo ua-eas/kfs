@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDetailFixture;
@@ -30,6 +26,10 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerCreditMemoDetailServiceTest extends KualiTestBase {
@@ -47,9 +47,9 @@ public class CustomerCreditMemoDetailServiceTest extends KualiTestBase {
         super.setUp();
         service = SpringContext.getBean(CustomerCreditMemoDetailService.class);
         String documentNumber = CustomerInvoiceDocumentTestUtil.submitNewCustomerInvoiceDocument(CustomerInvoiceDocumentFixture.BASE_CIDOC_WITH_CUSTOMER,
-                new CustomerInvoiceDetailFixture[]
+            new CustomerInvoiceDetailFixture[]
                 {CustomerInvoiceDetailFixture.CUSTOMER_INVOICE_DETAIL_CHART_RECEIVABLE},
-                null);
+            null);
         document = new CustomerCreditMemoDocument();
         document.setFinancialDocumentReferenceInvoiceNumber(documentNumber);
         document.getInvoice();
@@ -79,7 +79,7 @@ public class CustomerCreditMemoDetailServiceTest extends KualiTestBase {
     public void testRecalculateCustomerCreditMemoDetail_Quantity() {
         detail.setCreditMemoItemQuantity(new BigDecimal(0.5));
         assertTrue(detail.getCreditMemoItemQuantity().equals(new BigDecimal(0.5)));
-        service.recalculateCustomerCreditMemoDetail(detail,document);
+        service.recalculateCustomerCreditMemoDetail(detail, document);
 
         assertEquals(0, detail.getCreditMemoItemTotalAmount().compareTo(testAmount));
         assertTrue(detail.getCreditMemoItemTaxAmount().equals(KualiDecimal.ZERO));
@@ -96,7 +96,7 @@ public class CustomerCreditMemoDetailServiceTest extends KualiTestBase {
     public void testRecalculateCustomerCreditMemoDetail_ItemAmount() {
         detail.setCreditMemoItemTotalAmount(testAmount);
         assertTrue(detail.getCreditMemoItemTotalAmount().equals(testAmount));
-        service.recalculateCustomerCreditMemoDetail(detail,document);
+        service.recalculateCustomerCreditMemoDetail(detail, document);
 
         assertEquals(0, detail.getCreditMemoItemQuantity().compareTo(new BigDecimal(0.5)));
         assertTrue(detail.getCreditMemoItemTaxAmount().equals(KualiDecimal.ZERO));

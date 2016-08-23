@@ -29,10 +29,10 @@ import com.thoughtworks.xstream.mapper.Mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ojb.broker.core.proxy.ListProxyDefaultImpl;
-import org.kuali.kfs.krad.util.DateTimeConverter;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.krad.service.XmlObjectSerializerService;
+import org.kuali.kfs.krad.util.DateTimeConverter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -42,18 +42,16 @@ import java.util.Iterator;
 /**
  * This class is the service implementation for the XmlObjectSerializer structure. This is the default implementation that gets
  * delivered with Kuali. It utilizes the XStream open source libraries and framework.
- *
- *
  */
 public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerService {
-	private static final Log LOG = LogFactory.getLog(XmlObjectSerializerServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(XmlObjectSerializerServiceImpl.class);
 
-	private PersistenceService persistenceService;
+    private PersistenceService persistenceService;
 
-	private XStream xstream;
+    private XStream xstream;
 
-	public XmlObjectSerializerServiceImpl() {
-		xstream = new XStream(new ProxyAwareJavaReflectionProvider());
+    public XmlObjectSerializerServiceImpl() {
+        xstream = new XStream(new ProxyAwareJavaReflectionProvider());
 
         // See http://xstream.codehaus.org/faq.html#Serialization_CGLIB
         // To use a newer version of XStream we may need to do something like this:
@@ -70,18 +68,18 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
 //        };
 //        xstream.registerConverter(new CGLIBEnhancedConverter(xstream.getMapper(), xstream.getReflectionProvider()));
 
-		xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider() ));
-		xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
+        xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+        xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
         xstream.registerConverter(new DateTimeConverter());
-	}
+    }
 
     /**
      * @see org.kuali.rice.krad.service.XmlObjectSerializer#toXml(java.lang.Object)
      */
     public String toXml(Object object) {
-    	if ( LOG.isDebugEnabled() ) {
-    		LOG.debug( "toXml(" + object + ") : \n" + xstream.toXML(object) );
-    	}
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("toXml(" + object + ") : \n" + xstream.toXML(object));
+        }
         return xstream.toXML(object);
     }
 
@@ -89,12 +87,12 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
      * @see org.kuali.rice.krad.service.XmlObjectSerializer#fromXml(java.lang.String)
      */
     public Object fromXml(String xml) {
-    	if ( LOG.isDebugEnabled() ) {
-    		LOG.debug( "fromXml() : \n" + xml );
-    	}
-    	if ( xml != null ) {
-    		xml = xml.replaceAll( "--EnhancerByCGLIB--[0-9a-f]{0,8}", "" );
-    	}
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fromXml() : \n" + xml);
+        }
+        if (xml != null) {
+            xml = xml.replaceAll("--EnhancerByCGLIB--[0-9a-f]{0,8}", "");
+        }
         return xstream.fromXML(xml);
     }
 
@@ -125,15 +123,16 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
 
     public class ProxyAwareJavaReflectionProvider extends PureJavaReflectionProvider {
 
-    	public ProxyAwareJavaReflectionProvider() {
-    		super();
-    	}
+        public ProxyAwareJavaReflectionProvider() {
+            super();
+        }
+
         /**
          * @see com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider#visitSerializableFields(java.lang.Object, com.thoughtworks.xstream.converters.reflection.ReflectionProvider.Visitor)
          */
         @Override
         public void visitSerializableFields(Object object, Visitor visitor) {
-            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext();) {
+            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (!fieldModifiersSupported(field)) {
                     continue;
@@ -156,11 +155,11 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
 
     }
 
-	public PersistenceService getPersistenceService() {
-		if ( persistenceService == null ) {
-			persistenceService = KRADServiceLocator.getPersistenceService();
-		}
-		return persistenceService;
-	}
+    public PersistenceService getPersistenceService() {
+        if (persistenceService == null) {
+            persistenceService = KRADServiceLocator.getPersistenceService();
+        }
+        return persistenceService;
+    }
 
 }

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.MandatoryTransferEliminationCode;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class creates a new finder for our forms view (creates a drop-down of {@link MandatoryTransferEliminationCode}s)
@@ -45,10 +45,10 @@ public class MandatoryTransferEliminationCodeValuesFinder extends KeyValuesBase 
         // get a list of all Mandatory Transfer Elimination Codes
         List<MandatoryTransferEliminationCode> codes = (List<MandatoryTransferEliminationCode>) SpringContext.getBean(KeyValuesService.class).findAll(MandatoryTransferEliminationCode.class);
         // copy the list of codes before sorting, since we can't modify the results from this method
-        if ( codes == null ) {
+        if (codes == null) {
             codes = new ArrayList<MandatoryTransferEliminationCode>(0);
         } else {
-            codes = new ArrayList<MandatoryTransferEliminationCode>( codes );
+            codes = new ArrayList<MandatoryTransferEliminationCode>(codes);
         }
 
         // sort using comparator.
@@ -58,7 +58,7 @@ public class MandatoryTransferEliminationCodeValuesFinder extends KeyValuesBase 
         List<KeyValue> labels = new ArrayList<KeyValue>();
 
         for (MandatoryTransferEliminationCode mteCode : codes) {
-            if(mteCode.isActive()) {
+            if (mteCode.isActive()) {
                 labels.add(new ConcreteKeyValue(mteCode.getCode(), mteCode.getCodeAndDescription()));
             }
         }

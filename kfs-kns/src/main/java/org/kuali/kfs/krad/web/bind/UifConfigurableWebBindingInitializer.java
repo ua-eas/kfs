@@ -35,8 +35,6 @@ import java.text.DecimalFormat;
 
 /**
  * Registers standard PropertyEditors used in binding for all http requests.
- *
- *
  */
 public class UifConfigurableWebBindingInitializer extends ConfigurableWebBindingInitializer {
 
@@ -63,7 +61,7 @@ public class UifConfigurableWebBindingInitializer extends ConfigurableWebBinding
         bigIntFormatter.setMaximumFractionDigits(340);
         binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, bigIntFormatter, true));
         binder.registerCustomEditor(AbstractKualiDecimal.class, new CustomNumberEditor(AbstractKualiDecimal.class,
-                bigIntFormatter, true));
+            bigIntFormatter, true));
 
         // Use the spring StringTrimmerEditor editor for Strings
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));

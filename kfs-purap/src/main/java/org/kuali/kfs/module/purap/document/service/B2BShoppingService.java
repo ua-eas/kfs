@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.module.purap.businessobject.B2BInformation;
 import org.kuali.kfs.module.purap.util.cxml.B2BShoppingCart;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
 
 /**
  * These items will allow a user to punch out for shopping and will create requisitions from an order.
@@ -49,6 +49,7 @@ public interface B2BShoppingService {
 
     /**
      * Get cxml punch out request xml.
+     *
      * @return xml for punch out request
      */
     public String getPunchOutSetupRequestMessage(Person user, B2BInformation b2bInformation);

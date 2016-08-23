@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Comparator;
 
 /**
  * The standard comparator for AccountingLine objects
@@ -29,6 +29,7 @@ public class AccountingLineComparator implements Comparator<AccountingLine> {
 
     /**
      * Compares two accounting lines based on their sequence number
+     *
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     public int compare(AccountingLine rosencrantz, AccountingLine guildenstern) {

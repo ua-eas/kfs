@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.cab.document;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.module.cab.businessobject.Pretag;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
+
+import java.util.Map;
 
 public class PreTagMaintainableImpl extends FinancialSystemMaintainable {
     @Override

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.util.Map;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
+import java.util.Map;
 
 /**
  * A field transformer that populates a field with its default value
@@ -34,6 +34,7 @@ public class DefaultValuePopulationAccountingLineFieldRenderingTransformationImp
     /**
      * Using the data dictionary definition for the field, determines what the default value for this field would be should there be a default value defined;
      * note that this value may be wiped out by the value from the business object during that transformation (which presumably happends after this one)
+     *
      * @see org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation#transformField(org.kuali.kfs.sys.document.web.AccountingLineViewField)
      */
     public void transformField(AccountingLine accountingLine, Field field, MaintainableFieldDefinition fieldDefinition, Map unconvertedValues) {
@@ -42,10 +43,11 @@ public class DefaultValuePopulationAccountingLineFieldRenderingTransformationImp
 
     /**
      * Populates a maintenance field with its default value
-     * @param field the field to populate with a default value
-     * @param fieldDefinition the data dictionary definition of the field to transform
      *
-     * KRAD Conversion: Performs the customization of the field properties
+     * @param field           the field to populate with a default value
+     * @param fieldDefinition the data dictionary definition of the field to transform
+     *                        <p>
+     *                        KRAD Conversion: Performs the customization of the field properties
      */
     protected void populateFieldWithDefault(Field field, MaintainableFieldDefinition fieldDefinition) {
         try {
@@ -53,12 +55,10 @@ public class DefaultValuePopulationAccountingLineFieldRenderingTransformationImp
             if (defaultValueFinderClass != null) {
                 field.setPropertyValue(((ValueFinder) defaultValueFinderClass.newInstance()).getValue());
             }
-        }
-        catch (InstantiationException ie) {
-            throw new RuntimeException("Default Value Finder Class "+fieldDefinition.getDefaultValueFinderClass().getName()+" for property "+field.getPropertyName()+" could not be instantiated");
-        }
-        catch (IllegalAccessException e) {
-            throw new RuntimeException("Default Value Finder Class "+fieldDefinition.getDefaultValueFinderClass().getName()+" for property "+field.getPropertyName()+" was accessed illegally");
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("Default Value Finder Class " + fieldDefinition.getDefaultValueFinderClass().getName() + " for property " + field.getPropertyName() + " could not be instantiated");
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Default Value Finder Class " + fieldDefinition.getDefaultValueFinderClass().getName() + " for property " + field.getPropertyName() + " was accessed illegally");
         }
     }
 }

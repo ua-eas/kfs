@@ -45,37 +45,37 @@ public class FieldBeanDefinitionParser extends KualiBeanDefinitionParserBase {
         String readOnly = element.getAttribute("readOnly");
 
         // now, set on the bean definition
-        if ( StringUtils.hasText(attributeName) ) {
+        if (StringUtils.hasText(attributeName)) {
             bean.addPropertyValue("attributeName", attributeName);
         }
-        if ( StringUtils.hasText(required) ) {
+        if (StringUtils.hasText(required)) {
             bean.addPropertyValue("required", Boolean.parseBoolean(required));
         }
-        if ( StringUtils.hasText(defaultValue) ) {
+        if (StringUtils.hasText(defaultValue)) {
             bean.addPropertyValue("defaultValue", defaultValue);
-        } else if ( StringUtils.hasText(defaultValueFinderClass) ) {
+        } else if (StringUtils.hasText(defaultValueFinderClass)) {
             bean.addPropertyValue("defaultValueFinderClass", defaultValueFinderClass);
         }
-        if ( StringUtils.hasText(maxLength) ) {
+        if (StringUtils.hasText(maxLength)) {
             bean.addPropertyValue("maxLength", Integer.parseInt(maxLength));
         }
-        if ( inquiry.equals( "no" ) ) {
+        if (inquiry.equals("no")) {
             bean.addPropertyValue("noInquiry", Boolean.TRUE);
-        } else if ( inquiry.equals( "force" ) ) {
+        } else if (inquiry.equals("force")) {
             bean.addPropertyValue("forceInquiry", Boolean.TRUE);
         }
-        if ( lookup.equals( "no" ) ) {
+        if (lookup.equals("no")) {
             bean.addPropertyValue("noLookup", Boolean.TRUE);
-        } else if ( lookup.equals( "force" ) ) {
+        } else if (lookup.equals("force")) {
             bean.addPropertyValue("forceLookup", Boolean.TRUE);
         }
-        if ( StringUtils.hasText(useShortLabel) ) {
+        if (StringUtils.hasText(useShortLabel)) {
             bean.addPropertyValue("useShortLabel", Boolean.parseBoolean(useShortLabel));
         }
-        if ( StringUtils.hasText(hidden)) {
+        if (StringUtils.hasText(hidden)) {
             bean.addPropertyValue("hidden", Boolean.parseBoolean(hidden));
         }
-        if ( StringUtils.hasText(readOnly)) {
+        if (StringUtils.hasText(readOnly)) {
             bean.addPropertyValue("readOnly", Boolean.parseBoolean(readOnly));
         }
 

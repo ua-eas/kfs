@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
 import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class RemoveAttendeeEvent implements Observer {
 

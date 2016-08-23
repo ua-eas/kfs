@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.batch.service.VerifyTransaction;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.module.ld.LaborConstants;
@@ -28,6 +25,9 @@ import org.kuali.kfs.module.ld.businessobject.LaborTransaction;
 import org.kuali.kfs.module.ld.document.validation.impl.TransactionFieldValidator;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.MessageBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a validator for the transactions processed by Labor Poster.

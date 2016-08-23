@@ -18,31 +18,31 @@
  */
 package org.kuali.kfs.module.cam.document.validation.event;
 
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentAssetDetail;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.krad.document.Document;
 
 public class AssetPaymentAddAssetEvent extends AttributedDocumentEventBase {
-        private AssetPaymentAssetDetail assetPaymentAssetDetail;
+    private AssetPaymentAssetDetail assetPaymentAssetDetail;
 
-        /**
-         * Constructs an AssetPaymentAddAssetEvent with the given errorPathPrefix, document, and accountingLine.
-         *
-         * @param errorPathPrefix
-         * @param document
-         * @param accountingLine
-         */
-        public AssetPaymentAddAssetEvent(String errorPathPrefix, Document document, AssetPaymentAssetDetail assetPaymentAssetDetail) {
-            super("adding asset payment asset detail to asset payment document " + getDocumentId(document), errorPathPrefix, document);
-            this.assetPaymentAssetDetail = assetPaymentAssetDetail;
-        }
+    /**
+     * Constructs an AssetPaymentAddAssetEvent with the given errorPathPrefix, document, and accountingLine.
+     *
+     * @param errorPathPrefix
+     * @param document
+     * @param accountingLine
+     */
+    public AssetPaymentAddAssetEvent(String errorPathPrefix, Document document, AssetPaymentAssetDetail assetPaymentAssetDetail) {
+        super("adding asset payment asset detail to asset payment document " + getDocumentId(document), errorPathPrefix, document);
+        this.assetPaymentAssetDetail = assetPaymentAssetDetail;
+    }
 
-        /**
-         *
-         * gets the assetPaymentAssetDetail object
-         * @return AssetPaymentAssetDetail
-         */
-        public AssetPaymentAssetDetail getAssetPaymentAssetDetail() {
-            return assetPaymentAssetDetail;
-        }
+    /**
+     * gets the assetPaymentAssetDetail object
+     *
+     * @return AssetPaymentAssetDetail
+     */
+    public AssetPaymentAssetDetail getAssetPaymentAssetDetail() {
+        return assetPaymentAssetDetail;
+    }
 }

@@ -18,19 +18,13 @@
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseType;
@@ -46,7 +40,13 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class ReimbursementAccountingTotalsValidationTest extends KualiTestBase {
@@ -153,12 +153,12 @@ public class ReimbursementAccountingTotalsValidationTest extends KualiTestBase {
     @Test
     public void testValidation_noAccountingLine() {
         // financial object code need to exists in the current fiscal year
-        if(perDiemObjCode != null){
+        if (perDiemObjCode != null) {
             oteList.add(actualExpense);
 
             // test with other expense added and no accounting line
             assertTrue(validation.validate(event));
-        }else{
+        } else {
             LOG.error("PerDiemObjCode is null. Financial object code need to exists in the current fiscal year.");
         }
     }
@@ -169,13 +169,13 @@ public class ReimbursementAccountingTotalsValidationTest extends KualiTestBase {
     @Test
     public void testValidation_withAccountingLine() {
         // financial object code need to exists in the current fiscal year
-        if(perDiemObjCode != null){
+        if (perDiemObjCode != null) {
             oteList.add(actualExpense);
             tr.setSourceAccountingLines(sourceLines);
 
             // test with other expense added and with accounting line
             assertTrue(validation.validate(event));
-        }else{
+        } else {
             LOG.error("PerDiemObjCode is null. Financial object code need to exists in the current fiscal year.");
         }
     }

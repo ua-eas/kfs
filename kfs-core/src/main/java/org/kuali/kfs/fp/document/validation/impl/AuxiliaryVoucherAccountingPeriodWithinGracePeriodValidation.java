@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_TWO_PERIODS;
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.document.validation.GenericValidation;
+import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+import org.kuali.kfs.sys.service.UniversityDateService;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.fp.document.AuxiliaryVoucherDocument;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
-import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+import static org.kuali.kfs.sys.KFSConstants.DOCUMENT_ERRORS;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_TWO_PERIODS;
 
 /**
  * Validation for Auxiliary Voucher documents that tests whether the accounting period for the document is within the defined grace period.
@@ -44,6 +44,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * A validation to check if the given accounting period is within the "grace period" of the AV doc, defined in JIRA KULRNE-4634.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -68,8 +69,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
                     return false;
                 }
             }
-        }
-        else {
+        } else {
             // it's not the same fiscal year, so we need to test whether we are currently
             // in the grace period of the acctPeriod
             if (!getAuxiliaryVoucherDocumentForValidation().calculateIfWithinGracePeriod(new Date(ts.getTime()), acctPeriod)) {
@@ -83,6 +83,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Gets the auxiliaryVoucherDocumentForValidation attribute.
+     *
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {
@@ -91,6 +92,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Sets the auxiliaryVoucherDocumentForValidation attribute value.
+     *
      * @param auxiliaryVoucherDocumentForValidation The auxiliaryVoucherDocumentForValidation to set.
      */
     public void setAuxiliaryVoucherDocumentForValidation(AuxiliaryVoucherDocument accountingDocumentForValidation) {
@@ -99,6 +101,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Gets the accountingPeriodService attribute.
+     *
      * @return Returns the accountingPeriodService.
      */
     public AccountingPeriodService getAccountingPeriodService() {
@@ -107,6 +110,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Sets the accountingPeriodService attribute value.
+     *
      * @param accountingPeriodService The accountingPeriodService to set.
      */
     public void setAccountingPeriodService(AccountingPeriodService accountingPeriodService) {
@@ -115,6 +119,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Gets the universityDateService attribute.
+     *
      * @return Returns the universityDateService.
      */
     public UniversityDateService getUniversityDateService() {
@@ -123,6 +128,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Sets the universityDateService attribute value.
+     *
      * @param universityDateService The universityDateService to set.
      */
     public void setUniversityDateService(UniversityDateService universityDateService) {
@@ -131,6 +137,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -139,6 +146,7 @@ public class AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation extends
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

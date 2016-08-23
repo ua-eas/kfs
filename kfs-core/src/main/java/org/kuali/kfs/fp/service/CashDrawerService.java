@@ -23,7 +23,6 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * This service interface defines methods that a CashDrawerService implementation must provide.
- *
  */
 public interface CashDrawerService {
     /**
@@ -41,7 +40,6 @@ public interface CashDrawerService {
     public void closeCashDrawer(CashDrawer cd);
 
     /**
-     *
      * Opens the CashDrawer instance associated with the given campus, creating one if necessary. Records the given
      * documentId as the document which opened the cashdrawer.
      *
@@ -54,7 +52,7 @@ public interface CashDrawerService {
     /**
      * Opens the given cash drawer
      *
-     * @param cd The cash drawer to open
+     * @param cd         The cash drawer to open
      * @param documentId the document number which is opening the cash drawer
      * @return The opened version of the cash drawer
      */
@@ -73,7 +71,7 @@ public interface CashDrawerService {
     /**
      * Locks the given cash drawer, if it is open
      *
-     * @param cd The cash drawer to open
+     * @param cd         The cash drawer to open
      * @param documentId The document id which is locking the cash drawer
      */
     public void lockCashDrawer(CashDrawer cd, String documentId);
@@ -91,7 +89,7 @@ public interface CashDrawerService {
     /**
      * Unlocks the given cash drawer, if it is open and locked
      *
-     * @param cd The cash drawer to unlock
+     * @param cd         The cash drawer to unlock
      * @param documentId The document which is unlocking the cash drawer
      */
     public void unlockCashDrawer(CashDrawer cd, String documentId);

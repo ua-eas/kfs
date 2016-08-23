@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of the OrganizationReversionProcess which does not actually write OriginEntries
@@ -33,6 +33,7 @@ public class OrganizationReversionTestProcess extends OrganizationReversionProce
 
     /**
      * Overridden to not create output file
+     *
      * @see org.kuali.kfs.gl.batch.service.impl.OrganizationReversionProcessImpl#organizationReversionProcess(java.util.Map, java.util.Map)
      */
     @Override
@@ -49,6 +50,7 @@ public class OrganizationReversionTestProcess extends OrganizationReversionProce
 
     /**
      * Overridden to do nothing
+     *
      * @see org.kuali.kfs.gl.batch.service.impl.OrganizationReversionProcessImpl#writeOriginEntries(java.util.List)
      */
     @Override

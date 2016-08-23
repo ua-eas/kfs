@@ -31,9 +31,9 @@ public interface BudgetConstructionPositionService {
      * record in the budget position table.
      *
      * @param universityFiscalYear budget fiscal year for the position
-     * @param positionNumber position number for the record
-     * @exception BudgetPositionAlreadyExistsException thrown when position is already in the budget table
-     * @exception PositionLockNotObtainedException thrown when the position and associated funding locks could not be obtained
+     * @param positionNumber       position number for the record
+     * @throws BudgetPositionAlreadyExistsException thrown when position is already in the budget table
+     * @throws PositionLockNotObtainedException     thrown when the position and associated funding locks could not be obtained
      */
     public void pullNewPositionFromExternal(Integer universityFiscalYear, String positionNumber) throws BudgetPositionAlreadyExistsException;
 
@@ -42,14 +42,14 @@ public interface BudgetConstructionPositionService {
      * in the budget position table.
      *
      * @param universityFiscalYear budget fiscal year for the position
-     * @param positionNumber position number for the record
+     * @param positionNumber       position number for the record
      */
     public void refreshPositionFromExternal(Integer universityFiscalYear, String positionNumber);
 
     /**
      * retrieve a Budget Construction Position object by its primary key.
      *
-     * @param fiscalYear the given fiscal year
+     * @param fiscalYear     the given fiscal year
      * @param positionNumber the given position number
      * @return a Budget Construction Position object retrived by its primary key
      */

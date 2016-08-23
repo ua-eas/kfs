@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ec.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.testdata.EffortTestDataPropertyConstants;
@@ -30,6 +25,11 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class DetailLineGroupTest extends KualiTestBase {
@@ -113,7 +113,7 @@ public class DetailLineGroupTest extends KualiTestBase {
 
         EffortCertificationDetail summaryLine = null;
         EffortCertificationDetail delegateLine = null;
-        for(String key : detailLineGroupMap.keySet()) {
+        for (String key : detailLineGroupMap.keySet()) {
             summaryLine = detailLineGroupMap.get(key).getSummaryDetailLine();
             delegateLine = detailLineGroupMap.get(key).getDelegateDetailLine();
         }
@@ -142,7 +142,7 @@ public class DetailLineGroupTest extends KualiTestBase {
 
         List<EffortCertificationDetail> summaryLines = new ArrayList<EffortCertificationDetail>();
         List<EffortCertificationDetail> delegateLines = new ArrayList<EffortCertificationDetail>();
-        for(String key : detailLineGroupMap.keySet()) {
+        for (String key : detailLineGroupMap.keySet()) {
             summaryLines.add(detailLineGroupMap.get(key).getSummaryDetailLine());
             delegateLines.add(detailLineGroupMap.get(key).getDelegateDetailLine());
         }

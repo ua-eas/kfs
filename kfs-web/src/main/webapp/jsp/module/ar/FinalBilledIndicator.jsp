@@ -16,26 +16,26 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg"%>
+<%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg" %>
 
 <kul:documentPage showDocumentInfo="true" documentTypeName="FBI"
-	htmlFormAction="arFinalBilledIndicator" renderMultipart="true"
-	showTabButtons="true">
+                  htmlFormAction="arFinalBilledIndicator" renderMultipart="true"
+                  showTabButtons="true">
 
-	<kul:documentOverview editingMode="${KualiForm.editingMode}" />
+    <kul:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-	<ar:finalBilledIndicatorEntries editingMode="${KualiForm.editingMode}" />
+    <ar:finalBilledIndicatorEntries editingMode="${KualiForm.editingMode}"/>
 
-	<kul:notes />
+    <kul:notes/>
 
-	<kul:adHocRecipients />
+    <kul:adHocRecipients/>
 
-	<kul:routeLog />
+    <kul:routeLog/>
 
-	<kul:superUserActions />
+    <kul:superUserActions/>
 
-	<kul:documentControls transactionalDocument="true" />
+    <kul:documentControls transactionalDocument="true"/>
 
 </kul:documentPage>

@@ -29,7 +29,6 @@ import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb
 public class CashControlDetailDaoOjb extends PlatformAwareDaoBaseOjb implements CashControlDetailDao {
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.dataaccess.CashControlDetailDao#getCashControlDetailByRefDocNumber(java.lang.String)
      */
     public CashControlDetail getCashControlDetailByRefDocNumber(String referenceDocumentNumber) {

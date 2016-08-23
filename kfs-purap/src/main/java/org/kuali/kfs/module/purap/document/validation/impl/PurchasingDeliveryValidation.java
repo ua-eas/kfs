@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Collections;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
-import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.PostalCodeValidationService;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collections;
 
 public class PurchasingDeliveryValidation extends PurchasingProcessRequestorPhoneAndEmailAddressValidation {
 
@@ -42,7 +41,7 @@ public class PurchasingDeliveryValidation extends PurchasingProcessRequestorPhon
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PurchasingDocument purDocument = (PurchasingDocument)event.getDocument();
+        PurchasingDocument purDocument = (PurchasingDocument) event.getDocument();
 
         GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.DELIVERY_TAB_ERRORS);
         //perform the validation against phone Number

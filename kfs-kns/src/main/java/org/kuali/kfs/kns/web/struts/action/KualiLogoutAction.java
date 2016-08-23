@@ -22,9 +22,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.config.property.ConfigContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,22 +32,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * This class handles the logout. After logout it will do an external redirect to an url
  * specified by a Parameter (LOGOUT_REDIRECT_URL) or a config property (rice.portal.logout.redirectUrl).
- *
- *
- *
  */
 public class KualiLogoutAction extends Action {
 
     /**
      * Invalidates the users session and redirects to a configurable url after logout.
-     *
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String redirectString = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString(KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.LOGOFF_REDIRECT_URL_PARAMETER);
 
-        if(redirectString == null) {
+        if (redirectString == null) {
             redirectString = ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.LOGOFF_REDIRECT_URL_PROPERTY);
         }
 

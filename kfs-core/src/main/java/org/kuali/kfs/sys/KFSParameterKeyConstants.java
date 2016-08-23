@@ -38,7 +38,7 @@ public class KFSParameterKeyConstants {
     }
 
     public static class FpParameterConstants {
-    	public static final String FP_BUDGET_BALANCE_TYPES = "BUDGET_BALANCE_TYPES";
+        public static final String FP_BUDGET_BALANCE_TYPES = "BUDGET_BALANCE_TYPES";
         public static final String NEGATIVE_ACCOUNTING_LINES_IND = "NEGATIVE_ACCOUNTING_LINES_IND";
         public static final String ALLOW_ADDITIONAL_FROM_LINE_IND = "ALLOW_ADDITIONAL_FROM_LINE_IND";
     }
@@ -79,7 +79,9 @@ public class KFSParameterKeyConstants {
 
     public static final class GeneralLedgerSysParmeterKeys {
         public static final String TRANSACTION_DATE_BYPASS_ORIGINATIONS = "TRANSACTION_DATE_BYPASS_ORIGINATIONS";
-    };
+    }
+
+    ;
 
     public static class InvalidSubFundsByObjCdParameterConstant {
         public static final String INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE = "INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE";

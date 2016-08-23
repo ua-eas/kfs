@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 public class BudgetConstructionRequestImport extends TransientBusinessObjectBase {
     private String fileName;
@@ -60,6 +60,7 @@ public class BudgetConstructionRequestImport extends TransientBusinessObjectBase
     /**
      * Sets the file name to import
      * This method...
+     *
      * @param fileName
      */
     public void setFileName(String fileName) {
@@ -132,6 +133,7 @@ public class BudgetConstructionRequestImport extends TransientBusinessObjectBase
     /**
      * Sets text field delimiter
      * This method...
+     *
      * @param otherTextFieldDelimiter
      */
     public void setOtherTextFieldDelimiter(String otherTextFieldDelimiter) {

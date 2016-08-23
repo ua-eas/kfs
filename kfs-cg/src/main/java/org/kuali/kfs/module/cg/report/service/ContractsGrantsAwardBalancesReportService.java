@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.cg.report.service;
 
-import java.io.ByteArrayOutputStream;
-
 import org.kuali.kfs.module.cg.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.sys.report.ReportInfo;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * This class defines the methods for Contracts & Grants Award Balances Reports.

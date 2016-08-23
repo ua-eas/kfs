@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.exception.ValidationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ConfigureContext
 public class AssetServiceTest extends KualiTestBase {
@@ -90,8 +90,7 @@ public class AssetServiceTest extends KualiTestBase {
         // Test one that doesn't exist, throws exception
         try {
             assetService.isAssetMovableCheckByPayment("XY");
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             failedAsExpected = true;
         }
 

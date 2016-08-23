@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="tldHeader.jsp"%>
+<%@ include file="tldHeader.jsp" %>
 <html>
 <head>
 
@@ -24,32 +24,32 @@
 <body>
 <%-- Below form used for non java script enabled browsers --%>
 <form name="disabledJavaScriptReportForm" id="disabledJavaScriptReportForm" method="post" action="${workflowRouteReportUrl}">
-  <c:forEach var="keyLabelPair" items="${noJavaScriptFormVariables}">
-    <input type="hidden" name='${keyLabelPair.key}' value='<c:out value="${keyLabelPair.label}" escapeXml="true"/>'>
-  </c:forEach>
-  <noscript>
-    Click this button to see the Routing Report:&nbsp;&nbsp;&nbsp;<input type="submit" value="View Report">
-  </noscript>
+    <c:forEach var="keyLabelPair" items="${noJavaScriptFormVariables}">
+        <input type="hidden" name='${keyLabelPair.key}' value='<c:out value="${keyLabelPair.label}" escapeXml="true"/>'>
+    </c:forEach>
+    <noscript>
+        Click this button to see the Routing Report:&nbsp;&nbsp;&nbsp;<input type="submit" value="View Report">
+    </noscript>
 </form>
 <%-- Below forms used for java script enabled browsers --%>
 <form name="backForm" id="backForm" method="post" action="${backUrlBase}">
-  <c:forEach var="keyLabelPair" items="${backFormHiddenVariables}">
-    <input type="hidden" name="${keyLabelPair.key}" value="${keyLabelPair.label}">
-  </c:forEach>
+    <c:forEach var="keyLabelPair" items="${backFormHiddenVariables}">
+        <input type="hidden" name="${keyLabelPair.key}" value="${keyLabelPair.label}">
+    </c:forEach>
 </form>
 <form name="routeReportForm" id="routeReportForm" method="post" action="${workflowRouteReportUrl}">
-  <c:forEach var="keyLabelPair" items="${javaScriptFormVariables}">
-    <input type="hidden" name='${keyLabelPair.key}' value='<c:out value="${keyLabelPair.label}" escapeXml="true"/>'>
-  </c:forEach>
-<script language ="javascript">
-window.onload = dothis();
-function dothis() {
-  _win = window.open('', 'routereport');
-  document.routeReportForm.target=_win.name;
-  document.routeReportForm.submit();
-  document.backForm.submit();
-}
-</script>
+    <c:forEach var="keyLabelPair" items="${javaScriptFormVariables}">
+        <input type="hidden" name='${keyLabelPair.key}' value='<c:out value="${keyLabelPair.label}" escapeXml="true"/>'>
+    </c:forEach>
+    <script language="javascript">
+        window.onload = dothis();
+        function dothis() {
+            _win = window.open('', 'routereport');
+            document.routeReportForm.target = _win.name;
+            document.routeReportForm.submit();
+            document.backForm.submit();
+        }
+    </script>
 </form>
 </body>
 </html>

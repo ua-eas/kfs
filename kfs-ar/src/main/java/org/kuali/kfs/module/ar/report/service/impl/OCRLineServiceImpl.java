@@ -31,23 +31,23 @@ public class OCRLineServiceImpl implements OCRLineService {
      * @see org.kuali.kfs.module.ar.report.service.OCRLineService#generateOCRL(java.lang.String, java.lang.String)
      */
     public String generateOCRLine(KualiDecimal amountDue, String customerNumber, String docNumber) {
-       StringBuilder builder = new StringBuilder(70);
-       String amount = StringUtils.remove(amountDue.toString(), '.');
-       builder.append(StringUtils.leftPad(amount, 12, '0'));
-       builder.append(" ");
-       if (docNumber != null) {
-           builder.append(StringUtils.leftPad(docNumber, 11, '0'));
-           builder.append(" ");
-       }
-       builder.append(StringUtils.leftPad(customerNumber, 9, '0'));
-       builder.append(" ");
-       builder.append(calculateCheckDigit(amount, customerNumber, docNumber));
+        StringBuilder builder = new StringBuilder(70);
+        String amount = StringUtils.remove(amountDue.toString(), '.');
+        builder.append(StringUtils.leftPad(amount, 12, '0'));
+        builder.append(" ");
+        if (docNumber != null) {
+            builder.append(StringUtils.leftPad(docNumber, 11, '0'));
+            builder.append(" ");
+        }
+        builder.append(StringUtils.leftPad(customerNumber, 9, '0'));
+        builder.append(" ");
+        builder.append(calculateCheckDigit(amount, customerNumber, docNumber));
 
         return builder.toString();
     }
 
     protected int calculateCheckDigit(String... args) {
-        for(String str: args) {
+        for (String str : args) {
             //do something with the Strings
         }
         return 0;

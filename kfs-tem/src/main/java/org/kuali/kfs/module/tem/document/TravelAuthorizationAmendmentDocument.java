@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @Entity
@@ -67,6 +67,7 @@ public class TravelAuthorizationAmendmentDocument extends TravelAuthorizationDoc
 
     /**
      * Always return true - we always need to do extra work on document copy to revert this to the original TA
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#shouldRevertToOriginalAuthorizationOnCopy()
      */
     @Override
@@ -76,6 +77,7 @@ public class TravelAuthorizationAmendmentDocument extends TravelAuthorizationDoc
 
     /**
      * Overridden to adjust the encumbrance for this amendment
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#generateDocumentGeneralLedgerPendingEntries(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
@@ -91,10 +93,12 @@ public class TravelAuthorizationAmendmentDocument extends TravelAuthorizationDoc
     }
 
     @Override
-    public void setTripProgenitor(boolean tripProgenitor) {}
+    public void setTripProgenitor(boolean tripProgenitor) {
+    }
 
     /**
      * It's pointless to mask the trip identifier on the amendment - it's already known
+     *
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationDocument#maskTravelDocumentIdentifierAndOrganizationDocNumber()
      */
     @Override

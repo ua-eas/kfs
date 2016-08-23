@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Defines methods that must be implemented by a CreditMemoService implementation.
@@ -56,7 +55,7 @@ public interface CreditMemoService extends AccountsPayableDocumentSpecificServic
      * @param chartCode
      * @return
      */
-    public Set<VendorGroupingHelper> getVendorsOnCreditMemosToExtract( String chartCode);
+    public Set<VendorGroupingHelper> getVendorsOnCreditMemosToExtract(String chartCode);
 
     /**
      * Pulls all extractable credit memo documents for a given vendor.
@@ -65,21 +64,21 @@ public interface CreditMemoService extends AccountsPayableDocumentSpecificServic
      * @param vendor
      * @return
      */
-    public Collection<VendorCreditMemoDocument> getCreditMemosToExtractByVendor( String chartCode, VendorGroupingHelper vendor );
+    public Collection<VendorCreditMemoDocument> getCreditMemosToExtractByVendor(String chartCode, VendorGroupingHelper vendor);
 
     /**
      * Get a credit memo by document number.
      *
-     * @param documentNumber  The document number of the credit memo to be retrieved.
-     * @return                The credit memo document whose document number matches the input parameter.
+     * @param documentNumber The document number of the credit memo to be retrieved.
+     * @return The credit memo document whose document number matches the input parameter.
      */
     public VendorCreditMemoDocument getCreditMemoByDocumentNumber(String documentNumber);
 
     /**
      * Retrieves the Credit Memo document by the purapDocumentIdentifier.
      *
-     * @param purchasingDocumentIdentifier  The purapDocumentIdentifier of the credit memo to be retrieved.
-     * @return                              The credit memo document whose purapDocumentIdentifier matches the input parameter.
+     * @param purchasingDocumentIdentifier The purapDocumentIdentifier of the credit memo to be retrieved.
+     * @return The credit memo document whose purapDocumentIdentifier matches the input parameter.
      */
     public VendorCreditMemoDocument getCreditMemoDocumentById(Integer purchasingDocumentIdentifier);
 
@@ -119,7 +118,7 @@ public interface CreditMemoService extends AccountsPayableDocumentSpecificServic
      * Marks a credit memo as on hold.
      *
      * @param cmDocument - credit memo document to hold.
-     * @param note - note explaining why the document is being put on hold.
+     * @param note       - note explaining why the document is being put on hold.
      * @return the CreditMemoDocument with updated information.
      * @throws Exception
      */
@@ -129,23 +128,24 @@ public interface CreditMemoService extends AccountsPayableDocumentSpecificServic
      * Removes a hold on the credit memo document.
      *
      * @param cmDocument - credit memo document to remove hold on.
-     * @param note - note explaining why the credit memo is being taken off hold.
+     * @param note       - note explaining why the credit memo is being taken off hold.
      * @return the CreditMemoDocument with updated information.
      */
     public VendorCreditMemoDocument removeHoldOnCreditMemo(VendorCreditMemoDocument cmDocument, String note) throws Exception;
 
     /**
      * This is called by PDP to cancel a CreditMemoDocument that has already been extracted
-     * @param cmDocument  The credit memo document to be resetted.
-     * @param note        The note to be added to the credit memo document.
+     *
+     * @param cmDocument The credit memo document to be resetted.
+     * @param note       The note to be added to the credit memo document.
      */
     public void resetExtractedCreditMemo(VendorCreditMemoDocument cmDocument, String note);
 
     /**
      * This is called by PDP to cancel a CreditMemoDocument that has already been extracted
      *
-     * @param cmDocument  The credit memo document to be canceled.
-     * @param note        The note to be added to the document to be canceled.
+     * @param cmDocument The credit memo document to be canceled.
+     * @param note       The note to be added to the document to be canceled.
      */
     public void cancelExtractedCreditMemo(VendorCreditMemoDocument cmDocument, String note);
 
@@ -153,16 +153,16 @@ public interface CreditMemoService extends AccountsPayableDocumentSpecificServic
      * Reopens the purchase order document related to the given credit memo
      * document if it is closed.
      *
-     * @param cmDocument  The credit memo document to be used to obtained the
-     *                    purchase order document to be closed.
+     * @param cmDocument The credit memo document to be used to obtained the
+     *                   purchase order document to be closed.
      */
     public void reopenClosedPO(VendorCreditMemoDocument cmDocument);
 
     /**
      * Mark a credit memo is being used on a payment
      *
-     * @param cm           The credit memo document to be marked as paid.
-     * @param processDate  The date to be set as the credit memo's paid timestamp.
+     * @param cm          The credit memo document to be marked as paid.
+     * @param processDate The date to be set as the credit memo's paid timestamp.
      */
     public void markPaid(VendorCreditMemoDocument cm, Date processDate);
 

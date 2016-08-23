@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.ar.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.ar.batch.service.CustomerNotificationService;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 /**
  * send AR aging report to customers
@@ -42,6 +42,7 @@ public class CustomerAgingReportNotificationStep extends AbstractStep {
 
     /**
      * Gets the customerNotificationService attribute.
+     *
      * @return Returns the customerNotificationService.
      */
     public CustomerNotificationService getCustomerNotificationService() {
@@ -50,6 +51,7 @@ public class CustomerAgingReportNotificationStep extends AbstractStep {
 
     /**
      * Sets the customerNotificationService attribute value.
+     *
      * @param customerNotificationService The customerNotificationService to set.
      */
     public void setCustomerNotificationService(CustomerNotificationService customerNotificationService) {

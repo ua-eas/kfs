@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -36,6 +33,9 @@ import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionLockDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionLockDao
  */
@@ -50,8 +50,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isNotBlank(lockUnivId)) {
             criteria.addEqualTo(BCPropertyConstants.BUDGET_LOCK_USER_IDENTIFIER, lockUnivId);
-        }
-        else {
+        } else {
             criteria.addNotNull(BCPropertyConstants.BUDGET_LOCK_USER_IDENTIFIER);
         }
 
@@ -72,8 +71,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isNotBlank(lockUnivId)) {
             criteria.addEqualTo(BCPropertyConstants.APPOINTMENT_FUNDING_LOCK_USER_ID, lockUnivId);
-        }
-        else {
+        } else {
             criteria.addNotNull(BCPropertyConstants.APPOINTMENT_FUNDING_LOCK_USER_ID);
         }
 
@@ -108,8 +106,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isNotBlank(lockUnivId)) {
             criteria.addEqualTo(BCPropertyConstants.POSITION_LOCK_USER_IDENTIFIER, lockUnivId);
-        }
-        else {
+        } else {
             criteria.addNotNull(BCPropertyConstants.POSITION_LOCK_USER_IDENTIFIER);
         }
 
@@ -133,7 +130,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
             subCrit.addEqualTo(BCPropertyConstants.APPOINTMENT_FUNDING_LOCK_USER_ID, position.getPositionLockUserIdentifier());
 
             ReportQueryByCriteria subQuery = QueryFactory.newReportQuery(BudgetConstructionFundingLock.class, subCrit);
-            subQuery.setAttributes(new String[] { "1" });
+            subQuery.setAttributes(new String[]{"1"});
             criteria2.addExists(subQuery);
 
             List<PendingBudgetConstructionAppointmentFunding> appointmentFundingLocks = (List<PendingBudgetConstructionAppointmentFunding>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(PendingBudgetConstructionAppointmentFunding.class, criteria2));
@@ -153,8 +150,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isNotBlank(lockUnivId)) {
             criteria.addEqualTo(BCPropertyConstants.BUDGET_TRANSACTION_LOCK_USER_IDENTIFIER, lockUnivId);
-        }
-        else {
+        } else {
             criteria.addNotNull(BCPropertyConstants.BUDGET_TRANSACTION_LOCK_USER_IDENTIFIER);
         }
 
@@ -175,8 +171,7 @@ public class BudgetConstructionLockDaoOjb extends PlatformAwareDaoBaseOjb implem
 
         if (StringUtils.isNotBlank(lockUnivId)) {
             criteria.addEqualTo(BCPropertyConstants.APPOINTMENT_FUNDING_LOCK_USER_ID, lockUnivId);
-        }
-        else {
+        } else {
             criteria.addNotNull(BCPropertyConstants.APPOINTMENT_FUNDING_LOCK_USER_ID);
         }
 

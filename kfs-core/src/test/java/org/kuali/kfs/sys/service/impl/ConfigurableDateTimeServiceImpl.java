@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.Date;
-
 import org.kuali.kfs.sys.service.ConfigurableDateService;
 import org.kuali.rice.core.impl.datetime.DateTimeServiceImpl;
+
+import java.util.Date;
 
 public class ConfigurableDateTimeServiceImpl extends DateTimeServiceImpl implements ConfigurableDateService {
     protected Date currentDate;

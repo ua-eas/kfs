@@ -28,34 +28,34 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum RequisitionAccountingLineFixture {
     BASIC_REQ_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_LINE3 // AccountingLineFixture
-    ),BASIC_REQ_ACCOUNT_2(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
+        AccountingLineFixture.PURAP_LINE3 // AccountingLineFixture
+    ), BASIC_REQ_ACCOUNT_2(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
+        AccountingLineFixture.PURAP_LINE1 // AccountingLineFixture
     ), PERFORMANCE_ACCOUNT(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_PERFORMANCE_LINE // AccountingLineFixture
+        AccountingLineFixture.PURAP_PERFORMANCE_LINE // AccountingLineFixture
     ), APO_REQ_ACCOUNT_1(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE1 // AccountingLineFixture
+        AccountingLineFixture.APO_LINE1 // AccountingLineFixture
     ), APO_REQ_ACCOUNT_2(PurApAccountingLineFixture.ACCOUNT_50_PERCENT, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE2 // AccountingLineFixture
+        AccountingLineFixture.APO_LINE2 // AccountingLineFixture
     ), APO_REQ_ACCOUNT_3(PurApAccountingLineFixture.ACCOUNT_50_PERCENT, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE3 // AccountingLineFixture
+        AccountingLineFixture.APO_LINE3 // AccountingLineFixture
     ), APO_REQ_ACCOUNT_4(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE4 // AccountingLineFixture
-    ), REQ_ACCOUNT_NEGATIVE_AMOUNT (PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.PURAP_LINE_NEGATIVE_AMT // AccountingLineFixture
+        AccountingLineFixture.APO_LINE4 // AccountingLineFixture
+    ), REQ_ACCOUNT_NEGATIVE_AMOUNT(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
+        AccountingLineFixture.PURAP_LINE_NEGATIVE_AMT // AccountingLineFixture
     ), REQ_ACCOUNT_MULTI_QUANTITY(PurApAccountingLineFixture.REQ_ACCOUNT_MULTI, // PurApAccountingLineFixture
-            AccountingLineFixture.REQ_ACCOUNT_MULTI_QUANTITY // AccountingLineFixture
+        AccountingLineFixture.REQ_ACCOUNT_MULTI_QUANTITY // AccountingLineFixture
     ), REQ_ACCOUNT_MULTI_NON_QUANTITY(PurApAccountingLineFixture.REQ_ACCOUNT_MULTI, // PurApAccountingLineFixture
-            AccountingLineFixture.REQ_ACCOUNT_MULTI_NON_QUANTITY // AccountingLineFixture
-    ), APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE (PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE2, // AccountingLineFixture
-            "7001" // objectCode
-    ), APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE_50_PERCENT (PurApAccountingLineFixture.ACCOUNT_50_PERCENT, //PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE4, // AccountingLineFixture
-            "7001" // objectCode
-    ), APO_ACCOUNT_VALID_EXPENSE_OBJECT_CODE_50_PERCENT (PurApAccountingLineFixture.ACCOUNT_50_PERCENT, //PurApAccountingLineFixture
-            AccountingLineFixture.APO_LINE4, // AccountingLineFixture
-            "5000" // objectCode
+        AccountingLineFixture.REQ_ACCOUNT_MULTI_NON_QUANTITY // AccountingLineFixture
+    ), APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE(PurApAccountingLineFixture.BASIC_ACCOUNT_1, // PurApAccountingLineFixture
+        AccountingLineFixture.APO_LINE2, // AccountingLineFixture
+        "7001" // objectCode
+    ), APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE_50_PERCENT(PurApAccountingLineFixture.ACCOUNT_50_PERCENT, //PurApAccountingLineFixture
+        AccountingLineFixture.APO_LINE4, // AccountingLineFixture
+        "7001" // objectCode
+    ), APO_ACCOUNT_VALID_EXPENSE_OBJECT_CODE_50_PERCENT(PurApAccountingLineFixture.ACCOUNT_50_PERCENT, //PurApAccountingLineFixture
+        AccountingLineFixture.APO_LINE4, // AccountingLineFixture
+        "5000" // objectCode
     ),;
 
     private PurApAccountingLineFixture purApAccountingLineFixture;

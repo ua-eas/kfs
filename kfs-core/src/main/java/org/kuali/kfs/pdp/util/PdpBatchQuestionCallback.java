@@ -29,8 +29,8 @@ public interface PdpBatchQuestionCallback {
      * Hooks for performing different actions on batch after a question has been performed.
      *
      * @param batchIdString the id of the batch
-     * @param note a note from the user
-     * @param user the user that perfoms the action
+     * @param note          a note from the user
+     * @param user          the user that perfoms the action
      * @return true if succesful, false otherwise
      */
     public boolean doPostQuestion(String batchIdString, String note, Person user);

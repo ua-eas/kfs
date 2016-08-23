@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.Date;
 
 /**
  * Step used to auto approve purchase orders that meet a certain criteria
@@ -55,12 +55,10 @@ public class AutoCloseRecurringOrdersStep extends AbstractStep {
     public boolean execute() throws InterruptedException {
         try {
             return execute(null, SpringContext.getBean(DateTimeService.class).getCurrentDate());
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             LOG.error("Exception occured executing step", e);
             throw e;
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             LOG.error("Exception occured executing step", e);
             throw e;
         }
@@ -69,7 +67,6 @@ public class AutoCloseRecurringOrdersStep extends AbstractStep {
     public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
         this.purchaseOrderService = purchaseOrderService;
     }
-
 
 
 }

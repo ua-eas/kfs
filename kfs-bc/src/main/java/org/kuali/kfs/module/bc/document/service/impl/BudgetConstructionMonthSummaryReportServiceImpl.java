@@ -18,10 +18,6 @@
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
@@ -36,6 +32,10 @@ import org.kuali.kfs.module.bc.util.BudgetConstructionUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Service implementation of BudgetConstructionLevelSummaryReportService.
@@ -59,7 +59,7 @@ public class BudgetConstructionMonthSummaryReportServiceImpl implements BudgetCo
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionMonthSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     public Collection<BudgetConstructionOrgMonthSummaryReport> buildReports(Integer universityFiscalYear, String principalName, boolean consolidateToObjectCodeLevel) {
         Collection<BudgetConstructionOrgMonthSummaryReport> reportSet = new ArrayList();
@@ -101,42 +101,36 @@ public class BudgetConstructionMonthSummaryReportServiceImpl implements BudgetCo
 
         if (orgChartDesc == null) {
             orgMonthSummaryReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
         orgMonthSummaryReportEntry.setOrganizationCode(monthSummary.getOrganizationCode());
         if (orgName == null) {
             orgMonthSummaryReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setOrganizationName(orgName);
         }
         orgMonthSummaryReportEntry.setChartOfAccountsCode(monthSummary.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgMonthSummaryReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setChartOfAccountDescription(chartDesc);
         }
         orgMonthSummaryReportEntry.setFundGroupCode(monthSummary.getSubFundGroup().getFundGroupCode());
         if (fundGroupDes == null) {
             orgMonthSummaryReportEntry.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setFundGroupName(fundGroupDes);
         }
         orgMonthSummaryReportEntry.setSubFundGroupCode(monthSummary.getSubFundGroupCode());
         if (subFundGroupDes == null) {
             orgMonthSummaryReportEntry.setSubFundGroupDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUBFUNDGROUP_DESCRIPTION));
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setSubFundGroupDescription(subFundGroupDes);
         }
         if (consolidateToObjectCodeLevel) {
             orgMonthSummaryReportEntry.setConsHdr(BCConstants.Report.CONSOLIIDATED);
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setConsHdr(BCConstants.Report.BLANK);
         }
         orgMonthSummaryReportEntry.setIncomeExpenseCode(monthSummary.getIncomeExpenseCode());
@@ -157,8 +151,7 @@ public class BudgetConstructionMonthSummaryReportServiceImpl implements BudgetCo
         ObjectCode objectCode = budgetConstructionReportsServiceHelper.getObjectCode(universityFiscalYear, monthSummary.getChartOfAccountsCode(), monthSummary.getFinancialObjectCode());
         if (objectCode != null) {
             orgMonthSummaryReportEntry.setFinancialObjectCodeName(objectCode.getFinancialObjectCodeName());
-        }
-        else {
+        } else {
             orgMonthSummaryReportEntry.setFinancialObjectCodeName("NULL");
         }
         orgMonthSummaryReportEntry.setAccountLineAnnualBalanceAmount(BudgetConstructionReportHelper.convertKualiInteger(monthSummary.getAccountLineAnnualBalanceAmount()));
@@ -231,8 +224,7 @@ public class BudgetConstructionMonthSummaryReportServiceImpl implements BudgetCo
                 // get Type desc
                 if (monthSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
                     orgMonthSummaryReportEntry.setTypeTotalDescription(BCConstants.Report.REVENUE);
-                }
-                else {
+                } else {
                     orgMonthSummaryReportEntry.setTypeTotalDescription(BCConstants.Report.EXPENDITURE);
                 }
                 orgMonthSummaryReportEntry.setTypeAccountLineAnnualBalanceAmount(typeTotal.getTypeAccountLineAnnualBalanceAmount());
@@ -595,8 +587,7 @@ public class BudgetConstructionMonthSummaryReportServiceImpl implements BudgetCo
                         revMonth10LineAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getFinancialDocumentMonth10LineAmount());
                         revMonth11LineAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getFinancialDocumentMonth11LineAmount());
                         revMonth12LineAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getFinancialDocumentMonth12LineAmount());
-                    }
-                    else {
+                    } else {
                         expAccountLineAnnualBalanceAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getAccountLineAnnualBalanceAmount());
                         expMonth1LineAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getFinancialDocumentMonth1LineAmount());
                         expMonth2LineAmount += BudgetConstructionReportHelper.convertKualiInteger(bcmsListEntry.getFinancialDocumentMonth2LineAmount());

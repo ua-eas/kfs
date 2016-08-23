@@ -18,68 +18,68 @@
  */
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 
 public class CommodityContractManager extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String purchasingCommodityCode;
-	private String campusCode;
-	private Integer contractManagerCode;
+    private String purchasingCommodityCode;
+    private String campusCode;
+    private Integer contractManagerCode;
 
     private CampusParameter campus;
     private CommodityCode commodityCode;
     private ContractManager contractManager;
     private boolean active;
 
-	/**
-	 * Default constructor.
-	 */
-	public CommodityContractManager() {
+    /**
+     * Default constructor.
+     */
+    public CommodityContractManager() {
 
-	}
+    }
 
-	public String getPurchasingCommodityCode() {
-		return purchasingCommodityCode;
-	}
+    public String getPurchasingCommodityCode() {
+        return purchasingCommodityCode;
+    }
 
-	public void setPurchasingCommodityCode(String purchasingCommodityCode) {
-		this.purchasingCommodityCode = purchasingCommodityCode;
-	}
+    public void setPurchasingCommodityCode(String purchasingCommodityCode) {
+        this.purchasingCommodityCode = purchasingCommodityCode;
+    }
 
-	public String getCampusCode() {
-		return campusCode;
-	}
+    public String getCampusCode() {
+        return campusCode;
+    }
 
-	public void setCampusCode(String campusCode) {
-		this.campusCode = campusCode;
-	}
+    public void setCampusCode(String campusCode) {
+        this.campusCode = campusCode;
+    }
 
-	public Integer getContractManagerCode() {
-		return contractManagerCode;
-	}
+    public Integer getContractManagerCode() {
+        return contractManagerCode;
+    }
 
-	public void setContractManagerCode(Integer contractManagerCode) {
-		this.contractManagerCode = contractManagerCode;
-	}
+    public void setContractManagerCode(Integer contractManagerCode) {
+        this.contractManagerCode = contractManagerCode;
+    }
 
-	public CampusParameter getCampus() {
+    public CampusParameter getCampus() {
         return campus;
-	}
+    }
 
-	/**
-	 * Sets the campus attribute.
-	 *
-	 * @param campus The campus to set.
-	 * @deprecated
-	 */
-	public void setCampus(CampusParameter campus) {
-		this.campus = campus;
-	}
+    /**
+     * Sets the campus attribute.
+     *
+     * @param campus The campus to set.
+     * @deprecated
+     */
+    public void setCampus(CampusParameter campus) {
+        this.campus = campus;
+    }
 
 
     public CommodityCode getCommodityCode() {
@@ -88,6 +88,7 @@ public class CommodityContractManager extends PersistableBusinessObjectBase impl
 
     /**
      * Sets the commodity attribute value.
+     *
      * @param commodityCode The commodityCode to set.
      * @deprecated
      */
@@ -102,6 +103,7 @@ public class CommodityContractManager extends PersistableBusinessObjectBase impl
 
     /**
      * Sets the contractManager attribute value.
+     *
      * @param contractManager The contractManager to set.
      * @deprecated
      */
@@ -110,16 +112,16 @@ public class CommodityContractManager extends PersistableBusinessObjectBase impl
     }
 
     /**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put(VendorPropertyConstants.PURCHASING_COMMODITY_CODE, this.purchasingCommodityCode);
         m.put(VendorPropertyConstants.CAMPUS_CODE, this.campusCode);
         if (this.contractManagerCode != null) {
             m.put(VendorPropertyConstants.CONTRACT_MANAGER_CODE, this.contractManagerCode.toString());
         }
-	    return m;
+        return m;
     }
 
     public boolean isActive() {

@@ -24,14 +24,14 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 
 public class MaintenanceDocumentPresentationControllerBase extends DocumentPresentationControllerBase
-        implements MaintenanceDocumentPresentationController {
+    implements MaintenanceDocumentPresentationController {
     private static final long serialVersionUID = 2849921477944820474L;
 
     private transient DocumentDictionaryService documentDictionaryService;
 
     public boolean canCreate(Class boClass) {
         return getDocumentDictionaryService().getAllowsNewOrCopy(
-                getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
+            getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
     }
 
     public boolean canMaintain(Object dataObject) {

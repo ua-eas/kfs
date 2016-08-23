@@ -21,20 +21,20 @@ package org.kuali.kfs.kns.web.struts.form.pojo
 import org.apache.struts.config.ControllerConfig
 import org.junit.Before
 import org.junit.Test
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService
+import org.kuali.kfs.kim.impl.identity.TestPerson
+import org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm
+import org.kuali.kfs.krad.util.KRADConstants
 import org.kuali.rice.core.api.CoreConstants
 import org.kuali.rice.core.api.config.property.ConfigContext
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader
 import org.kuali.rice.core.framework.config.property.SimpleConfig
 import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService
 import org.kuali.rice.kim.api.identity.PersonService
-import org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm
-import org.kuali.kfs.krad.util.KRADConstants
 
 import javax.xml.namespace.QName
 
 import static org.junit.Assert.assertEquals
-import org.kuali.kfs.kim.impl.identity.TestPerson
 
 /**
  * Tests PojoFormBase
@@ -56,14 +56,14 @@ class PojoFormBaseTest {
 
         GlobalResourceLoader.addResourceLoader(new BaseResourceLoader(new QName("Foo", "Bar")) {
             def getService(QName name) {
-                [ "cf.parameterService":
-                    [ getParameterValueAsString: { ns, cmp, param ->
-                        [ (KRADConstants.MAX_UPLOAD_SIZE_PARM_NM): maxUploadSize,
-                          (KRADConstants.ATTACHMENT_MAX_FILE_SIZE_PARM_NM): maxAttachmentSize ][param]
-                    } ] as ParameterService,
-                    // KualiMaintenanceForm -> Note -> AdHocRoutePerson -> PersonService getPersonImplementationClass lookup :(
-                    // stub impl class
-                    personService: { TestPerson.class } as PersonService
+                ["cf.parameterService":
+                         [getParameterValueAsString: { ns, cmp, param ->
+                             [(KRADConstants.MAX_UPLOAD_SIZE_PARM_NM)         : maxUploadSize,
+                              (KRADConstants.ATTACHMENT_MAX_FILE_SIZE_PARM_NM): maxAttachmentSize][param]
+                         }] as ParameterService,
+                 // KualiMaintenanceForm -> Note -> AdHocRoutePerson -> PersonService getPersonImplementationClass lookup :(
+                 // stub impl class
+                 personService        : { TestPerson.class } as PersonService
                 ][name.getLocalPart()]
             }
         })

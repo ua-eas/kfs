@@ -18,16 +18,17 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
-import java.util.Properties;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.Converter;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.util.Properties;
+
 public enum CamsFixture {
     DATA_POPULATOR;
+
     private class KualiDecimalConverter implements Converter {
         @SuppressWarnings("unchecked")
         public Object convert(Class arg0, Object value) {
@@ -54,8 +55,7 @@ public enum CamsFixture {
                 pos++;
                 BeanUtils.setProperty(object, field, values[pos]);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return object;

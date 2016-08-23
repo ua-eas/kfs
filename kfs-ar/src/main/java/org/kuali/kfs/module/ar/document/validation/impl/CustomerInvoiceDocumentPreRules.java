@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.Iterator;
-
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Iterator;
 
 public class CustomerInvoiceDocumentPreRules extends PromptBeforeValidationBase {
 
@@ -35,7 +35,7 @@ public class CustomerInvoiceDocumentPreRules extends PromptBeforeValidationBase 
     @Override
     public boolean doPrompts(Document document) {
 
-        CustomerInvoiceDocument doc = (CustomerInvoiceDocument)document;
+        CustomerInvoiceDocument doc = (CustomerInvoiceDocument) document;
         CustomerInvoiceDetailService service = SpringContext.getBean(CustomerInvoiceDetailService.class);
         updateCustomerInvoiceDetails(service, doc);
 
@@ -47,10 +47,10 @@ public class CustomerInvoiceDocumentPreRules extends PromptBeforeValidationBase 
      * @param document
      */
     @SuppressWarnings("unchecked")
-    protected void updateCustomerInvoiceDetails(CustomerInvoiceDetailService service, CustomerInvoiceDocument document){
+    protected void updateCustomerInvoiceDetails(CustomerInvoiceDetailService service, CustomerInvoiceDocument document) {
         CustomerInvoiceDetail customerInvoiceDetail;
-        for( Iterator i = document.getSourceAccountingLines().iterator(); i.hasNext(); ){
-            customerInvoiceDetail = (CustomerInvoiceDetail)i.next();
+        for (Iterator i = document.getSourceAccountingLines().iterator(); i.hasNext(); ) {
+            customerInvoiceDetail = (CustomerInvoiceDetail) i.next();
             service.recalculateCustomerInvoiceDetail(document, customerInvoiceDetail);
             service.updateAccountsForCorrespondingDiscount(customerInvoiceDetail);
         }

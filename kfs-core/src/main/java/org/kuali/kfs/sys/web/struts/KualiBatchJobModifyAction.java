@@ -18,32 +18,31 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.batch.BatchJobStatus;
-import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.IdentityManagementService;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.batch.BatchJobStatus;
+import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.IdentityManagementService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KualiBatchJobModifyAction extends KualiAction {
 
@@ -62,11 +61,10 @@ public class KualiBatchJobModifyAction extends KualiAction {
     @Override
     protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
         if (form instanceof KualiBatchJobModifyForm) {
-            if (!getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, KRADUtils.getNamespaceAndComponentSimpleName(BatchJobStatus.class), new HashMap<String,String>(getRoleQualification(form, "use")))) {
+            if (!getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, KRADUtils.getNamespaceAndComponentSimpleName(BatchJobStatus.class), new HashMap<String, String>(getRoleQualification(form, "use")))) {
                 throw new AuthorizationException(GlobalVariables.getUserSession().getPrincipalName(), "view", "batch jobs");
             }
-        }
-        else {
+        } else {
             super.checkAuthorization(form, methodToCall);
         }
     }
@@ -80,10 +78,10 @@ public class KualiBatchJobModifyAction extends KualiAction {
      * @throws AuthorizationException
      */
     protected boolean canModifyJob(KualiBatchJobModifyForm form, String actionType) {
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, form.getJob().getNamespaceCode());
         permissionDetails.put(KimConstants.AttributeConstants.BEAN_NAME, form.getJob().getName());
-        return getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name, permissionDetails, new HashMap<String,String>(getRoleQualification(form, actionType)));
+        return getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name, permissionDetails, new HashMap<String, String>(getRoleQualification(form, actionType)));
     }
 
     protected void checkJobAuthorization(KualiBatchJobModifyForm form, String actionType) throws AuthorizationException {
@@ -98,7 +96,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
         String jobName = request.getParameter(JOB_NAME_PARAMETER);
         String jobGroup = request.getParameter(JOB_GROUP_PARAMETER);
         if (form instanceof KualiBatchJobModifyForm) {
-            ((KualiBatchJobModifyForm)form).setJob(getSchedulerService().getJob(jobGroup, jobName));
+            ((KualiBatchJobModifyForm) form).setJob(getSchedulerService().getJob(jobGroup, jobName));
         }
         ActionForward forward = super.execute(mapping, form, request, response);
         return forward;
@@ -126,7 +124,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     }
 
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm)form;
+        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm) form;
 
         request.setAttribute("job", batchModifyForm.getJob());
         request.setAttribute("canRunJob", canModifyJob(batchModifyForm, "runJob"));
@@ -139,7 +137,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     }
 
     public ActionForward runJob(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm)form;
+        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm) form;
 
         checkJobAuthorization(batchModifyForm, "runJob");
 
@@ -164,7 +162,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     }
 
     public ActionForward stopJob(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm)form;
+        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm) form;
 
         checkJobAuthorization(batchModifyForm, "stopJob");
 
@@ -175,7 +173,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
 
 
     public ActionForward schedule(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm)form;
+        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm) form;
 
         checkJobAuthorization(batchModifyForm, "schedule");
 
@@ -185,7 +183,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     }
 
     public ActionForward unschedule(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm)form;
+        KualiBatchJobModifyForm batchModifyForm = (KualiBatchJobModifyForm) form;
 
         checkJobAuthorization(batchModifyForm, "unschedule");
 

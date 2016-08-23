@@ -22,14 +22,14 @@ import org.kuali.kfs.vnd.businessobject.VendorDefaultAddress;
 
 public enum VendorDefaultAddressFixture {
 
-    campusBL("BL",false), campusKO("KO",false), campusIN("IN",true), campusSB("SB",true), ;
+    campusBL("BL", false), campusKO("KO", false), campusIN("IN", true), campusSB("SB", true),;
 
     public final String vendorCampusCode;
     public final boolean active;
 
-    private VendorDefaultAddressFixture(String vendorCampusCode,boolean active) {
+    private VendorDefaultAddressFixture(String vendorCampusCode, boolean active) {
         this.vendorCampusCode = vendorCampusCode;
-        this.active=active;
+        this.active = active;
     }
 
     public VendorDefaultAddress createAddress() {

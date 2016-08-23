@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.batch.service;
 
-import java.sql.Timestamp;
-
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+
+import java.sql.Timestamp;
 
 /**
  * define the customer notification service

@@ -19,11 +19,11 @@
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a deposit cash receipt control which contains cash receipt header used for validating receipts
@@ -49,6 +49,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Gets the cashReceiptDocument attribute.
+     *
      * @return Returns the cashReceiptDocument.
      */
     public CashReceiptDocument getCashReceiptDocument() {
@@ -57,12 +58,12 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the cashReceiptDocument attribute value.
+     *
      * @param cashReceiptDocument The cashReceiptDocument to set.
      */
     public void setCashReceiptDocument(CashReceiptDocument cashReceiptDocument) {
         this.cashReceiptDocument = cashReceiptDocument;
     }
-
 
 
     /**

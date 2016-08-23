@@ -18,12 +18,6 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -40,6 +34,13 @@ import org.kuali.kfs.fp.document.validation.event.DeleteCheckEvent;
 import org.kuali.kfs.fp.document.web.struts.CashManagementForm.CashDrawerSummary;
 import org.kuali.kfs.fp.exception.CashDrawerStateException;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CashDrawerConstants;
 import org.kuali.kfs.sys.KFSConstants.DepositConstants;
@@ -51,13 +52,11 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Action class for CashManagementForm
@@ -77,7 +76,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
      * Overrides to call super, but also make sure the helpers are populated.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -91,8 +90,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
             WorkflowDocument kwd = cmf.getDocument().getDocumentHeader().getWorkflowDocument();
             if (kwd.isEnroute() || kwd.isFinal()) {
                 cmf.setCashDrawerSummary(null);
-            }
-            else {
+            } else {
                 if (cmf.getCashDrawerSummary() == null) {
                     cmf.populateCashDrawerSummary();
                 }
@@ -243,7 +241,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#reload(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward reload(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -310,8 +308,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
         SpringContext.getBean(CashManagementService.class).createNewCashDetails(cmDoc, KFSConstants.CurrencyCoinSources.CASH_MANAGEMENT_OUT);
         try {
             SpringContext.getBean(DocumentService.class).saveDocument(cmDoc);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             // force it closed if workflow proves recalcitrant
             cds.closeCashDrawer(cmDoc.getCashDrawer());
             throw e;
@@ -326,9 +323,9 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
     /**
      * This action makes the last interim deposit a final deposit
      *
-     * @param mapping the mapping of the actions
-     * @param form the Struts form populated on the post
-     * @param request the servlet request
+     * @param mapping  the mapping of the actions
+     * @param form     the Struts form populated on the post
+     * @param request  the servlet request
      * @param response the servlet response
      * @return a forward to the same page we were on
      * @throws Exception because you never know when something just might go wrong
@@ -338,13 +335,11 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
         CashManagementService cms = SpringContext.getBean(CashManagementService.class);
 
         if (cmDoc.hasFinalDeposit()) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_DOCUMENT_ALREADY_HAS_FINAL_DEPOSIT, new String[] {});
-        }
-        else if (cmDoc.getDeposits().size() == 0) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_DOCUMENT_NO_DEPOSITS_TO_MAKE_FINAL, new String[] {});
-        }
-        else if (!cms.allVerifiedCashReceiptsAreDeposited(cmDoc)) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_NON_DEPOSITED_VERIFIED_CASH_RECEIPTS, new String[] {});
+            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_DOCUMENT_ALREADY_HAS_FINAL_DEPOSIT, new String[]{});
+        } else if (cmDoc.getDeposits().size() == 0) {
+            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_DOCUMENT_NO_DEPOSITS_TO_MAKE_FINAL, new String[]{});
+        } else if (!cms.allVerifiedCashReceiptsAreDeposited(cmDoc)) {
+            GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, CashManagement.ERROR_NON_DEPOSITED_VERIFIED_CASH_RECEIPTS, new String[]{});
         }
 
         cms.finalizeLastInterimDeposit(cmDoc);
@@ -464,8 +459,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
                 cmDoc.getCurrentTransaction().getBaselineChecks().remove(deleteIndex);
             }
 
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError("document.currentTransaction.check[" + deleteIndex + "]", KFSKeyConstants.Check.ERROR_CHECK_DELETERULE, Integer.toString(deleteIndex));
         }
 
@@ -476,7 +470,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
      * Overridden to clear the CashDrawerSummary info
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

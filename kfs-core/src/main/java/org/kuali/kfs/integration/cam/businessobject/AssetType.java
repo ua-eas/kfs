@@ -23,61 +23,59 @@ import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType;
 
 public class AssetType implements CapitalAssetManagementAssetType {
 
-	private String capitalAssetTypeCode;
-	private String capitalAssetTypeDescription;
+    private String capitalAssetTypeCode;
+    private String capitalAssetTypeDescription;
 
-	/**
-	 * Gets the capitalAssetTypeCode attribute.
-	 *
-	 * @return Returns the capitalAssetTypeCode
-	 *
-	 */
-	public String getCapitalAssetTypeCode() {
-		return capitalAssetTypeCode;
-	}
+    /**
+     * Gets the capitalAssetTypeCode attribute.
+     *
+     * @return Returns the capitalAssetTypeCode
+     */
+    public String getCapitalAssetTypeCode() {
+        return capitalAssetTypeCode;
+    }
 
-	/**
-	 * Sets the capitalAssetTypeCode attribute.
-	 *
-	 * @param capitalAssetTypeCode The capitalAssetTypeCode to set.
-	 *
-	 */
-	public void setCapitalAssetTypeCode(String capitalAssetTypeCode) {
-		this.capitalAssetTypeCode = capitalAssetTypeCode;
-	}
+    /**
+     * Sets the capitalAssetTypeCode attribute.
+     *
+     * @param capitalAssetTypeCode The capitalAssetTypeCode to set.
+     */
+    public void setCapitalAssetTypeCode(String capitalAssetTypeCode) {
+        this.capitalAssetTypeCode = capitalAssetTypeCode;
+    }
 
 
-	/**
-	 * Gets the capitalAssetTypeDescription attribute.
-	 *
-	 * @return Returns the capitalAssetTypeDescription
-	 *
-	 */
-	public String getCapitalAssetTypeDescription() {
-		return capitalAssetTypeDescription;
-	}
+    /**
+     * Gets the capitalAssetTypeDescription attribute.
+     *
+     * @return Returns the capitalAssetTypeDescription
+     */
+    public String getCapitalAssetTypeDescription() {
+        return capitalAssetTypeDescription;
+    }
 
-	/**
-	 * Sets the capitalAssetTypeDescription attribute.
-	 *
-	 * @param capitalAssetTypeDescription The capitalAssetTypeDescription to set.
-	 *
-	 */
-	public void setCapitalAssetTypeDescription(String capitalAssetTypeDescription) {
-		this.capitalAssetTypeDescription = capitalAssetTypeDescription;
-	}
+    /**
+     * Sets the capitalAssetTypeDescription attribute.
+     *
+     * @param capitalAssetTypeDescription The capitalAssetTypeDescription to set.
+     */
+    public void setCapitalAssetTypeDescription(String capitalAssetTypeDescription) {
+        this.capitalAssetTypeDescription = capitalAssetTypeDescription;
+    }
 
-	   /**
+    /**
      * Gets the movingIndicator attribute.
      *
      * @return Returns the movingIndicator
-     *
      */
     public boolean isMovingIndicator() {
         return false;
     }
 
-    public void prepareForWorkflow() {}
-    public void refresh() {}
+    public void prepareForWorkflow() {
+    }
+
+    public void refresh() {
+    }
 
 }

@@ -18,20 +18,20 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.Collections;
-import java.util.Map;
-
 import org.kuali.kfs.module.external.kc.service.KcFinancialSystemModuleConfig;
 import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Slim subclass to enforce class hierarchy not enforced by the parent class' contract.
  */
 public class KcFinancialSystemModuleConfiguration extends FinancialSystemModuleConfiguration implements KcFinancialSystemModuleConfig {
 
-    protected Map<Class,String> externalizableBusinessObjectServiceImplementations;
-    protected Map<String,String> kfsToKcInquiryUrlClassMapping;
-    protected Map<String,String> kfsToKcInquiryUrlParameterMapping;
+    protected Map<Class, String> externalizableBusinessObjectServiceImplementations;
+    protected Map<String, String> kfsToKcInquiryUrlClassMapping;
+    protected Map<String, String> kfsToKcInquiryUrlParameterMapping;
 
     /**
      * Constructs a FinancialSystemModuleConfiguration.java.
@@ -44,17 +44,17 @@ public class KcFinancialSystemModuleConfiguration extends FinancialSystemModuleC
     /**
      * @return the externalizableBusinessObjectImplementations
      */
-    public Map<Class,String> getExternalizableBusinessObjectServiceImplementations() {
+    public Map<Class, String> getExternalizableBusinessObjectServiceImplementations() {
         if (this.externalizableBusinessObjectServiceImplementations == null)
             return null;
-        return (Map<Class,String>) Collections.unmodifiableMap(this.externalizableBusinessObjectServiceImplementations);
+        return (Map<Class, String>) Collections.unmodifiableMap(this.externalizableBusinessObjectServiceImplementations);
     }
 
     /**
      * @param externalizableBusinessObjectImplementations the externalizableBusinessObjectImplementations to set
      */
     public void setExternalizableBusinessObjectServiceImplementations(
-          Map<Class, String> externalizableBusinessObjectServiceImplementations) {
+        Map<Class, String> externalizableBusinessObjectServiceImplementations) {
         this.externalizableBusinessObjectServiceImplementations = externalizableBusinessObjectServiceImplementations;
     }
 

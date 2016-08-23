@@ -19,11 +19,11 @@
 package org.kuali.kfs.vnd.businessobject.lookup;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.vnd.batch.service.VendorExcludeService;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
 
     protected List<? extends BusinessObject> getDebarredVendorUnmatchedSearchResults(Map<String, String> fieldValues) {
         List<VendorDetail> vendorResultList = vendorExcludeService.getDebarredVendorsUnmatched();
-        List<VendorDetail> filteredVendorList = new ArrayList<VendorDetail> ();
+        List<VendorDetail> filteredVendorList = new ArrayList<VendorDetail>();
         VendorAddress defaultAddress;
         String vendorType = fieldValues.get("vendorTypeCode");
         for (VendorDetail vendor : vendorResultList) {
@@ -54,7 +54,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
                 continue;
             }
             defaultAddress = vendorService.getVendorDefaultAddress(vendor.getVendorAddresses(), vendor.getVendorHeader().getVendorType().getAddressType().getVendorAddressTypeCode(), "");
-            if (defaultAddress != null ) {
+            if (defaultAddress != null) {
                 vendor.setDefaultAddressLine1(defaultAddress.getVendorLine1Address());
                 vendor.setDefaultAddressCity(defaultAddress.getVendorCityName());
                 vendor.setDefaultAddressStateCode(defaultAddress.getVendorStateCode());
@@ -67,6 +67,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
 
     /**
      * Gets the vendorExcludeService attribute.
+     *
      * @return Returns the vendorExcludeService.
      */
     public VendorExcludeService getVendorExcludeService() {
@@ -75,6 +76,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
 
     /**
      * Sets the vendorExcludeService attribute value.
+     *
      * @param vendorExcludeService The vendorExcludeService to set.
      */
     public void setVendorExcludeService(VendorExcludeService vendorExcludeService) {
@@ -83,6 +85,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
 
     /**
      * Gets the vendorService attribute.
+     *
      * @return Returns the vendorService.
      */
     public VendorService getVendorService() {
@@ -91,6 +94,7 @@ public class DebarredVendorUnmatchedLookupableHelperServiceImpl extends KualiLoo
 
     /**
      * Sets the vendorService attribute value.
+     *
      * @param vendorService The vendorService to set.
      */
     public void setVendorService(VendorService vendorService) {

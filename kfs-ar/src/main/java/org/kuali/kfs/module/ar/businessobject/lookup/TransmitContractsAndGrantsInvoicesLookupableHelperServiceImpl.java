@@ -18,13 +18,19 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.TransmitContractsAndGrantsInvoicesLookupDataHolder;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -36,20 +42,14 @@ import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * LookupableHelperService class for Collection Activity Report.
@@ -79,13 +79,12 @@ public class TransmitContractsAndGrantsInvoicesLookupableHelperServiceImpl exten
         Collection<ContractsGrantsInvoiceDocument> list;
         try {
             list = transmitContractsAndGrantsInvoicesService.getInvoicesByParametersFromRequest(fieldValues);
-        }
-        catch (WorkflowException | ParseException ex) {
+        } catch (WorkflowException | ParseException ex) {
             LOG.error("Problem searching for invoices ready to transmit.", ex);
             throw new RuntimeException(ex);
         }
         if (ObjectUtils.isNotNull(list)) {
-            for (ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument:list) {
+            for (ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument : list) {
                 TransmitContractsAndGrantsInvoicesLookupDataHolder result = setupResultRecord(contractsGrantsInvoiceDocument, invoiceTransmissionMethodCode);
                 results.add(result);
             }
@@ -96,7 +95,6 @@ public class TransmitContractsAndGrantsInvoicesLookupableHelperServiceImpl exten
 
 
     /**
-     *
      * @param contractsGrantsInvoiceDocument
      * @return
      */

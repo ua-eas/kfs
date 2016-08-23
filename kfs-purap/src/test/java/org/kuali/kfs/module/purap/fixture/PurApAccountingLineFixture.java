@@ -18,50 +18,50 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.math.BigDecimal;
+
 public enum PurApAccountingLineFixture {
     BASIC_ACCOUNT_1(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("100"), // accountLinePercent;
-            new KualiDecimal(10) // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("100"), // accountLinePercent;
+        new KualiDecimal(10) // alternateAmountForGLEntryCreation;
     ), BASIC_ACCOUNT_2(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("100"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("100"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), ACCOUNT_50_PERCENT(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("50"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("50"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), ACCOUNT_ONE_THIRD(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("33.33"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("33.33"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), ACCOUNT_ONE_THIRD_PLUS_ONE_HUNDREDTH(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("33.34"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("33.34"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), REQ_ACCOUNT_MULTI(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("100"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("100"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), BAD_ACCOUNT_PERCENT_TOO_HIGH(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("101"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("101"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), BAD_ACCOUNT_PERCENT_ZERO(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("0"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("0"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     ), BAD_ACCOUNT_PERCENT_NEGATIVE(null, // accountIdentifier;
-            null, // itemIdentifier;
-            new BigDecimal("-1"), // accountLinePercent;
-            null // alternateAmountForGLEntryCreation;
+        null, // itemIdentifier;
+        new BigDecimal("-1"), // accountLinePercent;
+        null // alternateAmountForGLEntryCreation;
     );
 
     private Integer accountIdentifier;
@@ -81,11 +81,9 @@ public enum PurApAccountingLineFixture {
         try {
             // TODO: what should this debit code really be
             line = (PurApAccountingLine) alFixture.createAccountingLine(clazz, KFSConstants.GL_DEBIT_CODE);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("item creation failed. class = " + clazz);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("item creation failed. class = " + clazz);
         }
         line.setSequenceNumber(0);

@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentAssetDetail;
@@ -29,7 +28,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
 
 /**
  * This class validates if asset is locked by other document, if so return false
@@ -44,19 +44,19 @@ public class AssetPaymentAssetValidation extends GenericValidation {
      */
     public boolean validate(AttributedDocumentEvent event) {
         AssetPaymentDocument assetPaymentDocument = (AssetPaymentDocument) event.getDocument();
-        List<AssetPaymentAssetDetail> assetPaymentAssetDetails =assetPaymentDocument.getAssetPaymentAssetDetail();
+        List<AssetPaymentAssetDetail> assetPaymentAssetDetails = assetPaymentDocument.getAssetPaymentAssetDetail();
 
-        boolean valid=true;
+        boolean valid = true;
 
-        int zeroCostAssetCount=0;
-        int nonZeroCostAssetCount=0;
+        int zeroCostAssetCount = 0;
+        int nonZeroCostAssetCount = 0;
 
-        int position_a=-1;
-        for(AssetPaymentAssetDetail assetPaymentAssetDetail:assetPaymentAssetDetails) {
+        int position_a = -1;
+        for (AssetPaymentAssetDetail assetPaymentAssetDetail : assetPaymentAssetDetails) {
             position_a++;
-            String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME + "."+CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL + "["+position_a+"]."+ CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
+            String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME + "." + CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL + "[" + position_a + "]." + CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER;
 
-            if (assetPaymentAssetDetail.getAsset().getTotalCostAmount()!= null && assetPaymentAssetDetail.getAsset().getTotalCostAmount().compareTo(new KualiDecimal(0)) != 0)
+            if (assetPaymentAssetDetail.getAsset().getTotalCostAmount() != null && assetPaymentAssetDetail.getAsset().getTotalCostAmount().compareTo(new KualiDecimal(0)) != 0)
                 nonZeroCostAssetCount++;
             else
                 zeroCostAssetCount++;
@@ -65,7 +65,7 @@ public class AssetPaymentAssetValidation extends GenericValidation {
         }
 
         if (zeroCostAssetCount > 0 && (nonZeroCostAssetCount > 0)) {
-            GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID,CamsKeyConstants.Payment.ERROR_NON_ZERO_COST_ASSETS_ALLOWED);
+            GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID, CamsKeyConstants.Payment.ERROR_NON_ZERO_COST_ASSETS_ALLOWED);
             valid &= false;
         }
         return valid;

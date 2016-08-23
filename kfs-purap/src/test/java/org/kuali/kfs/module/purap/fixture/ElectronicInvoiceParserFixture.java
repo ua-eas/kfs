@@ -63,7 +63,7 @@ public class ElectronicInvoiceParserFixture {
     public static final class BillToContact {
         public static final String addressId = StringUtils.EMPTY;
         public static final String role = "billTo";
-        public static final String name= "INDIANA UNIV@INDPLS";
+        public static final String name = "INDIANA UNIV@INDPLS";
         public static final String street1 = "ACCOUNTING DEPT";
         public static final String street2 = "620 UNION DR";
         public static final String street3 = "RM 443";
@@ -80,7 +80,7 @@ public class ElectronicInvoiceParserFixture {
     public static final class RemitToContact {
         public static final String addressId = "004321519";
         public static final String role = "remitTo";
-        public static final String name= "FISHER SCIENTIFIC COMPANY LLC";
+        public static final String name = "FISHER SCIENTIFIC COMPANY LLC";
         public static final String street1 = "13551 COLLECTIONS CTR DR";
         public static final String street2 = null;
         public static final String street3 = null;
@@ -99,7 +99,7 @@ public class ElectronicInvoiceParserFixture {
     public static final class ShipToContact {
         public static final String addressId = "387520002";
         public static final String role = "shipTo";
-        public static final String name= "INDIANA UNIVERSITY";
+        public static final String name = "INDIANA UNIVERSITY";
         public static final String street1 = "950 W WALNUT ST";
         public static final String street2 = "ROOM #451";
         public static final String street3 = null;

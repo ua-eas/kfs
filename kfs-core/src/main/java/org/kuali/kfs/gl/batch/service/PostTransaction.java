@@ -22,10 +22,10 @@
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.util.Date;
-
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.service.ReportWriterService;
+
+import java.util.Date;
 
 /**
  * An interface that delcares the methods that the Poster needs to post a transaction.
@@ -34,9 +34,9 @@ public interface PostTransaction {
     /**
      * Post a single transaction to a single destination.
      *
-     * @param t Transaction to post
-     * @param mode PosterService.MODE_ENTRIES or PosterService.MODE_REVERSAL
-     * @param postDate post date/time
+     * @param t                         Transaction to post
+     * @param mode                      PosterService.MODE_ENTRIES or PosterService.MODE_REVERSAL
+     * @param postDate                  post date/time
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return The letter I if a row was inserted, U updated, D deleted. The string can have multiple codes.
      */

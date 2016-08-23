@@ -19,13 +19,13 @@
 package org.kuali.kfs.vnd.businessobject.inquiry;
 
 import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * This class adds in some new sections for {@link Org} inquiries, specifically Org Hierarchy Org Review Hierarchy
@@ -36,7 +36,7 @@ public class VendorInquirable extends KualiInquirableImpl {
      * Overrides the helper method to build an inquiry url for a result field.
      * For the Vendor URL field, returns the url address as the inquiry URL, so that Vendor URL functions as a hyperlink.
      *
-     * @param bo the business object instance to build the urls for
+     * @param bo           the business object instance to build the urls for
      * @param propertyName the property which links to an inquirable
      * @return String url to inquiry
      */
@@ -44,7 +44,7 @@ public class VendorInquirable extends KualiInquirableImpl {
         if (businessObject instanceof VendorDetail && attributeName.equalsIgnoreCase("vendorUrlAddress")) {
             Object objFieldValue = ObjectUtils.getPropertyValue(businessObject, attributeName);
             String fieldValue = objFieldValue == null ? KFSConstants.EMPTY_STRING : objFieldValue.toString();
-            return new AnchorHtmlData("http://" + fieldValue, KRADConstants.EMPTY_STRING, ((VendorDetail)businessObject).getVendorName()+" ("+fieldValue+")");
+            return new AnchorHtmlData("http://" + fieldValue, KRADConstants.EMPTY_STRING, ((VendorDetail) businessObject).getVendorName() + " (" + fieldValue + ")");
         }
 
         return super.getInquiryUrl(businessObject, attributeName, forceInquiry);

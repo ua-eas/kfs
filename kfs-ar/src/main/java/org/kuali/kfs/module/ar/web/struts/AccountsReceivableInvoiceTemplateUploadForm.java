@@ -23,7 +23,6 @@ import org.kuali.kfs.module.ar.businessobject.InvoiceTemplate;
 import org.kuali.kfs.module.ar.businessobject.TemplateBase;
 
 
-
 /**
  * This class represents the form for the InvoiceTemplate.
  */

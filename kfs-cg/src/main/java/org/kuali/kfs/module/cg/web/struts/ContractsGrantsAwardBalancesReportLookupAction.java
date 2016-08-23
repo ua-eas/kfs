@@ -18,19 +18,17 @@
  */
 package org.kuali.kfs.module.cg.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.ContractsGrantsAwardBalancesReport;
@@ -43,15 +41,16 @@ import org.kuali.kfs.sys.DynamicCollectionComparator.SortOrder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
-import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Action Class for Contracts & Grants Award Balances Report Lookup.
@@ -60,7 +59,7 @@ public class ContractsGrantsAwardBalancesReportLookupAction extends KualiLookupA
 
     /**
      * @see org.kuali.kfs.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -143,8 +142,7 @@ public class ContractsGrantsAwardBalancesReportLookupAction extends KualiLookupA
         Integer numSortIndexClick = (ObjectUtils.isNull(GlobalVariables.getUserSession().retrieveObject(CGConstants.NUM_SORT_INDEX_CLICK_SESSION_KEY))) ? 1 : new Integer(GlobalVariables.getUserSession().retrieveObject(CGConstants.NUM_SORT_INDEX_CLICK_SESSION_KEY).toString());
         if (((numSortIndexClick) % 2) == 0) {
             DynamicCollectionComparator.sort(displayList, SortOrder.DESC, sortPropertyName);
-        }
-        else {
+        } else {
             DynamicCollectionComparator.sort(displayList, SortOrder.ASC, sortPropertyName);
         }
     }
@@ -215,8 +213,7 @@ public class ContractsGrantsAwardBalancesReportLookupAction extends KualiLookupA
                 reportDetail.setDisplaySubtotal(true);
                 // set subTotal from subTotalMap
                 reportDetail.setSubTotal(subTotalMap.get(getPropertyValue(awardBalancesReportEntry, sortPropertyName)).bigDecimalValue());
-            }
-            else {
+            } else {
                 // set this to empty string for not displaying subtotal
                 reportDetail.setDisplaySubtotal(false);
             }

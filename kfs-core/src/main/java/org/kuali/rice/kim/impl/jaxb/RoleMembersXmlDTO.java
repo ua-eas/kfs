@@ -18,13 +18,14 @@
  */
 package org.kuali.rice.kim.impl.jaxb;
 
-import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.kuali.rice.core.api.criteria.QueryByCriteria;
+import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
+import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
+import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
+import org.kuali.rice.kim.api.role.RoleMember;
+import org.kuali.rice.kim.api.role.RoleMemberContract;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
@@ -34,15 +35,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import org.kuali.rice.core.api.criteria.QueryByCriteria;
-import org.kuali.rice.core.util.jaxb.RiceXmlExportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlImportList;
-import org.kuali.rice.core.util.jaxb.RiceXmlListAdditionListener;
-import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
-import org.kuali.rice.kim.api.role.RoleMember;
-import org.kuali.rice.kim.api.role.RoleMemberContract;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
 
 /**
  * Base class representing an unmarshalled &lt;roleMembers&gt; element.
@@ -71,12 +70,12 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
      * This class represents a &lt;roleMembers&gt; element that is not a child of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="StandaloneRoleMembersType", propOrder={"roleMembers"})
+    @XmlType(name = "StandaloneRoleMembersType", propOrder = {"roleMembers"})
     public static class OutsideOfRole extends RoleMembersXmlDTO<RoleMemberXmlDTO.OutsideOfRole> {
 
         private static final long serialVersionUID = 1L;
 
-        @XmlElement(name="roleMember")
+        @XmlElement(name = "roleMember")
         private List<RoleMemberXmlDTO.OutsideOfRole> roleMembers;
 
         /**
@@ -114,13 +113,13 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
      * This class represents a &lt;roleMembers&gt; element that is a child of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="RoleMembersType", propOrder={"roleMembers"})
+    @XmlType(name = "RoleMembersType", propOrder = {"roleMembers"})
     public static class WithinRole extends RoleMembersXmlDTO<RoleMemberXmlDTO.WithinRole>
-            implements RiceXmlListGetterListener<RoleMemberXmlDTO.WithinRole,String> {
+        implements RiceXmlListGetterListener<RoleMemberXmlDTO.WithinRole, String> {
 
         private static final long serialVersionUID = 1L;
 
-        @XmlElement(name="roleMember")
+        @XmlElement(name = "roleMember")
         private List<RoleMemberXmlDTO.WithinRole> roleMembers;
 
         @XmlTransient
@@ -129,7 +128,8 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
         @XmlTransient
         private Set<String> existingRoleMemberIds;
 
-        public WithinRole() {}
+        public WithinRole() {
+        }
 
         public WithinRole(String roleId) {
             this.roleId = roleId;
@@ -184,7 +184,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
         void afterUnmarshal(Unmarshaller unmarshaller, Object parent) throws UnmarshalException {
             super.afterUnmarshal(unmarshaller, parent);
             if (parent instanceof RoleXmlDTO) {
-                ((RoleXmlDTO)parent).setExistingRoleMemberIds(existingRoleMemberIds);
+                ((RoleXmlDTO) parent).setExistingRoleMemberIds(existingRoleMemberIds);
             }
             existingRoleMemberIds = null;
         }
@@ -204,7 +204,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
 
         void beforeMarshal(Marshaller marshaller) {
             List<RoleMember> tempMembers = KimApiServiceLocator.getRoleService().findRoleMembers(
-                    QueryByCriteria.Builder.fromPredicates(equal("roleId", roleId))).getResults();
+                QueryByCriteria.Builder.fromPredicates(equal("roleId", roleId))).getResults();
             if (tempMembers != null && !tempMembers.isEmpty()) {
                 List<String> roleMemberIds = new ArrayList<String>();
 
@@ -215,7 +215,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
                 }
 
                 if (!roleMemberIds.isEmpty()) {
-                    setRoleMembers(new RiceXmlExportList<RoleMemberXmlDTO.WithinRole,String>(roleMemberIds, this));
+                    setRoleMembers(new RiceXmlExportList<RoleMemberXmlDTO.WithinRole, String>(roleMemberIds, this));
                 }
             }
         }

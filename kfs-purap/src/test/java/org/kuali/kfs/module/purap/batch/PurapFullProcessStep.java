@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.purap.batch;
 
-import java.util.Date;
-
 import org.kuali.kfs.module.purap.document.PurapFullProcessDocumentTest;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.AbstractStep;
+
+import java.util.Date;
 
 @ConfigureContext
 public class PurapFullProcessStep extends AbstractStep {
@@ -31,9 +31,8 @@ public class PurapFullProcessStep extends AbstractStep {
         PurapFullProcessDocumentTest fullTest = new PurapFullProcessDocumentTest();
         try {
             // TODO: uncomment once PurapFullProcessDocumentTest is working
-           // fullTest.testFullProcess();
-        }
-        catch (Exception e) {
+            // fullTest.testFullProcess();
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

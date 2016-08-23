@@ -27,17 +27,16 @@ import java.io.OutputStream;
 
 /**
  * This service interface defines the methods that a DisbursementVoucherCoverSheetService implementation must provide.
- *
  */
 public interface DisbursementVoucherCoverSheetService {
 
     /**
      * Generates a disbursement voucher cover sheet.
      *
-     * @param document The DisbursementVoucherDocument used to generate the cover sheet.
+     * @param document     The DisbursementVoucherDocument used to generate the cover sheet.
      * @param outputStream The stream to write out the new cover sheet.
      * @throws DocumentException Thrown if there is a problem pulling data from the document to create the cover sheet.
-     * @throws IOException Thrown if there is a problem writing the cover sheet to the output stream.
+     * @throws IOException       Thrown if there is a problem writing the cover sheet to the output stream.
      */
     public void generateDisbursementVoucherCoverSheet(DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException;
 

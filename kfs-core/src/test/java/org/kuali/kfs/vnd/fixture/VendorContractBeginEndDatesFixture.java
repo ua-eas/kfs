@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.vnd.fixture;
 
+import org.kuali.kfs.vnd.businessobject.VendorContract;
+import org.kuali.kfs.vnd.fixture.VendorTestConstants.BeginEndDates;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.vnd.businessobject.VendorContract;
-import org.kuali.kfs.vnd.fixture.VendorTestConstants.BeginEndDates;
-
 public enum VendorContractBeginEndDatesFixture {
 
-    RIGHT_ORDER_RIGHT_ORDER(BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE), WRONG_ORDER_RIGHT_ORDER(BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE), RIGHT_ORDER_WRONG_ORDER(BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE), WRONG_ORDER_WRONG_ORDER(BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE), ;
+    RIGHT_ORDER_RIGHT_ORDER(BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE), WRONG_ORDER_RIGHT_ORDER(BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE), RIGHT_ORDER_WRONG_ORDER(BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE), WRONG_ORDER_WRONG_ORDER(BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE),;
 
     private Date date11;
     private Date date12;

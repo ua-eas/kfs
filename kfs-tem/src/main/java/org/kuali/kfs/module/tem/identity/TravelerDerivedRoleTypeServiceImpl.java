@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.tem.identity;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+import org.kuali.rice.core.api.membership.MemberType;
+import org.kuali.rice.kim.api.role.RoleMembership;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.core.api.membership.MemberType;
-import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 /**
  * Check for Traveler Derived Role base on document traveler (for Travel Document) or proflie (Travel Arranger Document)
@@ -53,10 +53,10 @@ public class TravelerDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBa
     public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         validateRequiredAttributesAgainstReceived(qualification);
         final List<RoleMembership> members = new ArrayList<RoleMembership>(1);
-        if (qualification!=null && !qualification.isEmpty()) {
+        if (qualification != null && !qualification.isEmpty()) {
 
             final String principalId = qualification.get(KfsKimAttributes.PROFILE_PRINCIPAL_ID);
-            if ( StringUtils.isNotBlank( principalId ) ) {
+            if (StringUtils.isNotBlank(principalId)) {
                 members.add(RoleMembership.Builder.create("", "", principalId, MemberType.PRINCIPAL, null).build());
             }
         }

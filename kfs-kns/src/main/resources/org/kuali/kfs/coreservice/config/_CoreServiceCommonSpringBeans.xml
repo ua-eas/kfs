@@ -28,62 +28,62 @@
                            http://www.springframework.org/schema/cache
                            http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-  <util:constant id="rice.coreService.serviceNamespace" static-field="org.kuali.rice.core.api.CoreConstants$Namespaces.CORE_NAMESPACE_2_0"/>
+    <util:constant id="rice.coreService.serviceNamespace" static-field="org.kuali.rice.core.api.CoreConstants$Namespaces.CORE_NAMESPACE_2_0"/>
 
-  <bean id="rice.location.propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="properties" value="#{T(org.kuali.rice.core.api.config.property.ConfigContext).getCurrentContextConfig().getProperties()}" />
-	</bean>
+    <bean id="rice.location.propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" value="#{T(org.kuali.rice.core.api.config.property.ConfigContext).getCurrentContextConfig().getProperties()}"/>
+    </bean>
 
-  <bean id="cf.coreServiceLocalCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-    <property name="cacheManager">
-      <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="${cf.coreService.ehcache.config.location}"/>
-    </property>
-  </bean>
+    <bean id="cf.coreServiceLocalCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager">
+            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="${cf.coreService.ehcache.config.location}"/>
+        </property>
+    </bean>
 
-  <bean id="rice.coreService.import.globalCacheManager" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-    <property name="serviceName" value="globalCacheManager" />
-  </bean>
+    <bean id="rice.coreService.import.globalCacheManager" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="globalCacheManager"/>
+    </bean>
 
-  <cache:annotation-driven cache-manager="rice.coreService.import.globalCacheManager" />
+    <cache:annotation-driven cache-manager="rice.coreService.import.globalCacheManager"/>
 
-  <!-- spring service that should be exposed on the ksb to receive messages from the distributed cache manager -->
-  <bean id="coreServiceCacheAdminService"
-        class="org.kuali.rice.core.impl.cache.CacheAdminServiceImpl"
-        p:cacheManager-ref="cf.coreServiceLocalCacheManager" />
+    <!-- spring service that should be exposed on the ksb to receive messages from the distributed cache manager -->
+    <bean id="coreServiceCacheAdminService"
+          class="org.kuali.rice.core.impl.cache.CacheAdminServiceImpl"
+          p:cacheManager-ref="cf.coreServiceLocalCacheManager"/>
 
-  <bean id="rice.coreService.import.serviceBus"
-        class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-    <property name="serviceName" value="rice.ksb.serviceBus"/>
-  </bean>
+    <bean id="rice.coreService.import.serviceBus"
+          class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="rice.ksb.serviceBus"/>
+    </bean>
 
-  <bean id="rice.coreService.import.kualiModuleService"
-        class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
-		<property name="serviceName" value="cf.kualiModuleService" />
-	</bean>
+    <bean id="rice.coreService.import.kualiModuleService"
+          class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
+        <property name="serviceName" value="cf.kualiModuleService"/>
+    </bean>
 
-  <bean id="coreServiceServiceExporter"
-        class="org.kuali.rice.ksb.api.bus.support.PropertyConditionalServiceBusExporter"
-        abstract="true">
-    <property name="serviceBus" ref="rice.coreService.import.serviceBus"/>
-  </bean>
+    <bean id="coreServiceServiceExporter"
+          class="org.kuali.rice.ksb.api.bus.support.PropertyConditionalServiceBusExporter"
+          abstract="true">
+        <property name="serviceBus" ref="rice.coreService.import.serviceBus"/>
+    </bean>
 
-  <bean id="coreService" class="org.kuali.rice.ksb.api.bus.support.SoapServiceDefinition" abstract="true">
-    <property name="serviceNameSpaceURI" ref="rice.coreService.serviceNamespace"/>
-    <property name="jaxWsService" value="true"/>
-    <property name="priority" value="3"/>
-    <property name="retryAttempts" value="0"/>
-    <property name="busSecurity" value="${core.soapExposedService.jaxws.security}"/>
-    <property name="serviceVersion" value="${rice.version}"/>
-    <property name="servicePath" value="#{ T(org.kuali.rice.core.api.CoreConstants).SERVICE_PATH_SOAP }" />
-  </bean>
+    <bean id="coreService" class="org.kuali.rice.ksb.api.bus.support.SoapServiceDefinition" abstract="true">
+        <property name="serviceNameSpaceURI" ref="rice.coreService.serviceNamespace"/>
+        <property name="jaxWsService" value="true"/>
+        <property name="priority" value="3"/>
+        <property name="retryAttempts" value="0"/>
+        <property name="busSecurity" value="${core.soapExposedService.jaxws.security}"/>
+        <property name="serviceVersion" value="${rice.version}"/>
+        <property name="servicePath" value="#{ T(org.kuali.rice.core.api.CoreConstants).SERVICE_PATH_SOAP }"/>
+    </bean>
 
-  <bean id="coreServiceCacheAdminService.exporter" parent="coreServiceServiceExporter">
-    <property name="serviceDefinition">
-      <bean parent="coreService"
-            p:service-ref="coreServiceCacheAdminService"
-            p:localServiceName="coreServiceCacheAdminService"
-            p:queue="false"/>
-    </property>
-  </bean>
+    <bean id="coreServiceCacheAdminService.exporter" parent="coreServiceServiceExporter">
+        <property name="serviceDefinition">
+            <bean parent="coreService"
+                  p:service-ref="coreServiceCacheAdminService"
+                  p:localServiceName="coreServiceCacheAdminService"
+                  p:queue="false"/>
+        </property>
+    </bean>
 
 </beans>

@@ -22,22 +22,19 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * This implementation of {@link PropertySerializabilityEvaluator} specifies that all properties of a document are serializable.
- *
- *
- *
  */
 public class AlwaysFalsePropertySerializabilityEvaluator extends PropertySerializabilityEvaluatorBase {
 
-	@Override
-	public void initializeEvaluatorForDocument(Document document) {
-		// do nothing, because we know that every property is not serializable
-	}
+    @Override
+    public void initializeEvaluatorForDocument(Document document) {
+        // do nothing, because we know that every property is not serializable
+    }
 
-	@Override
-	public boolean isPropertySerializable(SerializationState state,
-			Object containingObject, String childPropertyName,
-			Object childPropertyValue) {
-		return false;
-	}
+    @Override
+    public boolean isPropertySerializable(SerializationState state,
+                                          Object containingObject, String childPropertyName,
+                                          Object childPropertyValue) {
+        return false;
+    }
 
 }

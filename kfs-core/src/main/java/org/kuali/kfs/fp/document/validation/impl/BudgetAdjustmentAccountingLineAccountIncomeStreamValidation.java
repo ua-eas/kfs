@@ -20,16 +20,16 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Validation that checks Budget Adjustment accounting lines to make sure that non-zero adjustments have related income stream accounts.
@@ -39,6 +39,7 @@ public class BudgetAdjustmentAccountingLineAccountIncomeStreamValidation extends
 
     /**
      * Validate that, if current adjustment amount is non zero, account has an associated income stream chart and account
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -64,6 +65,7 @@ public class BudgetAdjustmentAccountingLineAccountIncomeStreamValidation extends
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public BudgetAdjustmentAccountingLine getAccountingLineForValidation() {
@@ -72,6 +74,7 @@ public class BudgetAdjustmentAccountingLineAccountIncomeStreamValidation extends
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(BudgetAdjustmentAccountingLine accountingLineForValidation) {

@@ -18,26 +18,25 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Set;
-
 import org.kuali.kfs.module.tem.TemConstants.AgencyAuditSection;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 
+import java.util.Set;
+
 public class AgencyStagingDataAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
 
-        /**
-         * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase#getSecurePotentiallyReadOnlySectionIds()
-         */
-        @Override
-        public Set<String> getSecurePotentiallyReadOnlySectionIds() {
-            Set<String> readOnlySectionIds = super.getSecurePotentiallyReadOnlySectionIds();
-            readOnlySectionIds.add(AgencyAuditSection.airline.name());
-            readOnlySectionIds.add(AgencyAuditSection.rentalcar.name());
-            readOnlySectionIds.add(AgencyAuditSection.lodging.name());
+    /**
+     * @see org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase#getSecurePotentiallyReadOnlySectionIds()
+     */
+    @Override
+    public Set<String> getSecurePotentiallyReadOnlySectionIds() {
+        Set<String> readOnlySectionIds = super.getSecurePotentiallyReadOnlySectionIds();
+        readOnlySectionIds.add(AgencyAuditSection.airline.name());
+        readOnlySectionIds.add(AgencyAuditSection.rentalcar.name());
+        readOnlySectionIds.add(AgencyAuditSection.lodging.name());
 
-            return readOnlySectionIds;
-        }
-
+        return readOnlySectionIds;
+    }
 
 
 }

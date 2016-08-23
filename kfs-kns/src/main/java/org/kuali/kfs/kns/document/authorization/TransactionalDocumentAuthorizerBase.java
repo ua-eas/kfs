@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.kns.document.authorization;
 
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,28 +32,28 @@ import java.util.Set;
  * Base class for all TransactionalDocumentAuthorizers.
  */
 public class TransactionalDocumentAuthorizerBase extends DocumentAuthorizerBase
-		implements TransactionalDocumentAuthorizer {
-	public final Set<String> getEditModes(Document document, Person user,
-			Set<String> editModes) {
-		Set<String> unauthorizedEditModes = new HashSet<String>();
-		for (String editMode : editModes) {
-			Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
-			additionalPermissionDetails.put(KimConstants.AttributeConstants.EDIT_MODE, editMode);
-			if (permissionExistsByTemplate(
-					document,
-					KRADConstants.KNS_NAMESPACE,
-					KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
-					additionalPermissionDetails)
-					&& !isAuthorizedByTemplate(
-							document,
-							KRADConstants.KNS_NAMESPACE,
-							KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
-							user.getPrincipalId(), additionalPermissionDetails,
-							null)) {
-				unauthorizedEditModes.add(editMode);
-			}
-		}
-		editModes.removeAll(unauthorizedEditModes);
-		return editModes;
-	}
+    implements TransactionalDocumentAuthorizer {
+    public final Set<String> getEditModes(Document document, Person user,
+                                          Set<String> editModes) {
+        Set<String> unauthorizedEditModes = new HashSet<String>();
+        for (String editMode : editModes) {
+            Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
+            additionalPermissionDetails.put(KimConstants.AttributeConstants.EDIT_MODE, editMode);
+            if (permissionExistsByTemplate(
+                document,
+                KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
+                additionalPermissionDetails)
+                && !isAuthorizedByTemplate(
+                document,
+                KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
+                user.getPrincipalId(), additionalPermissionDetails,
+                null)) {
+                unauthorizedEditModes.add(editMode);
+            }
+        }
+        editModes.removeAll(unauthorizedEditModes);
+        return editModes;
+    }
 }

@@ -23,8 +23,8 @@ import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
 import org.kuali.kfs.krad.document.DocumentPresentationController;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 
 import java.util.Collection;
@@ -33,8 +33,6 @@ import java.util.List;
 /**
  * Defines methods that a <code>DocumentEntry</code> Service must provide, and the API for the interacting
  * with Document-related entries in the data dictionary
- *
- *
  */
 public interface DocumentDictionaryService {
 

@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.dataaccess.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -35,6 +30,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.document.DocumentStatusCategory;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation class for ContractsGrantsInvoiceDocumentDao DAO.
@@ -56,7 +56,7 @@ public class ContractsGrantsInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOj
 
     /**
      * @see org.kuali.kfs.module.ar.dataaccess.ContractsGrantsInvoiceDocumentDao#getMatchingInvoicesByCollection(java.util.Map)
-     *      Retrieve CG Invoices that are in final, with some additional field values passed.
+     * Retrieve CG Invoices that are in final, with some additional field values passed.
      */
     @Override
     public Collection<ContractsGrantsInvoiceDocument> getCollectionEligibleContractsGrantsInvoicesByProposalNumber(String proposalNumber) {
@@ -82,7 +82,7 @@ public class ContractsGrantsInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOj
         Criteria subCri = new Criteria();
         subCri.addNotIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, unsuccessfulDocumentStatuses);
         subCri.addNotNull(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_IN_ERROR_NUMBER);
-        ReportQueryByCriteria errorCorrectedDocumentsQuery = new ReportQueryByCriteria(ContractsGrantsInvoiceDocument.class, new String[] { KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_IN_ERROR_NUMBER }, subCri);
+        ReportQueryByCriteria errorCorrectedDocumentsQuery = new ReportQueryByCriteria(ContractsGrantsInvoiceDocument.class, new String[]{KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.FINANCIAL_DOCUMENT_IN_ERROR_NUMBER}, subCri);
         criteria.addNotIn(KFSPropertyConstants.DOCUMENT_NUMBER, errorCorrectedDocumentsQuery);
 
         return getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(ContractsGrantsInvoiceDocument.class, criteria));
@@ -90,7 +90,7 @@ public class ContractsGrantsInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOj
 
     /**
      * @see org.kuali.kfs.module.ar.dataaccess.ContractsGrantsInvoiceDocumentDao#getOpenAndFinalInvoicesByCustomerNumber(java.lang.String)
-     *      Retrieve CG Invoices that are open and final, with param customer number.
+     * Retrieve CG Invoices that are open and final, with param customer number.
      */
     @Override
     public Collection<ContractsGrantsInvoiceDocument> getOpenInvoicesByCustomerNumber(String customerNumber) {

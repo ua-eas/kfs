@@ -26,20 +26,15 @@ public class PurapSearchUtils {
     public static String getWorkFlowStatusString(DocumentHeader documentHeader) {
         if (documentHeader.getWorkflowDocument().isInitiated()) {
             return "INITIATED";
-        }
-        else if (documentHeader.getWorkflowDocument().isEnroute()) {
+        } else if (documentHeader.getWorkflowDocument().isEnroute()) {
             return "ENROUTE";
-        }
-        else if (documentHeader.getWorkflowDocument().isDisapproved()) {
+        } else if (documentHeader.getWorkflowDocument().isDisapproved()) {
             return "DISAPPROVED";
-        }
-        else if (documentHeader.getWorkflowDocument().isCanceled()) {
+        } else if (documentHeader.getWorkflowDocument().isCanceled()) {
             return "CANCELLED";
-        }
-        else if (documentHeader.getWorkflowDocument().isApproved()) {
+        } else if (documentHeader.getWorkflowDocument().isApproved()) {
             return "APPROVED";
-        }
-        else {
+        } else {
             return StringUtils.EMPTY;
         }
     }

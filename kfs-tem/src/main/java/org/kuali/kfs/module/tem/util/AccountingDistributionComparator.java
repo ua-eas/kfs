@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.module.tem.util;
 
-import java.util.Comparator;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
+
+import java.util.Comparator;
 
 
 public class AccountingDistributionComparator implements Comparator<AccountingDistribution> {

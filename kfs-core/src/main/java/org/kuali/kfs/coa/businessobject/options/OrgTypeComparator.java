@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.coa.businessobject.options;
 
-import java.util.Comparator;
-
 import org.kuali.kfs.coa.businessobject.OrganizationType;
+
+import java.util.Comparator;
 
 /**
  * This class allows us to compare two {@link OrgType}s by their codes

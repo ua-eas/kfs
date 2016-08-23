@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.cam.document.service;
 
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal;
 import org.kuali.kfs.module.cam.document.gl.CamsGeneralLedgerPendingEntrySourceBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+
+import java.util.List;
 
 
 /**

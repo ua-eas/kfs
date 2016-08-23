@@ -21,7 +21,6 @@ package org.kuali.kfs.module.ar.service;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 /**
  * Services for Customer
@@ -29,9 +28,10 @@ import org.kuali.kfs.kns.document.MaintenanceDocument;
 public interface CustomerDocumentService {
     /**
      * This method creates a new Customer document
+     *
      * @param description for the new Customer document being created
-     * @returns the maintenance document
      * @throws WorkflowException
+     * @returns the maintenance document
      */
-    public String createAndSaveCustomer (String description, ContractsAndGrantsBillingAgency agency) throws WorkflowException;
+    public String createAndSaveCustomer(String description, ContractsAndGrantsBillingAgency agency) throws WorkflowException;
 }

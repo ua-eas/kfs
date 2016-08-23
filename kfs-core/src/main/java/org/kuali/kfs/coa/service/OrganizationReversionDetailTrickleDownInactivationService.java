@@ -29,32 +29,36 @@ public interface OrganizationReversionDetailTrickleDownInactivationService {
     /**
      * Inactivates organization reversion details whose containing organization reversion is being inactivated,
      * and writes notes on the Organization Reversion maintenance document about it
+     *
      * @param organizationReversion the deactivating organization reversion
-     * @param documentNumber the document id of the organization reversion document causing an inactivation
+     * @param documentNumber        the document id of the organization reversion document causing an inactivation
      */
     public abstract void trickleDownInactiveOrganizationReversionDetails(OrganizationReversion organizationReversion, String documentNumber);
 
     /**
      * Inactivates (or "boxes") organization reversion details whose related organization reversion category is being inactivated,
      * and writes notes on the Organization Reversion Category maintenance document about it
+     *
      * @param organizationReversionCategory the deactivating organization reversion category
-     * @param documentNumber the document id of the organization reversion category document causing an inactivation
+     * @param documentNumber                the document id of the organization reversion category document causing an inactivation
      */
     public abstract void trickleDownInactiveOrganizationReversionDetails(OrganizationReversionCategory organizationReversionCategory, String documentNumber);
 
     /**
      * Activates organization reversion details whose containing organization reversion is being inactivated,
      * and writes notes on the Organization Reversion maintenance document about it
+     *
      * @param organizationReversion the deactivating organization reversion
-     * @param documentNumber the document id of the organization reversion document causing an inactivation
+     * @param documentNumber        the document id of the organization reversion document causing an inactivation
      */
     public abstract void trickleDownActiveOrganizationReversionDetails(OrganizationReversion organizationReversion, String documentNumber);
 
     /**
      * Activates (or "boxes") organization reversion details whose related organization reversion category is being inactivated,
      * and writes notes on the Organization Reversion Category maintenance document about it
+     *
      * @param organizationReversionCategory the deactivating organization reversion category
-     * @param documentNumber the document id of the organization reversion category document causing an inactivation
+     * @param documentNumber                the document id of the organization reversion category document causing an inactivation
      */
     public abstract void trickleDownActiveOrganizationReversionDetails(OrganizationReversionCategory organizationReversionCategory, String documentNumber);
 }

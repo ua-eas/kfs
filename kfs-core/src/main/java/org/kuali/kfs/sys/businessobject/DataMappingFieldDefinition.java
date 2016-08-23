@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.sys.dataaccess.FieldMetaData;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.sys.dataaccess.FieldMetaData;
+
+import java.util.LinkedHashMap;
 
 public class DataMappingFieldDefinition extends TransientBusinessObjectBase {
     private String namespaceCode;
@@ -101,7 +101,7 @@ public class DataMappingFieldDefinition extends TransientBusinessObjectBase {
             return new StringBuffer(((MaskFormatterSubString)attributeDefinition.getDisplayMask().getMaskFormatter()).getMaskLength()).append(" ").append(((MaskFormatterSubString)attributeDefinition.getDisplayMask().getMaskFormatter()).getMaskCharacter()).append(" characters").toString();
         }
         else {*/
-            return "Unknown MaskFormatter";
+        return "Unknown MaskFormatter";
         //}
     }
 

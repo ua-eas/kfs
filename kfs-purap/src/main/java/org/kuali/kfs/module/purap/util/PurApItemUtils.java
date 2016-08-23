@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.purap.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Purchasing Accounts Payable Item Utilities.
@@ -79,8 +79,7 @@ public class PurApItemUtils {
             // will have to change if we stop putting below the line at bottom
             if (ObjectUtils.isNotNull(item.getItemType()) && item.getItemType().isLineItemIndicator()) {
                 break;
-            }
-            else {
+            } else {
                 count++;
             }
         }

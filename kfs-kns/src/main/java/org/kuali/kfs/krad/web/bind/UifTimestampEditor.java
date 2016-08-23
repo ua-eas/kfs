@@ -26,8 +26,6 @@ import java.sql.Timestamp;
  * PropertyEditor converts between date display strings and
  * <code>java.sql.Timestamp</code> objects using the
  * <code>org.kuali.rice.core.api.datetime.DateTimeService</code>
- *
- *
  */
 public class UifTimestampEditor extends UifDateEditor implements Serializable {
     private static final long serialVersionUID = -2776193044590819394L;

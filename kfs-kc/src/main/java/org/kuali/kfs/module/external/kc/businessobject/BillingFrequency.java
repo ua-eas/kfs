@@ -29,7 +29,8 @@ public class BillingFrequency implements AccountsReceivableBillingFrequency, Mut
     private boolean active;
 
     @Override
-    public void refresh() { }
+    public void refresh() {
+    }
 
     @Override
     public String getFrequency() {

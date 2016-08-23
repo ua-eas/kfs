@@ -34,7 +34,7 @@ public interface PriorYearAccountDao {
      * This method copies all organization records from the current Account table to the Prior Year Account table.
      *
      * @param priorYrAcctTableName prior year account table name
-     * @param acctTableName account table name
+     * @param acctTableName        account table name
      * @return Number of records that were copied.
      */
     public abstract int copyCurrentAccountsToPriorYearTable(String priorYrAcctTableName, String acctTableName);
@@ -43,7 +43,7 @@ public interface PriorYearAccountDao {
      * This method copies all organization records from the current Account table to the Prior Year Account table.
      *
      * @param priorYrAcctTableName prior year account table name
-     * @param acctTableName account table name
+     * @param acctTableName        account table name
      * @return Number of records that were copied.
      */
     public abstract int copyCurrentICRAccountsToPriorYearTable(String priorYrAcctTableName, String acctTableName);

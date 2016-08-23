@@ -24,6 +24,7 @@ public interface AccountsReceivableDocumentHeaderService {
 
     /**
      * This method returns a new AccountsReceivableDocumentHeader for a specific chart and organization code
+     *
      * @param chartOfAccountsCode
      * @param organizationCode
      * @return
@@ -32,6 +33,7 @@ public interface AccountsReceivableDocumentHeaderService {
 
     /**
      * This method returns a new AccountsReceivableDocumentHeader based on the current user.
+     *
      * @return
      */
     public AccountsReceivableDocumentHeader getNewAccountsReceivableDocumentHeaderForCurrentUser();

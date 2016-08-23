@@ -16,29 +16,29 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.LabelField"/>
 
 <c:set var="label" value="${field.labelText}"/>
 
 <c:if test="${field.renderColon}">
-  <c:set var="label" value="${label}:"/>
+    <c:set var="label" value="${label}:"/>
 </c:if>
 
 <krad:span component="${field}">
-   <c:if test="${field.requiredMessagePlacement eq 'LEFT'}">
-     <%-- required message --%>
-     <krad:template component="${field.requiredMessageField}"/>
-   </c:if>
+    <c:if test="${field.requiredMessagePlacement eq 'LEFT'}">
+        <%-- required message --%>
+        <krad:template component="${field.requiredMessageField}"/>
+    </c:if>
 
 
-   <label id="${field.id}" for="${field.labelForComponentId}">
-      ${label}
-   </label>
+    <label id="${field.id}" for="${field.labelForComponentId}">
+            ${label}
+    </label>
 
-   <c:if test="${field.requiredMessagePlacement eq 'RIGHT'}">
-     <%-- required message --%>
-     <krad:template component="${field.requiredMessageField}"/>
-   </c:if>
+    <c:if test="${field.requiredMessagePlacement eq 'RIGHT'}">
+        <%-- required message --%>
+        <krad:template component="${field.requiredMessageField}"/>
+    </c:if>
 </krad:span>

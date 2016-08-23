@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.pdp.service;
 
-import java.util.Date;
-import java.util.List;
-
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatProcessSummary;
@@ -28,22 +25,28 @@ import org.kuali.kfs.pdp.businessobject.FormatSelection;
 import org.kuali.kfs.pdp.service.impl.exception.FormatException;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.util.Date;
+import java.util.List;
+
 public interface FormatService {
 
     /**
      * This method gets all customer profiles
+     *
      * @return
      */
     public List<CustomerProfile> getAllCustomerProfiles();
 
     /**
      * This method gets all disbursement number ranges
+     *
      * @return
      */
     public List<DisbursementNumberRange> getAllDisbursementNumberRanges();
 
     /**
      * This method gets the format process by campus code and returns the start date for that process.
+     *
      * @param campus the campus code
      * @return the format process start date if any process found for the given campus code, null otherwise
      */
@@ -51,6 +54,7 @@ public interface FormatService {
 
     /**
      * This method gets the data for the format process
+     *
      * @param user the user that initiated the format process
      * @return FormatSelection
      */
@@ -58,6 +62,7 @@ public interface FormatService {
 
     /**
      * This method gets the data for the format process based on the campus code
+     *
      * @param campusCode
      * @return FormatSelection
      */
@@ -65,13 +70,15 @@ public interface FormatService {
 
     /**
      * This method formats the data for check printing.
+     *
      * @param procId
      */
     public void performFormat(Integer procId) throws FormatException;
 
     /**
-     *  If the start format process was run and errored out,
-     *  this needs to be run to allow formats to continue to function
+     * If the start format process was run and errored out,
+     * this needs to be run to allow formats to continue to function
+     *
      * @param procId
      */
     public void resetFormatPayments(Integer procId);
@@ -91,6 +98,7 @@ public interface FormatService {
 
     /**
      * This method removes the format process from the format process table
+     *
      * @param campus
      */
     public void endFormatProcess(String campus);
@@ -99,9 +107,10 @@ public interface FormatService {
      * If the start format process was run and the user doesn't want to continue,
      * this needs to be run to set all payments back to open.
      * This method unmarks the payments and removes the format process entry.
+     *
      * @param processId
      */
-    public void clearUnfinishedFormat(Integer processId) ;
+    public void clearUnfinishedFormat(Integer processId);
 
 }
 

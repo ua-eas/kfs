@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.fp.document.dataaccess;
 
-import java.util.List;
-
 import org.kuali.kfs.fp.businessobject.CashieringItemInProcess;
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CoinDetail;
 import org.kuali.kfs.fp.businessobject.CurrencyDetail;
+
+import java.util.List;
 
 public interface CashManagementDao {
 
@@ -46,7 +46,7 @@ public interface CashManagementDao {
     /**
      * Retrieves all currency detail records with the given document number, document type code, and cashiering record source
      *
-     * @param documentNumber the document number this currency detail was associated with
+     * @param documentNumber   the document number this currency detail was associated with
      * @param documentTypeCode the type code of that document
      * @param cashieringStatus the cashiering status
      * @return a list of currency details matching that criteria
@@ -56,7 +56,7 @@ public interface CashManagementDao {
     /**
      * Retrieves all coin detail records with the given document number, document type code, and cashiering record source
      *
-     * @param documentNumber the document the coin details were associated with
+     * @param documentNumber   the document the coin details were associated with
      * @param documentTypeCode the type of that document
      * @param cashieringStatus the cashiering status
      * @return a list of coin details meeting those criteria
@@ -67,7 +67,7 @@ public interface CashManagementDao {
      * Retrieves from the database any undeposited cashiering transaction checks associated with the given cash management document
      *
      * @param documentNumber the document number of a cash management document that cashiering transaction checks may be associated
-     *        with
+     *                       with
      * @return a list of checks associated with the document
      */
     public List<Check> selectUndepositedCashieringChecks(String documentNumber);
@@ -75,8 +75,8 @@ public interface CashManagementDao {
     /**
      * Retrieves from the database all cashiering transaction checks deposited for a given deposit
      *
-     * @param documentNumber the document number of a cash management document that cashiering transaction checks have been
-     *        deposited for
+     * @param documentNumber    the document number of a cash management document that cashiering transaction checks have been
+     *                          deposited for
      * @param depositLineNumber the line number of the deposit to find checks deposited for
      * @return a list of checks associated with the given deposit
      */

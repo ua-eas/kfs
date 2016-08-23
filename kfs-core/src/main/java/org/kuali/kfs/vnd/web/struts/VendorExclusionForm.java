@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.vnd.web.struts;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 
 public class VendorExclusionForm extends LookupForm {
@@ -32,6 +29,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Gets the confirmStatusCode attribute.
+     *
      * @return Returns the confirmStatusCode.
      */
     public String getConfirmStatusCode() {
@@ -40,6 +38,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Sets the confirmStatusCode attribute value.
+     *
      * @param statusCode The statusCode to set.
      */
     public void setConfirmStatusCode(String confirmStatusCode) {
@@ -52,6 +51,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Gets the debarredVendorId attribute.
+     *
      * @return Returns the debarredVendorId.
      */
     public String getDebarredVendorId() {
@@ -60,6 +60,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Sets the debarredVendorId attribute value.
+     *
      * @param debarredVendorId The debarredVendorId to set.
      */
     public void setDebarredVendorId(String debarredVendorId) {
@@ -68,6 +69,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Gets the vendorExclusionStatus attribute.
+     *
      * @return Returns the vendorExclusionStatus.
      */
     public String getVendorExclusionStatus() {
@@ -76,6 +78,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Sets the vendorExclusionStatus attribute value.
+     *
      * @param vendorExclusionStatus The vendorExclusionStatus to set.
      */
     public void setVendorExclusionStatus(String vendorExclusionStatus) {
@@ -84,6 +87,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Gets the vendorType attribute.
+     *
      * @return Returns the vendorType.
      */
     public String getVendorType() {
@@ -92,6 +96,7 @@ public class VendorExclusionForm extends LookupForm {
 
     /**
      * Sets the vendorType attribute value.
+     *
      * @param vendorType The vendorType to set.
      */
     public void setVendorType(String vendorType) {

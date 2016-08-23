@@ -23,21 +23,20 @@ import java.util.Map;
 
 /**
  * Defines business logic methods that support the Lookup framework
- *
- *
  */
 public interface LookupService {
 
     /**
      * Returns a collection of objects based on the given search parameters.
      * Will not limit results, so the returned Collection could be huge.
-     *                                                         o
+     * o
+     *
      * @param example
      * @param formProps
      * @return
      */
     public <T extends Object> Collection<T> findCollectionBySearchUnbounded(Class<T> example,
-            Map<String, String> formProps);
+                                                                            Map<String, String> formProps);
 
     /**
      * Returns a collection of objects based on the given search parameters.
@@ -47,7 +46,7 @@ public interface LookupService {
     public <T extends Object> Collection<T> findCollectionBySearch(Class<T> example, Map<String, String> formProps);
 
     public <T extends Object> Collection<T> findCollectionBySearchHelper(Class<T> example,
-            Map<String, String> formProperties, boolean unbounded);
+                                                                         Map<String, String> formProperties, boolean unbounded);
 
     /**
      * Retrieves a Object based on the search criteria, which should uniquely

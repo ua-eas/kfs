@@ -27,12 +27,12 @@ public enum CustomerFixture {
     public String customerNumber;
     public boolean customerActiveIndicator;
 
-    private CustomerFixture(String customerNumber, boolean activeIndicator){
+    private CustomerFixture(String customerNumber, boolean activeIndicator) {
         this.customerNumber = customerNumber;
         this.customerActiveIndicator = activeIndicator;
     }
 
-    public Customer createCustomer(){
+    public Customer createCustomer() {
         Customer customer = new Customer();
         customer.setCustomerNumber(customerNumber);
         customer.setActive(customerActiveIndicator);

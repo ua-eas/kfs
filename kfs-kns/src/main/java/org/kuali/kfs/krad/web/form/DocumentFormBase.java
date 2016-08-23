@@ -19,76 +19,74 @@
 package org.kuali.kfs.krad.web.form;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 /**
  * Base form for all <code>DocumentView</code> screens
- *
- *
  */
 public class DocumentFormBase extends UifFormBase {
-	private static final long serialVersionUID = 2190268505427404480L;
+    private static final long serialVersionUID = 2190268505427404480L;
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentFormBase.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentFormBase.class);
 
-	private String annotation = "";
-	private String command;
+    private String annotation = "";
+    private String command;
 
-	private String docId;
-	private String docTypeName;
+    private String docId;
+    private String docTypeName;
 
-	protected Document document;
+    protected Document document;
 
-	public DocumentFormBase() {
-	    super();
+    public DocumentFormBase() {
+        super();
 
-	    instantiateDocument();
-	}
+        instantiateDocument();
+    }
 
-	public String getAnnotation() {
-		return this.annotation;
-	}
+    public String getAnnotation() {
+        return this.annotation;
+    }
 
-	public void setAnnotation(String annotation) {
-		this.annotation = annotation;
-	}
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
+    }
 
-	public Document getDocument() {
-		return this.document;
-	}
+    public Document getDocument() {
+        return this.document;
+    }
 
-	public void setDocument(Document document) {
-		this.document = document;
-	}
+    public void setDocument(Document document) {
+        this.document = document;
+    }
 
-	public String getDocTypeName() {
-		return this.docTypeName;
-	}
+    public String getDocTypeName() {
+        return this.docTypeName;
+    }
 
-	public void setDocTypeName(String docTypeName) {
-		this.docTypeName = docTypeName;
-	}
+    public void setDocTypeName(String docTypeName) {
+        this.docTypeName = docTypeName;
+    }
 
-	public String getCommand() {
-		return this.command;
-	}
+    public String getCommand() {
+        return this.command;
+    }
 
-	public void setCommand(String command) {
-		this.command = command;
-	}
+    public void setCommand(String command) {
+        this.command = command;
+    }
 
-	public String getDocId() {
-		return this.docId;
-	}
+    public String getDocId() {
+        return this.docId;
+    }
 
-	public void setDocId(String docId) {
-		this.docId = docId;
-	}
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
 
     protected String getDefaultDocumentTypeName() {
         return "";
@@ -97,60 +95,60 @@ public class DocumentFormBase extends UifFormBase {
     protected void instantiateDocument() {
         if (document == null && StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
             Class<? extends Document> documentClass = KRADServiceLocatorWeb.getDataDictionaryService()
-                    .getDocumentClassByTypeName(getDefaultDocumentTypeName());
+                .getDocumentClassByTypeName(getDefaultDocumentTypeName());
             try {
                 Document newDocument = documentClass.newInstance();
                 setDocument(newDocument);
             } catch (Exception e) {
                 LOG.error("Unable to instantiate document class " + documentClass.getName() + " document type "
-                        + getDefaultDocumentTypeName());
+                    + getDefaultDocumentTypeName());
                 throw new RuntimeException(e);
             }
         }
     }
 
-	/**
-	 * Retrieves the principal name (network id) for the document's initiator
-	 *
-	 * @return String initiator name
-	 */
-	public String getDocumentInitiatorNetworkId() {
-		String initiatorNetworkId = "";
-		if (getWorkflowDocument() != null) {
-			String initiatorPrincipalId = getWorkflowDocument().getInitiatorPrincipalId();
-			Person initiator = KimApiServiceLocator.getPersonService().getPerson(initiatorPrincipalId);
-			if (initiator != null) {
-				initiatorNetworkId = initiator.getPrincipalName();
-			}
-		}
+    /**
+     * Retrieves the principal name (network id) for the document's initiator
+     *
+     * @return String initiator name
+     */
+    public String getDocumentInitiatorNetworkId() {
+        String initiatorNetworkId = "";
+        if (getWorkflowDocument() != null) {
+            String initiatorPrincipalId = getWorkflowDocument().getInitiatorPrincipalId();
+            Person initiator = KimApiServiceLocator.getPersonService().getPerson(initiatorPrincipalId);
+            if (initiator != null) {
+                initiatorNetworkId = initiator.getPrincipalName();
+            }
+        }
 
-		return initiatorNetworkId;
-	}
+        return initiatorNetworkId;
+    }
 
-	/**
-	 * Retrieves the create date for the forms document and formats for
-	 * presentation
-	 *
-	 * @return String formatted document create date
-	 */
+    /**
+     * Retrieves the create date for the forms document and formats for
+     * presentation
+     *
+     * @return String formatted document create date
+     */
     public String getDocumentCreateDate() {
         String createDateStr = "";
         if (getWorkflowDocument() != null && getWorkflowDocument().getDateCreated() != null) {
             createDateStr = CoreApiServiceLocator.getDateTimeService().toString(
-                    getWorkflowDocument().getDateCreated().toDate(), "hh:mm a MM/dd/yyyy");
+                getWorkflowDocument().getDateCreated().toDate(), "hh:mm a MM/dd/yyyy");
         }
 
         return createDateStr;
     }
 
-	/**
-	 * Retrieves the <code>WorkflowDocument</code> instance from the forms
-	 * document instance
-	 *
-	 * @return WorkflowDocument for the forms document
-	 */
-	public WorkflowDocument getWorkflowDocument() {
-		return getDocument().getDocumentHeader().getWorkflowDocument();
-	}
+    /**
+     * Retrieves the <code>WorkflowDocument</code> instance from the forms
+     * document instance
+     *
+     * @return WorkflowDocument for the forms document
+     */
+    public WorkflowDocument getWorkflowDocument() {
+        return getDocument().getDocumentHeader().getWorkflowDocument();
+    }
 
 }

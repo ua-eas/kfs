@@ -25,5 +25,5 @@ public class AccountRule extends org.kuali.kfs.coa.document.validation.impl.Acco
     public boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         super.setupBaseConvenienceObjects(document);
         return super.processCustomRouteDocumentBusinessRules(document);
-     }
+    }
 }

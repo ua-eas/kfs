@@ -18,34 +18,31 @@
  */
 package org.kuali.kfs.krad.web.bind;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.web.format.FormatException;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.beans.PropertyAccessException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DefaultBindingErrorProcessor;
 
 /**
  * This is a description of what this class does - pctsh don't forget to fill this in.
- *
- *
- *
  */
 public class UifBindingErrorProcessor extends DefaultBindingErrorProcessor {
 
-	public void processPropertyAccessException(PropertyAccessException ex, BindingResult bindingResult) {
-		// Create field error with the exceptions's code, e.g. "typeMismatch".
-		super.processPropertyAccessException(ex, bindingResult);
-		Object rejectedValue = ex.getValue();
-		if (!(rejectedValue == null || rejectedValue.equals(""))) {
-			if (ex.getCause() instanceof FormatException) {
-				GlobalVariables.getMessageMap().putError(ex.getPropertyName(), ((FormatException)ex.getCause()).getErrorKey(),
-						new String[] {rejectedValue.toString()});
-			}else{
-				GlobalVariables.getMessageMap().putError(ex.getPropertyName(), RiceKeyConstants.ERROR_CUSTOM,
-						new String[] {"Invalid format"});
-			}
-		}
-	}
+    public void processPropertyAccessException(PropertyAccessException ex, BindingResult bindingResult) {
+        // Create field error with the exceptions's code, e.g. "typeMismatch".
+        super.processPropertyAccessException(ex, bindingResult);
+        Object rejectedValue = ex.getValue();
+        if (!(rejectedValue == null || rejectedValue.equals(""))) {
+            if (ex.getCause() instanceof FormatException) {
+                GlobalVariables.getMessageMap().putError(ex.getPropertyName(), ((FormatException) ex.getCause()).getErrorKey(),
+                    new String[]{rejectedValue.toString()});
+            } else {
+                GlobalVariables.getMessageMap().putError(ex.getPropertyName(), RiceKeyConstants.ERROR_CUSTOM,
+                    new String[]{"Invalid format"});
+            }
+        }
+    }
 
 }

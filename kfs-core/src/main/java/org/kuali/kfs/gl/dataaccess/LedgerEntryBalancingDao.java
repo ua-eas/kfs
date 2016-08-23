@@ -25,10 +25,11 @@ package org.kuali.kfs.gl.dataaccess;
 public interface LedgerEntryBalancingDao {
     /**
      * Does a group by query on the parameters passed in and returns an object array with the count as first parameter and sum of TRANSACTION_LEDGER_ENTRY_AMOUNT of the second.
-     * @param universityFiscalYear the given university fiscal year
-     * @param chartOfAccountsCode the given chart of account code
-     * @param financialObjectCode the given object code
-     * @param financialBalanceTypeCode the given balance type code
+     *
+     * @param universityFiscalYear       the given university fiscal year
+     * @param chartOfAccountsCode        the given chart of account code
+     * @param financialObjectCode        the given object code
+     * @param financialBalanceTypeCode   the given balance type code
      * @param universityFiscalPeriodCode the given university fiscal period code
      * @param transactionDebitCreditCode the given transaction debit or credit code
      * @return object array with [0] being count(*) and [1] sum(TRANSACTION_LEDGER_ENTRY_AMOUNT). Returns null if data was not found
@@ -37,6 +38,7 @@ public interface LedgerEntryBalancingDao {
 
     /**
      * Finds the count of rows for >= fiscal year passed in.
+     *
      * @param the given university fiscal year
      * @return count
      */

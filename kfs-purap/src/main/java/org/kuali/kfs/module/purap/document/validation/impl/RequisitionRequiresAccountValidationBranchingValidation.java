@@ -39,7 +39,7 @@ public class RequisitionRequiresAccountValidationBranchingValidation extends Bra
      */
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
-        RequisitionDocument req = (RequisitionDocument)event.getDocument();
+        RequisitionDocument req = (RequisitionDocument) event.getDocument();
         //for app doc status
         //to be removed
         /*remove req.isDocumentStoppedInRouteNode(NodeDetailEnum.HAS_ACCOUNTING_LINES) ||
@@ -47,10 +47,10 @@ public class RequisitionRequiresAccountValidationBranchingValidation extends Bra
             req.isDocumentStoppedInRouteNode(NodeDetailEnum.CONTENT_REVIEW) ||
             -kfsmi-4592*/
         if (req.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_HAS_ACCOUNTING_LINES) ||
-                req.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ACCOUNT) ||
-                req.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_CONTENT_REVIEW) ||
-                !itemForValidation.getSourceAccountingLines().isEmpty() || req.isBlanketApproveRequest()) {
-                return NEEDS_ACCOUNT_VALIDATION;
+            req.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ACCOUNT) ||
+            req.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_CONTENT_REVIEW) ||
+            !itemForValidation.getSourceAccountingLines().isEmpty() || req.isBlanketApproveRequest()) {
+            return NEEDS_ACCOUNT_VALIDATION;
         } else {
             return KFSConstants.EMPTY_STRING;
         }

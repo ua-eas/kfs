@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.krad.datadictionary.validation;
 
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
@@ -27,68 +27,68 @@ import java.util.regex.Pattern;
 
 /**
  * Abstraction of the regular expressions used to validate attribute values.
- *
-                    The validationPattern element defines the allowable character-level
-                    or field-level values for an attribute.
-
-                    JSTL: validationPattern is a Map which is accessed using a key
-                    of "validationPattern". Each entry may contain some of the keys
-                    listed below.  The keys that may be present for a given attribute
-                    are dependent upon the type of validationPattern.
-
-                        * maxLength (String)
-                        * exactLength
-                        * type
-                        * allowWhitespace
-                        * allowUnderscore
-                        * allowPeriod
-                        * validChars
-                        * precision
-                        * scale
-                        * allowNegative
-
-                    The allowable keys (in addition to type) for each type are:
-                        ****Type****    ***Keys***
-                        alphanumeric    exactLength
-                                        maxLength
-                                        allowWhitespace
-                                        allowUnderscore
-                                        allowPeriod
-
-                        alpha           exactLength
-                                        maxLength
-                                        allowWhitespace
-
-                        anyCharacter    exactLength
-                                        maxLength
-                                        allowWhitespace
-
-                        charset         validChars
-
-                        numeric         exactLength
-                                        maxLength
-
-                        fixedPoint      allowNegative
-                                        precision
-                                        scale
-
-                        floatingPoint   allowNegative
-
-                        date            n/a
-                        emailAddress    n/a
-                        javaClass       n/a
-                        month           n/a
-                        phoneNumber     n/a
-                        timestamp       n/a
-                        year            n/a
-                        zipcode         n/a
-
-                    Note: maxLength and exactLength are mutually exclusive.
-                    If one is entered, the other may not be entered.
-
-                    Note:  See ApplicationResources.properties for
-                    exact regex patterns.
-                    e.g. validationPatternRegex.date for regex used in date validation.
+ * <p>
+ * The validationPattern element defines the allowable character-level
+ * or field-level values for an attribute.
+ * <p>
+ * JSTL: validationPattern is a Map which is accessed using a key
+ * of "validationPattern". Each entry may contain some of the keys
+ * listed below.  The keys that may be present for a given attribute
+ * are dependent upon the type of validationPattern.
+ * <p>
+ * maxLength (String)
+ * exactLength
+ * type
+ * allowWhitespace
+ * allowUnderscore
+ * allowPeriod
+ * validChars
+ * precision
+ * scale
+ * allowNegative
+ * <p>
+ * The allowable keys (in addition to type) for each type are:
+ * ***Type****    ***Keys***
+ * alphanumeric    exactLength
+ * maxLength
+ * allowWhitespace
+ * allowUnderscore
+ * allowPeriod
+ * <p>
+ * alpha           exactLength
+ * maxLength
+ * allowWhitespace
+ * <p>
+ * anyCharacter    exactLength
+ * maxLength
+ * allowWhitespace
+ * <p>
+ * charset         validChars
+ * <p>
+ * numeric         exactLength
+ * maxLength
+ * <p>
+ * fixedPoint      allowNegative
+ * precision
+ * scale
+ * <p>
+ * floatingPoint   allowNegative
+ * <p>
+ * date            n/a
+ * emailAddress    n/a
+ * javaClass       n/a
+ * month           n/a
+ * phoneNumber     n/a
+ * timestamp       n/a
+ * year            n/a
+ * zipcode         n/a
+ * <p>
+ * Note: maxLength and exactLength are mutually exclusive.
+ * If one is entered, the other may not be entered.
+ * <p>
+ * Note:  See ApplicationResources.properties for
+ * exact regex patterns.
+ * e.g. validationPatternRegex.date for regex used in date validation.
  */
 @Deprecated
 abstract public class ValidationPattern implements Serializable {
@@ -101,7 +101,7 @@ abstract public class ValidationPattern implements Serializable {
 
     /**
      * @return String version of regular expression base, suitable for modification with length-specifiers and used internally by
-     *         getRegexPattern
+     * getRegexPattern
      */
     abstract protected String getRegexString();
 
@@ -125,20 +125,21 @@ abstract public class ValidationPattern implements Serializable {
     abstract public String getValidationErrorMessageKey();
 
     public String[] getValidationErrorMessageParameters(String attributeLabel) {
-        return new String[] {attributeLabel};
+        return new String[]{attributeLabel};
     }
 
     /**
      * This method throws an exception if it is not configured properly
-     *
      */
     public void completeValidation() throws ValidationPatternException {
     }
 
-    /** exception thrown when a ValidationPattern is in an incorrect state. */
+    /**
+     * exception thrown when a ValidationPattern is in an incorrect state.
+     */
     public static class ValidationPatternException extends RiceRuntimeException {
 
-    	private static final long serialVersionUID = 2012770642382150523L;
+        private static final long serialVersionUID = 2012770642382150523L;
 
         public ValidationPatternException(String message) {
             super(message);

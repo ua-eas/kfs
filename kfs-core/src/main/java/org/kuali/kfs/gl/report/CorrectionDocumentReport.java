@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.report;
 
-import java.util.Iterator;
-
 import org.kuali.kfs.gl.businessobject.CorrectionChange;
 import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
 import org.kuali.kfs.gl.businessobject.CorrectionCriteria;
@@ -28,6 +26,8 @@ import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.DocumentNumberAwareReportWriterService;
+
+import java.util.Iterator;
 
 /**
  * Generates a text file report for the GLCP and LLCP listing out chosen document parameters
@@ -39,7 +39,7 @@ public class CorrectionDocumentReport {
      * Initializes report, writes out summary lines, and finalizes
      *
      * @param reportWriterService report writer than handles the file io
-     * @param document GLCP or LLCP document instance to report on
+     * @param document            GLCP or LLCP document instance to report on
      */
     public void generateReport(DocumentNumberAwareReportWriterService reportWriterService, GeneralLedgerCorrectionProcessDocument document) {
         LOG.debug("generateReport() started");
@@ -89,19 +89,19 @@ public class CorrectionDocumentReport {
 
                 SearchOperatorsFinder sof = new SearchOperatorsFinder();
 
-                for (Iterator ccgi = document.getCorrectionChangeGroup().iterator(); ccgi.hasNext();) {
+                for (Iterator ccgi = document.getCorrectionChangeGroup().iterator(); ccgi.hasNext(); ) {
                     CorrectionChangeGroup ccg = (CorrectionChangeGroup) ccgi.next();
 
                     reportWriterService.writeFormattedMessageLine("Group " + ccg.getCorrectionChangeGroupLineNumber().toString());
 
                     reportWriterService.writeSubTitle("Search Criteria");
-                    for (Iterator ccri = ccg.getCorrectionCriteria().iterator(); ccri.hasNext();) {
+                    for (Iterator ccri = ccg.getCorrectionCriteria().iterator(); ccri.hasNext(); ) {
                         CorrectionCriteria cc = (CorrectionCriteria) ccri.next();
                         reportWriterService.writeFormattedMessageLine("Field: " + cc.getCorrectionFieldName() + ", Operator: " + sof.getKeyLabelMap().get(cc.getCorrectionOperatorCode()) + ", Value: " + cc.getCorrectionFieldValue());
                     }
 
                     reportWriterService.writeSubTitle("Modification Criteria");
-                    for (Iterator cchi = ccg.getCorrectionChange().iterator(); cchi.hasNext();) {
+                    for (Iterator cchi = ccg.getCorrectionChange().iterator(); cchi.hasNext(); ) {
                         CorrectionChange cc = (CorrectionChange) cchi.next();
                         reportWriterService.writeFormattedMessageLine("Field: " + cc.getCorrectionFieldName() + ", Replacement Value: " + cc.getCorrectionFieldValue());
                     }

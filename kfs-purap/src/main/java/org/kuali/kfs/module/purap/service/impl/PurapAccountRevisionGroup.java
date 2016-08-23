@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -404,8 +404,7 @@ public class PurapAccountRevisionGroup {
             histRecord.setPostingYear(this.getPostingYear());
             histRecord.setPostingPeriodCode(this.getPostingPeriodCode());
             histRecord.setAccountLinePercent(this.getAccountLinePercent());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return histRecord;

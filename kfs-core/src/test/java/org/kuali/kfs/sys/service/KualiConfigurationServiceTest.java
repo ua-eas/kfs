@@ -28,11 +28,11 @@ public class KualiConfigurationServiceTest extends KualiTestBase {
 
     public void testGetSecureProperties() throws Exception {
         ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
-        String pw = kualiConfigurationService.getPropertyValueAsString( "datasource.password" );
-        if ( pw != null ) {
+        String pw = kualiConfigurationService.getPropertyValueAsString("datasource.password");
+        if (pw != null) {
 
-            System.err.println( kualiConfigurationService.getAllProperties() );
-            assertNull( "Datasource information should not be available through the kuali configuration service.", pw );
+            System.err.println(kualiConfigurationService.getAllProperties());
+            assertNull("Datasource information should not be available through the kuali configuration service.", pw);
         }
     }
 }

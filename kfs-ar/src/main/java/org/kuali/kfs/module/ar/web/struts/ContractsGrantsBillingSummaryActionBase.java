@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.kns.lookup.LookupResultsService;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Base methods to support report summary actions
@@ -37,8 +37,9 @@ public class ContractsGrantsBillingSummaryActionBase extends KualiAction {
 
     /**
      * Gets the invoice documents from sequence number.
+     *
      * @param lookupResultsSequenceNumber The sequence number of search result.
-     * @param personId The principal id of the person who searched.
+     * @param personId                    The principal id of the person who searched.
      * @return Returns the list of invoice documents.
      */
     protected Collection<ContractsGrantsInvoiceDocument> getCGInvoiceDocumentsFromLookupResultsSequenceNumber(String lookupResultsSequenceNumber, String personId) {
@@ -47,8 +48,7 @@ public class ContractsGrantsBillingSummaryActionBase extends KualiAction {
             for (PersistableBusinessObject obj : getLookupResultsService().retrieveSelectedResultBOs(lookupResultsSequenceNumber, ContractsGrantsInvoiceDocument.class, personId)) {
                 invoiceDocuments.add((ContractsGrantsInvoiceDocument) obj);
             }
-        }
-        catch (Exception e) { // retrieveSelectedResultBOs throws Exception, hence the Pokemon handler
+        } catch (Exception e) { // retrieveSelectedResultBOs throws Exception, hence the Pokemon handler
             throw new RuntimeException(e);
         }
         return invoiceDocuments;

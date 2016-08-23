@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
@@ -30,19 +25,24 @@ import org.kuali.kfs.module.purap.businessobject.RecurringPaymentType;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PurCams;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 public enum PurchasingCapitalAssetFixture {
 
-    TWO_CAPITAL(ValidationStrings.CAPITAL,ValidationStrings.CAPITAL),
-    TWO_EXPENSE(ValidationStrings.EXPENSE,ValidationStrings.EXPENSE),
-    CAPITAL_EXPENSE(ValidationStrings.CAPITAL,ValidationStrings.EXPENSE),
+    TWO_CAPITAL(ValidationStrings.CAPITAL, ValidationStrings.CAPITAL),
+    TWO_EXPENSE(ValidationStrings.EXPENSE, ValidationStrings.EXPENSE),
+    CAPITAL_EXPENSE(ValidationStrings.CAPITAL, ValidationStrings.EXPENSE),
 
-    POSITIVE_QUANTITY_CAPITAL_PRICE_CAP_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.CAPITAL_OBJECT_CODE),
-    POSITIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
-    POSITIVE_QUANTITY_CAPITAL_PRICE_EXPENSE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.EXPENSE_OBJECT_CODE),
-    ZERO_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.ZERO_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
-    NEGATIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.NEGATIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
-    NULL_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(null,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
-    POSITIVE_QUANTITY_POSITIVE_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_POSITIVE_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
+    POSITIVE_QUANTITY_CAPITAL_PRICE_CAP_OBJECT_CODE(PurCams.POSITIVE_AMOUNT, PurCams.CAPITAL_AMOUNT, PurCams.CAPITAL_OBJECT_CODE),
+    POSITIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT, PurCams.CAPITAL_AMOUNT, PurCams.POSSIBLE_OBJECT_CODE),
+    POSITIVE_QUANTITY_CAPITAL_PRICE_EXPENSE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT, PurCams.CAPITAL_AMOUNT, PurCams.EXPENSE_OBJECT_CODE),
+    ZERO_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.ZERO_AMOUNT, PurCams.CAPITAL_AMOUNT, PurCams.POSSIBLE_OBJECT_CODE),
+    NEGATIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.NEGATIVE_AMOUNT, PurCams.CAPITAL_AMOUNT, PurCams.POSSIBLE_OBJECT_CODE),
+    NULL_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(null, PurCams.CAPITAL_AMOUNT, PurCams.POSSIBLE_OBJECT_CODE),
+    POSITIVE_QUANTITY_POSITIVE_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT, PurCams.CAPITAL_POSITIVE_AMOUNT, PurCams.POSSIBLE_OBJECT_CODE),
 
     RECURRING_PAYMENT_TYPE_NONRECURRING_TRAN_TYPE(PurCams.RECURRING_PAYMENT_TYPE, PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
     NO_PAYMENT_TYPE_NONRECURRING_TRAN_TYPE(null, PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
@@ -50,12 +50,11 @@ public enum PurchasingCapitalAssetFixture {
     RECURRING_PAYMENT_TYPE_RECURRING_TRAN_TYPE(PurCams.RECURRING_PAYMENT_TYPE, PurCams.RECURRING_TRAN_TYPE),
     NO_PAYMENT_TYPE_RECURRING_TRAN_TYPE(null, PurCams.RECURRING_TRAN_TYPE),
 
-    ASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1),
+    ASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE, PurCams.ASSET_NUMBER_1),
     ASSET_NUMBER_REQUIRING_TRAN_TYPE_NO_ASSETS(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
-    ASSET_NUMBER_REQUIRING_TRAN_TYPE_TWO_ASSETS(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1,PurCams.ASSET_NUMBER_2),
+    ASSET_NUMBER_REQUIRING_TRAN_TYPE_TWO_ASSETS(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE, PurCams.ASSET_NUMBER_1, PurCams.ASSET_NUMBER_2),
     NONASSET_NUMBER_REQUIRING_TRAN_TYPE_NO_ASSETS(PurCams.NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
-    NONASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1),
-    ;
+    NONASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE, PurCams.ASSET_NUMBER_1),;
 
     HashSet<String> capitalOrExpenseSet = new HashSet<String>();
     ObjectCode objectCode;
@@ -100,7 +99,7 @@ public enum PurchasingCapitalAssetFixture {
      * @see PurchasingDocumentRuleBase.validateCapitalAssetTransactionTypeVersusRecurrence
      */
     private PurchasingCapitalAssetFixture(RecurringPaymentType recurringPaymentType, CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType) {
-        this.capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType)capitalAssetTransactionType;
+        this.capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType) capitalAssetTransactionType;
         this.recurringPaymentType = recurringPaymentType;
     }
 
@@ -108,15 +107,15 @@ public enum PurchasingCapitalAssetFixture {
      * Constructor used for tests of PurchasingDocumentRuleBase.validateCapitalAssetNumberRequirements.
      * Note the variable capitalAssetNumbers argument.
      *
-     * @param capitalAssetTransactionType       A CapitalAssetBuilderAssetTransactionType
-     * @param capitalAssetNumbers               A variable argument of Longs.
+     * @param capitalAssetTransactionType A CapitalAssetBuilderAssetTransactionType
+     * @param capitalAssetNumbers         A variable argument of Longs.
      * @see PurchasingDocumentRuleBase.validateCapitalAssetNumberRequirements
      */
     private PurchasingCapitalAssetFixture(CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType, Long... capitalAssetNumbers) {
         this.capitalAssetTransactionType = capitalAssetTransactionType;
-        if ( capitalAssetNumbers != null ) {
+        if (capitalAssetNumbers != null) {
             this.assets = new ArrayList<ItemCapitalAsset>();
-            for( Long capitalAssetNumber : capitalAssetNumbers ) {
+            for (Long capitalAssetNumber : capitalAssetNumbers) {
                 //TODO: Fix this
                 //this.assets.add(new PurchasingItemCapitalAssetBase(capitalAssetNumber));
             }

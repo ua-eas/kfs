@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Purchase Order Contract Language Business Object.
  */
-public class PurchaseOrderContractLanguage extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class PurchaseOrderContractLanguage extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Integer purchaseOrderContractLanguageIdentifier;
     private String campusCode;

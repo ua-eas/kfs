@@ -64,12 +64,12 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
     /**
      * Clears out init tab.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
@@ -83,12 +83,12 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
      * Handles continue request. This request comes from the initial screen which gives Letter of Credit Fund Group and other
      * details Based on that, the Contracts & Grants LetterOfCredit Review document is initially populated.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward continueLOCReview(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
@@ -98,8 +98,7 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
             GlobalVariables.getMessageMap().putError(ArConstants.LETTER_OF_CREDIT_REVIEW_INIT_SECTION, ArKeyConstants.ERROR_LOC_REVIEW_FUND_OR_FUND_GROUP_REQUIRED);
         } else if (!StringUtils.isBlank(contractsGrantsLetterOfCreditReviewDocument.getLetterOfCreditFundCode()) && !StringUtils.isBlank(contractsGrantsLetterOfCreditReviewDocument.getLetterOfCreditFundGroupCode())) {
             GlobalVariables.getMessageMap().putError(ArConstants.LETTER_OF_CREDIT_REVIEW_INIT_SECTION, ArKeyConstants.ERROR_LOC_REVIEW_ONLY_ONE_FUND_OR_FUND_GROUP);
-        }
-        else {
+        } else {
             ContractsGrantsLetterOfCreditReviewDocument document = (ContractsGrantsLetterOfCreditReviewDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(contractsGrantsLetterOfCreditReviewDocument.getDocumentNumber());
             if (ObjectUtils.isNull(document)) {
                 contractsGrantsLetterOfCreditReviewDocument.getDocumentHeader().setDocumentDescription(ArConstants.LETTER_OF_CREDIT_REVIEW_DOCUMENT);
@@ -116,12 +115,12 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
     /**
      * To recalculate the amount to Draw for every contract control account
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward recalculateAmountToDraw(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
@@ -176,8 +175,8 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
         }
 
         final String fundforFile = !StringUtils.isBlank(document.getLetterOfCreditFundGroupCode())
-                ? document.getLetterOfCreditFundGroupCode()
-                : document.getLetterOfCreditFundCode();
+            ? document.getLetterOfCreditFundGroupCode()
+            : document.getLetterOfCreditFundCode();
         WebUtils.saveMimeInputStreamAsFile(response, KFSConstants.ReportGeneration.CSV_MIME_TYPE, new ByteArrayInputStream(report), "CSV-Export-" + document.getDocumentNumber() + "-" + fundforFile + KFSConstants.ReportGeneration.CSV_FILE_EXTENSION, report.length);
         return null;
     }
@@ -247,7 +246,7 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
      * of the awards) saves a note indicating some awards didn't pass validation and aren't included on the document.
      *
      * @param contractsGrantsLetterOfCreditReviewDocument document to save
-     * @param contractsGrantsInvoiceDocumentErrorLogs Collection of validation errors, if any
+     * @param contractsGrantsInvoiceDocumentErrorLogs     Collection of validation errors, if any
      * @throws WorkflowException
      */
     protected void saveDocumentAndNote(ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument, Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs) throws WorkflowException {
@@ -264,8 +263,8 @@ public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactiona
     /**
      * Creates a URL to be used in printing the customer invoice document.
      *
-     * @param basePath String: The base path of the current URL
-     * @param docId String: The document ID of the document to be printed
+     * @param basePath     String: The base path of the current URL
+     * @param docId        String: The document ID of the document to be printed
      * @param methodToCall String: The name of the method that will be invoked to do this particular print
      * @return The URL
      */

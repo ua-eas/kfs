@@ -18,15 +18,6 @@
  */
 package org.kuali.kfs.module.ec.document.web.struts;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -34,6 +25,13 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
+import org.kuali.kfs.kns.inquiry.Inquirable;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
@@ -48,14 +46,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.inquiry.Inquirable;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Action form for Effort Certification Document.
@@ -81,6 +80,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * initialize a new detail line
+     *
      * @return the initialized detail line
      */
     public EffortCertificationDetail createNewDetailLine() {
@@ -227,15 +227,14 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
                 // exclude the non inquirable field values
                 Object attributeValue = ObjectUtils.getPropertyValue(detailLine, attributeName);
                 String noninquirableFieldValue = noninquirableFieldValues.get(attributeName);
-                if(noninquirableFieldValue!=null && noninquirableFieldValue.equals(attributeValue)) {
+                if (noninquirableFieldValue != null && noninquirableFieldValue.equals(attributeValue)) {
                     continue;
                 }
 
                 HtmlData inquiryHref;
                 if (this.getCustomizedInquirableFieldNames().contains(attributeName)) {
                     inquiryHref = this.getCustomizedInquiryUrl(detailLine, attributeName);
-                }
-                else {
+                } else {
                     inquiryHref = inquirable.getInquiryUrl(detailLine, attributeName, false);
                 }
 
@@ -251,7 +250,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
     /**
      * get the inquiry URL for the specified attribute
      *
-     * @param detailLine the detail line containing the given attribute
+     * @param detailLine    the detail line containing the given attribute
      * @param attributeName the specified attribute name
      * @return the inquiry URL for the specified attribute
      */
@@ -365,40 +364,40 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
         KualiDecimal totalOriginalPayrollAmount = document.getTotalOriginalPayrollAmount();
 
 
-            detailLine.refreshNonUpdateableReferences();
+        detailLine.refreshNonUpdateableReferences();
 
-            Map<String, String> fieldInfoForAttribute = new HashMap<String, String>();
+        Map<String, String> fieldInfoForAttribute = new HashMap<String, String>();
 
-            fieldInfoForAttribute.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, ObjectUtils.isNotNull(detailLine.getChartOfAccounts())? detailLine.getChartOfAccounts().getFinChartOfAccountDescription(): "");
+        fieldInfoForAttribute.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, ObjectUtils.isNotNull(detailLine.getChartOfAccounts()) ? detailLine.getChartOfAccounts().getFinChartOfAccountDescription() : "");
 
-            String accountInfo = buildAccountInfo(detailLine.getAccount());
-            fieldInfoForAttribute.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountInfo);
+        String accountInfo = buildAccountInfo(detailLine.getAccount());
+        fieldInfoForAttribute.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountInfo);
 
-            SubAccount subAccount = detailLine.getSubAccount();
-            if (ObjectUtils.isNotNull(subAccount)) {
-                fieldInfoForAttribute.put(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, subAccount.getSubAccountName());
-            }
+        SubAccount subAccount = detailLine.getSubAccount();
+        if (ObjectUtils.isNotNull(subAccount)) {
+            fieldInfoForAttribute.put(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, subAccount.getSubAccountName());
+        }
 
-            ObjectCode objectCode = detailLine.getFinancialObject();
-            if (ObjectUtils.isNotNull(objectCode)) {
-                fieldInfoForAttribute.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, objectCode.getFinancialObjectCodeName());
-            }
+        ObjectCode objectCode = detailLine.getFinancialObject();
+        if (ObjectUtils.isNotNull(objectCode)) {
+            fieldInfoForAttribute.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, objectCode.getFinancialObjectCodeName());
+        }
 
-            Account sourceAccount = detailLine.getSourceAccount();
-            if (ObjectUtils.isNotNull(sourceAccount)) {
-                fieldInfoForAttribute.put(EffortPropertyConstants.SOURCE_ACCOUNT_NUMBER, sourceAccount.getAccountName());
-            }
+        Account sourceAccount = detailLine.getSourceAccount();
+        if (ObjectUtils.isNotNull(sourceAccount)) {
+            fieldInfoForAttribute.put(EffortPropertyConstants.SOURCE_ACCOUNT_NUMBER, sourceAccount.getAccountName());
+        }
 
-            Chart sourceChart = detailLine.getSourceChartOfAccounts();
-            if (ObjectUtils.isNotNull(sourceChart)) {
-                fieldInfoForAttribute.put(EffortPropertyConstants.SOURCE_CHART_OF_ACCOUNTS_CODE, sourceChart.getFinChartOfAccountDescription());
-            }
+        Chart sourceChart = detailLine.getSourceChartOfAccounts();
+        if (ObjectUtils.isNotNull(sourceChart)) {
+            fieldInfoForAttribute.put(EffortPropertyConstants.SOURCE_CHART_OF_ACCOUNTS_CODE, sourceChart.getFinChartOfAccountDescription());
+        }
 
-            KualiDecimal originalPayrollAmount = detailLine.getEffortCertificationOriginalPayrollAmount();
-            String actualOriginalPercent = PayrollAmountHolder.recalculateEffortPercentAsString(totalOriginalPayrollAmount, originalPayrollAmount);
-            fieldInfoForAttribute.put(EffortPropertyConstants.EFFORT_CERTIFICATION_CALCULATED_OVERALL_PERCENT, actualOriginalPercent);
+        KualiDecimal originalPayrollAmount = detailLine.getEffortCertificationOriginalPayrollAmount();
+        String actualOriginalPercent = PayrollAmountHolder.recalculateEffortPercentAsString(totalOriginalPayrollAmount, originalPayrollAmount);
+        fieldInfoForAttribute.put(EffortPropertyConstants.EFFORT_CERTIFICATION_CALCULATED_OVERALL_PERCENT, actualOriginalPercent);
 
-            //fieldInfo.add(fieldInfoForAttribute);
+        //fieldInfo.add(fieldInfoForAttribute);
 
 
         return fieldInfoForAttribute;
@@ -491,7 +490,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
      * any
      *
      * @param chartOfAccountsCode the given chart of accounts code
-     * @param accountNumber the given account number
+     * @param accountNumber       the given account number
      * @return the descriptive information of the given account
      */
     public static String buildAccountInfo(Account account) {
@@ -506,8 +505,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
             Person projectDirector = contractsAndGrantsModuleService.getProjectDirectorForAccount(account);
 
             projectDirectorName = projectDirector != null ? MessageFormat.format("  ({0})", projectDirector.getName()) : KFSConstants.EMPTY_STRING;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Cannot find a project director for the account:" + account);
         }
 
@@ -518,7 +516,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
      * load the descriptive information of the given account. This method is used by DWR.
      *
      * @param chartOfAccountsCode the given chart of accounts code
-     * @param accountNumber the given account number
+     * @param accountNumber       the given account number
      * @return the descriptive information of the given account
      */
     public static String loadAccountInfo(String chartOfAccountsCode, String accountNumber) {

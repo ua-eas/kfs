@@ -18,9 +18,6 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -29,6 +26,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.AMOUNT_PROPERTY_NAME;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_INVALID_NEGATIVE_AMOUNT_NON_CORRECTION;
-import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_ZERO_AMOUNT;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.KFSConstants.AMOUNT_PROPERTY_NAME;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_INVALID_NEGATIVE_AMOUNT_NON_CORRECTION;
+import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_ZERO_AMOUNT;
 
 /**
  * Validates an accounting line that, if the line is not a correction document, the line amount is a positive amount
@@ -42,6 +42,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
      * Check for zero amount, or negative on original (non-correction) document; no sign check for documents that are
      * corrections to previous documents
      * <strong>the accounting document must be the first parameter, the accounting line must be the second parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     @Override
@@ -53,8 +54,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
             if (KualiDecimal.ZERO.compareTo(amount) == 0) { // amount == 0
                 GlobalVariables.getMessageMap().putError(AMOUNT_PROPERTY_NAME, ERROR_ZERO_AMOUNT, "an accounting line");
                 return false;
-            }
-            else {
+            } else {
                 if (null == correctsDocumentId && KualiDecimal.ZERO.compareTo(amount) == 1) { // amount < 0
                     GlobalVariables.getMessageMap().putError(AMOUNT_PROPERTY_NAME, ERROR_INVALID_NEGATIVE_AMOUNT_NON_CORRECTION);
                     return false;
@@ -67,6 +67,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
 
     /**
      * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -75,6 +76,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -83,6 +85,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -91,6 +94,7 @@ public class AccountingLineAmountPositiveValidation extends GenericValidation {
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

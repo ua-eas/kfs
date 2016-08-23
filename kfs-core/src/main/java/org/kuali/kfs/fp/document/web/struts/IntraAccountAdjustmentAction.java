@@ -22,6 +22,4 @@ package org.kuali.kfs.fp.document.web.struts;
 public class IntraAccountAdjustmentAction extends CapitalAccountingLinesActionBase {
 
 
-
-
 }

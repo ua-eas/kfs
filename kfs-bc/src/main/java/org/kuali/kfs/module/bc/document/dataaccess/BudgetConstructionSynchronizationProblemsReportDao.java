@@ -22,7 +22,7 @@ public interface BudgetConstructionSynchronizationProblemsReportDao {
 
 
     /**
-     *  creates rows for report indicating invalid object classes or inactive positions in the detailed salary list.
+     * creates rows for report indicating invalid object classes or inactive positions in the detailed salary list.
      *
      * @param principalName--the user requesting the report
      * @return

@@ -22,13 +22,13 @@ import org.junit.Test
 import org.kuali.kfs.coreservice.test.JAXBAssert
 
 class ComponentTest {
-	private static final String CODE = "PC"
-	private static final String NAME = "Config"
-	private static final String NAMESPACE_CODE = "NSC"
+    private static final String CODE = "PC"
+    private static final String NAME = "Config"
+    private static final String NAMESPACE_CODE = "NSC"
     private static final String COMPONENT_SET_ID = "DD:myAppId";
-	private static final boolean ACTIVE = true
-	private static final Long VERSION_NUMBER = new Long(1);
-	private static final String OBJECT_ID = UUID.randomUUID();
+    private static final boolean ACTIVE = true
+    private static final Long VERSION_NUMBER = new Long(1);
+    private static final String OBJECT_ID = UUID.randomUUID();
     private static final String XML = """
         <component xmlns="http://rice.kuali.org/core/v2_0">
             <code>${CODE}</code>
@@ -53,53 +53,52 @@ class ComponentTest {
     """
 
 
-
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_all_null() {
         Component.Builder.create(null, null, null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_null() {
         Component.Builder.create(null, CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_empty() {
         Component.Builder.create("", CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_first_whitespace() {
         Component.Builder.create("  ", CODE, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_second_null() {
         Component.Builder.create(NAMESPACE_CODE, null, NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_second_empty() {
         Component.Builder.create(NAMESPACE_CODE, "", NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_second_whitespace() {
         Component.Builder.create(NAMESPACE_CODE, " ", NAME);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_third_null() {
         Component.Builder.create(NAMESPACE_CODE, CODE, null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_third_empty() {
         Component.Builder.create(NAMESPACE_CODE, CODE, "");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     void test_Builder_fail_third_whitespace() {
         Component.Builder.create(NAMESPACE_CODE, CODE, "  ");
     }
@@ -110,14 +109,14 @@ class ComponentTest {
     }
 
     @Test
-	public void test_Xml_Marshal_Unmarshal() {
-		JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, Component.class)
-	}
+    public void test_Xml_Marshal_Unmarshal() {
+        JAXBAssert.assertEqualXmlMarshalUnmarshal(this.create(), XML, Component.class)
+    }
 
     @Test
-	public void test_Xml_Marshal_Unmarshal_with_componentSetId() {
-		JAXBAssert.assertEqualXmlMarshalUnmarshal(this.createWithDefaultComponentSetId(), XML_COMPONENT_SET, Component.class)
-	}
+    public void test_Xml_Marshal_Unmarshal_with_componentSetId() {
+        JAXBAssert.assertEqualXmlMarshalUnmarshal(this.createWithDefaultComponentSetId(), XML_COMPONENT_SET, Component.class)
+    }
 
     private create() {
         return createWithComponentSetId(null)
@@ -128,14 +127,14 @@ class ComponentTest {
     }
 
     private createWithComponentSetId(String _componentSetId) {
-		return Component.Builder.create(new ComponentContract() {
-				String code = ComponentTest.CODE
-				String name = ComponentTest.NAME
-				String namespaceCode = ComponentTest.NAMESPACE_CODE
-                String componentSetId = _componentSetId
-                boolean active = ComponentTest.ACTIVE
-                Long versionNumber = ComponentTest.VERSION_NUMBER
-				String objectId = ComponentTest.OBJECT_ID
-			}).build()
-	}
+        return Component.Builder.create(new ComponentContract() {
+            String code = ComponentTest.CODE
+            String name = ComponentTest.NAME
+            String namespaceCode = ComponentTest.NAMESPACE_CODE
+            String componentSetId = _componentSetId
+            boolean active = ComponentTest.ACTIVE
+            Long versionNumber = ComponentTest.VERSION_NUMBER
+            String objectId = ComponentTest.OBJECT_ID
+        }).build()
+    }
 }

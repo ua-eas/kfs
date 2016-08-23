@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.KRADUtils;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Labor business object for LedgerBalanceForBenefitExpenseTransfer
@@ -47,8 +47,8 @@ public class LedgerBalanceForBenefitExpenseTransfer extends LedgerBalance implem
     }
 
     /**
-     * @see org.kuali.module.labor.bo.SegmentedBusinessObject#getSegmentedPropertyNames()
      * @return a collection
+     * @see org.kuali.module.labor.bo.SegmentedBusinessObject#getSegmentedPropertyNames()
      */
     public Collection<String> getSegmentedPropertyNames() {
         return (Collection<String>) Arrays.asList(AccountingPeriodProperties.namesToArray());

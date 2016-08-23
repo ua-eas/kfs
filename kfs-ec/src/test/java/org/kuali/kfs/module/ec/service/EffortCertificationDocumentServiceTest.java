@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.ec.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerEntry;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild;
@@ -41,10 +40,11 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
 
 @ConfigureContext(session = kfs)
 public class EffortCertificationDocumentServiceTest extends KualiTestBase {
@@ -117,8 +117,8 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
         try {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
             assertTrue(isCreated);
-        } catch ( ValidationException ex ) {
-            fail( "Business Rule Failure: " + GlobalVariables.getMessageMap() );
+        } catch (ValidationException ex) {
+            fail("Business Rule Failure: " + GlobalVariables.getMessageMap());
         }
 
         List<EffortCertificationDocument> documentList = TestDataPreparator.findMatching(EffortCertificationDocument.class, properties, EffortTestDataPropertyConstants.DOCUMENT_CLEANUP, documentFieldNames, deliminator);
@@ -161,8 +161,8 @@ public class EffortCertificationDocumentServiceTest extends KualiTestBase {
         try {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
             assertTrue(isCreated);
-        } catch ( ValidationException ex ) {
-            fail( "Business Rule Failure: " + GlobalVariables.getMessageMap() );
+        } catch (ValidationException ex) {
+            fail("Business Rule Failure: " + GlobalVariables.getMessageMap());
         }
 
         List<EffortCertificationDocument> documentList = TestDataPreparator.findMatching(EffortCertificationDocument.class, properties, EffortTestDataPropertyConstants.DOCUMENT_CLEANUP, documentFieldNames, deliminator);

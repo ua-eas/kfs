@@ -20,8 +20,6 @@ package org.kuali.kfs.krad.exception;
 
 /**
  * This class represents an exception that is thrown when part of the infrastructure is fatally unavailable.
- *
- *
  */
 public class InfrastructureException extends RuntimeException {
 

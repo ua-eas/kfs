@@ -44,16 +44,15 @@ public class CurrentAccountBalance extends Balance {
     /**
      * Instantiate a CurrentAccountBalance object using an implementation
      * of a Transaction object.
-     *
+     * <p>
      * This is useful for following conventions in the testing framework
      * where the test fixture uses a dummy PendingGeneralLedgerEntry object
      * for use in various test cases.
      *
-     *
      * @param t The transaction object from which the parent Balance class
      *          will initilialize with.
      */
-    public CurrentAccountBalance(Transaction t){
+    public CurrentAccountBalance(Transaction t) {
         super(t);
 
         // These are not set by the parent Balance class, so we will do so here
@@ -177,6 +176,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the currentBudget attribute.
+     *
      * @return Returns the currentBudget.
      */
     public KualiDecimal getCurrentBudget() {
@@ -185,6 +185,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the currentBudget attribute value.
+     *
      * @param currentBudget The currentBudget to set.
      */
     public void setCurrentBudget(KualiDecimal currentBudget) {
@@ -193,6 +194,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the beginningFundBalance attribute.
+     *
      * @return Returns the beginningFundBalance.
      */
     public KualiDecimal getBeginningFundBalance() {
@@ -201,6 +203,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the beginningFundBalance attribute value.
+     *
      * @param beginningFundBalance The beginningFundBalance to set.
      */
     public void setBeginningFundBalance(KualiDecimal beginningFundBalance) {
@@ -209,6 +212,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the beginningCurrentAssets attribute.
+     *
      * @return Returns the beginningCurrentAssets.
      */
     public KualiDecimal getBeginningCurrentAssets() {
@@ -217,6 +221,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the beginningCurrentAssets attribute value.
+     *
      * @param beginningCurrentAssets The beginningCurrentAssets to set.
      */
     public void setBeginningCurrentAssets(KualiDecimal beginningCurrentAssets) {
@@ -225,6 +230,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the beginningCurrentLiabilities attribute.
+     *
      * @return Returns the beginningCurrentLiabilities.
      */
     public KualiDecimal getBeginningCurrentLiabilities() {
@@ -233,6 +239,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the beginningCurrentLiabilities attribute value.
+     *
      * @param beginningCurrentLiabilities The beginningCurrentLiabilities to set.
      */
     public void setBeginningCurrentLiabilities(KualiDecimal beginningCurrentLiabilities) {
@@ -241,6 +248,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the encumbrances attribute.
+     *
      * @return Returns the encumbrances.
      */
     public KualiDecimal getEncumbrances() {
@@ -249,6 +257,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the encumbrances attribute value.
+     *
      * @param encumbrances The encumbrances to set.
      */
     public void setEncumbrances(KualiDecimal encumbrances) {
@@ -257,6 +266,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the budgetBalanceAvailable attribute.
+     *
      * @return Returns the budgetBalanceAvailable.
      */
     public KualiDecimal getBudgetBalanceAvailable() {
@@ -265,6 +275,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the budgetBalanceAvailable attribute value.
+     *
      * @param budgetBalanceAvailable The budgetBalanceAvailable to set.
      */
     public void setBudgetBalanceAvailable(KualiDecimal budgetBalanceAvailable) {
@@ -273,6 +284,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the cashExpenditureAuthority attribute.
+     *
      * @return Returns the cashExpenditureAuthority.
      */
     public KualiDecimal getCashExpenditureAuthority() {
@@ -281,6 +293,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the cashExpenditureAuthority attribute value.
+     *
      * @param cashExpenditureAuthority The cashExpenditureAuthority to set.
      */
     public void setCashExpenditureAuthority(KualiDecimal cashExpenditureAuthority) {
@@ -289,6 +302,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Gets the currentFundBalance attribute.
+     *
      * @return Returns the currentFundBalance.
      */
     public KualiDecimal getCurrentFundBalance() {
@@ -297,6 +311,7 @@ public class CurrentAccountBalance extends Balance {
 
     /**
      * Sets the currentFundBalance attribute value.
+     *
      * @param currentFundBalance The currentFundBalance to set.
      */
     public void setCurrentFundBalance(KualiDecimal currentFundBalance) {

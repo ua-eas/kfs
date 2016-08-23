@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.BulkReceiving;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.sql.Date;
 
 public enum BulkReceivingDocumentFixture {
 
@@ -117,8 +117,7 @@ public enum BulkReceivingDocumentFixture {
         null,//institutionContactName
         null,//institutionContactPhoneNumber
         null//institutionContactEmailAddress
-    ),
-    ;
+    ),;
 
     private Integer purchaseOrderIdentifier;
     private Date shipmentReceivedDate;
@@ -193,7 +192,7 @@ public enum BulkReceivingDocumentFixture {
 
                                          Integer alternateVendorHeaderGeneratedIdentifier,
                                          Integer alternateVendorDetailAssignedIdentifier,
-                                         String  alternateVendorName,
+                                         String alternateVendorName,
 
                                          String deliveryBuildingCode,
                                          String deliveryBuildingName,
@@ -213,7 +212,7 @@ public enum BulkReceivingDocumentFixture {
 
                                          String institutionContactName,
                                          String institutionContactPhoneNumber,
-                                         String institutionContactEmailAddress){
+                                         String institutionContactEmailAddress) {
 
 
         this.purchaseOrderIdentifier = purchaseOrderIdentifier;
@@ -264,12 +263,11 @@ public enum BulkReceivingDocumentFixture {
         this.institutionContactEmailAddress = institutionContactEmailAddress;
     }
 
-    public BulkReceivingDocument createBulkReceivingDocument(){
+    public BulkReceivingDocument createBulkReceivingDocument() {
         BulkReceivingDocument doc;
         try {
-             doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
-        }
-        catch (WorkflowException e) {
+            doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 
@@ -315,12 +313,11 @@ public enum BulkReceivingDocumentFixture {
         return doc;
     }
 
-    public BulkReceivingDocument createBulkReceivingDocument(PurchaseOrderDocument poDoc){
+    public BulkReceivingDocument createBulkReceivingDocument(PurchaseOrderDocument poDoc) {
         BulkReceivingDocument doc;
         try {
-             doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
-        }
-        catch (WorkflowException e) {
+            doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 

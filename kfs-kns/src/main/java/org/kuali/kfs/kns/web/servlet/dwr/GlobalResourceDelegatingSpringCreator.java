@@ -32,22 +32,18 @@ import java.lang.reflect.Proxy;
  * A {@link SpringCreator} that checks the {@link GlobalResourceLoader} for the
  * bean name in question if the default {@link BeanFactory} (the applications)
  * does not have the bean in question.
- *
- *
- *
  */
 public class GlobalResourceDelegatingSpringCreator extends SpringCreator {
 
     public static final String KEW_RUN_MODE_PROPERTY = "kew.mode";
     public static final String DOCUMENT_TYPE_SERVICE = "enDocumentTypeService";
 
-	@Override
-	public Object getInstance() throws InstantiationException {
+    @Override
+    public Object getInstance() throws InstantiationException {
 
         //KULRICE-7770 enDocumentTypeService isn't supported in remote mode
-        if(ConfigContext.getCurrentContextConfig().getProperty(KEW_RUN_MODE_PROPERTY).equals("REMOTE") &&
-                this.getBeanName().equals(DOCUMENT_TYPE_SERVICE))
-        {
+        if (ConfigContext.getCurrentContextConfig().getProperty(KEW_RUN_MODE_PROPERTY).equals("REMOTE") &&
+            this.getBeanName().equals(DOCUMENT_TYPE_SERVICE)) {
             return Proxy.newProxyInstance(getClass().getClassLoader(), new Class<?>[]{DocumentTypeService.class},
                 // trivial invocationHandler
                 new InvocationHandler() {
@@ -66,6 +62,6 @@ public class GlobalResourceDelegatingSpringCreator extends SpringCreator {
         }
 
         return bean;
-	}
+    }
 
 }

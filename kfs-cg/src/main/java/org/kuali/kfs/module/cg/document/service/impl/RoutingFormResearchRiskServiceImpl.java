@@ -18,24 +18,23 @@
  */
 package org.kuali.kfs.module.cg.document.service.impl;
 
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.cg.CGPropertyConstants;
+import org.kuali.kfs.module.cg.businessobject.ResearchRiskType;
+import org.kuali.kfs.module.cg.document.service.RoutingFormResearchRiskService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.module.cg.CGPropertyConstants;
-import org.kuali.kfs.module.cg.businessobject.ResearchRiskType;
-import org.kuali.kfs.module.cg.document.service.RoutingFormResearchRiskService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-
 public class RoutingFormResearchRiskServiceImpl implements RoutingFormResearchRiskService {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RoutingFormResearchRiskServiceImpl.class);
 
     private BusinessObjectService businessObjectService;
-
 
 
     /**

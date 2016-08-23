@@ -16,13 +16,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.krad.util;
+package org.kuali.kfs.krad.util
 
-import org.junit.Test;
+import org.junit.Test
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult
-import org.kuali.kfs.krad.util.KRADUtils;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue
 
 public class KRADUtilsTest {
 

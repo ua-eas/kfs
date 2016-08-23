@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ld.businessobject.options;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Returns a list of done files in batch origin entry directory
@@ -40,7 +40,8 @@ public class ProcessingCorrectionLaborGroupEntriesFinder extends KeyValuesBase {
     public List<KeyValue> getKeyValues() {
         List<KeyValue> activeLabels = new ArrayList<KeyValue>();
 
-        LaborOriginEntryGroupService originEntryGroupService = SpringContext.getBean(LaborOriginEntryGroupService.class);;
+        LaborOriginEntryGroupService originEntryGroupService = SpringContext.getBean(LaborOriginEntryGroupService.class);
+        ;
         File[] fileList = originEntryGroupService.getAllFileInBatchDirectory();
         if (fileList != null) {
             for (File file : fileList) {

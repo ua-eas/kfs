@@ -18,23 +18,20 @@
  */
 package org.kuali.kfs.coreservice.impl.style;
 
-import org.kuali.kfs.coreservice.impl.style.StyleBo;
-
 import java.util.List;
 
 /**
  * Defines data access operations related to {@link StyleBo}.
  *
  * @see StyleBo
- *
  */
 public interface StyleDao {
 
-	/**
-	 * Updates or creates the given style in the data store.
-	 *
-	 * @param style the style to save, if null then this method will do nothing
-	 */
+    /**
+     * Updates or creates the given style in the data store.
+     *
+     * @param style the style to save, if null then this method will do nothing
+     */
     void saveStyle(StyleBo style);
 
     /**

@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.fp.dataaccess.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.kuali.kfs.fp.dataaccess.PopulateProcurementCardDefaultIdsDao;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PopulateProcurementCardDefaultIdsDaoJdbc extends PlatformAwareDaoBaseJdbc implements PopulateProcurementCardDefaultIdsDao {
     protected SequenceAccessorService sequenceAccessorService;

@@ -22,7 +22,6 @@ import java.util.List;
 
 /**
  * Interface to initiate required directories for batch jobs or service impl
- *
  */
 public interface InitiateDirectory {
 
@@ -31,7 +30,7 @@ public interface InitiateDirectory {
      *
      * @param directoryPaths
      */
-    public void prepareDirectories(List<String>directoryPaths);
+    public void prepareDirectories(List<String> directoryPaths);
 
     /**
      * Get the required list of directories name (full path)

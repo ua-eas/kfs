@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Utility class to set error path for Payment Request validations
@@ -42,7 +42,7 @@ public class PurchasingAccountsPayableErrorPathUtil {
      * documents have accounting lines insides of items. Hence the error path is slightly different.
      *
      * @param financialDocument The financial document the errors will be posted to.
-     * @param accountingLine The accounting line the error will be posted on.
+     * @param accountingLine    The accounting line the error will be posted on.
      */
     public static void fixErrorPath(AccountingDocument financialDocument, AccountingLine accountingLine) {
         List<PurApItem> items = ((PurchasingAccountsPayableDocument) financialDocument).getItems();

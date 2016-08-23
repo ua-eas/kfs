@@ -24,7 +24,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 
-public interface CapitalAssetLocation  extends ExternalizableBusinessObject{
+public interface CapitalAssetLocation extends ExternalizableBusinessObject {
 
     public Integer getCapitalAssetSystemIdentifier();
 

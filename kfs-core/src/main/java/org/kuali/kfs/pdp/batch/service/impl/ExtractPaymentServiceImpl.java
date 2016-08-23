@@ -18,25 +18,12 @@
  */
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.batch.service.ExtractPaymentService;
@@ -60,14 +47,27 @@ import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.springframework.transaction.annotation.Transactional;
-import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 @Transactional
@@ -123,7 +123,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         String checkCancelledFilePrefix = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.ExtractPayment.CHECK_CANCEL_FILENAME);
-        checkCancelledFilePrefix = MessageFormat.format(checkCancelledFilePrefix, new Object[] { null });
+        checkCancelledFilePrefix = MessageFormat.format(checkCancelledFilePrefix, new Object[]{null});
 
         String filename = getOutputFile(checkCancelledFilePrefix, processDate);
         if (LOG.isDebugEnabled()) {
@@ -150,14 +150,12 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
                 writeTag(os, 4, "netAmount", history.getPaymentGroup().getNetPaymentAmount().toString());
                 if (ObjectUtils.isNotNull(history.getOrigDisburseNbr())) {
                     writeTag(os, 4, "disbursementNumber", history.getOrigDisburseNbr().toString());
-                }
-                else {
+                } else {
                     writeTag(os, 4, "disbursementNumber", history.getPaymentGroup().getDisbursementNbr().toString());
                 }
                 if (ObjectUtils.isNotNull(history.getPaymentGroup().getDisbursementType())) {
                     writeTag(os, 4, "disbursementType", history.getPaymentGroup().getDisbursementType().getCode());
-                }
-                else {
+                } else {
                     writeTag(os, 4, "disbursementType", history.getDisbursementType().getCode());
                 }
 
@@ -175,18 +173,15 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
 
             writeCloseTag(os, 0, "canceledChecks");
             createDoneFile(filename);
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             LOG.error("extractCanceledChecks() Problem reading file:  " + filename, ie);
             throw new IllegalArgumentException("Error writing to output file: " + ie.getMessage());
-        }
-        finally {
+        } finally {
             // Close file
             if (os != null) {
                 try {
                     os.close();
-                }
-                catch (IOException ie) {
+                } catch (IOException ie) {
                     // Not much we can do now
                 }
             }
@@ -205,7 +200,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
         PaymentStatus extractedStatus = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.EXTRACTED);
 
         String achFilePrefix = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.ExtractPayment.ACH_FILENAME);
-        achFilePrefix = MessageFormat.format(achFilePrefix, new Object[] { null });
+        achFilePrefix = MessageFormat.format(achFilePrefix, new Object[]{null});
 
         String filename = getOutputFile(achFilePrefix, processDate);
         if (LOG.isDebugEnabled()) {
@@ -232,7 +227,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
         PaymentStatus extractedStatus = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.EXTRACTED);
 
         String checkFilePrefix = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.ExtractPayment.CHECK_FILENAME);
-        checkFilePrefix = MessageFormat.format(checkFilePrefix, new Object[] { null });
+        checkFilePrefix = MessageFormat.format(checkFilePrefix, new Object[]{null});
 
         String filename = getOutputFile(checkFilePrefix, processDate);
         if (LOG.isDebugEnabled()) {
@@ -275,7 +270,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
         //customer profile, then change the filename to append the RP-Upload prefix.
         if (isResearchParticipantExtractFile(processId)) {
             String checkFilePrefix = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.ExtractPayment.CHECK_FILENAME);
-            checkFilePrefix = MessageFormat.format(checkFilePrefix, new Object[] { null });
+            checkFilePrefix = MessageFormat.format(checkFilePrefix, new Object[]{null});
             checkFilePrefix = PdpConstants.RESEARCH_PARTICIPANT_FILE_PREFIX + KFSConstants.DASH + checkFilePrefix;
             filename = getOutputFile(checkFilePrefix, processDate);
         }
@@ -290,7 +285,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
 
             for (String bankCode : bankCodes) {
                 List<Integer> disbNbrs = paymentGroupService.getDisbursementNumbersByDisbursementTypeAndBankCode(processId, PdpConstants.DisbursementTypeCodes.CHECK, bankCode);
-                for (Iterator<Integer> iter = disbNbrs.iterator(); iter.hasNext();) {
+                for (Iterator<Integer> iter = disbNbrs.iterator(); iter.hasNext(); ) {
                     Integer disbursementNbr = iter.next();
 
                     boolean first = true;
@@ -361,7 +356,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
                         writeTag(os, 8, "invTotOtherCreditAmount", detail.getInvTotOtherCreditAmount().toString());
 
                         writeOpenTag(os, 8, "notes");
-                        for (Iterator ix = detail.getNotes().iterator(); ix.hasNext();) {
+                        for (Iterator ix = detail.getNotes().iterator(); ix.hasNext(); ) {
                             PaymentNoteText note = (PaymentNoteText) ix.next();
                             writeTag(os, 10, "note", note.getCustomerNoteText());
                         }
@@ -377,18 +372,15 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
             }
             writeCloseTag(os, 0, "checks");
             createDoneFile(filename);
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             LOG.error("extractChecks() Problem reading file:  " + filename, ie);
             throw new IllegalArgumentException("Error writing to output file: " + ie.getMessage());
-        }
-        finally {
+        } finally {
             // Close file
             if (os != null) {
                 try {
                     os.close();
-                }
-                catch (IOException ie) {
+                } catch (IOException ie) {
                     // Not much we can do now
                 }
             }
@@ -436,7 +428,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
                 // Write all payment level information
                 writeOpenTag(os, 4, "payments");
                 List pdList = paymentGroup.getPaymentDetails();
-                for (Iterator iterator = pdList.iterator(); iterator.hasNext();) {
+                for (Iterator iterator = pdList.iterator(); iterator.hasNext(); ) {
                     PaymentDetail paymentDetail = (PaymentDetail) iterator.next();
                     writeOpenTag(os, 6, "payment");
 
@@ -456,7 +448,7 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
                     writeTag(os, 6, "invTotOtherCreditAmount", paymentDetail.getInvTotOtherCreditAmount().toString());
 
                     writeOpenTag(os, 6, "notes");
-                    for (Iterator i = paymentDetail.getNotes().iterator(); i.hasNext();) {
+                    for (Iterator i = paymentDetail.getNotes().iterator(); i.hasNext(); ) {
                         PaymentNoteText note = (PaymentNoteText) i.next();
                         writeTag(os, 8, "note", escapeString(note.getCustomerNoteText()));
                     }
@@ -486,18 +478,15 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
 
             // send summary email
             paymentFileEmailService.sendAchSummaryEmail(unitCounts, unitTotals, dateTimeService.getCurrentDate());
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             LOG.error("extractAchPayments() Problem reading file:  " + filename, ie);
             throw new IllegalArgumentException("Error writing to output file: " + ie.getMessage());
-        }
-        finally {
+        } finally {
             // Close file
             if (os != null) {
                 try {
                     os.close();
-                }
-                catch (IOException ie) {
+                } catch (IOException ie) {
                     // Not much we can do now
                 }
             }
@@ -584,12 +573,12 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
 
         // get country name for code
         String countryName = "";
-        if ( StringUtils.isNotBlank(pg.getCountry()) ) {
+        if (StringUtils.isNotBlank(pg.getCountry())) {
             Country country = countryService.getCountry(pg.getCountry());
             if (country != null) {
                 countryName = country.getName();
             }
-            if ( StringUtils.isBlank(countryName) ) {
+            if (StringUtils.isBlank(countryName)) {
                 countryName = pg.getCountry();
             }
         }
@@ -607,15 +596,14 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
      * Creates a '.done' file with the name of the original file.
      */
     protected void createDoneFile(String filename) {
-        String doneFileName =  StringUtils.substringBeforeLast(filename,".") + ".done";
+        String doneFileName = StringUtils.substringBeforeLast(filename, ".") + ".done";
         File doneFile = new File(doneFileName);
 
         if (!doneFile.exists()) {
             boolean doneFileCreated = false;
             try {
                 doneFileCreated = doneFile.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("unable to create done file " + doneFileName, e);
                 throw new RuntimeException("Errors encountered while saving the file: Unable to create .done file " + doneFileName, e);
             }
@@ -746,7 +734,9 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(directoryName); }};
+        return new ArrayList<String>() {{
+            add(directoryName);
+        }};
     }
 
     public DataDictionaryService getDataDictionaryService() {
@@ -759,27 +749,27 @@ public class ExtractPaymentServiceImpl extends InitiateDirectoryBase implements 
 
     /**
      * @see org.kuali.kfs.pdp.batch.service.ExtractPaymentService#formatCheckNoteLines(java.lang.String)
-     *
+     * <p>
      * Long check stub note
      */
-   @Override
-   public List<String> formatCheckNoteLines(String checkNote) {
-       List<String> formattedCheckNoteLines = new ArrayList<String>();
+    @Override
+    public List<String> formatCheckNoteLines(String checkNote) {
+        List<String> formattedCheckNoteLines = new ArrayList<String>();
 
-       if (StringUtils.isBlank(checkNote)) {
-           return formattedCheckNoteLines;
-       }
+        if (StringUtils.isBlank(checkNote)) {
+            return formattedCheckNoteLines;
+        }
 
-       String[] textLines = StringUtils.split(checkNote, BusinessObjectReportHelper.LINE_BREAK);
-       int maxLengthOfNoteLine = dataDictionaryService.getAttributeMaxLength(PaymentNoteText.class, "customerNoteText");
-       for (String textLine : textLines) {
-           String text = WordUtils.wrap(textLine, maxLengthOfNoteLine, BusinessObjectReportHelper.LINE_BREAK, true);
-           String[] wrappedTextLines = StringUtils.split(text, BusinessObjectReportHelper.LINE_BREAK);
-           for (String wrappedText : wrappedTextLines) {
-               formattedCheckNoteLines.add(wrappedText);
-           }
-       }
-       return formattedCheckNoteLines;
-   }
+        String[] textLines = StringUtils.split(checkNote, BusinessObjectReportHelper.LINE_BREAK);
+        int maxLengthOfNoteLine = dataDictionaryService.getAttributeMaxLength(PaymentNoteText.class, "customerNoteText");
+        for (String textLine : textLines) {
+            String text = WordUtils.wrap(textLine, maxLengthOfNoteLine, BusinessObjectReportHelper.LINE_BREAK, true);
+            String[] wrappedTextLines = StringUtils.split(text, BusinessObjectReportHelper.LINE_BREAK);
+            for (String wrappedText : wrappedTextLines) {
+                formattedCheckNoteLines.add(wrappedText);
+            }
+        }
+        return formattedCheckNoteLines;
+    }
 
 }

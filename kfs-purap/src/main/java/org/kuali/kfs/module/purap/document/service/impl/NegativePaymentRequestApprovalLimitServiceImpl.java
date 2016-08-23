@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.util.Collection;
-
 import org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalLimit;
 import org.kuali.kfs.module.purap.document.dataaccess.NegativePaymentRequestApprovalLimitDao;
 import org.kuali.kfs.module.purap.document.service.NegativePaymentRequestApprovalLimitService;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
 
 @NonTransactional
 public class NegativePaymentRequestApprovalLimitServiceImpl implements NegativePaymentRequestApprovalLimitService {
@@ -44,7 +44,7 @@ public class NegativePaymentRequestApprovalLimitServiceImpl implements NegativeP
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.NegativePaymentRequestApprovalLimitService#findByChartAndAccount(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<NegativePaymentRequestApprovalLimit> findByChartAndAccount(String chartCode, String accountNumber) {
         return dao.findByChartAndAccount(chartCode, accountNumber);
@@ -52,7 +52,7 @@ public class NegativePaymentRequestApprovalLimitServiceImpl implements NegativeP
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.NegativePaymentRequestApprovalLimitService#findByChartAndOrganization(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<NegativePaymentRequestApprovalLimit> findByChartAndOrganization(String chartCode, String organizationCode) {
         return dao.findByChartAndOrganization(chartCode, organizationCode);

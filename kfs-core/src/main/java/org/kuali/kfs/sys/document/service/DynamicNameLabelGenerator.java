@@ -26,7 +26,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 public interface DynamicNameLabelGenerator {
     /**
      * Builds the Javascript that should appear in the onblur attribute of the field associated with this dynamic name label
-     * @param line the accounting line this label is associated with
+     *
+     * @param line                   the accounting line this label is associated with
      * @param accountingLineProperty the property of the accounting line
      * @return a Javascript call to be performed onblur from the field
      */
@@ -34,7 +35,8 @@ public interface DynamicNameLabelGenerator {
 
     /**
      * Returns the value of the dynamic name label
-     * @param line the accounting line this label is associated with
+     *
+     * @param line                   the accounting line this label is associated with
      * @param accountingLineProperty the property of the accounting line
      * @return the value, or an blank String ("" or null) if no value exists
      */
@@ -42,7 +44,8 @@ public interface DynamicNameLabelGenerator {
 
     /**
      * Returns the field name of the dynamic name label
-     * @param line the accounting line this label is associated with
+     *
+     * @param line                   the accounting line this label is associated with
      * @param accountingLineProperty the property of the accounting line
      * @return the field name
      */

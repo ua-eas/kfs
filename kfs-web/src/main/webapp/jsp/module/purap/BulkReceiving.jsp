@@ -16,59 +16,59 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:documentPage showDocumentInfo="true"
-    documentTypeName="BulkReceivingDocument"
-    htmlFormAction="purapBulkReceiving" renderMultipart="true"
-    showTabButtons="true">
+                  documentTypeName="BulkReceivingDocument"
+                  htmlFormAction="purapBulkReceiving" renderMultipart="true"
+                  showTabButtons="true">
 
-    <sys:hiddenDocumentFields isFinancialDocument="false" />
+    <sys:hiddenDocumentFields isFinancialDocument="false"/>
 
-    <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+    <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 
-	<c:if test="${KualiForm.editingMode['displayInitTab']}" >
-    	<purap:bulkReceivingInit documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"/>
+    <c:if test="${KualiForm.editingMode['displayInitTab']}">
+        <purap:bulkReceivingInit documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"/>
         <c:set var="globalButtonTabIndex" value="15"/>
-	</c:if>
+    </c:if>
 
     <c:choose>
-	    <c:when test="${not empty KualiForm.document.purchaseOrderIdentifier}" >
-	    	<c:set var="isPOAvailable" value="true" scope="request" />
-	    </c:when>
-	    <c:otherwise>
-	    	<c:set var="isPOAvailable" value="false" scope="request" />
-	    </c:otherwise>
+        <c:when test="${not empty KualiForm.document.purchaseOrderIdentifier}">
+            <c:set var="isPOAvailable" value="true" scope="request"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="isPOAvailable" value="false" scope="request"/>
+        </c:otherwise>
     </c:choose>
 
-   <c:if test="${not KualiForm.editingMode['displayInitTab']}" >
-	    <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <c:if test="${not KualiForm.editingMode['displayInitTab']}">
+        <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
-		 <purap:bulkReceivingVendor
-		    documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"/>
+        <purap:bulkReceivingVendor
+                documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"/>
 
-	    <purap:bulkReceivingDelivery
-			documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"
-			deliveryReadOnly="true" />
+        <purap:bulkReceivingDelivery
+                documentAttributes="${DataDictionary.BulkReceivingDocument.attributes}"
+                deliveryReadOnly="true"/>
 
-	    <purap:relatedDocuments
-            documentAttributes="${DataDictionary.RelatedDocuments.attributes}" />
+        <purap:relatedDocuments
+                documentAttributes="${DataDictionary.RelatedDocuments.attributes}"/>
 
-		<kul:notes />
+        <kul:notes/>
 
-		<kul:adHocRecipients />
+        <kul:adHocRecipients/>
 
-	    <kul:routeLog />
+        <kul:routeLog/>
 
-	    <kul:superUserActions />
-	</c:if>
+        <kul:superUserActions/>
+    </c:if>
 
     <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
 
     <sys:documentControls
-        transactionalDocument="true"
-        extraButtons="${extraButtons}"
-        suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}"
-        tabindex="${globalButtonTabIndex}"/>
+            transactionalDocument="true"
+            extraButtons="${extraButtons}"
+            suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}"
+            tabindex="${globalButtonTabIndex}"/>
 
 </kul:documentPage>

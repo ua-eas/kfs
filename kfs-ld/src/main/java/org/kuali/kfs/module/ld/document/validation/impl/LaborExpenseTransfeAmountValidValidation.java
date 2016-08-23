@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.ld.document.validation.impl;
 
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -25,13 +26,12 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * determine whether the amount in the account is not zero
  *
  * @param accountingDocument the given document
- * @param accountingLine the given accounting line
+ * @param accountingLine     the given accounting line
  * @return true determine whether the amount in the account is not zero; otherwise, false
  */
 public class LaborExpenseTransfeAmountValidValidation extends GenericValidation {
@@ -42,6 +42,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
      * Validates that an accounting line whether the expired account in the target accounting line
      * can be used.
      * <strong>Expects an accounting line as the first a parameter</strong>
+     *
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -51,7 +52,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
         AccountingDocument accountingDocumentForValidation = getAccountingDocumentForValidation();
 
         // not allow the zero amount on the account lines.
-        if (!isAmountValid(accountingDocumentForValidation,accountingLine)) {
+        if (!isAmountValid(accountingDocumentForValidation, accountingLine)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.AMOUNT, KFSKeyConstants.ERROR_ZERO_AMOUNT, "an accounting line");
             return false;
         }
@@ -79,6 +80,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -87,6 +89,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -95,6 +98,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
 
     /**
      * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -103,6 +107,7 @@ public class LaborExpenseTransfeAmountValidValidation extends GenericValidation 
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {

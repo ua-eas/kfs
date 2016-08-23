@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.sys;
 
-import org.kuali.rice.kim.impl.KIMPropertyConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
-
+import org.kuali.rice.kim.impl.KIMPropertyConstants;
 
 
 /**
@@ -334,7 +333,7 @@ public class KFSPropertyConstants {
     public static final String COMPONENT_LABEL = "componentLabel";
     public static final String CUSTOMER_ADDRESS_IDENTIFIER = "customerAddressIdentifier";
     public static final String CUSTOMER_NUMBER = "customerNumber";
-    public static final String CUSTOMER_ADDRESS_TYPE_CODE="customerAddressTypeCode";
+    public static final String CUSTOMER_ADDRESS_TYPE_CODE = "customerAddressTypeCode";
     public static final String CUSTOMER_NAME = "customerName";
     public static final String CUSTOMER_TAX_NUMBER = "customerTaxNbr";
     public static final String DEPARTMENT_NAME = "departmentName";
@@ -1035,7 +1034,7 @@ public class KFSPropertyConstants {
     public static final String PROCESS_TRANSMISSION_DATE = "processTransmissionDate";
     public static final String PROCESSED_DATE = "processedDate";
     public static final String PROCESSING_FIN_CHART_OF_ACCT = "processingFinChartOfAcct";
-    public static final String PROCESSING_CHART_OF_ACCT_CD ="processingChartOfAccountCode";
+    public static final String PROCESSING_CHART_OF_ACCT_CD = "processingChartOfAccountCode";
     public static final String PROCESSING_FIN_CHART_OF_ACCT_CD = "processingFinChartOfAcctCd";
     public static final String PROCESSING_ORG = "processingOrg";
     public static final String PROCESSING_ORGANIZATION_CODE = "processingOrganizationCode";
@@ -1305,7 +1304,7 @@ public class KFSPropertyConstants {
     public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
     public static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
     public static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
-    public static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
+    public static final String UPDATE_WORKFLOW_ON_STARTUP = "updateWorkflowOnStartup";
 
     public static final String HAS_DOCUMENTATION = "hasDocumentation";
     public static final String CHOSEN_ELECTRONIC_PAYMENT_CLAIMING_DOCUMENT_CODE = "chosenElectronicPaymentClaimingDocumentCode";

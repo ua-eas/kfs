@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.validation.event;
 
-import org.kuali.kfs.module.ar.document.validation.ContinueCustomerInvoiceWriteoffDocumentRule;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.module.ar.document.validation.ContinueCustomerInvoiceWriteoffDocumentRule;
 
 public class ContinueCustomerInvoiceWriteoffDocumentEvent extends KualiDocumentEventBase {
 
@@ -35,6 +35,6 @@ public class ContinueCustomerInvoiceWriteoffDocumentEvent extends KualiDocumentE
     }
 
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((ContinueCustomerInvoiceWriteoffDocumentRule) rule).processContinueCustomerInvoiceWriteoffDocumentRules((TransactionalDocument)getDocument());
+        return ((ContinueCustomerInvoiceWriteoffDocumentRule) rule).processContinueCustomerInvoiceWriteoffDocumentRules((TransactionalDocument) getDocument());
     }
 }

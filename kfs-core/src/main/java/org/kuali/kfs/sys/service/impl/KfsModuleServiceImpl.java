@@ -18,21 +18,19 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
+import org.kuali.kfs.krad.service.impl.ModuleServiceBase;
 import org.kuali.kfs.sys.batch.service.impl.SchedulerServiceImpl;
 import org.kuali.kfs.sys.service.BatchModuleService;
-import org.kuali.kfs.krad.service.impl.ModuleServiceBase;
 
 /**
- *
  * This class is the KFS implementation of a module service. It also implements the batch related methods
- *
  */
 public class KfsModuleServiceImpl extends ModuleServiceBase implements BatchModuleService {
 
     /***
      * @see org.kuali.kfs.sys.service.BatchModuleService#hasJobStatus(java.lang.String)
      */
-    public boolean isExternalJob(String jobName){
+    public boolean isExternalJob(String jobName) {
         return false;
     }
 
@@ -40,7 +38,7 @@ public class KfsModuleServiceImpl extends ModuleServiceBase implements BatchModu
      * @see org.kuali.kfs.sys.service.BatchModuleService#getJobStatus(java.lang.String)
      */
     public String getExternalJobStatus(String jobName) {
-        if(isExternalJob(jobName))
+        if (isExternalJob(jobName))
             return SchedulerServiceImpl.SUCCEEDED_JOB_STATUS_CODE;
         return null;
     }

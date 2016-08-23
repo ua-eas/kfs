@@ -18,11 +18,6 @@
  */
 package org.kuali.kfs.module.tem.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -35,13 +30,17 @@ import org.kuali.kfs.module.tem.dataaccess.ExpenseTypeObjectCodeDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * OJB implementation of the ExpenseTypeObjectCodeDao
  */
 public class ExpenseTypeObjectCodeDaoOjb extends PlatformAwareDaoBaseOjb implements ExpenseTypeObjectCodeDao {
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.dataaccess.ExpenseTypeObjectCodeDao#findMatchingExpenseTypeObjectCodes(java.lang.String, java.util.List, java.lang.String, java.lang.String)
      */
     @Override
@@ -78,7 +77,6 @@ public class ExpenseTypeObjectCodeDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.dataaccess.ExpenseTypeObjectCodeDao#findMatchingExpenseTypesObjectCodes(java.util.Set, java.lang.String, java.lang.String)
      */
     @Override
@@ -102,7 +100,7 @@ public class ExpenseTypeObjectCodeDaoOjb extends PlatformAwareDaoBaseOjb impleme
             c.addIn(TemPropertyConstants.TRAVELER_TYPE_CODE, travelerTypes);
         }
         QueryByCriteria query = QueryFactory.newQuery(ExpenseTypeObjectCode.class, c);
-        query.addOrderByAscending(TemPropertyConstants.EXPENSE_TYPE+"."+KFSPropertyConstants.NAME);
+        query.addOrderByAscending(TemPropertyConstants.EXPENSE_TYPE + "." + KFSPropertyConstants.NAME);
         List<ExpenseTypeObjectCode> results = new ArrayList<ExpenseTypeObjectCode>();
         results.addAll(getPersistenceBrokerTemplate().getCollectionByQuery(query));
         return results;

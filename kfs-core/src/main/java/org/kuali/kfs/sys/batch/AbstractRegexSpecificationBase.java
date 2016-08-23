@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.sys.batch;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * The abstract parent of flat file specifications which use regexes to determine what line is parsed into what object
@@ -36,12 +36,13 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Matches the given line with an object to parse into, or null if no object could be found
+     *
      * @see org.kuali.kfs.sys.batch.FlatFileSpecification#determineClassForLine(java.lang.String)
      */
     public Class<?> determineClassForLine(String line) {
         final String matchLine = trimLine(line);
         for (FlatFileObjectSpecification objectSpecification : getObjectSpecifications()) {
-            final FlatFileRegexObjectSpecification regexObjectSpecification = (FlatFileRegexObjectSpecification)objectSpecification;
+            final FlatFileRegexObjectSpecification regexObjectSpecification = (FlatFileRegexObjectSpecification) objectSpecification;
             final Pattern pattern = regexObjectSpecification.getPattern();
             if (matches(pattern, matchLine)) {
                 return regexObjectSpecification.getBusinessObjectClass();
@@ -55,6 +56,7 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Trims the trailing space only from the given line, though only if trimLineBeforeMatch is true
+     *
      * @param line the line to perhaps trim trailing spaces from
      * @return the maybe trimmed line
      */
@@ -67,6 +69,7 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Sets the insignificant regex patterns
+     *
      * @param insignificantRegexPatterns the regex patterns for lines to ignore
      */
     public void setInsignificantRegexPatterns(List<String> insignificantRegexPatterns) {
@@ -81,8 +84,9 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Determines if the given line matches the given pattern, following the full match rule
+     *
      * @param pattern the pattern to match against
-     * @param line the parsed line to match
+     * @param line    the parsed line to match
      * @return true if the line matches and the line should be parsed by this object specification; false if this line should be given to the next object specification
      */
     protected boolean matches(Pattern pattern, String line) {
@@ -110,6 +114,7 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Sets whether this will strip trailing spaces before parsing the line.  Defaults to false.
+     *
      * @param trimLineBeforeMatch true if trailing spaces should be stripped, false otherwise
      */
     public void setTrimLineBeforeMatch(boolean trimLineBeforeMatch) {
@@ -125,6 +130,7 @@ public abstract class AbstractRegexSpecificationBase extends AbstractFlatFileSpe
 
     /**
      * Sets whether the regular expression associated with this object specification will attempt to match against the whole line or search for the pattern within the line.  If true, it will match the full line, and this is the default.
+     *
      * @param fullMatch true if match against the full line should be carried out, false otherwise
      */
     public void setFullMatch(boolean fullMatch) {

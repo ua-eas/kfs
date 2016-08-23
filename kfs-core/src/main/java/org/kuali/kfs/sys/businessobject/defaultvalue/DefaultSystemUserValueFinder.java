@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.businessobject.defaultvalue;
 
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * This class...
@@ -36,8 +36,7 @@ public class DefaultSystemUserValueFinder implements ValueFinder {
         Person defaultUser = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(KFSConstants.SYSTEM_USER);
         if (defaultUser != null) {
             return defaultUser.getPrincipalName();
-        }
-        else {
+        } else {
             return KFSConstants.EMPTY_STRING;
         }
     }

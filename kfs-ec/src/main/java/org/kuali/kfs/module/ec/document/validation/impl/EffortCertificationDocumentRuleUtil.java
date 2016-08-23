@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.module.ec.document.validation.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.CurrencyTypeAmounts.HUNDRED_DOLLAR_AMOUNT;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
-import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
@@ -36,9 +32,13 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSConstants.CurrencyTypeAmounts.HUNDRED_DOLLAR_AMOUNT;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT;
+import static org.kuali.kfs.sys.businessobject.AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED;
 
 /**
  * Provides a set of facilities to determine whether the given Effort Certification Documents or Effort Certification Detail meet
@@ -54,12 +54,12 @@ public class EffortCertificationDocumentRuleUtil {
      */
     public static void applyDefaultValues(EffortCertificationDetail detailLine) {
 
-       if (StringUtils.isBlank(detailLine.getSubAccountNumber())) {
-           detailLine.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
-       }
+        if (StringUtils.isBlank(detailLine.getSubAccountNumber())) {
+            detailLine.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
+        }
 
         if (StringUtils.isBlank(detailLine.getCostShareSourceSubAccountNumber())) {
-           detailLine.setCostShareSourceSubAccountNumber(KFSConstants.getDashSubAccountNumber());
+            detailLine.setCostShareSourceSubAccountNumber(KFSConstants.getDashSubAccountNumber());
         }
 
         if (StringUtils.isBlank(detailLine.getSourceChartOfAccountsCode())) {
@@ -86,9 +86,9 @@ public class EffortCertificationDocumentRuleUtil {
             detailLine.setEffortCertificationUpdatedOverallPercent(0);
         }
 
-        if(ObjectUtils.isNull(detailLine.getUniversityFiscalYear())){
+        if (ObjectUtils.isNull(detailLine.getUniversityFiscalYear())) {
             UniversityDateService universityDateService = SpringContext.getBean(UniversityDateService.class);
-            if(detailLine.getUniversityFiscalYear() == null) {
+            if (detailLine.getUniversityFiscalYear() == null) {
                 detailLine.setUniversityFiscalYear(universityDateService.getCurrentFiscalYear());
             }
         }
@@ -122,7 +122,7 @@ public class EffortCertificationDocumentRuleUtil {
         if (KFSConstants.getDashSubAccountNumber().equals(subAccountNumber)) {
             return false;
         }
-       return ObjectUtils.isNotNull(detailLine.getSubAccount().getA21SubAccount());
+        return ObjectUtils.isNotNull(detailLine.getSubAccount().getA21SubAccount());
     }
 
     /**
@@ -148,7 +148,7 @@ public class EffortCertificationDocumentRuleUtil {
     /**
      * determine if the given detail line is associated with a sub account whose type code is in the given list
      *
-     * @param detailLine the given detail line
+     * @param detailLine                            the given detail line
      * @param designatedCostShareSubAccountTypeCode the designated cost share sub account type codes
      * @return true if the given detail line is associated with a sub account whose type code is in the given list; otherwise, false
      */
@@ -177,17 +177,17 @@ public class EffortCertificationDocumentRuleUtil {
      * determine if there is a line in the given document that has the same values for the comparable fields as the given detail
      * line
      *
-     * @param document the given effort certification document
-     * @param detailLine the given detail line
+     * @param document         the given effort certification document
+     * @param detailLine       the given detail line
      * @param comparableFields the comparable fields
      * @return true if there is a line in the given document that has the same values for the comparable fields as the given detail
-     *         line; otherwise, false
+     * line; otherwise, false
      */
     public static boolean hasSameExistingLine(EffortCertificationDocument document, EffortCertificationDetail detailLine, List<String> comparableFields) {
         List<EffortCertificationDetail> detailLines = document.getEffortCertificationDetailLines();
 
         for (EffortCertificationDetail line : detailLines) {
-            if(detailLine != line && ObjectUtil.equals(line, detailLine, comparableFields)) {
+            if (detailLine != line && ObjectUtil.equals(line, detailLine, comparableFields)) {
                 return true;
             }
         }
@@ -331,6 +331,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if original effort percent is same as the current effort percent for the given detail line
+     *
      * @param detailLine the given effort certification detail line
      * @return true if original effort percent same as current effort percent
      */
@@ -342,7 +343,7 @@ public class EffortCertificationDocumentRuleUtil {
     /**
      * determine if the change on the payroll amount of the given detail line exceeds the specified limit
      *
-     * @param detailLine the given effort certification detail line
+     * @param detailLine                     the given effort certification detail line
      * @param limitOfLinePayrollAmountChange the specified upper bound limit
      * @return true if the change on the payroll amount of the given detail line exceeds the specified limit; otherwise, false
      */
@@ -366,7 +367,7 @@ public class EffortCertificationDocumentRuleUtil {
     /**
      * determine if there is a change on the payroll amount of a detail line that exceeds the specified limit
      *
-     * @param document the given effort certification document
+     * @param document                       the given effort certification document
      * @param limitOfLinePayrollAmountChange the specified upper bound limit
      * @return true if the change on the payroll amount of any detail line exceeds the specified limit; otherwise, false
      */
@@ -396,7 +397,7 @@ public class EffortCertificationDocumentRuleUtil {
     /**
      * determine if the change on the total payroll amount exceeds the specified limit
      *
-     * @param document the given effort certification document
+     * @param document                        the given effort certification document
      * @param limitOfTotalPayrollAmountChange the specified upper bound limit
      * @return true if the change on the total payroll amount exceeds the specified limit; otherwise, false
      */
@@ -439,7 +440,8 @@ public class EffortCertificationDocumentRuleUtil {
      * @param document the given effort certification document
      * @return true if there is a line associated with the given document; otherwise, false
      */
-    public static boolean hasDetailLine(EffortCertificationDocument document) {;
+    public static boolean hasDetailLine(EffortCertificationDocument document) {
+        ;
         List<EffortCertificationDetail> detailLines = document.getEffortCertificationDetailLines();
 
         return detailLines != null && !detailLines.isEmpty();

@@ -18,26 +18,24 @@
  */
 package org.kuali.kfs.fp.document;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.Correctable;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
 import org.kuali.kfs.krad.util.ObjectUtils;
-public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocumentBase implements Copyable, Correctable, Serializable{
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.Correctable;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
-    private static final long serialVersionUid=1L;
+import java.io.Serializable;
+import java.util.List;
 
+public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocumentBase implements Copyable, Correctable, Serializable {
 
-
+    private static final long serialVersionUid = 1L;
 
 
     @Override
@@ -46,8 +44,6 @@ public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocume
         explicitEntry.setReferenceFinancialSystemOriginationCode(null);
         explicitEntry.setReferenceFinancialDocumentTypeCode(null);
     }
-
-
 
 
     @Override
@@ -64,13 +60,12 @@ public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocume
 
     @Override
     public void postProcessSave(KualiDocumentEvent event) {
-         super.postProcessSave(event);
-            if (!(event instanceof SaveDocumentEvent)) {
-                String documentTypeName = SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(this.getClass());
-                this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this,documentTypeName);
-            }
+        super.postProcessSave(event);
+        if (!(event instanceof SaveDocumentEvent)) {
+            String documentTypeName = SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(this.getClass());
+            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this, documentTypeName);
+        }
     }
-
 
 
     /**
@@ -79,7 +74,7 @@ public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocume
     @Override
     public List buildListOfDeletionAwareLists() {
         List<List> managedLists = super.buildListOfDeletionAwareLists();
-        if (ObjectUtils.isNotNull(capitalAssetInformation) ) {
+        if (ObjectUtils.isNotNull(capitalAssetInformation)) {
             managedLists.add(this.getCapitalAssetInformation());
         }
         return managedLists;
@@ -91,7 +86,6 @@ public class IntraAccountAdjustmentDocument extends CapitalAccountingLinesDocume
         IntraAccountAdjustmentDocument doc = (IntraAccountAdjustmentDocument) event.getDocument();
 
     }
-
 
 
 }

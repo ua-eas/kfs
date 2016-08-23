@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.coreservice.impl;
 
+import org.kuali.kfs.coreservice.impl.style.StyleXmlParser;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.impex.xml.XmlExporter;
-import org.kuali.kfs.coreservice.impl.style.StyleXmlParser;
 
 public class CoreServiceImplServiceLocator {
 
-	public static final String STYLE_XML_LOADER = "styleXmlLoader";
-	public static final String STYLE_XML_EXPORTER = "styleXmlExporter";
+    public static final String STYLE_XML_LOADER = "styleXmlLoader";
+    public static final String STYLE_XML_EXPORTER = "styleXmlExporter";
 
     static <T> T getService(String serviceName) {
         return GlobalResourceLoader.<T>getService(serviceName);

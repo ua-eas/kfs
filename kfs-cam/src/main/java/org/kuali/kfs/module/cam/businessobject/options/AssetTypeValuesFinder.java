@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.cam.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.module.cam.businessobject.AssetType;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-import org.kuali.kfs.krad.service.KeyValuesService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Value Finder for Asset Types.
@@ -46,7 +46,7 @@ public class AssetTypeValuesFinder extends KeyValuesBase {
         List<KeyValue> keyValueList = new ArrayList<KeyValue>();
         keyValueList.add(new ConcreteKeyValue("", ""));
         for (AssetType at : assetTypeCodes) {
-            if(at.isActive()) {
+            if (at.isActive()) {
                 keyValueList.add(new ConcreteKeyValue(at.getCapitalAssetTypeCode(), at.getCapitalAssetTypeDescription()));
             }
         }

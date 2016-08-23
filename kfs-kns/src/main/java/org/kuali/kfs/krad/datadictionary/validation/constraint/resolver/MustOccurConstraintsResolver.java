@@ -25,15 +25,13 @@ import java.util.List;
 
 /**
  * An object that returns the list of must occur constraints for a definition implementing the capability {@link MustOccurConstrainable}.
- *
- *
  */
 public class MustOccurConstraintsResolver<T extends MustOccurConstrainable> implements ConstraintResolver<T> {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <C extends Constraint> List<C> resolve(T definition) {
-		return (List<C>) definition.getMustOccurConstraints();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public <C extends Constraint> List<C> resolve(T definition) {
+        return (List<C>) definition.getMustOccurConstraints();
+    }
 
 }

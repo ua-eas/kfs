@@ -18,35 +18,37 @@
  */
 package org.kuali.kfs.sys.businessobject.lookup;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
+import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
+import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
+import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
-import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
-import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
-import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-
 public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     private Logger LOG = Logger.getLogger(DataMappingFieldDefinitionLookupableHelperServiceImpl.class);
     private static final List<String> SORT_PROPERTIES = new ArrayList<String>();
+
     static {
         SORT_PROPERTIES.add(KFSPropertyConstants.NAMESPACE_CODE);
         SORT_PROPERTIES.add(KFSPropertyConstants.FUNCTIONAL_FIELD_DESCRIPTION_BUSINESS_OBJECT_PROPERTY_COMPONENT_LABEL);
         SORT_PROPERTIES.add(KFSPropertyConstants.FUNCTIONAL_FIELD_DESCRIPTION_BUSINESS_OBJECT_PROPERTY_LABEL);
     }
+
     protected KfsBusinessObjectMetaDataService kfsBusinessObjectMetaDataService;
 
     @Override
@@ -75,13 +77,11 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
                 if (businessObject instanceof FunctionalFieldDescription) {
                     FunctionalFieldDescription functionalFieldDescription = (FunctionalFieldDescription) businessObject;
                     dataMappingFieldDefinitions.put(functionalFieldDescription.getComponentClass() + functionalFieldDescription.getPropertyName(), kfsBusinessObjectMetaDataService.getDataMappingFieldDefinition(functionalFieldDescription));
-                }
-                else {
+                } else {
                     BusinessObjectProperty businessObjectProperty = (BusinessObjectProperty) businessObject;
                     dataMappingFieldDefinitions.put(businessObjectProperty.getComponentClass() + businessObjectProperty.getPropertyName(), kfsBusinessObjectMetaDataService.getDataMappingFieldDefinition(businessObjectProperty.getComponentClass(), businessObjectProperty.getPropertyName()));
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -89,8 +89,7 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
         List<DataMappingFieldDefinition> searchResults = null;
         if (matches.size() > searchResultsLimit) {
             searchResults = new CollectionIncomplete(dataMappingFieldDefinitions.values(), Long.valueOf(matches.size()));
-        }
-        else {
+        } else {
             searchResults = new CollectionIncomplete(dataMappingFieldDefinitions.values(), 0L);
         }
         Collections.sort(searchResults, new BeanPropertyComparator(getSortProperties(), true));
@@ -99,7 +98,7 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
 
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
-        AnchorHtmlData inquiryHref = (AnchorHtmlData)super.getInquiryUrl(bo, propertyName);
+        AnchorHtmlData inquiryHref = (AnchorHtmlData) super.getInquiryUrl(bo, propertyName);
         if (StringUtils.isNotBlank(inquiryHref.getHref())) {
             inquiryHref.setHref(new StringBuffer(inquiryHref.getHref()).append("&").append(KFSPropertyConstants.COMPONENT_CLASS).append("=").append(((DataMappingFieldDefinition) bo).getComponentClass()).append("&").append(KFSPropertyConstants.PROPERTY_NAME).append("=").append(((DataMappingFieldDefinition) bo).getPropertyName()).toString());
         }

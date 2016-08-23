@@ -25,36 +25,36 @@ import java.util.Map;
  * Defines basic methods that Lookup Dao's must provide
  */
 public interface LookupDao {
-	<T extends Object> Collection<T> findCollectionBySearchHelper(Class<T> example, Map<String, String> formProps, boolean unbounded, boolean usePrimaryKeyValuesOnly);
+    <T extends Object> Collection<T> findCollectionBySearchHelper(Class<T> example, Map<String, String> formProps, boolean unbounded, boolean usePrimaryKeyValuesOnly);
 
-	/**
-	 * Retrieves a Object based on the search criteria, which should uniquely
-	 * identify a record.
-	 *
-	 * @return Object returned from the search
-	 */
-	<T extends Object> T findObjectByMap(T example, Map<String, String> formProps);
+    /**
+     * Retrieves a Object based on the search criteria, which should uniquely
+     * identify a record.
+     *
+     * @return Object returned from the search
+     */
+    <T extends Object> T findObjectByMap(T example, Map<String, String> formProps);
 
-	/**
-	 * Returns a count of objects based on the given search parameters.
-	 *
-	 * @return Long returned from the search
-	 */
-	Long findCountByMap(Object example, Map<String, String> formProps);
+    /**
+     * Returns a count of objects based on the given search parameters.
+     *
+     * @return Long returned from the search
+     */
+    Long findCountByMap(Object example, Map<String, String> formProps);
 
-	/**
-	 * Create OJB criteria based on business object, search field and value
-	 *
-	 * @return true if the criteria is created successfully; otherwise, return
-	 *         false
-	 */
-	boolean createCriteria(Object example, String searchValue, String propertyName, Object criteria);
+    /**
+     * Create OJB criteria based on business object, search field and value
+     *
+     * @return true if the criteria is created successfully; otherwise, return
+     * false
+     */
+    boolean createCriteria(Object example, String searchValue, String propertyName, Object criteria);
 
-	/**
-	 * Create OJB criteria based on business object, search field and value
-	 *
-	 * @return true if the criteria is created successfully; otherwise, return
-	 *         false
-	 */
-	boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria);
+    /**
+     * Create OJB criteria based on business object, search field and value
+     *
+     * @return true if the criteria is created successfully; otherwise, return
+     * false
+     */
+    boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria);
 }

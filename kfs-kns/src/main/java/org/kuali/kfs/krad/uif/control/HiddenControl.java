@@ -22,14 +22,12 @@ package org.kuali.kfs.krad.uif.control;
  * Represents a HTML Hidden control, generally rendered as an input control of
  * type 'hidden'. This is used to hold a value that the user will not see but
  * will be posted back with the form
- *
- *
  */
 public class HiddenControl extends ControlBase {
-	private static final long serialVersionUID = -8428898303430923425L;
+    private static final long serialVersionUID = -8428898303430923425L;
 
-	public HiddenControl() {
-       super();
-	}
+    public HiddenControl() {
+        super();
+    }
 
 }

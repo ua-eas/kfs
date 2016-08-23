@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.SystemInformation;
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
@@ -27,7 +26,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDetailSystemInformationDiscountValidationTest extends KualiTestBase {
@@ -67,12 +67,12 @@ public class CustomerInvoiceDetailSystemInformationDiscountValidationTest extend
         super.tearDown();
     }
 
-    public void testSystemInformationWithDiscount_True(){
+    public void testSystemInformationWithDiscount_True() {
         validation.getCustomerInvoiceDocument().getAccountsReceivableDocumentHeader().setProcessingOrganizationCode(PROCESSING_ORGANIZATION_CODE);
         assertTrue(validation.validate(null));
     }
 
-    public void testSystemInformationWithDiscount_False(){
+    public void testSystemInformationWithDiscount_False() {
         assertFalse(validation.validate(null));
     }
 

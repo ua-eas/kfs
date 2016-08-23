@@ -19,22 +19,22 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
-import org.kuali.kfs.module.cg.service.AgencyService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
+import org.kuali.kfs.module.cg.service.AgencyService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * This class defines an agency as it is used and referenced within the Contracts & Grants portion of a college or university
@@ -72,6 +72,7 @@ public class Agency extends PersistableBusinessObjectBase implements ContractsAn
 
     //To add boNotes
     private List boNotes;
+
     /**
      * Default no-arg constructor.
      */
@@ -221,8 +222,8 @@ public class Agency extends PersistableBusinessObjectBase implements ContractsAn
      * Sets the reportsToAgency attribute.
      *
      * @param reportsToAgencyNumber The reportsToAgency to set.
-     * @deprecated
      * @todo Why is this deprecated?
+     * @deprecated
      */
     @Deprecated
     public void setReportsToAgency(Agency reportsToAgencyNumber) {
@@ -242,8 +243,8 @@ public class Agency extends PersistableBusinessObjectBase implements ContractsAn
      * Sets the agencyType attribute.
      *
      * @param agencyType The agencyType to set.
-     * @deprecated
      * @todo Why is this deprecated?
+     * @deprecated
      */
     @Deprecated
     public void setAgencyType(AgencyType agencyType) {

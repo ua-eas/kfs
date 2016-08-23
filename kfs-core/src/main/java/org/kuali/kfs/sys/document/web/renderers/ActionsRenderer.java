@@ -43,7 +43,6 @@ public class ActionsRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -68,7 +67,6 @@ public class ActionsRenderer implements Renderer {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -83,23 +81,22 @@ public class ActionsRenderer implements Renderer {
                     renderAction(action);
                 }
                 out.write("</div>");
-            }
-            else {
+            } else {
                 out.write(buildNonBreakingSpace());
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering actions block", ioe);
         }
     }
 
     /**
      * Renders a single action, using the action button
+     *
      * @param action the action to render
      * @throws JspException thrown if the actionButton cannot uphold its duties to render the
      */
     protected void renderAction(AccountingLineViewAction action) throws JspException {
-        actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
+        actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + action.getActionMethod());
         actionButton.setTitle(action.getActionLabel());
         actionButton.setAlt(action.getActionLabel());
         actionButton.setStyleClass(action.getButtonStyle());
@@ -121,6 +118,7 @@ public class ActionsRenderer implements Renderer {
 
     /**
      * Gets the action attribute.
+     *
      * @return Returns the action.
      */
     public List<AccountingLineViewAction> getActions() {
@@ -129,6 +127,7 @@ public class ActionsRenderer implements Renderer {
 
     /**
      * Sets the action attribute value.
+     *
      * @param actions The list of actions to set.
      */
     public void setActions(List<AccountingLineViewAction> actions) {
@@ -137,6 +136,7 @@ public class ActionsRenderer implements Renderer {
 
     /**
      * Sets the tab index for the action
+     *
      * @param tabIndex the tab index to set
      */
     public void setTabIndex(int tabIndex) {
@@ -145,6 +145,7 @@ public class ActionsRenderer implements Renderer {
 
     /**
      * Retrieves the set tab index as a String, or, if the tabIndex was never set, returns a null
+     *
      * @return the tab index as a String or null
      */
     protected String getTabIndex() {

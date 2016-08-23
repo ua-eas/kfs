@@ -45,8 +45,8 @@ public class TransactionalDocumentEntry extends org.kuali.kfs.krad.datadictionar
     public TransactionalDocumentEntry() {
         super();
 
-    documentAuthorizerClass = TransactionalDocumentAuthorizerBase.class;
-    documentPresentationControllerClass = TransactionalDocumentPresentationControllerBase.class;
+        documentAuthorizerClass = TransactionalDocumentAuthorizerBase.class;
+        documentPresentationControllerClass = TransactionalDocumentPresentationControllerBase.class;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class TransactionalDocumentEntry extends org.kuali.kfs.krad.datadictionar
      * class which determines whether the user should be asked any questions prior to running validation.
      *
      * @see KualiDocumentActionBase#promptBeforeValidation(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse, String)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse, String)
      */
     @Override
     public void setPromptBeforeValidationClass(Class<? extends PromptBeforeValidation> preRulesCheckClass) {

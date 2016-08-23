@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.LedgerBalanceHistory;
 import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Labor business object for LedgerBalanceHistory.
@@ -70,22 +70,22 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
         LedgerBalance ledgerBalance = (LedgerBalance) balance;
 
         if (ObjectUtils.isNotNull(ledgerBalance)
-                && ledgerBalance.getAccountLineAnnualBalanceAmount().equals(this.getAccountLineAnnualBalanceAmount())
-                && ledgerBalance.getFinancialBeginningBalanceLineAmount().equals(this.getFinancialBeginningBalanceLineAmount())
-                && ledgerBalance.getContractsGrantsBeginningBalanceAmount().equals(this.getContractsGrantsBeginningBalanceAmount())
-                && ledgerBalance.getMonth1Amount().equals(this.getMonth1Amount())
-                && ledgerBalance.getMonth2Amount().equals(this.getMonth2Amount())
-                && ledgerBalance.getMonth3Amount().equals(this.getMonth3Amount())
-                && ledgerBalance.getMonth4Amount().equals(this.getMonth4Amount())
-                && ledgerBalance.getMonth5Amount().equals(this.getMonth5Amount())
-                && ledgerBalance.getMonth6Amount().equals(this.getMonth6Amount())
-                && ledgerBalance.getMonth7Amount().equals(this.getMonth7Amount())
-                && ledgerBalance.getMonth8Amount().equals(this.getMonth8Amount())
-                && ledgerBalance.getMonth9Amount().equals(this.getMonth9Amount())
-                && ledgerBalance.getMonth10Amount().equals(this.getMonth10Amount())
-                && ledgerBalance.getMonth11Amount().equals(this.getMonth11Amount())
-                && ledgerBalance.getMonth12Amount().equals(this.getMonth12Amount())
-                && ledgerBalance.getMonth13Amount().equals(this.getMonth13Amount())) {
+            && ledgerBalance.getAccountLineAnnualBalanceAmount().equals(this.getAccountLineAnnualBalanceAmount())
+            && ledgerBalance.getFinancialBeginningBalanceLineAmount().equals(this.getFinancialBeginningBalanceLineAmount())
+            && ledgerBalance.getContractsGrantsBeginningBalanceAmount().equals(this.getContractsGrantsBeginningBalanceAmount())
+            && ledgerBalance.getMonth1Amount().equals(this.getMonth1Amount())
+            && ledgerBalance.getMonth2Amount().equals(this.getMonth2Amount())
+            && ledgerBalance.getMonth3Amount().equals(this.getMonth3Amount())
+            && ledgerBalance.getMonth4Amount().equals(this.getMonth4Amount())
+            && ledgerBalance.getMonth5Amount().equals(this.getMonth5Amount())
+            && ledgerBalance.getMonth6Amount().equals(this.getMonth6Amount())
+            && ledgerBalance.getMonth7Amount().equals(this.getMonth7Amount())
+            && ledgerBalance.getMonth8Amount().equals(this.getMonth8Amount())
+            && ledgerBalance.getMonth9Amount().equals(this.getMonth9Amount())
+            && ledgerBalance.getMonth10Amount().equals(this.getMonth10Amount())
+            && ledgerBalance.getMonth11Amount().equals(this.getMonth11Amount())
+            && ledgerBalance.getMonth12Amount().equals(this.getMonth12Amount())
+            && ledgerBalance.getMonth13Amount().equals(this.getMonth13Amount())) {
             return true;
         }
 
@@ -94,6 +94,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialObjectCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getObjectCode()
      */
     @Override
@@ -103,6 +104,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialObjectCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#setObjectCode(java.lang.String)
      */
     @Override
@@ -112,6 +114,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialSubObjectCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getSubObjectCode()
      */
     @Override
@@ -121,6 +124,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialSubObjectCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#setSubObjectCode(java.lang.String)
      */
     @Override
@@ -130,6 +134,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialObjectTypeCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getObjectTypeCode()
      */
     @Override
@@ -139,6 +144,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialObjectTypeCode
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#setObjectTypeCode(java.lang.String)
      */
     @Override
@@ -148,6 +154,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialBalanceTypeCode
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#getBalanceTypeCode()
      */
     @Override
@@ -157,6 +164,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * It's called financialBalanceTypeCode
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#setBalanceTypeCode(java.lang.String)
      */
     @Override
@@ -166,6 +174,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()
      */
     @Override
@@ -175,6 +184,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.gl.businessobject.Balance#setTimestamp(java.sql.Date)
      */
     @Override
@@ -184,6 +194,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#getTransactionDateTimeStamp()
      */
     @Override
@@ -193,6 +204,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * History does not track this field.
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#setTransactionDateTimeStamp(java.sql.Timestamp)
      */
     @Override

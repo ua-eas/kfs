@@ -18,21 +18,21 @@
  */
 package org.kuali.kfs.coa.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType;
 import org.kuali.kfs.coa.service.ChartService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.List;
 
 public class IndirectCostRecoveryTypeRule extends MaintenanceDocumentRuleBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Account.class);
@@ -42,7 +42,7 @@ public class IndirectCostRecoveryTypeRule extends MaintenanceDocumentRuleBase {
     protected ChartService chartService;
 
 
-    public IndirectCostRecoveryTypeRule () {
+    public IndirectCostRecoveryTypeRule() {
         chartService = SpringContext.getBean(ChartService.class);
     }
 
@@ -69,7 +69,7 @@ public class IndirectCostRecoveryTypeRule extends MaintenanceDocumentRuleBase {
 
     public boolean checkCollectionItems() {
         boolean isValid = true;
-        for(int i=0;i<indirectCostRecoveryExclusionTypeDetails.size();i++) {
+        for (int i = 0; i < indirectCostRecoveryExclusionTypeDetails.size(); i++) {
             String collectionElementPath = "indirectCostRecoveryExclusionTypeDetails[" + i + "]";
             GlobalVariables.getMessageMap().addToErrorPath(collectionElementPath);
             isValid &= itemIsValid((IndirectCostRecoveryExclusionType) indirectCostRecoveryExclusionTypeDetails.get(i));
@@ -80,14 +80,14 @@ public class IndirectCostRecoveryTypeRule extends MaintenanceDocumentRuleBase {
 
     public boolean itemIsValid(IndirectCostRecoveryExclusionType item) {
         boolean isValid = true;
-        if(ObjectUtils.isNotNull(chartService.getUniversityChart().getChartOfAccountsCode())) {
-            if(StringUtils.isBlank(item.getChartOfAccountsCode())) {
+        if (ObjectUtils.isNotNull(chartService.getUniversityChart().getChartOfAccountsCode())) {
+            if (StringUtils.isBlank(item.getChartOfAccountsCode())) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, KFSKeyConstants.IndirectCostRecovery.ERROR_DOCUMENT_ICR_EXSISTENCE_CHART_CODE, item.getChartOfAccountsCode());
                 isValid = false;
             } else if (item.isActive()) {
                 item.refreshReferenceObject(KFSPropertyConstants.OBJECT_CODE_CURRENT);
-                if(ObjectUtils.isNull(item.getObjectCodeCurrent())) {
-                    if(item.isNewCollectionRecord()) {
+                if (ObjectUtils.isNull(item.getObjectCodeCurrent())) {
+                    if (item.isNewCollectionRecord()) {
                         GlobalVariables.getMessageMap().putError(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, KFSKeyConstants.IndirectCostRecovery.ERROR_DOCUMENT_ICR_EXSISTENCE_OBJECT_CODE_DELETE, item.getChartOfAccountsCode(), item.getFinancialObjectCode());
                     } else {
                         GlobalVariables.getMessageMap().putError(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, KFSKeyConstants.IndirectCostRecovery.ERROR_DOCUMENT_ICR_EXSISTENCE_OBJECT_CODE, item.getChartOfAccountsCode(), item.getFinancialObjectCode());

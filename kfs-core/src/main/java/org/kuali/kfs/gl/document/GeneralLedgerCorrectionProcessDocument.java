@@ -19,6 +19,25 @@
 
 package org.kuali.kfs.gl.document;
 
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.CorrectionProcessScrubberStep;
+import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
+import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
+import org.kuali.kfs.gl.service.OriginEntryGroupService;
+import org.kuali.kfs.kns.bo.Step;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.batch.BatchSpringContext;
+import org.kuali.kfs.sys.context.ProxyUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.AmountTotaling;
+import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,25 +47,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.CorrectionProcessScrubberStep;
-import org.kuali.kfs.gl.businessobject.CorrectionChangeGroup;
-import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
-import org.kuali.kfs.gl.service.OriginEntryGroupService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.kns.bo.Step;
-import org.kuali.kfs.sys.context.ProxyUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AmountTotaling;
-import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * The General Ledger Correction Document, a document that allows editing and processing of origin entry groups and the origin
@@ -71,7 +71,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     protected List<CorrectionChangeGroup> correctionChangeGroup;
 
-       public GeneralLedgerCorrectionProcessDocument() {
+    public GeneralLedgerCorrectionProcessDocument() {
         super();
         correctionChangeGroupNextLineNumber = new Integer(0);
 
@@ -100,14 +100,11 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
     public String getMethod() {
         if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionTypeCode)) {
             return "Manual Edit";
-        }
-        else if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionTypeCode)) {
+        } else if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionTypeCode)) {
             return "Using Criteria";
-        }
-        else if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionTypeCode)) {
+        } else if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionTypeCode)) {
             return "Remove Group from Processing";
-        }
-        else {
+        } else {
             return KFSConstants.NOT_AVAILABLE_STRING;
         }
     }
@@ -120,8 +117,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
     public String getSystem() {
         if (correctionInputFileName != null) {
             return "File Upload";
-        }
-        else {
+        } else {
             return "Database";
         }
     }
@@ -143,7 +139,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
      * @param changeNumber
      */
     public void removeCorrectionChangeGroup(int changeNumber) {
-        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext(); ) {
             CorrectionChangeGroup element = (CorrectionChangeGroup) iter.next();
             if (changeNumber == element.getCorrectionChangeGroupLineNumber().intValue()) {
                 iter.remove();
@@ -158,7 +154,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
      * @return
      */
     public CorrectionChangeGroup getCorrectionChangeGroupItem(int groupNumber) {
-        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext(); ) {
             CorrectionChangeGroup element = (CorrectionChangeGroup) iter.next();
             if (groupNumber == element.getCorrectionChangeGroupLineNumber().intValue()) {
                 return element;
@@ -191,14 +187,13 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                 String doneFileName = dataFileName.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
                 originEntryGroupService.deleteFile(doneFileName);
 
-            }
-            else if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType)
-                    || CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
+            } else if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType)
+                || CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
                 // KFSMI-5760 - apparently, this node can be executed more than once, which results in multiple
                 // files being created.  We need to check for the existence of a file with the proper
                 // name pattern and abort the rest of this if found
-                synchronized ( CorrectionDocumentService.class ) {
-                    if ( !checkForExistingOutputDocument( doc.getDocumentNumber() ) ) {
+                synchronized (CorrectionDocumentService.class) {
+                    if (!checkForExistingOutputDocument(doc.getDocumentNumber())) {
                         // save the output file to originEntry directory when correctionFileDelete is false
                         DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
                         Date today = dateTimeService.getCurrentDate();
@@ -215,8 +210,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
                         try {
                             step.execute(getClass().getName(), dateTimeService.getCurrentDate());
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             LOG.error("GLCP scrubber encountered error:", e);
                             throw new RuntimeException("GLCP scrubber encountered error:", e);
                         }
@@ -227,11 +221,10 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                         correctionDocumentService.generateCorrectionReport(this);
                         correctionDocumentService.aggregateCorrectionDocumentReports(this);
                     } else {
-                        LOG.warn( "Attempt to re-process final GLCP operations for document: " + doc.getDocumentNumber() + "  File with that document number already exists." );
+                        LOG.warn("Attempt to re-process final GLCP operations for document: " + doc.getDocumentNumber() + "  File with that document number already exists.");
                     }
                 }
-            }
-            else {
+            } else {
                 LOG.error("GLCP doc " + doc.getDocumentNumber() + " has an unknown correction type code: " + correctionType);
             }
         }
@@ -240,12 +233,12 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
     /**
      * Returns true if an existing document like "glcp_output.docNum" is found.
      */
-    protected boolean checkForExistingOutputDocument( String documentNumber ) {
+    protected boolean checkForExistingOutputDocument(String documentNumber) {
         CorrectionDocumentService correctionDocumentService = SpringContext.getBean(CorrectionDocumentService.class);
         String[] filenamesFound = correctionDocumentService.findExistingCorrectionOutputFilesForDocument(documentNumber);
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info( "Scanned for output files for document: " + documentNumber );
-            LOG.info( "Files Found: " + Arrays.toString(filenamesFound));
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Scanned for output files for document: " + documentNumber);
+            LOG.info("Files Found: " + Arrays.toString(filenamesFound));
         }
         return filenamesFound != null && filenamesFound.length > 0;
     }
@@ -282,7 +275,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
     public void setDocumentNumber(String documentNumber) {
         super.setDocumentNumber(documentNumber);
 
-        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChangeGroup.iterator(); iter.hasNext(); ) {
             CorrectionChangeGroup element = (CorrectionChangeGroup) iter.next();
             element.setDocumentNumber(documentNumber);
         }

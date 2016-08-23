@@ -18,16 +18,6 @@
  */
 package org.kuali.kfs.pdp.dataaccess.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.ojb.broker.query.Criteria;
@@ -46,6 +36,16 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class PaymentDetailDaoOjb extends PlatformAwareDaoBaseOjb implements PaymentDetailDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentDetailDaoOjb.class);
@@ -118,8 +118,7 @@ public class PaymentDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Paym
                 n.payees = 1;
                 summary.put(rsk, n);
                 lastGroupId = d.getPaymentGroup().getId();
-            }
-            else {
+            } else {
                 n.payments++;
                 n.amount = n.amount.add(d.getNetPaymentAmount());
                 if (lastGroupId.intValue() != d.getPaymentGroup().getId().intValue()) {
@@ -130,7 +129,7 @@ public class PaymentDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Paym
         }
         // Now take the data and put it in our result list
         List<DailyReport> data = new ArrayList<DailyReport>();
-        for (Iterator iter = summary.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = summary.keySet().iterator(); iter.hasNext(); ) {
             Key e = (Key) iter.next();
             Numbers n = summary.get(e);
             DailyReport r = new DailyReport(e.customerShortName, n.amount, n.payments, n.payees, e.paymentGroup);
@@ -203,12 +202,11 @@ public class PaymentDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Paym
 
         List paymentDetails = (List) getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(PaymentDetail.class, criteria));
         PaymentDetail cp = null;
-        for (Iterator iter = paymentDetails.iterator(); iter.hasNext();) {
+        for (Iterator iter = paymentDetails.iterator(); iter.hasNext(); ) {
             PaymentDetail pd = (PaymentDetail) iter.next();
             if (cp == null) {
                 cp = pd;
-            }
-            else {
+            } else {
                 if ((pd.getPaymentGroup().getBatch().getCustomerFileCreateTimestamp().compareTo(cp.getPaymentGroup().getBatch().getCustomerFileCreateTimestamp())) > 0) {
                     cp = pd;
                 }
@@ -279,6 +277,7 @@ public class PaymentDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Paym
 
     /**
      * Builds an "or" criteria from the List of extractionUnits
+     *
      * @param extractionUnits the extractionUnits to build an or Criteria for
      * @return an or Criteria to throw into a query
      */

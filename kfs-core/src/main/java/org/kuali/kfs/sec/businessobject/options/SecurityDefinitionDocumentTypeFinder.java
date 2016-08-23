@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.sec.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -61,7 +61,7 @@ public class SecurityDefinitionDocumentTypeFinder extends KeyValuesBase {
             if (documentType != null) {
                 activeLabels.add(new ConcreteKeyValue(documentTypeName, documentType.getLabel()));
             } else {
-                LOG.warn( "Unknown document type in " + SecConstants.SecurityParameterNames.ACCESS_SECURITY_DOCUMENT_TYPES + " parameter: " + documentTypeName );
+                LOG.warn("Unknown document type in " + SecConstants.SecurityParameterNames.ACCESS_SECURITY_DOCUMENT_TYPES + " parameter: " + documentTypeName);
             }
         }
 

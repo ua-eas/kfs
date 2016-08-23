@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.rice.core.api.util.KeyValue; import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An implementation of ValueFinder that allows balance inquiries to choose between consolidated results or detailed results

@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.gl.dataaccess.impl;
 
-import java.util.Collection;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -27,6 +25,8 @@ import org.kuali.kfs.gl.businessobject.SufficientFundBalances;
 import org.kuali.kfs.gl.dataaccess.SufficientFundBalancesDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+
+import java.util.Collection;
 
 /**
  * An OJB implementation of the SufficientFundBalancesDao
@@ -38,8 +38,8 @@ public class SufficientFundBalancesDaoOjb extends PlatformAwareDaoBaseOjb implem
      * Builds an OJB query based on the parameter values and returns all the sufficient fund balances that match that record
      *
      * @param universityFiscalYear the university fiscal year of sufficient fund balances to find
-     * @param chartOfAccountsCode the chart of accounts code of sufficient fund balances to find
-     * @param financialObjectCode the object code of sufficient fund balances to find
+     * @param chartOfAccountsCode  the chart of accounts code of sufficient fund balances to find
+     * @param financialObjectCode  the object code of sufficient fund balances to find
      * @return a Collection of sufficient fund balances, qualified by the parameter values
      * @see org.kuali.kfs.gl.dataaccess.SufficientFundBalancesDao#getByObjectCode(java.lang.Integer, java.lang.String, java.lang.String)
      */
@@ -59,8 +59,8 @@ public class SufficientFundBalancesDaoOjb extends PlatformAwareDaoBaseOjb implem
      * Deletes sufficient fund balances associated with a given year, chart, and account number
      *
      * @param universityFiscalYear the university fiscal year of sufficient fund balances to delete
-     * @param chartOfAccountsCode the chart code of sufficient fund balances to delete
-     * @param accountNumber the account number of sufficient fund balances to delete
+     * @param chartOfAccountsCode  the chart code of sufficient fund balances to delete
+     * @param accountNumber        the account number of sufficient fund balances to delete
      * @return the number of records deleted
      * @see org.kuali.kfs.gl.dataaccess.SufficientFundBalancesDao#deleteByAccountNumber(java.lang.Integer, java.lang.String, java.lang.String)
      */

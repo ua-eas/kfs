@@ -23,13 +23,13 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.kfs.kns.datadictionary.HeaderNavigation;
 import org.kuali.kfs.kns.util.ActionFormUtilMap;
-import org.kuali.kfs.kns.web.struts.form.pojo.PojoFormBase;
-import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.pojo.PojoFormBase;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.web.format.Formatter;
 import org.springframework.util.AutoPopulatingList;
 
 import javax.servlet.ServletRequest;
@@ -54,7 +54,7 @@ public class KualiForm extends PojoFormBase {
     private static final long serialVersionUID = 1L;
 
     private static final String literalPrefixAndDelimiter =
-    	KRADConstants.LOOKUP_PARAMETER_LITERAL_PREFIX+ KRADConstants.LOOKUP_PARAMETER_LITERAL_DELIMITER;
+        KRADConstants.LOOKUP_PARAMETER_LITERAL_PREFIX + KRADConstants.LOOKUP_PARAMETER_LITERAL_DELIMITER;
 
     private String backLocation;
     private String methodToCall;
@@ -70,7 +70,7 @@ public class KualiForm extends PojoFormBase {
 
     private String navigationCss;
     private HeaderNavigation[] headerNavigationTabs;
-    protected List<ExtraButton> extraButtons = new AutoPopulatingList( ExtraButton.class ) ;
+    protected List<ExtraButton> extraButtons = new AutoPopulatingList(ExtraButton.class);
 
     private boolean fieldLevelHelpEnabled;
 
@@ -83,9 +83,9 @@ public class KualiForm extends PojoFormBase {
      * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#addRequiredNonEditableProperties()
      */
     @Override
-    public void addRequiredNonEditableProperties(){
-    	super.addRequiredNonEditableProperties();
-    	registerRequiredNonEditableProperty(KRADConstants.REFRESH_CALLER);
+    public void addRequiredNonEditableProperties() {
+        super.addRequiredNonEditableProperties();
+        registerRequiredNonEditableProperty(KRADConstants.REFRESH_CALLER);
     }
 
     public int getNumColumns() {
@@ -131,7 +131,7 @@ public class KualiForm extends PojoFormBase {
 
     private static Boolean ENABLE_FIELD_LEVEL_HELP_IND;
 
-    protected void populateBackLocation(HttpServletRequest request){
+    protected void populateBackLocation(HttpServletRequest request) {
         if (getParameter(request, "returnLocation") != null) {
             setBackLocation(getParameter(request, "returnLocation"));
         }
@@ -144,12 +144,12 @@ public class KualiForm extends PojoFormBase {
      * @param request
      */
     protected void populateFieldLevelHelpEnabled(HttpServletRequest request) {
-    	if ( ENABLE_FIELD_LEVEL_HELP_IND == null ) {
-    		ENABLE_FIELD_LEVEL_HELP_IND = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean(
-                    KRADConstants.KNS_NAMESPACE,
-                    KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.SystemGroupParameterNames.ENABLE_FIELD_LEVEL_HELP_IND, Boolean.FALSE);
-    	}
-    	setFieldLevelHelpEnabled( ENABLE_FIELD_LEVEL_HELP_IND);
+        if (ENABLE_FIELD_LEVEL_HELP_IND == null) {
+            ENABLE_FIELD_LEVEL_HELP_IND = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean(
+                KRADConstants.KNS_NAMESPACE,
+                KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.SystemGroupParameterNames.ENABLE_FIELD_LEVEL_HELP_IND, Boolean.FALSE);
+        }
+        setFieldLevelHelpEnabled(ENABLE_FIELD_LEVEL_HELP_IND);
     }
 
     public Map getDisplayedErrors() {
@@ -157,20 +157,20 @@ public class KualiForm extends PojoFormBase {
     }
 
     /**
-	 * @return the displayedWarnings
-	 */
-	public Map<String, Object> getDisplayedWarnings() {
-		return this.displayedWarnings;
-	}
+     * @return the displayedWarnings
+     */
+    public Map<String, Object> getDisplayedWarnings() {
+        return this.displayedWarnings;
+    }
 
-	/**
-	 * @return the displayedInfo
-	 */
-	public Map<String, Object> getDisplayedInfo() {
-		return this.displayedInfo;
-	}
+    /**
+     * @return the displayedInfo
+     */
+    public Map<String, Object> getDisplayedInfo() {
+        return this.displayedInfo;
+    }
 
-	/**
+    /**
      * Used by the dispatch action to determine which action method to call into.
      *
      * @return Returns the methodToCall.
@@ -228,14 +228,13 @@ public class KualiForm extends PojoFormBase {
         String state = KRADConstants.EMPTY_STRING;
         if (tabStates.containsKey(key)) {
             if (tabStates.get(key) instanceof String) {
-            	state = tabStates.get(key);
-            }
-            else {
-            	//This is the case where the value is an Array of String,
-            	//so we'll have to get the first element
-            	Object result = tabStates.get(key);
-            	result.getClass();
-            	state = ((String[])result)[0];
+                state = tabStates.get(key);
+            } else {
+                //This is the case where the value is an Array of String,
+                //so we'll have to get the first element
+                Object result = tabStates.get(key);
+                result.getClass();
+                state = ((String[]) result)[0];
             }
         }
 
@@ -258,15 +257,15 @@ public class KualiForm extends PojoFormBase {
         return this.arbitrarilyHighIndex++;
     }
 
-	public String getFieldNameToFocusOnAfterSubmit() {
-		return this.fieldNameToFocusOnAfterSubmit;
-	}
+    public String getFieldNameToFocusOnAfterSubmit() {
+        return this.fieldNameToFocusOnAfterSubmit;
+    }
 
-	public void setFieldNameToFocusOnAfterSubmit(String fieldNameToFocusOnAfterSubmit) {
-		this.fieldNameToFocusOnAfterSubmit = fieldNameToFocusOnAfterSubmit;
-	}
+    public void setFieldNameToFocusOnAfterSubmit(String fieldNameToFocusOnAfterSubmit) {
+        this.fieldNameToFocusOnAfterSubmit = fieldNameToFocusOnAfterSubmit;
+    }
 
-	/**
+    /**
      * @return Returns the validOptionsMap.
      */
     public Map getActionFormUtilMap() {
@@ -329,20 +328,20 @@ public class KualiForm extends PojoFormBase {
     }
 
     public void setExtraButtons(List<ExtraButton> extraButtons) {
-        if ( extraButtons instanceof AutoPopulatingList ) {
+        if (extraButtons instanceof AutoPopulatingList) {
             this.extraButtons = extraButtons;
         } else {
             this.extraButtons.clear();
-            this.extraButtons.addAll( extraButtons );
+            this.extraButtons.addAll(extraButtons);
         }
     }
 
-    public ExtraButton getExtraButton( int index ) {
-        return extraButtons.get( index );
+    public ExtraButton getExtraButton(int index) {
+        return extraButtons.get(index);
     }
 
-    public void setExtraButton( int index, ExtraButton extraButton ) {
-        extraButtons.set( index, extraButton );
+    public void setExtraButton(int index, ExtraButton extraButton) {
+        extraButtons.set(index, extraButton);
     }
 
     /**
@@ -362,138 +361,138 @@ public class KualiForm extends PojoFormBase {
     /**
      * Retrieves a value from the form for the purposes of passing it as a parameter into the lookup or inquiry frameworks
      *
-     * @param parameterName the name of the parameter, as expected by the lookup or inquiry frameworks
+     * @param parameterName          the name of the parameter, as expected by the lookup or inquiry frameworks
      * @param parameterValueLocation the name of the property containing the value of the parameter
      * @return the value of the parameter
      */
     public String retrieveFormValueForLookupInquiryParameters(String parameterName, String parameterValueLocation) {
-    	// dereference literal values by simply trimming of the prefix
-    	if (parameterValueLocation.startsWith(literalPrefixAndDelimiter)) {
-    		return parameterValueLocation.substring(literalPrefixAndDelimiter.length());
-    	}
+        // dereference literal values by simply trimming of the prefix
+        if (parameterValueLocation.startsWith(literalPrefixAndDelimiter)) {
+            return parameterValueLocation.substring(literalPrefixAndDelimiter.length());
+        }
 
-    	Object value = ObjectUtils.getPropertyValue(this, parameterValueLocation);
-		if (value == null) {
-			return null;
-		}
-		if (value instanceof String) {
-			return (String) value;
-		}
-		Formatter formatter = Formatter.getFormatter(value.getClass());
-		return (String) formatter.format(value);
+        Object value = ObjectUtils.getPropertyValue(this, parameterValueLocation);
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof String) {
+            return (String) value;
+        }
+        Formatter formatter = Formatter.getFormatter(value.getClass());
+        return (String) formatter.format(value);
     }
-
-	/**
-	 * This overridden method ...
-	 *
-	 * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public boolean shouldPropertyBePopulatedInForm(
-			String requestParameterName, HttpServletRequest request) {
-		if (requestParameterName.startsWith(KRADConstants.TAB_STATES)) {
-			return true;
-		}
-
-		if (requestParameterName.equals(KRADConstants.DISPATCH_REQUEST_PARAMETER)) {
-			String methodToCallParameterName = request.getParameter(KRADConstants.DISPATCH_REQUEST_PARAMETER);
-			if(StringUtils.equals(methodToCallParameterName, KRADConstants.RETURN_METHOD_TO_CALL)){
-				return true;
-			}
-		}
-
-		return super.shouldPropertyBePopulatedInForm(requestParameterName, request);
-	}
-
-    public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
-    	if ("GET".equalsIgnoreCase(request.getMethod())) {
-    		return true;
-    	}
-    	if (shouldPropertyBePopulatedInForm(methodToCallParameterName, request)) {
-    		return true;
-    	}
-    	if (methodToCallParameterName != null && WebUtils.endsWithCoordinates(methodToCallParameterName)) {
-    		methodToCallParameterName = methodToCallParameterName.substring(0, WebUtils.getIndexOfCoordinateExtension(methodToCallParameterName));
-        	if (shouldPropertyBePopulatedInForm(methodToCallParameterName, request)) {
-        		return true;
-        	}
-    	}
-    	if (KRADConstants.METHOD_TO_CALL_PATH.equals(methodToCallParameterName)) {
-    		if (shouldPropertyBePopulatedInForm(methodToCallParameterValue, request)) {
-    			return true;
-    		}
-    		if (methodToCallParameterValue != null && WebUtils.endsWithCoordinates(methodToCallParameterName)) {
-    			methodToCallParameterValue = methodToCallParameterValue.substring(0, WebUtils
-                        .getIndexOfCoordinateExtension(methodToCallParameterName));
-    			if (shouldPropertyBePopulatedInForm(methodToCallParameterValue, request)) {
-        			return true;
-        		}
-    		}
-    	}
-    	return false;
-    }
-
-	/**
-	 * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#clearEditablePropertyInformation()
-	 */
-	@Override
-	public void clearEditablePropertyInformation() {
-		super.clearEditablePropertyInformation();
-	}
-
-	public void setDerivedValuesOnForm(HttpServletRequest request) {
-	}
-
-	/**
-	 * @see org.apache.struts.action.ActionForm#reset(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		if (extraButtons != null) {
-			extraButtons.clear();
-		}
-		//fieldNameToFocusOnAfterSubmit = "";
-		clearDisplayedMessages();
-	}
-
-	/**
-	 * @see org.apache.struts.action.ActionForm#reset(org.apache.struts.action.ActionMapping, javax.servlet.ServletRequest)
-	 */
-	@Override
-	public void reset(ActionMapping mapping, ServletRequest request) {
-		super.reset(mapping, request);
-		if (extraButtons != null) {
-			extraButtons.clear();
-		}
-		//fieldNameToFocusOnAfterSubmit = "";
-		clearDisplayedMessages();
-	}
-
-	private void clearDisplayedMessages() {
-		if (displayedErrors != null) {
-			displayedErrors.clear();
-		}
-		if (displayedWarnings != null) {
-			displayedWarnings.clear();
-		}
-		if (displayedInfo != null) {
-			displayedInfo.clear();
-		}
-	}
 
     /**
-	 * @return the backLocation
-	 */
-	public String getBackLocation() {
-		return WebUtils.sanitizeBackLocation(this.backLocation);
-	}
+     * This overridden method ...
+     *
+     * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public boolean shouldPropertyBePopulatedInForm(
+        String requestParameterName, HttpServletRequest request) {
+        if (requestParameterName.startsWith(KRADConstants.TAB_STATES)) {
+            return true;
+        }
 
-	/**
-	 * @param backLocation the backLocation to set
-	 */
-	public void setBackLocation(String backLocation) {
-		this.backLocation = backLocation;
-	}
+        if (requestParameterName.equals(KRADConstants.DISPATCH_REQUEST_PARAMETER)) {
+            String methodToCallParameterName = request.getParameter(KRADConstants.DISPATCH_REQUEST_PARAMETER);
+            if (StringUtils.equals(methodToCallParameterName, KRADConstants.RETURN_METHOD_TO_CALL)) {
+                return true;
+            }
+        }
+
+        return super.shouldPropertyBePopulatedInForm(requestParameterName, request);
+    }
+
+    public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
+        if ("GET".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+        if (shouldPropertyBePopulatedInForm(methodToCallParameterName, request)) {
+            return true;
+        }
+        if (methodToCallParameterName != null && WebUtils.endsWithCoordinates(methodToCallParameterName)) {
+            methodToCallParameterName = methodToCallParameterName.substring(0, WebUtils.getIndexOfCoordinateExtension(methodToCallParameterName));
+            if (shouldPropertyBePopulatedInForm(methodToCallParameterName, request)) {
+                return true;
+            }
+        }
+        if (KRADConstants.METHOD_TO_CALL_PATH.equals(methodToCallParameterName)) {
+            if (shouldPropertyBePopulatedInForm(methodToCallParameterValue, request)) {
+                return true;
+            }
+            if (methodToCallParameterValue != null && WebUtils.endsWithCoordinates(methodToCallParameterName)) {
+                methodToCallParameterValue = methodToCallParameterValue.substring(0, WebUtils
+                    .getIndexOfCoordinateExtension(methodToCallParameterName));
+                if (shouldPropertyBePopulatedInForm(methodToCallParameterValue, request)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#clearEditablePropertyInformation()
+     */
+    @Override
+    public void clearEditablePropertyInformation() {
+        super.clearEditablePropertyInformation();
+    }
+
+    public void setDerivedValuesOnForm(HttpServletRequest request) {
+    }
+
+    /**
+     * @see org.apache.struts.action.ActionForm#reset(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
+        super.reset(mapping, request);
+        if (extraButtons != null) {
+            extraButtons.clear();
+        }
+        //fieldNameToFocusOnAfterSubmit = "";
+        clearDisplayedMessages();
+    }
+
+    /**
+     * @see org.apache.struts.action.ActionForm#reset(org.apache.struts.action.ActionMapping, javax.servlet.ServletRequest)
+     */
+    @Override
+    public void reset(ActionMapping mapping, ServletRequest request) {
+        super.reset(mapping, request);
+        if (extraButtons != null) {
+            extraButtons.clear();
+        }
+        //fieldNameToFocusOnAfterSubmit = "";
+        clearDisplayedMessages();
+    }
+
+    private void clearDisplayedMessages() {
+        if (displayedErrors != null) {
+            displayedErrors.clear();
+        }
+        if (displayedWarnings != null) {
+            displayedWarnings.clear();
+        }
+        if (displayedInfo != null) {
+            displayedInfo.clear();
+        }
+    }
+
+    /**
+     * @return the backLocation
+     */
+    public String getBackLocation() {
+        return WebUtils.sanitizeBackLocation(this.backLocation);
+    }
+
+    /**
+     * @param backLocation the backLocation to set
+     */
+    public void setBackLocation(String backLocation) {
+        this.backLocation = backLocation;
+    }
 
 }
